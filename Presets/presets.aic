@@ -1,0 +1,683 @@
+<?xml version="1.0" standalone="yes"?>
+<ArcazeUsbConnector>
+  <config guid="92a58ed5-5040-4492-a289-e7d10ee52189">
+    <active>true</active>
+    <description>Date - Hour of local time</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0238" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Display Module" serial="OVHDP_II/ 000110801110" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="ccd8d38f-9de9-46df-9e2c-96ec4abfece9">
+    <active>true</active>
+    <description>Date - Minute of local ime</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0239" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="9ffbac56-3df9-43f0-b406-0c663c6f7562">
+    <active>true</active>
+    <description>Date - Seconds local time</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x023A" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="9990b417-b925-4c90-ae8f-ff87d79d0a9c">
+    <active>true</active>
+    <description>Date - Hour UTC</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x023B" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="4b37e1bd-74be-41cb-be52-c9b684a78c69">
+    <active>true</active>
+    <description>Date - Minute UTC</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x023C" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="4e83556e-1eb7-41bc-b205-76eddd2076ec">
+    <active>true</active>
+    <description>Date - Day (Local)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0245" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="cb8e976e-faf8-43e1-b4bf-1ac7e17853aa">
+    <active>true</active>
+    <description>Date - Month (Local)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0244" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="6999701f-203a-4df9-abb7-2daabcb30221">
+    <active>true</active>
+    <description>Date - Month (UTC)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0242" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="29d8e58e-ee3d-4b91-a6d7-e574e33574c6">
+    <active>true</active>
+    <description>Date - Day (UTC)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x023D" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="1792f26b-6249-4e57-ad97-16c1d220bed0">
+    <active>true</active>
+    <description>Date - Year (UTC)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0240" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="055e16cc-a783-4c38-a775-6138a3ad3367">
+    <active>true</active>
+    <description>Date - Year (Local)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x024A" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="8872b2fb-9c11-4e5d-a954-b9b199c62228">
+    <active>true</active>
+    <description>Systems - Pitot Heat</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x029C" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVHDP_II/ 000110801110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="e57edd54-6239-4ae4-8acc-13509af3ac48">
+    <active>true</active>
+    <description>Autopilot - Heading</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07CC" size="4" mask="0xFFFF" multiplier="0,0054931640625" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="0,1,2" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="978cfb7b-cca7-4b3d-b747-39720cb2a15c">
+    <active>true</active>
+    <description>Autopilot - IAS</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07E2" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="df53b938-694a-483f-b35a-a2e998e52863">
+    <active>true</active>
+    <description>Autopilot - CRS/OBS 1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C4E" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="5,6,7" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="88596dcf-0847-472a-b77c-13b873fcd6f7">
+    <active>true</active>
+    <description>General - Current Heading</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0580" size="4" mask="0xFFFFFFFF" multiplier="0,000000083819" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze V5.30/ 000211900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="4,5,6,7" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="ef015c68-15bd-4ead-a718-c90cc470ef93">
+    <active>true</active>
+    <description>General - Current Altitude</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3324" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze V5.30/ 000211900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="4,5,6,7" ledDecimalPoints="6" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="f2549d29-fe3f-4104-acc9-62fa55288343">
+    <active>true</active>
+    <description>Flaps - Retracted</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BE0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Arcaze V5.30/ 000211900000" trigger="normal" pin="B01" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="aafb56fb-732a-4756-97b4-84e3631bc1a3">
+    <active>true</active>
+    <description>Flaps - Position 1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BE0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="5475" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Arcaze V5.30/ 000211900000" trigger="normal" pin="B02" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="bdef82d3-832a-4a17-a188-733b1d62c9e4">
+    <active>true</active>
+    <description>Flaps - Position 2</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BE0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="10908" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Arcaze V5.30/ 000211900000" trigger="normal" pin="B03" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="e88edc4b-368f-4c27-a452-6a218b1552ea">
+    <active>true</active>
+    <description>Radio - Static Digit</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="1" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="7" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - NAV1 Active Freq</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0350" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - NAV2 Active Freq</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0352" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - NAV1 Standby Freq</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - NAV2 Standby Freq</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3120" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - COM1 Active Freq</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x034E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - COM1 Standby Freq</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - COM2 Active Freq</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3118" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - COM2 Standby Freq</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311C" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - Transponder (Squawk)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0354" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio Audio Switch - Com1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3122" size="1" mask="0x80" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio Audio Switch - Com2</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3122" size="1" mask="0x40" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio Audio Switch - Com Both</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3122" size="1" mask="0x20" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio Audio Switch - Nav1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3122" size="1" mask="0x10" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio Audio Switch - Nav2</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3122" size="1" mask="0x08" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio Audio Switch - Marker</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3122" size="1" mask="0x04" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio Audio Switch - DME</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3122" size="1" mask="0x02" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio Audio Switch - ADF1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3122" size="1" mask="0x01" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="e3c30851-185c-48a3-bcdf-073ac653a705">
+    <active>true</active>
+    <description>General - Current V/S</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x02C8" size="4" mask="0xFFFFFFFF" multiplier="0,768946875" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze V5.30/ 000211900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6,7" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>General - Parking Brake</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BC8" size="2" mask="0xFFFFFFFF" multiplier="0,768946875" bcdMode="False" />
+      <comparison active="True" value="32767" operand="=" ifValue="1" elseValue="0" />
+      <display type="" serial="" trigger="change" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>  
+  <config guid="b83d0326-b8b6-4f4d-903c-76069d849323">
+    <active>true</active>
+    <description>Autopilot - V/S</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07F2" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Display Module" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="7dcf7b82-907e-4518-b318-9b1531d7e0dd">
+    <active>true</active>
+    <description>Autopilot - Altitude</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07D4" size="4" mask="0xFFFFFFFF" multiplier="5,0062E-05" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Display Module" serial="Arcaze v5.30/ 000210900000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="073701f0-bc44-4f8c-ad92-ce8b2c9c5eb4">
+    <active>true</active>
+    <description>Autopilot - Altitude Hold</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07D0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="ac72366d-dc9b-4192-b11c-efc60333dd62">
+    <active>true</active>
+    <description>Autopilot - Heading Hold</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07C8" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="2b53710b-b544-43d3-8883-2390281ec17f">
+    <active>true</active>
+    <description>Autopilot - Approach Hold</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0800" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="f4f56ea4-0154-4373-adba-5a52c348e07b">
+    <active>true</active>
+    <description>Autopilot - Back Course Hold</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0804" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="e11faa74-223d-4165-8f7c-9fe6d17c13d5">
+    <active>true</active>
+    <description>Autopilot - Nav1 Hold</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07C4" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="45a2c248-149a-4af2-8003-c529833468f4">
+    <active>true</active>
+    <description>Autopilot - V/S Hold</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07EC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="f7563455-77eb-4faf-87c6-54f7e979df1d">
+    <active>true</active>
+    <description>Autopilot - Master Switch</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07BC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="271ecaaf-9c6c-48c3-bfe9-9236a053721c">
+    <active>true</active>
+    <description>Autopilot - IAS Hold</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07DC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="aea42635-1c68-4f59-952d-10d2c3f693e8">
+    <active>true</active>
+    <description>Flight System - Spoiler ARM</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BD0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="4800" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="A13" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Flight System - Spoiler Position</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BD0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="4800" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="A13" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="bd8e94ab-fc5e-471e-a2cf-83bccdf5c061">
+    <active>true</active>
+    <description>Lights - Landing Lights</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="1" mask="0x0004" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Arcaze v5.30/ 000210900000" trigger="normal" pin="A14" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="9f57ffdc-c32c-406d-a324-b36391c9a5f4">
+    <active>true</active>
+    <description>Landing Gear - Nose (Extended)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BEC" size="1" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Modul B/ 000110801000" trigger="rising" pin="B05" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="7c06c111-19ff-4877-a9c7-6fa8a0a874a9">
+    <active>true</active>
+    <description>Landing Gear - Nose (moving)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Modul B/ 000110801000" trigger="rising" pin="B02" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="f082635b-e55c-4adb-a02a-ad153a87a610">
+    <active>true</active>
+    <description>Landing Gear - Left (moving)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Modul B/ 000110801000" trigger="rising" pin="B03" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="66336dbc-7f52-4e55-b6c4-0dcffeea79b4">
+    <active>true</active>
+    <description>Landing Gear - Right (moving)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Modul B/ 000110801000" trigger="rising" pin="B01" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="68762e7c-031b-48ef-8c3d-8d2679a861e3">
+    <active>true</active>
+    <description>Landing Gear - Left (extracted)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Modul B/ 000110801000" trigger="rising" pin="B06" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="d3a0d5de-ef04-4c63-ba27-dcfa0c424a27">
+    <active>true</active>
+    <description>Landing Gear - Right (extracted)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Modul B/ 000110801000" trigger="rising" pin="B04" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config guid="f18a3966-5203-4b5b-b41d-7bbe6c1e3f3e">
+    <active>true</active>
+    <description>Lights - Navigation Lights</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0001" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Lights - Beacon</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0002" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Lights - Taxi</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0008" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Lights - Strobes</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0010" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Lights - Instruments</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0020" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Lights - Recognition</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0040" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Lights - Wing</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0080" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Lights - Logo</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0100" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Lights - Cabin</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, ArcazeFsuipcConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0200" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" serial="OVHD_PANEL_I/ 000003901110" trigger="normal" pin="" />
+      <precondition type="none" />
+    </settings>
+  </config>
+</ArcazeUsbConnector>

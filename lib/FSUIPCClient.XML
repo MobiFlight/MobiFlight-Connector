@@ -1,0 +1,1602 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FSUIPCClient</name>
+    </assembly>
+    <members>
+        <member name="T:FSUIPC.Offset`1">
+            <summary>
+            Represents an item of data that can be read from or written to an FSUIPC offset.
+            </summary>
+            <typeparam name="DataType">The native (.NET) type representing the data held in the FSUIPC offset.<para></para><para>Native .NET types supported are: Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Double, Single, String, BitArray</para><para>Depending on the language you are using there may be other ways of referring to these base types.</para><para>E.g. Int16 in VB.NET is also 'Short'.  In C# it's 'short'.</para><para></para>To read/Write raw bytes of any length from FSUIPC use an array of Bytes. (Byte() in VB.NET, byte[] in C#)</typeparam>
+        </member>
+        <member name="M:FSUIPC.Offset`1.#ctor(System.Int32)">
+            <summary>
+            Creates a new Offset that will read from or write to the specified Offset.
+            </summary>
+            <param name="Address">The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.</param>
+        </member>
+        <member name="M:FSUIPC.Offset`1.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a new Offset in the specified Group that will read from or write to the specified Offset.
+            </summary>
+            <param name="DataGroupName">The name of the DataGroup to put this Offset into.<para>To process this Offset you must call Process() and pass the GroupName as a parameter.</para></param>
+            <param name="Address">The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.</param>
+        </member>
+        <member name="M:FSUIPC.Offset`1.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a Offset that will read from or write the specified number of bytes to the specified Offset.  Only used with data types of String, BitArray and an array of bytes.
+            </summary>
+            <param name="Address">The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.</param>
+            <param name="ArrayOrStringLength">The number of bytes to read.  Used to define the length of types: String, BitArray and array of bytes.</param>
+        </member>
+        <member name="M:FSUIPC.Offset`1.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Creates a new Offset that will read from or write to the specified Offset.
+            </summary>
+            <param name="Address">The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.</param>
+            <param name="WriteOnly">If true, Sets this Offset to only write data.  Its value is never read from FSUIPC.  You can change the setting with the WriteOnly property at any time.</param>        
+        </member>
+        <member name="M:FSUIPC.Offset`1.#ctor(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Creates a new Offset in the specified Group that will read from or write to the specified Offset.
+            </summary>
+            <param name="DataGroupName">The name of the DataGroup to put this Offset into.<para>To process this Offset you must call Process() and pass the GroupName as a parameter.</para></param>
+            <param name="Address">The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.</param>
+            <param name="WriteOnly">If true, Sets this Offset to only write data.  Its value is never read from FSUIPC.  You can change the setting with the WriteOnly property at any time.</param>        
+        </member>
+        <member name="M:FSUIPC.Offset`1.#ctor(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Creates a new Offset that will read from or write the specified number of bytes to the specified Offset.  Only used with data types of String, BitArray and an array of bytes.
+            </summary>
+            <param name="Address">The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.</param>
+            <param name="ArrayOrStringLength">The number of bytes to read.  Used to define the length of types: String, BitArray and array of bytes.</param>
+            <param name="WriteOnly">If true, Sets this Offset to only write data.  Its value is never read from FSUIPC.  You can change the setting with the WriteOnly property at any time.</param>        
+        </member>
+        <member name="M:FSUIPC.Offset`1.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Creates a new Offset that will read from or write the specified number of bytes to the specified Offset.  Only used with data types of String, BitArray and an array of bytes.
+            </summary>
+            <param name="DataGroupName">The name of the DataGroup to put this Offset into.<para>To process this Offset you must call Process() and pass the GroupName as a parameter.</para></param>
+            <param name="Address">The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.</param>
+            <param name="ArrayOrStringLength">The number of bytes to read.  Used to define the length of types: String, BitArray and array of bytes.</param>
+        </member>
+        <member name="M:FSUIPC.Offset`1.#ctor(System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Creates a new Offset in the specified group that will read from or write the specified number of bytes to the specified Offset.  Only used with data types of String, BitArray and an array of bytes.
+            </summary>
+            <param name="DataGroupName">The name of the DataGroup to put this Offset into.<para>To process this Offset you must call Process() and pass the GroupName as a parameter.</para></param>
+            <param name="Address">The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.</param>
+            <param name="ArrayOrStringLength">The number of bytes to read.  Used to define the length of types: String, BitArray and array of bytes.</param>
+            <param name="WriteOnly">If true, Sets this Offset to only write data.  Its value is never read from FSUIPC.  You can change the setting with the WriteOnly property at any time.</param>        
+        </member>
+        <member name="M:FSUIPC.Offset`1.Disconnect">
+            <summary>
+            Immediately disconnects this Offset from FSUIPC.  The value of this Offset will no longer be updated or written during Process() calls.  Use Reconnect() to start updating again.
+            </summary>
+            
+        </member>
+        <member name="M:FSUIPC.Offset`1.Disconnect(System.Boolean)">
+            <summary>
+            Disconnects this Offset from the FSUIPCConnection class.  The value of this Offset will no longer be updated or written during Process() calls.  Use Reconnect() to start updating again.        
+            </summary>
+            <param name="AfterNextProcess">If true, the Offset will not be disconnected until after you call Process().  If false the Offset is disconnected immediately.</param>
+        </member>
+        <member name="M:FSUIPC.Offset`1.Reconnect">
+            <summary>
+            Permenently reconnects this Offset to FSUIPC.  The value of this Offset will be read/written during subsequent Process() calls.        
+            </summary>
+        </member>
+        <member name="M:FSUIPC.Offset`1.Reconnect(System.Boolean)">
+            <summary>
+            Reconnects this Offset to FSUIPC.  The value of this Offset will be updated/written during subsequent Process() calls.
+            </summary>
+            <param name="ForNextProcessOnly">If true, the Offset is reconnected only for the next Process() call.  After that it's disconnected again.  If false, the Offset is reconnected until you call Disconnect().</param>
+        </member>
+        <member name="P:FSUIPC.Offset`1.Address">
+            <summary>
+            The FSUIPC offset address to read from or write to, as specified in the FSUIPC for Programmer's document.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.Offset`1.Value">
+            <summary>
+            The data from the FSUIPC Offset obtained from the last Process(). <para></para> To write a value to the FSUIPC Offset, assign the new value to this property.  It will be written to FSUIPC during the next Process().
+            </summary>
+        </member>
+        <member name="P:FSUIPC.Offset`1.IsConnected">
+            <summary>
+            Indicates if this Offset is currently 'Connected'.  Offsets that are disconnected will not be updated or have changes written to FSUIPC when Process() is run.
+            This is read-only.  To connect or disconnect an Offset call the Connect() or Disconnect() methods.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.Offset`1.WriteOnly">
+            <summary>
+            Indicates that this Offset is to be Write-Only.  While marked as Write-Only the value of this Offset will never be read from FSUIPC.  If you change the value of this Offset the new value will be written to FSUIPC on the next process.
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FsLatLonPoint">
+            <summary>
+            A point in the Flight Simulator world represented by a longitude and latitude.
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.#ctor(FSUIPC.FsLatitude,FSUIPC.FsLongitude)">
+            <summary>
+            Create a new point from the specified latitude and longitude
+            </summary>
+            <param name="Latitude">The latitude of the point</param>
+            <param name="Longitude">The longitude of the point</param>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.DistanceFromInFeet(FSUIPC.FsLatLonPoint)">
+            <summary>
+            Gets the distance between this point and another specified point in Feet
+            </summary>
+            <param name="Point">The other point from which to measure the distance</param>
+            <returns>The distance between this point and the other specified point in Feet</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.DistanceFromInNauticalMiles(FSUIPC.FsLatLonPoint)">
+            <summary>
+            Gets the distance between this point and another specified point in Nautical Miles
+            </summary>
+            <param name="Point">The other point from which to measure the distance</param>
+            <returns>The distance between this point and the other specified point in Nautical Miles</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.DistanceFromInMetres(FSUIPC.FsLatLonPoint)">
+            <summary>
+            Gets the distance between this point and another specified point in Metres
+            </summary>
+            <param name="Point">The other point from which to measure the distance</param>
+            <returns>The distance between this point and the other specified point in Metres</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.BearingTo(FSUIPC.FsLatLonPoint)">
+            <summary>
+            Gets the bearing TO another point.  The bearing will be in degrees TRUE, not magnetic.
+            </summary>
+            <param name="Point">The other point to measure the bearing to</param>
+            <returns>The bearing in degrees TRUE</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.BearingFrom(FSUIPC.FsLatLonPoint)">
+            <summary>
+            Gets the bearing FROM another point.  Bearing will be in degrees TRUE, not magnetic.
+            </summary>
+            <param name="Point">The other point to measure the bearing from</param>
+            <returns>The bearing in degrees TRUE</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.OffsetByFeet(System.Double,System.Double)">
+            <summary>
+            Creates a new point by moving the specified distance along the specified bearing
+            </summary>
+            <param name="Bearing">The bearing from this point along which the new point is located in degrees TRUE</param>
+            <param name="Distance">The distance from this point which the new point is located in Feet</param>
+            <returns>A new FsLatLonPoint representing a new point that is the specified distance away from this point in the specified direction</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.OffsetByMetres(System.Double,System.Double)">
+            <summary>
+            Creates a new point by moving the specified distance along the specified bearing
+            </summary>
+            <param name="Bearing">The bearing from this point along which the new point is located in degrees TRUE</param>
+            <param name="Distance">The distance from this point which the new point is located in Metres</param>
+            <returns>A new FsLatLonPoint representing a new point that is the specified distance away from this point in the specified direction</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.OffsetByNauticalMiles(System.Double,System.Double)">
+            <summary>
+            Creates a new point by moving the specified distance along the specified bearing
+            </summary>
+            <param name="Bearing">The bearing from this point along which the new point is located in degrees TRUE</param>
+            <param name="Distance">The distance from this point which the new point is located in Nautical Miles</param>
+            <returns>A new FsLatLonPoint representing a new point that is the specified distance away from this point in the specified direction</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.ToString">
+            <summary>
+            The latitude and longitude represented as a string in the default format of N|S|E|W dd* mm.mmmm'
+            </summary>
+            <returns>A string representation of the Longitude and Latitude of this point in the default format</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonPoint.ToString(System.Boolean,System.String,System.Int16)">
+            <summary>
+            The latitude and longitude represented as a string in the specified format
+            </summary>
+            <param name="HemisphereAsText">Denote hemisphere using N,S,W or E.  If false, west/south is marked as -</param>
+            <param name="DetailLevel">Specifies the detail level.  "d" for degrees only, "m" for degrees and minutes, "s" for degrees, minutes and seconds</param>
+            <param name="DecimalPlaces">The number of decimal places to show</param>
+            <returns>A string representation of the Longitude and Latitude of this point in the specified format</returns>
+        </member>
+        <member name="P:FSUIPC.FsLatLonPoint.Longitude">
+            <summary>
+            The longitude of the point
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatLonPoint.Latitude">
+            <summary>
+            The latitude of the point
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FlightSim">
+            <summary>
+            Flight Simulator Version
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.Any">
+            <summary>
+            Any version of Flight Sim
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.FS98">
+            <summary>
+            Microsoft Flight Simulator 98
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.FS2K">
+            <summary>
+            Microsoft Flight Simulator 2000
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.CFS2">
+            <summary>
+            Microsoft Combat Flight Simulator 2
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.CFS1">
+            <summary>
+            Microsoft Combat Flight Simulator 1
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.FLY">
+            <summary>
+            Fly! by Terminal Velocity.  (I don't think this works).
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.FS2K2">
+            <summary>
+            Microsoft Flight Simulator 2002
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.FS2K4">
+            <summary>
+            Microsoft Flight Simulator 2004 (A Century of Flight)
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.FSX">
+            <summary>
+            Microsoft Flight Simulator X
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FlightSim.ESP">
+            <summary>
+            Microsoft ESP
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FSUIPCError">
+            <summary>
+            The 'traditional' error codes returned by the C version of the FSUIPC Client SDK.  These error codes usually get returned in a variable called 'dwResult'.
+            In this library, these error codes are returned in a .NET exception called FSUIPCClientException.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_OK">
+            <summary>
+            No error.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_OPEN">
+            <summary>
+            Attempt to Open() when connection is already open.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_NOFS">
+            <summary>
+            Cannot link to FSUIPC or WideClient
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_REGMSG">
+            <summary>
+            Failed to Register common message with Windows
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_ATOM">
+            <summary>
+            Failed to create Atom for mapping filename
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_MAP">
+            <summary>
+            Failed to create a file mapping object
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_VIEW">
+            <summary>
+            Failed to open a view to the file map
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_VERSION">
+            <summary>
+            Incorrect version of FSUIPC, or not FSUIPC.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_WRONGFS">
+            <summary>
+            Flight Sim is not version requested by this application.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_NOTOPEN">
+            <summary>
+            Attempted to call Process() but the FSUIPC link has not been opened.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_NODATA">
+            <summary>
+            Call cannot execute: no requests accumulated
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_TIMEOUT">
+            <summary>
+            IPC SendMessage timed out (all retries)
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_SENDMSG">
+            <summary>
+            IPC SendMessage failed (all retries)
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_DATA">
+            <summary>
+            IPC request contains bad data
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_RUNNING">
+            <summary>
+            Wrong version of FSUIPC.  Can also occur if running on WideClient but FSUIPC is not running on server.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_SIZE">
+            <summary>
+            Read or Write request cannot be added to the shared memory file as the file is full.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSUIPCError.FSUIPC_ERR_WRITE_OVERFLOW">
+            <summary>
+            Tried to write a string or byte array that was longer than the declared length of this Offset.
+            </summary>
+        </member>
+        <member name="T:FSUIPC.AITrafficStatus">
+            <summary>
+            The state of an AI Traffic object
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.StatusNotAvilable">
+            <summary>
+            State not avilable.  State of AI aircraft is only avilable in FS2004 and above.
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.Initialising">
+            <summary>
+            Iniialising
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.Sleeping">
+            <summary>
+            Sleeping
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.FilingFlightPlan">
+            <summary>
+            Filing flight plan
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.ObtainingClearance">
+            <summary>
+            Obtaining clearance
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.PushingBack">
+            <summary>
+            Pushing back 
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.PushingBackTurn">
+            <summary>
+            Turning while pushing back
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.StartingUp">
+            <summary>
+            Starting engines
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.ReadyForTaxi">
+            <summary>
+            Ready for taxi
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.TaxiingOut">
+            <summary>
+            Taxing to runway for takeoff
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.ReadyForTakeOff">
+            <summary>
+            Ready for takeoff
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.TakingOff">
+            <summary>
+            Taking off
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.Departing">
+            <summary>
+            Airborne, departing airport
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.Enroute">
+            <summary>
+            Enroute
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.InThePattern">
+            <summary>
+            In the pattern for landing
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.Landing">
+            <summary>
+            Landing (cleared to land)
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.RollingOut">
+            <summary>
+            Landed, rolling out on runway
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.GoingAround">
+            <summary>
+            Going around
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.TaxiingIn">
+            <summary>
+            Taxiing in from runway to stand
+            </summary>
+        </member>
+        <member name="F:FSUIPC.AITrafficStatus.ShuttingDown">
+            <summary>
+            Shutting down engines
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FsLatitudeSpan">
+            <summary>
+            Represents a span of latitude in MS Flight Simulator
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.#ctor(System.Double)">
+            <summary>
+            Create a new latitude span represented by a number of degrees
+            </summary>
+            <param name="DecimalDegrees">The number of degrees for the span</param>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.#ctor(System.Int32,System.Double)">
+            <summary>
+            Create a new latitude span represented by a number of degrees and minutes
+            </summary>
+            <param name="Degrees">The number of degrees for the span</param>
+            <param name="DecimalMinutes">The number of minutes for the span</param>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.#ctor(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Create a new latitude span represented by a number of degrees, minutes and seconds
+            </summary>
+            <param name="Degrees">The number of degrees for the span</param>
+            <param name="Minutes">The number of minutes for the span</param>
+            <param name="DecimalSeconds">The number of seconds for the span</param>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.FromFeet(System.Double)">
+            <summary>
+            Create a new latitude span that represents a given distance in Feet
+            </summary>
+            <param name="Feet">The number of Feet to convert to a latitude span</param>
+            <returns>An FsLatitudeSpan representing the number of feet in degrees latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.FromNauticalMiles(System.Double)">
+            <summary>
+            Create a new latitude span that represents a given distance in Nautical Miles
+            </summary>
+            <param name="NauticalMiles">The number of Nautical Miles to convert to a latitude span</param>
+            <returns>An FsLatitudeSpan representing the number of Nautical Miles in degrees latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.FromMetres(System.Double)">
+            <summary>
+            Create a new latitude span that represents a given distance in Metres
+            </summary>
+            <param name="Metres">The number of Metres to convert to a latitude span</param>
+            <returns>An FsLatitudeSpan representing the number of metres in degrees latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.BetweenTwoLatitides(FSUIPC.FsLatitude,FSUIPC.FsLatitude)">
+            <summary>
+            Create a new latitude span from two latitudes.  The span will be the shortest absolute distance between them.
+            </summary>
+            <param name="Lat1">The Latitude at one end of the span</param>
+            <param name="Lat2">The Latitude at the other end of the span</param>
+            <returns>An FsLatitudeSpan representing the distance between the two latitudes in degrees</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.ToFeet">
+            <summary>
+            Gets the distance represented by the span in Feet
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.ToNauticalMiles">
+            <summary>
+            Gets the distance represented by the span in Nautical Miles
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.ToMetres">
+            <summary>
+            Gets the distance represented by the span in Metres
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.ToString">
+            <summary>
+            The span represented as a string in the default format of dd* mm.mmmm'
+            </summary>
+            <returns>A string representing the latitude span in the default format</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitudeSpan.ToString(System.String,System.Int32)">
+            <summary>
+            The span represented as a string in the specified format
+            </summary>
+            <param name="DetailLevel">Specifies the detail level.  "d" for degrees only, "m" for degrees and minutes, "s" for degrees, minutes and seconds</param>
+            <param name="DecimalPlaces">The number of decimal places to show</param>
+            <returns>A string representing the latitude span in the specified format</returns>
+        </member>
+        <member name="P:FSUIPC.FsLatitudeSpan.Degrees">
+            <summary>
+            The number of whole degrees represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitudeSpan.Minutes">
+            <summary>
+            The number of whole minutes represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitudeSpan.Seconds">
+            <summary>
+            The number of whole seconds represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitudeSpan.DecimalDegrees">
+            <summary>
+            The total number of degrees represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitudeSpan.DecimalMinutes">
+            <summary>
+            The number of minutes represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitudeSpan.DecimalSeconds">
+            <summary>
+            The number of seconds represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitudeSpan.TotalMinutes">
+            <summary>
+            The value of the entire span represented in minutes
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitudeSpan.TotalSeconds">
+            <summary>
+            The value of the entire span represented in seconds
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FsLatitude">
+            <summary>
+            A structure representing a latitude value in MS Flight Simulator
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.#ctor(System.Int64)">
+            <summary>
+            Create a new latitude value from the 8-Byte MS Flight Simulator units supplied by FSUIPC
+            </summary>
+            <param name="FSUnits">An 8-Byte integer representing the latitude in FS Units.  e.g. from FSUIPC offset 0x0560</param>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.#ctor(System.Int32)">
+            <summary>
+            Create a new latitude value from the 4-Byte MS Flight Simulator units supplied by FSUIPC
+            </summary>
+            <param name="FSUnits">A 4-Byte integer representing the latitude in FS Units.  e.g. from FSUIPC offset 0x085C</param>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.#ctor(System.Double)">
+            <summary>
+            Create a new latitude value in degrees
+            </summary>
+            <param name="DecimalDegrees">The latitude in degrees</param>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.#ctor(System.Int32,System.Double)">
+            <summary>
+            Create a new latitude value in degrees and minutes
+            </summary>
+            <param name="Degrees">The number of degrees for the new latitude</param>
+            <param name="DecimalMinutes">The number of minutes for the new latitude</param>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.#ctor(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Create a new latitude value in degrees, minutes and seconds
+            </summary>
+            <param name="Degrees">The number of degrees for the new latitude</param>
+            <param name="Minutes">The number of minutes for the new latitude</param>
+            <param name="DecimalSeconds">The number of seconds for the new latitude</param>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.ToFSUnits8">
+            <summary>
+            Converts this latitude to 8-Byte MS Flight Simulator units.  Can be used to write to FSUIPC, e.g. offset 0x0560
+            </summary>
+            <returns>The latitude represented in 8-Byte MS Flight Simulator units.</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.ToFSUnits4">
+            <summary>
+            Converts this latitude to 4-Byte MS Flight Simulator units.  Can be used to write to FSUIPC, e.g. offset 0x085C
+            </summary>
+            <returns>The latitude represented in 4-Byte MS Flight Simulator units.</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.ToString">
+            <summary>
+            The latitude represented as a string in the default format of N|S dd* mm.mm'
+            </summary>
+            <returns>A string representing the latitude in the default format</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.ToString(System.Boolean,System.String,System.Int16)">
+            <summary>
+            The lattitude represented as a string in the specified format
+            </summary>
+            <param name="HemisphereAsText">Denote hemisphere using N or S.  If false, south is marked as -</param>
+            <param name="DetailLevel">Specifies the detail level.  "d" for degrees only, "m" for degrees and minutes, "s" for degrees, minutes and seconds</param>
+            <param name="DecimalPlaces">The number of decimal places to show</param>
+            <returns>A string representing the latitude in the specified format</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.Add(FSUIPC.FsLatitudeSpan)">
+            <summary>
+            Create a new latitude by adding a latitude span to the current lattitude
+            </summary>
+            <param name="Distance">The latitude span to add</param>
+            <returns>The resulting latitude after the addition</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.Subtract(FSUIPC.FsLatitudeSpan)">
+            <summary>
+            Create a new latitude by subtracting a latitude span from the current lattitude
+            </summary>
+            <param name="Distance">The latitude span to subtract</param>
+            <returns>The resulting latitude after the subtraction</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.AddDegrees(System.Double)">
+            <summary>
+            Create a new latitude by adding a number of degrees to the current latitude
+            </summary>
+            <param name="Degrees">The number of degrees to add</param>
+            <returns>The resulting latitude after the addition</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.AddMinutes(System.Double)">
+            <summary>
+            Create a new latitude by adding a number of minutes to the current latitude
+            </summary>
+            <param name="Minutes">The number of minutes to add</param>
+            <returns>The resulting latitude after the addition</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatitude.AddSeconds(System.Double)">
+            <summary>
+            Create a new latitude by adding a number of seconds to the current latitude
+            </summary>
+            <param name="Seconds">The number of seconds to add</param>
+            <returns>The resulting latitude after the addition</returns>
+        </member>
+        <member name="P:FSUIPC.FsLatitude.Degree">
+            <summary>
+            The whole degree part of the latitude
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitude.Minute">
+            <summary>
+            The whole minute part of the latitude
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitude.Second">
+            <summary>
+            The whole second part of latitude
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitude.DecimalDegrees">
+            <summary>
+            The latitiude expressed in degrees
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitude.DecimalMinutes">
+            <summary>
+            The minutes part of the latitude
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatitude.DecimalSeconds">
+            <summary>
+            The seconds part of the latitude
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FsLongitude">
+            <summary>
+            A structure representing a longitude value in MS Flight Simulator
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.#ctor(System.Int64)">
+            <summary>
+            Create a new longitude value from the 8-Byte MS Flight Simulator units supplied by FSUIPC
+            </summary>
+            <param name="FSUnits">An 8-Byte integer representing the longitude in FS Units.  e.g. from FSUIPC offset 0x0568</param>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.#ctor(System.Int32)">
+            <summary>
+            Create a new longitude value from the 4-Byte MS Flight Simulator units supplied by FSUIPC
+            </summary>
+            <param name="FSUnits">A 4-Byte integer representing the longitude in FS Units.  e.g. from FSUIPC offset 0x0864</param>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.#ctor(System.Double)">
+            <summary>
+            Create a new longitude value in degrees
+            </summary>
+            <param name="DecimalDegrees">The longitude value in degrees</param>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.#ctor(System.Int32,System.Double)">
+            <summary>
+            Create a new longitude value in degrees and minutes
+            </summary>
+            <param name="Degrees">The number of degrees for the new longitude</param>
+            <param name="DecimalMinutes">The number of minutes for the new longitude</param>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.#ctor(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Create a new longitude value in degrees, minutes and seconds
+            </summary>
+            <param name="Degrees">The number of degrees for the new longitude</param>
+            <param name="Minutes">The number of minutes for the new longitude</param>
+            <param name="DecimalSeconds">The number of seconds for the new longitude</param>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.ToFSUnits8">
+            <summary>
+            Converts this longitude to 8-Byte MS Flight Simulator units.  Can be used to write to FSUIPC, e.g. offset 0x0568 
+            </summary>
+            <returns>The longitude represented in 8-Byte MS Flight Simulator units.</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.ToFSUnits4">
+            <summary>
+            Converts this longitude to 4-Byte MS Flight Simulator units.  Can be used to write to FSUIPC, e.g. offset 0x0864 
+            </summary>
+            <returns>The longitude represented in 4-Byte MS Flight Simulator units.</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.ToString">
+            <summary>
+            The longitude represented as a string in the default format of N|S dd* mm.mmmm'
+            </summary>
+            <returns>A string representing the longitude in the default format</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.ToString(System.Boolean,System.String,System.Int16)">
+            <summary>
+            The longitude represented as a string in the specified format
+            </summary>
+            <param name="HemisphereAsText">Denote hemisphere using W or E.  If false, west is marked as -</param>
+            <param name="DetailLevel">Specifies the detail level.  "d" for degrees only, "m" for degrees and minutes, "s" for degrees, minutes and seconds</param>
+            <param name="DecimalPlaces">The number of decimal places to show</param>
+            <returns>A string representing the longitude in the specified format</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.Add(FSUIPC.FsLongitudeSpan)">
+            <summary>
+            Create a new longitude by adding a longitude span to the current longitude
+            </summary>
+            <param name="Distance">The longitude span to add</param>
+            <returns>The resulting longitude after the addition</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.Subtract(FSUIPC.FsLongitudeSpan)">
+            <summary>
+            Create a new longitude by subtracting a longitude span from the current longitude
+            </summary>
+            <param name="Distance">The longitude span to subtract</param>
+            <returns>The resulting longitude after the subtraction</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.AddDegrees(System.Double)">
+            <summary>
+            Create a new longitude by adding a number of degrees to the current longitude
+            </summary>
+            <param name="Degrees">The number of degrees to add</param>
+            <returns>The resulting longitude after the addition</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.AddMinutes(System.Double)">
+            <summary>
+            Create a new longitude by adding a number of minutes to the current longitude
+            </summary>
+            <param name="Minutes">The nunber of minutes to add</param>
+            <returns>The resulting longitude after the addition</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitude.AddSeconds(System.Double)">
+            <summary>
+            Create a new longitude by adding a number of seconds to the current longitude
+            </summary>
+            <param name="Seconds">The nunber of seconds to add</param>
+            <returns>The resulting longitude after the addition</returns>
+        </member>
+        <member name="P:FSUIPC.FsLongitude.Degree">
+            <summary>
+            The whole degree part of the longitude
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitude.Minute">
+            <summary>
+            The whole minute part of the longitude
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitude.Second">
+            <summary>
+            The whole seconds part of the longitude
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitude.DecimalDegrees">
+            <summary>
+            The longitude expressed in degrees
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitude.DecimalMinutes">
+            <summary>
+            The minutes part of the longitude
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitude.DecimalSeconds">
+            <summary>
+            The seconds part of the longitude
+            </summary>
+        </member>
+        <member name="T:FSUIPC.ATCIdentifier">
+            <summary>
+            Specifies a format for the ATCIdentifer property on AIPlaneInfo objects
+            </summary>
+        </member>
+        <member name="F:FSUIPC.ATCIdentifier.TailNumber">
+            <summary>
+            The tail number of the aircraft
+            </summary>
+        </member>
+        <member name="F:FSUIPC.ATCIdentifier.AirlineAndFlightNumber">
+            <summary>
+            The airline and flight number (uses tail number for GA planes)
+            </summary>
+        </member>
+        <member name="F:FSUIPC.ATCIdentifier.AircraftType">
+            <summary>
+            The type (manufacturer) of the aircraft
+            </summary>
+        </member>
+        <member name="F:FSUIPC.ATCIdentifier.AircraftTitle">
+            <summary>
+            The title of the plane from the config file
+            </summary>
+        </member>
+        <member name="F:FSUIPC.ATCIdentifier.AircraftTypePlusLast3DigitsOfTailNumber">
+            <summary>
+            The type (manufacturer) of the aircraft followed by last three digits of the tail number
+            </summary>
+        </member>
+        <member name="F:FSUIPC.ATCIdentifier.Model">
+            <summary>
+            The model of the aircraft
+            </summary>
+        </member>
+        <member name="T:FSUIPC.AITrafficServices">
+            <summary>
+            A class that provides information about the AI aircraft in Flight Simulator.  This reads the TCAS tables from FSUIPC and presents the information in a .NET friendly collection of AIPlaneInfo classes.<para>This class cannot be instantiated, you must obtain a reference to the active instance via the property on the FSUIPCConnection class.</para>
+            </summary>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.GetPlaneInfoByID(System.Int32)">
+            <summary>
+            Retrieves a specific AIPlaneInfo object with the specified ID.
+            </summary>
+            <param name="ID">The ID of the plane to bring back</param>
+            <returns>The requested AIPlaneInfo or null (Nothing in VB) is the ID was not found.</returns>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.UpdateExtendedPlaneIndentifiers(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            <para>Tells the AITrafficServices to retrieve the specified extended plane identifier properties for all planes when updating the AI Traffic Information.</para>
+            <para>Getting this data from FSUIPC is very inefficient.  Setting these option could cause long delays when calling RefreshAITrafficInformation() for the first time (possibly over 1 second per plane over WideFS)</para>
+            <para>However, subsequent calls will be very fast as this information is only ever retrieved once per plane.  Only new AI traffic entering the system will cause a very slight delay.</para>
+            <para>The more extended information you request the longer any delays will be.</para>
+            <para>See also: AITrafficServices.OverrideAirborneTrafficINISettings() and OverrideGroundTrafficINISettings()</para>
+            </summary>
+            <param name="TailNumber">Set to true to update the TailNumber property for all planes</param>
+            <param name="AirlineAndFlightNumber">Set to true to update the Airline and FlightNumber properties for all planes</param>
+            <param name="AircraftTypeAndModel">Set to true to update the AircraftType and AircraftModel properties for all planes</param>
+            <param name="AircraftTitle">Set to true to update the AircraftTitle property for all planes</param>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.RefreshAITrafficInformation">
+            <summary>
+            Refreshes the information for ground and air AI traffic
+            </summary>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.RefreshAITrafficInformation(System.Boolean,System.Boolean)">
+            <summary>
+            Refreshes the information for ground and air AI traffic as specified
+            </summary>
+            <param name="UpdateGroundTraffic">Set to true to update the information for traffic on the ground</param>
+            <param name="UpdateAirbourneTraffic">Set to true to update the information for traffic in the air</param>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.ApplyFilter(System.Boolean,System.Boolean,System.Double,System.Double,System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})">
+            <summary>
+            Applies a filter to the ground and/or airborne traffic lists.  All traffic falling outside of the specified critia is deleted from the traffic lists.
+            </summary>
+            <param name="FilterGroundTraffic">Apply the filter to the gound traffic list</param>
+            <param name="FilterAirbourneTraffic">Apply the filter to the airborne traffic list</param>
+            <param name="StartBearing">Specifies the start of a bearing arc.  Only AI Traffic within this bearing arc in relation to the player is kept.  This is TRUE bearing in degrees.<para>For no bearing restriction set this to 0 and the EndBearing to 360</para></param>
+            <param name="EndBearing">Specifies the end of a bearing arc.  Only AI Traffic within this bearing arc in relation to the player is kept.  This is TRUE bearing in degrees.<para>For no bearing restriction set this to 360 and the StartBearing to 0</para></param>
+            <param name="MinAltitude">Only AI Traffic above this altitude is kept.  This is in Feet.  Set to null (Nothing in VB) for no minimum limit.</param>
+            <param name="MaxAltitude">Only AI Traffic below this altitude is kept.  This is in Feet.  Set to null (Nothing in VB) for no maximum limit.</param>
+            <param name="WithinDistance">Only AI Traffic within this distance is kept.  This is in Nautical Miles.  Set to null (Nothing in VB) for no distance limit.</param>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.GetArrivalRunwaysInUse(System.String)">
+            <summary>
+            <para>Gets a list of the runways in use for arriving aircraft for the given airport code.</para>
+            <para></para>
+            <para>Note that this information is derived from the AI traffic information and is therefore only as current as the last RefreshAITrfficInformation() call.  Airports will only show active runways if they have AI planes currently assigned to a runway . This information is not harmed by filtering the AI traffic.</para>
+            <para></para>
+            <para>Note also that this is NOT using the FSUIPC facilities at D000.  FSUIPC takes ages to give this information back whereas this DLL can return it instantly.</para>
+            </summary>
+            <param name="AirportICAOCode">The ICAO code for the airport you want active arrival runways for.</param>
+            <returns>A List of FSRunway objects representing the runways in use.</returns>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.GetDepartureRunwaysInUse(System.String)">
+            <summary>
+            <para>Gets a list of the runways in use for departing aircraft for the given airport code.</para>
+            <para></para>
+            <para>Note that this information is derived from the AI traffic information and is therefore only as current as the last RefreshAITrfficInformation() call.  Airports will only show active runways if they have AI planes currently assigned to a runway.  This information is not harmed by filtering the AI traffic.</para>
+            <para></para>
+            <para>Note also that this is NOT using the FSUIPC facilities at D000.  FSUIPC takes ages to give this information back whereas this DLL can return it instantly.</para>
+            </summary>
+            <param name="AirportICAOCode">The ICAO code for the airport you want active arrival runways for.</param>
+            <returns>A List of FSRunway objects representing the runways in use.</returns>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.OverrideAirborneTrafficINISettings(System.Nullable{FSUIPC.ATCIdentifier},System.Nullable{System.Byte})">
+            <summary>
+            <para>This method allows you to override the setting in the user's FSUIPC.INI file.</para>
+            <para>Note that because of the internal workings of FSUIPC, your override will be cancelled after 20 seconds.  Therefore you need to call this method on a regular basis.  The FSUIPC documentation recommends every 5 seconds.</para>
+            </summary>
+            <param name="ATCId">The format you want for the ATCIdentifier property.  Set to null (Nothing in VB) to use the setting in the FSUIPC.INI file.  This ATCIdentifier is only 15 characters long.  If the info you request won't fit it will be truncated.  Consider using the extended plane identifiers feature instead to get this information.  See AITrafficTools.UpdateExtendedPlaneIdentifiers()</param>
+            <param name="RangeInNM">The range around the player's aircraft in which AI traffic will be detected.  In Nautical Miles.  0=Unlimited.  Null (Nothing in VB)=Use setting in FSUIPC.INI file.</param>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.OverrideGroundTrafficINISettings(System.Nullable{FSUIPC.ATCIdentifier},System.Nullable{System.Boolean},System.Nullable{System.Byte},System.Nullable{System.Byte})">
+            <summary>
+            <para>This method allows you to override the setting in the user's FSUIPC.INI file.</para>
+            <para>Note that because of the internal workings of FSUIPC, your override will be cancelled after 20 seconds.  Therefore you need to call this method on a regular basis.  The FSUIPC documentation recommends every 5 seconds.</para>
+            </summary>
+            <param name="ATCId">The format you want for the ATCIdentifier property.  This ATCIdentifier is only 15 characters long.  If the info you request won't fit it will be truncated.  Consider using the extended plane identifiers feature instead to get this information.  See AITrafficTools.UpdateExtendedPlaneIdentifiers()</param>
+            <param name="PreferActive">Set to True to prioritise active aircraft (not sleeping or initialising) when the FSUIPC Traffic Tables get full.  Set to False to prioritise closest aircraft regardless of state.</param>
+            <param name="RangeInAirInNM">The range around the player's aircraft in which ground AI traffic will be detected while the Player is in the AIR.  In Nautical Miles.  0=Unlimited.  Null (Nothing in VB)=Use setting in FSUIPC.INI file.</param>
+            <param name="RangeOnGroundInNM">The range around the player's aircraft in which ground AI traffic will be detected while the player is on the GROUND.  In Nautical Miles.  0=Unlimited.  Null (Nothing in VB)=Use setting in FSUIPC.INI file.</param>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.AddTCASTarget(System.Int32,System.String,FSUIPC.AITrafficStatus,FSUIPC.FsLatitude,FSUIPC.FsLongitude,System.Double,System.Double,System.Int16,System.Int16,System.Int16)">
+            <summary>
+            Adds a TCAS Target to the internal FSUIPC AI Traffic Tables.  This does not add AI planes to Flight Sim.
+            Add as many targets as you like and send them to FSUIPC with SendTCASTargets().
+            To erase an aircraft provide the specific id for that entry, and set the ATCIdentifier parameter to a zero-length string.
+            In any case, FSUIPC will automatically erase any externally supplied aircraft after about 8–12 seconds if it receives no further updates in that time. Even if the aircraft is static you'll need to supply updates for it regularly.
+            For FSX this feature REQUIRES FSUIPC4 version 4.536 or above.
+            </summary>
+            <param name="ID">Your own ID</param>
+            <param name="ATCIdentifier">The ATC Identifier string (e.g. flight no or call sign etc...).  Set to a zero-length string to erase the TCAS target from FSUIPC.</param>
+            <param name="State">The state of the plane</param>
+            <param name="Latitude">The Latitude of the plane</param>
+            <param name="Longitude">The Longitude of the plane</param>
+            <param name="AltitudeFeet">The Altitude of the plane in Feet</param>
+            <param name="HeadingDegreesTrue">The True heading (not magnetic) of the plane in degrees.</param>
+            <param name="GroundSpeedKnots">The ground speed of the plane in knots</param>
+            <param name="VerticalSpeedFeet">The virtical speed of the plane in Feet per Second</param>
+            <param name="Com1">COM1 frequency, 4 digits in BCD format. A frequency of 123.45 is represented by 0x2345. The leading 1 is assumed</param>
+        </member>
+        <member name="M:FSUIPC.AITrafficServices.SendTCASTargets">
+            <summary>
+            Sends the TCAS targets added with AddTCASTarget() to FSUIPC.
+            For FSX this feature REQUIRES FSUIPC4 version 4.536 or above.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AITrafficServices.GroundTraffic">
+            <summary>
+            A .NET List of AIPlaneInfo objects representing AI traffic on the ground in order of distance from the player.  The closest AI plane is the first in the list.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AITrafficServices.AirbourneTraffic">
+            <summary>
+            A .NET List of AIPlaneInfo objects representing AI traffic in the air in order of distance from the player.  The closest AI plane is the first in the list.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AITrafficServices.AllTraffic">
+            <summary>
+            A .NET List of AIPlaneInfo objects representing all AI traffic in order of distance from the player.  The closest AI plane is the first in the list.
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FsLongitudeSpan">
+            <summary>
+            Represents a span of longitude in MS Flight Simulator
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.#ctor(System.Double)">
+            <summary>
+            Create a new longitude span represented by a number of degrees
+            </summary>
+            <param name="DecimalDegrees">The number of degrees for the span</param>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.#ctor(System.Int32,System.Double)">
+            <summary>
+            Create a new longitude span represented by a number of degrees and minutes
+            </summary>
+            <param name="Degrees">The number of degrees for the span</param>
+            <param name="DecimalMinutes">The number of minutes for the span</param>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.#ctor(System.Int32,System.Int32,System.Double)">
+            <summary>
+            Create a new longitude span represented by a number of degrees, minutes and seconds
+            </summary>
+            <param name="Degrees">The number of degrees for the span</param>
+            <param name="Minutes">The number of minutes for the span</param>
+            <param name="DecimalSeconds">The number of seconds for the span</param>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.FromFeet(System.Double,FSUIPC.FsLatitude)">
+            <summary>
+            Create a new longitude span that represents a given distance in Feet at a given latitude
+            </summary>
+            <param name="Feet">The number of Feet to convert to a logitude span</param>
+            <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
+            <returns>A new FsLongitudeSpan representing the specified distance in degrees Longitude at a given latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.FromNauticalMiles(System.Double,FSUIPC.FsLatitude)">
+            <summary>
+            Create a new longitude span that represents a given distance in Nautical Miles at a given latitude
+            </summary>
+            <param name="NauticalMiles">The number of Nautical Miles to convert to a logitude span</param>
+            <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
+            <returns>A new FsLongitudeSpan representing the specified distance in degrees Longitude at a given latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.FromMetres(System.Double,FSUIPC.FsLatitude)">
+            <summary>
+            Create a new longitude span that represents a given distance in Metres at a given latitude
+            </summary>
+            <param name="Metres">The number of Metres to convert to a logitude span</param>
+            <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
+            <returns>A new FsLongitudeSpan representing the specified distance in degrees Longitude at a given latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.BetweenTwoLongitudes(FSUIPC.FsLongitude,FSUIPC.FsLongitude)">
+            <summary>
+            Create a new longitude span from two longitudes.  The span will be the shortest absolute distance between them.
+            </summary>
+            <param name="Lon1">The longitude at one end of the span</param>
+            <param name="Lon2">The longitude at the other end of the span</param>
+            <returns>A new FsLongitudeSpan representing the distance between the two given Longitudes</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.ToFeet(FSUIPC.FsLatitude)">
+            <summary>
+            Gets the distance represented by the span in Feet
+            </summary>
+            <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
+            <returns>The number of Feet represented by the Longitude span at the specified Latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.ToNauticalMiles(FSUIPC.FsLatitude)">
+            <summary>
+            Gets the distance represented by the span in Nautical Miles
+            </summary>
+            <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
+            <returns>The number of Nautical Miles represented by the Longitude span at the specified Latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.ToMetres(FSUIPC.FsLatitude)">
+            <summary>
+            Gets the distance represented by the span in Metres
+            </summary>
+            <param name="AtLatitude">The latitude at which to perform the calculation<para></para>(A degree of longitude near the equator is longer than a degree of longitude near a pole)</param>
+            <returns>The number of Metres represented by the Longitude span at the specified Latitude</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.ToString">
+            <summary>
+            The span represented as a string in the default format of dd* mm.mmmm'
+            </summary>
+            <returns>A string representation of the Longitude span in the default format</returns>
+        </member>
+        <member name="M:FSUIPC.FsLongitudeSpan.ToString(System.String,System.Int32)">
+            <summary>
+            The span represented as a string in the specified format
+            </summary>
+            <param name="DetailLevel">Specifies the detail level.  "d" for degrees only, "m" for degrees and minutes, "s" for degrees, minutes and seconds</param>
+            <param name="DecimalPlaces">The number of decimal places to show</param>
+            <returns>A string representation of the Longitude span in the specified format</returns>
+        </member>
+        <member name="P:FSUIPC.FsLongitudeSpan.Degrees">
+            <summary>
+            The number of whole degrees represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitudeSpan.Minutes">
+            <summary>
+            The number of whole minutes represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitudeSpan.Seconds">
+            <summary>
+            The number of whole seconds represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitudeSpan.DecimalDegrees">
+            <summary>
+            The total number of degrees represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitudeSpan.DecimalMinutes">
+            <summary>
+            The number of minutes represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitudeSpan.DecimalSeconds">
+            <summary>
+            The number of seconds represented in the span
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitudeSpan.TotalMinutes">
+            <summary>
+             The value of the entire span represented in minutes
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLongitudeSpan.TotalSeconds">
+            <summary>
+            The value of the entire span represented in seconds
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FSUIPCConnection">
+            <summary>
+            A class that handles communication and data transfer to and from Pete Dowson's FSUIPC or WideFS.
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Open">
+            <summary>
+            Opens a connection to FSUIPC or WideFS.  Call this once when your application starts.
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Open(FSUIPC.FlightSim)">
+            <summary>
+            Opens communication to FSUIPC or WideFS.  Call this once when your application starts.
+            </summary>
+            <param name="RequiredFlightSimVersion">Specify a version of Flight Sim if you want to limit your application to run only on that version.</param>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Open(System.Byte,FSUIPC.FlightSim)">
+            <summary>
+            Opens communication to a specific class instance of WideClient.exe.  Call this for each instance you want to communicate with.
+            </summary>
+            <param name="ClassInstance">Specify a specific class instance of wideclient to connect to.  (See WideFS documentation for details)</param>
+            <param name="RequiredFlightSimVersion">Specify a version of Flight Sim if you want to limit your application to run only on that version.</param>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.DisconnectGroup(System.String)">
+            <summary>
+            Use DeleteGroup() instead.  Does the same thing but is a better name
+            </summary>
+            <param name="groupName"></param>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.DeleteGroup(System.String)">
+            <summary>
+            Deletes an entire group of Offsets from the FSUIPCConnection class.  Process() can no longer be called on for this group.  Only use this method if you will never need to use the offsets in the group again.
+            </summary>
+            <param name="groupName">The name of the Group you want to delete.</param>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Close">
+            <summary>
+            Closes all open connections with FSUIPC or WideFS and cleans up the memory used.<para>Please call this when your application quits.  The FSUIPC interface  uses unmanaged  memory for communication.  The .NET garbage collection cannot clean this up for you.</para>
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Close(System.Byte)">
+            <summary>
+            Closes the connections to a specific class instance of WideClient.exe and cleans up the memory used.<para>Please call this when your application quits.  The FSUIPC interface  uses unmanaged  memory for communication.  The .NET garbage collection cannot clean this up for you.</para>
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Process">
+            <summary>
+            Processes all the Offsets in the default group.  To process a specific group of Offsets pass the name of the Group as a parameter.<para>All Offsets will either have their value updated from FSUIPC, or have their value written to FSUIPC as appropriate.</para>
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Process(System.String)">
+            <summary>
+            Processes all the Offsets in the specified group. <para>All Offsets will either have their value updated from FSUIPC, or have their value written to FSUIPC as appropriate.</para>
+            </summary>
+            <param name="GroupName">The name of the group to process.</param>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Process(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Processes all the Offsets in the groups passed in. <para>All Offsets will either have their value updated from FSUIPC, or have their value written to FSUIPC as appropriate.</para>
+            </summary>
+            <param name="GroupNames">The names of the groups to process.</param>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Process(System.Byte)">
+            <summary>
+            Processes all the Offsets in the default group on the open connection to the specified class instance of WidwClient.exe.  To process a specific group of Offsets pass the name of the Group as a parameter.<para>All Offsets will either have their value updated from FSUIPC, or have their value written to FSUIPC as appropriate.</para>
+            <param name="ClassInstance">The number of the Class Instance of WideClient you want to talk to.</param>
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Process(System.Byte,System.String)">
+            <summary>
+            Processes all the Offsets in the specified groupon the open connection to the specified class instance of WidwClient.exe. <para>All Offsets will either have their value updated from FSUIPC, or have their value written to FSUIPC as appropriate.</para>
+            </summary>
+            <param name="ClassInstance">The number of the Class Instance of WideClient you want to talk to.</param>
+            <param name="GroupName">The name of the group to process.</param>
+        </member>
+        <member name="M:FSUIPC.FSUIPCConnection.Process(System.Byte,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Processes all the Offsets in the groups passed inon the open connection to the specified class instance of WidwClient.exe. <para>All Offsets will either have their value updated from FSUIPC, or have their value written to FSUIPC as appropriate.</para>
+            </summary>
+            <param name="ClassInstance">The number of the Class Instance of WideClient you want to talk to.</param>
+            <param name="GroupNames">The names of the groups to process.</param>
+        </member>
+        <member name="P:FSUIPC.FSUIPCConnection.OptimiseIPCFile">
+            <summary>
+            Turns the IPC file optimisations on or off.  If set to true, adjacent offsets requests will be joined to form a single read request in the IPC data exchange file.  By default this is set to False.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FSUIPCConnection.DLLVersion">
+            <summary>
+            Returns the version of the FSUIPC Client DLL.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FSUIPCConnection.AITrafficServices">
+            <summary>
+            The active AI Traffic Services object.  Use this object to access data about AI aircraft. 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FSUIPCConnection.FlightSimVersionConnected">
+            <summary>
+            The version of Flight Simulator that FSUIPC is running in, or that WideFS is connected to.
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FSRunwayDesignator">
+            <summary>
+            Designator for FS Runways (left, right etc)
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSRunwayDesignator.none">
+            <summary>
+            This is the only runway with this number
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSRunwayDesignator.left">
+            <summary>
+            Left
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSRunwayDesignator.right">
+            <summary>
+            Right
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSRunwayDesignator.centre">
+            <summary>
+            Centre
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSRunwayDesignator.water">
+            <summary>
+            Water runway
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FSRunway">
+            <summary>
+            Represents a runway identifier for flight sim
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSRunway.Number">
+            <summary>
+            The number of the runway. 1-36, or one of 37=N, 38=NE, 39=E, 40=SE, 41=S, 42=SW, 43=W, 44=NW
+            </summary>
+        </member>
+        <member name="F:FSUIPC.FSRunway.Designator">
+            <summary>
+            The designator for this runway if there are multiple runways with this number.  Otherwise this is set to 'none'.
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FSRunway.ToString">
+            <summary>
+            A string representing the runway as text.  If the runway numnber is 0 then this returns a zero-lenth string.
+            </summary>
+        </member>
+        <member name="T:FSUIPC.AIPlaneInfo">
+            <summary>
+            A class holding information about an AI traffic plane.<para>This class cannot be instantiated.  You can only obtain instances of AIPlaneInfo from the active AITrafficServices object.</para>
+            </summary>
+        </member>
+        <member name="M:FSUIPC.AIPlaneInfo.GetExtendedPlaneIndentifiers(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Immediately updates the specified extended plane identifier properties for this plane.  This does not wait for the next refresh of the AI traffic. 
+            </summary>
+            <param name="TailNumber">Set to true to update the TailNumber property of this plane</param>
+            <param name="AirlineAndFlightNumber">Set to true to update the Airline and FlightNumber properties of this plane</param>
+            <param name="AircraftTypeAndModel">Set to true to update the AircraftType and AircraftModel properties of this plane</param>
+            <param name="AircraftTitle">Set to true to update the AircraftTitle property of this plane</param>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.TailNumber">
+            <summary>
+            The tail number for this plane.  Note that this is blank unless you call the GetExtendedPlaneIdentifiers() method on this plane, or you have set the tail number to update automatically using AITrafficServices.UpdateExtendedPlaneIdentifiers().
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.Airline">
+            <summary>
+            The Airline for this plane.  Note that this is blank unless you call the GetExtendedPlaneIdentifiers() method on this plane, or you have set the airline to update automatically using AITrafficServices.UpdateExtendedPlaneIdentifiers().
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.FlightNumber">
+            <summary>
+            The flight number for this plane if one is assigned.  For GA aircraft this is the same as the tail number.  Note that this is blank unless you call the GetExtendedPlaneIdentifiers() method on this plane, or you have set the flight number to update automatically using AITrafficServices.UpdateExtendedPlaneIdentifiers().
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.AircraftType">
+            <summary>
+            The aircraft type (manufacturer) for this plane.  Note that this is blank unless you call the GetExtendedPlaneIdentifiers() method on this plane, or you have set the aircraft type to update automatically using AITrafficServices.UpdateExtendedPlaneIdentifiers().
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.AircraftModel">
+            <summary>
+            The model of this plane.  Note that this is blank unless you call the GetExtendedPlaneIdentifiers() method on this plane, or you have set the aircraft model to update automatically using AITrafficServices.UpdateExtendedPlaneIdentifiers().
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.AircraftTitle">
+            <summary>
+            The title of this plane from the config file.  Note that this is blank unless you call the GetExtendedPlaneIdentifiers() method on this plane, or you have set the aircraft title to update automatically using AITrafficServices.UpdateExtendedPlaneIdentifiers().
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.AltitudeDifferenceFeet">
+            <summary>
+            The difference between this AI plane and the player in Feet.  Positive values are higher than the player, negative values are lower than the player. 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.AltitudeDifferenceMetres">
+            <summary>
+            The difference between this AI plane and the player in Metres.  Positive values are higher than the player, negative values are lower than the player. 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.DistanceFeet">
+            <summary>
+            The distance between this AI plane and the player in Feet. This value is always positive. 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.DistanceNM">
+            <summary>
+            The distance between this AI plane and the player in Nautical Miles. This value is always positive.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.DistanceMetres">
+            <summary>
+            The distance between this AI plane and the player in Metres. This value is always positive.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.BearingToMagnetic">
+            <summary>
+            The bearing to this AI plane from the player in degrees magnetic. 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.BearingTo">
+            <summary>
+            The bearing to this AI plane from the player in degrees TRUE. 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.BearingFrom">
+            <summary>
+            The bearing from this AI plane to the player in degrees TRUE. 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.BearingFromMag">
+            <summary>
+            The bearing from this AI plane to the player in degrees MAGNETIC. 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.ID">
+            <summary>
+            The ID as specified in the TCAS table in FSUIPC.  Negative values are FS AI aircraft.  Positive values are third-party injected aircraft.  Possibly.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.Location">
+            <summary>
+            The location of this plane
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.AltitudeFeet">
+            <summary>
+            The altitude of this plane in Feet
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.AltitudeMetres">
+            <summary>
+            The altitude of this plane in Metres
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.Heading">
+            <summary>
+            The TRUE heading of this plane (Not magnetic heading).  Usual FSUIPC format: 360 degrees == 65536
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.HeadingDegrees">
+            <summary>
+            The heading of this plane in degrees TRUE.  
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.HeadingDegreesMag">
+            <summary>
+            The heading of this plane in degrees MAGNETIC.  
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.GroundSpeed">
+            <summary>
+            The ground speed of this plane in Knots.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.VirticalSpeedFeet">
+            <summary>
+            The virtical speed of this plane in Feet per Minute
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.VirticalSpeedMetres">
+            <summary>
+            The virtical speed of this plane in Metres per Minute
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.ATCIdentifier">
+            <summary>
+            ATC identifer for this plane.  By default this is Airline + Flight Number or Tail number.<para> For Tail number, if more than 14 chars you get the *LAST* 14.  Airline name is truncated to allow whole flight number to be included</para><para>This can be changed by an option in the FSUIPC.ini file.  See the FSUIPC programmers guide for details.</para>
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.State">
+            <summary>
+            The current state of this plane (e.g. taking off, en route etc)
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.Com1">
+            <summary>
+            The current Com 1 frequency tuned in this plane.  This is in the traditional raw FSUIPC BCD format (0Xaabb as in 1aa.bb)<para>NOTE that since FSUIPC 3.60, in FS2004 this is set to 0x9999 whilst the aircraft is in SLEW mode rather than normal flight mode.</para>
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.Com1String">
+            <summary>
+            A string representing the current Com 1 frequency tuned in this plane.<para>NOTE that since FSUIPC 3.60, in FS2004 this is set to 0x9999 whilst the aircraft is in SLEW mode rather than normal flight mode.</para>
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.Key">
+            <summary>
+             This is the flight identifier Key (usually negative, as in 0xFFFFxxxx) which can be used to identify the flight in the Traffic file. It is not guaranteed to be unique except in one traffic File. <para></para>[Note: this is not available in FSX!] 
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.File">
+            <summary>
+             This is a file Id, to distinguish between multiple traffic files. The default FS2004 Traffic File has an Id of 14. <para></para>[Note: this is not available in FSX!]
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.PitchDegrees">
+            <summary>
+            The pitch of the plane in degrees
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.Pitch">
+            <summary>
+            The pitch of the plane in raw FSUIPC units (degrees * 65536 / 360)
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.BankDegrees">
+            <summary>
+            The bank of the plane in degrees
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.Bank">
+            <summary>
+            The bank of the plane in raw FSUIPC units (degrees * 65536 / 360)
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.DepartureICAO">
+            <summary>
+            ICAO code of the departure airport of this plane
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.DestinationICAO">
+            <summary>
+            ICAO code of the destination airport of the plane
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.RunwayAssigned">
+            <summary>
+            The assigned runway for this plane.  .number will be 0 if not assigned for take-off or landing.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.GateName">
+            <summary>
+            FSX ONLY! This is a numeric representation of the gate name, when one is assigned. Otherwise it is zero.<para>See offset D040 in the FSUIPC4 Offsets Status PDF (in the FSUIPC SDK) for what the values mean.</para>
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.GateNumber">
+            <summary>
+            FSX ONLY! This is the gate number, if it is actually numbered.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.AIPlaneInfo.GateType">
+            <summary>
+            FSX ONLY! This is a numeric representation of the gate type, when one is assigned. Otherwise it is zero.<para>See offset D040 in the FSUIPC4 Offsets Status PDF (in the FSUIPC SDK) for what the values mean.</para>
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FSUIPCException">
+            <summary>
+            A exception that gets thrown if an error occurs during an FSUIPC operation.
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FSUIPCException.#ctor(FSUIPC.FSUIPCError,System.String)">
+            <summary>
+            Creates a new FSUIPCException
+            </summary>
+            <param name="FSUIPCErrorCode">The 'traditional' error codes returned by the C version of the FSUIPC Client SDK.</param>
+            <param name="Message">The text describing the error.</param>
+        </member>
+        <member name="P:FSUIPC.FSUIPCException.FSUIPCErrorCode">
+            <summary>
+            The 'traditional' error codes returned by the C version of the FSUIPC Client SDK.
+            </summary>
+        </member>
+        <member name="T:FSUIPC.FsLatLonQuadrilateral">
+            <summary>
+            Represents an Quadrilateral area in FS bounded by four Latitude/Longitude coordinates.
+            Note that only Convex Quadrilateral shapes will work properly.  Concave shapes will not.
+            </summary>
+        </member>
+        <member name="M:FSUIPC.FsLatLonQuadrilateral.ForRunway(FSUIPC.FsLatLonPoint,System.Double,System.Double,System.Double)">
+            <summary>
+            Creates a new bounding rectangle for a runway given the common information provided in MakeRunways.exe by Pete Dowson.
+            </summary>
+            <param name="HeadingTrue">The TRUE heading of the runway in Degrees</param>
+            <param name="ThresholdCentre">The Lon/Lat point of the centre of the runway threshold</param>
+            <param name="WidthInFeet">The width of the runway in Feet</param>
+            <param name="LengthInFeet">The length of the runway in Feet</param>
+            <returns>An FsLatLonQuadrilateral representing the four corners of the runway</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonQuadrilateral.#ctor(FSUIPC.FsLatLonPoint,FSUIPC.FsLatLonPoint,FSUIPC.FsLatLonPoint,FSUIPC.FsLatLonPoint)">
+            <summary>
+            Constructs a new FsLatLonQuadrilateral by specifying 4 points that define the corners of the Quadrilateral.
+            The points do not need to be in a specific order.
+            </summary>
+            <param name="P0">One of the four corner points of the Quadrilateral</param>
+            <param name="P1">One of the four corner points of the Quadrilateral</param>
+            <param name="P2">One of the four corner points of the Quadrilateral</param>
+            <param name="P3">One of the four corner points of the Quadrilateral</param>
+        </member>
+        <member name="M:FSUIPC.FsLatLonQuadrilateral.ContainsPoint(FSUIPC.FsLatLonPoint)">
+            <summary>
+            Calculates whether or not the given point in contained in this Quadrilateral.
+            </summary>
+            <param name="point">The point to test</param>
+            <returns>True if the given point is contained within this Quadrilateral.</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonQuadrilateral.ToString">
+            <summary>
+            The four latitude and longitude points (corners) represented as a string in the default format of N|S|E|W dd* mm.mmmm'
+            </summary>
+            <returns>A string representation of the Longitude and Latitude of the four corners of this Quadrilateral in the default format</returns>
+        </member>
+        <member name="M:FSUIPC.FsLatLonQuadrilateral.ToString(System.Boolean,System.String,System.Int16)">
+            <summary>
+            The four latitude and longitude points (corners) represented as a string in the specified format
+            </summary>
+            <param name="HemisphereAsText">Denote hemisphere using N,S,W or E.  If false, west/south is marked as -</param>
+            <param name="DetailLevel">Specifies the detail level.  "d" for degrees only, "m" for degrees and minutes, "s" for degrees, minutes and seconds</param>
+            <param name="DecimalPlaces">The number of decimal places to show</param>
+            <returns>A string representation of the Longitude and Latitude of the four corners of this Quadrilateral in the specified format</returns>
+        </member>
+        <member name="P:FSUIPC.FsLatLonQuadrilateral.NE">
+            <summary>
+            A FsLatLonPoint representing the North Eastern corner of this Quadrilateral.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatLonQuadrilateral.SE">
+            <summary>
+            A FsLatLonPoint representing the South Eastern corner of this Quadrilateral.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatLonQuadrilateral.SW">
+            <summary>
+            A FsLatLonPoint representing the South Western corner of this Quadrilateral.
+            </summary>
+        </member>
+        <member name="P:FSUIPC.FsLatLonQuadrilateral.NW">
+            <summary>
+            A FsLatLonPoint representing the North Western corner of this Quadrilateral.
+            </summary>
+        </member>
+    </members>
+</doc>

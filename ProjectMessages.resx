@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Connect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>Disconnect</value>
+  </data>
+  <data name="none" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="statusFsuipcConnected" xml:space="preserve">
+    <value>FSUIPC is connected.</value>
+    <comment>Displayed in status</comment>
+  </data>
+  <data name="uiMessageAraceUSBHasBeenRemoved" xml:space="preserve">
+    <value>An Arcaze module has been removed.</value>
+  </data>
+  <data name="uiMessageNoArcazeModuleFound" xml:space="preserve">
+    <value>No Arcaze module found.</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="Hint" xml:space="preserve">
+    <value>Hint</value>
+  </data>
+  <data name="uiMessageArcazeConnectionLost" xml:space="preserve">
+    <value>The connection to the arcaze module got lost</value>
+  </data>
+  <data name="uiMessageArcazeUSBInterfaceActive" xml:space="preserve">
+    <value>ArcazeUSB Interface still active</value>
+  </data>
+  <data name="uiMessageFsuipcConnectionLost" xml:space="preserve">
+    <value>The connection to FSUIPC got lost</value>
+  </data>
+  <data name="uiMessageArcazeModuleFound" xml:space="preserve">
+    <value>Arcaze module found.</value>
+  </data>
+  <data name="uiMessageApplicationIsRunningInBackgroundMode" xml:space="preserve">
+    <value>Application is now running in the background.</value>
+  </data>
+  <data name="InputValidation" xml:space="preserve">
+    <value>Input validation</value>
+    <comment>Eingabeprüfung</comment>
+  </data>
+  <data name="uiMessageInvalidValueHexOnly" xml:space="preserve">
+    <value>Invalid Value! Only use hex-encoded numbers.</value>
+    <comment>Ungültiger Wert! Nur Hex-Codierte Zahlen angeben.</comment>
+  </data>
+  <data name="uiMessageConfirmNewConfig" xml:space="preserve">
+    <value>Do you really want to create a new config?
+All unsaved changes will get lost.</value>
+    <comment>"Möchten Sie wirklich eine neue Konfiguration anlegen? \nAlle ungesicherten Änderungen gehen verloren."</comment>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Find</value>
+    <comment>Suchen</comment>
+  </data>
+  <data name="uiMessageFsHasBeenStopped" xml:space="preserve">
+    <value>The Flight Simulator has been closed. Execution of config has been stopped. Restart your flight simulator to restart config.</value>
+  </data>
+  <data name="TestMode" xml:space="preserve">
+    <value>Test Mode</value>
+  </data>
+  <data name="TestModeToolTip" xml:space="preserve">
+    <value>Execute Config line by line and trigger the corresponding pin</value>
+  </data>
+  <data name="Offset" xml:space="preserve">
+    <value>Offset</value>
+  </data>
+  <data name="LabelPrecondition_ConfigItem" xml:space="preserve">
+    <value>Config item</value>
+  </data>
+  <data name="DefaultFileName" xml:space="preserve">
+    <value>unsaved</value>
+  </data>
+  <data name="uiMessageConfirmDiscardUnsaved" xml:space="preserve">
+    <value>There are unsaved changes in your configuration.
+Do you want to save them now?</value>
+  </data>
+  <data name="uiMessageConfirmDiscardUnsavedTitle" xml:space="preserve">
+    <value>Please check</value>
+  </data>
+  <data name="uiMessageConfirmNewConfigTitle" xml:space="preserve">
+    <value>Please confirm</value>
+  </data>
+  <data name="conf" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ConfigErrorException_AddressNull" xml:space="preserve">
+    <value>The address of a Display Module must not be null. Please review your config.</value>
+  </data>
+  <data name="ConfigErrorException_SerialNull" xml:space="preserve">
+    <value>The serial of an Arcaze Module must not be null. Please review your config.</value>
+  </data>
+  <data name="ConfigErrorException_WritingDisplay" xml:space="preserve">
+    <value>Error on writing values to Display Module. Please review your config.</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="LabelPrecondition_ArcazePin" xml:space="preserve">
+    <value>Arcaze Pin</value>
+  </data>
+  <data name="LabelPrecondition_None" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="Please_Choose" xml:space="preserve">
+    <value>Please Choose</value>
+  </data>
+  <data name="Please_select_a_pin" xml:space="preserve">
+    <value>Please select a pin.</value>
+  </data>
+  <data name="Please_select_a_port" xml:space="preserve">
+    <value>Please select a port.</value>
+  </data>
+  <data name="uiException_ConfigItemNotFound" xml:space="preserve">
+    <value>Config object was null.</value>
+  </data>
+  <data name="uiLabelDoubleClickToAddConfig" xml:space="preserve">
+    <value>Double-click row to add new config...</value>
+  </data>
+  <data name="uiMessageConfigLineNotSavedYet" xml:space="preserve">
+    <value>This config line is not saved yet.
+Set the description text and use the edit button then.</value>
+  </data>
+  <data name="uiMessageConfigWizard_ErrorLoadingPresets" xml:space="preserve">
+    <value>Error on loading presets. Presets are not available for selection.</value>
+  </data>
+  <data name="uiMessageConfigWizard_PresetsNotFound" xml:space="preserve">
+    <value>Presets file not found in current directory.</value>
+  </data>
+  <data name="uiMessageConfigWizard_ProvideLedDisplayAddress" xml:space="preserve">
+    <value>Please provide the address of the desired Led Display Module. It must be numeric, e.g. 1</value>
+  </data>
+  <data name="uiMessageConfigWizard_SelectArcaze" xml:space="preserve">
+    <value>Please select an arcaze module by choosing a valid serial from the list.</value>
+  </data>
+  <data name="uiMessageConfigWizard_SelectComparison" xml:space="preserve">
+    <value>Please provide a value for comparison.</value>
+  </data>
+  <data name="uiMessageConfigWizard_UnknownPreconditionType" xml:space="preserve">
+    <value>Unknown precondition type from config</value>
+  </data>
+  <data name="uiMessageConfigWizard_ValidHexFormat" xml:space="preserve">
+    <value>Please review the value and provide a valid hex format (0-F).</value>
+  </data>
+  <data name="uiMessageModulesNotConfiguredYet" xml:space="preserve">
+    <value>It seems that your arcaze modules are not configured. This is a new feature to better support "Extension Modules".
+
+You should configure them now.</value>
+  </data>
+  <data name="uiMessageNotImplementedYet" xml:space="preserve">
+    <value>Not implemented yet.</value>
+  </data>
+  <data name="uiMessagePreconditionNotSatisfied" xml:space="preserve">
+    <value>Precondition is not satisfied</value>
+  </data>
+  <data name="WebsiteUrlHelp" xml:space="preserve">
+    <value>http://wiki.simple-solutions.de/de/products/Arcaze/Arcaze-USB/Arcaze-FSUIPC-Connector</value>
+  </data>
+  <data name="suffixCopy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="uiMessageErrorOnParsingExpression" xml:space="preserve">
+    <value>An error occured on parsing your value formula. Please review and correct any errors.</value>
+  </data>
+  <data name="uiMessageNoOrphanedSerialsFound" xml:space="preserve">
+    <value>There are no orphaned serials in the current config.</value>
+  </data>
+  <data name="fsuipcStatus" xml:space="preserve">
+    <value>FSUIPC Status</value>
+  </data>
+  <data name="xpuipcStatus" xml:space="preserve">
+    <value>XPUIPC Status</value>
+  </data>
+  <data name="uiMessageCmdParamConfigFileDoesNotExist" xml:space="preserve">
+    <value>The config file passed as parameter does not exist.</value>
+  </data>
+</root>
