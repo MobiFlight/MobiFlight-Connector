@@ -43,14 +43,8 @@ namespace ArcazeUSB
         public List<string> BcdPins                     { get; set; }
 
         public string       DisplayTrigger              { get; set; }
-            
-        public string       PreconditionType            { get; set; }
-        public string       PreconditionRef             { get; set; }
-        public string       PreconditionSerial          { get; set; }
-        public string       PreconditionPin             { get; set; }
-        public string       PreconditionOperand         { get; set; }
-        public string       PreconditionValue           { get; set; }
 
+        public List<Precondition> Preconditions         { get; set; }
 
         public ArcazeConfigItem()
         {            
@@ -77,7 +71,7 @@ namespace ArcazeUSB
 
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
 
-            PreconditionType = "none";
+            Preconditions = new List<Precondition>();
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -182,24 +176,23 @@ namespace ArcazeUSB
                 }
             }
 
-            // read precondition settings if present
-            if (reader.ReadToNextSibling("precondition"))
-            {
-                PreconditionType = reader["type"];
+            reader.ReadStartElement();
 
-                if (PreconditionType == "config")
-                {
-                    PreconditionRef = reader["ref"];
-                    PreconditionOperand = reader["operand"];
-                    PreconditionValue = reader["value"];
-                }
-                else if (PreconditionType == "pin")
-                {
-                    PreconditionSerial = reader["serial"];
-                    PreconditionPin = reader["pin"];
-                    PreconditionOperand = reader["operand"];
-                    PreconditionValue = reader["value"];
-                }
+            // read precondition settings if present
+            if (reader.LocalName == "precondition")
+            {
+                // do so
+                Precondition tmp = new Precondition();
+                tmp.ReadXml(reader);
+                Preconditions.Add(tmp);
+            }
+
+            if (reader.LocalName == "preconditions")
+            {
+                // load a list
+                Precondition tmp = new Precondition();
+                tmp.ReadXml(reader);
+                Preconditions.Add(tmp);
             }
         }
 
@@ -257,24 +250,7 @@ namespace ArcazeUSB
                     writer.WriteAttributeString("pinBrightness", DisplayPinBrightness.ToString());
 
                 }
-            writer.WriteEndElement();
-
-            writer.WriteStartElement("precondition");
-                writer.WriteAttributeString("type", PreconditionType);
-                switch (PreconditionType) {
-                    case "config":
-                        writer.WriteAttributeString("ref", PreconditionRef);
-                        writer.WriteAttributeString("operand", PreconditionOperand);
-                        writer.WriteAttributeString("value", PreconditionValue);                        
-                        break;                    
-                    case "pin":
-                        writer.WriteAttributeString("serial", PreconditionSerial);
-                        writer.WriteAttributeString("pin", PreconditionPin);
-                        writer.WriteAttributeString("operand", PreconditionOperand);
-                        writer.WriteAttributeString("value", PreconditionValue);
-                        break;
-                }
-            writer.WriteEndElement();
+            writer.WriteEndElement();            
         }
 
         public object Clone()
@@ -306,13 +282,6 @@ namespace ArcazeUSB
             clone.BcdPins                   = new List<string>(this.BcdPins);
 
             clone.DisplayTrigger            = this.DisplayTrigger;
-            // the precondition stuff
-            clone.PreconditionType          = this.PreconditionType;
-            clone.PreconditionRef           = this.PreconditionRef;
-            clone.PreconditionSerial        = this.PreconditionSerial;
-            clone.PreconditionPin           = this.PreconditionPin;
-            clone.PreconditionOperand       = this.PreconditionOperand;
-            clone.PreconditionValue         = this.PreconditionValue;
 
             return clone;
         }

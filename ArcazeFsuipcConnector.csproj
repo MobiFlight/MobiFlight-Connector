@@ -157,6 +157,7 @@
     <Compile Include="OrphanedSerialsDialog.Designer.cs">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Precondition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectMessages.de-DE.Designer.cs">
       <AutoGen>True</AutoGen>

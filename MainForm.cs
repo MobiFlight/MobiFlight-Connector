@@ -817,7 +817,7 @@ namespace ArcazeUSB
         {
             bool result = true;
             ConnectorValue connectorValue = new ConnectorValue();
-            
+            /*
             switch (cfg.PreconditionType)
             {
                 case "pin":
@@ -891,7 +891,7 @@ namespace ArcazeUSB
                     }
                     break;
                     
-            }
+            }*/
 
             return result;
         }

@@ -78,7 +78,7 @@ namespace ArcazeUSB
             _initFsuipcOffsetTypeComboBox();
             _loadPresets();
             fsuipcPresetComboBox.ResetText();
-            // displayLedDisplayComboBox.Items.Clear();             
+            // displayLedDisplayComboBox.Items.Clear(); 
         }
 
         private void _initPreconditionPanel()
@@ -348,6 +348,17 @@ namespace ArcazeUSB
                 (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
 
+            preconditionListTreeView.Nodes.Clear();
+            foreach (Precondition p in config.Preconditions)
+            {
+                TreeNode tmpNode = new TreeNode();
+                tmpNode.Text = p.ToString();
+                tmpNode.Tag = p;
+                preconditionListTreeView.Nodes.Add(tmpNode);                
+            }
+
+            /*
+
             try
             {
                 preConditionTypeComboBox.SelectedValue = config.PreconditionType;
@@ -381,6 +392,8 @@ namespace ArcazeUSB
                     preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;                                            
                     break;
             }        
+             * 
+             * */
             
 
             return true;
@@ -466,7 +479,7 @@ namespace ArcazeUSB
                     displayBcdStrobePortComboBox.Text +
                     (displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox).Text);
             }
-            
+            /*
             config.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
             switch (config.PreconditionType)
             {
@@ -482,6 +495,7 @@ namespace ArcazeUSB
                     config.PreconditionPin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
                     break;                    
             }
+             * */
 
             return true;
         }
@@ -932,6 +946,39 @@ namespace ArcazeUSB
             fsuipcOffsetTypeComboBox.DisplayMember = "Label";
             fsuipcOffsetTypeComboBox.ValueMember = "Value";
             fsuipcOffsetTypeComboBox.SelectedIndex = 0;
+        }
+
+        private void preconditionListTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
+
+            Precondition config = (e.Node.Tag as Precondition);
+            switch (config.PreconditionType)
+            {
+                case "config":
+                    try
+                    {
+                        preConditionTypeComboBox.SelectedValue = config.PreconditionType;
+                        preconditionConfigComboBox.SelectedValue = config.PreconditionRef;
+                    }
+                    catch (Exception exc)
+                    {
+                        // precondition could not be loaded
+                    }
+
+                    _setSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);
+                    preconditionRefValueTextBox.Text = config.PreconditionValue;
+                    break;
+
+                case "pin":
+                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
+                    preConditionTypeComboBox.SelectedValue = config.PreconditionType;
+                    preconditionPortComboBox.SelectedIndex = io.Port;
+                    preconditionPinComboBox.SelectedIndex = io.Pin;
+                    _setSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
+                    preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;
+                    break;
+            }  
         }        
     }
 }
