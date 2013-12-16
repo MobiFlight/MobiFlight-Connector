@@ -78,8 +78,8 @@ namespace ArcazeUSB
 
         }
 
-        public static String Version = "3.8.1";
-        public static String Build = "20131215";
+        public static String Version = "3.9";
+        public static String Build = "20131216";
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -783,18 +783,13 @@ namespace ArcazeUSB
 
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
-                // check preconditions
-                if (!checkPrecondition(cfg))
-                {                    
-                    row.ErrorText = _tr("uiMessagePreconditionNotSatisfied");                    
-                    continue;
-                }
+
+                ConnectorValue value = executeRead(cfg);
+                ConnectorValue processedValue = value;
 
                 row.DefaultCellStyle.ForeColor = Color.Empty;
                 row.ErrorText = "";
                
-                ConnectorValue value = executeRead(cfg);
-                ConnectorValue processedValue = value;
 
                 row.Cells["fsuipcValueColumn"].Value = value.ToString();
                 row.Cells["fsuipcValueColumn"].Tag = value;
@@ -806,6 +801,13 @@ namespace ArcazeUSB
                 String strValue = executeComparison(processedValue, cfg);
                 row.Cells["arcazeValueColumn"].Value = strValue;
                 row.Cells["arcazeValueColumn"].Tag = processedValue;
+
+                // check preconditions
+                if (!checkPrecondition(cfg, processedValue))
+                {
+                    row.ErrorText = _tr("uiMessagePreconditionNotSatisfied");
+                    continue;
+                }
                 
                 executeDisplay(strValue, cfg);                
             }
@@ -813,85 +815,115 @@ namespace ArcazeUSB
             isExecuting = false;
         }
 
-        private bool checkPrecondition(ArcazeConfigItem cfg)
+        private bool checkPrecondition(ArcazeConfigItem cfg, ConnectorValue currentValue)
         {
+            bool finalResult = true;
             bool result = true;
+            bool logic = true; // false:and true:or
             ConnectorValue connectorValue = new ConnectorValue();
-            /*
-            switch (cfg.PreconditionType)
+
+            foreach (Precondition p in cfg.Preconditions)
             {
-                case "pin":
-                    string serial = "";
-                    if (cfg.PreconditionSerial.Contains("/"))
-                    {
-                        serial = cfg.PreconditionSerial.Split('/')[1].Trim();
-                    };
+                if (!p.PreconditionActive) continue;
 
-                    string val = arcazeCache.getValue(
-                                    serial,
-                                    cfg.PreconditionPin,
-                                    "repeat");
+                switch (p.PreconditionType)
+                {
+                    case "pin":
+                        string serial = "";
+                        if (p.PreconditionSerial.Contains("/"))
+                        {
+                            serial = p.PreconditionSerial.Split('/')[1].Trim();
+                        };
+
+                        string val = arcazeCache.getValue(
+                                        serial,
+                                        p.PreconditionPin,
+                                        "repeat");
                     
-                    connectorValue.type = FSUIPCOffsetType.Integer;
-                    connectorValue.Int64 = Int64.Parse(val);
+                        connectorValue.type = FSUIPCOffsetType.Integer;
+                        connectorValue.Int64 = Int64.Parse(val);
 
-                    ArcazeConfigItem tmp = new ArcazeConfigItem();
-                    tmp.ComparisonActive = true;
-                    tmp.ComparisonValue = cfg.PreconditionValue;
-                    tmp.ComparisonOperand = "=";
-                    tmp.ComparisonIfValue = "1";
-                    tmp.ComparisonElseValue = "0";
-
-                    try
-                    {
-                        result = (executeComparison(connectorValue, tmp) == tmp.ComparisonIfValue);
-                    }
-                    catch (FormatException e)
-                    {
-                        // maybe it is a text string
-                        // @todo do something in the future here
-                    }
-                    break;
-                case "config":
-                    // iterate over the config row by row
-                    foreach (DataGridViewRow row in dataGridViewConfig.Rows)
-                    {
-                        if ((row.DataBoundItem as DataRowView).Row["guid"].ToString() != cfg.PreconditionRef) continue;
-                        if (row.Cells["arcazeValueColumn"].Value == null) break;
-                        string value = row.Cells["arcazeValueColumn"].Value.ToString();
-
-                        // if inactive ignore?
-                        if (!(bool)row.Cells["active"].Value) break;
-                        
-                        // if there hasn't been determined any value yet
-                        // we cannot compare
-                        if (value == "") break;
-
-                        tmp = new ArcazeConfigItem();
+                        ArcazeConfigItem tmp = new ArcazeConfigItem();
                         tmp.ComparisonActive = true;
-                        tmp.ComparisonValue = cfg.PreconditionValue;
-                        tmp.ComparisonOperand = cfg.PreconditionOperand;
+                        tmp.ComparisonValue = p.PreconditionValue;
+                        tmp.ComparisonOperand = "=";
                         tmp.ComparisonIfValue = "1";
                         tmp.ComparisonElseValue = "0";
-                        
-                        connectorValue.type = FSUIPCOffsetType.Integer;
-                        connectorValue.Int64 = Int64.Parse(value);
 
                         try
                         {
-                            result = (executeComparison(connectorValue, tmp) == "1");
+                            result = (executeComparison(connectorValue, tmp) == tmp.ComparisonIfValue);
                         }
                         catch (FormatException e)
                         {
                             // maybe it is a text string
                             // @todo do something in the future here
                         }
-
                         break;
-                    }
-                    break;
-                    
-            }*/
+
+                    case "config":
+                        // iterate over the config row by row
+                        foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+                        {
+                            if ((row.DataBoundItem as DataRowView).Row["guid"].ToString() != p.PreconditionRef) continue;
+                            if (row.Cells["arcazeValueColumn"].Value == null) break;
+                            string value = row.Cells["arcazeValueColumn"].Value.ToString();
+
+                            // if inactive ignore?
+                            if (!(bool)row.Cells["active"].Value) break;
+                        
+                            // if there hasn't been determined any value yet
+                            // we cannot compare
+                            if (value == "") break;
+
+                            tmp = new ArcazeConfigItem();
+                            tmp.ComparisonActive = true;
+                            tmp.ComparisonValue = p.PreconditionValue.Replace("$", currentValue.ToString());
+                            if (tmp.ComparisonValue != p.PreconditionValue)
+                            {
+                                var ce = new NCalc.Expression(tmp.ComparisonValue);
+                                try
+                                {
+                                    tmp.ComparisonValue = (ce.Evaluate()).ToString();
+                                }
+                                catch (Exception exc)
+                                {
+                                    //argh!
+                                }
+                            }
+
+                            tmp.ComparisonOperand = p.PreconditionOperand;
+                            tmp.ComparisonIfValue = "1";
+                            tmp.ComparisonElseValue = "0";
+                        
+                            connectorValue.type = FSUIPCOffsetType.Integer;
+                            connectorValue.Int64 = Int64.Parse(value);
+
+                            try
+                            {
+                                result = (executeComparison(connectorValue, tmp) == "1");
+                            }
+                            catch (FormatException e)
+                            {
+                                // maybe it is a text string
+                                // @todo do something in the future here
+                            }
+                            break;
+                        }
+                        break;                    
+                } // switch
+
+                if (logic)
+                {
+                    finalResult |= result;
+                }
+                else
+                {
+                    finalResult &= result;
+                }
+
+                logic = (p.PreconditionLogic == "or" ? true : false);
+            } // foreach
 
             return result;
         }

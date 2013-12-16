@@ -189,10 +189,19 @@ namespace ArcazeUSB
 
             if (reader.LocalName == "preconditions")
             {
-                // load a list
-                Precondition tmp = new Precondition();
-                tmp.ReadXml(reader);
-                Preconditions.Add(tmp);
+                bool atPosition = false;
+                // read precondition settings if present
+                if (reader.ReadToDescendant("precondition"))
+                {
+                    // load a list
+                    do
+                    {
+                        Precondition tmp = new Precondition();
+                        tmp.ReadXml(reader);
+                        Preconditions.Add(tmp);
+                        reader.ReadStartElement();
+                    } while (reader.LocalName == "precondition");
+                }
             }
         }
 
@@ -250,7 +259,14 @@ namespace ArcazeUSB
                     writer.WriteAttributeString("pinBrightness", DisplayPinBrightness.ToString());
 
                 }
-            writer.WriteEndElement();            
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("preconditions");
+            foreach (Precondition p in Preconditions)
+            {
+                p.WriteXml(writer);
+            }
+            writer.WriteEndElement();
         }
 
         public object Clone()
@@ -282,6 +298,11 @@ namespace ArcazeUSB
             clone.BcdPins                   = new List<string>(this.BcdPins);
 
             clone.DisplayTrigger            = this.DisplayTrigger;
+
+            foreach (Precondition p in Preconditions)
+            {
+                clone.Preconditions.Add(p.Clone() as Precondition);
+            }
 
             return clone;
         }

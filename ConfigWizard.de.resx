@@ -117,15 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Multipliziere mit</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="fsuipcPresetUseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>279, 47</value>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 22</value>
   </data>
-  <data name="fsuipcPresetUseButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 23</value>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 13</value>
   </data>
-  <data name="fsuipcPresetUseButton.Text" xml:space="preserve">
-    <value>OK</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Maskiere Wert mit</value>
+  </data>
+  <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
+    <value>Weitere Einstellungen</value>
   </data>
   <data name="fsuipcTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 49</value>
@@ -151,45 +164,38 @@
   <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
     <value>Basis-Einstellungen</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="fsuipcPresetUseButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 20</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Multipliziere mit</value>
+  <data name="fsuipcPresetUseButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 23</value>
   </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 13</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Maskiere Wert mit</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
-    <value>Weitere Einstellungen</value>
-  </data>
-  <data name="fsuipcHintTextBox.Text" xml:space="preserve">
-    <value>Geben Sie die notwendigen FSUIPC-Informationen an. Verwenden Sie ein vorhandenes "Preset" für geläufige Werte.</value>
+  <data name="fsuipcPresetUseButton.Text" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="labelFsuipcPreset.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="labelFsuipcPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 51</value>
+    <value>-3, 21</value>
   </data>
   <data name="labelFsuipcPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 13</value>
+    <value>113, 21</value>
   </data>
   <data name="labelFsuipcPreset.Text" xml:space="preserve">
     <value>Verwende Preset</value>
   </data>
+  <data name="fsuipcPresetComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>111, 21</value>
+  </data>
   <data name="fsuipcPresetComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>154, 21</value>
+    <value>146, 21</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
+    <value>Preset laden</value>
+  </data>
+  <data name="fsuipcHintTextBox.Text" xml:space="preserve">
+    <value>Geben Sie die notwendigen FSUIPC-Informationen an. Verwenden Sie ein vorhandenes "Preset" für geläufige Werte.</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -243,7 +249,7 @@
     <value>Vergleichs-Einstellungen</value>
   </data>
   <data name="comparisonHintTtextBox.Text" xml:space="preserve">
-    <value>Es ist of notwendig den aktuellen Wert mit einem anderen zu vergleichen (z.B. Klappenstellung) und je nach Ergebnis komplett abzuändern - z.B. Kursanzeige-Wert von 360 zu 0.
+    <value>Es ist oft notwendig den aktuellen Wert mit einem anderen zu vergleichen (z.B. Klappenstellung) und je nach Ergebnis komplett abzuändern - z.B. Kursanzeige-Wert von 360 zu 0.
 </value>
   </data>
   <data name="compareTabPage.Text" xml:space="preserve">
@@ -405,32 +411,11 @@
   <data name="textBox6.Text" xml:space="preserve">
     <value>Bitte passenden Display-Typ wählen, der für die Ausgabe verwendet werden soll.</value>
   </data>
-  <data name="preconditionConfigRefOperandLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 355</value>
   </data>
-  <data name="preconditionConfigRefOperandLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 46</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 45</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.Text" xml:space="preserve">
-    <value>Wenn aktueller Wert</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Wähle Config</value>
-  </data>
-  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 143</value>
+  <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 24</value>
   </data>
   <data name="preconditionPinValueLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -459,23 +444,32 @@
   <data name="preconditionPinSerialLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 143</value>
+  <data name="preconditionConfigRefOperandLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="preconditionSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 96</value>
+  <data name="preconditionConfigRefOperandLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 46</value>
   </data>
-  <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 162</value>
+  <data name="preconditionConfigRefOperandLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 45</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.Text" xml:space="preserve">
+    <value>Wenn aktueller Wert</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Wähle Config</value>
+  </data>
+  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
     <value>Einstellung für Vorbedingung</value>
-  </data>
-  <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 258</value>
-  </data>
-  <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 31</value>
   </data>
   <data name="preconditionTypeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -492,14 +486,124 @@
   <data name="preconditionTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="preconditionSelectGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 43</value>
-  </data>
   <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
     <value>Art der Vorbedingung</value>
   </data>
+  <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 149</value>
+  </data>
+  <data name="aNDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 22</value>
+  </data>
+  <data name="oRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 22</value>
+  </data>
+  <data name="preconditionTreeImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAB8
+        DAAAAk1TRnQBSQFMAgEBAgEAATABAAEwAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAXcBYQFNAeEBgQFkAUkB5wGBAWQBRgHnAYEBZAFGAecBgQFk
+        AUYB5wGBAWQBQQHnAYEBZAFBAecBgQFkAUEB5wGCAWQBQQHnAYIBZAFBAecBhQFkAUEB5wF7AWEBSQHh
+        AzoBYggAAzsBZAFNAVQBfgHhAUkBUwGKAecBRgFTAYoB5wFGAVEBigHnAUYBUQGNAecBRAFRAY0B5wFE
+        AVMBjgHnAUYBUwGOAecBRgFTAZAB5wFGAVQBkAHnAUYBVAGQAecBTQFXAYMB4QM6AWKIAAF6AWABSQHk
+        Af8B0wGJAf8B+gG8AVsB/wH7AbEBPwH/AfwBqQElAf8B/gGfAQsC/wGbAQAC/wGeAQAC/wGeAQAC/wGg
+        AQAC/wGfAQAC/wGfAQAC/wGkAQAB/wF5AWEBSAHiCAABSQFQAYEB5AGJAaEC/wFbAYQC/wFHAXUC/wEz
+        AW0C/wEhAWcC/wEXAWoC/wEdAXcC/wEkAYoC/wErAZcC/wExAaEC/wExAaMC/wExAaUC/wFIAVYBhQHi
+        iAABgQFcAUMB6gH2AcABcQH/AfABqQFIAf8B8AGfAS8B/wHwAZYBFgH/AfIBjgEAAf8B9AGOAQAB/wH3
+        AZEBAAH/AfoBlAEAAf8B/AGWAQAC/wGZAQAB/wH+AZgBAAL/AaABAAH/AYcBXwE9AeoIAAFDAUoBhwHq
+        AXABkAH9Af8BSgFvAf4B/wE1AWUC/wEjAV4C/wERAVoC/wEVAWQC/wEbAXAC/wEhAYIC/wEoAY8C/wEt
+        AZsC/wEtAZoC/wEwAaAC/wE+AVABkAHqiAABfwFcAUMB6gHyAbkBaQH/AesBogFCAf8B6gGXASgB/wHq
+        AYwBDgH/AesBhgEAAf8B7gGIAQAB/wHxAYsBAAH/AfMBjQEAAf8B9gGQAQAB/wH5AZMBAAH/Af0BlwEA
+        Av8BoAEAAf8BhgFdAT0B6ggAAUMBSgGHAeoBaQGLAf4B/wFEAWoB/gH/AS8BYAL/ARsBWAL/AQ0BVgL/
+        ARQBYwL/ARoBbgL/ASEBgQL/ASUBjQL/ASsBlgL/ASwBmAL/ASwBmgL/AT4BUAGPAeqIAAF/AVwBQwHq
+        Ae4BtAFnAf8B5gGcAT8B/wHlAZABJQH/AeQBhQEJAf8B5QF5AQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGH
+        AQAB/wHwAYoBAAH/AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AYMBXAE9AeoIAAFDAUoBhQHqAWcBiQH8
+        Af8BQAFmAv8BKwFbAv8BFQFTAv8BCwFTAv8BEgFgAv8BFwFrAv8BHgF1Av8BIQGDAv8BJAGJAv8BJgGL
+        Av8BKAGRAv8BPgFNAY8B6ogAAX0BWwFDAuoBsAFnAf8B4QGXAT8B/wHfAYsBJQH/Ad4BeQELAf8B3wFz
+        AQAB/wHhAXUBAAH/AeQBeAEAAf8B5wGBAQAB/wHqAYQBAAH/Ae0BhwEAAf8B7wGJAQAB/wH4AZIBAAH/
+        AYEBXAE9AeoIAAFDAUcBgQHqAWcBiAH7Af8BQAFkAf0B/wEpAVgC/wETAU8C/wEJAU4C/wEPAVoC/wEU
+        AWQC/wEYAWsC/wEcAXMC/wEeAXgC/wEeAXkC/wEgAYUC/wE+AUoBjAHqiAABewFVAUMB6gHmAa4BawH/
+        Ad0BlAFCAf8B2wGHASgB/wHZAXUBDwH/AdgBbQEAAf8B2wFvAQAB/wHeAXIBAAH/AeEBdQEAAf8B4wF3
+        AQAB/wHmAYABAAH/AekBgwEAAf8B8gGMAQAB/wGBAVwBPQHqCAABQwFHAYEB6gFrAYgB+AH/AUIBZAH6
+        Af8BKgFWAv8BFQFMAv8BBgFHAv8BCwFRAv8BEAFbAv8BEwFjAv8BFgFnAv8BGAFrAv8BGAFrAv8BGgFy
+        Av8BPgFKAYkB6ogAAXsBVQFDAeoB5AGtAXAB/wHaAZQBSAH/AdcBhgEvAf8B1QF0ARYB/wHTAWgBAAH/
+        AdUBaQEAAf8B2AFsAQAB/wHaAW4BAAH/Ad0BcQEAAf8B4AF0AQAB/wHjAXcBAAH/AewBhgEAAf8BfwFV
+        AT0B6ggAAUMBRwF/AeoBcAGMAfUB/wFIAWcB9QH/ATABVwH9Af8BGgFLAv8BBgFCAv8BBwFIAv8BCwFQ
+        Av8BDgFYAv8BEAFdAv8BEgFgAv8BEgFfAv8BFAFlAv8BPgFHAYcB6ogAAXsBVQFDAeoB4wGvAXkB/wHY
+        AZUBUQH/AdQBhwE5Af8B0QF1ASEB/wHPAWoBCgH/Ac8BYgEAAf8B0QFlAQAB/wHUAWgBAAH/AdcBawEA
+        Af8B2gFuAQAB/wHcAXABAAH/AeUBeQEAAf8BfwFVAT0B6ggAAUMBRwF7AeoBeQGSAfMB/wFRAWsB8AH/
+        ATkBWwH3Af8BIgFNAf4B/wEPAUMC/wEAAT4C/wEGAUYC/wEIAUsC/wELAVAC/wEMAVIC/wEMAVQC/wEN
+        AVgC/wE+AUcBhwHqiAABegFUAUQB6gHiAbMBiwH/AdYBmAFcAf8B0gGLAUUB/wHPAXgBLwH/AcwBbQEa
+        Af8BywFkAQUB/wHLAWABAAH/Ac4BYgEAAf8B0QFlAQAB/wHTAWcBAAH/AdYBagEAAf8B3wFzAQAB/wF9
+        AVUBPQHqCAABRAFFAXsB6gGLAZoB8AH/AVwBcgHsAf8BRQFiAfEB/wEvAVQB9wH/ARoBRwL/AQkBPQL/
+        AQABPAL/AQMBQAL/AQUBRAL/AQYBRgL/AQYBRgL/AQYBSwL/AT4BRAGEAeqIAAF4AVQBRQHqAeIBuwGY
+        Af8B1gGdAWoB/wHSAZABVAH/Ac4BhAE/Af8BywFzASsB/wHJAWoBGQH/AcgBYwEKAf8ByAFdAQAB/wHK
+        AV4BAAH/Ac0BYQEAAf8B0AFkAQAB/wHYAWsBAAH/AXsBVAE9AeoIAAJFAXkB6gGYAaUB7wH/AWoBgQHo
+        Af8BVAFrAesB/wE/AV0B8AH/ASsBUAH1Af8BGgFFAf0B/wEKATsC/wEAATYB/gH/AQABNwL/AQABOQL/
+        AQABOAL/AQABPQL/AT0BQwGBAeqIAAF6AVUBRwHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBZAH/Ac4BiwFR
+        Af8BywGBAT8B/wHJAXIBLgH/AcgBawEgAf8ByAFmARUB/wHIAWQBDQH/AcoBZAEHAf8BzQFmAQcB/wHV
+        AXEBDQH/AXsBUwE+AeoIAAJHAXoB6gGpAbEB7wH/AYABjAHmAf8BZAF2AecB/wFRAWgB6gH/AT8BWwHu
+        Af8BLgFQAfIB/wEgAUcB9gH/ARUBQAH6Af8BDAE6Af4B/wEHATgC/wEGATgC/wEMAUAC/wE+AUMBgQHq
+        iAABcAFUAUkB5AHvAdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBcQH/AdMBlQFfAf8BzwGLAU4B/wHO
+        AYUBQQH/Ac0BgAE3Af8BzgF3AS4B/wHPAXcBKQH/AdMBgAEpAf8B2gGJAS8B/wFwAVYBSQHjCAACSQFw
+        AeQBygHQAfUB/wGjAawB7AH/AYwBmAHrAf8BcQGKAe0B/wFfAXUB7wH/AU4BagHxAf8BQQFgAfUB/wE3
+        AVgB9wH/AS4BVAH6Af8BKQFQAfoB/wEpAVAB/AH/AS8BWgL/AUkBSgF1AeOIAAM8AWYBcAFUAUkB5AF4
+        AVUBRwHqAXcBUwFEAeoBdwFTAUMB6gF3AVIBQwHqAXcBUgFCAeoBdwFSAUAB6gF3AVEBQAHqAXcBUQE/
+        AeoBdwFRAT8B6gF3AVIBPwHqAXABVAFGAeQDOwFkCAADPAFmAkkBcAHkAkcBegHqAkQBeQHqAUMBRAF5
+        AeoCQwF6AeoBQgFDAXkB6gFAAUMBegHqAUABQwF5AeoBPwFCAXsB6gE/AUIBegHqAT8BQwF7AeoBRgFJ
+        AXQB5AM7AWT/AIUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAT/BAABgAEB
+        AYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEB
+        AYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEB
+        AYABAQQAAYABAQGAAQEEAAT/BAAL
+</value>
+  </data>
+  <data name="preconditionListTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQoAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wAQEBAAABAAEABAEICAgdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5v
+        ZGUCAAAAAgAAAAYDAAAADlByZWNvbmRpdGlvbiBJBgQAAAAABgUAAAAHS25vdGVuMAH/////CQQAAAD/
+        ////CQQAAAABAAAACQcAAAAFBwAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4
+        dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1h
+        Z2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYIAAAAB0tu
+        b3RlbjIJBAAAAAkIAAAAAP////8JBAAAAP////8JBAAAAAAAAAAL
+</value>
+  </data>
+  <data name="preconditionListTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQsAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wCWNoaWxkcmVuMQEBAQAAAQABAAQEAQgICB1TeXN0ZW0uV2luZG93cy5G
+        b3Jtcy5UcmVlTm9kZQIAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYDAAAA
+        B0tub3RlbjMGBAAAAAAJAwAAAAD/////CQQAAAD/////CQQAAAACAAAACQcAAAAJCAAAAAUHAAAAHVN5
+        c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCQAAAARUZXh0C1Rvb2xUaXBUZXh0BE5hbWUJSXNDaGVj
+        a2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUluZGV4EFNlbGVjdGVkSW1hZ2VLZXkK
+        Q2hpbGRDb3VudAEBAQAAAQABAAEICAgCAAAABgkAAAAHS25vdGVuNAkEAAAACQkAAAAA/////wkEAAAA
+        /////wkEAAAAAAAAAAUIAAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCgAAAARUZXh0C1Rv
+        b2xUaXBUZXh0BE5hbWUJSXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUlu
+        ZGV4EFNlbGVjdGVkSW1hZ2VLZXkKQ2hpbGRDb3VudAljaGlsZHJlbjABAQEAAAEAAQAEAQgICB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQIAAAACAAAABg0AAAAHS25vdGVuNQkEAAAACQ0AAAAA////
+        /wkEAAAA/////wkEAAAAAQAAAAkRAAAABREAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUK
+        AAAABFRleHQLVG9vbFRpcFRleHQETmFtZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFnZUtleRJTZWxl
+        Y3RlZEltYWdlSW5kZXgQU2VsZWN0ZWRJbWFnZUtleQpDaGlsZENvdW50CWNoaWxkcmVuMAEBAQAAAQAB
+        AAQBCAgIHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlAgAAAAIAAAAGEgAAAAdLbm90ZW42CQQA
+        AAAJEgAAAAD/////CQQAAAD/////CQQAAAABAAAACRYAAAAFFgAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jt
+        cy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CElt
+        YWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEA
+        AQABCAgIAgAAAAYXAAAAB0tub3RlbjcJBAAAAAkXAAAAAP////8JBAAAAP////8JBAAAAAAAAAAL
+</value>
+  </data>
+  <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 49</value>
+  </data>
   <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>326, 43</value>
+    <value>314, 43</value>
   </data>
   <data name="preconditionTabTextBox.Text" xml:space="preserve">
     <value>Legen Sie eine Vorbedingung für diese Konfiguration an. Nur wenn die Vorbedingung erfüllt ist, wird die Konfiguration berücksichtigt. Das ist z.B. für ein Multi-Radio sinnvoll.</value>
@@ -545,5 +649,9 @@
         DwDwAA8A8AAPAPAADwDwAA8A8AAPAPAADwDwAA8A8AAPAPAADwDwAA8A8AAPAPAADwDwAA8A8AAPAPAA
         DwDwAA8A8AAPAPAADwDwAA8A+AAfAP///wA=
 </value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Inherit</value>
   </data>
 </root>

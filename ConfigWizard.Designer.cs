@@ -33,14 +33,7 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
-            this.fsuipcPresetUseButton = new System.Windows.Forms.Button();
-            this.fsuipcBaseSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.fsuipcTypeLabel = new System.Windows.Forms.Label();
-            this.fsuipcOffsetTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.fsuipcSizeComboBox = new System.Windows.Forms.ComboBox();
-            this.fsuipcOffsetTextBox = new System.Windows.Forms.TextBox();
+            this.fsuipcSpacerPanel = new System.Windows.Forms.Panel();
             this.fsuipcMoreOptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.maskEditorButton = new System.Windows.Forms.Button();
             this.fsuipcBcdModeCheckBox = new System.Windows.Forms.CheckBox();
@@ -48,10 +41,18 @@
             this.fsuipcMultiplyTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.fsuipcMaskTextBox = new System.Windows.Forms.TextBox();
-            this.fsuipcSpacerPanel = new System.Windows.Forms.Panel();
-            this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
+            this.fsuipcBaseSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.fsuipcTypeLabel = new System.Windows.Forms.Label();
+            this.fsuipcOffsetTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.fsuipcSizeComboBox = new System.Windows.Forms.ComboBox();
+            this.fsuipcOffsetTextBox = new System.Windows.Forms.TextBox();
+            this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
+            this.fsuipcPresetUseButton = new System.Windows.Forms.Button();
             this.labelFsuipcPreset = new System.Windows.Forms.Label();
             this.fsuipcPresetComboBox = new System.Windows.Forms.ComboBox();
+            this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
@@ -136,10 +137,10 @@
             this.displayArcazeSerialComboBox = new System.Windows.Forms.ComboBox();
             this.displayTypeComboBoxLabel = new System.Windows.Forms.Label();
             this.displayTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.displayTabTextBox = new System.Windows.Forms.TextBox();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
             this.preconditionSpacerPanel = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.preconditionSettingsPanel = new System.Windows.Forms.Panel();
             this.preconditionSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.preconditionPinPanel = new System.Windows.Forms.Panel();
             this.preconditionPinValueComboBox = new System.Windows.Forms.ComboBox();
@@ -155,11 +156,23 @@
             this.preconditionConfigRefOperandLabel = new System.Windows.Forms.Label();
             this.preconditionConfigComboBox = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.preconditionApplyButton = new System.Windows.Forms.Button();
             this.preconditionSelectGroupBox = new System.Windows.Forms.GroupBox();
             this.preConditionTypeComboBox = new System.Windows.Forms.ComboBox();
             this.preconditionTypeLabel = new System.Windows.Forms.Label();
             this.preconditionListgroupBox = new System.Windows.Forms.GroupBox();
             this.preconditionListTreeView = new System.Windows.Forms.TreeView();
+            this.preconditionTreeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addPreconditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removePreconditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.logicSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aNDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preconditionTreeImageList = new System.Windows.Forms.ImageList(this.components);
             this.preconditionTabTextBox = new System.Windows.Forms.TextBox();
             this.ButtonPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -167,22 +180,13 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
-            this.preconditionTreeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addPreconditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removePreconditionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.logicSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aNDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
-            this.fsuipcBaseSettingsGroupBox.SuspendLayout();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
+            this.fsuipcBaseSettingsGroupBox.SuspendLayout();
+            this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.compareTabPage.SuspendLayout();
             this.comparisonSettingsGroupBox.SuspendLayout();
             this.comparisonSettingsPanel.SuspendLayout();
@@ -199,16 +203,16 @@
             this.testSettingsGroupBox.SuspendLayout();
             this.displayTypeGroupBox.SuspendLayout();
             this.preconditionTabPage.SuspendLayout();
-            this.preconditionSpacerPanel.SuspendLayout();
+            this.preconditionSettingsPanel.SuspendLayout();
             this.preconditionSettingsGroupBox.SuspendLayout();
             this.preconditionPinPanel.SuspendLayout();
             this.preconditionRuleConfigPanel.SuspendLayout();
             this.preconditionSelectGroupBox.SuspendLayout();
             this.preconditionListgroupBox.SuspendLayout();
+            this.preconditionTreeContextMenuStrip.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
-            this.preconditionTreeContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -230,23 +234,66 @@
             // 
             // fsuipcTabPage
             // 
-            this.fsuipcTabPage.Controls.Add(this.fsuipcPresetUseButton);
-            this.fsuipcTabPage.Controls.Add(this.fsuipcBaseSettingsGroupBox);
-            this.fsuipcTabPage.Controls.Add(this.fsuipcMoreOptionsGroupBox);
             this.fsuipcTabPage.Controls.Add(this.fsuipcSpacerPanel);
+            this.fsuipcTabPage.Controls.Add(this.fsuipcMoreOptionsGroupBox);
+            this.fsuipcTabPage.Controls.Add(this.fsuipcBaseSettingsGroupBox);
+            this.fsuipcTabPage.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.fsuipcTabPage.Controls.Add(this.fsuipcHintTextBox);
-            this.fsuipcTabPage.Controls.Add(this.labelFsuipcPreset);
-            this.fsuipcTabPage.Controls.Add(this.fsuipcPresetComboBox);
             resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Name = "fsuipcTabPage";
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
             // 
-            // fsuipcPresetUseButton
+            // fsuipcSpacerPanel
             // 
-            resources.ApplyResources(this.fsuipcPresetUseButton, "fsuipcPresetUseButton");
-            this.fsuipcPresetUseButton.Name = "fsuipcPresetUseButton";
-            this.fsuipcPresetUseButton.UseVisualStyleBackColor = true;
-            this.fsuipcPresetUseButton.Click += new System.EventHandler(this.fsuipcPresetUseButton_Click);
+            resources.ApplyResources(this.fsuipcSpacerPanel, "fsuipcSpacerPanel");
+            this.fsuipcSpacerPanel.Name = "fsuipcSpacerPanel";
+            // 
+            // fsuipcMoreOptionsGroupBox
+            // 
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.maskEditorButton);
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.fsuipcBcdModeCheckBox);
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.label4);
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.fsuipcMultiplyTextBox);
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.label3);
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.fsuipcMaskTextBox);
+            resources.ApplyResources(this.fsuipcMoreOptionsGroupBox, "fsuipcMoreOptionsGroupBox");
+            this.fsuipcMoreOptionsGroupBox.Name = "fsuipcMoreOptionsGroupBox";
+            this.fsuipcMoreOptionsGroupBox.TabStop = false;
+            // 
+            // maskEditorButton
+            // 
+            resources.ApplyResources(this.maskEditorButton, "maskEditorButton");
+            this.maskEditorButton.Name = "maskEditorButton";
+            this.maskEditorButton.UseVisualStyleBackColor = true;
+            this.maskEditorButton.Click += new System.EventHandler(this.maskEditorButton_Click);
+            // 
+            // fsuipcBcdModeCheckBox
+            // 
+            resources.ApplyResources(this.fsuipcBcdModeCheckBox, "fsuipcBcdModeCheckBox");
+            this.fsuipcBcdModeCheckBox.Name = "fsuipcBcdModeCheckBox";
+            this.fsuipcBcdModeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // fsuipcMultiplyTextBox
+            // 
+            resources.ApplyResources(this.fsuipcMultiplyTextBox, "fsuipcMultiplyTextBox");
+            this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
+            this.fsuipcMultiplyTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMultiplyTextBox_Validating);
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // fsuipcMaskTextBox
+            // 
+            resources.ApplyResources(this.fsuipcMaskTextBox, "fsuipcMaskTextBox");
+            this.fsuipcMaskTextBox.Name = "fsuipcMaskTextBox";
+            this.fsuipcMaskTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMaskTextBox_Validating);
             // 
             // fsuipcBaseSettingsGroupBox
             // 
@@ -305,67 +352,21 @@
             this.fsuipcOffsetTextBox.Name = "fsuipcOffsetTextBox";
             this.fsuipcOffsetTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcOffsetTextBox_Validating);
             // 
-            // fsuipcMoreOptionsGroupBox
+            // fsuipcLoadPresetGroupBox
             // 
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.maskEditorButton);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.fsuipcBcdModeCheckBox);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.label4);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.fsuipcMultiplyTextBox);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.label3);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.fsuipcMaskTextBox);
-            resources.ApplyResources(this.fsuipcMoreOptionsGroupBox, "fsuipcMoreOptionsGroupBox");
-            this.fsuipcMoreOptionsGroupBox.Name = "fsuipcMoreOptionsGroupBox";
-            this.fsuipcMoreOptionsGroupBox.TabStop = false;
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetUseButton);
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.labelFsuipcPreset);
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
+            this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
+            this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 
-            // maskEditorButton
+            // fsuipcPresetUseButton
             // 
-            resources.ApplyResources(this.maskEditorButton, "maskEditorButton");
-            this.maskEditorButton.Name = "maskEditorButton";
-            this.maskEditorButton.UseVisualStyleBackColor = true;
-            this.maskEditorButton.Click += new System.EventHandler(this.maskEditorButton_Click);
-            // 
-            // fsuipcBcdModeCheckBox
-            // 
-            resources.ApplyResources(this.fsuipcBcdModeCheckBox, "fsuipcBcdModeCheckBox");
-            this.fsuipcBcdModeCheckBox.Name = "fsuipcBcdModeCheckBox";
-            this.fsuipcBcdModeCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // fsuipcMultiplyTextBox
-            // 
-            resources.ApplyResources(this.fsuipcMultiplyTextBox, "fsuipcMultiplyTextBox");
-            this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
-            this.fsuipcMultiplyTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMultiplyTextBox_Validating);
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // fsuipcMaskTextBox
-            // 
-            resources.ApplyResources(this.fsuipcMaskTextBox, "fsuipcMaskTextBox");
-            this.fsuipcMaskTextBox.Name = "fsuipcMaskTextBox";
-            this.fsuipcMaskTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMaskTextBox_Validating);
-            // 
-            // fsuipcSpacerPanel
-            // 
-            resources.ApplyResources(this.fsuipcSpacerPanel, "fsuipcSpacerPanel");
-            this.fsuipcSpacerPanel.Name = "fsuipcSpacerPanel";
-            // 
-            // fsuipcHintTextBox
-            // 
-            this.fsuipcHintTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.fsuipcHintTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.fsuipcHintTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.fsuipcHintTextBox, "fsuipcHintTextBox");
-            this.fsuipcHintTextBox.Name = "fsuipcHintTextBox";
-            this.fsuipcHintTextBox.ReadOnly = true;
-            this.fsuipcHintTextBox.TabStop = false;
+            resources.ApplyResources(this.fsuipcPresetUseButton, "fsuipcPresetUseButton");
+            this.fsuipcPresetUseButton.Name = "fsuipcPresetUseButton";
+            this.fsuipcPresetUseButton.UseVisualStyleBackColor = true;
+            this.fsuipcPresetUseButton.Click += new System.EventHandler(this.fsuipcPresetUseButton_Click);
             // 
             // labelFsuipcPreset
             // 
@@ -380,10 +381,20 @@
             resources.ApplyResources(this.fsuipcPresetComboBox, "fsuipcPresetComboBox");
             this.fsuipcPresetComboBox.Name = "fsuipcPresetComboBox";
             // 
+            // fsuipcHintTextBox
+            // 
+            this.fsuipcHintTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.fsuipcHintTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.fsuipcHintTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.fsuipcHintTextBox, "fsuipcHintTextBox");
+            this.fsuipcHintTextBox.Name = "fsuipcHintTextBox";
+            this.fsuipcHintTextBox.ReadOnly = true;
+            this.fsuipcHintTextBox.TabStop = false;
+            // 
             // compareTabPage
             // 
-            this.compareTabPage.Controls.Add(this.comparisonSettingsGroupBox);
             this.compareTabPage.Controls.Add(this.compareSpacerPanel);
+            this.compareTabPage.Controls.Add(this.comparisonSettingsGroupBox);
             this.compareTabPage.Controls.Add(this.comparisonHintTtextBox);
             resources.ApplyResources(this.compareTabPage, "compareTabPage");
             this.compareTabPage.Name = "compareTabPage";
@@ -478,20 +489,20 @@
             // 
             // displayTabPage
             // 
-            this.displayTabPage.Controls.Add(this.groupBoxDisplaySettings);
             this.displayTabPage.Controls.Add(this.testSettingsGroupBox);
+            this.displayTabPage.Controls.Add(this.groupBoxDisplaySettings);
             this.displayTabPage.Controls.Add(this.displayTypeGroupBox);
-            this.displayTabPage.Controls.Add(this.textBox6);
+            this.displayTabPage.Controls.Add(this.displayTabTextBox);
             resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Name = "displayTabPage";
             this.displayTabPage.UseVisualStyleBackColor = true;
             // 
             // groupBoxDisplaySettings
             // 
+            resources.ApplyResources(this.groupBoxDisplaySettings, "groupBoxDisplaySettings");
             this.groupBoxDisplaySettings.Controls.Add(this.displayPinPanel);
             this.groupBoxDisplaySettings.Controls.Add(this.displayLedDisplayPanel);
             this.groupBoxDisplaySettings.Controls.Add(this.displayBcdPanel);
-            resources.ApplyResources(this.groupBoxDisplaySettings, "groupBoxDisplaySettings");
             this.groupBoxDisplaySettings.Name = "groupBoxDisplaySettings";
             this.groupBoxDisplaySettings.TabStop = false;
             // 
@@ -1039,21 +1050,20 @@
             this.displayTypeComboBox.Name = "displayTypeComboBox";
             this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
             // 
-            // textBox6
+            // displayTabTextBox
             // 
-            this.textBox6.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox6.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.textBox6, "textBox6");
-            this.textBox6.Name = "textBox6";
-            this.textBox6.ReadOnly = true;
-            this.textBox6.TabStop = false;
+            this.displayTabTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.displayTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.displayTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
+            this.displayTabTextBox.Name = "displayTabTextBox";
+            this.displayTabTextBox.ReadOnly = true;
+            this.displayTabTextBox.TabStop = false;
             // 
             // preconditionTabPage
             // 
             this.preconditionTabPage.Controls.Add(this.preconditionSpacerPanel);
-            this.preconditionTabPage.Controls.Add(this.preconditionSettingsGroupBox);
-            this.preconditionTabPage.Controls.Add(this.preconditionSelectGroupBox);
+            this.preconditionTabPage.Controls.Add(this.preconditionSettingsPanel);
             this.preconditionTabPage.Controls.Add(this.preconditionListgroupBox);
             this.preconditionTabPage.Controls.Add(this.preconditionTabTextBox);
             resources.ApplyResources(this.preconditionTabPage, "preconditionTabPage");
@@ -1062,15 +1072,16 @@
             // 
             // preconditionSpacerPanel
             // 
-            this.preconditionSpacerPanel.Controls.Add(this.button2);
             resources.ApplyResources(this.preconditionSpacerPanel, "preconditionSpacerPanel");
             this.preconditionSpacerPanel.Name = "preconditionSpacerPanel";
             // 
-            // button2
+            // preconditionSettingsPanel
             // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.preconditionSettingsPanel.Controls.Add(this.preconditionSettingsGroupBox);
+            this.preconditionSettingsPanel.Controls.Add(this.preconditionApplyButton);
+            this.preconditionSettingsPanel.Controls.Add(this.preconditionSelectGroupBox);
+            resources.ApplyResources(this.preconditionSettingsPanel, "preconditionSettingsPanel");
+            this.preconditionSettingsPanel.Name = "preconditionSettingsPanel";
             // 
             // preconditionSettingsGroupBox
             // 
@@ -1209,6 +1220,13 @@
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
             // 
+            // preconditionApplyButton
+            // 
+            resources.ApplyResources(this.preconditionApplyButton, "preconditionApplyButton");
+            this.preconditionApplyButton.Name = "preconditionApplyButton";
+            this.preconditionApplyButton.UseVisualStyleBackColor = true;
+            this.preconditionApplyButton.Click += new System.EventHandler(this.preconditionApplyButton_Click);
+            // 
             // preconditionSelectGroupBox
             // 
             this.preconditionSelectGroupBox.Controls.Add(this.preConditionTypeComboBox);
@@ -1243,13 +1261,87 @@
             // 
             // preconditionListTreeView
             // 
+            this.preconditionListTreeView.CheckBoxes = true;
             this.preconditionListTreeView.ContextMenuStrip = this.preconditionTreeContextMenuStrip;
             resources.ApplyResources(this.preconditionListTreeView, "preconditionListTreeView");
+            this.preconditionListTreeView.ImageList = this.preconditionTreeImageList;
             this.preconditionListTreeView.Name = "preconditionListTreeView";
             this.preconditionListTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes"))),
             ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes1")))});
             this.preconditionListTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.preconditionListTreeView_NodeMouseClick);
+            // 
+            // preconditionTreeContextMenuStrip
+            // 
+            this.preconditionTreeContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addPreconditionToolStripMenuItem,
+            this.removePreconditionToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.addGroupToolStripMenuItem,
+            this.removeGroupToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.logicSelectToolStripMenuItem});
+            this.preconditionTreeContextMenuStrip.Name = "preconditionTreeContextMenuStrip";
+            resources.ApplyResources(this.preconditionTreeContextMenuStrip, "preconditionTreeContextMenuStrip");
+            // 
+            // addPreconditionToolStripMenuItem
+            // 
+            this.addPreconditionToolStripMenuItem.Name = "addPreconditionToolStripMenuItem";
+            resources.ApplyResources(this.addPreconditionToolStripMenuItem, "addPreconditionToolStripMenuItem");
+            this.addPreconditionToolStripMenuItem.Click += new System.EventHandler(this.addPreconditionToolStripMenuItem_Click);
+            // 
+            // removePreconditionToolStripMenuItem
+            // 
+            this.removePreconditionToolStripMenuItem.Name = "removePreconditionToolStripMenuItem";
+            resources.ApplyResources(this.removePreconditionToolStripMenuItem, "removePreconditionToolStripMenuItem");
+            this.removePreconditionToolStripMenuItem.Click += new System.EventHandler(this.removePreconditionToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            // 
+            // addGroupToolStripMenuItem
+            // 
+            this.addGroupToolStripMenuItem.Name = "addGroupToolStripMenuItem";
+            resources.ApplyResources(this.addGroupToolStripMenuItem, "addGroupToolStripMenuItem");
+            // 
+            // removeGroupToolStripMenuItem
+            // 
+            this.removeGroupToolStripMenuItem.Name = "removeGroupToolStripMenuItem";
+            resources.ApplyResources(this.removeGroupToolStripMenuItem, "removeGroupToolStripMenuItem");
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
+            // logicSelectToolStripMenuItem
+            // 
+            this.logicSelectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aNDToolStripMenuItem,
+            this.oRToolStripMenuItem});
+            this.logicSelectToolStripMenuItem.Name = "logicSelectToolStripMenuItem";
+            resources.ApplyResources(this.logicSelectToolStripMenuItem, "logicSelectToolStripMenuItem");
+            // 
+            // aNDToolStripMenuItem
+            // 
+            this.aNDToolStripMenuItem.Name = "aNDToolStripMenuItem";
+            resources.ApplyResources(this.aNDToolStripMenuItem, "aNDToolStripMenuItem");
+            this.aNDToolStripMenuItem.Click += new System.EventHandler(this.andOrToolStripMenuItem_Click);
+            // 
+            // oRToolStripMenuItem
+            // 
+            this.oRToolStripMenuItem.Name = "oRToolStripMenuItem";
+            resources.ApplyResources(this.oRToolStripMenuItem, "oRToolStripMenuItem");
+            this.oRToolStripMenuItem.Click += new System.EventHandler(this.andOrToolStripMenuItem_Click);
+            // 
+            // preconditionTreeImageList
+            // 
+            this.preconditionTreeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("preconditionTreeImageList.ImageStream")));
+            this.preconditionTreeImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.preconditionTreeImageList.Images.SetKeyName(0, "media_stop.png");
+            this.preconditionTreeImageList.Images.SetKeyName(1, "media_stop_red.png");
             // 
             // preconditionTabTextBox
             // 
@@ -1299,67 +1391,6 @@
             // 
             this.description.ColumnName = "description";
             // 
-            // preconditionTreeContextMenuStrip
-            // 
-            this.preconditionTreeContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addPreconditionToolStripMenuItem,
-            this.removePreconditionToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.addGroupToolStripMenuItem,
-            this.removeGroupToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.logicSelectToolStripMenuItem});
-            this.preconditionTreeContextMenuStrip.Name = "preconditionTreeContextMenuStrip";
-            resources.ApplyResources(this.preconditionTreeContextMenuStrip, "preconditionTreeContextMenuStrip");
-            // 
-            // addPreconditionToolStripMenuItem
-            // 
-            this.addPreconditionToolStripMenuItem.Name = "addPreconditionToolStripMenuItem";
-            resources.ApplyResources(this.addPreconditionToolStripMenuItem, "addPreconditionToolStripMenuItem");
-            // 
-            // removePreconditionToolStripMenuItem
-            // 
-            this.removePreconditionToolStripMenuItem.Name = "removePreconditionToolStripMenuItem";
-            resources.ApplyResources(this.removePreconditionToolStripMenuItem, "removePreconditionToolStripMenuItem");
-            // 
-            // addGroupToolStripMenuItem
-            // 
-            this.addGroupToolStripMenuItem.Name = "addGroupToolStripMenuItem";
-            resources.ApplyResources(this.addGroupToolStripMenuItem, "addGroupToolStripMenuItem");
-            // 
-            // removeGroupToolStripMenuItem
-            // 
-            this.removeGroupToolStripMenuItem.Name = "removeGroupToolStripMenuItem";
-            resources.ApplyResources(this.removeGroupToolStripMenuItem, "removeGroupToolStripMenuItem");
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
-            // 
-            // logicSelectToolStripMenuItem
-            // 
-            this.logicSelectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aNDToolStripMenuItem,
-            this.oRToolStripMenuItem});
-            this.logicSelectToolStripMenuItem.Name = "logicSelectToolStripMenuItem";
-            resources.ApplyResources(this.logicSelectToolStripMenuItem, "logicSelectToolStripMenuItem");
-            // 
-            // aNDToolStripMenuItem
-            // 
-            this.aNDToolStripMenuItem.Name = "aNDToolStripMenuItem";
-            resources.ApplyResources(this.aNDToolStripMenuItem, "aNDToolStripMenuItem");
-            // 
-            // oRToolStripMenuItem
-            // 
-            this.oRToolStripMenuItem.Name = "oRToolStripMenuItem";
-            resources.ApplyResources(this.oRToolStripMenuItem, "oRToolStripMenuItem");
-            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
@@ -1381,10 +1412,12 @@
             this.tabControlFsuipc.ResumeLayout(false);
             this.fsuipcTabPage.ResumeLayout(false);
             this.fsuipcTabPage.PerformLayout();
-            this.fsuipcBaseSettingsGroupBox.ResumeLayout(false);
-            this.fsuipcBaseSettingsGroupBox.PerformLayout();
             this.fsuipcMoreOptionsGroupBox.ResumeLayout(false);
             this.fsuipcMoreOptionsGroupBox.PerformLayout();
+            this.fsuipcBaseSettingsGroupBox.ResumeLayout(false);
+            this.fsuipcBaseSettingsGroupBox.PerformLayout();
+            this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
+            this.fsuipcLoadPresetGroupBox.PerformLayout();
             this.compareTabPage.ResumeLayout(false);
             this.compareTabPage.PerformLayout();
             this.comparisonSettingsGroupBox.ResumeLayout(false);
@@ -1414,7 +1447,7 @@
             this.displayTypeGroupBox.PerformLayout();
             this.preconditionTabPage.ResumeLayout(false);
             this.preconditionTabPage.PerformLayout();
-            this.preconditionSpacerPanel.ResumeLayout(false);
+            this.preconditionSettingsPanel.ResumeLayout(false);
             this.preconditionSettingsGroupBox.ResumeLayout(false);
             this.preconditionPinPanel.ResumeLayout(false);
             this.preconditionPinPanel.PerformLayout();
@@ -1423,10 +1456,10 @@
             this.preconditionSelectGroupBox.ResumeLayout(false);
             this.preconditionSelectGroupBox.PerformLayout();
             this.preconditionListgroupBox.ResumeLayout(false);
+            this.preconditionTreeContextMenuStrip.ResumeLayout(false);
             this.ButtonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
-            this.preconditionTreeContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1439,14 +1472,12 @@
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.TabControl tabControlFsuipc;
         private System.Windows.Forms.TabPage fsuipcTabPage;
-        private System.Windows.Forms.Label labelFsuipcPreset;
-        private System.Windows.Forms.ComboBox fsuipcPresetComboBox;
         private System.Windows.Forms.TabPage compareTabPage;
         private System.Windows.Forms.GroupBox comparisonSettingsGroupBox;
         private System.Windows.Forms.CheckBox comparisonActiveCheckBox;
         private System.Windows.Forms.TextBox comparisonHintTtextBox;
         private System.Windows.Forms.TabPage displayTabPage;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox displayTabTextBox;
         private System.Windows.Forms.GroupBox groupBoxDisplaySettings;
         private System.Windows.Forms.Panel displayPinPanel;
         private System.Windows.Forms.ComboBox displayPortComboBox;
@@ -1475,7 +1506,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comparisonOperandComboBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button fsuipcPresetUseButton;
         private System.Windows.Forms.Label displayLedDisplayLabel7;
         private System.Windows.Forms.Label displayLedDisplayLabel6;
         private System.Windows.Forms.Label displayLedDisplayLabel5;
@@ -1568,7 +1598,7 @@
         private System.Windows.Forms.Button maskEditorButton;
         private System.Windows.Forms.Label fsuipcTypeLabel;
         private System.Windows.Forms.ComboBox fsuipcOffsetTypeComboBox;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button preconditionApplyButton;
         private System.Windows.Forms.GroupBox preconditionListgroupBox;
         private System.Windows.Forms.TreeView preconditionListTreeView;
         private System.Windows.Forms.ContextMenuStrip preconditionTreeContextMenuStrip;
@@ -1581,5 +1611,11 @@
         private System.Windows.Forms.ToolStripMenuItem logicSelectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aNDToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oRToolStripMenuItem;
+        private System.Windows.Forms.ImageList preconditionTreeImageList;
+        private System.Windows.Forms.Panel preconditionSettingsPanel;
+        private System.Windows.Forms.GroupBox fsuipcLoadPresetGroupBox;
+        private System.Windows.Forms.Button fsuipcPresetUseButton;
+        private System.Windows.Forms.Label labelFsuipcPreset;
+        private System.Windows.Forms.ComboBox fsuipcPresetComboBox;
     }
 }

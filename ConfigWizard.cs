@@ -11,6 +11,8 @@ namespace ArcazeUSB
 {
     public partial class ConfigWizard : Form
     {
+        public event EventHandler PreconditionTreeNodeChanged;
+
         class ListItem {        
             public String Value { get; set; }
             public String Label { get; set; }
@@ -24,6 +26,7 @@ namespace ArcazeUSB
         ArcazeConfigItem config = null;
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, ushort> arcazeFirmware = new Dictionary<String, ushort>();
+        DataSet _dataSetConfig = null;
 
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
         
@@ -108,6 +111,8 @@ namespace ArcazeUSB
             preconditionPinValueComboBox.ValueMember = "Value";
             preconditionPinValueComboBox.SelectedIndex = 0;
 
+            preconditionSettingsPanel.Enabled = false;
+            preconditionApplyButton.Visible = false;
         }
 
         private void _loadPresets()
@@ -161,6 +166,7 @@ namespace ArcazeUSB
 
         private void preparePreconditionPanel(DataSet dataSetConfig, String filterGuid)
         {
+            _dataSetConfig = dataSetConfig;
             DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid +"'");         
    
             // this filters the current config
@@ -243,7 +249,11 @@ namespace ArcazeUSB
             fsuipcOffsetTextBox.Text = "0x" + config.FSUIPCOffset.ToString("X4");
             
             // preselect fsuipc offset type
-            if (!_setSelectedItem(fsuipcOffsetTypeComboBox, config.FSUIPCOffsetType.ToString()))
+            try
+            {
+                fsuipcOffsetTypeComboBox.SelectedValue = config.FSUIPCOffsetType.ToString();
+            }
+            catch (Exception exc)
             {
                 // TODO: provide error message
             }
@@ -354,49 +364,29 @@ namespace ArcazeUSB
                 TreeNode tmpNode = new TreeNode();
                 tmpNode.Text = p.ToString();
                 tmpNode.Tag = p;
-                preconditionListTreeView.Nodes.Add(tmpNode);                
+                tmpNode.Checked = p.PreconditionActive;
+                _updateNodeWithPrecondition(tmpNode, p);
+                preconditionListTreeView.Nodes.Add(tmpNode);   
             }
 
-            /*
-
-            try
+            if (preconditionListTreeView.Nodes.Count == 0)
             {
-                preConditionTypeComboBox.SelectedValue = config.PreconditionType;
+                _addEmptyNodeToTreeView();
             }
-            catch (Exception e)
-            {
-                throw new ArgumentException(MainForm._tr("uiMessageConfigWizard_UnknownPreconditionType"));
-            }
-            
-            switch (config.PreconditionType)
-            {
-                case "config":
-                    try
-                    {
-                        preconditionConfigComboBox.SelectedValue = config.PreconditionRef;
-                    }
-                    catch (Exception e)
-                    {
-                        // precondition could not be loaded
-                    }
-
-                    _setSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);
-                    preconditionRefValueTextBox.Text = config.PreconditionValue;
-                    break;
-                
-                case "pin":
-                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
-                    preconditionPortComboBox.SelectedIndex = io.Port;
-                    preconditionPinComboBox.SelectedIndex = io.Pin;
-                    _setSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial );
-                    preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;                                            
-                    break;
-            }        
-             * 
-             * */
-            
 
             return true;
+        }
+
+        private void _addEmptyNodeToTreeView()
+        {
+            TreeNode tmpNode = new TreeNode();
+            Precondition p = new Precondition();
+
+            tmpNode.Text = p.ToString();
+            tmpNode.Tag = p;
+            tmpNode.Checked = p.PreconditionActive;
+            _updateNodeWithPrecondition(tmpNode, p);
+            preconditionListTreeView.Nodes.Add(tmpNode);
         }
 
         protected bool _setSelectedItem (ComboBox comboBox, string value) {
@@ -479,24 +469,7 @@ namespace ArcazeUSB
                     displayBcdStrobePortComboBox.Text +
                     (displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox).Text);
             }
-            /*
-            config.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
-            switch (config.PreconditionType)
-            {
-                case "config":
-                    config.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
-                    config.PreconditionOperand = preconditionRefOperandComboBox.Text;
-                    config.PreconditionValue = preconditionRefValueTextBox.Text;
-                    break;
-                
-                case "pin":                    
-                    config.PreconditionSerial = preconditionPinSerialComboBox.Text;
-                    config.PreconditionValue = preconditionPinValueComboBox.SelectedValue.ToString();
-                    config.PreconditionPin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
-                    break;                    
-            }
-             * */
-
+            
             return true;
         }
 
@@ -677,6 +650,7 @@ namespace ArcazeUSB
         {
             ComboBox cb = (sender as ComboBox);
             if (!cb.Parent.Visible) return;
+            if (null == cb.SelectedItem) return;
             if (cb.SelectedItem.ToString() == "-----")
             {
                 e.Cancel = true;
@@ -950,15 +924,20 @@ namespace ArcazeUSB
 
         private void preconditionListTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            preconditionListTreeView.SelectedNode = e.Node;
             if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
 
             Precondition config = (e.Node.Tag as Precondition);
+            preConditionTypeComboBox.SelectedValue = config.PreconditionType;
+            preconditionSettingsPanel.Enabled = true;
+            preconditionApplyButton.Visible = true;
+            config.PreconditionActive = e.Node.Checked;
+
             switch (config.PreconditionType)
             {
                 case "config":
                     try
-                    {
-                        preConditionTypeComboBox.SelectedValue = config.PreconditionType;
+                    {                        
                         preconditionConfigComboBox.SelectedValue = config.PreconditionRef;
                     }
                     catch (Exception exc)
@@ -972,13 +951,93 @@ namespace ArcazeUSB
 
                 case "pin":
                     ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
-                    preConditionTypeComboBox.SelectedValue = config.PreconditionType;
                     preconditionPortComboBox.SelectedIndex = io.Port;
                     preconditionPinComboBox.SelectedIndex = io.Pin;
                     _setSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
                     preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;
                     break;
             }  
-        }        
+        }
+
+        private void preconditionApplyButton_Click(object sender, EventArgs e)
+        {
+            // sync the selected node with the current settings from the panels
+            TreeNode selectedNode = preconditionListTreeView.SelectedNode;
+            Precondition config = selectedNode.Tag as Precondition;
+            
+            config.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
+            switch (config.PreconditionType)
+            {
+                case "config":
+                    config.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
+                    config.PreconditionOperand = preconditionRefOperandComboBox.Text;
+                    config.PreconditionValue = preconditionRefValueTextBox.Text;
+                    config.PreconditionActive = true;
+                    break;
+                
+                case "pin":                    
+                    config.PreconditionSerial = preconditionPinSerialComboBox.Text;
+                    config.PreconditionValue = preconditionPinValueComboBox.SelectedValue.ToString();
+                    config.PreconditionPin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
+                    config.PreconditionActive = true;
+                    break;                    
+            }
+            _updateNodeWithPrecondition(selectedNode, config);
+
+        }    
+    
+        private void _updateNodeWithPrecondition (TreeNode node, Precondition p) 
+        {
+            String label = p.PreconditionLabel;
+            if (p.PreconditionType == "config")
+            {
+                String replaceString = "[unknown]";
+                if (_dataSetConfig != null)
+                {
+                    DataRow[] rows = _dataSetConfig.Tables["config"].Select("guid = '" + p.PreconditionRef + "'");
+                    replaceString = rows[0]["description"] as String;
+                }
+                label = label.Replace("<Ref:" + p.PreconditionRef  + ">", replaceString);
+            }
+            else if (p.PreconditionType == "pin")
+            {
+                label = label.Replace("<Serial:" + p.PreconditionSerial + ">", p.PreconditionSerial.Split('/')[0]);
+            }
+            
+            label = label.Replace("<Logic:and>", " (AND)").Replace("<Logic:or>", " (OR)");
+            node.Checked = p.PreconditionActive;
+            node.Tag = p;
+            node.Text = label;
+        }
+
+        private void addPreconditionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Precondition p = new Precondition();
+            TreeNode n = new TreeNode();
+            n.Tag = p;
+            config.Preconditions.Add(p);
+            preconditionListTreeView.Nodes.Add(n);
+            _updateNodeWithPrecondition(n, p);
+        }
+
+        private void andOrToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode selectedNode = preconditionListTreeView.SelectedNode;
+            Precondition p = selectedNode.Tag as Precondition;
+            if ((sender as ToolStripMenuItem).Text == "AND")
+                p.PreconditionLogic = "and";
+            else
+                p.PreconditionLogic = "or";
+
+            _updateNodeWithPrecondition(selectedNode, p);            
+        }
+
+        private void removePreconditionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode selectedNode = preconditionListTreeView.SelectedNode;
+            Precondition p = selectedNode.Tag as Precondition;
+            config.Preconditions.Remove(p);
+            preconditionListTreeView.Nodes.Remove(selectedNode);
+        }
     }
 }
