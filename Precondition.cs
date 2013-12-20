@@ -117,7 +117,7 @@ namespace ArcazeUSB
             return clone;
         }
 
-        public string ToString()
+        override public string ToString()
         {
             return this.PreconditionLabel;
         }

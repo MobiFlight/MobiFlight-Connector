@@ -384,8 +384,9 @@ namespace ArcazeUSB
 
             tmpNode.Text = p.ToString();
             tmpNode.Tag = p;
-            tmpNode.Checked = p.PreconditionActive;
+            tmpNode.Checked = p.PreconditionActive;            
             _updateNodeWithPrecondition(tmpNode, p);
+            config.Preconditions.Add(p);
             preconditionListTreeView.Nodes.Add(tmpNode);
         }
 
@@ -963,27 +964,27 @@ namespace ArcazeUSB
         {
             // sync the selected node with the current settings from the panels
             TreeNode selectedNode = preconditionListTreeView.SelectedNode;
-            Precondition config = selectedNode.Tag as Precondition;
+            Precondition c = selectedNode.Tag as Precondition;
             
-            config.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
-            switch (config.PreconditionType)
+            c.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
+            switch (c.PreconditionType)
             {
                 case "config":
-                    config.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
-                    config.PreconditionOperand = preconditionRefOperandComboBox.Text;
-                    config.PreconditionValue = preconditionRefValueTextBox.Text;
-                    config.PreconditionActive = true;
+                    c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
+                    c.PreconditionOperand = preconditionRefOperandComboBox.Text;
+                    c.PreconditionValue = preconditionRefValueTextBox.Text;
+                    c.PreconditionActive = true;
                     break;
                 
                 case "pin":                    
-                    config.PreconditionSerial = preconditionPinSerialComboBox.Text;
-                    config.PreconditionValue = preconditionPinValueComboBox.SelectedValue.ToString();
-                    config.PreconditionPin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
-                    config.PreconditionActive = true;
+                    c.PreconditionSerial = preconditionPinSerialComboBox.Text;
+                    c.PreconditionValue = preconditionPinValueComboBox.SelectedValue.ToString();
+                    c.PreconditionPin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
+                    c.PreconditionActive = true;
                     break;                    
             }
-            _updateNodeWithPrecondition(selectedNode, config);
 
+            _updateNodeWithPrecondition(selectedNode, c);
         }    
     
         private void _updateNodeWithPrecondition (TreeNode node, Precondition p) 
@@ -1008,6 +1009,8 @@ namespace ArcazeUSB
             node.Checked = p.PreconditionActive;
             node.Tag = p;
             node.Text = label;
+            aNDToolStripMenuItem.Checked = p.PreconditionLogic == "and";
+            oRToolStripMenuItem.Checked = p.PreconditionLogic == "or";
         }
 
         private void addPreconditionToolStripMenuItem_Click(object sender, EventArgs e)

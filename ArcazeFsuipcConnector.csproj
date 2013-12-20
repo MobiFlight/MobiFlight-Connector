@@ -192,6 +192,9 @@
     <EmbeddedResource Include="BytePanel.resx">
       <DependentUpon>BytePanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfigWizard.de-DE.resx">
+      <DependentUpon>ConfigWizard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigWizard.de.resx">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </EmbeddedResource>

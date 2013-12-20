@@ -78,8 +78,8 @@ namespace ArcazeUSB
 
         }
 
-        public static String Version = "3.9";
-        public static String Build = "20131216";
+        public static String Version = "3.9.1";
+        public static String Build = "20131220";
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -897,7 +897,12 @@ namespace ArcazeUSB
                             tmp.ComparisonElseValue = "0";
                         
                             connectorValue.type = FSUIPCOffsetType.Integer;
-                            connectorValue.Int64 = Int64.Parse(value);
+                            if (! Int64.TryParse (value, out connectorValue.Int64))
+                            {
+                                // likely to be a string
+                                connectorValue.type = FSUIPCOffsetType.String;
+                                connectorValue.String = value;
+                            }                            
 
                             try
                             {
