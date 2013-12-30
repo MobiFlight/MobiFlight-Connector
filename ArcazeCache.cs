@@ -63,7 +63,6 @@ namespace ArcazeUSB
             this.arcazeSettings = arcazeSettings;            
         }
 
-
         /// <summary>
         /// indicates the status of the fsuipc connection
         /// </summary>

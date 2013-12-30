@@ -52,6 +52,8 @@ namespace ArcazeUSB
             PreconditionType = reader["type"];
             if (null != reader.GetAttribute("active"))
                 PreconditionActive = bool.Parse(reader["active"]);
+            else if (PreconditionType != "none")
+                PreconditionActive = true;
 
             if (null != reader.GetAttribute("label"))
                 PreconditionLabel = reader["label"];

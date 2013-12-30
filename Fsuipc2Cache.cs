@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using FSUIPC;
 
 namespace ArcazeUSB
@@ -30,15 +31,59 @@ namespace ArcazeUSB
         bool _offsetsRegistered = false;
         bool _connected = false;
         bool __isProcessed = false;
+        public bool OfflineMode { get; set; }
+
+        public Fsuipc2Cache()
+        {
+            OfflineMode= false;
+        }
 
         public void Clear()
         {
             __isProcessed = false;            
         }
 
+        public bool IsAvailable()
+        {
+            string proc = "fs9";
+            // check for fs2004 / fs9
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                return true;
+            }
+            proc = "fsx";
+            // check for fsx
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                return true;
+            }
+            // check for prepar3d
+            proc = "prepar3d";
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                return true;
+            }
+            // check for x-plane and xuipc
+            proc = "x-plane";
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                return true;
+            }
+
+            proc = "x-plane-32bit";
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                return true;
+            }
+
+            if (OfflineMode) return true;
+
+            return false;
+        }
+
         public bool isConnected()
         {
-            return _connected;
+            return _connected || OfflineMode;
         }
 
         public bool connect()
@@ -46,7 +91,7 @@ namespace ArcazeUSB
             try { 
                 // Attempt to open a connection to FSUIPC 
                 // (running on any version of Flight Sim)                 
-                FSUIPCConnection.Open();
+                if (!OfflineMode) FSUIPCConnection.Open();
                 _connected = true;
                 this.Connected(this, new EventArgs());     
                 // Opened OK 
@@ -71,7 +116,7 @@ namespace ArcazeUSB
         {
             try
             {
-                FSUIPCConnection.Close();
+                if (!OfflineMode) FSUIPCConnection.Close();
                 _connected = false;
                 this.Closed(this, new EventArgs());     
             }
@@ -102,6 +147,8 @@ namespace ArcazeUSB
         public long getValue(int offset, byte size)
         {
             long result = 0;
+            if (OfflineMode) return result;
+
             _process();
 
             switch (size)
@@ -249,6 +296,8 @@ namespace ArcazeUSB
         public long getLongValue(int offset, byte size)
         {
             long result = 0;
+            if (OfflineMode) return result;
+
             _process();
 
             if (!__cacheLong.ContainsKey(offset))
@@ -273,6 +322,7 @@ namespace ArcazeUSB
         public double getFloatValue(int offset, byte size)
         {
             double result = 0.0;
+            if (OfflineMode) return result;
 
             _process();
             if (!__cacheFloat.ContainsKey(offset))
@@ -297,6 +347,7 @@ namespace ArcazeUSB
         public double getDoubleValue(int offset, byte size)
         {
             double result = 0.0;
+            if (OfflineMode) return result;
 
             _process();
             if (!__cacheDouble.ContainsKey(offset))
@@ -321,6 +372,8 @@ namespace ArcazeUSB
         public string getStringValue(int offset, byte size)
         {
             String result = "";
+            if (OfflineMode) return result;
+
             _process();
 
             if (!__cacheString.ContainsKey(offset))
@@ -341,6 +394,39 @@ namespace ArcazeUSB
 
             return result;
             //_process();            
+        }
+
+        public void setOffset(int offset, byte value)
+        {
+            if (!__cacheByte.ContainsKey(offset))
+            {
+                __cacheByte[offset] = new Offset<Byte>(offset);
+                _offsetsRegistered = true;
+            }
+
+            __cacheByte[offset].Value = value;
+        }
+
+        public void setOffset(int offset, short value)
+        {
+            if (!__cacheShort.ContainsKey(offset))
+            {
+                __cacheShort[offset] = new Offset<Int16>(offset);
+                _offsetsRegistered = true;
+            }
+
+            __cacheShort[offset].Value = value;
+        }
+
+        public void setOffset(int offset, int value)
+        {
+            if (!__cacheInt.ContainsKey(offset))
+            {
+                __cacheInt[offset] = new Offset<Int32>(offset);
+                _offsetsRegistered = true;
+            }
+
+            __cacheInt[offset].Value = value;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace ArcazeUSB
     public partial class SettingsDialog : Form
     {
         List <ArcazeModuleSettings> moduleSettings;
+        ExecutionManager execManager;
         int lastSelectedIndex = -1;
 
         public SettingsDialog()
@@ -21,11 +22,12 @@ namespace ArcazeUSB
             Init();
         }
 
-        public SettingsDialog(ArcazeCache arcazeCache)
+        public SettingsDialog(ExecutionManager execManager)
         {
             Init();
 
-
+            ArcazeCache arcazeCache = execManager.getModuleCache();
+            
             // init the drop down
             arcazeSerialComboBox.Items.Clear();
             arcazeSerialComboBox.Items.Add(MainForm._tr("Please_Choose"));
@@ -85,7 +87,21 @@ namespace ArcazeUSB
                 catch (Exception e)
                 {
                 }
-            }            
+            }
+
+            loadMobiFlightSettings();
+        }
+
+        private void loadMobiFlightSettings()
+        {
+#if MOBIFLIGHT
+            MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
+
+            mfModulesTreeView.Nodes.Clear();
+            foreach (MobiFlight.MobiFlightDeviceInfo devices in mobiflightCache.getConnectedModules()) {
+
+            }
+#endif
         }
 
 

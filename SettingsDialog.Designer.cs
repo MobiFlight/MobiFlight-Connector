@@ -53,6 +53,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.recentFilesNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
+            this.mfConfiguredModulesGroupBox = new System.Windows.Forms.GroupBox();
+            this.mfSettingsPanel = new System.Windows.Forms.Panel();
+            this.mfModulesTreeView = new System.Windows.Forms.TreeView();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -61,6 +65,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.fsuipcPollIntervalTrackBar = new System.Windows.Forms.TrackBar();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.mfApplyPanel = new System.Windows.Forms.Panel();
+            this.mfApplyButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -73,67 +79,61 @@
             this.recentFilesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recentFilesNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
+            this.mobiFlightTabPage.SuspendLayout();
+            this.mfConfiguredModulesGroupBox.SuspendLayout();
+            this.mfSettingsPanel.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).BeginInit();
+            this.mfApplyPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.okButton);
             this.panel1.Controls.Add(this.cancelButton);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // okButton
             // 
             resources.ApplyResources(this.okButton, "okButton");
-            this.okButton.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.okButton.Name = "okButton";
-            this.toolTip1.SetToolTip(this.okButton, global::ArcazeUSB.ProjectMessages.conf);
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // cancelButton
             // 
             resources.ApplyResources(this.cancelButton, "cancelButton");
-            this.cancelButton.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.cancelButton.Name = "cancelButton";
-            this.toolTip1.SetToolTip(this.cancelButton, global::ArcazeUSB.ProjectMessages.conf);
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // ledDisplaysTabPage
             // 
-            resources.ApplyResources(this.ledDisplaysTabPage, "ledDisplaysTabPage");
             this.ledDisplaysTabPage.Controls.Add(this.arcazeModuleSettingsGroupBox);
             this.ledDisplaysTabPage.Controls.Add(this.arcazeModulesGroupBox);
-            this.ledDisplaysTabPage.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            resources.ApplyResources(this.ledDisplaysTabPage, "ledDisplaysTabPage");
             this.ledDisplaysTabPage.Name = "ledDisplaysTabPage";
-            this.toolTip1.SetToolTip(this.ledDisplaysTabPage, global::ArcazeUSB.ProjectMessages.conf);
             this.ledDisplaysTabPage.UseVisualStyleBackColor = true;
             this.ledDisplaysTabPage.Validating += new System.ComponentModel.CancelEventHandler(this.ledDisplaysTabPage_Validating);
             // 
             // arcazeModuleSettingsGroupBox
             // 
-            resources.ApplyResources(this.arcazeModuleSettingsGroupBox, "arcazeModuleSettingsGroupBox");
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.numModulesLabel);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.numModulesNumericUpDown);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.arcazeModuleTypeComboBox);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.globalBrightnessLabel);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.globalBrightnessTrackBar);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.arcazeModuleTypeLabel);
+            resources.ApplyResources(this.arcazeModuleSettingsGroupBox, "arcazeModuleSettingsGroupBox");
             this.arcazeModuleSettingsGroupBox.Name = "arcazeModuleSettingsGroupBox";
             this.arcazeModuleSettingsGroupBox.TabStop = false;
-            this.toolTip1.SetToolTip(this.arcazeModuleSettingsGroupBox, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // numModulesLabel
             // 
             resources.ApplyResources(this.numModulesLabel, "numModulesLabel");
-            this.numModulesLabel.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.numModulesLabel.Name = "numModulesLabel";
-            this.toolTip1.SetToolTip(this.numModulesLabel, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // numModulesNumericUpDown
             // 
@@ -148,26 +148,23 @@
             // 
             // arcazeModuleTypeComboBox
             // 
-            resources.ApplyResources(this.arcazeModuleTypeComboBox, "arcazeModuleTypeComboBox");
             this.arcazeModuleTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.arcazeModuleTypeComboBox.FormattingEnabled = true;
             this.arcazeModuleTypeComboBox.Items.AddRange(new object[] {
             resources.GetString("arcazeModuleTypeComboBox.Items")});
+            resources.ApplyResources(this.arcazeModuleTypeComboBox, "arcazeModuleTypeComboBox");
             this.arcazeModuleTypeComboBox.Name = "arcazeModuleTypeComboBox";
-            this.toolTip1.SetToolTip(this.arcazeModuleTypeComboBox, global::ArcazeUSB.ProjectMessages.conf);
             this.arcazeModuleTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.arcazeModuleTypeComboBox_SelectedIndexChanged);
             // 
             // globalBrightnessLabel
             // 
             resources.ApplyResources(this.globalBrightnessLabel, "globalBrightnessLabel");
-            this.globalBrightnessLabel.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.globalBrightnessLabel.Name = "globalBrightnessLabel";
-            this.toolTip1.SetToolTip(this.globalBrightnessLabel, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // globalBrightnessTrackBar
             // 
-            resources.ApplyResources(this.globalBrightnessTrackBar, "globalBrightnessTrackBar");
             this.globalBrightnessTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            resources.ApplyResources(this.globalBrightnessTrackBar, "globalBrightnessTrackBar");
             this.globalBrightnessTrackBar.Maximum = 9;
             this.globalBrightnessTrackBar.Minimum = 1;
             this.globalBrightnessTrackBar.Name = "globalBrightnessTrackBar";
@@ -177,176 +174,185 @@
             // arcazeModuleTypeLabel
             // 
             resources.ApplyResources(this.arcazeModuleTypeLabel, "arcazeModuleTypeLabel");
-            this.arcazeModuleTypeLabel.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.arcazeModuleTypeLabel.Name = "arcazeModuleTypeLabel";
-            this.toolTip1.SetToolTip(this.arcazeModuleTypeLabel, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // arcazeModulesGroupBox
             // 
-            resources.ApplyResources(this.arcazeModulesGroupBox, "arcazeModulesGroupBox");
             this.arcazeModulesGroupBox.Controls.Add(this.label7);
             this.arcazeModulesGroupBox.Controls.Add(this.arcazeSerialComboBox);
+            resources.ApplyResources(this.arcazeModulesGroupBox, "arcazeModulesGroupBox");
             this.arcazeModulesGroupBox.Name = "arcazeModulesGroupBox";
             this.arcazeModulesGroupBox.TabStop = false;
-            this.toolTip1.SetToolTip(this.arcazeModulesGroupBox, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // label7
             // 
             resources.ApplyResources(this.label7, "label7");
-            this.label7.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label7.Name = "label7";
-            this.toolTip1.SetToolTip(this.label7, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // arcazeSerialComboBox
             // 
-            resources.ApplyResources(this.arcazeSerialComboBox, "arcazeSerialComboBox");
             this.arcazeSerialComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.arcazeSerialComboBox.FormattingEnabled = true;
             this.arcazeSerialComboBox.Items.AddRange(new object[] {
             resources.GetString("arcazeSerialComboBox.Items")});
+            resources.ApplyResources(this.arcazeSerialComboBox, "arcazeSerialComboBox");
             this.arcazeSerialComboBox.Name = "arcazeSerialComboBox";
-            this.toolTip1.SetToolTip(this.arcazeSerialComboBox, global::ArcazeUSB.ProjectMessages.conf);
             this.arcazeSerialComboBox.SelectedIndexChanged += new System.EventHandler(this.arcazeSerialComboBox_SelectedIndexChanged);
             // 
             // generalTabPage
             // 
-            resources.ApplyResources(this.generalTabPage, "generalTabPage");
             this.generalTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.generalTabPage.Controls.Add(this.testModeSpeedGroupBox);
             this.generalTabPage.Controls.Add(this.recentFilesGroupBox);
-            this.generalTabPage.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            resources.ApplyResources(this.generalTabPage, "generalTabPage");
             this.generalTabPage.Name = "generalTabPage";
-            this.toolTip1.SetToolTip(this.generalTabPage, global::ArcazeUSB.ProjectMessages.conf);
-            this.generalTabPage.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // testModeSpeedGroupBox
             // 
-            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Controls.Add(this.label8);
             this.testModeSpeedGroupBox.Controls.Add(this.label6);
             this.testModeSpeedGroupBox.Controls.Add(this.testModeSpeedTrackBar);
+            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Name = "testModeSpeedGroupBox";
             this.testModeSpeedGroupBox.TabStop = false;
-            this.toolTip1.SetToolTip(this.testModeSpeedGroupBox, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // label8
             // 
             resources.ApplyResources(this.label8, "label8");
-            this.label8.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label8.Name = "label8";
-            this.toolTip1.SetToolTip(this.label8, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
-            this.label6.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label6.Name = "label6";
-            this.toolTip1.SetToolTip(this.label6, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // testModeSpeedTrackBar
             // 
             resources.ApplyResources(this.testModeSpeedTrackBar, "testModeSpeedTrackBar");
             this.testModeSpeedTrackBar.Maximum = 4;
             this.testModeSpeedTrackBar.Name = "testModeSpeedTrackBar";
-            this.toolTip1.SetToolTip(this.testModeSpeedTrackBar, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // recentFilesGroupBox
             // 
-            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
             this.recentFilesGroupBox.Controls.Add(this.label1);
             this.recentFilesGroupBox.Controls.Add(this.recentFilesNumericUpDown);
+            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
             this.recentFilesGroupBox.Name = "recentFilesGroupBox";
             this.recentFilesGroupBox.TabStop = false;
-            this.toolTip1.SetToolTip(this.recentFilesGroupBox, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
             this.label1.AutoEllipsis = true;
-            this.label1.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.toolTip1.SetToolTip(this.label1, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // recentFilesNumericUpDown
             // 
             resources.ApplyResources(this.recentFilesNumericUpDown, "recentFilesNumericUpDown");
             this.recentFilesNumericUpDown.Name = "recentFilesNumericUpDown";
-            this.toolTip1.SetToolTip(this.recentFilesNumericUpDown, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // tabControl1
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.ledDisplaysTabPage);
+            this.tabControl1.Controls.Add(this.mobiFlightTabPage);
             this.tabControl1.Controls.Add(this.fsuipcTabPage);
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.toolTip1.SetToolTip(this.tabControl1, global::ArcazeUSB.ProjectMessages.conf);
+            // 
+            // mobiFlightTabPage
+            // 
+            this.mobiFlightTabPage.Controls.Add(this.mfConfiguredModulesGroupBox);
+            resources.ApplyResources(this.mobiFlightTabPage, "mobiFlightTabPage");
+            this.mobiFlightTabPage.Name = "mobiFlightTabPage";
+            this.mobiFlightTabPage.UseVisualStyleBackColor = true;
+            // 
+            // mfConfiguredModulesGroupBox
+            // 
+            this.mfConfiguredModulesGroupBox.Controls.Add(this.mfSettingsPanel);
+            this.mfConfiguredModulesGroupBox.Controls.Add(this.mfModulesTreeView);
+            resources.ApplyResources(this.mfConfiguredModulesGroupBox, "mfConfiguredModulesGroupBox");
+            this.mfConfiguredModulesGroupBox.Name = "mfConfiguredModulesGroupBox";
+            this.mfConfiguredModulesGroupBox.TabStop = false;
+            // 
+            // mfSettingsPanel
+            // 
+            this.mfSettingsPanel.Controls.Add(this.mfApplyPanel);
+            resources.ApplyResources(this.mfSettingsPanel, "mfSettingsPanel");
+            this.mfSettingsPanel.Name = "mfSettingsPanel";
+            // 
+            // mfModulesTreeView
+            // 
+            resources.ApplyResources(this.mfModulesTreeView, "mfModulesTreeView");
+            this.mfModulesTreeView.Name = "mfModulesTreeView";
+            this.mfModulesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes"))),
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes1")))});
             // 
             // fsuipcTabPage
             // 
-            resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Controls.Add(this.groupBox1);
-            this.fsuipcTabPage.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Name = "fsuipcTabPage";
-            this.toolTip1.SetToolTip(this.fsuipcTabPage, global::ArcazeUSB.ProjectMessages.conf);
-            this.fsuipcTabPage.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.fsuipcPollIntervalTrackBar);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBox1, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // label4
             // 
             resources.ApplyResources(this.label4, "label4");
-            this.label4.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label4.Name = "label4";
-            this.toolTip1.SetToolTip(this.label4, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
-            this.label3.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label3.Name = "label3";
-            this.toolTip1.SetToolTip(this.label3, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
-            this.label2.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label2.Name = "label2";
-            this.toolTip1.SetToolTip(this.label2, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
-            this.label5.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label5.Name = "label5";
-            this.toolTip1.SetToolTip(this.label5, global::ArcazeUSB.ProjectMessages.conf);
             // 
             // fsuipcPollIntervalTrackBar
             // 
-            resources.ApplyResources(this.fsuipcPollIntervalTrackBar, "fsuipcPollIntervalTrackBar");
             this.fsuipcPollIntervalTrackBar.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.fsuipcPollIntervalTrackBar, "fsuipcPollIntervalTrackBar");
             this.fsuipcPollIntervalTrackBar.LargeChange = 2;
             this.fsuipcPollIntervalTrackBar.Minimum = 2;
             this.fsuipcPollIntervalTrackBar.Name = "fsuipcPollIntervalTrackBar";
-            this.toolTip1.SetToolTip(this.fsuipcPollIntervalTrackBar, global::ArcazeUSB.ProjectMessages.conf);
             this.fsuipcPollIntervalTrackBar.Value = 10;
             // 
             // toolTip1
             // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Hint";
+            // 
+            // mfApplyPanel
+            // 
+            this.mfApplyPanel.Controls.Add(this.mfApplyButton);
+            resources.ApplyResources(this.mfApplyPanel, "mfApplyPanel");
+            this.mfApplyPanel.Name = "mfApplyPanel";
+            // 
+            // mfApplyButton
+            // 
+            resources.ApplyResources(this.mfApplyButton, "mfApplyButton");
+            this.mfApplyButton.Name = "mfApplyButton";
+            this.mfApplyButton.UseVisualStyleBackColor = true;
             // 
             // SettingsDialog
             // 
@@ -355,7 +361,6 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "SettingsDialog";
-            this.toolTip1.SetToolTip(this, global::ArcazeUSB.ProjectMessages.conf);
             this.panel1.ResumeLayout(false);
             this.ledDisplaysTabPage.ResumeLayout(false);
             this.arcazeModuleSettingsGroupBox.ResumeLayout(false);
@@ -369,12 +374,17 @@
             this.testModeSpeedGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testModeSpeedTrackBar)).EndInit();
             this.recentFilesGroupBox.ResumeLayout(false);
+            this.recentFilesGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recentFilesNumericUpDown)).EndInit();
             this.tabControl1.ResumeLayout(false);
+            this.mobiFlightTabPage.ResumeLayout(false);
+            this.mfConfiguredModulesGroupBox.ResumeLayout(false);
+            this.mfSettingsPanel.ResumeLayout(false);
             this.fsuipcTabPage.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).EndInit();
+            this.mfApplyPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -412,5 +422,11 @@
         private System.Windows.Forms.TrackBar testModeSpeedTrackBar;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TabPage mobiFlightTabPage;
+        private System.Windows.Forms.GroupBox mfConfiguredModulesGroupBox;
+        private System.Windows.Forms.Panel mfSettingsPanel;
+        private System.Windows.Forms.TreeView mfModulesTreeView;
+        private System.Windows.Forms.Panel mfApplyPanel;
+        private System.Windows.Forms.Button mfApplyButton;
     }
 }

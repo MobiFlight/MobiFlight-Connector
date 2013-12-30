@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define MOBIFLIGHT
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,97 +12,16 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using SimpleSolutions.Usb;
+#if MOBIFLIGHT 
+using MobiFlight;
+#endif
 
 namespace ArcazeUSB
 {
     public partial class MainForm : Form
     {
-        public class CmdLineParams
-        {
-            bool autoRun = false;
-            string configFile = null;
-
-            public bool AutoRun {
-                get { return autoRun; }
-            }
-
-            public string ConfigFile
-            {
-                get { return configFile; }
-            }
-
-            public CmdLineParams()
-            {
-                string[] args = Environment.GetCommandLineArgs();
-                autoRun     = _hasCfgParam("autoRun", args);
-                configFile = _getCfgParamValue("cfg", args, null);
-            }
-
-            /// <summary>
-            /// check whether a config param is present or not
-            /// </summary>
-            /// <param name="key"></param>
-            /// <param name="args"></param>
-            /// <returns></returns>
-            bool _hasCfgParam(string key, string[] args)
-            {
-                return ((args.Length > 1) && (Array.IndexOf(args, "/" + key) != -1));
-            }
-
-            /// <summary>
-            /// get a value for a given parameter, use default value if not present
-            /// </summary>
-            /// <param name="key"></param>
-            /// <param name="args"></param>
-            /// <param name="defValue"></param>
-            /// <returns></returns>
-            string _getCfgParamValue(string key, string[] args, string defValue)
-            {
-                string result = defValue;
-                // The first commandline argument is always the executable path itself.
-                if (args.Length > 1)
-                {
-                    int pos = -1;
-                    if ((pos = Array.IndexOf(args, "/" + key)) != -1)
-                    {
-                        try
-                        {
-                            if (args[pos + 1][0] != '/') result = args[pos + 1];
-                        }
-                        catch (Exception e)
-                        {
-                            // do nothing
-                        }
-                    }
-                } 
-                return result;
-            }
-
-        }
-
-        public static String Version = "3.9.1";
-        public static String Build = "20131220";
-
-        /// <summary>
-        /// a semaphore to prevent multiple execution of timer callback
-        /// </summary>
-        protected bool isExecuting          = false;
-        
-        /// <summary>
-        /// the timer used for polling
-        /// </summary>
-        private EventTimer timer                = new EventTimer ();
-
-        /// <summary>
-        /// the timer used for auto connect of FSUIPC and Arcaze
-        /// </summary>
-        private Timer autoConnectTimer          = new Timer ();
-
-        /// <summary>
-        /// the timer used for execution of test mode
-        /// </summary>
-        private Timer testModeTimer = new Timer();
-        int testModeIndex = 0;
+        public static String Version = "3.9.2";
+        public static String Build = "20131222";
 
         /// <summary>
         /// the currently used filename of the loaded config file
@@ -112,17 +33,11 @@ namespace ArcazeUSB
         /// </summary>
         private static ResourceManager resourceManager = null;
 
-        /// <summary>
-        /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
-        /// </summary>
-        List<Adapter> activeAdapters = new List<Adapter>();
-
-        Fsuipc2Cache fsuipcCache = new Fsuipc2Cache();
-        ArcazeCache arcazeCache = new ArcazeCache();
-
         private int lastClickedRow = -1;
 
         private CmdLineParams cmdLineParams;
+
+        private ExecutionManager execManager;
         
         /// <summary>
         /// get a localized string
@@ -141,47 +56,39 @@ namespace ArcazeUSB
             // System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
             
             InitializeComponent();
+            execManager = new ExecutionManager(dataGridViewConfig);
 
             cmdLineParams = new CmdLineParams();
 
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
 
-            timer.Interval      = Properties.Settings.Default.PollInterval;
-            timer.Tick          += new EventHandler(timer_Tick);
-            timer.Stopped       += new EventHandler(timer_Stopped);
-            timer.Started       += new EventHandler(timer_Started);
-
+            execManager.OnExecute += new EventHandler(timer_Tick);
+            execManager.OnStopped += new EventHandler(timer_Stopped);
+            execManager.OnStarted += new EventHandler(timer_Started);
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
             // because latter shall only have an temporary influence
             // on the program
             setAutoRunValue(Properties.Settings.Default.AutoRun);
 
-            runToolStripButton.Enabled = true && fsuipcCache.isConnected() && arcazeCache.isConnected();
-            runTestToolStripButton.Enabled = arcazeCache.isConnected();
+            runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected();
+            runTestToolStripButton.Enabled = execManager.ModulesConnected();
             updateNotifyContextMenu(false);
             
             arcazeSerial.Items.Clear();
             arcazeSerial.Items.Add( _tr("none") );
 
-            fsuipcCache.ConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
-            fsuipcCache.Connected += new EventHandler(fsuipcCache_Connected);
-            fsuipcCache.Connected += new EventHandler(checkAutoRun);
-            fsuipcCache.Closed += new EventHandler(fsuipcCache_Closed);
+            execManager.OnSimCacheConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
+            execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
+            execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
+            execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
 
-            arcazeCache.Connected += new EventHandler(arcazeCache_Connected);
-            arcazeCache.Closed += new EventHandler(arcazeCache_Closed);
-            arcazeCache.ConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+            execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
+            execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
+            execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
             _initializeModuleSettings();
 
-            // initialize auto connect here
-            // to be sure that the module settings are already available
-            autoConnectTimer.Interval = 1000;
-            autoConnectTimer.Tick += new EventHandler(autoConnectTimer_Tick);
-            autoConnectTimer.Start();
-
-            testModeTimer.Interval  = Properties.Settings.Default.TestTimerInterval;
-            testModeTimer.Tick += new EventHandler(testModeTimer_Tick);                        
+            execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);     
                        
             _updateRecentFilesMenuItems();
             _autoloadConfig();
@@ -204,11 +111,17 @@ namespace ArcazeUSB
             }
         }
 
+        void execManager_OnTestModeException(object sender, EventArgs e)
+        {
+            stopTestToolStripButton_Click(null, null);
+            _showError((sender as Exception).Message);
+        }
+
         void Default_SettingChanging(object sender, System.Configuration.SettingChangingEventArgs e)
         {
             if (e.SettingName == "TestTimerInterval")
             {
-                testModeTimer.Interval = (int) e.NewValue;
+                execManager.SetTestModeInterval((int)e.NewValue);
             }
         }
 
@@ -285,11 +198,16 @@ namespace ArcazeUSB
             Dictionary<string, ArcazeModuleSettings> settings = getArcazeModuleSettings();
             List<string> serials = new List<string>();
 
-            foreach (DeviceInfo arcaze in arcazeCache.getDeviceInfo())
+            // get all currently connected devices
+            // add 'em to the list
+            foreach (DeviceInfo arcaze in execManager.getModuleCache().getDeviceInfo())
             {
                 serials.Add(arcaze.Serial);
             }
 
+            // and now verify that all modules that are connected
+            // really are configured
+            // show message box if not
             if (settings.Keys.Intersect(serials).ToArray().Count() != serials.Count)
             {
                 if (MessageBox.Show(
@@ -299,7 +217,7 @@ namespace ArcazeUSB
                                 MessageBoxIcon.Exclamation,
                                 MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(arcazeCache);
+                    SettingsDialog dlg = new SettingsDialog(execManager);
                     dlg.StartPosition = FormStartPosition.CenterParent;
                     (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[1] as TabPage;
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -307,10 +225,15 @@ namespace ArcazeUSB
                         Properties.Settings.Default.Save();                        
                     }
                 }
-            }            
-            arcazeCache.updateModuleSettings(getArcazeModuleSettings());
+            }           
+ 
+            execManager.updateModuleSettings(getArcazeModuleSettings());
         }
 
+        /// <summary>
+        /// rebuilt Arcaze module settings from the stored configuration
+        /// </summary>
+        /// <returns></returns>
         protected Dictionary<string, ArcazeModuleSettings> getArcazeModuleSettings()
         {
             List<ArcazeModuleSettings> moduleSettings = new List<ArcazeModuleSettings>();
@@ -336,107 +259,9 @@ namespace ArcazeUSB
             return result;
         }
 
-        public void executeTestOff(ArcazeConfigItem cfg)
-        {
-            executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", cfg);
-        }
-
-        public void executeTestOn(ArcazeConfigItem cfg)        
-        {
-            executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "8", cfg);
-        }
-
-        /// <summary>
-        /// this is the test mode routine where we simply toggle output pins and displays to provide a way for checking if correct settings for display are used
-        /// </summary>        
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void testModeTimer_Tick(object sender, EventArgs e)
-        {
-            DataGridViewRow lastRow = dataGridViewConfig.Rows[(testModeIndex - 1 + dataGridViewConfig.RowCount) % dataGridViewConfig.RowCount];
-            
-            string serial = "";
-            string lastSerial = "";
-
-            ArcazeConfigItem cfg = new ArcazeConfigItem() ;
-            cfg.DisplaySerial = "";
-            if (lastRow.DataBoundItem != null) {
-                cfg = ((lastRow.DataBoundItem as DataRowView).Row["settings"] as ArcazeConfigItem);
-            };
-
-            if (
-                 cfg != null &&
-                (cfg.FSUIPCOffset != ArcazeConfigItem.FSUIPCOffsetNull) &&
-                ((bool)lastRow.Cells["active"].Value) &&                
-                (cfg.DisplaySerial.Contains("/"))
-            )
-            {
-                lastSerial = cfg.DisplaySerial.Split('/')[1].Trim();
-                lastRow.Selected = false;
-                try
-                {
-                    executeTestOff(cfg);
-                }
-                catch (Exception ex)
-                {
-                    stopTestToolStripButton_Click(null, null);
-                    _showError(ex.Message);                    
-                }
-            };
-
-
-            DataGridViewRow row = dataGridViewConfig.Rows[testModeIndex];
-            
-            while (
-                row.Cells["active"].Value != null && // check for null since last row is empty and value is null
-                !(bool)row.Cells["active"].Value && 
-                row != lastRow )
-            {
-                testModeIndex = ++testModeIndex % dataGridViewConfig.RowCount;
-                row = dataGridViewConfig.Rows[testModeIndex];
-            } //while
-
-
-            cfg = new ArcazeConfigItem();
-
-            // iterate over the config row by row            
-            if ( row.DataBoundItem != null && 
-                (row.DataBoundItem as DataRowView).Row["settings"] != null) // this is needed
-                                                                            // since we immediately store all changes
-                                                                            // and therefore there may be missing a 
-                                                                            // valid cfg item
-            {                
-                cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as ArcazeConfigItem);
-            }
-            
-            if ( cfg != null && // this happens sometimes when a new line is added and still hasn't been configured
-                (dataGridViewConfig.RowCount > 1 && row != lastRow) && 
-                 cfg.FSUIPCOffset != ArcazeConfigItem.FSUIPCOffsetNull && 
-                 cfg.DisplaySerial.Contains("/"))
-            {
-                serial = cfg.DisplaySerial.Split('/')[1].Trim();
-                row.Selected = true;
-
-                try
-                {
-                    executeTestOn(cfg);                    
-                }
-                catch (ConfigErrorException ex)
-                {
-                    stopTestToolStripButton_Click(null, null);
-                    _showError(ex.Message);                    
-                } 
-            }
-
-            testModeIndex = ++testModeIndex % dataGridViewConfig.RowCount;
-        }
-
         void arcazeCache_ConnectionLost(object sender, EventArgs e)
         {
             //_disconnectArcaze();
-            timer.Enabled = false;
-            testModeTimer_Stop();
-            isExecuting = false;
             _showError(_tr("uiMessageArcazeConnectionLost"));            
         }
 
@@ -446,7 +271,6 @@ namespace ArcazeUSB
         void arcazeCache_Closed(object sender, EventArgs e)
         {
             arcazeUsbStatusToolStripStatusLabel.Image = ArcazeUSB.Properties.Resources.warning;
-            testModeTimer_Stop();
         }
 
         /// <summary>
@@ -455,8 +279,6 @@ namespace ArcazeUSB
         void arcazeCache_Connected(object sender, EventArgs e)
         {
             arcazeUsbStatusToolStripStatusLabel.Image = ArcazeUSB.Properties.Resources.check;
-            testModeTimer_Stop();
-            timer.Stop();            
             fillComboBoxesWithArcazeModules();
         }
 
@@ -483,7 +305,7 @@ namespace ArcazeUSB
         {            
             if (Properties.Settings.Default.AutoRun || cmdLineParams.AutoRun)
             {
-                timer.Enabled = true;
+                execManager.Start();
                 minimizeMainForm(true);
             }
         }
@@ -493,16 +315,13 @@ namespace ArcazeUSB
         /// </summary>
         void fsuipcCache_ConnectionLost(object sender, EventArgs e)
         {
-            fsuipcCache.disconnect();
             if (!_fsRunning())
             {
                 _showError(_tr("uiMessageFsHasBeenStopped"));
             } else {
                 _showError(_tr("uiMessageFsuipcConnectionLost"));                
             } //if
-            //
-            timer.Enabled = false;
-            isExecuting = false;            
+            execManager.Stop();
         }
 
         /// <summary>
@@ -522,7 +341,7 @@ namespace ArcazeUSB
             runToolStripButton.Enabled  = false;
             runTestToolStripButton.Enabled = false;
             stopToolStripButton.Enabled = true;
-            updateNotifyContextMenu(timer.Enabled);
+            updateNotifyContextMenu(execManager.IsStarted());
         } //timer_Started()
 
         /// <summary>
@@ -530,48 +349,11 @@ namespace ArcazeUSB
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
-            runToolStripButton.Enabled = true && fsuipcCache.isConnected() && arcazeCache.isConnected() && !testModeTimer.Enabled;
-            runTestToolStripButton.Enabled = !testModeTimer.Enabled;
+            runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            runTestToolStripButton.Enabled = !execManager.TestModeIsStarted();
             stopToolStripButton.Enabled = false;
-
-            // just forget about current states if timer gets stopped
-            arcazeCache.Clear();
-            updateNotifyContextMenu(timer.Enabled);
+            updateNotifyContextMenu(execManager.IsStarted());
         } //timer_Stopped
-
-        /// <summary>
-        /// auto connect timer handler which tries to automagically connect to FSUIPC and Arcaze Modules        
-        /// </summary>
-        /// <remarks>
-        /// auto connect is only done if current timer is not running since we suppose that an established
-        /// connection was already available before the timer was started
-        /// </remarks>
-        void autoConnectTimer_Tick(object sender, EventArgs e)
-        {
-            // check if timer is running... 
-            // do nothing if so, since everything else has been checked before...            
-            if (timer.Enabled) return;
-
-            if (testModeTimer.Enabled) return;
-
-            if (!arcazeCache.isConnected())
-            {
-                arcazeCache.connect(); //  _initializeArcaze();
-            }
-
-            if ( _fsRunning() && !fsuipcCache.isConnected() )
-            {
-                fsuipcCache.connect();
-                // we return here to prevent the disabling of the timer
-                // so that autostart-feature can work properly
-                return;
-            }
-
-            // this line here provokes a timer stop event each time
-            // and therefore the icon for starting the app will get enabled
-            // @see timer_Stopped
-            timer.Enabled = false;
-        } //autoConnectTimer_Tick()
 
         /// <summary>
         /// Timer eventhandler
@@ -583,17 +365,9 @@ namespace ArcazeUSB
             {
                 toolStripStatusLabel.Text = _tr("Running");
             }
-            try
-            {
-                executeConfig();
-            }
-            catch (Exception)
-            {
-                isExecuting = false;
-                timer.Enabled = false;
-            }
         } //timer_Tick()
 
+        // TODO: refactor!!!
         private bool _fsRunning()
         {
             string proc = "fs9";
@@ -636,7 +410,7 @@ namespace ArcazeUSB
 
             return false;
         }
-
+        /*
         /// <summary>
         /// start fsuipc connection or disconnect by pressing the button
         /// </summary>
@@ -658,7 +432,8 @@ namespace ArcazeUSB
                 }
             }            
         } //buttonFSUIPCConnect_Click()
-
+        */
+        /*
         /// <summary>
         /// Initialize Arcaze Connections and set button states accordingly
         /// </summary>
@@ -673,16 +448,8 @@ namespace ArcazeUSB
                 arcazeCache.disconnect();
             } //if                                              
         } //buttonArcazeUsbConnect_Click()
-
-        /// <summary>
-        /// the timer shall be stopped if arcaze modules get disconnected
-        /// </summary>
-        /// <remarks>Please check why this never gets called.</remarks>
-        void arcazeHid_DeviceRemoved(object sender, HidEventArgs e)
-        {
-            _showError( _tr("uiMessageAraceUSBHasBeenRemoved"));
-            timer.Enabled = false;
-        } //arcazeHid_DeviceRemoved()
+         * 
+         */
 
         /// <summary>
         /// gathers infos about the connected modules and stores information in different objects
@@ -697,7 +464,8 @@ namespace ArcazeUSB
             arcazeUsbToolStripDropDownButton.DropDownItems.Clear();
             arcazeUsbToolStripDropDownButton.ToolTipText = _tr("uiMessageNoArcazeModuleFound");
 
-            foreach (DeviceInfo module in arcazeCache.getDeviceInfo())
+            // TODO: refactor!!!
+            foreach (DeviceInfo module in execManager.getModuleCache().getDeviceInfo())
             {
                 arcazeSerial.Items.Add(module.DeviceName + "/ " + module.Serial);
                 arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.DeviceName + "/ " + module.Serial);
@@ -715,9 +483,8 @@ namespace ArcazeUSB
         /// properly disconnects all connections to FSUIPC and Arcaze
         /// </summary>
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {           
-            arcazeCache.disconnect();
-            fsuipcCache.disconnect();
+        {
+            execManager.Shutdown();
             Properties.Settings.Default.Save();
         } //Form1_FormClosed
 
@@ -726,7 +493,8 @@ namespace ArcazeUSB
         /// </summary>
         private void buttonToggleStart_Click(object sender, EventArgs e)
         {
-            timer.Enabled = !timer.Enabled;                        
+            if (execManager.IsStarted()) execManager.Stop();
+            else execManager.Start();
         } //buttonToggleStart_Click()
 
         /// <summary>
@@ -749,454 +517,6 @@ namespace ArcazeUSB
                 // do nothing
                 // MessageBox.Show(e.Message);
             }
-        }
-
-        /// <summary>
-        /// the main method where the configuration is parsed and executed
-        /// </summary>
-        private void executeConfig()
-        {
-            // prevent execution if not connected to either FSUIPC or Arcaze
-            if (!fsuipcCache.isConnected()) return;
-            if (!arcazeCache.isConnected()) return;
-
-            // this is kind of sempahore to prevent multiple execution
-            // in fact I don't know if this needs to be done in C# 
-            if (isExecuting) return;
-            // now set semaphore to true
-            isExecuting = true;
-            fsuipcCache.Clear();
-            arcazeCache.clearGetValues();
-
-            // iterate over the config row by row
-            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
-            {
-
-                if (row.IsNewRow || !(bool)row.Cells["active"].Value) continue;
-
-                // initialisiere den adapter
-                //// nimm type von col.type
-                //// nimm config von col.config                
-
-                //// if !all valid continue                
-                ArcazeConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as ArcazeConfigItem);
-
-                // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
-
-
-                ConnectorValue value = executeRead(cfg);
-                ConnectorValue processedValue = value;
-
-                row.DefaultCellStyle.ForeColor = Color.Empty;
-                row.ErrorText = "";
-               
-
-                row.Cells["fsuipcValueColumn"].Value = value.ToString();
-                row.Cells["fsuipcValueColumn"].Tag = value;
-                
-                // only none string values get transformed
-                if (cfg.FSUIPCOffsetType != FSUIPCOffsetType.String)
-                    processedValue = executeTransform(value, cfg);
-
-                String strValue = executeComparison(processedValue, cfg);
-                row.Cells["arcazeValueColumn"].Value = strValue;
-                row.Cells["arcazeValueColumn"].Tag = processedValue;
-
-                // check preconditions
-                if (!checkPrecondition(cfg, processedValue))
-                {
-                    row.ErrorText = _tr("uiMessagePreconditionNotSatisfied");
-                    continue;
-                }
-                
-                executeDisplay(strValue, cfg);                
-            }
-
-            isExecuting = false;
-        }
-
-        private bool checkPrecondition(ArcazeConfigItem cfg, ConnectorValue currentValue)
-        {
-            bool finalResult = true;
-            bool result = true;
-            bool logic = true; // false:and true:or
-            ConnectorValue connectorValue = new ConnectorValue();
-
-            foreach (Precondition p in cfg.Preconditions)
-            {
-                if (!p.PreconditionActive) continue;
-
-                switch (p.PreconditionType)
-                {
-                    case "pin":
-                        string serial = "";
-                        if (p.PreconditionSerial.Contains("/"))
-                        {
-                            serial = p.PreconditionSerial.Split('/')[1].Trim();
-                        };
-
-                        string val = arcazeCache.getValue(
-                                        serial,
-                                        p.PreconditionPin,
-                                        "repeat");
-                    
-                        connectorValue.type = FSUIPCOffsetType.Integer;
-                        connectorValue.Int64 = Int64.Parse(val);
-
-                        ArcazeConfigItem tmp = new ArcazeConfigItem();
-                        tmp.ComparisonActive = true;
-                        tmp.ComparisonValue = p.PreconditionValue;
-                        tmp.ComparisonOperand = "=";
-                        tmp.ComparisonIfValue = "1";
-                        tmp.ComparisonElseValue = "0";
-
-                        try
-                        {
-                            result = (executeComparison(connectorValue, tmp) == tmp.ComparisonIfValue);
-                        }
-                        catch (FormatException e)
-                        {
-                            // maybe it is a text string
-                            // @todo do something in the future here
-                        }
-                        break;
-
-                    case "config":
-                        // iterate over the config row by row
-                        foreach (DataGridViewRow row in dataGridViewConfig.Rows)
-                        {
-                            if ((row.DataBoundItem as DataRowView).Row["guid"].ToString() != p.PreconditionRef) continue;
-                            if (row.Cells["arcazeValueColumn"].Value == null) break;
-                            string value = row.Cells["arcazeValueColumn"].Value.ToString();
-
-                            // if inactive ignore?
-                            if (!(bool)row.Cells["active"].Value) break;
-                        
-                            // if there hasn't been determined any value yet
-                            // we cannot compare
-                            if (value == "") break;
-
-                            tmp = new ArcazeConfigItem();
-                            tmp.ComparisonActive = true;
-                            tmp.ComparisonValue = p.PreconditionValue.Replace("$", currentValue.ToString());
-                            if (tmp.ComparisonValue != p.PreconditionValue)
-                            {
-                                var ce = new NCalc.Expression(tmp.ComparisonValue);
-                                try
-                                {
-                                    tmp.ComparisonValue = (ce.Evaluate()).ToString();
-                                }
-                                catch (Exception exc)
-                                {
-                                    //argh!
-                                }
-                            }
-
-                            tmp.ComparisonOperand = p.PreconditionOperand;
-                            tmp.ComparisonIfValue = "1";
-                            tmp.ComparisonElseValue = "0";
-                        
-                            connectorValue.type = FSUIPCOffsetType.Integer;
-                            if (! Int64.TryParse (value, out connectorValue.Int64))
-                            {
-                                // likely to be a string
-                                connectorValue.type = FSUIPCOffsetType.String;
-                                connectorValue.String = value;
-                            }                            
-
-                            try
-                            {
-                                result = (executeComparison(connectorValue, tmp) == "1");
-                            }
-                            catch (FormatException e)
-                            {
-                                // maybe it is a text string
-                                // @todo do something in the future here
-                            }
-                            break;
-                        }
-                        break;                    
-                } // switch
-
-                if (logic)
-                {
-                    finalResult |= result;
-                }
-                else
-                {
-                    finalResult &= result;
-                }
-
-                logic = (p.PreconditionLogic == "or" ? true : false);
-            } // foreach
-
-            return result;
-        }
-
-        private ConnectorValue executeRead(ArcazeConfigItem cfg)
-        {
-            ConnectorValue result = new ConnectorValue();
-
-            if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.String)
-            {
-                result.type = FSUIPCOffsetType.String;
-                result.String = fsuipcCache.getStringValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
-            }
-            else if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.Integer)
-            {
-                result = _executeReadInt(cfg);
-            }
-            else if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.Float)
-            {
-                result = _executeReadFloat(cfg);
-            }
-            return result;
-        }
-
-        private ConnectorValue _executeReadInt(ArcazeConfigItem cfg)
-        {
-            ConnectorValue result = new ConnectorValue();
-            switch (cfg.FSUIPCSize)
-            {
-                case 1:
-                    Byte value8 = (Byte)(cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
-                                              ));
-                    if (cfg.FSUIPCBcdMode)
-                    {
-                        fsuipcBCD val = new fsuipcBCD() { Value = value8 };
-                        value8 = (Byte)val.asBCD;
-                    }
-
-                    result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value8;
-                    break;
-                case 2:
-                    Int16 value16 = (Int16)(cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
-                                              ));
-                    if (cfg.FSUIPCBcdMode)
-                    {
-                        fsuipcBCD val = new fsuipcBCD() { Value = value16 };
-                        value16 = (Int16)val.asBCD;
-                    }
-
-                    result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value16;
-                    break;
-                case 4:
-                    Int64 value32 = ((int)cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
-                                              ));
-                    
-                    // no bcd support anymore for 4 byte
-
-                    result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value32;
-                    break;
-                case 8:
-                    Double value64 = (Double)fsuipcCache.getDoubleValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
-                                                );
-
-                    result.type = FSUIPCOffsetType.Float;
-                    result.Float64 = (int)(Math.Round(value64, 0));
-
-                    break;
-            }
-            return result;
-        }       
-
-        private ConnectorValue _executeReadFloat(ArcazeConfigItem cfg)
-        {
-            ConnectorValue result = new ConnectorValue();
-            result.type = FSUIPCOffsetType.Float;
-            switch (cfg.FSUIPCSize)
-            {                
-                case 4:
-                    Double value32 = fsuipcCache.getFloatValue (
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
-                                              );
-                                        
-                    result.Float64 = value32;
-                    break;
-                case 8:
-                    Double value64 = (Double)fsuipcCache.getDoubleValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
-                                                );
-                    
-                    result.Float64 = (int)(Math.Round(value64, 0));
-
-                    break;
-            }
-            return result;
-        }
-
-        private ConnectorValue executeTransform(ConnectorValue value, ArcazeConfigItem cfg)
-        {
-            double tmpValue;
-
-            switch (value.type)
-            {
-                case FSUIPCOffsetType.Integer:
-                    tmpValue = value.Int64;
-                    tmpValue = tmpValue * cfg.FSUIPCMultiplier;
-                    value.Int64 = (Int64)Math.Floor(tmpValue);
-                    break;
-
-                /*case FSUIPCOffsetType.UnsignedInt:
-                    tmpValue = value.Uint64;
-                    tmpValue = tmpValue * cfg.FSUIPCMultiplier;
-                    value.Uint64 = (UInt64)Math.Floor(tmpValue);
-                    break;*/
-
-                case FSUIPCOffsetType.Float:
-                    value.Float64 = Math.Floor(value.Float64 * cfg.FSUIPCMultiplier);
-                    break;
-
-                // nothing to do in case of string
-            }
-            return value;
-        }
-
-        private string executeComparison(ConnectorValue connectorValue, ArcazeConfigItem cfg)
-        {
-            string result = null;
-            if (connectorValue.type == FSUIPCOffsetType.String)
-            {
-                return _executeStringComparison(connectorValue, cfg);
-            }
-
-            Double value = connectorValue.Int64;
-            /*if (connectorValue.type == FSUIPCOffsetType.UnsignedInt) value = connectorValue.Uint64;*/
-            if (connectorValue.type == FSUIPCOffsetType.Float) value = connectorValue.Float64;
-
-            if (!cfg.ComparisonActive)
-            {
-                return value.ToString();                
-            }
-
-            if (cfg.ComparisonValue == "")
-            {
-                return value.ToString();
-            }
-            
-            Double comparisonValue = Double.Parse(cfg.ComparisonValue);
-            string comparisonIfValue = cfg.ComparisonIfValue != "" ? cfg.ComparisonIfValue : value.ToString();
-            string comparisonElseValue = cfg.ComparisonElseValue != "" ? cfg.ComparisonElseValue : value.ToString();
-
-            switch (cfg.ComparisonOperand)
-            {
-                case "!=":
-                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case ">":
-                    result = (value > comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case ">=":
-                    result = (value >= comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "<=":
-                    result = (value <= comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "<":
-                    result = (value < comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "=":
-                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                default:
-                    result = (value > 0) ? "1" : "0";
-                    break;
-            }
-
-            // apply ncalc logic
-            if (result.Contains("$"))
-            {
-                result = result.Replace("$", value.ToString());
-                var ce = new NCalc.Expression(result);
-                try
-                {
-                    result = (ce.Evaluate()).ToString();
-                }
-                catch
-                {
-                    throw new Exception(_tr("uiMessageErrorOnParsingExpression"));
-                }
-            }
-
-            return result;
-        }
-
-        private string _executeStringComparison(ConnectorValue connectorValue, ArcazeConfigItem cfg)
-        {
-            string result = connectorValue.String;
-            string value = connectorValue.String;
-
-            if (!cfg.ComparisonActive)
-            {
-                return connectorValue.String;
-            }
-        
-            string comparisonValue = cfg.ComparisonValue;
-            string comparisonIfValue = cfg.ComparisonIfValue;
-            string comparisonElseValue = cfg.ComparisonElseValue;
-
-            switch (cfg.ComparisonOperand)
-            {
-                case "!=":
-                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "=":
-                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-            }
-            
-            return result;
-        }
-
-        private string executeDisplay(string value, ArcazeConfigItem cfg)
-        {
-            string serial = "";
-            if (cfg.DisplaySerial.Contains("/"))
-            {
-                serial = cfg.DisplaySerial.Split('/')[1].Trim();
-            };
-
-            switch (cfg.DisplayType)
-            {
-                case ArcazeLedDigit.TYPE:
-                    arcazeCache.setDisplay(
-                        serial,
-                        cfg.DisplayLedAddress,                        
-                        cfg.DisplayLedConnector,
-                        cfg.DisplayLedDigits,
-                        cfg.DisplayLedDecimalPoints,
-                        value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0,'0'));
-                    break;
-
-                case ArcazeBcd4056.TYPE:
-                    arcazeCache.setBcd4056(serial,
-                        cfg.BcdPins,
-                        cfg.DisplayTrigger,
-                        value);
-                    break;
-                
-                default:
-                    arcazeCache.setValue(serial,
-                        cfg.DisplayPin,
-                        cfg.DisplayTrigger,
-                        (value != "0" ? cfg.DisplayPinBrightness.ToString() : "0"));
-                    break;
-            }            
-                
-            return value.ToString();
         }
 
         /// <summary>
@@ -1336,7 +656,7 @@ namespace ArcazeUSB
         /// </summary>        
         private void _loadConfig(string fileName)
         {
-            timer.Enabled = false;
+            execManager.Stop();
             dataSetConfig.Clear();
             dataSetConfig.ReadXml(fileName);
 
@@ -1363,7 +683,7 @@ namespace ArcazeUSB
 
         private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
         {
-            OrphanedSerialsDialog opd = new OrphanedSerialsDialog(arcazeCache, configDataTable);
+            OrphanedSerialsDialog opd = new OrphanedSerialsDialog(execManager.getModuleCache(), configDataTable);
             opd.StartPosition = FormStartPosition.CenterParent;
             if (opd.HasOrphanedSerials())
             {
@@ -1542,7 +862,7 @@ namespace ArcazeUSB
                        _tr("uiMessageConfirmNewConfigTitle"), 
                        MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                timer.Enabled = false;
+                execManager.Stop();
                 currentFileName = null;
                 _setFilenameInTitle(_tr("DefaultFileName"));
                 configDataTable.Clear();
@@ -1627,7 +947,7 @@ namespace ArcazeUSB
 
         private void testModeTimer_Start()
         {
-            testModeTimer.Enabled = true;
+            execManager.TestModeStart();
             stopToolStripButton.Visible = false;
             stopTestToolStripButton.Visible = true;
             stopTestToolStripButton.Enabled = true;
@@ -1651,14 +971,12 @@ namespace ArcazeUSB
         /// </summary>
         private void testModeTimer_Stop()
         {
-            testModeTimer.Enabled = false;
-            testModeIndex = 0;
+            execManager.TestModeStop();
             stopToolStripButton.Visible = true;
             stopTestToolStripButton.Visible = false;
             stopTestToolStripButton.Enabled = false;
             runTestToolStripButton.Enabled = true;
-            arcazeCache.Clear();
-            runToolStripButton.Enabled = true && arcazeCache.isConnected() && fsuipcCache.isConnected() && !testModeTimer.Enabled;
+            runToolStripButton.Enabled = true && execManager.ModulesConnected() && execManager.SimConnected() && !execManager.TestModeIsStarted();
         }
 
 
@@ -1727,7 +1045,8 @@ namespace ArcazeUSB
         /// <param name="create"></param>
         private void _editConfigWithWizard(DataRow dataRow, ArcazeConfigItem cfg, bool create)
         {
-            Form wizard = new ConfigWizard(this, cfg, arcazeCache, getArcazeModuleSettings(), dataSetConfig, dataRow["guid"].ToString());
+            // refactor!!! dependency to arcaze cache etc not nice
+            Form wizard = new ConfigWizard(execManager, cfg, execManager.getModuleCache(), getArcazeModuleSettings(), dataSetConfig, dataRow["guid"].ToString());
             wizard.StartPosition = FormStartPosition.CenterParent;
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -1753,13 +1072,14 @@ namespace ArcazeUSB
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SettingsDialog dialog = new SettingsDialog(arcazeCache);
+            // TODO: refactor dependency to module cache
+            SettingsDialog dialog = new SettingsDialog(execManager);
             dialog.StartPosition = FormStartPosition.CenterParent;
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Properties.Settings.Default.Save();
-                arcazeCache.updateModuleSettings(getArcazeModuleSettings());
-                arcazeCache.disconnect();                
+                // TODO: refactor
+                execManager.updateModuleSettings(getArcazeModuleSettings());                
             }
         }
 
@@ -1842,7 +1162,6 @@ namespace ArcazeUSB
                 }
             }            
         }
-
 
         private void dataGridViewConfig_CellValidated(object sender, DataGridViewCellEventArgs e)
         {

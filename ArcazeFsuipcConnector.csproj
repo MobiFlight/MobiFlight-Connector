@@ -75,6 +75,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
     </Reference>
+    <Reference Include="CommandMessenger">
+      <HintPath>lib\CommandMessenger.dll</HintPath>
+    </Reference>
     <Reference Include="FSUIPCClient, Version=2.0.4008.2, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\FSUIPCClient.dll</HintPath>
@@ -100,8 +103,6 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Adapter.cs" />
-    <Compile Include="AdapterInterface.cs" />
     <Compile Include="ArcazeBcd4056.cs" />
     <Compile Include="ArcazeCache.cs" />
     <Compile Include="ArcazeCommandExecutionException.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="BytePanel.Designer.cs">
       <DependentUpon>BytePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="CmdLineParams.cs" />
     <Compile Include="ConfigErrorException.cs" />
     <Compile Include="ConfigWizard.cs">
       <SubType>Form</SubType>
@@ -137,6 +139,7 @@
     <Compile Include="EventTimer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ExecutionManager.cs" />
     <Compile Include="fsuipc.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -151,6 +154,21 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InputConnectorInterface.cs" />
+    <Compile Include="MobiFlight\MobiFlightCache.cs" />
+    <Compile Include="MobiFlight\MobiFlightDeviceInfo.cs" />
+    <Compile Include="MobiFlight\MobiFlightIOBasic.cs" />
+    <Compile Include="MobiFlight\MobiFlightLedModule.cs" />
+    <Compile Include="MobiFlight\MobiFlightModule.cs" />
+    <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
+    <Compile Include="MobiFlight\MobiFlightStepper.cs" />
+    <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
+    <Compile Include="MobiFlight\Panels\MFLedSegmentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFLedSegmentPanel.Designer.cs">
+      <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleCacheInterface.cs" />
     <Compile Include="OrphanedSerialsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,6 +228,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFLedSegmentPanel.resx">
+      <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrphanedSerialsDialog.de.resx">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
@@ -303,7 +324,10 @@
     <None Include="Resources\warning.png" />
     <None Include="Resources\check.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Arcaze\" />
+    <Folder Include="CmdMessenger\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

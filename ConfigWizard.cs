@@ -20,7 +20,7 @@ namespace ArcazeUSB
 
         static int lastTabActive = 0;
 
-        MainForm mainForm = null;
+        ExecutionManager mainForm = null;
         int displayPanelHeight = -1;
         List<Panel> displayPanels = new List<Panel>();
         ArcazeConfigItem config = null;
@@ -48,7 +48,7 @@ namespace ArcazeUSB
         }
          * */
 
-        public ConfigWizard( MainForm mainForm, 
+        public ConfigWizard(ExecutionManager mainForm, 
                              ArcazeConfigItem cfg, 
                              ArcazeCache arcazeCache, 
                              Dictionary<string, ArcazeModuleSettings> moduleSettings, 
@@ -61,7 +61,7 @@ namespace ArcazeUSB
             this.moduleSettings = moduleSettings;
         }
 
-        protected void Init(MainForm mainForm, ArcazeConfigItem cfg)
+        protected void Init(ExecutionManager mainForm, ArcazeConfigItem cfg)
         {
             this.mainForm = mainForm;
             config = cfg;

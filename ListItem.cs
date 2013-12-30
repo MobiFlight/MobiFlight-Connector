@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using System.Text;
 
 namespace ArcazeUSB
 {
-    interface AdapterInterface
+    public class ListItem
     {
-        void setConfig (XElement config);
-        String getConfig ();
+        public String Value { get; set; }
+        public String Label { get; set; }
     }
 }
