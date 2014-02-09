@@ -134,7 +134,7 @@
             this.displayBcdStrobePortComboBox = new System.Windows.Forms.ComboBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
             this.arcazeSerialLabel = new System.Windows.Forms.Label();
-            this.displayArcazeSerialComboBox = new System.Windows.Forms.ComboBox();
+            this.displayModuleNameComboBox = new System.Windows.Forms.ComboBox();
             this.displayTypeComboBoxLabel = new System.Windows.Forms.Label();
             this.displayTypeComboBox = new System.Windows.Forms.ComboBox();
             this.displayTabTextBox = new System.Windows.Forms.TextBox();
@@ -1072,7 +1072,7 @@
             // 
             resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
-            this.displayTypeGroupBox.Controls.Add(this.displayArcazeSerialComboBox);
+            this.displayTypeGroupBox.Controls.Add(this.displayModuleNameComboBox);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBoxLabel);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBox);
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
@@ -1084,17 +1084,17 @@
             this.arcazeSerialLabel.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.arcazeSerialLabel.Name = "arcazeSerialLabel";
             // 
-            // displayArcazeSerialComboBox
+            // displayModuleNameComboBox
             // 
-            resources.ApplyResources(this.displayArcazeSerialComboBox, "displayArcazeSerialComboBox");
-            this.displayArcazeSerialComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displayArcazeSerialComboBox.FormattingEnabled = true;
-            this.displayArcazeSerialComboBox.Items.AddRange(new object[] {
-            resources.GetString("displayArcazeSerialComboBox.Items"),
-            resources.GetString("displayArcazeSerialComboBox.Items1")});
-            this.displayArcazeSerialComboBox.Name = "displayArcazeSerialComboBox";
-            this.displayArcazeSerialComboBox.SelectedIndexChanged += new System.EventHandler(this.displayArcazeSerialComboBox_SelectedIndexChanged);
-            this.displayArcazeSerialComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.displayArcazeSerialComboBox_Validating);
+            resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
+            this.displayModuleNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayModuleNameComboBox.FormattingEnabled = true;
+            this.displayModuleNameComboBox.Items.AddRange(new object[] {
+            resources.GetString("displayModuleNameComboBox.Items"),
+            resources.GetString("displayModuleNameComboBox.Items1")});
+            this.displayModuleNameComboBox.Name = "displayModuleNameComboBox";
+            this.displayModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.displayArcazeSerialComboBox_SelectedIndexChanged);
+            this.displayModuleNameComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.displayArcazeSerialComboBox_Validating);
             // 
             // displayTypeComboBoxLabel
             // 
@@ -1591,7 +1591,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox displayLedAddressComboBox;
         private System.Windows.Forms.Label arcazeSerialLabel;
-        private System.Windows.Forms.ComboBox displayArcazeSerialComboBox;
+        private System.Windows.Forms.ComboBox displayModuleNameComboBox;
         private System.Windows.Forms.CheckBox displayLedPaddingCheckBox;
         private System.Windows.Forms.CheckBox fsuipcBcdModeCheckBox;
         private System.Data.DataSet presetsDataSet;

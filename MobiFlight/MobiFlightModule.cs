@@ -15,7 +15,7 @@ namespace MobiFlight
         public int Value { get; set; }
     }
 
-    class MobiFlightModule
+    class MobiFlightModule : IModule, IOutputModule
     {
         public delegate void ButtonEventHandler(object sender, ButtonArgs e);
         /// <summary>
@@ -30,6 +30,7 @@ namespace MobiFlight
         public String Name { get; set; }
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
+        //private SerialPortManager _transportLayer;
         private CmdMessenger _cmdMessenger;
         private bool _ledState;
         private int _count;
@@ -51,16 +52,19 @@ namespace MobiFlight
         // In order to receive, attach a callback function to these events
         public enum Command
         {            
-            InitModule,
-            SetModule,
-            SetPin,
-            SetStepper,
-            Status,
-            EncoderChange,
-            ButtonChange,
-            StepperChange,
-            GetInfo,
-            Info
+            InitModule,    // 0
+            SetModule,     // 1
+            SetPin,        // 2
+            SetStepper,    // 3
+            SetServo,      // 4
+            Status,        // 5
+            EncoderChange, // 6
+            ButtonChange,  // 7
+            StepperChange, // 8
+            GetInfo,       // 9
+            Info,          // 10
+            SetConfig,     // 11
+            GetConfig,     // 12
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -80,8 +84,9 @@ namespace MobiFlight
 
             // Create Serial Port object
             _transportLayer = new SerialTransport
+            //_transportLayer = new SerialPortManager
             {
-                CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200 } // object initializer
+                CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = true } // object initializer
             };
 
             _cmdMessenger = new CmdMessenger(_transportLayer);
@@ -112,9 +117,9 @@ namespace MobiFlight
         /// Attach command call backs. 
         private void AttachCommandCallBacks()
         {
-            //_cmdMessenger.Attach(OnUnknownCommand);
+            _cmdMessenger.Attach(OnUnknownCommand);
             _cmdMessenger.Attach((int)Command.Status, OnStatus);
-            //_cmdMessenger.Attach((int)Command.Info, OnInfo);
+            _cmdMessenger.Attach((int)Command.Info, OnInfo);
             _cmdMessenger.Attach((int)Command.EncoderChange, OnEncoderChange);
             _cmdMessenger.Attach((int)Command.ButtonChange, OnButtonChange);
         }
@@ -168,20 +173,20 @@ namespace MobiFlight
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="port">the virtual port on the board or extension</param>
+        /// <param name="group">the virtual port on the board or extension</param>
         /// <param name="pin"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool SetPin(string port, int pin, bool value)
+        public bool SetPin(string group, int pin, int value)
         {
             // if value has not changed since the last time, then we continue to next item to prevent 
             // unnecessary communication with Arcaze USB
-            String key = port + "_" + pin.ToString();
+            String key = group + "_" + pin.ToString();
 
             if (lastValue.ContainsKey(key) &&
-                lastValue[key] == (value ? "1" : "0")) return false;
+                lastValue[key] == value.ToString()) return false;
 
-            lastValue[key] = (value ? "1" : "0");
+            lastValue[key] = value.ToString();
             
             var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
             command.AddArgument(pin);
@@ -192,15 +197,15 @@ namespace MobiFlight
             return true;
         }
 
-        public bool SetDisplay(int moduleAddress, int pos, string value)
+        public bool SetDisplay(int module, int pos, string value)
         {
-            String key = "LED_" + moduleAddress;            
+            String key = "LED_" + module;            
 
             if (lastValue.ContainsKey(key) &&
                 lastValue[key] == value) return false;
 
             lastValue[key] = value;
-            ledModules[moduleAddress].Display(value);
+            ledModules[module].Display(value);
             return true;
         }
 
@@ -224,16 +229,38 @@ namespace MobiFlight
             return true;
         }
 
-        public MobiFlightDeviceInfo GetInfo()
+        public bool SetStepper(int stepper, int value)
         {
-            MobiFlightDeviceInfo devInfo = new MobiFlightDeviceInfo() { Name = "Unknown", Type = MobiFlightDeviceInfo.TYPE_UNKNOWN, Port = _comPort };
+            String key = "STEPPER_" + stepper;
 
-            var command = new SendCommand((int)MobiFlightModule.Command.GetInfo,(int)MobiFlightModule.Command.Info, 1000);            
+            int iLastValue;
+            if (lastValue.ContainsKey(key))
+            {
+                if (lastValue[key] == value.ToString()) return false;
+                iLastValue = int.Parse(lastValue[key]);
+            }
+            else
+            {
+                iLastValue = value;
+            }
+
+            stepperModules[stepper].MoveToPosition(value, (value - iLastValue) > 0);
+            lastValue[key] = value.ToString();
+            return true;
+        }
+
+        public IModuleInfo GetInfo()
+        {
+            MobiFlightModuleInfo devInfo = new MobiFlightModuleInfo() { Name = "Unknown", Type = MobiFlightModuleInfo.TYPE_UNKNOWN, Port = _comPort };
+
+            var command = new SendCommand((int)MobiFlightModule.Command.GetInfo,(int)MobiFlightModule.Command.Info, 1000);
             var InfoCommand = _cmdMessenger.SendCommand(command);
+            InfoCommand = _cmdMessenger.SendCommand(command);
             if (InfoCommand.Ok)
             {
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();
+                devInfo.Serial = InfoCommand.ReadStringArg();
             }
             
             return devInfo;

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using SimpleSolutions.Usb;
+using MobiFlight;
 
 namespace ArcazeUSB
 {
@@ -24,6 +25,7 @@ namespace ArcazeUSB
 
         public SettingsDialog(ExecutionManager execManager)
         {
+            this.execManager = execManager;
             Init();
 
             ArcazeCache arcazeCache = execManager.getModuleCache();
@@ -32,11 +34,11 @@ namespace ArcazeUSB
             arcazeSerialComboBox.Items.Clear();
             arcazeSerialComboBox.Items.Add(MainForm._tr("Please_Choose"));
                         
-            foreach (SimpleSolutions.Usb.DeviceInfo module in arcazeCache.getDeviceInfo())
+            foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 ArcazeListItem arcazeItem = new ArcazeListItem();
-                arcazeItem.Text = module.DeviceName + "/ " + module.Serial;
-                arcazeItem.Value = module;
+                arcazeItem.Text = module.Name + "/ " + module.Serial;
+                arcazeItem.Value = module as ArcazeModuleInfo;
 
                 arcazeSerialComboBox.Items.Add( arcazeItem );
             }
@@ -56,6 +58,12 @@ namespace ArcazeUSB
             arcazeModuleTypeComboBox.SelectedIndex = 0;
 
             loadSettings();
+
+#if MOBIFLIGHT
+            // do nothing
+#else
+            tabControl1.TabPages.Remove(mobiFlightTabPage);
+#endif
         }
 
         private void loadSettings ()
@@ -98,7 +106,7 @@ namespace ArcazeUSB
             MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
 
             mfModulesTreeView.Nodes.Clear();
-            foreach (MobiFlight.MobiFlightDeviceInfo devices in mobiflightCache.getConnectedModules()) {
+            foreach (MobiFlight.MobiFlightModuleInfo devices in mobiflightCache.getConnectedModules()) {
 
             }
 #endif
@@ -229,7 +237,7 @@ namespace ArcazeUSB
             // or none selected yet == -1
             if (arcazeSerialComboBox.SelectedIndex <= 0) return;
             
-            DeviceInfo devInfo = (DeviceInfo) ((arcazeSerialComboBox.SelectedItem as ArcazeListItem).Value);
+            IModuleInfo devInfo = (IModuleInfo) ((arcazeSerialComboBox.SelectedItem as ArcazeListItem).Value);
             
             string errMessage = null;
             
@@ -255,7 +263,7 @@ namespace ArcazeUSB
     public class ArcazeListItem
     {
         public string Text { get; set; }
-        public DeviceInfo Value { get; set; }
+        public ArcazeModuleInfo Value { get; set; }
 
         public override string ToString()
         {

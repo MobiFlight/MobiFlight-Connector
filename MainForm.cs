@@ -1,6 +1,4 @@
-﻿#define MOBIFLIGHT
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,16 +10,14 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using SimpleSolutions.Usb;
-#if MOBIFLIGHT 
 using MobiFlight;
-#endif
 
 namespace ArcazeUSB
 {
     public partial class MainForm : Form
     {
-        public static String Version = "3.9.2";
-        public static String Build = "20131222";
+        public static String Version = "3.9.3";
+        public static String Build = "20140203";
 
         /// <summary>
         /// the currently used filename of the loaded config file
@@ -38,6 +34,8 @@ namespace ArcazeUSB
         private CmdLineParams cmdLineParams;
 
         private ExecutionManager execManager;
+
+        private bool _onClosing = false;
         
         /// <summary>
         /// get a localized string
@@ -200,7 +198,7 @@ namespace ArcazeUSB
 
             // get all currently connected devices
             // add 'em to the list
-            foreach (DeviceInfo arcaze in execManager.getModuleCache().getDeviceInfo())
+            foreach (IModuleInfo arcaze in execManager.getModuleCache().getModuleInfo())
             {
                 serials.Add(arcaze.Serial);
             }
@@ -465,11 +463,18 @@ namespace ArcazeUSB
             arcazeUsbToolStripDropDownButton.ToolTipText = _tr("uiMessageNoArcazeModuleFound");
 
             // TODO: refactor!!!
-            foreach (DeviceInfo module in execManager.getModuleCache().getDeviceInfo())
+            foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
             {
-                arcazeSerial.Items.Add(module.DeviceName + "/ " + module.Serial);
-                arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.DeviceName + "/ " + module.Serial);
+                arcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
+                arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
             }
+#if MOBIFLIGHT
+            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
+            {
+                arcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
+                arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+            }
+#endif
 
             if (arcazeSerial.Items.Count > 0)
             {
@@ -1046,7 +1051,12 @@ namespace ArcazeUSB
         private void _editConfigWithWizard(DataRow dataRow, ArcazeConfigItem cfg, bool create)
         {
             // refactor!!! dependency to arcaze cache etc not nice
-            Form wizard = new ConfigWizard(execManager, cfg, execManager.getModuleCache(), getArcazeModuleSettings(), dataSetConfig, dataRow["guid"].ToString());
+            Form wizard = new ConfigWizard( execManager, 
+                                            cfg, 
+                                            execManager.getModuleCache(), 
+                                            getArcazeModuleSettings(), 
+                                            dataSetConfig, dataRow["guid"].ToString()
+                                          );
             wizard.StartPosition = FormStartPosition.CenterParent;
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight;
 
 namespace ArcazeUSB
 {
@@ -33,10 +34,10 @@ namespace ArcazeUSB
             connectedModulesComboBox.Items.Clear();
             orphanedSerialsListBox.Items.Clear();
 
-            foreach (SimpleSolutions.Usb.DeviceInfo module in arcazeCache.getDeviceInfo())
+            foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
-                arcazeSerials.Add(module.DeviceName + "/ " + module.Serial);
-                connectedModulesComboBox.Items.Add(module.DeviceName + "/ " + module.Serial);                
+                arcazeSerials.Add(module.Name + "/ " + module.Serial);
+                connectedModulesComboBox.Items.Add(module.Name + "/ " + module.Serial);                
             }
 
             foreach (DataRow row in configDataTable.Rows) {

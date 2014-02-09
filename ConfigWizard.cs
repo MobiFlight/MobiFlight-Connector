@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight;
 
 namespace ArcazeUSB
 {
@@ -20,7 +21,7 @@ namespace ArcazeUSB
 
         static int lastTabActive = 0;
 
-        ExecutionManager mainForm = null;
+        ExecutionManager _execManager = null;
         int displayPanelHeight = -1;
         List<Panel> displayPanels = new List<Panel>();
         ArcazeConfigItem config = null;
@@ -29,24 +30,6 @@ namespace ArcazeUSB
         DataSet _dataSetConfig = null;
 
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
-        
-        /*
-        public ConfigWizard(MainForm mainForm)
-        {            
-            Init(mainForm, new ArcazeConfigItem());    
-        }
-
-        public ConfigWizard(MainForm mainForm, ArcazeConfigItem cfg)
-        {
-            Init(mainForm,cfg);
-        }
-
-        public ConfigWizard(MainForm mainForm, ArcazeConfigItem cfg, ArcazeCache arcazeCache)
-        {
-            Init(mainForm,cfg);
-            initWithArcazeCache(arcazeCache);
-        }
-         * */
 
         public ConfigWizard(ExecutionManager mainForm, 
                              ArcazeConfigItem cfg, 
@@ -63,7 +46,7 @@ namespace ArcazeUSB
 
         protected void Init(ExecutionManager mainForm, ArcazeConfigItem cfg)
         {
-            this.mainForm = mainForm;
+            this._execManager = mainForm;
             config = cfg;
             InitializeComponent();
             comparisonSettingsPanel.Enabled = false;
@@ -195,7 +178,7 @@ namespace ArcazeUSB
             preconditionPortComboBox.Items.Clear();
             preconditionPinComboBox.Items.Clear();
 
-            foreach (String v in arcazeCache.getPorts()) { 
+            foreach (String v in ArcazeModule.getPorts()) { 
                 displayPortComboBox.Items.Add(v);
                 displayBcdStrobePortComboBox.Items.Add(v);
                 displayBcdPortComboBox.Items.Add(v);
@@ -213,7 +196,8 @@ namespace ArcazeUSB
                 }
             }
 
-            foreach (String v in arcazeCache.getPins()) { 
+            foreach (String v in ArcazeModule.getPins())
+            { 
                 displayPinComboBox.Items.Add(v);
                 displayBcdStrobePinComboBox.Items.Add(v);
                 displayBcdPin1ComboBox.Items.Add(v);
@@ -223,17 +207,25 @@ namespace ArcazeUSB
                 preconditionPinComboBox.Items.Add(v);
             }
 
-            displayArcazeSerialComboBox.Items.Clear();
+            displayModuleNameComboBox.Items.Clear();
             preconditionPinSerialComboBox.Items.Clear();
-            displayArcazeSerialComboBox.Items.Add("-");
+            displayModuleNameComboBox.Items.Add("-");
             preconditionPinSerialComboBox.Items.Add("-");
-            foreach (SimpleSolutions.Usb.DeviceInfo module in arcazeCache.getDeviceInfo())
+
+            foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
-                arcazeFirmware[module.DeviceName + "/ " + module.Serial] = module.DeviceAttributes.VersionNumber;
-                displayArcazeSerialComboBox.Items.Add(module.DeviceName + "/ " + module.Serial);
-                preconditionPinSerialComboBox.Items.Add(module.DeviceName + "/ " + module.Serial);                
+                arcazeFirmware[module.Name + "/ " + module.Serial] = module.Version;
+                displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
+                preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
-            displayArcazeSerialComboBox.SelectedIndex = 0;
+#if MOBIFLIGHT
+            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
+            {
+                displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
+                preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+            }
+#endif
+            displayModuleNameComboBox.SelectedIndex = 0;
             preconditionPinSerialComboBox.SelectedIndex = 0;            
         }
 
@@ -294,7 +286,7 @@ namespace ArcazeUSB
                 {
                     serial = serial.Split('/')[1].Trim();
                 }
-                if (!_setSelectedItemByPart(displayArcazeSerialComboBox, serial))
+                if (!_setSelectedItemByPart(displayModuleNameComboBox, serial))
                 {
                     // TODO: provide error message
                 }
@@ -391,9 +383,9 @@ namespace ArcazeUSB
         }
 
         protected bool _setSelectedItem (ComboBox comboBox, string value) {
-            if (comboBox.FindString(value) != -1)
+            if (comboBox.FindStringExact(value) != -1)
             {
-                comboBox.SelectedIndex = comboBox.FindString(value);
+                comboBox.SelectedIndex = comboBox.FindStringExact(value);
                 return true;
             }
             return false;
@@ -437,7 +429,7 @@ namespace ArcazeUSB
             // display panel
             config.DisplayType = displayTypeComboBox.Text;
             config.DisplayTrigger = "normal";
-            config.DisplaySerial = displayArcazeSerialComboBox.Text;
+            config.DisplaySerial = displayModuleNameComboBox.Text;
             config.DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text;
             config.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
 
@@ -508,7 +500,7 @@ namespace ArcazeUSB
             {
                 bool panelEnabled = true;
                 // get the deviceinfo for the current arcaze
-                string serial = displayArcazeSerialComboBox.SelectedItem.ToString();
+                string serial = displayModuleNameComboBox.SelectedItem.ToString();
                 if (arcazeFirmware.ContainsKey(serial))
                 {
 
@@ -842,7 +834,7 @@ namespace ArcazeUSB
             displayPinTestButton.Enabled = false;
             displayTypeGroupBox.Enabled = false;
             groupBoxDisplaySettings.Enabled = false;
-            mainForm.executeTestOn(config);
+            _execManager.executeTestOn(config);
         }
 
         private void _testModeStop()
@@ -854,7 +846,7 @@ namespace ArcazeUSB
             displayPinTestButton.Enabled = true;
             displayTypeGroupBox.Enabled = true;
             groupBoxDisplaySettings.Enabled = true;
-            mainForm.executeTestOff(config);
+            _execManager.executeTestOff(config);
         }
 
         private void tabControlFsuipc_SelectedIndexChanged(object sender, EventArgs e)

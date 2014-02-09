@@ -37,7 +37,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
     <DocumentationFile>bin\Debug\ArcazeFsuipcConnector.xml</DocumentationFile>
@@ -58,7 +58,7 @@
     <ManifestKeyFile>ArcazeFsuipcConnector_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -70,13 +70,37 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug-Mobiflight\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT</DefineConstants>
+    <DocumentationFile>bin\Debug\ArcazeFsuipcConnector.xml</DocumentationFile>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight|x86'">
+    <OutputPath>bin\Release-Mobiflight\</OutputPath>
+    <DefineConstants>TRACE;MOBIFLIGHT</DefineConstants>
+    <Optimize>true</Optimize>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ArcazeHid, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
-    </Reference>
-    <Reference Include="CommandMessenger">
-      <HintPath>lib\CommandMessenger.dll</HintPath>
     </Reference>
     <Reference Include="FSUIPCClient, Version=2.0.4008.2, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -103,12 +127,14 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ArcazeBcd4056.cs" />
-    <Compile Include="ArcazeCache.cs" />
-    <Compile Include="ArcazeCommandExecutionException.cs" />
-    <Compile Include="ArcazeIoBasic.cs" />
-    <Compile Include="ArcazeLedDigit.cs" />
-    <Compile Include="ArcazeModuleSettings.cs" />
+    <Compile Include="Arcaze\ArcazeModule.cs" />
+    <Compile Include="Arcaze\ArcazeBcd4056.cs" />
+    <Compile Include="Arcaze\ArcazeCache.cs" />
+    <Compile Include="Arcaze\ArcazeCommandExecutionException.cs" />
+    <Compile Include="Arcaze\ArcazeIoBasic.cs" />
+    <Compile Include="Arcaze\ArcazeLedDigit.cs" />
+    <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
+    <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
     <Compile Include="BitMaskEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,23 +156,22 @@
     <Compile Include="ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConnectorManager.cs" />
-    <Compile Include="ArcazeConfigItem.cs" />
+    <Compile Include="Arcaze\ArcazeConfigItem.cs" />
     <Compile Include="ConnectorValue.cs" />
     <Compile Include="ConverterConfig.cs" />
-    <Compile Include="DeviceInfoAndCache.cs" />
+    <Compile Include="Arcaze\DeviceInfoAndCache.cs" />
     <Compile Include="EnumFSUIPC.cs" />
     <Compile Include="EventTimer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ExecutionManager.cs" />
-    <Compile Include="fsuipc.cs">
+    <Compile Include="FSUIPC\fsuipc.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Fsuipc2Cache.cs" />
-    <Compile Include="fsuipcBCD.cs" />
-    <Compile Include="ArcazeLedDisplayConfig.cs" />
-    <Compile Include="FSUIPCOffsetType.cs" />
+    <Compile Include="FSUIPC\Fsuipc2Cache.cs" />
+    <Compile Include="FSUIPC\fsuipcBCD.cs" />
+    <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
+    <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,8 +179,11 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InputConnectorInterface.cs" />
+    <Compile Include="Base\IModule.cs" />
+    <Compile Include="Base\IModuleInfo.cs" />
+    <Compile Include="Base\IOutputModule.cs" />
     <Compile Include="MobiFlight\MobiFlightCache.cs" />
-    <Compile Include="MobiFlight\MobiFlightDeviceInfo.cs" />
+    <Compile Include="MobiFlight\MobiFlightModuleInfo.cs" />
     <Compile Include="MobiFlight\MobiFlightIOBasic.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModule.cs" />
     <Compile Include="MobiFlight\MobiFlightModule.cs" />
@@ -175,7 +203,7 @@
     <Compile Include="OrphanedSerialsDialog.Designer.cs">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Precondition.cs" />
+    <Compile Include="Base\Precondition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectMessages.de-DE.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -195,7 +223,7 @@
     <Compile Include="SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="SourceCacheInterface.cs" />
+    <Compile Include="Base\SourceCacheInterface.cs" />
     <EmbeddedResource Include="AboutForm.de.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -325,8 +353,10 @@
     <None Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Arcaze\" />
-    <Folder Include="CmdMessenger\" />
+    <ProjectReference Include="..\CmdMessenger-3.5\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
+      <Project>{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}</Project>
+      <Name>CommandMessenger</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

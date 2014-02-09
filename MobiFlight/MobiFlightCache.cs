@@ -28,9 +28,8 @@ namespace ArcazeUSB
         /// </summary>
         public event EventHandler ConnectionLost;
 
-        private List<MobiFlightDeviceInfo> connectedModules = null;
+        private List<MobiFlightModuleInfo> connectedModules = null;
 
-        bool _connected = false;
         DateTime servoTime = DateTime.Now;
         /// <summary>
         /// list of known modules
@@ -58,31 +57,35 @@ namespace ArcazeUSB
             return true;
         }
 
-        public List<MobiFlightDeviceInfo> getConnectedModules()
+        public List<MobiFlightModuleInfo> getConnectedModules()
         {
             if (connectedModules == null) connectedModules = lookupModules();
             return connectedModules;
         }
 
-        private List<MobiFlightDeviceInfo> lookupModules()
+        private List<MobiFlightModuleInfo> lookupModules()
         {
-            List<MobiFlightDeviceInfo> result = new List<MobiFlightDeviceInfo>();
+            List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
+            
             foreach (string portName in SerialPort.GetPortNames())
             {
+                // we ignore the COM1 because it is normally an internal port and not one used
+                // by the hardware
+                if (portName == "COM1") continue;
                 MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName });
                 tmp.Connect();
-                MobiFlightDeviceInfo devInfo = tmp.GetInfo();
+                MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
                 tmp.Disconnect();
-                if (devInfo.Type != MobiFlightDeviceInfo.TYPE_UNKNOWN)
+                if (devInfo.Type != MobiFlightModuleInfo.TYPE_UNKNOWN)
                 {
                     result.Add(devInfo);
                 }
             }
-
+            
             if (result.Count == 0)
             {
-                result.Add(new MobiFlightDeviceInfo() { Type = MobiFlightDeviceInfo.TYPE_MEGA, Name = "Transponder Panel", Port = "COM3" });
-                result.Add(new MobiFlightDeviceInfo() { Type = MobiFlightDeviceInfo.TYPE_MICRO, Name = "Stepper Module", Port = "COM13" });
+            //    result.Add(new MobiFlightModuleInfo() { Type = MobiFlightModuleInfo.TYPE_MEGA, Name = "Transponder Panel", Port = "COM3" });
+            //    result.Add(new MobiFlightModuleInfo() { Type = MobiFlightModuleInfo.TYPE_MICRO, Name = "Stepper Module", Port = "COM13" });
             }
 
             return result;
@@ -96,7 +99,7 @@ namespace ArcazeUSB
             connectedModules = lookupModules();
             Modules.Clear();
 
-            foreach (MobiFlightDeviceInfo devInfo in connectedModules)
+            foreach (MobiFlightModuleInfo devInfo in connectedModules)
             {
                 MobiFlightModule m = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = devInfo.Port });
                 m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);
@@ -149,7 +152,7 @@ namespace ArcazeUSB
         /// <param name="portAndPin">the port letter and pin number, e.g. A01</param>
         /// <param name="trigger">the trigger to be used</param>
         /// <param name="value">the value to be used</param>
-        public void setValue(string serial, string portAndPin, string trigger, string value)
+        public void setValue(string serial, string portAndPin, string value)
         {
             try{
                 if (portAndPin == null || portAndPin == "") return;
@@ -160,7 +163,7 @@ namespace ArcazeUSB
                 MobiFlightModule module = Modules[index];
                 MobiFlightIOBasic io = new MobiFlightIOBasic(portAndPin);
 
-                module.SetPin(io.Port, io.Pin, value!="0");
+                module.SetPin(io.Port, io.Pin, Int16.Parse(value));
             }
             catch (ConfigErrorException e)
             {
@@ -252,5 +255,11 @@ namespace ArcazeUSB
             // not implemented, don't throw exception either
         }
 
+
+        internal IEnumerable<IModuleInfo> getModuleInfo()
+        {
+            List<IModuleInfo> result = new List<IModuleInfo>();
+            return getConnectedModules();
+        }
     }
 }

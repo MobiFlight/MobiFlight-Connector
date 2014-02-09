@@ -1,6 +1,4 @@
-﻿//#define MOBIFLIGHT
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,6 +59,7 @@ namespace ArcazeUSB
         MobiFlightCache mobiFlightCache = new MobiFlightCache();
 #endif
         DataGridView dataGridViewConfig = null;
+        private bool _autoConnectTimerRunning = false;
 
         public ExecutionManager(DataGridView dataGridViewConfig)
         {
@@ -79,9 +78,9 @@ namespace ArcazeUSB
             timer.Stopped += new EventHandler(timer_Stopped);
             timer.Started += new EventHandler(timer_Started);
 
-            autoConnectTimer.Interval = 1000;
+            autoConnectTimer.Interval = 5000;
             autoConnectTimer.Tick += new EventHandler(autoConnectTimer_Tick);
-            autoConnectTimer.Start();
+            autoConnectTimer.Start();            
 
             testModeTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
@@ -104,7 +103,7 @@ namespace ArcazeUSB
         public bool ModulesConnected()
         {
 #if MOBIFLIGHT
-            return arcazeCache.isConnected() && mobiFlightCache.isConnected();
+            return arcazeCache.isConnected() || mobiFlightCache.isConnected();
 #else
             return arcazeCache.isConnected();
 #endif
@@ -159,8 +158,13 @@ namespace ArcazeUSB
 
         public void Shutdown()
         {
+            autoConnectTimer.Stop();
             arcazeCache.disconnect();
-            fsuipcCache.disconnect();
+#if MOBIFLIGHT
+            mobiFlightCache.disconnect();
+#endif
+            fsuipcCache.disconnect(); 
+            this.OnModulesDisconnected(this, new EventArgs());         
         }
 
         public void updateModuleSettings(Dictionary<string, ArcazeModuleSettings> arcazeSettings)
@@ -232,8 +236,8 @@ namespace ArcazeUSB
 #if MOBIFLIGHT
             // statically pass the xpndr 
             _outputXpndr();
-            _outputParkingBrake();
-            _outputAltitude();
+            //_outputParkingBrake();
+            //_outputAltitude();
 #endif
             isExecuting = false;
         }
@@ -255,11 +259,10 @@ namespace ArcazeUSB
                 processedValue = executeTransform(value, cfg);
 
             List<string> display = new List<string>();
-            if (!mobiFlightCache.isConnected())
+            if (mobiFlightCache.isConnected())
             {
-                mobiFlightCache.connect();
+                mobiFlightCache.setDisplay("0", "0", 0, display, display, "  " + processedValue.ToString().PadLeft(cfg.DisplayLedPadding ? 4 : 0, '0'));
             }
-            mobiFlightCache.setDisplay("0", "0", 0, display, display, "  " + processedValue.ToString().PadLeft(cfg.DisplayLedPadding ? 4 : 0, '0'));
         }
 
         private void _outputAltitude()
@@ -281,10 +284,11 @@ namespace ArcazeUSB
             List<string> display = new List<string>();
             if (!mobiFlightCache.isConnected())
             {
-                mobiFlightCache.connect();
+                //mobiFlightCache.connect();
+                mobiFlightCache.setServo("1", "0", processedValue.ToString());
+                // mobiFlightCache.setDisplay("0", "0", 0, display, display, "  " + processedValue.ToString().PadLeft(cfg.DisplayLedPadding ? 4 : 0, '0'));
             }
-            mobiFlightCache.setServo("1", "0", processedValue.ToString());
-            // mobiFlightCache.setDisplay("0", "0", 0, display, display, "  " + processedValue.ToString().PadLeft(cfg.DisplayLedPadding ? 4 : 0, '0'));
+            
         }
 
         private void _outputParkingBrake()
@@ -306,9 +310,10 @@ namespace ArcazeUSB
             List<string> display = new List<string>();
             if (!mobiFlightCache.isConnected())
             {
-                mobiFlightCache.connect();
+                //mobiFlightCache.connect();
+                mobiFlightCache.setValue("0", "LED25", processedValue.ToString());
             }
-            mobiFlightCache.setValue("0", "LED25", "repeat", processedValue.ToString());
+            
             // mobiFlightCache.setDisplay("0", "0", 0, display, display, "  " + processedValue.ToString().PadLeft(cfg.DisplayLedPadding ? 4 : 0, '0'));
         }
 #endif
@@ -463,7 +468,7 @@ namespace ArcazeUSB
                                               ));
                     if (cfg.FSUIPCBcdMode)
                     {
-                        fsuipcBCD val = new fsuipcBCD() { Value = value8 };
+                        FsuipcBCD val = new FsuipcBCD() { Value = value8 };
                         value8 = (Byte)val.asBCD;
                     }
 
@@ -477,7 +482,7 @@ namespace ArcazeUSB
                                               ));
                     if (cfg.FSUIPCBcdMode)
                     {
-                        fsuipcBCD val = new fsuipcBCD() { Value = value16 };
+                        FsuipcBCD val = new FsuipcBCD() { Value = value16 };
                         value16 = (Int16)val.asBCD;
                     }
 
@@ -665,7 +670,9 @@ namespace ArcazeUSB
             if (cfg.DisplaySerial.Contains("/"))
             {
                 serial = cfg.DisplaySerial.Split('/')[1].Trim();
-            };
+            }
+
+            if (serial == "") return value.ToString();
 
             switch (cfg.DisplayType)
             {
@@ -682,14 +689,12 @@ namespace ArcazeUSB
                 case ArcazeBcd4056.TYPE:
                     arcazeCache.setBcd4056(serial,
                         cfg.BcdPins,
-                        cfg.DisplayTrigger,
                         value);
                     break;
 
                 default:
                     arcazeCache.setValue(serial,
                         cfg.DisplayPin,
-                        cfg.DisplayTrigger,
                         (value != "0" ? cfg.DisplayPinBrightness.ToString() : "0"));
                     break;
             }
@@ -769,8 +774,8 @@ namespace ArcazeUSB
         /// </summary>
         void arcazeCache_Closed(object sender, EventArgs e)
         {
-            this.OnModulesDisconnected(sender, e);
             TestModeStop();
+            this.OnModulesDisconnected(sender, e);
         }
 
         /// <summary>
@@ -792,27 +797,35 @@ namespace ArcazeUSB
         /// </remarks>
         void autoConnectTimer_Tick(object sender, EventArgs e)
         {
+            if (_autoConnectTimerRunning) return;
+            _autoConnectTimerRunning = true;
             // check if timer is running... 
             // do nothing if so, since everything else has been checked before...            
-            if (timer.Enabled) return;
+            if (timer.Enabled || testModeTimer.Enabled)
+            {
+                _autoConnectTimerRunning = false;
+                return;
+            }
 
-            if (testModeTimer.Enabled) return;
-
-            if (!arcazeCache.isConnected())
+            if (!arcazeCache.isConnected() 
+#if MOBIFLIGHT
+                && !mobiFlightCache.isConnected())
+#endif
             {
                 arcazeCache.connect(); //  _initializeArcaze();
-            }
 #if MOBIFLIGHT
-            if (!mobiFlightCache.isConnected())
-            {
                 mobiFlightCache.connect();
-            }
 #endif
+            }
+            //if (!arcazeCache.isConnected()) arcazeCache.connect();
+            //if (!mobiFlightCache.isConnected()) mobiFlightCache.connect();
+
             if (SimAvailable() && !fsuipcCache.isConnected())
             {
                 fsuipcCache.connect();
                 // we return here to prevent the disabling of the timer
                 // so that autostart-feature can work properly
+                _autoConnectTimerRunning = false;
                 return;
             }
 
@@ -820,6 +833,7 @@ namespace ArcazeUSB
             // and therefore the icon for starting the app will get enabled
             // @see timer_Stopped
             timer.Enabled = false;
+            _autoConnectTimerRunning = false;
         } //autoConnectTimer_Tick()
 
         private bool SimAvailable()
