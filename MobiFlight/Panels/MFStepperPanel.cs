@@ -9,11 +9,16 @@ using System.Windows.Forms;
 
 namespace MobiFlight.Panels
 {
-    public partial class MFLedSegmentPanel : UserControl
+    public partial class MFStepperPanel : UserControl
     {
-        public MFLedSegmentPanel()
+        public MFStepperPanel()
         {
             InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

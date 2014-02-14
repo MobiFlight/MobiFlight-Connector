@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace MobiFlight.Panels
 {
-    public partial class MFLedSegmentPanel : UserControl
+    public partial class MFServoPanel : UserControl
     {
-        public MFLedSegmentPanel()
+        public MFServoPanel()
         {
             InitializeComponent();
         }

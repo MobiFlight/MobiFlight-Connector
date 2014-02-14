@@ -408,46 +408,6 @@ namespace ArcazeUSB
 
             return false;
         }
-        /*
-        /// <summary>
-        /// start fsuipc connection or disconnect by pressing the button
-        /// </summary>
-        private void buttonFSUIPCConnect_Click(object sender, EventArgs e)
-        {
-            Button btn = sender as Button;
-            if (fsuipcCache.isConnected())
-            {
-                fsuipcCache.disconnect();
-                btn.Text = _tr("Connect");
-            } else {
-                if (fsuipcCache.connect())
-                {
-                    btn.Text = _tr("Disconnect");
-                }
-                else
-                {
-                    btn.Text = _tr("Retry");
-                }
-            }            
-        } //buttonFSUIPCConnect_Click()
-        */
-        /*
-        /// <summary>
-        /// Initialize Arcaze Connections and set button states accordingly
-        /// </summary>
-        private void buttonArcazeUsbConnect_Click(object sender, EventArgs e)
-        {
-            Button btn = sender as Button; 
-            if (btn.Text == _tr("Find")) {
-                fillComboBoxesWithArcazeModules();
-            } else if (btn.Text == _tr("Connect")) {
-                arcazeCache.connect();
-            } else if (btn.Text == _tr("Disconnect")) {
-                arcazeCache.disconnect();
-            } //if                                              
-        } //buttonArcazeUsbConnect_Click()
-         * 
-         */
 
         /// <summary>
         /// gathers infos about the connected modules and stores information in different objects

@@ -10,6 +10,7 @@ namespace MobiFlight
     {      
         public MobiFlightStepper28BYJ()
         {
+            _name = "Stepper 28BYJ";
             StepperNumber = 0;
             InputRevolutionSteps = 1000;
             OutputRevolutionSteps = 1300;

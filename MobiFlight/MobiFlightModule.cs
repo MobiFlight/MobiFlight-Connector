@@ -15,7 +15,7 @@ namespace MobiFlight
         public int Value { get; set; }
     }
 
-    class MobiFlightModule : IModule, IOutputModule
+    public class MobiFlightModule : IModule, IOutputModule
     {
         public delegate void ButtonEventHandler(object sender, ButtonArgs e);
         /// <summary>
@@ -27,7 +27,12 @@ namespace MobiFlight
         SerialPort _serialPort;
 
         String _comPort = "COM3";
+        public String Port { get { return _comPort; } }
         public String Name { get; set; }
+        public String Type { get; set; }
+        public String Serial { get; set; }
+        public String Version { get; set; }
+
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
         //private SerialPortManager _transportLayer;
@@ -38,6 +43,7 @@ namespace MobiFlight
 
         List<MobiFlightLedModule> ledModules = new List<MobiFlightLedModule>();
         List<MobiFlightStepper> stepperModules = new List<MobiFlightStepper>();
+        List<MobiFlightServo> servoModules = new List<MobiFlightServo>();
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
 
@@ -224,7 +230,7 @@ namespace MobiFlight
                 iLastValue = value;
             }
 
-            stepperModules[servoAddress].MoveToPosition(value, (value - iLastValue) > 0);
+            servoModules[servoAddress].MoveToPosition(value);
             lastValue[key] = value.ToString();
             return true;
         }
@@ -262,8 +268,28 @@ namespace MobiFlight
                 devInfo.Name = InfoCommand.ReadStringArg();
                 devInfo.Serial = InfoCommand.ReadStringArg();
             }
+
+            Type = devInfo.Type;
+            Name = devInfo.Name;
+            Serial = devInfo.Serial;
             
             return devInfo;
+        }
+
+        public List<IConnectedDevice> GetConnectedDevices()
+        {
+            List<IConnectedDevice> result = new List<IConnectedDevice>();
+            foreach (MobiFlightLedModule ledModule in ledModules)
+            {
+                result.Add(ledModule);
+            }
+
+            foreach (MobiFlightStepper stepper in stepperModules)
+            {
+                result.Add(stepper);
+            }
+
+            return result;
         }
     }
 }

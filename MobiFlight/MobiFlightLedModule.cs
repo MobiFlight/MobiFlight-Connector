@@ -6,11 +6,27 @@ using CommandMessenger;
 
 namespace MobiFlight
 {
-    class MobiFlightLedModule
+    class MobiFlightLedModule : IConnectedDevice
     {
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }
         public int Brightness { get; set; }
+
+        private String _name = "Led Module";
+        public String Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+        
+        
+        private String _type = "LEDMODULE";
+        public String Type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+        
         protected bool _initialized = false;
 
         public MobiFlightLedModule()

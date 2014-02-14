@@ -63,6 +63,12 @@ namespace ArcazeUSB
             return connectedModules;
         }
 
+        public List<MobiFlightModule> GetModules()
+        {
+            if (!isConnected()) connect();
+            return Modules;
+        }
+
         private List<MobiFlightModuleInfo> lookupModules()
         {
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
@@ -260,6 +266,16 @@ namespace ArcazeUSB
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
             return getConnectedModules();
+        }
+
+        public MobiFlightModule GetModule(string port)
+        {
+            foreach (MobiFlightModule module in Modules)
+            {
+                if (module.Port == port) return module;
+            }
+
+            throw new IndexOutOfRangeException();
         }
     }
 }

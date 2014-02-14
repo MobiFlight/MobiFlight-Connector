@@ -57,6 +57,12 @@ namespace ArcazeUSB
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.LedDriver3.ToString());
             arcazeModuleTypeComboBox.SelectedIndex = 0;
 
+            // initialize mftreeviewimagelist
+            mfTreeViewImageList.Images.Add("SERVO", ArcazeUSB.Properties.Resources.cd);
+            mfTreeViewImageList.Images.Add("STEPPER", ArcazeUSB.Properties.Resources.dvd);
+            mfTreeViewImageList.Images.Add("OUTPUT", ArcazeUSB.Properties.Resources.lightbulb_on);
+            mfTreeViewImageList.Images.Add("LEDMODULE", ArcazeUSB.Properties.Resources.sound);
+            //mfModulesTreeView.ImageList = mfTreeViewImageList;
             loadSettings();
 
 #if MOBIFLIGHT
@@ -106,8 +112,34 @@ namespace ArcazeUSB
             MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
 
             mfModulesTreeView.Nodes.Clear();
-            foreach (MobiFlight.MobiFlightModuleInfo devices in mobiflightCache.getConnectedModules()) {
+            foreach (MobiFlight.MobiFlightModule module in mobiflightCache.GetModules()) {
+                module.GetInfo();
+                TreeNode node = new TreeNode(module.Name);
+                node.Tag = module;
+                mfModulesTreeView.Nodes.Add(node);
+                foreach (IConnectedDevice device in module.GetConnectedDevices())
+                {
+                    TreeNode deviceNode = new TreeNode(device.Name);
+                    deviceNode.Tag = device;
+                    switch (device.Type) {
+                        case "LEDMODULE":
+                            deviceNode.ImageKey = "LEDMODULE";                            
+                            break;
 
+                        case "STEPPER":
+                            deviceNode.ImageKey = "STEPPER";
+                            break;
+
+                        case "OUTPUT":
+                            deviceNode.ImageKey = "OUTPUT";
+                            break;
+
+                        case "SERVO":
+                            deviceNode.ImageKey = "SERVO";
+                            break;
+                    }
+                    node.Nodes.Add(deviceNode);
+                }
             }
 #endif
         }
@@ -256,6 +288,58 @@ namespace ArcazeUSB
             if (errMessage != null)
             {
                 MessageBox.Show(MainForm._tr(errMessage));
+            }
+        }
+
+        private void mobiflightSettingsLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mobiflightSettingsToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            mfModulesTreeView.SelectedNode = e.Node;
+            if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
+            
+            if (e.Node.Nodes.Count!=0) return;
+            try
+            {
+                Control panel = null;
+                IConnectedDevice dev = (e.Node.Tag as IConnectedDevice);
+                switch (dev.Type)
+                {
+                    case "LEDMODULE":
+                        MobiFlightLedModule ledModule = dev as MobiFlightLedModule;
+                        panel = new MobiFlight.Panels.MFLedSegmentPanel();
+                        break;
+
+                    case "STEPPER":
+                        MobiFlightStepper28BYJ stepper = dev as MobiFlightStepper28BYJ;
+                        panel = new MobiFlight.Panels.MFStepperPanel();
+                        break;
+
+                    case "SERVO":
+                        MobiFlightServo servo = dev as MobiFlightServo;
+                        panel = new MobiFlight.Panels.MFServoPanel();
+                        break;
+                }
+
+                if (panel != null)
+                {
+                    mfSettingsPanel.Controls.Clear();
+                    mfSettingsPanel.Controls.Add(panel);
+                    panel.Dock = DockStyle.Fill;
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                // Show error message
             }
         }
     }

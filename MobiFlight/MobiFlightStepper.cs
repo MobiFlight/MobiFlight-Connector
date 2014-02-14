@@ -6,8 +6,23 @@ using CommandMessenger;
 
 namespace MobiFlight
 {
-    class MobiFlightStepper
+    class MobiFlightStepper : IConnectedDevice
     {
+        protected String _name = "Stepper";
+        public String Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+
+        private String _type = "STEPPER";
+        public String Type
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+
         public CmdMessenger CmdMessenger { get; set; }
         public int StepperNumber { get; set; }
         public int InputRevolutionSteps { get; set; }
@@ -51,6 +66,16 @@ namespace MobiFlight
             
             // Send command
             CmdMessenger.SendCommand(command);
+        }
+
+        public string GetName()
+        {
+            return "MF Stepper";
+        }
+
+        public new string GetType()
+        {
+            return "STEPPER";
         }
     }
 }

@@ -182,6 +182,8 @@
     <Compile Include="Base\IModule.cs" />
     <Compile Include="Base\IModuleInfo.cs" />
     <Compile Include="Base\IOutputModule.cs" />
+    <Compile Include="MobiFlight\IConnectedDevice.cs" />
+    <Compile Include="MobiFlight\MobiFlightServo.cs" />
     <Compile Include="MobiFlight\MobiFlightCache.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleInfo.cs" />
     <Compile Include="MobiFlight\MobiFlightIOBasic.cs" />
@@ -190,6 +192,18 @@
     <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
+    <Compile Include="MobiFlight\Panels\MFStepperPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFStepperPanel.Designer.cs">
+      <DependentUpon>MFStepperPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFServoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFServoPanel.Designer.cs">
+      <DependentUpon>MFServoPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MobiFlight\Panels\MFLedSegmentPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -256,6 +270,12 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFStepperPanel.resx">
+      <DependentUpon>MFStepperPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFServoPanel.resx">
+      <DependentUpon>MFServoPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Panels\MFLedSegmentPanel.resx">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
@@ -335,12 +355,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="arcazeUSB.ico" />
+    <None Include="Resources\sound.png" />
+    <None Include="Resources\star_yellow_delete.png" />
+    <None Include="Resources\star_yellow_add.png" />
     <None Include="Resources\star_yellow_new.png" />
     <None Include="Resources\document_delete.png" />
     <None Include="Resources\document_new.png" />
     <None Include="Resources\delete2.png" />
     <None Include="Resources\btn_donate_SM.gif" />
     <None Include="Resources\btn_donate_uk_SM.gif" />
+    <None Include="Resources\application_up.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\folder1.png" />
+    <None Include="Resources\export1.png" />
+    <None Include="Resources\cd.png" />
+    <None Include="Resources\dvd.png" />
     <Content Include="Resources\lightbulb.png" />
     <Content Include="Resources\lightbulb_on.png" />
     <None Include="Resources\media_stop_red.png" />
