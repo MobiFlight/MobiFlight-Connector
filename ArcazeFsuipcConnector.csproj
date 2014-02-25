@@ -149,6 +149,7 @@
       <DependentUpon>BytePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="CmdLineParams.cs" />
+    <Compile Include="ComboBoxHelper.cs" />
     <Compile Include="ConfigErrorException.cs" />
     <Compile Include="ConfigWizard.cs">
       <SubType>Form</SubType>
@@ -172,6 +173,7 @@
     <Compile Include="FSUIPC\fsuipcBCD.cs" />
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
     <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
+    <Compile Include="ListItem.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +184,15 @@
     <Compile Include="Base\IModule.cs" />
     <Compile Include="Base\IModuleInfo.cs" />
     <Compile Include="Base\IOutputModule.cs" />
+    <Compile Include="MobiFlight\Config\BaseDevice.cs" />
+    <Compile Include="MobiFlight\Config\Encoder.cs" />
+    <Compile Include="MobiFlight\Config\Button.cs" />
+    <Compile Include="MobiFlight\Config\IConfigItem.cs" />
+    <Compile Include="MobiFlight\Config\Config.cs" />
+    <Compile Include="MobiFlight\Config\Output.cs" />
+    <Compile Include="MobiFlight\Config\Stepper.cs" />
+    <Compile Include="MobiFlight\Config\Servo.cs" />
+    <Compile Include="MobiFlight\Config\LedModule.cs" />
     <Compile Include="MobiFlight\IConnectedDevice.cs" />
     <Compile Include="MobiFlight\MobiFlightServo.cs" />
     <Compile Include="MobiFlight\MobiFlightCache.cs" />
@@ -192,6 +203,18 @@
     <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
+    <Compile Include="MobiFlight\Panels\MFEncoderPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFEncoderPanel.Designer.cs">
+      <DependentUpon>MFEncoderPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFButtonPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFButtonPanel.Designer.cs">
+      <DependentUpon>MFButtonPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MobiFlight\Panels\MFStepperPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -270,6 +293,12 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFEncoderPanel.resx">
+      <DependentUpon>MFEncoderPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFButtonPanel.resx">
+      <DependentUpon>MFButtonPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Panels\MFStepperPanel.resx">
       <DependentUpon>MFStepperPanel.cs</DependentUpon>
@@ -387,6 +416,7 @@
       <Name>CommandMessenger</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

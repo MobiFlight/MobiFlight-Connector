@@ -32,6 +32,7 @@ namespace MobiFlight
         public String Type { get; set; }
         public String Serial { get; set; }
         public String Version { get; set; }
+        public MobiFlight.Config.Config Config { get; set; }
 
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
@@ -56,6 +57,17 @@ namespace MobiFlight
 
         // This is the list of recognized commands. These can be commands that can either be sent or received. 
         // In order to receive, attach a callback function to these events
+        public enum DeviceType
+        {
+            NotSet,      // 0 
+            Button,      // 1
+            Encoder,     // 2
+            Output,      // 3
+            LedModule,   // 4
+            Stepper,     // 5
+            Servo,       // 6
+        }
+
         public enum Command
         {            
             InitModule,    // 0
@@ -109,6 +121,9 @@ namespace MobiFlight
 
             stepperModules.Clear();
             stepperModules.Add(new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, StepperNumber = 0 });
+
+            servoModules.Clear();
+            servoModules.Add(new MobiFlightServo() { CmdMessenger = _cmdMessenger });
             this.Connected = true;
         }
 
@@ -267,13 +282,28 @@ namespace MobiFlight
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();
                 devInfo.Serial = InfoCommand.ReadStringArg();
+                devInfo.Config = InfoCommand.ReadStringArg();
             }
 
             Type = devInfo.Type;
             Name = devInfo.Name;
             Serial = devInfo.Serial;
+            Config = new Config.Config(devInfo.Config);
             
             return devInfo;
+        }
+
+        public bool SaveConfig()
+        {
+            var command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, 1000);
+            command.AddArgument(Config.ToInternal());
+            var StatusCommand = _cmdMessenger.SendCommand(command);
+            if (StatusCommand.Ok)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public List<IConnectedDevice> GetConnectedDevices()

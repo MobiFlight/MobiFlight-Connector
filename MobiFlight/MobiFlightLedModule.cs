@@ -6,7 +6,7 @@ using CommandMessenger;
 
 namespace MobiFlight
 {
-    class MobiFlightLedModule : IConnectedDevice
+    public class MobiFlightLedModule : IConnectedDevice
     {
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using SimpleSolutions.Usb;
 using MobiFlight;
+using System.IO;
 
 namespace ArcazeUSB
 {
@@ -63,6 +64,7 @@ namespace ArcazeUSB
             mfTreeViewImageList.Images.Add("OUTPUT", ArcazeUSB.Properties.Resources.lightbulb_on);
             mfTreeViewImageList.Images.Add("LEDMODULE", ArcazeUSB.Properties.Resources.sound);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
+
             loadSettings();
 
 #if MOBIFLIGHT
@@ -109,37 +111,55 @@ namespace ArcazeUSB
         private void loadMobiFlightSettings()
         {
 #if MOBIFLIGHT
+
+            // synchronize the toolbar icons
+            uploadToolStripButton.Enabled = false;
+            openToolStripButton.Enabled = true;
+            saveToolStripButton.Enabled = false;
+            addDeviceToolStripDropDownButton.Enabled = false;
+            removeDeviceToolStripButton.Enabled = false;
+
             MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
 
             mfModulesTreeView.Nodes.Clear();
-            foreach (MobiFlight.MobiFlightModule module in mobiflightCache.GetModules()) {
-                module.GetInfo();
-                TreeNode node = new TreeNode(module.Name);
-                node.Tag = module;
-                mfModulesTreeView.Nodes.Add(node);
-                foreach (IConnectedDevice device in module.GetConnectedDevices())
+            try
+            {
+                foreach (MobiFlightModuleInfo module in mobiflightCache.getConnectedModules())
                 {
-                    TreeNode deviceNode = new TreeNode(device.Name);
-                    deviceNode.Tag = device;
-                    switch (device.Type) {
-                        case "LEDMODULE":
-                            deviceNode.ImageKey = "LEDMODULE";                            
-                            break;
+                    TreeNode node = new TreeNode(module.Name);
+                    node.Tag = mobiflightCache.GetModule(module);
+                    mfModulesTreeView.Nodes.Add(node);
+                    /*
+                    foreach (IConnectedDevice device in module.GetConnectedDevices())
+                    {
+                        TreeNode deviceNode = new TreeNode(device.Name);
+                        deviceNode.Tag = device;
+                        switch (device.Type) {
+                            case "LEDMODULE":
+                                deviceNode.ImageKey = "LEDMODULE";                            
+                                break;
 
-                        case "STEPPER":
-                            deviceNode.ImageKey = "STEPPER";
-                            break;
+                            case "STEPPER":
+                                deviceNode.ImageKey = "STEPPER";
+                                break;
 
-                        case "OUTPUT":
-                            deviceNode.ImageKey = "OUTPUT";
-                            break;
+                            case "OUTPUT":
+                                deviceNode.ImageKey = "OUTPUT";
+                                break;
 
-                        case "SERVO":
-                            deviceNode.ImageKey = "SERVO";
-                            break;
+                            case "SERVO":
+                                deviceNode.ImageKey = "SERVO";
+                                break;
+                        }
+                        node.Nodes.Add(deviceNode);
                     }
-                    node.Nodes.Add(deviceNode);
+                     * */
                 }
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                // this happens when the modules are connecting
+                mfConfiguredModulesGroupBox.Enabled = false;
             }
 #endif
         }
@@ -252,7 +272,12 @@ namespace ArcazeUSB
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+            if (checkIfMobiFlightSettingsHaveChanged() && 
+                MessageBox.Show("You have unsaved changes in one of your module's settings. \n Do you want to cancel and loose your changes?", "Unsaved changes", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK
+                )
+            {
+                DialogResult = DialogResult.Cancel;
+            }
         }
 
         private void arcazeModuleTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -305,28 +330,57 @@ namespace ArcazeUSB
         {
             mfModulesTreeView.SelectedNode = e.Node;
             if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
-            
-            if (e.Node.Nodes.Count!=0) return;
+
+            if (e.Node.Level == 0)
+            {
+                // this is the module node
+                // set the add device icon enabled
+                addDeviceToolStripDropDownButton.Enabled = true;
+                removeDeviceToolStripButton.Enabled = false;
+                uploadToolStripButton.Enabled = e.Node.Nodes.Count>0;
+                saveToolStripButton.Enabled = e.Node.Nodes.Count > 0;
+                return;
+            }
+
+            syncPanelWithSelectedDevice(e.Node);
+        }
+
+        private void syncPanelWithSelectedDevice(TreeNode selectedNode)
+        {
             try
             {
                 Control panel = null;
-                IConnectedDevice dev = (e.Node.Tag as IConnectedDevice);
+                removeDeviceToolStripButton.Enabled = true;
+                uploadToolStripButton.Enabled = true;
+                saveToolStripButton.Enabled = true;
+                MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
                 switch (dev.Type)
                 {
-                    case "LEDMODULE":
-                        MobiFlightLedModule ledModule = dev as MobiFlightLedModule;
-                        panel = new MobiFlight.Panels.MFLedSegmentPanel();
+                    case MobiFlightModule.DeviceType.LedModule:
+                        panel = new MobiFlight.Panels.MFLedSegmentPanel(dev as MobiFlight.Config.LedModule);
+                        (panel as MobiFlight.Panels.MFLedSegmentPanel).Changed += new EventHandler(mfConfigObject_changed);
                         break;
 
-                    case "STEPPER":
-                        MobiFlightStepper28BYJ stepper = dev as MobiFlightStepper28BYJ;
-                        panel = new MobiFlight.Panels.MFStepperPanel();
+                    case MobiFlightModule.DeviceType.Stepper:
+                        panel = new MobiFlight.Panels.MFStepperPanel(dev as MobiFlight.Config.Stepper);
+                        (panel as MobiFlight.Panels.MFStepperPanel).Changed += new EventHandler(mfConfigObject_changed);
                         break;
 
-                    case "SERVO":
-                        MobiFlightServo servo = dev as MobiFlightServo;
-                        panel = new MobiFlight.Panels.MFServoPanel();
+                    case MobiFlightModule.DeviceType.Servo:
+                        panel = new MobiFlight.Panels.MFServoPanel(dev as MobiFlight.Config.Servo);
+                        (panel as MobiFlight.Panels.MFServoPanel).Changed+=new EventHandler(mfConfigObject_changed);
                         break;
+
+                    case MobiFlightModule.DeviceType.Button:
+                        panel = new MobiFlight.Panels.MFButtonPanel(dev as MobiFlight.Config.Button);
+                        (panel as MobiFlight.Panels.MFButtonPanel).Changed += new EventHandler(mfConfigObject_changed);
+                        break;
+
+                    case MobiFlightModule.DeviceType.Encoder:
+                        panel = new MobiFlight.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder);
+                        (panel as MobiFlight.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigObject_changed);
+                        break;
+                    // output
                 }
 
                 if (panel != null)
@@ -334,13 +388,114 @@ namespace ArcazeUSB
                     mfSettingsPanel.Controls.Clear();
                     mfSettingsPanel.Controls.Add(panel);
                     panel.Dock = DockStyle.Fill;
-                    
                 }
             }
             catch (Exception ex)
             {
                 // Show error message
             }
+        }
+
+        void mfConfigObject_changed(object sender, EventArgs e)
+        {
+            mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.Config.BaseDevice).Name;
+        }
+
+        private void addDeviceTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MobiFlight.Config.BaseDevice cfgItem = null; 
+            switch ((sender as ToolStripMenuItem).Name) {
+                case "addServoToolStripMenuItem":
+                    cfgItem = new MobiFlight.Config.Servo();
+                    break;
+                case "addStepperToolStripMenuItem":
+                    cfgItem = new MobiFlight.Config.Stepper();
+                    break;
+                case "addOutputToolStripMenuItem":
+                    cfgItem = new MobiFlight.Config.Output();
+                    break;
+                case "addLedModuleToolStripMenuItem":
+                    cfgItem = new MobiFlight.Config.LedModule();
+                    break;
+                case "addButtonToolStripMenuItem":
+                    cfgItem = new MobiFlight.Config.Button();
+                    break;
+                case "addEncoderToolStripMenuItem":
+                    cfgItem = new MobiFlight.Config.Encoder();
+                    break;
+                default:
+                    // do nothing
+                    return;
+            }
+
+            TreeNode newNode = new TreeNode(cfgItem.Name);
+            newNode.Tag = cfgItem;
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            
+            parentNode.Nodes.Add(newNode);
+            //(parentNode.Tag as MobiFlightModule).Config.AddItem(cfgItem);
+            
+            mfModulesTreeView.SelectedNode = newNode;
+            syncPanelWithSelectedDevice(newNode);
+            
+        }
+
+        private void uploadToolStripButton_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you really want to update your module with the current configuration?", "Upload configuration", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+
+            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
+
+            foreach (TreeNode node in parentNode.Nodes)
+            {
+                newConfig.Items.Add(node.Tag as MobiFlight.Config.BaseDevice);
+            }
+
+            module.Config = newConfig;
+            
+            if (MessageBox.Show(module.Config.ToInternal(), "Confirm", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            {
+                module.SaveConfig();
+            }
+        }
+
+        private bool checkIfMobiFlightSettingsHaveChanged()
+        {
+            return false;
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+
+            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
+
+            foreach (TreeNode node in parentNode.Nodes)
+            {
+                newConfig.Items.Add(node.Tag as MobiFlight.Config.BaseDevice);
+            }
+
+            SaveFileDialog fd = new SaveFileDialog();
+            fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
+            fd.FileName = parentNode.Text + ".mfmc";
+
+            if (DialogResult.OK == fd.ShowDialog())
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
+                TextWriter textWriter = new StreamWriter(fd.FileName);
+                serializer.Serialize(textWriter, newConfig);
+                textWriter.Close();
+            } 
         }
     }
 

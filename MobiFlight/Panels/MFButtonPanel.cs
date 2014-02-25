@@ -9,16 +9,16 @@ using System.Windows.Forms;
 
 namespace MobiFlight.Panels
 {
-    public partial class MFServoPanel : UserControl
+    public partial class MFButtonPanel : UserControl
     {
         /// <summary>
         /// Gets raised whenever config object has changed
         /// </summary>
         public event EventHandler Changed;
 
-        private Config.Servo servo;
+        private Config.Button button;
 
-        public MFServoPanel()
+        public MFButtonPanel()
         {
             InitializeComponent();
             for (int i = 0; i != 56; i++)
@@ -28,20 +28,20 @@ namespace MobiFlight.Panels
             mfPinComboBox.SelectedIndex = 0;
         }
 
-        public MFServoPanel(Config.Servo servo)
+        public MFButtonPanel(Config.Button button)
             : this()
         {
             // TODO: Complete member initialization
-            this.servo = servo;
-            ComboBoxHelper.SetSelectedItem(mfPinComboBox, servo.DataPin);
-            textBox1.Text = servo.Name;
+            this.button = button;
+            ComboBoxHelper.SetSelectedItem(mfPinComboBox, button.Pin);
+            textBox1.Text = button.Name;
         }
 
         private void applyButton_Click(object sender, EventArgs e)
         {
-            servo.DataPin = mfPinComboBox.Text;
-            servo.Name = textBox1.Text;
-            Changed(servo, new EventArgs());
+            button.Pin = mfPinComboBox.Text;
+            button.Name = textBox1.Text;
+            Changed(button, new EventArgs());
         }
     }
 }

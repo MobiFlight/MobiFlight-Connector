@@ -1,6 +1,6 @@
 ﻿namespace MobiFlight.Panels
 {
-    partial class MFServoPanel
+    partial class MFButtonPanel
     {
         /// <summary> 
         /// Erforderliche Designervariable.
@@ -56,7 +56,7 @@
             this.mfPinLabel.Name = "mfPinLabel";
             this.mfPinLabel.Size = new System.Drawing.Size(75, 18);
             this.mfPinLabel.TabIndex = 14;
-            this.mfPinLabel.Text = "DIN line";
+            this.mfPinLabel.Text = "Pin";
             // 
             // mfPinComboBox
             // 
@@ -96,7 +96,7 @@
             this.textBox1.Size = new System.Drawing.Size(151, 20);
             this.textBox1.TabIndex = 0;
             // 
-            // MFServoPanel
+            // MFButtonPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,7 +104,7 @@
             this.Controls.Add(this.applyButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "MFServoPanel";
+            this.Name = "MFButtonPanel";
             this.Size = new System.Drawing.Size(185, 241);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

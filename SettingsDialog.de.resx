@@ -174,15 +174,11 @@ Helligkeit</value>
   <data name="ledDisplaysTabPage.ToolTipText" xml:space="preserve">
     <value>Einstellungen zu den Erweiterungs-Modulen</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>202, 48</value>
+    <value>262, 48</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>97, 13</value>
@@ -202,11 +198,12 @@ Helligkeit</value>
   <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
     <value>Geschwindigkeit Test-Modus</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 19</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Anzahl der Einträge von Dateien in Liste</value>
@@ -220,11 +217,80 @@ Helligkeit</value>
   <data name="generalTabPage.Text" xml:space="preserve">
     <value>Allgemein</value>
   </data>
+  <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQwAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wCWNoaWxkcmVuMQljaGlsZHJlbjIBAQEAAAEAAQAEBAQBCAgIHVN5c3Rl
+        bS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlAgAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQIA
+        AAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYDAAAADk1GX01FR0EgKENPTTMp
+        BgQAAAAABgUAAAAITW9kdWxlXzAA/////wkEAAAA/////wkEAAAAAwAAAAkHAAAACQgAAAAJCQAAAAUH
+        AAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCQAAAARUZXh0C1Rvb2xUaXBUZXh0BE5hbWUJ
+        SXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUluZGV4EFNlbGVjdGVkSW1h
+        Z2VLZXkKQ2hpbGRDb3VudAEBAQAAAQABAAEICAgCAAAABgoAAAAOTEVEIFNlZ21lbnQgIzEJBAAAAAYM
+        AAAABUxFRDAxAP////8JBAAAAP////8JBAAAAAAAAAAFCAAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5U
+        cmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdl
+        S2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQAB
+        CAgIAgAAAAYOAAAACFNlcnZvICMxCQQAAAAGEAAAAAdTRVJWTzAxAP////8JBAAAAP////8JBAAAAAAA
+        AAAFCQAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dARO
+        YW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3Rl
+        ZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYSAAAACFNlcnZvICMyCQQAAAAGFAAA
+        AAhTRVJWT18wMgD/////CQQAAAD/////CQQAAAAAAAAACw==
+</value>
+  </data>
+  <data name="mfModulesTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAAD01GIE1pY3JvIChDT001KQYEAAAAAAYFAAAADU1G
+        X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
+</value>
+  </data>
   <data name="label5.Text" xml:space="preserve">
     <value>Passt die Häufigkeit an mit der Daten bei FSUIPC abgefragt werden. Je kleiner der Wert, desto häufiger ein Update.  Ein zu kleiner Wert kann vielleicht Auswirkungen auf die Performance haben.</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>FSUIPC Aktualisierungs-Intervall</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAGBgAAAEAGABIBwAAFgAAACgAAAAYAAAAMAAAAAEAGAAAAAAAAAAAAGAAAABgAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAgAAAgAAAgAAAgAAAgAAAgAAAgAAAgAAAgAAA
+        gAAAgAAAgAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJMsSJMsSJMsSJMsSJMsSJM
+        sSJMsSJMsSLk5OR/f39/f3/Dw8NMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJMsSJM
+        sSJMsSJ/f38AAABMsSJMsSJMsSLk5OR/f39/f3/Dw8NMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAd5rVMsSJMsSJMsSJMsSJ/f38AAABMsSJMsSJMsSLk5OR/f39/f3/Dw8NMsSIAgAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAd5rVMsSJMsSJMsSJMsSJ/f38AAABMsSJMsSJMsSLk5OTDw8PDw8PDw8NMsSIA
+        gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJMsSJMsSJMsSJ/f38AAABMsSJMsSJMsSJMsSJM
+        sSJMsSJMsSJMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJMsSJMsSJMsSJ/f38AAABM
+        sSJMsSJMsSJMsSJMsSJMsSJMsSJMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJ/f38A
+        AABMsSJ/f38AAABMsSJMsSJMsSJMsSJMsSJ/f38AAABMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAd5rVMsSJ/f38AAABMsSJMsSJMsSJMsSJMsSJMsSJMsSJMsSJ/f38AAABMsSIAgAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAd5rVMsSJ/f38AAABMsSJMsSJMsSJMsSJMsSJMsSJMsSJMsSJ/f38AAABMsSIA
+        gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJ/f38AAABMsSJMsSJMsSJMsSJMsSJMsSJMsSJM
+        sSJ/f38AAABMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJ/f38AAABMsSJMsSJ/f38A
+        AAAAAAAAAABMsSJMsSJ/f38AAABMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJ/f38A
+        AABMsSJMsSJ/f38AAAAAAAAAAABMsSJMsSJ/f38AAABMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAd5rVMsSJ/f38AAABMsSJMsSJ/f38AAAAAAAAAAABMsSJMsSJ/f38AAABMsSIAgAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAd5rVMsSJ/f38AAABMsSJMsSJ/f39/f39/f39/f39MsSJMsSJ/f38AAABMsSIA
+        gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJ/f38AAABMsSJMsSJMsSJMsSJMsSJMsSJMsSJM
+        sSJ/f38AAABMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJ/f38AAABMsSJMsSJMsSJM
+        sSJMsSJMsSJMsSJMsSJ/f38AAABMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJMsSJM
+        sSJMsSIAAAAAAAAAAAAAAAAAAAAAAABMsSJMsSJMsSJMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAd5rVMsSJMsSJMsSJMsSJ/f39/f39/f39/f39/f39/f39MsSJMsSJMsSJMsSIAgAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAd5rVMsSJMsSJMsSJMsSJMsSJMsSIAAAAAAAAAAAAAAAAAAAAAAABMsSJMsSIA
+        gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rVMsSJMsSJMsSJMsSJMsSJMsSJ/f39/f39/f39/f39/
+        f39/f39MsSJMsSIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd5rUd5rUd5rUd5rUd5rUd5rUd
+        5rUd5rUd5rUd5rUd5rUd5rUd5rUd5rUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8A+AAfAPAA
+        DwDwAA8A8AAPAPAADwDwAA8A8AAPAPAADwDwAA8A8AAPAPAADwDwAA8A8AAPAPAADwDwAA8A8AAPAPAA
+        DwDwAA8A8AAPAPAADwDwAA8A+AAfAP///wA=
+</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Einstellungen</value>

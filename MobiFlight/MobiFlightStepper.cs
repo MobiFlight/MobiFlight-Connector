@@ -67,15 +67,5 @@ namespace MobiFlight
             // Send command
             CmdMessenger.SendCommand(command);
         }
-
-        public string GetName()
-        {
-            return "MF Stepper";
-        }
-
-        public new string GetType()
-        {
-            return "STEPPER";
-        }
     }
 }

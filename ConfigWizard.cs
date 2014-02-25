@@ -14,11 +14,6 @@ namespace ArcazeUSB
     {
         public event EventHandler PreconditionTreeNodeChanged;
 
-        class ListItem {        
-            public String Value { get; set; }
-            public String Label { get; set; }
-        }
-
         static int lastTabActive = 0;
 
         ExecutionManager _execManager = null;
@@ -250,7 +245,7 @@ namespace ArcazeUSB
                 // TODO: provide error message
             }
 
-            if (!_setSelectedItem(fsuipcSizeComboBox, config.FSUIPCSize.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPCSize.ToString()))
             {
                 // TODO: provide error message
             }
@@ -266,7 +261,7 @@ namespace ArcazeUSB
             comparisonActiveCheckBox.Checked = config.ComparisonActive;
             comparisonValueTextBox.Text = config.ComparisonValue;
 
-            if (!_setSelectedItem(comparisonOperandComboBox, config.ComparisonOperand))
+            if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.ComparisonOperand))
             {
                 // TODO: provide error message
             }
@@ -274,7 +269,7 @@ namespace ArcazeUSB
             comparisonElseValueTextBox.Text = config.ComparisonElseValue;         
 
             // third tab
-            if (!_setSelectedItem(displayTypeComboBox, config.DisplayType))
+            if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
             {
                 // TODO: provide error message
             }
@@ -286,7 +281,7 @@ namespace ArcazeUSB
                 {
                     serial = serial.Split('/')[1].Trim();
                 }
-                if (!_setSelectedItemByPart(displayModuleNameComboBox, serial))
+                if (!ComboBoxHelper.SetSelectedItemByPart(displayModuleNameComboBox, serial))
                 {
                     // TODO: provide error message
                 }
@@ -298,8 +293,8 @@ namespace ArcazeUSB
                 string pin = config.DisplayPin.Substring(1);
             
                 // preselect normal pin drop downs
-                if (!_setSelectedItem(displayPortComboBox, port)) { /* TODO: provide error message */ }
-                if (!_setSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
+                if (!ComboBoxHelper.SetSelectedItem(displayPortComboBox, port)) { /* TODO: provide error message */ }
+                if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
 
                 int range = displayPinBrightnessTrackBar.Maximum - displayPinBrightnessTrackBar.Minimum;
                 displayPinBrightnessTrackBar.Value = (int)((config.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
@@ -313,28 +308,28 @@ namespace ArcazeUSB
 
                 if (i == 0)
                 {
-                    if (!_setSelectedItem(displayBcdStrobePortComboBox, tmpPort)) { /* TODO: provide error message */ }
-                    if (!_setSelectedItem(displayBcdStrobePinComboBox, tmpPin)) { /* TODO: provide error message */ }
+                    if (!ComboBoxHelper.SetSelectedItem(displayBcdStrobePortComboBox, tmpPort)) { /* TODO: provide error message */ }
+                    if (!ComboBoxHelper.SetSelectedItem(displayBcdStrobePinComboBox, tmpPin)) { /* TODO: provide error message */ }
                 }
                 else
                 {
-                    if (!_setSelectedItem(displayBcdPortComboBox, tmpPort)) { /* TODO: provide error message */ }
-                    if (!_setSelectedItem(displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox, tmpPin)) { /* TODO: provide error message */ }                    
+                    if (!ComboBoxHelper.SetSelectedItem(displayBcdPortComboBox, tmpPort)) { /* TODO: provide error message */ }
+                    if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox, tmpPin)) { /* TODO: provide error message */ }                    
                 }
             }
             
             // preselect display stuff
-			if (!_setSelectedItem(displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
+			if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
             {
                 // TODO: provide error message
             }
 
-            if (!_setSelectedItem(displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
             {
                 // TODO: provide error message
             }
 
-            if (!_setSelectedItem(displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))
             {
                 // TODO: provide error message
             }
@@ -382,6 +377,7 @@ namespace ArcazeUSB
             preconditionListTreeView.Nodes.Add(tmpNode);
         }
 
+        /*
         protected bool _setSelectedItem (ComboBox comboBox, string value) {
             if (comboBox.FindStringExact(value) != -1)
             {
@@ -404,6 +400,7 @@ namespace ArcazeUSB
 
             return false;
         }
+         * */
 
         /// <summary>
         /// sync current status of form values to config
@@ -886,13 +883,13 @@ namespace ArcazeUSB
                 fsuipcSizeComboBox.Items.Add("2");
                 fsuipcSizeComboBox.Items.Add("4");
                 fsuipcSizeComboBox.Items.Add("8");
-                _setSelectedItem(fsuipcSizeComboBox, selectedText);
+                ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, selectedText);
             }
             else if (fsuipcOffsetTypeComboBox.SelectedValue.ToString() == FSUIPCOffsetType.Float.ToString())
             {                
                 fsuipcSizeComboBox.Items.Add("4");
                 fsuipcSizeComboBox.Items.Add("8");
-                _setSelectedItem(fsuipcSizeComboBox, selectedText);
+                ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, selectedText);
             }
             else if (fsuipcOffsetTypeComboBox.SelectedValue.ToString() == FSUIPCOffsetType.String.ToString())
             {
@@ -938,7 +935,7 @@ namespace ArcazeUSB
                         // precondition could not be loaded
                     }
 
-                    _setSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);
+                    ComboBoxHelper.SetSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);
                     preconditionRefValueTextBox.Text = config.PreconditionValue;
                     break;
 
@@ -946,7 +943,7 @@ namespace ArcazeUSB
                     ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
                     preconditionPortComboBox.SelectedIndex = io.Port;
                     preconditionPinComboBox.SelectedIndex = io.Pin;
-                    _setSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
+                    ComboBoxHelper.SetSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
                     preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;
                     break;
             }  

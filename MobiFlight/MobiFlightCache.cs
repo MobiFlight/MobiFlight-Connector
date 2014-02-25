@@ -277,5 +277,20 @@ namespace ArcazeUSB
 
             throw new IndexOutOfRangeException();
         }
+
+        internal MobiFlightModule GetModule(MobiFlightModuleInfo moduleInfo)
+        {
+            foreach (MobiFlightModule module in Modules)
+            {
+                if (module.Port == moduleInfo.Port) return module;                
+            }
+
+            foreach (MobiFlightModule module in Modules)
+            {
+                if (module.Serial == moduleInfo.Serial) return module;
+            }            
+
+            throw new IndexOutOfRangeException();
+        }
     }
 }

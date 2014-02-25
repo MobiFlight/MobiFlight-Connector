@@ -6,7 +6,7 @@ using CommandMessenger;
 
 namespace MobiFlight
 {
-    class MobiFlightServo : IConnectedDevice
+    public class MobiFlightServo : IConnectedDevice
     {
         private String _name = "Servo";
         public String Name
@@ -40,16 +40,6 @@ namespace MobiFlight
             
             // Send command
             CmdMessenger.SendCommand(command);
-        }
-
-        public string GetName()
-        {
-            return "MF Servo";
-        }
-
-        public new string GetType()
-        {
-            return "SERVO";
         }
     }
 }

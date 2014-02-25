@@ -184,7 +184,7 @@
     <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 318</value>
+    <value>0, 338</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>379, 25</value>
@@ -383,7 +383,7 @@ intensity</value>
     <value>3, 52</value>
   </data>
   <data name="arcazeModuleSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 211</value>
+    <value>365, 257</value>
   </data>
   <data name="arcazeModuleSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -464,7 +464,7 @@ intensity</value>
     <value>3, 3</value>
   </data>
   <data name="arcazeModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 49</value>
+    <value>365, 49</value>
   </data>
   <data name="arcazeModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -491,7 +491,7 @@ intensity</value>
     <value>3, 3, 3, 3</value>
   </data>
   <data name="ledDisplaysTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>345, 266</value>
+    <value>371, 312</value>
   </data>
   <data name="ledDisplaysTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -511,6 +511,9 @@ intensity</value>
   <data name="&gt;&gt;ledDisplaysTabPage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -518,7 +521,7 @@ intensity</value>
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>248, 48</value>
+    <value>308, 48</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 13</value>
@@ -581,7 +584,7 @@ intensity</value>
     <value>3, 16</value>
   </data>
   <data name="testModeSpeedTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>333, 45</value>
+    <value>359, 45</value>
   </data>
   <data name="testModeSpeedTrackBar.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -605,7 +608,7 @@ intensity</value>
     <value>3, 49</value>
   </data>
   <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 74</value>
+    <value>365, 74</value>
   </data>
   <data name="testModeSpeedGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -625,23 +628,23 @@ intensity</value>
   <data name="&gt;&gt;testModeSpeedGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 21</value>
+    <value>9, 21</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 13</value>
+    <value>227, 18</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Set the number of files shown in the list to</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -656,7 +659,7 @@ intensity</value>
     <value>0</value>
   </data>
   <data name="recentFilesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 19</value>
+    <value>242, 19</value>
   </data>
   <data name="recentFilesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>38, 20</value>
@@ -683,7 +686,7 @@ intensity</value>
     <value>3, 3</value>
   </data>
   <data name="recentFilesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 46</value>
+    <value>365, 46</value>
   </data>
   <data name="recentFilesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -710,7 +713,7 @@ intensity</value>
     <value>3, 3, 3, 3</value>
   </data>
   <data name="generalTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>345, 266</value>
+    <value>371, 312</value>
   </data>
   <data name="generalTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -782,7 +785,7 @@ intensity</value>
     <value>0</value>
   </data>
   <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 211</value>
+    <value>163, 231</value>
   </data>
   <data name="mfModulesTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -806,7 +809,7 @@ intensity</value>
     <value>166, 16</value>
   </data>
   <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 211</value>
+    <value>196, 231</value>
   </data>
   <data name="mfSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -829,13 +832,13 @@ intensity</value>
   <data name="mobiflightSettingsToolStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="toolStripButton1.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="uploadToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="toolStripButton1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <data name="toolStripButton1.Text" xml:space="preserve">
+  <data name="uploadToolStripButton.Text" xml:space="preserve">
     <value>uploadToolStripButton</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
@@ -862,50 +865,65 @@ intensity</value>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 25</value>
   </data>
-  <data name="stepperToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="stepperToolStripMenuItem1.Text" xml:space="preserve">
+  <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Encoder</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 6</value>
+  </data>
+  <data name="addStepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addStepperToolStripMenuItem.Text" xml:space="preserve">
     <value>Stepper</value>
   </data>
-  <data name="servoToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="addServoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="servoToolStripMenuItem1.Text" xml:space="preserve">
+  <data name="addServoToolStripMenuItem.Text" xml:space="preserve">
     <value>Servo</value>
   </data>
-  <data name="lED7SegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="addLedModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="lED7SegmentToolStripMenuItem.Text" xml:space="preserve">
+  <data name="addLedModuleToolStripMenuItem.Text" xml:space="preserve">
     <value>LED 7-Segment</value>
   </data>
-  <data name="lEDOutputToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="addOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="lEDOutputToolStripMenuItem1.Text" xml:space="preserve">
+  <data name="addOutputToolStripMenuItem.Text" xml:space="preserve">
     <value>LED / Output</value>
   </data>
-  <data name="toolStripDropDownButton1.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="toolStripDropDownButton1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 22</value>
   </data>
-  <data name="toolStripDropDownButton1.Text" xml:space="preserve">
+  <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
     <value>Add device</value>
   </data>
-  <data name="toolStripButton6.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="removeDeviceToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="toolStripButton6.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>107, 22</value>
   </data>
-  <data name="toolStripButton6.Text" xml:space="preserve">
+  <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
     <value>Remove device</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 227</value>
+    <value>3, 247</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>359, 25</value>
@@ -935,7 +953,7 @@ intensity</value>
     <value>3, 34</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>365, 255</value>
+    <value>365, 275</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -992,7 +1010,7 @@ intensity</value>
     <value>3, 3, 3, 3</value>
   </data>
   <data name="mobiFlightTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>371, 292</value>
+    <value>371, 312</value>
   </data>
   <data name="mobiFlightTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1022,7 +1040,7 @@ intensity</value>
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 53</value>
+    <value>168, 53</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>38, 13</value>
@@ -1055,7 +1073,7 @@ intensity</value>
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>291, 53</value>
+    <value>317, 53</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>38, 13</value>
@@ -1121,7 +1139,7 @@ intensity</value>
     <value>0, 10, 0, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>327, 190</value>
+    <value>353, 236</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -1151,7 +1169,7 @@ intensity</value>
     <value>6, 19</value>
   </data>
   <data name="fsuipcPollIntervalTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>327, 45</value>
+    <value>353, 45</value>
   </data>
   <data name="fsuipcPollIntervalTrackBar.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -1178,7 +1196,7 @@ intensity</value>
     <value>6, 6, 6, 6</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 260</value>
+    <value>365, 306</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1205,7 +1223,7 @@ intensity</value>
     <value>3, 3, 3, 3</value>
   </data>
   <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>345, 266</value>
+    <value>371, 312</value>
   </data>
   <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1232,7 +1250,7 @@ intensity</value>
     <value>0, 0</value>
   </data>
   <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 318</value>
+    <value>379, 338</value>
   </data>
   <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1334,7 +1352,7 @@ intensity</value>
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>379, 343</value>
+    <value>379, 363</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1372,11 +1390,20 @@ intensity</value>
         DwDwAA8A8AAPAPAADwDwAA8A+AAfAP///wA=
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="&gt;&gt;mfTreeViewImageList.Name" xml:space="preserve">
+    <value>mfTreeViewImageList</value>
+  </data>
+  <data name="&gt;&gt;mfTreeViewImageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripButton.Name" xml:space="preserve">
+    <value>uploadToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
     <value>toolStripSeparator1</value>
@@ -1384,11 +1411,77 @@ intensity</value>
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;openToolStripButton.Name" xml:space="preserve">
+    <value>openToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;openToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
+    <value>saveToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
     <value>toolStripSeparator2</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Name" xml:space="preserve">
+    <value>addDeviceToolStripDropDownButton</value>
+  </data>
+  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addEncoderToolStripMenuItem.Name" xml:space="preserve">
+    <value>addEncoderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addEncoderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addButtonToolStripMenuItem.Name" xml:space="preserve">
+    <value>addButtonToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addButtonToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Name" xml:space="preserve">
+    <value>addStepperToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addServoToolStripMenuItem.Name" xml:space="preserve">
+    <value>addServoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addServoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addLedModuleToolStripMenuItem.Name" xml:space="preserve">
+    <value>addLedModuleToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addLedModuleToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addOutputToolStripMenuItem.Name" xml:space="preserve">
+    <value>addOutputToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addOutputToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
+    <value>removeDeviceToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;removeDeviceToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
@@ -1467,66 +1560,6 @@ intensity</value>
   </data>
   <data name="&gt;&gt;saveAsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mfTreeViewImageList.Name" xml:space="preserve">
-    <value>mfTreeViewImageList</value>
-  </data>
-  <data name="&gt;&gt;mfTreeViewImageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripButton1.Name" xml:space="preserve">
-    <value>toolStripButton1</value>
-  </data>
-  <data name="&gt;&gt;toolStripButton1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openToolStripButton.Name" xml:space="preserve">
-    <value>openToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;openToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
-    <value>saveToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripDropDownButton1.Name" xml:space="preserve">
-    <value>toolStripDropDownButton1</value>
-  </data>
-  <data name="&gt;&gt;toolStripDropDownButton1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stepperToolStripMenuItem1.Name" xml:space="preserve">
-    <value>stepperToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;stepperToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;servoToolStripMenuItem1.Name" xml:space="preserve">
-    <value>servoToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;servoToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lED7SegmentToolStripMenuItem.Name" xml:space="preserve">
-    <value>lED7SegmentToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;lED7SegmentToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lEDOutputToolStripMenuItem1.Name" xml:space="preserve">
-    <value>lEDOutputToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;lEDOutputToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripButton6.Name" xml:space="preserve">
-    <value>toolStripButton6</value>
-  </data>
-  <data name="&gt;&gt;toolStripButton6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SettingsDialog</value>

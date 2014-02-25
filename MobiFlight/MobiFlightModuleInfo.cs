@@ -15,6 +15,7 @@ namespace MobiFlight
         public String Serial { get; set; }
         public String Port   { get; set; }
         public String Name   { get; set; }
+        public String Config { get; set; }
 
         public ushort Version
         {
