@@ -360,6 +360,7 @@
             this.openToolStripButton.Image = global::ArcazeUSB.Properties.Resources.folder;
             resources.ApplyResources(this.openToolStripButton, "openToolStripButton");
             this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
             // saveToolStripButton
             // 

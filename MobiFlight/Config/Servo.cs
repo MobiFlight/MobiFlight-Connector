@@ -17,8 +17,9 @@ namespace MobiFlight.Config
 
         override public String ToInternal()
         {
-            return (int)Type + separator
-                 + DataPin;
+            return base.ToInternal() + separator
+                 + DataPin + separator
+                 + Name;
         }
 
         override public bool FromInternal(String value)

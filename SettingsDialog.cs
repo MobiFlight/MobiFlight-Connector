@@ -380,6 +380,11 @@ namespace ArcazeUSB
                         panel = new MobiFlight.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder);
                         (panel as MobiFlight.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigObject_changed);
                         break;
+
+                    case MobiFlightModule.DeviceType.Output:
+                        panel = new MobiFlight.Panels.MFOutputPanel(dev as MobiFlight.Config.Output);
+                        (panel as MobiFlight.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigObject_changed);
+                        break;
                     // output
                 }
 
@@ -495,6 +500,32 @@ namespace ArcazeUSB
                 TextWriter textWriter = new StreamWriter(fd.FileName);
                 serializer.Serialize(textWriter, newConfig);
                 textWriter.Close();
+            } 
+        }
+
+        private void openToolStripButton_Click(object sender, EventArgs e)
+        {
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+           
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
+
+            if (DialogResult.OK == fd.ShowDialog())
+            {
+                TextReader textReader = new StreamReader(fd.FileName);
+                XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
+                MobiFlight.Config.Config newConfig;
+                newConfig = (MobiFlight.Config.Config)serializer.Deserialize(textReader);
+                textReader.Close();
+
+                parentNode.Nodes.Clear();
+
+                foreach( MobiFlight.Config.BaseDevice device in newConfig.Items) {
+                    TreeNode newNode = new TreeNode(device.Name);
+                    newNode.Tag = device;
+                    parentNode.Nodes.Add(newNode);
+                }
             } 
         }
     }

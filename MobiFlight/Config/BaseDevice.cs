@@ -14,7 +14,7 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String Name { get; set; }
 
-        virtual public String ToInternal() { throw new NotImplementedException(); }
+        virtual public String ToInternal() { return ((int)_type).ToString(); }
         virtual public bool FromInternal(String value) { throw new NotImplementedException(); }
 
         [XmlAttribute]

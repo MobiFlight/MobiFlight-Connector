@@ -19,7 +19,7 @@ namespace MobiFlight.Config
 
         override public String ToInternal()
         {
-            return (int)Type + separator
+            return base.ToInternal() + separator
                  + PinLeft + separator
                  + PinRight + separator
                  + Name;

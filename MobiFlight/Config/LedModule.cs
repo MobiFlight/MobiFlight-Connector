@@ -24,12 +24,13 @@ namespace MobiFlight.Config
 
         override public String ToInternal()
         {
-            return (int)Type + separator
+            return base.ToInternal() + separator
                  + DinPin + separator
                  + ClsPin + separator
                  + ClkPin + separator
                  + Brightness + separator
-                 + NumModules;
+                 + NumModules + separator
+                 + Name;
         }
 
         override public bool FromInternal(String value)

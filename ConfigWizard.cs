@@ -202,6 +202,9 @@ namespace ArcazeUSB
                 preconditionPinComboBox.Items.Add(v);
             }
 
+
+            /// update the display box with
+            /// modules
             displayModuleNameComboBox.Items.Clear();
             preconditionPinSerialComboBox.Items.Clear();
             displayModuleNameComboBox.Items.Add("-");
@@ -800,6 +803,10 @@ namespace ArcazeUSB
                 
                 displayPinBrightnessPanel.Visible = (moduleSettings[serial].type == SimpleSolutions.Usb.ArcazeCommand.ExtModuleType.LedDriver3);
                 displayPinBrightnessPanel.Enabled = (displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1)); 
+
+                // update the available types depending on the 
+                // type of module
+                
             }
             catch(Exception ex) {
                 displayPinBrightnessPanel.Visible = false;
