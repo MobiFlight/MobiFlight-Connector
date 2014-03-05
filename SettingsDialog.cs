@@ -59,10 +59,11 @@ namespace ArcazeUSB
             arcazeModuleTypeComboBox.SelectedIndex = 0;
 
             // initialize mftreeviewimagelist
-            mfTreeViewImageList.Images.Add("SERVO", ArcazeUSB.Properties.Resources.cd);
-            mfTreeViewImageList.Images.Add("STEPPER", ArcazeUSB.Properties.Resources.dvd);
-            mfTreeViewImageList.Images.Add("OUTPUT", ArcazeUSB.Properties.Resources.lightbulb_on);
-            mfTreeViewImageList.Images.Add("LEDMODULE", ArcazeUSB.Properties.Resources.sound);
+            mfTreeViewImageList.Images.Add(DeviceType.Button.ToString(), ArcazeUSB.Properties.Resources.cd);
+            mfTreeViewImageList.Images.Add(DeviceType.Stepper.ToString(), ArcazeUSB.Properties.Resources.dvd);
+            mfTreeViewImageList.Images.Add(DeviceType.Servo.ToString(), ArcazeUSB.Properties.Resources.dvd);
+            mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), ArcazeUSB.Properties.Resources.lightbulb_on);
+            mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), ArcazeUSB.Properties.Resources.sound);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
 
             loadSettings();
@@ -129,31 +130,15 @@ namespace ArcazeUSB
                     TreeNode node = new TreeNode(module.Name);
                     node.Tag = mobiflightCache.GetModule(module);
                     mfModulesTreeView.Nodes.Add(node);
-                    /*
-                    foreach (IConnectedDevice device in module.GetConnectedDevices())
+                    
+                    foreach (MobiFlight.Config.BaseDevice device in (node.Tag as MobiFlightModule).Config.Items)
                     {
                         TreeNode deviceNode = new TreeNode(device.Name);
                         deviceNode.Tag = device;
-                        switch (device.Type) {
-                            case "LEDMODULE":
-                                deviceNode.ImageKey = "LEDMODULE";                            
-                                break;
-
-                            case "STEPPER":
-                                deviceNode.ImageKey = "STEPPER";
-                                break;
-
-                            case "OUTPUT":
-                                deviceNode.ImageKey = "OUTPUT";
-                                break;
-
-                            case "SERVO":
-                                deviceNode.ImageKey = "SERVO";
-                                break;
-                        }
+                        deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();                        
                         node.Nodes.Add(deviceNode);
                     }
-                     * */
+                    
                 }
             }
             catch (IndexOutOfRangeException ex)
@@ -356,32 +341,32 @@ namespace ArcazeUSB
                 MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
                 switch (dev.Type)
                 {
-                    case MobiFlightModule.DeviceType.LedModule:
+                    case DeviceType.LedModule:
                         panel = new MobiFlight.Panels.MFLedSegmentPanel(dev as MobiFlight.Config.LedModule);
                         (panel as MobiFlight.Panels.MFLedSegmentPanel).Changed += new EventHandler(mfConfigObject_changed);
                         break;
 
-                    case MobiFlightModule.DeviceType.Stepper:
+                    case DeviceType.Stepper:
                         panel = new MobiFlight.Panels.MFStepperPanel(dev as MobiFlight.Config.Stepper);
                         (panel as MobiFlight.Panels.MFStepperPanel).Changed += new EventHandler(mfConfigObject_changed);
                         break;
 
-                    case MobiFlightModule.DeviceType.Servo:
+                    case DeviceType.Servo:
                         panel = new MobiFlight.Panels.MFServoPanel(dev as MobiFlight.Config.Servo);
                         (panel as MobiFlight.Panels.MFServoPanel).Changed+=new EventHandler(mfConfigObject_changed);
                         break;
 
-                    case MobiFlightModule.DeviceType.Button:
+                    case DeviceType.Button:
                         panel = new MobiFlight.Panels.MFButtonPanel(dev as MobiFlight.Config.Button);
                         (panel as MobiFlight.Panels.MFButtonPanel).Changed += new EventHandler(mfConfigObject_changed);
                         break;
 
-                    case MobiFlightModule.DeviceType.Encoder:
+                    case DeviceType.Encoder:
                         panel = new MobiFlight.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder);
                         (panel as MobiFlight.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigObject_changed);
                         break;
 
-                    case MobiFlightModule.DeviceType.Output:
+                    case DeviceType.Output:
                         panel = new MobiFlight.Panels.MFOutputPanel(dev as MobiFlight.Config.Output);
                         (panel as MobiFlight.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigObject_changed);
                         break;
@@ -434,6 +419,7 @@ namespace ArcazeUSB
             }
 
             TreeNode newNode = new TreeNode(cfgItem.Name);
+            newNode.SelectedImageKey = newNode.ImageKey = cfgItem.Type.ToString(); 
             newNode.Tag = cfgItem;
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
@@ -527,6 +513,13 @@ namespace ArcazeUSB
                     parentNode.Nodes.Add(newNode);
                 }
             } 
+        }
+
+        private void removeDeviceToolStripButton_Click(object sender, EventArgs e)
+        {
+            TreeNode node = mfModulesTreeView.SelectedNode;
+            mfModulesTreeView.Nodes.Remove(node);
+
         }
     }
 

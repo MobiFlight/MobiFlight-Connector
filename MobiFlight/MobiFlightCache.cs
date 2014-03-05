@@ -108,7 +108,7 @@ namespace ArcazeUSB
             foreach (MobiFlightModuleInfo devInfo in connectedModules)
             {
                 MobiFlightModule m = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = devInfo.Port });
-                m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);
+                m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);                
                 Modules.Add(m);
             }
 
@@ -117,6 +117,7 @@ namespace ArcazeUSB
             {
                 // module.UpdateConfig(
                 module.Connect();
+                module.GetInfo();
             }
 
             if (isConnected())
@@ -273,6 +274,16 @@ namespace ArcazeUSB
             foreach (MobiFlightModule module in Modules)
             {
                 if (module.Port == port) return module;
+            }
+
+            throw new IndexOutOfRangeException();
+        }
+
+        public MobiFlightModule GetModuleBySerial(string serial)
+        {
+            foreach (MobiFlightModule module in Modules)
+            {
+                if (module.Serial == serial) return module;
             }
 
             throw new IndexOutOfRangeException();

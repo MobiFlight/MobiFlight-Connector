@@ -13,22 +13,23 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String PinRight = "2";
 
-        const ushort _paramCount = 4;
+        const ushort _paramCount = 3;
         
-        public Encoder() { Name = "Encoder"; _type = MobiFlightModule.DeviceType.Encoder;}
+        public Encoder() { Name = "Encoder"; _type = DeviceType.Encoder;}
 
         override public String ToInternal()
         {
-            return base.ToInternal() + separator
-                 + PinLeft + separator
-                 + PinRight + separator
-                 + Name;
+            return base.ToInternal() + Separator
+                 + PinLeft + Separator
+                 + PinRight + Separator
+                 + Name + End;
         }
 
         override public bool FromInternal(String value)
         {
-            String[] paramList = value.Split(separator);
-            if (paramList.Count() != _paramCount)
+            if (value.Length == value.IndexOf(End) + 1) value = value.Substring(0, value.Length - 1);
+            String[] paramList = value.Split(Separator);
+            if (paramList.Count() != _paramCount+1)
             {
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }

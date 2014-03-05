@@ -194,6 +194,7 @@
     <Compile Include="MobiFlight\Config\Servo.cs" />
     <Compile Include="MobiFlight\Config\LedModule.cs" />
     <Compile Include="MobiFlight\IConnectedDevice.cs" />
+    <Compile Include="MobiFlight\MobiFlightOutput.cs" />
     <Compile Include="MobiFlight\MobiFlightServo.cs" />
     <Compile Include="MobiFlight\MobiFlightCache.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleInfo.cs" />
@@ -247,6 +248,24 @@
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\Precondition.cs" />
+    <Compile Include="Panels\DisplayBcdPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\DisplayBcdPanel.Designer.cs">
+      <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\DisplayLedDisplayPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\DisplayLedDisplayPanel.Designer.cs">
+      <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\DisplayNothingSelectedPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\DisplayNothingSelectedPanel.Designer.cs">
+      <DependentUpon>DisplayNothingSelectedPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\DisplayPinPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -330,6 +349,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OrphanedSerialsDialog.resx">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\DisplayBcdPanel.resx">
+      <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\DisplayLedDisplayPanel.resx">
+      <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\DisplayNothingSelectedPanel.resx">
+      <DependentUpon>DisplayNothingSelectedPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\DisplayPinPanel.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>

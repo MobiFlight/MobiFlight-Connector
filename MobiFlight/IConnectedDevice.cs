@@ -8,6 +8,6 @@ namespace MobiFlight
     public interface IConnectedDevice
     {
         String Name { get; }
-        String Type { get; }
+        DeviceType Type { get; }
     }
 }

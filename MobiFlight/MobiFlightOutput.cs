@@ -6,9 +6,9 @@ using CommandMessenger;
 
 namespace MobiFlight
 {
-    public class MobiFlightServo : IConnectedDevice
+    public class MobiFlightOutput : IConnectedDevice
     {
-        private String _name = "Servo";
+        private String _name = "Output";
         public String Name
         {
             get { return _name; }
@@ -16,7 +16,7 @@ namespace MobiFlight
         }
 
 
-        private DeviceType _type = DeviceType.Servo;
+        private DeviceType _type = DeviceType.Output;
         public DeviceType Type
         {
             get { return _type; }
@@ -24,20 +24,15 @@ namespace MobiFlight
         }
 
         public CmdMessenger CmdMessenger { get; set; }
-        public int ServoNumber { get; set; }
+        public int Pin { get; set; }
         
-        public MobiFlightServo()
-        {
-        }
+        public MobiFlightOutput() { }
 
-        public void MoveToPosition(int value)
+        public void Set(int value)
         {
-            int mappedValue = value;
-            
-            var command = new SendCommand((int)MobiFlightModule.Command.SetServo);
-            command.AddArgument(ServoNumber);
-            command.AddArgument(mappedValue);
-            
+            var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
+            command.AddArgument(Pin);
+            command.AddArgument(value);
             // Send command
             CmdMessenger.SendCommand(command);
         }

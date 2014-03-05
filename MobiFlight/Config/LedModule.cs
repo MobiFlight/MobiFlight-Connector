@@ -8,7 +8,7 @@ namespace MobiFlight.Config
 {
     public class LedModule : BaseDevice
     {
-        const ushort _paramCount = 5;
+        const ushort _paramCount = 6;
         [XmlAttribute]
         public String DinPin = "1";
         [XmlAttribute]
@@ -20,23 +20,24 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String NumModules = "1";
 
-        public LedModule() { Name = "LedModule"; _type = MobiFlightModule.DeviceType.LedModule; }
+        public LedModule() { Name = "LedModule"; _type = DeviceType.LedModule; }
 
         override public String ToInternal()
         {
-            return base.ToInternal() + separator
-                 + DinPin + separator
-                 + ClsPin + separator
-                 + ClkPin + separator
-                 + Brightness + separator
-                 + NumModules + separator
-                 + Name;
+            return base.ToInternal() + Separator
+                 + DinPin + Separator
+                 + ClsPin + Separator
+                 + ClkPin + Separator
+                 + Brightness + Separator
+                 + NumModules + Separator
+                 + Name + End;
         }
 
         override public bool FromInternal(String value)
         {
-            String[] paramList = value.Split(separator);
-            if (paramList.Count() != _paramCount)
+            if (value.Length == value.IndexOf(End) + 1) value = value.Substring(0, value.Length - 1);
+            String[] paramList = value.Split(Separator);
+            if (paramList.Count() != _paramCount + 1)
             {
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
@@ -46,6 +47,7 @@ namespace MobiFlight.Config
             ClkPin = paramList[3];
             Brightness = Byte.Parse(paramList[4]);
             NumModules = paramList[5];
+            Name = paramList[6];
 
             return true;
         }

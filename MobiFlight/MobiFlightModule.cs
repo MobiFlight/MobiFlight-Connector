@@ -15,6 +15,19 @@ namespace MobiFlight
         public int Value { get; set; }
     }
 
+    // This is the list of recognized commands. These can be commands that can either be sent or received. 
+    // In order to receive, attach a callback function to these events
+    public enum DeviceType
+    {
+        NotSet,      // 0 
+        Button,      // 1
+        Encoder,     // 2
+        Output,      // 3
+        LedModule,   // 4
+        Stepper,     // 5
+        Servo,       // 6
+    }
+
     public class MobiFlightModule : IModule, IOutputModule
     {
         public delegate void ButtonEventHandler(object sender, ButtonArgs e);
@@ -25,6 +38,7 @@ namespace MobiFlight
 
         delegate void AddLogCallback(string text);
         SerialPort _serialPort;
+        protected MobiFlight.Config.Config _config = null;
 
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
@@ -32,7 +46,26 @@ namespace MobiFlight
         public String Type { get; set; }
         public String Serial { get; set; }
         public String Version { get; set; }
-        public MobiFlight.Config.Config Config { get; set; }
+        public MobiFlight.Config.Config Config { 
+            get {
+                    if (!Connected) return null;
+                    if (_config==null) {
+                        var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, 2000);
+                        var InfoCommand = _cmdMessenger.SendCommand(command);
+                        InfoCommand = _cmdMessenger.SendCommand(command);
+                        if (InfoCommand.Ok)
+                        {
+                            _config = new Config.Config(InfoCommand.ReadStringArg());
+                        }
+                    }
+                    return _config;
+                }
+
+            set
+            {
+                _config = value;
+            }
+        }
 
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
@@ -45,8 +78,9 @@ namespace MobiFlight
         List<MobiFlightLedModule> ledModules = new List<MobiFlightLedModule>();
         List<MobiFlightStepper> stepperModules = new List<MobiFlightStepper>();
         List<MobiFlightServo> servoModules = new List<MobiFlightServo>();
-        Dictionary<String, int> buttonValues = new Dictionary<String, int>();
+        List<MobiFlightOutput> outputs = new List<MobiFlightOutput>();
 
+        Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
         public bool Connected { get; set; }
 
@@ -55,34 +89,28 @@ namespace MobiFlight
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
 
-        // This is the list of recognized commands. These can be commands that can either be sent or received. 
-        // In order to receive, attach a callback function to these events
-        public enum DeviceType
-        {
-            NotSet,      // 0 
-            Button,      // 1
-            Encoder,     // 2
-            Output,      // 3
-            LedModule,   // 4
-            Stepper,     // 5
-            Servo,       // 6
-        }
+        
 
         public enum Command
         {            
-            InitModule,    // 0
-            SetModule,     // 1
-            SetPin,        // 2
-            SetStepper,    // 3
-            SetServo,      // 4
-            Status,        // 5
-            EncoderChange, // 6
-            ButtonChange,  // 7
-            StepperChange, // 8
-            GetInfo,       // 9
-            Info,          // 10
-            SetConfig,     // 11
-            GetConfig,     // 12
+            InitModule,     // 0
+            SetModule,      // 1
+            SetPin,         // 2
+            SetStepper,     // 3
+            SetServo,       // 4
+            Status,         // 5
+            EncoderChange,  // 6
+            ButtonChange,   // 7
+            StepperChange,  // 8
+            GetInfo,        // 9
+            Info,           // 10
+            SetConfig,      // 11
+            GetConfig,      // 12
+            ResetConfig,    // 13
+            SaveConfig,     // 14
+            ConfigSaved,    // 15
+            ActivateConfig, // 16
+            ConfigActivated // 17
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -113,18 +141,40 @@ namespace MobiFlight
             AttachCommandCallBacks();
 
             // Start listening            
-            _cmdMessenger.StartListening();
+            _cmdMessenger.StartListening();            
+            
+            this.Connected = true;
 
+            LoadConfig();
+        }
+
+        public void LoadConfig()
+        {           
             // add Led Modules
             ledModules.Clear();
-            ledModules.Add(new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, ModuleNumber = 0 });
-
             stepperModules.Clear();
-            stepperModules.Add(new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, StepperNumber = 0 });
-
             servoModules.Clear();
-            servoModules.Add(new MobiFlightServo() { CmdMessenger = _cmdMessenger });
-            this.Connected = true;
+                        
+            foreach (Config.BaseDevice device in Config.Items)
+            {
+                switch(device.Type) {
+                    case DeviceType.LedModule:
+                        ledModules.Add(new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count });
+                        break;
+
+                    case DeviceType.Stepper:
+                        stepperModules.Add(new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count });
+                        break;
+                    
+                    case DeviceType.Servo:
+                        servoModules.Add(new MobiFlightServo() { CmdMessenger = _cmdMessenger, Name = device.Name, ServoNumber = servoModules.Count });
+                        break;
+
+                    case DeviceType.Output:
+                        outputs.Add(new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
+                        break;
+                }                
+            }
         }
 
         public void Disconnect()
@@ -209,11 +259,7 @@ namespace MobiFlight
 
             lastValue[key] = value.ToString();
             
-            var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
-            command.AddArgument(pin);
-            command.AddArgument(value);
-            // Send command
-            _cmdMessenger.SendCommand(command);
+
 
             return true;
         }
@@ -274,41 +320,66 @@ namespace MobiFlight
         {
             MobiFlightModuleInfo devInfo = new MobiFlightModuleInfo() { Name = "Unknown", Type = MobiFlightModuleInfo.TYPE_UNKNOWN, Port = _comPort };
 
-            var command = new SendCommand((int)MobiFlightModule.Command.GetInfo,(int)MobiFlightModule.Command.Info, 1000);
+            var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, 1000);
             var InfoCommand = _cmdMessenger.SendCommand(command);
             InfoCommand = _cmdMessenger.SendCommand(command);
             if (InfoCommand.Ok)
             {
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();
-                devInfo.Serial = InfoCommand.ReadStringArg();
-                devInfo.Config = InfoCommand.ReadStringArg();
+                devInfo.Serial = InfoCommand.ReadStringArg();                
+
+                Type = devInfo.Type;
+                Name = devInfo.Name;
+                Serial = devInfo.Serial;
             }
 
-            Type = devInfo.Type;
-            Name = devInfo.Name;
-            Serial = devInfo.Serial;
-            Config = new Config.Config(devInfo.Config);
-            
             return devInfo;
         }
 
         public bool SaveConfig()
         {
-            var command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, 1000);
+            bool isOk = true;
+            var command = new SendCommand((int)MobiFlightModule.Command.ResetConfig, (int)MobiFlightModule.Command.Status, 1000);
+            _cmdMessenger.SendCommand(command);
+
+            //foreach (MobiFlight.Config.BaseDevice dev in Config.Items)
+            //{
+            command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, 1000);
             command.AddArgument(Config.ToInternal());
             var StatusCommand = _cmdMessenger.SendCommand(command);
-            if (StatusCommand.Ok)
+            if (!StatusCommand.Ok)
             {
-                return true;
+                isOk = false;
+                //break;
+            }
+            //}
+
+            if (isOk)
+            {
+                command = new SendCommand((int)MobiFlightModule.Command.SaveConfig, (int)MobiFlightModule.Command.ConfigSaved, 1000);
+                StatusCommand = _cmdMessenger.SendCommand(command);
+
+                if (StatusCommand.Ok)
+                {
+                    command = new SendCommand((int)MobiFlightModule.Command.ActivateConfig, (int)MobiFlightModule.Command.ConfigActivated, 1000);
+                    StatusCommand = _cmdMessenger.SendCommand(command);
+                    isOk = StatusCommand.Ok;
+                }
             }
 
-            return false;
+            return isOk;
         }
 
         public List<IConnectedDevice> GetConnectedDevices()
         {
             List<IConnectedDevice> result = new List<IConnectedDevice>();
+
+            foreach (MobiFlightOutput output in outputs)
+            {
+                result.Add(output);
+            }
+
             foreach (MobiFlightLedModule ledModule in ledModules)
             {
                 result.Add(ledModule);
@@ -319,6 +390,42 @@ namespace MobiFlight
                 result.Add(stepper);
             }
 
+            return result;
+        }
+
+        public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
+        {
+            List<DeviceType> result = new List<DeviceType>();
+            if (outputs.Count > 0) result.Add(DeviceType.Output);
+            if (ledModules.Count > 0) result.Add(DeviceType.LedModule);
+            if (stepperModules.Count > 0) result.Add(DeviceType.Stepper);
+            if (servoModules.Count > 0) result.Add(DeviceType.Servo);
+
+            return result;
+        }
+
+        public IEnumerable<DeviceType> GetConnectedInputDeviceTypes()
+        {
+            bool _hasButtons = false;
+            bool _hasEncoder = false;
+
+            List<DeviceType> result = new List<DeviceType>();
+            
+            foreach (Config.BaseDevice dev in Config.Items)
+            {
+                switch (dev.Type)
+                {
+                    case DeviceType.Button:
+                        _hasButtons = true;
+                        break;
+                    case DeviceType.Encoder:
+                        _hasEncoder = true;
+                        break;
+                }
+            }            
+            if (_hasButtons) result.Add(DeviceType.Button);
+            if (_hasEncoder) result.Add(DeviceType.Encoder);
+            
             return result;
         }
     }

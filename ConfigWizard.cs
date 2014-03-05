@@ -18,13 +18,18 @@ namespace ArcazeUSB
 
         ExecutionManager _execManager = null;
         int displayPanelHeight = -1;
-        List<Panel> displayPanels = new List<Panel>();
+        List<UserControl> displayPanels = new List<UserControl>();
         ArcazeConfigItem config = null;
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, ushort> arcazeFirmware = new Dictionary<String, ushort>();
         DataSet _dataSetConfig = null;
 
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
+
+        Panels.DisplayPinPanel displayPinPanel = new Panels.DisplayPinPanel();
+        Panels.DisplayBcdPanel displayBcdPanel = new Panels.DisplayBcdPanel();
+        Panels.DisplayLedDisplayPanel displayLedDisplayPanel = new Panels.DisplayLedDisplayPanel();
+        Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new Panels.DisplayNothingSelectedPanel();
 
         public ConfigWizard(ExecutionManager mainForm, 
                              ArcazeConfigItem cfg, 
@@ -33,10 +38,10 @@ namespace ArcazeUSB
                              DataSet dataSetConfig, 
                              String filterGuid)
         {
+            this.moduleSettings = moduleSettings;
             Init(mainForm, cfg);            
             initWithArcazeCache(arcazeCache);
-            preparePreconditionPanel(dataSetConfig, filterGuid);
-            this.moduleSettings = moduleSettings;
+            preparePreconditionPanel(dataSetConfig, filterGuid);            
         }
 
         protected void Init(ExecutionManager mainForm, ArcazeConfigItem cfg)
@@ -130,16 +135,30 @@ namespace ArcazeUSB
 
         protected void _initDisplayPanels () {
             // make all panels small and store the common height
+            groupBoxDisplaySettings.Controls.Add(displayPinPanel);
+            displayPinPanel.Dock = DockStyle.Top;
+            groupBoxDisplaySettings.Controls.Add(displayBcdPanel);
+            displayBcdPanel.Dock = DockStyle.Top;
+            groupBoxDisplaySettings.Controls.Add(displayLedDisplayPanel);
+            displayLedDisplayPanel.Dock = DockStyle.Top;
+            groupBoxDisplaySettings.Controls.Add(displayNothingSelectedPanel);
+            displayNothingSelectedPanel.Dock = DockStyle.Top;
+
             displayPanels.Clear();
-            foreach (Control ctrl in groupBoxDisplaySettings.Controls)
+            displayPanelHeight = 0;
+            displayPanels.Add(displayPinPanel);
+            displayPanels.Add(displayBcdPanel);
+            displayPanels.Add(displayLedDisplayPanel);
+            displayPanels.Add(displayNothingSelectedPanel);
+
+            foreach (UserControl p in displayPanels)
             {
-                if (ctrl.GetType() != typeof(Panel)) continue;
-                Panel p = ctrl as Panel;
-                if (p.Height > 0 && (p.Height > displayPanelHeight)) displayPanelHeight = p.Height;
-                
+                if (p.Height > 0 && (p.Height > displayPanelHeight)) displayPanelHeight = p.Height;                
                 p.Height = 0;
-                displayPanels.Add(p);
             } //foreach
+
+            displayNothingSelectedPanel.Height = displayPanelHeight;
+            displayNothingSelectedPanel.Enabled = true;
         }        
 
         private void preparePreconditionPanel(DataSet dataSetConfig, String filterGuid)
@@ -161,48 +180,7 @@ namespace ArcazeUSB
         /// <param name="arcazeCache"></param>
         public void initWithArcazeCache (ArcazeCache arcazeCache)
         {
-            displayPortComboBox.Items.Clear();
-            displayPinComboBox.Items.Clear();
-            displayBcdStrobePortComboBox.Items.Clear();
-            displayBcdPortComboBox.Items.Clear();
-            displayBcdStrobePinComboBox.Items.Clear();
-            displayBcdPin1ComboBox.Items.Clear();
-            displayBcdPin2ComboBox.Items.Clear();
-            displayBcdPin3ComboBox.Items.Clear();
-            displayBcdPin4ComboBox.Items.Clear();
-            preconditionPortComboBox.Items.Clear();
-            preconditionPinComboBox.Items.Clear();
-
-            foreach (String v in ArcazeModule.getPorts()) { 
-                displayPortComboBox.Items.Add(v);
-                displayBcdStrobePortComboBox.Items.Add(v);
-                displayBcdPortComboBox.Items.Add(v);
-
-                if (v == "B" || v == "E" || v == "H" || v == "K")
-                {                    
-                    displayPortComboBox.Items.Add("-----");
-                    displayBcdStrobePortComboBox.Items.Add("-----");
-                    displayBcdPortComboBox.Items.Add("-----");
-                }
-
-                if (v == "A" || v == "B")
-                {
-                    preconditionPortComboBox.Items.Add(v);
-                }
-            }
-
-            foreach (String v in ArcazeModule.getPins())
-            { 
-                displayPinComboBox.Items.Add(v);
-                displayBcdStrobePinComboBox.Items.Add(v);
-                displayBcdPin1ComboBox.Items.Add(v);
-                displayBcdPin2ComboBox.Items.Add(v);
-                displayBcdPin3ComboBox.Items.Add(v);
-                displayBcdPin4ComboBox.Items.Add(v);
-                preconditionPinComboBox.Items.Add(v);
-            }
-
-
+            
             /// update the display box with
             /// modules
             displayModuleNameComboBox.Items.Clear();
@@ -212,7 +190,7 @@ namespace ArcazeUSB
 
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
-                arcazeFirmware[module.Name + "/ " + module.Serial] = module.Version;
+                arcazeFirmware[module.Serial] = module.Version;
                 displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
                 preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
@@ -296,11 +274,11 @@ namespace ArcazeUSB
                 string pin = config.DisplayPin.Substring(1);
             
                 // preselect normal pin drop downs
-                if (!ComboBoxHelper.SetSelectedItem(displayPortComboBox, port)) { /* TODO: provide error message */ }
-                if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
+                if (!ComboBoxHelper.SetSelectedItem(displayPinPanel.displayPortComboBox, port)) { /* TODO: provide error message */ }
+                if (!ComboBoxHelper.SetSelectedItem(displayPinPanel.displayPinComboBox, pin)) { /* TODO: provide error message */ }
 
-                int range = displayPinBrightnessTrackBar.Maximum - displayPinBrightnessTrackBar.Minimum;
-                displayPinBrightnessTrackBar.Value = (int)((config.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
+                int range = displayPinPanel.displayPinBrightnessTrackBar.Maximum - displayPinPanel.displayPinBrightnessTrackBar.Minimum;
+                displayPinPanel.displayPinBrightnessTrackBar.Value = (int)((config.DisplayPinBrightness / (double)255) * (range)) + displayPinPanel.displayPinBrightnessTrackBar.Minimum;
             }
 
             // preselect BCD4056
@@ -311,41 +289,41 @@ namespace ArcazeUSB
 
                 if (i == 0)
                 {
-                    if (!ComboBoxHelper.SetSelectedItem(displayBcdStrobePortComboBox, tmpPort)) { /* TODO: provide error message */ }
-                    if (!ComboBoxHelper.SetSelectedItem(displayBcdStrobePinComboBox, tmpPin)) { /* TODO: provide error message */ }
+                    if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.displayBcdStrobePortComboBox, tmpPort)) { /* TODO: provide error message */ }
+                    if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.displayBcdStrobePinComboBox, tmpPin)) { /* TODO: provide error message */ }
                 }
                 else
                 {
-                    if (!ComboBoxHelper.SetSelectedItem(displayBcdPortComboBox, tmpPort)) { /* TODO: provide error message */ }
+                    if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.displayBcdPortComboBox, tmpPort)) { /* TODO: provide error message */ }
                     if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox, tmpPin)) { /* TODO: provide error message */ }                    
                 }
             }
             
             // preselect display stuff
-			if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
+			if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
             {
                 // TODO: provide error message
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
             {
                 // TODO: provide error message
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))
             {
                 // TODO: provide error message
             }
-            
-			displayLedPaddingCheckBox.Checked = config.DisplayLedPadding;
+
+            displayLedDisplayPanel.displayLedPaddingCheckBox.Checked = config.DisplayLedPadding;
             foreach (string digit in config.DisplayLedDigits)
             {
-                (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + digit + "Checkbox"] as CheckBox).Checked = true;
+                (displayLedDisplayPanel.displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
 
             foreach (string digit in config.DisplayLedDecimalPoints)
             {
-                (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
+                (displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
 
             preconditionListTreeView.Nodes.Clear();
@@ -430,24 +408,24 @@ namespace ArcazeUSB
             config.DisplayType = displayTypeComboBox.Text;
             config.DisplayTrigger = "normal";
             config.DisplaySerial = displayModuleNameComboBox.Text;
-            config.DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text;
-            config.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
+            config.DisplayPin = displayPinPanel.displayPortComboBox.Text + displayPinPanel.displayPinComboBox.Text;
+            config.DisplayPinBrightness = (byte)(255 * ((displayPinPanel.displayPinBrightnessTrackBar.Value) / (double)(displayPinPanel.displayPinBrightnessTrackBar.Maximum)));
 
-            config.DisplayLedAddress = displayLedAddressComboBox.Text;
-            config.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
-            config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
-            config.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
+            config.DisplayLedAddress = displayLedDisplayPanel.displayLedAddressComboBox.Text;
+            config.DisplayLedConnector = byte.Parse(displayLedDisplayPanel.displayLedConnectorComboBox.Text);
+            config.DisplayLedPadding = displayLedDisplayPanel.displayLedPaddingCheckBox.Checked;
+            config.DisplayLedModuleSize = byte.Parse(displayLedDisplayPanel.displayLedModuleSizeComboBox.Text);
             config.DisplayLedDigits.Clear();
             config.DisplayLedDecimalPoints.Clear();
             for (int i = 0; i < 8; i++)
             {
-                CheckBox cb = (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
+                CheckBox cb = (displayLedDisplayPanel.displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
                 if (cb.Checked)
                 {
                     config.DisplayLedDigits.Add(i.ToString());
                 } //if
 
-                cb = (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
+                cb = (displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
                 if (cb.Checked)
                 {
                     config.DisplayLedDecimalPoints.Add(i.ToString());
@@ -455,11 +433,11 @@ namespace ArcazeUSB
             }
 
             config.BcdPins.Clear();
-            config.BcdPins.Add(displayBcdStrobePortComboBox.Text + displayBcdStrobePinComboBox.Text);
+            config.BcdPins.Add(displayBcdPanel.displayBcdStrobePortComboBox.Text + displayBcdPanel.displayBcdStrobePinComboBox.Text);
             for (int i = 1; i <= 4; i++ )
             {
                 config.BcdPins.Add(
-                    displayBcdStrobePortComboBox.Text +
+                    displayBcdPanel.displayBcdStrobePortComboBox.Text +
                     (displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox).Text);
             }
             
@@ -490,7 +468,7 @@ namespace ArcazeUSB
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (Panel p in displayPanels)
+            foreach (UserControl p in displayPanels)
             {
                 p.Enabled = false;
                 p.Height = 0;
@@ -500,7 +478,9 @@ namespace ArcazeUSB
             {
                 bool panelEnabled = true;
                 // get the deviceinfo for the current arcaze
-                string serial = displayModuleNameComboBox.SelectedItem.ToString();
+                ComboBox cb = displayModuleNameComboBox;                
+                String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+
                 if (arcazeFirmware.ContainsKey(serial))
                 {
 
@@ -518,10 +498,96 @@ namespace ArcazeUSB
                             panelEnabled = arcazeFirmware[serial] > 0x550;
                             break;
                     }
+
+                    displayPinPanel.displayPinBrightnessPanel.Visible = (moduleSettings[serial].type == SimpleSolutions.Usb.ArcazeCommand.ExtModuleType.LedDriver3);
+                    displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
+                    
+                    preconditionPortComboBox.Items.Clear();
+                    preconditionPinComboBox.Items.Clear();
+
+                    List<ListItem> ports = new List<ListItem>();
+
+                    foreach (String v in ArcazeModule.getPorts())
+                    {
+                        ports.Add(new ListItem() { Label = v, Value = v });
+                        if (v == "B" || v == "E" || v == "H" || v == "K")
+                        {
+                            ports.Add(new ListItem() { Label = "-----", Value = "-----" });
+                        }
+
+                        if (v == "A" || v == "B")
+                        {
+                            preconditionPortComboBox.Items.Add(v);
+                        }
+                    }
+
+                    displayPinPanel.SetPorts(ports);
+                    displayBcdPanel.SetPorts(ports);
+
+                    List<ListItem> pins = new List<ListItem>();
+                    foreach (String v in ArcazeModule.getPins())
+                    {
+                        pins.Add(new ListItem() { Label = v, Value = v });
+                        preconditionPinComboBox.Items.Add(v);
+                    }
+
+                    displayPinPanel.SetPins(pins);
+                    displayBcdPanel.SetPins(pins);
+                    displayPinPanel.WideStyle = false;
+
+                }
+                else if (serial.IndexOf("SN") == 0)
+                {
+                    MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
+
+                    displayPinPanel.displayPinBrightnessPanel.Visible = true;
+                    displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
+
+                    List<ListItem> outputs = new List<ListItem>();
+                    //ListItem ledSegments = new ListItem();
+
+                    foreach (IConnectedDevice device in module.GetConnectedDevices())
+                    {
+                        switch (device.Type)
+                        {
+                            case DeviceType.LedModule:
+                                //displayTypeComboBox.Items.Add(ArcazeLedDigit.TYPE);
+                                break;
+
+                            case DeviceType.Output:
+                                outputs.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                                break;
+
+                            case DeviceType.Servo:
+                                //displayTypeComboBox.Items.Add("Servo");
+                                break;
+
+                            case DeviceType.Stepper:
+                                //displayTypeComboBox.Items.Add("Stepper");
+                                break;
+                        }                        
+                    }
+                    displayPinPanel.WideStyle = true;
+                    displayPinPanel.SetPorts(outputs);
+                    displayPinPanel.SetPins(new List<ListItem>());
+                }
+                if ((sender as ComboBox).Text == "Pin")
+                {
+                    displayPinPanel.Enabled = panelEnabled;
+                    displayPinPanel.Height = displayPanelHeight;
                 }
 
-                displayPanels[(sender as ComboBox).SelectedIndex].Enabled = panelEnabled;
-                displayPanels[(sender as ComboBox).SelectedIndex].Height = displayPanelHeight;
+                if ((sender as ComboBox).Text == ArcazeBcd4056.TYPE)
+                {
+                    displayBcdPanel.Enabled = panelEnabled;
+                    displayBcdPanel.Height = displayPanelHeight;
+                }
+
+                if ((sender as ComboBox).Text == ArcazeLedDigit.TYPE)
+                {
+                    displayLedDisplayPanel.Enabled = panelEnabled;
+                    displayLedDisplayPanel.Height = displayPanelHeight;
+                }
             }
             catch (Exception)
             {
@@ -663,15 +729,15 @@ namespace ArcazeUSB
             {                
                 try
                 {
-                    int.Parse(displayLedAddressComboBox.Text);
-                    removeError(displayLedAddressComboBox);
+                    int.Parse(displayLedDisplayPanel.displayLedAddressComboBox.Text);
+                    removeError(displayLedDisplayPanel.displayLedAddressComboBox);
                 }
                 catch (Exception exc)
                 {
                     e.Cancel = true;
                     tabControlFsuipc.SelectedTab = displayTabPage;
-                    displayLedAddressComboBox.Focus();
-                    displayError(displayLedAddressComboBox, MainForm._tr("uiMessageConfigWizard_ProvideLedDisplayAddress"));
+                    displayLedDisplayPanel.displayLedAddressComboBox.Focus();
+                    displayError(displayLedDisplayPanel.displayLedAddressComboBox, MainForm._tr("uiMessageConfigWizard_ProvideLedDisplayAddress"));
                 }                
             }
         }
@@ -681,15 +747,15 @@ namespace ArcazeUSB
             int value = Int16.Parse((sender as ComboBox).Text);
             for (int i = 0; i < 8; i++)
             {
-                displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"].Visible = i < value;
-                displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"].Visible = i < value;
+                displayLedDisplayPanel.displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"].Visible = i < value;
+                displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"].Visible = i < value;
                 displayLedDisplayPanel.Controls["displayLedDisplayLabel" + i].Visible = i < value;
 
                 // uncheck all invisible checkboxes to ensure correct mask
                 if (i >= value)
                 {
-                    (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"] as CheckBox).Checked = false;
-                    (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"] as CheckBox).Checked = false;
+                    (displayLedDisplayPanel.displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"] as CheckBox).Checked = false;
+                    (displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"] as CheckBox).Checked = false;
                 }
             }
         }
@@ -799,18 +865,56 @@ namespace ArcazeUSB
                 String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
 
                 displayTypeComboBox.Enabled = groupBoxDisplaySettings.Enabled = testSettingsGroupBox.Enabled = (serial != "");
-                
-                
-                displayPinBrightnessPanel.Visible = (moduleSettings[serial].type == SimpleSolutions.Usb.ArcazeCommand.ExtModuleType.LedDriver3);
-                displayPinBrightnessPanel.Enabled = (displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1)); 
+                // serial is empty if no module is selected (on init of form)
+                //if (serial == "") return;                
 
                 // update the available types depending on the 
                 // type of module
+                if (serial.IndexOf("SN") != 0)
+                {
+                    displayTypeComboBox.Items.Clear();
+                    displayTypeComboBox.Items.Add("Pin");
+                    displayTypeComboBox.Items.Add(ArcazeLedDigit.TYPE);
+                    displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
+
+                    // third tab
+                    if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
+                    {
+                        // TODO: provide error message
+                    }
+                }
+                else
+                {
+                    displayTypeComboBox.Items.Clear();
+                    MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
+                    foreach (DeviceType devType in module.GetConnectedOutputDeviceTypes())
+                    {
+                        switch (devType)
+                        {
+                            case DeviceType.LedModule:
+                                displayTypeComboBox.Items.Add(ArcazeLedDigit.TYPE);
+                                break;
+
+                            case DeviceType.Output:
+                                displayTypeComboBox.Items.Add("Pin");
+                                displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
+                                break;
+
+                            case DeviceType.Servo:
+                                displayTypeComboBox.Items.Add("Servo");
+                                break;
+
+                            case DeviceType.Stepper:
+                                displayTypeComboBox.Items.Add("Stepper");
+                                break;
+                        }
+                    }
+                }
                 
             }
             catch(Exception ex) {
-                displayPinBrightnessPanel.Visible = false;
-                displayPinBrightnessPanel.Enabled = false; 
+                displayPinPanel.displayPinBrightnessPanel.Visible = false;
+                displayPinPanel.displayPinBrightnessPanel.Enabled = false; 
             }
         }
 
@@ -818,7 +922,7 @@ namespace ArcazeUSB
         {
             ComboBox cb = (sender as ComboBox);
             // enable setting only for ports higher than B
-            displayPinBrightnessPanel.Enabled = cb.SelectedIndex > 1;
+            displayPinPanel.displayPinBrightnessPanel.Enabled = cb.SelectedIndex > 1;
         }
 
         private void displayPinTestButton_Click(object sender, EventArgs e)

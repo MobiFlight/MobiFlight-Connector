@@ -16,8 +16,8 @@ namespace MobiFlight
         }
 
 
-        private String _type = "STEPPER";
-        public String Type
+        private DeviceType _type = DeviceType.Stepper;
+        public DeviceType Type
         {
             get { return _type; }
             set { _type = value; }

@@ -8,7 +8,7 @@ namespace MobiFlight.Config
     public interface IConfigItem
     {
         bool FromInternal(String value);
-        MobiFlightModule.DeviceType Type { get; }
+        DeviceType Type { get; }
         String Name { get; }
         String ToInternal();
     }

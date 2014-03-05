@@ -8,8 +8,9 @@ namespace MobiFlight.Config
 {
     public class BaseDevice : IConfigItem
     {
-        protected MobiFlightModule.DeviceType _type = MobiFlightModule.DeviceType.NotSet;
-        protected const char separator = '.';
+        protected DeviceType _type = DeviceType.NotSet;
+        public const char Separator = '.';
+        public const char End = ':';
         
         [XmlAttribute]
         public String Name { get; set; }
@@ -18,7 +19,7 @@ namespace MobiFlight.Config
         virtual public bool FromInternal(String value) { throw new NotImplementedException(); }
 
         [XmlAttribute]
-        public MobiFlightModule.DeviceType Type
+        public DeviceType Type
         {
             get { return _type; }
         }

@@ -435,6 +435,7 @@
             this.removeDeviceToolStripButton.Image = global::ArcazeUSB.Properties.Resources.star_yellow_delete;
             resources.ApplyResources(this.removeDeviceToolStripButton, "removeDeviceToolStripButton");
             this.removeDeviceToolStripButton.Name = "removeDeviceToolStripButton";
+            this.removeDeviceToolStripButton.Click += new System.EventHandler(this.removeDeviceToolStripButton_Click);
             // 
             // mobiflightSettingsLabel
             // 

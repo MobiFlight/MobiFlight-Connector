@@ -20,8 +20,8 @@ namespace MobiFlight
         }
         
         
-        private String _type = "LEDMODULE";
-        public String Type
+        private DeviceType _type = DeviceType.LedModule;
+        public DeviceType Type
         {
             get { return _type; }
             set { _type = value; }

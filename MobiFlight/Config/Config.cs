@@ -31,52 +31,52 @@ namespace MobiFlight.Config
             string result = "";
             foreach (BaseDevice item in Items)
             {
-                result += item.ToInternal() + ":";
+                result += item.ToInternal();
             }            
             return result;
         }
 
         public Config FromInternal(String value)
         {
-            String[] items = value.Split(':');
+            String[] items = value.Split(BaseDevice.End);
             foreach (String item in items)
             {
                 BaseDevice currentItem = null;
                 try
                 {
                     if (item == "") continue;
-                    int limit = item.IndexOf(',');
+                    int limit = item.IndexOf(BaseDevice.Separator);
                     if (-1 == limit) limit = item.Length;
 
-                    MobiFlightModule.DeviceType type = (MobiFlightModule.DeviceType)int.Parse(item.Substring(0, item.IndexOf(',')));
+                    DeviceType type = (DeviceType)int.Parse(item.Substring(0, limit));
                     switch (type)
                     {
-                        case MobiFlightModule.DeviceType.Button:
+                        case DeviceType.Button:
                             currentItem = new MobiFlight.Config.Button();
                             break;
 
-                        case MobiFlightModule.DeviceType.Encoder:
+                        case DeviceType.Encoder:
                             currentItem = new MobiFlight.Config.Encoder();
                             break;
 
-                        case MobiFlightModule.DeviceType.Output:
+                        case DeviceType.Output:
                             currentItem = new MobiFlight.Config.Output();
                             break;
 
-                        case MobiFlightModule.DeviceType.Servo:
+                        case DeviceType.Servo:
                             currentItem = new MobiFlight.Config.Servo();
                             break;
 
-                        case MobiFlightModule.DeviceType.Stepper:
+                        case DeviceType.Stepper:
                             currentItem = new MobiFlight.Config.Stepper();
                             break;
 
-                        case MobiFlightModule.DeviceType.LedModule:
+                        case DeviceType.LedModule:
                             currentItem = new MobiFlight.Config.LedModule();
                             break;
                     }
 
-                    currentItem.FromInternal(item);
+                    currentItem.FromInternal(item + BaseDevice.End);
                     Items.Add(currentItem);
 
                 }
