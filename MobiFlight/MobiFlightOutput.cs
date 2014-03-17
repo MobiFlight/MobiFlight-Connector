@@ -8,6 +8,8 @@ namespace MobiFlight
 {
     public class MobiFlightOutput : IConnectedDevice
     {
+        public const string TYPE = "Output";
+
         private String _name = "Output";
         public String Name
         {

@@ -36,8 +36,8 @@ namespace ArcazeUSB.Panels
             if (ports.Count>0)
                 displayPortComboBox.SelectedIndex = 0;
 
-            displayPortComboBox.Enabled = ports.Count > 0;
-            displayPortComboBox.Width = WideStyle ? displayPortComboBox.MaximumSize.Width : displayPortComboBox.MinimumSize.Width;
+            displayPortComboBox.Visible = displayPortComboBox.Enabled = ports.Count > 0;
+            
         }
 
         public void SetPins(List<ListItem> pins)
@@ -49,7 +49,8 @@ namespace ArcazeUSB.Panels
             if (pins.Count>0)
                 displayPinComboBox.SelectedIndex = 0;
 
-            displayPinComboBox.Visible = displayPinComboBox.Enabled = pins.Count > 0;
+            displayPinComboBox.Enabled = pins.Count > 0;
+            displayPinComboBox.Width = WideStyle ? displayPinComboBox.MaximumSize.Width : displayPinComboBox.MinimumSize.Width;
         }
     }
 }

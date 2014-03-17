@@ -57,6 +57,8 @@ namespace MobiFlight
                         {
                             _config = new Config.Config(InfoCommand.ReadStringArg());
                         }
+                        else
+                            _config = new Config.Config();
                     }
                     return _config;
                 }
@@ -75,10 +77,10 @@ namespace MobiFlight
         private int _count;
         private string _log = "";
 
-        List<MobiFlightLedModule> ledModules = new List<MobiFlightLedModule>();
-        List<MobiFlightStepper> stepperModules = new List<MobiFlightStepper>();
-        List<MobiFlightServo> servoModules = new List<MobiFlightServo>();
-        List<MobiFlightOutput> outputs = new List<MobiFlightOutput>();
+        Dictionary<String, MobiFlightLedModule> ledModules = new Dictionary<string, MobiFlightLedModule>();
+        Dictionary<String, MobiFlightStepper> stepperModules = new Dictionary<string, MobiFlightStepper>();
+        Dictionary<String, MobiFlightServo> servoModules = new Dictionary<string, MobiFlightServo>();
+        Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string,MobiFlightOutput>();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -159,19 +161,19 @@ namespace MobiFlight
             {
                 switch(device.Type) {
                     case DeviceType.LedModule:
-                        ledModules.Add(new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count });
+                        ledModules.Add(device.Name, new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count });
                         break;
 
                     case DeviceType.Stepper:
-                        stepperModules.Add(new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count });
+                        stepperModules.Add(device.Name, new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count });
                         break;
                     
                     case DeviceType.Servo:
-                        servoModules.Add(new MobiFlightServo() { CmdMessenger = _cmdMessenger, Name = device.Name, ServoNumber = servoModules.Count });
+                        servoModules.Add(device.Name, new MobiFlightServo() { CmdMessenger = _cmdMessenger, Name = device.Name, ServoNumber = servoModules.Count });
                         break;
 
                     case DeviceType.Output:
-                        outputs.Add(new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
+                        outputs.Add(device.Name, new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
                         break;
                 }                
             }
@@ -244,39 +246,41 @@ namespace MobiFlight
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="group">the virtual port on the board or extension</param>
+        /// <param name="port">the virtual port on the board or extension</param>
         /// <param name="pin"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public bool SetPin(string group, int pin, int value)
+        public bool SetPin(string port, string pin, int value)
         {
             // if value has not changed since the last time, then we continue to next item to prevent 
             // unnecessary communication with Arcaze USB
-            String key = group + "_" + pin.ToString();
+            String key = port+pin;
 
             if (lastValue.ContainsKey(key) &&
                 lastValue[key] == value.ToString()) return false;
 
             lastValue[key] = value.ToString();
-            
 
+            if (!outputs.ContainsKey(pin)) return false;
+
+            outputs[pin].Set(value);
 
             return true;
         }
 
-        public bool SetDisplay(int module, int pos, string value)
+        public bool SetDisplay(string name, int module, byte mask, string value)
         {
-            String key = "LED_" + module;            
+            String key = "LED_" + name + "_" + module + "_" + mask;            
 
             if (lastValue.ContainsKey(key) &&
                 lastValue[key] == value) return false;
 
             lastValue[key] = value;
-            ledModules[module].Display(value);
+            ledModules[name].Display(module, value, mask);
             return true;
         }
 
-        public bool SetServo(int servoAddress, int value)
+        public bool SetServo(string servoAddress, int value, int min, int max)
         {
             String key = "SERVO_" + servoAddress;
 
@@ -291,12 +295,14 @@ namespace MobiFlight
                 iLastValue = value;
             }
 
+            servoModules[servoAddress].Min = min;
+            servoModules[servoAddress].Max = max;
             servoModules[servoAddress].MoveToPosition(value);
             lastValue[key] = value.ToString();
             return true;
         }
 
-        public bool SetStepper(int stepper, int value)
+        public bool SetStepper(string stepper, int value)
         {
             String key = "STEPPER_" + stepper;
 
@@ -375,19 +381,24 @@ namespace MobiFlight
         {
             List<IConnectedDevice> result = new List<IConnectedDevice>();
 
-            foreach (MobiFlightOutput output in outputs)
+            foreach (MobiFlightOutput output in outputs.Values)
             {
                 result.Add(output);
             }
 
-            foreach (MobiFlightLedModule ledModule in ledModules)
+            foreach (MobiFlightLedModule ledModule in ledModules.Values)
             {
                 result.Add(ledModule);
             }
 
-            foreach (MobiFlightStepper stepper in stepperModules)
+            foreach (MobiFlightStepper stepper in stepperModules.Values)
             {
                 result.Add(stepper);
+            }
+
+            foreach (MobiFlightServo servo in servoModules.Values)
+            {
+                result.Add(servo);
             }
 
             return result;

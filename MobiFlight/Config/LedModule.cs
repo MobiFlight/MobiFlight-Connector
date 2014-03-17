@@ -25,7 +25,7 @@ namespace MobiFlight.Config
         override public String ToInternal()
         {
             return base.ToInternal() + Separator
-                 + DinPin + Separator
+                 + DinPin + Separator                 
                  + ClsPin + Separator
                  + ClkPin + Separator
                  + Brightness + Separator
@@ -42,7 +42,7 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
 
-            DinPin = paramList[1];
+            DinPin = paramList[1];            
             ClsPin = paramList[2];
             ClkPin = paramList[3];
             Brightness = Byte.Parse(paramList[4]);

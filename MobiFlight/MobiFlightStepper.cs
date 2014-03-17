@@ -8,6 +8,8 @@ namespace MobiFlight
 {
     class MobiFlightStepper : IConnectedDevice
     {
+        public const string TYPE = "Stepper";
+
         protected String _name = "Stepper";
         public String Name
         {

@@ -8,6 +8,8 @@ namespace MobiFlight
 {
     public class MobiFlightLedModule : IConnectedDevice
     {
+        public const string TYPE = "Display Module";
+
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }
         public int Brightness { get; set; }
@@ -49,7 +51,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display( String value )
+        public void Display( int subModule, String value, byte mask )
         {
             if (!_initialized) Initialize();
 
@@ -57,12 +59,14 @@ namespace MobiFlight
 
             // clamp and reverse the string
             if (value.Length > 8) value = value.Substring(0, 8);
-            while (value.Length < 8) value += " ";
+            //while (value.Length < 8) value += " ";
             
-            value = new string(value.ToCharArray().Reverse().ToArray());
+            //value = new string(value.ToCharArray().Reverse().ToArray());
             
             command.AddArgument(this.ModuleNumber);
+            command.AddArgument(subModule);            
             command.AddArgument(value);
+            command.AddArgument(mask);
 
             // Send command
             CmdMessenger.SendCommand(command);

@@ -41,7 +41,10 @@ namespace ArcazeUSB
         public List<string> DisplayLedDecimalPoints     { get; set; }
         // the bcd driver stuff
         public List<string> BcdPins                     { get; set; }
-
+        // the servo stuff
+        public string       ServoAddress                { get; set; }
+        public string       ServoMin                    { get; set; }
+        public string       ServoMax                    { get; set; }
         public string       DisplayTrigger              { get; set; }
 
         public List<Precondition> Preconditions         { get; set; }
@@ -174,8 +177,22 @@ namespace ArcazeUSB
                 {
                     BcdPins = reader["bcdPins"].Split(',').ToList();
                 }
-            }
 
+                // ignore empty values
+                if (reader["servoAddress"] != null && reader["servoAddress"] != "")
+                {
+                    ServoAddress = reader["servoAddress"];
+                }
+                if (reader["servoMin"] != null && reader["servoMin"] != "")
+                {
+                    ServoMin = reader["servoMin"];
+                }
+                if (reader["servoMax"] != null && reader["servoMax"] != "")
+                {
+                    ServoMax = reader["servoMax"];
+                }
+            }
+            
             reader.ReadStartElement();
 
             // read precondition settings if present
@@ -253,6 +270,16 @@ namespace ArcazeUSB
                 {
                     writer.WriteAttributeString("bcdPins", String.Join(",",BcdPins));
                 }
+                else if (DisplayType == MobiFlight.DeviceType.Servo.ToString("F"))
+                {
+                    writer.WriteAttributeString("servoAddress", ServoAddress);
+                    writer.WriteAttributeString("servoMin", ServoMin);
+                    writer.WriteAttributeString("servoMax", ServoMax);
+                }
+                else if (DisplayType == MobiFlight.DeviceType.Stepper.ToString("F"))
+                {
+                    
+                }
                 else
                 {
                     writer.WriteAttributeString("pin", DisplayPin);
@@ -298,6 +325,10 @@ namespace ArcazeUSB
             clone.BcdPins                   = new List<string>(this.BcdPins);
 
             clone.DisplayTrigger            = this.DisplayTrigger;
+
+            clone.ServoAddress              = this.ServoAddress;
+            clone.ServoMax                  = this.ServoMax;
+            clone.ServoMin                  = this.ServoMin;
 
             foreach (Precondition p in Preconditions)
             {

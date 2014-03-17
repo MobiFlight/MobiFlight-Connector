@@ -7,9 +7,9 @@ namespace MobiFlight
 {
     public interface IOutputModule
     {
-        bool SetPin(string port, int pin, int value);
-        bool SetDisplay(int module, int pos, string value);
-        bool SetServo(int servo, int value);
-        bool SetStepper(int stepper, int value);
+        bool SetPin(string port, string pin, int value);
+        bool SetDisplay(string name, int moduleNum, byte mask, string value);
+        bool SetServo(string name, int value, int min, int max);
+        bool SetStepper(string stepper, int value);
     }
 }

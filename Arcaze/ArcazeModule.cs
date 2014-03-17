@@ -116,6 +116,22 @@ namespace ArcazeUSB
             return new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N" };
         }
 
+        /// <summary>
+        /// return valid addresses
+        /// </summary>  
+        /// <remarks>
+        /// this should be refactored to the ArcazeIoBasic-class
+        /// </remarks>
+        public static String[] getDisplayAddresses()
+        {
+            return new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };
+        }
+
+        public static String[] getDisplayConnectors()
+        {
+            return new String[] { "1", "2" };
+        }
+
         public bool SetPin(int port, int pin, int value)
         {
             string portAndPin = port.ToString() + "_" + pin.ToString();

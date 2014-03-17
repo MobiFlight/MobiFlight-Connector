@@ -180,7 +180,7 @@ namespace ArcazeUSB
         {
             // prevent execution if not connected to either FSUIPC or Arcaze
             if (!fsuipcCache.isConnected()) return;
-            if (!arcazeCache.isConnected()) return;
+            if (!arcazeCache.isConnected() && !mobiFlightCache.isConnected()) return;
 
             // this is kind of sempahore to prevent multiple execution
             // in fact I don't know if this needs to be done in C# 
@@ -233,90 +233,8 @@ namespace ArcazeUSB
 
                 executeDisplay(strValue, cfg);
             }
-#if MOBIFLIGHT
-            // statically pass the xpndr 
-            _outputXpndr();
-            //_outputParkingBrake();
-            //_outputAltitude();
-#endif
             isExecuting = false;
         }
-#if MOBIFLIGHT
-        private void _outputXpndr()
-        {
-            ArcazeConfigItem cfg = new ArcazeConfigItem();
-            cfg.FSUIPCSize = 2;
-            cfg.FSUIPCOffset = 0x0354;
-            cfg.FSUIPCOffsetType = FSUIPCOffsetType.Integer;
-            cfg.FSUIPCBcdMode = true;
-            cfg.FSUIPCMask = 0xffff;
-            cfg.FSUIPCMultiplier = 1;
-            cfg.DisplayLedPadding = true;
-            ConnectorValue value = executeRead(cfg);
-            ConnectorValue processedValue = value;
-            // only none string values get transformed
-            if (cfg.FSUIPCOffsetType != FSUIPCOffsetType.String)
-                processedValue = executeTransform(value, cfg);
-
-            List<string> display = new List<string>();
-            if (mobiFlightCache.isConnected())
-            {
-                mobiFlightCache.setDisplay("0", "0", 0, display, display, "  " + processedValue.ToString().PadLeft(cfg.DisplayLedPadding ? 4 : 0, '0'));
-            }
-        }
-
-        private void _outputAltitude()
-        {
-            ArcazeConfigItem cfg = new ArcazeConfigItem();
-            cfg.FSUIPCSize = 4;
-            cfg.FSUIPCOffset = 0x3324;
-            cfg.FSUIPCOffsetType = FSUIPCOffsetType.Integer;
-            // cfg.FSUIPCBcdMode = true;
-            cfg.FSUIPCMask = 0xffffffff;
-            cfg.FSUIPCMultiplier = 1;
-            // cfg.DisplayLedPadding = true;
-            ConnectorValue value = executeRead(cfg);
-            ConnectorValue processedValue = value;
-            // only none string values get transformed
-            if (cfg.FSUIPCOffsetType != FSUIPCOffsetType.String)
-                processedValue = executeTransform(value, cfg);
-
-            List<string> display = new List<string>();
-            if (!mobiFlightCache.isConnected())
-            {
-                //mobiFlightCache.connect();
-                mobiFlightCache.setServo("1", "0", processedValue.ToString());
-                // mobiFlightCache.setDisplay("0", "0", 0, display, display, "  " + processedValue.ToString().PadLeft(cfg.DisplayLedPadding ? 4 : 0, '0'));
-            }
-            
-        }
-
-        private void _outputParkingBrake()
-        {
-            ArcazeConfigItem cfg = new ArcazeConfigItem();
-            cfg.FSUIPCSize = 2;
-            cfg.FSUIPCOffset = 0x0BC8;
-            cfg.FSUIPCOffsetType = FSUIPCOffsetType.Integer;
-            // cfg.FSUIPCBcdMode = true;
-            cfg.FSUIPCMask = 0xffff;
-            cfg.FSUIPCMultiplier = 1;
-            // cfg.DisplayLedPadding = true;
-            ConnectorValue value = executeRead(cfg);
-            ConnectorValue processedValue = value;
-            // only none string values get transformed
-            if (cfg.FSUIPCOffsetType != FSUIPCOffsetType.String)
-                processedValue = executeTransform(value, cfg);
-
-            List<string> display = new List<string>();
-            if (!mobiFlightCache.isConnected())
-            {
-                //mobiFlightCache.connect();
-                mobiFlightCache.setValue("0", "LED25", processedValue.ToString());
-            }
-            
-            // mobiFlightCache.setDisplay("0", "0", 0, display, display, "  " + processedValue.ToString().PadLeft(cfg.DisplayLedPadding ? 4 : 0, '0'));
-        }
-#endif
 
         private bool checkPrecondition(ArcazeConfigItem cfg, ConnectorValue currentValue)
         {
@@ -674,29 +592,69 @@ namespace ArcazeUSB
 
             if (serial == "") return value.ToString();
 
-            switch (cfg.DisplayType)
+            if (serial.IndexOf("SN") != 0)
             {
-                case ArcazeLedDigit.TYPE:
-                    arcazeCache.setDisplay(
-                        serial,
-                        cfg.DisplayLedAddress,
-                        cfg.DisplayLedConnector,
-                        cfg.DisplayLedDigits,
-                        cfg.DisplayLedDecimalPoints,
-                        value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, '0'));
-                    break;
 
-                case ArcazeBcd4056.TYPE:
-                    arcazeCache.setBcd4056(serial,
-                        cfg.BcdPins,
-                        value);
-                    break;
+                switch (cfg.DisplayType)
+                {
+                    case ArcazeLedDigit.TYPE:
+                        arcazeCache.setDisplay(
+                            serial,
+                            cfg.DisplayLedAddress,
+                            cfg.DisplayLedConnector,
+                            cfg.DisplayLedDigits,
+                            cfg.DisplayLedDecimalPoints,
+                            value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, '0'));
+                        break;
 
-                default:
-                    arcazeCache.setValue(serial,
-                        cfg.DisplayPin,
-                        (value != "0" ? cfg.DisplayPinBrightness.ToString() : "0"));
-                    break;
+                    case ArcazeBcd4056.TYPE:
+                        arcazeCache.setBcd4056(serial,
+                            cfg.BcdPins,
+                            value);
+                        break;
+
+                    default:
+                        arcazeCache.setValue(serial,
+                            cfg.DisplayPin,
+                            (value != "0" ? cfg.DisplayPinBrightness.ToString() : "0"));
+                        break;
+                }
+            }
+            else
+            {
+                switch (cfg.DisplayType)
+                {
+                    case ArcazeLedDigit.TYPE:
+                        mobiFlightCache.setDisplay(
+                            serial,
+                            cfg.DisplayLedAddress,
+                            cfg.DisplayLedConnector,
+                            cfg.DisplayLedDigits,
+                            cfg.DisplayLedDecimalPoints,
+                            value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, '0'));
+                        break;
+
+                    //case ArcazeBcd4056.TYPE:
+                    //    mobiFlightCache.setBcd4056(serial,
+                    //        cfg.BcdPins,
+                    //        value);
+                    //    break;
+                    case MobiFlight.MobiFlightServo.TYPE:
+                        mobiFlightCache.setServo(
+                            serial,
+                            cfg.ServoAddress,
+                            value,
+                            int.Parse(cfg.ServoMin),
+                            int.Parse(cfg.ServoMax)
+                        );
+                        break;
+
+                    default:
+                        mobiFlightCache.setValue(serial,
+                            cfg.DisplayPin,
+                            (value != "0" ? cfg.DisplayPinBrightness.ToString() : "0"));
+                        break;
+                }
             }
 
             return value.ToString();
@@ -929,12 +887,30 @@ namespace ArcazeUSB
 
         public void executeTestOff(ArcazeConfigItem cfg)
         {
-            executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", cfg);
+            switch (cfg.DisplayType)
+            {
+                case MobiFlightServo.TYPE:
+                    executeDisplay(cfg.ServoMin, cfg);
+                    break;
+
+                default:
+                    executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", cfg);
+                    break;
+            }
         }
 
         public void executeTestOn(ArcazeConfigItem cfg)
         {
-            executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "8", cfg);
+            switch (cfg.DisplayType)
+            {
+                case MobiFlightServo.TYPE:
+                    executeDisplay(cfg.ServoMax, cfg);
+                    break;
+
+                default:
+                    executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "8", cfg);
+                    break;
+            }
         }
 
 #if MOBIFLIGHT

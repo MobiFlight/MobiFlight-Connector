@@ -44,10 +44,10 @@ namespace MobiFlight.Panels
         
         private void applyButton_Click(object sender, EventArgs e)
         {
-            stepper.Pin1 = mfPin1ComboBox.SelectedText;
-            stepper.Pin2 = mfPin1ComboBox.SelectedText;
-            stepper.Pin3 = mfPin1ComboBox.SelectedText;
-            stepper.Pin4 = mfPin1ComboBox.SelectedText;
+            stepper.Pin1 = mfPin1ComboBox.Text;
+            stepper.Pin2 = mfPin2ComboBox.Text;
+            stepper.Pin3 = mfPin3ComboBox.Text;
+            stepper.Pin4 = mfPin4ComboBox.Text;
             stepper.Name = mfNameTextBox.Text;
             Changed(stepper, new EventArgs());
         }

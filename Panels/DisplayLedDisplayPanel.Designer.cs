@@ -49,9 +49,6 @@
             this.displayLedDigitFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.displayLedModuleSizeComboBox = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.displayLedConnectorComboBox = new System.Windows.Forms.ComboBox();
-            this.displayLedAddressComboBox = new System.Windows.Forms.ComboBox();
             this.displayLedPaddingCheckBox = new System.Windows.Forms.CheckBox();
             this.displayLedDisplayLabel0 = new System.Windows.Forms.Label();
             this.displayLedDisplayLabel1 = new System.Windows.Forms.Label();
@@ -63,8 +60,13 @@
             this.displayLedDisplayLabel7 = new System.Windows.Forms.Label();
             this.displayLedDecimalPointLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.displayLedConnectorComboBox = new System.Windows.Forms.ComboBox();
+            this.displayLedAddressComboBox = new System.Windows.Forms.ComboBox();
             this.displayLedDecimalPointFlowLayoutPanel.SuspendLayout();
             this.displayLedDigitFlowLayoutPanel.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayLedDigit7CheckBox
@@ -301,54 +303,6 @@
             this.label10.TabIndex = 66;
             this.label10.Text = "Number of digits";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(145, 8);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(12, 13);
-            this.label9.TabIndex = 64;
-            this.label9.Text = "/";
-            // 
-            // displayLedConnectorComboBox
-            // 
-            this.displayLedConnectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displayLedConnectorComboBox.FormattingEnabled = true;
-            this.displayLedConnectorComboBox.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.displayLedConnectorComboBox.Location = new System.Drawing.Point(159, 4);
-            this.displayLedConnectorComboBox.Name = "displayLedConnectorComboBox";
-            this.displayLedConnectorComboBox.Size = new System.Drawing.Size(38, 21);
-            this.displayLedConnectorComboBox.TabIndex = 63;
-            // 
-            // displayLedAddressComboBox
-            // 
-            this.displayLedAddressComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displayLedAddressComboBox.FormattingEnabled = true;
-            this.displayLedAddressComboBox.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "A",
-            "B",
-            "C",
-            "D",
-            "E",
-            "F"});
-            this.displayLedAddressComboBox.Location = new System.Drawing.Point(107, 4);
-            this.displayLedAddressComboBox.Name = "displayLedAddressComboBox";
-            this.displayLedAddressComboBox.Size = new System.Drawing.Size(35, 21);
-            this.displayLedAddressComboBox.TabIndex = 50;
-            // 
             // displayLedPaddingCheckBox
             // 
             this.displayLedPaddingCheckBox.AutoSize = true;
@@ -460,6 +414,67 @@
             this.label5.TabIndex = 54;
             this.label5.Text = "use display";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.displayLedAddressComboBox);
+            this.flowLayoutPanel1.Controls.Add(this.label9);
+            this.flowLayoutPanel1.Controls.Add(this.displayLedConnectorComboBox);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(104, 0);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 27);
+            this.flowLayoutPanel1.TabIndex = 69;
+            // 
+            // label9
+            // 
+            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label9.Location = new System.Drawing.Point(131, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(12, 27);
+            this.label9.TabIndex = 67;
+            this.label9.Text = "/";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // displayLedConnectorComboBox
+            // 
+            this.displayLedConnectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayLedConnectorComboBox.FormattingEnabled = true;
+            this.displayLedConnectorComboBox.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.displayLedConnectorComboBox.Location = new System.Drawing.Point(149, 3);
+            this.displayLedConnectorComboBox.Name = "displayLedConnectorComboBox";
+            this.displayLedConnectorComboBox.Size = new System.Drawing.Size(38, 21);
+            this.displayLedConnectorComboBox.TabIndex = 66;
+            // 
+            // displayLedAddressComboBox
+            // 
+            this.displayLedAddressComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayLedAddressComboBox.FormattingEnabled = true;
+            this.displayLedAddressComboBox.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"});
+            this.displayLedAddressComboBox.Location = new System.Drawing.Point(3, 3);
+            this.displayLedAddressComboBox.MaximumSize = new System.Drawing.Size(122, 0);
+            this.displayLedAddressComboBox.MinimumSize = new System.Drawing.Size(35, 0);
+            this.displayLedAddressComboBox.Name = "displayLedAddressComboBox";
+            this.displayLedAddressComboBox.Size = new System.Drawing.Size(122, 21);
+            this.displayLedAddressComboBox.TabIndex = 65;
+            // 
             // DisplayLedDisplayPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -469,9 +484,7 @@
             this.Controls.Add(this.displayLedDigitFlowLayoutPanel);
             this.Controls.Add(this.displayLedModuleSizeComboBox);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.displayLedConnectorComboBox);
-            this.Controls.Add(this.displayLedAddressComboBox);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.displayLedPaddingCheckBox);
             this.Controls.Add(this.displayLedDisplayLabel0);
             this.Controls.Add(this.displayLedDisplayLabel1);
@@ -489,6 +502,7 @@
             this.displayLedDecimalPointFlowLayoutPanel.PerformLayout();
             this.displayLedDigitFlowLayoutPanel.ResumeLayout(false);
             this.displayLedDigitFlowLayoutPanel.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -517,9 +531,6 @@
         public System.Windows.Forms.FlowLayoutPanel displayLedDigitFlowLayoutPanel;
         public System.Windows.Forms.ComboBox displayLedModuleSizeComboBox;
         public System.Windows.Forms.Label label10;
-        public System.Windows.Forms.Label label9;
-        public System.Windows.Forms.ComboBox displayLedConnectorComboBox;
-        public System.Windows.Forms.ComboBox displayLedAddressComboBox;
         public System.Windows.Forms.CheckBox displayLedPaddingCheckBox;
         public System.Windows.Forms.Label displayLedDisplayLabel0;
         public System.Windows.Forms.Label displayLedDisplayLabel1;
@@ -531,5 +542,9 @@
         public System.Windows.Forms.Label displayLedDisplayLabel7;
         public System.Windows.Forms.Label displayLedDecimalPointLabel;
         public System.Windows.Forms.Label label5;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        public System.Windows.Forms.ComboBox displayLedAddressComboBox;
+        public System.Windows.Forms.Label label9;
+        public System.Windows.Forms.ComboBox displayLedConnectorComboBox;
     }
 }

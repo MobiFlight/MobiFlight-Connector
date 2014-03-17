@@ -8,7 +8,7 @@ namespace MobiFlight.Config
 {
     public class Stepper : BaseDevice
     {
-        const ushort _paramCount = 4;
+        const ushort _paramCount = 5;
 
         [XmlAttribute]
         public String Pin1 = "1";

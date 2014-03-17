@@ -272,6 +272,12 @@
     <Compile Include="Panels\DisplayPinPanel.Designer.cs">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\ServoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\ServoPanel.Designer.cs">
+      <DependentUpon>ServoPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProjectMessages.de-DE.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -361,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\DisplayPinPanel.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ServoPanel.resx">
+      <DependentUpon>ServoPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectMessages.de-DE.resx">
       <SubType>Designer</SubType>

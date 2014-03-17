@@ -254,7 +254,6 @@ namespace ArcazeUSB
         /// </summary>
         /// <param name="serial">the device's serial</param>
         /// <param name="portAndPin">the port letter and pin number, e.g. A01</param>
-        /// <param name="trigger">the trigger to be used</param>
         /// <param name="value">the value to be used</param>
         public void setValue (string serial, string portAndPin, string value)
         {

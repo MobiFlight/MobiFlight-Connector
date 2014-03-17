@@ -34,7 +34,7 @@ namespace ArcazeUSB
         /// <summary>
         /// list of known modules
         /// </summary>
-        List<MobiFlightModule> Modules = new List<MobiFlightModule>();
+        Dictionary<string, MobiFlightModule> Modules = new Dictionary<string, MobiFlightModule>();
         Dictionary<string, MobiFlightModuleConfig> configs;
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace ArcazeUSB
         public bool isConnected()
         {
             bool result = (Modules.Count > 0);
-            foreach (MobiFlightModule module in Modules)
+            foreach (MobiFlightModule module in Modules.Values)
             {
                 result = result & module.Connected;
             }
@@ -63,10 +63,10 @@ namespace ArcazeUSB
             return connectedModules;
         }
 
-        public List<MobiFlightModule> GetModules()
+        public IEnumerable<MobiFlightModule> GetModules()
         {
             if (!isConnected()) connect();
-            return Modules;
+            return Modules.Values;
         }
 
         private List<MobiFlightModuleInfo> lookupModules()
@@ -87,12 +87,7 @@ namespace ArcazeUSB
                     result.Add(devInfo);
                 }
             }
-            
-            if (result.Count == 0)
-            {
-            //    result.Add(new MobiFlightModuleInfo() { Type = MobiFlightModuleInfo.TYPE_MEGA, Name = "Transponder Panel", Port = "COM3" });
-            //    result.Add(new MobiFlightModuleInfo() { Type = MobiFlightModuleInfo.TYPE_MICRO, Name = "Stepper Module", Port = "COM13" });
-            }
+
 
             return result;
         }
@@ -109,13 +104,12 @@ namespace ArcazeUSB
             {
                 MobiFlightModule m = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = devInfo.Port });
                 m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);                
-                Modules.Add(m);
+                Modules.Add(devInfo.Serial, m);
             }
 
             // Connect to all attached modules            
-            foreach (MobiFlightModule module in Modules)
+            foreach (MobiFlightModule module in Modules.Values)
             {
-                // module.UpdateConfig(
                 module.Connect();
                 module.GetInfo();
             }
@@ -142,7 +136,7 @@ namespace ArcazeUSB
         {
             if (isConnected())
             {
-                foreach (MobiFlightModule module in Modules)
+                foreach (MobiFlightModule module in Modules.Values)
                 {
                     module.Disconnect();
                 }
@@ -156,21 +150,17 @@ namespace ArcazeUSB
         /// sets the pins in the mobiflight modules according to the given value
         /// </summary>
         /// <param name="serial">the device's serial</param>
-        /// <param name="portAndPin">the port letter and pin number, e.g. A01</param>
-        /// <param name="trigger">the trigger to be used</param>
+        /// <param name="name">the port letter and pin number, e.g. A01</param>
         /// <param name="value">the value to be used</param>
-        public void setValue(string serial, string portAndPin, string value)
+        public void setValue(string serial, string name, string value)
         {
             try{
-                if (portAndPin == null || portAndPin == "") return;
-                int index = Int16.Parse(serial);
-                // ensure no out of bounds
-                if (index >= Modules.Count) return;
+                if (name == null || name == "") return;
 
-                MobiFlightModule module = Modules[index];
-                MobiFlightIOBasic io = new MobiFlightIOBasic(portAndPin);
+                MobiFlightModule module = GetModuleBySerial(serial);
+                if (module == null) return;
 
-                module.SetPin(io.Port, io.Pin, Int16.Parse(value));
+                module.SetPin("base", name, Int16.Parse(value));
             }
             catch (ConfigErrorException e)
             {
@@ -209,19 +199,15 @@ namespace ArcazeUSB
                 throw new ConfigErrorException("ConfigErrorException_AddressNull");
             }
             
-            String portAndPin = "LED0"+address;
-
             try
             {
-                if (portAndPin == null || portAndPin == "") return;
-                int index = Int16.Parse(serial);
-                // ensure no out of bounds
-                if (index >= Modules.Count) return;
-
-                MobiFlightModule module = Modules[index];
-                MobiFlightIOBasic io = new MobiFlightIOBasic(portAndPin);
-
-                module.SetDisplay(io.Pin, 0, value);
+                ArcazeLedDigit ledDigit = new ArcazeLedDigit();
+                foreach (string digit in digits)
+                {
+                    ledDigit.setActive(ushort.Parse(digit));
+                }           
+                MobiFlightModule module = Modules[serial];
+                module.SetDisplay(address, connector - 1, (byte)ledDigit.getMask(), value);
             }
             catch (Exception e)
             {
@@ -229,27 +215,15 @@ namespace ArcazeUSB
             }
         }
 
-        public void setServo(string serial, string address, string value)
+        public void setServo(string serial, string address, string value, int min, int max)
         {
-            String portAndPin = "SERVO0" + address;
-            TimeSpan elapsed = DateTime.Now.Subtract(servoTime);
-            //if (elapsed.TotalMilliseconds < 100) return;
             try
             {
-                //
-                if (portAndPin == null || portAndPin == "") return;
-                int index = Int16.Parse(serial);
-                // ensure no out of bounds
-                if (index >= Modules.Count) return;
-
-                MobiFlightModule module = Modules[index];
-                MobiFlightIOBasic io = new MobiFlightIOBasic(portAndPin);
-
+                MobiFlightModule module = Modules[serial];
                 int iValue;
                 if (!int.TryParse(value, out iValue)) return;
 
-                module.SetServo(io.Pin, iValue);
-                servoTime = DateTime.Now;
+                module.SetServo(address, iValue, min, max);
             }
             catch (Exception e)
             {
@@ -271,7 +245,7 @@ namespace ArcazeUSB
 
         public MobiFlightModule GetModule(string port)
         {
-            foreach (MobiFlightModule module in Modules)
+            foreach (MobiFlightModule module in Modules.Values)
             {
                 if (module.Port == port) return module;
             }
@@ -281,25 +255,19 @@ namespace ArcazeUSB
 
         public MobiFlightModule GetModuleBySerial(string serial)
         {
-            foreach (MobiFlightModule module in Modules)
-            {
-                if (module.Serial == serial) return module;
-            }
-
+            if (Modules.ContainsKey(serial)) return Modules[serial];
+            
             throw new IndexOutOfRangeException();
         }
 
         internal MobiFlightModule GetModule(MobiFlightModuleInfo moduleInfo)
         {
-            foreach (MobiFlightModule module in Modules)
+            foreach (MobiFlightModule module in Modules.Values)
             {
                 if (module.Port == moduleInfo.Port) return module;                
             }
 
-            foreach (MobiFlightModule module in Modules)
-            {
-                if (module.Serial == moduleInfo.Serial) return module;
-            }            
+            if (Modules.ContainsKey(moduleInfo.Serial)) return Modules[moduleInfo.Serial];           
 
             throw new IndexOutOfRangeException();
         }

@@ -1,30 +1,29 @@
-/**
-*   FSUIPC Developer Kit: Library for C#.NET programmers
-*   Version 1.11 (03/05/2004) by Scott McCrory <scott@mccrory.us> and Bob Scott <w6kd@yahoo.com>
-*
-*   Original Copyright (?) 2000 Chris Brett.  All rights reserved.
-*   e-mail: chris@formulate.clara.net
-*
-*   Rewritten for Visual Basic .NET By Bob Scott
-*   e-mail w6kd@amsat.org
-*
-*   Rewritten for C#.NET by Scott McCrory and revised by Bob Scott
-*   e-mail scott@mccrory.us
-*
-*   Function library for FSUIPC based on C code supplied by Pete Dowson
-*
-*   BASIC USAGE GOES LIKE THIS:
-*      0. Instantiate the FsuipcSdk.Fsuipc class (i.e. Fsuipc f = new Fsuipc();).
-*      1. Call f.FSUIPC_Initialization() at beginning of program (optional).
-*      2. Call f.FSUIPC_Open() to connect with FSUIPC if it's available.
-*      3. Call f.FSUIPC_Read and/or f.FSUIPC_Write one or more times to build
-*         the list of actions to be performed by the next step.
-*      4. Call f.FSUIPC_Process() to actually get/set the data from/to FS.
-*      5. For reads, call f.FSUIPC_Get to retrieve data read from FSUIPC.
-*      6. Repeat steps 3, 4, and 5 as necessary.
-*      7. At program termination, call f.FSUIPC_Close().
-*
-**/
+//
+//*   FSUIPC Developer Kit: Library for C#.NET programmers
+//*   Version 1.11 (03/05/2004) by Scott McCrory <scott@mccrory.us> and Bob Scott <w6kd@yahoo.com>
+//*
+//*   Original Copyright (?) 2000 Chris Brett.  All rights reserved.
+//*   e-mail: chris@formulate.clara.net
+//*
+//*   Rewritten for Visual Basic .NET By Bob Scott
+//*   e-mail w6kd@amsat.org
+//*
+//*   Rewritten for C#.NET by Scott McCrory and revised by Bob Scott
+//*   e-mail scott@mccrory.us
+//*
+//*   Function library for FSUIPC based on C code supplied by Pete Dowson
+//*
+//*   BASIC USAGE GOES LIKE THIS:
+//*      0. Instantiate the FsuipcSdk.Fsuipc class (i.e. Fsuipc f = new Fsuipc();).
+//*      1. Call f.FSUIPC_Initialization() at beginning of program (optional).
+//*      2. Call f.FSUIPC_Open() to connect with FSUIPC if it's available.
+//*      3. Call f.FSUIPC_Read and/or f.FSUIPC_Write one or more times to build
+//*         the list of actions to be performed by the next step.
+//*      4. Call f.FSUIPC_Process() to actually get/set the data from/to FS.
+//*      5. For reads, call f.FSUIPC_Get to retrieve data read from FSUIPC.
+//*      6. Repeat steps 3, 4, and 5 as necessary.
+//*      7. At program termination, call f.FSUIPC_Close().
+//
 
 using System.Runtime.InteropServices;
 using System.Text;
@@ -400,7 +399,7 @@ namespace FsuipcSdk
 		///<summary>Submits a read request</summary>
 		///<param name="dwOffset">The memory offset where the requested value is located</param>
 		///<param name="dwSize">The number of bytes comprising of the requested value</param>
-		///<param name="token">Contains the unique identifier token used to Get the value</param>
+		///<param name="Token">Contains the unique identifier token used to Get the value</param>
 		///<param name="dwResult">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Read(int dwOffset, int dwSize, ref int Token, ref int dwResult) 
@@ -602,7 +601,7 @@ namespace FsuipcSdk
 		///<summary>Submits an "internal" write request, used by FSUIPC_Write</summary>
 		///<param name="dwOffset">The memory offset where the referenced value is located</param>
 		///<param name="dwSize">The number of bytes comprising of the referenced value</param>
-		///<param name="token">Contains the unique identifier token used to Get the value</param>
+		///<param name="Token">Contains the unique identifier token used to Get the value</param>
 		///<param name="dwResult">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		private bool FSUIPC_Write_Req(int dwOffset, int dwSize, int Token, ref int dwResult) 
@@ -657,7 +656,7 @@ namespace FsuipcSdk
 		///<summary>Submits a write request</summary>
 		///<param name="dwOffset">The memory offset where the referenced value is located</param>
 		///<param name="param">The value to be written</param>
-		///<param name="token">Contains the unique identifier token used to Get the value</param>
+        ///<param name="Token">Contains the unique identifier token used to Get the value</param>
 		///<param name="dwResult">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Write(int dwOffset, byte param, ref int Token, ref int dwResult) 
@@ -690,7 +689,7 @@ namespace FsuipcSdk
 		///<summary>Submits a write request</summary>
 		///<param name="dwOffset">The memory offset where the referenced value is located</param>
 		///<param name="param">The value to be written</param>
-		///<param name="token">Contains the unique identifier token used to Get the value</param>
+        ///<param name="Token">Contains the unique identifier token used to Get the value</param>
 		///<param name="dwResult">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Write(int dwOffset, short param, ref int Token, ref int dwResult) 
@@ -724,7 +723,7 @@ namespace FsuipcSdk
 		///<summary>Submits a write request</summary>
 		///<param name="dwOffset">The memory offset where the referenced value is located</param>
 		///<param name="param">The value to be written</param>
-		///<param name="token">Contains the unique identifier token used to Get the value</param>
+        ///<param name="Token">Contains the unique identifier token used to Get the value</param>
 		///<param name="dwResult">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Write(int dwOffset, int param, ref int Token, ref int dwResult) 
@@ -757,7 +756,7 @@ namespace FsuipcSdk
 		///<summary>Submits a write request</summary>
 		///<param name="dwOffset">The memory offset where the referenced value is located</param>
 		///<param name="param">The value to be written</param>
-		///<param name="token">Contains the unique identifier token used to Get the value</param>
+        ///<param name="Token">Contains the unique identifier token used to Get the value</param>
 		///<param name="dwResult">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Write(int dwOffset, long param, ref int Token, ref int dwResult) 
@@ -790,7 +789,7 @@ namespace FsuipcSdk
 		///<summary>Submits a write request</summary>
 		///<param name="dwOffset">The memory offset where the referenced value is located</param>
 		///<param name="param">The value to be written</param>
-		///<param name="token">Contains the unique identifier token used to Get the value</param>
+        ///<param name="Token">Contains the unique identifier token used to Get the value</param>
 		///<param name="dwResult">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Write(int dwOffset, int dwSize, ref byte[] param, ref int Token, ref int dwResult) 
@@ -823,8 +822,8 @@ namespace FsuipcSdk
 
 		//--- Read requests ----------------------------------------------------------------
 		///<summary>Retrieve data read from FSUIPC using token passed during read request</summary>
-		///<param name="token">The unique identifier token returned from the Read call</param>
-		///<param name="result">Contains the "error-code" if method's boolean comes back false</param>
+        ///<param name="Token">The unique identifier token returned from the Read call</param>
+		///<param name="Result">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Get(ref int Token, ref byte Result) 
 		{
@@ -851,8 +850,8 @@ namespace FsuipcSdk
 
 
 		///<summary>Retrieve data read from FSUIPC using token passed during read request</summary>
-		///<param name="token">The unique identifier token returned from the Read call</param>
-		///<param name="result">Contains the "error-code" if method's boolean comes back false</param>
+        ///<param name="Token">The unique identifier token returned from the Read call</param>
+		///<param name="Result">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Get(ref int Token, ref short Result) 
 		{
@@ -878,8 +877,8 @@ namespace FsuipcSdk
 		}
 
 		///<summary>Retrieve data read from FSUIPC using token passed during read request</summary>
-		///<param name="token">The unique identifier token returned from the Read call</param>
-		///<param name="result">Contains the "error-code" if method's boolean comes back false</param>
+		///<param name="Token">The unique identifier token returned from the Read call</param>
+		///<param name="Result">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Get(ref int Token, ref int Result) 
 		{
@@ -905,8 +904,8 @@ namespace FsuipcSdk
 		}
 
 		///<summary>Retrieve data read from FSUIPC using token passed during read request</summary>
-		///<param name="token">The unique identifier token returned from the Read call</param>
-		///<param name="result">Contains the "error-code" if method's boolean comes back false</param>
+		///<param name="Token">The unique identifier token returned from the Read call</param>
+		///<param name="Result">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Get(ref int Token, ref long Result) 
 		{
@@ -932,9 +931,9 @@ namespace FsuipcSdk
 		}
 
 		///<summary>Retrieve data read from FSUIPC using token passed during read request</summary>
-		///<param name="token">The unique identifier token returned from the Read call</param>
+		///<param name="Token">The unique identifier token returned from the Read call</param>
 		///<param name="dwSize">The size of memory locations in bytes</param>
-		///<param name="result">Contains the "error-code" if method's boolean comes back false</param>
+		///<param name="Result">Contains the "error-code" if method's boolean comes back false</param>
 		///<return>true if successful, false otherwise.  If false, dwResult contains the "error-code"</return>
 		public bool FSUIPC_Get(ref int Token, int dwSize, ref byte[] Result) 
 		{

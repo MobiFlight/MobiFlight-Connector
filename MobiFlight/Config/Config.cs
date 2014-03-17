@@ -23,7 +23,7 @@ namespace MobiFlight.Config
 
         public Config(String rawConfig) : this()
         {
-            FromInternal(rawConfig);
+            FromInternal(rawConfig, false);
         }
 
         public String ToInternal()
@@ -36,7 +36,7 @@ namespace MobiFlight.Config
             return result;
         }
 
-        public Config FromInternal(String value)
+        public Config FromInternal(String value, bool throwException = false)
         {
             String[] items = value.Split(BaseDevice.End);
             foreach (String item in items)
@@ -82,7 +82,10 @@ namespace MobiFlight.Config
                 }
                 catch (FormatException ex)
                 {
-                    throw new FormatException("Config not valid. Type not valid", ex);
+                    if (throwException)
+                        throw new FormatException("Config not valid. Type not valid", ex);
+                    else
+                        return this;
                 }
 
             }
