@@ -95,6 +95,10 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.debugGroupBox = new System.Windows.Forms.GroupBox();
+            this.logLevelCheckBox = new System.Windows.Forms.CheckBox();
+            this.logLevelLabel = new System.Windows.Forms.Label();
+            this.logLevelComboBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -114,6 +118,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).BeginInit();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
+            this.debugGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -230,6 +235,7 @@
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.generalTabPage.Controls.Add(this.debugGroupBox);
             this.generalTabPage.Controls.Add(this.testModeSpeedGroupBox);
             this.generalTabPage.Controls.Add(this.recentFilesGroupBox);
             resources.ApplyResources(this.generalTabPage, "generalTabPage");
@@ -574,6 +580,37 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             resources.ApplyResources(this.saveAsToolStripMenuItem, "saveAsToolStripMenuItem");
             // 
+            // debugGroupBox
+            // 
+            this.debugGroupBox.Controls.Add(this.logLevelComboBox);
+            this.debugGroupBox.Controls.Add(this.logLevelLabel);
+            this.debugGroupBox.Controls.Add(this.logLevelCheckBox);
+            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
+            this.debugGroupBox.Name = "debugGroupBox";
+            this.debugGroupBox.TabStop = false;
+            // 
+            // logLevelCheckBox
+            // 
+            resources.ApplyResources(this.logLevelCheckBox, "logLevelCheckBox");
+            this.logLevelCheckBox.Name = "logLevelCheckBox";
+            this.logLevelCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // logLevelLabel
+            // 
+            resources.ApplyResources(this.logLevelLabel, "logLevelLabel");
+            this.logLevelLabel.Name = "logLevelLabel";
+            // 
+            // logLevelComboBox
+            // 
+            this.logLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.logLevelComboBox.FormattingEnabled = true;
+            this.logLevelComboBox.Items.AddRange(new object[] {
+            resources.GetString("logLevelComboBox.Items"),
+            resources.GetString("logLevelComboBox.Items1"),
+            resources.GetString("logLevelComboBox.Items2")});
+            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
+            this.logLevelComboBox.Name = "logLevelComboBox";
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -607,6 +644,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).EndInit();
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
+            this.debugGroupBox.ResumeLayout(false);
+            this.debugGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -678,5 +717,9 @@
         private System.Windows.Forms.ToolStripMenuItem addEncoderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addButtonToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.GroupBox debugGroupBox;
+        private System.Windows.Forms.ComboBox logLevelComboBox;
+        private System.Windows.Forms.Label logLevelLabel;
+        private System.Windows.Forms.CheckBox logLevelCheckBox;
     }
 }

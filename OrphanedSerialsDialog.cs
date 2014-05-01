@@ -12,14 +12,14 @@ namespace ArcazeUSB
 {
     public partial class OrphanedSerialsDialog : Form
     {
-        ArcazeCache arcazeCache = null;
+        List<string> moduleSerials = null;
         DataTable configDataTable = null;
         DataTable realConfigDataTable = null;
         bool changed = false;
 
-        public OrphanedSerialsDialog(ArcazeCache arcazeCache, DataTable dataTable)
+        public OrphanedSerialsDialog(List<string> serials, DataTable dataTable)
         {
-            this.arcazeCache = arcazeCache;
+            this.moduleSerials = serials;
             this.configDataTable = dataTable.Copy();
             this.realConfigDataTable = dataTable;
             InitializeComponent();
@@ -29,15 +29,13 @@ namespace ArcazeUSB
         protected void updateOrphanedList()
         {
             List<String> configSerials = new List<string>();
-            List<String> arcazeSerials = new List<string>();
-
+            
             connectedModulesComboBox.Items.Clear();
             orphanedSerialsListBox.Items.Clear();
 
-            foreach (IModuleInfo module in arcazeCache.getModuleInfo())
+            foreach (String serial in moduleSerials)
             {
-                arcazeSerials.Add(module.Name + "/ " + module.Serial);
-                connectedModulesComboBox.Items.Add(module.Name + "/ " + module.Serial);                
+                connectedModulesComboBox.Items.Add(serial);                
             }
 
             foreach (DataRow row in configDataTable.Rows) {
@@ -45,7 +43,7 @@ namespace ArcazeUSB
                 if (cfg.DisplaySerial != "" && 
                     cfg.DisplaySerial  != "-" && 
                     !configSerials.Contains(cfg.DisplaySerial) && 
-                    !arcazeSerials.Contains(cfg.DisplaySerial))
+                    !moduleSerials.Contains(cfg.DisplaySerial))
                 {
                     configSerials.Add(cfg.DisplaySerial);
                     orphanedSerialsListBox.Items.Add(cfg.DisplaySerial);

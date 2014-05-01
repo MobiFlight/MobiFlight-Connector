@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO.Ports;
 using MobiFlight;
+using Microsoft.Win32;
+using System.Text.RegularExpressions;
 
 namespace ArcazeUSB
 {
@@ -59,7 +61,10 @@ namespace ArcazeUSB
 
         public List<MobiFlightModuleInfo> getConnectedModules()
         {
-            if (connectedModules == null) connectedModules = lookupModules();
+            if (connectedModules == null)
+            {
+                connectedModules = lookupModules();
+            }
             return connectedModules;
         }
 
@@ -69,12 +74,50 @@ namespace ArcazeUSB
             return Modules.Values;
         }
 
+        private static List<string> getArduinoPorts()
+        {
+            List<String> result = new List<String>();
+            String[] arduinoVidPids = { 
+                "VID_1B4F&PID_9206", // Micro
+                "VID_2341&PID_0042"  // Mega
+            };
+            Regex regEx = new Regex( "^(" + string.Join("|", arduinoVidPids) + ")" );
+
+            RegistryKey regLocalMachine = Registry.LocalMachine;
+            RegistryKey regUSB = regLocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Enum\\USB");
+            foreach (String regDevice in regUSB.GetSubKeyNames())
+            {
+                if (regEx.Match(regDevice).Success)
+                {
+                    foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames()) {
+                    // we have found an existing entry 
+                    // let's check if it is currently connected#
+                        try
+                        {
+                            String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
+                            String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
+                            if (portName != null)
+                            result.Add(portName);
+                        }
+                        catch (Exception e)
+                        {
+                            // not available therefore not connected
+                            continue;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
         private List<MobiFlightModuleInfo> lookupModules()
         {
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
-            
-            foreach (string portName in SerialPort.GetPortNames())
+            string[] connectedPorts = SerialPort.GetPortNames();
+
+            foreach (string portName in getArduinoPorts())
             {
+                if (!connectedPorts.Contains(portName)) continue;
                 // we ignore the COM1 because it is normally an internal port and not one used
                 // by the hardware
                 if (portName == "COM1") continue;
@@ -116,7 +159,8 @@ namespace ArcazeUSB
 
             if (isConnected())
             {
-                //Connected(this, new EventArgs());
+                if (Connected != null)
+                    this.Connected(this, new EventArgs());
                 return true;
             }
 
@@ -239,7 +283,6 @@ namespace ArcazeUSB
 
         internal IEnumerable<IModuleInfo> getModuleInfo()
         {
-            List<IModuleInfo> result = new List<IModuleInfo>();
             return getConnectedModules();
         }
 

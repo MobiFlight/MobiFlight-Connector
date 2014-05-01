@@ -118,15 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Datei</value>
-  </data>
-  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Hilfe</value>
-  </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 22</value>
   </data>
@@ -166,6 +157,12 @@
   <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
     <value>Beenden</value>
   </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Datei</value>
+  </data>
   <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>222, 22</value>
   </data>
@@ -199,6 +196,9 @@
   <data name="überToolStripMenuItem.Text" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Hilfe</value>
+  </data>
   <data name="Active.HeaderText" xml:space="preserve">
     <value>Aktiv</value>
   </data>
@@ -221,9 +221,6 @@
   <data name="EditButtonColumn.Width" type="System.Int32, mscorlib">
     <value>60</value>
   </data>
-  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 48</value>
-  </data>
   <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 22</value>
   </data>
@@ -235,6 +232,9 @@
   </data>
   <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Eintrag löschen</value>
+  </data>
+  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 48</value>
   </data>
   <data name="notifyIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -300,9 +300,6 @@
   <data name="exitToolStripButton.Text" xml:space="preserve">
     <value>Beenden</value>
   </data>
-  <data name="statusStripPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 24</value>
-  </data>
   <data name="arcazeUsbToolStripDropDownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -317,6 +314,9 @@
         kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
         TgDQASA1MVpwzwAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="statusStripPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 24</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

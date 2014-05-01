@@ -54,10 +54,26 @@ namespace ArcazeUSB
             // System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
             
             InitializeComponent();
+
+            // init logging
+            LogAppenderTextBox logAppenderTextBox = new LogAppenderTextBox (logTextBox);
+            Log.Instance.AddAppender(logAppenderTextBox);
+            Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
+            logTextBox.Visible = Log.Instance.Enabled;
+            
+            try
+            {
+                Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel, true);
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log("MainForm() : Unknown log level", LogSeverity.Error);
+            }
+            Log.Instance.log("MainForm() : Logger initialized " + Log.Instance.Severity.ToString(), LogSeverity.Info);
+
+
             execManager = new ExecutionManager(dataGridViewConfig);
-
             cmdLineParams = new CmdLineParams();
-
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
 
             execManager.OnExecute += new EventHandler(timer_Tick);
@@ -220,7 +236,8 @@ namespace ArcazeUSB
                     (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[1] as TabPage;
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        Properties.Settings.Default.Save();                        
+                        Properties.Settings.Default.Save();
+                        logTextBox.Visible = Log.Instance.Enabled;
                     }
                 }
             }           
@@ -648,7 +665,13 @@ namespace ArcazeUSB
 
         private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
         {
-            OrphanedSerialsDialog opd = new OrphanedSerialsDialog(execManager.getModuleCache(), configDataTable);
+            List<string> serials = new List<string>();
+            foreach (IModuleInfo moduleInfo in execManager.getConnectedModulesInfo())
+            {
+                serials.Add(moduleInfo.Name + "/ " + moduleInfo.Serial);
+            }
+
+            OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configDataTable);
             opd.StartPosition = FormStartPosition.CenterParent;
             if (opd.HasOrphanedSerials())
             {
@@ -1049,6 +1072,7 @@ namespace ArcazeUSB
             {
                 Properties.Settings.Default.Save();
                 // TODO: refactor
+                logTextBox.Visible = Log.Instance.Enabled;
                 execManager.updateModuleSettings(getArcazeModuleSettings());                
             }
         }

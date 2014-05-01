@@ -275,7 +275,7 @@ namespace ArcazeUSB
             }
             catch (Exception e)
             {
-                throw e;
+                //throw e;
                 //this.ConnectionLost(this, new EventArgs());
             }
         } //setValue()
@@ -303,6 +303,7 @@ namespace ArcazeUSB
 
             try
             {
+                if (!Modules.ContainsKey(serial)) return;
                 Modules[serial].setDisplay(address, connector, digits, decimalPoints, value);
             }
             catch (Exception e)

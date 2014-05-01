@@ -68,6 +68,12 @@ namespace MobiFlight
             command.AddArgument(value);
             command.AddArgument(mask);
 
+            Log.Instance.log("Command: SetModule <" + (int)MobiFlightModule.Command.SetModule + "," +
+                                                      this.ModuleNumber + "," +
+                                                      subModule + "," +
+                                                      value + "," +
+                                                      mask + ";>", LogSeverity.Info);
+
             // Send command
             CmdMessenger.SendCommand(command);
         }

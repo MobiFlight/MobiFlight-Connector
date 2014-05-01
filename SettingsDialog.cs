@@ -73,6 +73,8 @@ namespace ArcazeUSB
 #else
             tabControl1.TabPages.Remove(mobiFlightTabPage);
 #endif
+
+            ModuleConfigChanged = false;
         }
 
         private void loadSettings ()
@@ -105,6 +107,9 @@ namespace ArcazeUSB
                 {
                 }
             }
+
+            logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
+            ComboBoxHelper.SetSelectedItem(logLevelComboBox,Properties.Settings.Default.LogLevel);
 
             loadMobiFlightSettings();
         }
@@ -162,6 +167,12 @@ namespace ArcazeUSB
             Properties.Settings.Default.RecentFilesMaxCount = (int) recentFilesNumericUpDown.Value;
             // FSUIPC poll interval
             Properties.Settings.Default.PollInterval = (int) (fsuipcPollIntervalTrackBar.Value * 50);
+
+            // log settings
+            Properties.Settings.Default.LogEnabled = logLevelCheckBox.Checked;
+            Properties.Settings.Default.LogLevel = logLevelComboBox.SelectedItem as String;            
+            Log.Instance.Enabled = logLevelCheckBox.Checked;
+            Log.Instance.Severity = (LogSeverity) Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel);
 
             try
             {
@@ -257,12 +268,13 @@ namespace ArcazeUSB
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            if (checkIfMobiFlightSettingsHaveChanged() && 
-                MessageBox.Show("You have unsaved changes in one of your module's settings. \n Do you want to cancel and loose your changes?", "Unsaved changes", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK
-                )
-            {
-                DialogResult = DialogResult.Cancel;
+            if (checkIfMobiFlightSettingsHaveChanged()) {
+                if (MessageBox.Show("You have unsaved changes in one of your module's settings. \n Do you want to cancel and loose your changes?", "Unsaved changes", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                {
+                }                
             }
+
+            DialogResult = DialogResult.Cancel;
         }
 
         private void arcazeModuleTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -451,11 +463,12 @@ namespace ArcazeUSB
             }
 
             module.Config = newConfig;
+
+            Log.Instance.log("Uploading config: " + module.Config.ToInternal(), LogSeverity.Info);
             
-            if (MessageBox.Show(module.Config.ToInternal(), "Confirm", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
-            {
-                module.SaveConfig();
-            }
+            module.SaveConfig();
+            module.Config = null;
+            module.LoadConfig();
         }
 
         private bool checkIfMobiFlightSettingsHaveChanged()
@@ -521,6 +534,8 @@ namespace ArcazeUSB
             mfModulesTreeView.Nodes.Remove(node);
 
         }
+
+        public bool ModuleConfigChanged { get; set; }
     }
 
     public class ArcazeListItem

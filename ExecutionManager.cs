@@ -73,6 +73,10 @@ namespace ArcazeUSB
             arcazeCache.Closed += new EventHandler(arcazeCache_Closed);
             arcazeCache.ConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
 
+            mobiFlightCache.Connected += new EventHandler(arcazeCache_Connected);
+            mobiFlightCache.Closed += new EventHandler(arcazeCache_Closed);
+            mobiFlightCache.ConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+
             timer.Interval = Properties.Settings.Default.PollInterval;
             timer.Tick += new EventHandler(timer_Tick);
             timer.Stopped += new EventHandler(timer_Stopped);
@@ -154,6 +158,14 @@ namespace ArcazeUSB
         public ArcazeCache getModules()
         {
             return arcazeCache;
+        }
+
+        public List<IModuleInfo> getConnectedModulesInfo()
+        {
+            List<IModuleInfo> result = new List<IModuleInfo>();
+            result.AddRange(arcazeCache.getModuleInfo());
+            result.AddRange(mobiFlightCache.getModuleInfo());
+            return result;
         }
 
         public void Shutdown()

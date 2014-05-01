@@ -152,10 +152,10 @@ namespace MobiFlight
 
         public void LoadConfig()
         {           
-            // add Led Modules
             ledModules.Clear();
             stepperModules.Clear();
             servoModules.Clear();
+            outputs.Clear();
                         
             foreach (Config.BaseDevice device in Config.Items)
             {
