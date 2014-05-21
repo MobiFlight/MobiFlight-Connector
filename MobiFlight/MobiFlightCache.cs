@@ -249,9 +249,15 @@ namespace ArcazeUSB
                 foreach (string digit in digits)
                 {
                     ledDigit.setActive(ushort.Parse(digit));
-                }           
+                }
+
+                foreach (string points in decimalPoints)
+                {
+                    ledDigit.setDecimalPoint(ushort.Parse(points));
+                }        
+
                 MobiFlightModule module = Modules[serial];
-                module.SetDisplay(address, connector - 1, (byte)ledDigit.getMask(), value);
+                module.SetDisplay(address, connector - 1, ledDigit.getDecimalPoints(), (byte)ledDigit.getMask(), value);
             }
             catch (Exception e)
             {

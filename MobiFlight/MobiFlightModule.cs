@@ -268,15 +268,15 @@ namespace MobiFlight
             return true;
         }
 
-        public bool SetDisplay(string name, int module, byte mask, string value)
+        public bool SetDisplay(string name, int module, byte points, byte mask, string value)
         {
-            String key = "LED_" + name + "_" + module + "_" + mask;            
+            String key = "LED_" + name + "_" + module + "_" + points + "_" + mask;            
 
             if (lastValue.ContainsKey(key) &&
                 lastValue[key] == value) return false;
 
             lastValue[key] = value;
-            ledModules[name].Display(module, value, mask);
+            ledModules[name].Display(module, value, points, mask);
             return true;
         }
 

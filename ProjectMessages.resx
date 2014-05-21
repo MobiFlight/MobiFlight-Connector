@@ -140,7 +140,7 @@
     <value>An Arcaze module has been removed.</value>
   </data>
   <data name="uiMessageNoArcazeModuleFound" xml:space="preserve">
-    <value>No Arcaze module found.</value>
+    <value>No module found.</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
@@ -157,8 +157,8 @@
   <data name="uiMessageArcazeConnectionLost" xml:space="preserve">
     <value>The connection to the arcaze module got lost</value>
   </data>
-  <data name="uiMessageArcazeUSBInterfaceActive" xml:space="preserve">
-    <value>ArcazeUSB Interface still active</value>
+  <data name="uiMessageMFConnectorInterfaceActive" xml:space="preserve">
+    <value>MFConnector still active</value>
   </data>
   <data name="uiMessageFsuipcConnectionLost" xml:space="preserve">
     <value>The connection to FSUIPC got lost</value>
@@ -264,7 +264,7 @@ Set the description text and use the edit button then.</value>
     <value>Please provide the address of the desired Led Display Module. It must be numeric, e.g. 1</value>
   </data>
   <data name="uiMessageConfigWizard_SelectArcaze" xml:space="preserve">
-    <value>Please select an arcaze module by choosing a valid serial from the list.</value>
+    <value>Please select a module by choosing a valid serial from the list.</value>
   </data>
   <data name="uiMessageConfigWizard_SelectComparison" xml:space="preserve">
     <value>Please provide a value for comparison.</value>
@@ -287,7 +287,7 @@ You should configure them now.</value>
     <value>Precondition is not satisfied</value>
   </data>
   <data name="WebsiteUrlHelp" xml:space="preserve">
-    <value>http://wiki.simple-solutions.de/de/products/Arcaze/Arcaze-USB/Arcaze-FSUIPC-Connector</value>
+    <value>http://mobiflight.moebiuz.de/dokumentation/software.html</value>
   </data>
   <data name="suffixCopy" xml:space="preserve">
     <value>Copy</value>
@@ -306,5 +306,8 @@ You should configure them now.</value>
   </data>
   <data name="uiMessageCmdParamConfigFileDoesNotExist" xml:space="preserve">
     <value>The config file passed as parameter does not exist.</value>
+  </data>
+  <data name="uiMessageMigrateConfigFileYesNo" xml:space="preserve">
+    <value>The config file has to be converted to work correctly. Please save with new file extension.</value>
   </data>
 </root>

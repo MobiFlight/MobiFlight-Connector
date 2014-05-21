@@ -19,7 +19,7 @@ namespace ArcazeUSB.Panels
         public void SetPorts(List<ListItem> ports)
         {
             // displayBcdPortComboBox
-            displayBcdStrobePortComboBox.DataSource = ports;
+            displayBcdStrobePortComboBox.DataSource = new List<ListItem>(ports);
             displayBcdStrobePortComboBox.DisplayMember = "Label";
             displayBcdStrobePortComboBox.ValueMember = "Value";
             if (ports.Count > 0)
@@ -27,7 +27,7 @@ namespace ArcazeUSB.Panels
 
             displayBcdStrobePortComboBox.Enabled = ports.Count > 0;
 
-            displayBcdPortComboBox.DataSource = ports;
+            displayBcdPortComboBox.DataSource = new List<ListItem>(ports);
             displayBcdPortComboBox.DisplayMember = "Label";
             displayBcdPortComboBox.ValueMember = "Value";
             if (ports.Count > 0)
@@ -46,7 +46,7 @@ namespace ArcazeUSB.Panels
 
         public void SetPins(List<ListItem> pins)
         {
-            displayBcdStrobePinComboBox.DataSource = pins;
+            displayBcdStrobePinComboBox.DataSource = new List<ListItem>(pins);
             displayBcdStrobePinComboBox.DisplayMember = "Label";
             displayBcdStrobePinComboBox.ValueMember = "Value";
 
@@ -55,7 +55,7 @@ namespace ArcazeUSB.Panels
 
             displayBcdStrobePinComboBox.Visible = displayBcdStrobePinComboBox.Enabled = pins.Count > 0;
 
-            displayBcdPin1ComboBox.DataSource = pins;
+            displayBcdPin1ComboBox.DataSource = new List<ListItem>(pins);
             displayBcdPin1ComboBox.DisplayMember = "Label";
             displayBcdPin1ComboBox.ValueMember = "Value";
 
@@ -64,7 +64,7 @@ namespace ArcazeUSB.Panels
 
             displayBcdPin1ComboBox.Visible = displayBcdPin1ComboBox.Enabled = pins.Count > 0;
 
-            displayBcdPin2ComboBox.DataSource = pins;
+            displayBcdPin2ComboBox.DataSource = new List<ListItem>(pins);
             displayBcdPin2ComboBox.DisplayMember = "Label";
             displayBcdPin2ComboBox.ValueMember = "Value";
 
@@ -73,7 +73,7 @@ namespace ArcazeUSB.Panels
 
             displayBcdPin2ComboBox.Visible = displayBcdPin2ComboBox.Enabled = pins.Count > 0;
 
-            displayBcdPin3ComboBox.DataSource = pins;
+            displayBcdPin3ComboBox.DataSource = new List<ListItem>(pins);
             displayBcdPin3ComboBox.DisplayMember = "Label";
             displayBcdPin3ComboBox.ValueMember = "Value";
 
@@ -82,7 +82,7 @@ namespace ArcazeUSB.Panels
 
             displayBcdPin3ComboBox.Visible = displayBcdPin3ComboBox.Enabled = pins.Count > 0;
 
-            displayBcdPin4ComboBox.DataSource = pins;
+            displayBcdPin4ComboBox.DataSource = new List<ListItem>(pins);
             displayBcdPin4ComboBox.DisplayMember = "Label";
             displayBcdPin4ComboBox.ValueMember = "Value";
 

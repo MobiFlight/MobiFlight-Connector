@@ -906,6 +906,7 @@ namespace ArcazeUSB
                     break;
 
                 default:
+                    cfg.DisplayLedDecimalPoints = new List<string>();
                     executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", cfg);
                     break;
             }

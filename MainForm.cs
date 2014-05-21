@@ -16,8 +16,8 @@ namespace ArcazeUSB
 {
     public partial class MainForm : Form
     {
-        public static String Version = "3.9.3";
-        public static String Build = "20140203";
+        public static String Version = "4.0.0";
+        public static String Build = DateTime.Now.ToString("yyyyMMdd");//"20140504";
 
         /// <summary>
         /// the currently used filename of the loaded config file
@@ -534,7 +534,7 @@ namespace ArcazeUSB
             if (minimized)
             {
                 notifyIcon.Visible = true;
-                notifyIcon.BalloonTipTitle = _tr("uiMessageArcazeUSBInterfaceActive");
+                notifyIcon.BalloonTipTitle = _tr("uiMessageMFConnectorInterfaceActive");
                 notifyIcon.BalloonTipText = _tr("uiMessageApplicationIsRunningInBackgroundMode");
                 notifyIcon.ShowBalloonTip(1000);               
                 this.Hide();
@@ -578,7 +578,7 @@ namespace ArcazeUSB
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {            
             OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "ArcazeUSB Interface Config (*.aic) |*.aic";
+            fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
 
             if (DialogResult.OK == fd.ShowDialog())
             {
@@ -638,6 +638,27 @@ namespace ArcazeUSB
         /// </summary>        
         private void _loadConfig(string fileName)
         {
+            if (fileName.IndexOf(".aic") != -1)
+            {
+                if (MessageBox.Show(_tr("uiMessageMigrateConfigFileYesNo"), _tr("Hint"), MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                SaveFileDialog fd = new SaveFileDialog();
+                fd.FileName = fileName.Replace(".aic", ".mcc");
+                fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
+                if (DialogResult.OK != fd.ShowDialog())
+                {
+                    return;
+                }
+
+                String file = System.IO.File.ReadAllText(fileName);
+                String newFile = file.Replace("ArcazeFsuipcConnector", "MFConnector");
+                System.IO.File.WriteAllText(fd.FileName, newFile);
+                fileName = fd.FileName;
+            }
+
             execManager.Stop();
             dataSetConfig.Clear();
             dataSetConfig.ReadXml(fileName);
@@ -822,8 +843,8 @@ namespace ArcazeUSB
         /// </summary>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {            
-            SaveFileDialog fd = new SaveFileDialog();            
-            fd.Filter = "ArcazeUSB Interface Config (*.aic)|*.aic";
+            SaveFileDialog fd = new SaveFileDialog();
+            fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
             if (DialogResult.OK == fd.ShowDialog())
             {
                 _saveConfig(fd.FileName);

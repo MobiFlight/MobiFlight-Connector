@@ -51,7 +51,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display( int subModule, String value, byte mask )
+        public void Display( int subModule, String value, byte points, byte mask )
         {
             if (!_initialized) Initialize();
 
@@ -66,6 +66,7 @@ namespace MobiFlight
             command.AddArgument(this.ModuleNumber);
             command.AddArgument(subModule);            
             command.AddArgument(value);
+            command.AddArgument(points);
             command.AddArgument(mask);
 
             Log.Instance.log("Command: SetModule <" + (int)MobiFlightModule.Command.SetModule + "," +

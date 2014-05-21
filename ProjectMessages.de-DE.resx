@@ -140,7 +140,7 @@
     <value>Ein Arcaze Modul wurde entfernt.</value>
   </data>
   <data name="uiMessageNoArcazeModuleFound" xml:space="preserve">
-    <value>Kein Arcaze Modul gefunden</value>
+    <value>Kein Modul gefunden</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
@@ -158,7 +158,7 @@
     <value>Die Verbindung mit einem Arcaze Modul wurde unterbrochen.</value>
   </data>
   <data name="uiMessageArcazeUSBInterfaceActive" xml:space="preserve">
-    <value>ArcazeUSB Interface noch aktiv</value>
+    <value>MFConnector noch aktiv</value>
   </data>
   <data name="uiMessageFsuipcConnectionLost" xml:space="preserve">
     <value>Die Verbindung zu FSUIPC wurde unterbrochen.</value>
@@ -218,7 +218,7 @@ Möchten Sie die Änderungen jetzt speichern?</value>
     <value>Die Adresse eines Display Moduls darf nicht null sein. Bitte prüfen Sie Ihre Konfigurationsdatei.</value>
   </data>
   <data name="ConfigErrorException_SerialNull" xml:space="preserve">
-    <value>Die Serial eines Arcaze Moduls darf nicht null sein. Bitte prüfen Sie Ihre Konfigurationsdatei.</value>
+    <value>Die Seriennummer eines Moduls darf nicht null sein. Bitte prüfen Sie Ihre Konfigurationsdatei.</value>
   </data>
   <data name="ConfigErrorException_WritingDisplay" xml:space="preserve">
     <value>Fehler beim Schreiben von Werten auf das Display Modul. Bitte prüfen Sie Ihre Konfigurationsdatei.</value>
@@ -227,7 +227,7 @@ Möchten Sie die Änderungen jetzt speichern?</value>
     <value>Bitte wählen</value>
   </data>
   <data name="LabelPrecondition_ArcazePin" xml:space="preserve">
-    <value>Arcaze Pin</value>
+    <value>Pin</value>
   </data>
   <data name="LabelPrecondition_ConfigItem" xml:space="preserve">
     <value>Config Eintrag</value>
@@ -258,7 +258,7 @@ Legen Sie zuerst den Beschreibungstext fest und editieren Sie dann den Eintrag.<
     <value>Bitte geben Sie die gewünschte Adresse des Display Driver an. Es muss numerisch sein, z.B. 1.</value>
   </data>
   <data name="uiMessageConfigWizard_SelectArcaze" xml:space="preserve">
-    <value>Bitte gültiges Arcaze aus Liste auswählen.</value>
+    <value>Bitte gültiges Modul aus Liste auswählen.</value>
   </data>
   <data name="uiMessageConfigWizard_SelectComparison" xml:space="preserve">
     <value>Bitte geben sie eine Art für den Vergleich an.</value>
@@ -284,7 +284,7 @@ Führen Sie die Konfiguration jetzt durch.</value>
     <value>Bearbeiten</value>
   </data>
   <data name="WebsiteUrlHelp" xml:space="preserve">
-    <value>http://wiki.simple-solutions.de/de/products/Arcaze/Arcaze-USB/Arcaze-FSUIPC-Connector</value>
+    <value>http://mobiflight.moebiuz.de/dokumentation/software.html</value>
   </data>
   <data name="suffixCopy" xml:space="preserve">
     <value>Kopie</value>
@@ -297,5 +297,8 @@ Führen Sie die Konfiguration jetzt durch.</value>
   </data>
   <data name="uiMessageCmdParamConfigFileDoesNotExist" xml:space="preserve">
     <value>Die als Parameter übergebene Config-Datei existiert nicht.</value>
+  </data>
+  <data name="uiMessageMigrateConfigFileYesNo" xml:space="preserve">
+    <value>Die Konfiguration muss konvertiert und unter neuem Namen gespeichert werden.</value>
   </data>
 </root>

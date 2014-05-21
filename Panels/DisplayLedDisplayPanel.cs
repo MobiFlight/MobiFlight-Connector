@@ -20,7 +20,7 @@ namespace ArcazeUSB.Panels
 
         public void SetAddresses(List<ListItem> ports)
         {
-            displayLedAddressComboBox.DataSource = ports;
+            displayLedAddressComboBox.DataSource = new List<ListItem>(ports);
             displayLedAddressComboBox.DisplayMember = "Label";
             displayLedAddressComboBox.ValueMember = "Value";
             if (ports.Count > 0)
@@ -32,7 +32,7 @@ namespace ArcazeUSB.Panels
 
         public void SetConnectors(List<ListItem> pins)
         {
-            displayLedConnectorComboBox.DataSource = pins;
+            displayLedConnectorComboBox.DataSource = new List<ListItem>(pins);
             displayLedConnectorComboBox.DisplayMember = "Label";
             displayLedConnectorComboBox.ValueMember = "Value";
 

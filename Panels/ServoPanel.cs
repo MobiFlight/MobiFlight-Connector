@@ -33,7 +33,7 @@ namespace ArcazeUSB.Panels
 
         public void SetAdresses(List<ListItem> pins)
         {
-            servoAddressesComboBox.DataSource = pins;
+            servoAddressesComboBox.DataSource = new List<ListItem>(pins);
             servoAddressesComboBox.DisplayMember = "Label";
             servoAddressesComboBox.ValueMember = "Value";
 

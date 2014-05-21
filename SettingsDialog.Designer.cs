@@ -45,6 +45,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.arcazeSerialComboBox = new System.Windows.Forms.ComboBox();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.debugGroupBox = new System.Windows.Forms.GroupBox();
+            this.logLevelComboBox = new System.Windows.Forms.ComboBox();
+            this.logLevelLabel = new System.Windows.Forms.Label();
+            this.logLevelCheckBox = new System.Windows.Forms.CheckBox();
             this.testModeSpeedGroupBox = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -95,10 +99,6 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.debugGroupBox = new System.Windows.Forms.GroupBox();
-            this.logLevelCheckBox = new System.Windows.Forms.CheckBox();
-            this.logLevelLabel = new System.Windows.Forms.Label();
-            this.logLevelComboBox = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -106,6 +106,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.globalBrightnessTrackBar)).BeginInit();
             this.arcazeModulesGroupBox.SuspendLayout();
             this.generalTabPage.SuspendLayout();
+            this.debugGroupBox.SuspendLayout();
             this.testModeSpeedGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testModeSpeedTrackBar)).BeginInit();
             this.recentFilesGroupBox.SuspendLayout();
@@ -118,7 +119,6 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).BeginInit();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
-            this.debugGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -240,6 +240,37 @@
             this.generalTabPage.Controls.Add(this.recentFilesGroupBox);
             resources.ApplyResources(this.generalTabPage, "generalTabPage");
             this.generalTabPage.Name = "generalTabPage";
+            // 
+            // debugGroupBox
+            // 
+            this.debugGroupBox.Controls.Add(this.logLevelComboBox);
+            this.debugGroupBox.Controls.Add(this.logLevelLabel);
+            this.debugGroupBox.Controls.Add(this.logLevelCheckBox);
+            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
+            this.debugGroupBox.Name = "debugGroupBox";
+            this.debugGroupBox.TabStop = false;
+            // 
+            // logLevelComboBox
+            // 
+            this.logLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.logLevelComboBox.FormattingEnabled = true;
+            this.logLevelComboBox.Items.AddRange(new object[] {
+            resources.GetString("logLevelComboBox.Items"),
+            resources.GetString("logLevelComboBox.Items1"),
+            resources.GetString("logLevelComboBox.Items2")});
+            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
+            this.logLevelComboBox.Name = "logLevelComboBox";
+            // 
+            // logLevelLabel
+            // 
+            resources.ApplyResources(this.logLevelLabel, "logLevelLabel");
+            this.logLevelLabel.Name = "logLevelLabel";
+            // 
+            // logLevelCheckBox
+            // 
+            resources.ApplyResources(this.logLevelCheckBox, "logLevelCheckBox");
+            this.logLevelCheckBox.Name = "logLevelCheckBox";
+            this.logLevelCheckBox.UseVisualStyleBackColor = true;
             // 
             // testModeSpeedGroupBox
             // 
@@ -580,37 +611,6 @@
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             resources.ApplyResources(this.saveAsToolStripMenuItem, "saveAsToolStripMenuItem");
             // 
-            // debugGroupBox
-            // 
-            this.debugGroupBox.Controls.Add(this.logLevelComboBox);
-            this.debugGroupBox.Controls.Add(this.logLevelLabel);
-            this.debugGroupBox.Controls.Add(this.logLevelCheckBox);
-            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
-            this.debugGroupBox.Name = "debugGroupBox";
-            this.debugGroupBox.TabStop = false;
-            // 
-            // logLevelCheckBox
-            // 
-            resources.ApplyResources(this.logLevelCheckBox, "logLevelCheckBox");
-            this.logLevelCheckBox.Name = "logLevelCheckBox";
-            this.logLevelCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // logLevelLabel
-            // 
-            resources.ApplyResources(this.logLevelLabel, "logLevelLabel");
-            this.logLevelLabel.Name = "logLevelLabel";
-            // 
-            // logLevelComboBox
-            // 
-            this.logLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.logLevelComboBox.FormattingEnabled = true;
-            this.logLevelComboBox.Items.AddRange(new object[] {
-            resources.GetString("logLevelComboBox.Items"),
-            resources.GetString("logLevelComboBox.Items1"),
-            resources.GetString("logLevelComboBox.Items2")});
-            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
-            this.logLevelComboBox.Name = "logLevelComboBox";
-            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -628,6 +628,8 @@
             this.arcazeModulesGroupBox.ResumeLayout(false);
             this.arcazeModulesGroupBox.PerformLayout();
             this.generalTabPage.ResumeLayout(false);
+            this.debugGroupBox.ResumeLayout(false);
+            this.debugGroupBox.PerformLayout();
             this.testModeSpeedGroupBox.ResumeLayout(false);
             this.testModeSpeedGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testModeSpeedTrackBar)).EndInit();
@@ -644,8 +646,6 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).EndInit();
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
-            this.debugGroupBox.ResumeLayout(false);
-            this.debugGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }

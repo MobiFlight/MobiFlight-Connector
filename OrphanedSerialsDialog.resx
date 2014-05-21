@@ -117,24 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;orphanedSerialsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="connectedModulesAssignButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>185, 20</value>
   </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>269, 243</value>
+  </data>
   <data name="connectedModulesAssignButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 22</value>
   </data>
-  <data name="orphanedSerialsListBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+  <data name="&gt;&gt;connectedModulesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="orphanedSerialsListBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>257, 69</value>
-  </data>
-  <data name="&gt;&gt;connectedModulesGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="connectedModulesComboBox.Items" xml:space="preserve">
     <value>Arcaze 1 / 2342432131231</value>
@@ -144,6 +141,9 @@
   </data>
   <data name="&gt;&gt;DlgCancelButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="connectedModulesGroupBox.Text" xml:space="preserve">
+    <value>Select a connected module and assign</value>
   </data>
   <data name="OkCancelPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>263, 29</value>
@@ -170,6 +170,9 @@
   <data name="InfoLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
+  <data name="orphanedSerialsListBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
   <data name="orphanedSerialsListBox.Items3" xml:space="preserve">
     <value>Module 1 / 0000001101021021</value>
   </data>
@@ -178,9 +181,6 @@
   </data>
   <data name="orphanedSerialsListBox.Items1" xml:space="preserve">
     <value>Module 1 / 0000001101021021</value>
-  </data>
-  <data name="&gt;&gt;orphanedSerialsGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="&gt;&gt;orphanedSerialsListBox.Parent" xml:space="preserve">
     <value>orphanedSerialsGroupBox</value>
@@ -200,8 +200,11 @@
   <data name="&gt;&gt;orphanedSerialsGroupBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;InfoLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="connectedModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 52</value>
+  </data>
+  <data name="orphanedSerialsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 68</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="OkButton.TabIndex" type="System.Int32, mscorlib">
@@ -210,20 +213,17 @@
   <data name="&gt;&gt;connectedModulesComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="orphanedSerialsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 91</value>
-  </data>
   <data name="&gt;&gt;connectedModulesGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="InfoLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="OkCancelPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
   <data name="CancelButton.Text" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;OkCancelPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;connectedModulesAssignButton.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -233,6 +233,9 @@
   </data>
   <data name="&gt;&gt;connectedModulesGroupBox.Parent" xml:space="preserve">
     <value>$this</value>
+  </data>
+  <data name="&gt;&gt;connectedModulesComboBox.Parent" xml:space="preserve">
+    <value>connectedModulesGroupBox</value>
   </data>
   <data name="&gt;&gt;orphanedSerialsListBox.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -261,17 +264,14 @@
   <data name="&gt;&gt;orphanedSerialsGroupBox.Name" xml:space="preserve">
     <value>orphanedSerialsGroupBox</value>
   </data>
-  <data name="&gt;&gt;orphanedSerialsListBox.Name" xml:space="preserve">
-    <value>orphanedSerialsListBox</value>
+  <data name="connectedModulesComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="&gt;&gt;CancelButton.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="connectedModulesAssignButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;DlgCancelButton.Parent" xml:space="preserve">
     <value>OkCancelPanel</value>
-  </data>
-  <data name="&gt;&gt;CancelButton.Name" xml:space="preserve">
-    <value>CancelButton</value>
   </data>
   <data name="&gt;&gt;connectedModulesAssignButton.Name" xml:space="preserve">
     <value>connectedModulesAssignButton</value>
@@ -282,8 +282,8 @@
   <data name="DlgCancelButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="connectedModulesAssignButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;InfoLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="DlgCancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -297,29 +297,32 @@
   <data name="CancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="OkCancelPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 211</value>
+  </data>
   <data name="&gt;&gt;OkButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="OkCancelPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="OkButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 3</value>
-  </data>
-  <data name="&gt;&gt;connectedModulesAssignButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="orphanedSerialsListBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
   </data>
   <data name="&gt;&gt;InfoLabel.Name" xml:space="preserve">
     <value>InfoLabel</value>
   </data>
+  <data name="&gt;&gt;OkCancelPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="DlgCancelButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>185, 3</value>
   </data>
-  <data name="connectedModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
+  <data name="&gt;&gt;orphanedSerialsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;DlgCancelButton.Name" xml:space="preserve">
-    <value>DlgCancelButton</value>
+  <data name="&gt;&gt;CancelButton.Parent" xml:space="preserve">
+    <value>OkCancelPanel</value>
   </data>
   <data name="orphanedSerialsListBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -330,32 +333,32 @@
   <data name="connectedModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="orphanedSerialsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;orphanedSerialsListBox.Name" xml:space="preserve">
+    <value>orphanedSerialsListBox</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Orphaned Serials found</value>
+  <data name="orphanedSerialsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 91</value>
   </data>
-  <data name="connectedModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 52</value>
+  <data name="connectedModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
-  <data name="orphanedSerialsListBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+  <data name="&gt;&gt;connectedModulesAssignButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;CancelButton.Parent" xml:space="preserve">
-    <value>OkCancelPanel</value>
+  <data name="InfoLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 65</value>
   </data>
-  <data name="connectedModulesGroupBox.Text" xml:space="preserve">
-    <value>Select a connected module and assign</value>
+  <data name="&gt;&gt;orphanedSerialsGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;connectedModulesComboBox.Name" xml:space="preserve">
     <value>connectedModulesComboBox</value>
   </data>
-  <data name="OkCancelPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 211</value>
-  </data>
   <data name="connectedModulesAssignButton.Text" xml:space="preserve">
     <value>Assign</value>
+  </data>
+  <data name="&gt;&gt;DlgCancelButton.Name" xml:space="preserve">
+    <value>DlgCancelButton</value>
   </data>
   <data name="CancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -363,24 +366,24 @@
   <data name="connectedModulesAssignButton.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="InfoLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 65</value>
+  <data name="OkButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 3</value>
   </data>
-  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+  <data name="connectedModulesAssignButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;OkCancelPanel.ZOrder" xml:space="preserve">
+  <data name="orphanedSerialsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="InfoLabel.Text" xml:space="preserve">
     <value>The current config file contains module references that are not connected.
 You can assign the orphaned serials to ones that are present at the moment.</value>
   </data>
-  <data name="&gt;&gt;InfoLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Orphaned Serials found</value>
   </data>
-  <data name="orphanedSerialsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 68</value>
+  <data name="connectedModulesComboBox.Items1" xml:space="preserve">
+    <value>Arcaze 1 / 2342432131231</value>
   </data>
   <data name="&gt;&gt;orphanedSerialsListBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -391,32 +394,29 @@ You can assign the orphaned serials to ones that are present at the moment.</val
   <data name="connectedModulesComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 20</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>269, 243</value>
+  <data name="&gt;&gt;InfoLabel.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="connectedModulesComboBox.Items1" xml:space="preserve">
-    <value>Arcaze 1 / 2342432131231</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;OkCancelPanel.Name" xml:space="preserve">
     <value>OkCancelPanel</value>
   </data>
+  <data name="InfoLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="connectedModulesComboBox.Items2" xml:space="preserve">
     <value>Arcaze 1 / 2342432131231</value>
   </data>
-  <data name="&gt;&gt;OkCancelPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
-  <data name="connectedModulesComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;CancelButton.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="connectedModulesAssignButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;connectedModulesComboBox.Parent" xml:space="preserve">
-    <value>connectedModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;CancelButton.Name" xml:space="preserve">
+    <value>CancelButton</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

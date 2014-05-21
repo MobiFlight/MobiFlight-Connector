@@ -30,7 +30,7 @@ namespace ArcazeUSB.Panels
 
         public void SetPorts(List<ListItem> ports)
         {
-            displayPortComboBox.DataSource = ports;
+            displayPortComboBox.DataSource = new List<ListItem>(ports);
             displayPortComboBox.DisplayMember = "Label";
             displayPortComboBox.ValueMember = "Value";
             if (ports.Count>0)
@@ -42,7 +42,7 @@ namespace ArcazeUSB.Panels
 
         public void SetPins(List<ListItem> pins)
         {
-            displayPinComboBox.DataSource = pins;
+            displayPinComboBox.DataSource = new List<ListItem>(pins);
             displayPinComboBox.DisplayMember = "Label";
             displayPinComboBox.ValueMember = "Value";
 

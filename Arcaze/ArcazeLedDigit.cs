@@ -88,6 +88,11 @@ namespace ArcazeUSB
             return result;
         }
 
+        public byte getDecimalPoints()
+        {
+            return decimalPoints;
+        }
+
         static protected byte _convertToDigit(char c)
         {            
             if (!map.ContainsKey(c)) return 0;

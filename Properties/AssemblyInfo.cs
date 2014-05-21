@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden 
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
-[assembly: AssemblyTitle("ArcazeFC")]
+[assembly: AssemblyTitle("MobiFlight Connector")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Simple Solutions")]
-[assembly: AssemblyProduct("ArcazeFC")]
-[assembly: AssemblyCopyright("Copyright © Sebastian Moebius 2011")]
-[assembly: AssemblyTrademark("Simple Solutions")]
+[assembly: AssemblyCompany("Sebastian Moebius")]
+[assembly: AssemblyProduct("MobiFlight Connector")]
+[assembly: AssemblyCopyright("Copyright © Sebastian Moebius 2014")]
+[assembly: AssemblyTrademark("MobiFlight")]
 [assembly: AssemblyCulture("")]
 
 // Durch Festlegen von ComVisible auf "false" werden die Typen in dieser Assembly unsichtbar 

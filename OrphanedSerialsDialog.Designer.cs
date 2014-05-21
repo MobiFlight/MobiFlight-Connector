@@ -127,6 +127,8 @@
             this.Controls.Add(this.OkCancelPanel);
             this.Controls.Add(this.InfoLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "OrphanedSerialsDialog";
             this.OkCancelPanel.ResumeLayout(false);
             this.orphanedSerialsGroupBox.ResumeLayout(false);
