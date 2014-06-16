@@ -33,5 +33,8 @@
     <Setting Name="LogLevel" Type="System.String" Scope="User">
       <Value Profile="(Default)">info</Value>
     </Setting>
+    <Setting Name="ArduinoIdePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

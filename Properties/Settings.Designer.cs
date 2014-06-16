@@ -143,5 +143,17 @@ namespace ArcazeUSB.Properties {
                 this["LogLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ArduinoIdePath {
+            get {
+                return ((string)(this["ArduinoIdePath"]));
+            }
+            set {
+                this["ArduinoIdePath"] = value;
+            }
+        }
     }
 }

@@ -157,7 +157,7 @@
   <data name="uiMessageArcazeConnectionLost" xml:space="preserve">
     <value>Die Verbindung mit einem Arcaze Modul wurde unterbrochen.</value>
   </data>
-  <data name="uiMessageArcazeUSBInterfaceActive" xml:space="preserve">
+  <data name="uiMessageMFConnectorInterfaceActive" xml:space="preserve">
     <value>MFConnector noch aktiv</value>
   </data>
   <data name="uiMessageFsuipcConnectionLost" xml:space="preserve">
@@ -272,7 +272,7 @@ Legen Sie zuerst den Beschreibungstext fest und editieren Sie dann den Eintrag.<
   <data name="uiMessageModulesNotConfiguredYet" xml:space="preserve">
     <value>Die angeschlossenen Arcaze Module sind scheinbar noch nicht konfiguriert. Die ist ein neues Feature, um besser "Extension-Module" zu unterstützen.
 
-Führen Sie die Konfiguration jetzt durch.</value>
+Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   </data>
   <data name="uiMessageNotImplementedYet" xml:space="preserve">
     <value>Noch nicht implementiert.</value>

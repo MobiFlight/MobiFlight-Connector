@@ -229,11 +229,13 @@ namespace ArcazeUSB
             catch (Exception exc)
             {
                 // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
             }
 
             if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPCSize.ToString()))
             {
                 // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in ComboBox", LogSeverity.Debug);
             }
 
             // mask
@@ -250,6 +252,7 @@ namespace ArcazeUSB
             if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.ComparisonOperand))
             {
                 // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Comparison ComboBox", LogSeverity.Debug);
             }
             comparisonIfValueTextBox.Text = config.ComparisonIfValue;
             comparisonElseValueTextBox.Text = config.ComparisonElseValue;
@@ -271,12 +274,13 @@ namespace ArcazeUSB
             if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
             {
                 // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
             }
                     
             if (config.DisplayPin != null && config.DisplayPin != "")
             {
-                string port = config.DisplayPin;
-                string pin = "";
+                string port = "";
+                string pin = config.DisplayPin;
 
                 if (serial != null && serial.IndexOf("SN") != 0)
                 {
@@ -317,16 +321,19 @@ namespace ArcazeUSB
 			if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
             {
                 // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
             }
 
             if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
             {
                 // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
             }
 
             if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))
             {
                 // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Module Size ComboBox", LogSeverity.Debug);
             }
 
             displayLedDisplayPanel.displayLedPaddingCheckBox.Checked = config.DisplayLedPadding;
@@ -345,6 +352,7 @@ namespace ArcazeUSB
             if (!ComboBoxHelper.SetSelectedItem(servoPanel.servoAddressesComboBox, config.ServoAddress))
             {
                 // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Servo Address ComboBox", LogSeverity.Debug);
             }
             
             if (config.ServoMin != null) servoPanel.minValueTextBox.Text = config.ServoMin;
@@ -444,7 +452,7 @@ namespace ArcazeUSB
             }
             catch (FormatException e)
             {
-                //
+                Log.Instance.log("_syncFormToConfig : Parsing values", LogSeverity.Debug);
             }
             config.DisplayLedDigits.Clear();
             config.DisplayLedDecimalPoints.Clear();
@@ -557,6 +565,7 @@ namespace ArcazeUSB
                 if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
                 {
                     // TODO: provide error message
+                    Log.Instance.log("displayArcazeSerialComboBox_SelectedIndexChanged : Problem setting Display Type ComboBox", LogSeverity.Debug);
                 }
 
             }
@@ -564,6 +573,7 @@ namespace ArcazeUSB
             {
                 displayPinPanel.displayPinBrightnessPanel.Visible = false;
                 displayPinPanel.displayPinBrightnessPanel.Enabled = false;
+                Log.Instance.log("displayArcazeSerialComboBox_SelectedIndexChanged : Some Exception occurred" + ex.Message, LogSeverity.Debug);
             }
         }
 
@@ -603,8 +613,8 @@ namespace ArcazeUSB
                     displayPinPanel.displayPinBrightnessPanel.Visible = (moduleSettings[serial].type == SimpleSolutions.Usb.ArcazeCommand.ExtModuleType.LedDriver3);
                     displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
                     
-                    preconditionPortComboBox.Items.Clear();
-                    preconditionPinComboBox.Items.Clear();
+                    //preconditionPortComboBox.Items.Clear();
+                    //preconditionPinComboBox.Items.Clear();
 
                     List<ListItem> ports = new List<ListItem>();                    
 
@@ -618,7 +628,7 @@ namespace ArcazeUSB
 
                         if (v == "A" || v == "B")
                         {
-                            preconditionPortComboBox.Items.Add(v);
+                            //preconditionPortComboBox.Items.Add(v);
                         }
                     }
 
@@ -629,7 +639,7 @@ namespace ArcazeUSB
                     foreach (String v in ArcazeModule.getPins())
                     {
                         pins.Add(new ListItem() { Label = v, Value = v });
-                        preconditionPinComboBox.Items.Add(v);
+                        //preconditionPinComboBox.Items.Add(v);
                     }
 
                     displayPinPanel.SetPins(pins);
@@ -769,6 +779,7 @@ namespace ArcazeUSB
             }
             catch (Exception exc)
             {
+                Log.Instance.log("fsuipcMultiplyTextBox_Validating : Parsing problem, " + exc.Message, LogSeverity.Debug);
                 e.Cancel = true;
             }
         }
@@ -788,6 +799,7 @@ namespace ArcazeUSB
             catch (Exception exc)
             {                
                 e.Cancel = true;
+                Log.Instance.log("_validatingHexFields : Parsing problem, " + exc.Message, LogSeverity.Debug);
                 MessageBox.Show(MainForm._tr("uiMessageConfigWizard_ValidHexFormat"), MainForm._tr("Hint"));
             }
         }
@@ -855,6 +867,7 @@ namespace ArcazeUSB
                 }
                 catch (Exception exc)
                 {
+                    Log.Instance.log("displayLedDisplayComboBox_Validating : Parsing problem, " + exc.Message, LogSeverity.Debug);
                     e.Cancel = true;
                     tabControlFsuipc.SelectedTab = displayTabPage;
                     displayLedDisplayPanel.displayLedAddressComboBox.Focus();
@@ -948,7 +961,7 @@ namespace ArcazeUSB
             {
                 e.Cancel = true;
                 tabControlFsuipc.SelectedTab = preconditionTabPage;
-                displayError(preconditionPinComboBox, MainForm._tr("Please_select_a_pin."));
+                displayError(preconditionPinComboBox, MainForm._tr("Please_select_a_pin"));
             }
             else
             {
@@ -1103,6 +1116,7 @@ namespace ArcazeUSB
                     catch (Exception exc)
                     {
                         // precondition could not be loaded
+                        Log.Instance.log("preconditionListTreeView_NodeMouseClick : Precondition could not be loaded, " + exc.Message, LogSeverity.Debug);
                     }
 
                     ComboBoxHelper.SetSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);
@@ -1110,11 +1124,11 @@ namespace ArcazeUSB
                     break;
 
                 case "pin":
-                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
-                    preconditionPortComboBox.SelectedIndex = io.Port;
-                    preconditionPinComboBox.SelectedIndex = io.Pin;
+                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);                    
                     ComboBoxHelper.SetSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
                     preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;
+                    preconditionPortComboBox.SelectedIndex = io.Port;
+                    preconditionPinComboBox.SelectedIndex = io.Pin;
                     break;
             }  
         }
@@ -1200,6 +1214,43 @@ namespace ArcazeUSB
             Precondition p = selectedNode.Tag as Precondition;
             config.Preconditions.Remove(p);
             preconditionListTreeView.Nodes.Remove(selectedNode);
+        }
+
+        private void preconditionPinSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // get the deviceinfo for the current arcaze
+            ComboBox cb = displayModuleNameComboBox;
+            String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+            if (serial == "" && config.DisplaySerial != null) serial = ArcazeModuleSettings.ExtractSerial(config.DisplaySerial);
+
+            if (serial.IndexOf("SN") != 0)
+            {
+                preconditionPortComboBox.Items.Clear();
+                preconditionPinComboBox.Items.Clear();
+
+                List<ListItem> ports = new List<ListItem>();
+
+                foreach (String v in ArcazeModule.getPorts())
+                {
+                    ports.Add(new ListItem() { Label = v, Value = v });
+                    if (v == "B" || v == "E" || v == "H" || v == "K")
+                    {
+                        ports.Add(new ListItem() { Label = "-----", Value = "-----" });
+                    }
+
+                    if (v == "A" || v == "B")
+                    {
+                        preconditionPortComboBox.Items.Add(v);
+                    }
+                }
+
+                List<ListItem> pins = new List<ListItem>();
+                foreach (String v in ArcazeModule.getPins())
+                {
+                    pins.Add(new ListItem() { Label = v, Value = v });
+                    preconditionPinComboBox.Items.Add(v);
+                }
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace ArcazeUSB
         List <ArcazeModuleSettings> moduleSettings;
         ExecutionManager execManager;
         int lastSelectedIndex = -1;
+        MobiFlight.Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new MobiFlight.Forms.FirmwareUpdateProcess();
 
         public SettingsDialog()
         {
@@ -75,7 +76,13 @@ namespace ArcazeUSB
 #endif
 
             ModuleConfigChanged = false;
+
+            // setup the background worker for firmware update
+            firmwareUpdateBackgroundWorker.DoWork += new DoWorkEventHandler(firmwareUpdateBackgroundWorker_DoWork);
+            firmwareUpdateBackgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(firmwareUpdateBackgroundWorker_RunWorkerCompleted);
         }
+
+        
 
         private void loadSettings ()
         {            
@@ -133,17 +140,23 @@ namespace ArcazeUSB
                 foreach (MobiFlightModuleInfo module in mobiflightCache.getConnectedModules())
                 {
                     TreeNode node = new TreeNode(module.Name);
-                    node.Tag = mobiflightCache.GetModule(module);
-                    mfModulesTreeView.Nodes.Add(node);
-                    
-                    foreach (MobiFlight.Config.BaseDevice device in (node.Tag as MobiFlightModule).Config.Items)
+                    if (module.HasMfFirmware())
                     {
-                        TreeNode deviceNode = new TreeNode(device.Name);
-                        deviceNode.Tag = device;
-                        deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();                        
-                        node.Nodes.Add(deviceNode);
+                        node.Tag = mobiflightCache.GetModule(module);
+
+                        foreach (MobiFlight.Config.BaseDevice device in (node.Tag as MobiFlightModule).Config.Items)
+                        {
+                            TreeNode deviceNode = new TreeNode(device.Name);
+                            deviceNode.Tag = device;
+                            deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();
+                            node.Nodes.Add(deviceNode);
+                        }
                     }
-                    
+                    else
+                    {
+                        node.Tag = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = module.Port, Type = module.Type });
+                    }
+                    mfModulesTreeView.Nodes.Add(node);
                 }
             }
             catch (IndexOutOfRangeException ex)
@@ -151,6 +164,8 @@ namespace ArcazeUSB
                 // this happens when the modules are connecting
                 mfConfiguredModulesGroupBox.Enabled = false;
             }
+
+            firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
 #endif
         }
 
@@ -469,6 +484,7 @@ namespace ArcazeUSB
             module.SaveConfig();
             module.Config = null;
             module.LoadConfig();
+            MessageBox.Show("Upload finished.", "Upload configuration", MessageBoxButtons.OK);
         }
 
         private bool checkIfMobiFlightSettingsHaveChanged()
@@ -536,6 +552,61 @@ namespace ArcazeUSB
         }
 
         public bool ModuleConfigChanged { get; set; }
+
+        private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(firmwareArduinoIdePathTextBox.Text))
+            {
+                MessageBox.Show("Please verify your firmware settings!\nYou have to provide the path to a valid Arduino IDE installation (min 1.0.5).", MainForm._tr("Hint"), MessageBoxButtons.OK);
+                return;
+            }
+
+            TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            String arduinoIdePath = "D:\\portableapps\\arduino-1.0.5";
+            String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
+
+            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            MobiFlightFirmwareUpdater.ArduinoIdePath = arduinoIdePath;
+            MobiFlightFirmwareUpdater.FirmwarePath = firmwarePath;
+
+            firmwareUpdateBackgroundWorker.RunWorkerAsync(module);
+            FirmwareUpdateProcessForm.ShowDialog();
+        }
+
+        void firmwareUpdateBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            FirmwareUpdateProcessForm.Hide();
+            TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            module.Connect();
+            MessageBox.Show("The firmware has been uploaded successfully!", MainForm._tr("Hint"), MessageBoxButtons.OK);
+        }
+
+        void firmwareUpdateBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            MobiFlightFirmwareUpdater.Update((MobiFlightModule) e.Argument);
+        }
+
+        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(fbd.SelectedPath))
+                {
+                    if (MessageBox.Show("Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.") == System.Windows.Forms.DialogResult.OK) return;
+                }
+                Properties.Settings.Default.ArduinoIdePath = fbd.SelectedPath;
+                firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
+            }
+        }
     }
 
     public class ArcazeListItem

@@ -7,9 +7,14 @@ namespace MobiFlight
 {
     public class MobiFlightModuleInfo : IModuleInfo
     {
-        public static String TYPE_UNKNOWN = "unknown";
-        public static String TYPE_MICRO = "MF Micro";
-        public static String TYPE_MEGA = "MF Mega";
+        public const String TYPE_UNKNOWN = "unknown";
+        public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
+        public const String TYPE_ARDUINO_MEGA = "Arduino Mega 2560";
+        public const String TYPE_MICRO = "MobiFlight Micro";
+        public const String TYPE_MEGA = "MobiFlight Mega";
+        public const String PIDVID_MICRO = "VID_1B4F&PID_9206"; // Micro
+        public const String PIDVID_MEGA = "VID_2341&PID_0042";  // Mega
+
         ushort _version = 100;
         public String Type   { get; set; }
         public String Serial { get; set; }
@@ -21,6 +26,29 @@ namespace MobiFlight
         {
             get { return _version;  }
             set { _version = value; }
+        }
+
+        public bool HasMfFirmware()
+        {
+            return (Type == TYPE_MICRO) || (Type == TYPE_MEGA);
+        }
+
+        public void SetTypeByVidPid(String PidVid)
+        {
+            switch (PidVid)
+            {
+                case PIDVID_MEGA:
+                    Name = TYPE_ARDUINO_MEGA;
+                    Type = TYPE_ARDUINO_MEGA;
+                    break;
+                case PIDVID_MICRO:
+                    Name = TYPE_ARDUINO_MICRO;
+                    Type = TYPE_ARDUINO_MICRO;
+                    break;
+                default:
+                    Type = TYPE_UNKNOWN;
+                    break;
+            }
         }
     }
 }

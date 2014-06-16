@@ -74,12 +74,12 @@ namespace ArcazeUSB
             return Modules.Values;
         }
 
-        private static List<string> getArduinoPorts()
+        private static List<Tuple<string, string>> getArduinoPorts()
         {
-            List<String> result = new List<String>();
+            List<Tuple<string, string>> result = new List<Tuple<string, string>>();
             String[] arduinoVidPids = { 
-                "VID_1B4F&PID_9206", // Micro
-                "VID_2341&PID_0042"  // Mega
+                MobiFlightModuleInfo.PIDVID_MICRO, // Micro
+                MobiFlightModuleInfo.PIDVID_MEGA  // Mega
             };
             Regex regEx = new Regex( "^(" + string.Join("|", arduinoVidPids) + ")" );
 
@@ -89,6 +89,7 @@ namespace ArcazeUSB
             {
                 if (regEx.Match(regDevice).Success)
                 {
+                    String VidPid = regEx.Match(regDevice).Value;
                     foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames()) {
                     // we have found an existing entry 
                     // let's check if it is currently connected#
@@ -97,7 +98,7 @@ namespace ArcazeUSB
                             String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
                             String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                             if (portName != null)
-                            result.Add(portName);
+                            result.Add(new Tuple<string,string>( portName, VidPid) );
                         }
                         catch (Exception e)
                         {
@@ -115,20 +116,21 @@ namespace ArcazeUSB
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
             string[] connectedPorts = SerialPort.GetPortNames();
 
-            foreach (string portName in getArduinoPorts())
+            foreach (Tuple<string, string> item in getArduinoPorts())
             {
+                String portName = item.Item1;
                 if (!connectedPorts.Contains(portName)) continue;
-                // we ignore the COM1 because it is normally an internal port and not one used
-                // by the hardware
-                if (portName == "COM1") continue;
                 MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName });
                 tmp.Connect();
                 MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
                 tmp.Disconnect();
-                if (devInfo.Type != MobiFlightModuleInfo.TYPE_UNKNOWN)
+
+                if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
                 {
-                    result.Add(devInfo);
+                    devInfo.SetTypeByVidPid(item.Item2);
                 }
+
+                result.Add(devInfo);
             }
 
 
@@ -140,13 +142,22 @@ namespace ArcazeUSB
             if (isConnected() && force) { 
                 disconnect(); 
             }
+            
             connectedModules = lookupModules();
             Modules.Clear();
 
             foreach (MobiFlightModuleInfo devInfo in connectedModules)
             {
+                if (!devInfo.HasMfFirmware()) continue;
+
                 MobiFlightModule m = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = devInfo.Port });
-                m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);                
+                m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);
+
+                if (Modules.ContainsKey(devInfo.Serial))
+                {
+                    Log.Instance.log("Duplicate serial number found: " + devInfo.Serial + ". Module won't be added.", LogSeverity.Error);
+                    continue;
+                }
                 Modules.Add(devInfo.Serial, m);
             }
 

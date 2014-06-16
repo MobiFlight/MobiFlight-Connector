@@ -1,0 +1,499 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArcazeUSB</RootNamespace>
+    <AssemblyName>MFConnector</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>C:\Temp\MFConnector\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>1</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>true</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://mobiflight.moebiuz.de/download/</InstallUrl>
+    <UpdateUrl>http://mobiflight.moebiuz.de/update/</UpdateUrl>
+    <SupportUrl>http://mobiflight.moebiuz.de/support.html</SupportUrl>
+    <ErrorReportUrl>http://mobiflight.moebiuz.de/error.html</ErrorReportUrl>
+    <ProductName>MFConnector</ProductName>
+    <PublisherName>MobiFlight</PublisherName>
+    <SuiteName>MobiFlight</SuiteName>
+    <MinimumRequiredVersion>4.0.0.4</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+    <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>F30CFEF6E6E582F01A7F78031C9C983332F9B2A0</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>ArcazeFsuipcConnector_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug-Mobiflight\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT</DefineConstants>
+    <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight|x86'">
+    <OutputPath>bin\Release-Mobiflight\</OutputPath>
+    <DefineConstants>TRACE;MOBIFLIGHT</DefineConstants>
+    <Optimize>true</Optimize>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArcazeHid, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\ArcazeHid.dll</HintPath>
+    </Reference>
+    <Reference Include="FSUIPCClient, Version=2.0.4008.2, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\FSUIPCClient.dll</HintPath>
+    </Reference>
+    <Reference Include="NCalc">
+      <HintPath>lib\NCalc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Arcaze\ArcazeModule.cs" />
+    <Compile Include="Arcaze\ArcazeBcd4056.cs" />
+    <Compile Include="Arcaze\ArcazeCache.cs" />
+    <Compile Include="Arcaze\ArcazeCommandExecutionException.cs" />
+    <Compile Include="Arcaze\ArcazeIoBasic.cs" />
+    <Compile Include="Arcaze\ArcazeLedDigit.cs" />
+    <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
+    <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
+    <Compile Include="BitMaskEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BitMaskEditorForm.Designer.cs">
+      <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BooleanConverterConfig.cs" />
+    <Compile Include="BytePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BytePanel.Designer.cs">
+      <DependentUpon>BytePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CmdLineParams.cs" />
+    <Compile Include="ComboBoxHelper.cs" />
+    <Compile Include="ConfigErrorException.cs" />
+    <Compile Include="ConfigWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigWizard.Designer.cs">
+      <DependentUpon>ConfigWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Arcaze\ArcazeConfigItem.cs" />
+    <Compile Include="ConnectorValue.cs" />
+    <Compile Include="ConverterConfig.cs" />
+    <Compile Include="Arcaze\DeviceInfoAndCache.cs" />
+    <Compile Include="EnumFSUIPC.cs" />
+    <Compile Include="EventTimer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExecutionManager.cs" />
+    <Compile Include="FSUIPC\fsuipc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FSUIPC\Fsuipc2Cache.cs" />
+    <Compile Include="FSUIPC\fsuipcBCD.cs" />
+    <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
+    <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
+    <Compile Include="ListItem.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputConnectorInterface.cs" />
+    <Compile Include="Base\IModule.cs" />
+    <Compile Include="Base\IModuleInfo.cs" />
+    <Compile Include="Base\IOutputModule.cs" />
+    <Compile Include="MobiFlight\Config\BaseDevice.cs" />
+    <Compile Include="MobiFlight\Config\Encoder.cs" />
+    <Compile Include="MobiFlight\Config\Button.cs" />
+    <Compile Include="MobiFlight\Config\IConfigItem.cs" />
+    <Compile Include="MobiFlight\Config\Config.cs" />
+    <Compile Include="MobiFlight\Config\Output.cs" />
+    <Compile Include="MobiFlight\Config\Stepper.cs" />
+    <Compile Include="MobiFlight\Config\Servo.cs" />
+    <Compile Include="MobiFlight\Config\LedModule.cs" />
+    <Compile Include="MobiFlight\Forms\FirmwareUpdateProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Forms\FirmwareUpdateProcess.Designer.cs">
+      <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\IConnectedDevice.cs" />
+    <Compile Include="MobiFlight\MobiFlightFirmwareUpdater.cs" />
+    <Compile Include="MobiFlight\MobiFlightOutput.cs" />
+    <Compile Include="MobiFlight\MobiFlightServo.cs" />
+    <Compile Include="MobiFlight\MobiFlightCache.cs" />
+    <Compile Include="MobiFlight\MobiFlightModuleInfo.cs" />
+    <Compile Include="MobiFlight\MobiFlightIOBasic.cs" />
+    <Compile Include="MobiFlight\MobiFlightLedModule.cs" />
+    <Compile Include="MobiFlight\MobiFlightModule.cs" />
+    <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
+    <Compile Include="MobiFlight\MobiFlightStepper.cs" />
+    <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
+    <Compile Include="MobiFlight\Panels\MFOutputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFOutputPanel.Designer.cs">
+      <DependentUpon>MFOutputPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFEncoderPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFEncoderPanel.Designer.cs">
+      <DependentUpon>MFEncoderPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFButtonPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFButtonPanel.Designer.cs">
+      <DependentUpon>MFButtonPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFStepperPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFStepperPanel.Designer.cs">
+      <DependentUpon>MFStepperPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFServoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFServoPanel.Designer.cs">
+      <DependentUpon>MFServoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFLedSegmentPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFLedSegmentPanel.Designer.cs">
+      <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleCacheInterface.cs" />
+    <Compile Include="OrphanedSerialsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrphanedSerialsDialog.Designer.cs">
+      <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\Precondition.cs" />
+    <Compile Include="Panels\DisplayBcdPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\DisplayBcdPanel.Designer.cs">
+      <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\DisplayLedDisplayPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\DisplayLedDisplayPanel.Designer.cs">
+      <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\DisplayNothingSelectedPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\DisplayNothingSelectedPanel.Designer.cs">
+      <DependentUpon>DisplayNothingSelectedPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\DisplayPinPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\DisplayPinPanel.Designer.cs">
+      <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\ServoPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\ServoPanel.Designer.cs">
+      <DependentUpon>ServoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectMessages.de.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectMessages.de.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="SettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsDialog.Designer.cs">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base\SourceCacheInterface.cs" />
+    <EmbeddedResource Include="AboutForm.de.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BitMaskEditorForm.resx">
+      <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BytePanel.resx">
+      <DependentUpon>BytePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigWizard.de.resx">
+      <DependentUpon>ConfigWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigWizard.resx">
+      <DependentUpon>ConfigWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.de.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.resx">
+      <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFOutputPanel.resx">
+      <DependentUpon>MFOutputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFEncoderPanel.resx">
+      <DependentUpon>MFEncoderPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFButtonPanel.resx">
+      <DependentUpon>MFButtonPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFStepperPanel.resx">
+      <DependentUpon>MFStepperPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFServoPanel.resx">
+      <DependentUpon>MFServoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFLedSegmentPanel.resx">
+      <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrphanedSerialsDialog.de.resx">
+      <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrphanedSerialsDialog.resx">
+      <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\DisplayBcdPanel.resx">
+      <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\DisplayLedDisplayPanel.resx">
+      <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\DisplayNothingSelectedPanel.resx">
+      <DependentUpon>DisplayNothingSelectedPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\DisplayPinPanel.resx">
+      <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ServoPanel.resx">
+      <DependentUpon>ServoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectMessages.de.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectMessages.de.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectMessages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SettingsDialog.de.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsDialog.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <Content Include="favicon.ico" />
+    <Content Include="presets.aip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 und x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="arcazeUSB.ico" />
+    <None Include="Resources\sound.png" />
+    <None Include="Resources\star_yellow_delete.png" />
+    <None Include="Resources\star_yellow_add.png" />
+    <None Include="Resources\star_yellow_new.png" />
+    <None Include="Resources\document_delete.png" />
+    <None Include="Resources\document_new.png" />
+    <None Include="Resources\delete2.png" />
+    <None Include="Resources\btn_donate_SM.gif" />
+    <None Include="Resources\btn_donate_uk_SM.gif" />
+    <None Include="Resources\application_up.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\folder1.png" />
+    <None Include="Resources\export1.png" />
+    <None Include="Resources\cd.png" />
+    <None Include="Resources\dvd.png" />
+    <Content Include="Resources\lightbulb.png" />
+    <Content Include="Resources\lightbulb_on.png" />
+    <None Include="Resources\media_stop_red.png" />
+    <None Include="Resources\media_stop.png" />
+    <None Include="Resources\media_play_green.png" />
+    <None Include="Resources\media_play.png" />
+    <None Include="Resources\door2.png" />
+    <None Include="Resources\disk_blue.png" />
+    <None Include="Resources\warning.png" />
+    <None Include="Resources\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CmdMessenger-3.5\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
+      <Project>{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}</Project>
+      <Name>CommandMessenger</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

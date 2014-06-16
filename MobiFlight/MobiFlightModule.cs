@@ -44,12 +44,17 @@ namespace MobiFlight
         public String Port { get { return _comPort; } }
         public String Name { get; set; }
         public String Type { get; set; }
+        public String ArduinoType { get { 
+                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO) return MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
+                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA || Type == MobiFlightModuleInfo.TYPE_MEGA) return MobiFlightModuleInfo.TYPE_ARDUINO_MEGA;
+                return MobiFlightModuleInfo.TYPE_UNKNOWN;
+                } }
         public String Serial { get; set; }
         public String Version { get; set; }
         public MobiFlight.Config.Config Config { 
-            get {
-                    if (!Connected) return null;
+            get {                    
                     if (_config==null) {
+                        if (!Connected) return null;
                         var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, 2000);
                         var InfoCommand = _cmdMessenger.SendCommand(command);
                         InfoCommand = _cmdMessenger.SendCommand(command);
@@ -123,6 +128,7 @@ namespace MobiFlight
 
         public void UpdateConfig (MobiFlightModuleConfig config) 
         {
+            Type = config.Type;
             _comPort = config.ComPort;            
         }
 
@@ -181,10 +187,31 @@ namespace MobiFlight
 
         public void Disconnect()
         {
+            if (!this.Connected) return;
+
             this.Connected = false;
             _cmdMessenger.StopListening();
             _cmdMessenger.Dispose();
             _transportLayer.Dispose();
+            _config = null;
+        }
+
+        public String InitUploadAndReturnUploadPort()
+        {
+            String result = _comPort;
+            Disconnect();
+            if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO)
+            {
+                SerialTransport tmpSerial = new SerialTransport() {
+                    CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
+                };
+                tmpSerial.StartListening();
+                tmpSerial.StopListening();
+                tmpSerial.Dispose();
+
+                result = "COM" + (byte.Parse(_comPort.Substring(3)) - 1);
+            };
+            return result;
         }
         
         /// Attach command call backs. 

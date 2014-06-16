@@ -289,6 +289,7 @@ namespace ArcazeUSB
                         }
                         catch (FormatException e)
                         {
+                            Log.Instance.log("checkPrecondition : Exception on comparison execution, wrong format", LogSeverity.Error);
                             // maybe it is a text string
                             // @todo do something in the future here
                         }
@@ -322,6 +323,7 @@ namespace ArcazeUSB
                                 catch (Exception exc)
                                 {
                                     //argh!
+                                    Log.Instance.log("checkPrecondition : Exception on eval of comparison value", LogSeverity.Error);
                                 }
                             }
 
@@ -345,6 +347,7 @@ namespace ArcazeUSB
                             {
                                 // maybe it is a text string
                                 // @todo do something in the future here
+                                Log.Instance.log("checkPrecondition : Exception on comparison execution, wrong format", LogSeverity.Error);
                             }
                             break;
                         }
@@ -560,6 +563,7 @@ namespace ArcazeUSB
                 }
                 catch
                 {
+                    Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
                     throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
                 }
             }

@@ -8,8 +8,10 @@ namespace MobiFlight
 {
     public enum LogSeverity    
     {
+        Debug = 0,
         Info = 1,
-        Error = 2
+        Warn = 2,
+        Error = 3
     }
 
     public sealed class Log

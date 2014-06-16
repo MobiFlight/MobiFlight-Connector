@@ -204,47 +204,15 @@ namespace ArcazeUSB
                 throw new ArgumentException("Port and pin is not valid.");                
             } //if
 
-            /*
-            ArcazeIoBasic io = new ArcazeIoBasic(portAndPin);
-
-            // check if value has already been read to prevent
-            // unnecessary communication with Arcaze USB
-            if (lastArcazeGetValue.ContainsKey(serial) &&
-                lastArcazeGetValue[serial].ContainsKey(io.Port.ToString()))
-            {
-                int currentValues = lastArcazeGetValue[serial][io.Port.ToString()];
-                int bitValue = (int) (1 << io.Pin);
-                result = ((currentValues & (1 << io.Pin)) == (1 << io.Pin)) ? "0" : "1";
-                return result;
-            }
-
-            if (!lastArcazeGetValue.ContainsKey(serial))
-            {
-                lastArcazeGetValue[serial] = new Dictionary<string, int>();
-            }            
-
             try
             {
-                DeviceInfoAndCache dev = SelectArcazeBySerial(serial);
-                if (null != dev)
-                {
-                    lastArcazeGetValue[serial][io.Port.ToString()] =  dev.m_arcazeHid.Command.CmdReadPort(
-                        io.Port
-                    );
-                    int currentValues = lastArcazeGetValue[serial][io.Port.ToString()];
-                    result = ((currentValues & (1 << io.Pin)) == (1 << io.Pin)) ? "0" : "1";
-                }
+                result = Modules[serial].getValue(portAndPin, trigger);
             }
-            catch (ConfigErrorException e)
+            catch (Exception e)
             {
-                throw e;
+                //throw e;
+                //this.ConnectionLost(this, new EventArgs());
             }
-            catch (FormatException e)
-            {
-                // do nothing
-                // maybe log this some time in the future
-            }
-             * */
 
             return result;
         }

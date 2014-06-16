@@ -16,7 +16,7 @@ namespace ArcazeUSB
 {
     public partial class MainForm : Form
     {
-        public static String Version = "4.0.0";
+        public static String Version = "4.1.0-RC1";
         public static String Build = DateTime.Now.ToString("yyyyMMdd");//"20140504";
 
         /// <summary>
@@ -264,6 +264,7 @@ namespace ArcazeUSB
             }
             catch (Exception e)
             {
+                Log.Instance.log("MainForm.getArcazeModuleSettings() : Deserialize problem.", LogSeverity.Warn);
             }
 
             foreach (ArcazeModuleSettings setting in moduleSettings)
@@ -498,6 +499,7 @@ namespace ArcazeUSB
             {
                 // do nothing
                 // MessageBox.Show(e.Message);
+                Log.Instance.log("MainForm.updateNotifyContextMenu() : " + e.Message, LogSeverity.Warn);
             }
         }
 
@@ -1279,7 +1281,7 @@ namespace ArcazeUSB
 
         private void donateToolStripButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=92VXMWBEZWN92");               
+            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");               
         }
     }
 }

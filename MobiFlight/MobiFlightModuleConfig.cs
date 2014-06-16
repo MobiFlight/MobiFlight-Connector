@@ -6,7 +6,8 @@ using System.Text;
 namespace MobiFlight
 {
     public class MobiFlightModuleConfig
-    {       
+    {
+        public String Type { get; set; }
         public String ComPort { get; set; }
     }
 }
