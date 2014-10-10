@@ -15,8 +15,8 @@ namespace MobiFlight.Panels
         /// Gets raised whenever config object has changed
         /// </summary>
         public event EventHandler Changed;
-
         private Config.Button button;
+        bool initialized = false;
 
         public MFButtonPanel()
         {
@@ -35,13 +35,19 @@ namespace MobiFlight.Panels
             this.button = button;
             ComboBoxHelper.SetSelectedItem(mfPinComboBox, button.Pin);
             textBox1.Text = button.Name;
+
+            initialized = true;
         }
 
-        private void applyButton_Click(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
+            if (!initialized) return;
+
             button.Pin = mfPinComboBox.Text;
             button.Name = textBox1.Text;
-            Changed(button, new EventArgs());
+
+            if (Changed != null)
+                Changed(button, new EventArgs());
         }
     }
 }

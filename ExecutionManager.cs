@@ -252,12 +252,16 @@ namespace ArcazeUSB
         {
             bool finalResult = true;
             bool result = true;
-            bool logic = true; // false:and true:or
+            bool logicOr = false; // false:and true:or
             ConnectorValue connectorValue = new ConnectorValue();
 
             foreach (Precondition p in cfg.Preconditions)
             {
-                if (!p.PreconditionActive) continue;
+                if (!p.PreconditionActive)
+                {
+                    //Log.Instance.log(p.PreconditionLabel + " inactive - skip!", LogSeverity.Debug);
+                    continue;
+                }
 
                 switch (p.PreconditionType)
                 {
@@ -285,7 +289,10 @@ namespace ArcazeUSB
 
                         try
                         {
-                            result = (executeComparison(connectorValue, tmp) == tmp.ComparisonIfValue);
+                            
+                            String execResult = executeComparison(connectorValue, tmp);
+                            //Log.Instance.log(p.PreconditionLabel + " - Pin - val:"+val+" - " + execResult + "==" + tmp.ComparisonIfValue, LogSeverity.Debug);
+                            result = (execResult == tmp.ComparisonIfValue);
                         }
                         catch (FormatException e)
                         {
@@ -354,7 +361,7 @@ namespace ArcazeUSB
                         break;
                 } // switch
 
-                if (logic)
+                if (logicOr)
                 {
                     finalResult |= result;
                 }
@@ -363,10 +370,10 @@ namespace ArcazeUSB
                     finalResult &= result;
                 }
 
-                logic = (p.PreconditionLogic == "or" ? true : false);
+                logicOr = (p.PreconditionLogic == "or" ? true : false);
             } // foreach
 
-            return result;
+            return finalResult;
         }
 
         private ConnectorValue executeRead(ArcazeConfigItem cfg)

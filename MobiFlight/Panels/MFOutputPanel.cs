@@ -17,6 +17,7 @@ namespace MobiFlight.Panels
         public event EventHandler Changed;
 
         private Config.Output output;
+        bool initialized = false;
 
         public MFOutputPanel()
         {
@@ -35,13 +36,19 @@ namespace MobiFlight.Panels
             this.output = output;
             ComboBoxHelper.SetSelectedItem(mfPinComboBox, output.Pin);
             textBox1.Text = output.Name;
+
+            initialized = true;
         }
 
-        private void applyButton_Click(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
+            if (!initialized) return;
+
             output.Pin = mfPinComboBox.Text;
             output.Name = textBox1.Text;
-            Changed(output, new EventArgs());
+
+            if (Changed != null)
+                Changed(output, new EventArgs());
         }
     }
 }

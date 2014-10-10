@@ -39,7 +39,6 @@
             this.mfPin2ComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.mfNameTextBox = new System.Windows.Forms.TextBox();
-            this.applyButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -78,6 +77,7 @@
             this.mfPin4ComboBox.Name = "mfPin4ComboBox";
             this.mfPin4ComboBox.Size = new System.Drawing.Size(35, 21);
             this.mfPin4ComboBox.TabIndex = 19;
+            this.mfPin4ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin1Label
             // 
@@ -95,6 +95,7 @@
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
             this.mfPin1ComboBox.Size = new System.Drawing.Size(35, 21);
             this.mfPin1ComboBox.TabIndex = 15;
+            this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin3Label
             // 
@@ -112,6 +113,7 @@
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
             this.mfPin3ComboBox.Size = new System.Drawing.Size(35, 21);
             this.mfPin3ComboBox.TabIndex = 17;
+            this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin2Label
             // 
@@ -129,6 +131,7 @@
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";
             this.mfPin2ComboBox.Size = new System.Drawing.Size(35, 21);
             this.mfPin2ComboBox.TabIndex = 15;
+            this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // groupBox2
             // 
@@ -147,24 +150,13 @@
             this.mfNameTextBox.Name = "mfNameTextBox";
             this.mfNameTextBox.Size = new System.Drawing.Size(151, 20);
             this.mfNameTextBox.TabIndex = 0;
-            // 
-            // applyButton
-            // 
-            this.applyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.applyButton.Location = new System.Drawing.Point(105, 135);
-            this.applyButton.Name = "applyButton";
-            this.applyButton.Size = new System.Drawing.Size(75, 23);
-            this.applyButton.TabIndex = 5;
-            this.applyButton.Text = "Apply";
-            this.applyButton.UseVisualStyleBackColor = true;
-            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
+            this.mfNameTextBox.TextChanged += new System.EventHandler(this.value_Changed);
             // 
             // MFStepperPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.Controls.Add(this.applyButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MFStepperPanel";
@@ -189,7 +181,6 @@
         private System.Windows.Forms.ComboBox mfPin4ComboBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox mfNameTextBox;
-        private System.Windows.Forms.Button applyButton;
 
     }
 }

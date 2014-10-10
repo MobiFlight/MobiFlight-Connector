@@ -499,7 +499,7 @@
             resources.GetString("displayTypeComboBox.Items2")});
             resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
             this.displayTypeComboBox.Name = "displayTypeComboBox";
-            this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
+            this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.displayTypeComboBox_SelectedIndexChanged);
             // 
             // displayTabTextBox
             // 

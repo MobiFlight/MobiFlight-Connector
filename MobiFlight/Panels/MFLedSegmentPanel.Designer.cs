@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.mfNumModulesComboBox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numberOfModulesLabel = new System.Windows.Forms.Label();
             this.mfPin1Label = new System.Windows.Forms.Label();
             this.mfPin1ComboBox = new System.Windows.Forms.ComboBox();
             this.mfPin3Label = new System.Windows.Forms.Label();
@@ -39,12 +42,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mfIntensityTrackBar = new System.Windows.Forms.TrackBar();
-            this.applyButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.numberOfModulesLabel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.mfNumModulesComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.mfIntensityGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mfIntensityTrackBar)).BeginInit();
@@ -70,6 +69,40 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pin settings and number of modules";
             // 
+            // mfNumModulesComboBox
+            // 
+            this.mfNumModulesComboBox.FormattingEnabled = true;
+            this.mfNumModulesComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.mfNumModulesComboBox.Location = new System.Drawing.Point(153, 38);
+            this.mfNumModulesComboBox.Name = "mfNumModulesComboBox";
+            this.mfNumModulesComboBox.Size = new System.Drawing.Size(38, 21);
+            this.mfNumModulesComboBox.TabIndex = 21;
+            this.mfNumModulesComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(141, 41);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(11, 11);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "|";
+            // 
+            // numberOfModulesLabel
+            // 
+            this.numberOfModulesLabel.Location = new System.Drawing.Point(156, 21);
+            this.numberOfModulesLabel.Name = "numberOfModulesLabel";
+            this.numberOfModulesLabel.Size = new System.Drawing.Size(32, 11);
+            this.numberOfModulesLabel.TabIndex = 19;
+            this.numberOfModulesLabel.Text = "Num";
+            // 
             // mfPin1Label
             // 
             this.mfPin1Label.Location = new System.Drawing.Point(6, 21);
@@ -85,6 +118,7 @@
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
             this.mfPin1ComboBox.Size = new System.Drawing.Size(38, 21);
             this.mfPin1ComboBox.TabIndex = 15;
+            this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin3Label
             // 
@@ -101,6 +135,7 @@
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
             this.mfPin3ComboBox.Size = new System.Drawing.Size(38, 21);
             this.mfPin3ComboBox.TabIndex = 17;
+            this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin2Label
             // 
@@ -117,6 +152,7 @@
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";
             this.mfPin2ComboBox.Size = new System.Drawing.Size(38, 21);
             this.mfPin2ComboBox.TabIndex = 15;
+            this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfIntensityGroupBox
             // 
@@ -160,16 +196,7 @@
             this.mfIntensityTrackBar.Size = new System.Drawing.Size(191, 47);
             this.mfIntensityTrackBar.TabIndex = 0;
             this.mfIntensityTrackBar.Value = 1;
-            // 
-            // applyButton
-            // 
-            this.applyButton.Location = new System.Drawing.Point(119, 188);
-            this.applyButton.Name = "applyButton";
-            this.applyButton.Size = new System.Drawing.Size(75, 23);
-            this.applyButton.TabIndex = 3;
-            this.applyButton.Text = "Apply";
-            this.applyButton.UseVisualStyleBackColor = true;
-            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
+            this.mfIntensityTrackBar.ValueChanged += new System.EventHandler(this.value_Changed);
             // 
             // groupBox2
             // 
@@ -188,46 +215,13 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(151, 20);
             this.textBox1.TabIndex = 0;
-            // 
-            // numberOfModulesLabel
-            // 
-            this.numberOfModulesLabel.Location = new System.Drawing.Point(156, 21);
-            this.numberOfModulesLabel.Name = "numberOfModulesLabel";
-            this.numberOfModulesLabel.Size = new System.Drawing.Size(32, 11);
-            this.numberOfModulesLabel.TabIndex = 19;
-            this.numberOfModulesLabel.Text = "Num";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(141, 41);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(11, 11);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "|";
-            // 
-            // mfNumModulesComboBox
-            // 
-            this.mfNumModulesComboBox.FormattingEnabled = true;
-            this.mfNumModulesComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.mfNumModulesComboBox.Location = new System.Drawing.Point(153, 38);
-            this.mfNumModulesComboBox.Name = "mfNumModulesComboBox";
-            this.mfNumModulesComboBox.Size = new System.Drawing.Size(38, 21);
-            this.mfNumModulesComboBox.TabIndex = 21;
+            this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
             // MFLedSegmentPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.Controls.Add(this.applyButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.mfIntensityGroupBox);
             this.Controls.Add(this.groupBox1);
@@ -256,7 +250,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label mfPin3Label;
         private System.Windows.Forms.ComboBox mfPin3ComboBox;
-        private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;

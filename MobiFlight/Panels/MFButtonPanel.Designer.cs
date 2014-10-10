@@ -31,7 +31,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mfPinLabel = new System.Windows.Forms.Label();
             this.mfPinComboBox = new System.Windows.Forms.ComboBox();
-            this.applyButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
@@ -66,17 +65,7 @@
             this.mfPinComboBox.Name = "mfPinComboBox";
             this.mfPinComboBox.Size = new System.Drawing.Size(37, 21);
             this.mfPinComboBox.TabIndex = 13;
-            // 
-            // applyButton
-            // 
-            this.applyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.applyButton.Location = new System.Drawing.Point(107, 108);
-            this.applyButton.Name = "applyButton";
-            this.applyButton.Size = new System.Drawing.Size(75, 23);
-            this.applyButton.TabIndex = 4;
-            this.applyButton.Text = "Apply";
-            this.applyButton.UseVisualStyleBackColor = true;
-            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
+            this.mfPinComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // groupBox2
             // 
@@ -95,13 +84,13 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(151, 20);
             this.textBox1.TabIndex = 0;
+            this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
             // MFButtonPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.Controls.Add(this.applyButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MFButtonPanel";
@@ -118,7 +107,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label mfPinLabel;
         private System.Windows.Forms.ComboBox mfPinComboBox;
-        private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
 

@@ -19,6 +19,7 @@ namespace ArcazeUSB
         ExecutionManager execManager;
         int lastSelectedIndex = -1;
         MobiFlight.Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new MobiFlight.Forms.FirmwareUpdateProcess();
+        public bool MFModuleConfigChanged { get; set; }
 
         public SettingsDialog()
         {
@@ -65,6 +66,7 @@ namespace ArcazeUSB
             mfTreeViewImageList.Images.Add(DeviceType.Servo.ToString(), ArcazeUSB.Properties.Resources.dvd);
             mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), ArcazeUSB.Properties.Resources.lightbulb_on);
             mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), ArcazeUSB.Properties.Resources.sound);
+            mfTreeViewImageList.Images.Add("Changed", ArcazeUSB.Properties.Resources.warning);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
 
             loadSettings();
@@ -76,6 +78,7 @@ namespace ArcazeUSB
 #endif
 
             ModuleConfigChanged = false;
+            MFModuleConfigChanged = false;
 
             // setup the background worker for firmware update
             firmwareUpdateBackgroundWorker.DoWork += new DoWorkEventHandler(firmwareUpdateBackgroundWorker_DoWork);
@@ -83,9 +86,14 @@ namespace ArcazeUSB
         }
 
         
-
+        /// <summary>
+        /// Load all settings for each tabns
+        /// </summary>
         private void loadSettings ()
         {            
+            ///
+            /// TAB General
+            ///
             // Recent Files max count
             recentFilesNumericUpDown.Value = Properties.Settings.Default.RecentFilesMaxCount;
 
@@ -97,9 +105,12 @@ namespace ArcazeUSB
             else if (Properties.Settings.Default.TestTimerInterval == 125) testModeSpeedTrackBar.Value = 3;
             else if (Properties.Settings.Default.TestTimerInterval == 50) testModeSpeedTrackBar.Value = 4;
 
-            // FSUIPC poll interval
-            fsuipcPollIntervalTrackBar.Value = (int) Math.Floor(Properties.Settings.Default.PollInterval / 50.0);
+            logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
+            ComboBoxHelper.SetSelectedItem(logLevelComboBox, Properties.Settings.Default.LogLevel);
 
+            ///
+            /// TAB Arcaze
+            ///
             moduleSettings = new List<ArcazeModuleSettings>();
             if ("" != Properties.Settings.Default.ModuleSettings)
             {
@@ -115,12 +126,21 @@ namespace ArcazeUSB
                 }
             }
 
-            logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
-            ComboBoxHelper.SetSelectedItem(logLevelComboBox,Properties.Settings.Default.LogLevel);
-
+            ///
+            /// TAB MobiFlight
+            ///
             loadMobiFlightSettings();
+
+            ///
+            /// TAB FSUIPC
+            ///
+            // FSUIPC poll interval
+            fsuipcPollIntervalTrackBar.Value = (int)Math.Floor(Properties.Settings.Default.PollInterval / 50.0);
         }
 
+        /// <summary>
+        /// Initialize the MobiFlight Tab
+        /// </summary>
         private void loadMobiFlightSettings()
         {
 #if MOBIFLIGHT
@@ -132,6 +152,9 @@ namespace ArcazeUSB
             addDeviceToolStripDropDownButton.Enabled = false;
             removeDeviceToolStripButton.Enabled = false;
 
+            ///
+            /// Build the tree
+            /// 
             MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
 
             mfModulesTreeView.Nodes.Clear();
@@ -163,13 +186,17 @@ namespace ArcazeUSB
             {
                 // this happens when the modules are connecting
                 mfConfiguredModulesGroupBox.Enabled = false;
+                Log.Instance.log("Problem on building module tree. Still connecting", LogSeverity.Error);
             }
 
             firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
 #endif
         }
 
-
+        /// <summary>
+        /// Save the settings from tabs in Properties.Settings
+        /// This does not apply to MF modules
+        /// </summary>
         private void saveSettings()
         {            
             if (testModeSpeedTrackBar.Value == 0) Properties.Settings.Default.TestTimerInterval = 1000;
@@ -201,12 +228,39 @@ namespace ArcazeUSB
             }
         }
 
+        /// <summary>
+        /// Callback for OK Button, used to close the form and save changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void okButton_Click(object sender, EventArgs e)
         {
             if (!ValidateChildren())
             {
                 return;
             }
+
+            MFModuleConfigChanged = false;
+            foreach (TreeNode node in mfModulesTreeView.Nodes)
+            {
+                if (node.ImageKey == "Changed")
+                {
+                    MFModuleConfigChanged = true;
+                    break;
+                }
+            }
+
+            if (MFModuleConfigChanged)
+            {
+                if (MessageBox.Show(MainForm._tr("MFModuleConfigChanged"),
+                                    MainForm._tr("Hint"),
+                                    MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    tabControl1.SelectedIndex = 2;
+                    return;
+                }
+            }
+
             DialogResult = DialogResult.OK;
             if (0 < arcazeSerialComboBox.SelectedIndex)
             {
@@ -215,6 +269,10 @@ namespace ArcazeUSB
             saveSettings();
         }
 
+        /// <summary>
+        /// Save the module settings for the different Arcaze Boards
+        /// </summary>
+        /// <param name="serial"></param>
         private void _syncToModuleSettings(string serial) {
             ArcazeModuleSettings settingsToSave = null;
             if (serial.Contains("/"))
@@ -238,6 +296,10 @@ namespace ArcazeUSB
             settingsToSave.globalBrightness = (byte) (255 * ((globalBrightnessTrackBar.Value) / (double) (globalBrightnessTrackBar.Maximum)));
         }
 
+        /// <summary>
+        /// Restore the arcaze settings
+        /// </summary>
+        /// <param name="serial"></param>
         private void _syncFromModuleSettings(string serial) {
             if (moduleSettings == null) return;
 
@@ -256,6 +318,11 @@ namespace ArcazeUSB
             }
         }
 
+        /// <summary>
+        /// Is triggered whenever another Arcaze Board is selected from list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void arcazeSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = (sender as ComboBox);
@@ -276,11 +343,21 @@ namespace ArcazeUSB
             lastSelectedIndex = cb.SelectedIndex;
         }
 
+        /// <summary>
+        /// Validate settings, e.g. ensure that every Arcaze has been configured.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ledDisplaysTabPage_Validating(object sender, CancelEventArgs e)
         {
             // check that for all available arcaze serials there is an entry in module settings
         }
 
+        /// <summary>
+        /// Callback for cancel button - discard changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             if (checkIfMobiFlightSettingsHaveChanged()) {
@@ -292,6 +369,12 @@ namespace ArcazeUSB
             DialogResult = DialogResult.Cancel;
         }
 
+        /// <summary>
+        /// Callback if extension type is changed for a selected Arcaze Board
+        /// Show the correct options
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void arcazeModuleTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             numModulesLabel.Visible = (sender as ComboBox).SelectedIndex != 0;
@@ -338,6 +421,11 @@ namespace ArcazeUSB
 
         }
 
+        /// <summary>
+        /// Eventhandler whenever a module has been selected in treeview
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             mfModulesTreeView.SelectedNode = e.Node;
@@ -351,12 +439,17 @@ namespace ArcazeUSB
                 removeDeviceToolStripButton.Enabled = false;
                 uploadToolStripButton.Enabled = e.Node.Nodes.Count>0;
                 saveToolStripButton.Enabled = e.Node.Nodes.Count > 0;
+                mfSettingsPanel.Controls.Clear();
                 return;
             }
 
             syncPanelWithSelectedDevice(e.Node);
         }
 
+        /// <summary>
+        /// Show the necessary options for a selected device which is attached to a MobiFlight module
+        /// </summary>
+        /// <param name="selectedNode"></param>
         private void syncPanelWithSelectedDevice(TreeNode selectedNode)
         {
             try
@@ -365,6 +458,8 @@ namespace ArcazeUSB
                 removeDeviceToolStripButton.Enabled = true;
                 uploadToolStripButton.Enabled = true;
                 saveToolStripButton.Enabled = true;
+                mfSettingsPanel.Controls.Clear();
+
                 MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
                 switch (dev.Type)
                 {
@@ -402,7 +497,6 @@ namespace ArcazeUSB
 
                 if (panel != null)
                 {
-                    mfSettingsPanel.Controls.Clear();
                     mfSettingsPanel.Controls.Add(panel);
                     panel.Dock = DockStyle.Fill;
                 }
@@ -410,14 +504,30 @@ namespace ArcazeUSB
             catch (Exception ex)
             {
                 // Show error message
+                Log.Instance.log("syncPanelWithSelectedDevice: Exception: " + ex.Message, LogSeverity.Debug);
             }
         }
 
+        /// <summary>
+        /// Update the name of a module in the TreeView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void mfConfigObject_changed(object sender, EventArgs e)
         {
-            mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.Config.BaseDevice).Name;
+            mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.Config.BaseDevice).Name;            
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+
+            parentNode.ImageKey = "Changed";
+            parentNode.SelectedImageKey = "Changed";
         }
 
+        /// <summary>
+        /// EventHandler to add a selected device to the current module
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addDeviceTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MobiFlight.Config.BaseDevice cfgItem = null; 
@@ -459,6 +569,11 @@ namespace ArcazeUSB
             
         }
 
+        /// <summary>
+        /// EventHandler for upload button, this uploads the new config to the module
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uploadToolStripButton_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Do you really want to update your module with the current configuration?", "Upload configuration", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
@@ -484,9 +599,16 @@ namespace ArcazeUSB
             module.SaveConfig();
             module.Config = null;
             module.LoadConfig();
+            parentNode.ImageKey = "";
+            parentNode.SelectedImageKey = "";
+
             MessageBox.Show("Upload finished.", "Upload configuration", MessageBoxButtons.OK);
         }
 
+        /// <summary>
+        /// Check whether some settings have changed and return bool
+        /// </summary>
+        /// <returns></returns>
         private bool checkIfMobiFlightSettingsHaveChanged()
         {
             return false;
@@ -563,7 +685,7 @@ namespace ArcazeUSB
 
             TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
-            String arduinoIdePath = "D:\\portableapps\\arduino-1.0.5";
+            String arduinoIdePath = firmwareArduinoIdePathTextBox.Text;
             String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
 
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;

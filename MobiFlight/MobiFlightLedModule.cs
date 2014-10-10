@@ -13,6 +13,7 @@ namespace MobiFlight
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }
         public int Brightness { get; set; }
+        public int SubModules { get; set; }
 
         private String _name = "Led Module";
         public String Name

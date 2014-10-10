@@ -301,4 +301,7 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   <data name="uiMessageMigrateConfigFileYesNo" xml:space="preserve">
     <value>Die Konfiguration muss konvertiert und unter neuem Namen gespeichert werden.</value>
   </data>
+  <data name="MFModuleConfigChanged" xml:space="preserve">
+    <value>Es wurden Änderungen an der Konfiguration von MobiFlight Modulen gemacht und diese Änderungen wurden noch nicht auf die Module gespeichert. Möchtest Du trotzdem den Dialog schließen? Die Änderungen gehen dabei verloren.</value>
+  </data>
 </root>

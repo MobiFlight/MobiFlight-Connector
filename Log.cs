@@ -66,7 +66,7 @@ namespace MobiFlight
         public void log(string message, LogSeverity severity)
         {
             if (textBox == null) return;
-            textBox.Text += message + Environment.NewLine;
+            textBox.Text = message + Environment.NewLine + textBox.Text;
         }
     }
 }

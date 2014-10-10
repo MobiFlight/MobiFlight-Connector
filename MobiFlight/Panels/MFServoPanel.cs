@@ -17,6 +17,7 @@ namespace MobiFlight.Panels
         public event EventHandler Changed;
 
         private Config.Servo servo;
+        bool initialized = false;
 
         public MFServoPanel()
         {
@@ -35,13 +36,19 @@ namespace MobiFlight.Panels
             this.servo = servo;
             ComboBoxHelper.SetSelectedItem(mfPinComboBox, servo.DataPin);
             textBox1.Text = servo.Name;
+
+            initialized = true;
         }
 
-        private void applyButton_Click(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
+            if (!initialized) return;
+
             servo.DataPin = mfPinComboBox.Text;
             servo.Name = textBox1.Text;
-            Changed(servo, new EventArgs());
+
+            if (Changed!=null)
+                Changed(servo, new EventArgs());
         }
     }
 }

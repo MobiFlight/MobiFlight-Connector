@@ -16,8 +16,8 @@ namespace ArcazeUSB
 {
     public partial class MainForm : Form
     {
-        public static String Version = "4.1.0-RC1";
-        public static String Build = DateTime.Now.ToString("yyyyMMdd");//"20140504";
+        public static String Version = "4.1.0";
+        public static String Build = "20141010";
 
         /// <summary>
         /// the currently used filename of the loaded config file

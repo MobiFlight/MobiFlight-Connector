@@ -93,9 +93,6 @@
             this.addOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDeviceToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.firmwareArduinoIdeButton = new System.Windows.Forms.Button();
             this.firmwareArduinoIdePathTextBox = new System.Windows.Forms.TextBox();
@@ -108,6 +105,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.fsuipcPollIntervalTrackBar = new System.Windows.Forms.TrackBar();
+            this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
@@ -475,6 +475,7 @@
             // 
             resources.ApplyResources(this.uploadToolStripMenuItem, "uploadToolStripMenuItem");
             this.uploadToolStripMenuItem.Name = "uploadToolStripMenuItem";
+            this.uploadToolStripMenuItem.Click += new System.EventHandler(this.uploadToolStripButton_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -485,11 +486,13 @@
             // 
             resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
             // saveToolStripMenuItem
             // 
             resources.ApplyResources(this.saveToolStripMenuItem, "saveToolStripMenuItem");
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
             // saveAsToolStripMenuItem
             // 
@@ -636,21 +639,6 @@
             resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             // 
-            // firmwareSettingsToolStripMenuItem
-            // 
-            resources.ApplyResources(this.firmwareSettingsToolStripMenuItem, "firmwareSettingsToolStripMenuItem");
-            this.firmwareSettingsToolStripMenuItem.Name = "firmwareSettingsToolStripMenuItem";
-            // 
-            // toolStripSeparator5
-            // 
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            // 
-            // firmwareUpdateToolStripMenuItem
-            // 
-            resources.ApplyResources(this.firmwareUpdateToolStripMenuItem, "firmwareUpdateToolStripMenuItem");
-            this.firmwareUpdateToolStripMenuItem.Name = "firmwareUpdateToolStripMenuItem";
-            // 
             // firmwareSettingsGroupBox
             // 
             resources.ApplyResources(this.firmwareSettingsGroupBox, "firmwareSettingsGroupBox");
@@ -751,6 +739,21 @@
             this.fsuipcPollIntervalTrackBar.Name = "fsuipcPollIntervalTrackBar";
             this.toolTip1.SetToolTip(this.fsuipcPollIntervalTrackBar, global::ArcazeUSB.ProjectMessages.conf);
             this.fsuipcPollIntervalTrackBar.Value = 10;
+            // 
+            // firmwareSettingsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.firmwareSettingsToolStripMenuItem, "firmwareSettingsToolStripMenuItem");
+            this.firmwareSettingsToolStripMenuItem.Name = "firmwareSettingsToolStripMenuItem";
+            // 
+            // toolStripSeparator5
+            // 
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            // 
+            // firmwareUpdateToolStripMenuItem
+            // 
+            resources.ApplyResources(this.firmwareUpdateToolStripMenuItem, "firmwareUpdateToolStripMenuItem");
+            this.firmwareUpdateToolStripMenuItem.Name = "firmwareUpdateToolStripMenuItem";
             // 
             // toolTip1
             // 

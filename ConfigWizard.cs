@@ -577,7 +577,7 @@ namespace ArcazeUSB
             }
         }
 
-        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        private void displayTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             foreach (UserControl p in displayPanels)
             {
@@ -591,6 +591,9 @@ namespace ArcazeUSB
                 // get the deviceinfo for the current arcaze
                 ComboBox cb = displayModuleNameComboBox;                
                 String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+
+                // we remove the callback method to ensure, that it is not added more than once
+                displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged -= displayLedAddressComboBox_SelectedIndexChanged;
 
                 if (arcazeFirmware.ContainsKey(serial))
                 {
@@ -652,7 +655,7 @@ namespace ArcazeUSB
                     foreach (string v in ArcazeModule.getDisplayConnectors()) connectors.Add(new ListItem() { Label = v, Value = v });
                     displayLedDisplayPanel.WideStyle = false;
                     displayLedDisplayPanel.SetAddresses(addr);
-                    displayLedDisplayPanel.SetConnectors(connectors);
+                    displayLedDisplayPanel.SetConnectors(connectors);                    
                 }
                 else if (serial.IndexOf("SN") == 0)
                 {
@@ -692,6 +695,7 @@ namespace ArcazeUSB
                     displayPinPanel.SetPins(outputs);
 
                     displayLedDisplayPanel.WideStyle = true;
+                    displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged += new EventHandler(displayLedAddressComboBox_SelectedIndexChanged);
                     displayLedDisplayPanel.SetAddresses(ledSegments);
 
                     servoPanel.SetAdresses(servos);
@@ -727,6 +731,25 @@ namespace ArcazeUSB
                                 MessageBoxButtons.OK, 
                                 MessageBoxIcon.Warning);
             }
+        }
+
+        void displayLedAddressComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = displayModuleNameComboBox;                
+            String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+            MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
+
+            List<ListItem> connectors = new List<ListItem>();
+
+            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            {
+                if (device.Type != DeviceType.LedModule) continue;
+                if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
+                for (int i = 0; i< (device as MobiFlightLedModule).SubModules; i++) {
+                    connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                }
+            }
+            displayLedDisplayPanel.SetConnectors(connectors);
         }
 
         private void fsuipcOffsetTextBox_Validating(object sender, CancelEventArgs e)
@@ -1219,9 +1242,9 @@ namespace ArcazeUSB
         private void preconditionPinSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // get the deviceinfo for the current arcaze
-            ComboBox cb = displayModuleNameComboBox;
+            ComboBox cb = preconditionPinSerialComboBox;
             String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
-            if (serial == "" && config.DisplaySerial != null) serial = ArcazeModuleSettings.ExtractSerial(config.DisplaySerial);
+            // if (serial == "" && config.DisplaySerial != null) serial = ArcazeModuleSettings.ExtractSerial(config.DisplaySerial);
 
             if (serial.IndexOf("SN") != 0)
             {

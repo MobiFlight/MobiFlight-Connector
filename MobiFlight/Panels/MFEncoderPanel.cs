@@ -17,6 +17,7 @@ namespace MobiFlight.Panels
         public event EventHandler Changed;
 
         private Config.Encoder encoder;
+        bool initialized = false;
 
         public MFEncoderPanel()
         {
@@ -38,14 +39,20 @@ namespace MobiFlight.Panels
             ComboBoxHelper.SetSelectedItem(mfLeftPinComboBox, encoder.PinLeft);
             ComboBoxHelper.SetSelectedItem(mfRightPinComboBox, encoder.PinRight);
             textBox1.Text = encoder.Name;
+
+            initialized = true;
         }
 
-        private void applyButton_Click(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
+            if (!initialized) return;
+
             encoder.PinLeft = mfLeftPinComboBox.Text;
             encoder.PinRight = mfRightPinComboBox.Text;
             encoder.Name = textBox1.Text;
-            Changed(encoder, new EventArgs());
+
+            if (Changed != null)
+                Changed(encoder, new EventArgs());
         }
     }
 }

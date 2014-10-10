@@ -32,6 +32,8 @@ namespace ArcazeUSB
 
         private List<MobiFlightModuleInfo> connectedModules = null;
 
+        private bool _lookingUpModules = false;
+
         DateTime servoTime = DateTime.Now;
         /// <summary>
         /// list of known modules
@@ -116,6 +118,9 @@ namespace ArcazeUSB
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
             string[] connectedPorts = SerialPort.GetPortNames();
 
+            if (_lookingUpModules) return result;
+            _lookingUpModules = true;
+
             foreach (Tuple<string, string> item in getArduinoPorts())
             {
                 String portName = item.Item1;
@@ -132,7 +137,7 @@ namespace ArcazeUSB
 
                 result.Add(devInfo);
             }
-
+            _lookingUpModules = true;
 
             return result;
         }
@@ -142,8 +147,9 @@ namespace ArcazeUSB
             if (isConnected() && force) { 
                 disconnect(); 
             }
-            
-            connectedModules = lookupModules();
+            if (connectedModules==null)
+                connectedModules = lookupModules();
+
             Modules.Clear();
 
             foreach (MobiFlightModuleInfo devInfo in connectedModules)

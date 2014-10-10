@@ -16,6 +16,7 @@ namespace MobiFlight.Panels
         /// </summary>
         public event EventHandler Changed;
         private Config.LedModule ledModule;
+        bool initialized = false;
 
         public MFLedSegmentPanel()
         {
@@ -40,17 +41,23 @@ namespace MobiFlight.Panels
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, ledModule.NumModules);
             textBox1.Text = ledModule.Name;
             mfIntensityTrackBar.Value = ledModule.Brightness;
+
+            initialized = true;
         }
 
-        private void applyButton_Click(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
+            if (!initialized) return;
+
             ledModule.DinPin = mfPin1ComboBox.Text;
             ledModule.ClsPin = mfPin2ComboBox.Text;
             ledModule.ClkPin = mfPin3ComboBox.Text;
             ledModule.Name = textBox1.Text;
-            ledModule.Brightness = (byte) (mfIntensityTrackBar.Value);
+            ledModule.Brightness = (byte)(mfIntensityTrackBar.Value);
             ledModule.NumModules = mfNumModulesComboBox.Text;
-            Changed(ledModule, new EventArgs());
+
+            if (Changed != null)
+                Changed(ledModule, new EventArgs());
         }
     }
 }

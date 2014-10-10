@@ -196,6 +196,15 @@ namespace ArcazeUSB {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die There are still changes not uploaded to your modules. You will loose these changes if you close the form. Do you really want to continue? ähnelt.
+        /// </summary>
+        internal static string MFModuleConfigChanged {
+            get {
+                return ResourceManager.GetString("MFModuleConfigChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die none ähnelt.
         /// </summary>
         internal static string none {

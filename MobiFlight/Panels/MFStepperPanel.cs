@@ -16,6 +16,7 @@ namespace MobiFlight.Panels
         /// </summary>
         public event EventHandler Changed;
         private Config.Stepper stepper;
+        bool initialized = false;
 
         public MFStepperPanel()
         {
@@ -40,16 +41,22 @@ namespace MobiFlight.Panels
             ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, stepper.Pin3);
             ComboBoxHelper.SetSelectedItem(mfPin4ComboBox, stepper.Pin4);
             mfNameTextBox.Text = stepper.Name;
+
+            initialized = true;
         }
         
-        private void applyButton_Click(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
+            if (!initialized) return;
+
             stepper.Pin1 = mfPin1ComboBox.Text;
             stepper.Pin2 = mfPin2ComboBox.Text;
             stepper.Pin3 = mfPin3ComboBox.Text;
             stepper.Pin4 = mfPin4ComboBox.Text;
             stepper.Name = mfNameTextBox.Text;
-            Changed(stepper, new EventArgs());
+
+            if (Changed != null)
+                Changed(stepper, new EventArgs());
         }
     }
 }
