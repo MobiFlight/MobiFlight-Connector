@@ -304,4 +304,7 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   <data name="MFModuleConfigChanged" xml:space="preserve">
     <value>Es wurden Änderungen an der Konfiguration von MobiFlight Modulen gemacht und diese Änderungen wurden noch nicht auf die Module gespeichert. Möchtest Du trotzdem den Dialog schließen? Die Änderungen gehen dabei verloren.</value>
   </data>
+  <data name="uiMessageDeviceNameAlreadyUsed" xml:space="preserve">
+    <value>Der Name ist für ein angeschlossenes Gerät schon verwendet. Gerätenamen müssen eindeutig sein. Bitte prüfen.</value>
+  </data>
 </root>

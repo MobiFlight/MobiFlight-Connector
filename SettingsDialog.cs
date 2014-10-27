@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using SimpleSolutions.Usb;
 using MobiFlight;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ArcazeUSB
 {
@@ -162,23 +163,9 @@ namespace ArcazeUSB
             {
                 foreach (MobiFlightModuleInfo module in mobiflightCache.getConnectedModules())
                 {
-                    TreeNode node = new TreeNode(module.Name);
-                    if (module.HasMfFirmware())
-                    {
-                        node.Tag = mobiflightCache.GetModule(module);
-
-                        foreach (MobiFlight.Config.BaseDevice device in (node.Tag as MobiFlightModule).Config.Items)
-                        {
-                            TreeNode deviceNode = new TreeNode(device.Name);
-                            deviceNode.Tag = device;
-                            deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();
-                            node.Nodes.Add(deviceNode);
-                        }
-                    }
-                    else
-                    {
-                        node.Tag = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = module.Port, Type = module.Type });
-                    }
+                    TreeNode node = new TreeNode();
+                    node = mfModulesTreeView_initNode(module, node);
+                    
                     mfModulesTreeView.Nodes.Add(node);
                 }
             }
@@ -191,6 +178,32 @@ namespace ArcazeUSB
 
             firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
 #endif
+        }
+
+        private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo module, TreeNode node)
+        {
+            MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
+
+            node.Text = module.Name;
+            if (module.HasMfFirmware())
+            {
+                node.Tag = mobiflightCache.GetModule(module);
+                node.Nodes.Clear();
+
+                foreach (MobiFlight.Config.BaseDevice device in (node.Tag as MobiFlightModule).Config.Items)
+                {
+                    TreeNode deviceNode = new TreeNode(device.Name);
+                    deviceNode.Tag = device;
+                    deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();
+                    node.Nodes.Add(deviceNode);
+                }
+            }
+            else
+            {
+                node.Tag = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = module.Port, Type = module.Type });
+            }
+
+            return node;
         }
 
         /// <summary>
@@ -515,9 +528,26 @@ namespace ArcazeUSB
         /// <param name="e"></param>
         void mfConfigObject_changed(object sender, EventArgs e)
         {
-            mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.Config.BaseDevice).Name;            
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
+
+            String UniqueName = (sender as MobiFlight.Config.BaseDevice).Name;
+            List<String> NodeNames = new List<String>();
+            foreach (TreeNode node in parentNode.Nodes) {
+                if (node == mfModulesTreeView.SelectedNode) continue;
+                NodeNames.Add(node.Text);
+            }
+
+            UniqueName = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), UniqueName);
+
+            if (UniqueName != (sender as MobiFlight.Config.BaseDevice).Name)
+            {
+                (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;
+                MessageBox.Show(MainForm._tr("uiMessageDeviceNameAlreadyUsed"), MainForm._tr("Hint"), MessageBoxButtons.OK);
+            }
+
+            mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.Config.BaseDevice).Name;            
+            
 
             parentNode.ImageKey = "Changed";
             parentNode.SelectedImageKey = "Changed";
@@ -532,21 +562,27 @@ namespace ArcazeUSB
         {
             MobiFlight.Config.BaseDevice cfgItem = null; 
             switch ((sender as ToolStripMenuItem).Name) {
+                case "servoToolStripMenuItem":
                 case "addServoToolStripMenuItem":
                     cfgItem = new MobiFlight.Config.Servo();
                     break;
+                case "stepperToolStripMenuItem":
                 case "addStepperToolStripMenuItem":
                     cfgItem = new MobiFlight.Config.Stepper();
                     break;
+                case "ledOutputToolStripMenuItem":
                 case "addOutputToolStripMenuItem":
                     cfgItem = new MobiFlight.Config.Output();
                     break;
+                case "ledSegmentToolStripMenuItem":
                 case "addLedModuleToolStripMenuItem":
                     cfgItem = new MobiFlight.Config.LedModule();
                     break;
+                case "buttonToolStripMenuItem":
                 case "addButtonToolStripMenuItem":
                     cfgItem = new MobiFlight.Config.Button();
                     break;
+                case "encoderToolStripMenuItem":
                 case "addEncoderToolStripMenuItem":
                     cfgItem = new MobiFlight.Config.Encoder();
                     break;
@@ -554,12 +590,18 @@ namespace ArcazeUSB
                     // do nothing
                     return;
             }
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            List<String> NodeNames = new List<String>();
+            foreach (TreeNode node in parentNode.Nodes)
+            {
+                NodeNames.Add(node.Text);
+            }
+            cfgItem.Name = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), cfgItem.Name);
 
             TreeNode newNode = new TreeNode(cfgItem.Name);
             newNode.SelectedImageKey = newNode.ImageKey = cfgItem.Type.ToString(); 
             newNode.Tag = cfgItem;
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
             
             parentNode.Nodes.Add(newNode);
             //(parentNode.Tag as MobiFlightModule).Config.AddItem(cfgItem);
@@ -689,6 +731,11 @@ namespace ArcazeUSB
             String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
 
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
+            
+            execManager.AutoConnectStop();
+            module.Disconnect();
+
             MobiFlightFirmwareUpdater.ArduinoIdePath = arduinoIdePath;
             MobiFlightFirmwareUpdater.FirmwarePath = firmwarePath;
 
@@ -702,7 +749,15 @@ namespace ArcazeUSB
             TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
+
             module.Connect();
+            MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
+
+            mobiflightCache.RefreshModule(module);
+            execManager.AutoConnectStart();
+            mfModulesTreeView_initNode(newInfo, parentNode);
+            
             MessageBox.Show("The firmware has been uploaded successfully!", MainForm._tr("Hint"), MessageBoxButtons.OK);
         }
 
@@ -728,6 +783,11 @@ namespace ArcazeUSB
                 Properties.Settings.Default.ArduinoIdePath = fbd.SelectedPath;
                 firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
             }
+        }
+
+        private void mfModuleSettingsContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+
         }
     }
 

@@ -124,6 +124,16 @@ namespace ArcazeUSB
             isExecuting = false;
         }
 
+        public void AutoConnectStart()
+        {
+            autoConnectTimer.Enabled = true;
+        }
+
+        public void AutoConnectStop()
+        {
+            autoConnectTimer.Enabled = false;
+        }
+
         public bool IsStarted()
         {
             return timer.Enabled;

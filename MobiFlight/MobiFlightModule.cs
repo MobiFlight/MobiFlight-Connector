@@ -6,6 +6,7 @@ using System.IO.Ports;
 using CommandMessenger;
 using CommandMessenger.TransportLayer;
 using FSUIPC;
+using System.Text.RegularExpressions;
 
 namespace MobiFlight
 {
@@ -165,26 +166,60 @@ namespace MobiFlight
                         
             foreach (Config.BaseDevice device in Config.Items)
             {
+                String deviceName = device.Name;
                 switch(device.Type) {
                     case DeviceType.LedModule:
                         int submodules = 1;
                         int.TryParse( (device as Config.LedModule).NumModules, out submodules);
+                        device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
                         ledModules.Add(device.Name, new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count, SubModules = submodules });
                         break;
 
                     case DeviceType.Stepper:
+                        device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
                         stepperModules.Add(device.Name, new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count });
                         break;
                     
                     case DeviceType.Servo:
+                        device.Name = GenerateUniqueDeviceName(servoModules.Keys.ToArray(), device.Name);
                         servoModules.Add(device.Name, new MobiFlightServo() { CmdMessenger = _cmdMessenger, Name = device.Name, ServoNumber = servoModules.Count });
                         break;
 
                     case DeviceType.Output:
+                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         outputs.Add(device.Name, new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
                         break;
                 }                
             }
+        }
+
+        public static string GenerateUniqueDeviceName(String[] Keys, String Name)
+        {
+            String result = Name;
+            
+            bool renameNecessary = false;
+            int renameIndex = 1;
+            string renamePat = Name + @"\s\d";
+            Regex renameRegex = new Regex(renamePat);
+
+            foreach (String key in Keys)
+            {
+                Match m = renameRegex.Match(key);
+                if (m.Success) renameIndex++;
+
+                if (key == Name)
+                {
+                    // duplicated name found ... :(
+                    // add an index and let user know
+                    renameNecessary = true;
+                }
+            }
+            if (renameNecessary)
+            {
+                result = Name + " " + renameIndex;
+            }
+
+            return result;
         }
 
         public void Disconnect()
@@ -467,6 +502,18 @@ namespace MobiFlight
             if (_hasEncoder) result.Add(DeviceType.Encoder);
             
             return result;
+        }
+
+        internal MobiFlightModuleInfo ToMobiFlightModuleInfo()
+        {
+            return new MobiFlightModuleInfo()
+            { 
+                    Serial  = Serial,
+                    Name    = Name, 
+                    Type    = Type, 
+                    Port    = Port 
+            };
+            
         }
     }
 }

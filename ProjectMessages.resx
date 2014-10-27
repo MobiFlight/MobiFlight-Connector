@@ -313,4 +313,7 @@ You should configure them now.</value>
   <data name="MFModuleConfigChanged" xml:space="preserve">
     <value>There are still changes not uploaded to your modules. You will loose these changes if you close the form. Do you really want to continue?</value>
   </data>
+  <data name="uiMessageDeviceNameAlreadyUsed" xml:space="preserve">
+    <value>The name of the device has already been used, please review.</value>
+  </data>
 </root>

@@ -124,6 +124,7 @@ namespace ArcazeUSB
             foreach (Tuple<string, string> item in getArduinoPorts())
             {
                 String portName = item.Item1;
+
                 if (!connectedPorts.Contains(portName)) continue;
                 MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName });
                 tmp.Connect();
@@ -137,7 +138,7 @@ namespace ArcazeUSB
 
                 result.Add(devInfo);
             }
-            _lookingUpModules = true;
+            _lookingUpModules = false;
 
             return result;
         }
@@ -157,14 +158,7 @@ namespace ArcazeUSB
                 if (!devInfo.HasMfFirmware()) continue;
 
                 MobiFlightModule m = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = devInfo.Port });
-                m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);
-
-                if (Modules.ContainsKey(devInfo.Serial))
-                {
-                    Log.Instance.log("Duplicate serial number found: " + devInfo.Serial + ". Module won't be added.", LogSeverity.Error);
-                    continue;
-                }
-                Modules.Add(devInfo.Serial, m);
+                RegisterModule(m, devInfo);
             }
 
             // Connect to all attached modules            
@@ -182,6 +176,26 @@ namespace ArcazeUSB
             }
 
             return false;
+        }
+
+        private void RegisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo, bool replace = false)
+        {
+            m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);
+
+            if (Modules.ContainsKey(devInfo.Serial))
+            {
+                if (replace)
+                {
+                    Modules[devInfo.Serial] = m;
+                }
+                else
+                {
+                    Log.Instance.log("Duplicate serial number found: " + devInfo.Serial + ". Module won't be added.", LogSeverity.Error);
+                }
+                return;
+            }
+
+            Modules.Add(devInfo.Serial, m);
         }
 
         void module_OnButtonPressed(object sender, ButtonArgs e)
@@ -317,6 +331,22 @@ namespace ArcazeUSB
             }
 
             throw new IndexOutOfRangeException();
+        }
+
+        public MobiFlightModule RefreshModule(MobiFlightModule module)
+        {
+            MobiFlightModuleInfo oldDevInfo = connectedModules.Find(delegate(MobiFlightModuleInfo devInfo)
+            {
+                return devInfo.Port == module.Port;
+            }
+            );
+
+            if (oldDevInfo != null) connectedModules.Remove(oldDevInfo);
+            connectedModules.Add(module.ToMobiFlightModuleInfo());
+
+            RegisterModule(module, module.ToMobiFlightModuleInfo(), true);
+
+            return module;
         }
 
         public MobiFlightModule GetModuleBySerial(string serial)

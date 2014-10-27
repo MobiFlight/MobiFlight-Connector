@@ -29,42 +29,43 @@ namespace MobiFlight
         {
             bool result = true;
             String Port = module.InitUploadAndReturnUploadPort();
+            if (module.Connected) module.Disconnect();
 
             while (!SerialPort.GetPortNames().Contains(Port))
             {
                 System.Threading.Thread.Sleep(100);
             }
             RunAvrDude(Port, module.ArduinoType);
-            //module.Connect();    
             return result;
         }
 
         public static void RunAvrDude(String Port, String ArduinoType) 
         {
-
-
             String FirmwareName = "mobiflight_micro_1_0_0.hex";
             String ArduinoChip = "atmega32u4";
             String Bytes = "57600";
             String C = "avr109";
             if (MobiFlightModuleInfo.TYPE_ARDUINO_MEGA == ArduinoType) {
-                FirmwareName = "mobiflight_mega_1_0_0.hex";
+                FirmwareName = "mobiflight_mega_1_0_1.hex";
                 ArduinoChip = "atmega2560";
                 Bytes = "115200";
                 C = "wiring";
             }
+            String verboseLevel = "";
+            if (false) verboseLevel = " -v -v -v -v";
 
             String FullAvrDudePath = ArduinoIdePath + "\\" + AvrPath;
 
             var proc1 = new ProcessStartInfo();
-            string anyCommand = "-C" + FullAvrDudePath + "\\etc\\avrdude.conf -v -v -v -v -p" + ArduinoChip + " -c"+ C +" -P\\\\.\\" + Port + " -b"+ Bytes +" -D -Uflash:w:" + FirmwarePath + "\\" + FirmwareName + ":i";
+            string anyCommand = "-C" + FullAvrDudePath + "\\etc\\avrdude.conf" + verboseLevel + " -p" + ArduinoChip + " -c"+ C +" -P\\\\.\\" + Port + " -b"+ Bytes +" -D -Uflash:w:" + FirmwarePath + "\\" + FirmwareName + ":i";
             proc1.UseShellExecute = true;
             proc1.WorkingDirectory = @FullAvrDudePath;
             proc1.FileName = @FullAvrDudePath + "\\bin\\avrdude";
             proc1.Verb = "runas";
             proc1.Arguments = anyCommand;
             proc1.WindowStyle = ProcessWindowStyle.Hidden;
-            // Log.Instance.log("RunAvrDude : " + anyCommand, LogSeverity.Info);
+            //Log.Instance.log("RunAvrDude : " + proc1.FileName, LogSeverity.Info);
+            //Log.Instance.log("RunAvrDude : " + anyCommand, LogSeverity.Info);
             Process p = Process.Start(proc1);
             p.WaitForExit();
         }

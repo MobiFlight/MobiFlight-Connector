@@ -505,6 +505,15 @@ namespace ArcazeUSB {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name of the device has already been used, please review. ähnelt.
+        /// </summary>
+        internal static string uiMessageDeviceNameAlreadyUsed {
+            get {
+                return ResourceManager.GetString("uiMessageDeviceNameAlreadyUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die An error occured on parsing your value formula. Please review and correct any errors. ähnelt.
         /// </summary>
         internal static string uiMessageErrorOnParsingExpression {
