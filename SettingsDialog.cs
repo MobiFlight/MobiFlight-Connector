@@ -441,7 +441,7 @@ namespace ArcazeUSB
         /// <param name="e"></param>
         private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            mfModulesTreeView.SelectedNode = e.Node;
+            //mfModulesTreeView.SelectedNode = e.Node;
             if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
 
             if (e.Node.Level == 0)
@@ -456,7 +456,7 @@ namespace ArcazeUSB
                 return;
             }
 
-            syncPanelWithSelectedDevice(e.Node);
+            //syncPanelWithSelectedDevice(e.Node);
         }
 
         /// <summary>
@@ -788,6 +788,11 @@ namespace ArcazeUSB
         private void mfModuleSettingsContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            syncPanelWithSelectedDevice(e.Node);
         }
     }
 

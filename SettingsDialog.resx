@@ -950,7 +950,7 @@ intensity</value>
     <value>Update Firmware</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 198</value>
+    <value>165, 176</value>
   </data>
   <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Name" xml:space="preserve">
     <value>mfModuleSettingsContextMenuStrip</value>
@@ -1801,6 +1801,24 @@ intensity</value>
   <data name="&gt;&gt;stepperToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonToolStripMenuItem.Name" xml:space="preserve">
+    <value>buttonToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;buttonToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;encoderToolStripMenuItem.Name" xml:space="preserve">
+    <value>encoderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;encoderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;removeToolStripMenuItem.Name" xml:space="preserve">
     <value>removeToolStripMenuItem</value>
   </data>
@@ -1980,24 +1998,6 @@ intensity</value>
   </data>
   <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
-    <value>toolStripMenuItem4</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonToolStripMenuItem.Name" xml:space="preserve">
-    <value>buttonToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;buttonToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;encoderToolStripMenuItem.Name" xml:space="preserve">
-    <value>encoderToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;encoderToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SettingsDialog</value>

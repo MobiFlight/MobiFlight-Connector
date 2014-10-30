@@ -66,6 +66,9 @@
             this.ledSegmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.servoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stepperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.buttonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.encoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,9 +113,6 @@
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.encoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -369,6 +369,7 @@
             this.mfModulesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes"))),
             ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes1")))});
+            this.mfModulesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.mfModulesTreeView_AfterSelect);
             this.mfModulesTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.mfModulesTreeView_NodeMouseClick);
             // 
             // mfModuleSettingsContextMenuStrip
@@ -424,6 +425,23 @@
             this.stepperToolStripMenuItem.Name = "stepperToolStripMenuItem";
             resources.ApplyResources(this.stepperToolStripMenuItem, "stepperToolStripMenuItem");
             this.stepperToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
+            // 
+            // buttonToolStripMenuItem
+            // 
+            this.buttonToolStripMenuItem.Name = "buttonToolStripMenuItem";
+            resources.ApplyResources(this.buttonToolStripMenuItem, "buttonToolStripMenuItem");
+            this.buttonToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // encoderToolStripMenuItem
+            // 
+            this.encoderToolStripMenuItem.Name = "encoderToolStripMenuItem";
+            resources.ApplyResources(this.encoderToolStripMenuItem, "encoderToolStripMenuItem");
+            this.encoderToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
@@ -701,23 +719,6 @@
             // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Hint";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
-            // 
-            // buttonToolStripMenuItem
-            // 
-            this.buttonToolStripMenuItem.Name = "buttonToolStripMenuItem";
-            resources.ApplyResources(this.buttonToolStripMenuItem, "buttonToolStripMenuItem");
-            this.buttonToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
-            // encoderToolStripMenuItem
-            // 
-            this.encoderToolStripMenuItem.Name = "encoderToolStripMenuItem";
-            resources.ApplyResources(this.encoderToolStripMenuItem, "encoderToolStripMenuItem");
-            this.encoderToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // SettingsDialog
             // 

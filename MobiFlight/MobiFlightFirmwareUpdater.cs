@@ -61,7 +61,7 @@ namespace MobiFlight
             proc1.UseShellExecute = true;
             proc1.WorkingDirectory = @FullAvrDudePath;
             proc1.FileName = @FullAvrDudePath + "\\bin\\avrdude";
-            proc1.Verb = "runas";
+            //proc1.Verb = "runas";
             proc1.Arguments = anyCommand;
             proc1.WindowStyle = ProcessWindowStyle.Hidden;
             //Log.Instance.log("RunAvrDude : " + proc1.FileName, LogSeverity.Info);
