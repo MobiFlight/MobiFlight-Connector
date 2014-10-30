@@ -223,8 +223,14 @@ Helligkeit</value>
   <data name="generalTabPage.Text" xml:space="preserve">
     <value>Allgemein</value>
   </data>
+  <data name="ledOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
   <data name="ledOutputToolStripMenuItem.Text" xml:space="preserve">
     <value>LED Output</value>
+  </data>
+  <data name="ledSegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
   </data>
   <data name="ledSegmentToolStripMenuItem.Text" xml:space="preserve">
     <value>LED Segment</value>
@@ -238,11 +244,74 @@ Helligkeit</value>
   <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 22</value>
   </data>
+  <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
+    <value>Schrittmotor</value>
+  </data>
   <data name="stepperToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 6</value>
+  </data>
+  <data name="buttonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Schalter</value>
+  </data>
+  <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
+  </data>
+  <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="addToolStripMenuItem.Text" xml:space="preserve">
+    <value>Neues Device</value>
+  </data>
+  <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="removeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Entferne Device</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 6</value>
+  </data>
+  <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 6</value>
+  </data>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="openToolStripMenuItem.Text" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Speichern unter ...</value>
+  </data>
   <data name="saveAsToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>166, 6</value>
+  </data>
+  <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 176</value>
   </data>
   <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -277,8 +346,20 @@ Helligkeit</value>
         X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
 </value>
   </data>
+  <data name="uploadToolStripButton.Text" xml:space="preserve">
+    <value>Aktuelle Konfiguration in Modul speichern</value>
+  </data>
+  <data name="openToolStripButton.Text" xml:space="preserve">
+    <value>Konfiguration laden</value>
+  </data>
+  <data name="saveToolStripButton.Text" xml:space="preserve">
+    <value>Aktuelle Konfiguration in Datei speichern</value>
+  </data>
   <data name="addEncoderToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Schalter</value>
   </data>
   <data name="addButtonToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -306,6 +387,15 @@ Helligkeit</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
     <value>Angeschlossene Module</value>
+  </data>
+  <data name="firmwareArduinoIdeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 13</value>
+  </data>
+  <data name="firmwareArduinoIdeLabel.Text" xml:space="preserve">
+    <value>Pfad zu Arduino IDE</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
+    <value>Firmware Flash Einstellungen</value>
   </data>
   <data name="mobiflightSettingsLabel.Text" xml:space="preserve">
     <value>Konfiguriere angeschlossene MobiFlight Module. Du kannst Konfigurationen laden und speichern und sie auf Dein Modul hochladen.</value>

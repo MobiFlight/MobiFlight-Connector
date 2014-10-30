@@ -221,6 +221,12 @@
     <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
+    <Compile Include="MobiFlight\Panels\MFModulePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFModulePanel.Designer.cs">
+      <DependentUpon>MFModulePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MobiFlight\Panels\MFOutputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -346,6 +352,21 @@
     <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFButtonPanel.de.resx">
+      <DependentUpon>MFButtonPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFEncoderPanel.de.resx">
+      <DependentUpon>MFEncoderPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFLedSegmentPanel.de.resx">
+      <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFModulePanel.resx">
+      <DependentUpon>MFModulePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFOutputPanel.de.resx">
+      <DependentUpon>MFOutputPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Panels\MFOutputPanel.resx">
       <DependentUpon>MFOutputPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -407,6 +428,7 @@
     </Compile>
     <EmbeddedResource Include="SettingsDialog.de.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>

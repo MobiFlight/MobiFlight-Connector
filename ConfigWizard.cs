@@ -21,7 +21,7 @@ namespace ArcazeUSB
         List<UserControl> displayPanels = new List<UserControl>();
         ArcazeConfigItem config = null;
         ErrorProvider errorProvider = new ErrorProvider();
-        Dictionary<String, ushort> arcazeFirmware = new Dictionary<String, ushort>();
+        Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
         DataSet _dataSetConfig = null;
 
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
@@ -601,15 +601,15 @@ namespace ArcazeUSB
                     switch ((sender as ComboBox).SelectedItem.ToString())
                     {
                         case "DisplayDriver":
-                            panelEnabled = arcazeFirmware[serial] > 0x529;
+                            panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x529;
                             break;
 
                         case "LedDriver2":
-                            panelEnabled = arcazeFirmware[serial] > 0x554;
+                            panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x554;
                             break;
 
                         case "LedDriver3":
-                            panelEnabled = arcazeFirmware[serial] > 0x550;
+                            panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x550;
                             break;
                     }
 
@@ -1009,15 +1009,6 @@ namespace ArcazeUSB
             {
                 removeError(preconditionPortComboBox);
             }
-        }
-
-        
-
-        private void displayPortComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox cb = (sender as ComboBox);
-            // enable setting only for ports higher than B
-            displayPinPanel.displayPinBrightnessPanel.Enabled = cb.SelectedIndex > 1;
         }
 
         private void displayPinTestButton_Click(object sender, EventArgs e)

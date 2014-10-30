@@ -147,6 +147,7 @@ namespace ArcazeUSB
 #if MOBIFLIGHT
 
             // synchronize the toolbar icons
+            mobiflightSettingsToolStrip.Enabled = false;
             uploadToolStripButton.Enabled = false;
             openToolStripButton.Enabled = true;
             saveToolStripButton.Enabled = false;
@@ -446,13 +447,21 @@ namespace ArcazeUSB
 
             if (e.Node.Level == 0)
             {
-                // this is the module node
-                // set the add device icon enabled
-                addDeviceToolStripDropDownButton.Enabled = true;
-                removeDeviceToolStripButton.Enabled = false;
-                uploadToolStripButton.Enabled = e.Node.Nodes.Count>0;
-                saveToolStripButton.Enabled = e.Node.Nodes.Count > 0;
-                mfSettingsPanel.Controls.Clear();
+                bool isMobiFlightBoard = (e.Node.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MEGA 
+                                            &&
+                                         (e.Node.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
+
+                // Toggle visibility of items in context menu
+                // depending on whether it is a MobiFlight Board or not
+                // only upload of firmware is allowed for all boards
+                // this is by default true
+                addToolStripMenuItem.Enabled = isMobiFlightBoard;
+                removeToolStripMenuItem.Enabled = isMobiFlightBoard;
+                uploadToolStripMenuItem.Enabled = isMobiFlightBoard;
+                openToolStripMenuItem.Enabled = isMobiFlightBoard;
+                saveToolStripMenuItem.Enabled = isMobiFlightBoard;
+                saveAsToolStripMenuItem.Enabled = isMobiFlightBoard;
+                
                 return;
             }
 
@@ -473,43 +482,52 @@ namespace ArcazeUSB
                 saveToolStripButton.Enabled = true;
                 mfSettingsPanel.Controls.Clear();
 
-                MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
-                switch (dev.Type)
+                if (selectedNode.Level == 0)
                 {
-                    case DeviceType.LedModule:
-                        panel = new MobiFlight.Panels.MFLedSegmentPanel(dev as MobiFlight.Config.LedModule);
-                        (panel as MobiFlight.Panels.MFLedSegmentPanel).Changed += new EventHandler(mfConfigObject_changed);
-                        break;
+                    panel = new MobiFlight.Panels.MFModulePanel((selectedNode.Tag as MobiFlightModule).ToMobiFlightModuleInfo());
+                    (panel as MobiFlight.Panels.MFModulePanel).Changed += new EventHandler(mfConfigObject_changed);
+                }
+                else
+                {
+                    MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
+                    switch (dev.Type)
+                    {
+                        case DeviceType.LedModule:
+                            panel = new MobiFlight.Panels.MFLedSegmentPanel(dev as MobiFlight.Config.LedModule);
+                            (panel as MobiFlight.Panels.MFLedSegmentPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            break;
 
-                    case DeviceType.Stepper:
-                        panel = new MobiFlight.Panels.MFStepperPanel(dev as MobiFlight.Config.Stepper);
-                        (panel as MobiFlight.Panels.MFStepperPanel).Changed += new EventHandler(mfConfigObject_changed);
-                        break;
+                        case DeviceType.Stepper:
+                            panel = new MobiFlight.Panels.MFStepperPanel(dev as MobiFlight.Config.Stepper);
+                            (panel as MobiFlight.Panels.MFStepperPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            break;
 
-                    case DeviceType.Servo:
-                        panel = new MobiFlight.Panels.MFServoPanel(dev as MobiFlight.Config.Servo);
-                        (panel as MobiFlight.Panels.MFServoPanel).Changed+=new EventHandler(mfConfigObject_changed);
-                        break;
+                        case DeviceType.Servo:
+                            panel = new MobiFlight.Panels.MFServoPanel(dev as MobiFlight.Config.Servo);
+                            (panel as MobiFlight.Panels.MFServoPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            break;
 
-                    case DeviceType.Button:
-                        panel = new MobiFlight.Panels.MFButtonPanel(dev as MobiFlight.Config.Button);
-                        (panel as MobiFlight.Panels.MFButtonPanel).Changed += new EventHandler(mfConfigObject_changed);
-                        break;
+                        case DeviceType.Button:
+                            panel = new MobiFlight.Panels.MFButtonPanel(dev as MobiFlight.Config.Button);
+                            (panel as MobiFlight.Panels.MFButtonPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            break;
 
-                    case DeviceType.Encoder:
-                        panel = new MobiFlight.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder);
-                        (panel as MobiFlight.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigObject_changed);
-                        break;
+                        case DeviceType.Encoder:
+                            panel = new MobiFlight.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder);
+                            (panel as MobiFlight.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            break;
 
-                    case DeviceType.Output:
-                        panel = new MobiFlight.Panels.MFOutputPanel(dev as MobiFlight.Config.Output);
-                        (panel as MobiFlight.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigObject_changed);
-                        break;
-                    // output
+                        case DeviceType.Output:
+                            panel = new MobiFlight.Panels.MFOutputPanel(dev as MobiFlight.Config.Output);
+                            (panel as MobiFlight.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            break;
+                        // output
+                    }
                 }
 
                 if (panel != null)
                 {
+                    panel.Padding = new Padding(2,0,0,0);
                     mfSettingsPanel.Controls.Add(panel);
                     panel.Dock = DockStyle.Fill;
                 }
@@ -792,6 +810,22 @@ namespace ArcazeUSB
 
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (e.Node.Level == 0)
+            {
+                bool isMobiFlightBoard = (e.Node.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MEGA
+                                                &&
+                                             (e.Node.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
+
+                mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
+                // this is the module node
+                // set the add device icon enabled
+                addDeviceToolStripDropDownButton.Enabled = isMobiFlightBoard;
+                removeDeviceToolStripButton.Enabled = false;
+                uploadToolStripButton.Enabled = e.Node.Nodes.Count > 0;
+                saveToolStripButton.Enabled = e.Node.Nodes.Count > 0;
+                mfSettingsPanel.Controls.Clear();
+            }
+
             syncPanelWithSelectedDevice(e.Node);
         }
     }

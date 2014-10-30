@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFLedSegmentPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mfNumModulesComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,6 +53,7 @@
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.mfNumModulesComboBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.numberOfModulesLabel);
@@ -61,172 +63,128 @@
             this.groupBox1.Controls.Add(this.mfPin3ComboBox);
             this.groupBox1.Controls.Add(this.mfPin2Label);
             this.groupBox1.Controls.Add(this.mfPin2ComboBox);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(197, 68);
-            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Pin settings and number of modules";
             // 
             // mfNumModulesComboBox
             // 
+            resources.ApplyResources(this.mfNumModulesComboBox, "mfNumModulesComboBox");
             this.mfNumModulesComboBox.FormattingEnabled = true;
             this.mfNumModulesComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.mfNumModulesComboBox.Location = new System.Drawing.Point(153, 38);
+            resources.GetString("mfNumModulesComboBox.Items"),
+            resources.GetString("mfNumModulesComboBox.Items1"),
+            resources.GetString("mfNumModulesComboBox.Items2"),
+            resources.GetString("mfNumModulesComboBox.Items3"),
+            resources.GetString("mfNumModulesComboBox.Items4"),
+            resources.GetString("mfNumModulesComboBox.Items5"),
+            resources.GetString("mfNumModulesComboBox.Items6"),
+            resources.GetString("mfNumModulesComboBox.Items7")});
             this.mfNumModulesComboBox.Name = "mfNumModulesComboBox";
-            this.mfNumModulesComboBox.Size = new System.Drawing.Size(38, 21);
-            this.mfNumModulesComboBox.TabIndex = 21;
             this.mfNumModulesComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(141, 41);
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(11, 11);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "|";
             // 
             // numberOfModulesLabel
             // 
-            this.numberOfModulesLabel.Location = new System.Drawing.Point(156, 21);
+            resources.ApplyResources(this.numberOfModulesLabel, "numberOfModulesLabel");
+            this.numberOfModulesLabel.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.numberOfModulesLabel.Name = "numberOfModulesLabel";
-            this.numberOfModulesLabel.Size = new System.Drawing.Size(32, 11);
-            this.numberOfModulesLabel.TabIndex = 19;
-            this.numberOfModulesLabel.Text = "Num";
             // 
             // mfPin1Label
             // 
-            this.mfPin1Label.Location = new System.Drawing.Point(6, 21);
+            resources.ApplyResources(this.mfPin1Label, "mfPin1Label");
+            this.mfPin1Label.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.mfPin1Label.Name = "mfPin1Label";
-            this.mfPin1Label.Size = new System.Drawing.Size(32, 11);
-            this.mfPin1Label.TabIndex = 16;
-            this.mfPin1Label.Text = "DIN";
             // 
             // mfPin1ComboBox
             // 
+            resources.ApplyResources(this.mfPin1ComboBox, "mfPin1ComboBox");
             this.mfPin1ComboBox.FormattingEnabled = true;
-            this.mfPin1ComboBox.Location = new System.Drawing.Point(9, 38);
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
-            this.mfPin1ComboBox.Size = new System.Drawing.Size(38, 21);
-            this.mfPin1ComboBox.TabIndex = 15;
             this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin3Label
             // 
-            this.mfPin3Label.Location = new System.Drawing.Point(94, 21);
+            resources.ApplyResources(this.mfPin3Label, "mfPin3Label");
+            this.mfPin3Label.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.mfPin3Label.Name = "mfPin3Label";
-            this.mfPin3Label.Size = new System.Drawing.Size(32, 11);
-            this.mfPin3Label.TabIndex = 18;
-            this.mfPin3Label.Text = "CLK";
             // 
             // mfPin3ComboBox
             // 
+            resources.ApplyResources(this.mfPin3ComboBox, "mfPin3ComboBox");
             this.mfPin3ComboBox.FormattingEnabled = true;
-            this.mfPin3ComboBox.Location = new System.Drawing.Point(97, 38);
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
-            this.mfPin3ComboBox.Size = new System.Drawing.Size(38, 21);
-            this.mfPin3ComboBox.TabIndex = 17;
             this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin2Label
             // 
-            this.mfPin2Label.Location = new System.Drawing.Point(50, 21);
+            resources.ApplyResources(this.mfPin2Label, "mfPin2Label");
+            this.mfPin2Label.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.mfPin2Label.Name = "mfPin2Label";
-            this.mfPin2Label.Size = new System.Drawing.Size(41, 11);
-            this.mfPin2Label.TabIndex = 16;
-            this.mfPin2Label.Text = "CS";
             // 
             // mfPin2ComboBox
             // 
+            resources.ApplyResources(this.mfPin2ComboBox, "mfPin2ComboBox");
             this.mfPin2ComboBox.FormattingEnabled = true;
-            this.mfPin2ComboBox.Location = new System.Drawing.Point(53, 38);
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";
-            this.mfPin2ComboBox.Size = new System.Drawing.Size(38, 21);
-            this.mfPin2ComboBox.TabIndex = 15;
             this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfIntensityGroupBox
             // 
+            resources.ApplyResources(this.mfIntensityGroupBox, "mfIntensityGroupBox");
             this.mfIntensityGroupBox.Controls.Add(this.label2);
             this.mfIntensityGroupBox.Controls.Add(this.label1);
             this.mfIntensityGroupBox.Controls.Add(this.mfIntensityTrackBar);
-            this.mfIntensityGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.mfIntensityGroupBox.Location = new System.Drawing.Point(0, 68);
             this.mfIntensityGroupBox.Name = "mfIntensityGroupBox";
-            this.mfIntensityGroupBox.Size = new System.Drawing.Size(197, 66);
-            this.mfIntensityGroupBox.TabIndex = 2;
             this.mfIntensityGroupBox.TabStop = false;
-            this.mfIntensityGroupBox.Text = "Global intensity";
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Location = new System.Drawing.Point(125, 42);
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 18);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "Bright";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(6, 42);
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 18);
-            this.label1.TabIndex = 19;
-            this.label1.Text = "Dim";
             // 
             // mfIntensityTrackBar
             // 
+            resources.ApplyResources(this.mfIntensityTrackBar, "mfIntensityTrackBar");
             this.mfIntensityTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.mfIntensityTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mfIntensityTrackBar.Location = new System.Drawing.Point(3, 16);
             this.mfIntensityTrackBar.Maximum = 15;
             this.mfIntensityTrackBar.Minimum = 1;
             this.mfIntensityTrackBar.Name = "mfIntensityTrackBar";
-            this.mfIntensityTrackBar.Size = new System.Drawing.Size(191, 47);
-            this.mfIntensityTrackBar.TabIndex = 0;
             this.mfIntensityTrackBar.Value = 1;
             this.mfIntensityTrackBar.ValueChanged += new System.EventHandler(this.value_Changed);
             // 
             // groupBox2
             // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 134);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(197, 48);
-            this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Name";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(18, 19);
+            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(151, 20);
-            this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
             // MFLedSegmentPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.mfIntensityGroupBox);
             this.Controls.Add(this.groupBox1);
             this.Name = "MFLedSegmentPanel";
-            this.Size = new System.Drawing.Size(197, 214);
             this.groupBox1.ResumeLayout(false);
             this.mfIntensityGroupBox.ResumeLayout(false);
             this.mfIntensityGroupBox.PerformLayout();

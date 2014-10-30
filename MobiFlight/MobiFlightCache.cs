@@ -320,7 +320,14 @@ namespace ArcazeUSB
 
         internal IEnumerable<IModuleInfo> getModuleInfo()
         {
-            return getConnectedModules();
+            List<IModuleInfo> result = new List<IModuleInfo>();
+            foreach (MobiFlightModuleInfo moduleInfo in getConnectedModules())
+            {
+                if (moduleInfo.HasMfFirmware())
+                    result.Add(moduleInfo);
+            }
+
+            return result;
         }
 
         public MobiFlightModule GetModule(string port)

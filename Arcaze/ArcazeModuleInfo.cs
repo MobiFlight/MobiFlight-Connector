@@ -15,9 +15,9 @@ namespace ArcazeUSB
             _info = info;
         }
 
-        public ushort Version
+        public String Version
         {
-            get { return _info.DeviceAttributes.VersionNumber; }
+            get { return _info.DeviceAttributes.VersionNumber.ToString(); }
             set { throw new NotImplementedException(); }
         }
 

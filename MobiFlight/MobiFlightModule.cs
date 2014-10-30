@@ -124,6 +124,8 @@ namespace MobiFlight
         public MobiFlightModule(MobiFlightModuleConfig config)
         {
             Name = "Default";
+            Version = "n/a"; // this is simply unknown, in case of an unflashed Arduino
+            Serial = "n/a"; // this is simply unknown, in case of an unflashed Arduino
             UpdateConfig(config);
         }
 
@@ -396,11 +398,19 @@ namespace MobiFlight
             if (InfoCommand.Ok)
             {
                 devInfo.Type = InfoCommand.ReadStringArg();
-                devInfo.Name = InfoCommand.ReadStringArg();
-                devInfo.Serial = InfoCommand.ReadStringArg();                
+                devInfo.Name = InfoCommand.ReadStringArg();                
+                devInfo.Serial = InfoCommand.ReadStringArg();
+                String v = InfoCommand.ReadStringArg();
+                if (v.IndexOf(":") == -1)
+                    devInfo.Version = v;
+                else
+                {
+                    devInfo.Version = "1.0.0";
+                }
 
                 Type = devInfo.Type;
                 Name = devInfo.Name;
+                Version = devInfo.Version;
                 Serial = devInfo.Serial;
             }
 
@@ -511,7 +521,8 @@ namespace MobiFlight
                     Serial  = Serial,
                     Name    = Name, 
                     Type    = Type, 
-                    Port    = Port 
+                    Port    = Port,
+                    Version = Version
             };
             
         }

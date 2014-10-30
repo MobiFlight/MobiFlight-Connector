@@ -15,14 +15,14 @@ namespace MobiFlight
         public const String PIDVID_MICRO = "VID_1B4F&PID_9206"; // Micro
         public const String PIDVID_MEGA = "VID_2341&PID_0042";  // Mega
 
-        ushort _version = 100;
+        String _version = "n/a";
         public String Type   { get; set; }
         public String Serial { get; set; }
         public String Port   { get; set; }
         public String Name   { get; set; }
         public String Config { get; set; }
 
-        public ushort Version
+        public String Version
         {
             get { return _version;  }
             set { _version = value; }
