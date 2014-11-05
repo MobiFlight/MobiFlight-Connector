@@ -416,7 +416,6 @@
             this.mfModulesTreeView.SelectedImageKey = global::ArcazeUSB.ProjectMessages.conf;
             this.toolTip1.SetToolTip(this.mfModulesTreeView, global::ArcazeUSB.ProjectMessages.conf);
             this.mfModulesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.mfModulesTreeView_AfterSelect);
-            this.mfModulesTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.mfModulesTreeView_NodeMouseClick);
             // 
             // mfModuleSettingsContextMenuStrip
             // 

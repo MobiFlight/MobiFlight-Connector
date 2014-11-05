@@ -442,30 +442,6 @@ namespace ArcazeUSB
         /// <param name="e"></param>
         private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            //mfModulesTreeView.SelectedNode = e.Node;
-            if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
-
-            if (e.Node.Level == 0)
-            {
-                bool isMobiFlightBoard = (e.Node.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MEGA 
-                                            &&
-                                         (e.Node.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
-
-                // Toggle visibility of items in context menu
-                // depending on whether it is a MobiFlight Board or not
-                // only upload of firmware is allowed for all boards
-                // this is by default true
-                addToolStripMenuItem.Enabled = isMobiFlightBoard;
-                removeToolStripMenuItem.Enabled = isMobiFlightBoard;
-                uploadToolStripMenuItem.Enabled = isMobiFlightBoard;
-                openToolStripMenuItem.Enabled = isMobiFlightBoard;
-                saveToolStripMenuItem.Enabled = isMobiFlightBoard;
-                saveAsToolStripMenuItem.Enabled = isMobiFlightBoard;
-                
-                return;
-            }
-
-            //syncPanelWithSelectedDevice(e.Node);
         }
 
         /// <summary>
@@ -477,7 +453,7 @@ namespace ArcazeUSB
             try
             {
                 Control panel = null;
-                removeDeviceToolStripButton.Enabled = true;
+                removeDeviceToolStripButton.Enabled = selectedNode.Level > 0;
                 uploadToolStripButton.Enabled = true;
                 saveToolStripButton.Enabled = true;
                 mfSettingsPanel.Controls.Clear();
@@ -622,6 +598,9 @@ namespace ArcazeUSB
             newNode.Tag = cfgItem;
             
             parentNode.Nodes.Add(newNode);
+            parentNode.ImageKey = "Changed";
+            parentNode.SelectedImageKey = "Changed";
+
             //(parentNode.Tag as MobiFlightModule).Config.AddItem(cfgItem);
             
             mfModulesTreeView.SelectedNode = newNode;
@@ -729,8 +708,15 @@ namespace ArcazeUSB
         private void removeDeviceToolStripButton_Click(object sender, EventArgs e)
         {
             TreeNode node = mfModulesTreeView.SelectedNode;
+            if (node.Level == 0) return;
+
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+
             mfModulesTreeView.Nodes.Remove(node);
 
+            parentNode.ImageKey = "Changed";
+            parentNode.SelectedImageKey = "Changed";
         }
 
         public bool ModuleConfigChanged { get; set; }
@@ -810,21 +796,32 @@ namespace ArcazeUSB
 
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node.Level == 0)
-            {
-                bool isMobiFlightBoard = (e.Node.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MEGA
-                                                &&
-                                             (e.Node.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
+            TreeNode parentNode = e.Node;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
-                mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
-                // this is the module node
-                // set the add device icon enabled
-                addDeviceToolStripDropDownButton.Enabled = isMobiFlightBoard;
-                removeDeviceToolStripButton.Enabled = false;
-                uploadToolStripButton.Enabled = e.Node.Nodes.Count > 0;
-                saveToolStripButton.Enabled = e.Node.Nodes.Count > 0;
-                mfSettingsPanel.Controls.Clear();
-            }
+            bool isMobiFlightBoard = (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MEGA
+                                                &&
+                                             (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
+
+            mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
+            // this is the module node
+            // set the add device icon enabled
+            addDeviceToolStripDropDownButton.Enabled = isMobiFlightBoard;
+            removeDeviceToolStripButton.Enabled = isMobiFlightBoard & (e.Node.Level > 0);
+            uploadToolStripButton.Enabled = (parentNode.Nodes.Count > 0) || (parentNode.ImageKey == "Changed");
+            saveToolStripButton.Enabled = parentNode.Nodes.Count > 0;
+            mfSettingsPanel.Controls.Clear();
+
+            // Toggle visibility of items in context menu
+            // depending on whether it is a MobiFlight Board or not
+            // only upload of firmware is allowed for all boards
+            // this is by default true
+            addToolStripMenuItem.Enabled = isMobiFlightBoard;
+            removeToolStripMenuItem.Enabled = isMobiFlightBoard & (e.Node.Level > 0);
+            uploadToolStripMenuItem.Enabled = (parentNode.Nodes.Count > 0) || (parentNode.ImageKey == "Changed");
+            openToolStripMenuItem.Enabled = isMobiFlightBoard;
+            saveToolStripMenuItem.Enabled = parentNode.Nodes.Count > 0;
+            saveAsToolStripMenuItem.Enabled = parentNode.Nodes.Count > 0;
 
             syncPanelWithSelectedDevice(e.Node);
         }

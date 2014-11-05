@@ -127,15 +127,14 @@
   <data name="&gt;&gt;mfPin3ComboBox.Name" xml:space="preserve">
     <value>mfPin3ComboBox</value>
   </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="mfPin2Label.Text" xml:space="preserve">
     <value>CS</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>11, 11</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mfNumModulesComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
   </data>
   <data name="mfNumModulesComboBox.Items6" xml:space="preserve">
     <value>7</value>
@@ -158,6 +157,7 @@
   <data name="numberOfModulesLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>156, 21</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="mfIntensityTrackBar.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -176,6 +176,9 @@
   <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;mfPin1ComboBox.Name" xml:space="preserve">
+    <value>mfPin1ComboBox</value>
+  </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
@@ -192,14 +195,17 @@
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
-  <data name="mfPin3Label.Text" xml:space="preserve">
-    <value>CLK</value>
-  </data>
   <data name="mfIntensityTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="&gt;&gt;mfPin3Label.Parent" xml:space="preserve">
     <value>groupBox1</value>
+  </data>
+  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;mfPin3ComboBox.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="mfIntensityTrackBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>191, 47</value>
@@ -231,9 +237,6 @@
   <data name="&gt;&gt;mfPin1ComboBox.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;mfPin2ComboBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
   <data name="mfIntensityTrackBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
   </data>
@@ -251,9 +254,6 @@
   </data>
   <data name="mfPin1ComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Name</value>
   </data>
   <data name="mfNumModulesComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>38, 21</value>
@@ -315,6 +315,9 @@
   <data name="&gt;&gt;mfPin1Label.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
+  <data name="mfNumModulesComboBox.Items7" xml:space="preserve">
+    <value>8</value>
+  </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
     <value>mfIntensityGroupBox</value>
   </data>
@@ -354,8 +357,8 @@
   <data name="mfPin2ComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>53, 38</value>
   </data>
-  <data name="mfNumModulesComboBox.Items7" xml:space="preserve">
-    <value>8</value>
+  <data name="&gt;&gt;mfIntensityGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="mfIntensityGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 68</value>
@@ -387,8 +390,8 @@
   <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
     <value>textBox1</value>
   </data>
-  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="mfPin3Label.Text" xml:space="preserve">
+    <value>CLK</value>
   </data>
   <data name="&gt;&gt;mfIntensityGroupBox.Name" xml:space="preserve">
     <value>mfIntensityGroupBox</value>
@@ -420,9 +423,6 @@
   <data name="&gt;&gt;mfPin3ComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mfIntensityGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="mfPin1Label.Text" xml:space="preserve">
     <value>DIN</value>
   </data>
@@ -437,6 +437,9 @@
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 134</value>
+  </data>
+  <data name="&gt;&gt;mfPin3Label.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
@@ -477,9 +480,6 @@
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>125, 42</value>
   </data>
-  <data name="&gt;&gt;mfNumModulesComboBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Pin settings and number of modules</value>
   </data>
@@ -489,8 +489,8 @@
   <data name="&gt;&gt;mfPin1ComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;mfPin3Label.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;mfPin2ComboBox.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 68</value>
@@ -513,14 +513,14 @@
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;mfPin1ComboBox.Name" xml:space="preserve">
-    <value>mfPin1ComboBox</value>
+  <data name="mfNumModulesComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
   </data>
   <data name="&gt;&gt;numberOfModulesLabel.Name" xml:space="preserve">
     <value>numberOfModulesLabel</value>
   </data>
-  <data name="&gt;&gt;mfPin3ComboBox.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
     <value>groupBox2</value>
@@ -537,8 +537,8 @@
   <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;mfNumModulesComboBox.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>151, 20</value>
