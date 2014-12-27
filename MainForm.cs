@@ -55,6 +55,8 @@ namespace ArcazeUSB
             
             InitializeComponent();
 
+            inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
+
             // init logging
             LogAppenderTextBox logAppenderTextBox = new LogAppenderTextBox (logTextBox);
             Log.Instance.AddAppender(logAppenderTextBox);
@@ -110,13 +112,18 @@ namespace ArcazeUSB
 
             configDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
             configDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
+            inputsDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
+            inputsDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
             dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(dataGridViewConfig_RowsAdded);
+
 
             // the debug output for selected offsets
             fsuipcOffsetValueLabel.Visible = false;
 
             dataGridViewConfig.Columns["Description"].DefaultCellStyle.NullValue = MainForm._tr("uiLabelDoubleClickToAddConfig");
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
+            inputsDataGridView.Columns["inputDescription"].DefaultCellStyle.NullValue = MainForm._tr("uiLabelDoubleClickToAddConfig");
+            inputsDataGridView.Columns["inputEditButtonColumn"].DefaultCellStyle.NullValue = "...";
             
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
@@ -663,7 +670,9 @@ namespace ArcazeUSB
 
             execManager.Stop();
             dataSetConfig.Clear();
-            dataSetConfig.ReadXml(fileName);
+            ConfigFile configFile = new ConfigFile(fileName);
+            dataSetConfig.ReadXml(configFile.getOutputConfig());
+            dataSetInputs.ReadXml(configFile.getInputConfig());
 
             // for backward compatibility 
             // we check if there are rows that need to
@@ -788,8 +797,11 @@ namespace ArcazeUSB
         /// </summary>        
         private void _saveConfig(string fileName)
         {
-            _applyBackwardCompatibilitySaving();            
-            dataSetConfig.WriteXml(fileName);
+            _applyBackwardCompatibilitySaving();
+
+            ConfigFile configFile = new ConfigFile(fileName);
+            configFile.SaveFile(dataSetConfig, dataSetInputs);
+            //dataSetConfig.WriteXml(fileName);
             _restoreValuesInGridView();
             _storeAsRecentFile(fileName);
             _setFilenameInTitle(fileName);
@@ -1048,6 +1060,85 @@ namespace ArcazeUSB
         }
 
         /// <summary>
+        /// click event when button in gridview gets clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void inputsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // handle clicks on header cells or row-header cells
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            switch (inputsDataGridView[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
+            {
+                case "inputEditButtonColumn":
+                    bool isNew = inputsDataGridView.Rows[e.RowIndex].IsNewRow;
+                    if (isNew)
+                    {
+                        MessageBox.Show(MainForm._tr("uiMessageConfigLineNotSavedYet"),
+                                        _tr("Hint"));
+                        return;
+                    } //if
+
+                    InputConfigItem cfg;
+                    DataRow row = null;
+                    bool create = false;
+                    if (isNew)
+                    {
+                        cfg = new InputConfigItem();
+                    }
+                    else
+                    {
+                        row = (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
+
+                        // the row had been saved but no config object has been created
+                        // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
+                        if ((inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"].GetType() == typeof(System.DBNull))
+                        {
+                            (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] = new InputConfigItem();
+                        }
+
+                        cfg = ((inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                    }
+                    _editConfigWithInputWizard(
+                             row,
+                             cfg,
+                             create);
+                    
+                    inputsDataGridView.Rows[e.RowIndex].Cells["inputName"].Value  =  cfg.Name + "/" + cfg.ModuleSerial;
+                    inputsDataGridView.Rows[e.RowIndex].Cells["inputType"].Value = "FSUIPC Offset";
+                    inputsDataGridView.EndEdit();
+                    break;
+                case "inputActive":
+                    // always end editing to store changes
+                    inputsDataGridView.EndEdit();
+                    break;
+            }
+        }
+
+        private void _editConfigWithInputWizard(DataRow dataRow, InputConfigItem cfg, bool create)
+        {
+            // refactor!!! dependency to arcaze cache etc not nice
+            Form wizard = new InputConfigWizard ( 
+                                execManager, 
+                                cfg, 
+                                execManager.getModuleCache(), 
+                                getArcazeModuleSettings(),
+                                dataSetConfig, 
+                                dataRow["guid"].ToString()
+                                );
+            wizard.StartPosition = FormStartPosition.CenterParent;
+            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (dataRow == null) return;
+                // do something special
+                // Show used Button
+                // Show Type of Output
+                // Show last set value
+            };            
+        }
+
+        /// <summary>
         /// initializes the config wizard and shows the modal dialog.
         /// afterwards stores some values in the data set so that the visible grid columns are filled with data.
         /// </summary>
@@ -1061,7 +1152,8 @@ namespace ArcazeUSB
                                             cfg, 
                                             execManager.getModuleCache(), 
                                             getArcazeModuleSettings(), 
-                                            dataSetConfig, dataRow["guid"].ToString()
+                                            dataSetConfig, 
+                                            dataRow["guid"].ToString()
                                           );
             wizard.StartPosition = FormStartPosition.CenterParent;
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -1081,6 +1173,14 @@ namespace ArcazeUSB
         private void dataGridViewConfig_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridViewConfig[e.ColumnIndex, e.RowIndex].ReadOnly)
+            {
+                SendKeys.Send("{TAB}");
+            }
+        }
+
+        private void inputsDataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (inputsDataGridView[e.ColumnIndex, e.RowIndex].ReadOnly)
             {
                 SendKeys.Send("{TAB}");
             }
@@ -1123,10 +1223,22 @@ namespace ArcazeUSB
             dataGridViewConfig_CellContentClick(sender, e);
         }
 
+        private void inputsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            inputsDataGridView_CellContentClick(sender, e);
+        }
+
         private void dataGridViewConfig_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["guid"].Value = Guid.NewGuid();
         }
+
+        private void inputsDataGridViewConfig_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            e.Row.Cells["inputsGuid"].Value = Guid.NewGuid();
+        }
+
+
 
         private void configDataTable_TableNewRow(object sender, DataTableNewRowEventArgs e)
         {
@@ -1138,7 +1250,7 @@ namespace ArcazeUSB
             if (e.Row["guid"] == DBNull.Value)
                 e.Row["guid"] = Guid.NewGuid();
         }
-
+        
         private void deleteRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // do somehting here
@@ -1213,6 +1325,20 @@ namespace ArcazeUSB
             }
         }
 
+        private void inputsDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // handle clicks on header cells or row-header cells
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            switch (inputsDataGridView[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
+            {
+                case "inputDescription":
+                    inputsDataGridView.CurrentCell = inputsDataGridView[e.ColumnIndex, e.RowIndex];
+                    inputsDataGridView.BeginEdit(true);
+                    break;
+            }
+        }
+
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(MainForm._tr("WebsiteUrlHelp"));
@@ -1282,6 +1408,42 @@ namespace ArcazeUSB
         private void donateToolStripButton_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");               
+        }
+
+        /// taken from
+        /// http://msdn.microsoft.com/en-us/library/ms404305.aspx
+        private void tabControl1_DrawItem(Object sender, System.Windows.Forms.DrawItemEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            Brush _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
+
+            // Get the item from the collection.
+            TabPage _tabPage = inputsTabControl.TabPages[e.Index];
+
+            // Get the real bounds for the tab rectangle.
+            Rectangle _tabBounds = inputsTabControl.GetTabRect(e.Index);
+
+            if (e.State == DrawItemState.Selected)
+            {
+
+                // Draw a different background color, and don't paint a focus rectangle.
+                //_textBrush = new SolidBrush(Color.Red);
+                //g.FillRectangle(Brushes.Gray, e.Bounds);
+            }
+            else
+            {
+                _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
+                e.DrawBackground();
+            }
+
+            // Use our own font.
+            Font _tabFont = new Font("Arial", (float)10.0, FontStyle.Bold, GraphicsUnit.Pixel);
+
+            // Draw string. Center the text.
+            StringFormat _stringFlags = new StringFormat();
+            _stringFlags.Alignment = StringAlignment.Center;
+            _stringFlags.LineAlignment = StringAlignment.Center;
+            g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
         }
     }
 }

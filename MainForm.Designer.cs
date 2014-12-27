@@ -38,6 +38,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,10 +60,12 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.inputsTabControl = new System.Windows.Forms.TabControl();
+            this.OutputTabPage = new System.Windows.Forms.TabPage();
             this.MappingConfigGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridViewConfig = new System.Windows.Forms.DataGridView();
+            this.active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.guid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FsuipcOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FsuipcSize = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -71,8 +76,6 @@
             this.arcazePin = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.trigger = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Typ = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.durationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.arcazeSerial = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.fsuipcValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.arcazeValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,11 +95,21 @@
             this.fsuipcSizeDataColumn = new System.Data.DataColumn();
             this.triggerDataColumn = new System.Data.DataColumn();
             this.arcazeSerialDataColumn = new System.Data.DataColumn();
-            this.settingsColumn = new System.Data.DataColumn();
             this.guidDataColumn = new System.Data.DataColumn();
             this.dataGridViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.duplicateRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.InputTabPage = new System.Windows.Forms.TabPage();
+            this.inputsDataGridView = new System.Windows.Forms.DataGridView();
+            this.activeDataGridViewCheckBoxColumn2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.inputDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inputName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inputType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inputEditButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataSetInputs = new System.Data.DataSet();
+            this.inputsDataTable = new System.Data.DataTable();
+            this.inputsActiveDataColumn = new System.Data.DataColumn();
+            this.inputsDescriptionDataColumn = new System.Data.DataColumn();
             this.contextMenuStripFsuipcOffset = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -130,32 +143,49 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.logTextBox = new System.Windows.Forms.TextBox();
+            this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dataTable1 = new System.Data.DataTable();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inputsGuidDataColumn = new System.Data.DataColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inputsGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.settingsColumn = new System.Data.DataColumn();
+            this.inputsSettingsDataColumn = new System.Data.DataColumn();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
+            this.inputsTabControl.SuspendLayout();
+            this.OutputTabPage.SuspendLayout();
             this.MappingConfigGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.configDataTable)).BeginInit();
             this.dataGridViewContextMenuStrip.SuspendLayout();
+            this.InputTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSetInputs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputsDataTable)).BeginInit();
             this.contextMenuStripFsuipcOffset.SuspendLayout();
             this.contextMenuStripNotifyIcon.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStripPanel.SuspendLayout();
             this.statusStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
             // 
-            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.extrasToolStripMenuItem,
             this.hilfeToolStripMenuItem});
+            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Name = "menuStrip";
             // 
             // fileToolStripMenuItem
             // 
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem3,
             this.toolStripMenuItem2,
@@ -166,108 +196,126 @@
             this.recentDocsToolStripSeparator,
             this.beendenToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // toolStripMenuItem3
             // 
-            resources.ApplyResources(this.toolStripMenuItem3, "toolStripMenuItem3");
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            resources.ApplyResources(this.toolStripMenuItem3, "toolStripMenuItem3");
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripMenuItem2
             // 
-            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             // 
             // openToolStripMenuItem
             // 
-            resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // konfigurationSpeichernToolStripMenuItem
             // 
-            resources.ApplyResources(this.konfigurationSpeichernToolStripMenuItem, "konfigurationSpeichernToolStripMenuItem");
             this.konfigurationSpeichernToolStripMenuItem.Name = "konfigurationSpeichernToolStripMenuItem";
+            resources.ApplyResources(this.konfigurationSpeichernToolStripMenuItem, "konfigurationSpeichernToolStripMenuItem");
             this.konfigurationSpeichernToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // AfterFileActionsToolStripMenuItem
             // 
-            resources.ApplyResources(this.AfterFileActionsToolStripMenuItem, "AfterFileActionsToolStripMenuItem");
             this.AfterFileActionsToolStripMenuItem.Name = "AfterFileActionsToolStripMenuItem";
+            resources.ApplyResources(this.AfterFileActionsToolStripMenuItem, "AfterFileActionsToolStripMenuItem");
             // 
             // recentDocumentsToolStripMenuItem
             // 
-            resources.ApplyResources(this.recentDocumentsToolStripMenuItem, "recentDocumentsToolStripMenuItem");
             this.recentDocumentsToolStripMenuItem.Name = "recentDocumentsToolStripMenuItem";
+            resources.ApplyResources(this.recentDocumentsToolStripMenuItem, "recentDocumentsToolStripMenuItem");
             // 
             // recentDocsToolStripSeparator
             // 
-            resources.ApplyResources(this.recentDocsToolStripSeparator, "recentDocsToolStripSeparator");
             this.recentDocsToolStripSeparator.Name = "recentDocsToolStripSeparator";
+            resources.ApplyResources(this.recentDocsToolStripSeparator, "recentDocsToolStripSeparator");
             // 
             // beendenToolStripMenuItem
             // 
-            resources.ApplyResources(this.beendenToolStripMenuItem, "beendenToolStripMenuItem");
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
+            resources.ApplyResources(this.beendenToolStripMenuItem, "beendenToolStripMenuItem");
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // extrasToolStripMenuItem
             // 
-            resources.ApplyResources(this.extrasToolStripMenuItem, "extrasToolStripMenuItem");
             this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.orphanedSerialsFinderToolStripMenuItem,
             this.toolStripMenuItem4,
             this.settingsToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
+            resources.ApplyResources(this.extrasToolStripMenuItem, "extrasToolStripMenuItem");
             // 
             // orphanedSerialsFinderToolStripMenuItem
             // 
-            resources.ApplyResources(this.orphanedSerialsFinderToolStripMenuItem, "orphanedSerialsFinderToolStripMenuItem");
             this.orphanedSerialsFinderToolStripMenuItem.Name = "orphanedSerialsFinderToolStripMenuItem";
+            resources.ApplyResources(this.orphanedSerialsFinderToolStripMenuItem, "orphanedSerialsFinderToolStripMenuItem");
             this.orphanedSerialsFinderToolStripMenuItem.Click += new System.EventHandler(this.orphanedSerialsFinderToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
-            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
             // 
             // settingsToolStripMenuItem
             // 
-            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
-            resources.ApplyResources(this.hilfeToolStripMenuItem, "hilfeToolStripMenuItem");
             this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem,
             this.toolStripMenuItem1,
             this.überToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
+            resources.ApplyResources(this.hilfeToolStripMenuItem, "hilfeToolStripMenuItem");
             // 
             // helpToolStripMenuItem
             // 
-            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // überToolStripMenuItem
             // 
-            resources.ApplyResources(this.überToolStripMenuItem, "überToolStripMenuItem");
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
+            resources.ApplyResources(this.überToolStripMenuItem, "überToolStripMenuItem");
             this.überToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // panelMain
             // 
             resources.ApplyResources(this.panelMain, "panelMain");
-            this.panelMain.Controls.Add(this.MappingConfigGroupBox);
+            this.panelMain.Controls.Add(this.inputsTabControl);
             this.panelMain.Name = "panelMain";
+            // 
+            // inputsTabControl
+            // 
+            this.inputsTabControl.Controls.Add(this.OutputTabPage);
+            this.inputsTabControl.Controls.Add(this.InputTabPage);
+            resources.ApplyResources(this.inputsTabControl, "inputsTabControl");
+            this.inputsTabControl.Multiline = true;
+            this.inputsTabControl.Name = "inputsTabControl";
+            this.inputsTabControl.SelectedIndex = 0;
+            this.inputsTabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
+            // 
+            // OutputTabPage
+            // 
+            this.OutputTabPage.Controls.Add(this.MappingConfigGroupBox);
+            resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
+            this.OutputTabPage.Name = "OutputTabPage";
+            this.OutputTabPage.UseVisualStyleBackColor = true;
             // 
             // MappingConfigGroupBox
             // 
@@ -278,14 +326,13 @@
             // 
             // dataGridViewConfig
             // 
-            resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.AllowUserToResizeColumns = false;
             this.dataGridViewConfig.AllowUserToResizeRows = false;
             this.dataGridViewConfig.AutoGenerateColumns = false;
             this.dataGridViewConfig.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -293,8 +340,8 @@
             this.dataGridViewConfig.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewConfig.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewConfig.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.active,
             this.guid,
-            this.Active,
             this.Description,
             this.FsuipcOffset,
             this.FsuipcSize,
@@ -305,8 +352,6 @@
             this.arcazePin,
             this.trigger,
             this.Typ,
-            this.durationDataGridViewTextBoxColumn,
-            this.typeDataGridViewTextBoxColumn,
             this.arcazeSerial,
             this.fsuipcValueColumn,
             this.arcazeValueColumn,
@@ -315,12 +360,13 @@
             this.dataGridViewConfig.DataSource = this.dataSetConfig;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewConfig.DefaultCellStyle = dataGridViewCellStyle8;
+            resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.Name = "dataGridViewConfig";
             this.dataGridViewConfig.RowTemplate.ContextMenuStrip = this.dataGridViewContextMenuStrip;
             this.dataGridViewConfig.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -335,23 +381,19 @@
             this.dataGridViewConfig.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewConfig_DataError);
             this.dataGridViewConfig.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewConfig_DefaultValuesNeeded);
             // 
+            // active
+            // 
+            this.active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.active.DataPropertyName = "active";
+            resources.ApplyResources(this.active, "active");
+            this.active.Name = "active";
+            // 
             // guid
             // 
             this.guid.DataPropertyName = "guid";
             resources.ApplyResources(this.guid, "guid");
             this.guid.Name = "guid";
             this.guid.ReadOnly = true;
-            this.guid.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
-            // 
-            // Active
-            // 
-            this.Active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Active.DataPropertyName = "active";
-            this.Active.FalseValue = "false";
-            resources.ApplyResources(this.Active, "Active");
-            this.Active.Name = "Active";
-            this.Active.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Active.TrueValue = "true";
             // 
             // Description
             // 
@@ -383,7 +425,6 @@
             "2",
             "4"});
             this.FsuipcSize.Name = "FsuipcSize";
-            this.FsuipcSize.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // Converter
             // 
@@ -424,7 +465,6 @@
             this.comparisonValue.FillWeight = 50F;
             resources.ApplyResources(this.comparisonValue, "comparisonValue");
             this.comparisonValue.Name = "comparisonValue";
-            this.comparisonValue.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // arcazePin
             // 
@@ -445,7 +485,6 @@
             "falling",
             "rising"});
             this.trigger.Name = "trigger";
-            this.trigger.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // Typ
             // 
@@ -457,25 +496,6 @@
             "Konstant",
             "Periode"});
             this.Typ.Name = "Typ";
-            // 
-            // durationDataGridViewTextBoxColumn
-            // 
-            this.durationDataGridViewTextBoxColumn.DataPropertyName = "duration";
-            resources.ApplyResources(this.durationDataGridViewTextBoxColumn, "durationDataGridViewTextBoxColumn");
-            this.durationDataGridViewTextBoxColumn.Name = "durationDataGridViewTextBoxColumn";
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "type";
-            this.typeDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            resources.ApplyResources(this.typeDataGridViewTextBoxColumn, "typeDataGridViewTextBoxColumn");
-            this.typeDataGridViewTextBoxColumn.Items.AddRange(new object[] {
-            "Default",
-            "Blink"});
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            this.typeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.typeDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.typeDataGridViewTextBoxColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // arcazeSerial
             // 
@@ -489,7 +509,6 @@
             this.arcazeSerial.Name = "arcazeSerial";
             this.arcazeSerial.ReadOnly = true;
             this.arcazeSerial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.arcazeSerial.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // fsuipcValueColumn
             // 
@@ -500,7 +519,6 @@
             this.fsuipcValueColumn.ReadOnly = true;
             this.fsuipcValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.fsuipcValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.fsuipcValueColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // arcazeValueColumn
             // 
@@ -511,7 +529,6 @@
             this.arcazeValueColumn.ReadOnly = true;
             this.arcazeValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.arcazeValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.arcazeValueColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // EditButtonColumn
             // 
@@ -522,12 +539,11 @@
             resources.ApplyResources(this.EditButtonColumn, "EditButtonColumn");
             this.EditButtonColumn.Name = "EditButtonColumn";
             this.EditButtonColumn.Text = "...";
-            this.EditButtonColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             this.EditButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // dataSetConfig
             // 
-            this.dataSetConfig.DataSetName = "ArcazeUsbConnector";
+            this.dataSetConfig.DataSetName = "outputs";
             this.dataSetConfig.Tables.AddRange(new System.Data.DataTable[] {
             this.configDataTable});
             // 
@@ -626,12 +642,6 @@
             this.arcazeSerialDataColumn.ColumnName = "arcazeSerial";
             this.arcazeSerialDataColumn.DefaultValue = global::ArcazeUSB.ProjectMessages.conf;
             // 
-            // settingsColumn
-            // 
-            this.settingsColumn.Caption = "settings";
-            this.settingsColumn.ColumnName = "settings";
-            this.settingsColumn.DataType = typeof(object);
-            // 
             // guidDataColumn
             // 
             this.guidDataColumn.ColumnMapping = System.Data.MappingType.Attribute;
@@ -640,91 +650,193 @@
             // 
             // dataGridViewContextMenuStrip
             // 
-            resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
             this.dataGridViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.duplicateRowToolStripMenuItem,
             this.deleteRowToolStripMenuItem});
             this.dataGridViewContextMenuStrip.Name = "dataGridViewContextMenuStrip";
+            resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
             this.dataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.dataGridViewContextMenuStrip_Opening);
             // 
             // duplicateRowToolStripMenuItem
             // 
-            resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
             this.duplicateRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.duplicateRowToolStripMenuItem.Image = global::ArcazeUSB.Properties.Resources.star_yellow_new;
             this.duplicateRowToolStripMenuItem.Name = "duplicateRowToolStripMenuItem";
+            resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
             this.duplicateRowToolStripMenuItem.Click += new System.EventHandler(this.duplicateRowToolStripMenuItem_Click);
             // 
             // deleteRowToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
             this.deleteRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.deleteRowToolStripMenuItem.Image = global::ArcazeUSB.Properties.Resources.delete2;
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
+            resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.deleteRowToolStripMenuItem_Click);
+            // 
+            // InputTabPage
+            // 
+            this.InputTabPage.Controls.Add(this.inputsDataGridView);
+            resources.ApplyResources(this.InputTabPage, "InputTabPage");
+            this.InputTabPage.Name = "InputTabPage";
+            this.InputTabPage.UseVisualStyleBackColor = true;
+            // 
+            // inputsDataGridView
+            // 
+            this.inputsDataGridView.AllowUserToResizeColumns = false;
+            this.inputsDataGridView.AllowUserToResizeRows = false;
+            this.inputsDataGridView.AutoGenerateColumns = false;
+            this.inputsDataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.inputsDataGridView, "inputsDataGridView");
+            this.inputsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.inputsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.activeDataGridViewCheckBoxColumn2,
+            this.inputDescription,
+            this.inputsGuid,
+            this.inputName,
+            this.inputType,
+            this.inputEditButtonColumn});
+            this.inputsDataGridView.DataMember = "config";
+            this.inputsDataGridView.DataSource = this.dataSetInputs;
+            this.inputsDataGridView.Name = "inputsDataGridView";
+            this.inputsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.inputsDataGridView.ShowEditingIcon = false;
+            this.inputsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellContentClick);
+            this.inputsDataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellContentDoubleClick);
+            this.inputsDataGridView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellEnter);
+            this.inputsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.inputsDataGridViewConfig_DefaultValuesNeeded);
+            // 
+            // activeDataGridViewCheckBoxColumn2
+            // 
+            this.activeDataGridViewCheckBoxColumn2.DataPropertyName = "active";
+            resources.ApplyResources(this.activeDataGridViewCheckBoxColumn2, "activeDataGridViewCheckBoxColumn2");
+            this.activeDataGridViewCheckBoxColumn2.Name = "activeDataGridViewCheckBoxColumn2";
+            // 
+            // inputDescription
+            // 
+            this.inputDescription.DataPropertyName = "description";
+            resources.ApplyResources(this.inputDescription, "inputDescription");
+            this.inputDescription.Name = "inputDescription";
+            // 
+            // inputName
+            // 
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.inputName.DefaultCellStyle = dataGridViewCellStyle9;
+            resources.ApplyResources(this.inputName, "inputName");
+            this.inputName.Name = "inputName";
+            this.inputName.ReadOnly = true;
+            this.inputName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.inputName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // inputType
+            // 
+            this.inputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.inputType.DefaultCellStyle = dataGridViewCellStyle10;
+            resources.ApplyResources(this.inputType, "inputType");
+            this.inputType.Name = "inputType";
+            this.inputType.ReadOnly = true;
+            // 
+            // inputEditButtonColumn
+            // 
+            this.inputEditButtonColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle11.NullValue = "...";
+            this.inputEditButtonColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            resources.ApplyResources(this.inputEditButtonColumn, "inputEditButtonColumn");
+            this.inputEditButtonColumn.Name = "inputEditButtonColumn";
+            this.inputEditButtonColumn.Text = "...";
+            this.inputEditButtonColumn.UseColumnTextForButtonValue = true;
+            // 
+            // dataSetInputs
+            // 
+            this.dataSetInputs.DataSetName = "inputs";
+            this.dataSetInputs.Tables.AddRange(new System.Data.DataTable[] {
+            this.inputsDataTable});
+            // 
+            // inputsDataTable
+            // 
+            this.inputsDataTable.Columns.AddRange(new System.Data.DataColumn[] {
+            this.inputsActiveDataColumn,
+            this.inputsDescriptionDataColumn,
+            this.inputsGuidDataColumn,
+            this.inputsSettingsDataColumn});
+            this.inputsDataTable.TableName = "config";
+            this.inputsDataTable.RowChanged += new System.Data.DataRowChangeEventHandler(this.configDataTable_RowChanged_1);
+            this.inputsDataTable.TableNewRow += new System.Data.DataTableNewRowEventHandler(this.configDataTable_TableNewRow);
+            // 
+            // inputsActiveDataColumn
+            // 
+            this.inputsActiveDataColumn.Caption = "Active";
+            this.inputsActiveDataColumn.ColumnName = "active";
+            this.inputsActiveDataColumn.DataType = typeof(bool);
+            this.inputsActiveDataColumn.DefaultValue = false;
+            // 
+            // inputsDescriptionDataColumn
+            // 
+            this.inputsDescriptionDataColumn.AllowDBNull = false;
+            this.inputsDescriptionDataColumn.Caption = "Description";
+            this.inputsDescriptionDataColumn.ColumnName = "description";
+            this.inputsDescriptionDataColumn.DefaultValue = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // contextMenuStripFsuipcOffset
             // 
-            resources.ApplyResources(this.contextMenuStripFsuipcOffset, "contextMenuStripFsuipcOffset");
             this.contextMenuStripFsuipcOffset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBox1});
             this.contextMenuStripFsuipcOffset.Name = "contextMenuStripFsuipcOffset";
+            resources.ApplyResources(this.contextMenuStripFsuipcOffset, "contextMenuStripFsuipcOffset");
             // 
             // toolStripComboBox1
             // 
-            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             this.toolStripComboBox1.Items.AddRange(new object[] {
             resources.GetString("toolStripComboBox1.Items"),
             resources.GetString("toolStripComboBox1.Items1"),
             resources.GetString("toolStripComboBox1.Items2"),
             resources.GetString("toolStripComboBox1.Items3")});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Text = global::ArcazeUSB.ProjectMessages.conf;
+            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             // 
             // notifyIcon
             // 
-            this.notifyIcon.BalloonTipText = global::ArcazeUSB.ProjectMessages.conf;
-            this.notifyIcon.BalloonTipTitle = global::ArcazeUSB.ProjectMessages.conf;
             this.notifyIcon.ContextMenuStrip = this.contextMenuStripNotifyIcon;
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
             // contextMenuStripNotifyIcon
             // 
-            resources.ApplyResources(this.contextMenuStripNotifyIcon, "contextMenuStripNotifyIcon");
             this.contextMenuStripNotifyIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem,
             this.toolStripMenuItemDivider,
             this.wiederherstellenToolStripMenuItem});
             this.contextMenuStripNotifyIcon.Name = "contextMenuStripNotifyIcon";
+            resources.ApplyResources(this.contextMenuStripNotifyIcon, "contextMenuStripNotifyIcon");
             // 
             // startToolStripMenuItem
             // 
-            resources.ApplyResources(this.startToolStripMenuItem, "startToolStripMenuItem");
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            resources.ApplyResources(this.startToolStripMenuItem, "startToolStripMenuItem");
             this.startToolStripMenuItem.Click += new System.EventHandler(this.buttonToggleStart_Click);
             // 
             // stopToolStripMenuItem
             // 
-            resources.ApplyResources(this.stopToolStripMenuItem, "stopToolStripMenuItem");
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            resources.ApplyResources(this.stopToolStripMenuItem, "stopToolStripMenuItem");
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.buttonToggleStart_Click);
             // 
             // toolStripMenuItemDivider
             // 
-            resources.ApplyResources(this.toolStripMenuItemDivider, "toolStripMenuItemDivider");
             this.toolStripMenuItemDivider.Name = "toolStripMenuItemDivider";
+            resources.ApplyResources(this.toolStripMenuItemDivider, "toolStripMenuItemDivider");
             // 
             // wiederherstellenToolStripMenuItem
             // 
-            resources.ApplyResources(this.wiederherstellenToolStripMenuItem, "wiederherstellenToolStripMenuItem");
             this.wiederherstellenToolStripMenuItem.Name = "wiederherstellenToolStripMenuItem";
+            resources.ApplyResources(this.wiederherstellenToolStripMenuItem, "wiederherstellenToolStripMenuItem");
             this.wiederherstellenToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripButton,
             this.toolStripSeparator1,
@@ -738,6 +850,7 @@
             this.donateToolStripButton,
             this.toolStripSeparator4,
             this.exitToolStripButton});
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Name = "toolStrip1";
             // 
             // saveToolStripButton
@@ -749,21 +862,21 @@
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // runToolStripButton
             // 
-            resources.ApplyResources(this.runToolStripButton, "runToolStripButton");
             this.runToolStripButton.Image = global::ArcazeUSB.Properties.Resources.media_play_green;
+            resources.ApplyResources(this.runToolStripButton, "runToolStripButton");
             this.runToolStripButton.Name = "runToolStripButton";
             this.runToolStripButton.Click += new System.EventHandler(this.buttonToggleStart_Click);
             // 
             // runTestToolStripButton
             // 
-            resources.ApplyResources(this.runTestToolStripButton, "runTestToolStripButton");
             this.runTestToolStripButton.Image = global::ArcazeUSB.Properties.Resources.media_play;
             this.runTestToolStripButton.Name = "runTestToolStripButton";
+            resources.ApplyResources(this.runTestToolStripButton, "runTestToolStripButton");
             this.runTestToolStripButton.Click += new System.EventHandler(this.runTestToolStripLabel_Click);
             // 
             // stopToolStripButton
@@ -782,38 +895,38 @@
             // 
             // toolStripSeparator2
             // 
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // autoRunToolStripButton
             // 
-            resources.ApplyResources(this.autoRunToolStripButton, "autoRunToolStripButton");
             this.autoRunToolStripButton.Image = global::ArcazeUSB.Properties.Resources.lightbulb;
+            resources.ApplyResources(this.autoRunToolStripButton, "autoRunToolStripButton");
             this.autoRunToolStripButton.Name = "autoRunToolStripButton";
             this.autoRunToolStripButton.Click += new System.EventHandler(this.autoRunToolStripButton_Click);
             // 
             // toolStripSeparator3
             // 
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // donateToolStripButton
             // 
-            resources.ApplyResources(this.donateToolStripButton, "donateToolStripButton");
             this.donateToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.donateToolStripButton.Image = global::ArcazeUSB.Properties.Resources.btn_donate_SM;
+            resources.ApplyResources(this.donateToolStripButton, "donateToolStripButton");
             this.donateToolStripButton.Name = "donateToolStripButton";
             this.donateToolStripButton.Click += new System.EventHandler(this.donateToolStripButton_Click);
             // 
             // toolStripSeparator4
             // 
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // exitToolStripButton
             // 
-            resources.ApplyResources(this.exitToolStripButton, "exitToolStripButton");
             this.exitToolStripButton.Image = global::ArcazeUSB.Properties.Resources.door2;
+            resources.ApplyResources(this.exitToolStripButton, "exitToolStripButton");
             this.exitToolStripButton.Name = "exitToolStripButton";
             this.exitToolStripButton.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -841,57 +954,57 @@
             // 
             // ArcazeUSBTtoolStripStatusLabel
             // 
-            resources.ApplyResources(this.ArcazeUSBTtoolStripStatusLabel, "ArcazeUSBTtoolStripStatusLabel");
             this.ArcazeUSBTtoolStripStatusLabel.Name = "ArcazeUSBTtoolStripStatusLabel";
+            resources.ApplyResources(this.ArcazeUSBTtoolStripStatusLabel, "ArcazeUSBTtoolStripStatusLabel");
             // 
             // arcazeUsbStatusToolStripStatusLabel
             // 
-            resources.ApplyResources(this.arcazeUsbStatusToolStripStatusLabel, "arcazeUsbStatusToolStripStatusLabel");
             this.arcazeUsbStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.arcazeUsbStatusToolStripStatusLabel.Image = global::ArcazeUSB.Properties.Resources.warning;
             this.arcazeUsbStatusToolStripStatusLabel.Name = "arcazeUsbStatusToolStripStatusLabel";
+            resources.ApplyResources(this.arcazeUsbStatusToolStripStatusLabel, "arcazeUsbStatusToolStripStatusLabel");
             // 
             // arcazeUsbToolStripDropDownButton
             // 
-            resources.ApplyResources(this.arcazeUsbToolStripDropDownButton, "arcazeUsbToolStripDropDownButton");
             this.arcazeUsbToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            resources.ApplyResources(this.arcazeUsbToolStripDropDownButton, "arcazeUsbToolStripDropDownButton");
             this.arcazeUsbToolStripDropDownButton.Name = "arcazeUsbToolStripDropDownButton";
             // 
             // dividerToolStripStatusLabel1
             // 
-            resources.ApplyResources(this.dividerToolStripStatusLabel1, "dividerToolStripStatusLabel1");
             this.dividerToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.dividerToolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.dividerToolStripStatusLabel1.Name = "dividerToolStripStatusLabel1";
+            resources.ApplyResources(this.dividerToolStripStatusLabel1, "dividerToolStripStatusLabel1");
             // 
             // fsuipcToolStripStatusLabel
             // 
-            resources.ApplyResources(this.fsuipcToolStripStatusLabel, "fsuipcToolStripStatusLabel");
             this.fsuipcToolStripStatusLabel.Name = "fsuipcToolStripStatusLabel";
+            resources.ApplyResources(this.fsuipcToolStripStatusLabel, "fsuipcToolStripStatusLabel");
             // 
             // fsuipcStatusToolStripStatusLabel
             // 
-            resources.ApplyResources(this.fsuipcStatusToolStripStatusLabel, "fsuipcStatusToolStripStatusLabel");
             this.fsuipcStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.fsuipcStatusToolStripStatusLabel.Image = global::ArcazeUSB.Properties.Resources.warning;
             this.fsuipcStatusToolStripStatusLabel.Name = "fsuipcStatusToolStripStatusLabel";
+            resources.ApplyResources(this.fsuipcStatusToolStripStatusLabel, "fsuipcStatusToolStripStatusLabel");
             // 
             // fsuipcOffsetValueLabel
             // 
-            resources.ApplyResources(this.fsuipcOffsetValueLabel, "fsuipcOffsetValueLabel");
             this.fsuipcOffsetValueLabel.Name = "fsuipcOffsetValueLabel";
+            resources.ApplyResources(this.fsuipcOffsetValueLabel, "fsuipcOffsetValueLabel");
             // 
             // toolStripStatusLabel1
             // 
-            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
             this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
             // 
             // toolStripStatusLabel
             // 
-            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
             this.toolStripStatusLabel.Spring = true;
             // 
             // logTextBox
@@ -899,6 +1012,74 @@
             resources.ApplyResources(this.logTextBox, "logTextBox");
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
+            // 
+            // activeDataGridViewCheckBoxColumn
+            // 
+            this.activeDataGridViewCheckBoxColumn.DataPropertyName = "active";
+            resources.ApplyResources(this.activeDataGridViewCheckBoxColumn, "activeDataGridViewCheckBoxColumn");
+            this.activeDataGridViewCheckBoxColumn.Name = "activeDataGridViewCheckBoxColumn";
+            // 
+            // dataTable1
+            // 
+            this.dataTable1.TableName = "config";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "settings";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "guid";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "guid";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "guid";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn5, "dataGridViewTextBoxColumn5");
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // inputsGuidDataColumn
+            // 
+            this.inputsGuidDataColumn.ColumnMapping = System.Data.MappingType.Attribute;
+            this.inputsGuidDataColumn.ColumnName = "guid";
+            this.inputsGuidDataColumn.DataType = typeof(System.Guid);
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "guid";
+            resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // inputsGuid
+            // 
+            this.inputsGuid.DataPropertyName = "guid";
+            resources.ApplyResources(this.inputsGuid, "inputsGuid");
+            this.inputsGuid.Name = "inputsGuid";
+            this.inputsGuid.ReadOnly = true;
+            // 
+            // settingsColumn
+            // 
+            this.settingsColumn.Caption = "settings";
+            this.settingsColumn.ColumnName = "settings";
+            this.settingsColumn.DataType = typeof(object);
+            // 
+            // inputsSettingsDataColumn
+            // 
+            this.inputsSettingsDataColumn.ColumnName = "settings";
+            this.inputsSettingsDataColumn.DataType = typeof(object);
             // 
             // MainForm
             // 
@@ -917,12 +1098,18 @@
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.panelMain.ResumeLayout(false);
-            this.panelMain.PerformLayout();
+            this.inputsTabControl.ResumeLayout(false);
+            this.OutputTabPage.ResumeLayout(false);
+            this.OutputTabPage.PerformLayout();
             this.MappingConfigGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.configDataTable)).EndInit();
             this.dataGridViewContextMenuStrip.ResumeLayout(false);
+            this.InputTabPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.inputsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSetInputs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.inputsDataTable)).EndInit();
             this.contextMenuStripFsuipcOffset.ResumeLayout(false);
             this.contextMenuStripNotifyIcon.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
@@ -931,6 +1118,7 @@
             this.statusStripPanel.PerformLayout();
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1012,8 +1200,12 @@
         private System.Windows.Forms.ToolStripButton donateToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         public System.Windows.Forms.TextBox logTextBox;
+        private System.Windows.Forms.TabControl inputsTabControl;
+        private System.Windows.Forms.TabPage OutputTabPage;
+        private System.Windows.Forms.TabPage InputTabPage;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn active;
         private System.Windows.Forms.DataGridViewTextBoxColumn guid;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Active;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn FsuipcOffset;
         private System.Windows.Forms.DataGridViewComboBoxColumn FsuipcSize;
@@ -1024,12 +1216,33 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn arcazePin;
         private System.Windows.Forms.DataGridViewComboBoxColumn trigger;
         private System.Windows.Forms.DataGridViewComboBoxColumn Typ;
-        private System.Windows.Forms.DataGridViewTextBoxColumn durationDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn arcazeSerial;
         private System.Windows.Forms.DataGridViewTextBoxColumn fsuipcValueColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn arcazeValueColumn;
         private System.Windows.Forms.DataGridViewButtonColumn EditButtonColumn;
+        private System.Windows.Forms.DataGridView inputsDataGridView;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn settingsDataGridViewTextBoxColumn;
+        private System.Data.DataTable dataTable1;
+        private System.Data.DataSet dataSetInputs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Data.DataTable inputsDataTable;
+        private System.Data.DataColumn inputsActiveDataColumn;
+        private System.Data.DataColumn inputsDescriptionDataColumn;
+        private System.Data.DataColumn inputsSettingsDataColumn;
+        private System.Data.DataColumn inputsGuidDataColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn inputActive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewCheckBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inputDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inputsGuid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inputName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inputType;
+        private System.Windows.Forms.DataGridViewButtonColumn inputEditButtonColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
 
 
     }

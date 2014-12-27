@@ -76,7 +76,7 @@ namespace ArcazeUSB
             mobiFlightCache.Connected += new EventHandler(arcazeCache_Connected);
             mobiFlightCache.Closed += new EventHandler(arcazeCache_Closed);
             mobiFlightCache.ConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
-
+            
             timer.Interval = Properties.Settings.Default.PollInterval;
             timer.Tick += new EventHandler(timer_Tick);
             timer.Stopped += new EventHandler(timer_Stopped);

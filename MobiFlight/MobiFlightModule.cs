@@ -7,12 +7,15 @@ using CommandMessenger;
 using CommandMessenger.TransportLayer;
 using FSUIPC;
 using System.Text.RegularExpressions;
+using CommandMessenger.Serialport;
 
 namespace MobiFlight
 {
     public class ButtonArgs : EventArgs    
     {
+        public string Serial { get; set; }
         public string ButtonId { get; set; }
+        public DeviceType Type { get; set; }
         public int Value { get; set; }
     }
 
@@ -146,13 +149,16 @@ namespace MobiFlight
                 CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = true } // object initializer
             };
 
-            _cmdMessenger = new CmdMessenger(_transportLayer);
+            _cmdMessenger = new CmdMessenger(_transportLayer)
+            {
+                BoardType = BoardType.Bit16 // Set if it is communicating with a 16- or 32-bit Arduino board
+            };
 
             // Attach the callbacks to the Command Messenger
             AttachCommandCallBacks();
 
             // Start listening            
-            _cmdMessenger.StartListening();            
+            _cmdMessenger.Connect();            
             
             this.Connected = true;
 
@@ -229,7 +235,7 @@ namespace MobiFlight
             if (!this.Connected) return;
 
             this.Connected = false;
-            _cmdMessenger.StopListening();
+            _cmdMessenger.Disconnect();
             _cmdMessenger.Dispose();
             _transportLayer.Dispose();
             _config = null;
@@ -244,8 +250,8 @@ namespace MobiFlight
                 SerialTransport tmpSerial = new SerialTransport() {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
                 };
-                tmpSerial.StartListening();
-                tmpSerial.StopListening();
+                tmpSerial.Connect();
+                tmpSerial.Disconnect();
                 tmpSerial.Dispose();
 
                 result = "COM" + (byte.Parse(_comPort.Substring(3)) - 1);
@@ -296,7 +302,8 @@ namespace MobiFlight
             int value;
             if (!int.TryParse(pos, out value)) return;
 
-            OnButtonPressed(this, new ButtonArgs() { ButtonId = enc, Value = value});
+            if (OnButtonPressed != null)
+                OnButtonPressed(this, new ButtonArgs() { Serial = this.Serial, ButtonId = enc, Type = DeviceType.Encoder, Value = value});
             //addLog("Enc: " + enc + ":" + pos);
         }
 
@@ -306,7 +313,8 @@ namespace MobiFlight
             String button = arguments.ReadStringArg();
             String state = arguments.ReadStringArg();
             //addLog("Button: " + button + ":" + state);
-            OnButtonPressed(this, new ButtonArgs() { ButtonId = button, Value = int.Parse(state) });
+            if (OnButtonPressed != null)
+                OnButtonPressed(this, new ButtonArgs() { Serial = this.Serial, ButtonId = button, Type = DeviceType.Button, Value = int.Parse(state) });
         }
 
         /// <summary>
@@ -511,6 +519,23 @@ namespace MobiFlight
             if (_hasButtons) result.Add(DeviceType.Button);
             if (_hasEncoder) result.Add(DeviceType.Encoder);
             
+            return result;
+        }
+
+        public IEnumerable<Config.BaseDevice> GetConnectedInputDevices()
+        {
+            List<Config.BaseDevice> result = new List<Config.BaseDevice>();
+
+            foreach (Config.BaseDevice dev in Config.Items)
+            {
+                switch (dev.Type)
+                {
+                    case DeviceType.Button:
+                    case DeviceType.Encoder:
+                        result.Add(dev);
+                        break;
+                }
+            }
             return result;
         }
 

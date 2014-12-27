@@ -160,6 +160,7 @@
     <Compile Include="CmdLineParams.cs" />
     <Compile Include="ComboBoxHelper.cs" />
     <Compile Include="ConfigErrorException.cs" />
+    <Compile Include="ConfigFile.cs" />
     <Compile Include="ConfigWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +183,12 @@
     <Compile Include="FSUIPC\fsuipcBCD.cs" />
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
     <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
+    <Compile Include="InputConfigWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputConfigWizard.Designer.cs">
+      <DependentUpon>InputConfigWizard.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListItem.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MainForm.cs">
@@ -194,6 +201,7 @@
     <Compile Include="Base\IModule.cs" />
     <Compile Include="Base\IModuleInfo.cs" />
     <Compile Include="Base\IOutputModule.cs" />
+    <Compile Include="MobiFlight\InputConfigItem.cs" />
     <Compile Include="MobiFlight\Config\BaseDevice.cs" />
     <Compile Include="MobiFlight\Config\Encoder.cs" />
     <Compile Include="MobiFlight\Config\Button.cs" />
@@ -210,6 +218,14 @@
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\IConnectedDevice.cs" />
+    <Compile Include="MobiFlight\InputConfig\BaseInputAction.cs" />
+    <Compile Include="MobiFlight\InputConfig\ButtonInputConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\EncoderInputConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\FsuipcMacroInputAction.cs" />
+    <Compile Include="MobiFlight\InputConfig\FsuipcOffsetInputAction.cs" />
+    <Compile Include="MobiFlight\InputConfig\IInputActionType.cs" />
+    <Compile Include="MobiFlight\InputConfig\InputAction.cs" />
+    <Compile Include="MobiFlight\InputConfig\KeyInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightFirmwareUpdater.cs" />
     <Compile Include="MobiFlight\MobiFlightOutput.cs" />
     <Compile Include="MobiFlight\MobiFlightServo.cs" />
@@ -271,6 +287,12 @@
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\Precondition.cs" />
+    <Compile Include="Panels\ActionTypePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\ActionTypePanel.Designer.cs">
+      <DependentUpon>ActionTypePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\DisplayBcdPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -294,6 +316,24 @@
     </Compile>
     <Compile Include="Panels\DisplayPinPanel.Designer.cs">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\ButtonPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\ButtonPanel.Designer.cs">
+      <DependentUpon>ButtonPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Group\FsuipcConfigPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Group\FsuipcConfigPanel.Designer.cs">
+      <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\InputActionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\InputActionPanel.Designer.cs">
+      <DependentUpon>InputActionPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\ServoPanel.cs">
       <SubType>UserControl</SubType>
@@ -341,6 +381,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigWizard.resx">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputConfigWizard.de.resx">
+      <DependentUpon>InputConfigWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputConfigWizard.resx">
+      <DependentUpon>InputConfigWizard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -391,6 +438,9 @@
     <EmbeddedResource Include="OrphanedSerialsDialog.resx">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ActionTypePanel.resx">
+      <DependentUpon>ActionTypePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Panels\DisplayBcdPanel.resx">
       <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -402,6 +452,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\DisplayPinPanel.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ButtonPanel.resx">
+      <DependentUpon>ButtonPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Group\FsuipcConfigPanel.resx">
+      <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\InputActionPanel.resx">
+      <DependentUpon>InputActionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\ServoPanel.resx">
       <DependentUpon>ServoPanel.cs</DependentUpon>
@@ -504,12 +563,11 @@
     <None Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CmdMessenger-3.5\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
+    <ProjectReference Include="..\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
       <Project>{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}</Project>
       <Name>CommandMessenger</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

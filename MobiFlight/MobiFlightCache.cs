@@ -198,9 +198,10 @@ namespace ArcazeUSB
             Modules.Add(devInfo.Serial, m);
         }
 
-        void module_OnButtonPressed(object sender, ButtonArgs e)
+        public void module_OnButtonPressed(object sender, ButtonArgs e)
         {
-            OnButtonPressed(sender, e);
+            if (OnButtonPressed != null)
+                OnButtonPressed(sender, e);
         }
 
         /// <summary>
