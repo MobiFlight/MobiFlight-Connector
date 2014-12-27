@@ -15,5 +15,7 @@ namespace MobiFlight.InputConfig
         }
         abstract public void ReadXml(System.Xml.XmlReader reader);
         abstract public void WriteXml(System.Xml.XmlWriter writer);
+
+        abstract public void execute(ArcazeUSB.Fsuipc2Cache fsuipcCache);
     }
 }

@@ -123,5 +123,10 @@ namespace MobiFlight
 
             return clone;
         }
+
+        internal void execute(Fsuipc2Cache fsuipcCache)
+        {
+            if (button != null) button.execute(fsuipcCache);
+        }
     }
 }

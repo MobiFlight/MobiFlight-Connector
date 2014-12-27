@@ -7,7 +7,7 @@ using FSUIPC;
 
 namespace ArcazeUSB
 {
-    class Fsuipc2Cache : SourceCacheInterface
+    public class Fsuipc2Cache : SourceCacheInterface
     {
 
         public event EventHandler Closed;

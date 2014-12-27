@@ -59,11 +59,15 @@ namespace ArcazeUSB
         MobiFlightCache mobiFlightCache = new MobiFlightCache();
 #endif
         DataGridView dataGridViewConfig = null;
+        DataGridView inputsDataGridView = null;
+        Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<String, List<InputConfigItem>>();
+
         private bool _autoConnectTimerRunning = false;
 
-        public ExecutionManager(DataGridView dataGridViewConfig)
+        public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView)
         {
             this.dataGridViewConfig = dataGridViewConfig;
+            this.inputsDataGridView = inputsDataGridView;
 
             fsuipcCache.ConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(fsuipcCache_Connected);
@@ -258,7 +262,7 @@ namespace ArcazeUSB
             isExecuting = false;
         }
 
-        private bool checkPrecondition(ArcazeConfigItem cfg, ConnectorValue currentValue)
+        private bool checkPrecondition(IBaseConfigItem cfg, ConnectorValue currentValue)
         {
             bool finalResult = true;
             bool result = true;
@@ -733,6 +737,7 @@ namespace ArcazeUSB
         {
             // just forget about current states if timer gets stopped
             arcazeCache.Clear();
+            inputCache.Clear();
             this.OnStopped(this, new EventArgs());
         } //timer_Stopped
 
@@ -950,41 +955,44 @@ namespace ArcazeUSB
 #if MOBIFLIGHT
         void mobiFlightCache_OnButtonPressed(object sender, ButtonArgs e)
         {
-            //
-            //fsuipcCache.setOffset(0x7b91, (byte) 1); // set transponder standby
-            //fsuipcCache.setOffset(0x7b91, (byte) 0); // set transponder charlie
-            if (e.ButtonId == "0" && e.Value > 0)
+            if (!IsStarted()) return;
+
+            String inputKey = e.Serial+e.Type+e.ButtonId;
+            if (!inputCache.ContainsKey(inputKey))
             {
-                fsuipcCache.setOffset(0x3110, 65651);
+                inputCache[inputKey] = new List<InputConfigItem>();
+                // check if we have configs for this button
+                // and store it                
+                foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
+                {
+                    try
+                    {
+                        InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                        if (cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.ButtonId)
+                        {
+                            inputCache[inputKey].Add(cfg);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // probably the last row with no settings object 
+                        continue;
+                    }
+                }
             }
-            else if (e.ButtonId == "0" && e.Value < 0)
+
+            // no config for this button found
+            if (inputCache[inputKey].Count == 0)
             {
-                fsuipcCache.setOffset(0x3110, 65652);
+                Log.Instance.log("No config found for button: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
+                return;
             }
-            else if (e.ButtonId == "1" && e.Value > 0)
+
+            foreach (InputConfigItem cfg in inputCache[inputKey])
             {
-                fsuipcCache.setOffset(0x3110, 65653);
-            }
-            else if (e.ButtonId == "1" && e.Value < 0)
-            {
-                fsuipcCache.setOffset(0x3110, 65654);
-            }
-            else if (e.ButtonId == "Btn2" && e.Value == 0)
-            {
-                fsuipcCache.setOffset(0x7b91, (byte)0);
-            }
-            else if (e.ButtonId == "Btn5" && e.Value == 0)
-            {
-                fsuipcCache.setOffset(0x7b91, (byte)1);
-            }
-            else if (e.ButtonId == "testBtn1" && e.Value == 0)
-            {
-                fsuipcCache.setOffset(0x7b93, (byte)1);
-            }
-            else if (e.ButtonId == "prkbrkBtn1")
-            {
-                fsuipcCache.setOffset(0x0BC8, e.Value == 0 ? (short)0 : (short)1);
-            }
+                //if (cfg.Preconditions)
+                cfg.execute(fsuipcCache);
+            }            
         }
 #endif
     }

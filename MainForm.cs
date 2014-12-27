@@ -74,7 +74,7 @@ namespace ArcazeUSB
             Log.Instance.log("MainForm() : Logger initialized " + Log.Instance.Severity.ToString(), LogSeverity.Info);
 
 
-            execManager = new ExecutionManager(dataGridViewConfig);
+            execManager = new ExecutionManager(dataGridViewConfig, inputsDataGridView);
             cmdLineParams = new CmdLineParams();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
 

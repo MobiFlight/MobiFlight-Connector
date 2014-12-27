@@ -144,6 +144,8 @@
     <Compile Include="Arcaze\ArcazeLedDigit.cs" />
     <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
     <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
+    <Compile Include="Base\IFsuipcConfigItem.cs" />
+    <Compile Include="Base\BaseConfigItem.cs" />
     <Compile Include="BitMaskEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +184,7 @@
     <Compile Include="FSUIPC\Fsuipc2Cache.cs" />
     <Compile Include="FSUIPC\fsuipcBCD.cs" />
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
+    <Compile Include="FSUIPC\FsuipcHelper.cs" />
     <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
     <Compile Include="InputConfigWizard.cs">
       <SubType>Form</SubType>

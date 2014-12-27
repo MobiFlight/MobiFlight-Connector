@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using MobiFlight;
 
 namespace ArcazeUSB
 {
-    public class ArcazeConfigItem : IXmlSerializable, ICloneable
+    public class ArcazeConfigItem : IBaseConfigItem, IFsuipcConfigItem, IXmlSerializable, ICloneable
     {
         // we initialize a cultureInfo object 
         // which is used for serialization

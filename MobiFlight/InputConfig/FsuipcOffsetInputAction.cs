@@ -7,7 +7,7 @@ using ArcazeUSB;
 
 namespace MobiFlight.InputConfig
 {
-    public class FsuipcOffsetInputAction : InputAction, ICloneable
+    public class FsuipcOffsetInputAction : InputAction, IFsuipcConfigItem, ICloneable
     {
         public const int FSUIPCOffsetNull = 0;
         [XmlAttribute]
@@ -105,6 +105,43 @@ namespace MobiFlight.InputConfig
                 }
 
                 // read to the end not needed
+            }
+        }
+
+        public override void execute(Fsuipc2Cache fsuipcCache)
+        {
+            String value = InputValue;
+            // apply ncalc logic
+            if (value.Contains("$"))
+            {
+                ConnectorValue tmpValue = ArcazeUSB.FSUIPC.FsuipcHelper.executeRead(this, fsuipcCache);
+
+                String expression = InputValue.Replace("$", tmpValue.ToString());
+                var ce = new NCalc.Expression(expression);
+                try
+                {
+                    value = (ce.Evaluate()).ToString();
+                }
+                catch
+                {
+                    Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
+                    throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
+                }
+            }
+
+            if (FSUIPCSize == 1) {
+                byte bValue = Byte.Parse(value);
+                fsuipcCache.setOffset(FSUIPCOffset, bValue);
+            }
+            else if (FSUIPCSize == 2)
+            {
+                Int16 sValue = Int16.Parse(value);
+                fsuipcCache.setOffset(FSUIPCOffset, sValue);
+            }
+            else if (FSUIPCSize == 4)
+            {
+                Int32 iValue = Int32.Parse(value);
+                fsuipcCache.setOffset(FSUIPCOffset, iValue);
             }
         }
     }

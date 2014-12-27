@@ -84,6 +84,15 @@ namespace MobiFlight.InputConfig
             if (onRelease != null) onRelease.WriteXml(writer);
             writer.WriteEndElement();
         }
+
+        internal void execute(ArcazeUSB.Fsuipc2Cache fsuipcCache)
+        {
+            if (onPress != null)
+            {
+                onPress.execute(fsuipcCache);
+            }
+
+        }
     }
 
 }
