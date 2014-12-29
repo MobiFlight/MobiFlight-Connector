@@ -338,6 +338,12 @@
     <Compile Include="Panels\InputActionPanel.Designer.cs">
       <DependentUpon>InputActionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\EncoderPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\EncoderPanel.Designer.cs">
+      <DependentUpon>EncoderPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\ServoPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -464,6 +470,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\InputActionPanel.resx">
       <DependentUpon>InputActionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\EncoderPanel.resx">
+      <DependentUpon>EncoderPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\ServoPanel.resx">
       <DependentUpon>ServoPanel.cs</DependentUpon>

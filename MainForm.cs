@@ -801,6 +801,7 @@ namespace ArcazeUSB
 
             ConfigFile configFile = new ConfigFile(fileName);
             configFile.SaveFile(dataSetConfig, dataSetInputs);
+            currentFileName=fileName;
             //dataSetConfig.WriteXml(fileName);
             _restoreValuesInGridView();
             _storeAsRecentFile(fileName);
@@ -878,7 +879,7 @@ namespace ArcazeUSB
         /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
         /// </summary>
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if ( MessageBox.Show(
                        _tr("uiMessageConfirmNewConfig"),
@@ -889,6 +890,7 @@ namespace ArcazeUSB
                 currentFileName = null;
                 _setFilenameInTitle(_tr("DefaultFileName"));
                 configDataTable.Clear();
+                inputsDataTable.Clear();
             };
         } //toolStripMenuItem3_Click()
 
@@ -1130,6 +1132,7 @@ namespace ArcazeUSB
             wizard.StartPosition = FormStartPosition.CenterParent;
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                saveToolStripButton.Enabled = true;
                 if (dataRow == null) return;
                 // do something special
                 // Show used Button
@@ -1444,6 +1447,17 @@ namespace ArcazeUSB
             _stringFlags.Alignment = StringAlignment.Center;
             _stringFlags.LineAlignment = StringAlignment.Center;
             g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
+        }
+
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.S)       // Ctrl-S Save
+            {
+                // Do what you want here
+                e.SuppressKeyPress = true;  // Stops bing! Also sets handled which stop event bubbling
+                if (saveToolStripButton.Enabled)
+                saveToolStripButton_Click(null, null);
+            }
         }
     }
 }

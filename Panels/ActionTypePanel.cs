@@ -24,7 +24,7 @@ namespace ArcazeUSB.Panels
         void ActionTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ActionTypeChanged != null)
-                ActionTypeChanged(sender, (sender as ComboBox).SelectedItem.ToString());
+                ActionTypeChanged(this, (sender as ComboBox).SelectedItem.ToString());
         }
 
         internal void syncFromConfig(MobiFlight.InputConfig.InputAction inputAction)

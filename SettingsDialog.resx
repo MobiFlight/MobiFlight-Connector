@@ -124,6 +124,10 @@
   <data name="&gt;&gt;globalBrightnessTrackBar.Parent" xml:space="preserve">
     <value>arcazeModuleSettingsGroupBox</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="generalTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
   <data name="globalBrightnessTrackBar.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
@@ -132,10 +136,6 @@
   </data>
   <data name="&gt;&gt;arcazeSerialComboBox.Parent" xml:space="preserve">
     <value>arcazeModulesGroupBox</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>317, 0</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -188,14 +188,17 @@
   <data name="mobiflightSettingsLabel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
+  </data>
   <data name="mobiflightSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
   <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
     <value>176, 244</value>
   </data>
-  <data name="&gt;&gt;fsuipcTabPage.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <data name="globalBrightnessLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 26</value>
@@ -203,20 +206,17 @@
   <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+  <data name="&gt;&gt;arcazeSerialComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
-  </data>
-  <data name="mfSettingsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
   </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
@@ -248,17 +248,11 @@
   <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>372, 25</value>
   </data>
-  <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
   <data name="&gt;&gt;mfConfiguredModulesGroupBox.Name" xml:space="preserve">
     <value>mfConfiguredModulesGroupBox</value>
   </data>
   <data name="&gt;&gt;recentFilesNumericUpDown.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;debugGroupBox.Name" xml:space="preserve">
-    <value>debugGroupBox</value>
   </data>
   <data name="arcazeSerialComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -268,9 +262,6 @@
   </data>
   <data name="mobiFlightTabPage.Text" xml:space="preserve">
     <value>MobiFlight Modules</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;globalBrightnessLabel.Parent" xml:space="preserve">
     <value>arcazeModuleSettingsGroupBox</value>
@@ -287,8 +278,14 @@
   <data name="&gt;&gt;addServoToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="removeDeviceToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
   <data name="&gt;&gt;addLedModuleToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Button</value>
   </data>
   <data name="&gt;&gt;recentFilesGroupBox.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -299,8 +296,8 @@
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 176</value>
   </data>
-  <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 373</value>
+  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 22</value>
   </data>
   <data name="numModulesLabel.Text" xml:space="preserve">
     <value>Count</value>
@@ -317,9 +314,6 @@
   <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Name" xml:space="preserve">
     <value>arcazeModuleSettingsGroupBox</value>
   </data>
-  <data name="&gt;&gt;mobiFlightTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 367</value>
   </data>
@@ -332,8 +326,8 @@
   <data name="addLedModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Parent" xml:space="preserve">
     <value>firmwareSettingsGroupBox</value>
@@ -347,23 +341,20 @@
   <data name="&gt;&gt;testModeSpeedGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="logLevelLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="toolStripMenuItem4.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <data name="ledOutputToolStripMenuItem.Text" xml:space="preserve">
     <value>LED / Output</value>
   </data>
-  <data name="&gt;&gt;ledDisplaysTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="firmwareArduinoIdeButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
+  <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Name" xml:space="preserve">
+    <value>firmwareUpdateBackgroundWorker</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 48</value>
@@ -383,11 +374,17 @@
   <data name="&gt;&gt;logLevelComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>100ms</value>
+  </data>
   <data name="cancelButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Right</value>
   </data>
   <data name="addStepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Settings</value>
@@ -408,14 +405,8 @@
     <value>Global 
 intensity</value>
   </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>321, 48</value>
-  </data>
   <data name="ledSegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
   </data>
   <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -435,6 +426,9 @@ intensity</value>
   <data name="&gt;&gt;arcazeModulesGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
   <data name="&gt;&gt;uploadToolStripButton.Name" xml:space="preserve">
     <value>uploadToolStripButton</value>
   </data>
@@ -453,8 +447,14 @@ intensity</value>
   <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>392, 424</value>
+  </data>
   <data name="&gt;&gt;label7.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
   </data>
   <data name="mobiflightSettingsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -471,8 +471,8 @@ intensity</value>
   <data name="&gt;&gt;label7.Parent" xml:space="preserve">
     <value>arcazeModulesGroupBox</value>
   </data>
-  <data name="&gt;&gt;globalBrightnessLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 13</value>
@@ -523,11 +523,8 @@ intensity</value>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stepper</value>
-  </data>
-  <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
-    <value>Remove device</value>
+  <data name="&gt;&gt;globalBrightnessLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="openToolStripButton.Text" xml:space="preserve">
     <value>Load config</value>
@@ -535,8 +532,11 @@ intensity</value>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="firmwareArduinoIdePathTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="firmwareUpdateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
@@ -550,20 +550,26 @@ intensity</value>
   <data name="&gt;&gt;firmwareSettingsGroupBox.Name" xml:space="preserve">
     <value>firmwareSettingsGroupBox</value>
   </data>
+  <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 322</value>
+  </data>
   <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Name" xml:space="preserve">
     <value>firmwareArduinoIdePathTextBox</value>
   </data>
   <data name="&gt;&gt;mobiFlightTabPage.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
   <data name="&gt;&gt;arcazeModuleTypeComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
     <value>toolStripSeparator4</value>
+  </data>
+  <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
   </data>
   <data name="&gt;&gt;arcazeModulesGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -598,11 +604,14 @@ intensity</value>
   <data name="&gt;&gt;saveToolStripMenuItem.Name" xml:space="preserve">
     <value>saveToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;addOutputToolStripMenuItem.Type" xml:space="preserve">
+  <data name="recentFilesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 46</value>
+  </data>
+  <data name="&gt;&gt;ledSegmentToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="arcazeSerialComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 21</value>
+  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 6</value>
   </data>
   <data name="firmwareArduinoIdeLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 21</value>
@@ -612,9 +621,6 @@ intensity</value>
   </data>
   <data name="mfModulesTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save As...</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -637,20 +643,20 @@ intensity</value>
   <data name="logLevelComboBox.Items3" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 260</value>
   </data>
   <data name="&gt;&gt;mfSettingsPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;arcazeSerialComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;encoderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="logLevelCheckBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 20</value>
   </data>
-  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="generalTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;mobiflightSettingsToolStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -667,8 +673,8 @@ intensity</value>
   <data name="&gt;&gt;logLevelLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.Name" xml:space="preserve">
-    <value>arcazeModuleTypeLabel</value>
+  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>317, 0</value>
   </data>
   <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -697,20 +703,14 @@ intensity</value>
   <data name="&gt;&gt;firmwareSettingsToolStripMenuItem.Name" xml:space="preserve">
     <value>firmwareSettingsToolStripMenuItem</value>
   </data>
-  <data name="addOutputToolStripMenuItem.Text" xml:space="preserve">
-    <value>LED / Output</value>
-  </data>
   <data name="&gt;&gt;firmwareSettingsGroupBox.Parent" xml:space="preserve">
     <value>mobiFlightTabPage</value>
   </data>
   <data name="mfModulesTreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 0</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 260</value>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label4.Text" xml:space="preserve">
     <value>300ms</value>
@@ -739,9 +739,6 @@ intensity</value>
   <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Slow</value>
-  </data>
   <data name="removeToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove device</value>
   </data>
@@ -766,6 +763,9 @@ intensity</value>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>227, 18</value>
   </data>
+  <data name="arcazeSerialComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 21</value>
+  </data>
   <data name="numModulesLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 13</value>
   </data>
@@ -775,14 +775,14 @@ intensity</value>
   <data name="globalBrightnessLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
   </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="numModulesLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>41, 55</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
     <value>Configured modules</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.Name" xml:space="preserve">
-    <value>numModulesNumericUpDown</value>
   </data>
   <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 74</value>
@@ -802,9 +802,6 @@ intensity</value>
   <data name="&gt;&gt;ledSegmentToolStripMenuItem.Name" xml:space="preserve">
     <value>ledSegmentToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
   <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
   </data>
@@ -817,8 +814,218 @@ intensity</value>
   <data name="fsuipcTabPage.Text" xml:space="preserve">
     <value>FSUIPC</value>
   </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
   <data name="&gt;&gt;generalTabPage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 23</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="uploadToolStripMenuItem.Text" xml:space="preserve">
+    <value>Upload Config</value>
+  </data>
+  <data name="arcazeSerialComboBox.Items" xml:space="preserve">
+    <value>Modul A</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="toolStripMenuItem4.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stepper</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Set the number of files shown in the list to</value>
+  </data>
+  <data name="firmwareSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="recentFilesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 19</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 318</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.Items" xml:space="preserve">
+    <value>Modul A</value>
+  </data>
+  <data name="addLedModuleToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED 7-Segment</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;ledDisplaysTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="okButton.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ledDisplaysTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.Name" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 373</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="generalTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;addToolStripMenuItem.Name" xml:space="preserve">
+    <value>addToolStripMenuItem</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 64</value>
+  </data>
+  <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 22</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="globalBrightnessLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripMenuItem.Name" xml:space="preserve">
+    <value>uploadToolStripMenuItem</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.Name" xml:space="preserve">
+    <value>arcazeModuleTypeLabel</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="arcazeModuleTypeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Parent" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Name" xml:space="preserve">
+    <value>logLevelCheckBox</value>
+  </data>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Name" xml:space="preserve">
+    <value>addStepperToolStripMenuItem</value>
+  </data>
+  <data name="globalBrightnessTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>218, 45</value>
+  </data>
+  <data name="&gt;&gt;buttonToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addOutputToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="recentFilesGroupBox.Text" xml:space="preserve">
+    <value>Recent files</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="openToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="recentFilesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 20</value>
+  </data>
+  <data name="ledDisplaysTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 373</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="mfSettingsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -964,213 +1171,6 @@ intensity</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
   </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
-  </data>
-  <data name="&gt;&gt;mobiFlightTabPage.Name" xml:space="preserve">
-    <value>mobiFlightTabPage</value>
-  </data>
-  <data name="firmwareArduinoIdeButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>27, 23</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="uploadToolStripMenuItem.Text" xml:space="preserve">
-    <value>Upload Config</value>
-  </data>
-  <data name="arcazeSerialComboBox.Items" xml:space="preserve">
-    <value>Modul A</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Set the number of files shown in the list to</value>
-  </data>
-  <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
-    <value>Test mode speed</value>
-  </data>
-  <data name="firmwareSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="recentFilesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>242, 19</value>
-  </data>
-  <data name="numModulesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 20</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 13</value>
-  </data>
-  <data name="&gt;&gt;logLevelComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="mobiflightSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>testModeSpeedGroupBox</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 318</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.Items" xml:space="preserve">
-    <value>Modul A</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;ledDisplaysTabPage.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="okButton.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ledDisplaysTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 25</value>
-  </data>
-  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Adjust the polling interval for reading values from FSUIPC. The lower the value the more updates you'll have but it might hit the performance.</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;logLevelComboBox.Parent" xml:space="preserve">
-    <value>debugGroupBox</value>
-  </data>
-  <data name="&gt;&gt;firmwareArduinoIdeButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ledDisplaysTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="&gt;&gt;addToolStripMenuItem.Name" xml:space="preserve">
-    <value>addToolStripMenuItem</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 64</value>
-  </data>
-  <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 22</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="testModeSpeedTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="&gt;&gt;mfModulesTreeView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="globalBrightnessLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;uploadToolStripMenuItem.Name" xml:space="preserve">
-    <value>uploadToolStripMenuItem</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 25</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Parent" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
-  </data>
-  <data name="&gt;&gt;logLevelCheckBox.Name" xml:space="preserve">
-    <value>logLevelCheckBox</value>
-  </data>
-  <data name="&gt;&gt;addStepperToolStripMenuItem.Name" xml:space="preserve">
-    <value>addStepperToolStripMenuItem</value>
-  </data>
-  <data name="globalBrightnessTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>218, 45</value>
-  </data>
-  <data name="&gt;&gt;buttonToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="recentFilesGroupBox.Text" xml:space="preserve">
-    <value>Recent files</value>
-  </data>
-  <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
-    <value>removeDeviceToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;firmwareArduinoIdeLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="openToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ledDisplaysTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 373</value>
-  </data>
-  <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
-    <value>Button</value>
-  </data>
-  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 6</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>100ms</value>
-  </data>
   <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1186,11 +1186,8 @@ intensity</value>
   <data name="&gt;&gt;numModulesNumericUpDown.Parent" xml:space="preserve">
     <value>arcazeModuleSettingsGroupBox</value>
   </data>
-  <data name="&gt;&gt;okButton.Name" xml:space="preserve">
-    <value>okButton</value>
-  </data>
-  <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Name" xml:space="preserve">
-    <value>firmwareUpdateBackgroundWorker</value>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;servoToolStripMenuItem.Name" xml:space="preserve">
     <value>servoToolStripMenuItem</value>
@@ -1201,14 +1198,14 @@ intensity</value>
   <data name="&gt;&gt;arcazeModuleTypeLabel.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
   <data name="numModulesNumericUpDown.ToolTip" xml:space="preserve">
     <value>The number of extensions modules connected to the current arcaze</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;mobiflightSettingsLabel.Parent" xml:space="preserve">
     <value>mobiFlightTabPage</value>
@@ -1216,23 +1213,23 @@ intensity</value>
   <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
   </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 6</value>
+  </data>
   <data name="label8.Text" xml:space="preserve">
     <value>Very Fast</value>
   </data>
   <data name="&gt;&gt;debugGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;numModulesLabel.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
+  <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 0</value>
   </data>
   <data name="addServoToolStripMenuItem.Text" xml:space="preserve">
     <value>Servo</value>
   </data>
-  <data name="globalBrightnessLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="recentFilesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="arcazeModuleTypeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
   </data>
   <data name="mobiFlightTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
@@ -1243,23 +1240,11 @@ intensity</value>
   <data name="numModulesLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="globalBrightnessLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 86</value>
-  </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="logLevelComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>222, 18</value>
   </data>
   <data name="logLevelCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
-  </data>
-  <data name="&gt;&gt;ledDisplaysTabPage.Name" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
-  </data>
-  <data name="&gt;&gt;mfTreeViewImageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;addEncoderToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1279,8 +1264,8 @@ intensity</value>
   <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 297</value>
+  <data name="&gt;&gt;globalBrightnessLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -1290,6 +1275,9 @@ intensity</value>
   </data>
   <data name="arcazeModuleTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>45, 22</value>
+  </data>
+  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
     <value>tabControl1</value>
@@ -1330,14 +1318,11 @@ intensity</value>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 21</value>
   </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="buttonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>155, 22</value>
   </data>
-  <data name="&gt;&gt;generalTabPage.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;numModulesLabel.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
     <value>Add device</value>
@@ -1363,17 +1348,14 @@ intensity</value>
   <data name="&gt;&gt;globalBrightnessTrackBar.Name" xml:space="preserve">
     <value>globalBrightnessTrackBar</value>
   </data>
-  <data name="&gt;&gt;encoderToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
   </data>
   <data name="globalBrightnessTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
-    <value>toolStripMenuItem4</value>
+  <data name="&gt;&gt;mfTreeViewImageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;firmwareArduinoIdeLabel.Name" xml:space="preserve">
     <value>firmwareArduinoIdeLabel</value>
@@ -1390,11 +1372,11 @@ intensity</value>
   <data name="numModulesLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;recentFilesNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
   </data>
-  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Adjust the polling interval for reading values from FSUIPC. The lower the value the more updates you'll have but it might hit the performance.</value>
   </data>
   <data name="&gt;&gt;mfModulesTreeView.Parent" xml:space="preserve">
     <value>mfConfiguredModulesGroupBox</value>
@@ -1411,23 +1393,20 @@ intensity</value>
   <data name="&gt;&gt;logLevelCheckBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
+  <data name="recentFilesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 244</value>
   </data>
-  <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+  <data name="&gt;&gt;ledDisplaysTabPage.Name" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
   </data>
   <data name="arcazeModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>392, 25</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>FSUIPC Polling Interval</value>
@@ -1450,6 +1429,9 @@ intensity</value>
   <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
     <value>Firmware Flash Settings</value>
   </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -1465,11 +1447,11 @@ intensity</value>
   <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="debugGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 288</value>
   </data>
   <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 25</value>
@@ -1492,8 +1474,8 @@ intensity</value>
   <data name="&gt;&gt;fsuipcTabPage.Name" xml:space="preserve">
     <value>fsuipcTabPage</value>
   </data>
-  <data name="&gt;&gt;debugGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
   </data>
   <data name="mfModulesTreeView.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
@@ -1504,8 +1486,8 @@ intensity</value>
   <data name="arcazeModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 288</value>
   </data>
   <data name="globalBrightnessLabel.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1522,8 +1504,8 @@ intensity</value>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="&gt;&gt;logLevelCheckBox.Parent" xml:space="preserve">
-    <value>debugGroupBox</value>
+  <data name="&gt;&gt;fsuipcTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
   <data name="&gt;&gt;arcazeModulesGroupBox.Name" xml:space="preserve">
     <value>arcazeModulesGroupBox</value>
@@ -1558,14 +1540,14 @@ intensity</value>
   <data name="&gt;&gt;openToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;ledSegmentToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Slow</value>
   </data>
-  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;removeToolStripMenuItem.Name" xml:space="preserve">
     <value>removeToolStripMenuItem</value>
@@ -1579,20 +1561,26 @@ intensity</value>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="&gt;&gt;ledOutputToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 22</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 6</value>
+  <data name="firmwareArduinoIdePathTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Type" xml:space="preserve">
     <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="recentFilesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -1606,26 +1594,23 @@ intensity</value>
   <data name="&gt;&gt;label5.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="numModulesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>41, 55</value>
+  <data name="numModulesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 20</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>321, 48</value>
   </data>
-  <data name="&gt;&gt;ledOutputToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.Text" xml:space="preserve">
-    <value>Type</value>
+  <data name="&gt;&gt;debugGroupBox.Name" xml:space="preserve">
+    <value>debugGroupBox</value>
   </data>
   <data name="fsuipcPollIntervalTrackBar.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
@@ -1642,17 +1627,14 @@ intensity</value>
   <data name="ledDisplaysTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="addServoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="firmwareArduinoIdeLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="globalBrightnessLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 86</value>
   </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1666,20 +1648,20 @@ intensity</value>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;logLevelCheckBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="firmwareUpdateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Update</value>
+  <data name="&gt;&gt;debugGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label6.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
-    <value>Button</value>
+  <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
+    <value>Remove device</value>
   </data>
   <data name="&gt;&gt;mfConfiguredModulesGroupBox.Parent" xml:space="preserve">
     <value>mobiFlightTabPage</value>
@@ -1690,14 +1672,17 @@ intensity</value>
   <data name="&gt;&gt;recentFilesNumericUpDown.Name" xml:space="preserve">
     <value>recentFilesNumericUpDown</value>
   </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="addOutputToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED / Output</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
     <value>152, 6</value>
   </data>
-  <data name="&gt;&gt;numModulesLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="numModulesLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 34</value>
@@ -1717,8 +1702,8 @@ intensity</value>
   <data name="&gt;&gt;firmwareArduinoIdePathTextBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Name" xml:space="preserve">
-    <value>addDeviceToolStripDropDownButton</value>
+  <data name="arcazeModuleTypeLabel.Text" xml:space="preserve">
+    <value>Type</value>
   </data>
   <data name="&gt;&gt;firmwareArduinoIdeButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1735,11 +1720,11 @@ intensity</value>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
+  <data name="globalBrightnessLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="generalTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1762,41 +1747,47 @@ intensity</value>
   <data name="encoderToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="arcazeModuleSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="logLevelLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="&gt;&gt;addStepperToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>366, 297</value>
   </data>
-  <data name="numModulesLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+  <data name="addServoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
   </data>
   <data name="updateFirmwareToolStripMenuItem.Text" xml:space="preserve">
     <value>Update Firmware</value>
   </data>
-  <data name="arcazeModuleSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 52</value>
+  <data name="&gt;&gt;ledDisplaysTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="buttonToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>392, 424</value>
+  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
   <data name="arcazeModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 322</value>
+  <data name="&gt;&gt;numModulesNumericUpDown.Name" xml:space="preserve">
+    <value>numModulesNumericUpDown</value>
   </data>
-  <data name="firmwareSettingsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Settings</value>
+  <data name="firmwareArduinoIdeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="logLevelLabel.Text" xml:space="preserve">
     <value>Log Level</value>
   </data>
-  <data name="recentFilesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 20</value>
+  <data name="&gt;&gt;generalTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="firmwareSettingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1809,6 +1800,9 @@ intensity</value>
   </data>
   <data name="mobiflightSettingsLabel.Text" xml:space="preserve">
     <value>Configure connected MobiFlight modules. You can save and load configurations and upload them to your modules.</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 52</value>
   </data>
   <data name="arcazeModuleSettingsGroupBox.Text" xml:space="preserve">
     <value>Extension Module Settings</value>
@@ -1831,6 +1825,9 @@ intensity</value>
   <data name="&gt;&gt;label8.Parent" xml:space="preserve">
     <value>testModeSpeedGroupBox</value>
   </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="fsuipcPollIntervalTrackBar.Size" type="System.Drawing.Size, System.Drawing">
     <value>366, 45</value>
   </data>
@@ -1849,8 +1846,8 @@ intensity</value>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
   </data>
-  <data name="generalTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+  <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
+    <value>Test mode speed</value>
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
@@ -1864,7 +1861,7 @@ intensity</value>
   <data name="&gt;&gt;mobiflightSettingsLabel.Name" xml:space="preserve">
     <value>mobiflightSettingsLabel</value>
   </data>
-  <data name="fsuipcPollIntervalTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="uploadToolStripButton.Text" xml:space="preserve">
@@ -1882,14 +1879,14 @@ intensity</value>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>38, 13</value>
   </data>
-  <data name="addLedModuleToolStripMenuItem.Text" xml:space="preserve">
-    <value>LED 7-Segment</value>
+  <data name="&gt;&gt;mobiFlightTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="recentFilesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 46</value>
+  <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
+    <value>removeDeviceToolStripButton</value>
   </data>
-  <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+  <data name="arcazeModuleTypeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SettingsDialog</value>
@@ -1903,8 +1900,8 @@ intensity</value>
   <data name="&gt;&gt;uploadToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;recentFilesGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1912,11 +1909,11 @@ intensity</value>
   <data name="openToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
   </data>
-  <data name="&gt;&gt;testModeSpeedGroupBox.Name" xml:space="preserve">
-    <value>testModeSpeedGroupBox</value>
+  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save As...</value>
   </data>
-  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;servoToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1933,11 +1930,14 @@ intensity</value>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>43, 22</value>
   </data>
-  <data name="removeDeviceToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Name" xml:space="preserve">
+    <value>addDeviceToolStripDropDownButton</value>
   </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="&gt;&gt;numModulesLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
   </data>
   <data name="logLevelComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 21</value>
@@ -1957,11 +1957,11 @@ intensity</value>
   <data name="&gt;&gt;label3.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
+  <data name="&gt;&gt;numModulesNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
+  <data name="&gt;&gt;mobiFlightTabPage.Name" xml:space="preserve">
+    <value>mobiFlightTabPage</value>
   </data>
   <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
     <value>openToolStripMenuItem</value>
@@ -1969,8 +1969,8 @@ intensity</value>
   <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
     <value>toolStripMenuItem3</value>
   </data>
-  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;mobiflightSettingsToolStrip.Parent" xml:space="preserve">
     <value>mfConfiguredModulesGroupBox</value>
@@ -1978,14 +1978,14 @@ intensity</value>
   <data name="ledSegmentToolStripMenuItem.Text" xml:space="preserve">
     <value>LED 7-Segment</value>
   </data>
-  <data name="&gt;&gt;firmwareArduinoIdeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ledDisplaysTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
-  <data name="generalTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 13</value>
+  <data name="&gt;&gt;okButton.Name" xml:space="preserve">
+    <value>okButton</value>
   </data>
   <metadata name="mobiflightSettingsToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
@@ -1996,14 +1996,14 @@ intensity</value>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="mfModuleSettingsContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>114, 17</value>
-  </metadata>
   <metadata name="mfTreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>218, 56</value>
   </metadata>
   <metadata name="firmwareUpdateBackgroundWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>386, 56</value>
+  </metadata>
+  <metadata name="mfModuleSettingsContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>114, 17</value>
   </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

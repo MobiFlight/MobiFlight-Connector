@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.fsuipcMoreOptionsGroupBox = new System.Windows.Forms.GroupBox();
+            this.multiplayPanel = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.fsuipcMultiplyTextBox = new System.Windows.Forms.TextBox();
+            this.maskAndBcdPanel = new System.Windows.Forms.Panel();
+            this.maskEditorButton = new System.Windows.Forms.Button();
+            this.fsuipcBcdModeCheckBox = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.fsuipcMaskTextBox = new System.Windows.Forms.TextBox();
             this.fsuipcBaseSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.valuePanel = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,24 +55,16 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
-            this.maskAndBcdPanel = new System.Windows.Forms.Panel();
-            this.maskEditorButton = new System.Windows.Forms.Button();
-            this.fsuipcBcdModeCheckBox = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.fsuipcMaskTextBox = new System.Windows.Forms.TextBox();
-            this.multiplayPanel = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.fsuipcMultiplyTextBox = new System.Windows.Forms.TextBox();
             this.settingsColumn = new System.Data.DataColumn();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
+            this.multiplayPanel.SuspendLayout();
+            this.maskAndBcdPanel.SuspendLayout();
             this.fsuipcBaseSettingsGroupBox.SuspendLayout();
             this.valuePanel.SuspendLayout();
             this.offsetPanel.SuspendLayout();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
-            this.maskAndBcdPanel.SuspendLayout();
-            this.multiplayPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // fsuipcMoreOptionsGroupBox
@@ -79,6 +79,90 @@
             this.fsuipcMoreOptionsGroupBox.TabIndex = 21;
             this.fsuipcMoreOptionsGroupBox.TabStop = false;
             this.fsuipcMoreOptionsGroupBox.Text = "More Options";
+            // 
+            // multiplayPanel
+            // 
+            this.multiplayPanel.AutoSize = true;
+            this.multiplayPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.multiplayPanel.Controls.Add(this.label4);
+            this.multiplayPanel.Controls.Add(this.fsuipcMultiplyTextBox);
+            this.multiplayPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.multiplayPanel.Location = new System.Drawing.Point(3, 41);
+            this.multiplayPanel.Name = "multiplayPanel";
+            this.multiplayPanel.Size = new System.Drawing.Size(309, 24);
+            this.multiplayPanel.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label4.Location = new System.Drawing.Point(48, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Multiply by";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // fsuipcMultiplyTextBox
+            // 
+            this.fsuipcMultiplyTextBox.Location = new System.Drawing.Point(110, 1);
+            this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
+            this.fsuipcMultiplyTextBox.Size = new System.Drawing.Size(100, 20);
+            this.fsuipcMultiplyTextBox.TabIndex = 13;
+            // 
+            // maskAndBcdPanel
+            // 
+            this.maskAndBcdPanel.AutoSize = true;
+            this.maskAndBcdPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.maskAndBcdPanel.Controls.Add(this.maskEditorButton);
+            this.maskAndBcdPanel.Controls.Add(this.fsuipcBcdModeCheckBox);
+            this.maskAndBcdPanel.Controls.Add(this.label3);
+            this.maskAndBcdPanel.Controls.Add(this.fsuipcMaskTextBox);
+            this.maskAndBcdPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.maskAndBcdPanel.Location = new System.Drawing.Point(3, 16);
+            this.maskAndBcdPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.maskAndBcdPanel.Name = "maskAndBcdPanel";
+            this.maskAndBcdPanel.Size = new System.Drawing.Size(309, 25);
+            this.maskAndBcdPanel.TabIndex = 14;
+            // 
+            // maskEditorButton
+            // 
+            this.maskEditorButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.maskEditorButton.Location = new System.Drawing.Point(188, -1);
+            this.maskEditorButton.Name = "maskEditorButton";
+            this.maskEditorButton.Size = new System.Drawing.Size(24, 23);
+            this.maskEditorButton.TabIndex = 17;
+            this.maskEditorButton.Text = "...";
+            this.maskEditorButton.UseVisualStyleBackColor = true;
+            // 
+            // fsuipcBcdModeCheckBox
+            // 
+            this.fsuipcBcdModeCheckBox.AutoSize = true;
+            this.fsuipcBcdModeCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.fsuipcBcdModeCheckBox.Location = new System.Drawing.Point(231, 3);
+            this.fsuipcBcdModeCheckBox.Name = "fsuipcBcdModeCheckBox";
+            this.fsuipcBcdModeCheckBox.Size = new System.Drawing.Size(78, 17);
+            this.fsuipcBcdModeCheckBox.TabIndex = 15;
+            this.fsuipcBcdModeCheckBox.Text = "BCD Mode";
+            this.fsuipcBcdModeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label3.Location = new System.Drawing.Point(21, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Mask value with";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // fsuipcMaskTextBox
+            // 
+            this.fsuipcMaskTextBox.Location = new System.Drawing.Point(110, 1);
+            this.fsuipcMaskTextBox.Name = "fsuipcMaskTextBox";
+            this.fsuipcMaskTextBox.Size = new System.Drawing.Size(75, 20);
+            this.fsuipcMaskTextBox.TabIndex = 14;
             // 
             // fsuipcBaseSettingsGroupBox
             // 
@@ -195,6 +279,7 @@
             this.fsuipcSizeComboBox.Name = "fsuipcSizeComboBox";
             this.fsuipcSizeComboBox.Size = new System.Drawing.Size(50, 21);
             this.fsuipcSizeComboBox.TabIndex = 12;
+            this.fsuipcSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.fsuipcSizeComboBox_SelectedIndexChanged);
             // 
             // fsuipcOffsetTextBox
             // 
@@ -266,90 +351,6 @@
             // 
             this.description.ColumnName = "description";
             // 
-            // maskAndBcdPanel
-            // 
-            this.maskAndBcdPanel.AutoSize = true;
-            this.maskAndBcdPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.maskAndBcdPanel.Controls.Add(this.maskEditorButton);
-            this.maskAndBcdPanel.Controls.Add(this.fsuipcBcdModeCheckBox);
-            this.maskAndBcdPanel.Controls.Add(this.label3);
-            this.maskAndBcdPanel.Controls.Add(this.fsuipcMaskTextBox);
-            this.maskAndBcdPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.maskAndBcdPanel.Location = new System.Drawing.Point(3, 16);
-            this.maskAndBcdPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.maskAndBcdPanel.Name = "maskAndBcdPanel";
-            this.maskAndBcdPanel.Size = new System.Drawing.Size(309, 25);
-            this.maskAndBcdPanel.TabIndex = 14;
-            // 
-            // maskEditorButton
-            // 
-            this.maskEditorButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.maskEditorButton.Location = new System.Drawing.Point(188, -1);
-            this.maskEditorButton.Name = "maskEditorButton";
-            this.maskEditorButton.Size = new System.Drawing.Size(24, 23);
-            this.maskEditorButton.TabIndex = 17;
-            this.maskEditorButton.Text = "...";
-            this.maskEditorButton.UseVisualStyleBackColor = true;
-            // 
-            // fsuipcBcdModeCheckBox
-            // 
-            this.fsuipcBcdModeCheckBox.AutoSize = true;
-            this.fsuipcBcdModeCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.fsuipcBcdModeCheckBox.Location = new System.Drawing.Point(231, 3);
-            this.fsuipcBcdModeCheckBox.Name = "fsuipcBcdModeCheckBox";
-            this.fsuipcBcdModeCheckBox.Size = new System.Drawing.Size(78, 17);
-            this.fsuipcBcdModeCheckBox.TabIndex = 15;
-            this.fsuipcBcdModeCheckBox.Text = "BCD Mode";
-            this.fsuipcBcdModeCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(21, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Mask value with";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // fsuipcMaskTextBox
-            // 
-            this.fsuipcMaskTextBox.Location = new System.Drawing.Point(110, 1);
-            this.fsuipcMaskTextBox.Name = "fsuipcMaskTextBox";
-            this.fsuipcMaskTextBox.Size = new System.Drawing.Size(75, 20);
-            this.fsuipcMaskTextBox.TabIndex = 14;
-            // 
-            // multiplayPanel
-            // 
-            this.multiplayPanel.AutoSize = true;
-            this.multiplayPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.multiplayPanel.Controls.Add(this.label4);
-            this.multiplayPanel.Controls.Add(this.fsuipcMultiplyTextBox);
-            this.multiplayPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.multiplayPanel.Location = new System.Drawing.Point(3, 41);
-            this.multiplayPanel.Name = "multiplayPanel";
-            this.multiplayPanel.Size = new System.Drawing.Size(309, 24);
-            this.multiplayPanel.TabIndex = 15;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label4.Location = new System.Drawing.Point(48, 4);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Multiply by";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // fsuipcMultiplyTextBox
-            // 
-            this.fsuipcMultiplyTextBox.Location = new System.Drawing.Point(110, 1);
-            this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
-            this.fsuipcMultiplyTextBox.Size = new System.Drawing.Size(100, 20);
-            this.fsuipcMultiplyTextBox.TabIndex = 13;
-            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
@@ -368,6 +369,10 @@
             this.Size = new System.Drawing.Size(315, 209);
             this.fsuipcMoreOptionsGroupBox.ResumeLayout(false);
             this.fsuipcMoreOptionsGroupBox.PerformLayout();
+            this.multiplayPanel.ResumeLayout(false);
+            this.multiplayPanel.PerformLayout();
+            this.maskAndBcdPanel.ResumeLayout(false);
+            this.maskAndBcdPanel.PerformLayout();
             this.fsuipcBaseSettingsGroupBox.ResumeLayout(false);
             this.fsuipcBaseSettingsGroupBox.PerformLayout();
             this.valuePanel.ResumeLayout(false);
@@ -378,10 +383,6 @@
             this.fsuipcLoadPresetGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
-            this.maskAndBcdPanel.ResumeLayout(false);
-            this.maskAndBcdPanel.PerformLayout();
-            this.multiplayPanel.ResumeLayout(false);
-            this.multiplayPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

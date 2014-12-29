@@ -217,5 +217,14 @@ namespace ArcazeUSB.Panels.Group
             config.InputValue = fsuipcValueTextBox.Text;
             return config;
         }
+
+        private void fsuipcSizeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // we always set the mask according to the set bytes
+            fsuipcMaskTextBox.Text = "0x" + (
+                                        new String ('F', 
+                                                    UInt16.Parse((sender as ComboBox).Text)* 2
+                                                   ));
+        }
     }
 }

@@ -9,7 +9,7 @@ using MobiFlight.InputConfig;
 
 namespace MobiFlight
 {
-    public class InputConfigItem : IXmlSerializable, ICloneable
+    public class InputConfigItem : IBaseConfigItem, IXmlSerializable, ICloneable
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
@@ -124,9 +124,10 @@ namespace MobiFlight
             return clone;
         }
 
-        internal void execute(Fsuipc2Cache fsuipcCache)
+        internal void execute(Fsuipc2Cache fsuipcCache, ButtonArgs e)
         {
-            if (button != null) button.execute(fsuipcCache);
+            if (button != null) button.execute(fsuipcCache, e);
+            else if (encoder != null) encoder.execute(fsuipcCache, e);
         }
     }
 }

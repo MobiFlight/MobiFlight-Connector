@@ -988,10 +988,17 @@ namespace ArcazeUSB
                 return;
             }
 
+            ConnectorValue currentValue = new ConnectorValue();
+
             foreach (InputConfigItem cfg in inputCache[inputKey])
             {
-                //if (cfg.Preconditions)
-                cfg.execute(fsuipcCache);
+                // if there are preconditions check and skip if necessary
+                if (cfg.Preconditions.Count > 0)
+                {
+                    if (!checkPrecondition(cfg, currentValue)) continue;
+                }
+
+                cfg.execute(fsuipcCache, e);
             }            
         }
 #endif

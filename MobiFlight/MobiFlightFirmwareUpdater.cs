@@ -39,6 +39,26 @@ namespace MobiFlight
             return result;
         }
 
+        /*
+        public static String GetLatestFirmwareFile(String ArduinoType)
+        {
+            String prefix = "mobiflight_micro_";
+            if (MobiFlightModuleInfo.TYPE_ARDUINO_MEGA == ArduinoType)
+            {
+                prefix = "mobiflight_mega_";
+            }
+            string[] filePaths = Directory.GetFiles(@FirmwarePath, prefix + "*.hex");
+
+            String result = null;
+            foreach (string file in filePaths)
+            {
+            }
+
+            if (result == null) throw new FileNotFoundException("Could not find any firmware in " + FirmwarePath);
+            return result;
+        }
+        */
+
         public static void RunAvrDude(String Port, String ArduinoType) 
         {
             String FirmwareName = "mobiflight_micro_1_0_0.hex";
@@ -46,13 +66,13 @@ namespace MobiFlight
             String Bytes = "57600";
             String C = "avr109";
             if (MobiFlightModuleInfo.TYPE_ARDUINO_MEGA == ArduinoType) {
-                FirmwareName = "mobiflight_mega_1_0_1.hex";
+                FirmwareName = "mobiflight_mega_1_1_0.hex";
                 ArduinoChip = "atmega2560";
                 Bytes = "115200";
                 C = "wiring";
             }
             String verboseLevel = "";
-            if (false) verboseLevel = " -v -v -v -v";
+            //if (false) verboseLevel = " -v -v -v -v";
 
             String FullAvrDudePath = ArduinoIdePath + "\\" + AvrPath;
 

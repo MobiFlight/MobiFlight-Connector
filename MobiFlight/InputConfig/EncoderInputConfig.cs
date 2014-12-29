@@ -21,15 +21,19 @@ namespace MobiFlight.InputConfig
 
     public class EncoderInputConfig : IXmlSerializable, ICloneable
     {
-        [XmlElement]
-        public EncoderInputDirectionType direction = EncoderInputDirectionType.LEFT;
-
-        [XmlElement]
-        public EncoderInputEventType type = EncoderInputEventType.NORMAL;
-
+        public InputAction onLeft;
+        public InputAction onLeftFast;
+        public InputAction onRight;
+        public InputAction onRightFast;
+        
         public object Clone()
         {
-            throw new NotImplementedException();
+            EncoderInputConfig clone = new EncoderInputConfig();
+            if (onLeft != null) clone.onLeft = (InputAction)onLeft.Clone();
+            if (onLeftFast != null) clone.onLeftFast = (InputAction)onLeftFast.Clone();
+            if (onRight != null) clone.onRight = (InputAction)onRight.Clone();
+            if (onRightFast != null) clone.onRightFast = (InputAction)onRightFast.Clone();
+            return clone;
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -39,12 +43,121 @@ namespace MobiFlight.InputConfig
 
         public void ReadXml(System.Xml.XmlReader reader)
         {
-            throw new NotImplementedException();
+            reader.Read(); // this should be the opening tag "onPress"
+            if (reader.LocalName == "onLeft")
+            {
+                switch (reader["type"])
+                {
+                    case "FsuipcOffsetInputAction":
+                        onLeft = new FsuipcOffsetInputAction();
+                        onLeft.ReadXml(reader);
+                        reader.Read(); // this should be the closing tag "onPress"
+                        break;
+
+                    case "Key":
+                        onLeft = new KeyInputAction();
+                        onLeft.ReadXml(reader);
+                        reader.Read(); // this should be the closing tag "onPress"
+                        break;
+                }
+            }
+
+            reader.Read(); // this should be the opening tag "onPress"
+            if (reader.LocalName == "onLeftFast")
+            {
+                switch (reader["type"])
+                {
+                    case "FsuipcOffsetInputAction":
+                        onLeftFast = new FsuipcOffsetInputAction();
+                        onLeftFast.ReadXml(reader);
+                        reader.Read(); // this should be the closing tag "onPress"
+                        break;
+
+                    case "Key":
+                        onLeftFast = new KeyInputAction();
+                        onLeftFast.ReadXml(reader);
+                        reader.Read(); // this should be the closing tag "onPress"
+                        break;
+                }
+            }
+
+            reader.Read();
+            if (reader.LocalName == "onRight")
+            {
+                switch (reader["type"])
+                {
+                    case "FsuipcOffsetInputAction":
+                        onRight = new FsuipcOffsetInputAction();
+                        onRight.ReadXml(reader);
+                        reader.ReadStartElement();
+                        break;
+
+                    case "Key":
+                        onRight = new KeyInputAction();
+                        onRight.ReadXml(reader);
+                        reader.ReadStartElement();
+                        break;
+                }
+            }
+
+            reader.Read();
+            if (reader.LocalName == "onRightFast")
+            {
+                switch (reader["type"])
+                {
+                    case "FsuipcOffsetInputAction":
+                        onRightFast = new FsuipcOffsetInputAction();
+                        onRightFast.ReadXml(reader);
+                        reader.ReadStartElement();
+                        break;
+
+                    case "Key":
+                        onRightFast = new KeyInputAction();
+                        onRightFast.ReadXml(reader);
+                        reader.ReadStartElement();
+                        break;
+                }
+            }
         }
 
         public void WriteXml(System.Xml.XmlWriter writer)
         {
-            throw new NotImplementedException();
+            writer.WriteStartElement("onLeft");
+            if (onLeft != null) onLeft.WriteXml(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("onLeftFast");
+            if (onLeftFast != null) onLeftFast.WriteXml(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("onRight");
+            if (onRight != null) onRight.WriteXml(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("onRightFast");
+            if (onRightFast != null) onRightFast.WriteXml(writer);
+            writer.WriteEndElement();
+        }
+
+        internal void execute(ArcazeUSB.Fsuipc2Cache fsuipcCache, ButtonArgs e)
+        {
+            if (e.Value == 0 && onLeft != null)
+            {
+                onLeft.execute(fsuipcCache);
+            }
+            else if (e.Value == 1 && onLeftFast != null)
+            {
+                onLeftFast.execute(fsuipcCache);
+            }
+            else if (e.Value == 2 && onRight != null)
+            {
+                onRight.execute(fsuipcCache);
+            }
+            else if (e.Value == 3 && onRightFast != null)
+            {
+                onRightFast.execute(fsuipcCache);
+            }
+
         }
     }
 }

@@ -20,34 +20,43 @@ namespace ArcazeUSB.Panels
         {
             InitializeComponent();
             onPressActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
+            onReleaseActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
         }
 
         // On Press Action
         private void onPressActionTypePanel_ActionTypeChanged(object sender, String value)
         {
             Control panel = null;
+            Panel owner = onPressActionConfigPanel;
+            bool isOnPress = (sender as ActionTypePanel) == onPressActionTypePanel;
 
-            actionConfigPanel.Controls.Clear();
-            switch ((sender as ComboBox).SelectedItem.ToString())
+            if (!isOnPress) owner = onReleaseActionConfigPanel;
+
+            owner.Controls.Clear();
+            switch (value)
             {
                 case "FSUIPC Offset":
                     panel = new Panels.Group.FsuipcConfigPanel();
                     (panel as Panels.Group.FsuipcConfigPanel).setMode(false);
 
-                    if (_config != null && _config.onPress != null)
-                    {
+
+                    if (isOnPress && _config != null && _config.onPress != null) 
                         (panel as Panels.Group.FsuipcConfigPanel).syncFromConfig(_config.onPress as FsuipcOffsetInputAction);
-                    }
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as Panels.Group.FsuipcConfigPanel).syncFromConfig(_config.onRelease as FsuipcOffsetInputAction);
 
                     break;
+
+                case "Key":
+                    throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
             }
 
             if (panel != null)
             {
                 panel.Padding = new Padding(0, 0, 0, 0);
-                panel.Width = actionConfigPanel.Width;
-                actionConfigPanel.Controls.Add(panel);
-                panel.Height = actionConfigPanel.Height - 3;
+                panel.Width = owner.Width;
+                owner.Controls.Add(panel);
+                panel.Height = owner.Height - 3;
             }
         }
 
@@ -64,14 +73,36 @@ namespace ArcazeUSB.Panels
             
             if (_config.onRelease != null)
             {
-                onPressActionTypePanel.syncFromConfig(_config.onRelease);
+                onReleaseActionTypePanel.syncFromConfig(_config.onRelease);
             }
         }
 
         public void ToConfig(MobiFlight.InputConfig.ButtonInputConfig config)
         {
-            config.onPress = (actionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
-            // still missing on release
+            // for on press check the action type
+            if (onPressActionTypePanel.ActionTypeComboBox.SelectedItem != null)
+            {
+                switch (onPressActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
+                {
+                    case "FSUIPC Offset":
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
+                        break;
+                    case "Key":
+                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                }
+            }
+
+            if (onReleaseActionTypePanel.ActionTypeComboBox.SelectedItem != null)
+            {
+                switch (onReleaseActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
+                {
+                    case "FSUIPC Offset":
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
+                        break;
+                    case "Key":
+                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                }
+            }
         }
     }
 }

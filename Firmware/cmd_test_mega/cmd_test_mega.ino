@@ -41,7 +41,7 @@ char foo;
 #define MAX_OUTPUTS     20
 #define MAX_BUTTONS     20
 #define MAX_LEDSEGMENTS 3
-#define MAX_ENCODERS    4
+#define MAX_ENCODERS    10
 #define MAX_STEPPERS    4
 #define MAX_MFSERVOS    4
 #endif
@@ -68,7 +68,7 @@ const byte MEM_OFFSET_SERIAL = MEM_OFFSET_NAME + MEM_LEN_NAME;
 const byte MEM_LEN_SERIAL    = 11;
 const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 
-const char version[8] = "1.0.";
+const char version[8] = "1.1.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
@@ -362,10 +362,10 @@ void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, String name = "Encoder")
   
   encoders[encodersRegistered] = MFEncoder();
   encoders[encodersRegistered].attach(pin1, pin2, name);
-  encoders[encodersRegistered].attachHandler(encLeft, handlerOnRelease);
-  encoders[encodersRegistered].attachHandler(encLeftFast, handlerOnRelease);
-  encoders[encodersRegistered].attachHandler(encRight, handlerOnRelease);
-  encoders[encodersRegistered].attachHandler(encRightFast, handlerOnRelease);
+  encoders[encodersRegistered].attachHandler(encLeft, handlerOnEncoder);
+  encoders[encodersRegistered].attachHandler(encLeftFast, handlerOnEncoder);
+  encoders[encodersRegistered].attachHandler(encRight, handlerOnEncoder);
+  encoders[encodersRegistered].attachHandler(encRightFast, handlerOnEncoder);
 
   registerPin(pin1, kTypeEncoder); registerPin(pin2, kTypeEncoder);    
   encodersRegistered++;
@@ -491,6 +491,15 @@ void handlerOnRelease(byte eventId, uint8_t pin, String name)
   cmdMessenger.sendCmdEnd();
 };
 
+//// EVENT HANDLER /////
+void handlerOnEncoder(byte eventId, uint8_t pin, String name)
+{
+  cmdMessenger.sendCmdStart(kEncoderChange);
+  cmdMessenger.sendCmdArg(name);
+  cmdMessenger.sendCmdArg(eventId);
+  cmdMessenger.sendCmdEnd();
+};
+
 /**
  ** config stuff
  **/
@@ -516,6 +525,7 @@ void OnSetConfig()
 void resetConfig()
 {
   ClearButtons();
+  ClearEncoders();
   ClearOutputs();
   ClearLedSegments();
 #if MF_STEPPER_SUPPORT == 1  
@@ -604,10 +614,8 @@ void readConfig(String cfg) {
         // AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, String name = "Encoder")
         params[0] = strtok_r(NULL, ".", &p); // pin1
         params[1] = strtok_r(NULL, ".", &p); // pin2
-        params[2] = strtok_r(NULL, ".", &p); // pin3
-        params[3] = strtok_r(NULL, ".", &p); // pin4
-        params[4] = strtok_r(NULL, ":", &p); // Name
-        //AddEncoder(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]));
+        params[2] = strtok_r(NULL, ":", &p); // Name
+        AddEncoder(atoi(params[0]), atoi(params[1]), params[2]);
       break;
         
       default:
@@ -632,7 +640,6 @@ void OnGetInfo() {
   cmdMessenger.sendCmdArg(type);
   cmdMessenger.sendCmdArg(name);
   cmdMessenger.sendCmdArg(serial);
-  cmdMessenger.sendCmdArg(configBuffer);
   cmdMessenger.sendCmdArg(version);
   cmdMessenger.sendCmdEnd();
 //  cmdMessenger.sendCmd(kInfo, type + "," + name);

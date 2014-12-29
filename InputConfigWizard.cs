@@ -166,6 +166,24 @@ namespace ArcazeUSB
             preconditionPinSerialComboBox.SelectedIndex = 0;            
         }
 
+        protected string _extractSerial(String ModuleSerial)
+        {
+            string serial = null;
+            if (config == null) throw new Exception(MainForm._tr("uiException_ConfigItemNotFound"));
+            // first tab                        
+
+            if (ModuleSerial != null && ModuleSerial != "")
+            {
+                serial = ModuleSerial;
+                if (serial.Contains('/'))
+                {
+                    serial = serial.Split('/')[1].Trim();
+                }
+            }
+
+            return serial;
+        }
+
         /// <summary>
         /// sync the values from config with the config wizard form
         /// </summary>
@@ -176,14 +194,9 @@ namespace ArcazeUSB
             string serial = null;
             if (config == null) throw new Exception(MainForm._tr("uiException_ConfigItemNotFound"));
             // first tab                        
-            
-            if (config.ModuleSerial != null && config.ModuleSerial != "")
+            serial = _extractSerial(config.ModuleSerial);
+            if (serial != null)
             {
-                serial = config.ModuleSerial;
-                if (serial.Contains('/'))
-                {
-                    serial = serial.Split('/')[1].Trim();
-                }
                 if (!ComboBoxHelper.SetSelectedItemByPart(inputModuleNameComboBox, serial))
                 {
                     // TODO: provide error message
@@ -263,11 +276,23 @@ namespace ArcazeUSB
             // display panel
             config.ModuleSerial = inputModuleNameComboBox.Text;
             config.Name = inputTypeComboBox.Text;
+            DeviceType currentInputType = determineCurrentDeviceType(_extractSerial(config.ModuleSerial));
 
+            switch (currentInputType)
+            {
+                case DeviceType.Button:
+                    if (config.button == null) config.button = new MobiFlight.InputConfig.ButtonInputConfig();
+                    (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
+                    break;
+
+                case DeviceType.Encoder:
+                    if (config.encoder == null) config.encoder = new MobiFlight.InputConfig.EncoderInputConfig();
+                    (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
+                    break;
+            }
             // depending on the current type, choose the appropriate
             // input config object
-            if (config.button == null) config.button = new MobiFlight.InputConfig.ButtonInputConfig();
-            (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
+            
             return true;
         }
 
@@ -333,6 +358,24 @@ namespace ArcazeUSB
             }
         }
 
+        private DeviceType determineCurrentDeviceType(String serial)
+        {
+            DeviceType currentInputType = DeviceType.Button;
+
+            MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
+
+            // find the correct input type based on the name
+            foreach (MobiFlight.Config.BaseDevice device in module.GetConnectedInputDevices())
+            {
+                if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
+
+                currentInputType = device.Type;
+                break;
+            }
+
+            return currentInputType;
+        }
+
         private void inputTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Control panel = null;
@@ -348,30 +391,18 @@ namespace ArcazeUSB
                 // we remove the callback method to ensure, that it is not added more than once
                 // displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged -= displayLedAddressComboBox_SelectedIndexChanged;
 
-                DeviceType currentInputType = DeviceType.Button;
-
-                MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-
-                // find the correct input type based on the name
-                foreach (MobiFlight.Config.BaseDevice device in module.GetConnectedInputDevices())
-                {
-                    if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
-
-                    currentInputType = device.Type;
-                    break;                   
-                }
+                DeviceType currentInputType = determineCurrentDeviceType(serial);
 
                 switch (currentInputType)
                 {
                     case DeviceType.Button:
                         panel = new Panels.ButtonPanel();
                         (panel as Panels.ButtonPanel).syncFromConfig(config.button);
-                        // sync the stuff!
-                        
                         break;
 
                     case DeviceType.Encoder:
-                        MessageBox.Show("Add the main encoder panel... and sync it");
+                        panel = new Panels.EncoderPanel();
+                        (panel as Panels.EncoderPanel).syncFromConfig(config.encoder);
                         break;
                 }
 
