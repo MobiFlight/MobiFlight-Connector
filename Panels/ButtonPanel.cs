@@ -36,7 +36,6 @@ namespace ArcazeUSB.Panels
             switch (value)
             {
                 case "FSUIPC Offset":
-                    panel = new Panels.Group.FsuipcConfigPanel();
                     (panel as Panels.Group.FsuipcConfigPanel).setMode(false);
 
 

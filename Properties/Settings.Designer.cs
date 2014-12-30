@@ -155,5 +155,17 @@ namespace ArcazeUSB.Properties {
                 this["ArduinoIdePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("presets_inputs.aip")]
+        public string InputsPresetFile {
+            get {
+                return ((string)(this["InputsPresetFile"]));
+            }
+            set {
+                this["InputsPresetFile"] = value;
+            }
+        }
     }
 }

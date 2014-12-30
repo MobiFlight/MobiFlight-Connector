@@ -36,5 +36,8 @@
     <Setting Name="ArduinoIdePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="InputsPresetFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">presets_inputs.aip</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -60,7 +60,7 @@ namespace ArcazeUSB
 #endif
         DataGridView dataGridViewConfig = null;
         DataGridView inputsDataGridView = null;
-        Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<String, List<InputConfigItem>>();
+        Dictionary<String, List<Tuple<InputConfigItem, DataGridViewRow>>> inputCache = new Dictionary<string, List<Tuple<InputConfigItem, DataGridViewRow>>>();
 
         private bool _autoConnectTimerRunning = false;
 
@@ -960,7 +960,7 @@ namespace ArcazeUSB
             String inputKey = e.Serial+e.Type+e.ButtonId;
             if (!inputCache.ContainsKey(inputKey))
             {
-                inputCache[inputKey] = new List<InputConfigItem>();
+                inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
                 // check if we have configs for this button
                 // and store it                
                 foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
@@ -970,7 +970,7 @@ namespace ArcazeUSB
                         InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
                         if (cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.ButtonId)
                         {
-                            inputCache[inputKey].Add(cfg);
+                            inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow> (cfg, gridViewRow));
                         }
                     }
                     catch (Exception ex)
@@ -990,15 +990,19 @@ namespace ArcazeUSB
 
             ConnectorValue currentValue = new ConnectorValue();
 
-            foreach (InputConfigItem cfg in inputCache[inputKey])
+            foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
             {
+                DataRow row = (tuple.Item2.DataBoundItem as DataRowView).Row;
+
+                if (!(bool) row["active"]) continue;
+
                 // if there are preconditions check and skip if necessary
-                if (cfg.Preconditions.Count > 0)
+                if (tuple.Item1.Preconditions.Count > 0)
                 {
-                    if (!checkPrecondition(cfg, currentValue)) continue;
+                    if (!checkPrecondition(tuple.Item1, currentValue)) continue;
                 }
 
-                cfg.execute(fsuipcCache, e);
+                tuple.Item1.execute(fsuipcCache, e);
             }            
         }
 #endif

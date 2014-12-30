@@ -370,6 +370,16 @@
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\SourceCacheInterface.cs" />
+    <Content Include="Resources\button.png" />
+    <Content Include="Resources\encoder.png" />
+    <Content Include="Resources\led.png" />
+    <None Include="Resources\module-unknown.png" />
+    <None Include="Resources\module-arduino.png" />
+    <None Include="Resources\module-mobiflight.png" />
+    <None Include="Resources\module-changed.png" />
+    <Content Include="Resources\output.png" />
+    <Content Include="Resources\servo.png" />
+    <Content Include="Resources\stepper.png" />
     <EmbeddedResource Include="AboutForm.de.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -510,6 +520,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="presets_inputs.aip">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -563,6 +577,7 @@
     <None Include="Resources\export1.png" />
     <None Include="Resources\cd.png" />
     <None Include="Resources\dvd.png" />
+    <Content Include="Resources\7-led.png" />
     <Content Include="Resources\lightbulb.png" />
     <Content Include="Resources\lightbulb_on.png" />
     <None Include="Resources\media_stop_red.png" />

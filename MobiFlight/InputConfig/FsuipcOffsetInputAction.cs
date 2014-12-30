@@ -130,12 +130,17 @@ namespace MobiFlight.InputConfig
             }
 
             if (FSUIPCSize == 1) {
-                byte bValue = Byte.Parse(value);
+                System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
+                if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                byte bValue = Byte.Parse(value, format);
                 fsuipcCache.setOffset(FSUIPCOffset, bValue);
             }
             else if (FSUIPCSize == 2)
             {
-                Int16 sValue = Int16.Parse(value);
+                System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
+                if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                Int16 sValue = Int16.Parse(value, format);
+                
                 fsuipcCache.setOffset(FSUIPCOffset, sValue);
             }
             else if (FSUIPCSize == 4)

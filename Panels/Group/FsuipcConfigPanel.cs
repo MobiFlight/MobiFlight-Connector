@@ -13,12 +13,14 @@ namespace ArcazeUSB.Panels.Group
 {
     public partial class FsuipcConfigPanel : UserControl
     {
+        public String PresetFile { get; set; }
         public FsuipcConfigPanel()
         {
             InitializeComponent();
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
             _initFsuipcOffsetTypeComboBox();
+            PresetFile = Properties.Settings.Default.PresetFile;
             _loadPresets();
             fsuipcPresetComboBox.ResetText();
         }
@@ -26,13 +28,14 @@ namespace ArcazeUSB.Panels.Group
         public void setMode(bool isOutputPanel)
         {
             multiplayPanel.Visible = isOutputPanel;
+            PresetFile = Properties.Settings.Default.InputsPresetFile;
         }
 
         private void _loadPresets()
         {
             bool isLoaded = true;
 
-            if (!System.IO.File.Exists(Properties.Settings.Default.PresetFile))
+            if (!System.IO.File.Exists(PresetFile))
             {
                 isLoaded = false;
                 MessageBox.Show(MainForm._tr("uiMessageConfigWizard_PresetsNotFound"), MainForm._tr("Hint"));
@@ -43,7 +46,7 @@ namespace ArcazeUSB.Panels.Group
                 try
                 {
                     presetsDataSet.Clear();
-                    presetsDataSet.ReadXml(Properties.Settings.Default.PresetFile);
+                    presetsDataSet.ReadXml(PresetFile);
                     DataRow[] rows = presetDataTable.Select("", "description");
                     fsuipcPresetComboBox.Items.Clear();
 

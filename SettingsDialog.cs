@@ -62,12 +62,16 @@ namespace ArcazeUSB
             arcazeModuleTypeComboBox.SelectedIndex = 0;
 
             // initialize mftreeviewimagelist
-            mfTreeViewImageList.Images.Add(DeviceType.Button.ToString(), ArcazeUSB.Properties.Resources.cd);
-            mfTreeViewImageList.Images.Add(DeviceType.Stepper.ToString(), ArcazeUSB.Properties.Resources.dvd);
-            mfTreeViewImageList.Images.Add(DeviceType.Servo.ToString(), ArcazeUSB.Properties.Resources.dvd);
-            mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), ArcazeUSB.Properties.Resources.lightbulb_on);
-            mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), ArcazeUSB.Properties.Resources.sound);
-            mfTreeViewImageList.Images.Add("Changed", ArcazeUSB.Properties.Resources.warning);
+            mfTreeViewImageList.Images.Add("module", ArcazeUSB.Properties.Resources.module_mobiflight);
+            mfTreeViewImageList.Images.Add("module-arduino", ArcazeUSB.Properties.Resources.module_arduino);
+            mfTreeViewImageList.Images.Add("module-unknown", ArcazeUSB.Properties.Resources.module_arduino);
+            mfTreeViewImageList.Images.Add(DeviceType.Button.ToString(), ArcazeUSB.Properties.Resources.button);
+            mfTreeViewImageList.Images.Add(DeviceType.Encoder.ToString(), ArcazeUSB.Properties.Resources.encoder);
+            mfTreeViewImageList.Images.Add(DeviceType.Stepper.ToString(), ArcazeUSB.Properties.Resources.stepper);
+            mfTreeViewImageList.Images.Add(DeviceType.Servo.ToString(), ArcazeUSB.Properties.Resources.servo);
+            mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), ArcazeUSB.Properties.Resources.output);
+            mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), ArcazeUSB.Properties.Resources.led7);
+            mfTreeViewImageList.Images.Add("Changed", ArcazeUSB.Properties.Resources.module_changed);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
 
             loadSettings();
@@ -166,7 +170,7 @@ namespace ArcazeUSB
                 {
                     TreeNode node = new TreeNode();
                     node = mfModulesTreeView_initNode(module, node);
-                    
+                    if (!module.HasMfFirmware()) node.ImageKey = "module-arduino";
                     mfModulesTreeView.Nodes.Add(node);
                 }
             }

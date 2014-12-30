@@ -117,204 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
-    <value>Weitere Einstellungen</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Multipliziere mit</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 13</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Maskiere Wert mit</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
-    <value>Basis-Einstellungen</value>
-  </data>
-  <data name="fsuipcTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 49</value>
-  </data>
-  <data name="fsuipcTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 15</value>
-  </data>
-  <data name="fsuipcTypeLabel.Text" xml:space="preserve">
-    <value>Wert Typ</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 21</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 47</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 17</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Größe in Bytes</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
-    <value>Preset laden</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 20</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 23</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Text" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="labelFsuipcPreset.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="labelFsuipcPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>-3, 21</value>
-  </data>
-  <data name="labelFsuipcPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 21</value>
-  </data>
-  <data name="labelFsuipcPreset.Text" xml:space="preserve">
-    <value>Verwende Preset</value>
-  </data>
-  <data name="fsuipcPresetComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 21</value>
-  </data>
-  <data name="fsuipcPresetComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 21</value>
-  </data>
-  <data name="fsuipcHintTextBox.Text" xml:space="preserve">
-    <value>Geben Sie die notwendigen FSUIPC-Informationen an. Verwenden Sie ein vorhandenes "Preset" für geläufige Werte.</value>
-  </data>
-  <data name="compareTabPage.Text" xml:space="preserve">
-    <value>Vergleichen</value>
-  </data>
-  <data name="comparisonSettingsGroupBox.Text" xml:space="preserve">
-    <value>Vergleichs-Einstellungen</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 78</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 13</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>sonst</value>
-  </data>
-  <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 52</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 13</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>dann setze</value>
-  </data>
-  <data name="label7.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 27</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 13</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Wenn aktueller Wert</value>
-  </data>
-  <data name="label6.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="comparisonActiveCheckBox.Text" xml:space="preserve">
-    <value>Wende Vergleich an, um den Wert zu beeinflussen</value>
-  </data>
-  <data name="comparisonHintTtextBox.Text" xml:space="preserve">
-    <value>Es ist oft notwendig den aktuellen Wert mit einem anderen zu vergleichen (z.B. Klappenstellung) und je nach Ergebnis komplett abzuändern - z.B. Kursanzeige-Wert von 360 zu 0.
-</value>
-  </data>
-  <data name="testSettingsGroupBox.Text" xml:space="preserve">
-    <value>Einstellungen testen</value>
-  </data>
-  <data name="groupBoxDisplaySettings.Text" xml:space="preserve">
-    <value>Display Einstellungen</value>
-  </data>
-  <data name="displayTypeGroupBox.Text" xml:space="preserve">
-    <value>Display Typ</value>
-  </data>
-  <data name="arcazeSerialLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 23</value>
-  </data>
-  <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 13</value>
-  </data>
-  <data name="arcazeSerialLabel.Text" xml:space="preserve">
-    <value>Modul</value>
-  </data>
-  <data name="arcazeSerialLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 48</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 13</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Text" xml:space="preserve">
-    <value>Verwende Typ</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="displayTabTextBox.Text" xml:space="preserve">
-    <value>Bitte passenden Display-Typ wählen, der für die Ausgabe verwendet werden soll.</value>
-  </data>
-  <data name="preconditionTabPage.Text" xml:space="preserve">
-    <value>Vorbedingung</value>
-  </data>
-  <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 355</value>
-  </data>
-  <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 24</value>
-  </data>
-  <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 149</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
-    <value>Einstellung für Vorbedingung</value>
-  </data>
   <data name="preconditionPinValueLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="preconditionPinValueLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 13</value>
   </data>
@@ -363,11 +170,11 @@
   <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
+    <value>Einstellung für Vorbedingung</value>
+  </data>
   <data name="preconditionApplyButton.Text" xml:space="preserve">
     <value>Anwenden</value>
-  </data>
-  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
-    <value>Art der Vorbedingung</value>
   </data>
   <data name="preconditionTypeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -384,71 +191,71 @@
   <data name="preconditionTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 49</value>
+  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
+    <value>Art der Vorbedingung</value>
   </data>
-  <data name="preconditionListgroupBox.Text" xml:space="preserve">
-    <value>Liste Vorbedingungen</value>
+  <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 146</value>
   </data>
   <data name="preconditionTreeImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABs
-        DAAAAk1TRnQBSQFMAgEBAgEAAWABAAFgAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8AFwADOwJkAWEBWwHhAWsBZAFWAecBawFkAVUB5wFrAWQBVQHnAWsBZAFV
-        AecBawFkAVQB5wFrAWQBVAHnAWsBZAFUAecBawFkAVQB5wFrAWQBVAHnAWwBZAFUAecBZQFhAVoB4QM6
-        AWIIAAM7AWQCWwFmAeEBVgFcAW0B5wFVAVwBbQHnAVUBWgFtAecBVQFaAW4B5wFVAVoBbgHnAVUBXAFv
-        AecBVQFcAW8B5wFVAVwBbwHnAVUBXAFvAecBVQFcAW8B5wJbAWcB4QM6AWKIAAFkAWABVgHkAf8B0wGJ
-        Af8B+gG8AVUB/wH7AbEBOQH/AfwBqQEfAf8B/gGfAQUC/wGbAQAC/wGeAQAC/wGeAQAC/wGgAQAC/wGf
-        AQAC/wGfAQAC/wGkAQAB/wFkAWEBWAHiCAABVgFZAWcB5AGJAaEC/wFVAYQC/wFBAW8C/wEtAWcC/wEb
-        AWEC/wERAWQC/wEXAXEC/wEeAYoC/wElAZcC/wErAaEC/wErAaMC/wErAaUC/wFYAV0BaAHiiAABaQFc
-        AVIB6gH2AcABawH/AfABqQFCAf8B8AGfASkB/wHwAZYBEAH/AfIBjgEAAf8B9AGOAQAB/wH3AZEBAAH/
-        AfoBlAEAAf8B/AGWAQAC/wGZAQAB/wH+AZgBAAL/AaABAAH/AWwBXAFRAeoIAAFSAVQBbAHqAWoBkAH9
-        Af8BRAFpAf4B/wEvAV8C/wEdAVgC/wELAVQC/wEPAV4C/wEVAWoC/wEbAYIC/wEiAY8C/wEnAZsC/wEn
-        AZoC/wEqAaAC/wFRAVUBcAHqiAABaQFcAVIB6gHyAbkBYwH/AesBogE8Af8B6gGXASIB/wHqAYwBCAH/
-        AesBhgEAAf8B7gGIAQAB/wHxAYsBAAH/AfMBjQEAAf8B9gGQAQAB/wH5AZMBAAH/Af0BlwEAAv8BoAEA
-        Af8BbAFcAVEB6ggAAVIBVAFsAeoBYwGLAf4B/wE+AWQB/gH/ASkBWgL/ARUBUgL/AQcBUAL/AQ4BXQL/
-        ARQBaAL/ARsBgQL/AR8BjQL/ASUBlgL/ASYBmAL/ASYBmgL/AVEBVQFvAeqIAAFpAVwBUgHqAe4BtAFh
-        Af8B5gGcATkB/wHlAZABHwH/AeQBhQEDAf8B5QFzAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHw
-        AYoBAAH/AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AWoBXAFRAeoIAAFSAVQBbAHqAWEBiQH8Af8BOgFg
-        Av8BJQFVAv8BDwFNAv8BBQFNAv8BDAFaAv8BEQFlAv8BGAFvAv8BGwGDAv8BHgGJAv8BIAGLAv8BIgGR
-        Av8BUQFVAW8B6ogAAWcBXAFSAuoBsAFhAf8B4QGXATkB/wHfAYsBHwH/Ad4BcwEFAf8B3wFtAQAB/wHh
-        AW8BAAH/AeQBcgEAAf8B5wGBAQAB/wHqAYQBAAH/Ae0BhwEAAf8B7wGJAQAB/wH4AZIBAAH/AWkBXAFR
-        AeoIAAFSAVMBaQHqAWEBiAH7Af8BOgFeAf0B/wEjAVIC/wENAUkC/wEDAUgC/wEJAVQC/wEOAV4C/wES
-        AWUC/wEWAW0C/wEYAXIC/wEYAXMC/wEaAYUC/wFRAVQBbwHqiAABZgFVAVIB6gHmAa4BZQH/Ad0BlAE8
-        Af8B2wGHASIB/wHZAW8BCQH/AdgBZwEAAf8B2wFpAQAB/wHeAWwBAAH/AeEBbwEAAf8B4wFxAQAB/wHm
-        AYABAAH/AekBgwEAAf8B8gGMAQAB/wFpAVwBUQHqCAABUgFTAWkB6gFlAYgB+AH/ATwBXgH6Af8BJAFQ
-        Av8BDwFGAv8BAAFBAv8BBQFLAv8BCgFVAv8BDQFdAv8BEAFhAv8BEgFlAv8BEgFlAv8BFAFsAv8BUQFU
-        AW0B6ogAAWYBVQFSAeoB5AGtAWoB/wHaAZQBQgH/AdcBhgEpAf8B1QFuARAB/wHTAWIBAAH/AdUBYwEA
-        Af8B2AFmAQAB/wHaAWgBAAH/Ad0BawEAAf8B4AFuAQAB/wHjAXEBAAH/AewBhgEAAf8BaQFVAVEB6ggA
-        AVIBUwFpAeoBagGMAfUB/wFCAWEB9QH/ASoBUQH9Af8BFAFFAv8BAAE8Av8BAQFCAv8BBQFKAv8BCAFS
-        Av8BCgFXAv8BDAFaAv8BDAFZAv8BDgFfAv8BUQFTAWwB6ogAAWYBVQFSAeoB4wGvAXMB/wHYAZUBSwH/
-        AdQBhwEzAf8B0QFvARsB/wHPAWQBBAH/Ac8BXAEAAf8B0QFfAQAB/wHUAWIBAAH/AdcBZQEAAf8B2gFo
-        AQAB/wHcAWoBAAH/AeUBcwEAAf8BaQFVAVEB6ggAAVIBUwFmAeoBcwGSAfMB/wFLAWUB8AH/ATMBVQH3
-        Af8BHAFHAf4B/wEJAT0C/wEAATgC/wEAAUAC/wECAUUC/wEFAUoC/wEGAUwC/wEGAU4C/wEHAVIC/wFR
-        AVMBbAHqiAABZgFVAVIB6gHiAbMBiwH/AdYBmAFWAf8B0gGLAT8B/wHPAXIBKQH/AcwBZwEUAf8BywFe
-        AQAB/wHLAVoBAAH/Ac4BXAEAAf8B0QFfAQAB/wHTAWEBAAH/AdYBZAEAAf8B3wFtAQAB/wFnAVUBUQHq
-        CAACUgFmAeoBiwGaAfAB/wFWAWwB7AH/AT8BXAHxAf8BKQFOAfcB/wEUAUEC/wEDATcC/wEAATYC/wEA
-        AToC/wEAAT4C/wEAAUAC/wEAAUAC/wEAAUUC/wFRAVIBawHqiAABZgFVAVIB6gHiAbsBmAH/AdYBnQFk
-        Af8B0gGQAU4B/wHOAYQBOQH/AcsBbQElAf8ByQFkARMB/wHIAV0BBAH/AcgBVwEAAf8BygFYAQAB/wHN
-        AVsBAAH/AdABXgEAAf8B2AFlAQAB/wFmAVUBUQHqCAACUgFmAeoBmAGlAe8B/wFkAYEB6AH/AU4BZQHr
-        Af8BOQFXAfAB/wElAUoB9QH/ARQBPwH9Af8BBAE1Av8BAAEwAf4B/wEAATEC/wEAATMC/wEAATIC/wEA
-        ATcC/wFRAVIBaQHqiAABZgFVAVMB6gHlAcIBqQH/AdcBpQGAAf8B0gGXAV4B/wHOAYsBSwH/AcsBgQE5
-        Af8ByQFsASgB/wHIAWUBGgH/AcgBYAEPAf8ByAFeAQcB/wHKAV4BAQH/Ac0BYAEBAf8B1QFrAQcB/wFm
-        AVUBUQHqCAACUwFmAeoBqQGxAe8B/wGAAYwB5gH/AV4BcAHnAf8BSwFiAeoB/wE5AVUB7gH/ASgBSgHy
-        Af8BGgFBAfYB/wEPAToB+gH/AQYBNAH+Af8BAQEyAv8BAAEyAv8BBgE6Av8BUQFSAWkB6ogAAWEBWgFW
-        AeQB7wHZAcoB/wHiAb0BowH/AdwBrQGMAf8B1gGhAWsB/wHTAZUBWQH/Ac8BiwFIAf8BzgGFATsB/wHN
-        AYABMQH/Ac4BcQEoAf8BzwFxASMB/wHTAYABIwH/AdoBiQEpAf8BYgJYAeMIAAJWAWEB5AHKAdAB9QH/
-        AaMBrAHsAf8BjAGYAesB/wFrAYoB7QH/AVkBbwHvAf8BSAFkAfEB/wE7AVoB9QH/ATEBUgH3Af8BKAFO
-        AfoB/wEjAUoB+gH/ASMBSgH8Af8BKQFUAv8CWAFkAeOIAAM8AWYBYQFaAVYB5AFmAVUBUwHqAWUBVQFS
-        AeoBZQFVAVIB6gFlAVUBUgHqAWUBVQFSAeoBZQFVAVEB6gFlAVUBUQHqAWUBVQFRAeoBZQFVAVEB6gFl
-        AVUBUQHqAWEBWgFVAeQDOwFkCAADPAFmAlYBYQHkAlMBZgHqAlIBZgHqAlIBZgHqAlIBZgHqAlIBZgHq
-        AVEBUgFmAeoBUQFSAWYB6gFRAVIBZgHqAVEBUgFmAeoBUQFSAWYB6gFVAVYBYgHkAzsBZP8AhQABQgFN
-        AT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAGAAQEBgAEBBAABgAEBAYABAQQA
-        AYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQA
-        AYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQA
-        BP8EAAs=
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABu
+        DAAAAk1TRnQBSQFMAgEBAgEAAWgBAAFoAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAWIBYQFbAeEBaQFkAVgB5wFpAWQBVgHnAWkBZAFWAecBaQFk
+        AVYB5wFpAWQBVQHnAWkBZAFVAecBaQFkAVUB5wFpAWQBVQHnAWkBZAFVAecBagFkAVUB5wFjAWEBWwHh
+        AzoBYggAAzsBZAJbAWQB4QFYAVwBawHnAVYBXAFrAecBVgFcAWsB5wFWAVwBbAHnAVYBXAFsAecBVgFc
+        AW0B5wFWAVwBbQHnAVYBXAFtAecBVgFcAW0B5wFWAVwBbQHnAlsBZQHhAzoBYogAAWIBYAFYAeQB/wHT
+        AYkB/wH6AbwBVAH/AfsBsQE4Af8B/AGpAR4B/wH+AZ8BBAL/AZsBAAL/AZ4BAAL/AZ4BAAL/AaABAAL/
+        AZ8BAAL/AZ8BAAL/AaQBAAH/AWMBYQFaAeIIAAFYAVoBZAHkAYkBoQL/AVQBhAL/AUABbgL/ASwBZgL/
+        ARoBYAL/ARABYwL/ARYBcAL/AR0BigL/ASQBlwL/ASoBoQL/ASoBowL/ASoBpQL/AVoBXQFlAeKIAAFm
+        AVwBUwHqAfYBwAFqAf8B8AGpAUEB/wHwAZ8BKAH/AfABlgEPAf8B8gGOAQAB/wH0AY4BAAH/AfcBkQEA
+        Af8B+gGUAQAB/wH8AZYBAAL/AZkBAAH/Af4BmAEAAv8BoAEAAf8BaQFcAVIB6ggAAVMBVQFpAeoBaQGQ
+        Af0B/wFDAWgB/gH/AS4BXgL/ARwBVwL/AQoBUwL/AQ4BXQL/ARQBaQL/ARoBggL/ASEBjwL/ASYBmwL/
+        ASYBmgL/ASkBoAL/AVIBVQFtAeqIAAFmAVwBUwHqAfIBuQFiAf8B6wGiATsB/wHqAZcBIQH/AeoBjAEH
+        Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
+        AQAB/wFpAVwBUgHqCAABUwFVAWkB6gFiAYsB/gH/AT0BYwH+Af8BKAFZAv8BFAFRAv8BBgFPAv8BDQFc
+        Av8BEwFnAv8BGgGBAv8BHgGNAv8BJAGWAv8BJQGYAv8BJQGaAv8BUgFVAWwB6ogAAWYBXAFTAeoB7gG0
+        AWAB/wHmAZwBOAH/AeUBkAEeAf8B5AGFAQIB/wHlAXIBAAH/AegBggEAAf8B6gGEAQAB/wHtAYcBAAH/
+        AfABigEAAf8B8wGNAQAB/wH2AZABAAH/Af4BmAEAAf8BZwFcAVIB6ggAAVMBVQFpAeoBYAGJAfwB/wE5
+        AV8C/wEkAVQC/wEOAUwC/wEEAUwC/wELAVkC/wEQAWQC/wEXAW4C/wEaAYMC/wEdAYkC/wEfAYsC/wEh
+        AZEC/wFSAVUBbAHqiAABZgFcAVMC6gGwAWAB/wHhAZcBOAH/Ad8BiwEeAf8B3gFyAQQB/wHfAWwBAAH/
+        AeEBbgEAAf8B5AFxAQAB/wHnAYEBAAH/AeoBhAEAAf8B7QGHAQAB/wHvAYkBAAH/AfgBkgEAAf8BZgFc
+        AVIB6ggAAVMBVAFmAeoBYAGIAfsB/wE5AV0B/QH/ASIBUQL/AQwBSAL/AQIBRwL/AQgBUwL/AQ0BXQL/
+        AREBZAL/ARUBbAL/ARcBcQL/ARcBcgL/ARkBhQL/AVIBVQFsAeqIAAFlAVUBUwHqAeYBrgFkAf8B3QGU
+        ATsB/wHbAYcBIQH/AdkBbgEIAf8B2AFmAQAB/wHbAWgBAAH/Ad4BawEAAf8B4QFuAQAB/wHjAXABAAH/
+        AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/AWYBXAFSAeoIAAFTAVQBZgHqAWQBiAH4Af8BOwFdAfoB/wEj
+        AU8C/wEOAUUC/wEAAUAC/wEEAUoC/wEJAVQC/wEMAVwC/wEPAWAC/wERAWQC/wERAWQC/wETAWsC/wFS
+        AVUBagHqiAABZQFVAVMB6gHkAa0BaQH/AdoBlAFBAf8B1wGGASgB/wHVAW0BDwH/AdMBYQEAAf8B1QFi
+        AQAB/wHYAWUBAAH/AdoBZwEAAf8B3QFqAQAB/wHgAW0BAAH/AeMBcAEAAf8B7AGGAQAB/wFmAVUBUgHq
+        CAABUwFUAWYB6gFpAYwB9QH/AUEBYAH1Af8BKQFQAf0B/wETAUQC/wEAATsC/wEAAUEC/wEEAUkC/wEH
+        AVEC/wEJAVYC/wELAVkC/wELAVgC/wENAV4C/wFSAVQBaQHqiAABZQFVAVMB6gHjAa8BcgH/AdgBlQFK
+        Af8B1AGHATIB/wHRAW4BGgH/Ac8BYwEDAf8BzwFbAQAB/wHRAV4BAAH/AdQBYQEAAf8B1wFkAQAB/wHa
+        AWcBAAH/AdwBaQEAAf8B5QFyAQAB/wFmAVUBUgHqCAABUwFUAWUB6gFyAZIB8wH/AUoBZAHwAf8BMgFU
+        AfcB/wEbAUYB/gH/AQgBPAL/AQABNwL/AQABPwL/AQEBRAL/AQQBSQL/AQUBSwL/AQUBTQL/AQYBUQL/
+        AVIBVAFpAeqIAAFlAVUBUwHqAeIBswGLAf8B1gGYAVUB/wHSAYsBPgH/Ac8BcQEoAf8BzAFmARMB/wHL
+        AV0BAAH/AcsBWQEAAf8BzgFbAQAB/wHRAV4BAAH/AdMBYAEAAf8B1gFjAQAB/wHfAWwBAAH/AWYBVQFS
+        AeoIAAJTAWUB6gGLAZoB8AH/AVUBawHsAf8BPgFbAfEB/wEoAU0B9wH/ARMBQAL/AQIBNgL/AQABNQL/
+        AQABOQL/AQABPQL/AQABPwL/AQABPwL/AQABRAL/AVIBUwFoAeqIAAFlAVUBUwHqAeIBuwGYAf8B1gGd
+        AWMB/wHSAZABTQH/Ac4BhAE4Af8BywFsASQB/wHJAWMBEgH/AcgBXAEDAf8ByAFWAQAB/wHKAVcBAAH/
+        Ac0BWgEAAf8B0AFdAQAB/wHYAWQBAAH/AWUBVQFSAeoIAAJTAWUB6gGYAaUB7wH/AWMBgQHoAf8BTQFk
+        AesB/wE4AVYB8AH/ASQBSQH1Af8BEwE+Af0B/wEDATQC/wEAAS8B/gH/AQABMAL/AQABMgL/AQABMQL/
+        AQABNgL/AVIBUwFmAeqIAAFlAVUBVAHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBXQH/Ac4BiwFKAf8BywGB
+        ATgB/wHJAWsBJwH/AcgBZAEZAf8ByAFfAQ4B/wHIAV0BBgH/AcoBXQEAAf8BzQFfAQAB/wHVAWoBBgH/
+        AWUBVQFSAeoIAAJUAWUB6gGpAbEB7wH/AYABjAHmAf8BXQFvAecB/wFKAWEB6gH/ATgBVAHuAf8BJwFJ
+        AfIB/wEZAUAB9gH/AQ4BOQH6Af8BBQEzAf4B/wEAATEC/wEAATEC/wEFATkC/wFSAVMBZgHqiAABYQFa
+        AVgB5AHvAdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBagH/AdMBlQFYAf8BzwGLAUcB/wHOAYUBOgH/
+        Ac0BgAEwAf8BzgFwAScB/wHPAXABIgH/AdMBgAEiAf8B2gGJASgB/wFgAlgB4wgAAlgBYQHkAcoB0AH1
+        Af8BowGsAewB/wGMAZgB6wH/AWoBigHtAf8BWAFuAe8B/wFHAWMB8QH/AToBWQH1Af8BMAFRAfcB/wEn
+        AU0B+gH/ASIBSQH6Af8BIgFJAfwB/wEoAVMC/wJYAWIB44gAAzwBZgFhAVoBWAHkAWUBVQFUAeoBZAFV
+        AVMB6gFkAVUBUwHqAWQBVQFTAeoBZAFVAVMB6gFkAVUBUgHqAWQBVQFSAeoBZAFVAVIB6gFkAVUBUgHq
+        AWQBVQFSAeoBYQFaAVYB5AM7AWQIAAM8AWYCWAFhAeQCVAFlAeoCUwFlAeoCUwFlAeoCUwFlAeoCUwFl
+        AeoBUgFTAWUB6gFSAVMBZQHqAVIBUwFlAeoBUgFTAWUB6gFSAVMBZQHqAVYBWAFhAeQDOwFk/wCFAAFC
+        AU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQAAYABAQGAAQEEAAGAAQEBgAEB
+        BAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEB
+        BAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEB
+        BAAE/wQACw==
 </value>
   </data>
   <data name="preconditionListTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
@@ -491,11 +298,47 @@
         AQABCAgIAgAAAAYXAAAAB0tub3RlbjcJBAAAAAkXAAAAAP////8JBAAAAP////8JBAAAAAAAAAAL
 </value>
   </data>
+  <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 46</value>
+  </data>
+  <data name="preconditionListgroupBox.Text" xml:space="preserve">
+    <value>Liste Vorbedingungen</value>
+  </data>
+  <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 46</value>
+  </data>
+  <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>366, 336</value>
+  </data>
   <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 43</value>
+    <value>366, 43</value>
   </data>
   <data name="preconditionTabTextBox.Text" xml:space="preserve">
     <value>Legen Sie eine Vorbedingung für diese Konfiguration an. Nur wenn die Vorbedingung erfüllt ist, wird die Konfiguration berücksichtigt. Das ist z.B. für ein Multi-Radio sinnvoll.</value>
+  </data>
+  <data name="preconditionTabPage.Text" xml:space="preserve">
+    <value>Vorbedingung</value>
+  </data>
+  <data name="groupBoxInputSettings.Text" xml:space="preserve">
+    <value>Eingabe Einstellungen</value>
+  </data>
+  <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 23</value>
+  </data>
+  <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 13</value>
+  </data>
+  <data name="arcazeSerialLabel.Text" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.Text" xml:space="preserve">
+    <value>Gerät</value>
+  </data>
+  <data name="displayTypeGroupBox.Text" xml:space="preserve">
+    <value>Eingabe Typ</value>
+  </data>
+  <data name="displayTabTextBox.Text" xml:space="preserve">
+    <value>Bitte passenden Input-Typ wählen, der für die Eingabe verwendet werden soll.</value>
   </data>
   <data name="cancelButton.Text" xml:space="preserve">
     <value>Abbrechen</value>

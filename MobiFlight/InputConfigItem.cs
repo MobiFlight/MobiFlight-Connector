@@ -17,21 +17,15 @@ namespace MobiFlight
         // @see: https://forge.simple-solutions.de/issues/275
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
 
-        [XmlAttribute]
         public string ModuleSerial { get; set; }
-        [XmlAttribute]
         public string Name { get; set; }
-        [XmlAttribute]
         public string Type { get; set; }
-        [XmlElement]
         public ButtonInputConfig button  { get; set; }
-        [XmlElement]
         public EncoderInputConfig encoder { get; set; }
-        [XmlElement]
         public List<Precondition> Preconditions             { get; set; }
         
         public InputConfigItem()
-        {                                    
+        {
             Preconditions = new List<Precondition>();
         }
 

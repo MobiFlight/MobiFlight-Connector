@@ -1095,12 +1095,12 @@ namespace ArcazeUSB
 
                         // the row had been saved but no config object has been created
                         // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                        if ((inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"].GetType() == typeof(System.DBNull))
+                        if (row["settings"].GetType() == typeof(System.DBNull))
                         {
-                            (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] = new InputConfigItem();
+                            row["settings"] = new InputConfigItem();
                         }
 
-                        cfg = ((inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                        cfg = row["settings"] as InputConfigItem;
                     }
                     _editConfigWithInputWizard(
                              row,
@@ -1111,6 +1111,7 @@ namespace ArcazeUSB
                     inputsDataGridView.Rows[e.RowIndex].Cells["inputType"].Value = "FSUIPC Offset";
                     inputsDataGridView.EndEdit();
                     break;
+
                 case "inputActive":
                     // always end editing to store changes
                     inputsDataGridView.EndEdit();
@@ -1265,6 +1266,17 @@ namespace ArcazeUSB
             }            
         }
 
+        private void deleteInputsRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // do somehting here
+            foreach (DataGridViewRow row in inputsDataGridView.SelectedRows)
+            {
+                // we cannot delete a row which hasn't been saved yet
+                if (row.IsNewRow) continue;
+                inputsDataGridView.Rows.Remove(row);
+            }
+        }
+
         /// <summary>
         /// this method is used to select the current row so that the context menu events may detect the current row
         /// </summary>
@@ -1396,11 +1408,71 @@ namespace ArcazeUSB
             }            
         }
 
+        private void duplicateInputsRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // this is called to ensure 
+            // that all data has been stored in
+            // the data table
+            // otherwise there can occur strange inserts of new rows
+            // at the first position instead of the expected one
+            this.Validate();
+
+            // do somehting here
+            foreach (DataGridViewRow row in inputsDataGridView.SelectedRows)
+            {
+                // ignore new rows since they cannot be copied nor deleted
+                if (row.IsNewRow) continue;
+
+                // get current config item
+                // duplicate it
+                // duplicate row 
+                // link to new config item 
+                DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                DataRow newRow = inputsDataTable.NewRow();
+
+                foreach (DataColumn col in inputsDataTable.Columns)
+                {
+                    newRow[col.ColumnName] = currentRow[col.ColumnName];
+                }
+
+                InputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                if (cfg != null)
+                {
+                    cfg = (cfg.Clone() as InputConfigItem);
+                }
+                else
+                {
+                    cfg = new InputConfigItem();
+                }
+
+                newRow["description"] += " " + _tr("suffixCopy");
+                newRow["settings"] = cfg;
+                newRow["guid"] = Guid.NewGuid();
+
+                int currentPosition = inputsDataTable.Rows.IndexOf(currentRow);
+                if (currentPosition == -1)
+                {
+                    currentPosition = 1;
+                }
+
+                inputsDataTable.Rows.InsertAt(newRow, currentPosition + 1);
+
+                row.Selected = false;
+            }
+        }
+
         private void dataGridViewContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
             // do not show up context menu
             // id there is only the new line visible
             e.Cancel = (dataGridViewConfig.Rows.Count == 1 || (lastClickedRow == dataGridViewConfig.Rows.Count-1));
+        }
+
+        private void inputsDataGridViewContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            // do not show up context menu
+            // id there is only the new line visible
+            e.Cancel = (inputsDataGridView.Rows.Count == 1 || (lastClickedRow == inputsDataGridView.Rows.Count - 1));
         }
 
         private void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)

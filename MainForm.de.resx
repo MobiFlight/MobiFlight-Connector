@@ -199,8 +199,12 @@
   <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
     <value>Hilfe</value>
   </data>
-  <data name="Active.HeaderText" xml:space="preserve">
+  <data name="active.HeaderText" xml:space="preserve">
     <value>Aktiv</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="active.Width" type="System.Int32, mscorlib">
+    <value>37</value>
   </data>
   <data name="Description.HeaderText" xml:space="preserve">
     <value>Beschreibung</value>
@@ -214,7 +218,6 @@
   <data name="EditButtonColumn.HeaderText" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="EditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
     <value>60</value>
   </data>
@@ -237,9 +240,42 @@
     <value>173, 48</value>
   </data>
   <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>566, 162</value>
+    <value>552, 130</value>
   </data>
   <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>558, 149</value>
+  </data>
+  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>564, 155</value>
+  </data>
+  <data name="inputActive.HeaderText" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="inputDescription.HeaderText" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="inputType.HeaderText" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="inputType.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="inputEditButtonColumn.HeaderText" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="inputEditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="inputEditButtonColumn.Width" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>558, 149</value>
+  </data>
+  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>564, 155</value>
+  </data>
+  <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>572, 181</value>
   </data>
   <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
