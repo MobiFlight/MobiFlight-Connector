@@ -316,4 +316,13 @@ You should configure them now.</value>
   <data name="uiMessageDeviceNameAlreadyUsed" xml:space="preserve">
     <value>The name of the device has already been used, please review.</value>
   </data>
+  <data name="uiMessageFsuipcConfigPanelMultiplyWrongFormat" xml:space="preserve">
+    <value>Multiply value must contain a valid number.</value>
+  </data>
+  <data name="uiMessageFsuipcConfigPanelNoValue" xml:space="preserve">
+    <value>The value must not be empty. Use numbers or expressions like $+1, etc.</value>
+  </data>
+  <data name="uiMessageSelectedModuleDoesNotContainAnyInputDevices" xml:space="preserve">
+    <value>The selected module does not contain any input devices. Do you want to add such devices?</value>
+  </data>
 </root>

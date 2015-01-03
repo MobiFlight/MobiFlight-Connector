@@ -20,7 +20,9 @@ namespace ArcazeUSB.Panels
         {
             InitializeComponent();
             onLeftActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
+            onLeftFastActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
             onRightActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
+            onRightFastActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
         }
 
         // On Press Action
@@ -31,7 +33,12 @@ namespace ArcazeUSB.Panels
             bool isLeft = ((sender as ActionTypePanel) == onLeftActionTypePanel) || ((sender as ActionTypePanel) == onLeftFastActionTypePanel);
             bool isFast = ((sender as ActionTypePanel) == onLeftFastActionTypePanel) || ((sender as ActionTypePanel) == onRightFastActionTypePanel);
 
-            if (!isLeft) owner = onRightActionConfigPanel;
+            if (isLeft && isFast) owner = onLeftFastActionConfigPanel;
+            else if (!isLeft)
+            {
+                owner = onRightActionConfigPanel;
+                if (isFast) owner = onRightFastActionConfigPanel;
+            }
 
             owner.Controls.Clear();
             switch (value)
@@ -40,11 +47,11 @@ namespace ArcazeUSB.Panels
                     panel = new Panels.Group.FsuipcConfigPanel();
                     (panel as Panels.Group.FsuipcConfigPanel).setMode(false);
 
-                    if (isLeft && _config != null && _config.onLeft != null)
+                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
                         (panel as Panels.Group.FsuipcConfigPanel).syncFromConfig(_config.onLeft as FsuipcOffsetInputAction);
                     else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
                         (panel as Panels.Group.FsuipcConfigPanel).syncFromConfig(_config.onLeftFast as FsuipcOffsetInputAction);
-                    else if (!isLeft && _config != null && _config.onRight != null)
+                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
                         (panel as Panels.Group.FsuipcConfigPanel).syncFromConfig(_config.onRight as FsuipcOffsetInputAction);
                     else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
                         (panel as Panels.Group.FsuipcConfigPanel).syncFromConfig(_config.onRightFast as FsuipcOffsetInputAction);
@@ -76,7 +83,7 @@ namespace ArcazeUSB.Panels
 
             if (_config.onLeftFast != null)
             {
-                onLeftActionTypePanel.syncFromConfig(_config.onLeftFast);
+                onLeftFastActionTypePanel.syncFromConfig(_config.onLeftFast);
             }
 
             if (_config.onRight != null)
@@ -86,7 +93,7 @@ namespace ArcazeUSB.Panels
 
             if (_config.onRightFast != null)
             {
-                onRightActionTypePanel.syncFromConfig(_config.onRightFast);
+                onRightFastActionTypePanel.syncFromConfig(_config.onRightFast);
             }
         }
 
@@ -102,6 +109,27 @@ namespace ArcazeUSB.Panels
                         break;
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                        break;
+                    default:
+                        config.onLeft = null;
+                        break;
+                }
+            }
+
+            // for on fast press check the action type
+            if (onLeftFastActionTypePanel.ActionTypeComboBox.SelectedItem != null)
+            {
+                switch (onLeftFastActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
+                {
+                    case "FSUIPC Offset":
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
+                        break;
+                    case "Key":
+                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                        break;
+                    default:
+                        config.onLeftFast = null;
+                        break;
                 }
             }
 
@@ -114,6 +142,26 @@ namespace ArcazeUSB.Panels
                         break;
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                        break;
+                    default:
+                        config.onRight = null;
+                        break;
+                }
+            }
+
+            if (onRightFastActionTypePanel.ActionTypeComboBox.SelectedItem != null)
+            {
+                switch (onRightFastActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
+                {
+                    case "FSUIPC Offset":
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
+                        break;
+                    case "Key":
+                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                        break;
+                    default:
+                        config.onRightFast = null;
+                        break;
                 }
             }
         }

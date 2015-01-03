@@ -104,6 +104,10 @@ namespace MobiFlight
         public object Clone()
         {
             InputConfigItem clone = new InputConfigItem();
+            clone.ModuleSerial = ModuleSerial;
+            clone.Name = Name;
+            clone.Type = Type;
+
             if (button != null)
             clone.button = (ButtonInputConfig) this.button.Clone();
 

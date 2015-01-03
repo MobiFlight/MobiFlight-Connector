@@ -141,7 +141,7 @@ namespace MobiFlight.InputConfig
 
         internal void execute(ArcazeUSB.Fsuipc2Cache fsuipcCache, ButtonArgs e)
         {
-            if (e.Value == 0 && onLeft != null)
+            if ((e.Value == 0 && onLeft != null) || (e.Value == 1 && onLeftFast == null))
             {
                 onLeft.execute(fsuipcCache);
             }
@@ -149,7 +149,7 @@ namespace MobiFlight.InputConfig
             {
                 onLeftFast.execute(fsuipcCache);
             }
-            else if (e.Value == 2 && onRight != null)
+            else if ((e.Value == 2 && onRight != null) || (e.Value == 3 && onRightFast == null))
             {
                 onRight.execute(fsuipcCache);
             }

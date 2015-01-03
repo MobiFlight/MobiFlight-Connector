@@ -109,6 +109,7 @@
             this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
             this.fsuipcMultiplyTextBox.Size = new System.Drawing.Size(100, 20);
             this.fsuipcMultiplyTextBox.TabIndex = 13;
+            this.fsuipcMultiplyTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMultiplyTextBox_Validating);
             // 
             // maskAndBcdPanel
             // 
@@ -134,6 +135,7 @@
             this.maskEditorButton.TabIndex = 17;
             this.maskEditorButton.Text = "...";
             this.maskEditorButton.UseVisualStyleBackColor = true;
+            this.maskEditorButton.Click += new System.EventHandler(this.maskEditorButton_Click);
             // 
             // fsuipcBcdModeCheckBox
             // 
@@ -163,6 +165,7 @@
             this.fsuipcMaskTextBox.Name = "fsuipcMaskTextBox";
             this.fsuipcMaskTextBox.Size = new System.Drawing.Size(75, 20);
             this.fsuipcMaskTextBox.TabIndex = 14;
+            this.fsuipcMaskTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMaskTextBox_Validating);
             // 
             // fsuipcBaseSettingsGroupBox
             // 
@@ -206,6 +209,7 @@
             this.fsuipcValueTextBox.Size = new System.Drawing.Size(102, 20);
             this.fsuipcValueTextBox.TabIndex = 17;
             this.fsuipcValueTextBox.TextChanged += new System.EventHandler(this.fsuipcValueTextBox_TextChanged);
+            this.fsuipcValueTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcValueTextBox_Validating);
             // 
             // offsetPanel
             // 
@@ -288,6 +292,7 @@
             this.fsuipcOffsetTextBox.Size = new System.Drawing.Size(50, 20);
             this.fsuipcOffsetTextBox.TabIndex = 11;
             this.fsuipcOffsetTextBox.Text = "0xAAAA";
+            this.fsuipcOffsetTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcOffsetTextBox_Validating);
             // 
             // fsuipcLoadPresetGroupBox
             // 

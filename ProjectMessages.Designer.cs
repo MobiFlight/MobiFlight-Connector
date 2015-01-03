@@ -532,6 +532,24 @@ namespace ArcazeUSB {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Multiply value must contain a valid number. ähnelt.
+        /// </summary>
+        internal static string uiMessageFsuipcConfigPanelMultiplyWrongFormat {
+            get {
+                return ResourceManager.GetString("uiMessageFsuipcConfigPanelMultiplyWrongFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The value must not be empty. Use numbers or expressions like $+1, etc. ähnelt.
+        /// </summary>
+        internal static string uiMessageFsuipcConfigPanelNoValue {
+            get {
+                return ResourceManager.GetString("uiMessageFsuipcConfigPanelNoValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The connection to FSUIPC got lost ähnelt.
         /// </summary>
         internal static string uiMessageFsuipcConnectionLost {
@@ -611,6 +629,15 @@ namespace ArcazeUSB {
         internal static string uiMessagePreconditionNotSatisfied {
             get {
                 return ResourceManager.GetString("uiMessagePreconditionNotSatisfied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The selected module does not contain any input devices. Do you want to add such devices? ähnelt.
+        /// </summary>
+        internal static string uiMessageSelectedModuleDoesNotContainAnyInputDevices {
+            get {
+                return ResourceManager.GetString("uiMessageSelectedModuleDoesNotContainAnyInputDevices", resourceCulture);
             }
         }
         

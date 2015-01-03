@@ -38,7 +38,7 @@ char foo;
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
-#define MAX_OUTPUTS     20
+#define MAX_OUTPUTS     30
 #define MAX_BUTTONS     20
 #define MAX_LEDSEGMENTS 3
 #define MAX_ENCODERS    10
@@ -68,6 +68,8 @@ const byte MEM_OFFSET_SERIAL = MEM_OFFSET_NAME + MEM_LEN_NAME;
 const byte MEM_LEN_SERIAL    = 11;
 const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 
+// 1.0.1 : Nicer firmware update, more outputs (20)
+// 1.1.0 : Encoder support, more outputs (30)
 const char version[8] = "1.1.0";
 
 #if MODULETYPE == MTYPE_MEGA

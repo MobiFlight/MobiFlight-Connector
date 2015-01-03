@@ -405,6 +405,7 @@ namespace ArcazeUSB
             }
 
             __cacheByte[offset].Value = value;
+            _process();
         }
 
         public void setOffset(int offset, short value)
@@ -416,6 +417,7 @@ namespace ArcazeUSB
             }
 
             __cacheShort[offset].Value = value;
+            _process();
         }
 
         public void setOffset(int offset, int value)
@@ -427,6 +429,7 @@ namespace ArcazeUSB
             }
 
             __cacheInt[offset].Value = value;
+            _process();
         }
     }
 }

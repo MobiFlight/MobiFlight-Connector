@@ -14,6 +14,7 @@ namespace ArcazeUSB
     public partial class InputConfigWizard : Form
     {
         public event EventHandler PreconditionTreeNodeChanged;
+        public event EventHandler SettingsDialogRequested;
 
         static int lastTabActive = 0;
 
@@ -282,12 +283,14 @@ namespace ArcazeUSB
             {
                 case DeviceType.Button:
                     if (config.button == null) config.button = new MobiFlight.InputConfig.ButtonInputConfig();
-                    (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
+                    if (groupBoxInputSettings.Controls[0] != null)
+                        (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
                     break;
 
                 case DeviceType.Encoder:
                     if (config.encoder == null) config.encoder = new MobiFlight.InputConfig.EncoderInputConfig();
-                    (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
+                    if (groupBoxInputSettings.Controls[0] != null)
+                        (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
                     break;
             }
             // depending on the current type, choose the appropriate
@@ -341,6 +344,26 @@ namespace ArcazeUSB
                         case DeviceType.Encoder:
                             inputTypeComboBox.Items.Add(device.Name);
                             break;
+                    }
+                }
+
+                if (inputTypeComboBox.Items.Count == 0)
+                {
+                    if (MessageBox.Show(
+                            MainForm._tr("uiMessageSelectedModuleDoesNotContainAnyInputDevices"),
+                            MainForm._tr("Hint"),
+                            MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes
+                        )
+                    {
+                        if (SettingsDialogRequested != null)
+                        {
+                            SettingsDialogRequested(this, new EventArgs());
+
+                            // trigger reload of Type ComboBox
+                            int CurrentIdx = inputModuleNameComboBox.SelectedIndex;
+                            inputModuleNameComboBox.SelectedIndex = 0;
+                            inputModuleNameComboBox.SelectedIndex = CurrentIdx;
+                        }
                     }
                 }
                 

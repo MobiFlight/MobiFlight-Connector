@@ -18,6 +18,12 @@ namespace ArcazeUSB.Panels
         public ActionTypePanel()
         {
             InitializeComponent();
+            ActionTypeComboBox.Items.Clear();
+            ActionTypeComboBox.Items.Add(MainForm._tr("none"));
+            ActionTypeComboBox.Items.Add("FSUIPC Offset");
+            ActionTypeComboBox.SelectedIndex = 0;
+            //ActionTypeComboBox.Items.Add("FSUIPC Macro");
+            //ActionTypeComboBox.Items.Add("Key");
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 

@@ -16,8 +16,8 @@ namespace ArcazeUSB
 {
     public partial class MainForm : Form
     {
-        public static String Version = "4.1.0";
-        public static String Build = "20141030";
+        public static String Version = "5.0.0-RC2";
+        public static String Build = "20150101";
 
         /// <summary>
         /// the currently used filename of the loaded config file
@@ -670,9 +670,11 @@ namespace ArcazeUSB
 
             execManager.Stop();
             dataSetConfig.Clear();
+            dataSetInputs.Clear();
             ConfigFile configFile = new ConfigFile(fileName);
             dataSetConfig.ReadXml(configFile.getOutputConfig());
             dataSetInputs.ReadXml(configFile.getInputConfig());
+            
 
             // for backward compatibility 
             // we check if there are rows that need to
@@ -826,7 +828,7 @@ namespace ArcazeUSB
                         row["arcazeSerial"] = cfgItem.DisplaySerial.ToString();
                     }
                 }
-            }            
+            }
         } //_restoreValuesInGridView()
 
         /// <summary>
@@ -1108,7 +1110,7 @@ namespace ArcazeUSB
                              create);
                     
                     inputsDataGridView.Rows[e.RowIndex].Cells["inputName"].Value  =  cfg.Name + "/" + cfg.ModuleSerial;
-                    inputsDataGridView.Rows[e.RowIndex].Cells["inputType"].Value = "FSUIPC Offset";
+                    inputsDataGridView.Rows[e.RowIndex].Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
                     inputsDataGridView.EndEdit();
                     break;
 
@@ -1122,7 +1124,7 @@ namespace ArcazeUSB
         private void _editConfigWithInputWizard(DataRow dataRow, InputConfigItem cfg, bool create)
         {
             // refactor!!! dependency to arcaze cache etc not nice
-            Form wizard = new InputConfigWizard ( 
+            InputConfigWizard wizard = new InputConfigWizard ( 
                                 execManager, 
                                 cfg, 
                                 execManager.getModuleCache(), 
@@ -1131,6 +1133,7 @@ namespace ArcazeUSB
                                 dataRow["guid"].ToString()
                                 );
             wizard.StartPosition = FormStartPosition.CenterParent;
+            wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 saveToolStripButton.Enabled = true;
@@ -1140,6 +1143,12 @@ namespace ArcazeUSB
                 // Show Type of Output
                 // Show last set value
             };            
+        }
+
+        void wizard_SettingsDialogRequested(object sender, EventArgs e)
+        {
+            //(sender as InputConfigWizard).Close();
+            settingsToolStripMenuItem_Click(sender, null);
         }
 
         /// <summary>
@@ -1195,6 +1204,12 @@ namespace ArcazeUSB
             // TODO: refactor dependency to module cache
             SettingsDialog dialog = new SettingsDialog(execManager);
             dialog.StartPosition = FormStartPosition.CenterParent;
+            if (sender is InputConfigWizard)
+            {
+                // show the mobiflight tab page
+                dialog.tabControl1.SelectedTab = dialog.mobiFlightTabPage;
+            }
+
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 Properties.Settings.Default.Save();
@@ -1529,6 +1544,27 @@ namespace ArcazeUSB
                 e.SuppressKeyPress = true;  // Stops bing! Also sets handled which stop event bubbling
                 if (saveToolStripButton.Enabled)
                 saveToolStripButton_Click(null, null);
+            }
+        }
+
+        private void inputsDataGridView_VisibleChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inputsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow gridRow in inputsDataGridView.Rows)
+            {
+                if (gridRow.DataBoundItem  == null) continue;
+                DataRow dataRow = ((gridRow.DataBoundItem as DataRowView).Row as DataRow);
+                if (dataRow["settings"] is InputConfigItem)
+                {
+                    InputConfigItem cfg = (dataRow["settings"] as InputConfigItem);
+
+                    gridRow.Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
+                    gridRow.Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
+                }
             }
         }
     }

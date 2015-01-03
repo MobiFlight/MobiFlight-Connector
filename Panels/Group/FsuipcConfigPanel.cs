@@ -14,6 +14,8 @@ namespace ArcazeUSB.Panels.Group
     public partial class FsuipcConfigPanel : UserControl
     {
         public String PresetFile { get; set; }
+        ErrorProvider errorProvider = new ErrorProvider();
+
         public FsuipcConfigPanel()
         {
             InitializeComponent();
@@ -23,6 +25,7 @@ namespace ArcazeUSB.Panels.Group
             PresetFile = Properties.Settings.Default.PresetFile;
             _loadPresets();
             fsuipcPresetComboBox.ResetText();
+            fsuipcSizeComboBox.SelectedIndex = 0;
         }
 
         public void setMode(bool isOutputPanel)
@@ -126,12 +129,13 @@ namespace ArcazeUSB.Panels.Group
             {
                 string tmp = (sender as TextBox).Text.Replace("0x", "").ToUpper();
                 (sender as TextBox).Text = "0x" + Int64.Parse(tmp, System.Globalization.NumberStyles.HexNumber).ToString("X" + length.ToString());
+                removeError(sender as Control);
             }
             catch (Exception exc)
             {
                 e.Cancel = true;
                 Log.Instance.log("_validatingHexFields : Parsing problem, " + exc.Message, LogSeverity.Debug);
-                MessageBox.Show(MainForm._tr("uiMessageConfigWizard_ValidHexFormat"), MainForm._tr("Hint"));
+                displayError(sender as Control, MainForm._tr("uiMessageConfigWizard_ValidHexFormat"));
             }
         }
 
@@ -228,6 +232,67 @@ namespace ArcazeUSB.Panels.Group
                                         new String ('F', 
                                                     UInt16.Parse((sender as ComboBox).Text)* 2
                                                    ));
+        }
+
+        private void fsuipcMaskTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                _validatingHexFields(sender, e, int.Parse(fsuipcSizeComboBox.Text) * 2);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log("fsuipcMultiplyTextBox_Validating : Parsing problem, " + ex.Message, LogSeverity.Debug);
+                displayError(sender as Control, ex.Message);
+                e.Cancel = false;
+            }
+        }
+
+        private void fsuipcMultiplyTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            // do not validate when multiply panel is not visible
+            if ((sender as TextBox).Name == fsuipcMultiplyTextBox.Name && !multiplayPanel.Visible) return;
+
+            try
+            {
+                float.Parse((sender as TextBox).Text);
+                removeError(sender as Control);
+            }
+            catch (Exception exc)
+            {
+                Log.Instance.log("fsuipcMultiplyTextBox_Validating : Parsing problem, " + exc.Message, LogSeverity.Debug);
+                displayError(sender as Control, MainForm._tr("uiMessageFsuipcConfigPanelMultiplyWrongFormat"));
+                e.Cancel = true;
+            }
+        }
+
+        private void fsuipcValueTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if ((sender as TextBox).Text.Trim() == "")
+            {
+                displayError(sender as Control, MainForm._tr("uiMessageFsuipcConfigPanelNoValue"));
+                e.Cancel = true;
+            }
+            else
+            {
+                removeError(sender as Control);
+            }
+        }
+
+        private void displayError(Control control, String message)
+        {
+            errorProvider.SetIconAlignment(control, ErrorIconAlignment.TopRight);
+            errorProvider.SetError(
+                    control,
+                    message);
+            MessageBox.Show(message, MainForm._tr("Hint"));
+        }
+
+        private void removeError(Control control)
+        {
+            errorProvider.SetError(
+                    control,
+                    "");
         }
     }
 }

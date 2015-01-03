@@ -36,6 +36,7 @@ namespace ArcazeUSB.Panels
             switch (value)
             {
                 case "FSUIPC Offset":
+                    panel = new Panels.Group.FsuipcConfigPanel();
                     (panel as Panels.Group.FsuipcConfigPanel).setMode(false);
 
 
@@ -86,8 +87,14 @@ namespace ArcazeUSB.Panels
                     case "FSUIPC Offset":
                         config.onPress = (onPressActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
+
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                        break;
+
+                    default:
+                        config.onPress = null;
+                        break;
                 }
             }
 
@@ -98,8 +105,14 @@ namespace ArcazeUSB.Panels
                     case "FSUIPC Offset":
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
+
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                        break;
+
+                    default:
+                        config.onRelease = null;
+                        break;
                 }
             }
         }
