@@ -373,6 +373,9 @@
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <None Include="firmware\mobiflight_mega_1_1_1.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\module-unknown.png" />
     <None Include="Resources\module-arduino.png" />
     <None Include="Resources\module-mobiflight.png" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define COMMAND_MESSENGER_3_6
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,9 @@ using CommandMessenger;
 using CommandMessenger.TransportLayer;
 using FSUIPC;
 using System.Text.RegularExpressions;
+#if COMMAND_MESSENGER_3_6
 using CommandMessenger.Serialport;
+#endif
 
 namespace MobiFlight
 {
@@ -150,16 +153,22 @@ namespace MobiFlight
             };
 
             _cmdMessenger = new CmdMessenger(_transportLayer)
+#if COMMAND_MESSENGER_3_6
             {
                 BoardType = BoardType.Bit16 // Set if it is communicating with a 16- or 32-bit Arduino board
-            };
+            }
+#endif
+            ;
 
             // Attach the callbacks to the Command Messenger
             AttachCommandCallBacks();
 
-            // Start listening            
+            // Start listening    
+#if COMMAND_MESSENGER_3_6        
             _cmdMessenger.Connect();            
-            
+#else
+            _cmdMessenger.StartListening();                
+#endif            
             this.Connected = true;
 
             LoadConfig();
@@ -235,7 +244,12 @@ namespace MobiFlight
             if (!this.Connected) return;
 
             this.Connected = false;
+            
+#if COMMAND_MESSENGER_3_6    
             _cmdMessenger.Disconnect();
+#else
+            _cmdMessenger.StopListening();
+#endif
             _cmdMessenger.Dispose();
             _transportLayer.Dispose();
             _config = null;
@@ -250,8 +264,13 @@ namespace MobiFlight
                 SerialTransport tmpSerial = new SerialTransport() {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
                 };
+#if COMMAND_MESSENGER_3_6    
                 tmpSerial.Connect();
                 tmpSerial.Disconnect();
+#else
+                tmpSerial.StartListening();
+                tmpSerial.StopListening();
+#endif
                 tmpSerial.Dispose();
 
                 result = "COM" + (byte.Parse(_comPort.Substring(3)) - 1);

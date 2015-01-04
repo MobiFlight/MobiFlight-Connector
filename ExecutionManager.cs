@@ -967,6 +967,8 @@ namespace ArcazeUSB
                 {
                     try
                     {
+                        if (gridViewRow.DataBoundItem == null) continue;
+
                         InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
                         if (cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.ButtonId)
                         {
@@ -987,7 +989,7 @@ namespace ArcazeUSB
                 Log.Instance.log("No config found for button: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
-
+            
             ConnectorValue currentValue = new ConnectorValue();
 
             foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
@@ -1003,7 +1005,9 @@ namespace ArcazeUSB
                 }
 
                 tuple.Item1.execute(fsuipcCache, e);
-            }            
+            }
+
+            fsuipcCache.ForceUpdate();
         }
 #endif
     }

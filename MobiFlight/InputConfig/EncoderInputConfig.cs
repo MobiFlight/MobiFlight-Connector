@@ -143,18 +143,22 @@ namespace MobiFlight.InputConfig
         {
             if ((e.Value == 0 && onLeft != null) || (e.Value == 1 && onLeftFast == null))
             {
+                Log.Instance.log("Executing OnLeft: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 onLeft.execute(fsuipcCache);
             }
             else if (e.Value == 1 && onLeftFast != null)
             {
+                Log.Instance.log("Executing OnLeftFast: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 onLeftFast.execute(fsuipcCache);
             }
             else if ((e.Value == 2 && onRight != null) || (e.Value == 3 && onRightFast == null))
             {
+                Log.Instance.log("Executing OnRight: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 onRight.execute(fsuipcCache);
             }
             else if (e.Value == 3 && onRightFast != null)
             {
+                Log.Instance.log("Executing OnRightFast: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 onRightFast.execute(fsuipcCache);
             }
 

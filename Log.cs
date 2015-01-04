@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace MobiFlight
 {
@@ -57,6 +58,9 @@ namespace MobiFlight
     public class LogAppenderTextBox : ILogAppender
     {
         private TextBox textBox = null;
+        // This delegate enables asynchronous calls for setting
+        // the text property on a TextBox control.
+        delegate void logCallback(string message, LogSeverity severity);
 
         public LogAppenderTextBox(TextBox newTextBox)
         {
@@ -66,7 +70,18 @@ namespace MobiFlight
         public void log(string message, LogSeverity severity)
         {
             if (textBox == null) return;
-            textBox.Text = message + Environment.NewLine + textBox.Text;
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (textBox.InvokeRequired)
+            {
+                logCallback d = new logCallback(log);
+                textBox.FindForm().Invoke(d, new object[] { message, severity });
+            }
+            else
+            {
+                textBox.Text = DateTime.Now + ": " + message + Environment.NewLine + textBox.Text;
+            }
         }
     }
 }

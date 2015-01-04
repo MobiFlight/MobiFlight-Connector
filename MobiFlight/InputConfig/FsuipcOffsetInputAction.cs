@@ -133,6 +133,12 @@ namespace MobiFlight.InputConfig
                 System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
                 if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
                 byte bValue = Byte.Parse(value, format);
+                if (FSUIPCMask != 0xFF)
+                {
+                    byte cByte = (byte) fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
+                    byte cMask = (byte) ((byte)(FSUIPCMask) & bValue);
+                    bValue = (byte) (cByte | cMask);
+                }
                 fsuipcCache.setOffset(FSUIPCOffset, bValue);
             }
             else if (FSUIPCSize == 2)
@@ -140,12 +146,31 @@ namespace MobiFlight.InputConfig
                 System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
                 if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
                 Int16 sValue = Int16.Parse(value, format);
+                if (FSUIPCMask != 0xFFFF)
+                {
+                    Int16 cByte = (Int16) fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
+                    if (sValue == 1)
+                    {
+                        sValue = (byte)(cByte | FSUIPCMask);
+                    }
+                    else
+                    {
+                        sValue = (byte)(cByte & ~FSUIPCMask);
+                    }
+                }
                 
                 fsuipcCache.setOffset(FSUIPCOffset, sValue);
             }
             else if (FSUIPCSize == 4)
             {
                 Int32 iValue = Int32.Parse(value);
+                if (FSUIPCMask != 0xFFFFFFFF)
+                {
+                    Int32 cByte = (Int32)fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
+                    Int32 cMask = (Int32)((Int32)(FSUIPCMask) & iValue);
+                    iValue = (byte)(cByte | cMask);
+                }
+
                 fsuipcCache.setOffset(FSUIPCOffset, iValue);
             }
         }

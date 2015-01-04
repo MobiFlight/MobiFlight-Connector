@@ -87,12 +87,14 @@ namespace MobiFlight.InputConfig
 
         internal void execute(ArcazeUSB.Fsuipc2Cache fsuipcCache, ButtonArgs e)
         {
-            if (e.Value == 1 && onPress != null)
+            if (e.Value == 0 && onPress != null)
             {
+                Log.Instance.log("Executing OnPress: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 onPress.execute(fsuipcCache);
             }
-            else if (e.Value == 0 && onPress != null)
+            else if (e.Value == 1 && onPress != null)
             {
+                Log.Instance.log("Executing OnRelease: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 onRelease.execute(fsuipcCache);
             }
 
