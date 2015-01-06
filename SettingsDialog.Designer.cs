@@ -640,6 +640,8 @@
             // 
             resources.ApplyResources(this.firmwareArduinoIdePathTextBox, "firmwareArduinoIdePathTextBox");
             this.firmwareArduinoIdePathTextBox.Name = "firmwareArduinoIdePathTextBox";
+            this.firmwareArduinoIdePathTextBox.TextChanged += new System.EventHandler(this.firmwareArduinoIdePathTextBox_TextChanged);
+            this.firmwareArduinoIdePathTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.firmwareArduinoIdePathTextBox_Validating);
             // 
             // firmwareArduinoIdeLabel
             // 

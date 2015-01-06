@@ -376,6 +376,9 @@
     <None Include="firmware\mobiflight_mega_1_1_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_micro_1_1_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\module-unknown.png" />
     <None Include="Resources\module-arduino.png" />
     <None Include="Resources\module-mobiflight.png" />

@@ -16,8 +16,8 @@ namespace ArcazeUSB
 {
     public partial class MainForm : Form
     {
-        public static String Version = "5.0.0-RC4";
-        public static String Build = "20150104";
+        public static String Version = "5.0.0";
+        public static String Build = "20150106";
 
         /// <summary>
         /// the currently used filename of the loaded config file

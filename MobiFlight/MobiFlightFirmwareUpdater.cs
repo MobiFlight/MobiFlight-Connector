@@ -15,6 +15,7 @@ namespace MobiFlight
          */
         public static String ArduinoIdePath { get; set; }
         public static String AvrPath { get { return "hardware\\tools\\avr"; } }
+        
         /***
          * C:\\Users\\SEBAST~1\\AppData\\Local\\Temp\\build2060068306446321513.tmp\\cmd_test_mega.cpp.hex
          **/
@@ -25,9 +26,13 @@ namespace MobiFlight
             return Directory.Exists(path + "\\" + AvrPath);
         }
 
+        public static bool IsValidFirmwareFilepath(string filepath)
+        {
+            return File.Exists(filepath);
+        }
+
         public static bool Update(MobiFlightModule module)
         {
-            bool result = true;
             String Port = module.InitUploadAndReturnUploadPort();
             if (module.Connected) module.Disconnect();
 
@@ -35,8 +40,10 @@ namespace MobiFlight
             {
                 System.Threading.Thread.Sleep(100);
             }
+
             RunAvrDude(Port, module.ArduinoType);
-            return result;
+            
+            return true;
         }
 
         /*
@@ -71,23 +78,38 @@ namespace MobiFlight
                 Bytes = "115200";
                 C = "wiring";
             }
+
+            if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + FirmwareName))
+            {
+                String message = "Firmware not found: " + FirmwarePath + "\\" + FirmwareName;
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new FileNotFoundException(message);
+            }
+
             String verboseLevel = "";
             //if (false) verboseLevel = " -v -v -v -v";
 
             String FullAvrDudePath = ArduinoIdePath + "\\" + AvrPath;
 
             var proc1 = new ProcessStartInfo();
-            string anyCommand = "-C" + FullAvrDudePath + "\\etc\\avrdude.conf" + verboseLevel + " -p" + ArduinoChip + " -c"+ C +" -P\\\\.\\" + Port + " -b"+ Bytes +" -D -Uflash:w:" + FirmwarePath + "\\" + FirmwareName + ":i";
+            string anyCommand = "-C\"" + FullAvrDudePath + "\\etc\\avrdude.conf\"" + verboseLevel + " -p" + ArduinoChip + " -c"+ C +" -P\\\\.\\" + Port + " -b"+ Bytes +" -D -Uflash:w:\"" + FirmwarePath + "\\" + FirmwareName + "\":i";
             proc1.UseShellExecute = true;
-            proc1.WorkingDirectory = @FullAvrDudePath;
-            proc1.FileName = @FullAvrDudePath + "\\bin\\avrdude";
+            proc1.WorkingDirectory = "\"" + FullAvrDudePath + "\"";
+            proc1.FileName = "\"" + FullAvrDudePath + "\\bin\\avrdude" + "\"";
             //proc1.Verb = "runas";
             proc1.Arguments = anyCommand;
             proc1.WindowStyle = ProcessWindowStyle.Hidden;
-            //Log.Instance.log("RunAvrDude : " + proc1.FileName, LogSeverity.Info);
-            //Log.Instance.log("RunAvrDude : " + anyCommand, LogSeverity.Info);
+            Log.Instance.log("RunAvrDude : " + proc1.FileName, LogSeverity.Info);
+            Log.Instance.log("RunAvrDude : " + anyCommand, LogSeverity.Info);
             Process p = Process.Start(proc1);
             p.WaitForExit();
+            Log.Instance.log("Exit Code: " + p.ExitCode, LogSeverity.Info);
+            if (p.ExitCode != 0)
+            {
+                String message = "Something went wrong when flashing with command \n" + proc1.FileName + " " + anyCommand;
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new Exception(message);
+            }
         }
     }
 }

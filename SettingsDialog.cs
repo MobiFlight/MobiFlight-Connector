@@ -170,7 +170,10 @@ namespace ArcazeUSB
                 {
                     TreeNode node = new TreeNode();
                     node = mfModulesTreeView_initNode(module, node);
-                    if (!module.HasMfFirmware()) node.ImageKey = "module-arduino";
+                    if (!module.HasMfFirmware())
+                    {
+                        node.SelectedImageKey = node.ImageKey = "module-arduino";
+                    }
                     mfModulesTreeView.Nodes.Add(node);
                 }
             }
@@ -192,6 +195,7 @@ namespace ArcazeUSB
             node.Text = module.Name;
             if (module.HasMfFirmware())
             {
+                node.SelectedImageKey = node.ImageKey = "module";
                 node.Tag = mobiflightCache.GetModule(module);
                 node.Nodes.Clear();
 
@@ -754,24 +758,35 @@ namespace ArcazeUSB
         void firmwareUpdateBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             FirmwareUpdateProcessForm.Hide();
+            if (e.Error != null)
+            {
+                MessageBox.Show("There was an error on uploading the firmware!\nEnable Debug Logging for more details.", 
+                                MainForm._tr("Hint"), MessageBoxButtons.OK);
+                return;
+            }
+
             TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;
             MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
 
             module.Connect();
-            MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
-
+            
             mobiflightCache.RefreshModule(module);
+            MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
+            
             execManager.AutoConnectStart();
             mfModulesTreeView_initNode(newInfo, parentNode);
+            // make sure that we retrigger all events and sync the panel
+            mfModulesTreeView.SelectedNode = null;
+            mfModulesTreeView.SelectedNode = parentNode;
             
             MessageBox.Show("The firmware has been uploaded successfully!", MainForm._tr("Hint"), MessageBoxButtons.OK);
         }
 
         void firmwareUpdateBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            MobiFlightFirmwareUpdater.Update((MobiFlightModule) e.Argument);
+            e.Result = MobiFlightFirmwareUpdater.Update((MobiFlightModule) e.Argument);
         }
 
         private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
@@ -784,12 +799,7 @@ namespace ArcazeUSB
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(fbd.SelectedPath))
-                {
-                    if (MessageBox.Show("Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.") == System.Windows.Forms.DialogResult.OK) return;
-                }
-                Properties.Settings.Default.ArduinoIdePath = fbd.SelectedPath;
-                firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
+                firmwareArduinoIdePathTextBox.Text = fbd.SelectedPath;
             }
         }
 
@@ -800,6 +810,7 @@ namespace ArcazeUSB
 
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (e.Node == null) return;
             TreeNode parentNode = e.Node;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
@@ -828,6 +839,24 @@ namespace ArcazeUSB
             saveAsToolStripMenuItem.Enabled = parentNode.Nodes.Count > 0;
 
             syncPanelWithSelectedDevice(e.Node);
+        }
+
+        private void firmwareArduinoIdePathTextBox_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void firmwareArduinoIdePathTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (sender as TextBox);
+
+            if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(tb.Text))
+            {
+                if (MessageBox.Show("Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.") == System.Windows.Forms.DialogResult.OK)
+                {
+                    e.Cancel = true;
+                };
+            }
+            Properties.Settings.Default.ArduinoIdePath = tb.Text;
         }
     }
 

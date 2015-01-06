@@ -92,15 +92,16 @@ namespace ArcazeUSB
                 if (regEx.Match(regDevice).Success)
                 {
                     String VidPid = regEx.Match(regDevice).Value;
-                    foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames()) {
-                    // we have found an existing entry 
-                    // let's check if it is currently connected#
+                    foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
+                    {
+                        // we have found an existing entry 
+                        // let's check if it is currently connected#
                         try
                         {
                             String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
                             String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                             if (portName != null)
-                            result.Add(new Tuple<string,string>( portName, VidPid) );
+                                result.Add(new Tuple<string, string>(portName, VidPid));
                         }
                         catch (Exception e)
                         {
@@ -108,6 +109,11 @@ namespace ArcazeUSB
                             continue;
                         }
                     }
+                }
+                else
+                {
+                    String message = "No arduino device -skipping: " + regDevice;
+                    Log.Instance.log(message, LogSeverity.Debug);
                 }
             }
             return result;
