@@ -39,5 +39,8 @@
     <Setting Name="InputsPresetFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">presets_inputs.aip</Value>
     </Setting>
+    <Setting Name="Started" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

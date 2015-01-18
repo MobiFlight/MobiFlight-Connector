@@ -797,9 +797,15 @@ namespace ArcazeUSB
         private void button1_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (Directory.Exists(firmwareArduinoIdePathTextBox.Text))
+            {
+                fbd.SelectedPath = firmwareArduinoIdePathTextBox.Text;
+            }
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 firmwareArduinoIdePathTextBox.Text = fbd.SelectedPath;
+                firmwareArduinoIdePathTextBox.Focus();
+                (sender as Button).Focus();
             }
         }
 
@@ -843,6 +849,7 @@ namespace ArcazeUSB
 
         private void firmwareArduinoIdePathTextBox_TextChanged(object sender, EventArgs e)
         {
+            
         }
 
         private void firmwareArduinoIdePathTextBox_Validating(object sender, CancelEventArgs e)
@@ -851,12 +858,32 @@ namespace ArcazeUSB
 
             if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(tb.Text))
             {
-                if (MessageBox.Show("Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.") == System.Windows.Forms.DialogResult.OK)
-                {
-                    e.Cancel = true;
-                };
+                displayError(tb, "Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.");
+            }
+            else
+            {
+                removeError(tb);
             }
             Properties.Settings.Default.ArduinoIdePath = tb.Text;
+        }
+
+        private void displayError(Control control, String message)
+        {
+            if (errorProvider1.Tag as Control != control)
+                MessageBox.Show(message, MainForm._tr("Hint"));
+
+            errorProvider1.SetError(
+                    control,
+                    message);
+            errorProvider1.Tag = control;
+        }
+
+        private void removeError(Control control)
+        {
+            errorProvider1.Tag = null;
+            errorProvider1.SetError(
+                    control,
+                    "");
         }
     }
 

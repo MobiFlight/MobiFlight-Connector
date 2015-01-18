@@ -135,9 +135,15 @@ namespace MobiFlight.InputConfig
                 byte bValue = Byte.Parse(value, format);
                 if (FSUIPCMask != 0xFF)
                 {
-                    byte cByte = (byte) fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
-                    byte cMask = (byte) ((byte)(FSUIPCMask) & bValue);
-                    bValue = (byte) (cByte | cMask);
+                    byte cByte = (byte)fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
+                    if (bValue == 1)
+                    {
+                        bValue = (byte)(cByte | FSUIPCMask);
+                    }
+                    else
+                    {
+                        bValue = (byte)(cByte & ~FSUIPCMask);
+                    }
                 }
                 fsuipcCache.setOffset(FSUIPCOffset, bValue);
             }
@@ -151,11 +157,11 @@ namespace MobiFlight.InputConfig
                     Int16 cByte = (Int16) fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
                     if (sValue == 1)
                     {
-                        sValue = (byte)(cByte | FSUIPCMask);
+                        sValue = (Int16)(cByte | FSUIPCMask);
                     }
                     else
                     {
-                        sValue = (byte)(cByte & ~FSUIPCMask);
+                        sValue = (Int16)(cByte & ~FSUIPCMask);
                     }
                 }
                 
@@ -167,8 +173,14 @@ namespace MobiFlight.InputConfig
                 if (FSUIPCMask != 0xFFFFFFFF)
                 {
                     Int32 cByte = (Int32)fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
-                    Int32 cMask = (Int32)((Int32)(FSUIPCMask) & iValue);
-                    iValue = (byte)(cByte | cMask);
+                    if (iValue == 1)
+                    {
+                        iValue = (Int32)(cByte | FSUIPCMask);
+                    }
+                    else
+                    {
+                        iValue = (Int32)(cByte & ~FSUIPCMask);
+                    }
                 }
 
                 fsuipcCache.setOffset(FSUIPCOffset, iValue);

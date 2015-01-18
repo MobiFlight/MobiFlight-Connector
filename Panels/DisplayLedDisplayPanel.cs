@@ -41,5 +41,23 @@ namespace ArcazeUSB.Panels
 
             displayLedConnectorComboBox.Enabled = pins.Count > 0;            
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int value = Int16.Parse((sender as ComboBox).Text);
+            for (int i = 0; i < 8; i++)
+            {
+                displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"].Visible = i < value;
+                displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"].Visible = i < value;
+                Controls["displayLedDisplayLabel" + i].Visible = i < value;
+
+                // uncheck all invisible checkboxes to ensure correct mask
+                if (i >= value)
+                {
+                    (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"] as CheckBox).Checked = false;
+                    (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"] as CheckBox).Checked = false;
+                }
+            }
+        }
     }
 }

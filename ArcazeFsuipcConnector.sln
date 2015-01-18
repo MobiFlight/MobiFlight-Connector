@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "Mobi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "..\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj", "{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdater.NET", "AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\AutoUpdater.NET.csproj", "{FB9E7E6B-B19F-4F37-A708-2996190CEF13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,26 @@ Global
 		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Mixed Platforms.Build.0 = Release|Any CPU
 		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|x86.ActiveCfg = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug-Mobiflight|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug-Mobiflight|Any CPU.Build.0 = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug-Mobiflight|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug-Mobiflight|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug-Mobiflight|x86.ActiveCfg = Debug|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release-Mobiflight|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release-Mobiflight|Any CPU.Build.0 = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release-Mobiflight|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release-Mobiflight|Mixed Platforms.Build.0 = Release|Any CPU
+		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release-Mobiflight|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

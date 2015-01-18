@@ -57,6 +57,7 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain = new System.Windows.Forms.Panel();
@@ -181,16 +182,15 @@
             // 
             // menuStrip
             // 
-            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.extrasToolStripMenuItem,
             this.hilfeToolStripMenuItem});
+            resources.ApplyResources(this.menuStrip, "menuStrip");
             this.menuStrip.Name = "menuStrip";
             // 
             // fileToolStripMenuItem
             // 
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem3,
             this.toolStripMenuItem2,
@@ -201,101 +201,109 @@
             this.recentDocsToolStripSeparator,
             this.beendenToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // toolStripMenuItem3
             // 
-            resources.ApplyResources(this.toolStripMenuItem3, "toolStripMenuItem3");
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            resources.ApplyResources(this.toolStripMenuItem3, "toolStripMenuItem3");
             this.toolStripMenuItem3.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
-            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             // 
             // openToolStripMenuItem
             // 
-            resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // konfigurationSpeichernToolStripMenuItem
             // 
-            resources.ApplyResources(this.konfigurationSpeichernToolStripMenuItem, "konfigurationSpeichernToolStripMenuItem");
             this.konfigurationSpeichernToolStripMenuItem.Name = "konfigurationSpeichernToolStripMenuItem";
+            resources.ApplyResources(this.konfigurationSpeichernToolStripMenuItem, "konfigurationSpeichernToolStripMenuItem");
             this.konfigurationSpeichernToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // AfterFileActionsToolStripMenuItem
             // 
-            resources.ApplyResources(this.AfterFileActionsToolStripMenuItem, "AfterFileActionsToolStripMenuItem");
             this.AfterFileActionsToolStripMenuItem.Name = "AfterFileActionsToolStripMenuItem";
+            resources.ApplyResources(this.AfterFileActionsToolStripMenuItem, "AfterFileActionsToolStripMenuItem");
             // 
             // recentDocumentsToolStripMenuItem
             // 
-            resources.ApplyResources(this.recentDocumentsToolStripMenuItem, "recentDocumentsToolStripMenuItem");
             this.recentDocumentsToolStripMenuItem.Name = "recentDocumentsToolStripMenuItem";
+            resources.ApplyResources(this.recentDocumentsToolStripMenuItem, "recentDocumentsToolStripMenuItem");
             // 
             // recentDocsToolStripSeparator
             // 
-            resources.ApplyResources(this.recentDocsToolStripSeparator, "recentDocsToolStripSeparator");
             this.recentDocsToolStripSeparator.Name = "recentDocsToolStripSeparator";
+            resources.ApplyResources(this.recentDocsToolStripSeparator, "recentDocsToolStripSeparator");
             // 
             // beendenToolStripMenuItem
             // 
-            resources.ApplyResources(this.beendenToolStripMenuItem, "beendenToolStripMenuItem");
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
+            resources.ApplyResources(this.beendenToolStripMenuItem, "beendenToolStripMenuItem");
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // extrasToolStripMenuItem
             // 
-            resources.ApplyResources(this.extrasToolStripMenuItem, "extrasToolStripMenuItem");
             this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.orphanedSerialsFinderToolStripMenuItem,
             this.toolStripMenuItem4,
             this.settingsToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
+            resources.ApplyResources(this.extrasToolStripMenuItem, "extrasToolStripMenuItem");
             // 
             // orphanedSerialsFinderToolStripMenuItem
             // 
-            resources.ApplyResources(this.orphanedSerialsFinderToolStripMenuItem, "orphanedSerialsFinderToolStripMenuItem");
             this.orphanedSerialsFinderToolStripMenuItem.Name = "orphanedSerialsFinderToolStripMenuItem";
+            resources.ApplyResources(this.orphanedSerialsFinderToolStripMenuItem, "orphanedSerialsFinderToolStripMenuItem");
             this.orphanedSerialsFinderToolStripMenuItem.Click += new System.EventHandler(this.orphanedSerialsFinderToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
-            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
             // 
             // settingsToolStripMenuItem
             // 
-            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
-            resources.ApplyResources(this.hilfeToolStripMenuItem, "hilfeToolStripMenuItem");
             this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem,
+            this.checkForUpdateToolStripMenuItem,
             this.toolStripMenuItem1,
             this.überToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
+            resources.ApplyResources(this.hilfeToolStripMenuItem, "hilfeToolStripMenuItem");
             // 
             // helpToolStripMenuItem
             // 
-            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            resources.ApplyResources(this.checkForUpdateToolStripMenuItem, "checkForUpdateToolStripMenuItem");
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // überToolStripMenuItem
             // 
-            resources.ApplyResources(this.überToolStripMenuItem, "überToolStripMenuItem");
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
+            resources.ApplyResources(this.überToolStripMenuItem, "überToolStripMenuItem");
             this.überToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // panelMain
@@ -306,9 +314,9 @@
             // 
             // inputsTabControl
             // 
-            resources.ApplyResources(this.inputsTabControl, "inputsTabControl");
             this.inputsTabControl.Controls.Add(this.OutputTabPage);
             this.inputsTabControl.Controls.Add(this.InputTabPage);
+            resources.ApplyResources(this.inputsTabControl, "inputsTabControl");
             this.inputsTabControl.Multiline = true;
             this.inputsTabControl.Name = "inputsTabControl";
             this.inputsTabControl.SelectedIndex = 0;
@@ -316,11 +324,9 @@
             // 
             // OutputTabPage
             // 
-            resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
             this.OutputTabPage.Controls.Add(this.MappingConfigGroupBox);
-            this.OutputTabPage.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
             this.OutputTabPage.Name = "OutputTabPage";
-            this.OutputTabPage.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             this.OutputTabPage.UseVisualStyleBackColor = true;
             // 
             // MappingConfigGroupBox
@@ -332,7 +338,6 @@
             // 
             // dataGridViewConfig
             // 
-            resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.AllowUserToResizeColumns = false;
             this.dataGridViewConfig.AllowUserToResizeRows = false;
             this.dataGridViewConfig.AutoGenerateColumns = false;
@@ -373,6 +378,7 @@
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewConfig.DefaultCellStyle = dataGridViewCellStyle8;
+            resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.Name = "dataGridViewConfig";
             this.dataGridViewConfig.RowTemplate.ContextMenuStrip = this.dataGridViewContextMenuStrip;
             this.dataGridViewConfig.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -393,7 +399,6 @@
             this.active.DataPropertyName = "active";
             resources.ApplyResources(this.active, "active");
             this.active.Name = "active";
-            this.active.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // guid
             // 
@@ -401,7 +406,6 @@
             resources.ApplyResources(this.guid, "guid");
             this.guid.Name = "guid";
             this.guid.ReadOnly = true;
-            this.guid.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // Description
             // 
@@ -433,7 +437,6 @@
             "2",
             "4"});
             this.FsuipcSize.Name = "FsuipcSize";
-            this.FsuipcSize.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // Converter
             // 
@@ -474,7 +477,6 @@
             this.comparisonValue.FillWeight = 50F;
             resources.ApplyResources(this.comparisonValue, "comparisonValue");
             this.comparisonValue.Name = "comparisonValue";
-            this.comparisonValue.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // arcazePin
             // 
@@ -495,7 +497,6 @@
             "falling",
             "rising"});
             this.trigger.Name = "trigger";
-            this.trigger.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // Typ
             // 
@@ -520,7 +521,6 @@
             this.arcazeSerial.Name = "arcazeSerial";
             this.arcazeSerial.ReadOnly = true;
             this.arcazeSerial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.arcazeSerial.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // fsuipcValueColumn
             // 
@@ -531,7 +531,6 @@
             this.fsuipcValueColumn.ReadOnly = true;
             this.fsuipcValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.fsuipcValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.fsuipcValueColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // arcazeValueColumn
             // 
@@ -542,7 +541,6 @@
             this.arcazeValueColumn.ReadOnly = true;
             this.arcazeValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.arcazeValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.arcazeValueColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // EditButtonColumn
             // 
@@ -553,7 +551,6 @@
             resources.ApplyResources(this.EditButtonColumn, "EditButtonColumn");
             this.EditButtonColumn.Name = "EditButtonColumn";
             this.EditButtonColumn.Text = "...";
-            this.EditButtonColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             this.EditButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // dataSetConfig
@@ -665,45 +662,43 @@
             // 
             // dataGridViewContextMenuStrip
             // 
-            resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
             this.dataGridViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.duplicateRowToolStripMenuItem,
             this.deleteRowToolStripMenuItem});
             this.dataGridViewContextMenuStrip.Name = "dataGridViewContextMenuStrip";
+            resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
             this.dataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.dataGridViewContextMenuStrip_Opening);
             // 
             // duplicateRowToolStripMenuItem
             // 
-            resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
             this.duplicateRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.duplicateRowToolStripMenuItem.Image = global::ArcazeUSB.Properties.Resources.star_yellow_new;
             this.duplicateRowToolStripMenuItem.Name = "duplicateRowToolStripMenuItem";
+            resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
             this.duplicateRowToolStripMenuItem.Click += new System.EventHandler(this.duplicateRowToolStripMenuItem_Click);
             // 
             // deleteRowToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
             this.deleteRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.deleteRowToolStripMenuItem.Image = global::ArcazeUSB.Properties.Resources.delete2;
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
+            resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.deleteRowToolStripMenuItem_Click);
             // 
             // InputTabPage
             // 
-            resources.ApplyResources(this.InputTabPage, "InputTabPage");
             this.InputTabPage.Controls.Add(this.inputsDataGridView);
-            this.InputTabPage.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            resources.ApplyResources(this.InputTabPage, "InputTabPage");
             this.InputTabPage.Name = "InputTabPage";
-            this.InputTabPage.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             this.InputTabPage.UseVisualStyleBackColor = true;
             // 
             // inputsDataGridView
             // 
-            resources.ApplyResources(this.inputsDataGridView, "inputsDataGridView");
             this.inputsDataGridView.AllowUserToResizeColumns = false;
             this.inputsDataGridView.AllowUserToResizeRows = false;
             this.inputsDataGridView.AutoGenerateColumns = false;
             this.inputsDataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.inputsDataGridView, "inputsDataGridView");
             this.inputsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.inputsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.inputActive,
@@ -731,7 +726,6 @@
             resources.ApplyResources(this.inputActive, "inputActive");
             this.inputActive.Name = "inputActive";
             this.inputActive.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.inputActive.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // inputDescription
             // 
@@ -739,7 +733,6 @@
             this.inputDescription.DataPropertyName = "description";
             resources.ApplyResources(this.inputDescription, "inputDescription");
             this.inputDescription.Name = "inputDescription";
-            this.inputDescription.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // inputsGuid
             // 
@@ -747,7 +740,6 @@
             resources.ApplyResources(this.inputsGuid, "inputsGuid");
             this.inputsGuid.Name = "inputsGuid";
             this.inputsGuid.ReadOnly = true;
-            this.inputsGuid.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // inputName
             // 
@@ -758,7 +750,6 @@
             this.inputName.ReadOnly = true;
             this.inputName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.inputName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.inputName.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // inputType
             // 
@@ -769,7 +760,6 @@
             this.inputType.Name = "inputType";
             this.inputType.ReadOnly = true;
             this.inputType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.inputType.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // inputEditButtonColumn
             // 
@@ -822,87 +812,83 @@
             // 
             // inputsDataGridViewContextMenuStrip
             // 
-            resources.ApplyResources(this.inputsDataGridViewContextMenuStrip, "inputsDataGridViewContextMenuStrip");
             this.inputsDataGridViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.duplicateInputsRowToolStripMenuItem,
             this.deleteInputsRowToolStripMenuItem});
             this.inputsDataGridViewContextMenuStrip.Name = "inputsDataGridViewContextMenuStrip";
+            resources.ApplyResources(this.inputsDataGridViewContextMenuStrip, "inputsDataGridViewContextMenuStrip");
             this.inputsDataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.inputsDataGridViewContextMenuStrip_Opening);
             // 
             // duplicateInputsRowToolStripMenuItem
             // 
-            resources.ApplyResources(this.duplicateInputsRowToolStripMenuItem, "duplicateInputsRowToolStripMenuItem");
             this.duplicateInputsRowToolStripMenuItem.Name = "duplicateInputsRowToolStripMenuItem";
+            resources.ApplyResources(this.duplicateInputsRowToolStripMenuItem, "duplicateInputsRowToolStripMenuItem");
             this.duplicateInputsRowToolStripMenuItem.Click += new System.EventHandler(this.duplicateInputsRowToolStripMenuItem_Click);
             // 
             // deleteInputsRowToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteInputsRowToolStripMenuItem, "deleteInputsRowToolStripMenuItem");
             this.deleteInputsRowToolStripMenuItem.Name = "deleteInputsRowToolStripMenuItem";
+            resources.ApplyResources(this.deleteInputsRowToolStripMenuItem, "deleteInputsRowToolStripMenuItem");
             this.deleteInputsRowToolStripMenuItem.Click += new System.EventHandler(this.deleteInputsRowToolStripMenuItem_Click);
             // 
             // contextMenuStripFsuipcOffset
             // 
-            resources.ApplyResources(this.contextMenuStripFsuipcOffset, "contextMenuStripFsuipcOffset");
             this.contextMenuStripFsuipcOffset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripComboBox1});
             this.contextMenuStripFsuipcOffset.Name = "contextMenuStripFsuipcOffset";
+            resources.ApplyResources(this.contextMenuStripFsuipcOffset, "contextMenuStripFsuipcOffset");
             // 
             // toolStripComboBox1
             // 
-            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             this.toolStripComboBox1.Items.AddRange(new object[] {
             resources.GetString("toolStripComboBox1.Items"),
             resources.GetString("toolStripComboBox1.Items1"),
             resources.GetString("toolStripComboBox1.Items2"),
             resources.GetString("toolStripComboBox1.Items3")});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Text = global::ArcazeUSB.ProjectMessages.conf;
+            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             // 
             // notifyIcon
             // 
-            this.notifyIcon.BalloonTipText = global::ArcazeUSB.ProjectMessages.conf;
-            this.notifyIcon.BalloonTipTitle = global::ArcazeUSB.ProjectMessages.conf;
             this.notifyIcon.ContextMenuStrip = this.contextMenuStripNotifyIcon;
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
             // contextMenuStripNotifyIcon
             // 
-            resources.ApplyResources(this.contextMenuStripNotifyIcon, "contextMenuStripNotifyIcon");
             this.contextMenuStripNotifyIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem,
             this.toolStripMenuItemDivider,
             this.wiederherstellenToolStripMenuItem});
             this.contextMenuStripNotifyIcon.Name = "contextMenuStripNotifyIcon";
+            resources.ApplyResources(this.contextMenuStripNotifyIcon, "contextMenuStripNotifyIcon");
             // 
             // startToolStripMenuItem
             // 
-            resources.ApplyResources(this.startToolStripMenuItem, "startToolStripMenuItem");
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            resources.ApplyResources(this.startToolStripMenuItem, "startToolStripMenuItem");
             this.startToolStripMenuItem.Click += new System.EventHandler(this.buttonToggleStart_Click);
             // 
             // stopToolStripMenuItem
             // 
-            resources.ApplyResources(this.stopToolStripMenuItem, "stopToolStripMenuItem");
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            resources.ApplyResources(this.stopToolStripMenuItem, "stopToolStripMenuItem");
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.buttonToggleStart_Click);
             // 
             // toolStripMenuItemDivider
             // 
-            resources.ApplyResources(this.toolStripMenuItemDivider, "toolStripMenuItemDivider");
             this.toolStripMenuItemDivider.Name = "toolStripMenuItemDivider";
+            resources.ApplyResources(this.toolStripMenuItemDivider, "toolStripMenuItemDivider");
             // 
             // wiederherstellenToolStripMenuItem
             // 
-            resources.ApplyResources(this.wiederherstellenToolStripMenuItem, "wiederherstellenToolStripMenuItem");
             this.wiederherstellenToolStripMenuItem.Name = "wiederherstellenToolStripMenuItem";
+            resources.ApplyResources(this.wiederherstellenToolStripMenuItem, "wiederherstellenToolStripMenuItem");
             this.wiederherstellenToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripButton,
             this.toolStripSeparator1,
@@ -916,6 +902,7 @@
             this.donateToolStripButton,
             this.toolStripSeparator4,
             this.exitToolStripButton});
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Name = "toolStrip1";
             // 
             // saveToolStripButton
@@ -927,21 +914,21 @@
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // runToolStripButton
             // 
-            resources.ApplyResources(this.runToolStripButton, "runToolStripButton");
             this.runToolStripButton.Image = global::ArcazeUSB.Properties.Resources.media_play_green;
+            resources.ApplyResources(this.runToolStripButton, "runToolStripButton");
             this.runToolStripButton.Name = "runToolStripButton";
             this.runToolStripButton.Click += new System.EventHandler(this.buttonToggleStart_Click);
             // 
             // runTestToolStripButton
             // 
-            resources.ApplyResources(this.runTestToolStripButton, "runTestToolStripButton");
             this.runTestToolStripButton.Image = global::ArcazeUSB.Properties.Resources.media_play;
             this.runTestToolStripButton.Name = "runTestToolStripButton";
+            resources.ApplyResources(this.runTestToolStripButton, "runTestToolStripButton");
             this.runTestToolStripButton.Click += new System.EventHandler(this.runTestToolStripLabel_Click);
             // 
             // stopToolStripButton
@@ -960,38 +947,38 @@
             // 
             // toolStripSeparator2
             // 
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // autoRunToolStripButton
             // 
-            resources.ApplyResources(this.autoRunToolStripButton, "autoRunToolStripButton");
             this.autoRunToolStripButton.Image = global::ArcazeUSB.Properties.Resources.lightbulb;
+            resources.ApplyResources(this.autoRunToolStripButton, "autoRunToolStripButton");
             this.autoRunToolStripButton.Name = "autoRunToolStripButton";
             this.autoRunToolStripButton.Click += new System.EventHandler(this.autoRunToolStripButton_Click);
             // 
             // toolStripSeparator3
             // 
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // donateToolStripButton
             // 
-            resources.ApplyResources(this.donateToolStripButton, "donateToolStripButton");
             this.donateToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.donateToolStripButton.Image = global::ArcazeUSB.Properties.Resources.btn_donate_SM;
+            resources.ApplyResources(this.donateToolStripButton, "donateToolStripButton");
             this.donateToolStripButton.Name = "donateToolStripButton";
             this.donateToolStripButton.Click += new System.EventHandler(this.donateToolStripButton_Click);
             // 
             // toolStripSeparator4
             // 
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // exitToolStripButton
             // 
-            resources.ApplyResources(this.exitToolStripButton, "exitToolStripButton");
             this.exitToolStripButton.Image = global::ArcazeUSB.Properties.Resources.door2;
+            resources.ApplyResources(this.exitToolStripButton, "exitToolStripButton");
             this.exitToolStripButton.Name = "exitToolStripButton";
             this.exitToolStripButton.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -1019,57 +1006,57 @@
             // 
             // ArcazeUSBTtoolStripStatusLabel
             // 
-            resources.ApplyResources(this.ArcazeUSBTtoolStripStatusLabel, "ArcazeUSBTtoolStripStatusLabel");
             this.ArcazeUSBTtoolStripStatusLabel.Name = "ArcazeUSBTtoolStripStatusLabel";
+            resources.ApplyResources(this.ArcazeUSBTtoolStripStatusLabel, "ArcazeUSBTtoolStripStatusLabel");
             // 
             // arcazeUsbStatusToolStripStatusLabel
             // 
-            resources.ApplyResources(this.arcazeUsbStatusToolStripStatusLabel, "arcazeUsbStatusToolStripStatusLabel");
             this.arcazeUsbStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.arcazeUsbStatusToolStripStatusLabel.Image = global::ArcazeUSB.Properties.Resources.warning;
             this.arcazeUsbStatusToolStripStatusLabel.Name = "arcazeUsbStatusToolStripStatusLabel";
+            resources.ApplyResources(this.arcazeUsbStatusToolStripStatusLabel, "arcazeUsbStatusToolStripStatusLabel");
             // 
             // arcazeUsbToolStripDropDownButton
             // 
-            resources.ApplyResources(this.arcazeUsbToolStripDropDownButton, "arcazeUsbToolStripDropDownButton");
             this.arcazeUsbToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            resources.ApplyResources(this.arcazeUsbToolStripDropDownButton, "arcazeUsbToolStripDropDownButton");
             this.arcazeUsbToolStripDropDownButton.Name = "arcazeUsbToolStripDropDownButton";
             // 
             // dividerToolStripStatusLabel1
             // 
-            resources.ApplyResources(this.dividerToolStripStatusLabel1, "dividerToolStripStatusLabel1");
             this.dividerToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.dividerToolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.dividerToolStripStatusLabel1.Name = "dividerToolStripStatusLabel1";
+            resources.ApplyResources(this.dividerToolStripStatusLabel1, "dividerToolStripStatusLabel1");
             // 
             // fsuipcToolStripStatusLabel
             // 
-            resources.ApplyResources(this.fsuipcToolStripStatusLabel, "fsuipcToolStripStatusLabel");
             this.fsuipcToolStripStatusLabel.Name = "fsuipcToolStripStatusLabel";
+            resources.ApplyResources(this.fsuipcToolStripStatusLabel, "fsuipcToolStripStatusLabel");
             // 
             // fsuipcStatusToolStripStatusLabel
             // 
-            resources.ApplyResources(this.fsuipcStatusToolStripStatusLabel, "fsuipcStatusToolStripStatusLabel");
             this.fsuipcStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.fsuipcStatusToolStripStatusLabel.Image = global::ArcazeUSB.Properties.Resources.warning;
             this.fsuipcStatusToolStripStatusLabel.Name = "fsuipcStatusToolStripStatusLabel";
+            resources.ApplyResources(this.fsuipcStatusToolStripStatusLabel, "fsuipcStatusToolStripStatusLabel");
             // 
             // fsuipcOffsetValueLabel
             // 
-            resources.ApplyResources(this.fsuipcOffsetValueLabel, "fsuipcOffsetValueLabel");
             this.fsuipcOffsetValueLabel.Name = "fsuipcOffsetValueLabel";
+            resources.ApplyResources(this.fsuipcOffsetValueLabel, "fsuipcOffsetValueLabel");
             // 
             // toolStripStatusLabel1
             // 
-            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
             this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
             // 
             // toolStripStatusLabel
             // 
-            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
             this.toolStripStatusLabel.Spring = true;
             // 
             // logTextBox
@@ -1083,7 +1070,6 @@
             this.activeDataGridViewCheckBoxColumn.DataPropertyName = "active";
             resources.ApplyResources(this.activeDataGridViewCheckBoxColumn, "activeDataGridViewCheckBoxColumn");
             this.activeDataGridViewCheckBoxColumn.Name = "activeDataGridViewCheckBoxColumn";
-            this.activeDataGridViewCheckBoxColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // dataTable1
             // 
@@ -1094,7 +1080,6 @@
             this.dataGridViewTextBoxColumn1.DataPropertyName = "settings";
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -1102,7 +1087,6 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -1110,7 +1094,6 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -1118,7 +1101,6 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn5, "dataGridViewTextBoxColumn5");
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -1126,7 +1108,6 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
             // 
             // settingsColumn
             // 
@@ -1153,6 +1134,8 @@
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.menuStrip.ResumeLayout(false);
@@ -1306,6 +1289,7 @@
         private System.Windows.Forms.ContextMenuStrip inputsDataGridViewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem duplicateInputsRowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteInputsRowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
 
 
     }

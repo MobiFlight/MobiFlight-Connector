@@ -85,15 +85,44 @@ namespace ArcazeUSB
         {
             XmlReader result = null;
             if (xmlConfig.DocumentElement == null) OpenFile();
+            bool fallback = false;
             try
             {
                 result = getConfig("/MobiflightConnector/outputs");
             }
             catch (InvalidExpressionException e)
             {
-                // fallback for old configs
-                result = getConfig("/MobiflightConnector");
+                fallback = true;
             }
+
+            if (fallback)
+            {
+                fallback = false;
+                // fallback for old configs
+                try
+                {
+                    result = getConfig("/MobiflightConnector");
+                }
+                catch (Exception ex)
+                {
+                    fallback = true;
+                }
+            }
+
+            if (fallback)
+            {
+                fallback = false;
+                // fallback for old configs
+                try
+                {
+                    result = getConfig("/ArcazeUsbConnector");
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error: Loading config");
+                }
+            }
+          
             return result;
         }
     }

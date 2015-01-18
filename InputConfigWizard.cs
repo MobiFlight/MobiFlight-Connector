@@ -277,6 +277,9 @@ namespace ArcazeUSB
             // display panel
             config.ModuleSerial = inputModuleNameComboBox.Text;
             config.Name = inputTypeComboBox.Text;
+
+            if (config.ModuleSerial == "-") return true;
+
             DeviceType currentInputType = determineCurrentDeviceType(_extractSerial(config.ModuleSerial));
 
             switch (currentInputType)

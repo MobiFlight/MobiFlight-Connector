@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutoUpdater.NET</name>
+    </assembly>
+    <members>
+        <member name="F:AutoUpdaterDotNET.RemindLaterForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:AutoUpdaterDotNET.RemindLaterForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:AutoUpdaterDotNET.RemindLaterForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:AutoUpdaterDotNET.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_go">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_go_32">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_play">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.download">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.download_32">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.hand_point">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.update">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.UpdateForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:AutoUpdaterDotNET.UpdateForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:AutoUpdaterDotNET.UpdateForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.DownloadUpdateDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:AutoUpdaterDotNET.DownloadUpdateDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:AutoUpdaterDotNET.DownloadUpdateDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:AutoUpdaterDotNET.RemindLaterFormat">
+            <summary>
+                Enum representing the remind later time span.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.RemindLaterFormat.Minutes">
+            <summary>
+                Represents the time span in minutes.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.RemindLaterFormat.Hours">
+            <summary>
+                Represents the time span in hours.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.RemindLaterFormat.Days">
+            <summary>
+                Represents the time span in days.
+            </summary>
+        </member>
+        <member name="T:AutoUpdaterDotNET.AutoUpdater">
+            <summary>
+                Main class that lets you auto update applications by setting some static fields and executing its Start method.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.AutoUpdater.AppCastURL">
+            <summary>
+                URL of the xml file that contains information about latest version of the application.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.AutoUpdater.OpenDownloadPage">
+            <summary>
+                Opens the download url in default browser if true. Very usefull if you have portable application.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.AutoUpdater.CurrentCulture">
+            <summary>
+                Sets the current culture of the auto update notification window. Set this value if your application supports
+                functionalty to change the languge of the application.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.AutoUpdater.LetUserSelectRemindLater">
+            <summary>
+                If this is true users see dialog where they can set remind later interval otherwise it will take the interval from
+                RemindLaterAt and RemindLaterTimeSpan fields.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.AutoUpdater.RemindLaterAt">
+            <summary>
+                Remind Later interval after user should be reminded of update.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.AutoUpdater.RemindLaterTimeSpan">
+            <summary>
+                Set if RemindLaterAt interval should be in Minutes, Hours or Days.
+            </summary>
+        </member>
+        <member name="M:AutoUpdaterDotNET.AutoUpdater.Start">
+            <summary>
+                Start checking for new version of application and display dialog to the user if update is available.
+            </summary>
+        </member>
+        <member name="M:AutoUpdaterDotNET.AutoUpdater.Start(System.String,System.Boolean,System.Boolean)">
+            <summary>
+                Start checking for new version of application and display dialog to the user if update is available.
+            </summary>
+            <param name="appCast">URL of the xml file that contains information about latest version of the application.</param>
+            <param name="force">Executes update in forced mode.</param>
+            <param name="silent">Executes update in silent mode.</param>
+        </member>
+        <member name="M:AutoUpdaterDotNET.AutoUpdater.DownloadUpdate">
+            <summary>
+                Opens the Download window that download the update and execute the installer when download completes.
+            </summary>
+        </member>
+        <member name="E:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent">
+            <summary>
+                An event that clients can use to be notified whenever the update is checked.
+            </summary>
+        </member>
+        <member name="T:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEventHandler">
+            <summary>
+                A delegate type for hooking up update notifications.
+            </summary>
+            <param name="args">An object containing all the parameters recieved from AppCast XML file. If there will be an error while looking for the XML file then this object will be null.</param>
+        </member>
+        <member name="T:AutoUpdaterDotNET.UpdateInfoEventArgs">
+            <summary>
+                Object of this class gives you all the details about the update useful in handling the update logic yourself.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.UpdateInfoEventArgs.IsUpdateAvailable">
+            <summary>
+                If new update is available then returns true otherwise false.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.UpdateInfoEventArgs.DownloadURL">
+            <summary>
+                Download URL of the update file.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.UpdateInfoEventArgs.ChangelogURL">
+            <summary>
+                URL of the webpage specifying changes in the new update.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.UpdateInfoEventArgs.CurrentVersion">
+            <summary>
+                Returns newest version of the application available to download.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.UpdateInfoEventArgs.InstalledVersion">
+            <summary>
+                Returns version of the application currently installed on the user's PC.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.UpdateInfoEventArgs.DoSilent">
+            <summary>
+                Returns version of the application currently installed on the user's PC.
+            </summary>
+        </member>
+    </members>
+</doc>

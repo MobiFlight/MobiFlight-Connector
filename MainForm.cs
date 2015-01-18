@@ -11,13 +11,14 @@ using System.Diagnostics;
 using System.Xml.Serialization;
 using SimpleSolutions.Usb;
 using MobiFlight;
+using AutoUpdaterDotNET;
 
 namespace ArcazeUSB
 {
     public partial class MainForm : Form
     {
-        public static String Version = "5.0.0";
-        public static String Build = "20150106";
+        public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+        public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyymmdd");
 
         /// <summary>
         /// the currently used filename of the loaded config file
@@ -36,6 +37,8 @@ namespace ArcazeUSB
         private ExecutionManager execManager;
 
         private bool _onClosing = false;
+
+        private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         
         /// <summary>
         /// get a localized string
@@ -51,8 +54,6 @@ namespace ArcazeUSB
 
         public MainForm()
         {
-            // System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("fr-FR");
-            
             InitializeComponent();
 
             inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
@@ -130,6 +131,25 @@ namespace ArcazeUSB
                 // change ui icon to english
                 donateToolStripButton.Image = ArcazeUSB.Properties.Resources.btn_donate_uk_SM;
             }
+        }
+
+        void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
+        {
+            if (!args.IsUpdateAvailable && !args.DoSilent)
+            {
+                this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), _tr("uiMessageNoUpdateNecessary"), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private DialogResult ShowMessageThreadSafe(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            return MessageBox.Show(this, msg, title, buttons);
+        }
+
+        private void CheckForUpdate(bool force, bool silent = false)
+        {
+            AutoUpdater.LetUserSelectRemindLater = true;
+            AutoUpdater.Start("http://www.mobiflight.de/updates/mobiflightconnector.xml", force, silent);
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)
@@ -673,7 +693,14 @@ namespace ArcazeUSB
             dataSetInputs.Clear();
             ConfigFile configFile = new ConfigFile(fileName);
             dataSetConfig.ReadXml(configFile.getOutputConfig());
-            dataSetInputs.ReadXml(configFile.getInputConfig());
+            try
+            {
+                dataSetInputs.ReadXml(configFile.getInputConfig());
+            }
+            catch (InvalidExpressionException ex)
+            {
+                // no inputs configured... old format... just ignore
+            }
             
 
             // for backward compatibility 
@@ -1566,6 +1593,33 @@ namespace ArcazeUSB
                     gridRow.Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
                 }
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            CheckForUpdate(false, true);
+            AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
+        }
+
+        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckForUpdate(true);
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.Started == 0)
+            {
+                int i = Properties.Settings.Default.Started;
+                WelcomeDialog wd = new WelcomeDialog();
+                wd.StartPosition = FormStartPosition.CenterParent;
+                wd.Text = String.Format(wd.Text, Version);
+                wd.ShowDialog();
+                this.BringToFront();
+            }
+
+            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
         }
     }
 }

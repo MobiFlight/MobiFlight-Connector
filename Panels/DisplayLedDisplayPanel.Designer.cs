@@ -61,9 +61,9 @@
             this.displayLedDecimalPointLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.displayLedAddressComboBox = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.displayLedConnectorComboBox = new System.Windows.Forms.ComboBox();
-            this.displayLedAddressComboBox = new System.Windows.Forms.ComboBox();
             this.displayLedDecimalPointFlowLayoutPanel.SuspendLayout();
             this.displayLedDigitFlowLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -292,6 +292,7 @@
             this.displayLedModuleSizeComboBox.Name = "displayLedModuleSizeComboBox";
             this.displayLedModuleSizeComboBox.Size = new System.Drawing.Size(35, 21);
             this.displayLedModuleSizeComboBox.TabIndex = 67;
+            this.displayLedModuleSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -425,28 +426,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 27);
             this.flowLayoutPanel1.TabIndex = 69;
             // 
-            // label9
-            // 
-            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(131, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(12, 27);
-            this.label9.TabIndex = 67;
-            this.label9.Text = "/";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // displayLedConnectorComboBox
-            // 
-            this.displayLedConnectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displayLedConnectorComboBox.FormattingEnabled = true;
-            this.displayLedConnectorComboBox.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.displayLedConnectorComboBox.Location = new System.Drawing.Point(149, 3);
-            this.displayLedConnectorComboBox.Name = "displayLedConnectorComboBox";
-            this.displayLedConnectorComboBox.Size = new System.Drawing.Size(38, 21);
-            this.displayLedConnectorComboBox.TabIndex = 66;
-            // 
             // displayLedAddressComboBox
             // 
             this.displayLedAddressComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -474,6 +453,28 @@
             this.displayLedAddressComboBox.Name = "displayLedAddressComboBox";
             this.displayLedAddressComboBox.Size = new System.Drawing.Size(122, 21);
             this.displayLedAddressComboBox.TabIndex = 65;
+            // 
+            // label9
+            // 
+            this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label9.Location = new System.Drawing.Point(131, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(12, 27);
+            this.label9.TabIndex = 67;
+            this.label9.Text = "/";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // displayLedConnectorComboBox
+            // 
+            this.displayLedConnectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayLedConnectorComboBox.FormattingEnabled = true;
+            this.displayLedConnectorComboBox.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.displayLedConnectorComboBox.Location = new System.Drawing.Point(149, 3);
+            this.displayLedConnectorComboBox.Name = "displayLedConnectorComboBox";
+            this.displayLedConnectorComboBox.Size = new System.Drawing.Size(38, 21);
+            this.displayLedConnectorComboBox.TabIndex = 66;
             // 
             // DisplayLedDisplayPanel
             // 

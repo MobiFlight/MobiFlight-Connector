@@ -38,12 +38,12 @@ char foo;
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
-#define MAX_OUTPUTS     30
-#define MAX_BUTTONS     20
-#define MAX_LEDSEGMENTS 3
-#define MAX_ENCODERS    10
-#define MAX_STEPPERS    4
-#define MAX_MFSERVOS    4
+#define MAX_OUTPUTS     40
+#define MAX_BUTTONS     40
+#define MAX_LEDSEGMENTS 4
+#define MAX_ENCODERS    20
+#define MAX_STEPPERS    10
+#define MAX_MFSERVOS    10
 #endif
 
 #include <EEPROMex.h>
@@ -70,7 +70,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 
 // 1.0.1 : Nicer firmware update, more outputs (20)
 // 1.1.0 : Encoder support, more outputs (30)
-const char version[8] = "1.1.1";
+// 1.2.0 : More outputs (40), more inputs (40), more led segments (4), more encoders (20), steppers (10), servos (10)
+const char version[8] = "1.2.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
@@ -586,11 +587,11 @@ void readConfig(String cfg) {
         params[0] = strtok_r(NULL, ".", &p); // pin Data
         params[1] = strtok_r(NULL, ".", &p); // pin Cs
         params[2] = strtok_r(NULL, ".", &p); // pin Clk
-        params[3] = strtok_r(NULL, ".", &p); // numModules
-        params[4] = strtok_r(NULL, ".", &p); // brightness
+        params[3] = strtok_r(NULL, ".", &p); // brightness
+        params[4] = strtok_r(NULL, ".", &p); // numModules
         params[5] = strtok_r(NULL, ":", &p); // Name
         // int dataPin, int clkPin, int csPin, int numDevices, int brightness
-        AddLedSegment(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]));
+        AddLedSegment(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[4]), atoi(params[3]));
       break;
       
 #if MF_STEPPER_SUPPORT == 1      

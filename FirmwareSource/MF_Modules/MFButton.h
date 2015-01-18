@@ -42,6 +42,7 @@ private:
     uint8_t       _pin;
     String        _name;
     bool          _state;
+    long          _last;
     buttonEvent   _handlerList[2];    
 };
 #endif 

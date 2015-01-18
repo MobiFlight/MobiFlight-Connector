@@ -188,8 +188,9 @@ namespace MobiFlight
                     case DeviceType.LedModule:
                         int submodules = 1;
                         int.TryParse( (device as Config.LedModule).NumModules, out submodules);
+                        int brightness = 15;
                         device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
-                        ledModules.Add(device.Name, new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count, SubModules = submodules });
+                        ledModules.Add(device.Name, new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count, SubModules = submodules, Brightness = (device as Config.LedModule).Brightness });
                         break;
 
                     case DeviceType.Stepper:

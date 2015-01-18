@@ -39,16 +39,16 @@ void MFEncoder::update()
   if (delta<0) dir = -1;  
   
   long absDelta = abs(delta);
-  if (absDelta <= 10) {
+  if (absDelta <= 5) {
     // slow turn detected
-    if (dir && _handlerList[encLeft]!= NULL) {
+    if (dir==1 && _handlerList[encLeft]!= NULL) {
         (*_handlerList[encLeft])(encLeft, _pin1, _name);
     } else if(_handlerList[encRight]!= NULL) {
         (*_handlerList[encRight])(encRight, _pin2, _name);
     }
   } else {
     // fast turn detected
-    if (dir && _handlerList[encLeftFast]!= NULL) {
+    if (dir==1 && _handlerList[encLeftFast]!= NULL) {
         (*_handlerList[encLeftFast])(encLeftFast,  _pin1, _name);
     } else if(_handlerList[encRightFast]!= NULL) {
         (*_handlerList[encRightFast])(encRightFast, _pin2, _name);

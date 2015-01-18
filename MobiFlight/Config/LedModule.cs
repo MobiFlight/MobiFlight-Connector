@@ -45,7 +45,9 @@ namespace MobiFlight.Config
             DinPin = paramList[1];            
             ClsPin = paramList[2];
             ClkPin = paramList[3];
-            Brightness = Byte.Parse(paramList[4]);
+            byte brightness = 15;
+            Byte.TryParse(paramList[4], out brightness);
+            Brightness = brightness;
             NumModules = paramList[5];
             Name = paramList[6];
 

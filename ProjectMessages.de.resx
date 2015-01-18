@@ -319,4 +319,7 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   <data name="xpuipcStatus" xml:space="preserve">
     <value>XPUIPC Status</value>
   </data>
+  <data name="uiMessageNoUpdateNecessary" xml:space="preserve">
+    <value>Du hast die aktuellste Version. Kein Update notwendig.</value>
+  </data>
 </root>

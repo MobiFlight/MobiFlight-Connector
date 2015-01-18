@@ -30,8 +30,9 @@ void MFSegments::setBrightness(int module, int value)
 {
   if (!_initialized) return;
   
-  if (module < _ledControl->getDeviceCount())
-    _ledControl->setIntensity(module, 14);
+  //if (module < _ledControl->getDeviceCount()) // no need to check, this is done by the lib itself
+  //_ledControl->setIntensity(module, value);
+  _ledControl->setIntensity(module, value);
 }
 
 void MFSegments::attach(int dataPin, int csPin, int clkPin, int moduleCount, int brightness)

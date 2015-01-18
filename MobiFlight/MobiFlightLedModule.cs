@@ -34,7 +34,7 @@ namespace MobiFlight
 
         public MobiFlightLedModule()
         {
-            Brightness = 10;
+            Brightness = 15;
         }
 
         protected void Initialize()
@@ -42,12 +42,14 @@ namespace MobiFlight
             if (_initialized) return;
 
             // Create command
+            /*
             var command = new SendCommand((int)MobiFlightModule.Command.InitModule);
             command.AddArgument(this.ModuleNumber);
             command.AddArgument(this.Brightness);
 
             // Send command
             CmdMessenger.SendCommand(command);
+            */
 
             _initialized = true;
         }

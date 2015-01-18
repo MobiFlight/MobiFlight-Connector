@@ -13,10 +13,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Temp\MFConnector\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
+    <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>1</UpdateInterval>
@@ -24,7 +24,6 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://mobiflight.moebiuz.de/download/</InstallUrl>
     <UpdateUrl>http://mobiflight.moebiuz.de/update/</UpdateUrl>
     <SupportUrl>http://mobiflight.moebiuz.de/support.html</SupportUrl>
     <ErrorReportUrl>http://mobiflight.moebiuz.de/error.html</ErrorReportUrl>
@@ -32,9 +31,9 @@
     <PublisherName>MobiFlight</PublisherName>
     <SuiteName>MobiFlight</SuiteName>
     <MinimumRequiredVersion>4.0.0.4</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>12</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -67,7 +66,7 @@
     <ManifestKeyFile>ArcazeFsuipcConnector_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -96,7 +95,7 @@
     <DefineConstants>TRACE;MOBIFLIGHT</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>2</WarningLevel>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
@@ -370,10 +369,28 @@
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\SourceCacheInterface.cs" />
+    <Compile Include="WelcomeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WelcomeDialog.Designer.cs">
+      <DependentUpon>WelcomeDialog.cs</DependentUpon>
+    </Compile>
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <EmbeddedResource Include="WelcomeDialog.de.resx">
+      <DependentUpon>WelcomeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WelcomeDialog.resx">
+      <DependentUpon>WelcomeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="examples\example-release-5.0.0.mcc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_mega_1_1_1.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_mega_1_2_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_micro_1_1_0.hex">
@@ -599,6 +616,10 @@
     <ProjectReference Include="..\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
       <Project>{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}</Project>
       <Name>CommandMessenger</Name>
+    </ProjectReference>
+    <ProjectReference Include="AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\AutoUpdater.NET.csproj">
+      <Project>{FB9E7E6B-B19F-4F37-A708-2996190CEF13}</Project>
+      <Name>AutoUpdater.NET</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

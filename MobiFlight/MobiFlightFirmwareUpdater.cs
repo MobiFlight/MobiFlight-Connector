@@ -73,7 +73,7 @@ namespace MobiFlight
             String Bytes = "57600";
             String C = "avr109";
             if (MobiFlightModuleInfo.TYPE_ARDUINO_MEGA == ArduinoType) {
-                FirmwareName = "mobiflight_mega_1_1_1.hex";
+                FirmwareName = "mobiflight_mega_1_2_0.hex";
                 ArduinoChip = "atmega2560";
                 Bytes = "115200";
                 C = "wiring";

@@ -113,6 +113,7 @@
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -134,6 +135,7 @@
             this.fsuipcTabPage.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -721,6 +723,10 @@
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Hint";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -758,6 +764,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -848,5 +855,6 @@
         private System.Windows.Forms.ToolStripMenuItem encoderToolStripMenuItem;
         public System.Windows.Forms.TabControl tabControl1;
         public System.Windows.Forms.TabPage mobiFlightTabPage;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
