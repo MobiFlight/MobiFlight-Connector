@@ -98,7 +98,7 @@ namespace ArcazeUSB
                         // let's check if it is currently connected#
                         try
                         {
-                            String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
+                            //String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
                             String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                             if (portName != null)
                                 result.Add(new Tuple<string, string>(portName, VidPid));

@@ -546,12 +546,13 @@ void OnResetConfig()
 
 void OnSaveConfig()
 {
-  storeConfig();
   cmdMessenger.sendCmd(kConfigSaved, "OK");
+  storeConfig();
 }
 
 void OnActivateConfig() 
 {
+  readConfig(configBuffer);
   activateConfig();
   cmdMessenger.sendCmd(kConfigActivated, "OK");
 }

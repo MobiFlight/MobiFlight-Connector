@@ -320,6 +320,6 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
     <value>XPUIPC Status</value>
   </data>
   <data name="uiMessageNoUpdateNecessary" xml:space="preserve">
-    <value>Du hast die aktuellste Version. Kein Update notwendig.</value>
+    <value>Du hast die aktuellste Version {0}. Kein Update notwendig.</value>
   </data>
 </root>

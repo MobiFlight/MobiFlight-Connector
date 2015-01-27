@@ -326,7 +326,7 @@ You should configure them now.</value>
     <value>The selected module does not contain any input devices. Do you want to add such devices?</value>
   </data>
   <data name="uiMessageNoUpdateNecessary" xml:space="preserve">
-    <value>You are running the latest version. No update necessary.</value>
+    <value>You are running the latest version {0}. No update necessary.</value>
   </data>
   <data name="uiMessageUpdateSuccessful" xml:space="preserve">
     <value>Nice! You updated successfully from {1} to {2}.</value>

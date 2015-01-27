@@ -137,7 +137,7 @@ namespace ArcazeUSB
         {
             if (!args.IsUpdateAvailable && !args.DoSilent)
             {
-                this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), _tr("uiMessageNoUpdateNecessary"), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(_tr("uiMessageNoUpdateNecessary"), Version), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -149,7 +149,7 @@ namespace ArcazeUSB
         private void CheckForUpdate(bool force, bool silent = false)
         {
             AutoUpdater.LetUserSelectRemindLater = true;
-            AutoUpdater.Start("http://www.mobiflight.de/updates/mobiflightconnector.xml", force, silent);
+            AutoUpdater.Start("http://www.mobiflight.de/tl_files/download/releases/mobiflightconnector.xml", force, silent);
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)

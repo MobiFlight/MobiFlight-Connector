@@ -624,7 +624,7 @@ namespace ArcazeUSB {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die You are running the latest version. No update necessary. ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die You are running the latest version {0}. No update necessary. ähnelt.
         /// </summary>
         internal static string uiMessageNoUpdateNecessary {
             get {
