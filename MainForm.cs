@@ -55,6 +55,7 @@ namespace ArcazeUSB
         public MainForm()
         {
             InitializeComponent();
+            UpgradeSettingsFromPreviousInstallation();
 
             inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
 
@@ -130,6 +131,16 @@ namespace ArcazeUSB
             {
                 // change ui icon to english
                 donateToolStripButton.Image = ArcazeUSB.Properties.Resources.btn_donate_uk_SM;
+            }
+        }
+
+        private void UpgradeSettingsFromPreviousInstallation()
+        {
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
             }
         }
 

@@ -81,6 +81,9 @@ namespace MobiFlight
             }
         }
 
+        const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
+        DateTime lastUpdate = new DateTime();
+
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
         //private SerialPortManager _transportLayer;
@@ -350,7 +353,7 @@ namespace MobiFlight
             // unnecessary communication with Arcaze USB
             String key = port+pin;
 
-            if (lastValue.ContainsKey(key) &&
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
                 lastValue[key] == value.ToString()) return false;
 
             lastValue[key] = value.ToString();
@@ -366,7 +369,7 @@ namespace MobiFlight
         {
             String key = "LED_" + name + "_" + module + "_" + points + "_" + mask;            
 
-            if (lastValue.ContainsKey(key) &&
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
                 lastValue[key] == value) return false;
 
             lastValue[key] = value;
@@ -381,7 +384,7 @@ namespace MobiFlight
             int iLastValue;
             if (lastValue.ContainsKey(key))
             {
-                if (lastValue[key] == value.ToString()) return false;
+                if (!KeepAliveNeeded() && lastValue[key] == value.ToString()) return false;
                 iLastValue = int.Parse(lastValue[key]);
             }
             else
@@ -403,7 +406,7 @@ namespace MobiFlight
             int iLastValue;
             if (lastValue.ContainsKey(key))
             {
-                if (lastValue[key] == value.ToString()) return false;
+                if (!KeepAliveNeeded() && lastValue[key] == value.ToString()) return false;
                 iLastValue = int.Parse(lastValue[key]);
             }
             else
@@ -570,6 +573,17 @@ namespace MobiFlight
                     Version = Version
             };
             
+        }
+
+        protected bool KeepAliveNeeded() {
+            if (lastUpdate.AddMinutes(KeepAliveIntervalInMinutes) < DateTime.UtcNow)
+            {
+                lastUpdate = DateTime.UtcNow;
+                Log.Instance.log("Preventing entering EnergySaving Mode: KeepAlive!", LogSeverity.Debug);
+                return true;
+            }
+
+            return false;
         }
     }
 }
