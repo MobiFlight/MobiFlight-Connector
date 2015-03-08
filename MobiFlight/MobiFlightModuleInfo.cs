@@ -14,6 +14,12 @@ namespace MobiFlight
         public const String TYPE_MEGA = "MobiFlight Mega";
         public const String PIDVID_MICRO = "VID_1B4F&PID_9206"; // Micro
         public const String PIDVID_MEGA = "VID_2341&PID_0042";  // Mega
+        public const String PIDVID_MEGA_10 = "VID_2341&PID_0010";  // Mega
+        public const String PIDVID_MEGA_CLONE = "VID_8087&PID_0024";  // MegaVID_8087&PID_0024
+        public const int MESSAGE_MAX_SIZE_MICRO = 64;
+        public const int MESSAGE_MAX_SIZE_MEGA = 64;
+        public const int EEPROM_SIZE_MICRO = 768;
+        public const int EEPROM_SIZE_MEGA = 768;
 
         String _version = "n/a";
         public String Type   { get; set; }
@@ -37,6 +43,8 @@ namespace MobiFlight
         {
             switch (PidVid)
             {
+                case PIDVID_MEGA_CLONE:
+                case PIDVID_MEGA_10:
                 case PIDVID_MEGA:
                     Name = TYPE_ARDUINO_MEGA;
                     Type = TYPE_ARDUINO_MEGA;

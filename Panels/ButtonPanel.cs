@@ -90,7 +90,7 @@ namespace ArcazeUSB.Panels
 
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        break;
+                        //break;
 
                     default:
                         config.onPress = null;
@@ -108,7 +108,7 @@ namespace ArcazeUSB.Panels
 
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        break;
+                        //break;
 
                     default:
                         config.onRelease = null;

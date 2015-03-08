@@ -18,6 +18,12 @@ namespace ArcazeUSB.Panels
             InitializeComponent();
         }
 
+        public void SetPaddingChar(String prefix)
+        {
+            if (prefix == " ") PaddingCharComboBox.SelectedIndex = 1;
+            else PaddingCharComboBox.SelectedIndex = 0;
+        }
+
         public void SetAddresses(List<ListItem> ports)
         {
             displayLedAddressComboBox.DataSource = new List<ListItem>(ports);
@@ -58,6 +64,18 @@ namespace ArcazeUSB.Panels
                     (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"] as CheckBox).Checked = false;
                 }
             }
+        }
+
+        public string GetPaddingChar()
+        {
+            String result = "0";
+            
+            switch (PaddingCharComboBox.SelectedIndex) {
+                case 1: result = " ";
+                    break;
+            }
+
+            return result;
         }
     }
 }

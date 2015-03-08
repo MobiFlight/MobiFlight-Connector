@@ -96,6 +96,7 @@
             this.fsuipcSizeDataColumn = new System.Data.DataColumn();
             this.triggerDataColumn = new System.Data.DataColumn();
             this.arcazeSerialDataColumn = new System.Data.DataColumn();
+            this.settingsColumn = new System.Data.DataColumn();
             this.guidDataColumn = new System.Data.DataColumn();
             this.dataGridViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.duplicateRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,6 +114,7 @@
             this.inputsActiveDataColumn = new System.Data.DataColumn();
             this.inputsDescriptionDataColumn = new System.Data.DataColumn();
             this.inputsGuidDataColumn = new System.Data.DataColumn();
+            this.inputsSettingsDataColumn = new System.Data.DataColumn();
             this.inputsDataGridViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.duplicateInputsRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteInputsRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -156,8 +158,6 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.settingsColumn = new System.Data.DataColumn();
-            this.inputsSettingsDataColumn = new System.Data.DataColumn();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -665,6 +665,12 @@
             this.arcazeSerialDataColumn.ColumnName = "arcazeSerial";
             this.arcazeSerialDataColumn.DefaultValue = global::ArcazeUSB.ProjectMessages.conf;
             // 
+            // settingsColumn
+            // 
+            this.settingsColumn.Caption = "settings";
+            this.settingsColumn.ColumnName = "settings";
+            this.settingsColumn.DataType = typeof(object);
+            // 
             // guidDataColumn
             // 
             this.guidDataColumn.ColumnMapping = System.Data.MappingType.Attribute;
@@ -827,6 +833,11 @@
             this.inputsGuidDataColumn.ColumnMapping = System.Data.MappingType.Attribute;
             this.inputsGuidDataColumn.ColumnName = "guid";
             this.inputsGuidDataColumn.DataType = typeof(System.Guid);
+            // 
+            // inputsSettingsDataColumn
+            // 
+            this.inputsSettingsDataColumn.ColumnName = "settings";
+            this.inputsSettingsDataColumn.DataType = typeof(object);
             // 
             // inputsDataGridViewContextMenuStrip
             // 
@@ -1135,17 +1146,6 @@
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
-            // 
-            // settingsColumn
-            // 
-            this.settingsColumn.Caption = "settings";
-            this.settingsColumn.ColumnName = "settings";
-            this.settingsColumn.DataType = typeof(object);
-            // 
-            // inputsSettingsDataColumn
-            // 
-            this.inputsSettingsDataColumn.ColumnName = "settings";
-            this.inputsSettingsDataColumn.DataType = typeof(object);
             // 
             // MainForm
             // 

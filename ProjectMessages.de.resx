@@ -322,4 +322,11 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   <data name="uiMessageNoUpdateNecessary" xml:space="preserve">
     <value>Du hast die aktuellste Version {0}. Kein Update notwendig.</value>
   </data>
+  <data name="uiMessageSettingsDialogFirmwareVersionTooLowException" xml:space="preserve">
+    <value>Die Firmware auf diesem Board unterstützt die Funktion noch nicht. Update auf die aktuellste Firmware zuerst!</value>
+  </data>
+  <data name="uiMessageDeviceNameContainsInvalidChars" xml:space="preserve">
+    <value>Ungültiger Name. Die folgenden Buchstaben können nicht verwendet werden:
+{0}</value>
+  </data>
 </root>

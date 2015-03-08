@@ -109,7 +109,7 @@ namespace ArcazeUSB.Panels
                         break;
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        break;
+                        //break;
                     default:
                         config.onLeft = null;
                         break;
@@ -126,7 +126,7 @@ namespace ArcazeUSB.Panels
                         break;
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        break;
+                        //break;
                     default:
                         config.onLeftFast = null;
                         break;
@@ -142,7 +142,7 @@ namespace ArcazeUSB.Panels
                         break;
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        break;
+                        //break;
                     default:
                         config.onRight = null;
                         break;
@@ -158,7 +158,7 @@ namespace ArcazeUSB.Panels
                         break;
                     case "Key":
                         throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        break;
+                        //break;
                     default:
                         config.onRightFast = null;
                         break;

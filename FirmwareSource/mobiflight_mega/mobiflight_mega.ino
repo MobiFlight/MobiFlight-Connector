@@ -71,7 +71,7 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.0.1 : Nicer firmware update, more outputs (20)
 // 1.1.0 : Encoder support, more outputs (30)
 // 1.2.0 : More outputs (40), more inputs (40), more led segments (4), more encoders (20), steppers (10), servos (10)
-const char version[8] = "1.2.0";
+const char version[8] = "1.3.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
@@ -157,6 +157,8 @@ enum
   kActivateConfig,     // 16
   kConfigActivated,    // 17
   kSetPowerSavingMode, // 18  
+  kSetName,            // 19
+  kGenNewSerial        // 20
 };
 
 // Callbacks define on which received commands we take action
@@ -177,7 +179,8 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kResetConfig, OnResetConfig);
   cmdMessenger.attach(kSaveConfig, OnSaveConfig);
   cmdMessenger.attach(kActivateConfig, OnActivateConfig);  
-
+  //cmdMessenger.attach(kSetName, OnSetName);  
+  cmdMessenger.attach(kGenNewSerial, OnGenNewSerial);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Attached callbacks");
 #endif  
@@ -192,7 +195,7 @@ void setup()
   
   configBuffer[0]='\0';  
   //readBuffer[0]='\0'; 
-  generateSerial(); 
+  generateSerial(false); 
   Serial.begin(115200);  
   clearRegisteredPins();
   cmdMessenger.printLfCr();   
@@ -201,10 +204,10 @@ void setup()
   loadConfig();
 }
 
-void generateSerial() 
+void generateSerial(bool force) 
 {
   EEPROM.readBlock<char>(MEM_OFFSET_SERIAL, serial, MEM_LEN_SERIAL); 
-  if (serial[0]=='S'&&serial[1]=='N') return;
+  if (!force&&serial[0]=='S'&&serial[1]=='N') return;
   randomSeed(analogRead(0));
   sprintf(serial,"SN-%03x-", (unsigned int) random(4095));
   sprintf(&serial[7],"%03x", (unsigned int) random(4095));
@@ -215,8 +218,8 @@ void loadConfig()
 {
   resetConfig();
   EEPROM.readBlock<char>(MEM_OFFSET_CONFIG, configBuffer, MEM_LEN_CONFIG);  
-  cmdMessenger.sendCmd(kStatus, "Restored config");
-  cmdMessenger.sendCmd(kStatus, configBuffer);  
+  //cmdMessenger.sendCmd(kStatus, "Restored config");
+  //cmdMessenger.sendCmd(kStatus, configBuffer);  
   configLength = 0;
   for(configLength=0;configLength!=MEM_LEN_CONFIG;configLength++) {
     if (configBuffer[configLength]!='\0') continue;
@@ -228,7 +231,7 @@ void loadConfig()
 
 void storeConfig() 
 {
-  cmdMessenger.sendCmd(kStatus, "Storing config");
+  cmdMessenger.sendCmd(kStatus, "OK");
   EEPROM.writeBlock<char>(MEM_OFFSET_CONFIG, configBuffer, MEM_LEN_CONFIG);
 }
 
@@ -239,9 +242,9 @@ void SetPowerSavingMode(bool state)
   PowerSaveLedSegment(state);
 #ifdef DEBUG  
   if (state)
-    cmdMessenger.sendCmd(kStatus, "PwrSave On");
+    cmdMessenger.sendCmd(kStatus, "On");
   else
-    cmdMessenger.sendCmd(kStatus, "PwrSave Off");    
+    cmdMessenger.sendCmd(kStatus, "Off");    
 #endif
   //PowerSaveOutputs(state);
 }
@@ -514,11 +517,12 @@ void OnSetConfig()
   lastCommand = millis();
   String cfg = cmdMessenger.readStringArg();
   int bufferSize = MEM_LEN_CONFIG - configLength;
-  cmdMessenger.sendCmd(kStatus,cfg);
-  cmdMessenger.sendCmd(kStatus,configBuffer);
+  //cmdMessenger.sendCmd(kStatus,cfg);
+  //cmdMessenger.sendCmd(kStatus,configBuffer);
   cfg.toCharArray(&configBuffer[configLength], bufferSize);
-  cmdMessenger.sendCmd(kStatus,configBuffer);
   configLength += cfg.length();
+  cmdMessenger.sendCmd(kStatus,"OK");
+  //cmdMessenger.sendCmd(kStatus,configBuffer);
   // readConfig(cfg);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Setting config end");
@@ -635,7 +639,7 @@ void readConfig(String cfg) {
 void OnUnknownCommand()
 {
   lastCommand = millis();
-  cmdMessenger.sendCmd(kStatus,"Command without attached callback");
+  cmdMessenger.sendCmd(kStatus,"No callback");
 }
 
 void OnGetInfo() {
@@ -741,6 +745,13 @@ void readEncoder()
   }
 }
 
+void OnGenNewSerial() 
+{
+  generateSerial(true);
+  cmdMessenger.sendCmdStart(kInfo);
+  cmdMessenger.sendCmdArg(serial);
+  cmdMessenger.sendCmdEnd();
+}
 
 
 

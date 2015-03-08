@@ -514,6 +514,16 @@ namespace ArcazeUSB {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name for the device is not valid. Don&apos;t use the following characters:
+        ///{0} ähnelt.
+        /// </summary>
+        internal static string uiMessageDeviceNameContainsInvalidChars {
+            get {
+                return ResourceManager.GetString("uiMessageDeviceNameContainsInvalidChars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die An error occured on parsing your value formula. Please review and correct any errors. ähnelt.
         /// </summary>
         internal static string uiMessageErrorOnParsingExpression {
@@ -647,6 +657,15 @@ namespace ArcazeUSB {
         internal static string uiMessageSelectedModuleDoesNotContainAnyInputDevices {
             get {
                 return ResourceManager.GetString("uiMessageSelectedModuleDoesNotContainAnyInputDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The current firmware does not support this function. Please update to the current firmware first. ähnelt.
+        /// </summary>
+        internal static string uiMessageSettingsDialogFirmwareVersionTooLowException {
+            get {
+                return ResourceManager.GetString("uiMessageSettingsDialogFirmwareVersionTooLowException", resourceCulture);
             }
         }
         

@@ -331,4 +331,11 @@ You should configure them now.</value>
   <data name="uiMessageUpdateSuccessful" xml:space="preserve">
     <value>Nice! You updated successfully from {1} to {2}.</value>
   </data>
+  <data name="uiMessageSettingsDialogFirmwareVersionTooLowException" xml:space="preserve">
+    <value>The current firmware does not support this function. Please update to the current firmware first.</value>
+  </data>
+  <data name="uiMessageDeviceNameContainsInvalidChars" xml:space="preserve">
+    <value>The name for the device is not valid. Don't use the following characters:
+{0}</value>
+  </data>
 </root>

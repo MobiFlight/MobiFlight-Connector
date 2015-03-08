@@ -26,13 +26,24 @@ namespace MobiFlight.Config
             FromInternal(rawConfig, false);
         }
 
-        public String ToInternal()
+        public List<String> ToInternal(int MaxMessageLength)
         {
-            string result = "";
+            List<String> result = new List<string>();
+            String message = "";
+            
             foreach (BaseDevice item in Items)
             {
-                result += item.ToInternal();
-            }            
+                String current = item.ToInternal();
+                
+                if ((message.Length + current.Length) > MaxMessageLength) {
+                    result.Add(message);
+                    message = "";
+                }
+
+                message += current;
+            }
+            result.Add(message);
+
             return result;
         }
 
@@ -77,8 +88,16 @@ namespace MobiFlight.Config
                     }
 
                     currentItem.FromInternal(item + BaseDevice.End);
+                    
                     Items.Add(currentItem);
 
+                }
+                catch (ArgumentException ex)
+                {
+                    if (throwException)
+                        throw new FormatException("Config not valid. Type not valid", ex);
+                    else
+                        return this;
                 }
                 catch (FormatException ex)
                 {

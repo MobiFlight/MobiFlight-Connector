@@ -48,7 +48,7 @@
             this.displayLedDigit0CheckBox = new System.Windows.Forms.CheckBox();
             this.displayLedDigitFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.displayLedModuleSizeComboBox = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.NumberOfDigitsLabel = new System.Windows.Forms.Label();
             this.displayLedPaddingCheckBox = new System.Windows.Forms.CheckBox();
             this.displayLedDisplayLabel0 = new System.Windows.Forms.Label();
             this.displayLedDisplayLabel1 = new System.Windows.Forms.Label();
@@ -64,6 +64,7 @@
             this.displayLedAddressComboBox = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.displayLedConnectorComboBox = new System.Windows.Forms.ComboBox();
+            this.PaddingCharComboBox = new System.Windows.Forms.ComboBox();
             this.displayLedDecimalPointFlowLayoutPanel.SuspendLayout();
             this.displayLedDigitFlowLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -294,19 +295,18 @@
             this.displayLedModuleSizeComboBox.TabIndex = 67;
             this.displayLedModuleSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // label10
+            // NumberOfDigitsLabel
             // 
-            this.label10.AutoSize = true;
-            this.label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label10.Location = new System.Drawing.Point(17, 34);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(83, 13);
-            this.label10.TabIndex = 66;
-            this.label10.Text = "Number of digits";
+            this.NumberOfDigitsLabel.AutoSize = true;
+            this.NumberOfDigitsLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.NumberOfDigitsLabel.Location = new System.Drawing.Point(17, 34);
+            this.NumberOfDigitsLabel.Name = "NumberOfDigitsLabel";
+            this.NumberOfDigitsLabel.Size = new System.Drawing.Size(83, 13);
+            this.NumberOfDigitsLabel.TabIndex = 66;
+            this.NumberOfDigitsLabel.Text = "Number of digits";
             // 
             // displayLedPaddingCheckBox
             // 
-            this.displayLedPaddingCheckBox.AutoSize = true;
             this.displayLedPaddingCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.displayLedPaddingCheckBox.Location = new System.Drawing.Point(159, 33);
             this.displayLedPaddingCheckBox.Name = "displayLedPaddingCheckBox";
@@ -448,16 +448,16 @@
             "E",
             "F"});
             this.displayLedAddressComboBox.Location = new System.Drawing.Point(3, 3);
-            this.displayLedAddressComboBox.MaximumSize = new System.Drawing.Size(122, 0);
+            this.displayLedAddressComboBox.MaximumSize = new System.Drawing.Size(135, 0);
             this.displayLedAddressComboBox.MinimumSize = new System.Drawing.Size(35, 0);
             this.displayLedAddressComboBox.Name = "displayLedAddressComboBox";
-            this.displayLedAddressComboBox.Size = new System.Drawing.Size(122, 21);
+            this.displayLedAddressComboBox.Size = new System.Drawing.Size(132, 21);
             this.displayLedAddressComboBox.TabIndex = 65;
             // 
             // label9
             // 
             this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(131, 0);
+            this.label9.Location = new System.Drawing.Point(141, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(12, 27);
             this.label9.TabIndex = 67;
@@ -471,10 +471,23 @@
             this.displayLedConnectorComboBox.Items.AddRange(new object[] {
             "1",
             "2"});
-            this.displayLedConnectorComboBox.Location = new System.Drawing.Point(149, 3);
+            this.displayLedConnectorComboBox.Location = new System.Drawing.Point(159, 3);
+            this.displayLedConnectorComboBox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.displayLedConnectorComboBox.Name = "displayLedConnectorComboBox";
             this.displayLedConnectorComboBox.Size = new System.Drawing.Size(38, 21);
             this.displayLedConnectorComboBox.TabIndex = 66;
+            // 
+            // PaddingCharComboBox
+            // 
+            this.PaddingCharComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PaddingCharComboBox.FormattingEnabled = true;
+            this.PaddingCharComboBox.Items.AddRange(new object[] {
+            "0",
+            "Space"});
+            this.PaddingCharComboBox.Location = new System.Drawing.Point(266, 30);
+            this.PaddingCharComboBox.Name = "PaddingCharComboBox";
+            this.PaddingCharComboBox.Size = new System.Drawing.Size(35, 21);
+            this.PaddingCharComboBox.TabIndex = 70;
             // 
             // DisplayLedDisplayPanel
             // 
@@ -484,7 +497,8 @@
             this.Controls.Add(this.displayLedDecimalPointFlowLayoutPanel);
             this.Controls.Add(this.displayLedDigitFlowLayoutPanel);
             this.Controls.Add(this.displayLedModuleSizeComboBox);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.NumberOfDigitsLabel);
+            this.Controls.Add(this.PaddingCharComboBox);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.displayLedPaddingCheckBox);
             this.Controls.Add(this.displayLedDisplayLabel0);
@@ -531,7 +545,7 @@
         public System.Windows.Forms.CheckBox displayLedDigit0CheckBox;
         public System.Windows.Forms.FlowLayoutPanel displayLedDigitFlowLayoutPanel;
         public System.Windows.Forms.ComboBox displayLedModuleSizeComboBox;
-        public System.Windows.Forms.Label label10;
+        public System.Windows.Forms.Label NumberOfDigitsLabel;
         public System.Windows.Forms.CheckBox displayLedPaddingCheckBox;
         public System.Windows.Forms.Label displayLedDisplayLabel0;
         public System.Windows.Forms.Label displayLedDisplayLabel1;
@@ -547,5 +561,6 @@
         public System.Windows.Forms.ComboBox displayLedAddressComboBox;
         public System.Windows.Forms.Label label9;
         public System.Windows.Forms.ComboBox displayLedConnectorComboBox;
+        public System.Windows.Forms.ComboBox PaddingCharComboBox;
     }
 }

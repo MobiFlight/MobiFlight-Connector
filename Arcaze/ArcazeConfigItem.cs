@@ -38,6 +38,7 @@ namespace ArcazeUSB
         public byte         DisplayLedConnector         { get; set; }
         public byte         DisplayLedModuleSize        { get; set; }
         public bool         DisplayLedPadding           { get; set; }
+        public string       DisplayLedPaddingChar       { get; set; }
         public List<string> DisplayLedDigits            { get; set; }
         public List<string> DisplayLedDecimalPoints     { get; set; }
         // the bcd driver stuff
@@ -47,6 +48,7 @@ namespace ArcazeUSB
         public string       ServoMin                    { get; set; }
         public string       ServoMax                    { get; set; }
         public string       DisplayTrigger              { get; set; }
+
 
         public List<Precondition> Preconditions         { get; set; }
 
@@ -69,10 +71,11 @@ namespace ArcazeUSB
             DisplayLedConnector = 1;
             DisplayLedAddress = "0";
             DisplayLedPadding = false;
+            DisplayLedPaddingChar = "0";
             DisplayLedModuleSize = 8;
             DisplayLedDigits = new List<string>();
             DisplayLedDecimalPoints = new List<string>();
-
+            
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
 
             Preconditions = new List<Precondition>();
@@ -159,6 +162,11 @@ namespace ArcazeUSB
                 if (reader["ledPadding"] != null && reader["ledPadding"] != "")
                 {
                     DisplayLedPadding = Boolean.Parse(reader["ledPadding"]);
+                }
+
+                if (reader["ledPaddingChar"] != null && reader["ledPaddingChar"] != "")
+                {
+                    DisplayLedPaddingChar = reader["ledPaddingChar"];
                 }
 
                 // ignore empty values
@@ -256,6 +264,7 @@ namespace ArcazeUSB
                     writer.WriteAttributeString("ledConnector", DisplayLedConnector.ToString());
                     writer.WriteAttributeString("ledModuleSize", DisplayLedModuleSize.ToString());
                     writer.WriteAttributeString("ledPadding", DisplayLedPadding.ToString());
+                    writer.WriteAttributeString("ledPaddingChar", DisplayLedPaddingChar);
 
                     if (DisplayLedDigits.Count > 0)
                     {

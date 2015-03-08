@@ -641,7 +641,7 @@ namespace ArcazeUSB
                             cfg.DisplayLedConnector,
                             cfg.DisplayLedDigits,
                             cfg.DisplayLedDecimalPoints,
-                            value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, '0'));
+                            value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]));
                         break;
 
                     case ArcazeBcd4056.TYPE:
@@ -668,7 +668,7 @@ namespace ArcazeUSB
                             cfg.DisplayLedConnector,
                             cfg.DisplayLedDigits,
                             cfg.DisplayLedDecimalPoints,
-                            value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, '0'));
+                            value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]));
                         break;
 
                     //case ArcazeBcd4056.TYPE:

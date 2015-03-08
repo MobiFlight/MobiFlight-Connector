@@ -275,6 +275,21 @@
   <data name="inputEditButtonColumn.Width" type="System.Int32, mscorlib">
     <value>60</value>
   </data>
+  <data name="duplicateInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 22</value>
+  </data>
+  <data name="duplicateInputsRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Eintrag duplizieren</value>
+  </data>
+  <data name="deleteInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 22</value>
+  </data>
+  <data name="deleteInputsRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Eintrag löschen</value>
+  </data>
+  <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 48</value>
+  </data>
   <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
     <value>558, 149</value>
   </data>
@@ -463,7 +478,10 @@
     <value>Beenden</value>
   </data>
   <data name="ArcazeUSBTtoolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 19</value>
+    <value>51, 19</value>
+  </data>
+  <data name="ArcazeUSBTtoolStripStatusLabel.Text" xml:space="preserve">
+    <value>Module:</value>
   </data>
   <data name="arcazeUsbStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 19</value>
@@ -502,7 +520,7 @@
     <value>4, 19</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>247, 19</value>
+    <value>221, 19</value>
   </data>
   <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
     <value>572, 24</value>
@@ -662,5 +680,9 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Inherit</value>
   </data>
 </root>

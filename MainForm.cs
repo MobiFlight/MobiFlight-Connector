@@ -12,6 +12,7 @@ using System.Xml.Serialization;
 using SimpleSolutions.Usb;
 using MobiFlight;
 using AutoUpdaterDotNET;
+using System.Runtime.InteropServices;
 
 namespace ArcazeUSB
 {
@@ -1632,5 +1633,30 @@ namespace ArcazeUSB
 
             Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
         }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == NativeMethods.WM_SHOWME)
+            {
+                ShowMe();
+            }
+            base.WndProc(ref m);
+        }
+
+        private void ShowMe()
+        {
+            minimizeMainForm(false);
+        }
+    }
+    
+    // this class just wraps some Win32 stuff that we're going to use
+    internal class NativeMethods
+    {
+        public const int HWND_BROADCAST = 0xffff;
+        public static readonly int WM_SHOWME = RegisterWindowMessage("WM_SHOWME");
+        [DllImport("user32")]
+        public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
+        [DllImport("user32")]
+        public static extern int RegisterWindowMessage(string message);
     }
 }

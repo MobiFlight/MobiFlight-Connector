@@ -96,9 +96,9 @@ namespace ArcazeUSB
         /// </summary>
         private void loadSettings ()
         {            
-            ///
-            /// TAB General
-            ///
+            //
+            // TAB General
+            //
             // Recent Files max count
             recentFilesNumericUpDown.Value = Properties.Settings.Default.RecentFilesMaxCount;
 
@@ -113,9 +113,9 @@ namespace ArcazeUSB
             logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
             ComboBoxHelper.SetSelectedItem(logLevelComboBox, Properties.Settings.Default.LogLevel);
 
-            ///
-            /// TAB Arcaze
-            ///
+            //
+            // TAB Arcaze
+            //
             moduleSettings = new List<ArcazeModuleSettings>();
             if ("" != Properties.Settings.Default.ModuleSettings)
             {
@@ -131,14 +131,14 @@ namespace ArcazeUSB
                 }
             }
 
-            ///
-            /// TAB MobiFlight
-            ///
+            //
+            // TAB MobiFlight
+            //
             loadMobiFlightSettings();
 
-            ///
-            /// TAB FSUIPC
-            ///
+            //
+            // TAB FSUIPC
+            //
             // FSUIPC poll interval
             fsuipcPollIntervalTrackBar.Value = (int)Math.Floor(Properties.Settings.Default.PollInterval / 50.0);
         }
@@ -158,9 +158,9 @@ namespace ArcazeUSB
             addDeviceToolStripDropDownButton.Enabled = false;
             removeDeviceToolStripButton.Enabled = false;
 
-            ///
-            /// Build the tree
-            /// 
+            //
+            // Build the tree
+            // 
             MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
 
             mfModulesTreeView.Nodes.Clear();
@@ -534,6 +534,21 @@ namespace ArcazeUSB
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
             String UniqueName = (sender as MobiFlight.Config.BaseDevice).Name;
+
+            if (!MobiFlightModule.IsValidDeviceName(UniqueName))
+            {
+                displayError(mfSettingsPanel.Controls[0], 
+                        String.Format(MainForm._tr("uiMessageDeviceNameContainsInvalidCharsOrTooLong"), 
+                                      String.Join("  ", MobiFlightModule.ReservedChars.ToArray())));
+                UniqueName = UniqueName.Substring(0, UniqueName.Length - 1);
+                (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;
+                syncPanelWithSelectedDevice(mfModulesTreeView.SelectedNode);
+                return;
+            }
+
+            removeError(mfSettingsPanel.Controls[0]);
+            
+
             List<String> NodeNames = new List<String>();
             foreach (TreeNode node in parentNode.Nodes) {
                 if (node == mfModulesTreeView.SelectedNode) continue;
@@ -641,7 +656,13 @@ namespace ArcazeUSB
 
             module.Config = newConfig;
 
-            Log.Instance.log("Uploading config: " + module.Config.ToInternal(), LogSeverity.Info);
+            String LogMessage = String.Join("", module.Config.ToInternal(module.MaxMessageSize).ToArray());
+            if (LogMessage.Length > module.EepromSize) {
+                MessageBox.Show("Your config is too long, make some labels shorter", "Upload configuration", MessageBoxButtons.OK);
+                return;
+            }
+
+            Log.Instance.log("Uploading config: " + LogMessage, LogSeverity.Info);
             
             module.SaveConfig();
             module.Config = null;
@@ -884,6 +905,28 @@ namespace ArcazeUSB
             errorProvider1.SetError(
                     control,
                     "");
+        }
+
+        private void regenerateSerialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            try
+            {
+                module.GenerateNewSerial();
+            }
+            catch (FirmwareVersionTooLowException exc)
+            {
+                MessageBox.Show(MainForm._tr("uiMessageSettingsDialogFirmwareVersionTooLowException"), MainForm._tr("Hint"));
+                return;
+            }
+
+            MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
+            mobiflightCache.RefreshModule(module);
+            MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
+            mfModulesTreeView_initNode(newInfo, parentNode);
+            syncPanelWithSelectedDevice(parentNode);
         }
     }
 

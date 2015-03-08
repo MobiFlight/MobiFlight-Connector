@@ -81,7 +81,9 @@ namespace ArcazeUSB
             List<Tuple<string, string>> result = new List<Tuple<string, string>>();
             String[] arduinoVidPids = { 
                 MobiFlightModuleInfo.PIDVID_MICRO, // Micro
-                MobiFlightModuleInfo.PIDVID_MEGA  // Mega
+                MobiFlightModuleInfo.PIDVID_MEGA,  // Mega
+                MobiFlightModuleInfo.PIDVID_MEGA_10,  // Mega
+                MobiFlightModuleInfo.PIDVID_MEGA_CLONE  // Mega
             };
             Regex regEx = new Regex( "^(" + string.Join("|", arduinoVidPids) + ")" );
 

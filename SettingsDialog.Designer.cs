@@ -114,6 +114,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -385,7 +386,8 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.toolStripMenuItem3,
-            this.updateFirmwareToolStripMenuItem});
+            this.updateFirmwareToolStripMenuItem,
+            this.regenerateSerialToolStripMenuItem});
             this.mfModuleSettingsContextMenuStrip.Name = "mfModuleSettingsContextMenuStrip";
             resources.ApplyResources(this.mfModuleSettingsContextMenuStrip, "mfModuleSettingsContextMenuStrip");
             this.mfModuleSettingsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.mfModuleSettingsContextMenuStrip_Opening);
@@ -727,6 +729,12 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // regenerateSerialToolStripMenuItem
+            // 
+            this.regenerateSerialToolStripMenuItem.Name = "regenerateSerialToolStripMenuItem";
+            resources.ApplyResources(this.regenerateSerialToolStripMenuItem, "regenerateSerialToolStripMenuItem");
+            this.regenerateSerialToolStripMenuItem.Click += new System.EventHandler(this.regenerateSerialToolStripMenuItem_Click);
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -856,5 +864,6 @@
         public System.Windows.Forms.TabControl tabControl1;
         public System.Windows.Forms.TabPage mobiFlightTabPage;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ToolStripMenuItem regenerateSerialToolStripMenuItem;
     }
 }

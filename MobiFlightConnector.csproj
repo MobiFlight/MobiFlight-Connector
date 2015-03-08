@@ -203,6 +203,7 @@
     <Compile Include="Base\IModule.cs" />
     <Compile Include="Base\IModuleInfo.cs" />
     <Compile Include="Base\IOutputModule.cs" />
+    <Compile Include="MobiFlight\FirmwareVersionTooLowException.cs" />
     <Compile Include="MobiFlight\InputConfigItem.cs" />
     <Compile Include="MobiFlight\Config\BaseDevice.cs" />
     <Compile Include="MobiFlight\Config\Encoder.cs" />

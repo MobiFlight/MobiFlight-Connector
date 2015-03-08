@@ -47,6 +47,16 @@ namespace MobiFlight
         SerialPort _serialPort;
         protected MobiFlight.Config.Config _config = null;
 
+        public static List<string> ReservedChars = new List<string>
+		{
+			":",
+			";",
+			",",
+			"#",
+			"/",
+			"|"
+		};
+        
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
         public String Name { get; set; }
@@ -80,7 +90,8 @@ namespace MobiFlight
                 _config = value;
             }
         }
-
+        
+        public const byte MaxDeviceNameLength = 32;
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();
 
@@ -105,6 +116,16 @@ namespace MobiFlight
         /// the look up table with the last set values
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
+        public int MaxMessageSize
+        {
+            get;
+            set;
+        }
+        public int EepromSize
+        {
+            get;
+            set;
+        }
 
         
 
@@ -127,7 +148,10 @@ namespace MobiFlight
             SaveConfig,     // 14
             ConfigSaved,    // 15
             ActivateConfig, // 16
-            ConfigActivated // 17
+            ConfigActivated, // 17
+            SetPowerSavingMode, // 18
+            SetName, // 19
+			GenNewSerial // 20
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -135,6 +159,8 @@ namespace MobiFlight
             Name = "Default";
             Version = "n/a"; // this is simply unknown, in case of an unflashed Arduino
             Serial = "n/a"; // this is simply unknown, in case of an unflashed Arduino
+            this.MaxMessageSize = 64;
+            this.EepromSize = 768;
             UpdateConfig(config);
         }
 
@@ -240,6 +266,25 @@ namespace MobiFlight
                 result = Name + " " + renameIndex;
             }
 
+            return result;
+        }
+
+        public static bool IsValidDeviceName(string Name)
+        {
+            bool result;
+            if (Name.Length > 32)
+            {
+                result = false;
+            }
+            else
+            {
+                System.Collections.Generic.List<string> EscapedReservedChars = MobiFlightModule.ReservedChars;
+                for (int i = 0; i != EscapedReservedChars.Count; i++)
+                {
+                    EscapedReservedChars[i] = Regex.Escape(EscapedReservedChars[i]);
+                }
+                result = !Regex.IsMatch(Name, string.Join("|", EscapedReservedChars.ToArray()));
+            }
             return result;
         }
 
@@ -443,6 +488,14 @@ namespace MobiFlight
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
+
+                MaxMessageSize = 64;
+                EepromSize = 768;
+                if (ArduinoType == "Arduino Mega 2560")
+                {
+                    MaxMessageSize = 64;
+                    EepromSize = 768;
+                }
             }
 
             return devInfo;
@@ -456,26 +509,40 @@ namespace MobiFlight
 
             //foreach (MobiFlight.Config.BaseDevice dev in Config.Items)
             //{
-            command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, 1000);
-            command.AddArgument(Config.ToInternal());
-            var StatusCommand = _cmdMessenger.SendCommand(command);
-            if (!StatusCommand.Ok)
+            foreach (string MessagePart in this.Config.ToInternal(this.MaxMessageSize))
             {
-                isOk = false;
-                //break;
+                Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
+                command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, 1000);
+                command.AddArgument(MessagePart);
+                ReceivedCommand StatusCommand = this._cmdMessenger.SendCommand(command);
+                if (!StatusCommand.Ok)
+                {
+                    isOk = false;
+                    break;
+                }
             }
-            //}
-
+            if (!isOk)
+            {
+                Log.Instance.log("Error on Uploading.", LogSeverity.Error);
+            }
+            
             if (isOk)
             {
                 command = new SendCommand((int)MobiFlightModule.Command.SaveConfig, (int)MobiFlightModule.Command.ConfigSaved, 1000);
-                StatusCommand = _cmdMessenger.SendCommand(command);
+                ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
 
                 if (StatusCommand.Ok)
                 {
                     command = new SendCommand((int)MobiFlightModule.Command.ActivateConfig, (int)MobiFlightModule.Command.ConfigActivated, 1000);
                     StatusCommand = _cmdMessenger.SendCommand(command);
                     isOk = StatusCommand.Ok;
+                }
+                else
+                {
+                    if (!isOk)
+                    {
+                        Log.Instance.log("Error on Saving.", LogSeverity.Error);
+                    }
                 }
             }
 
@@ -584,6 +651,19 @@ namespace MobiFlight
             }
 
             return false;
+        }
+
+        public bool GenerateNewSerial()
+        {
+            System.Version minVersion = new System.Version("1.3.0");
+            System.Version currentVersion = new System.Version(this.Version);
+            if (currentVersion.CompareTo(minVersion) < 0)
+            {
+                throw new FirmwareVersionTooLowException(minVersion, currentVersion);
+            }
+            SendCommand command = new SendCommand((int)MobiFlightModule.Command.GenNewSerial, (int)MobiFlightModule.Command.Status, 1000);
+            ReceivedCommand StatusCommand = this._cmdMessenger.SendCommand(command);
+            return StatusCommand.Ok;
         }
     }
 }

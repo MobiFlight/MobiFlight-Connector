@@ -337,6 +337,7 @@ namespace ArcazeUSB
             }
 
             displayLedDisplayPanel.displayLedPaddingCheckBox.Checked = config.DisplayLedPadding;
+            displayLedDisplayPanel.SetPaddingChar(config.DisplayLedPaddingChar);
 
             foreach (string digit in config.DisplayLedDigits)
             {
@@ -445,6 +446,7 @@ namespace ArcazeUSB
 
             config.DisplayLedAddress = displayLedDisplayPanel.displayLedAddressComboBox.Text;
             config.DisplayLedPadding = displayLedDisplayPanel.displayLedPaddingCheckBox.Checked;
+            config.DisplayLedPaddingChar = displayLedDisplayPanel.GetPaddingChar();
             try
             {
                 config.DisplayLedConnector = byte.Parse(displayLedDisplayPanel.displayLedConnectorComboBox.Text);
