@@ -12,7 +12,7 @@
   </config>
   <config>
     <active>true</active>
-    <description>Date - Minute of local ime</description>
+    <description>Date - Minute of local time</description>
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0239" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
@@ -246,7 +246,7 @@
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3120" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
       
     </settings>
   </config>
@@ -255,8 +255,8 @@
     <description>Radio - COM1 Active Freq</description>
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x034E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
+      <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
       
     </settings>
   </config>
@@ -265,8 +265,8 @@
     <description>Radio - COM1 Standby Freq</description>
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
+      <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
       
     </settings>
   </config>
@@ -275,8 +275,8 @@
     <description>Radio - COM2 Active Freq</description>
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3118" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
+      <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
       
     </settings>
   </config>
@@ -285,8 +285,8 @@
     <description>Radio - COM2 Standby Freq</description>
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x311C" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
+      <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
       
     </settings>
   </config>
@@ -296,7 +296,7 @@
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0354" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" />
       
     </settings>
   </config>
@@ -306,7 +306,7 @@
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x80" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <display type="" serial="" trigger="change" pin="" />
       
     </settings>
   </config>
@@ -316,7 +316,7 @@
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x40" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <display type="" serial="" trigger="change" pin="" />
       
     </settings>
   </config>
@@ -326,7 +326,7 @@
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x20" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+      <display type="" serial="" trigger="change" pin="" />
       
     </settings>
   </config>
@@ -545,8 +545,18 @@
     <description>Landing Gear - Nose (moving)</description>
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
+      <comparison active="True" value="16383" operand="=" ifValue="0" elseValue="" />
       <display type="Pin" trigger="rising" pin="B02" />
+      
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Landing Gear - Left (extracted)</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" trigger="rising" pin="B06" />
       
     </settings>
   </config>
@@ -565,18 +575,8 @@
     <description>Landing Gear - Right (moving)</description>
     <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
+      <comparison active="True" value="16383" operand="=" ifValue="0" elseValue="" />
       <display type="Pin" trigger="rising" pin="B01" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Landing Gear - Left (extracted)</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="rising" pin="B06" />
       
     </settings>
   </config>

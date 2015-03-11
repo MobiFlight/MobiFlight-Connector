@@ -537,9 +537,17 @@ namespace ArcazeUSB
 
             if (!MobiFlightModule.IsValidDeviceName(UniqueName))
             {
+                String invalidCharacterList = "";
+                foreach (String c in MobiFlightModule.ReservedChars)
+                {
+                    invalidCharacterList += c + "  ";
+                }
+                invalidCharacterList = invalidCharacterList.Replace(@"\\\", "");
+
                 displayError(mfSettingsPanel.Controls[0], 
-                        String.Format(MainForm._tr("uiMessageDeviceNameContainsInvalidCharsOrTooLong"), 
-                                      String.Join("  ", MobiFlightModule.ReservedChars.ToArray())));
+                        String.Format(MainForm._tr("uiMessageDeviceNameContainsInvalidCharsOrTooLong"),
+                                      invalidCharacterList,
+                                      MobiFlightModule.MaxDeviceNameLength.ToString()));
                 UniqueName = UniqueName.Substring(0, UniqueName.Length - 1);
                 (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;
                 syncPanelWithSelectedDevice(mfModulesTreeView.SelectedNode);

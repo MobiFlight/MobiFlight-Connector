@@ -71,6 +71,7 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.0.1 : Nicer firmware update, more outputs (20)
 // 1.1.0 : Encoder support, more outputs (30)
 // 1.2.0 : More outputs (40), more inputs (40), more led segments (4), more encoders (20), steppers (10), servos (10)
+// 1.3.0 : Generate New Serial
 const char version[8] = "1.3.0";
 
 #if MODULETYPE == MTYPE_MEGA
@@ -78,7 +79,7 @@ char type[20]               = "MobiFlight Mega";
 char serial[MEM_LEN_SERIAL] = "1234567890";
 char name[MEM_LEN_NAME]     = "MobiFlight Mega";
 int eepromSize = EEPROMSizeMega;
-const int  MEM_LEN_CONFIG    = 768;
+const int  MEM_LEN_CONFIG    = 1024;
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
@@ -517,6 +518,7 @@ void OnSetConfig()
   lastCommand = millis();
   String cfg = cmdMessenger.readStringArg();
   int bufferSize = MEM_LEN_CONFIG - configLength;
+  if (bufferSize<1) return;
   //cmdMessenger.sendCmd(kStatus,cfg);
   //cmdMessenger.sendCmd(kStatus,configBuffer);
   cfg.toCharArray(&configBuffer[configLength], bufferSize);

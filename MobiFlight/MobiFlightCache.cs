@@ -83,7 +83,8 @@ namespace ArcazeUSB
                 MobiFlightModuleInfo.PIDVID_MICRO, // Micro
                 MobiFlightModuleInfo.PIDVID_MEGA,  // Mega
                 MobiFlightModuleInfo.PIDVID_MEGA_10,  // Mega
-                MobiFlightModuleInfo.PIDVID_MEGA_CLONE  // Mega
+                MobiFlightModuleInfo.PIDVID_MEGA_CLONE,  // Mega
+                MobiFlightModuleInfo.PIDVID_MEGA_CLONE_1  // Mega
             };
             Regex regEx = new Regex( "^(" + string.Join("|", arduinoVidPids) + ")" );
 
@@ -108,6 +109,8 @@ namespace ArcazeUSB
                         catch (Exception e)
                         {
                             // not available therefore not connected
+                            String message = "Arduino device not connected -skipping: " + regDevice;
+                            Log.Instance.log(message, LogSeverity.Debug);
                             continue;
                         }
                     }

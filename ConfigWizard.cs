@@ -801,10 +801,12 @@ namespace ArcazeUSB
             try
             {
                 float.Parse((sender as TextBox).Text);
+                removeError(sender as Control);
             }
             catch (Exception exc)
             {
                 Log.Instance.log("fsuipcMultiplyTextBox_Validating : Parsing problem, " + exc.Message, LogSeverity.Debug);
+                displayError(sender as Control, MainForm._tr("uiMessageFsuipcConfigPanelMultiplyWrongFormat"));
                 e.Cancel = true;
             }
         }
@@ -1153,6 +1155,8 @@ namespace ArcazeUSB
         {
             // sync the selected node with the current settings from the panels
             TreeNode selectedNode = preconditionListTreeView.SelectedNode;
+            if (selectedNode == null) return;
+
             Precondition c = selectedNode.Tag as Precondition;
             
             c.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;

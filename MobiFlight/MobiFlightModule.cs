@@ -49,12 +49,13 @@ namespace MobiFlight
 
         public static List<string> ReservedChars = new List<string>
 		{
-			":",
-			";",
-			",",
-			"#",
-			"/",
-			"|"
+			@":",
+            @".",
+			@";",
+			@",",
+			@"#",
+			@"/",
+			@"|"
 		};
         
         String _comPort = "COM3";
@@ -159,8 +160,8 @@ namespace MobiFlight
             Name = "Default";
             Version = "n/a"; // this is simply unknown, in case of an unflashed Arduino
             Serial = "n/a"; // this is simply unknown, in case of an unflashed Arduino
-            this.MaxMessageSize = 64;
-            this.EepromSize = 768;
+            this.MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MICRO;
+            this.EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MICRO;
             UpdateConfig(config);
         }
 
@@ -281,7 +282,7 @@ namespace MobiFlight
                 System.Collections.Generic.List<string> EscapedReservedChars = MobiFlightModule.ReservedChars;
                 for (int i = 0; i != EscapedReservedChars.Count; i++)
                 {
-                    EscapedReservedChars[i] = Regex.Escape(EscapedReservedChars[i]);
+                    EscapedReservedChars[i] = Regex.Escape(EscapedReservedChars[i].Replace(@"\", ""));
                 }
                 result = !Regex.IsMatch(Name, string.Join("|", EscapedReservedChars.ToArray()));
             }
@@ -489,12 +490,12 @@ namespace MobiFlight
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
 
-                MaxMessageSize = 64;
-                EepromSize = 768;
-                if (ArduinoType == "Arduino Mega 2560")
+                MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MICRO;
+                EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MICRO;
+                if (ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
                 {
-                    MaxMessageSize = 64;
-                    EepromSize = 768;
+                    MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MEGA;
+                    EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MEGA;
                 }
             }
 

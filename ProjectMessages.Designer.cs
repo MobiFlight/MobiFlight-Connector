@@ -514,12 +514,12 @@ namespace ArcazeUSB {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die The name for the device is not valid. Don&apos;t use the following characters:
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name for the device is not valid or too long (max. {1} characters). Don&apos;t use the following characters:
         ///{0} ähnelt.
         /// </summary>
-        internal static string uiMessageDeviceNameContainsInvalidChars {
+        internal static string uiMessageDeviceNameContainsInvalidCharsOrTooLong {
             get {
-                return ResourceManager.GetString("uiMessageDeviceNameContainsInvalidChars", resourceCulture);
+                return ResourceManager.GetString("uiMessageDeviceNameContainsInvalidCharsOrTooLong", resourceCulture);
             }
         }
         

@@ -394,6 +394,9 @@
     <None Include="firmware\mobiflight_mega_1_2_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_mega_1_3_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_micro_1_1_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -540,14 +543,14 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <Content Include="favicon.ico" />
-    <Content Include="presets.aip">
+    <None Include="presets.aip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="presets_inputs.aip">
+    </None>
+    <None Include="presets_inputs.aip">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
