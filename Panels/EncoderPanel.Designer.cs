@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB.Panels
+﻿namespace MobiFlight.Panels
 {
     partial class EncoderPanel
     {
@@ -31,16 +31,16 @@
             this.onLeftActionConfigPanel = new System.Windows.Forms.Panel();
             this.encoderTabControl = new System.Windows.Forms.TabControl();
             this.onLeftTabPage = new System.Windows.Forms.TabPage();
-            this.onLeftActionTypePanel = new ArcazeUSB.Panels.ActionTypePanel();
+            this.onLeftActionTypePanel = new MobiFlight.Panels.ActionTypePanel();
             this.onRightTabPage = new System.Windows.Forms.TabPage();
             this.onRightActionConfigPanel = new System.Windows.Forms.Panel();
-            this.onRightActionTypePanel = new ArcazeUSB.Panels.ActionTypePanel();
+            this.onRightActionTypePanel = new MobiFlight.Panels.ActionTypePanel();
             this.onLeftFastTabPage = new System.Windows.Forms.TabPage();
             this.onLeftFastActionConfigPanel = new System.Windows.Forms.Panel();
-            this.onLeftFastActionTypePanel = new ArcazeUSB.Panels.ActionTypePanel();
+            this.onLeftFastActionTypePanel = new MobiFlight.Panels.ActionTypePanel();
             this.onRightFastTabPage = new System.Windows.Forms.TabPage();
             this.onRightFastActionConfigPanel = new System.Windows.Forms.Panel();
-            this.onRightFastActionTypePanel = new ArcazeUSB.Panels.ActionTypePanel();
+            this.onRightFastActionTypePanel = new MobiFlight.Panels.ActionTypePanel();
             this.encoderTabControl.SuspendLayout();
             this.onLeftTabPage.SuspendLayout();
             this.onRightTabPage.SuspendLayout();

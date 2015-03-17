@@ -3,7 +3,7 @@
   <config>
     <active>true</active>
     <description>Systems - Pitot Heat</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x029C" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="Pin" trigger="normal" pin="" />
@@ -13,7 +13,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - Heading</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07CC" size="4" mask="0xFFFF" multiplier="0,0054931640625" bcdMode="False" />
       <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="0,1,2" />
@@ -23,7 +23,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - IAS</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07E2" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" />
@@ -33,7 +33,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - CRS/OBS 1</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0C4E" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="5,6,7" />
@@ -43,7 +43,7 @@
   <config>
     <active>true</active>
     <description>Flaps</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BE0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="normal" pin="B01" />
@@ -52,7 +52,7 @@
   <config>
     <active>true</active>
     <description>Radio - NAV1 Standby Freq</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
@@ -61,7 +61,7 @@
   <config>
     <active>true</active>
     <description>Radio - NAV2 Standby Freq</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3120" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
@@ -70,7 +70,7 @@
   <config>
     <active>true</active>
     <description>Radio - COM1 Standby Freq</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
@@ -79,7 +79,7 @@
   <config>
     <active>true</active>
     <description>Radio - COM2 Active Freq</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3118" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
@@ -88,7 +88,7 @@
   <config>
     <active>true</active>
     <description>Radio - COM2 Standby Freq</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x311C" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
@@ -98,7 +98,7 @@
   <config>
     <active>true</active>
     <description>Radio - Transponder (Squawk)</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0354" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
@@ -108,7 +108,7 @@
   <config>
     <active>true</active>
     <description>Radio Audio Switch - Com1</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x80" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
@@ -118,7 +118,7 @@
   <config>
     <active>true</active>
     <description>Radio Audio Switch - Com2</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x40" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
@@ -128,7 +128,7 @@
   <config>
     <active>true</active>
     <description>Radio Audio Switch - Com Both</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x20" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
@@ -138,7 +138,7 @@
   <config>
     <active>true</active>
     <description>Radio Audio Switch - Nav1</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x10" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
@@ -148,7 +148,7 @@
   <config>
     <active>true</active>
     <description>Radio Audio Switch - Nav2</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x08" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
@@ -158,7 +158,7 @@
   <config>
     <active>true</active>
     <description>Radio Audio Switch - Marker</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x04" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
@@ -168,7 +168,7 @@
   <config>
     <active>true</active>
     <description>Radio Audio Switch - DME</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x02" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
@@ -178,7 +178,7 @@
   <config>
     <active>true</active>
     <description>Radio Audio Switch - ADF1</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x01" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
@@ -188,7 +188,7 @@
   <config>
     <active>true</active>
     <description>General - Current V/S</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x02C8" size="4" mask="0xFFFFFFFF" multiplier="0,768946875" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6,7" />
@@ -198,7 +198,7 @@
   <config>
     <active>true</active>
     <description>General - Parking Brake</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BC8" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="32767" operand="=" ifValue="1" elseValue="0" />
       <display type="" serial="" trigger="change" pin="" />
@@ -208,7 +208,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - V/S</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07F2" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" />
@@ -218,7 +218,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - Altitude</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07D4" size="4" mask="0xFFFFFFFF" multiplier="5,0062E-05" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" />
@@ -228,7 +228,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - Altitude Hold</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07D0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="Pin" trigger="normal" pin="" />
@@ -238,7 +238,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - Heading Hold</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07C8" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -248,7 +248,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - Approach Hold</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0800" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -258,7 +258,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - Back Course Hold</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0804" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -268,7 +268,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - Nav1 Hold</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07C4" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -278,7 +278,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - V/S Hold</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07EC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -288,7 +288,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - Master Switch</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07BC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -298,7 +298,7 @@
   <config>
     <active>true</active>
     <description>Autopilot - IAS Hold</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x07DC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -308,7 +308,7 @@
   <config>
     <active>true</active>
     <description>Flight System - Spoiler ARM</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BD0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="4800" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="normal" pin="A13" />
@@ -318,7 +318,7 @@
   <config>
     <active>true</active>
     <description>Flight System - Spoiler Position</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BD0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="False" value="4800" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="normal" pin="A13" />
@@ -328,7 +328,7 @@
   <config>
     <active>true</active>
     <description>Lights - Landing Lights</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="1" mask="0x0004" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="normal" pin="A14" />
@@ -338,7 +338,7 @@
   <config>
     <active>true</active>
     <description>Landing Gear - Nose (Extended)</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B05" />
@@ -348,7 +348,7 @@
   <config>
     <active>true</active>
     <description>Landing Gear - Nose (moving)</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B02" />
@@ -358,7 +358,7 @@
   <config>
     <active>true</active>
     <description>Landing Gear - Left (moving)</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B03" />
@@ -368,7 +368,7 @@
   <config>
     <active>true</active>
     <description>Landing Gear - Right (moving)</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B01" />
@@ -378,7 +378,7 @@
   <config>
     <active>true</active>
     <description>Landing Gear - Left (extracted)</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B06" />
@@ -388,7 +388,7 @@
   <config>
     <active>true</active>
     <description>Landing Gear - Right (extracted)</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B04" />
@@ -398,7 +398,7 @@
   <config>
     <active>true</active>
     <description>Lights - Navigation Lights</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0001" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -408,7 +408,7 @@
   <config>
     <active>true</active>
     <description>Lights - Beacon</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0002" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -418,7 +418,7 @@
   <config>
     <active>true</active>
     <description>Lights - Taxi</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0008" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -428,7 +428,7 @@
   <config>
     <active>true</active>
     <description>Lights - Strobes</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0010" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -438,7 +438,7 @@
   <config>
     <active>true</active>
     <description>Lights - Instruments</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0020" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -448,7 +448,7 @@
   <config>
     <active>true</active>
     <description>Lights - Recognition</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0040" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -458,7 +458,7 @@
   <config>
     <active>true</active>
     <description>Lights - Wing</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0080" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -468,7 +468,7 @@
   <config>
     <active>true</active>
     <description>Lights - Logo</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0100" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
@@ -478,7 +478,7 @@
   <config>
     <active>true</active>
     <description>Lights - Cabin</description>
-    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0200" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />

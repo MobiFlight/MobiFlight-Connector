@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using FSUIPC;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public class Fsuipc2Cache : SourceCacheInterface
     {

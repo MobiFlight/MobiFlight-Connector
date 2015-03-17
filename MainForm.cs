@@ -10,11 +10,10 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using SimpleSolutions.Usb;
-using MobiFlight;
 using AutoUpdaterDotNET;
 using System.Runtime.InteropServices;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public partial class MainForm : Form
     {
@@ -48,7 +47,7 @@ namespace ArcazeUSB
         /// <returns>the translated string</returns>
         public static String _tr (String s) {
             if (null == resourceManager) {
-                resourceManager = new ResourceManager("ArcazeUSB.ProjectMessages", typeof(MainForm).Assembly);
+                resourceManager = new ResourceManager("MobiFlight.ProjectMessages", typeof(MainForm).Assembly);
             }
             return resourceManager.GetString(s);
         }
@@ -131,7 +130,7 @@ namespace ArcazeUSB
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
                 // change ui icon to english
-                donateToolStripButton.Image = ArcazeUSB.Properties.Resources.btn_donate_uk_SM;
+                donateToolStripButton.Image = MobiFlight.Properties.Resources.btn_donate_uk_SM;
             }
         }
 
@@ -325,7 +324,7 @@ namespace ArcazeUSB
         /// </summary>
         void arcazeCache_Closed(object sender, EventArgs e)
         {
-            arcazeUsbStatusToolStripStatusLabel.Image = ArcazeUSB.Properties.Resources.warning;
+            arcazeUsbStatusToolStripStatusLabel.Image = MobiFlight.Properties.Resources.warning;
         }
 
         /// <summary>
@@ -333,7 +332,7 @@ namespace ArcazeUSB
         /// </summary>
         void arcazeCache_Connected(object sender, EventArgs e)
         {
-            arcazeUsbStatusToolStripStatusLabel.Image = ArcazeUSB.Properties.Resources.check;
+            arcazeUsbStatusToolStripStatusLabel.Image = MobiFlight.Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
         }
 
@@ -699,6 +698,28 @@ namespace ArcazeUSB
                 System.IO.File.WriteAllText(fd.FileName, newFile);
                 fileName = fd.FileName;
             }
+            else
+            {
+                String file = System.IO.File.ReadAllText(fileName);
+                if (file.IndexOf("ArcazeUSB.ArcazeConfigItem") != -1)
+                {
+                    SaveFileDialog fd = new SaveFileDialog();
+                    fd.FileName = fileName.Replace(".mcc", "_v5.3.mcc");
+
+                    if (MessageBox.Show(_tr("uiMessageMigrateConfigFileV53YesNo"), _tr("Hint"), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
+                        if (DialogResult.OK != fd.ShowDialog())
+                        {
+                            return;
+                        }
+                    }
+
+                    String newFile = file.Replace("ArcazeUSB.ArcazeConfigItem", "MobiFlight.OutputConfigItem");
+                    System.IO.File.WriteAllText(fd.FileName, newFile);
+                    fileName = fd.FileName;
+                }
+            }
 
             execManager.Stop();
             dataSetConfig.Clear();
@@ -762,13 +783,8 @@ namespace ArcazeUSB
 
         private void _setFilenameInTitle(string fileName)
         {
-            var posOfDash = Text.IndexOf(" - ");
-
             fileName = fileName.Substring(fileName.LastIndexOf('\\')+1);
-            if (posOfDash>=0) {
-                Text = Text.Substring(posOfDash+3);
-            }
-            Text = fileName + " - " + Text;            
+            Text = fileName + " - MobiFlight Connector";            
         } //_loadConfig()
 
         /// <summary>
@@ -780,7 +796,7 @@ namespace ArcazeUSB
             foreach (DataRow row in configDataTable.Rows) {
                 if (row["settings"].GetType() == typeof(System.DBNull))
                 {
-                    ArcazeConfigItem cfgItem = new ArcazeConfigItem();
+                    OutputConfigItem cfgItem = new OutputConfigItem();
 
                     if (row["fsuipcOffset"].GetType() != typeof(System.DBNull))
                         cfgItem.FSUIPCOffset = Int32.Parse(row["fsuipcOffset"].ToString().Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
@@ -858,7 +874,7 @@ namespace ArcazeUSB
         {
             foreach (DataRow row in configDataTable.Rows)
             {
-                ArcazeConfigItem cfgItem = row["settings"] as ArcazeConfigItem;
+                OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
                 if (cfgItem != null)
                 {
                     row["fsuipcOffset"] = "0x" + cfgItem.FSUIPCOffset.ToString("X4");
@@ -1071,11 +1087,11 @@ namespace ArcazeUSB
                         return;
                     } //if
 
-                    ArcazeConfigItem cfg;
+                    OutputConfigItem cfg;
                     DataRow row = null;
                     bool create = false;
                     if (isNew) {
-                        cfg = new ArcazeConfigItem();                        
+                        cfg = new OutputConfigItem();                        
                     } else {
                         row = (dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
 
@@ -1083,10 +1099,10 @@ namespace ArcazeUSB
                         // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
                         if ((dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"].GetType() == typeof(System.DBNull))
                         {
-                            (dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] = new ArcazeConfigItem();
+                            (dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] = new OutputConfigItem();
                         }
 
-                        cfg = ((dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] as ArcazeConfigItem);                        
+                        cfg = ((dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);                        
                     }
                     _editConfigWithWizard(
                              row,
@@ -1197,7 +1213,7 @@ namespace ArcazeUSB
         /// <param name="dataRow"></param>
         /// <param name="cfg"></param>
         /// <param name="create"></param>
-        private void _editConfigWithWizard(DataRow dataRow, ArcazeConfigItem cfg, bool create)
+        private void _editConfigWithWizard(DataRow dataRow, OutputConfigItem cfg, bool create)
         {
             // refactor!!! dependency to arcaze cache etc not nice
             Form wizard = new ConfigWizard( execManager, 
@@ -1268,11 +1284,11 @@ namespace ArcazeUSB
             Properties.Settings.Default.AutoRun = value;
             if (value)
             {
-                autoRunToolStripButton.Image = ArcazeUSB.Properties.Resources.lightbulb_on;
+                autoRunToolStripButton.Image = MobiFlight.Properties.Resources.lightbulb_on;
             }
             else
             {
-                autoRunToolStripButton.Image = ArcazeUSB.Properties.Resources.lightbulb;
+                autoRunToolStripButton.Image = MobiFlight.Properties.Resources.lightbulb;
             }
         }
 
@@ -1439,11 +1455,11 @@ namespace ArcazeUSB
                     newRow[col.ColumnName] = currentRow[col.ColumnName];
                 }
                 
-                ArcazeConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as ArcazeConfigItem);
+                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
                 if (cfg != null) {
-                    cfg = (cfg.Clone() as ArcazeConfigItem);
+                    cfg = (cfg.Clone() as OutputConfigItem);
                 } else {
-                    cfg = new ArcazeConfigItem();
+                    cfg = new OutputConfigItem();
                 }
 
                 newRow["description"] += " " + _tr("suffixCopy");

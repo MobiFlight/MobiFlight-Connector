@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB.Panels.Group
+﻿namespace MobiFlight.Panels.Group
 {
     partial class FsuipcConfigPanel
     {

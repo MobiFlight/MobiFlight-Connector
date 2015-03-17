@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     class ConverterConfig : IXmlSerializable
     {

@@ -7,7 +7,7 @@ using MobiFlight;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public class MobiFlightCache : ModuleCacheInterface
     {
@@ -304,7 +304,7 @@ namespace ArcazeUSB
             }
             catch (Exception e)
             {
-                throw new ArcazeUSB.ArcazeCommandExecutionException(MainForm._tr("ConfigErrorException_WritingDisplay"), e);
+                throw new MobiFlight.ArcazeCommandExecutionException(MainForm._tr("ConfigErrorException_WritingDisplay"), e);
             }
         }
 

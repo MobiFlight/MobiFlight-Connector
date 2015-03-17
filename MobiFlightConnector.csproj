@@ -8,7 +8,7 @@
     <ProjectGuid>{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArcazeUSB</RootNamespace>
+    <RootNamespace>MobiFlight</RootNamespace>
     <AssemblyName>MFConnector</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -168,7 +168,7 @@
     <Compile Include="ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="Arcaze\ArcazeConfigItem.cs" />
+    <Compile Include="MobiFlight\OutputConfigItem.cs" />
     <Compile Include="ConnectorValue.cs" />
     <Compile Include="ConverterConfig.cs" />
     <Compile Include="Arcaze\DeviceInfoAndCache.cs" />

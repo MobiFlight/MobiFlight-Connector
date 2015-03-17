@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB
+﻿namespace MobiFlight
 {
     partial class MainForm
     {
@@ -326,9 +326,9 @@
             // 
             resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
             this.OutputTabPage.Controls.Add(this.MappingConfigGroupBox);
-            this.OutputTabPage.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.OutputTabPage.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.OutputTabPage.Name = "OutputTabPage";
-            this.OutputTabPage.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.OutputTabPage.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             this.OutputTabPage.UseVisualStyleBackColor = true;
             // 
             // MappingConfigGroupBox
@@ -401,7 +401,7 @@
             this.active.DataPropertyName = "active";
             resources.ApplyResources(this.active, "active");
             this.active.Name = "active";
-            this.active.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.active.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // guid
             // 
@@ -409,7 +409,7 @@
             resources.ApplyResources(this.guid, "guid");
             this.guid.Name = "guid";
             this.guid.ReadOnly = true;
-            this.guid.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.guid.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // Description
             // 
@@ -441,7 +441,7 @@
             "2",
             "4"});
             this.FsuipcSize.Name = "FsuipcSize";
-            this.FsuipcSize.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.FsuipcSize.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // Converter
             // 
@@ -482,7 +482,7 @@
             this.comparisonValue.FillWeight = 50F;
             resources.ApplyResources(this.comparisonValue, "comparisonValue");
             this.comparisonValue.Name = "comparisonValue";
-            this.comparisonValue.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.comparisonValue.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // arcazePin
             // 
@@ -503,7 +503,7 @@
             "falling",
             "rising"});
             this.trigger.Name = "trigger";
-            this.trigger.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.trigger.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // Typ
             // 
@@ -528,7 +528,7 @@
             this.arcazeSerial.Name = "arcazeSerial";
             this.arcazeSerial.ReadOnly = true;
             this.arcazeSerial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.arcazeSerial.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.arcazeSerial.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // fsuipcValueColumn
             // 
@@ -539,7 +539,7 @@
             this.fsuipcValueColumn.ReadOnly = true;
             this.fsuipcValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.fsuipcValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.fsuipcValueColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.fsuipcValueColumn.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // arcazeValueColumn
             // 
@@ -550,7 +550,7 @@
             this.arcazeValueColumn.ReadOnly = true;
             this.arcazeValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.arcazeValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.arcazeValueColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.arcazeValueColumn.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // EditButtonColumn
             // 
@@ -561,7 +561,7 @@
             resources.ApplyResources(this.EditButtonColumn, "EditButtonColumn");
             this.EditButtonColumn.Name = "EditButtonColumn";
             this.EditButtonColumn.Text = "...";
-            this.EditButtonColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.EditButtonColumn.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             this.EditButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // dataSetConfig
@@ -646,7 +646,7 @@
             this.descriptionDataColumn.AllowDBNull = false;
             this.descriptionDataColumn.Caption = "Description";
             this.descriptionDataColumn.ColumnName = "description";
-            this.descriptionDataColumn.DefaultValue = global::ArcazeUSB.ProjectMessages.conf;
+            this.descriptionDataColumn.DefaultValue = global::MobiFlight.ProjectMessages.conf;
             // 
             // fsuipcSizeDataColumn
             // 
@@ -663,7 +663,7 @@
             // arcazeSerialDataColumn
             // 
             this.arcazeSerialDataColumn.ColumnName = "arcazeSerial";
-            this.arcazeSerialDataColumn.DefaultValue = global::ArcazeUSB.ProjectMessages.conf;
+            this.arcazeSerialDataColumn.DefaultValue = global::MobiFlight.ProjectMessages.conf;
             // 
             // settingsColumn
             // 
@@ -690,7 +690,7 @@
             // 
             resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
             this.duplicateRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.duplicateRowToolStripMenuItem.Image = global::ArcazeUSB.Properties.Resources.star_yellow_new;
+            this.duplicateRowToolStripMenuItem.Image = global::MobiFlight.Properties.Resources.star_yellow_new;
             this.duplicateRowToolStripMenuItem.Name = "duplicateRowToolStripMenuItem";
             this.duplicateRowToolStripMenuItem.Click += new System.EventHandler(this.duplicateRowToolStripMenuItem_Click);
             // 
@@ -698,7 +698,7 @@
             // 
             resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
             this.deleteRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.deleteRowToolStripMenuItem.Image = global::ArcazeUSB.Properties.Resources.delete2;
+            this.deleteRowToolStripMenuItem.Image = global::MobiFlight.Properties.Resources.delete2;
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.deleteRowToolStripMenuItem_Click);
             // 
@@ -706,9 +706,9 @@
             // 
             resources.ApplyResources(this.InputTabPage, "InputTabPage");
             this.InputTabPage.Controls.Add(this.inputsDataGridView);
-            this.InputTabPage.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.InputTabPage.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.InputTabPage.Name = "InputTabPage";
-            this.InputTabPage.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.InputTabPage.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             this.InputTabPage.UseVisualStyleBackColor = true;
             // 
             // inputsDataGridView
@@ -745,7 +745,7 @@
             resources.ApplyResources(this.inputActive, "inputActive");
             this.inputActive.Name = "inputActive";
             this.inputActive.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.inputActive.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.inputActive.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // inputDescription
             // 
@@ -753,7 +753,7 @@
             this.inputDescription.DataPropertyName = "description";
             resources.ApplyResources(this.inputDescription, "inputDescription");
             this.inputDescription.Name = "inputDescription";
-            this.inputDescription.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.inputDescription.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // inputsGuid
             // 
@@ -761,7 +761,7 @@
             resources.ApplyResources(this.inputsGuid, "inputsGuid");
             this.inputsGuid.Name = "inputsGuid";
             this.inputsGuid.ReadOnly = true;
-            this.inputsGuid.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.inputsGuid.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // inputName
             // 
@@ -772,7 +772,7 @@
             this.inputName.ReadOnly = true;
             this.inputName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.inputName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.inputName.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.inputName.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // inputType
             // 
@@ -783,7 +783,7 @@
             this.inputType.Name = "inputType";
             this.inputType.ReadOnly = true;
             this.inputType.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.inputType.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.inputType.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // inputEditButtonColumn
             // 
@@ -826,7 +826,7 @@
             this.inputsDescriptionDataColumn.AllowDBNull = false;
             this.inputsDescriptionDataColumn.Caption = "Description";
             this.inputsDescriptionDataColumn.ColumnName = "description";
-            this.inputsDescriptionDataColumn.DefaultValue = global::ArcazeUSB.ProjectMessages.conf;
+            this.inputsDescriptionDataColumn.DefaultValue = global::MobiFlight.ProjectMessages.conf;
             // 
             // inputsGuidDataColumn
             // 
@@ -876,12 +876,12 @@
             resources.GetString("toolStripComboBox1.Items2"),
             resources.GetString("toolStripComboBox1.Items3")});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Text = global::ArcazeUSB.ProjectMessages.conf;
+            this.toolStripComboBox1.Text = global::MobiFlight.ProjectMessages.conf;
             // 
             // notifyIcon
             // 
-            this.notifyIcon.BalloonTipText = global::ArcazeUSB.ProjectMessages.conf;
-            this.notifyIcon.BalloonTipTitle = global::ArcazeUSB.ProjectMessages.conf;
+            this.notifyIcon.BalloonTipText = global::MobiFlight.ProjectMessages.conf;
+            this.notifyIcon.BalloonTipTitle = global::MobiFlight.ProjectMessages.conf;
             this.notifyIcon.ContextMenuStrip = this.contextMenuStripNotifyIcon;
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
@@ -940,7 +940,7 @@
             // saveToolStripButton
             // 
             resources.ApplyResources(this.saveToolStripButton, "saveToolStripButton");
-            this.saveToolStripButton.Image = global::ArcazeUSB.Properties.Resources.disk_blue;
+            this.saveToolStripButton.Image = global::MobiFlight.Properties.Resources.disk_blue;
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
             // 
@@ -952,28 +952,28 @@
             // runToolStripButton
             // 
             resources.ApplyResources(this.runToolStripButton, "runToolStripButton");
-            this.runToolStripButton.Image = global::ArcazeUSB.Properties.Resources.media_play_green;
+            this.runToolStripButton.Image = global::MobiFlight.Properties.Resources.media_play_green;
             this.runToolStripButton.Name = "runToolStripButton";
             this.runToolStripButton.Click += new System.EventHandler(this.buttonToggleStart_Click);
             // 
             // runTestToolStripButton
             // 
             resources.ApplyResources(this.runTestToolStripButton, "runTestToolStripButton");
-            this.runTestToolStripButton.Image = global::ArcazeUSB.Properties.Resources.media_play;
+            this.runTestToolStripButton.Image = global::MobiFlight.Properties.Resources.media_play;
             this.runTestToolStripButton.Name = "runTestToolStripButton";
             this.runTestToolStripButton.Click += new System.EventHandler(this.runTestToolStripLabel_Click);
             // 
             // stopToolStripButton
             // 
             resources.ApplyResources(this.stopToolStripButton, "stopToolStripButton");
-            this.stopToolStripButton.Image = global::ArcazeUSB.Properties.Resources.media_stop_red;
+            this.stopToolStripButton.Image = global::MobiFlight.Properties.Resources.media_stop_red;
             this.stopToolStripButton.Name = "stopToolStripButton";
             this.stopToolStripButton.Click += new System.EventHandler(this.buttonToggleStart_Click);
             // 
             // stopTestToolStripButton
             // 
             resources.ApplyResources(this.stopTestToolStripButton, "stopTestToolStripButton");
-            this.stopTestToolStripButton.Image = global::ArcazeUSB.Properties.Resources.media_stop;
+            this.stopTestToolStripButton.Image = global::MobiFlight.Properties.Resources.media_stop;
             this.stopTestToolStripButton.Name = "stopTestToolStripButton";
             this.stopTestToolStripButton.Click += new System.EventHandler(this.stopTestToolStripButton_Click);
             // 
@@ -985,7 +985,7 @@
             // autoRunToolStripButton
             // 
             resources.ApplyResources(this.autoRunToolStripButton, "autoRunToolStripButton");
-            this.autoRunToolStripButton.Image = global::ArcazeUSB.Properties.Resources.lightbulb;
+            this.autoRunToolStripButton.Image = global::MobiFlight.Properties.Resources.lightbulb;
             this.autoRunToolStripButton.Name = "autoRunToolStripButton";
             this.autoRunToolStripButton.Click += new System.EventHandler(this.autoRunToolStripButton_Click);
             // 
@@ -998,7 +998,7 @@
             // 
             resources.ApplyResources(this.donateToolStripButton, "donateToolStripButton");
             this.donateToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.donateToolStripButton.Image = global::ArcazeUSB.Properties.Resources.btn_donate_SM;
+            this.donateToolStripButton.Image = global::MobiFlight.Properties.Resources.btn_donate_SM;
             this.donateToolStripButton.Name = "donateToolStripButton";
             this.donateToolStripButton.Click += new System.EventHandler(this.donateToolStripButton_Click);
             // 
@@ -1010,7 +1010,7 @@
             // exitToolStripButton
             // 
             resources.ApplyResources(this.exitToolStripButton, "exitToolStripButton");
-            this.exitToolStripButton.Image = global::ArcazeUSB.Properties.Resources.door2;
+            this.exitToolStripButton.Image = global::MobiFlight.Properties.Resources.door2;
             this.exitToolStripButton.Name = "exitToolStripButton";
             this.exitToolStripButton.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -1045,7 +1045,7 @@
             // 
             resources.ApplyResources(this.arcazeUsbStatusToolStripStatusLabel, "arcazeUsbStatusToolStripStatusLabel");
             this.arcazeUsbStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.arcazeUsbStatusToolStripStatusLabel.Image = global::ArcazeUSB.Properties.Resources.warning;
+            this.arcazeUsbStatusToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
             this.arcazeUsbStatusToolStripStatusLabel.Name = "arcazeUsbStatusToolStripStatusLabel";
             // 
             // arcazeUsbToolStripDropDownButton
@@ -1070,7 +1070,7 @@
             // 
             resources.ApplyResources(this.fsuipcStatusToolStripStatusLabel, "fsuipcStatusToolStripStatusLabel");
             this.fsuipcStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fsuipcStatusToolStripStatusLabel.Image = global::ArcazeUSB.Properties.Resources.warning;
+            this.fsuipcStatusToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
             this.fsuipcStatusToolStripStatusLabel.Name = "fsuipcStatusToolStripStatusLabel";
             // 
             // fsuipcOffsetValueLabel
@@ -1102,7 +1102,7 @@
             this.activeDataGridViewCheckBoxColumn.DataPropertyName = "active";
             resources.ApplyResources(this.activeDataGridViewCheckBoxColumn, "activeDataGridViewCheckBoxColumn");
             this.activeDataGridViewCheckBoxColumn.Name = "activeDataGridViewCheckBoxColumn";
-            this.activeDataGridViewCheckBoxColumn.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.activeDataGridViewCheckBoxColumn.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // dataTable1
             // 
@@ -1113,7 +1113,7 @@
             this.dataGridViewTextBoxColumn1.DataPropertyName = "settings";
             resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.dataGridViewTextBoxColumn1.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // dataGridViewTextBoxColumn3
             // 
@@ -1121,7 +1121,7 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn3, "dataGridViewTextBoxColumn3");
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.dataGridViewTextBoxColumn3.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -1129,7 +1129,7 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.dataGridViewTextBoxColumn2.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -1137,7 +1137,7 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn5, "dataGridViewTextBoxColumn5");
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.dataGridViewTextBoxColumn5.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -1145,7 +1145,7 @@
             resources.ApplyResources(this.dataGridViewTextBoxColumn4, "dataGridViewTextBoxColumn4");
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.ToolTipText = global::ArcazeUSB.ProjectMessages.conf;
+            this.dataGridViewTextBoxColumn4.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             // 
             // MainForm
             // 

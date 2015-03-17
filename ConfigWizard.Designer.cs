@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB
+﻿namespace MobiFlight
 {
     partial class ConfigWizard
     {
@@ -391,7 +391,7 @@
             resources.GetString("comparisonOperandComboBox.Items3"),
             resources.GetString("comparisonOperandComboBox.Items4"),
             resources.GetString("comparisonOperandComboBox.Items5"),
-            global::ArcazeUSB.ProjectMessages.conf});
+            global::MobiFlight.ProjectMessages.conf});
             resources.ApplyResources(this.comparisonOperandComboBox, "comparisonOperandComboBox");
             this.comparisonOperandComboBox.Name = "comparisonOperandComboBox";
             // 
@@ -438,7 +438,7 @@
             // displayPinTestStopButton
             // 
             resources.ApplyResources(this.displayPinTestStopButton, "displayPinTestStopButton");
-            this.displayPinTestStopButton.Image = global::ArcazeUSB.Properties.Resources.media_stop;
+            this.displayPinTestStopButton.Image = global::MobiFlight.Properties.Resources.media_stop;
             this.displayPinTestStopButton.Name = "displayPinTestStopButton";
             this.displayPinTestStopButton.UseVisualStyleBackColor = true;
             this.displayPinTestStopButton.Click += new System.EventHandler(this.displayPinTestStopButton_Click);
@@ -446,7 +446,7 @@
             // displayPinTestButton
             // 
             resources.ApplyResources(this.displayPinTestButton, "displayPinTestButton");
-            this.displayPinTestButton.Image = global::ArcazeUSB.Properties.Resources.media_play;
+            this.displayPinTestButton.Image = global::MobiFlight.Properties.Resources.media_play;
             this.displayPinTestButton.Name = "displayPinTestButton";
             this.displayPinTestButton.UseVisualStyleBackColor = true;
             this.displayPinTestButton.Click += new System.EventHandler(this.displayPinTestButton_Click);

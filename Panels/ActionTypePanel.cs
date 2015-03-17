@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ArcazeUSB.Panels
+namespace MobiFlight.Panels
 {
     public partial class ActionTypePanel : UserControl
     {

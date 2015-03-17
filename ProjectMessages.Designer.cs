@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArcazeUSB {
+namespace MobiFlight {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ArcazeUSB {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ArcazeUSB.ProjectMessages", typeof(ProjectMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MobiFlight.ProjectMessages", typeof(ProjectMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -583,6 +583,15 @@ namespace ArcazeUSB {
         internal static string uiMessageMFConnectorInterfaceActive {
             get {
                 return ResourceManager.GetString("uiMessageMFConnectorInterfaceActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Old config format (&lt; 5.3) found. The config file has to be converted to work correctly. Do you want to use a new filename? ähnelt.
+        /// </summary>
+        internal static string uiMessageMigrateConfigFileV53YesNo {
+            get {
+                return ResourceManager.GetString("uiMessageMigrateConfigFileV53YesNo", resourceCulture);
             }
         }
         

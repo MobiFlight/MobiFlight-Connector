@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB
+﻿namespace MobiFlight
 {
     partial class SettingsDialog
     {
@@ -525,7 +525,7 @@
             // uploadToolStripButton
             // 
             this.uploadToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.uploadToolStripButton.Image = global::ArcazeUSB.Properties.Resources.export1;
+            this.uploadToolStripButton.Image = global::MobiFlight.Properties.Resources.export1;
             resources.ApplyResources(this.uploadToolStripButton, "uploadToolStripButton");
             this.uploadToolStripButton.Name = "uploadToolStripButton";
             this.uploadToolStripButton.Click += new System.EventHandler(this.uploadToolStripButton_Click);
@@ -538,7 +538,7 @@
             // openToolStripButton
             // 
             this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolStripButton.Image = global::ArcazeUSB.Properties.Resources.folder;
+            this.openToolStripButton.Image = global::MobiFlight.Properties.Resources.folder;
             resources.ApplyResources(this.openToolStripButton, "openToolStripButton");
             this.openToolStripButton.Name = "openToolStripButton";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
@@ -546,7 +546,7 @@
             // saveToolStripButton
             // 
             this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolStripButton.Image = global::ArcazeUSB.Properties.Resources.disk_blue;
+            this.saveToolStripButton.Image = global::MobiFlight.Properties.Resources.disk_blue;
             resources.ApplyResources(this.saveToolStripButton, "saveToolStripButton");
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
@@ -566,7 +566,7 @@
             this.addServoToolStripMenuItem,
             this.addLedModuleToolStripMenuItem,
             this.addOutputToolStripMenuItem});
-            this.addDeviceToolStripDropDownButton.Image = global::ArcazeUSB.Properties.Resources.star_yellow_add;
+            this.addDeviceToolStripDropDownButton.Image = global::MobiFlight.Properties.Resources.star_yellow_add;
             resources.ApplyResources(this.addDeviceToolStripDropDownButton, "addDeviceToolStripDropDownButton");
             this.addDeviceToolStripDropDownButton.Name = "addDeviceToolStripDropDownButton";
             // 
@@ -613,7 +613,7 @@
             // 
             // removeDeviceToolStripButton
             // 
-            this.removeDeviceToolStripButton.Image = global::ArcazeUSB.Properties.Resources.star_yellow_delete;
+            this.removeDeviceToolStripButton.Image = global::MobiFlight.Properties.Resources.star_yellow_delete;
             resources.ApplyResources(this.removeDeviceToolStripButton, "removeDeviceToolStripButton");
             this.removeDeviceToolStripButton.Name = "removeDeviceToolStripButton";
             this.removeDeviceToolStripButton.Click += new System.EventHandler(this.removeDeviceToolStripButton_Click);
@@ -634,7 +634,7 @@
             // 
             // firmwareArduinoIdeButton
             // 
-            this.firmwareArduinoIdeButton.Image = global::ArcazeUSB.Properties.Resources.folder1;
+            this.firmwareArduinoIdeButton.Image = global::MobiFlight.Properties.Resources.folder1;
             resources.ApplyResources(this.firmwareArduinoIdeButton, "firmwareArduinoIdeButton");
             this.firmwareArduinoIdeButton.Name = "firmwareArduinoIdeButton";
             this.firmwareArduinoIdeButton.UseVisualStyleBackColor = true;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public class EventTimer : Timer
     {

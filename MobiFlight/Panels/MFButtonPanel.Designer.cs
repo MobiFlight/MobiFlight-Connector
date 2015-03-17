@@ -49,7 +49,7 @@
             // mfPinLabel
             // 
             resources.ApplyResources(this.mfPinLabel, "mfPinLabel");
-            this.mfPinLabel.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.mfPinLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPinLabel.Name = "mfPinLabel";
             // 
             // mfPinComboBox

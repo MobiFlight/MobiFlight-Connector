@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB.Panels
+﻿namespace MobiFlight.Panels
 {
     partial class ButtonPanel
     {
@@ -31,10 +31,10 @@
             this.onPressActionConfigPanel = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.onPressActionTypePanel = new ArcazeUSB.Panels.ActionTypePanel();
+            this.onPressActionTypePanel = new MobiFlight.Panels.ActionTypePanel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.onReleaseActionConfigPanel = new System.Windows.Forms.Panel();
-            this.onReleaseActionTypePanel = new ArcazeUSB.Panels.ActionTypePanel();
+            this.onReleaseActionTypePanel = new MobiFlight.Panels.ActionTypePanel();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();

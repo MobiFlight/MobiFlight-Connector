@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using MobiFlight;
 
-namespace ArcazeUSB.FSUIPC
+namespace MobiFlight.FSUIPC
 {
     public class FsuipcHelper
     {
@@ -113,7 +113,7 @@ namespace ArcazeUSB.FSUIPC
             return result;
         }
 
-        public static ConnectorValue executeTransform(ConnectorValue value, ArcazeConfigItem cfg)
+        public static ConnectorValue executeTransform(ConnectorValue value, OutputConfigItem cfg)
         {
             double tmpValue;
 
@@ -140,7 +140,7 @@ namespace ArcazeUSB.FSUIPC
             return value;
         }
 
-        public static string executeComparison(ConnectorValue connectorValue, ArcazeConfigItem cfg)
+        public static string executeComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
         {
             string result = null;
             if (connectorValue.type == FSUIPCOffsetType.String)
@@ -210,7 +210,7 @@ namespace ArcazeUSB.FSUIPC
             return result;
         }
 
-        private static string _executeStringComparison(ConnectorValue connectorValue, ArcazeConfigItem cfg)
+        private static string _executeStringComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
         {
             string result = connectorValue.String;
             string value = connectorValue.String;

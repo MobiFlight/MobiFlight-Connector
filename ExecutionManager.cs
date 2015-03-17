@@ -7,7 +7,7 @@ using System.Data;
 using System.Drawing;
 using MobiFlight;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public class ExecutionManager
     {
@@ -227,7 +227,7 @@ namespace ArcazeUSB
                 //// nimm config von col.config                
 
                 //// if !all valid continue                
-                ArcazeConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as ArcazeConfigItem);
+                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
 
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
@@ -294,7 +294,7 @@ namespace ArcazeUSB
                         connectorValue.type = FSUIPCOffsetType.Integer;
                         connectorValue.Int64 = Int64.Parse(val);
 
-                        ArcazeConfigItem tmp = new ArcazeConfigItem();
+                        OutputConfigItem tmp = new OutputConfigItem();
                         tmp.ComparisonActive = true;
                         tmp.ComparisonValue = p.PreconditionValue;
                         tmp.ComparisonOperand = "=";
@@ -331,7 +331,7 @@ namespace ArcazeUSB
                             // we cannot compare
                             if (value == "") break;
 
-                            tmp = new ArcazeConfigItem();
+                            tmp = new OutputConfigItem();
                             tmp.ComparisonActive = true;
                             tmp.ComparisonValue = p.PreconditionValue.Replace("$", currentValue.ToString());
                             if (tmp.ComparisonValue != p.PreconditionValue)
@@ -390,7 +390,7 @@ namespace ArcazeUSB
             return finalResult;
         }
 
-        private ConnectorValue executeRead(ArcazeConfigItem cfg)
+        private ConnectorValue executeRead(OutputConfigItem cfg)
         {
             ConnectorValue result = new ConnectorValue();
 
@@ -410,7 +410,7 @@ namespace ArcazeUSB
             return result;
         }
 
-        private ConnectorValue _executeReadInt(ArcazeConfigItem cfg)
+        private ConnectorValue _executeReadInt(OutputConfigItem cfg)
         {
             ConnectorValue result = new ConnectorValue();
             switch (cfg.FSUIPCSize)
@@ -468,7 +468,7 @@ namespace ArcazeUSB
             return result;
         }
 
-        private ConnectorValue _executeReadFloat(ArcazeConfigItem cfg)
+        private ConnectorValue _executeReadFloat(OutputConfigItem cfg)
         {
             ConnectorValue result = new ConnectorValue();
             result.type = FSUIPCOffsetType.Float;
@@ -495,7 +495,7 @@ namespace ArcazeUSB
             return result;
         }
 
-        private ConnectorValue executeTransform(ConnectorValue value, ArcazeConfigItem cfg)
+        private ConnectorValue executeTransform(ConnectorValue value, OutputConfigItem cfg)
         {
             double tmpValue;
 
@@ -522,7 +522,7 @@ namespace ArcazeUSB
             return value;
         }
 
-        private string executeComparison(ConnectorValue connectorValue, ArcazeConfigItem cfg)
+        private string executeComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
         {
             string result = null;
             if (connectorValue.type == FSUIPCOffsetType.String)
@@ -592,7 +592,7 @@ namespace ArcazeUSB
             return result;
         }
 
-        private string _executeStringComparison(ConnectorValue connectorValue, ArcazeConfigItem cfg)
+        private string _executeStringComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
         {
             string result = connectorValue.String;
             string value = connectorValue.String;
@@ -619,7 +619,7 @@ namespace ArcazeUSB
             return result;
         }
 
-        private string executeDisplay(string value, ArcazeConfigItem cfg)
+        private string executeDisplay(string value, OutputConfigItem cfg)
         {
             string serial = "";
             if (cfg.DisplaySerial.Contains("/"))
@@ -849,16 +849,16 @@ namespace ArcazeUSB
             string serial = "";
             string lastSerial = "";
 
-            ArcazeConfigItem cfg = new ArcazeConfigItem();
+            OutputConfigItem cfg = new OutputConfigItem();
             cfg.DisplaySerial = "";
             if (lastRow.DataBoundItem != null)
             {
-                cfg = ((lastRow.DataBoundItem as DataRowView).Row["settings"] as ArcazeConfigItem);
+                cfg = ((lastRow.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
             }
 
             if (
                  cfg != null &&
-                (cfg.FSUIPCOffset != ArcazeConfigItem.FSUIPCOffsetNull) &&
+                (cfg.FSUIPCOffset != OutputConfigItem.FSUIPCOffsetNull) &&
                 ((bool)lastRow.Cells["active"].Value) &&
                 (cfg.DisplaySerial.Contains("/"))
             )
@@ -889,7 +889,7 @@ namespace ArcazeUSB
             } //while
 
 
-            cfg = new ArcazeConfigItem();
+            cfg = new OutputConfigItem();
 
             // iterate over the config row by row            
             if (row.DataBoundItem != null &&
@@ -898,12 +898,12 @@ namespace ArcazeUSB
             // and therefore there may be missing a 
             // valid cfg item
             {
-                cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as ArcazeConfigItem);
+                cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
             }
 
             if (cfg != null && // this happens sometimes when a new line is added and still hasn't been configured
                 (dataGridViewConfig.RowCount > 1 && row != lastRow) &&
-                 cfg.FSUIPCOffset != ArcazeConfigItem.FSUIPCOffsetNull &&
+                 cfg.FSUIPCOffset != OutputConfigItem.FSUIPCOffsetNull &&
                  cfg.DisplaySerial.Contains("/"))
             {
                 serial = cfg.DisplaySerial.Split('/')[1].Trim();
@@ -923,7 +923,7 @@ namespace ArcazeUSB
         }
 
 
-        public void executeTestOff(ArcazeConfigItem cfg)
+        public void executeTestOff(OutputConfigItem cfg)
         {
             switch (cfg.DisplayType)
             {
@@ -938,7 +938,7 @@ namespace ArcazeUSB
             }
         }
 
-        public void executeTestOn(ArcazeConfigItem cfg)
+        public void executeTestOn(OutputConfigItem cfg)
         {
             switch (cfg.DisplayType)
             {

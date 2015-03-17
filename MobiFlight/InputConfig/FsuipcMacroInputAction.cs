@@ -22,7 +22,7 @@ namespace MobiFlight.InputConfig
             throw new NotImplementedException();
         }
 
-        public override void execute(ArcazeUSB.Fsuipc2Cache fsuipcCache)
+        public override void execute(MobiFlight.Fsuipc2Cache fsuipcCache)
         {
             throw new NotImplementedException();
         }

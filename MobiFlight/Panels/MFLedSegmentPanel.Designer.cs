@@ -85,19 +85,19 @@
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
-            this.label3.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.label3.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.label3.Name = "label3";
             // 
             // numberOfModulesLabel
             // 
             resources.ApplyResources(this.numberOfModulesLabel, "numberOfModulesLabel");
-            this.numberOfModulesLabel.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.numberOfModulesLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.numberOfModulesLabel.Name = "numberOfModulesLabel";
             // 
             // mfPin1Label
             // 
             resources.ApplyResources(this.mfPin1Label, "mfPin1Label");
-            this.mfPin1Label.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.mfPin1Label.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPin1Label.Name = "mfPin1Label";
             // 
             // mfPin1ComboBox
@@ -110,7 +110,7 @@
             // mfPin3Label
             // 
             resources.ApplyResources(this.mfPin3Label, "mfPin3Label");
-            this.mfPin3Label.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.mfPin3Label.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPin3Label.Name = "mfPin3Label";
             // 
             // mfPin3ComboBox
@@ -123,7 +123,7 @@
             // mfPin2Label
             // 
             resources.ApplyResources(this.mfPin2Label, "mfPin2Label");
-            this.mfPin2Label.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.mfPin2Label.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPin2Label.Name = "mfPin2Label";
             // 
             // mfPin2ComboBox
@@ -145,13 +145,13 @@
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
-            this.label2.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.label2.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.label2.Name = "label2";
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
-            this.label1.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.label1.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.label1.Name = "label1";
             // 
             // mfIntensityTrackBar

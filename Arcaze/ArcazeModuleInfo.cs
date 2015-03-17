@@ -5,7 +5,7 @@ using System.Text;
 using MobiFlight;
 using SimpleSolutions.Usb;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public class ArcazeModuleInfo : IModuleInfo
     {

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
-using ArcazeUSB.Panels;
+using MobiFlight.Panels;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public partial class InputConfigWizard : Form
     {

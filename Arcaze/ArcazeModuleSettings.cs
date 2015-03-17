@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using SimpleSolutions.Usb;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public class ArcazeModuleSettings : IXmlSerializable
     {

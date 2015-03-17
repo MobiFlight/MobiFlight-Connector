@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     interface InputConnectorInterface
     {

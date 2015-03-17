@@ -12,7 +12,7 @@ using MobiFlight;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public partial class SettingsDialog : Form
     {
@@ -62,16 +62,16 @@ namespace ArcazeUSB
             arcazeModuleTypeComboBox.SelectedIndex = 0;
 
             // initialize mftreeviewimagelist
-            mfTreeViewImageList.Images.Add("module", ArcazeUSB.Properties.Resources.module_mobiflight);
-            mfTreeViewImageList.Images.Add("module-arduino", ArcazeUSB.Properties.Resources.module_arduino);
-            mfTreeViewImageList.Images.Add("module-unknown", ArcazeUSB.Properties.Resources.module_arduino);
-            mfTreeViewImageList.Images.Add(DeviceType.Button.ToString(), ArcazeUSB.Properties.Resources.button);
-            mfTreeViewImageList.Images.Add(DeviceType.Encoder.ToString(), ArcazeUSB.Properties.Resources.encoder);
-            mfTreeViewImageList.Images.Add(DeviceType.Stepper.ToString(), ArcazeUSB.Properties.Resources.stepper);
-            mfTreeViewImageList.Images.Add(DeviceType.Servo.ToString(), ArcazeUSB.Properties.Resources.servo);
-            mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), ArcazeUSB.Properties.Resources.output);
-            mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), ArcazeUSB.Properties.Resources.led7);
-            mfTreeViewImageList.Images.Add("Changed", ArcazeUSB.Properties.Resources.module_changed);
+            mfTreeViewImageList.Images.Add("module", MobiFlight.Properties.Resources.module_mobiflight);
+            mfTreeViewImageList.Images.Add("module-arduino", MobiFlight.Properties.Resources.module_arduino);
+            mfTreeViewImageList.Images.Add("module-unknown", MobiFlight.Properties.Resources.module_arduino);
+            mfTreeViewImageList.Images.Add(DeviceType.Button.ToString(), MobiFlight.Properties.Resources.button);
+            mfTreeViewImageList.Images.Add(DeviceType.Encoder.ToString(), MobiFlight.Properties.Resources.encoder);
+            mfTreeViewImageList.Images.Add(DeviceType.Stepper.ToString(), MobiFlight.Properties.Resources.stepper);
+            mfTreeViewImageList.Images.Add(DeviceType.Servo.ToString(), MobiFlight.Properties.Resources.servo);
+            mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), MobiFlight.Properties.Resources.output);
+            mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), MobiFlight.Properties.Resources.led7);
+            mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
 
             loadSettings();
@@ -324,6 +324,9 @@ namespace ArcazeUSB
         /// <param name="serial"></param>
         private void _syncFromModuleSettings(string serial) {
             if (moduleSettings == null) return;
+
+            arcazeModuleTypeComboBox.SelectedItem = ArcazeCommand.ExtModuleType.InternalIo.ToString();
+            numModulesNumericUpDown.Value = 1;
 
             foreach (ArcazeModuleSettings settings in moduleSettings)
             {

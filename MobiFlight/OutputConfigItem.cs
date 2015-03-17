@@ -6,9 +6,9 @@ using System.Xml;
 using System.Xml.Serialization;
 using MobiFlight;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
-    public class ArcazeConfigItem : IBaseConfigItem, IFsuipcConfigItem, IXmlSerializable, ICloneable
+    public class OutputConfigItem : IBaseConfigItem, IFsuipcConfigItem, IXmlSerializable, ICloneable
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
@@ -52,7 +52,7 @@ namespace ArcazeUSB
 
         public List<Precondition> Preconditions         { get; set; }
 
-        public ArcazeConfigItem()
+        public OutputConfigItem()
         {            
             FSUIPCOffset = FSUIPCOffsetNull;
             FSUIPCMask = 0xFF;
@@ -100,7 +100,7 @@ namespace ArcazeUSB
                     }
                     catch (Exception e)
                     {
-                        FSUIPCOffsetType = ArcazeUSB.FSUIPCOffsetType.Integer;
+                        FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Integer;
                     }
                 }
                 else
@@ -109,7 +109,7 @@ namespace ArcazeUSB
                     // byte 1,2,4 -> int, this already is default
                     // exception
                     // byte 8 -> float
-                    if (FSUIPCSize == 8) FSUIPCOffsetType = ArcazeUSB.FSUIPCOffsetType.Float;
+                    if (FSUIPCSize == 8) FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Float;
                 }
                 FSUIPCMask = Int64.Parse(reader["mask"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
                 FSUIPCMultiplier = Double.Parse(reader["multiplier"] , serializationCulture );
@@ -308,7 +308,7 @@ namespace ArcazeUSB
 
         public object Clone()
         {
-            ArcazeConfigItem clone = new ArcazeConfigItem();
+            OutputConfigItem clone = new OutputConfigItem();
             clone.FSUIPCOffset              = this.FSUIPCOffset;
             clone.FSUIPCOffsetType          = this.FSUIPCOffsetType;
             clone.FSUIPCSize                = this.FSUIPCSize;

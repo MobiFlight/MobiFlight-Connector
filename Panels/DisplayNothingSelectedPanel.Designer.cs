@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB.Panels
+﻿namespace MobiFlight.Panels
 {
     partial class DisplayNothingSelectedPanel
     {

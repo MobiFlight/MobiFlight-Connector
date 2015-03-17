@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public enum DecodeMode { Numeric = 0x0f, Binary = 0x00 };
 

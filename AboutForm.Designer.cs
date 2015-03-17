@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB
+﻿namespace MobiFlight
 {
     partial class AboutForm
     {
@@ -36,14 +36,14 @@
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
-            this.label1.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.label1.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.label1.Name = "label1";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
-            this.button1.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.button1.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);

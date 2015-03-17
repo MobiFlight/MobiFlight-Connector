@@ -8,9 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.InputConfig;
-using ArcazeUSB.Panels.Group;
+using MobiFlight.Panels.Group;
 
-namespace ArcazeUSB.Panels
+namespace MobiFlight.Panels
 {
     public partial class EncoderPanel : UserControl
     {

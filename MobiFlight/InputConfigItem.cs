@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using ArcazeUSB;
+using MobiFlight;
 using MobiFlight.InputConfig;
 
 namespace MobiFlight

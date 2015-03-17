@@ -5,7 +5,7 @@ using System.Text;
 using SimpleSolutions.Usb;
 using MobiFlight;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public class ArcazeCache : ModuleCacheInterface
     {

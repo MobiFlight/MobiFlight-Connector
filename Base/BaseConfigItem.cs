@@ -7,6 +7,6 @@ namespace MobiFlight
 {
     public interface IBaseConfigItem
     {
-        List<ArcazeUSB.Precondition> Preconditions { get; set; }
+        List<MobiFlight.Precondition> Preconditions { get; set; }
     }
 }

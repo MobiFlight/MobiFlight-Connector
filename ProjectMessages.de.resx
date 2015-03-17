@@ -329,4 +329,7 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
     <value>Ungültiger Name oder zu lang (max. {1} Zeichen). Die folgenden Buchstaben können nicht verwendet werden:
 {0}</value>
   </data>
+  <data name="uiMessageMigrateConfigFileV53YesNo" xml:space="preserve">
+    <value>Altes Format erkannt (&lt;5.3). Die Konfiguration muss konvertiert werden. Möchtest Du sie unter einem neuen Namen speichern?</value>
+  </data>
 </root>

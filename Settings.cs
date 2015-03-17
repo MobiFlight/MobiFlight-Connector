@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB.Properties {
+﻿namespace MobiFlight.Properties {
     
     
     // Diese Klasse ermöglicht die Behandlung bestimmter Ereignisse der Einstellungsklasse:

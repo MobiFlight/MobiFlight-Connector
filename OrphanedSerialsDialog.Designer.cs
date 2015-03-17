@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB
+﻿namespace MobiFlight
 {
     partial class OrphanedSerialsDialog
     {
@@ -46,7 +46,7 @@
             // InfoLabel
             // 
             resources.ApplyResources(this.InfoLabel, "InfoLabel");
-            this.InfoLabel.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.InfoLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.InfoLabel.Name = "InfoLabel";
             // 
             // OkCancelPanel
@@ -59,7 +59,7 @@
             // DlgCancelButton
             // 
             resources.ApplyResources(this.DlgCancelButton, "DlgCancelButton");
-            this.DlgCancelButton.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.DlgCancelButton.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.DlgCancelButton.Name = "DlgCancelButton";
             this.DlgCancelButton.UseVisualStyleBackColor = true;
             this.DlgCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -67,7 +67,7 @@
             // OkButton
             // 
             resources.ApplyResources(this.OkButton, "OkButton");
-            this.OkButton.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.OkButton.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.OkButton.Name = "OkButton";
             this.OkButton.UseVisualStyleBackColor = true;
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
@@ -102,7 +102,7 @@
             // connectedModulesAssignButton
             // 
             resources.ApplyResources(this.connectedModulesAssignButton, "connectedModulesAssignButton");
-            this.connectedModulesAssignButton.ImageKey = global::ArcazeUSB.ProjectMessages.conf;
+            this.connectedModulesAssignButton.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.connectedModulesAssignButton.Name = "connectedModulesAssignButton";
             this.connectedModulesAssignButton.UseVisualStyleBackColor = true;
             this.connectedModulesAssignButton.Click += new System.EventHandler(this.connectedModulesAssignButton_Click);

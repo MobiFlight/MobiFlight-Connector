@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public partial class ConfigWizard : Form
     {
@@ -19,7 +19,7 @@ namespace ArcazeUSB
         ExecutionManager _execManager = null;
         int displayPanelHeight = -1;
         List<UserControl> displayPanels = new List<UserControl>();
-        ArcazeConfigItem config = null;
+        OutputConfigItem config = null;
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
         DataSet _dataSetConfig = null;
@@ -33,7 +33,7 @@ namespace ArcazeUSB
         Panels.ServoPanel servoPanel = new Panels.ServoPanel();
 
         public ConfigWizard(ExecutionManager mainForm, 
-                             ArcazeConfigItem cfg, 
+                             OutputConfigItem cfg, 
                              ArcazeCache arcazeCache, 
                              Dictionary<string, ArcazeModuleSettings> moduleSettings, 
                              DataSet dataSetConfig, 
@@ -45,7 +45,7 @@ namespace ArcazeUSB
             preparePreconditionPanel(dataSetConfig, filterGuid);            
         }
 
-        protected void Init(ExecutionManager mainForm, ArcazeConfigItem cfg)
+        protected void Init(ExecutionManager mainForm, OutputConfigItem cfg)
         {
             this._execManager = mainForm;
             config = cfg;
@@ -54,7 +54,7 @@ namespace ArcazeUSB
             
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
-            if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull)
+            if (cfg.FSUIPCOffset == OutputConfigItem.FSUIPCOffsetNull)
             {
                 lastTabActive = 0;
             }
@@ -214,7 +214,7 @@ namespace ArcazeUSB
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        protected bool _syncConfigToForm(ArcazeConfigItem config)
+        protected bool _syncConfigToForm(OutputConfigItem config)
         {
             string serial = null;
             if (config == null) throw new Exception(MainForm._tr("uiException_ConfigItemNotFound"));
@@ -777,12 +777,12 @@ namespace ArcazeUSB
                 DataRow[] rows = presetDataTable.Select("description = '" + fsuipcPresetComboBox.Text+"'");
                 if (rows.Length > 0)
                 {
-                    _syncConfigToForm(rows[0]["settings"] as ArcazeConfigItem);
+                    _syncConfigToForm(rows[0]["settings"] as OutputConfigItem);
                 }
             }
         }
 
-        private void _usePresetConfig(ArcazeConfigItem cfg)
+        private void _usePresetConfig(OutputConfigItem cfg)
         {
             
         }

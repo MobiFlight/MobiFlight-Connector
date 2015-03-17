@@ -4,7 +4,7 @@
     <config guid="ba1faebe-567b-438b-9918-6416e508401a">
       <active>false</active>
       <description>Parking Brake LED</description>
-      <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BC8" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
         <comparison active="True" value="32767" operand="=" ifValue="1" elseValue="0" />
         <display type="Pin" serial="MobiFlight Mega/ SN-7a1-285" trigger="normal" pin="Parking_Brake" pinBrightness="255" />
@@ -14,7 +14,7 @@
     <config guid="564a197b-db28-4a16-95e6-f07ac5a4b59d">
       <active>false</active>
       <description>Transponder / SQUAWK</description>
-      <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
         <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         <display type="Display Module" serial="MobiFlight Mega/ SN-d90-e5c" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5" />
@@ -24,7 +24,7 @@
     <config guid="f7f732c6-cf49-4bb6-82aa-862970af93b6">
       <active>false</active>
       <description>Nav1 Standby</description>
-      <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="MobiFlight Mega/ SN-d90-e5c" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />

@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public partial class OrphanedSerialsDialog : Form
     {
@@ -39,7 +39,7 @@ namespace ArcazeUSB
             }
 
             foreach (DataRow row in configDataTable.Rows) {
-                ArcazeConfigItem cfg = row["settings"] as ArcazeConfigItem;
+                OutputConfigItem cfg = row["settings"] as OutputConfigItem;
                 if (cfg.DisplaySerial != "" && 
                     cfg.DisplaySerial  != "-" && 
                     !configSerials.Contains(cfg.DisplaySerial) && 
@@ -57,7 +57,7 @@ namespace ArcazeUSB
         {
             foreach (DataRow row in configDataTable.Rows)
             {
-                ArcazeConfigItem cfg = row["settings"] as ArcazeConfigItem;
+                OutputConfigItem cfg = row["settings"] as OutputConfigItem;
                 if (cfg.DisplaySerial == oldSerial)
                 {
                     cfg.DisplaySerial = newSerial;

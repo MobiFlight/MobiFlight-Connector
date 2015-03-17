@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.InputConfig;
 
-namespace ArcazeUSB.Panels.Group
+namespace MobiFlight.Panels.Group
 {
     public partial class FsuipcConfigPanel : UserControl
     {
@@ -91,7 +91,7 @@ namespace ArcazeUSB.Panels.Group
                 DataRow[] rows = presetDataTable.Select("description = '" + fsuipcPresetComboBox.Text + "'");
                 if (rows.Length > 0)
                 {
-                    _syncConfigToForm(rows[0]["settings"] as ArcazeConfigItem);
+                    _syncConfigToForm(rows[0]["settings"] as OutputConfigItem);
                 }
             }
         }
@@ -144,7 +144,7 @@ namespace ArcazeUSB.Panels.Group
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        protected bool _syncConfigToForm(ArcazeConfigItem config)
+        protected bool _syncConfigToForm(OutputConfigItem config)
         {
             string serial = null;
             if (config == null) throw new Exception(MainForm._tr("uiException_ConfigItemNotFound"));

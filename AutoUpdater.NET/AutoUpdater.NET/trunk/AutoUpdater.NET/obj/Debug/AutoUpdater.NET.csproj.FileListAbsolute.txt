@@ -12,4 +12,3 @@ D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\o
 D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\obj\Debug\de\AutoUpdater.NET.resources.dll
 D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\obj\Debug\AutoUpdater.NET.dll
 D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\obj\Debug\AutoUpdater.NET.pdb
-D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\bin\Debug\AutoUpdater.NET.XML

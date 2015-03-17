@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
-using ArcazeUSB;
+using MobiFlight;
 
 namespace MobiFlight.InputConfig
 {
@@ -81,7 +81,7 @@ namespace MobiFlight.InputConfig
                     }
                     catch (Exception e)
                     {
-                        FSUIPCOffsetType = ArcazeUSB.FSUIPCOffsetType.Integer;
+                        FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Integer;
                     }
                 }
                 else
@@ -90,7 +90,7 @@ namespace MobiFlight.InputConfig
                     // byte 1,2,4 -> int, this already is default
                     // exception
                     // byte 8 -> float
-                    if (FSUIPCSize == 8) FSUIPCOffsetType = ArcazeUSB.FSUIPCOffsetType.Float;
+                    if (FSUIPCSize == 8) FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Float;
                 }
                 FSUIPCMask = Int64.Parse(reader["mask"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
                 FSUIPCMultiplier = Double.Parse(reader["multiplier"], serializationCulture);
@@ -114,7 +114,7 @@ namespace MobiFlight.InputConfig
             // apply ncalc logic
             if (value.Contains("$"))
             {
-                ConnectorValue tmpValue = ArcazeUSB.FSUIPC.FsuipcHelper.executeRead(this, fsuipcCache);
+                ConnectorValue tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeRead(this, fsuipcCache);
 
                 String expression = InputValue.Replace("$", tmpValue.ToString());
                 var ce = new NCalc.Expression(expression);

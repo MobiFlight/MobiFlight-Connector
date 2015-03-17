@@ -139,7 +139,7 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(ArcazeUSB.Fsuipc2Cache fsuipcCache, ButtonArgs e)
+        internal void execute(MobiFlight.Fsuipc2Cache fsuipcCache, ButtonArgs e)
         {
             if ((e.Value == 0 && onLeft != null) || (e.Value == 1 && onLeftFast == null))
             {

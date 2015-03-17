@@ -6,7 +6,7 @@ using System.Xml;
 using System.Data;
 using System.IO;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     class ConfigFile
     {

@@ -1,4 +1,4 @@
-﻿namespace ArcazeUSB
+﻿namespace MobiFlight
 {
     partial class BitMaskEditorForm
     {
@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.bytePanel8 = new ArcazeUSB.BytePanel();
-            this.bytePanel7 = new ArcazeUSB.BytePanel();
-            this.bytePanel6 = new ArcazeUSB.BytePanel();
-            this.bytePanel5 = new ArcazeUSB.BytePanel();
-            this.bytePanel4 = new ArcazeUSB.BytePanel();
-            this.bytePanel3 = new ArcazeUSB.BytePanel();
-            this.bytePanel2 = new ArcazeUSB.BytePanel();
-            this.bytePanel1 = new ArcazeUSB.BytePanel();
+            this.bytePanel8 = new MobiFlight.BytePanel();
+            this.bytePanel7 = new MobiFlight.BytePanel();
+            this.bytePanel6 = new MobiFlight.BytePanel();
+            this.bytePanel5 = new MobiFlight.BytePanel();
+            this.bytePanel4 = new MobiFlight.BytePanel();
+            this.bytePanel3 = new MobiFlight.BytePanel();
+            this.bytePanel2 = new MobiFlight.BytePanel();
+            this.bytePanel1 = new MobiFlight.BytePanel();
             this.panel = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();

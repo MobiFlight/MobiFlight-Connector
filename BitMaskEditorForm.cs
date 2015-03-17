@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ArcazeUSB
+namespace MobiFlight
 {
     public partial class BitMaskEditorForm : Form
     {
