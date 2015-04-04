@@ -58,7 +58,16 @@ namespace MobiFlight.Panels
                     break;
 
                 case "Key":
-                    throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                    panel = new KeyboardInputPanel();
+                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
+                        (panel as Panels.KeyboardInputPanel).syncFromConfig(_config.onLeft as KeyInputAction);
+                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
+                        (panel as Panels.KeyboardInputPanel).syncFromConfig(_config.onLeftFast as KeyInputAction);                        
+                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
+                        (panel as Panels.KeyboardInputPanel).syncFromConfig(_config.onRight as KeyInputAction);
+                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
+                        (panel as Panels.KeyboardInputPanel).syncFromConfig(_config.onRightFast as KeyInputAction);
+                    break;
             }
 
             if (panel != null)
@@ -108,8 +117,8 @@ namespace MobiFlight.Panels
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
                     case "Key":
-                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        //break;
+                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeft = null;
                         break;
@@ -125,8 +134,8 @@ namespace MobiFlight.Panels
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
                     case "Key":
-                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        //break;
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeftFast = null;
                         break;
@@ -141,8 +150,8 @@ namespace MobiFlight.Panels
                         config.onRight = (onRightActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
                     case "Key":
-                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        //break;
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
+                        break;
                     default:
                         config.onRight = null;
                         break;
@@ -157,8 +166,8 @@ namespace MobiFlight.Panels
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
                     case "Key":
-                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        //break;
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
+                        break;
                     default:
                         config.onRightFast = null;
                         break;

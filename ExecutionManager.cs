@@ -751,8 +751,9 @@ namespace MobiFlight
                 executeConfig();
                 this.OnExecute(this, new EventArgs());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Log.Instance.log("Error on config execution. " + ex.Message, LogSeverity.Error);
                 isExecuting = false;
                 timer.Enabled = false;
             }
@@ -872,6 +873,7 @@ namespace MobiFlight
                 catch (Exception ex)
                 {
                     // TODO: refactor - check if we can stop the execution and this way update the interface accordingly too
+                    Log.Instance.log("Error on Test Mode execution. " + ex.Message, LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
             }
@@ -915,6 +917,7 @@ namespace MobiFlight
                 }
                 catch (ConfigErrorException ex)
                 {
+                    Log.Instance.log("Error on TestMode execution. " + ex.Message, LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
             }

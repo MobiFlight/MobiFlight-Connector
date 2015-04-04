@@ -22,6 +22,10 @@ namespace MobiFlight
         MobiFlight.Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new MobiFlight.Forms.FirmwareUpdateProcess();
         public bool MFModuleConfigChanged { get; set; }
 
+        const bool StepperSupport = false;
+        const bool ServoSupport = true;
+        bool IgnoreArcazeModuleSettingsChangeEvents = false;
+
         public SettingsDialog()
         {
             Init();
@@ -32,22 +36,26 @@ namespace MobiFlight
             this.execManager = execManager;
             Init();
 
+            InitArcazeModuleTreeView(execManager);
+        }
+
+        private void InitArcazeModuleTreeView(ExecutionManager execManager)
+        {
             ArcazeCache arcazeCache = execManager.getModuleCache();
-            
-            // init the drop down
-            arcazeSerialComboBox.Items.Clear();
-            arcazeSerialComboBox.Items.Add(MainForm._tr("Please_Choose"));
-                        
+
+            ArcazeModuleTreeView.Nodes.Clear();
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 ArcazeListItem arcazeItem = new ArcazeListItem();
                 arcazeItem.Text = module.Name + "/ " + module.Serial;
                 arcazeItem.Value = module as ArcazeModuleInfo;
 
-                arcazeSerialComboBox.Items.Add( arcazeItem );
+                TreeNode NewNode = new TreeNode();
+                NewNode.Text = module.Name + "/ " + module.Serial;
+                NewNode.Tag = module as ArcazeModuleInfo;
+                
+                ArcazeModuleTreeView.Nodes.Add(NewNode);
             }
-
-            arcazeSerialComboBox.SelectedIndex = 0;
         }
 
         private void Init()
@@ -55,7 +63,7 @@ namespace MobiFlight
             InitializeComponent();
 
             arcazeModuleTypeComboBox.Items.Clear();
-            arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.InternalIo);
+            arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.InternalIo.ToString());
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.DisplayDriver.ToString());
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.LedDriver2.ToString());
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.LedDriver3.ToString());
@@ -73,6 +81,9 @@ namespace MobiFlight
             mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), MobiFlight.Properties.Resources.led7);
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
+
+            addStepperToolStripMenuItem.Visible = stepperToolStripMenuItem.Visible = StepperSupport;
+            addServoToolStripMenuItem.Visible = servoToolStripMenuItem.Visible = ServoSupport;
 
             loadSettings();
 
@@ -284,9 +295,9 @@ namespace MobiFlight
             }
 
             DialogResult = DialogResult.OK;
-            if (0 < arcazeSerialComboBox.SelectedIndex)
+            if (ArcazeModuleTreeView.SelectedNode != null)
             {
-                _syncToModuleSettings(arcazeSerialComboBox.SelectedItem.ToString());
+                _syncToModuleSettings((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial);
             }
             saveSettings();
         }
@@ -296,6 +307,8 @@ namespace MobiFlight
         /// </summary>
         /// <param name="serial"></param>
         private void _syncToModuleSettings(string serial) {
+            if (IgnoreArcazeModuleSettingsChangeEvents) return;
+
             ArcazeModuleSettings settingsToSave = null;
             if (serial.Contains("/"))
                 serial = serial.Split('/')[1].Trim();
@@ -324,9 +337,10 @@ namespace MobiFlight
         /// <param name="serial"></param>
         private void _syncFromModuleSettings(string serial) {
             if (moduleSettings == null) return;
+            if (IgnoreArcazeModuleSettingsChangeEvents) return;
 
-            arcazeModuleTypeComboBox.SelectedItem = ArcazeCommand.ExtModuleType.InternalIo.ToString();
-            numModulesNumericUpDown.Value = 1;
+            bool moduleSettingsAvailable = false;
+            IgnoreArcazeModuleSettingsChangeEvents = true;
 
             foreach (ArcazeModuleSettings settings in moduleSettings)
             {
@@ -340,32 +354,17 @@ namespace MobiFlight
                 int range = globalBrightnessTrackBar.Maximum - globalBrightnessTrackBar.Minimum;
 
                 globalBrightnessTrackBar.Value = (int) ((settings.globalBrightness / (double) 255) *  (range)) + globalBrightnessTrackBar.Minimum;
-            }
-        }
-
-        /// <summary>
-        /// Is triggered whenever another Arcaze Board is selected from list
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void arcazeSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox cb = (sender as ComboBox);
-            arcazeModuleSettingsGroupBox.Visible =  cb.SelectedIndex > 0;
-
-            // store settings of last item
-            if (lastSelectedIndex > 0)
-            {
-                _syncToModuleSettings(arcazeSerialComboBox.Items[lastSelectedIndex].ToString());
+                moduleSettingsAvailable = true;
+                break;
             }
 
-            // load settings of new item
-            if (cb.SelectedIndex > 0)
+            if (!moduleSettingsAvailable)
             {
-                _syncFromModuleSettings(cb.SelectedItem.ToString());
-            }           
+                arcazeModuleTypeComboBox.SelectedItem = ArcazeCommand.ExtModuleType.InternalIo.ToString();
+                numModulesNumericUpDown.Value = 1;
+            }
 
-            lastSelectedIndex = cb.SelectedIndex;
+            IgnoreArcazeModuleSettingsChangeEvents = false;
         }
 
         /// <summary>
@@ -412,9 +411,11 @@ namespace MobiFlight
             // check if the extension is compatible
             // but only if not the first item (please select) == 0
             // or none selected yet == -1
-            if (arcazeSerialComboBox.SelectedIndex <= 0) return;
+            if (ArcazeModuleTreeView.SelectedNode == null) return;
             
-            IModuleInfo devInfo = (IModuleInfo) ((arcazeSerialComboBox.SelectedItem as ArcazeListItem).Value);
+            // IModuleInfo devInfo = (IModuleInfo) ((arcazeSerialComboBox.SelectedItem as ArcazeListItem).Value);
+            IModuleInfo devInfo = (IModuleInfo)(ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo);
+            
             
             string errMessage = null;
             
@@ -434,6 +435,8 @@ namespace MobiFlight
             {
                 MessageBox.Show(MainForm._tr(errMessage));
             }
+
+            _syncToModuleSettings((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial);
         }
 
         private void mobiflightSettingsLabel_Click(object sender, EventArgs e)
@@ -938,6 +941,28 @@ namespace MobiFlight
             MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
             mfModulesTreeView_initNode(newInfo, parentNode);
             syncPanelWithSelectedDevice(parentNode);
+        }
+
+        private void ArcazeModuleTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node == null) return;
+            TreeNode parentNode = e.Node;
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            arcazeModuleSettingsGroupBox.Visible = true;
+            _syncFromModuleSettings((parentNode.Tag as ArcazeModuleInfo).Serial);
+        }
+
+        private void numModulesNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (ArcazeModuleTreeView.SelectedNode != null)
+            {
+                _syncToModuleSettings((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial);
+            }
+        }
+
+        private void numModulesNumericUpDown_Leave(object sender, EventArgs e)
+        {
+
         }
     }
 

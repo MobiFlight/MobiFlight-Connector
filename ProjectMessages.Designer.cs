@@ -587,11 +587,11 @@ namespace MobiFlight {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Old config format (&lt; 5.3) found. The config file has to be converted to work correctly. Do you want to use a new filename? ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Old config format (&lt; 6.0) found. The config file has to be converted to work correctly. Do you want to use a new filename? ähnelt.
         /// </summary>
-        internal static string uiMessageMigrateConfigFileV53YesNo {
+        internal static string uiMessageMigrateConfigFileV60YesNo {
             get {
-                return ResourceManager.GetString("uiMessageMigrateConfigFileV53YesNo", resourceCulture);
+                return ResourceManager.GetString("uiMessageMigrateConfigFileV60YesNo", resourceCulture);
             }
         }
         

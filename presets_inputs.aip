@@ -51,9 +51,9 @@
   </config>
   <config>
     <active>true</active>
-    <description>Radio - NAV1 Standby Freq</description>
+    <description>Radio - NAV1 Standby Freq Inc MHz</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
     </settings>
@@ -69,9 +69,18 @@
   </config>
   <config>
     <active>true</active>
-    <description>Radio - COM1 Standby Freq</description>
+    <description>Radio - COM1 Standby Freq MHz Increase</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - COM1 Standby Freq MHz Decrease</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
     </settings>
@@ -399,7 +408,7 @@
     <active>true</active>
     <description>Lights - Navigation Lights</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0001" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0001" multiplier="1" bcdMode="False"  />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       

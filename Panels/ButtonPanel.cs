@@ -48,7 +48,13 @@ namespace MobiFlight.Panels
                     break;
 
                 case "Key":
-                    throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
+                    panel = new KeyboardInputPanel();
+                    if (isOnPress && _config != null && _config.onPress != null)
+                        (panel as Panels.KeyboardInputPanel).syncFromConfig(_config.onPress as KeyInputAction);
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as Panels.KeyboardInputPanel).syncFromConfig(_config.onRelease as KeyInputAction);
+
+                    break;
             }
 
             if (panel != null)
@@ -89,8 +95,8 @@ namespace MobiFlight.Panels
                         break;
 
                     case "Key":
-                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        //break;
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
+                        break;
 
                     default:
                         config.onPress = null;
@@ -107,8 +113,8 @@ namespace MobiFlight.Panels
                         break;
 
                     case "Key":
-                        throw new NotImplementedException("The support for Sending Keys is not yet implemented!");
-                        //break;
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
+                        break;
 
                     default:
                         config.onRelease = null;

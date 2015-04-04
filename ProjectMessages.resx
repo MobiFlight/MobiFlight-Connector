@@ -338,7 +338,7 @@ You should configure them now.</value>
     <value>The name for the device is not valid or too long (max. {1} characters). Don't use the following characters:
 {0}</value>
   </data>
-  <data name="uiMessageMigrateConfigFileV53YesNo" xml:space="preserve">
-    <value>Old config format (&lt; 5.3) found. The config file has to be converted to work correctly. Do you want to use a new filename?</value>
+  <data name="uiMessageMigrateConfigFileV60YesNo" xml:space="preserve">
+    <value>Old config format (&lt; 6.0) found. The config file has to be converted to work correctly. Do you want to use a new filename?</value>
   </data>
 </root>

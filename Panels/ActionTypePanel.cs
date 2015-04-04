@@ -23,7 +23,7 @@ namespace MobiFlight.Panels
             ActionTypeComboBox.Items.Add("FSUIPC Offset");
             ActionTypeComboBox.SelectedIndex = 0;
             //ActionTypeComboBox.Items.Add("FSUIPC Macro");
-            //ActionTypeComboBox.Items.Add("Key");
+            ActionTypeComboBox.Items.Add("Key");
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 

@@ -438,6 +438,15 @@ namespace MobiFlight
                 fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
                 return true;
             }
+
+            proc = "wideclient";
+            // check for FSUIPC wide client
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
+                return true;
+            }
+
             // check for prepar3d
             proc = "prepar3d";
             if (Process.GetProcessesByName(proc).Length > 0)
@@ -704,9 +713,9 @@ namespace MobiFlight
                 if (file.IndexOf("ArcazeUSB.ArcazeConfigItem") != -1)
                 {
                     SaveFileDialog fd = new SaveFileDialog();
-                    fd.FileName = fileName.Replace(".mcc", "_v5.3.mcc");
+                    fd.FileName = fileName.Replace(".mcc", "_v6.0.mcc");
 
-                    if (MessageBox.Show(_tr("uiMessageMigrateConfigFileV53YesNo"), _tr("Hint"), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    if (MessageBox.Show(_tr("uiMessageMigrateConfigFileV60YesNo"), _tr("Hint"), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
                         fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
                         if (DialogResult.OK != fd.ShowDialog())

@@ -46,7 +46,7 @@ namespace MobiFlight.InputConfig
                         reader.Read(); // this should be the closing tag "onPress"
                         break;
 
-                    case "Key":
+                    case "KeyInputAction":
                         onPress = new KeyInputAction();
                         onPress.ReadXml(reader);
                         reader.Read(); // this should be the closing tag "onPress"
@@ -65,7 +65,7 @@ namespace MobiFlight.InputConfig
                         reader.ReadStartElement();
                         break;
 
-                    case "Key":
+                    case "KeyInputAction":
                         onRelease = new KeyInputAction();
                         onRelease.ReadXml(reader);
                         reader.ReadStartElement();

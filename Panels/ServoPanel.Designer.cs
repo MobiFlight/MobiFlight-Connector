@@ -52,6 +52,7 @@
             this.minValueTextBox.Name = "minValueTextBox";
             this.minValueTextBox.Size = new System.Drawing.Size(73, 20);
             this.minValueTextBox.TabIndex = 2;
+            this.minValueTextBox.Text = "0";
             // 
             // maxValueTextBox
             // 
@@ -59,6 +60,7 @@
             this.maxValueTextBox.Name = "maxValueTextBox";
             this.maxValueTextBox.Size = new System.Drawing.Size(73, 20);
             this.maxValueTextBox.TabIndex = 4;
+            this.maxValueTextBox.Text = "255";
             this.maxValueTextBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label1
