@@ -358,6 +358,7 @@ namespace MobiFlight
             
             if (config.ServoMin != null) servoPanel.minValueTextBox.Text = config.ServoMin;
             if (config.ServoMax != null) servoPanel.maxValueTextBox.Text = config.ServoMax;
+            if (config.ServoMaxRotationPercent!= null) servoPanel.maxRotationPercentNumericUpDown.Text = config.ServoMaxRotationPercent;
 
             preconditionListTreeView.Nodes.Clear();
             foreach (Precondition p in config.Preconditions)
@@ -485,7 +486,7 @@ namespace MobiFlight
             config.ServoAddress = servoPanel.servoAddressesComboBox.Text;
             config.ServoMin = servoPanel.minValueTextBox.Text;
             config.ServoMax = servoPanel.maxValueTextBox.Text;
-            
+            config.ServoMaxRotationPercent = servoPanel.maxRotationPercentNumericUpDown.Text;
             return true;
         }
 

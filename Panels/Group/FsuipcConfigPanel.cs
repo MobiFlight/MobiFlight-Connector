@@ -31,7 +31,11 @@ namespace MobiFlight.Panels.Group
         public void setMode(bool isOutputPanel)
         {
             multiplayPanel.Visible = isOutputPanel;
-            PresetFile = Properties.Settings.Default.InputsPresetFile;
+            if (!isOutputPanel)
+            {
+                PresetFile = Properties.Settings.Default.InputsPresetFile;
+                _loadPresets();
+            }
         }
 
         private void _loadPresets()
@@ -91,7 +95,10 @@ namespace MobiFlight.Panels.Group
                 DataRow[] rows = presetDataTable.Select("description = '" + fsuipcPresetComboBox.Text + "'");
                 if (rows.Length > 0)
                 {
-                    _syncConfigToForm(rows[0]["settings"] as OutputConfigItem);
+                    if (multiplayPanel.Visible)
+                        _syncConfigToForm(rows[0]["settings"] as OutputConfigItem);
+                    else
+                        syncFromConfig(rows[0]["settings"] as MobiFlight.InputConfig.FsuipcOffsetInputAction);
                 }
             }
         }

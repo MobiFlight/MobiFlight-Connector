@@ -47,6 +47,7 @@ namespace MobiFlight
         public string       ServoAddress                { get; set; }
         public string       ServoMin                    { get; set; }
         public string       ServoMax                    { get; set; }
+        public string       ServoMaxRotationPercent     { get; set; }
         public string       DisplayTrigger              { get; set; }
 
 
@@ -200,6 +201,11 @@ namespace MobiFlight
                 {
                     ServoMax = reader["servoMax"];
                 }
+
+                if (reader["servoMaxRotationPercent"] != null && reader["servoMaxRotationPercent"] != "")
+                {
+                    ServoMaxRotationPercent = reader["servoMaxRotationPercent"];
+                }
             }
             
             reader.ReadStartElement();
@@ -285,6 +291,7 @@ namespace MobiFlight
                     writer.WriteAttributeString("servoAddress", ServoAddress);
                     writer.WriteAttributeString("servoMin", ServoMin);
                     writer.WriteAttributeString("servoMax", ServoMax);
+                    writer.WriteAttributeString("servoMaxRotationPercent", ServoMaxRotationPercent);
                 }
                 else if (DisplayType == MobiFlight.DeviceType.Stepper.ToString("F"))
                 {

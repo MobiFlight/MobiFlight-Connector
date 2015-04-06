@@ -383,9 +383,15 @@
     <Compile Include="WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
+    <None Include="Resources\arcaze-module.png" />
+    <None Include="Resources\arcaze-new.png" />
+    <None Include="Resources\arcaze-changed.png" />
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <EmbeddedResource Include="Panels\KeyboardInputPanel.de.resx">
+      <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Panels\KeyboardInputPanel.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -551,7 +557,9 @@
     <EmbeddedResource Include="SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="favicon.ico" />
     <None Include="presets.aip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

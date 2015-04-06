@@ -53,6 +53,11 @@ namespace MobiFlight
                 TreeNode NewNode = new TreeNode();
                 NewNode.Text = module.Name + "/ " + module.Serial;
                 NewNode.Tag = module as ArcazeModuleInfo;
+                NewNode.SelectedImageKey = NewNode.ImageKey = "module-arcaze";
+                if (moduleSettings.Find(item => item.serial == module.Serial) == null)
+                {
+                    NewNode.SelectedImageKey = NewNode.ImageKey = "new-arcaze";
+                }
                 
                 ArcazeModuleTreeView.Nodes.Add(NewNode);
             }
@@ -73,6 +78,7 @@ namespace MobiFlight
             mfTreeViewImageList.Images.Add("module", MobiFlight.Properties.Resources.module_mobiflight);
             mfTreeViewImageList.Images.Add("module-arduino", MobiFlight.Properties.Resources.module_arduino);
             mfTreeViewImageList.Images.Add("module-unknown", MobiFlight.Properties.Resources.module_arduino);
+            mfTreeViewImageList.Images.Add("module-arcaze", MobiFlight.Properties.Resources.arcaze_module);
             mfTreeViewImageList.Images.Add(DeviceType.Button.ToString(), MobiFlight.Properties.Resources.button);
             mfTreeViewImageList.Images.Add(DeviceType.Encoder.ToString(), MobiFlight.Properties.Resources.encoder);
             mfTreeViewImageList.Images.Add(DeviceType.Stepper.ToString(), MobiFlight.Properties.Resources.stepper);
@@ -80,6 +86,8 @@ namespace MobiFlight
             mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), MobiFlight.Properties.Resources.output);
             mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), MobiFlight.Properties.Resources.led7);
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
+            mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
+            mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
 
             addStepperToolStripMenuItem.Visible = stepperToolStripMenuItem.Visible = StepperSupport;
@@ -139,6 +147,7 @@ namespace MobiFlight
                 }
                 catch (Exception e)
                 {
+                    Log.Instance.log("Exception on DEserializing arcaze extension module settings: " + e.Message, LogSeverity.Debug);
                 }
             }
 
@@ -254,10 +263,12 @@ namespace MobiFlight
                 XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));                
                 System.IO.StringWriter w = new System.IO.StringWriter();
                 SerializerObj.Serialize(w, moduleSettings);
-                Properties.Settings.Default.ModuleSettings = w.ToString();                
+                Properties.Settings.Default.ModuleSettings = w.ToString();
+                Log.Instance.log("Serialized Arcaze Extension Module Settings: " + Properties.Settings.Default.ModuleSettings, LogSeverity.Debug);
             }
             catch (Exception e)
             {
+                Log.Instance.log("Exception on serializing arcaze extension module settings: " + e.Message, LogSeverity.Debug);
             }
         }
 
@@ -320,6 +331,8 @@ namespace MobiFlight
                 settingsToSave = settings;
             }
 
+            bool hasChanged = false;
+
             if (settingsToSave == null)
             {
                 settingsToSave = new ArcazeModuleSettings() { serial = serial };
@@ -329,6 +342,15 @@ namespace MobiFlight
             settingsToSave.type = settingsToSave.stringToExtModuleType(arcazeModuleTypeComboBox.SelectedItem.ToString());
             settingsToSave.numModules = (byte) numModulesNumericUpDown.Value;
             settingsToSave.globalBrightness = (byte) (255 * ((globalBrightnessTrackBar.Value) / (double) (globalBrightnessTrackBar.Maximum)));
+
+            if (settingsToSave.HasChanged && ArcazeModuleTreeView.SelectedNode != null)
+            {
+                ModuleConfigChanged = true;
+                if ((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial == serial)
+                {
+                    ArcazeModuleTreeView.SelectedNode.SelectedImageKey = ArcazeModuleTreeView.SelectedNode.ImageKey = "Changed-arcaze";
+                }
+            }
         }
 
         /// <summary>
@@ -362,8 +384,10 @@ namespace MobiFlight
             {
                 arcazeModuleTypeComboBox.SelectedItem = ArcazeCommand.ExtModuleType.InternalIo.ToString();
                 numModulesNumericUpDown.Value = 1;
+                
+                IgnoreArcazeModuleSettingsChangeEvents = false;
+                _syncToModuleSettings(serial);
             }
-
             IgnoreArcazeModuleSettingsChangeEvents = false;
         }
 

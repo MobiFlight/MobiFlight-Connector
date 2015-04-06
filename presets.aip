@@ -202,20 +202,10 @@
   </config>
   <config>
     <active>true</active>
-    <description>Radio - Static Digit</description>
-    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="1" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="7" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
     <description>Radio - NAV1 Active Freq</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0350" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
       <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
       
     </settings>
@@ -225,7 +215,7 @@
     <description>Radio - NAV2 Active Freq</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0352" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
       <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
       
     </settings>
@@ -235,7 +225,7 @@
     <description>Radio - NAV1 Standby Freq</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
       
     </settings>
@@ -245,7 +235,7 @@
     <description>Radio - NAV2 Standby Freq</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3120" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
       
     </settings>

@@ -34,6 +34,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.servoAddressesComboBox = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.maxRotationPercentNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.maxRotationPercentNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // displayPinComoBoxLabel
@@ -99,10 +103,50 @@
             this.servoAddressesComboBox.Size = new System.Drawing.Size(122, 21);
             this.servoAddressesComboBox.TabIndex = 9;
             // 
+            // label3
+            // 
+            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label3.Location = new System.Drawing.Point(6, 70);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Max. rotation";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // maxRotationPercentNumericUpDown
+            // 
+            this.maxRotationPercentNumericUpDown.Location = new System.Drawing.Point(94, 68);
+            this.maxRotationPercentNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.maxRotationPercentNumericUpDown.Name = "maxRotationPercentNumericUpDown";
+            this.maxRotationPercentNumericUpDown.Size = new System.Drawing.Size(53, 20);
+            this.maxRotationPercentNumericUpDown.TabIndex = 11;
+            this.maxRotationPercentNumericUpDown.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label4.Location = new System.Drawing.Point(153, 70);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "%";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // ServoPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.maxRotationPercentNumericUpDown);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.servoAddressesComboBox);
             this.Controls.Add(this.maxValueTextBox);
@@ -110,7 +154,8 @@
             this.Controls.Add(this.minValueTextBox);
             this.Controls.Add(this.displayPinComoBoxLabel);
             this.Name = "ServoPanel";
-            this.Size = new System.Drawing.Size(255, 72);
+            this.Size = new System.Drawing.Size(255, 93);
+            ((System.ComponentModel.ISupportInitialize)(this.maxRotationPercentNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,5 +169,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.ComboBox servoAddressesComboBox;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.NumericUpDown maxRotationPercentNumericUpDown;
+        private System.Windows.Forms.Label label4;
     }
 }

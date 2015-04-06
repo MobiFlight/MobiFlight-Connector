@@ -423,7 +423,7 @@ namespace MobiFlight
             return true;
         }
 
-        public bool SetServo(string servoAddress, int value, int min, int max)
+        public bool SetServo(string servoAddress, int value, int min, int max, byte maxRotationPercent)
         {
             String key = "SERVO_" + servoAddress;
 
@@ -440,6 +440,7 @@ namespace MobiFlight
 
             servoModules[servoAddress].Min = min;
             servoModules[servoAddress].Max = max;
+            servoModules[servoAddress].MaxRotationPercent = maxRotationPercent;
             servoModules[servoAddress].MoveToPosition(value);
             lastValue[key] = value.ToString();
             return true;

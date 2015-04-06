@@ -308,7 +308,7 @@ namespace MobiFlight
             }
         }
 
-        public void setServo(string serial, string address, string value, int min, int max)
+        public void setServo(string serial, string address, string value, int min, int max, byte maxRotationPercent)
         {
             try
             {
@@ -316,7 +316,7 @@ namespace MobiFlight
                 int iValue;
                 if (!int.TryParse(value, out iValue)) return;
 
-                module.SetServo(address, iValue, min, max);
+                module.SetServo(address, iValue, min, max, maxRotationPercent);
             }
             catch (Exception e)
             {

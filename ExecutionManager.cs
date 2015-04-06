@@ -98,6 +98,11 @@ namespace MobiFlight
 #endif
         }
 
+        public void SetFsuipcInterval(int value)
+        {
+            timer.Interval = value;
+        }
+
         public void SetTestModeInterval(int value)
         {
             testModeTimer.Interval = value;
@@ -682,7 +687,8 @@ namespace MobiFlight
                             cfg.ServoAddress,
                             value,
                             int.Parse(cfg.ServoMin),
-                            int.Parse(cfg.ServoMax)
+                            int.Parse(cfg.ServoMax),
+                            Byte.Parse(cfg.ServoMaxRotationPercent)
                         );
                         break;
 
@@ -749,7 +755,8 @@ namespace MobiFlight
             try
             {
                 executeConfig();
-                this.OnExecute(this, new EventArgs());
+                if (this.OnExecute != null)
+                    this.OnExecute(this, new EventArgs());
             }
             catch (Exception ex)
             {

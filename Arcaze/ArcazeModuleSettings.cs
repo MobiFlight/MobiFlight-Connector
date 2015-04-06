@@ -9,10 +9,53 @@ namespace MobiFlight
 {
     public class ArcazeModuleSettings : IXmlSerializable
     {
-        public string serial { get; set; }
-        public ArcazeCommand.ExtModuleType type { get; set; }
-        public byte numModules { get; set; }
-        public byte globalBrightness { get; set; }
+        string _serial;
+        public string serial
+        {
+            get { return _serial; }
+            set
+            {
+                if (_serial == value) return;
+                _serial = value;
+                _hasChanged = true;
+            }
+        }
+        ArcazeCommand.ExtModuleType _type;
+        public ArcazeCommand.ExtModuleType type
+        {
+            get { return _type; }
+            set
+            {
+                if (_type == value) return;
+                _type = value;
+                _hasChanged = true;
+            }
+        }
+
+        byte _numModules;
+        public byte numModules
+        {
+            get { return _numModules; }
+            set
+            {
+                if (_numModules == value) return;
+                _numModules = value;
+                _hasChanged = true;
+            }
+        }
+        byte _globalBrightness;
+        public byte globalBrightness
+        {
+            get { return _globalBrightness; }
+            set
+            {
+                if (_globalBrightness == value) return;
+                _globalBrightness = value;
+                _hasChanged = true;
+            }
+        }
+        private bool _hasChanged = false;
+        public bool HasChanged { get {return _hasChanged;} }
 
         public ArcazeModuleSettings()
         {
@@ -33,6 +76,7 @@ namespace MobiFlight
             type = stringToExtModuleType(reader["type"]);
             numModules = byte.Parse(reader["numModules"]);
             globalBrightness = byte.Parse(reader["brightness"]);
+            _hasChanged = false;
             reader.Read();
         }
 

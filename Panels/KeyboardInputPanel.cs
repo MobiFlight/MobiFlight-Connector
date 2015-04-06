@@ -24,8 +24,11 @@ namespace MobiFlight.Panels
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!button1.Enabled) return;
-            button1.Enabled = false;
+            CtrlPressed = false;
+            AltPressed = false;
+            ShiftPressed = false;
+            CurrentKey = Keys.None;
+            UpdateTextBox();
         }
 
         private void KeyboardInputPanel_KeyDown(object sender, KeyEventArgs e)
@@ -34,7 +37,10 @@ namespace MobiFlight.Panels
             AltPressed = e.Alt;
             ShiftPressed = e.Shift;
             if (e.KeyCode != Keys.ControlKey &&
-                e.KeyCode != Keys.ShiftKey )
+                e.KeyCode != Keys.ShiftKey &&
+                e.KeyCode != Keys.Menu && 
+                e.KeyCode != Keys.Capital &&
+                e.KeyCode != Keys.CapsLock)
                 CurrentKey = e.KeyCode;
             UpdateTextBox();
         }
@@ -52,8 +58,6 @@ namespace MobiFlight.Panels
 
         private void KeyboardInputPanel_KeyUp(object sender, KeyEventArgs e)
         {
-
-            button1.Enabled = true;
         }
 
         internal void syncFromConfig(InputConfig.KeyInputAction keyInputAction)

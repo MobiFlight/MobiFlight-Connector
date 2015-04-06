@@ -9,6 +9,8 @@ namespace MobiFlight
     public class MobiFlightServo : IConnectedDevice
     {
         public const string TYPE = "Servo";
+        public const int OutputLower = 0;
+        public const int OutputUpper = 180;
 
         private String _name = "Servo";
         public String Name
@@ -29,19 +31,20 @@ namespace MobiFlight
         public int ServoNumber { get; set; }
         public int Min { get; set; }
         public int Max { get; set; }
+        public int MaxRotationPercent { get; set; }
         
         public MobiFlightServo()
         {
             Min = 0;
             Max = 180;
+            MaxRotationPercent = 100;
         }
 
         private int map(int value)
         {
-            int outputLower = 0;
-            int outputUpper = 180;
+            int outputUpper = (int)Math.Round((float) OutputUpper * MaxRotationPercent / 100);
             float relVal = (value - Min) / (float)(Max - Min);
-            return (int)Math.Round((relVal * (outputUpper - outputLower)) + Min, 0);
+            return (int)Math.Round((relVal * (outputUpper - OutputLower)) + Min, 0);
         }
 
         public void MoveToPosition(int value)

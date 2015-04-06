@@ -175,6 +175,12 @@ namespace MobiFlight
             {
                 execManager.SetTestModeInterval((int)e.NewValue);
             }
+
+            if (e.SettingName == "PollInterval")
+            {
+                // set FSUIPC update interval
+                execManager.SetFsuipcInterval((int)e.NewValue);
+            }
         }
 
         private void _autoloadConfig()
