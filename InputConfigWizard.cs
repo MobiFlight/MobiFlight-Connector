@@ -666,13 +666,18 @@ namespace MobiFlight
         private void preconditionListTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             preconditionListTreeView.SelectedNode = e.Node;
-            if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
+            
 
             Precondition config = (e.Node.Tag as Precondition);
             preConditionTypeComboBox.SelectedValue = config.PreconditionType;
             preconditionSettingsPanel.Enabled = true;
             preconditionApplyButton.Visible = true;
             config.PreconditionActive = e.Node.Checked;
+
+            aNDToolStripMenuItem.Checked = config.PreconditionLogic == "and";
+            oRToolStripMenuItem.Checked = config.PreconditionLogic == "or";            
+
+            // if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
 
             switch (config.PreconditionType)
             {
@@ -698,7 +703,7 @@ namespace MobiFlight
                     preconditionPortComboBox.SelectedIndex = io.Port;
                     preconditionPinComboBox.SelectedIndex = io.Pin;
                     break;
-            }  
+            }
         }
 
         private void preconditionApplyButton_Click(object sender, EventArgs e)

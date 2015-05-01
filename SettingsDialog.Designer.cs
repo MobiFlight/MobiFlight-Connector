@@ -43,6 +43,8 @@
             this.arcazeModuleTypeLabel = new System.Windows.Forms.Label();
             this.arcazeModulesGroupBox = new System.Windows.Forms.GroupBox();
             this.ArcazeModuleTreeView = new System.Windows.Forms.TreeView();
+            this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
+            this.arcazeSettingsLabel = new System.Windows.Forms.Label();
             this.mfModuleSettingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ledOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +64,6 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.updateFirmwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.generalTabPage = new System.Windows.Forms.TabPage();
             this.debugGroupBox = new System.Windows.Forms.GroupBox();
             this.logLevelComboBox = new System.Windows.Forms.ComboBox();
@@ -178,6 +179,7 @@
             resources.ApplyResources(this.ledDisplaysTabPage, "ledDisplaysTabPage");
             this.ledDisplaysTabPage.Controls.Add(this.arcazeModuleSettingsGroupBox);
             this.ledDisplaysTabPage.Controls.Add(this.arcazeModulesGroupBox);
+            this.ledDisplaysTabPage.Controls.Add(this.arcazeSettingsLabel);
             this.errorProvider1.SetError(this.ledDisplaysTabPage, global::MobiFlight.ProjectMessages.conf);
             this.errorProvider1.SetIconAlignment(this.ledDisplaysTabPage, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("ledDisplaysTabPage.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.ledDisplaysTabPage, ((int)(resources.GetObject("ledDisplaysTabPage.IconPadding"))));
@@ -300,7 +302,6 @@
             // ArcazeModuleTreeView
             // 
             resources.ApplyResources(this.ArcazeModuleTreeView, "ArcazeModuleTreeView");
-            this.ArcazeModuleTreeView.ContextMenuStrip = this.mfModuleSettingsContextMenuStrip;
             this.errorProvider1.SetError(this.ArcazeModuleTreeView, global::MobiFlight.ProjectMessages.conf);
             this.errorProvider1.SetIconAlignment(this.ArcazeModuleTreeView, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("ArcazeModuleTreeView.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.ArcazeModuleTreeView, ((int)(resources.GetObject("ArcazeModuleTreeView.IconPadding"))));
@@ -313,6 +314,22 @@
             this.ArcazeModuleTreeView.SelectedImageKey = global::MobiFlight.ProjectMessages.conf;
             this.toolTip1.SetToolTip(this.ArcazeModuleTreeView, global::MobiFlight.ProjectMessages.conf);
             this.ArcazeModuleTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ArcazeModuleTreeView_AfterSelect);
+            // 
+            // mfTreeViewImageList
+            // 
+            this.mfTreeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            resources.ApplyResources(this.mfTreeViewImageList, "mfTreeViewImageList");
+            this.mfTreeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // arcazeSettingsLabel
+            // 
+            resources.ApplyResources(this.arcazeSettingsLabel, "arcazeSettingsLabel");
+            this.errorProvider1.SetError(this.arcazeSettingsLabel, global::MobiFlight.ProjectMessages.conf);
+            this.errorProvider1.SetIconAlignment(this.arcazeSettingsLabel, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("arcazeSettingsLabel.IconAlignment"))));
+            this.errorProvider1.SetIconPadding(this.arcazeSettingsLabel, ((int)(resources.GetObject("arcazeSettingsLabel.IconPadding"))));
+            this.arcazeSettingsLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
+            this.arcazeSettingsLabel.Name = "arcazeSettingsLabel";
+            this.toolTip1.SetToolTip(this.arcazeSettingsLabel, global::MobiFlight.ProjectMessages.conf);
             // 
             // mfModuleSettingsContextMenuStrip
             // 
@@ -445,12 +462,6 @@
             resources.ApplyResources(this.regenerateSerialToolStripMenuItem, "regenerateSerialToolStripMenuItem");
             this.regenerateSerialToolStripMenuItem.Name = "regenerateSerialToolStripMenuItem";
             this.regenerateSerialToolStripMenuItem.Click += new System.EventHandler(this.regenerateSerialToolStripMenuItem_Click);
-            // 
-            // mfTreeViewImageList
-            // 
-            this.mfTreeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            resources.ApplyResources(this.mfTreeViewImageList, "mfTreeViewImageList");
-            this.mfTreeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // generalTabPage
             // 
@@ -1073,5 +1084,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ToolStripMenuItem regenerateSerialToolStripMenuItem;
         private System.Windows.Forms.TreeView ArcazeModuleTreeView;
+        private System.Windows.Forms.Label arcazeSettingsLabel;
     }
 }

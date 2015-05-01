@@ -18,7 +18,7 @@ namespace MobiFlight
     public partial class MainForm : Form
     {
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
-        public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyymmdd");
+        public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
 
         /// <summary>
         /// the currently used filename of the loaded config file

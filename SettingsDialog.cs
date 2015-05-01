@@ -61,6 +61,16 @@ namespace MobiFlight
                 
                 ArcazeModuleTreeView.Nodes.Add(NewNode);
             }
+
+            if (ArcazeModuleTreeView.Nodes.Count == 0)
+            {
+                TreeNode NewNode = new TreeNode();
+                NewNode.Text = MainForm._tr("none");
+                NewNode.SelectedImageKey = NewNode.ImageKey = "module-arcaze";
+                ArcazeModuleTreeView.Nodes.Add(NewNode);
+                ArcazeModuleTreeView.Enabled = false;
+                arcazeModuleSettingsGroupBox.Enabled = false;
+            }
         }
 
         private void Init()
@@ -202,6 +212,14 @@ namespace MobiFlight
                 // this happens when the modules are connecting
                 mfConfiguredModulesGroupBox.Enabled = false;
                 Log.Instance.log("Problem on building module tree. Still connecting", LogSeverity.Error);
+            }
+
+            if (mfModulesTreeView.Nodes.Count == 0)
+            {
+                TreeNode NewNode = new TreeNode();
+                NewNode.Text = MainForm._tr("none");
+                NewNode.SelectedImageKey = NewNode.ImageKey = "module-arduino";
+                mfModulesTreeView.Nodes.Add(NewNode);
             }
 
             firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;

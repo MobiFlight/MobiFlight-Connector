@@ -935,15 +935,16 @@ namespace MobiFlight
 
         public void executeTestOff(OutputConfigItem cfg)
         {
-            switch (cfg.DisplayType)
+            OutputConfigItem offCfg = (OutputConfigItem) cfg.Clone();
+            switch (offCfg.DisplayType)
             {
                 case MobiFlightServo.TYPE:
-                    executeDisplay(cfg.ServoMin, cfg);
+                    executeDisplay(offCfg.ServoMin, offCfg);
                     break;
 
                 default:
-                    cfg.DisplayLedDecimalPoints = new List<string>();
-                    executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", cfg);
+                    offCfg.DisplayLedDecimalPoints = new List<string>();
+                    executeDisplay(offCfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
                     break;
             }
         }
