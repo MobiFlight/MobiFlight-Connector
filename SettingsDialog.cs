@@ -897,6 +897,9 @@ namespace MobiFlight
             TreeNode parentNode = e.Node;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
+            mfSettingsPanel.Controls.Clear();
+            if (parentNode.Tag == null) return;
+
             bool isMobiFlightBoard = (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MEGA
                                                 &&
                                              (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
@@ -908,7 +911,7 @@ namespace MobiFlight
             removeDeviceToolStripButton.Enabled = isMobiFlightBoard & (e.Node.Level > 0);
             uploadToolStripButton.Enabled = (parentNode.Nodes.Count > 0) || (parentNode.ImageKey == "Changed");
             saveToolStripButton.Enabled = parentNode.Nodes.Count > 0;
-            mfSettingsPanel.Controls.Clear();
+            
 
             // Toggle visibility of items in context menu
             // depending on whether it is a MobiFlight Board or not
