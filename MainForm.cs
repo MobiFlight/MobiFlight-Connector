@@ -780,6 +780,8 @@ namespace MobiFlight
                 serials.Add(moduleInfo.Name + "/ " + moduleInfo.Serial);
             }
 
+            if (serials.Count == 0) return;
+
             OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configDataTable);
             opd.StartPosition = FormStartPosition.CenterParent;
             if (opd.HasOrphanedSerials())
