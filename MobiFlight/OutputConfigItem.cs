@@ -346,6 +346,7 @@ namespace MobiFlight
             clone.ServoAddress              = this.ServoAddress;
             clone.ServoMax                  = this.ServoMax;
             clone.ServoMin                  = this.ServoMin;
+            clone.ServoMaxRotationPercent   = this.ServoMaxRotationPercent;
 
             foreach (Precondition p in Preconditions)
             {
