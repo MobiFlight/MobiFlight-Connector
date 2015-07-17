@@ -25,8 +25,8 @@ char foo;
 #endif
 
 #define STEPS 64
-#define STEPPER_SPEED 200 // 300 already worked, 467, too?
-#define STEPPER_ACCEL 100
+#define STEPPER_SPEED 800 // 300 already worked, 467, too?
+#define STEPPER_ACCEL 600
 
 #if MODULETYPE == MTYPE_MICRO
 #define MAX_OUTPUTS     10
@@ -72,7 +72,7 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.1.0 : Encoder support, more outputs (30)
 // 1.2.0 : More outputs (40), more inputs (40), more led segments (4), more encoders (20), steppers (10), servos (10)
 // 1.3.0 : Generate New Serial
-const char version[8] = "1.3.0";
+const char version[8] = "1.4.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
@@ -434,19 +434,24 @@ void PowerSaveLedSegment(bool state)
 }
 #if MF_STEPPER_SUPPORT == 1
 //// STEPPER ////
-void AddStepper(int pin1, int pin2, int pin3, int pin4)
+void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
 {
   if (steppersRegistered == MAX_STEPPERS) return;
-  if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4)) return;
+  if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4) || isPinRegistered(btnPin1)) {
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,"Conflict with stepper");
+#endif 
+    return;
+  }
   
   steppers[steppersRegistered] = new AccelStepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3); // lc is our object 
-  steppers[steppersRegistered]->setSpeed(STEPPER_SPEED);
+  steppers[steppersRegistered]->setMaxSpeed(STEPPER_SPEED);
   steppers[steppersRegistered]->setAcceleration(STEPPER_ACCEL);
-  registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper);       
+  registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper); registerPin(btnPin1, kTypeStepper);
   steppersRegistered++;
   
 #ifdef DEBUG  
-  //cmdMessenger.sendCmd(kStatus,"Added stepper");
+  cmdMessenger.sendCmd(kStatus,"Added stepper");
 #endif 
 }
 
@@ -608,8 +613,9 @@ void readConfig(String cfg) {
         params[1] = strtok_r(NULL, ".", &p); // pin2
         params[2] = strtok_r(NULL, ".", &p); // pin3
         params[3] = strtok_r(NULL, ".", &p); // pin4
-        params[4] = strtok_r(NULL, ":", &p); // Name
-        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]));
+        params[4] = strtok_r(NULL, ".", &p); // btnPin1
+        params[5] = strtok_r(NULL, ":", &p); // Name
+        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]));
       break;
       
       case kTypeServo:
@@ -708,8 +714,9 @@ void OnSetStepper()
 {
   int stepper    = cmdMessenger.readIntArg();
   int newPos     = cmdMessenger.readIntArg();
+  
   if (stepper >= steppersRegistered) return;
-  steppers[steppersRegistered]->moveTo(newPos);
+  steppers[stepper]->moveTo(newPos);
   lastCommand = millis();
 }
 
@@ -754,6 +761,7 @@ void OnGenNewSerial()
   cmdMessenger.sendCmdArg(serial);
   cmdMessenger.sendCmdEnd();
 }
+
 
 
 
