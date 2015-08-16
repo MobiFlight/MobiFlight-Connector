@@ -152,7 +152,9 @@ namespace MobiFlight
             ConfigActivated, // 17
             SetPowerSavingMode, // 18
             SetName, // 19
-			GenNewSerial // 20
+			GenNewSerial, // 20
+            ResetStepper, // 21
+            SetZeroStepper // 21
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -447,7 +449,7 @@ namespace MobiFlight
             return true;
         }
 
-        public bool SetStepper(string stepper, int value)
+        public bool SetStepper(string stepper, int value, int inputRevolutionSteps = -1)
         {
             String key = "STEPPER_" + stepper;
 
@@ -462,9 +464,38 @@ namespace MobiFlight
                 iLastValue = value;
             }
 
+            if (inputRevolutionSteps > -1)
+            {
+                stepperModules[stepper].InputRevolutionSteps = inputRevolutionSteps;
+            }
+            
             stepperModules[stepper].MoveToPosition(value, (value - iLastValue) > 0);
             lastValue[key] = value.ToString();
             return true;
+        }
+
+        public bool ResetStepper(string stepper)
+        {
+            String key = "STEPPER_" + stepper;
+            stepperModules[stepper].Reset();
+            lastValue[key] = "0";
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stepper"></param>
+        /// <throws>ArgumentOutOfRangeException</throws>
+        /// <returns></returns>
+        internal MobiFlightStepper GetStepper(string stepper)
+        {
+            if (!stepperModules.ContainsKey(stepper))
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            return stepperModules[stepper];
         }
 
         public IModuleInfo GetInfo()
@@ -667,6 +698,14 @@ namespace MobiFlight
             SendCommand command = new SendCommand((int)MobiFlightModule.Command.GenNewSerial, (int)MobiFlightModule.Command.Status, 1000);
             ReceivedCommand StatusCommand = this._cmdMessenger.SendCommand(command);
             return StatusCommand.Ok;
+        }
+
+        public void Stop()
+        {
+            foreach (MobiFlightStepper stepper in stepperModules.Values)
+            {
+                SetStepper(stepper.Name, 0);
+            }
         }
     }
 }

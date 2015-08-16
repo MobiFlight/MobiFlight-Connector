@@ -351,6 +351,12 @@
     <Compile Include="Panels\KeyboardInputPanel.Designer.cs">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\StepperPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\StepperPanel.Designer.cs">
+      <DependentUpon>StepperPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\ServoPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -394,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\KeyboardInputPanel.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\StepperPanel.resx">
+      <DependentUpon>StepperPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WelcomeDialog.de.resx">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>

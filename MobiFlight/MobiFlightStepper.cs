@@ -36,8 +36,9 @@ namespace MobiFlight
         
         public MobiFlightStepper()
         {
+            lastValue = 0;
             StepperNumber = 0;
-            InputRevolutionSteps = 60;
+            InputRevolutionSteps = 1000;
         }
 
         private int map(int value, int inputLower, int inputUpper, int outputLower, int outputUpper)
@@ -51,21 +52,36 @@ namespace MobiFlight
             int mappedValue = Convert.ToInt32( Math.Ceiling ((value / (double) InputRevolutionSteps) * OutputRevolutionSteps));
             int currentSpeed = 100;
             
-            if (!moveCalled) {
-                zeroPoint = mappedValue;
-                lastValue = mappedValue;                
-                lastCall = DateTime.Now;
-                moveCalled = true;
-            }
-
             int delta = mappedValue - lastValue;            
             lastValue = mappedValue;
 
             if (delta == 0) return;
             var command = new SendCommand((int)MobiFlightModule.Command.SetStepper);
             command.AddArgument(this.StepperNumber);
-            command.AddArgument(mappedValue + delta - zeroPoint);
+            command.AddArgument(mappedValue);
             
+            // Send command
+            CmdMessenger.SendCommand(command);
+        }
+
+        public int Position()
+        {
+            return lastValue;
+        }
+
+        public void Init()
+        {
+            var command = new SendCommand((int)MobiFlightModule.Command.ResetStepper);
+            command.AddArgument(this.StepperNumber);
+
+            // Send command
+            CmdMessenger.SendCommand(command);
+        }
+
+        internal void Reset()
+        {
+            var command = new SendCommand((int)MobiFlightModule.Command.SetZeroStepper);
+            command.AddArgument(this.StepperNumber);
             // Send command
             CmdMessenger.SendCommand(command);
         }

@@ -84,7 +84,8 @@ namespace MobiFlight
                 MobiFlightModuleInfo.PIDVID_MEGA,  // Mega
                 MobiFlightModuleInfo.PIDVID_MEGA_10,  // Mega
                 MobiFlightModuleInfo.PIDVID_MEGA_CLONE,  // Mega
-                MobiFlightModuleInfo.PIDVID_MEGA_CLONE_1  // Mega
+                MobiFlightModuleInfo.PIDVID_MEGA_CLONE_1,  // Mega
+                MobiFlightModuleInfo.PIDVID_MEGA_CLONE_2  // Mega
             };
             Regex regEx = new Regex( "^(" + string.Join("|", arduinoVidPids) + ")" );
 
@@ -324,12 +325,49 @@ namespace MobiFlight
             }
         }
 
+        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps)
+        {
+            try
+            {
+                MobiFlightModule module = Modules[serial];
+                int iValue;
+                if (!int.TryParse(value, out iValue)) return;
+
+                module.SetStepper(address, iValue, inputRevolutionSteps);
+            }
+            catch (Exception e)
+            {
+                throw new ArcazeCommandExecutionException(MainForm._tr("ConfigErrorException_SettingServo"), e);
+            }
+        }
+
+        public void resetStepper(string serial, string address)
+        {
+            try
+            {
+                MobiFlightModule module = Modules[serial];
+                module.ResetStepper(address);
+            }
+            catch (Exception e)
+            {
+                throw new ArcazeCommandExecutionException(MainForm._tr("ConfigErrorException_SettingServo"), e);
+            }
+        }
+
         public void Flush()
         {
             // not implemented, don't throw exception either
         }
 
 
+        public void Stop()
+        {
+            foreach (MobiFlightModule module in Modules.Values)
+            {
+                module.Stop();   
+            }
+        }
+        
         internal IEnumerable<IModuleInfo> getModuleInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();

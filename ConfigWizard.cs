@@ -31,6 +31,7 @@ namespace MobiFlight
         Panels.DisplayLedDisplayPanel displayLedDisplayPanel = new Panels.DisplayLedDisplayPanel();
         Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new Panels.DisplayNothingSelectedPanel();
         Panels.ServoPanel servoPanel = new Panels.ServoPanel();
+        Panels.StepperPanel stepperPanel = new Panels.StepperPanel();
 
         public ConfigWizard(ExecutionManager mainForm, 
                              OutputConfigItem cfg, 
@@ -146,6 +147,10 @@ namespace MobiFlight
             displayNothingSelectedPanel.Dock = DockStyle.Top;
             groupBoxDisplaySettings.Controls.Add(servoPanel);
             servoPanel.Dock = DockStyle.Top;
+            groupBoxDisplaySettings.Controls.Add(stepperPanel);
+            stepperPanel.Dock = DockStyle.Top;
+            stepperPanel.OnManualCalibrationTriggered += new EventHandler<Panels.ManualCalibrationTriggeredEventArgs>(stepperPanel_OnManualCalibrationTriggered);
+            stepperPanel.OnSetZeroTriggered += new EventHandler(stepperPanel_OnSetZeroTriggered);
 
             displayPanels.Clear();
             displayPanelHeight = 0;
@@ -154,6 +159,7 @@ namespace MobiFlight
             displayPanels.Add(displayLedDisplayPanel);
             displayPanels.Add(displayNothingSelectedPanel);
             displayPanels.Add(servoPanel);
+            displayPanels.Add(stepperPanel);
 
             foreach (UserControl p in displayPanels)
             {
@@ -163,6 +169,43 @@ namespace MobiFlight
 
             displayNothingSelectedPanel.Height = displayPanelHeight;
             displayNothingSelectedPanel.Enabled = true;
+        }
+
+        void stepperPanel_OnSetZeroTriggered(object sender, EventArgs e)
+        {
+            String serial = config.DisplaySerial;
+            if (serial.Contains('/'))
+            {
+                serial = serial.Split('/')[1].Trim();
+            }
+            _execManager.getMobiFlightModuleCache().resetStepper(serial, config.StepperAddress);
+        }
+
+        void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
+        {
+            int steps = e.Steps;
+            
+            String serial = config.DisplaySerial;
+            if (serial.Contains('/'))
+            {
+                serial = serial.Split('/')[1].Trim();
+            }
+
+            MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
+                                                    .GetModuleBySerial(serial)
+                                                    .GetStepper(config.StepperAddress);
+
+            int CurrentValue = stepper.Position();
+            int NextValue = (CurrentValue + e.Steps);
+
+            _execManager.getMobiFlightModuleCache().setStepper(
+                serial,
+                config.StepperAddress,
+                (NextValue).ToString(),
+                Int16.Parse(config.StepperOutputRev),
+                Int16.Parse(config.StepperOutputRev)
+            );
+            
         }        
 
         private void preparePreconditionPanel(DataSet dataSetConfig, String filterGuid)
@@ -360,6 +403,17 @@ namespace MobiFlight
             if (config.ServoMax != null) servoPanel.maxValueTextBox.Text = config.ServoMax;
             if (config.ServoMaxRotationPercent!= null) servoPanel.maxRotationPercentNumericUpDown.Text = config.ServoMaxRotationPercent;
 
+            
+            // stepper initialization
+            if (!ComboBoxHelper.SetSelectedItem(stepperPanel.stepperAddressesComboBox, config.StepperAddress))
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Stepper Address ComboBox", LogSeverity.Debug);
+            }
+
+            if (config.StepperInputRev != null) stepperPanel.inputRevTextBox.Text = config.StepperInputRev;
+            if (config.StepperOutputRev != null) stepperPanel.outputRevTextBox.Text = config.StepperOutputRev;
+
             preconditionListTreeView.Nodes.Clear();
             foreach (Precondition p in config.Preconditions)
             {
@@ -483,10 +537,14 @@ namespace MobiFlight
                     (displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox).Text);
             }
 
-            config.ServoAddress = servoPanel.servoAddressesComboBox.Text;
+            config.ServoAddress = servoPanel.servoAddressesComboBox.SelectedValue.ToString();
             config.ServoMin = servoPanel.minValueTextBox.Text;
             config.ServoMax = servoPanel.maxValueTextBox.Text;
             config.ServoMaxRotationPercent = servoPanel.maxRotationPercentNumericUpDown.Text;
+
+            config.StepperAddress = stepperPanel.stepperAddressesComboBox.SelectedValue.ToString();
+            config.StepperInputRev = stepperPanel.inputRevTextBox.Text;
+            config.StepperOutputRev = stepperPanel.outputRevTextBox.Text;
             return true;
         }
 
@@ -702,6 +760,8 @@ namespace MobiFlight
                     displayLedDisplayPanel.SetAddresses(ledSegments);
 
                     servoPanel.SetAdresses(servos);
+
+                    stepperPanel.SetAdresses(stepper);
                 }
                 if ((sender as ComboBox).Text == "Pin")
                 {
@@ -725,6 +785,12 @@ namespace MobiFlight
                 {
                     servoPanel.Enabled = panelEnabled;
                     servoPanel.Height = displayPanelHeight;
+                }
+
+                if ((sender as ComboBox).Text == DeviceType.Stepper.ToString("F"))
+                {
+                    stepperPanel.Enabled = panelEnabled;
+                    stepperPanel.Height = displayPanelHeight;
                 }
             }
             catch (Exception)

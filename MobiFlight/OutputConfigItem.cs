@@ -48,9 +48,13 @@ namespace MobiFlight
         public string       ServoMin                    { get; set; }
         public string       ServoMax                    { get; set; }
         public string       ServoMaxRotationPercent     { get; set; }
+        // the stepper stuff
+        public string       StepperAddress              { get; set; }
+        public string       StepperInputRev             { get; set; }
+        public string       StepperOutputRev            { get; set; }
+        // deprecated?
         public string       DisplayTrigger              { get; set; }
-
-
+                
         public List<Precondition> Preconditions         { get; set; }
 
         public OutputConfigItem()
@@ -206,6 +210,20 @@ namespace MobiFlight
                 {
                     ServoMaxRotationPercent = reader["servoMaxRotationPercent"];
                 }
+
+                // ignore empty values
+                if (reader["stepperAddress"] != null && reader["stepperAddress"] != "")
+                {
+                    StepperAddress = reader["stepperAddress"];
+                }
+                if (reader["stepperInputRev"] != null && reader["stepperInputRev"] != "")
+                {
+                    StepperInputRev = reader["stepperInputRev"];
+                }
+                if (reader["stepperOutputRev"] != null && reader["stepperOutputRev"] != "")
+                {
+                    StepperOutputRev = reader["stepperOutputRev"];
+                }
             }
             
             reader.ReadStartElement();
@@ -295,7 +313,9 @@ namespace MobiFlight
                 }
                 else if (DisplayType == MobiFlight.DeviceType.Stepper.ToString("F"))
                 {
-                    
+                    writer.WriteAttributeString("stepperAddress", StepperAddress);
+                    writer.WriteAttributeString("stepperInputRev", StepperInputRev);
+                    writer.WriteAttributeString("stepperOutputRev", StepperOutputRev);
                 }
                 else
                 {
@@ -347,6 +367,10 @@ namespace MobiFlight
             clone.ServoMax                  = this.ServoMax;
             clone.ServoMin                  = this.ServoMin;
             clone.ServoMaxRotationPercent   = this.ServoMaxRotationPercent;
+
+            clone.StepperAddress            = this.StepperAddress;
+            clone.StepperInputRev           = this.StepperInputRev;
+            clone.StepperOutputRev          = this.StepperOutputRev;
 
             foreach (Precondition p in Preconditions)
             {

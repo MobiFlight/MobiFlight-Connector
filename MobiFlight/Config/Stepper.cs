@@ -8,7 +8,7 @@ namespace MobiFlight.Config
 {
     public class Stepper : BaseDevice
     {
-        const ushort _paramCount = 5;
+        const ushort _paramCount = 6;
 
         [XmlAttribute]
         public String Pin1 = "1";
@@ -18,6 +18,8 @@ namespace MobiFlight.Config
         public String Pin3 = "3";
         [XmlAttribute]
         public String Pin4 = "4";
+        [XmlAttribute]
+        public String BtnPin = "5";
 
         public Stepper() { Name = "Stepper"; _type = DeviceType.Stepper; }
 
@@ -28,6 +30,7 @@ namespace MobiFlight.Config
                  + Pin2 + Separator
                  + Pin3 + Separator
                  + Pin4 + Separator
+                 + BtnPin + Separator
                  + Name + End;
         }
 
@@ -40,11 +43,12 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
 
-            Pin1 = paramList[1];
-            Pin2 = paramList[2];
-            Pin3 = paramList[3];
-            Pin4 = paramList[4];
-            Name = paramList[5];
+            Pin1    = paramList[1];
+            Pin2    = paramList[2];
+            Pin3    = paramList[3];
+            Pin4    = paramList[4];
+            BtnPin  = paramList[5];
+            Name    = paramList[6];
 
             return true;
         }

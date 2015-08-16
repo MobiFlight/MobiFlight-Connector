@@ -57,6 +57,7 @@ char foo;
 #include <MFEncoder.h>
 #if MF_STEPPER_SUPPORT == 1
   #include <AccelStepper.h>
+  #include <MFStepper.h>
   #include <Servo.h>
   #include <MFServo.h>
 #endif
@@ -117,7 +118,8 @@ MFEncoder encoders[MAX_ENCODERS];
 byte encodersRegistered = 0;
 
 #if MF_STEPPER_SUPPORT == 1
-  AccelStepper *steppers[MAX_STEPPERS]; //
+  //AccelStepper *steppers[MAX_STEPPERS]; //
+  MFStepper *steppers[MAX_STEPPERS]; //
   byte steppersRegistered = 0;
 
   MFServo servos[MAX_MFSERVOS];
@@ -159,7 +161,9 @@ enum
   kConfigActivated,    // 17
   kSetPowerSavingMode, // 18  
   kSetName,            // 19
-  kGenNewSerial        // 20
+  kGenNewSerial,       // 20
+  kResetStepper,       // 21
+  kSetZeroStepper      // 22
 };
 
 // Callbacks define on which received commands we take action
@@ -182,6 +186,8 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kActivateConfig, OnActivateConfig);  
   //cmdMessenger.attach(kSetName, OnSetName);  
   cmdMessenger.attach(kGenNewSerial, OnGenNewSerial);
+  cmdMessenger.attach(kResetStepper, OnResetStepper);
+  cmdMessenger.attach(kSetZeroStepper, OnSetZeroStepper);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Attached callbacks");
 #endif  
@@ -444,7 +450,8 @@ void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
     return;
   }
   
-  steppers[steppersRegistered] = new AccelStepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3); // lc is our object 
+  // steppers[steppersRegistered] = new AccelStepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3); // lc is our object 
+  steppers[steppersRegistered] = new MFStepper(pin1, pin2, pin3, pin4, btnPin1); // is our object 
   steppers[steppersRegistered]->setMaxSpeed(STEPPER_SPEED);
   steppers[steppersRegistered]->setAcceleration(STEPPER_ACCEL);
   registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper); registerPin(btnPin1, kTypeStepper);
@@ -720,6 +727,24 @@ void OnSetStepper()
   lastCommand = millis();
 }
 
+void OnResetStepper()
+{
+  int stepper    = cmdMessenger.readIntArg();
+  
+  if (stepper >= steppersRegistered) return;
+  steppers[stepper]->reset();
+  lastCommand = millis();
+}
+
+void OnSetZeroStepper()
+{
+  int stepper    = cmdMessenger.readIntArg();
+  
+  if (stepper >= steppersRegistered) return;
+  steppers[stepper]->setZero();
+  lastCommand = millis();
+}
+
 void OnSetServo()
 { 
   int servo    = cmdMessenger.readIntArg();
@@ -735,7 +760,8 @@ void OnSetServo()
 void updateSteppers()
 {
   for (int i=0; i!=steppersRegistered; i++) {
-    steppers[i]->run();
+    //steppers[i]->run();
+    steppers[i]->update();
   }
 }
 #endif

@@ -131,6 +131,7 @@ namespace MobiFlight
         {
             timer.Enabled = false;
             isExecuting = false;
+            mobiFlightCache.Stop();
         }
 
         public void AutoConnectStart()
@@ -681,6 +682,17 @@ namespace MobiFlight
                     //        cfg.BcdPins,
                     //        value);
                     //    break;
+
+                    case MobiFlight.MobiFlightStepper.TYPE:
+                        mobiFlightCache.setStepper(
+                            serial,
+                            cfg.StepperAddress,
+                            value,
+                            int.Parse(cfg.StepperInputRev),
+                            int.Parse(cfg.StepperOutputRev)
+                        );
+                        break;
+
                     case MobiFlight.MobiFlightServo.TYPE:
                         mobiFlightCache.setServo(
                             serial,
@@ -953,6 +965,10 @@ namespace MobiFlight
         {
             switch (cfg.DisplayType)
             {
+                case MobiFlightStepper.TYPE:
+                    executeDisplay((Int16.Parse(cfg.StepperInputRev)).ToString(), cfg);
+                    break;
+
                 case MobiFlightServo.TYPE:
                     executeDisplay(cfg.ServoMax, cfg);
                     break;

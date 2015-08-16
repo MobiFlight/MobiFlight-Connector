@@ -27,8 +27,9 @@ namespace MobiFlight.Panels
                 mfPin2ComboBox.Items.Add(i);
                 mfPin3ComboBox.Items.Add(i);
                 mfPin4ComboBox.Items.Add(i);
+                mfBtnPinComboBox.Items.Add(i);
             }
-            mfPin1ComboBox.SelectedIndex = mfPin2ComboBox.SelectedIndex = mfPin3ComboBox.SelectedIndex = mfPin4ComboBox.SelectedIndex = 0;
+            mfPin1ComboBox.SelectedIndex = mfPin2ComboBox.SelectedIndex = mfPin3ComboBox.SelectedIndex = mfPin4ComboBox.SelectedIndex = mfBtnPinComboBox.SelectedIndex = 0;
         }
 
         public MFStepperPanel(Config.Stepper stepper)
@@ -40,6 +41,8 @@ namespace MobiFlight.Panels
             ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, stepper.Pin2);
             ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, stepper.Pin3);
             ComboBoxHelper.SetSelectedItem(mfPin4ComboBox, stepper.Pin4);
+            ComboBoxHelper.SetSelectedItem(mfPin4ComboBox, stepper.Pin4);
+            ComboBoxHelper.SetSelectedItem(mfBtnPinComboBox, stepper.BtnPin);
             mfNameTextBox.Text = stepper.Name;
 
             initialized = true;
@@ -49,11 +52,12 @@ namespace MobiFlight.Panels
         {
             if (!initialized) return;
 
-            stepper.Pin1 = mfPin1ComboBox.Text;
-            stepper.Pin2 = mfPin2ComboBox.Text;
-            stepper.Pin3 = mfPin3ComboBox.Text;
-            stepper.Pin4 = mfPin4ComboBox.Text;
-            stepper.Name = mfNameTextBox.Text;
+            stepper.Pin1    = mfPin1ComboBox.Text;
+            stepper.Pin2    = mfPin2ComboBox.Text;
+            stepper.Pin3    = mfPin3ComboBox.Text;
+            stepper.Pin4    = mfPin4ComboBox.Text;
+            stepper.BtnPin  = mfBtnPinComboBox.Text;
+            stepper.Name    = mfNameTextBox.Text;
 
             if (Changed != null)
                 Changed(stepper, new EventArgs());

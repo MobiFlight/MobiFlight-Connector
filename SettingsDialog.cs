@@ -22,7 +22,7 @@ namespace MobiFlight
         MobiFlight.Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new MobiFlight.Forms.FirmwareUpdateProcess();
         public bool MFModuleConfigChanged { get; set; }
 
-        const bool StepperSupport = false;
+        const bool StepperSupport = true;
         const bool ServoSupport = true;
         bool IgnoreArcazeModuleSettingsChangeEvents = false;
 

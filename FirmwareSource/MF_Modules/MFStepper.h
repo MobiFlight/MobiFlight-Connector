@@ -31,6 +31,9 @@ public:
     void    moveTo(long absolute);
     void    setMaxSpeed(float speed);
     void    setAcceleration(float acceleration);
+    void    setZeroInReset();
+    void    setZero();
+    MFButton* getButton();
 
 private:
     bool          _initialized;
@@ -38,6 +41,5 @@ private:
     AccelStepper  _stepper;
     MFButton      _button;
     long          _targetPos;
-    void          handlerOnRelease(byte eventId, uint8_t pin, String name);
 };
 #endif 
