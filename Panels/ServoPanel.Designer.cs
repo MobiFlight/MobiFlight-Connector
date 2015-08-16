@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServoPanel));
             this.displayPinComoBoxLabel = new System.Windows.Forms.Label();
             this.minValueTextBox = new System.Windows.Forms.TextBox();
             this.maxValueTextBox = new System.Windows.Forms.TextBox();
@@ -42,88 +43,56 @@
             // 
             // displayPinComoBoxLabel
             // 
-            this.displayPinComoBoxLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinComoBoxLabel.Location = new System.Drawing.Point(6, 27);
+            resources.ApplyResources(this.displayPinComoBoxLabel, "displayPinComoBoxLabel");
             this.displayPinComoBoxLabel.Name = "displayPinComoBoxLabel";
-            this.displayPinComoBoxLabel.Size = new System.Drawing.Size(82, 13);
-            this.displayPinComoBoxLabel.TabIndex = 1;
-            this.displayPinComoBoxLabel.Text = "Min. value";
-            this.displayPinComoBoxLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // minValueTextBox
             // 
-            this.minValueTextBox.Location = new System.Drawing.Point(94, 24);
+            resources.ApplyResources(this.minValueTextBox, "minValueTextBox");
             this.minValueTextBox.Name = "minValueTextBox";
-            this.minValueTextBox.Size = new System.Drawing.Size(73, 20);
-            this.minValueTextBox.TabIndex = 2;
-            this.minValueTextBox.Text = "0";
             // 
             // maxValueTextBox
             // 
-            this.maxValueTextBox.Location = new System.Drawing.Point(94, 46);
+            resources.ApplyResources(this.maxValueTextBox, "maxValueTextBox");
             this.maxValueTextBox.Name = "maxValueTextBox";
-            this.maxValueTextBox.Size = new System.Drawing.Size(73, 20);
-            this.maxValueTextBox.TabIndex = 4;
-            this.maxValueTextBox.Text = "255";
             this.maxValueTextBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label1
             // 
-            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(6, 49);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Max. value";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(6, 4);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Servo";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // servoAddressesComboBox
             // 
             this.servoAddressesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.servoAddressesComboBox.FormattingEnabled = true;
             this.servoAddressesComboBox.Items.AddRange(new object[] {
-            "Pin",
-            "7-Segment",
-            "3BCD-8Bit-with-Strobe"});
-            this.servoAddressesComboBox.Location = new System.Drawing.Point(94, 0);
-            this.servoAddressesComboBox.MaximumSize = new System.Drawing.Size(122, 0);
-            this.servoAddressesComboBox.MinimumSize = new System.Drawing.Size(47, 0);
+            resources.GetString("servoAddressesComboBox.Items"),
+            resources.GetString("servoAddressesComboBox.Items1"),
+            resources.GetString("servoAddressesComboBox.Items2")});
+            resources.ApplyResources(this.servoAddressesComboBox, "servoAddressesComboBox");
             this.servoAddressesComboBox.Name = "servoAddressesComboBox";
-            this.servoAddressesComboBox.Size = new System.Drawing.Size(122, 21);
-            this.servoAddressesComboBox.TabIndex = 9;
             // 
             // label3
             // 
-            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(6, 70);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Max. rotation";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // maxRotationPercentNumericUpDown
             // 
-            this.maxRotationPercentNumericUpDown.Location = new System.Drawing.Point(94, 68);
+            resources.ApplyResources(this.maxRotationPercentNumericUpDown, "maxRotationPercentNumericUpDown");
             this.maxRotationPercentNumericUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.maxRotationPercentNumericUpDown.Name = "maxRotationPercentNumericUpDown";
-            this.maxRotationPercentNumericUpDown.Size = new System.Drawing.Size(53, 20);
-            this.maxRotationPercentNumericUpDown.TabIndex = 11;
             this.maxRotationPercentNumericUpDown.Value = new decimal(new int[] {
             100,
             0,
@@ -132,17 +101,12 @@
             // 
             // label4
             // 
-            this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label4.Location = new System.Drawing.Point(153, 70);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "%";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ServoPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label4);
             this.Controls.Add(this.maxRotationPercentNumericUpDown);
@@ -154,7 +118,6 @@
             this.Controls.Add(this.minValueTextBox);
             this.Controls.Add(this.displayPinComoBoxLabel);
             this.Name = "ServoPanel";
-            this.Size = new System.Drawing.Size(255, 93);
             ((System.ComponentModel.ISupportInitialize)(this.maxRotationPercentNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

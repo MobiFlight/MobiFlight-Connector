@@ -443,7 +443,7 @@ void PowerSaveLedSegment(bool state)
 void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
 {
   if (steppersRegistered == MAX_STEPPERS) return;
-  if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4) || isPinRegistered(btnPin1)) {
+  if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4) /* || isPinRegistered(btnPin1) */) {
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Conflict with stepper");
 #endif 
@@ -451,7 +451,7 @@ void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
   }
   
   // steppers[steppersRegistered] = new AccelStepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3); // lc is our object 
-  steppers[steppersRegistered] = new MFStepper(pin1, pin2, pin3, pin4, btnPin1); // is our object 
+  steppers[steppersRegistered] = new MFStepper(pin1, pin2, pin3, pin4 /*, btnPin1*/ ); // is our object 
   steppers[steppersRegistered]->setMaxSpeed(STEPPER_SPEED);
   steppers[steppersRegistered]->setAcceleration(STEPPER_ACCEL);
   registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper); registerPin(btnPin1, kTypeStepper);

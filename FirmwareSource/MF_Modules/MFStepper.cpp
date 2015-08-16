@@ -4,9 +4,9 @@
 
 #include "MFStepper.h"
 #include "MFButton.h"
-
+/*
 uint8_t MFStepper_stepperCount = 0;
-MFStepper* MFStepper_steppers[5];
+MFStepper* MFStepper_steppers[10];
 
 void addStepper(MFStepper *stepper) {
   MFStepper_steppers[MFStepper_stepperCount] = stepper;
@@ -26,13 +26,15 @@ void HandlerOnRelease(byte eventId, uint8_t pin, String name) {
     //  _stepper.setCurrentPosition(0);
     //}
 }
+*/
 
-MFStepper::MFStepper(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4, uint8_t btnPin5) : _stepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3), _button(btnPin5, "0")
+MFStepper::MFStepper(uint8_t pin1, uint8_t pin2, uint8_t pin3, uint8_t pin4 /*, uint8_t btnPin5*/) : _stepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3) /*, _button(btnPin5, "0") */
 {
     _resetting = false;
-    addStepper(this);
+    /* addStepper(this);
     _button.attachHandler(btnOnPress, HandlerOnRelease);
     _button.attachHandler(btnOnRelease, HandlerOnRelease);
+    */
 }
 
 void MFStepper::moveTo(long absolute)
@@ -61,7 +63,7 @@ void MFStepper::setZeroInReset()
 void MFStepper::update()
 {
     _stepper.run();
-    _button.update();
+    /* _button.update(); */
 }
 
 void MFStepper::reset()
@@ -83,7 +85,8 @@ void MFStepper::setMaxSpeed(float speed) {
 void MFStepper::setAcceleration(float acceleration){
     _stepper.setAcceleration(acceleration);
 }
-
+/*
 MFButton * MFStepper::getButton() {
     return &_button;
 }
+*/

@@ -389,6 +389,9 @@
     <Compile Include="WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
+    <None Include="firmware\mobiflight_mega_1_4_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />

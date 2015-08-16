@@ -52,6 +52,7 @@ namespace MobiFlight
         public string       StepperAddress              { get; set; }
         public string       StepperInputRev             { get; set; }
         public string       StepperOutputRev            { get; set; }
+        public string       StepperTestValue            { get; set; }
         // deprecated?
         public string       DisplayTrigger              { get; set; }
                 
@@ -219,10 +220,15 @@ namespace MobiFlight
                 if (reader["stepperInputRev"] != null && reader["stepperInputRev"] != "")
                 {
                     StepperInputRev = reader["stepperInputRev"];
+                    StepperTestValue = reader["stepperInputRev"];
                 }
                 if (reader["stepperOutputRev"] != null && reader["stepperOutputRev"] != "")
                 {
                     StepperOutputRev = reader["stepperOutputRev"];
+                }
+                if (reader["stepperTestValue"] != null && reader["stepperTestValue"] != "")
+                {
+                    StepperTestValue = reader["stepperTestValue"];
                 }
             }
             
@@ -316,6 +322,7 @@ namespace MobiFlight
                     writer.WriteAttributeString("stepperAddress", StepperAddress);
                     writer.WriteAttributeString("stepperInputRev", StepperInputRev);
                     writer.WriteAttributeString("stepperOutputRev", StepperOutputRev);
+                    writer.WriteAttributeString("stepperTestValue", StepperTestValue);
                 }
                 else
                 {
@@ -371,6 +378,7 @@ namespace MobiFlight
             clone.StepperAddress            = this.StepperAddress;
             clone.StepperInputRev           = this.StepperInputRev;
             clone.StepperOutputRev          = this.StepperOutputRev;
+            clone.StepperTestValue          = this.StepperTestValue;
 
             foreach (Precondition p in Preconditions)
             {

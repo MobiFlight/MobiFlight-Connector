@@ -332,7 +332,10 @@ namespace MobiFlight
                 MobiFlightModule module = Modules[serial];
                 int iValue;
                 if (!int.TryParse(value, out iValue)) return;
-
+                if (module.GetStepper(address).OutputRevolutionSteps != outputRevolutionSteps)
+                {
+                    module.GetStepper(address).OutputRevolutionSteps = outputRevolutionSteps;
+                }
                 module.SetStepper(address, iValue, inputRevolutionSteps);
             }
             catch (Exception e)

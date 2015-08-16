@@ -413,6 +413,7 @@ namespace MobiFlight
 
             if (config.StepperInputRev != null) stepperPanel.inputRevTextBox.Text = config.StepperInputRev;
             if (config.StepperOutputRev != null) stepperPanel.outputRevTextBox.Text = config.StepperOutputRev;
+            if (config.StepperTestValue != null) stepperPanel.stepperTestValueTextBox.Text = config.StepperTestValue;
 
             preconditionListTreeView.Nodes.Clear();
             foreach (Precondition p in config.Preconditions)
@@ -537,14 +538,21 @@ namespace MobiFlight
                     (displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox).Text);
             }
 
-            config.ServoAddress = servoPanel.servoAddressesComboBox.SelectedValue.ToString();
-            config.ServoMin = servoPanel.minValueTextBox.Text;
-            config.ServoMax = servoPanel.maxValueTextBox.Text;
-            config.ServoMaxRotationPercent = servoPanel.maxRotationPercentNumericUpDown.Text;
+            if (servoPanel.servoAddressesComboBox.SelectedValue != null)
+            {
+                config.ServoAddress = servoPanel.servoAddressesComboBox.SelectedValue.ToString();
+                config.ServoMin = servoPanel.minValueTextBox.Text;
+                config.ServoMax = servoPanel.maxValueTextBox.Text;
+                config.ServoMaxRotationPercent = servoPanel.maxRotationPercentNumericUpDown.Text;
+            }
 
-            config.StepperAddress = stepperPanel.stepperAddressesComboBox.SelectedValue.ToString();
-            config.StepperInputRev = stepperPanel.inputRevTextBox.Text;
-            config.StepperOutputRev = stepperPanel.outputRevTextBox.Text;
+            if (stepperPanel.stepperAddressesComboBox.SelectedValue != null)
+            {
+                config.StepperAddress = stepperPanel.stepperAddressesComboBox.SelectedValue.ToString();
+                config.StepperInputRev = stepperPanel.inputRevTextBox.Text;
+                config.StepperOutputRev = stepperPanel.outputRevTextBox.Text;
+                config.StepperTestValue = stepperPanel.stepperTestValueTextBox.Text;
+            }
             return true;
         }
 

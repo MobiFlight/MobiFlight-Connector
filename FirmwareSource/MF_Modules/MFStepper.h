@@ -25,7 +25,7 @@
 class MFStepper
 {
 public:
-    MFStepper(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t pin3 = 3, uint8_t pin4 = 4, uint8_t btnPin1 = 5);
+    MFStepper(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t pin3 = 3, uint8_t pin4 = 4 /*, uint8_t btnPin1 = 5 */);
     void    update();
     void    reset();
     void    moveTo(long absolute);
@@ -33,13 +33,13 @@ public:
     void    setAcceleration(float acceleration);
     void    setZeroInReset();
     void    setZero();
-    MFButton* getButton();
+    //MFButton* getButton();
 
 private:
     bool          _initialized;
     bool          _resetting;
     AccelStepper  _stepper;
-    MFButton      _button;
+    //MFButton      _button;
     long          _targetPos;
 };
 #endif 

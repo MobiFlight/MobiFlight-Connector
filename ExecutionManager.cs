@@ -966,7 +966,7 @@ namespace MobiFlight
             switch (cfg.DisplayType)
             {
                 case MobiFlightStepper.TYPE:
-                    executeDisplay((Int16.Parse(cfg.StepperInputRev)).ToString(), cfg);
+                    executeDisplay((Int16.Parse(cfg.StepperTestValue)).ToString(), cfg);
                     break;
 
                 case MobiFlightServo.TYPE:
