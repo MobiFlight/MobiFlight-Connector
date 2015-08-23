@@ -533,6 +533,16 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please verify your firmware settings!
+        ///You have to provide the path to a valid Arduino IDE installation (min 1.0.5). ähnelt.
+        /// </summary>
+        internal static string uiMessageFirmwareCheckPath {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareCheckPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die The Flight Simulator has been closed. Execution of config has been stopped. Restart your flight simulator to restart config. ähnelt.
         /// </summary>
         internal static string uiMessageFsHasBeenStopped {
@@ -684,6 +694,42 @@ namespace MobiFlight {
         internal static string uiMessageUpdateSuccessful {
             get {
                 return ResourceManager.GetString("uiMessageUpdateSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Do you really want to update your module with the current configuration? ähnelt.
+        /// </summary>
+        internal static string uiMessageUploadConfigurationConfirm {
+            get {
+                return ResourceManager.GetString("uiMessageUploadConfigurationConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Upload finished. ähnelt.
+        /// </summary>
+        internal static string uiMessageUploadConfigurationFinished {
+            get {
+                return ResourceManager.GetString("uiMessageUploadConfigurationFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Upload configuration ähnelt.
+        /// </summary>
+        internal static string uiMessageUploadConfigurationHint {
+            get {
+                return ResourceManager.GetString("uiMessageUploadConfigurationHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Your config is too long, make some labels shorter ähnelt.
+        /// </summary>
+        internal static string uiMessageUploadConfigurationTooLong {
+            get {
+                return ResourceManager.GetString("uiMessageUploadConfigurationTooLong", resourceCulture);
             }
         }
         

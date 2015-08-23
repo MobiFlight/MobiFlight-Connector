@@ -79,47 +79,33 @@ namespace MobiFlight
         private static List<Tuple<string, string>> getArduinoPorts()
         {
             List<Tuple<string, string>> result = new List<Tuple<string, string>>();
-            String[] arduinoVidPids = { 
-                MobiFlightModuleInfo.PIDVID_MICRO, // Micro
-                MobiFlightModuleInfo.PIDVID_MEGA,  // Mega
-                MobiFlightModuleInfo.PIDVID_MEGA_10,  // Mega
-                MobiFlightModuleInfo.PIDVID_MEGA_CLONE,  // Mega
-                MobiFlightModuleInfo.PIDVID_MEGA_CLONE_1,  // Mega
-                MobiFlightModuleInfo.PIDVID_MEGA_CLONE_2  // Mega
-            };
-            Regex regEx = new Regex( "^(" + string.Join("|", arduinoVidPids) + ")" );
-
+            
             RegistryKey regLocalMachine = Registry.LocalMachine;
             RegistryKey regUSB = regLocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Enum\\USB");
             foreach (String regDevice in regUSB.GetSubKeyNames())
             {
-                if (regEx.Match(regDevice).Success)
+                foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
                 {
-                    String VidPid = regEx.Match(regDevice).Value;
-                    foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
+                    String DeviceDesc = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("DeviceDesc") as String;
+                    if (DeviceDesc == null) continue;
+
+                    if (DeviceDesc.Contains("Arduino Mega 2560"))
                     {
-                        // we have found an existing entry 
-                        // let's check if it is currently connected#
-                        try
-                        {
-                            //String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
-                            String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
-                            if (portName != null)
-                                result.Add(new Tuple<string, string>(portName, VidPid));
-                        }
-                        catch (Exception e)
-                        {
-                            // not available therefore not connected
-                            String message = "Arduino device not connected -skipping: " + regDevice;
-                            Log.Instance.log(message, LogSeverity.Debug);
-                            continue;
-                        }
+                        String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
+                        if (portName != null)
+                            result.Add(new Tuple<string, string>(portName, "Arduino Mega 2560"));
                     }
-                }
-                else
-                {
-                    String message = "No arduino device -skipping: " + regDevice;
-                    Log.Instance.log(message, LogSeverity.Debug);
+                    else if (DeviceDesc.Contains("Pro Micro"))
+                    {
+                        String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
+                        if (portName != null)
+                            result.Add(new Tuple<string, string>(portName, "Pro Micro"));
+                    }
+                    else
+                    {
+                        String message = "No arduino device -skipping: " + regDevice;
+                        Log.Instance.log(message, LogSeverity.Debug);
+                    }
                 }
             }
             return result;
@@ -145,7 +131,7 @@ namespace MobiFlight
 
                 if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
                 {
-                    devInfo.SetTypeByVidPid(item.Item2);
+                    devInfo.SetTypeByName(item.Item2);
                 }
 
                 result.Add(devInfo);
@@ -289,6 +275,8 @@ namespace MobiFlight
             
             try
             {
+                if (!Modules.ContainsKey(serial)) return;
+
                 ArcazeLedDigit ledDigit = new ArcazeLedDigit();
                 foreach (string digit in digits)
                 {
@@ -298,7 +286,7 @@ namespace MobiFlight
                 foreach (string points in decimalPoints)
                 {
                     ledDigit.setDecimalPoint(ushort.Parse(points));
-                }        
+                }
 
                 MobiFlightModule module = Modules[serial];
                 module.SetDisplay(address, connector - 1, ledDigit.getDecimalPoints(), (byte)ledDigit.getMask(), value);
@@ -313,6 +301,8 @@ namespace MobiFlight
         {
             try
             {
+                if (!Modules.ContainsKey(serial)) return;
+
                 MobiFlightModule module = Modules[serial];
                 int iValue;
                 if (!int.TryParse(value, out iValue)) return;
@@ -329,6 +319,8 @@ namespace MobiFlight
         {
             try
             {
+                if (!Modules.ContainsKey(serial)) return;
+
                 MobiFlightModule module = Modules[serial];
                 int iValue;
                 if (!int.TryParse(value, out iValue)) return;
@@ -340,7 +332,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new ArcazeCommandExecutionException(MainForm._tr("ConfigErrorException_SettingServo"), e);
+                throw new ArcazeCommandExecutionException(MainForm._tr("ConfigErrorException_SettingStepper"), e);
             }
         }
 

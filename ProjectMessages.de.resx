@@ -332,4 +332,20 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   <data name="uiMessageMigrateConfigFileV60YesNo" xml:space="preserve">
     <value>Altes Format erkannt (&lt;6.0). Die Konfiguration muss konvertiert werden. Möchtest Du sie unter einem neuen Namen speichern?</value>
   </data>
+  <data name="uiMessageFirmwareCheckPath" xml:space="preserve">
+    <value>Bitte prüfe Deine Firmware-Flash-Einstellungen.
+Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value>
+  </data>
+  <data name="uiMessageUploadConfigurationConfirm" xml:space="preserve">
+    <value>Möchtest Du Dein Board wirklich mit der Config aktualisieren?</value>
+  </data>
+  <data name="uiMessageUploadConfigurationFinished" xml:space="preserve">
+    <value>Der Upload ist fertig!</value>
+  </data>
+  <data name="uiMessageUploadConfigurationHint" xml:space="preserve">
+    <value>Config Upload</value>
+  </data>
+  <data name="uiMessageUploadConfigurationTooLong" xml:space="preserve">
+    <value>Die Config ist zu lang, mach ein paar Geräte-Namen kürzer.</value>
+  </data>
 </root>

@@ -389,6 +389,9 @@
     <Compile Include="WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
+    <None Include="examples\example-default-plane-v6.1.mcc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_mega_1_4_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -404,6 +407,12 @@
     <EmbeddedResource Include="Panels\KeyboardInputPanel.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ServoPanel.de.resx">
+      <DependentUpon>ServoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\StepperPanel.de.resx">
+      <DependentUpon>StepperPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Panels\StepperPanel.resx">
       <DependentUpon>StepperPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -413,18 +422,10 @@
     <EmbeddedResource Include="WelcomeDialog.resx">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="examples\example-release-5.0.0.mcc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_mega_1_1_1.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_mega_1_2_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_mega_1_3_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="examples\example-release-5.0.0.mcc" />
+    <None Include="firmware\mobiflight_mega_1_1_1.hex" />
+    <None Include="firmware\mobiflight_mega_1_2_0.hex" />
+    <None Include="firmware\mobiflight_mega_1_3_0.hex" />
     <None Include="firmware\mobiflight_micro_1_1_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -220,6 +220,7 @@ namespace MobiFlight
                 NewNode.Text = MainForm._tr("none");
                 NewNode.SelectedImageKey = NewNode.ImageKey = "module-arduino";
                 mfModulesTreeView.Nodes.Add(NewNode);
+                mfModulesTreeView.Enabled = false;
             }
 
             firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
@@ -694,7 +695,9 @@ namespace MobiFlight
         /// <param name="e"></param>
         private void uploadToolStripButton_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Do you really want to update your module with the current configuration?", "Upload configuration", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            if (MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationConfirm"), 
+                                MainForm._tr("uiMessageUploadConfigurationHint"), 
+                                MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
             {
                 return;
             }
@@ -714,7 +717,9 @@ namespace MobiFlight
 
             String LogMessage = String.Join("", module.Config.ToInternal(module.MaxMessageSize).ToArray());
             if (LogMessage.Length > module.EepromSize) {
-                MessageBox.Show("Your config is too long, make some labels shorter", "Upload configuration", MessageBoxButtons.OK);
+                MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationTooLong"), 
+                                MainForm._tr("uiMessageUploadConfigurationHint"), 
+                                MessageBoxButtons.OK);
                 return;
             }
 
@@ -726,7 +731,9 @@ namespace MobiFlight
             parentNode.ImageKey = "";
             parentNode.SelectedImageKey = "";
 
-            MessageBox.Show("Upload finished.", "Upload configuration", MessageBoxButtons.OK);
+            MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationFinished"),
+                            MainForm._tr("uiMessageUploadConfigurationHint"),
+                            MessageBoxButtons.OK);
         }
 
         /// <summary>
@@ -810,7 +817,9 @@ namespace MobiFlight
         {
             if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(firmwareArduinoIdePathTextBox.Text))
             {
-                MessageBox.Show("Please verify your firmware settings!\nYou have to provide the path to a valid Arduino IDE installation (min 1.0.5).", MainForm._tr("Hint"), MessageBoxButtons.OK);
+                MessageBox.Show(
+                    MainForm._tr("uiMessageFirmwareCheckPath"),
+                    MainForm._tr("Hint"), MessageBoxButtons.OK);
                 return;
             }
 

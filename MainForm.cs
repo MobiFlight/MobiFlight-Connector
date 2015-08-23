@@ -410,7 +410,7 @@ namespace MobiFlight
         void timer_Stopped(object sender, EventArgs e)
         {
             runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
-            runTestToolStripButton.Enabled = !execManager.TestModeIsStarted();
+            runTestToolStripButton.Enabled = execManager.ModulesConnected() && !execManager.TestModeIsStarted();
             stopToolStripButton.Enabled = false;
             updateNotifyContextMenu(execManager.IsStarted());
         } //timer_Stopped

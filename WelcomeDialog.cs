@@ -20,5 +20,10 @@ namespace MobiFlight
         {
             DialogResult = DialogResult.OK;
         }
+
+        private void WelcomeDialog_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

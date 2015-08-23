@@ -91,7 +91,8 @@ namespace MobiFlight
                 _config = value;
             }
         }
-        
+
+        public const int CommandTimeout = 1500;
         public const byte MaxDeviceNameLength = 32;
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();
@@ -502,7 +503,7 @@ namespace MobiFlight
         {
             MobiFlightModuleInfo devInfo = new MobiFlightModuleInfo() { Name = "Unknown", Type = MobiFlightModuleInfo.TYPE_UNKNOWN, Port = _comPort };
 
-            var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, 1000);
+            var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
             var InfoCommand = _cmdMessenger.SendCommand(command);
             InfoCommand = _cmdMessenger.SendCommand(command);
             if (InfoCommand.Ok)
@@ -538,7 +539,7 @@ namespace MobiFlight
         public bool SaveConfig()
         {
             bool isOk = true;
-            var command = new SendCommand((int)MobiFlightModule.Command.ResetConfig, (int)MobiFlightModule.Command.Status, 1000);
+            var command = new SendCommand((int)MobiFlightModule.Command.ResetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
             _cmdMessenger.SendCommand(command);
 
             //foreach (MobiFlight.Config.BaseDevice dev in Config.Items)
@@ -546,7 +547,7 @@ namespace MobiFlight
             foreach (string MessagePart in this.Config.ToInternal(this.MaxMessageSize))
             {
                 Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
-                command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, 1000);
+                command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
                 command.AddArgument(MessagePart);
                 ReceivedCommand StatusCommand = this._cmdMessenger.SendCommand(command);
                 if (!StatusCommand.Ok)
@@ -562,12 +563,12 @@ namespace MobiFlight
             
             if (isOk)
             {
-                command = new SendCommand((int)MobiFlightModule.Command.SaveConfig, (int)MobiFlightModule.Command.ConfigSaved, 1000);
+                command = new SendCommand((int)MobiFlightModule.Command.SaveConfig, (int)MobiFlightModule.Command.ConfigSaved, CommandTimeout);
                 ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
 
                 if (StatusCommand.Ok)
                 {
-                    command = new SendCommand((int)MobiFlightModule.Command.ActivateConfig, (int)MobiFlightModule.Command.ConfigActivated, 1000);
+                    command = new SendCommand((int)MobiFlightModule.Command.ActivateConfig, (int)MobiFlightModule.Command.ConfigActivated, CommandTimeout);
                     StatusCommand = _cmdMessenger.SendCommand(command);
                     isOk = StatusCommand.Ok;
                 }
@@ -695,7 +696,7 @@ namespace MobiFlight
             {
                 throw new FirmwareVersionTooLowException(minVersion, currentVersion);
             }
-            SendCommand command = new SendCommand((int)MobiFlightModule.Command.GenNewSerial, (int)MobiFlightModule.Command.Status, 1000);
+            SendCommand command = new SendCommand((int)MobiFlightModule.Command.GenNewSerial, (int)MobiFlightModule.Command.Status, CommandTimeout);
             ReceivedCommand StatusCommand = this._cmdMessenger.SendCommand(command);
             return StatusCommand.Ok;
         }

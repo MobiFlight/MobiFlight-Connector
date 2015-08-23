@@ -12,13 +12,7 @@ namespace MobiFlight
         public const String TYPE_ARDUINO_MEGA = "Arduino Mega 2560";
         public const String TYPE_MICRO = "MobiFlight Micro";
         public const String TYPE_MEGA = "MobiFlight Mega";
-        public const String PIDVID_MICRO        = "VID_1B4F&PID_9206"; // Micro
-        public const String PIDVID_MEGA         = "VID_2341&PID_0042";  // Mega
-        public const String PIDVID_MEGA_10      = "VID_2341&PID_0010";  // Mega
-        public const String PIDVID_MEGA_CLONE   = "VID_8087&PID_0024";  // MegaVID_8087&PID_0024
-        public const String PIDVID_MEGA_CLONE_1 = "VID_1A86&PID_7523";  // MegaVID_1A86&PID_7523
-        public const String PIDVID_MEGA_CLONE_2 = "VID_2A03&PID_0042";  // http://www.mobiflight.de/forum/message/983.html
-                
+                        
         public const int MESSAGE_MAX_SIZE_MICRO = 64;
         public const int MESSAGE_MAX_SIZE_MEGA = 64;
         public const int EEPROM_SIZE_MICRO = 512;
@@ -42,25 +36,20 @@ namespace MobiFlight
             return (Type == TYPE_MICRO) || (Type == TYPE_MEGA);
         }
 
-        public void SetTypeByVidPid(String PidVid)
+        public void SetTypeByName(String FriendlyName)
         {
-            switch (PidVid)
+            Name = Type = TYPE_UNKNOWN;
+
+            if (FriendlyName.Contains("Pro Micro"))
             {
-                case PIDVID_MEGA_CLONE_2:
-                case PIDVID_MEGA_CLONE_1:
-                case PIDVID_MEGA_CLONE:
-                case PIDVID_MEGA_10:
-                case PIDVID_MEGA:
-                    Name = TYPE_ARDUINO_MEGA;
-                    Type = TYPE_ARDUINO_MEGA;
-                    break;
-                case PIDVID_MICRO:
-                    Name = TYPE_ARDUINO_MICRO;
-                    Type = TYPE_ARDUINO_MICRO;
-                    break;
-                default:
-                    Type = TYPE_UNKNOWN;
-                    break;
+                Name = TYPE_ARDUINO_MICRO;
+                Type = TYPE_ARDUINO_MICRO;
+            }
+
+            if (FriendlyName.Contains("Mega 2560"))
+            {
+                Name = TYPE_ARDUINO_MEGA;
+                Type = TYPE_ARDUINO_MEGA;
             }
         }
     }

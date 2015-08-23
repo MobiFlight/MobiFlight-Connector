@@ -341,4 +341,20 @@ You should configure them now.</value>
   <data name="uiMessageMigrateConfigFileV60YesNo" xml:space="preserve">
     <value>Old config format (&lt; 6.0) found. The config file has to be converted to work correctly. Do you want to use a new filename?</value>
   </data>
+  <data name="uiMessageFirmwareCheckPath" xml:space="preserve">
+    <value>Please verify your firmware settings!
+You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</value>
+  </data>
+  <data name="uiMessageUploadConfigurationConfirm" xml:space="preserve">
+    <value>Do you really want to update your module with the current configuration?</value>
+  </data>
+  <data name="uiMessageUploadConfigurationFinished" xml:space="preserve">
+    <value>Upload finished.</value>
+  </data>
+  <data name="uiMessageUploadConfigurationHint" xml:space="preserve">
+    <value>Upload configuration</value>
+  </data>
+  <data name="uiMessageUploadConfigurationTooLong" xml:space="preserve">
+    <value>Your config is too long, make some labels shorter</value>
+  </data>
 </root>
