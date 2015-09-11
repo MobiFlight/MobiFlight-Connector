@@ -82,6 +82,10 @@ namespace MobiFlight
             
             RegistryKey regLocalMachine = Registry.LocalMachine;
             RegistryKey regUSB = regLocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Enum\\USB");
+
+            String[] arduinoVidPids = MobiFlightModuleInfo.VIDPID_MICRO.Concat(MobiFlightModuleInfo.VIDPID_MEGA).ToArray();
+            Regex regEx = new Regex("^(" + string.Join("|", arduinoVidPids) + ")");
+
             foreach (String regDevice in regUSB.GetSubKeyNames())
             {
                 foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
@@ -89,24 +93,40 @@ namespace MobiFlight
                     String DeviceDesc = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("DeviceDesc") as String;
                     if (DeviceDesc == null) continue;
 
+                    // determine type based on names
                     if (DeviceDesc.Contains("Arduino Mega 2560"))
                     {
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                         if (portName != null)
                             result.Add(new Tuple<string, string>(portName, "Arduino Mega 2560"));
+                        continue;
                     }
                     else if (DeviceDesc.Contains("Pro Micro"))
                     {
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                         if (portName != null)
                             result.Add(new Tuple<string, string>(portName, "Pro Micro"));
+                        continue;
                     }
-                    else
+                    // determine type based on Vid Pid combination
+                    else if (regEx.Match(regDevice).Success)
                     {
-                        String message = "No arduino device -skipping: " + regDevice;
-                        Log.Instance.log(message, LogSeverity.Debug);
+                        String VidPid = regEx.Match(regDevice).Value;
+                        try
+                        {
+                            //String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
+                            String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
+                            if (portName != null)
+                                result.Add(new Tuple<string, string>(portName, VidPid));
+                            continue;
+                        }
+                        catch (Exception e) {
+                        }
                     }
                 }
+                
+                String message = "No arduino device -skipping: " + regDevice;
+                Log.Instance.log(message, LogSeverity.Debug);
             }
             return result;
         }
@@ -132,6 +152,11 @@ namespace MobiFlight
                 if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
                 {
                     devInfo.SetTypeByName(item.Item2);
+                }
+
+                if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
+                {
+                    devInfo.SetTypeByVidPid(item.Item2);
                 }
 
                 result.Add(devInfo);

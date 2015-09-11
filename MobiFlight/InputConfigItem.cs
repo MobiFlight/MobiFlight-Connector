@@ -54,8 +54,11 @@ namespace MobiFlight
                     if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
                     break;
             }
-                        
-            reader.Read(); // this should be the preconditions tag
+
+            if (reader.LocalName != "preconditions")            
+                reader.Read(); // this should be the preconditions tag
+            if (reader.LocalName != "preconditions")
+                reader.Read(); // this should be the preconditions tag
             if (reader.LocalName == "preconditions")
             {
                 bool atPosition = false;

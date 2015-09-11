@@ -24,7 +24,7 @@
     <active>true</active>
     <description>Autopilot - Heading</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07CC" size="4" mask="0xFFFF" multiplier="0,0054931640625" bcdMode="False" />
+      <source type="FSUIPC" offset="0x07CC" size="4" mask="0xFFFFFFFF" multiplier="0,0054931640625" bcdMode="False" />
       <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="0,1,2" />
       
@@ -54,7 +54,7 @@
     <active>true</active>
     <description>Flaps</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BE0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0BE0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="normal" pin="B01" />
     </settings>
@@ -358,7 +358,7 @@
     <active>true</active>
     <description>Landing Gear - Nose (Extended)</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B05" />
       
@@ -368,7 +368,7 @@
     <active>true</active>
     <description>Landing Gear - Nose (moving)</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B02" />
       
@@ -378,7 +378,7 @@
     <active>true</active>
     <description>Landing Gear - Left (moving)</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B03" />
       
@@ -388,7 +388,7 @@
     <active>true</active>
     <description>Landing Gear - Right (moving)</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B01" />
       
@@ -398,7 +398,7 @@
     <active>true</active>
     <description>Landing Gear - Left (extracted)</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B06" />
       
@@ -408,7 +408,7 @@
     <active>true</active>
     <description>Landing Gear - Right (extracted)</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
       <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
       <display type="Pin" trigger="rising" pin="B04" />
       

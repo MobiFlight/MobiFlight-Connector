@@ -139,8 +139,9 @@
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>185, 6</value>
   </data>
-  <data name="groupBoxDisplaySettings.Text" xml:space="preserve">
-    <value>Display settings</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="preconditionPinValueLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
   </data>
   <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 138</value>
@@ -156,6 +157,9 @@
   </data>
   <data name="compareSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>314, 114</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialLabel.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
   </data>
   <data name="fsuipcTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 46</value>
@@ -173,9 +177,11 @@
   <data name="comparisonHintTtextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="displayModuleNameComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
+  </data>
+  <data name="compareSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 265</value>
   </data>
   <data name="fsuipcPresetUseButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>265, 20</value>
@@ -186,8 +192,8 @@
   <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="&gt;&gt;aNDToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="fsuipcOffsetTypeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
   <data name="&gt;&gt;preconditionListTreeView.Parent" xml:space="preserve">
     <value>preconditionListgroupBox</value>
@@ -195,14 +201,14 @@
   <data name="preconditionSettingsGroupBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>0, 130</value>
   </data>
-  <data name="&gt;&gt;displayPinTestButton.Parent" xml:space="preserve">
-    <value>testSettingsGroupBox</value>
+  <data name="&gt;&gt;displayTabTextBox.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
   </data>
   <data name="preconditionListTreeView.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
   </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
+  <data name="&gt;&gt;compareTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
   </data>
   <data name="&gt;&gt;compareSpacerPanel.Parent" xml:space="preserve">
     <value>compareTabPage</value>
@@ -264,6 +270,9 @@
   <data name="&gt;&gt;preconditionTabTextBox.Name" xml:space="preserve">
     <value>preconditionTabTextBox</value>
   </data>
+  <data name="fsuipcTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>108, 18</value>
+  </data>
   <data name="preconditionApplyButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
@@ -273,8 +282,8 @@
   <data name="preConditionTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>106, 20</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="fsuipcPresetComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 21</value>
   </data>
   <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Name" xml:space="preserve">
     <value>fsuipcLoadPresetGroupBox</value>
@@ -282,14 +291,17 @@
   <data name="fsuipcMoreOptionsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>314, 74</value>
   </data>
+  <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 47</value>
+  </data>
   <data name="&gt;&gt;preconditionPinPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="fsuipcMultiplyTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>113, 45</value>
   </data>
-  <data name="&gt;&gt;preconditionTypeLabel.Name" xml:space="preserve">
-    <value>preconditionTypeLabel</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 13</value>
   </data>
   <data name="preconditionSelectGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -315,8 +327,8 @@
   <data name="comparisonSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;tabControlFsuipc.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;ButtonPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="displayTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
@@ -327,8 +339,8 @@
   <data name="preconditionPinComboBox.Items3" xml:space="preserve">
     <value>&lt;=</value>
   </data>
-  <data name="fsuipcTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 18</value>
+  <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
   </data>
   <data name="preconditionConfigRefOperandLabel.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -339,14 +351,8 @@
   <data name="labelFsuipcPreset.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 13</value>
   </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
   <data name="displayModuleNameComboBox.Items1" xml:space="preserve">
     <value>Modul B</value>
-  </data>
-  <data name="preconditionPortComboBox.Items" xml:space="preserve">
-    <value>=</value>
   </data>
   <data name="&gt;&gt;testSettingsGroupBox.Name" xml:space="preserve">
     <value>testSettingsGroupBox</value>
@@ -381,7 +387,7 @@
   <data name="&gt;&gt;displayTabTextBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;ButtonPanel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="&gt;&gt;preconditionTreeContextMenuStrip.Name" xml:space="preserve">
@@ -399,17 +405,14 @@
   <data name="&gt;&gt;groupBoxDisplaySettings.Name" xml:space="preserve">
     <value>groupBoxDisplaySettings</value>
   </data>
-  <data name="&gt;&gt;addPreconditionToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="fsuipcBaseSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="&gt;&gt;comparisonValueTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="fsuipcPresetComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 21</value>
+  <data name="&gt;&gt;presetDataTable.Name" xml:space="preserve">
+    <value>presetDataTable</value>
   </data>
   <data name="displayTypeComboBox.Items1" xml:space="preserve">
     <value>Display Module</value>
@@ -486,6 +489,9 @@
   <data name="displayPinTestButton.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
   </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 27</value>
+  </data>
   <data name="&gt;&gt;fsuipcTabPage.Parent" xml:space="preserve">
     <value>tabControlFsuipc</value>
   </data>
@@ -494,6 +500,9 @@
   </data>
   <data name="&gt;&gt;fsuipcSpacerPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
   </data>
   <data name="comparisonOperandComboBox.Items4" xml:space="preserve">
     <value>&lt;</value>
@@ -549,11 +558,11 @@
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;preconditionTabTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;preConditionTypeComboBox.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;preConditionTypeComboBox.Parent" xml:space="preserve">
     <value>preconditionSelectGroupBox</value>
@@ -590,6 +599,9 @@
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;label11.Name" xml:space="preserve">
     <value>label11</value>
@@ -633,8 +645,11 @@
   <data name="preconditionPinComboBox.Items5" xml:space="preserve">
     <value>!=</value>
   </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.Parent" xml:space="preserve">
-    <value>preconditionSettingsPanel</value>
+  <data name="&gt;&gt;preconditionTabTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fsuipcHintTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 32</value>
   </data>
   <data name="&gt;&gt;preconditionRefOperandComboBox.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -660,14 +675,17 @@
   <data name="&gt;&gt;comparisonSettingsGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="fsuipcTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="comparisonActiveCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -705,6 +723,9 @@
   <data name="preconditionRefOperandComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 21</value>
   </data>
+  <data name="preconditionPinComboBox.Items2" xml:space="preserve">
+    <value>&gt;=</value>
+  </data>
   <data name="&gt;&gt;preconditionListTreeView.Name" xml:space="preserve">
     <value>preconditionListTreeView</value>
   </data>
@@ -738,9 +759,6 @@
   <data name="button1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Right</value>
   </data>
-  <data name="&gt;&gt;preconditonPinLabel.Name" xml:space="preserve">
-    <value>preconditonPinLabel</value>
-  </data>
   <data name="compareTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
@@ -750,17 +768,43 @@
   <data name="fsuipcHintTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="&gt;&gt;preconditionPinPanel.Name" xml:space="preserve">
     <value>preconditionPinPanel</value>
+  </data>
+  <data name="fsuipcHintTextBox.Text" xml:space="preserve">
+    <value>Define the necessary FSUIPC information. Use an existing preset for common values.</value>
   </data>
   <data name="&gt;&gt;preconditionSettingsPanel.Parent" xml:space="preserve">
     <value>preconditionTabPage</value>
   </data>
-  <data name="preconditionPinComboBox.Items2" xml:space="preserve">
-    <value>&gt;=</value>
+  <data name="labelFsuipcPreset.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="preconditionListTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQsAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wCWNoaWxkcmVuMQEBAQAAAQABAAQEAQgICB1TeXN0ZW0uV2luZG93cy5G
+        b3Jtcy5UcmVlTm9kZQIAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYDAAAA
+        B0tub3RlbjMGBAAAAAAJAwAAAAD/////CQQAAAD/////CQQAAAACAAAACQcAAAAJCAAAAAUHAAAAHVN5
+        c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCQAAAARUZXh0C1Rvb2xUaXBUZXh0BE5hbWUJSXNDaGVj
+        a2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUluZGV4EFNlbGVjdGVkSW1hZ2VLZXkK
+        Q2hpbGRDb3VudAEBAQAAAQABAAEICAgCAAAABgkAAAAHS25vdGVuNAkEAAAACQkAAAAA/////wkEAAAA
+        /////wkEAAAAAAAAAAUIAAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCgAAAARUZXh0C1Rv
+        b2xUaXBUZXh0BE5hbWUJSXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUlu
+        ZGV4EFNlbGVjdGVkSW1hZ2VLZXkKQ2hpbGRDb3VudAljaGlsZHJlbjABAQEAAAEAAQAEAQgICB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQIAAAACAAAABg0AAAAHS25vdGVuNQkEAAAACQ0AAAAA////
+        /wkEAAAA/////wkEAAAAAQAAAAkRAAAABREAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUK
+        AAAABFRleHQLVG9vbFRpcFRleHQETmFtZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFnZUtleRJTZWxl
+        Y3RlZEltYWdlSW5kZXgQU2VsZWN0ZWRJbWFnZUtleQpDaGlsZENvdW50CWNoaWxkcmVuMAEBAQAAAQAB
+        AAQBCAgIHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlAgAAAAIAAAAGEgAAAAdLbm90ZW42CQQA
+        AAAJEgAAAAD/////CQQAAAD/////CQQAAAABAAAACRYAAAAFFgAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jt
+        cy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CElt
+        YWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEA
+        AQABCAgIAgAAAAYXAAAAB0tub3RlbjcJBAAAAAkXAAAAAP////8JBAAAAP////8JBAAAAAAAAAAL
+</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>ConfigWizard</value>
@@ -813,14 +857,11 @@
   <data name="&gt;&gt;addGroupToolStripMenuItem.Name" xml:space="preserve">
     <value>addGroupToolStripMenuItem</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 13</value>
-  </data>
   <data name="&gt;&gt;groupBoxDisplaySettings.Parent" xml:space="preserve">
     <value>displayTabPage</value>
   </data>
-  <data name="displayTypeGroupBox.Text" xml:space="preserve">
-    <value>Display type</value>
+  <data name="testSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
   <data name="preconditionConfigComboBox.Items" xml:space="preserve">
     <value>Config Rule</value>
@@ -828,8 +869,8 @@
   <data name="&gt;&gt;preconditionSettingsGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="preconditionPinValueLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+  <data name="fsuipcMaskTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>113, 19</value>
   </data>
   <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>308, 111</value>
@@ -843,8 +884,8 @@
   <data name="&gt;&gt;fsuipcMultiplyTextBox.Name" xml:space="preserve">
     <value>fsuipcMultiplyTextBox</value>
   </data>
-  <data name="fsuipcOffsetTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
+  <data name="preconditionRefValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 20</value>
   </data>
   <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 38</value>
@@ -861,8 +902,8 @@
   <data name="addPreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>188, 22</value>
   </data>
-  <data name="&gt;&gt;comparisonSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="preconditionTabTextBox.Text" xml:space="preserve">
+    <value>Define a precondition for this rule. Only if the precondition is true the current config will apply. This is useful, ex. for a multi-radio.</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Mask value with</value>
@@ -885,17 +926,14 @@
   <data name="&gt;&gt;preconditionTabPage.Name" xml:space="preserve">
     <value>preconditionTabPage</value>
   </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="&gt;&gt;preconditionTreeImageList.Name" xml:space="preserve">
     <value>preconditionTreeImageList</value>
   </data>
   <data name="comparisonElseValueTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
-  </data>
-  <data name="&gt;&gt;removeGroupToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonActiveCheckBox.Name" xml:space="preserve">
-    <value>comparisonActiveCheckBox</value>
   </data>
   <data name="preconditionPinComboBox.Items4" xml:space="preserve">
     <value>&lt;</value>
@@ -915,9 +953,6 @@
   <data name="&gt;&gt;preconditionSettingsGroupBox.Name" xml:space="preserve">
     <value>preconditionSettingsGroupBox</value>
   </data>
-  <data name="&gt;&gt;preconditionApplyButton.Name" xml:space="preserve">
-    <value>preconditionApplyButton</value>
-  </data>
   <data name="&gt;&gt;preconditionSelectGroupBox.Name" xml:space="preserve">
     <value>preconditionSelectGroupBox</value>
   </data>
@@ -927,8 +962,8 @@
   <data name="&gt;&gt;displayTypeGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>preconditionRuleConfigPanel</value>
+  <data name="&gt;&gt;comparisonActiveCheckBox.Name" xml:space="preserve">
+    <value>comparisonActiveCheckBox</value>
   </data>
   <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -939,9 +974,6 @@
   <data name="arcazeSerialLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="fsuipcBaseSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 93</value>
-  </data>
   <data name="displayTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>12, 12, 12, 12</value>
   </data>
@@ -950,6 +982,9 @@
   </data>
   <data name="fsuipcBcdModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 17</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
     <value>fsuipcBaseSettingsGroupBox</value>
@@ -962,9 +997,6 @@
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="preconditionRefValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 20</value>
   </data>
   <data name="maskEditorButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>190, 17</value>
@@ -1026,8 +1058,8 @@
   <data name="&gt;&gt;preconditionPinComboBox.Parent" xml:space="preserve">
     <value>preconditionPinPanel</value>
   </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 27</value>
+  <data name="&gt;&gt;preconditonPinLabel.Name" xml:space="preserve">
+    <value>preconditonPinLabel</value>
   </data>
   <data name="maskEditorButton.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1050,11 +1082,11 @@
   <data name="displayPinTestStopButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="testSettingsGroupBox.Text" xml:space="preserve">
-    <value>Test current settings</value>
+  <data name="&gt;&gt;tabControlFsuipc.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="fsuipcBcdModeCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;MainPanel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1070,9 +1102,6 @@
   </data>
   <data name="preconditionPinValueLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 13</value>
-  </data>
-  <data name="preconditionListTreeView.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="fsuipcSizeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -1104,6 +1133,9 @@
   <data name="&gt;&gt;fsuipcPresetUseButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
   <data name="comparisonOperandComboBox.Items1" xml:space="preserve">
     <value>&gt;</value>
   </data>
@@ -1128,6 +1160,9 @@
   <data name="displayPinTestStopButton.Text" xml:space="preserve">
     <value>Stop</value>
   </data>
+  <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
   <data name="&gt;&gt;preconditionPinPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -1136,9 +1171,6 @@
   </data>
   <data name="preconditionSelectGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
-  </data>
-  <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
   </data>
   <data name="&gt;&gt;aNDToolStripMenuItem.Name" xml:space="preserve">
     <value>aNDToolStripMenuItem</value>
@@ -1149,8 +1181,8 @@
   <data name="&gt;&gt;displayPinTestStopButton.Name" xml:space="preserve">
     <value>displayPinTestStopButton</value>
   </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;comparisonSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="comparisonElseValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>170, 75</value>
@@ -1182,9 +1214,6 @@
   <data name="preconditionRuleConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
   </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>set it to</value>
-  </data>
   <data name="&gt;&gt;preconditionSelectGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1206,20 +1235,17 @@
   <data name="preconditionTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fsuipcMaskTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 19</value>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 13</value>
   </data>
   <data name="fsuipcPresetUseButton.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
   </data>
   <data name="toolStripSeparator1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -1236,6 +1262,9 @@
   <data name="displayPinTestStopButton.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
+  <data name="&gt;&gt;fsuipcMaskTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;addGroupToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1244,9 +1273,6 @@
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
-  </data>
-  <data name="preconditionSpacerPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
   </data>
   <data name="preconditonPinLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1266,6 +1292,9 @@
   <data name="preConditionTypeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;displayPinTestButton.Parent" xml:space="preserve">
+    <value>testSettingsGroupBox</value>
+  </data>
   <data name="preConditionTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 21</value>
   </data>
@@ -1277,9 +1306,6 @@
   </data>
   <data name="comparisonSettingsGroupBox.Text" xml:space="preserve">
     <value>Comparison Settings</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
   </data>
   <data name="&gt;&gt;label6.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1323,6 +1349,9 @@
   <data name="fsuipcPresetComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 21</value>
   </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ConfigWizard</value>
+  </data>
   <data name="groupBoxDisplaySettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 114</value>
   </data>
@@ -1344,14 +1373,11 @@
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;testSettingsGroupBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
+  <data name="maskEditorButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="preconditionPinSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 13</value>
-  </data>
-  <data name="displayPinTestStopButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;preconditionPinValueComboBox.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1365,8 +1391,8 @@
   <data name="&gt;&gt;preconditionPortComboBox.Name" xml:space="preserve">
     <value>preconditionPortComboBox</value>
   </data>
-  <data name="fsuipcOffsetTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 21</value>
+  <data name="&gt;&gt;fsuipcMultiplyTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;label3.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1385,6 +1411,9 @@
   </data>
   <data name="&gt;&gt;MainPanel.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="testSettingsGroupBox.Text" xml:space="preserve">
+    <value>Test current settings</value>
   </data>
   <data name="displayTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>31, 48</value>
@@ -1407,14 +1436,14 @@
   <data name="preConditionTypeComboBox.Items1" xml:space="preserve">
     <value>Config Rule</value>
   </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
   <data name="&gt;&gt;labelFsuipcPreset.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;preconditionPinValueLabel.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.Name" xml:space="preserve">
-    <value>ButtonPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcTypeLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1440,6 +1469,9 @@
   <data name="removePreconditionToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove Precondition</value>
   </data>
+  <data name="preconditionPinValueComboBox.Items1" xml:space="preserve">
+    <value>Off</value>
+  </data>
   <data name="arcazeSerialLabel.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
   </data>
@@ -1458,9 +1490,6 @@
   <data name="&gt;&gt;fsuipcMultiplyTextBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 13</value>
-  </data>
   <data name="&gt;&gt;compareTabPage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1469,6 +1498,9 @@
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
+  </data>
+  <data name="fsuipcOffsetTypeComboBox.Items1" xml:space="preserve">
+    <value>Float</value>
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>OK</value>
@@ -1479,7 +1511,7 @@
   <data name="fsuipcTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>6, 6, 6, 6</value>
   </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.ZOrder" xml:space="preserve">
+  <data name="preconditionListTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="displayTypeComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
@@ -1507,20 +1539,6 @@
   <data name="&gt;&gt;preconditionPinValueComboBox.Parent" xml:space="preserve">
     <value>preconditionPinPanel</value>
   </data>
-  <data name="preconditionListTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQoAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQJY2hpbGRyZW4wAQEBAAABAAEABAEICAgdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5v
-        ZGUCAAAAAgAAAAYDAAAADlByZWNvbmRpdGlvbiBJBgQAAAAABgUAAAAHS25vdGVuMAH/////CQQAAAD/
-        ////CQQAAAABAAAACQcAAAAFBwAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4
-        dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1h
-        Z2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYIAAAAB0tu
-        b3RlbjIJBAAAAAkIAAAAAP////8JBAAAAP////8JBAAAAAAAAAAL
-</value>
-  </data>
   <data name="preconditionPinValueComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 21</value>
   </data>
@@ -1536,9 +1554,6 @@
   <data name="cancelButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Right</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
-  </data>
   <data name="&gt;&gt;label8.Name" xml:space="preserve">
     <value>label8</value>
   </data>
@@ -1551,8 +1566,8 @@
   <data name="&gt;&gt;displayPinTestButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;fsuipcHintTextBox.Name" xml:space="preserve">
+    <value>fsuipcHintTextBox</value>
   </data>
   <data name="displayPinTestButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -1563,8 +1578,8 @@
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>167, 47</value>
   </data>
-  <data name="labelFsuipcPreset.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
+  <data name="preconditionConfigComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
   </data>
   <data name="preconditionTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -1590,29 +1605,23 @@
   <data name="&gt;&gt;preconditionPinSerialComboBox.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="preconditionPinValueComboBox.Items1" xml:space="preserve">
-    <value>Off</value>
+  <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
   </data>
   <data name="&gt;&gt;maskEditorButton.Name" xml:space="preserve">
     <value>maskEditorButton</value>
   </data>
-  <data name="&gt;&gt;description.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
     <value>comparisonSettingsPanel</value>
   </data>
-  <data name="preconditionListTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="preconditionRefOperandComboBox.Items" xml:space="preserve">
+    <value>=</value>
   </data>
   <data name="preconditonPinLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Parent" xml:space="preserve">
     <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="preconditonPinLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 13</value>
@@ -1638,9 +1647,6 @@
   <data name="&gt;&gt;preconditionPinSerialComboBox.Name" xml:space="preserve">
     <value>preconditionPinSerialComboBox</value>
   </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;preconditionConfigRefOperandLabel.Name" xml:space="preserve">
     <value>preconditionConfigRefOperandLabel</value>
   </data>
@@ -1659,11 +1665,14 @@
   <data name="addPreconditionToolStripMenuItem.Text" xml:space="preserve">
     <value>Add Precondition</value>
   </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.Name" xml:space="preserve">
-    <value>preconditionSettingsPanel</value>
-  </data>
   <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 344</value>
+  </data>
+  <data name="preconditionPortComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 43</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Parent" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcPresetUseButton.Parent" xml:space="preserve">
     <value>fsuipcLoadPresetGroupBox</value>
@@ -1671,11 +1680,11 @@
   <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
+  <data name="fsuipcOffsetTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 21</value>
+  </data>
   <data name="&gt;&gt;comparisonElseValueTextBox.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
   </data>
   <data name="displayTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 21</value>
@@ -1689,17 +1698,11 @@
   <data name="preconditonPinLabel.Text" xml:space="preserve">
     <value>Pin</value>
   </data>
-  <data name="preconditionTabTextBox.Text" xml:space="preserve">
-    <value>Define a precondition for this rule. Only if the precondition is true the current config will apply. This is useful, ex. for a multi-radio.</value>
-  </data>
   <data name="&gt;&gt;preconditionTreeContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMaskTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
   </data>
   <data name="fsuipcBcdModeCheckBox.Text" xml:space="preserve">
     <value>BCD Mode</value>
@@ -1728,6 +1731,9 @@
   <data name="&gt;&gt;comparisonHintTtextBox.Parent" xml:space="preserve">
     <value>compareTabPage</value>
   </data>
+  <data name="fsuipcTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="fsuipcMaskTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 20</value>
   </data>
@@ -1749,14 +1755,14 @@
   <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;presetDataTable.Name" xml:space="preserve">
-    <value>presetDataTable</value>
-  </data>
-  <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 47</value>
+  <data name="&gt;&gt;preconditionPinValueLabel.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
   </data>
   <data name="&gt;&gt;MainPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBoxLabel.Name" xml:space="preserve">
+    <value>displayTypeComboBoxLabel</value>
   </data>
   <data name="&gt;&gt;displayTypeComboBox.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -1764,14 +1770,8 @@
   <data name="&gt;&gt;presetsDataSet.Type" xml:space="preserve">
     <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 32</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
+  <data name="fsuipcTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;comparisonHintTtextBox.Name" xml:space="preserve">
     <value>comparisonHintTtextBox</value>
@@ -1788,11 +1788,11 @@
   <data name="&gt;&gt;fsuipcTypeLabel.Name" xml:space="preserve">
     <value>fsuipcTypeLabel</value>
   </data>
-  <data name="&gt;&gt;ButtonPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="groupBoxDisplaySettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 43</value>
   </data>
   <data name="displayTypeComboBox.Items2" xml:space="preserve">
     <value>BCD4056</value>
@@ -1800,11 +1800,14 @@
   <data name="&gt;&gt;displayTypeComboBox.Name" xml:space="preserve">
     <value>displayTypeComboBox</value>
   </data>
+  <data name="&gt;&gt;fsuipcPresetComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;fsuipcHintTextBox.Name" xml:space="preserve">
-    <value>fsuipcHintTextBox</value>
+  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="preconditionApplyButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>117, 177</value>
@@ -1842,6 +1845,9 @@
   <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
     <value>presetsDataSet</value>
   </data>
+  <data name="compareSpacerPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
   <data name="&gt;&gt;preconditionTabPage.Parent" xml:space="preserve">
     <value>tabControlFsuipc</value>
   </data>
@@ -1854,14 +1860,14 @@
   <data name="fsuipcSpacerPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
+  <data name="preconditionRefValueTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
   <data name="&gt;&gt;comparisonIfValueTextBox.Parent" xml:space="preserve">
     <value>comparisonSettingsPanel</value>
   </data>
   <data name="displayPinTestStopButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
-  </data>
-  <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>334, 411</value>
   </data>
   <data name="&gt;&gt;fsuipcOffsetTextBox.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -2037,14 +2043,17 @@
   <data name="preconditionListgroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="&gt;&gt;displayPinTestStopButton.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="fsuipcOffsetTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
   </data>
   <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
   <data name="preconditionConfigRefOperandLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 13</value>
+  </data>
+  <data name="groupBoxDisplaySettings.Text" xml:space="preserve">
+    <value>Display settings</value>
   </data>
   <data name="displayTabTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2055,11 +2064,22 @@
   <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="preconditionRefOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 43</value>
+  <data name="&gt;&gt;addPreconditionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="maskEditorButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="preconditionListTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQoAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wAQEBAAABAAEABAEICAgdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5v
+        ZGUCAAAAAgAAAAYDAAAADlByZWNvbmRpdGlvbiBJBgQAAAAABgUAAAAHS25vdGVuMAH/////CQQAAAD/
+        ////CQQAAAABAAAACQcAAAAFBwAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4
+        dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1h
+        Z2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYIAAAAB0tu
+        b3RlbjIJBAAAAAkIAAAAAP////8JBAAAAP////8JBAAAAAAAAAAL
+</value>
   </data>
   <data name="oRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 22</value>
@@ -2127,32 +2147,6 @@
   <data name="preconditionPinSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="preconditionListTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQsAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQJY2hpbGRyZW4wCWNoaWxkcmVuMQEBAQAAAQABAAQEAQgICB1TeXN0ZW0uV2luZG93cy5G
-        b3Jtcy5UcmVlTm9kZQIAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYDAAAA
-        B0tub3RlbjMGBAAAAAAJAwAAAAD/////CQQAAAD/////CQQAAAACAAAACQcAAAAJCAAAAAUHAAAAHVN5
-        c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCQAAAARUZXh0C1Rvb2xUaXBUZXh0BE5hbWUJSXNDaGVj
-        a2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUluZGV4EFNlbGVjdGVkSW1hZ2VLZXkK
-        Q2hpbGRDb3VudAEBAQAAAQABAAEICAgCAAAABgkAAAAHS25vdGVuNAkEAAAACQkAAAAA/////wkEAAAA
-        /////wkEAAAAAAAAAAUIAAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCgAAAARUZXh0C1Rv
-        b2xUaXBUZXh0BE5hbWUJSXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUlu
-        ZGV4EFNlbGVjdGVkSW1hZ2VLZXkKQ2hpbGRDb3VudAljaGlsZHJlbjABAQEAAAEAAQAEAQgICB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQIAAAACAAAABg0AAAAHS25vdGVuNQkEAAAACQ0AAAAA////
-        /wkEAAAA/////wkEAAAAAQAAAAkRAAAABREAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUK
-        AAAABFRleHQLVG9vbFRpcFRleHQETmFtZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFnZUtleRJTZWxl
-        Y3RlZEltYWdlSW5kZXgQU2VsZWN0ZWRJbWFnZUtleQpDaGlsZENvdW50CWNoaWxkcmVuMAEBAQAAAQAB
-        AAQBCAgIHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlAgAAAAIAAAAGEgAAAAdLbm90ZW42CQQA
-        AAAJEgAAAAD/////CQQAAAD/////CQQAAAABAAAACRYAAAAFFgAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jt
-        cy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CElt
-        YWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEA
-        AQABCAgIAgAAAAYXAAAAB0tub3RlbjcJBAAAAAkXAAAAAP////8JBAAAAP////8JBAAAAAAAAAAL
-</value>
-  </data>
   <data name="displayTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -2162,17 +2156,17 @@
   <data name="&gt;&gt;comparisonValueTextBox.Parent" xml:space="preserve">
     <value>comparisonSettingsPanel</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
   </data>
   <data name="fsuipcMoreOptionsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 170</value>
   </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Name" xml:space="preserve">
     <value>fsuipcOffsetTypeComboBox</value>
+  </data>
+  <data name="preconditionApplyButton.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
   </data>
   <data name="preconditionPinValueComboBox.Items" xml:space="preserve">
     <value>On</value>
@@ -2180,8 +2174,8 @@
   <data name="&gt;&gt;testSettingsGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
+  <data name="preconditionListTreeView.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
     <value>Precondition type</value>
@@ -2189,8 +2183,8 @@
   <data name="preconditionPortComboBox.Items5" xml:space="preserve">
     <value>!=</value>
   </data>
-  <data name="preconditionRefOperandComboBox.Items" xml:space="preserve">
-    <value>=</value>
+  <data name="&gt;&gt;ButtonPanel.Name" xml:space="preserve">
+    <value>ButtonPanel</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -2216,14 +2210,17 @@
   <data name="displayTypeComboBoxLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="preconditionTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;arcazeSerialLabel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
   </data>
   <data name="comparisonOperandComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
+  </data>
+  <data name="preconditionTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="&gt;&gt;description.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="fsuipcMoreOptionsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -2233,9 +2230,6 @@
   </data>
   <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="preconditionConfigComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -2249,11 +2243,11 @@
   <data name="&gt;&gt;preconditionPinComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 13</value>
   </data>
-  <data name="comparisonIfValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+  <data name="&gt;&gt;preconditionSettingsPanel.Name" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
   </data>
   <data name="displayTabTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -2270,14 +2264,11 @@
   <data name="preconditionTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 13</value>
   </data>
-  <data name="testSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
   <data name="&gt;&gt;label2.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;preconditionListTreeView.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="preconditionApplyButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="preconditionRefOperandComboBox.Items5" xml:space="preserve">
     <value>!=</value>
@@ -2294,14 +2285,14 @@
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="compareSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 265</value>
+  <data name="&gt;&gt;aNDToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
   </data>
-  <data name="compareSpacerPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+  <data name="&gt;&gt;fsuipcOffsetTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2318,8 +2309,11 @@
   <data name="&gt;&gt;fsuipcOffsetTypeComboBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="fsuipcOffsetTypeComboBox.Items1" xml:space="preserve">
-    <value>Float</value>
+  <data name="&gt;&gt;testSettingsGroupBox.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>set it to</value>
   </data>
   <data name="&gt;&gt;preconditionRefValueTextBox.Parent" xml:space="preserve">
     <value>preconditionRuleConfigPanel</value>
@@ -2357,14 +2351,14 @@
   <data name="&gt;&gt;maskEditorButton.Parent" xml:space="preserve">
     <value>fsuipcMoreOptionsGroupBox</value>
   </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
+  <data name="preconditionSpacerPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
   </data>
   <data name="MainPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="preconditionApplyButton.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+  <data name="fsuipcBaseSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 93</value>
   </data>
   <data name="displayModuleNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 21</value>
@@ -2375,14 +2369,17 @@
   <data name="&gt;&gt;compareSpacerPanel.Name" xml:space="preserve">
     <value>compareSpacerPanel</value>
   </data>
-  <data name="fsuipcHintTextBox.Text" xml:space="preserve">
-    <value>Define the necessary FSUIPC information. Use an existing preset for common values.</value>
+  <data name="&gt;&gt;preconditionTypeLabel.Name" xml:space="preserve">
+    <value>preconditionTypeLabel</value>
   </data>
-  <data name="preconditionRuleConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;preconditionListgroupBox.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="fsuipcOffsetTextBox.Text" xml:space="preserve">
+    <value>0xAAAA</value>
   </data>
   <data name="&gt;&gt;preconditionSelectGroupBox.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -2402,11 +2399,11 @@
   <data name="&gt;&gt;fsuipcBcdModeCheckBox.Name" xml:space="preserve">
     <value>fsuipcBcdModeCheckBox</value>
   </data>
-  <data name="preconditionPortComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 43</value>
+  <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 32</value>
   </data>
-  <data name="fsuipcTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;preconditionApplyButton.Name" xml:space="preserve">
+    <value>preconditionApplyButton</value>
   </data>
   <data name="preconditionPinSerialComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>103, 16</value>
@@ -2414,27 +2411,93 @@
   <data name="preconditionTypeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
   <data name="&gt;&gt;preconditionRefOperandComboBox.Parent" xml:space="preserve">
     <value>preconditionRuleConfigPanel</value>
   </data>
   <data name="comparisonHintTtextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
   </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;removeGroupToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 13</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="fsuipcSizeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>249, 45</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetUseButton.Name" xml:space="preserve">
+    <value>fsuipcPresetUseButton</value>
+  </data>
+  <data name="fsuipcOffsetTypeComboBox.Items" xml:space="preserve">
+    <value>Int</value>
+  </data>
+  <data name="displayTypeGroupBox.Text" xml:space="preserve">
+    <value>Display type</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetComboBox.Parent" xml:space="preserve">
+    <value>fsuipcLoadPresetGroupBox</value>
+  </data>
+  <data name="displayPinTestStopButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>161, 12</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="comparisonSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="preconditionPinComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 43</value>
+  </data>
+  <data name="logicSelectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="displayTypeComboBoxLabel.Text" xml:space="preserve">
+    <value>Use type of</value>
+  </data>
+  <data name="preconditionApplyButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 13</value>
+  </data>
+  <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>334, 411</value>
+  </data>
+  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;compareTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.Text" xml:space="preserve">
+    <value>If current value is</value>
+  </data>
+  <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="preconditionPinSerialComboBox.Items" xml:space="preserve">
+    <value>Config Rule</value>
+  </data>
+  <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>314, 33</value>
+  </data>
+  <data name="comparisonValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="preconditionTreeImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADM
-        CwAAAk1TRnQBSQFMAgEBAgEAARABAQEUAQEBEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
+        CwAAAk1TRnQBSQFMAgEBAgEAARABAQEYAQEBEAEAARABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
@@ -2487,72 +2550,6 @@
         AYABAQGAAQEEAAGAAQEBgAEBBAAE/xoACw==
 </value>
   </data>
-  <data name="fsuipcSizeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>249, 45</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Name" xml:space="preserve">
-    <value>fsuipcPresetUseButton</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Items" xml:space="preserve">
-    <value>Int</value>
-  </data>
-  <data name="&gt;&gt;displayTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="displayPinTestStopButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 12</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="comparisonSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="preconditionPinComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>153, 43</value>
-  </data>
-  <data name="logicSelectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Text" xml:space="preserve">
-    <value>Use type of</value>
-  </data>
-  <data name="preconditionApplyButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 13</value>
-  </data>
-  <data name="comparisonOperandComboBox.Items3" xml:space="preserve">
-    <value>&lt;=</value>
-  </data>
-  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="&gt;&gt;compareTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.Text" xml:space="preserve">
-    <value>If current value is</value>
-  </data>
-  <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="preconditionPinSerialComboBox.Items" xml:space="preserve">
-    <value>Config Rule</value>
-  </data>
-  <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 33</value>
-  </data>
-  <data name="comparisonValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
   </data>
@@ -2564,9 +2561,6 @@
   </data>
   <data name="comparisonValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>171, 24</value>
-  </data>
-  <data name="arcazeSerialLabel.Text" xml:space="preserve">
-    <value>Module</value>
   </data>
   <data name="&gt;&gt;displayPinTestButton.Name" xml:space="preserve">
     <value>displayPinTestButton</value>
@@ -2583,17 +2577,23 @@
   <data name="preconditionApplyButton.Text" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="&gt;&gt;displayPinTestStopButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;groupBoxDisplaySettings.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="preconditionApplyButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="arcazeSerialLabel.Text" xml:space="preserve">
+    <value>Module</value>
   </data>
   <data name="&gt;&gt;label11.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="preconditionRefValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+  <data name="&gt;&gt;fsuipcPresetUseButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="displayPinTestStopButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="preconditionPortComboBox.Items1" xml:space="preserve">
     <value>&gt;</value>
@@ -2601,11 +2601,14 @@
   <data name="&gt;&gt;fsuipcSizeComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="comparisonOperandComboBox.Items3" xml:space="preserve">
+    <value>&lt;=</value>
+  </data>
   <data name="&gt;&gt;description.Name" xml:space="preserve">
     <value>description</value>
   </data>
-  <data name="fsuipcOffsetTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+  <data name="preconditionRuleConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -2622,14 +2625,14 @@
   <data name="&gt;&gt;comparisonActiveCheckBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="fsuipcHintTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>314, 32</value>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;preconditonPinLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;preconditionListTreeView.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="preconditionPinValueLabel.Text" xml:space="preserve">
     <value>If current state is</value>
@@ -2637,14 +2640,11 @@
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>259, 0</value>
   </data>
-  <data name="&gt;&gt;compareTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="fsuipcOffsetTextBox.Text" xml:space="preserve">
-    <value>0xAAAA</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
+  <data name="fsuipcBcdModeCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
   <data name="&gt;&gt;preconditionConfigRefOperandLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2661,8 +2661,8 @@
   <data name="&gt;&gt;displayPinTestButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;displayTypeComboBoxLabel.Name" xml:space="preserve">
-    <value>displayTypeComboBoxLabel</value>
+  <data name="preconditionPortComboBox.Items" xml:space="preserve">
+    <value>=</value>
   </data>
   <data name="&gt;&gt;testSettingsGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2691,17 +2691,14 @@
   <data name="comparisonSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 36</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ConfigWizard</value>
+  <data name="comparisonIfValueTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
   </data>
   <data name="&gt;&gt;comparisonSettingsPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="presetsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>de</value>
   </metadata>
   <metadata name="preconditionTreeContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>150, 17</value>

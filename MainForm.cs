@@ -160,7 +160,14 @@ namespace MobiFlight
         private void CheckForUpdate(bool force, bool silent = false)
         {
             AutoUpdater.LetUserSelectRemindLater = true;
-            AutoUpdater.Start("http://www.mobiflight.de/tl_files/download/releases/mobiflightconnector.xml", force, silent);
+            if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
+
+            String trackingParams = "?cache=" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
+            trackingParams = "";
+
+            AutoUpdater.Start("http://www.mobiflight.de/tl_files/download/releases/mobiflightconnector.xml" + trackingParams, 
+                               force, 
+                               silent);
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)

@@ -191,5 +191,17 @@ namespace MobiFlight.Properties {
                 this["UpgradeRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string CacheId {
+            get {
+                return ((string)(this["CacheId"]));
+            }
+            set {
+                this["CacheId"] = value;
+            }
+        }
     }
 }

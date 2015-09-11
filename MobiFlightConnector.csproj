@@ -383,6 +383,7 @@
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\SourceCacheInterface.cs" />
+    <Compile Include="UsageDetails.cs" />
     <Compile Include="WelcomeDialog.cs">
       <SubType>Form</SubType>
     </Compile>

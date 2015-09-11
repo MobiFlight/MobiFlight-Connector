@@ -51,13 +51,12 @@ namespace MobiFlight.InputConfig
                     case "FsuipcOffsetInputAction":
                         onLeft = new FsuipcOffsetInputAction();
                         onLeft.ReadXml(reader);
-                        reader.Read(); // this should be the closing tag "onPress"
+                        reader.ReadStartElement(); // this should be the closing tag "onPress"
                         break;
 
                     case "KeyInputAction":
                         onLeft = new KeyInputAction();
                         onLeft.ReadXml(reader);
-                        reader.Read(); // this should be the closing tag "onPress"
                         break;
                 }
             }
@@ -70,13 +69,12 @@ namespace MobiFlight.InputConfig
                     case "FsuipcOffsetInputAction":
                         onLeftFast = new FsuipcOffsetInputAction();
                         onLeftFast.ReadXml(reader);
-                        reader.Read(); // this should be the closing tag "onPress"
+                        reader.ReadStartElement(); // this should be the closing tag "onPress"
                         break;
 
                     case "KeyInputAction":
                         onLeftFast = new KeyInputAction();
                         onLeftFast.ReadXml(reader);
-                        reader.Read(); // this should be the closing tag "onPress"
                         break;
                 }
             }
@@ -95,7 +93,6 @@ namespace MobiFlight.InputConfig
                     case "KeyInputAction":
                         onRight = new KeyInputAction();
                         onRight.ReadXml(reader);
-                        reader.ReadStartElement();
                         break;
                 }
             }
@@ -114,7 +111,6 @@ namespace MobiFlight.InputConfig
                     case "KeyInputAction":
                         onRightFast = new KeyInputAction();
                         onRightFast.ReadXml(reader);
-                        reader.ReadStartElement();
                         break;
                 }
             }

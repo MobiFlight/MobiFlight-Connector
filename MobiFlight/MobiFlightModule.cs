@@ -73,7 +73,7 @@ namespace MobiFlight
             get {                    
                     if (_config==null) {
                         if (!Connected) return null;
-                        var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, 2000);
+                        var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
                         var InfoCommand = _cmdMessenger.SendCommand(command);
                         InfoCommand = _cmdMessenger.SendCommand(command);
                         if (InfoCommand.Ok)
@@ -92,7 +92,7 @@ namespace MobiFlight
             }
         }
 
-        public const int CommandTimeout = 1500;
+        public const int CommandTimeout = 1000;
         public const byte MaxDeviceNameLength = 32;
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();

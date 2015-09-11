@@ -219,6 +219,18 @@ namespace MobiFlight
             preconditionConfigComboBox.DataSource = dv;
             preconditionConfigComboBox.ValueMember = "guid";
             preconditionConfigComboBox.DisplayMember = "description";
+
+            if (preconditionConfigComboBox.Items.Count == 0)
+            {
+                List<ListItem> preconTypes = new List<ListItem>() {
+                new ListItem() { Value = "none",    Label = MainForm._tr("LabelPrecondition_None") },
+                new ListItem() { Value = "pin",     Label = MainForm._tr("LabelPrecondition_ArcazePin") }
+                };
+                preConditionTypeComboBox.DataSource = preconTypes;
+                preConditionTypeComboBox.DisplayMember = "Label";
+                preConditionTypeComboBox.ValueMember = "Value";
+                preConditionTypeComboBox.SelectedIndex = 0;
+            }
         }
 
         /// <summary>
@@ -422,8 +434,16 @@ namespace MobiFlight
                 tmpNode.Text = p.ToString();
                 tmpNode.Tag = p;
                 tmpNode.Checked = p.PreconditionActive;
-                _updateNodeWithPrecondition(tmpNode, p);
-                preconditionListTreeView.Nodes.Add(tmpNode);   
+                try
+                {
+                    _updateNodeWithPrecondition(tmpNode, p);
+                    preconditionListTreeView.Nodes.Add(tmpNode);
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    Log.Instance.log("An orphaned precondition has been found", LogSeverity.Error);
+                    continue;
+                }                
             }
 
             if (preconditionListTreeView.Nodes.Count == 0)
@@ -1267,6 +1287,7 @@ namespace MobiFlight
                 if (_dataSetConfig != null)
                 {
                     DataRow[] rows = _dataSetConfig.Tables["config"].Select("guid = '" + p.PreconditionRef + "'");
+                    if (rows.Count() == 0) throw new IndexOutOfRangeException(); // an orphaned entry has been found
                     replaceString = rows[0]["description"] as String;
                 }
                 label = label.Replace("<Ref:" + p.PreconditionRef  + ">", replaceString);
