@@ -17,6 +17,9 @@ namespace MobiFlight.InputConfig
         {
             KeyInputAction clone = new KeyInputAction();
             clone.Key = Key;
+            clone.Alt = Alt;
+            clone.Shift = Shift;
+
             return clone;
         }
 
