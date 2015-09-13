@@ -54,6 +54,7 @@ namespace MobiFlight
 
         public MainForm()
         {
+            // System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             InitializeComponent();
             UpgradeSettingsFromPreviousInstallation();
 
@@ -163,7 +164,7 @@ namespace MobiFlight
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
 
             String trackingParams = "?cache=" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
-            trackingParams = "";
+            // trackingParams = "";
 
             AutoUpdater.Start("http://www.mobiflight.de/tl_files/download/releases/mobiflightconnector.xml" + trackingParams, 
                                force, 

@@ -189,6 +189,11 @@ namespace MobiFlight.Panels.Group
 
         internal void syncFromConfig(MobiFlight.InputConfig.FsuipcOffsetInputAction config)
         {
+            if (config == null)
+            {
+                // this happens when casting badly
+                return;
+            }
             // first tab                        
             fsuipcOffsetTextBox.Text = "0x" + config.FSUIPCOffset.ToString("X4");
 

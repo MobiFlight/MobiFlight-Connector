@@ -49,7 +49,6 @@ namespace MobiFlight.InputConfig
                     case "KeyInputAction":
                         onPress = new KeyInputAction();
                         onPress.ReadXml(reader);
-                        reader.Read(); // this should be the closing tag "onPress"
                         break;
                 }
             }
