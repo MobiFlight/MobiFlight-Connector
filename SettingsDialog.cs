@@ -945,7 +945,10 @@ namespace MobiFlight
         {
             TextBox tb = (sender as TextBox);
 
-            if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(tb.Text))
+            MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
+            
+            if (mobiflightCache.getConnectedModules().Count > 0 && 
+                !MobiFlightFirmwareUpdater.IsValidArduinoIdePath(tb.Text))
             {
                 displayError(tb, "Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.");
             }

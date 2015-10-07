@@ -92,7 +92,7 @@ namespace MobiFlight
             }
         }
 
-        public const int CommandTimeout = 1000;
+        public const int CommandTimeout = 1500;
         public const byte MaxDeviceNameLength = 32;
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();

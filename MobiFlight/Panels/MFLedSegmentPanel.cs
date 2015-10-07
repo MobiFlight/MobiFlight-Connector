@@ -22,7 +22,7 @@ namespace MobiFlight.Panels
         {
             InitializeComponent();
             if (Parent != null) mfIntensityTrackBar.BackColor = Parent.BackColor;
-            for (int i = 0; i != 56; i++)
+            foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
             {
                 mfPin1ComboBox.Items.Add(i);
                 mfPin2ComboBox.Items.Add(i);

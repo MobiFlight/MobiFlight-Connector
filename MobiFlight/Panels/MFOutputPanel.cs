@@ -22,7 +22,7 @@ namespace MobiFlight.Panels
         public MFOutputPanel()
         {
             InitializeComponent();
-            for (int i = 0; i != 56; i++)
+            foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
             {
                 mfPinComboBox.Items.Add(i);
             }
