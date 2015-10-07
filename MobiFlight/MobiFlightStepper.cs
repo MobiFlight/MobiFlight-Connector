@@ -49,7 +49,11 @@ namespace MobiFlight
 
         public void MoveToPosition(int value, bool direction)
         {
-            int mappedValue = Convert.ToInt32( Math.Ceiling ((value / (double) InputRevolutionSteps) * OutputRevolutionSteps));
+            int mappedValue = 0;
+            if ((double)InputRevolutionSteps != 0)
+            {
+                mappedValue = Convert.ToInt32(Math.Ceiling((value / (double)InputRevolutionSteps) * OutputRevolutionSteps));
+            }
             int currentSpeed = 100;
             
             int delta = mappedValue - lastValue;            

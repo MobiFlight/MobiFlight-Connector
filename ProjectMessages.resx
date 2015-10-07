@@ -357,4 +357,10 @@ You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</v
   <data name="uiMessageUploadConfigurationTooLong" xml:space="preserve">
     <value>Your config is too long, make some labels shorter</value>
   </data>
+  <data name="uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0" xml:space="preserve">
+    <value>The value must be a number and greater than 0.</value>
+  </data>
+  <data name="uiMessagePanelsStepperInputRevolutionsMustNonEmpty" xml:space="preserve">
+    <value>The value must not be empty.</value>
+  </data>
 </root>

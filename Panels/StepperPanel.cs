@@ -16,7 +16,7 @@ namespace MobiFlight.Panels
         public event EventHandler<ManualCalibrationTriggeredEventArgs> OnManualCalibrationTriggered;
         public event EventHandler OnSetZeroTriggered;
         int[] StepValues = { -50, -10, -1, 1, 10, 50 };
-
+        ErrorProvider errorProvider = new ErrorProvider();
 
         public StepperPanel()
         {
@@ -66,6 +66,55 @@ namespace MobiFlight.Panels
             {
                 OnSetZeroTriggered(sender, e);
             }
+        }
+
+        private void inputRevTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            String value = (sender as TextBox).Text.Trim();
+
+            if (value == "") e.Cancel = true;
+            if (e.Cancel)
+            {
+                displayError(sender as Control, MainForm._tr("uiMessagePanelsStepperInputRevolutionsMustNonEmpty"));
+                return;
+            }
+            else
+            {
+                removeError(sender as Control);
+            }
+
+            try
+            {
+                e.Cancel = !(Int16.Parse(value) > 0);
+            }
+            catch (Exception ex)
+            {
+                e.Cancel = true;
+            }
+            if (e.Cancel)
+            {
+                displayError(sender as Control, MainForm._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
+                return;
+            }
+            else
+            {
+                removeError(sender as Control);
+            }
+        }
+
+        private void displayError(Control control, String message)
+        {
+            errorProvider.SetError(
+                    control,
+                    message);
+            MessageBox.Show(message, MainForm._tr("Hint"));
+        }
+
+        private void removeError(Control control)
+        {
+            errorProvider.SetError(
+                    control,
+                    "");
         }
     }
 

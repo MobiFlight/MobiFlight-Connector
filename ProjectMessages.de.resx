@@ -348,4 +348,10 @@ Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value
   <data name="uiMessageUploadConfigurationTooLong" xml:space="preserve">
     <value>Die Config ist zu lang, mach ein paar Geräte-Namen kürzer.</value>
   </data>
+  <data name="uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0" xml:space="preserve">
+    <value>Der Wert muss eine Zahl sein und größer als 0.</value>
+  </data>
+  <data name="uiMessagePanelsStepperInputRevolutionsMustNonEmpty" xml:space="preserve">
+    <value>Der Wert darf nicht leer sein.</value>
+  </data>
 </root>

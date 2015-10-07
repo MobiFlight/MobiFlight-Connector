@@ -11,3 +11,4 @@ D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\b
 D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\obj\Release\de\AutoUpdater.NET.resources.dll
 D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\obj\Release\AutoUpdater.NET.dll
 D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\obj\Release\AutoUpdater.NET.csprojResolveAssemblyReference.cache
+D:\Projekte\MobiFlightFC\AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\bin\Release\AutoUpdater.NET.XML
