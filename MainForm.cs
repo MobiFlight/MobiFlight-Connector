@@ -363,6 +363,26 @@ namespace MobiFlight
         /// </summary>        
         void fsuipcCache_Connected(object sender, EventArgs e)
         {
+            Fsuipc2Cache c = sender as Fsuipc2Cache;
+            switch (c.FlightSimConnectionMethod)
+            {
+                case FlightSimConnectionMethod.OFFLINE:
+                    fsuipcToolStripStatusLabel.Text = "Offline" + "Status:";
+                    break;
+
+                case FlightSimConnectionMethod.XPUIPC:
+                    fsuipcToolStripStatusLabel.Text = "XPUIPC" + "Status:";
+                    break;
+
+                case FlightSimConnectionMethod.WIDECLIENT:
+                    fsuipcToolStripStatusLabel.Text = "WideClient" + "Status:";
+                    break;
+
+                default:
+                    fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
+                    break;
+            }
+            
             fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;            
         }
 
@@ -383,7 +403,7 @@ namespace MobiFlight
         /// </summary>
         void fsuipcCache_ConnectionLost(object sender, EventArgs e)
         {
-            if (!_fsRunning())
+            if (!execManager.SimAvailable())
             {
                 _showError(_tr("uiMessageFsHasBeenStopped"));
             } else {
@@ -436,6 +456,7 @@ namespace MobiFlight
         } //timer_Tick()
 
         // TODO: refactor!!!
+        /*
         private bool _fsRunning()
         {
             string proc = "fs9";
@@ -487,6 +508,7 @@ namespace MobiFlight
 
             return false;
         }
+        */
 
         /// <summary>
         /// gathers infos about the connected modules and stores information in different objects

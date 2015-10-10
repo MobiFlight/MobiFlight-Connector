@@ -27,7 +27,8 @@ namespace MobiFlight
         Dictionary<Int32, Offset<Double>> __cacheDouble = new Dictionary<Int32, Offset<Double>>();
         Dictionary<Int32, Offset<String>> __cacheString = new Dictionary<Int32, Offset<String>>();
         FlightSim[] _supportedFlightSims = new FlightSim[] { FlightSim.Any, FlightSim.FS2K4, FlightSim.FSX };
-
+        public FlightSimConnectionMethod FlightSimConnectionMethod = FlightSimConnectionMethod.NONE;
+        
         bool _offsetsRegistered = false;
         bool _connected = false;
         bool __isProcessed = false;
@@ -49,34 +50,51 @@ namespace MobiFlight
             // check for fs2004 / fs9
             if (Process.GetProcessesByName(proc).Length > 0)
             {
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
                 return true;
             }
             proc = "fsx";
             // check for fsx
             if (Process.GetProcessesByName(proc).Length > 0)
             {
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
+                return true;
+            }
+            proc = "wideclient";
+            // check for FSUIPC wide client
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                //fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.WIDECLIENT;
                 return true;
             }
             // check for prepar3d
             proc = "prepar3d";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
                 return true;
             }
             // check for x-plane and xuipc
             proc = "x-plane";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
                 return true;
             }
 
             proc = "x-plane-32bit";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
                 return true;
             }
 
-            if (OfflineMode) return true;
+            if (OfflineMode)
+            {
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.OFFLINE;
+                return true;
+            }
 
             return false;
         }
@@ -436,5 +454,14 @@ namespace MobiFlight
         {
             FSUIPCConnection.Process();
         }
+    }
+
+    public enum FlightSimConnectionMethod {
+        NONE,
+        UNKNOWN,        
+        FSUIPC,
+        WIDECLIENT,
+        XPUIPC,
+        OFFLINE
     }
 }

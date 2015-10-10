@@ -73,11 +73,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>mobiflight.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <NoWin32Manifest>true</NoWin32Manifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-Mobiflight\</OutputPath>
@@ -104,6 +102,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ArcazeHid, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
@@ -399,6 +400,8 @@
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />
+    <Content Include="avatar_mobisupport_nwe_7wP_icon.ico" />
+    <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />

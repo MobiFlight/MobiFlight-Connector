@@ -263,7 +263,16 @@ namespace MobiFlight
                     continue;
                 }
 
-                executeDisplay(strValue, cfg);
+                try
+                {
+                    executeDisplay(strValue, cfg);
+                }
+                catch (Exception exc)
+                {
+                    String RowDescription = ((row.Cells["description"]).Value as String);
+                    Exception resultExc = new ConfigErrorException(RowDescription + ". " + exc.Message, exc);
+                    throw resultExc;
+                }
             }
             isExecuting = false;
         }
@@ -852,7 +861,7 @@ namespace MobiFlight
             _autoConnectTimerRunning = false;
         } //autoConnectTimer_Tick()
 
-        private bool SimAvailable()
+        public bool SimAvailable()
         {
             return fsuipcCache.IsAvailable();
         }
@@ -892,7 +901,8 @@ namespace MobiFlight
                 catch (Exception ex)
                 {
                     // TODO: refactor - check if we can stop the execution and this way update the interface accordingly too
-                    Log.Instance.log("Error on Test Mode execution. " + ex.Message, LogSeverity.Error);
+                    String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
+                    Log.Instance.log("Error on Test Mode execution. " + RowDescription + ". " + ex.Message, LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
             }
@@ -934,9 +944,10 @@ namespace MobiFlight
                 {
                     executeTestOn(cfg);
                 }
-                catch (ConfigErrorException ex)
+                catch (Exception ex)
                 {
-                    Log.Instance.log("Error on TestMode execution. " + ex.Message, LogSeverity.Error);
+                    String RowDescription = ((row.DataBoundItem as DataRowView).Row["description"] as String);
+                    Log.Instance.log("Error on TestMode execution. " + RowDescription + ". " + ex.Message, LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
             }
