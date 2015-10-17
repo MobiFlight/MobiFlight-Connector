@@ -105,6 +105,7 @@ namespace MobiFlight
             execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
             execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
             execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+            execManager.OnModuleLookupFinished += new EventHandler(execManager_OnModuleLookupFinished);
             _initializeModuleSettings();
 
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);     
@@ -133,6 +134,37 @@ namespace MobiFlight
                 // change ui icon to english
                 donateToolStripButton.Image = MobiFlight.Properties.Resources.btn_donate_uk_SM;
             }
+        }
+
+        void execManager_OnModuleLookupFinished(object sender, EventArgs e)
+        {
+            List<MobiFlightModuleInfo> modules = (sender as MobiFlightCache).getConnectedModules();
+            List<MobiFlightModuleInfo> modulesForUpdate = new List<MobiFlightModuleInfo> ();
+            List<MobiFlightModuleInfo> modulesForFlashing = new List<MobiFlightModuleInfo>();
+            
+            foreach (MobiFlightModuleInfo moduleInfo in modules)
+            {
+                if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_MEGA)
+                {
+                    Version latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareMega);
+                    Version currentVersion = new Version(moduleInfo.Version);
+                    if (currentVersion.CompareTo(latestVersion) < 0)
+                    {
+                        // Update needed!!!
+                        modulesForUpdate.Add(moduleInfo);
+                    }
+                }
+                else if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
+                {
+                    modulesForFlashing.Add(moduleInfo);
+                }
+            }
+
+            if (modulesForUpdate.Count > 0) 
+                MessageBox.Show("Some Mobiflight Boards have an old firmware");
+
+            if (modulesForFlashing.Count > 0)
+                MessageBox.Show("There are Arduino Megas connected to your PC - do you want to upload the MobiFlight Firmware to them?");
         }
 
         private void UpgradeSettingsFromPreviousInstallation()

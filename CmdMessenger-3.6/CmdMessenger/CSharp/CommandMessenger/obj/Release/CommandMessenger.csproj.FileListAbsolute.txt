@@ -1,0 +1,3 @@
+D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\bin\Release\CommandMessenger.dll
+D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Release\CommandMessenger.dll
+D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Release\CommandMessenger.csprojResolveAssemblyReference.cache

@@ -26,7 +26,7 @@ char foo;
 
 #define STEPS 64
 #define STEPPER_SPEED 800 // 300 already worked, 467, too?
-#define STEPPER_ACCEL 600
+#define STEPPER_ACCEL 500
 
 #if MODULETYPE == MTYPE_MICRO
 #define MAX_OUTPUTS     10
@@ -73,6 +73,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.1.0 : Encoder support, more outputs (30)
 // 1.2.0 : More outputs (40), more inputs (40), more led segments (4), more encoders (20), steppers (10), servos (10)
 // 1.3.0 : Generate New Serial
+// 1.4.0 : Servo + Stepper support
+// 1.4.1 : Reduce velocity
 const char version[8] = "1.4.0";
 
 #if MODULETYPE == MTYPE_MEGA

@@ -1,0 +1,5 @@
+D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\bin\Debug\CommandMessenger.dll
+D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\bin\Debug\CommandMessenger.pdb
+D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.dll
+D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.pdb
+D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.csprojResolveAssemblyReference.cache

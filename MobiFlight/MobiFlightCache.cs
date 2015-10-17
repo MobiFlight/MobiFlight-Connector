@@ -29,6 +29,11 @@ namespace MobiFlight
         /// Gets raised whenever connection is lost
         /// </summary>
         public event EventHandler ConnectionLost;
+        /// <summary>
+        /// Gets raised whenever the initial scan for modules is done
+        /// </summary>
+        public event EventHandler LookupFinished;
+
 
         private List<MobiFlightModuleInfo> connectedModules = null;
 
@@ -66,6 +71,10 @@ namespace MobiFlight
             if (connectedModules == null)
             {
                 connectedModules = lookupModules();
+                if (LookupFinished != null)
+                {
+                    LookupFinished(this, new EventArgs());
+                }
             }
             return connectedModules;
         }
@@ -162,7 +171,6 @@ namespace MobiFlight
                 result.Add(devInfo);
             }
             _lookingUpModules = false;
-
             return result;
         }
 
@@ -171,8 +179,10 @@ namespace MobiFlight
             if (isConnected() && force) { 
                 disconnect(); 
             }
-            if (connectedModules==null)
+            if (connectedModules == null)
+            {
                 connectedModules = lookupModules();
+            }
 
             Modules.Clear();
 

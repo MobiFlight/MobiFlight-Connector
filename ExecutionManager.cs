@@ -27,6 +27,7 @@ namespace MobiFlight
         public event EventHandler OnModulesDisconnected;
         /* public event EventHandler OnModuleRemoved; */
         public event EventHandler OnModuleConnectionLost;
+        public event EventHandler OnModuleLookupFinished;
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -80,6 +81,7 @@ namespace MobiFlight
             mobiFlightCache.Connected += new EventHandler(arcazeCache_Connected);
             mobiFlightCache.Closed += new EventHandler(arcazeCache_Closed);
             mobiFlightCache.ConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+            mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
             
             timer.Interval = Properties.Settings.Default.PollInterval;
             timer.Tick += new EventHandler(timer_Tick);
@@ -96,6 +98,14 @@ namespace MobiFlight
 #if MOBIFLIGHT
             mobiFlightCache.OnButtonPressed += new MobiFlightCache.ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
+        }
+
+        void mobiFlightCache_LookupFinished(object sender, EventArgs e)
+        {
+            if (OnModuleLookupFinished != null)
+            {
+                OnModuleLookupFinished(sender, e);
+            }
         }
 
         public void SetFsuipcInterval(int value)
