@@ -3,3 +3,8 @@ D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\bin\Debug\Comm
 D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.dll
 D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.pdb
 D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.csprojResolveAssemblyReference.cache
+C:\Projects\FlightSim\mobiflightfc\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\bin\Debug\CommandMessenger.dll
+C:\Projects\FlightSim\mobiflightfc\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\bin\Debug\CommandMessenger.pdb
+C:\Projects\FlightSim\mobiflightfc\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.csprojResolveAssemblyReference.cache
+C:\Projects\FlightSim\mobiflightfc\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.dll
+C:\Projects\FlightSim\mobiflightfc\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.pdb

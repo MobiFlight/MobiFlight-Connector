@@ -71,10 +71,6 @@ namespace MobiFlight
             if (connectedModules == null)
             {
                 connectedModules = lookupModules();
-                if (LookupFinished != null)
-                {
-                    LookupFinished(this, new EventArgs());
-                }
             }
             return connectedModules;
         }
@@ -176,14 +172,17 @@ namespace MobiFlight
 
         public bool connect(bool force=false)
         {
+            Boolean isFirstTimeLookup = false;
             if (isConnected() && force) { 
                 disconnect(); 
             }
             if (connectedModules == null)
             {
                 connectedModules = lookupModules();
+                isFirstTimeLookup = true;
             }
 
+            Log.Instance.log("MobiFlightCache.connect: Clearing modules",LogSeverity.Debug);
             Modules.Clear();
 
             foreach (MobiFlightModuleInfo devInfo in connectedModules)
@@ -201,6 +200,13 @@ namespace MobiFlight
                 module.GetInfo();
             }
 
+            if (isFirstTimeLookup) { 
+                if (LookupFinished != null)
+                {
+                    LookupFinished(this, new EventArgs());
+                }
+            }
+
             if (isConnected())
             {
                 if (Connected != null)
@@ -213,6 +219,7 @@ namespace MobiFlight
 
         private void RegisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo, bool replace = false)
         {
+            Log.Instance.log("MobiFlightCache.RegisterModule("+m.Name+":"+ m.Port +")", LogSeverity.Debug);
             m.OnButtonPressed += new MobiFlightModule.ButtonEventHandler(module_OnButtonPressed);
 
             if (Modules.ContainsKey(devInfo.Serial))
@@ -243,6 +250,7 @@ namespace MobiFlight
         /// <returns>returns true if all modules were disconnected properly</returns>    
         public bool disconnect()
         {
+            Log.Instance.log("MobiFlightCache.disconnect()", LogSeverity.Debug);
             if (isConnected())
             {
                 foreach (MobiFlightModule module in Modules.Values)

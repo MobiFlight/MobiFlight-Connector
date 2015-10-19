@@ -118,21 +118,94 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>9, 20</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>588, 652</value>
+  </data>
+  <data name="logLevelComboBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="logLevelComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>333, 28</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="logLevelComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="logLevelComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 28</value>
+  </data>
+  <data name="logLevelComboBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="logLevelLabel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="logLevelLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 32</value>
+  </data>
+  <data name="logLevelLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="logLevelLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 20</value>
+  </data>
+  <data name="logLevelLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="logLevelCheckBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="logLevelCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 31</value>
+  </data>
+  <data name="logLevelCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 17</value>
+    <value>89, 24</value>
   </data>
   <data name="logLevelCheckBox.Text" xml:space="preserve">
     <value>aktiviert</value>
+  </data>
+  <data name="logLevelCheckBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="debugGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="debugGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 190</value>
+  </data>
+  <data name="debugGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="debugGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="debugGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>572, 77</value>
+  </data>
+  <data name="debugGroupBox.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="label8.Error" xml:space="preserve">
+    <value />
+  </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 48</value>
+    <value>398, 74</value>
+  </data>
+  <data name="label8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 13</value>
+    <value>146, 20</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
     <value>Sehr schnell</value>
@@ -140,21 +213,77 @@
   <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
   </data>
+  <data name="label8.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label6.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 74</value>
+  </data>
+  <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 13</value>
+    <value>75, 20</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Langsam</value>
   </data>
+  <data name="label6.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="testModeSpeedTrackBar.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="testModeSpeedTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>564, 69</value>
+  </data>
+  <data name="testModeSpeedTrackBar.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="testModeSpeedGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="testModeSpeedGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 76</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>572, 114</value>
+  </data>
   <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
     <value>Geschwindigkeit Test-Modus</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="testModeSpeedGroupBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <data name="label1.Error" xml:space="preserve">
+    <value />
+  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 19</value>
+    <value>19, 29</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 28</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Anzahl der Einträge von Dateien in Liste</value>
@@ -162,20 +291,80 @@
   <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="recentFilesNumericUpDown.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="recentFilesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>363, 29</value>
+  </data>
+  <data name="recentFilesNumericUpDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="recentFilesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 26</value>
+  </data>
+  <data name="recentFilesNumericUpDown.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="recentFilesGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="recentFilesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="recentFilesGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="recentFilesGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="recentFilesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>572, 71</value>
+  </data>
   <data name="recentFilesGroupBox.Text" xml:space="preserve">
     <value>Zuletzt geöffnet</value>
+  </data>
+  <data name="recentFilesGroupBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="generalTabPage.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="generalTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 29</value>
+  </data>
+  <data name="generalTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="generalTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="generalTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 581</value>
   </data>
   <data name="generalTabPage.Text" xml:space="preserve">
     <value>Allgemein</value>
   </data>
+  <data name="generalTabPage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="numModulesLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="numModulesLabel.Error" xml:space="preserve">
+    <value />
+  </data>
   <data name="numModulesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 55</value>
+    <value>4, 85</value>
+  </data>
+  <data name="numModulesLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="numModulesLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 13</value>
+    <value>122, 20</value>
   </data>
   <data name="numModulesLabel.Text" xml:space="preserve">
     <value>Anzahl</value>
@@ -183,27 +372,84 @@
   <data name="numModulesLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="numModulesLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numModulesNumericUpDown.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="numModulesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 82</value>
+  </data>
+  <data name="numModulesNumericUpDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="numModulesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 26</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="arcazeModuleTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>132, 29</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>154, 28</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="globalBrightnessLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="globalBrightnessLabel.Error" xml:space="preserve">
+    <value />
+  </data>
   <data name="globalBrightnessLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 86</value>
+    <value>4, 132</value>
+  </data>
+  <data name="globalBrightnessLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="globalBrightnessLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 26</value>
+    <value>122, 40</value>
   </data>
   <data name="globalBrightnessLabel.Text" xml:space="preserve">
     <value>Globale 
 Helligkeit</value>
   </data>
+  <data name="globalBrightnessLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="globalBrightnessTrackBar.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="globalBrightnessTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>120, 129</value>
+  </data>
+  <data name="globalBrightnessTrackBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="globalBrightnessTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 69</value>
+  </data>
   <data name="arcazeModuleTypeLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="arcazeModuleTypeLabel.Error" xml:space="preserve">
+    <value />
+  </data>
   <data name="arcazeModuleTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
+    <value>9, 34</value>
+  </data>
+  <data name="arcazeModuleTypeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="arcazeModuleTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
+    <value>117, 20</value>
   </data>
   <data name="arcazeModuleTypeLabel.Text" xml:space="preserve">
     <value>Extension Typ</value>
@@ -211,8 +457,38 @@ Helligkeit</value>
   <data name="arcazeModuleTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="arcazeModuleTypeLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>272, 53</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>304, 523</value>
+  </data>
   <data name="arcazeModuleSettingsGroupBox.Text" xml:space="preserve">
     <value>Einstellungen Extension-Modul</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ArcazeModuleTreeView.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ArcazeModuleTreeView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="ArcazeModuleTreeView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="ArcazeModuleTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -234,47 +510,104 @@ Helligkeit</value>
         Q09NNQD/////CQQAAAD/////CQQAAAAAAAAACw==
 </value>
   </data>
+  <data name="ArcazeModuleTreeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>260, 494</value>
+  </data>
+  <data name="ArcazeModuleTreeView.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="arcazeModulesGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="arcazeModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 53</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 523</value>
+  </data>
   <data name="arcazeModulesGroupBox.Text" xml:space="preserve">
     <value>Verfügbare Arcaze Module</value>
+  </data>
+  <data name="arcazeModulesGroupBox.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="arcazeSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
+  <data name="arcazeSettingsLabel.Error" xml:space="preserve">
+    <value />
+  </data>
   <data name="arcazeSettingsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
+  <data name="arcazeSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="arcazeSettingsLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
   <data name="arcazeSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 31</value>
+    <value>572, 48</value>
   </data>
   <data name="arcazeSettingsLabel.Text" xml:space="preserve">
     <value>Konfiguriere die angeschlossenen Arcaze Module und angeschlossene Extension-Module.</value>
   </data>
+  <data name="arcazeSettingsLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ledDisplaysTabPage.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ledDisplaysTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 29</value>
+  </data>
+  <data name="ledDisplaysTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="ledDisplaysTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="ledDisplaysTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 581</value>
+  </data>
   <data name="ledDisplaysTabPage.Text" xml:space="preserve">
     <value>Arcaze Module</value>
+  </data>
+  <data name="ledDisplaysTabPage.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="ledDisplaysTabPage.ToolTipText" xml:space="preserve">
     <value>Einstellungen zu den Erweiterungs-Modulen</value>
   </data>
+  <data name="mfModuleSettingsContextMenuStrip.Error" xml:space="preserve">
+    <value />
+  </data>
   <data name="ledOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>203, 30</value>
   </data>
   <data name="ledOutputToolStripMenuItem.Text" xml:space="preserve">
     <value>LED Output</value>
   </data>
   <data name="ledSegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>203, 30</value>
   </data>
   <data name="ledSegmentToolStripMenuItem.Text" xml:space="preserve">
     <value>LED Segment</value>
   </data>
   <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>203, 30</value>
   </data>
   <data name="servoToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>203, 30</value>
   </data>
   <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
     <value>Schrittmotor</value>
@@ -283,52 +616,52 @@ Helligkeit</value>
     <value>False</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 6</value>
+    <value>200, 6</value>
   </data>
   <data name="buttonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>203, 30</value>
   </data>
   <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
     <value>Schalter</value>
   </data>
   <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 22</value>
+    <value>203, 30</value>
   </data>
   <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>237, 30</value>
   </data>
   <data name="addToolStripMenuItem.Text" xml:space="preserve">
     <value>Neues Device</value>
   </data>
   <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>237, 30</value>
   </data>
   <data name="removeToolStripMenuItem.Text" xml:space="preserve">
     <value>Entferne Device</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 6</value>
+    <value>234, 6</value>
   </data>
   <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>237, 30</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 6</value>
+    <value>234, 6</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>237, 30</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Öffnen</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>237, 30</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Speichern</value>
   </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>237, 30</value>
   </data>
   <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
     <value>Speichern unter ...</value>
@@ -337,16 +670,28 @@ Helligkeit</value>
     <value>False</value>
   </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 6</value>
+    <value>234, 6</value>
   </data>
   <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>237, 30</value>
   </data>
   <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 22</value>
+    <value>237, 30</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 198</value>
+    <value>238, 262</value>
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfModulesTreeView.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfModulesTreeView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="mfModulesTreeView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -381,53 +726,365 @@ Helligkeit</value>
         X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
 </value>
   </data>
+  <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 388</value>
+  </data>
+  <data name="mfModulesTreeView.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfSettingsPanel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>274, 24</value>
+  </data>
+  <data name="mfSettingsPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 388</value>
+  </data>
+  <data name="mfSettingsPanel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mobiflightSettingsToolStrip.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 29</value>
+  </data>
   <data name="uploadToolStripButton.Text" xml:space="preserve">
     <value>Aktuelle Konfiguration in Modul speichern</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 32</value>
+  </data>
+  <data name="openToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 29</value>
   </data>
   <data name="openToolStripButton.Text" xml:space="preserve">
     <value>Konfiguration laden</value>
   </data>
+  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 29</value>
+  </data>
   <data name="saveToolStripButton.Text" xml:space="preserve">
     <value>Aktuelle Konfiguration in Datei speichern</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 32</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 30</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 30</value>
   </data>
   <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
     <value>Schalter</value>
   </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 6</value>
+  </data>
+  <data name="addStepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 30</value>
+  </data>
+  <data name="addServoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 30</value>
+  </data>
+  <data name="addLedModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 30</value>
+  </data>
+  <data name="addOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 30</value>
+  </data>
   <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 22</value>
+    <value>160, 29</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
     <value>Neues Device</value>
   </data>
   <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 22</value>
+    <value>162, 29</value>
   </data>
   <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
     <value>Entferne Device</value>
   </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 32</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 412</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 2, 0</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>564, 32</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 53</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>572, 449</value>
+  </data>
   <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
     <value>Angeschlossene Module</value>
   </data>
+  <data name="mfConfiguredModulesGroupBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareArduinoIdeButton.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareArduinoIdeButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>519, 25</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>40, 35</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareArduinoIdePathTextBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareArduinoIdePathTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 28</value>
+  </data>
+  <data name="firmwareArduinoIdePathTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="firmwareArduinoIdePathTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 26</value>
+  </data>
+  <data name="firmwareArduinoIdePathTextBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareArduinoIdeLabel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareArduinoIdeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 32</value>
+  </data>
+  <data name="firmwareArduinoIdeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
   <data name="firmwareArduinoIdeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 13</value>
+    <value>154, 20</value>
   </data>
   <data name="firmwareArduinoIdeLabel.Text" xml:space="preserve">
     <value>Pfad zu Arduino IDE</value>
   </data>
+  <data name="firmwareArduinoIdeLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareSettingsGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 502</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>572, 74</value>
+  </data>
   <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
     <value>Firmware Flash Einstellungen</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mobiflightSettingsLabel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mobiflightSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>572, 48</value>
   </data>
   <data name="mobiflightSettingsLabel.Text" xml:space="preserve">
     <value>Konfiguriere angeschlossene MobiFlight Module. Du kannst Konfigurationen laden und speichern und sie auf Dein Modul hochladen.</value>
   </data>
+  <data name="mobiflightSettingsLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mobiFlightTabPage.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mobiFlightTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 29</value>
+  </data>
+  <data name="mobiFlightTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="mobiFlightTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="mobiFlightTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 581</value>
+  </data>
   <data name="mobiFlightTabPage.Text" xml:space="preserve">
     <value>MobiFlight Module</value>
+  </data>
+  <data name="mobiFlightTabPage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>265, 82</value>
+  </data>
+  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 20</value>
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>500, 82</value>
+  </data>
+  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 20</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 82</value>
+  </data>
+  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>57, 20</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label5.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 97</value>
+  </data>
+  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="label5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 15, 0, 0</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>554, 465</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>Passt die Häufigkeit an mit der Daten bei FSUIPC abgefragt werden. Je kleiner der Wert, desto häufiger ein Update.  Ein zu kleiner Wert kann vielleicht Auswirkungen auf die Performance haben.</value>
   </data>
+  <data name="label5.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 28</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>554, 69</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>9, 9, 9, 9</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>572, 571</value>
+  </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>FSUIPC Aktualisierungs-Intervall</value>
+  </data>
+  <data name="groupBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fsuipcTabPage.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 29</value>
+  </data>
+  <data name="fsuipcTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="fsuipcTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 581</value>
+  </data>
+  <data name="fsuipcTabPage.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabControl1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tabControl1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>588, 614</value>
+  </data>
+  <data name="tabControl1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -573,7 +1230,58 @@ Helligkeit</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
   </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Einstellungen</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="okButton.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>364, 0</value>
+  </data>
+  <data name="okButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 38</value>
+  </data>
+  <data name="okButton.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="cancelButton.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>476, 0</value>
+  </data>
+  <data name="cancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 38</value>
+  </data>
+  <data name="cancelButton.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 614</value>
+  </data>
+  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>588, 38</value>
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

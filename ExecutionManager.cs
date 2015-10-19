@@ -834,6 +834,7 @@ namespace MobiFlight
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
+            Log.Instance.log("ExecutionManager.autoConnectTimer_Tick()", LogSeverity.Debug);
             // check if timer is running... 
             // do nothing if so, since everything else has been checked before...            
             if (timer.Enabled || testModeTimer.Enabled)

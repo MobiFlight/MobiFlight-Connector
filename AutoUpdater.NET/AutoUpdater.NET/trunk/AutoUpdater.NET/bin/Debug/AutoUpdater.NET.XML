@@ -4,108 +4,6 @@
         <name>AutoUpdater.NET</name>
     </assembly>
     <members>
-        <member name="F:AutoUpdaterDotNET.RemindLaterForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:AutoUpdaterDotNET.RemindLaterForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:AutoUpdaterDotNET.RemindLaterForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="T:AutoUpdaterDotNET.Properties.Resources">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_go">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Bitmap.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_go_32">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Bitmap.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_play">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Bitmap.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.download">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Bitmap.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.download_32">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Bitmap.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.hand_point">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Bitmap.
-            </summary>
-        </member>
-        <member name="P:AutoUpdaterDotNET.Properties.Resources.update">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Bitmap.
-            </summary>
-        </member>
-        <member name="F:AutoUpdaterDotNET.UpdateForm.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:AutoUpdaterDotNET.UpdateForm.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:AutoUpdaterDotNET.UpdateForm.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="F:AutoUpdaterDotNET.DownloadUpdateDialog.components">
-            <summary>
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:AutoUpdaterDotNET.DownloadUpdateDialog.Dispose(System.Boolean)">
-            <summary>
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:AutoUpdaterDotNET.DownloadUpdateDialog.InitializeComponent">
-            <summary>
-            Required method for Designer support - do not modify
-            the contents of this method with the code editor.
-            </summary>
-        </member>
         <member name="T:AutoUpdaterDotNET.RemindLaterFormat">
             <summary>
                 Enum representing the remind later time span.
@@ -163,6 +61,17 @@
                 Set if RemindLaterAt interval should be in Minutes, Hours or Days.
             </summary>
         </member>
+        <member name="T:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEventHandler">
+            <summary>
+                A delegate type for hooking up update notifications.
+            </summary>
+            <param name="args">An object containing all the parameters recieved from AppCast XML file. If there will be an error while looking for the XML file then this object will be null.</param>
+        </member>
+        <member name="E:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent">
+            <summary>
+                An event that clients can use to be notified whenever the update is checked.
+            </summary>
+        </member>
         <member name="M:AutoUpdaterDotNET.AutoUpdater.Start">
             <summary>
                 Start checking for new version of application and display dialog to the user if update is available.
@@ -180,17 +89,6 @@
             <summary>
                 Opens the Download window that download the update and execute the installer when download completes.
             </summary>
-        </member>
-        <member name="E:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEvent">
-            <summary>
-                An event that clients can use to be notified whenever the update is checked.
-            </summary>
-        </member>
-        <member name="T:AutoUpdaterDotNET.AutoUpdater.CheckForUpdateEventHandler">
-            <summary>
-                A delegate type for hooking up update notifications.
-            </summary>
-            <param name="args">An object containing all the parameters recieved from AppCast XML file. If there will be an error while looking for the XML file then this object will be null.</param>
         </member>
         <member name="T:AutoUpdaterDotNET.UpdateInfoEventArgs">
             <summary>
@@ -225,6 +123,108 @@
         <member name="P:AutoUpdaterDotNET.UpdateInfoEventArgs.DoSilent">
             <summary>
                 Returns version of the application currently installed on the user's PC.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.DownloadUpdateDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:AutoUpdaterDotNET.DownloadUpdateDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:AutoUpdaterDotNET.DownloadUpdateDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.RemindLaterForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:AutoUpdaterDotNET.RemindLaterForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:AutoUpdaterDotNET.RemindLaterForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:AutoUpdaterDotNET.UpdateForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:AutoUpdaterDotNET.UpdateForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:AutoUpdaterDotNET.UpdateForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:AutoUpdaterDotNET.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_go">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_go_32">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.clock_play">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.download">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.download_32">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.hand_point">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
+        <member name="P:AutoUpdaterDotNET.Properties.Resources.update">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
             </summary>
         </member>
     </members>

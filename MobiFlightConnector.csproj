@@ -103,6 +103,7 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
@@ -144,6 +145,12 @@
     <Compile Include="Arcaze\ArcazeLedDigit.cs" />
     <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
     <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
+    <Compile Include="ArduinoIdePathForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArduinoIdePathForm.Designer.cs">
+      <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Base\IFsuipcConfigItem.cs" />
     <Compile Include="Base\BaseConfigItem.cs" />
     <Compile Include="BitMaskEditorForm.cs">
@@ -391,6 +398,7 @@
     <Compile Include="WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -400,11 +408,13 @@
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />
-    <Content Include="avatar_mobisupport_nwe_7wP_icon.ico" />
     <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <EmbeddedResource Include="ArduinoIdePathForm.resx">
+      <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Panels\KeyboardInputPanel.de.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -577,7 +587,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="favicon.ico" />
     <None Include="presets.aip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -623,7 +632,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="arcazeUSB.ico" />
     <None Include="Resources\sound.png" />
     <None Include="Resources\star_yellow_delete.png" />
     <None Include="Resources\star_yellow_add.png" />

@@ -160,11 +160,33 @@ namespace MobiFlight
                 }
             }
 
+            if (modulesForFlashing.Count > 0 ||modulesForUpdate.Count > 0)
+            {
+                if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(Properties.Settings.Default.ArduinoIdePath))
+                {
+                    ArduinoIdePathForm idePath = new ArduinoIdePathForm();
+                    idePath.StartPosition = FormStartPosition.CenterParent;
+                    if (idePath.ShowDialog() != DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
+            }
+
             if (modulesForUpdate.Count > 0) 
-                MessageBox.Show("Some Mobiflight Boards have an old firmware");
+                MessageBox.Show("Some Mobiflight Boards have an old firmware - update them now");
 
             if (modulesForFlashing.Count > 0)
+            {
                 MessageBox.Show("There are Arduino Megas connected to your PC - do you want to upload the MobiFlight Firmware to them?");
+                SettingsDialog dlg = new SettingsDialog(execManager);
+                dlg.StartPosition = FormStartPosition.CenterParent;
+                (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
+                dlg.modulesForFlashing = modulesForFlashing;
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                }
+            }
         }
 
         private void UpgradeSettingsFromPreviousInstallation()
@@ -179,6 +201,9 @@ namespace MobiFlight
 
         void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
         {
+            // TODO: Does this happen with no internet connection???
+            if (args == null) return;
+
             if (!args.IsUpdateAvailable && !args.DoSilent)
             {
                 this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(_tr("uiMessageNoUpdateNecessary"), Version), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -837,6 +862,7 @@ namespace MobiFlight
         private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
         {
             List<string> serials = new List<string>();
+            return;
             foreach (IModuleInfo moduleInfo in execManager.getConnectedModulesInfo())
             {
                 serials.Add(moduleInfo.Name + "/ " + moduleInfo.Serial);
