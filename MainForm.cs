@@ -37,6 +37,7 @@ namespace MobiFlight
         private ExecutionManager execManager;
 
         private bool _onClosing = false;
+        private readonly string MobiFlightUpdateUrl = "http://www.mobiflight.de/tl_files/download/releases/mobiflightconnector.xml";
 
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         
@@ -173,18 +174,37 @@ namespace MobiFlight
                 }
             }
 
-            if (modulesForUpdate.Count > 0) 
-                MessageBox.Show("Some Mobiflight Boards have an old firmware - update them now");
+            if (modulesForUpdate.Count > 0)
+            {
+                if (MessageBox.Show(
+                    _tr("uiMessageUpdateOldFirmwareOkCancel"), 
+                    _tr("Hint"), 
+                    MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    SettingsDialog dlg = new SettingsDialog(execManager);
+                    dlg.StartPosition = FormStartPosition.CenterParent;
+                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
+                    dlg.modulesForUpdate = modulesForUpdate;
+                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                    }
+                };
+            }
 
             if (modulesForFlashing.Count > 0)
             {
-                MessageBox.Show("There are Arduino Megas connected to your PC - do you want to upload the MobiFlight Firmware to them?");
-                SettingsDialog dlg = new SettingsDialog(execManager);
-                dlg.StartPosition = FormStartPosition.CenterParent;
-                (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                dlg.modulesForFlashing = modulesForFlashing;
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (MessageBox.Show(
+                    _tr("uiMessageUpdateArduinoOkCancel"),
+                    _tr("Hint"),
+                    MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
+                    SettingsDialog dlg = new SettingsDialog(execManager);
+                    dlg.StartPosition = FormStartPosition.CenterParent;
+                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
+                    dlg.modulesForFlashing = modulesForFlashing;
+                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                    }
                 }
             }
         }
@@ -223,7 +243,7 @@ namespace MobiFlight
             String trackingParams = "?cache=" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
             // trackingParams = "";
 
-            AutoUpdater.Start("http://www.mobiflight.de/tl_files/download/releases/mobiflightconnector.xml" + trackingParams, 
+            AutoUpdater.Start(MobiFlightUpdateUrl + trackingParams, 
                                force, 
                                silent);
         }
@@ -511,61 +531,6 @@ namespace MobiFlight
                 toolStripStatusLabel.Text = _tr("Running");
             }
         } //timer_Tick()
-
-        // TODO: refactor!!!
-        /*
-        private bool _fsRunning()
-        {
-            string proc = "fs9";
-            // check for fs2004 / fs9
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
-                return true;
-            }
-            proc = "fsx";
-            // check for fsx
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
-                return true;
-            }
-
-            proc = "wideclient";
-            // check for FSUIPC wide client
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
-                return true;
-            }
-
-            // check for prepar3d
-            proc = "prepar3d";
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
-                return true;
-            }
-            // check for x-plane and xuipc
-            proc = "x-plane";
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                fsuipcToolStripStatusLabel.Text = _tr("xpuipcStatus") + ":";
-
-                return true;
-            }
-
-            proc = "x-plane-32bit";
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                fsuipcToolStripStatusLabel.Text = _tr("xpuipcStatus") + ":";
-
-                return true;
-            }
-
-            return false;
-        }
-        */
 
         /// <summary>
         /// gathers infos about the connected modules and stores information in different objects
@@ -862,7 +827,7 @@ namespace MobiFlight
         private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
         {
             List<string> serials = new List<string>();
-            return;
+            
             foreach (IModuleInfo moduleInfo in execManager.getConnectedModulesInfo())
             {
                 serials.Add(moduleInfo.Name + "/ " + moduleInfo.Serial);

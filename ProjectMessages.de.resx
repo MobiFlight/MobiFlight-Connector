@@ -354,4 +354,10 @@ Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value
   <data name="uiMessagePanelsStepperInputRevolutionsMustNonEmpty" xml:space="preserve">
     <value>Der Wert darf nicht leer sein.</value>
   </data>
+  <data name="uiMessageUpdateArduinoOkCancel" xml:space="preserve">
+    <value>Es wurden Arduino Mega ohne MobiFlight Firmware gefunden - jetzt updaten?</value>
+  </data>
+  <data name="uiMessageUpdateOldFirmwareOkCancel" xml:space="preserve">
+    <value>Die Firmware der MobiFlight Boards ist nicht aktuell - jetzt updaten?</value>
+  </data>
 </root>
