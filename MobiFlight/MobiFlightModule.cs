@@ -176,7 +176,11 @@ namespace MobiFlight
 
         public void Connect()
         {
-            if (this.Connected) return;
+            if (this.Connected)
+            {
+                Log.Instance.log("MobiflightModule.connect: Already connected to " + this.Name + " at " + _comPort, LogSeverity.Info);
+                return;
+            }
 
             // Create Serial Port object
             _transportLayer = new SerialTransport
@@ -198,10 +202,11 @@ namespace MobiFlight
 
             // Start listening    
 #if COMMAND_MESSENGER_3_6        
-            _cmdMessenger.Connect();            
+            _cmdMessenger.Connect();
 #else
             _cmdMessenger.StartListening();                
-#endif            
+#endif
+            Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort, LogSeverity.Info);
             this.Connected = true;
 
             LoadConfig();
@@ -294,7 +299,11 @@ namespace MobiFlight
 
         public void Disconnect()
         {
-            if (!this.Connected) return;
+            if (!this.Connected)
+            {
+                Log.Instance.log("MobiflightModule.disconnect: Already Disconnected " + this.Name + " at " + _comPort, LogSeverity.Info);
+                return;
+            }
 
             this.Connected = false;
             
@@ -305,7 +314,10 @@ namespace MobiFlight
 #endif
             _cmdMessenger.Dispose();
             _transportLayer.Dispose();
+
             _config = null;
+
+            Log.Instance.log("MobiflightModule.disconnect: Disconnected " + this.Name + " at " + _comPort, LogSeverity.Info);
         }
 
         public String InitUploadAndReturnUploadPort()
@@ -532,7 +544,7 @@ namespace MobiFlight
                     EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MEGA;
                 }
             }
-
+            Log.Instance.log("MobiFlightModule.GetInfo: " + Type + ", " + Name + "," + Version + ", " + Serial, LogSeverity.Debug);
             return devInfo;
         }
 

@@ -13,6 +13,7 @@ using SimpleSolutions.Usb;
 using AutoUpdaterDotNET;
 using System.Runtime.InteropServices;
 
+
 namespace MobiFlight
 {
     public partial class MainForm : Form
@@ -140,22 +141,26 @@ namespace MobiFlight
         void execManager_OnModuleLookupFinished(object sender, EventArgs e)
         {
             List<MobiFlightModuleInfo> modules = (sender as MobiFlightCache).getConnectedModules();
-            List<MobiFlightModuleInfo> modulesForUpdate = new List<MobiFlightModuleInfo> ();
+            List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule> ();
             List<MobiFlightModuleInfo> modulesForFlashing = new List<MobiFlightModuleInfo>();
             
-            foreach (MobiFlightModuleInfo moduleInfo in modules)
+            foreach (MobiFlightModule module in (sender as MobiFlightCache).GetModules())
             {
-                if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_MEGA)
+                if (module.Type == MobiFlightModuleInfo.TYPE_MEGA)
                 {
                     Version latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareMega);
-                    Version currentVersion = new Version(moduleInfo.Version);
+                    Version currentVersion = new Version(module.Version);
                     if (currentVersion.CompareTo(latestVersion) < 0)
                     {
                         // Update needed!!!
-                        modulesForUpdate.Add(moduleInfo);
+                        modulesForUpdate.Add(module);
                     }
                 }
-                else if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
+            }
+
+            foreach (MobiFlightModuleInfo moduleInfo in modules)
+            {
+                if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
                 {
                     modulesForFlashing.Add(moduleInfo);
                 }

@@ -91,8 +91,13 @@ namespace MobiFlight
             String[] arduinoVidPids = MobiFlightModuleInfo.VIDPID_MICRO.Concat(MobiFlightModuleInfo.VIDPID_MEGA).ToArray();
             Regex regEx = new Regex("^(" + string.Join("|", arduinoVidPids) + ")");
 
+            Log.Instance.log(regEx.ToString(), LogSeverity.Debug);
+
             foreach (String regDevice in regUSB.GetSubKeyNames())
             {
+                String message = null;
+                Log.Instance.log("Checking for compatible module: " + regDevice, LogSeverity.Debug);
+
                 foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
                 {
                     String DeviceDesc = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("DeviceDesc") as String;
@@ -103,14 +108,20 @@ namespace MobiFlight
                     {
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                         if (portName != null)
+                        {
                             result.Add(new Tuple<string, string>(portName, "Arduino Mega 2560"));
+                            Log.Instance.log("Found potentially compatible module: " + regDevice + "@" + portName, LogSeverity.Debug);
+                        }
                         continue;
                     }
                     else if (DeviceDesc.Contains("Pro Micro"))
                     {
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                         if (portName != null)
+                        {
                             result.Add(new Tuple<string, string>(portName, "Pro Micro"));
+                            Log.Instance.log("Found potentially compatible module: " + regDevice + "@" + portName, LogSeverity.Debug);
+                        }
                         continue;
                     }
                     // determine type based on Vid Pid combination
@@ -127,10 +138,14 @@ namespace MobiFlight
                         }
                         catch (Exception e) {
                         }
+
+                        message = "Arduino device has no port information: " + regDevice;
                     }
+
+                    message = "Incompatible module skipped: " + DeviceDesc + " - VID/PID: " + regDevice;
                 }
-                
-                String message = "No arduino device -skipping: " + regDevice;
+
+                if (message != null)
                 Log.Instance.log(message, LogSeverity.Debug);
             }
             return result;

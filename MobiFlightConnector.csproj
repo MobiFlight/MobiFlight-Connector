@@ -121,6 +121,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -176,6 +177,7 @@
     <Compile Include="ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="MobiFlight\Interpolation.cs" />
     <Compile Include="MobiFlight\KeyboardInput.cs" />
     <Compile Include="MobiFlight\OutputConfigItem.cs" />
     <Compile Include="ConnectorValue.cs" />
@@ -341,6 +343,12 @@
     <Compile Include="Panels\Group\FsuipcConfigPanel.Designer.cs">
       <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\Group\InterpolationPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Group\InterpolationPanel.Designer.cs">
+      <DependentUpon>InterpolationPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\InputActionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -412,8 +420,14 @@
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <EmbeddedResource Include="ArduinoIdePathForm.de.resx">
+      <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ArduinoIdePathForm.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Group\InterpolationPanel.resx">
+      <DependentUpon>InterpolationPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\KeyboardInputPanel.de.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
@@ -447,6 +461,7 @@
     <None Include="Resources\module-arduino.png" />
     <None Include="Resources\module-mobiflight.png" />
     <None Include="Resources\module-changed.png" />
+    <None Include="Resources\module-mobiflight-update.png" />
     <Content Include="Resources\output.png" />
     <Content Include="Resources\servo.png" />
     <Content Include="Resources\stepper.png" />
@@ -612,7 +627,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 und x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

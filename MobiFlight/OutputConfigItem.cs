@@ -14,7 +14,7 @@ namespace MobiFlight
         // which is used for serialization
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
-        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
+        public System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
 
         public const int    FSUIPCOffsetNull = 0;        
         public int          FSUIPCOffset                { get; set; }
@@ -53,6 +53,8 @@ namespace MobiFlight
         public string       StepperInputRev             { get; set; }
         public string       StepperOutputRev            { get; set; }
         public string       StepperTestValue            { get; set; }
+        public Interpolation StepperInterpolation       { get; set; }
+
         // deprecated?
         public string       DisplayTrigger              { get; set; }
                 
@@ -83,6 +85,8 @@ namespace MobiFlight
             DisplayLedDecimalPoints = new List<string>();
             
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
+
+            StepperInterpolation = new Interpolation();
 
             Preconditions = new List<Precondition>();
         }
@@ -230,9 +234,17 @@ namespace MobiFlight
                 {
                     StepperTestValue = reader["stepperTestValue"];
                 }
+
+                reader.ReadStartElement();
+                if (reader.LocalName == "interpolation")
+                {
+                    StepperInterpolation.ReadXml(reader);
+                }
             }
-            
-            reader.ReadStartElement();
+
+            // forward
+            if (reader.LocalName == "display")
+                reader.ReadStartElement();
 
             // read precondition settings if present
             if (reader.LocalName == "precondition")

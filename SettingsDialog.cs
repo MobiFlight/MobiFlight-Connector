@@ -28,7 +28,7 @@ namespace MobiFlight
         bool IgnoreArcazeModuleSettingsChangeEvents = false;
 
         public List<MobiFlightModuleInfo> modulesForFlashing;
-        public List<MobiFlightModuleInfo> modulesForUpdate;
+        public List<MobiFlightModule> modulesForUpdate;
 
         public SettingsDialog()
         {
@@ -39,7 +39,7 @@ namespace MobiFlight
         {
             this.execManager = execManager;
             modulesForFlashing = new List<MobiFlightModuleInfo>();
-            modulesForUpdate = new List<MobiFlightModuleInfo>();
+            modulesForUpdate = new List<MobiFlightModule>();
             Init();
 
             InitArcazeModuleTreeView(execManager);
@@ -93,6 +93,7 @@ namespace MobiFlight
             // initialize mftreeviewimagelist
             mfTreeViewImageList.Images.Add("module", MobiFlight.Properties.Resources.module_mobiflight);
             mfTreeViewImageList.Images.Add("module-arduino", MobiFlight.Properties.Resources.module_arduino);
+            mfTreeViewImageList.Images.Add("module-arduino-update", MobiFlight.Properties.Resources.module_mobiflight_update);
             mfTreeViewImageList.Images.Add("module-unknown", MobiFlight.Properties.Resources.module_arduino);
             mfTreeViewImageList.Images.Add("module-arcaze", MobiFlight.Properties.Resources.arcaze_module);
             mfTreeViewImageList.Images.Add(DeviceType.Button.ToString(), MobiFlight.Properties.Resources.button);
@@ -1081,6 +1082,11 @@ namespace MobiFlight
             foreach(MobiFlightModuleInfo moduleInfo in modulesForFlashing)
             {
                 MobiFlightModule module = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = moduleInfo.Port, Type = moduleInfo.Type });
+                updateFirmware(module);
+            }
+
+            foreach (MobiFlightModule module in modulesForUpdate)
+            {
                 updateFirmware(module);
             }
         }

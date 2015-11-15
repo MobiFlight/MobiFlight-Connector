@@ -42,9 +42,19 @@
   </config>
   <config>
     <active>true</active>
-    <description>Autopilot - CRS/OBS 1</description>
+    <description>Autopilot - CRS/OBS 1 (+) Increase</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0C4E" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0C4E" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&lt;=359,$+1,0)"/>
+      <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="5,6,7" />
+      
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Autopilot - CRS/OBS 1 (-) Increase</description>
+    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C4E" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&gt;=0,$-1,359)"/>
       <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="5,6,7" />
       

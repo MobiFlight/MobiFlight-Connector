@@ -147,10 +147,12 @@ namespace MobiFlight
         public void AutoConnectStart()
         {
             autoConnectTimer.Enabled = true;
+            Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Info);
         }
 
         public void AutoConnectStop()
         {
+            Log.Instance.log("ExecutionManager.AutoConnectStop:" + "Stopped auto connect timer", LogSeverity.Info);
             autoConnectTimer.Enabled = false;
         }
 
@@ -162,11 +164,13 @@ namespace MobiFlight
         public void TestModeStart()
         {
             testModeTimer.Enabled = true;
+            Log.Instance.log("ExecutionManager.TestModeStart:" + "Started test timer", LogSeverity.Info);
         }
 
         public void TestModeStop()
         {
             testModeTimer.Enabled = false;
+            Log.Instance.log("ExecutionManager.TestModeStop:" + "Stopped test timer", LogSeverity.Info);
         }
 
         public bool TestModeIsStarted()
