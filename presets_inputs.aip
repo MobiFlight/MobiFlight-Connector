@@ -52,7 +52,7 @@
   </config>
   <config>
     <active>true</active>
-    <description>Autopilot - CRS/OBS 1 (-) Increase</description>
+    <description>Autopilot - CRS/OBS 1 (-) Decrease</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x0C4E" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&gt;=0,$-1,359)"/>
       <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
@@ -71,7 +71,16 @@
   </config>
   <config>
     <active>true</active>
-    <description>Radio - NAV1 Standby Freq Inc MHz</description>
+    <description>Radio - NAV1 Standby Freq MHz (+) Increase</description>
+    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - NAV1 Standby Freq MHz (-) Decrease</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -80,31 +89,78 @@
   </config>
   <config>
     <active>true</active>
-    <description>Radio - NAV2 Standby Freq</description>
+    <description>Radio - NAV1 Standby Freq KHz (+) Increase</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3120" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1795,$+5,800)" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
     </settings>
   </config>
   <config>
     <active>true</active>
-    <description>Radio - COM1 Standby Freq MHz Increase</description>
+    <description>Radio - NAV1 Standby Freq KHz (-) Decrease</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
+      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;800,$-5,1795)" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - NAV1 Switch Freq</description>
+    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3110" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="66448" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+    </settings>
+  </config>  
+  <config>
+    <active>true</active>
+    <description>Radio - COM1 Standby Freq MHz (+) Increase</description>
+    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;3697,$+100,$-1800)" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
     </settings>
   </config>
   <config>
     <active>true</active>
-    <description>Radio - COM1 Standby Freq MHz Decrease</description>
+    <description>Radio - COM1 Standby Freq MHz (-) Decrease</description>
     <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
+      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;1900,$-100,$+1800)" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
     </settings>
   </config>
+  <config>
+    <active>true</active>
+    <description>Radio - COM1 Standby Freq KHz (+) Increase</description>
+    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;3697,if($%5==0,$+2,$+3),1800)" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Radio - COM1 Standby Freq KHz (-) Decrease</description>
+    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=1800,if($%5==0,$-3,$-2),3697)" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+    </settings>
+  </config>
+
+  <config>
+    <active>true</active>
+    <description>Radio - COM1 Switch Freq</description>
+    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3110" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="66372" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="" serial="" trigger="change" pin="" />
+    </settings>
+  </config>  
+  
   <config>
     <active>true</active>
     <description>Radio - COM2 Active Freq</description>
@@ -201,7 +257,6 @@
       <source type="FSUIPC" offset="0x3122" size="1" mask="0x02" multiplier="1" bcdMode="False" />
       <comparison active="False" value="" operand="" ifValue="" elseValue="" />
       <display type="" serial="" trigger="change" pin="" />
-      
     </settings>
   </config>
   <config>

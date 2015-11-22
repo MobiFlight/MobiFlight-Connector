@@ -410,7 +410,8 @@
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_1_4_0.hex">
+    <None Include="firmware\mobiflight_mega_1_4_0.hex" />
+    <None Include="firmware\mobiflight_mega_1_4_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\arcaze-module.png" />
@@ -425,6 +426,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ArduinoIdePathForm.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.de.resx">
+      <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\InterpolationPanel.resx">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>

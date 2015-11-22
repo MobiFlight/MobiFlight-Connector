@@ -56,7 +56,7 @@ namespace MobiFlight
 
         public MainForm()
         {
-            // System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             InitializeComponent();
             UpgradeSettingsFromPreviousInstallation();
 

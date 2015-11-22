@@ -30,8 +30,9 @@ namespace MobiFlight
             {
                 button1.Enabled = false;
                 MessageBox.Show(
-                    MainForm._tr("Hint"),
-                    "Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.");
+                    MainForm._tr("uiMessageInvalidArduinoIdePath"),
+                    MainForm._tr("Hint")
+                    );
             }
             else
             {
@@ -48,6 +49,12 @@ namespace MobiFlight
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
+        }
+
+        private void arduinoDownloadLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.arduinoDownloadLinkLabel.LinkVisited = true;
+            System.Diagnostics.Process.Start("https://www.arduino.cc/en/Main/Software");            
         }
     }
 }

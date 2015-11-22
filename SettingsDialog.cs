@@ -93,7 +93,7 @@ namespace MobiFlight
             // initialize mftreeviewimagelist
             mfTreeViewImageList.Images.Add("module", MobiFlight.Properties.Resources.module_mobiflight);
             mfTreeViewImageList.Images.Add("module-arduino", MobiFlight.Properties.Resources.module_arduino);
-            mfTreeViewImageList.Images.Add("module-arduino-update", MobiFlight.Properties.Resources.module_mobiflight_update);
+            mfTreeViewImageList.Images.Add("module-update", MobiFlight.Properties.Resources.module_mobiflight_update);
             mfTreeViewImageList.Images.Add("module-unknown", MobiFlight.Properties.Resources.module_arduino);
             mfTreeViewImageList.Images.Add("module-arcaze", MobiFlight.Properties.Resources.arcaze_module);
             mfTreeViewImageList.Images.Add(DeviceType.Button.ToString(), MobiFlight.Properties.Resources.button);
@@ -211,6 +211,17 @@ namespace MobiFlight
                     {
                         node.SelectedImageKey = node.ImageKey = "module-arduino";
                     }
+                    else
+                    {
+                        Version latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareMega);
+                        Version currentVersion = new Version(module.Version);
+                        if (currentVersion.CompareTo(latestVersion) < 0)
+                        {
+                            node.SelectedImageKey = node.ImageKey = "module-update";
+                            node.ToolTipText = MainForm._tr("uiMessageSettingsDlgOldFirmware");
+                        }
+                    }
+                    
                     mfModulesTreeView.Nodes.Add(node);
                 }
             }
@@ -890,7 +901,11 @@ namespace MobiFlight
             }
 
             if (NumberOfModulesForFirmwareUpdate == 0)
-                MessageBox.Show("The firmware has been uploaded successfully!", MainForm._tr("Hint"), MessageBoxButtons.OK);
+                MessageBox.Show(
+                    MainForm._tr("uiMessageFirmwareUploadSuccessful"), 
+                    MainForm._tr("Hint"), 
+                    MessageBoxButtons.OK
+                );
         }
 
         private TreeNode findNodeByPort(string port)
@@ -990,7 +1005,7 @@ namespace MobiFlight
             if (mobiflightCache.getConnectedModules().Count > 0 && 
                 !MobiFlightFirmwareUpdater.IsValidArduinoIdePath(tb.Text))
             {
-                displayError(tb, "Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.");
+                displayError(tb, MainForm._tr("uiMessageInvalidArduinoIdePath"));
             }
             else
             {

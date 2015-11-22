@@ -360,4 +360,13 @@ Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value
   <data name="uiMessageUpdateOldFirmwareOkCancel" xml:space="preserve">
     <value>Die Firmware der MobiFlight Boards ist nicht aktuell - jetzt updaten?</value>
   </data>
+  <data name="uiMessageFirmwareUploadSuccessful" xml:space="preserve">
+    <value>Das Firmware Update war erfolgreich!</value>
+  </data>
+  <data name="uiMessageInvalidArduinoIdePath" xml:space="preserve">
+    <value>Bitte Prüfe den Pfad zur Arduino IDE. Das Tool avrdude konnte nicht gefunden werden.</value>
+  </data>
+  <data name="uiMessageSettingsDlgOldFirmware" xml:space="preserve">
+    <value>Alte firmware, update jetzt!</value>
+  </data>
 </root>

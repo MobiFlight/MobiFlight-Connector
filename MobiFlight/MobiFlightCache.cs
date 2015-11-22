@@ -36,6 +36,7 @@ namespace MobiFlight
 
 
         private List<MobiFlightModuleInfo> connectedModules = null;
+        Boolean isFirstTimeLookup = false;
 
         private bool _lookingUpModules = false;
 
@@ -71,6 +72,7 @@ namespace MobiFlight
             if (connectedModules == null)
             {
                 connectedModules = lookupModules();
+                isFirstTimeLookup = true;
             }
             return connectedModules;
         }
@@ -187,10 +189,10 @@ namespace MobiFlight
 
         public bool connect(bool force=false)
         {
-            Boolean isFirstTimeLookup = false;
             if (isConnected() && force) { 
                 disconnect(); 
             }
+            
             if (connectedModules == null)
             {
                 connectedModules = lookupModules();
@@ -215,7 +217,8 @@ namespace MobiFlight
                 module.GetInfo();
             }
 
-            if (isFirstTimeLookup) { 
+            if (isFirstTimeLookup) {
+                isFirstTimeLookup = false;
                 if (LookupFinished != null)
                 {
                     LookupFinished(this, new EventArgs());

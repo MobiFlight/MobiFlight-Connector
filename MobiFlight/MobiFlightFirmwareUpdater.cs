@@ -16,7 +16,7 @@ namespace MobiFlight
         public static String ArduinoIdePath { get; set; }
         public static String AvrPath { get { return "hardware\\tools\\avr"; } }
         public static String LatestFirmwareMega = "1.4.1";
-        public static String LatestFirmwareMicro = "1.0.0";
+        public static String LatestFirmwareMicro = "1.1.0";
         
         /***
          * C:\\Users\\SEBAST~1\\AppData\\Local\\Temp\\build2060068306446321513.tmp\\cmd_test_mega.cpp.hex

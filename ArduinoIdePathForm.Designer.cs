@@ -50,6 +50,7 @@
             resources.ApplyResources(this.arduinoDownloadLinkLabel, "arduinoDownloadLinkLabel");
             this.arduinoDownloadLinkLabel.Name = "arduinoDownloadLinkLabel";
             this.arduinoDownloadLinkLabel.TabStop = true;
+            this.arduinoDownloadLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.arduinoDownloadLinkLabel_LinkClicked);
             // 
             // panel1
             // 

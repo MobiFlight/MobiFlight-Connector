@@ -25,7 +25,7 @@ char foo;
 #endif
 
 #define STEPS 64
-#define STEPPER_SPEED 800 // 300 already worked, 467, too?
+#define STEPPER_SPEED 750 // 300 already worked, 467, too?
 #define STEPPER_ACCEL 500
 
 #if MODULETYPE == MTYPE_MICRO
@@ -75,7 +75,7 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.3.0 : Generate New Serial
 // 1.4.0 : Servo + Stepper support
 // 1.4.1 : Reduce velocity
-const char version[8] = "1.4.0";
+const char version[8] = "1.4.1";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";

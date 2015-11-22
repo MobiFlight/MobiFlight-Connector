@@ -70,7 +70,7 @@ namespace MobiFlight.Panels
 
         private void inputRevTextBox_Validating(object sender, CancelEventArgs e)
         {
-            if (!(sender as Control).Parent.Visible) return;
+            if (!(sender as Control).Parent.Enabled) return;
 
             String value = (sender as TextBox).Text.Trim();
 
