@@ -36,7 +36,11 @@ namespace MobiFlight
 
         public Fsuipc2Cache()
         {
-            OfflineMode= false;
+#if FSUIPC_OFFLINE_MODE
+            OfflineMode= true;
+#else
+            OfflineMode = false;
+#endif
         }
 
         public void Clear()

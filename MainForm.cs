@@ -56,7 +56,9 @@ namespace MobiFlight
 
         public MainForm()
         {
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+#if MF_FORCE_EN
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+#endif
             InitializeComponent();
             UpgradeSettingsFromPreviousInstallation();
 
@@ -1459,6 +1461,7 @@ namespace MobiFlight
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            execManager.Stop();
             if (saveToolStripButton.Enabled && MessageBox.Show(
                        _tr("uiMessageConfirmDiscardUnsaved"),
                        _tr("uiMessageConfirmDiscardUnsavedTitle"),

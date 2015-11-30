@@ -693,7 +693,7 @@ namespace MobiFlight
             if (lastUpdate.AddMinutes(KeepAliveIntervalInMinutes) < DateTime.UtcNow)
             {
                 lastUpdate = DateTime.UtcNow;
-                Log.Instance.log("Preventing entering EnergySaving Mode: KeepAlive!", LogSeverity.Debug);
+                Log.Instance.log("Preventing entering EnergySaving Mode: KeepAlive!", LogSeverity.Info);
                 return true;
             }
 
@@ -715,10 +715,16 @@ namespace MobiFlight
 
         public void Stop()
         {
+            foreach (MobiFlightOutput output in outputs.Values)
+            {
+                SetPin("base", output.Name, 0);
+            }
             foreach (MobiFlightStepper stepper in stepperModules.Values)
             {
                 SetStepper(stepper.Name, 0);
             }
+
+            lastValue.Clear();
         }
     }
 }

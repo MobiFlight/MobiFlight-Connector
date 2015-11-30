@@ -838,7 +838,6 @@ namespace MobiFlight
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
-            Log.Instance.log("ExecutionManager.autoConnectTimer_Tick()", LogSeverity.Debug);
             // check if timer is running... 
             // do nothing if so, since everything else has been checked before...            
             if (timer.Enabled || testModeTimer.Enabled)
@@ -852,6 +851,8 @@ namespace MobiFlight
                 && !mobiFlightCache.isConnected())
 #endif
             {
+                Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Modules", LogSeverity.Debug);
+
                 arcazeCache.connect(); //  _initializeArcaze();
 #if MOBIFLIGHT
                 mobiFlightCache.connect();
@@ -862,6 +863,8 @@ namespace MobiFlight
 
             if (SimAvailable() && !fsuipcCache.isConnected())
             {
+                Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
+
                 fsuipcCache.connect();
                 // we return here to prevent the disabling of the timer
                 // so that autostart-feature can work properly
