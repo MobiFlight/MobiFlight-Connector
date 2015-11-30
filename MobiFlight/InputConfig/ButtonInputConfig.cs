@@ -50,6 +50,11 @@ namespace MobiFlight.InputConfig
                         onPress = new KeyInputAction();
                         onPress.ReadXml(reader);
                         break;
+
+                    case "EventIdInputAction":
+                        onPress = new EventIdInputAction();
+                        onPress.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -66,6 +71,12 @@ namespace MobiFlight.InputConfig
 
                     case "KeyInputAction":
                         onRelease = new KeyInputAction();
+                        onRelease.ReadXml(reader);
+                        reader.ReadStartElement();
+                        break;
+
+                    case "EventIdInputAction":
+                        onRelease = new EventIdInputAction();
                         onRelease.ReadXml(reader);
                         reader.ReadStartElement();
                         break;

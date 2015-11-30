@@ -202,6 +202,7 @@
     <Compile Include="ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="MobiFlight\InputConfig\EventIdInputAction.cs" />
     <Compile Include="MobiFlight\Interpolation.cs" />
     <Compile Include="MobiFlight\KeyboardInput.cs" />
     <Compile Include="MobiFlight\OutputConfigItem.cs" />
@@ -386,6 +387,12 @@
     <Compile Include="Panels\EncoderPanel.Designer.cs">
       <DependentUpon>EncoderPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\EventIdInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\EventIdInputPanel.Designer.cs">
+      <DependentUpon>EventIdInputPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\KeyboardInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -457,6 +464,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\InterpolationPanel.resx">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\EventIdInputPanel.de.resx">
+      <DependentUpon>EventIdInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\EventIdInputPanel.resx">
+      <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\KeyboardInputPanel.de.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>

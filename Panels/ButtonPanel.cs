@@ -55,6 +55,15 @@ namespace MobiFlight.Panels
                         (panel as Panels.KeyboardInputPanel).syncFromConfig(_config.onRelease as KeyInputAction);
 
                     break;
+
+                case "Event ID":
+                    panel = new EventIdInputPanel();
+                    if (isOnPress && _config != null && _config.onPress != null)
+                        (panel as Panels.EventIdInputPanel).syncFromConfig(_config.onPress as EventIdInputAction);
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as Panels.EventIdInputPanel).syncFromConfig(_config.onRelease as EventIdInputAction);
+  
+                    break;
             }
 
             if (panel != null)
@@ -98,6 +107,10 @@ namespace MobiFlight.Panels
                         config.onPress = (onPressActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
 
+                    case "Event ID":
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onPress = null;
                         break;
@@ -114,6 +127,10 @@ namespace MobiFlight.Panels
 
                     case "Key":
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
+                        break;
+
+                    case "Event ID":
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
 
                     default:

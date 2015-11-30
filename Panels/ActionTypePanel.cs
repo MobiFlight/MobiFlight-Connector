@@ -24,6 +24,7 @@ namespace MobiFlight.Panels
             ActionTypeComboBox.SelectedIndex = 0;
             //ActionTypeComboBox.Items.Add("FSUIPC Macro");
             ActionTypeComboBox.Items.Add("Key");
+            ActionTypeComboBox.Items.Add("Event ID");
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 
@@ -42,6 +43,10 @@ namespace MobiFlight.Panels
 
                 case "MobiFlight.InputConfig.KeyInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Key");
+                    break;
+
+                case "MobiFlight.InputConfig.EventIdInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Event ID");
                     break;
             }
         }

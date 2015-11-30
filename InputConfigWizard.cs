@@ -263,31 +263,6 @@ namespace MobiFlight
             preconditionListTreeView.Nodes.Add(tmpNode);
         }
 
-        /*
-        protected bool _setSelectedItem (ComboBox comboBox, string value) {
-            if (comboBox.FindStringExact(value) != -1)
-            {
-                comboBox.SelectedIndex = comboBox.FindStringExact(value);
-                return true;
-            }
-            return false;
-        }        
-
-        protected bool _setSelectedItemByPart (ComboBox comboBox, string value)
-        {
-            foreach (string item in comboBox.Items)
-            {
-                if (item.Contains(value))
-                {
-                    comboBox.SelectedIndex = comboBox.FindStringExact(item);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-         * */
-
         /// <summary>
         /// sync current status of form values to config
         /// </summary>

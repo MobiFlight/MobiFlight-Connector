@@ -68,6 +68,18 @@ namespace MobiFlight.Panels
                     else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
                         (panel as Panels.KeyboardInputPanel).syncFromConfig(_config.onRightFast as KeyInputAction);
                     break;
+
+                case "Event ID":
+                    panel = new EventIdInputPanel();
+                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
+                        (panel as Panels.EventIdInputPanel).syncFromConfig(_config.onLeft as EventIdInputAction);
+                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
+                        (panel as Panels.EventIdInputPanel).syncFromConfig(_config.onLeftFast as EventIdInputAction);
+                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
+                        (panel as Panels.EventIdInputPanel).syncFromConfig(_config.onRight as EventIdInputAction);
+                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
+                        (panel as Panels.EventIdInputPanel).syncFromConfig(_config.onRightFast as EventIdInputAction);
+                    break;
             }
 
             if (panel != null)
@@ -119,6 +131,9 @@ namespace MobiFlight.Panels
                     case "Key":
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
+                    case "Event ID":
+                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeft = null;
                         break;
@@ -136,6 +151,9 @@ namespace MobiFlight.Panels
                     case "Key":
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
+                    case "Event ID":
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeftFast = null;
                         break;
@@ -152,6 +170,9 @@ namespace MobiFlight.Panels
                     case "Key":
                         config.onRight = (onRightActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
+                    case "Event ID":
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
+                        break;
                     default:
                         config.onRight = null;
                         break;
@@ -167,6 +188,9 @@ namespace MobiFlight.Panels
                         break;
                     case "Key":
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
+                        break;
+                    case "Event ID":
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
                     default:
                         config.onRightFast = null;

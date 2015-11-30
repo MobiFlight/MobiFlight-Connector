@@ -58,6 +58,11 @@ namespace MobiFlight.InputConfig
                         onLeft = new KeyInputAction();
                         onLeft.ReadXml(reader);
                         break;
+
+                    case "EventIdInputAction":
+                        onLeft = new EventIdInputAction();
+                        onLeft.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -74,6 +79,11 @@ namespace MobiFlight.InputConfig
 
                     case "KeyInputAction":
                         onLeftFast = new KeyInputAction();
+                        onLeftFast.ReadXml(reader);
+                        break;
+
+                    case "EventIdInputAction":
+                        onLeftFast = new EventIdInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
                 }
@@ -94,6 +104,11 @@ namespace MobiFlight.InputConfig
                         onRight = new KeyInputAction();
                         onRight.ReadXml(reader);
                         break;
+
+                    case "EventIdInputAction":
+                        onRight = new EventIdInputAction();
+                        onRight.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -110,6 +125,11 @@ namespace MobiFlight.InputConfig
 
                     case "KeyInputAction":
                         onRightFast = new KeyInputAction();
+                        onRightFast.ReadXml(reader);
+                        break;
+
+                    case "EventIdInputAction":
+                        onRightFast = new EventIdInputAction();
                         onRightFast.ReadXml(reader);
                         break;
                 }
