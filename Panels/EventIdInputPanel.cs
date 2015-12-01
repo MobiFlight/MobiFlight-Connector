@@ -11,9 +11,66 @@ namespace MobiFlight.Panels
 {
     public partial class EventIdInputPanel : UserControl
     {
+        public String PresetFile { get; set; }
+        private DataTable Data;
+
         public EventIdInputPanel()
         {
             InitializeComponent();
+            PresetFile = Properties.Settings.Default.EventIdPresetFile;
+            Data = new DataTable();
+            _loadPresets();
+        }
+
+        private void _loadPresets()
+        {
+            bool isLoaded = true;
+
+            if (!System.IO.File.Exists(PresetFile))
+            {
+                isLoaded = false;
+                MessageBox.Show(MainForm._tr("uiMessageConfigWizard_PresetsNotFound"), MainForm._tr("Hint"));
+            }
+            else
+            {
+
+                try
+                {
+                    Data.Clear();
+                    Data.Columns.Add(new DataColumn("Label"));
+                    Data.Columns.Add(new DataColumn("EventID"));
+                    Data.Columns.Add(new DataColumn("Param"));
+
+                    string[] lines = System.IO.File.ReadAllLines(PresetFile);
+
+                    foreach (string line in lines)
+                    {
+                        var cols = line.Split(':');
+                        DataRow dr = Data.NewRow();
+                        dr[0] = cols[0];
+                        dr[1] = cols[1];
+                        if (cols.Count() == 3) dr[2] = cols[2];
+                        else dr[2] = 0;
+
+                        Data.Rows.Add(dr);
+                    }
+
+                    fsuipcPresetComboBox.Items.Clear();
+
+                    foreach (DataRow row in Data.Rows)
+                    {
+                        fsuipcPresetComboBox.Items.Add(row["Label"]);
+                    }
+                }
+                catch (Exception e)
+                {
+                    isLoaded = false;
+                    MessageBox.Show(MainForm._tr("uiMessageConfigWizard_ErrorLoadingPresets"), MainForm._tr("Hint"));
+                }
+            }
+
+            fsuipcPresetComboBox.Enabled = isLoaded;
+            fsuipcPresetUseButton.Enabled = isLoaded;
         }
         
         internal void syncFromConfig(InputConfig.EventIdInputAction eventIdInputAction)
@@ -35,6 +92,19 @@ namespace MobiFlight.Panels
         {
             MobiFlight.InputConfig.InputAction tmp = ToConfig();
             tmp.execute(null);
+        }
+
+        private void fsuipcPresetUseButton_Click(object sender, EventArgs e)
+        {
+            if (fsuipcPresetComboBox.Text != "")
+            {
+                DataRow[] rows = Data.Select("Label = '" + fsuipcPresetComboBox.Text + "'");
+                if (rows.Length > 0)
+                {
+                    eventIdTextBox.Text = rows[0]["EventId"].ToString();
+                    paramTextBox.Text = rows[0]["Param"].ToString();
+                }
+            }
         }
     }
 }

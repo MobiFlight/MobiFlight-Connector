@@ -40,8 +40,8 @@ namespace MobiFlight.InputConfig
 
         public override void execute(MobiFlight.Fsuipc2Cache fsuipcCache)
         {
-            fsuipcCache.setOffset(BaseOffset, EventId);
             fsuipcCache.setOffset(ParamOffset, Param);
+            fsuipcCache.setOffset(BaseOffset, EventId);            
             fsuipcCache.ForceUpdate();
         }
     }

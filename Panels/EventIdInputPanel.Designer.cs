@@ -47,6 +47,7 @@
             resources.ApplyResources(this.fsuipcPresetUseButton, "fsuipcPresetUseButton");
             this.fsuipcPresetUseButton.Name = "fsuipcPresetUseButton";
             this.fsuipcPresetUseButton.UseVisualStyleBackColor = true;
+            this.fsuipcPresetUseButton.Click += new System.EventHandler(this.fsuipcPresetUseButton_Click);
             // 
             // fsuipcPresetComboBox
             // 

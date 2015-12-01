@@ -48,5 +48,8 @@
     <Setting Name="CacheId" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="EventIdPresetFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">presets_eventids.cip</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
