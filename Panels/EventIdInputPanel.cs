@@ -13,6 +13,7 @@ namespace MobiFlight.Panels
     {
         public String PresetFile { get; set; }
         private DataTable Data;
+        ErrorProvider errorProvider = new ErrorProvider();
 
         public EventIdInputPanel()
         {
@@ -105,6 +106,61 @@ namespace MobiFlight.Panels
                     paramTextBox.Text = rows[0]["Param"].ToString();
                 }
             }
+        }
+
+        private void eventIdTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (!tb.Visible) return;
+
+            String errorMessage = "";
+
+            try
+            {
+                Int32.Parse(tb.Text);
+            } catch (FormatException fEx)
+            {
+                e.Cancel = true;
+                errorMessage = fEx.Message;
+
+            } catch (OverflowException oEx)
+            {
+                errorMessage = oEx.Message;
+                e.Cancel = true;
+            }
+
+            if (e.Cancel)
+            {
+                Log.Instance.log("EventID/Param : Parsing problem, " + errorMessage, LogSeverity.Error);
+                displayError(
+                    sender as Control, 
+                    String.Format(
+                        MainForm._tr("uiMessageConfigWizard_ValidNumberInRange"),
+                        "0", 
+                        Int32.MaxValue.ToString()
+                    )
+                );
+            } else
+            {
+                removeError(sender as Control);
+            }
+
+        }
+
+        private void displayError(Control control, String message)
+        {
+            errorProvider.SetIconAlignment(control, ErrorIconAlignment.TopRight);
+            errorProvider.SetError(
+                    control,
+                    message);
+            MessageBox.Show(message, MainForm._tr("Hint"));
+        }
+
+        private void removeError(Control control)
+        {
+            errorProvider.SetError(
+                    control,
+                    "");
         }
     }
 }

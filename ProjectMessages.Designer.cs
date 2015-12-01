@@ -467,6 +467,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Value must be a number between {0} and {1}. ähnelt.
+        /// </summary>
+        internal static string uiMessageConfigWizard_ValidNumberInRange {
+            get {
+                return ResourceManager.GetString("uiMessageConfigWizard_ValidNumberInRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die There are unsaved changes in your configuration.
         ///Do you want to save them now? ähnelt.
         /// </summary>

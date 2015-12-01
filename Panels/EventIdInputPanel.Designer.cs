@@ -29,25 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EventIdInputPanel));
-            this.fsuipcPresetUseButton = new System.Windows.Forms.Button();
             this.fsuipcPresetComboBox = new System.Windows.Forms.ComboBox();
             this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.testButton = new System.Windows.Forms.Button();
-            this.paramTextBox = new System.Windows.Forms.TextBox();
+            this.fsuipcPresetUseButton = new System.Windows.Forms.Button();
             this.eventIdTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.paramTextBox = new System.Windows.Forms.TextBox();
             this.EventIdLabel = new System.Windows.Forms.Label();
             this.paramLabel = new System.Windows.Forms.Label();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // fsuipcPresetUseButton
-            // 
-            resources.ApplyResources(this.fsuipcPresetUseButton, "fsuipcPresetUseButton");
-            this.fsuipcPresetUseButton.Name = "fsuipcPresetUseButton";
-            this.fsuipcPresetUseButton.UseVisualStyleBackColor = true;
-            this.fsuipcPresetUseButton.Click += new System.EventHandler(this.fsuipcPresetUseButton_Click);
             // 
             // fsuipcPresetComboBox
             // 
@@ -59,39 +51,40 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetUseButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 
-            // groupBox1
+            // fsuipcPresetUseButton
             // 
-            this.groupBox1.Controls.Add(this.testButton);
-            this.groupBox1.Controls.Add(this.paramTextBox);
-            this.groupBox1.Controls.Add(this.eventIdTextBox);
-            this.groupBox1.Controls.Add(this.EventIdLabel);
-            this.groupBox1.Controls.Add(this.paramLabel);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // testButton
-            // 
-            resources.ApplyResources(this.testButton, "testButton");
-            this.testButton.Name = "testButton";
-            this.testButton.UseVisualStyleBackColor = true;
-            this.testButton.Click += new System.EventHandler(this.testButton_Click);
-            // 
-            // paramTextBox
-            // 
-            resources.ApplyResources(this.paramTextBox, "paramTextBox");
-            this.paramTextBox.Name = "paramTextBox";
+            resources.ApplyResources(this.fsuipcPresetUseButton, "fsuipcPresetUseButton");
+            this.fsuipcPresetUseButton.Name = "fsuipcPresetUseButton";
+            this.fsuipcPresetUseButton.UseVisualStyleBackColor = true;
+            this.fsuipcPresetUseButton.Click += new System.EventHandler(this.fsuipcPresetUseButton_Click);
             // 
             // eventIdTextBox
             // 
             resources.ApplyResources(this.eventIdTextBox, "eventIdTextBox");
             this.eventIdTextBox.Name = "eventIdTextBox";
+            this.eventIdTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.eventIdTextBox_Validating);
+            // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.eventIdTextBox);
+            this.groupBox1.Controls.Add(this.paramTextBox);
+            this.groupBox1.Controls.Add(this.EventIdLabel);
+            this.groupBox1.Controls.Add(this.paramLabel);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // paramTextBox
+            // 
+            resources.ApplyResources(this.paramTextBox, "paramTextBox");
+            this.paramTextBox.Name = "paramTextBox";
+            this.paramTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.eventIdTextBox_Validating);
             // 
             // EventIdLabel
             // 
@@ -106,7 +99,6 @@
             // EventIdInputPanel
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "EventIdInputPanel";
@@ -118,15 +110,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button fsuipcPresetUseButton;
         private System.Windows.Forms.ComboBox fsuipcPresetComboBox;
         private System.Windows.Forms.GroupBox fsuipcLoadPresetGroupBox;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button testButton;
+        private System.Windows.Forms.Label paramLabel;
+        private System.Windows.Forms.Label EventIdLabel;
         private System.Windows.Forms.TextBox paramTextBox;
         private System.Windows.Forms.TextBox eventIdTextBox;
-        private System.Windows.Forms.Label EventIdLabel;
-        private System.Windows.Forms.Label paramLabel;
+        private System.Windows.Forms.Button fsuipcPresetUseButton;
     }
 }
