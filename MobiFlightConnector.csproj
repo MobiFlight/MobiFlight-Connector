@@ -202,6 +202,7 @@
     <Compile Include="ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="MobiFlight\InputConfig\JeehellInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\EventIdInputAction.cs" />
     <Compile Include="MobiFlight\Interpolation.cs" />
     <Compile Include="MobiFlight\KeyboardInput.cs" />
@@ -393,6 +394,12 @@
     <Compile Include="Panels\EventIdInputPanel.Designer.cs">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\JeehellInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\JeehellInputPanel.Designer.cs">
+      <DependentUpon>JeehellInputPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\KeyboardInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -446,6 +453,9 @@
     <None Include="firmware\mobiflight_mega_1_4_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="presets_jeehell.cip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="presets_eventids.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -473,6 +483,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\EventIdInputPanel.resx">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\JeehellInputPanel.resx">
+      <DependentUpon>JeehellInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\KeyboardInputPanel.de.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>

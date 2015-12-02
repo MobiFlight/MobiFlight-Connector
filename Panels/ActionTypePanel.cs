@@ -25,6 +25,7 @@ namespace MobiFlight.Panels
             //ActionTypeComboBox.Items.Add("FSUIPC Macro");
             ActionTypeComboBox.Items.Add("Key");
             ActionTypeComboBox.Items.Add("Event ID");
+            ActionTypeComboBox.Items.Add("Jeehell DataPipe");
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 
@@ -47,6 +48,10 @@ namespace MobiFlight.Panels
 
                 case "MobiFlight.InputConfig.EventIdInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Event ID");
+                    break;
+                    
+                case "MobiFlight.InputConfig.JeehellInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Jeehell DataPipe");
                     break;
             }
         }

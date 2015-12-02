@@ -64,6 +64,15 @@ namespace MobiFlight.Panels
                         (panel as Panels.EventIdInputPanel).syncFromConfig(_config.onRelease as EventIdInputAction);
   
                     break;
+
+                case "Jeehell DataPipe":
+                    panel = new JeehellInputPanel();
+                    if (isOnPress && _config != null && _config.onPress != null)
+                        (panel as Panels.JeehellInputPanel).syncFromConfig(_config.onPress as JeehellInputAction);
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as Panels.JeehellInputPanel).syncFromConfig(_config.onRelease as JeehellInputAction);
+
+                    break;
             }
 
             if (panel != null)
@@ -111,6 +120,10 @@ namespace MobiFlight.Panels
                         config.onPress = (onPressActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
 
+                    case "Jeehell DataPipe":
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onPress = null;
                         break;
@@ -131,6 +144,10 @@ namespace MobiFlight.Panels
 
                     case "Event ID":
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
+                        break;
+
+                    case "Jeehell DataPipe":
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
 
                     default:

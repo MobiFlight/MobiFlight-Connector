@@ -63,6 +63,11 @@ namespace MobiFlight.InputConfig
                         onLeft = new EventIdInputAction();
                         onLeft.ReadXml(reader);
                         break;
+
+                    case "JeehellInputAction":
+                        onLeft = new JeehellInputAction();
+                        onLeft.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -84,6 +89,11 @@ namespace MobiFlight.InputConfig
 
                     case "EventIdInputAction":
                         onLeftFast = new EventIdInputAction();
+                        onLeftFast.ReadXml(reader);
+                        break;
+
+                    case "JeehellInputAction":
+                        onLeftFast = new JeehellInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
                 }
@@ -109,6 +119,11 @@ namespace MobiFlight.InputConfig
                         onRight = new EventIdInputAction();
                         onRight.ReadXml(reader);
                         break;
+
+                    case "JeehellInputAction":
+                        onRight = new JeehellInputAction();
+                        onRight.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -130,6 +145,11 @@ namespace MobiFlight.InputConfig
 
                     case "EventIdInputAction":
                         onRightFast = new EventIdInputAction();
+                        onRightFast.ReadXml(reader);
+                        break;
+
+                    case "JeehellInputAction":
+                        onRightFast = new JeehellInputAction();
                         onRightFast.ReadXml(reader);
                         break;
                 }
