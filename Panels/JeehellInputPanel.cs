@@ -111,7 +111,7 @@ namespace MobiFlight.Panels
             if (currentRow != null)
             {
                 result.EventId = Int32.Parse(currentRow["EventId"].ToString());
-                result.Param = Int32.Parse(ValueTextBox.Text);
+                result.Param = ValueTextBox.Text;
             }
             return result;
         }

@@ -236,5 +236,67 @@ namespace MobiFlight.FSUIPC
 
             return result;
         }
+
+        public static void executeWrite(String value, IFsuipcConfigItem cfg, Fsuipc2Cache fsuipcCache)
+        {
+            if (cfg.FSUIPCSize == 1)
+            {
+                System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
+                if (cfg.FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                byte bValue = Byte.Parse(value, format);
+                if (cfg.FSUIPCMask != 0xFF)
+                {
+                    byte cByte = (byte)fsuipcCache.getValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
+                    if (bValue == 1)
+                    {
+                        bValue = (byte)(cByte | cfg.FSUIPCMask);
+                    }
+                    else
+                    {
+                        bValue = (byte)(cByte & ~cfg.FSUIPCMask);
+                    }
+                }
+                fsuipcCache.setOffset(cfg.FSUIPCOffset, bValue);
+            }
+            else if (cfg.FSUIPCSize == 2)
+            {
+                System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
+                if (cfg.FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                Int16 sValue = Int16.Parse(value, format);
+                if (cfg.FSUIPCMask != 0xFFFF)
+                {
+                    Int16 cByte = (Int16)fsuipcCache.getValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
+                    if (sValue == 1)
+                    {
+                        sValue = (Int16)(cByte | cfg.FSUIPCMask);
+                    }
+                    else
+                    {
+                        sValue = (Int16)(cByte & ~cfg.FSUIPCMask);
+                    }
+                }
+
+                fsuipcCache.setOffset(cfg.FSUIPCOffset, sValue);
+            }
+            else if (cfg.FSUIPCSize == 4)
+            {
+                Int32 iValue = Int32.Parse(value);
+                if (cfg.FSUIPCMask != 0xFFFFFFFF)
+                {
+                    Int32 cByte = (Int32)fsuipcCache.getValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
+                    if (iValue == 1)
+                    {
+                        iValue = (Int32)(cByte | cfg.FSUIPCMask);
+                    }
+                    else
+                    {
+                        iValue = (Int32)(cByte & ~cfg.FSUIPCMask);
+                    }
+                }
+
+                fsuipcCache.setOffset(cfg.FSUIPCOffset, iValue);
+            }
+        }
+
     }
 }

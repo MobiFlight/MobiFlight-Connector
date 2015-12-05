@@ -202,6 +202,7 @@
     <Compile Include="ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="FSUIPC\FSUIPCConfigItem.cs" />
     <Compile Include="MobiFlight\InputConfig\JeehellInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\EventIdInputAction.cs" />
     <Compile Include="MobiFlight\Interpolation.cs" />
