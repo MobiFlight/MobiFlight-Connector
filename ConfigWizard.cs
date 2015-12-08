@@ -371,62 +371,13 @@ namespace MobiFlight
                     }
                 }
             }
+
+            displayLedDisplayPanel.syncFromConfig(config);
+
+            servoPanel.syncFromConfig(config);
+
+            stepperPanel.syncFromConfig(config);
             
-            // preselect display stuff
-			if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
-            }
-
-            if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
-            }
-
-            if (!ComboBoxHelper.SetSelectedItem(displayLedDisplayPanel.displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Module Size ComboBox", LogSeverity.Debug);
-            }
-
-            displayLedDisplayPanel.displayLedPaddingCheckBox.Checked = config.DisplayLedPadding;
-            displayLedDisplayPanel.SetPaddingChar(config.DisplayLedPaddingChar);
-
-            foreach (string digit in config.DisplayLedDigits)
-            {
-                (displayLedDisplayPanel.displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + digit + "Checkbox"] as CheckBox).Checked = true;
-            }
-
-            foreach (string digit in config.DisplayLedDecimalPoints)
-            {
-                (displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
-            }
-
-
-            if (!ComboBoxHelper.SetSelectedItem(servoPanel.servoAddressesComboBox, config.ServoAddress))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Servo Address ComboBox", LogSeverity.Debug);
-            }
-            
-            if (config.ServoMin != null) servoPanel.minValueTextBox.Text = config.ServoMin;
-            if (config.ServoMax != null) servoPanel.maxValueTextBox.Text = config.ServoMax;
-            if (config.ServoMaxRotationPercent!= null) servoPanel.maxRotationPercentNumericUpDown.Text = config.ServoMaxRotationPercent;
-
-            
-            // stepper initialization
-            if (!ComboBoxHelper.SetSelectedItem(stepperPanel.stepperAddressesComboBox, config.StepperAddress))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Stepper Address ComboBox", LogSeverity.Debug);
-            }
-
-            if (config.StepperInputRev != null) stepperPanel.inputRevTextBox.Text = config.StepperInputRev;
-            if (config.StepperOutputRev != null) stepperPanel.outputRevTextBox.Text = config.StepperOutputRev;
-            if (config.StepperTestValue != null) stepperPanel.stepperTestValueTextBox.Text = config.StepperTestValue;
-
             preconditionListTreeView.Nodes.Clear();
             foreach (Precondition p in config.Preconditions)
             {
@@ -558,21 +509,11 @@ namespace MobiFlight
                     (displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox).Text);
             }
 
-            if (servoPanel.servoAddressesComboBox.SelectedValue != null)
-            {
-                config.ServoAddress = servoPanel.servoAddressesComboBox.SelectedValue.ToString();
-                config.ServoMin = servoPanel.minValueTextBox.Text;
-                config.ServoMax = servoPanel.maxValueTextBox.Text;
-                config.ServoMaxRotationPercent = servoPanel.maxRotationPercentNumericUpDown.Text;
-            }
 
-            if (stepperPanel.stepperAddressesComboBox.SelectedValue != null)
-            {
-                config.StepperAddress = stepperPanel.stepperAddressesComboBox.SelectedValue.ToString();
-                config.StepperInputRev = stepperPanel.inputRevTextBox.Text;
-                config.StepperOutputRev = stepperPanel.outputRevTextBox.Text;
-                config.StepperTestValue = stepperPanel.stepperTestValueTextBox.Text;
-            }
+            servoPanel.syncToConfig(config);
+            
+            stepperPanel.syncToConfig(config);
+            
             return true;
         }
 
@@ -620,7 +561,7 @@ namespace MobiFlight
                     displayTypeComboBox.Items.Clear();
                     displayTypeComboBox.Items.Add("Pin");
                     displayTypeComboBox.Items.Add(ArcazeLedDigit.TYPE);
-                    displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
+                    //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
                 }
                 else
                 {
@@ -636,7 +577,7 @@ namespace MobiFlight
 
                             case DeviceType.Output:
                                 displayTypeComboBox.Items.Add("Pin");
-                                displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
+                                //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
                                 break;
 
                             case DeviceType.Servo:

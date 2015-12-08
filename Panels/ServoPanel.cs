@@ -42,5 +42,36 @@ namespace MobiFlight.Panels
 
             servoAddressesComboBox.Enabled = pins.Count > 0;            
         }
+
+        public void syncFromConfig(OutputConfigItem config)
+        {
+            if (!ComboBoxHelper.SetSelectedItem(servoAddressesComboBox, config.ServoAddress))
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Servo Address ComboBox", LogSeverity.Debug);
+            }
+
+            if (config.ServoMin != null) minValueTextBox.Text = config.ServoMin;
+            if (config.ServoMax != null) maxValueTextBox.Text = config.ServoMax;
+            if (config.ServoMaxRotationPercent != null) maxRotationPercentNumericUpDown.Text = config.ServoMaxRotationPercent;
+
+            interpolationPanel1.syncFromConfig(config.Interpolation);
+            if (config.Interpolation.Count > 0)
+                tabControl1.SelectedTab = advancedTabPage;
+        }
+
+        internal OutputConfigItem syncToConfig(OutputConfigItem config)
+        {
+            if (servoAddressesComboBox.SelectedValue != null)
+            {
+                config.ServoAddress = servoAddressesComboBox.SelectedValue.ToString();
+                config.ServoMin = minValueTextBox.Text;
+                config.ServoMax = maxValueTextBox.Text;
+                config.ServoMaxRotationPercent = maxRotationPercentNumericUpDown.Text;
+                interpolationPanel1.syncToConfig(config.Interpolation);
+            }
+
+            return config;
+        }
     }
 }

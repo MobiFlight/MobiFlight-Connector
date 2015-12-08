@@ -48,13 +48,16 @@ namespace MobiFlight
         public string       ServoMin                    { get; set; }
         public string       ServoMax                    { get; set; }
         public string       ServoMaxRotationPercent     { get; set; }
+        
         // the stepper stuff
         public string       StepperAddress              { get; set; }
         public string       StepperInputRev             { get; set; }
         public string       StepperOutputRev            { get; set; }
         public string       StepperTestValue            { get; set; }
-        public Interpolation StepperInterpolation       { get; set; }
 
+        // the interpolation settings
+        public Interpolation Interpolation              { get; set; }
+        
         // deprecated?
         public string       DisplayTrigger              { get; set; }
                 
@@ -86,7 +89,7 @@ namespace MobiFlight
             
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
 
-            StepperInterpolation = new Interpolation();
+            Interpolation = new Interpolation();
 
             Preconditions = new List<Precondition>();
         }
@@ -238,7 +241,7 @@ namespace MobiFlight
                 reader.ReadStartElement();
                 if (reader.LocalName == "interpolation")
                 {
-                    StepperInterpolation.ReadXml(reader);
+                    Interpolation.ReadXml(reader);
                 }
             }
 
@@ -342,6 +345,8 @@ namespace MobiFlight
                     writer.WriteAttributeString("pinBrightness", DisplayPinBrightness.ToString());
 
                 }
+                Interpolation.WriteXml(writer);
+
             writer.WriteEndElement();
 
             writer.WriteStartElement("preconditions");

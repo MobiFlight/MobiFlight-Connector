@@ -22,6 +22,16 @@ namespace MobiFlight
             Values.Add(x, y); 
         }
 
+        public SortedDictionary<float, float> GetValues()
+        {
+            return Values;
+        }
+
+        public void Clear()
+        {
+            Values.Clear();
+        }
+
         public object Clone()
         {
             Interpolation Clone = new Interpolation();
@@ -87,6 +97,8 @@ namespace MobiFlight
 
         public void WriteXml(XmlWriter writer)
         {
+            if (Count == 0) return;
+
             writer.WriteStartElement("interpolation");
             foreach(float x in Values.Keys)
             {

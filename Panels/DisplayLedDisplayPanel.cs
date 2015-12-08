@@ -18,6 +18,41 @@ namespace MobiFlight.Panels
             InitializeComponent();
         }
 
+        internal void syncFromConfig(OutputConfigItem config)
+        {
+            // preselect display stuff
+            if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
+            }
+
+            if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
+            }
+
+            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Module Size ComboBox", LogSeverity.Debug);
+            }
+
+            displayLedPaddingCheckBox.Checked = config.DisplayLedPadding;
+            SetPaddingChar(config.DisplayLedPaddingChar);
+
+            foreach (string digit in config.DisplayLedDigits)
+            {
+                (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + digit + "Checkbox"] as CheckBox).Checked = true;
+            }
+
+            foreach (string digit in config.DisplayLedDecimalPoints)
+            {
+                (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
+            }
+        }
+
         public void SetPaddingChar(String prefix)
         {
             if (prefix == " ") PaddingCharComboBox.SelectedIndex = 1;

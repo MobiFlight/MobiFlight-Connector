@@ -28,6 +28,32 @@ namespace MobiFlight.Panels
 
         }
 
+        internal void syncFromConfig(OutputConfigItem config)
+        {
+            // stepper initialization
+            if (!ComboBoxHelper.SetSelectedItem(stepperAddressesComboBox, config.StepperAddress))
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Stepper Address ComboBox", LogSeverity.Debug);
+            }
+
+            if (config.StepperInputRev != null) inputRevTextBox.Text = config.StepperInputRev;
+            if (config.StepperOutputRev != null) outputRevTextBox.Text = config.StepperOutputRev;
+            if (config.StepperTestValue != null) stepperTestValueTextBox.Text = config.StepperTestValue;
+        }
+
+        internal OutputConfigItem syncToConfig(OutputConfigItem config)
+        {
+            if (stepperAddressesComboBox.SelectedValue != null)
+            {
+                config.StepperAddress = stepperAddressesComboBox.SelectedValue.ToString();
+                config.StepperInputRev = inputRevTextBox.Text;
+                config.StepperOutputRev = outputRevTextBox.Text;
+                config.StepperTestValue = stepperTestValueTextBox.Text;
+            }
+            return config;
+        }
+
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
