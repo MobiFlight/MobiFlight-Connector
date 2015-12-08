@@ -707,6 +707,10 @@ namespace MobiFlight
                     //    break;
 
                     case MobiFlight.MobiFlightStepper.TYPE:
+                        if (cfg.Interpolation.Count > 0)
+                        {
+                            value = cfg.Interpolation.Value(float.Parse(value)).ToString();
+                        }
                         mobiFlightCache.setStepper(
                             serial,
                             cfg.StepperAddress,
@@ -717,6 +721,10 @@ namespace MobiFlight
                         break;
 
                     case MobiFlight.MobiFlightServo.TYPE:
+                        if (cfg.Interpolation.Count > 0)
+                        {
+                            value = cfg.Interpolation.Value(float.Parse(value)).ToString();
+                        }
                         mobiFlightCache.setServo(
                             serial,
                             cfg.ServoAddress,
