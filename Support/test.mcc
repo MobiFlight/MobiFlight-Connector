@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="eba521e7-bb6e-4c44-82da-4dfc7bba2d53">
+      <active>false</active>
+      <description>Parkbremse</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x023C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="True" value="0" operand="&gt;" ifValue="$+1" elseValue="0" />
+        <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="System.ListItem" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="d3cf6852-d5e4-452e-b879-b9d8f75fcaff">
+      <active>false</active>
+      <description>Headin PMDG 737 OK</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x652C" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="True" value="0" operand="&lt;=" ifValue="360" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="3" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="fe9e7dd1-8d84-413e-ae1c-98232335fa96">
+      <active>false</active>
+      <description>Course cpt PMDG 737 OK</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6520" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="0" operand="&lt;=" ifValue="$+360" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="3" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="55e5f00d-5856-4cb3-9d78-2bc9f4070ff3">
+      <active>false</active>
+      <description>Flaps position</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6568" offsetType="Float" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="True" value="10" operand="&lt;=" ifValue="$+10" elseValue="" />
+        <display type="Servo" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="50" servoMaxRotationPercent="100" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="95e52892-19a6-438d-9f1f-e98e72b4af60">
+      <active>true</active>
+      <description>Gear Annu Nose Green</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6573" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="True" value="1" operand="=" ifValue="1" elseValue="1" />
+        <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="Gear Nose Gr" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="0c62fd22-8ce8-4256-91dc-290ceab6859c">
+      <active>false</active>
+      <description>Gear Annu Left Green</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6574" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="Gear Left Gr" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="657e99cf-34b4-4853-8e7e-abb20e23bedd">
+      <active>false</active>
+      <description>Gear Annu Right Green</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6574" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="Gear Right Gr" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="57924bbb-a863-40c3-a705-6dd19337edbb">
+      <active>false</active>
+      <description>Gear Annu Nose Red</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6570" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="Gear Nose Red" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="1b2f79e3-cdc6-4003-88e5-6a8ecdb63924">
+      <active>false</active>
+      <description>Gear Annu Left Red</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6571" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="Gear Left Red" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="251cccfd-d83b-4cfd-84ad-9f5ce0c362ae">
+      <active>false</active>
+      <description>Gear Annu Right Red</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x6572" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="Gear Right Red" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="20c12bcc-1f71-4089-8375-e6fd95161503">
+      <active>false</active>
+      <description>Parkbremse</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-0f5-0ef" name="parkbremse sch" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="EventIdInputAction" eventId="123456" param="654321" />
+          <onRelease type="EventIdInputAction" eventId="111111" param="222222" />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="1a1407c6-1610-4b71-add3-a5512f87df5d">
+      <active>true</active>
+      <description>encoder test</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-0f5-0ef" name="EncoderTest" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="EventIdInputAction" eventId="222222" param="333333" />
+          <onLeftFast />
+          <onRight type="JeehellInputAction" pipeId="1" value="101" />
+          <onRightFast type="EventIdInputAction" eventId="444444" param="555555" />
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

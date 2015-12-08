@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <Button Name="parkbremse sch" Pin="32" />
+  <LedModule Name="LedModule" DinPin="52" ClsPin="53" ClkPin="50" Brightness="15" NumModules="1" />
+  <Servo Name="Servo" DataPin="3" />
+  <Output Name="Gear Nose Gr" Pin="27" />
+  <Output Name="Gear Left Gr" Pin="22" />
+  <Output Name="Gear Right Gr" Pin="24" />
+  <Output Name="Gear Nose Red" Pin="23" />
+  <Output Name="Gear Left Red" Pin="25" />
+  <Output Name="Gear Right Red" Pin="26" />
+  <Encoder Name="EncoderTest" PinLeft="36" PinRight="37" />
+</Config>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="3328364d-fb14-45a0-837b-c97b53740223">
+      <active>false</active>
+      <description>Servo NonLinear</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
+        <display type="Servo" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="255" servoMaxRotationPercent="100">
+          <interpolation>
+            <value x="0" y="0" />
+            <value x="127" y="9" />
+            <value x="128" y="91" />
+            <value x="255" y="180" />
+          </interpolation>
+        </display>
+        <preconditions />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

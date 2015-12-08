@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/bin
+/CmdMessenger-3.6/CmdMessenger/CSharp/CommandMessenger/bin
+/CmdMessenger-3.6/CmdMessenger/CSharp/CommandMessenger/obj/Debug
+/CmdMessenger-3.6/CmdMessenger/CSharp/CommandMessenger/obj/Debug-Mobiflight Offline
+/CmdMessenger-3.6/CmdMessenger/CSharp/CommandMessenger/obj/Release
+/MobiFlightUnitTests/bin/Debug
+/MobiFlightUnitTests/obj/Debug
+/CmdMessenger-3.6/CmdMessenger/CSharp/CommandMessenger/obj/Release-Mobiflight (EN)/DesignTimeResolveAssemblyReferencesInput.cache
+/AutoUpdater.NET/AutoUpdater.NET/trunk/AutoUpdater.NET/bin
+/AutoUpdater.NET/AutoUpdater.NET/trunk/AutoUpdater.NET/obj/Debug
+/AutoUpdater.NET/AutoUpdater.NET/trunk/AutoUpdater.NET/obj/Debug-Mobiflight Offline
+/AutoUpdater.NET/AutoUpdater.NET/trunk/AutoUpdater.NET/obj/Release
+/AutoUpdater.NET/AutoUpdater.NET/trunk/AutoUpdater.NET/obj/Release-Mobiflight (EN)/DesignTimeResolveAssemblyReferencesInput.cache
