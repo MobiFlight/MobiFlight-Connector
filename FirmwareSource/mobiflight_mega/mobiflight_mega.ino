@@ -75,7 +75,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.3.0 : Generate New Serial
 // 1.4.0 : Servo + Stepper support
 // 1.4.1 : Reduce velocity
-const char version[8] = "1.4.1";
+// 1.5.0 : Improve servo behaviour
+const char version[8] = "1.5.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
@@ -294,6 +295,7 @@ void loop()
   updateSteppers();  
 #endif
   // servos do not need update
+  updateServos();  
 }
 
 bool isPinRegistered(byte pin) {
@@ -767,6 +769,14 @@ void updateSteppers()
   }
 }
 #endif
+
+void updateServos()
+{
+  for (int i=0; i!=servosRegistered; i++) {
+    //steppers[i]->run();
+    servos[i].update();
+  }
+}
 
 void readButtons()
 {

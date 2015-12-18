@@ -834,6 +834,8 @@ namespace MobiFlight
         private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
+            if (this.mfModulesTreeView.SelectedNode == null) return;
+
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
             
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;

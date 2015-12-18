@@ -709,7 +709,7 @@ namespace MobiFlight
                     case MobiFlight.MobiFlightStepper.TYPE:
                         if (cfg.Interpolation.Count > 0)
                         {
-                            value = cfg.Interpolation.Value(float.Parse(value)).ToString();
+                            value = Math.Round(cfg.Interpolation.Value(float.Parse(value)), 0).ToString();
                         }
                         mobiFlightCache.setStepper(
                             serial,
@@ -723,7 +723,7 @@ namespace MobiFlight
                     case MobiFlight.MobiFlightServo.TYPE:
                         if (cfg.Interpolation.Count > 0)
                         {
-                            value = cfg.Interpolation.Value(float.Parse(value)).ToString();
+                            value = Math.Round(cfg.Interpolation.Value(float.Parse(value)),0).ToString();
                         }
                         mobiFlightCache.setServo(
                             serial,

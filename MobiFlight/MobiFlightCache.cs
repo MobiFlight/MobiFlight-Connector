@@ -102,11 +102,11 @@ namespace MobiFlight
 
                 foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
                 {
-                    String DeviceDesc = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("DeviceDesc") as String;
-                    if (DeviceDesc == null) continue;
+                    String FriendlyName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("FriendlyName") as String;
+                    if (FriendlyName == null) continue;
 
                     // determine type based on names
-                    if (DeviceDesc.Contains("Arduino Mega 2560"))
+                    if (FriendlyName.Contains("Mega 2560"))
                     {
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                         if (portName != null)
@@ -116,7 +116,7 @@ namespace MobiFlight
                         }
                         continue;
                     }
-                    else if (DeviceDesc.Contains("Pro Micro"))
+                    else if (FriendlyName.Contains("Pro Micro"))
                     {
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                         if (portName != null)
@@ -144,7 +144,7 @@ namespace MobiFlight
                         message = "Arduino device has no port information: " + regDevice;
                     }
 
-                    message = "Incompatible module skipped: " + DeviceDesc + " - VID/PID: " + regDevice;
+                    message = "Incompatible module skipped: " + FriendlyName + " - VID/PID: " + regDevice;
                 }
 
                 if (message != null)

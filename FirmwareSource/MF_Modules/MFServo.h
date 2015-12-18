@@ -30,6 +30,7 @@ public:
 		void		setExternalRange(int min, int max);
 		void    setInternalRange(int min, int max);
     void    moveTo(int absolute);
+    void    update();
 
 private:
 		uint8_t _pin;
@@ -37,5 +38,8 @@ private:
     bool    _initialized;
     Servo   _servo;
     long    _targetPos;
+    long    _currentPos;
+    unsigned long _lastUpdate;
+    int     speed;
 };
 #endif 

@@ -14,9 +14,19 @@ void MFServo::moveTo(int absolute)
 			  _servo.attach(_pin);
 				_initialized = true;
 			}
-			_servo.write(newValue);
-      //delay(5);
     }
+}
+
+void MFServo::update() {
+    if (_currentPos == _targetPos) return;
+    if ((millis()-_lastUpdate) < 30) return;
+    
+    if (_currentPos > _targetPos) _currentPos--;
+    else _currentPos++;
+    
+    _lastUpdate = millis();
+    _servo.write(_currentPos);
+    //delay(5);
 }
 
 void MFServo::detach() { _servo.detach(); _initialized = false; }
@@ -25,9 +35,11 @@ void MFServo::attach(uint8_t pin, bool enable)
 {
 	_initialized = false;
 	_targetPos = 0;
+  _currentPos = 0;
 	setExternalRange(0,180);
 	setInternalRange(0,180);
 	_pin = pin;		
+  _lastUpdate = millis();
 }
 
 MFServo::MFServo() : _servo() {}

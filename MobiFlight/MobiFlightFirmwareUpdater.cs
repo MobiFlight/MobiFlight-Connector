@@ -70,15 +70,16 @@ namespace MobiFlight
 
         public static void RunAvrDude(String Port, String ArduinoType) 
         {
-            String FirmwareName = "mobiflight_micro_" + LatestFirmwareMicro.Replace('.','_') + ".hex";
-            String ArduinoChip = "atmega32u4";
-            String Bytes = "57600";
-            String C = "avr109";
-            if (MobiFlightModuleInfo.TYPE_ARDUINO_MEGA == ArduinoType) {
-                FirmwareName = "mobiflight_mega_" + LatestFirmwareMega.Replace('.', '_') + ".hex";
-                ArduinoChip = "atmega2560";
-                Bytes = "115200";
-                C = "wiring";
+            String FirmwareName = "mobiflight_mega_" + LatestFirmwareMega.Replace('.', '_') + ".hex"; 
+            String ArduinoChip = "atmega2560";
+            String Bytes = "115200";
+            String C = "wiring";
+
+            if (MobiFlightModuleInfo.TYPE_ARDUINO_MICRO == ArduinoType) {
+                FirmwareName = "mobiflight_micro_" + LatestFirmwareMicro.Replace('.', '_') + ".hex";
+                ArduinoChip = "atmega32u4"; 
+                Bytes = "57600"; 
+                C = "avr109"; 
             }
 
             if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + FirmwareName))

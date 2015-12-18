@@ -101,6 +101,38 @@
         <preconditions />
       </settings>
     </config>
+    <config guid="1d4390ee-343b-4b20-84c3-aadfa0a3606e">
+      <active>false</active>
+      <description>Flaps (Servo)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
+        <display type="Servo" serial="MobiFlight Mega/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="100">
+          <interpolation>
+            <value x="0" y="0" />
+            <value x="180" y="180" />
+          </interpolation>
+        </display>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="c1481184-c5d1-4d64-a6c7-86c0364e18f0">
+      <active>true</active>
+      <description>Flaps (Servo)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
+        <display type="Servo" serial="MobiFlight Mega/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="89">
+          <interpolation>
+            <value x="0" y="0" />
+            <value x="5474" y="50" />
+            <value x="10908" y="120" />
+            <value x="16383" y="180" />
+          </interpolation>
+        </display>
+        <preconditions />
+      </settings>
+    </config>
   </outputs>
   <inputs>
     <config guid="f1dda453-af4b-4e44-b88e-6cdb575abb50">
