@@ -19,7 +19,7 @@ void MFServo::moveTo(int absolute)
 
 void MFServo::update() {
     if (_currentPos == _targetPos) return;
-    if ((millis()-_lastUpdate) < 30) return;
+    if ((millis()-_lastUpdate) < 25) return;
     
     if (_currentPos > _targetPos) _currentPos--;
     else _currentPos++;

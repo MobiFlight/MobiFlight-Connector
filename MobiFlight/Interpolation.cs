@@ -15,10 +15,24 @@ namespace MobiFlight
 
         SortedDictionary<float, float> Values = new SortedDictionary<float, float>();
         public int Count { get { return Values.Count; } }
+        public float Max { get { return max; } }
+        public float Min { get { return min; } }
+        public bool Active { get; set; }
+        protected float max;
+        protected float min;
+
+        public Interpolation()
+        {
+            Active = false;
+        }
+
         public void Add (float x, float y)
         {
             if (Values.ContainsKey(x))
                 throw new XvalueAlreadyExistsException();
+            if (y > Max) max = y;
+            if (y < Min) min = y;
+
             Values.Add(x, y); 
         }
 
@@ -50,6 +64,10 @@ namespace MobiFlight
         public void ReadXml(XmlReader reader)
         {
             bool atPosition = false;
+            if (reader["active"] != null && reader["active"] != "")
+            {
+                Active = Boolean.Parse(reader["active"]);
+            }
             // read precondition settings if present
             if (reader.ReadToDescendant("value"))
             {
@@ -98,9 +116,11 @@ namespace MobiFlight
         public void WriteXml(XmlWriter writer)
         {
             if (Count == 0) return;
-
+            
             writer.WriteStartElement("interpolation");
-            foreach(float x in Values.Keys)
+
+            writer.WriteAttributeString("active", Active.ToString());
+            foreach (float x in Values.Keys)
             {
                 writer.WriteStartElement("value");
                 writer.WriteAttributeString("x", x.ToString(serializationCulture));

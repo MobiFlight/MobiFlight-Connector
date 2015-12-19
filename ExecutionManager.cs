@@ -267,6 +267,9 @@ namespace MobiFlight
                     processedValue = executeTransform(value, cfg);
 
                 String strValue = executeComparison(processedValue, cfg);
+                strValue = executeInterpolation(strValue, cfg);
+
+
                 row.Cells["arcazeValueColumn"].Value = strValue;
                 row.Cells["arcazeValueColumn"].Tag = processedValue;
 
@@ -289,6 +292,16 @@ namespace MobiFlight
                 }
             }
             isExecuting = false;
+        }
+
+        private string executeInterpolation(string strValue, OutputConfigItem cfg)
+        {
+            if (cfg.Interpolation.Count > 0)
+            {
+                strValue = Math.Round(cfg.Interpolation.Value(float.Parse(strValue)), 0).ToString();
+            }
+
+            return strValue;
         }
 
         private bool checkPrecondition(IBaseConfigItem cfg, ConnectorValue currentValue)
@@ -707,10 +720,6 @@ namespace MobiFlight
                     //    break;
 
                     case MobiFlight.MobiFlightStepper.TYPE:
-                        if (cfg.Interpolation.Count > 0)
-                        {
-                            value = Math.Round(cfg.Interpolation.Value(float.Parse(value)), 0).ToString();
-                        }
                         mobiFlightCache.setStepper(
                             serial,
                             cfg.StepperAddress,
@@ -721,10 +730,6 @@ namespace MobiFlight
                         break;
 
                     case MobiFlight.MobiFlightServo.TYPE:
-                        if (cfg.Interpolation.Count > 0)
-                        {
-                            value = Math.Round(cfg.Interpolation.Value(float.Parse(value)),0).ToString();
-                        }
                         mobiFlightCache.setServo(
                             serial,
                             cfg.ServoAddress,

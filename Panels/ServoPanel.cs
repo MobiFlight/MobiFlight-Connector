@@ -54,10 +54,6 @@ namespace MobiFlight.Panels
             if (config.ServoMin != null) minValueTextBox.Text = config.ServoMin;
             if (config.ServoMax != null) maxValueTextBox.Text = config.ServoMax;
             if (config.ServoMaxRotationPercent != null) maxRotationPercentNumericUpDown.Text = config.ServoMaxRotationPercent;
-
-            interpolationPanel1.syncFromConfig(config.Interpolation);
-            if (config.Interpolation.Count > 0)
-                tabControl1.SelectedTab = advancedTabPage;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
@@ -68,7 +64,6 @@ namespace MobiFlight.Panels
                 config.ServoMin = minValueTextBox.Text;
                 config.ServoMax = maxValueTextBox.Text;
                 config.ServoMaxRotationPercent = maxRotationPercentNumericUpDown.Text;
-                interpolationPanel1.syncToConfig(config.Interpolation);
             }
 
             return config;

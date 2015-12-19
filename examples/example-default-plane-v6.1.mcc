@@ -108,7 +108,7 @@
         <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
         <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
         <display type="Servo" serial="MobiFlight Mega/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="100">
-          <interpolation>
+          <interpolation active="False">
             <value x="0" y="0" />
             <value x="180" y="180" />
           </interpolation>
@@ -122,9 +122,9 @@
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
         <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
-        <display type="Servo" serial="MobiFlight Mega/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="89">
-          <interpolation>
-            <value x="0" y="0" />
+        <display type="Servo" serial="MobiFlight Mega/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="90">
+          <interpolation active="True">
+            <value x="0" y="10" />
             <value x="5474" y="50" />
             <value x="10908" y="120" />
             <value x="16383" y="180" />

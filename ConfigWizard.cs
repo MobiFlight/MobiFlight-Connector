@@ -311,7 +311,10 @@ namespace MobiFlight
             }
             comparisonIfValueTextBox.Text = config.ComparisonIfValue;
             comparisonElseValueTextBox.Text = config.ComparisonElseValue;
-            
+
+            interpolationCheckBox.Checked = config.Interpolation.Active;
+            interpolationPanel1.syncFromConfig(config.Interpolation);
+
             if (config.DisplaySerial != null && config.DisplaySerial != "")
             {
                 serial = config.DisplaySerial;
@@ -463,6 +466,9 @@ namespace MobiFlight
             config.ComparisonOperand = comparisonOperandComboBox.Text;
             config.ComparisonIfValue = comparisonIfValueTextBox.Text;
             config.ComparisonElseValue = comparisonElseValueTextBox.Text;
+
+            config.Interpolation.Active = interpolationCheckBox.Checked;
+            interpolationPanel1.syncToConfig(config.Interpolation);
 
             // display panel
             config.DisplayType = displayTypeComboBox.Text;
