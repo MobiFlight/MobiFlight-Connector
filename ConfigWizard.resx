@@ -718,10 +718,10 @@
     <value>Fill</value>
   </data>
   <data name="compareSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 336</value>
+    <value>6, 317</value>
   </data>
   <data name="compareSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 77</value>
+    <value>357, 96</value>
   </data>
   <data name="compareSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -805,7 +805,7 @@
     <value>Top</value>
   </data>
   <data name="interpolationGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 221</value>
+    <value>6, 202</value>
   </data>
   <data name="interpolationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>357, 115</value>
@@ -829,7 +829,7 @@
     <value>1</value>
   </data>
   <data name="comparisonValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 24</value>
+    <value>171, 10</value>
   </data>
   <data name="comparisonValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -850,7 +850,7 @@
     <value>0</value>
   </data>
   <data name="comparisonElseValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 75</value>
+    <value>170, 61</value>
   </data>
   <data name="comparisonElseValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -877,7 +877,7 @@
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 78</value>
+    <value>104, 64</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 13</value>
@@ -901,7 +901,7 @@
     <value>2</value>
   </data>
   <data name="comparisonIfValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 49</value>
+    <value>171, 35</value>
   </data>
   <data name="comparisonIfValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 20</value>
@@ -928,7 +928,7 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 52</value>
+    <value>126, 38</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 13</value>
@@ -973,7 +973,7 @@
     <value />
   </data>
   <data name="comparisonOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 24</value>
+    <value>126, 10</value>
   </data>
   <data name="comparisonOperandComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 21</value>
@@ -1000,7 +1000,7 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 27</value>
+    <value>32, 13</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 13</value>
@@ -1030,7 +1030,7 @@
     <value>6, 36</value>
   </data>
   <data name="comparisonSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>345, 115</value>
+    <value>345, 96</value>
   </data>
   <data name="comparisonSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -1090,7 +1090,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="comparisonSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 157</value>
+    <value>357, 138</value>
   </data>
   <data name="comparisonSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -2214,51 +2214,51 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADM
-        CwAAAk1TRnQBSQFMAgEBAgEAASgBAQEoAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CwAAAk1TRnQBSQFMAgEBAgEAATABAQEwAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8AUMB/wH7AbEBJwH/AfwBqQENAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/AUMBhAL/
-        AS8BXQL/ARsBVQL/AQkBTwL/AQABUgL/AQUBXwL/AQwBigL/ARMBlwL/ARkBoQL/ARkBowL/ARkBpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAAVkB/wHwAakBMAH/AfABnwEXAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8AUIB/wH7AbEBJgH/AfwBqQEMAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/AUIBhAL/
+        AS4BXAL/ARoBVAL/AQgBTgL/AQABUQL/AQQBXgL/AQsBigL/ARIBlwL/ARgBoQL/ARgBowL/ARgBpQL/
+        Al0BYQHiiAACXAFVAeoB9gHAAVgB/wHwAakBLwH/AfABnwEWAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
         Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        AVgBkAH9Af8BMgFXAf4B/wEdAU0C/wELAUYC/wEAAUIC/wEAAUwC/wEDAVgC/wEJAYIC/wEQAY8C/wEV
-        AZsC/wEVAZoC/wEYAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQFRAf8B6wGiASoB/wHqAZcBEAH/AeoBjAEA
+        AVcBkAH9Af8BMQFWAf4B/wEcAUwC/wEKAUUC/wEAAUEC/wEAAUsC/wECAVcC/wEIAYIC/wEPAY8C/wEU
+        AZsC/wEUAZoC/wEXAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQFQAf8B6wGiASkB/wHqAZcBDwH/AeoBjAEA
         Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqAVEBiwH+Af8BLAFSAf4B/wEXAUgC/wEDAUAC/wEAAT4C/wEAAUsC/wEC
-        AVYC/wEJAYEC/wENAY0C/wETAZYC/wEUAZgC/wEUAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAFPAf8B5gGc
-        AScB/wHlAZABDQH/AeQBhQEAAf8B5QFhAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBTwGJAfwB/wEoAU4C/wETAUMC/wEA
-        ATsC/wEAATsC/wEAAUgC/wEAAVMC/wEGAV0C/wEJAYMC/wEMAYkC/wEOAYsC/wEQAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABTwH/AeEBlwEnAf8B3wGLAQ0B/wHeAWEBAAH/Ad8BWwEAAf8B4QFdAQAB/wHkAWABAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqAU8BiAH7
-        Af8BKAFMAf0B/wERAUAC/wEAATcC/wEAATYC/wEAAUIC/wEAAUwC/wEAAVMC/wEEAVsC/wEGAWAC/wEG
-        AWEC/wEIAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgFTAf8B3QGUASoB/wHbAYcBEAH/AdkBXQEAAf8B2AFV
-        AQAB/wHbAVcBAAH/Ad4BWgEAAf8B4QFdAQAB/wHjAV8BAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBUwGIAfgB/wEqAUwB+gH/ARIBPgL/AQABNAL/AQABLwL/AQABOQL/AQABQwL/
-        AQABSwL/AQABTwL/AQABUwL/AQABUwL/AQIBWgL/AlUBXAHqiAABXAJVAeoB5AGtAVgB/wHaAZQBMAH/
-        AdcBhgEXAf8B1QFcAQAB/wHTAVABAAH/AdUBUQEAAf8B2AFUAQAB/wHaAVYBAAH/Ad0BWQEAAf8B4AFc
-        AQAB/wHjAV8BAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gFYAYwB9QH/ATABTwH1Af8BGAE/Af0B/wEC
-        ATMC/wEAASoC/wEAATAC/wEAATgC/wEAAUAC/wEAAUUC/wEAAUgC/wEAAUcC/wEAAU0C/wJVAVwB6ogA
-        AVwCVQHqAeMBrwFhAf8B2AGVATkB/wHUAYcBIQH/AdEBXQEJAf8BzwFSAQAB/wHPAUoBAAH/AdEBTQEA
-        Af8B1AFQAQAB/wHXAVMBAAH/AdoBVgEAAf8B3AFYAQAB/wHlAWEBAAH/AVwCVQHqCAACVQFcAeoBYQGS
-        AfMB/wE5AVMB8AH/ASEBQwH3Af8BCgE1Af4B/wEAASsC/wEAASYC/wEAAS4C/wEAATMC/wEAATgC/wEA
-        AToC/wEAATwC/wEAAUAC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYAUQB/wHSAYsBLQH/Ac8BYAEX
-        Af8BzAFVAQIB/wHLAUwBAAH/AcsBSAEAAf8BzgFKAQAB/wHRAU0BAAH/AdMBTwEAAf8B1gFSAQAB/wHf
-        AVsBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wFEAVoB7AH/AS0BSgHxAf8BFwE8AfcB/wECAS8C/wEA
-        ASUC/wEAASQC/wEAASgC/wEAASwC/wEAAS4C/wEAAS4C/wEAATMC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
-        Af8B1gGdAVIB/wHSAZABPAH/Ac4BhAEnAf8BywFbARMB/wHJAVIBAQH/AcgBSwEAAf8ByAFFAQAB/wHK
-        AUYBAAH/Ac0BSQEAAf8B0AFMAQAB/wHYAVMBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wFSAYEB6AH/
-        ATwBUwHrAf8BJwFFAfAB/wETATgB9QH/AQIBLQH9Af8BAAEjAv8BAAEeAf4B/wEAAR8C/wEAASEC/wEA
-        ASAC/wEAASUC/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBTAH/Ac4BiwE5Af8BywGB
-        AScB/wHJAVoBFgH/AcgBUwEIAf8ByAFOAQAB/wHIAUwBAAH/AcoBTAEAAf8BzQFOAQAB/wHVAVkBAAH/
-        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/AUwBXgHnAf8BOQFQAeoB/wEnAUMB7gH/ARYBOAHy
-        Af8BCAEvAfYB/wEAASgB+gH/AQABIgH+Af8BAAEgAv8BAAEgAv8BAAEoAv8CVQFcAeqIAAFhAloB5AHv
-        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBWQH/AdMBlQFHAf8BzwGLATYB/wHOAYUBKQH/Ac0BgAEf
-        Af8BzgFfARYB/wHPAV8BEQH/AdMBgAERAf8B2gGJARcB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
-        AewB/wGMAZgB6wH/AVkBigHtAf8BRwFdAe8B/wE2AVIB8QH/ASkBSAH1Af8BHwFAAfcB/wEWATwB+gH/
-        AREBOAH6Af8BEQE4AfwB/wEXAUIC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
+        AQAB/wJcAVUB6ggAAlUBXAHqAVABiwH+Af8BKwFRAf4B/wEWAUcC/wECAT8C/wEAAT0C/wEAAUoC/wEB
+        AVUC/wEIAYEC/wEMAY0C/wESAZYC/wETAZgC/wETAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAFOAf8B5gGc
+        ASYB/wHlAZABDAH/AeQBhQEAAf8B5QFgAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
+        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBTgGJAfwB/wEnAU0C/wESAUIC/wEA
+        AToC/wEAAToC/wEAAUcC/wEAAVIC/wEFAVwC/wEIAYMC/wELAYkC/wENAYsC/wEPAZEC/wJVAVwB6ogA
+        AlwBVQLqAbABTgH/AeEBlwEmAf8B3wGLAQwB/wHeAWABAAH/Ad8BWgEAAf8B4QFcAQAB/wHkAV8BAAH/
+        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqAU4BiAH7
+        Af8BJwFLAf0B/wEQAT8C/wEAATYC/wEAATUC/wEAAUEC/wEAAUsC/wEAAVIC/wEDAVoC/wEFAV8C/wEF
+        AWAC/wEHAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgFSAf8B3QGUASkB/wHbAYcBDwH/AdkBXAEAAf8B2AFU
+        AQAB/wHbAVYBAAH/Ad4BWQEAAf8B4QFcAQAB/wHjAV4BAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
+        AlwBVQHqCAACVQFcAeoBUgGIAfgB/wEpAUsB+gH/AREBPQL/AQABMwL/AQABLgL/AQABOAL/AQABQgL/
+        AQABSgL/AQABTgL/AQABUgL/AQABUgL/AQEBWQL/AlUBXAHqiAABXAJVAeoB5AGtAVcB/wHaAZQBLwH/
+        AdcBhgEWAf8B1QFbAQAB/wHTAU8BAAH/AdUBUAEAAf8B2AFTAQAB/wHaAVUBAAH/Ad0BWAEAAf8B4AFb
+        AQAB/wHjAV4BAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gFXAYwB9QH/AS8BTgH1Af8BFwE+Af0B/wEB
+        ATIC/wEAASkC/wEAAS8C/wEAATcC/wEAAT8C/wEAAUQC/wEAAUcC/wEAAUYC/wEAAUwC/wJVAVwB6ogA
+        AVwCVQHqAeMBrwFgAf8B2AGVATgB/wHUAYcBIAH/AdEBXAEIAf8BzwFRAQAB/wHPAUkBAAH/AdEBTAEA
+        Af8B1AFPAQAB/wHXAVIBAAH/AdoBVQEAAf8B3AFXAQAB/wHlAWABAAH/AVwCVQHqCAACVQFcAeoBYAGS
+        AfMB/wE4AVIB8AH/ASABQgH3Af8BCQE0Af4B/wEAASoC/wEAASUC/wEAAS0C/wEAATIC/wEAATcC/wEA
+        ATkC/wEAATsC/wEAAT8C/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYAUMB/wHSAYsBLAH/Ac8BXwEW
+        Af8BzAFUAQEB/wHLAUsBAAH/AcsBRwEAAf8BzgFJAQAB/wHRAUwBAAH/AdMBTgEAAf8B1gFRAQAB/wHf
+        AVoBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wFDAVkB7AH/ASwBSQHxAf8BFgE7AfcB/wEBAS4C/wEA
+        ASQC/wEAASMC/wEAAScC/wEAASsC/wEAAS0C/wEAAS0C/wEAATIC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
+        Af8B1gGdAVEB/wHSAZABOwH/Ac4BhAEmAf8BywFaARIB/wHJAVEBAAH/AcgBSgEAAf8ByAFEAQAB/wHK
+        AUUBAAH/Ac0BSAEAAf8B0AFLAQAB/wHYAVIBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wFRAYEB6AH/
+        ATsBUgHrAf8BJgFEAfAB/wESATcB9QH/AQEBLAH9Af8BAAEiAv8BAAEdAf4B/wEAAR4C/wEAASAC/wEA
+        AR8C/wEAASQC/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBSwH/Ac4BiwE4Af8BywGB
+        ASYB/wHJAVkBFQH/AcgBUgEHAf8ByAFNAQAB/wHIAUsBAAH/AcoBSwEAAf8BzQFNAQAB/wHVAVgBAAH/
+        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/AUsBXQHnAf8BOAFPAeoB/wEmAUIB7gH/ARUBNwHy
+        Af8BBwEuAfYB/wEAAScB+gH/AQABIQH+Af8BAAEfAv8BAAEfAv8BAAEnAv8CVQFcAeqIAAFhAloB5AHv
+        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBWAH/AdMBlQFGAf8BzwGLATUB/wHOAYUBKAH/Ac0BgAEe
+        Af8BzgFeARUB/wHPAV4BEAH/AdMBgAEQAf8B2gGJARYB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
+        AewB/wGMAZgB6wH/AVgBigHtAf8BRgFcAe8B/wE1AVEB8QH/ASgBRwH1Af8BHgE/AfcB/wEVATsB+gH/
+        ARABNwH6Af8BEAE3AfwB/wEWAUEC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
         AlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFhAloB5AM7AWQIAAM8AWYCWgFh
         AeQCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFc
         AeoCWgFhAeQDOwFk/wCFAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQA

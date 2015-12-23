@@ -55,6 +55,9 @@
             this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
+            this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
+            this.interpolationPanel1 = new MobiFlight.Panels.Group.InterpolationPanel();
+            this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
             this.comparisonValueTextBox = new System.Windows.Forms.TextBox();
@@ -120,9 +123,6 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
-            this.interpolationPanel1 = new MobiFlight.Panels.Group.InterpolationPanel();
-            this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
-            this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
@@ -130,6 +130,7 @@
             this.fsuipcBaseSettingsGroupBox.SuspendLayout();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.compareTabPage.SuspendLayout();
+            this.interpolationGroupBox.SuspendLayout();
             this.comparisonSettingsGroupBox.SuspendLayout();
             this.comparisonSettingsPanel.SuspendLayout();
             this.displayTabPage.SuspendLayout();
@@ -146,7 +147,6 @@
             this.ButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
-            this.interpolationGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -339,6 +339,25 @@
             // 
             resources.ApplyResources(this.compareSpacerPanel, "compareSpacerPanel");
             this.compareSpacerPanel.Name = "compareSpacerPanel";
+            // 
+            // interpolationGroupBox
+            // 
+            this.interpolationGroupBox.Controls.Add(this.interpolationPanel1);
+            this.interpolationGroupBox.Controls.Add(this.interpolationCheckBox);
+            resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
+            this.interpolationGroupBox.Name = "interpolationGroupBox";
+            this.interpolationGroupBox.TabStop = false;
+            // 
+            // interpolationPanel1
+            // 
+            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
+            this.interpolationPanel1.Name = "interpolationPanel1";
+            // 
+            // interpolationCheckBox
+            // 
+            resources.ApplyResources(this.interpolationCheckBox, "interpolationCheckBox");
+            this.interpolationCheckBox.Name = "interpolationCheckBox";
+            this.interpolationCheckBox.UseVisualStyleBackColor = true;
             // 
             // comparisonSettingsGroupBox
             // 
@@ -854,25 +873,6 @@
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
             // 
-            // interpolationPanel1
-            // 
-            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
-            this.interpolationPanel1.Name = "interpolationPanel1";
-            // 
-            // interpolationGroupBox
-            // 
-            this.interpolationGroupBox.Controls.Add(this.interpolationPanel1);
-            this.interpolationGroupBox.Controls.Add(this.interpolationCheckBox);
-            resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
-            this.interpolationGroupBox.Name = "interpolationGroupBox";
-            this.interpolationGroupBox.TabStop = false;
-            // 
-            // interpolationCheckBox
-            // 
-            resources.ApplyResources(this.interpolationCheckBox, "interpolationCheckBox");
-            this.interpolationCheckBox.Name = "interpolationCheckBox";
-            this.interpolationCheckBox.UseVisualStyleBackColor = true;
-            // 
             // ConfigWizard
             // 
             resources.ApplyResources(this, "$this");
@@ -896,6 +896,8 @@
             this.fsuipcLoadPresetGroupBox.PerformLayout();
             this.compareTabPage.ResumeLayout(false);
             this.compareTabPage.PerformLayout();
+            this.interpolationGroupBox.ResumeLayout(false);
+            this.interpolationGroupBox.PerformLayout();
             this.comparisonSettingsGroupBox.ResumeLayout(false);
             this.comparisonSettingsGroupBox.PerformLayout();
             this.comparisonSettingsPanel.ResumeLayout(false);
@@ -920,8 +922,6 @@
             this.ButtonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
-            this.interpolationGroupBox.ResumeLayout(false);
-            this.interpolationGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
