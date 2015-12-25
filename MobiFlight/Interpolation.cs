@@ -13,20 +13,20 @@ namespace MobiFlight
     {
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
 
-        SortedDictionary<float, float> Values = new SortedDictionary<float, float>();
+        SortedDictionary<double, double> Values = new SortedDictionary<double, double>();
         public int Count { get { return Values.Count; } }
-        public float Max { get { return max; } }
-        public float Min { get { return min; } }
+        public double Max { get { return max; } }
+        public double Min { get { return min; } }
         public bool Active { get; set; }
-        protected float max;
-        protected float min;
+        protected double max;
+        protected double min;
 
         public Interpolation()
         {
             Active = false;
         }
-
-        public void Add (float x, float y)
+        
+        public void Add (double x, double y)
         {
             if (Values.ContainsKey(x))
                 throw new XvalueAlreadyExistsException();
@@ -36,7 +36,7 @@ namespace MobiFlight
             Values.Add(x, y); 
         }
 
-        public SortedDictionary<float, float> GetValues()
+        public SortedDictionary<double, double> GetValues()
         {
             return Values;
         }
@@ -49,7 +49,7 @@ namespace MobiFlight
         public object Clone()
         {
             Interpolation Clone = new Interpolation();
-            foreach(float Key in Values.Keys)
+            foreach(double Key in Values.Keys)
             {
                 Clone.Add(Key, Values[Key]);
             }
@@ -74,26 +74,26 @@ namespace MobiFlight
                 // load a list
                 do
                 {
-                    Values.Add(float.Parse(reader["x"], serializationCulture), 
-                               float.Parse(reader["y"], serializationCulture));
+                    Values.Add(double.Parse(reader["x"], serializationCulture), 
+                               double.Parse(reader["y"], serializationCulture));
                     reader.ReadToNextSibling("value");
                 } while (reader.LocalName == "value");
             }
         }
 
-        public float Value(float x)
+        public double Value(double x)
         {
-            float first = Values.Keys.First();
+            double first = Values.Keys.First();
             if (x <= first) return Values[first];
 
-            float second = Values.Keys.Last();
+            double second = Values.Keys.Last();
             if (x >= second) return Values[second];
 
             if (Values.Count > 2)
             {
                 for (int i = 1; i != Values.Count; ++i)
                 {
-                    float currentKey = Values.ElementAt(i).Key;
+                    double currentKey = Values.ElementAt(i).Key;
                     if (currentKey <= x && currentKey > first)
                     {
                         if (currentKey == x) return Values.ElementAt(i).Value;
@@ -120,7 +120,7 @@ namespace MobiFlight
             writer.WriteStartElement("interpolation");
 
             writer.WriteAttributeString("active", Active.ToString());
-            foreach (float x in Values.Keys)
+            foreach (double x in Values.Keys)
             {
                 writer.WriteStartElement("value");
                 writer.WriteAttributeString("x", x.ToString(serializationCulture));
@@ -130,7 +130,7 @@ namespace MobiFlight
             writer.WriteEndElement();
         }
 
-        protected float interpolate(float value, float x1, float y1, float x2, float y2)
+        protected double interpolate(double value, double x1, double y1, double x2, double y2)
         {
             if (x1 == x2) return y1;
             // this can not throw a division by zero exception

@@ -267,11 +267,12 @@ namespace MobiFlight
                     processedValue = executeTransform(value, cfg);
 
                 String strValue = executeComparison(processedValue, cfg);
+                String strValueAfterComparison = (string) strValue.Clone();
                 strValue = executeInterpolation(strValue, cfg);
 
 
                 row.Cells["arcazeValueColumn"].Value = strValue;
-                row.Cells["arcazeValueColumn"].Tag = processedValue;
+                row.Cells["arcazeValueColumn"].Tag = processedValue + " / " + strValueAfterComparison;
 
                 // check preconditions
                 if (!checkPrecondition(cfg, processedValue))
@@ -296,7 +297,7 @@ namespace MobiFlight
 
         private string executeInterpolation(string strValue, OutputConfigItem cfg)
         {
-            if (cfg.Interpolation.Count > 0)
+            if (cfg.Interpolation.Count > 0 && cfg.Interpolation.Active)
             {
                 strValue = Math.Round(cfg.Interpolation.Value(float.Parse(strValue)), 0).ToString();
             }

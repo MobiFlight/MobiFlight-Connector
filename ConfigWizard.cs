@@ -1318,5 +1318,11 @@ namespace MobiFlight
                 }
             }
         }
+
+        private void interpolationCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as CheckBox).Checked)
+                interpolationPanel1.Save = true;
+        }
     }
 }

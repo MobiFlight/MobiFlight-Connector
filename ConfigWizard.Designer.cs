@@ -56,7 +56,6 @@
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
             this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
-            this.interpolationPanel1 = new MobiFlight.Panels.Group.InterpolationPanel();
             this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
@@ -122,6 +121,7 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.interpolationPanel1 = new MobiFlight.Panels.Group.InterpolationPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
@@ -348,16 +348,12 @@
             this.interpolationGroupBox.Name = "interpolationGroupBox";
             this.interpolationGroupBox.TabStop = false;
             // 
-            // interpolationPanel1
-            // 
-            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
-            this.interpolationPanel1.Name = "interpolationPanel1";
-            // 
             // interpolationCheckBox
             // 
             resources.ApplyResources(this.interpolationCheckBox, "interpolationCheckBox");
             this.interpolationCheckBox.Name = "interpolationCheckBox";
             this.interpolationCheckBox.UseVisualStyleBackColor = true;
+            this.interpolationCheckBox.CheckedChanged += new System.EventHandler(this.interpolationCheckBox_CheckedChanged);
             // 
             // comparisonSettingsGroupBox
             // 
@@ -866,6 +862,11 @@
             // description
             // 
             this.description.ColumnName = "description";
+            // 
+            // interpolationPanel1
+            // 
+            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
+            this.interpolationPanel1.Name = "interpolationPanel1";
             // 
             // settingsColumn
             // 

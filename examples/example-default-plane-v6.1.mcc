@@ -82,12 +82,22 @@
       </settings>
     </config>
     <config guid="82b33091-502d-4bf2-bea8-f745f6fe6022">
-      <active>false</active>
+      <active>true</active>
       <description>Stepper Air Speed</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x02BC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="0,0078125" bcdMode="False" />
         <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
-        <display type="Stepper" serial="MobiFlight Mega/ SN-849-180" trigger="normal" stepperAddress="Stepper1" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="91" />
+        <display type="Stepper" serial="MobiFlight Mega/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="180">
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="58" y="40" />
+            <value x="80" y="72" />
+            <value x="104" y="106" />
+            <value x="111" y="119" />
+            <value x="119" y="130" />
+            <value x="178" y="180" />
+          </interpolation>
+        </display>
         <preconditions />
       </settings>
     </config>
@@ -117,7 +127,7 @@
       </settings>
     </config>
     <config guid="c1481184-c5d1-4d64-a6c7-86c0364e18f0">
-      <active>true</active>
+      <active>false</active>
       <description>Flaps (Servo)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
