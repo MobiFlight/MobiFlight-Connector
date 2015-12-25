@@ -77,7 +77,7 @@ namespace MobiFlight.Panels.Group
         { 
             try
             {
-                if ((e.RowIndex + 1) == (sender as DataGridView).Rows.Count) return;
+                //if ((e.RowIndex + 1) == (sender as DataGridView).Rows.Count) return;
                 if (e.FormattedValue.ToString() == "") return;
                 float.Parse(e.FormattedValue.ToString());
             }
@@ -95,25 +95,12 @@ namespace MobiFlight.Panels.Group
                 System.Windows.Forms.DataGridView datagridview1 = (sender as DataGridView);
                 removeButton.Enabled = (!datagridview1.Rows[e.RowIndex].IsNewRow && datagridview1.Rows.Count > 3);
             }
+
+            dataGridView1.BeginEdit(false);
         }
 
         private void dataGridView1_CellEnter(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
         {
-            System.Windows.Forms.DataGridView datagridview1 = (sender as DataGridView);
-            if (datagridview1 != null)
-            {
-                if (e.RowIndex < 2) return;
-
-                System.Windows.Forms.DataGridViewRow datagridviewrow1 = datagridview1.Rows[e.RowIndex];
-                if (datagridviewrow1.IsNewRow)
-                {
-                    double num1 = ((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[0].Value) + Math.Round((((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[0].Value) - (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 2)].Cells[0].Value)) / 2), 0));
-                    double num2 = ((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[1].Value) + Math.Round((((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[1].Value) - (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 2)].Cells[1].Value)) / 2), 0));
-                    datagridviewrow1.Cells[0].Value = (double)(num1);
-                    datagridviewrow1.Cells[1].Value = (double)(num2);
-                    datagridview1.EndEdit();
-                }
-            }
         }
 
         
@@ -150,5 +137,65 @@ namespace MobiFlight.Panels.Group
             this.dataGridView1.Enabled = Enabled;
         }
 
+        private void dataGridView1_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            System.Windows.Forms.DataGridView datagridview1 = (sender as DataGridView);
+            if (dataGridView1 == null) return;
+            System.Windows.Forms.DataGridViewRow datagridviewrow1 = datagridview1.Rows[e.RowIndex];
+
+            if (datagridviewrow1.IsNewRow)
+            {
+                if (e.RowIndex < 2) return;
+
+                double num1 = ((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[0].Value) + Math.Round((((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[0].Value) - (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 2)].Cells[0].Value)) / 2), 0));
+                double num2 = ((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[1].Value) + Math.Round((((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[1].Value) - (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 2)].Cells[1].Value)) / 2), 0));
+                datagridviewrow1.Cells[0].Value = (double)(num1);
+                datagridviewrow1.Cells[1].Value = (double)(num2);
+            }
+        }
+
+        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView datagridview1 = (sender as DataGridView);
+            if (dataGridView1 == null) return;
+            DataGridViewRow datagridviewrow1 = datagridview1.Rows[e.RowIndex];
+
+            try {
+                if (datagridviewrow1.IsNewRow && e.ColumnIndex == 1)
+                {
+                    double tmp = double.Parse(datagridviewrow1.Cells[0].Value.ToString());
+                    double tmp1 = double.Parse(datagridviewrow1.Cells[1].Value.ToString());
+                    dataGridView1.NotifyCurrentCellDirty(true);
+                }
+            } catch (Exception)
+            {
+            }
+        }
+
+        private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab && e.Modifiers == Keys.None && dataGridView1.SelectedRows.Count > 0)
+            {
+                if (dataGridView1.SelectedRows[0].Index + 2 == dataGridView1.Rows.Count && dataGridView1.CurrentCell.ColumnIndex==1)
+                {
+                    dataGridView1.Rows[dataGridView1.Rows.Count - 1].Selected = true;
+                    dataGridView1.CurrentCell = dataGridView1.Rows[dataGridView1.Rows.Count - 1].Cells[0];
+                    dataGridView1.BeginEdit(false);
+                    e.Handled = true;
+                }
+                
+            }
+            
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentCell == null) return;
+            if (dataGridView1.CurrentCell.RowIndex >= 0)
+            {
+                System.Windows.Forms.DataGridView datagridview1 = (sender as DataGridView);
+                removeButton.Enabled = (!datagridview1.Rows[dataGridView1.CurrentCell.RowIndex].IsNewRow && datagridview1.Rows.Count > 3);
+            }
+        }
     }
 }
