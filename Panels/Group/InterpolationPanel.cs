@@ -80,10 +80,14 @@ namespace MobiFlight.Panels.Group
                 //if ((e.RowIndex + 1) == (sender as DataGridView).Rows.Count) return;
                 if (e.FormattedValue.ToString() == "") return;
                 float.Parse(e.FormattedValue.ToString());
+                (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = null;
+                (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = null;
             }
             catch (Exception)
             {
-                (sender as DataGridView).Rows[e.RowIndex].ErrorText = "Only numbers please.";
+                MessageBox.Show(MainForm._tr("uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease"), MainForm._tr("hint"));
+                (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = MainForm._tr("uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease");
+                (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = MainForm._tr("uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease");
                 e.Cancel = true;
             }
         }
@@ -101,11 +105,15 @@ namespace MobiFlight.Panels.Group
 
         private void dataGridView1_CellEnter(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
         {
+            DataGridView dgv = (sender as DataGridView);
+            if (e.RowIndex != dgv.RowCount - 1) return;
+            dgv.BeginEdit(true);
         }
 
         
         private void dataGridView1_RowValidating(object sender, System.Windows.Forms.DataGridViewCellCancelEventArgs e)
         {
+            /*
             if (((sender as DataGridView).Rows[e.RowIndex].Cells[0].ToString() == "") || 
                  (sender as DataGridView).Rows[e.RowIndex].Cells[1].ToString() == "")
             {
@@ -116,6 +124,7 @@ namespace MobiFlight.Panels.Group
             {
                 (sender as DataGridView).Rows[e.RowIndex].ErrorText = "";
             }
+            */
         }
 
         private void Dt_ColumnChanged(object sender, System.Data.DataColumnChangeEventArgs e)
@@ -147,8 +156,8 @@ namespace MobiFlight.Panels.Group
             {
                 if (e.RowIndex < 2) return;
 
-                double num1 = ((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[0].Value) + Math.Round((((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[0].Value) - (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 2)].Cells[0].Value)) / 2), 0));
-                double num2 = ((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[1].Value) + Math.Round((((double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[1].Value) - (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 2)].Cells[1].Value)) / 2), 0));
+                double num1 = (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[0].Value) + (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[0].Value) - (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 2)].Cells[0].Value);
+                double num2 = (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[1].Value) + (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 1)].Cells[1].Value) - (double)(this.dataGridView1.Rows[(datagridviewrow1.Index - 2)].Cells[1].Value);
                 datagridviewrow1.Cells[0].Value = (double)(num1);
                 datagridviewrow1.Cells[1].Value = (double)(num2);
             }
@@ -174,6 +183,7 @@ namespace MobiFlight.Panels.Group
 
         private void dataGridView1_KeyUp(object sender, KeyEventArgs e)
         {
+            /*
             if (e.KeyCode == Keys.Tab && e.Modifiers == Keys.None && dataGridView1.SelectedRows.Count > 0)
             {
                 if (dataGridView1.SelectedRows[0].Index + 2 == dataGridView1.Rows.Count && dataGridView1.CurrentCell.ColumnIndex==1)
@@ -185,7 +195,7 @@ namespace MobiFlight.Panels.Group
                 }
                 
             }
-            
+            */
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -196,6 +206,22 @@ namespace MobiFlight.Panels.Group
                 System.Windows.Forms.DataGridView datagridview1 = (sender as DataGridView);
                 removeButton.Enabled = (!datagridview1.Rows[dataGridView1.CurrentCell.RowIndex].IsNewRow && datagridview1.Rows.Count > 3);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DataRow datarow2 = dt.NewRow();
+            int index1 = dataGridView1.RowCount - 2;
+            int index2 = dataGridView1.RowCount - 1;
+
+            double num1 = (double)(this.dataGridView1.Rows[index2].Cells[0].Value) + (double)(this.dataGridView1.Rows[index2].Cells[0].Value) - (double)(this.dataGridView1.Rows[index1].Cells[0].Value);
+            double num2 = (double)(this.dataGridView1.Rows[index2].Cells[1].Value) + (double)(this.dataGridView1.Rows[index2].Cells[1].Value) - (double)(this.dataGridView1.Rows[index1].Cells[1].Value);
+
+            datarow2["Input"] = num1;
+            datarow2["Output"] = num2;
+            dt.Rows.Add(datarow2);
+
+            dataGridView1.FirstDisplayedScrollingRowIndex = index2;
         }
     }
 }

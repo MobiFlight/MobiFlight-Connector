@@ -381,4 +381,7 @@ You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</v
   <data name="uiMessageConfigWizard_ValidNumberInRange" xml:space="preserve">
     <value>Value must be a number between {0} and {1}.</value>
   </data>
+  <data name="uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease" xml:space="preserve">
+    <value>Only numbers allowed. Please check your input.</value>
+  </data>
 </root>

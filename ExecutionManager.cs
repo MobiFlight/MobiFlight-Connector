@@ -90,7 +90,7 @@ namespace MobiFlight
 
             autoConnectTimer.Interval = 5000;
             autoConnectTimer.Tick += new EventHandler(autoConnectTimer_Tick);
-            autoConnectTimer.Start();            
+            //autoConnectTimer.Start();            
 
             testModeTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
@@ -146,14 +146,17 @@ namespace MobiFlight
 
         public void AutoConnectStart()
         {
-            autoConnectTimer.Enabled = true;
+            //autoConnectTimer.Enabled = true;
+            autoConnectTimer.Start();
+            autoConnectTimer_Tick(null, null);
             Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Info);
         }
 
         public void AutoConnectStop()
         {
             Log.Instance.log("ExecutionManager.AutoConnectStop:" + "Stopped auto connect timer", LogSeverity.Info);
-            autoConnectTimer.Enabled = false;
+            autoConnectTimer.Stop();
+            //autoConnectTimer.Enabled = false;
         }
 
         public bool IsStarted()
@@ -272,6 +275,7 @@ namespace MobiFlight
 
 
                 row.Cells["arcazeValueColumn"].Value = strValue;
+                if (strValueAfterComparison != strValue) row.Cells["arcazeValueColumn"].Value += " ("+ strValueAfterComparison +")";
                 row.Cells["arcazeValueColumn"].Tag = processedValue + " / " + strValueAfterComparison;
 
                 // check preconditions

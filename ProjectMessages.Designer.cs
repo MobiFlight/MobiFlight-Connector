@@ -349,6 +349,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Only numbers allowed. Please check your input. ähnelt.
+        /// </summary>
+        internal static string uiMessage_ConfigWizard_Interpolation_OnlyNumbersPlease {
+            get {
+                return ResourceManager.GetString("uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Application is now running in the background. ähnelt.
         /// </summary>
         internal static string uiMessageApplicationIsRunningInBackgroundMode {

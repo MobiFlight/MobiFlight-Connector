@@ -476,6 +476,9 @@
     <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Group\InterpolationPanel.de.resx">
+      <DependentUpon>InterpolationPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\InterpolationPanel.resx">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>
     </EmbeddedResource>

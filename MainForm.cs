@@ -41,7 +41,8 @@ namespace MobiFlight
         private readonly string MobiFlightUpdateUrl = "http://www.mobiflight.de/tl_files/download/releases/mobiflightconnector.xml";
 
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
-        
+        private delegate void VoidDelegate();
+
         /// <summary>
         /// get a localized string
         /// </summary>
@@ -235,6 +236,17 @@ namespace MobiFlight
             {
                 this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(_tr("uiMessageNoUpdateNecessary"), Version), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            if (!args.IsUpdateAvailable)
+            {
+                Log.Instance.log("No updates necessary. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
+            }
+
+            this.Invoke(new VoidDelegate(startAutoConnect));
+        }
+
+        private void startAutoConnect()
+        {
+            execManager.AutoConnectStart();
         }
 
         private DialogResult ShowMessageThreadSafe(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
@@ -250,6 +262,7 @@ namespace MobiFlight
             String trackingParams = "?cache=" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
             // trackingParams = "";
 
+            Log.Instance.log("Checking for updates", LogSeverity.Info);
             AutoUpdater.Start(MobiFlightUpdateUrl + trackingParams, 
                                force, 
                                silent);
@@ -842,7 +855,7 @@ namespace MobiFlight
 
             if (serials.Count == 0) return;
 
-            OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configDataTable);
+            OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configDataTable, inputsDataTable);
             opd.StartPosition = FormStartPosition.CenterParent;
             if (opd.HasOrphanedSerials())
             {
