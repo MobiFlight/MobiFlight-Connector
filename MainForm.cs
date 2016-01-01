@@ -242,6 +242,9 @@ namespace MobiFlight
                     Log.Instance.log("No updates necessary. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
                 }
 
+            } else
+            {
+                Log.Instance.log("Check for update went wrong. No internet connection?", LogSeverity.Info);
             }
 
             this.Invoke(new VoidDelegate(startAutoConnectThreadSafe));
