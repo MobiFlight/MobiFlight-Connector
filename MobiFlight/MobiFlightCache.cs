@@ -135,7 +135,10 @@ namespace MobiFlight
                             //String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
                             String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                             if (portName != null)
+                            {
                                 result.Add(new Tuple<string, string>(portName, VidPid));
+                                Log.Instance.log("Found potentially compatible module by VID/PID: " + VidPid + "@" + portName, LogSeverity.Debug);
+                            }
                             continue;
                         }
                         catch (Exception e) {

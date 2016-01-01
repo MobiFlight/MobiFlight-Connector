@@ -230,21 +230,24 @@ namespace MobiFlight
         void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
         {
             // TODO: Does this happen with no internet connection???
-            if (args == null) return;
-
-            if (!args.IsUpdateAvailable && !args.DoSilent)
+            if (args != null)
             {
-                this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(_tr("uiMessageNoUpdateNecessary"), Version), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            if (!args.IsUpdateAvailable)
-            {
-                Log.Instance.log("No updates necessary. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
+
+                if (!args.IsUpdateAvailable && !args.DoSilent)
+                {
+                    this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(_tr("uiMessageNoUpdateNecessary"), Version), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (!args.IsUpdateAvailable)
+                {
+                    Log.Instance.log("No updates necessary. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
+                }
+
             }
 
-            this.Invoke(new VoidDelegate(startAutoConnect));
+            this.Invoke(new VoidDelegate(startAutoConnectThreadSafe));
         }
 
-        private void startAutoConnect()
+        private void startAutoConnectThreadSafe()
         {
             execManager.AutoConnectStart();
         }
