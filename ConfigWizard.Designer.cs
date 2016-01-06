@@ -507,7 +507,7 @@
             resources.GetString("displayModuleNameComboBox.Items1")});
             resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
             this.displayModuleNameComboBox.Name = "displayModuleNameComboBox";
-            this.displayModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.displayArcazeSerialComboBox_SelectedIndexChanged);
+            this.displayModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.displaySerialComboBox_SelectedIndexChanged);
             this.displayModuleNameComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.displayArcazeSerialComboBox_Validating);
             // 
             // displayTypeComboBoxLabel

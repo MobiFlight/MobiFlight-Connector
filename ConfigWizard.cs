@@ -273,47 +273,17 @@ namespace MobiFlight
         {
             string serial = null;
             if (config == null) throw new Exception(MainForm._tr("uiException_ConfigItemNotFound"));
-            // first tab                        
-            fsuipcOffsetTextBox.Text = "0x" + config.FSUIPCOffset.ToString("X4");
+
+            _syncFsuipcTabFromConfig(config);
+
+            _syncComparisonTabFromConfig(config);
             
-            // preselect fsuipc offset type
-            try
-            {
-                fsuipcOffsetTypeComboBox.SelectedValue = config.FSUIPCOffsetType.ToString();
-            }
-            catch (Exception exc)
+            // third tab
+            if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
             {
                 // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
             }
-
-            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPCSize.ToString()))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in ComboBox", LogSeverity.Debug);
-            }
-
-            // mask
-            fsuipcMaskTextBox.Text = "0x" + config.FSUIPCMask.ToString("X"+config.FSUIPCSize);
-
-            // multiplier
-            fsuipcMultiplyTextBox.Text = config.FSUIPCMultiplier.ToString();
-            fsuipcBcdModeCheckBox.Checked = config.FSUIPCBcdMode;
-            
-            // second tab
-            comparisonActiveCheckBox.Checked = config.ComparisonActive;
-            comparisonValueTextBox.Text = config.ComparisonValue;
-
-            if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.ComparisonOperand))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Comparison ComboBox", LogSeverity.Debug);
-            }
-            comparisonIfValueTextBox.Text = config.ComparisonIfValue;
-            comparisonElseValueTextBox.Text = config.ComparisonElseValue;
-
-            interpolationCheckBox.Checked = config.Interpolation.Active;
-            interpolationPanel1.syncFromConfig(config.Interpolation);
 
             if (config.DisplaySerial != null && config.DisplaySerial != "")
             {
@@ -326,54 +296,11 @@ namespace MobiFlight
                 {
                     // TODO: provide error message
                 }
-            }    
-
-            // third tab
-            if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
-            }
-                    
-            if (config.DisplayPin != null && config.DisplayPin != "")
-            {
-                string port = "";
-                string pin = config.DisplayPin;
-
-                if (serial != null && serial.IndexOf("SN") != 0)
-                {
-                    port = config.DisplayPin.Substring(0, 1);
-                    pin = config.DisplayPin.Substring(1);
-                }
-            
-                // preselect normal pin drop downs
-                if (!ComboBoxHelper.SetSelectedItem(displayPinPanel.displayPortComboBox, port)) { /* TODO: provide error message */ }
-                if (!ComboBoxHelper.SetSelectedItem(displayPinPanel.displayPinComboBox, pin)) { /* TODO: provide error message */ }
-
-                int range = displayPinPanel.displayPinBrightnessTrackBar.Maximum - displayPinPanel.displayPinBrightnessTrackBar.Minimum;
-                displayPinPanel.displayPinBrightnessTrackBar.Value = (int)((config.DisplayPinBrightness / (double)255) * (range)) + displayPinPanel.displayPinBrightnessTrackBar.Minimum;
             }
 
-            // preselect BCD4056
-            for (int i = 0; i < config.BcdPins.Count(); i++)
-            {
-                if (config.BcdPins[i] != "")
-                {
-                    string tmpPort = config.BcdPins[i].Substring(0, 1);
-                    string tmpPin = config.BcdPins[i].Substring(1);
+            displayPinPanel.syncFromConfig(config);
 
-                    if (i == 0)
-                    {
-                        if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.displayBcdStrobePortComboBox, tmpPort)) { /* TODO: provide error message */ }
-                        if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.displayBcdStrobePinComboBox, tmpPin)) { /* TODO: provide error message */ }
-                    }
-                    else
-                    {
-                        if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.displayBcdPortComboBox, tmpPort)) { /* TODO: provide error message */ }
-                        if (!ComboBoxHelper.SetSelectedItem(displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox, tmpPin)) { /* TODO: provide error message */ }
-                    }
-                }
-            }
+            displayBcdPanel.syncFromConfig(config);
 
             displayLedDisplayPanel.syncFromConfig(config);
 
@@ -382,6 +309,7 @@ namespace MobiFlight
             stepperPanel.syncFromConfig(config);
             
             preconditionListTreeView.Nodes.Clear();
+
             foreach (Precondition p in config.Preconditions)
             {
                 TreeNode tmpNode = new TreeNode();
@@ -408,6 +336,54 @@ namespace MobiFlight
             return true;
         }
 
+        private void _syncComparisonTabFromConfig(OutputConfigItem config)
+        {
+            // second tab
+            comparisonActiveCheckBox.Checked = config.ComparisonActive;
+            comparisonValueTextBox.Text = config.ComparisonValue;
+
+            if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.ComparisonOperand))
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Comparison ComboBox", LogSeverity.Debug);
+            }
+            comparisonIfValueTextBox.Text = config.ComparisonIfValue;
+            comparisonElseValueTextBox.Text = config.ComparisonElseValue;
+
+            interpolationCheckBox.Checked = config.Interpolation.Active;
+            interpolationPanel1.syncFromConfig(config.Interpolation);
+        }
+
+        private void _syncFsuipcTabFromConfig(OutputConfigItem config)
+        {
+            // first tab                        
+            fsuipcOffsetTextBox.Text = "0x" + config.FSUIPCOffset.ToString("X4");
+
+            // preselect fsuipc offset type
+            try
+            {
+                fsuipcOffsetTypeComboBox.SelectedValue = config.FSUIPCOffsetType.ToString();
+            }
+            catch (Exception exc)
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
+            }
+
+            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPCSize.ToString()))
+            {
+                // TODO: provide error message
+                Log.Instance.log("_syncConfigToForm : Exception on selecting item in ComboBox", LogSeverity.Debug);
+            }
+
+            // mask
+            fsuipcMaskTextBox.Text = "0x" + config.FSUIPCMask.ToString("X" + config.FSUIPCSize);
+
+            // multiplier
+            fsuipcMultiplyTextBox.Text = config.FSUIPCMultiplier.ToString();
+            fsuipcBcdModeCheckBox.Checked = config.FSUIPCBcdMode;
+        }
+
         private void _addEmptyNodeToTreeView()
         {
             TreeNode tmpNode = new TreeNode();
@@ -420,32 +396,7 @@ namespace MobiFlight
             config.Preconditions.Add(p);
             preconditionListTreeView.Nodes.Add(tmpNode);
         }
-
-        /*
-        protected bool _setSelectedItem (ComboBox comboBox, string value) {
-            if (comboBox.FindStringExact(value) != -1)
-            {
-                comboBox.SelectedIndex = comboBox.FindStringExact(value);
-                return true;
-            }
-            return false;
-        }        
-
-        protected bool _setSelectedItemByPart (ComboBox comboBox, string value)
-        {
-            foreach (string item in comboBox.Items)
-            {
-                if (item.Contains(value))
-                {
-                    comboBox.SelectedIndex = comboBox.FindStringExact(item);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-         * */
-
+        
         /// <summary>
         /// sync current status of form values to config
         /// </summary>
@@ -470,51 +421,16 @@ namespace MobiFlight
             config.Interpolation.Active = interpolationCheckBox.Checked;
             interpolationPanel1.syncToConfig(config.Interpolation);
 
-            // display panel
             config.DisplayType = displayTypeComboBox.Text;
             config.DisplayTrigger = "normal";
             config.DisplaySerial = displayModuleNameComboBox.Text;
-            config.DisplayPin = displayPinPanel.displayPortComboBox.Text + displayPinPanel.displayPinComboBox.Text;
-            config.DisplayPinBrightness = (byte)(255 * ((displayPinPanel.displayPinBrightnessTrackBar.Value) / (double)(displayPinPanel.displayPinBrightnessTrackBar.Maximum)));
 
-            config.DisplayLedAddress = displayLedDisplayPanel.displayLedAddressComboBox.Text;
-            config.DisplayLedPadding = displayLedDisplayPanel.displayLedPaddingCheckBox.Checked;
-            config.DisplayLedPaddingChar = displayLedDisplayPanel.GetPaddingChar();
-            try
-            {
-                config.DisplayLedConnector = byte.Parse(displayLedDisplayPanel.displayLedConnectorComboBox.Text);
-                config.DisplayLedModuleSize = byte.Parse(displayLedDisplayPanel.displayLedModuleSizeComboBox.Text);
-            }
-            catch (FormatException e)
-            {
-                Log.Instance.log("_syncFormToConfig : Parsing values", LogSeverity.Debug);
-            }
-            config.DisplayLedDigits.Clear();
-            config.DisplayLedDecimalPoints.Clear();
-            for (int i = 0; i < 8; i++)
-            {
-                CheckBox cb = (displayLedDisplayPanel.displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
-                if (cb.Checked)
-                {
-                    config.DisplayLedDigits.Add(i.ToString());
-                } //if
+            // sync panels
+            displayPinPanel.syncToConfig(config);
+            
+            displayLedDisplayPanel.syncToConfig(config);
 
-                cb = (displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
-                if (cb.Checked)
-                {
-                    config.DisplayLedDecimalPoints.Add(i.ToString());
-                } //if
-            }
-
-            config.BcdPins.Clear();
-            config.BcdPins.Add(displayBcdPanel.displayBcdStrobePortComboBox.Text + displayBcdPanel.displayBcdStrobePinComboBox.Text);
-            for (int i = 1; i <= 4; i++ )
-            {
-                config.BcdPins.Add(
-                    displayBcdPanel.displayBcdStrobePortComboBox.Text +
-                    (displayBcdPanel.Controls["displayBcdPin" + i + "ComboBox"] as ComboBox).Text);
-            }
-
+            displayBcdPanel.syncToConfig(config);
 
             servoPanel.syncToConfig(config);
             
@@ -545,8 +461,11 @@ namespace MobiFlight
 
         }
 
-        private void displayArcazeSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void displaySerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+#if DEBUG
+            Log.Instance.log("displaySerialComboBox_SelectedIndexChanged: called.", LogSeverity.Debug);
+#endif
             // check which extension type is available to current serial
             ComboBox cb = (sender as ComboBox);
 
@@ -575,6 +494,9 @@ namespace MobiFlight
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
                     foreach (DeviceType devType in module.GetConnectedOutputDeviceTypes())
                     {
+#if DEBUG
+                        Log.Instance.log("displaySerialComboBox_SelectedIndexChanged: Adding Device Type: " + devType.ToString(), LogSeverity.Debug);
+#endif
                         switch (devType)
                         {
                             case DeviceType.LedModule:
@@ -615,6 +537,8 @@ namespace MobiFlight
 
         private void displayTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Log.Instance.log("displayTypeComboBox_SelectedIndexChanged: called.", LogSeverity.Debug);
+
             foreach (UserControl p in displayPanels)
             {
                 p.Enabled = false;
@@ -707,6 +631,7 @@ namespace MobiFlight
 
                     foreach (IConnectedDevice device in module.GetConnectedDevices())
                     {
+                        Log.Instance.log("displayTypeComboBox_SelectedIndexChanged: Adding connected device: " + device.Type.ToString() + ", " + device.Name, LogSeverity.Debug);
                         switch (device.Type)
                         {
                             case DeviceType.LedModule:

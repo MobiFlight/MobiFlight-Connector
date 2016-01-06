@@ -74,6 +74,9 @@ namespace MobiFlight
                 PreconditionOperand = reader["operand"];
                 PreconditionValue = reader["value"];
             }
+
+            if (null != reader.GetAttribute("logic"))
+                PreconditionLogic = reader["logic"];
         }
 
         public virtual void WriteXml(XmlWriter writer)
@@ -101,6 +104,9 @@ namespace MobiFlight
                     writer.WriteAttributeString("value", PreconditionValue);
                     break;
             }
+
+            writer.WriteAttributeString("logic", PreconditionLogic);
+
             writer.WriteEndElement();
         }
 

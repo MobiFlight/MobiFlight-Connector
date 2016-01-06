@@ -91,5 +91,43 @@ namespace MobiFlight.Panels
 
             displayBcdPin4ComboBox.Visible = displayBcdPin4ComboBox.Enabled = pins.Count > 0;
         }
+
+        internal void syncFromConfig(OutputConfigItem config)
+        {
+            // preselect BCD4056
+            for (int i = 0; i < config.BcdPins.Count(); i++)
+            {
+                if (config.BcdPins[i] != "")
+                {
+                    string tmpPort = config.BcdPins[i].Substring(0, 1);
+                    string tmpPin = config.BcdPins[i].Substring(1);
+
+                    if (i == 0)
+                    {
+                        if (!ComboBoxHelper.SetSelectedItem(displayBcdStrobePortComboBox, tmpPort)) { /* TODO: provide error message */ }
+                        if (!ComboBoxHelper.SetSelectedItem(displayBcdStrobePinComboBox, tmpPin)) { /* TODO: provide error message */ }
+                    }
+                    else
+                    {
+                        if (!ComboBoxHelper.SetSelectedItem(displayBcdPortComboBox, tmpPort)) { /* TODO: provide error message */ }
+                        if (!ComboBoxHelper.SetSelectedItem(Controls["displayBcdPin" + i + "ComboBox"] as ComboBox, tmpPin)) { /* TODO: provide error message */ }
+                    }
+                }
+            }
+        }
+
+        internal OutputConfigItem syncToConfig(OutputConfigItem config)
+        {
+            config.BcdPins.Clear();
+            config.BcdPins.Add(displayBcdStrobePortComboBox.Text + displayBcdStrobePinComboBox.Text);
+            for (int i = 1; i <= 4; i++)
+            {
+                config.BcdPins.Add(
+                    displayBcdStrobePortComboBox.Text +
+                    (Controls["displayBcdPin" + i + "ComboBox"] as ComboBox).Text);
+            }
+
+            return config;
+        }
     }
 }

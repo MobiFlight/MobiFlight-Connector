@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight;
 
 namespace System
 {
@@ -10,6 +11,7 @@ namespace System
     {
         static public bool SetSelectedItem(ComboBox comboBox, string value)
         {
+            Log.Instance.log("Set " + value + " in ComboBox: " + comboBox.Name, LogSeverity.Debug);
             if (comboBox.FindStringExact(value) != -1)
             {
                 comboBox.SelectedIndex = comboBox.FindStringExact(value);

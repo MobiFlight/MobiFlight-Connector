@@ -69,5 +69,41 @@ namespace MobiFlight.Panels
 
             displayPinBrightnessPanel.Enabled = cb.SelectedIndex > 2;
         }
+
+        internal void syncFromConfig(OutputConfigItem config)
+        {
+            String serial = config.DisplaySerial;
+            if (serial.Contains('/'))
+            {
+                serial = serial.Split('/')[1].Trim();
+            }
+
+            if (config.DisplayPin != null && config.DisplayPin != "")
+            {
+                string port = "";
+                string pin = config.DisplayPin;
+
+                if (serial != null && serial.IndexOf("SN") != 0)
+                {
+                    port = config.DisplayPin.Substring(0, 1);
+                    pin = config.DisplayPin.Substring(1);
+                }
+
+                // preselect normal pin drop downs
+                if (!ComboBoxHelper.SetSelectedItem(displayPortComboBox, port)) { /* TODO: provide error message */ }
+                if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
+
+                int range = displayPinBrightnessTrackBar.Maximum - displayPinBrightnessTrackBar.Minimum;
+                displayPinBrightnessTrackBar.Value = (int)((config.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
+            }
+        }
+
+        internal OutputConfigItem syncToConfig(OutputConfigItem config)
+        {
+            config.DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text;
+            config.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
+
+            return config;
+        }
     }
 }
