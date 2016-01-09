@@ -21,16 +21,22 @@ namespace MobiFlight.Panels
         internal void syncFromConfig(OutputConfigItem config)
         {
             // preselect display stuff
-            if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
+            if (config.DisplayLedAddress != null)
+            { 
+                if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
+                {
+                    // TODO: provide error message
+                    Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
+                }
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
+            if (config.DisplayLedAddress != null)
             {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
+                if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
+                {
+                    // TODO: provide error message
+                    Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
+                }
             }
 
             if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))

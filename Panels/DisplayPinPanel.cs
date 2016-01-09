@@ -73,7 +73,7 @@ namespace MobiFlight.Panels
         internal void syncFromConfig(OutputConfigItem config)
         {
             String serial = config.DisplaySerial;
-            if (serial.Contains('/'))
+            if (serial != null && serial.Contains('/'))
             {
                 serial = serial.Split('/')[1].Trim();
             }

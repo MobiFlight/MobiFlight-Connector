@@ -74,7 +74,7 @@ namespace MobiFlight.Panels.Group
         }
 
         private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        { 
+        {
             try
             {
                 //if ((e.RowIndex + 1) == (sender as DataGridView).Rows.Count) return;
@@ -179,6 +179,7 @@ namespace MobiFlight.Panels.Group
             } catch (Exception)
             {
             }
+            datagridview1.EndEdit();
         }
 
         private void dataGridView1_KeyUp(object sender, KeyEventArgs e)

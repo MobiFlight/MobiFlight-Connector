@@ -45,6 +45,19 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("value", Param.ToString());
         }
 
+        private IFsuipcConfigItem CreateJeehellBaseOffsetConfigItem()
+        {
+            FSUIPC.FSUIPCConfigItem result = new FSUIPC.FSUIPCConfigItem();
+            result.FSUIPCOffset = BaseOffset;
+            result.FSUIPCOffsetType = FSUIPCOffsetType.Integer;
+            result.FSUIPCSize = 1;
+            result.FSUIPCMask = 0xFF;
+            result.FSUIPCBcdMode = false;
+            result.FSUIPCMultiplier = 1;
+
+            return result;
+        }
+
         private IFsuipcConfigItem CreateFsuipcConfigItem ()
         {
             FSUIPC.FSUIPCConfigItem result = new FSUIPC.FSUIPCConfigItem();
@@ -52,6 +65,7 @@ namespace MobiFlight.InputConfig
             result.FSUIPCSize = 2;
             result.FSUIPCMask = 0xFFFF;
             result.FSUIPCBcdMode = false;
+            result.FSUIPCMultiplier = 1;
             switch (EventId)
             {
                 case 1:
@@ -115,7 +129,7 @@ namespace MobiFlight.InputConfig
             {
                 ConnectorValue tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeRead(cfg, fsuipcCache);
 
-                String expression = value.Replace("$", tmpValue.ToString());
+                String expression = value.Replace("$", tmpValue.Int64.ToString());
                 var ce = new NCalc.Expression(expression);
                 try
                 {
@@ -128,8 +142,12 @@ namespace MobiFlight.InputConfig
                 }
             }
 
+            cfg.FSUIPCOffset = ParamOffset;
+            cfg.FSUIPCSize = 2;
+            cfg.FSUIPCMask = 0xFFFF;
+            //fsuipcCache.setOffset(BaseOffset, );
             MobiFlight.FSUIPC.FsuipcHelper.executeWrite(value, cfg, fsuipcCache);
-            fsuipcCache.setOffset(BaseOffset, EventId);            
+            MobiFlight.FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), fsuipcCache);
             fsuipcCache.ForceUpdate();
         }
     }

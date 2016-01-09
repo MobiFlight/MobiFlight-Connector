@@ -442,9 +442,14 @@ namespace MobiFlight
         private void button1_Click(object sender, EventArgs e)
         {
             _testModeStop();
-            if (!ValidateChildren())
-            {              
-                return;
+            try {
+                if (!ValidateChildren())
+                {
+                    return;
+                }
+            } catch (System.InvalidOperationException eOp)
+            {
+                Log.Instance.log("ConfigWizard:button1_Click: " + eOp.Message, LogSeverity.Debug);
             }
             _syncFormToConfig();
             DialogResult = DialogResult.OK;

@@ -78,7 +78,11 @@ namespace MobiFlight
                                double.Parse(reader["y"], serializationCulture));
                     reader.ReadToNextSibling("value");
                 } while (reader.LocalName == "value");
+
+                reader.ReadEndElement();
             }
+
+            reader.ReadEndElement();
         }
 
         public double Value(double x)
