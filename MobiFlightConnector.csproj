@@ -450,6 +450,9 @@
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="examples\example-jeehell-datapipe.mcc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_mega_1_4_0.hex" />
     <None Include="firmware\mobiflight_mega_1_4_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
