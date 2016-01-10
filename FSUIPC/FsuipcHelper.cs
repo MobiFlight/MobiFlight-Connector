@@ -113,7 +113,7 @@ namespace MobiFlight.FSUIPC
             return result;
         }
 
-        public static ConnectorValue executeTransform(ConnectorValue value, OutputConfigItem cfg)
+        public static ConnectorValue executeTransform(ConnectorValue value, IFsuipcConfigItem cfg)
         {
             double tmpValue;
 

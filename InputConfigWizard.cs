@@ -280,12 +280,14 @@ namespace MobiFlight
             switch (currentInputType)
             {
                 case DeviceType.Button:
+                    config.Type = InputConfigItem.TYPE_BUTTON;
                     if (config.button == null) config.button = new MobiFlight.InputConfig.ButtonInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
                     break;
 
                 case DeviceType.Encoder:
+                    config.Type = InputConfigItem.TYPE_ENCODER;
                     if (config.encoder == null) config.encoder = new MobiFlight.InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);

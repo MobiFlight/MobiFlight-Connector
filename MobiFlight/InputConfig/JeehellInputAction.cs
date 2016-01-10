@@ -78,11 +78,13 @@ namespace MobiFlight.InputConfig
 
                 case 3:
                     result.FSUIPCOffset = Offset_ALT;
+                    //result.FSUIPCMultiplier = 100;
                     break;
                 case 4:
                     result.FSUIPCOffset = Offset_VS;
                     result.FSUIPCSize = 1;
                     result.FSUIPCMask = 0xFF;
+                    //result.FSUIPCMultiplier = 100;
                     break;
                 case 5:
                     result.FSUIPCOffset = Offset_CPT_QNH;
@@ -128,6 +130,8 @@ namespace MobiFlight.InputConfig
             if (value.Contains("$"))
             {
                 ConnectorValue tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeRead(cfg, fsuipcCache);
+                tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeTransform(tmpValue, cfg);
+                Log.Instance.log("JeehellInputAction:Execute : Current value " + tmpValue.Int64.ToString(), LogSeverity.Debug);
 
                 String expression = value.Replace("$", tmpValue.Int64.ToString());
                 var ce = new NCalc.Expression(expression);
@@ -145,7 +149,8 @@ namespace MobiFlight.InputConfig
             cfg.FSUIPCOffset = ParamOffset;
             cfg.FSUIPCSize = 2;
             cfg.FSUIPCMask = 0xFFFF;
-            //fsuipcCache.setOffset(BaseOffset, );
+
+            Log.Instance.log("JeehellInputAction:Execute : Setting value " + value + " for EventID: " + EventId, LogSeverity.Debug);
             MobiFlight.FSUIPC.FsuipcHelper.executeWrite(value, cfg, fsuipcCache);
             MobiFlight.FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), fsuipcCache);
             fsuipcCache.ForceUpdate();

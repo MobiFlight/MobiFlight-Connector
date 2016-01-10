@@ -1715,7 +1715,7 @@ namespace MobiFlight
                     InputConfigItem cfg = (dataRow["settings"] as InputConfigItem);
 
                     gridRow.Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
-                    gridRow.Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
+                    gridRow.Cells["inputType"].Value = cfg.Type;
                 }
             }
         }
