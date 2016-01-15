@@ -99,6 +99,17 @@ namespace AutoUpdaterDotNET
         public static event CheckForUpdateEventHandler CheckForUpdateEvent;
 
         /// <summary>
+        ///     A delegate type for hooking up update notifications.
+        /// </summary>
+        /// <param name="args">An object containing all the parameters recieved from AppCast XML file. If there will be an error while looking for the XML file then this object will be null.</param>
+        public delegate void AutoUpdaterFinishedEventHandler ();
+
+        /// <summary>
+        ///     An event that clients can use to be notified whenever the update is checked.
+        /// </summary>
+        public static event AutoUpdaterFinishedEventHandler AutoUpdaterFinishedEvent;
+
+        /// <summary>
         ///     Start checking for new version of application and display dialog to the user if update is available.
         /// </summary>
         public static void Start()
@@ -121,12 +132,21 @@ namespace AutoUpdaterDotNET
             var backgroundWorker = new BackgroundWorker();
 
             backgroundWorker.DoWork += BackgroundWorkerDoWork;
+            backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
 
             List<Object> props = new List<object>();
             props.Add(force);
             props.Add(silent);
 
             backgroundWorker.RunWorkerAsync(props);
+        }
+
+        private static void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (AutoUpdaterFinishedEvent != null)
+            {
+                AutoUpdaterFinishedEvent();
+            }
         }
 
         private static void BackgroundWorkerDoWork(object sender, DoWorkEventArgs e)

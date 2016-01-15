@@ -46,20 +46,18 @@
             // InfoLabel
             // 
             resources.ApplyResources(this.InfoLabel, "InfoLabel");
-            this.InfoLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.InfoLabel.Name = "InfoLabel";
             // 
             // OkCancelPanel
             // 
-            resources.ApplyResources(this.OkCancelPanel, "OkCancelPanel");
             this.OkCancelPanel.Controls.Add(this.DlgCancelButton);
             this.OkCancelPanel.Controls.Add(this.OkButton);
+            resources.ApplyResources(this.OkCancelPanel, "OkCancelPanel");
             this.OkCancelPanel.Name = "OkCancelPanel";
             // 
             // DlgCancelButton
             // 
             resources.ApplyResources(this.DlgCancelButton, "DlgCancelButton");
-            this.DlgCancelButton.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.DlgCancelButton.Name = "DlgCancelButton";
             this.DlgCancelButton.UseVisualStyleBackColor = true;
             this.DlgCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -67,15 +65,14 @@
             // OkButton
             // 
             resources.ApplyResources(this.OkButton, "OkButton");
-            this.OkButton.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.OkButton.Name = "OkButton";
             this.OkButton.UseVisualStyleBackColor = true;
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // orphanedSerialsGroupBox
             // 
-            resources.ApplyResources(this.orphanedSerialsGroupBox, "orphanedSerialsGroupBox");
             this.orphanedSerialsGroupBox.Controls.Add(this.orphanedSerialsListBox);
+            resources.ApplyResources(this.orphanedSerialsGroupBox, "orphanedSerialsGroupBox");
             this.orphanedSerialsGroupBox.Name = "orphanedSerialsGroupBox";
             this.orphanedSerialsGroupBox.TabStop = false;
             // 
@@ -93,29 +90,28 @@
             // 
             // connectedModulesGroupBox
             // 
-            resources.ApplyResources(this.connectedModulesGroupBox, "connectedModulesGroupBox");
             this.connectedModulesGroupBox.Controls.Add(this.connectedModulesAssignButton);
             this.connectedModulesGroupBox.Controls.Add(this.connectedModulesComboBox);
+            resources.ApplyResources(this.connectedModulesGroupBox, "connectedModulesGroupBox");
             this.connectedModulesGroupBox.Name = "connectedModulesGroupBox";
             this.connectedModulesGroupBox.TabStop = false;
             // 
             // connectedModulesAssignButton
             // 
             resources.ApplyResources(this.connectedModulesAssignButton, "connectedModulesAssignButton");
-            this.connectedModulesAssignButton.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.connectedModulesAssignButton.Name = "connectedModulesAssignButton";
             this.connectedModulesAssignButton.UseVisualStyleBackColor = true;
             this.connectedModulesAssignButton.Click += new System.EventHandler(this.connectedModulesAssignButton_Click);
             // 
             // connectedModulesComboBox
             // 
-            resources.ApplyResources(this.connectedModulesComboBox, "connectedModulesComboBox");
             this.connectedModulesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.connectedModulesComboBox.FormattingEnabled = true;
             this.connectedModulesComboBox.Items.AddRange(new object[] {
             resources.GetString("connectedModulesComboBox.Items"),
             resources.GetString("connectedModulesComboBox.Items1"),
             resources.GetString("connectedModulesComboBox.Items2")});
+            resources.ApplyResources(this.connectedModulesComboBox, "connectedModulesComboBox");
             this.connectedModulesComboBox.Name = "connectedModulesComboBox";
             // 
             // OrphanedSerialsDialog

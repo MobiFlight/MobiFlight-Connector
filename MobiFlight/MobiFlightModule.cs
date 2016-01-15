@@ -428,8 +428,8 @@ namespace MobiFlight
 
         public bool SetDisplay(string name, int module, byte points, byte mask, string value)
         {
-            String key = "LED_" + name + "_" + module;
-            String cachedValue = value + "_" + points + "_" + mask;
+            String key = "LED_" + name + "_" + module + "_" + mask;
+            String cachedValue = value + "_" + points;
 
             if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
                 lastValue[key] == cachedValue) return false;

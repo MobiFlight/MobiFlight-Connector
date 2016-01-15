@@ -1723,8 +1723,14 @@ namespace MobiFlight
         private void MainForm_Load(object sender, EventArgs e)
         {
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            CheckForUpdate(false, true);
             AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
+            AutoUpdater.AutoUpdaterFinishedEvent += AutoUpdater_AutoUpdaterFinishedEvent;
+            CheckForUpdate(false, true);
+        }
+
+        private void AutoUpdater_AutoUpdaterFinishedEvent()
+        {
+            this.Invoke(new VoidDelegate(startAutoConnectThreadSafe));
         }
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
