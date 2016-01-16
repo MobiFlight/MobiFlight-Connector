@@ -64,7 +64,7 @@
             // 
             // bytePanel8
             // 
-            this.bytePanel8.Byte = ((byte)(4));
+            this.bytePanel8.Byte = ((byte)(8));
             this.bytePanel8.Location = new System.Drawing.Point(3, 3);
             this.bytePanel8.Name = "bytePanel8";
             this.bytePanel8.Size = new System.Drawing.Size(198, 54);
@@ -73,7 +73,7 @@
             // 
             // bytePanel7
             // 
-            this.bytePanel7.Byte = ((byte)(4));
+            this.bytePanel7.Byte = ((byte)(7));
             this.bytePanel7.Location = new System.Drawing.Point(207, 3);
             this.bytePanel7.Name = "bytePanel7";
             this.bytePanel7.Size = new System.Drawing.Size(198, 54);
@@ -82,7 +82,7 @@
             // 
             // bytePanel6
             // 
-            this.bytePanel6.Byte = ((byte)(4));
+            this.bytePanel6.Byte = ((byte)(6));
             this.bytePanel6.Location = new System.Drawing.Point(411, 3);
             this.bytePanel6.Name = "bytePanel6";
             this.bytePanel6.Size = new System.Drawing.Size(198, 54);
@@ -91,7 +91,7 @@
             // 
             // bytePanel5
             // 
-            this.bytePanel5.Byte = ((byte)(4));
+            this.bytePanel5.Byte = ((byte)(5));
             this.bytePanel5.Location = new System.Drawing.Point(615, 3);
             this.bytePanel5.Name = "bytePanel5";
             this.bytePanel5.Size = new System.Drawing.Size(198, 54);

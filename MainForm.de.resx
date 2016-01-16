@@ -164,7 +164,7 @@
     <value>Datei</value>
   </data>
   <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 22</value>
+    <value>221, 22</value>
   </data>
   <data name="orphanedSerialsFinderToolStripMenuItem.Text" xml:space="preserve">
     <value>Verwaiste Module verwalten</value>
@@ -173,10 +173,10 @@
     <value>Korrigieren Sie Verweise auf Module, die gerade nicht angeschlossen sind</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 6</value>
+    <value>218, 6</value>
   </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 22</value>
+    <value>221, 22</value>
   </data>
   <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
     <value>Einstellungen</value>
@@ -246,13 +246,13 @@
     <value>173, 48</value>
   </data>
   <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>552, 130</value>
+    <value>588, 130</value>
   </data>
   <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>558, 149</value>
+    <value>594, 149</value>
   </data>
   <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>564, 155</value>
+    <value>600, 155</value>
   </data>
   <data name="inputActive.HeaderText" xml:space="preserve">
     <value>Aktiv</value>
@@ -297,10 +297,10 @@
     <value>564, 155</value>
   </data>
   <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>572, 181</value>
+    <value>608, 181</value>
   </data>
   <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>572, 181</value>
+    <value>608, 181</value>
   </data>
   <data name="notifyIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -520,10 +520,10 @@
     <value>4, 19</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>252, 19</value>
+    <value>288, 19</value>
   </data>
   <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>572, 24</value>
+    <value>608, 24</value>
   </data>
   <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 283</value>
@@ -532,7 +532,7 @@
     <value>0, 24</value>
   </data>
   <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>572, 24</value>
+    <value>608, 24</value>
   </data>
   <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 233</value>
