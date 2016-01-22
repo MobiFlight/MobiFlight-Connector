@@ -52,7 +52,7 @@ Global
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Debug-Mobiflight Offline|Mixed Platforms.Build.0 = Debug-Mobiflight Offline|x86
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Debug-Mobiflight Offline|x86.ActiveCfg = Debug-Mobiflight Offline|x86
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Debug-Mobiflight Offline|x86.Build.0 = Debug-Mobiflight Offline|x86
-		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Debug-Mobiflight|Any CPU.ActiveCfg = Debug-Mobiflight (EN)|x86
+		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Debug-Mobiflight|Any CPU.ActiveCfg = Debug-Mobiflight|x86
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Debug-Mobiflight|Mixed Platforms.ActiveCfg = Debug-Mobiflight|x86
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Debug-Mobiflight|Mixed Platforms.Build.0 = Debug-Mobiflight|x86
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Debug-Mobiflight|x86.ActiveCfg = Debug-Mobiflight|x86

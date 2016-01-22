@@ -80,7 +80,7 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-Mobiflight\</OutputPath>
     <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG</DefineConstants>
-    <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug-Mobiflight\MFConnector.xml</DocumentationFile>
     <WarningLevel>2</WarningLevel>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -134,9 +134,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight %28EN%29|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug-Mobiflight %28EN%29\</OutputPath>
+    <OutputPath>bin\Debug-Mobiflight %28EN%29\</OutputPath>
     <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_EN</DefineConstants>
-    <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug-Mobiflight %28EN%29\MFConnector.xml</DocumentationFile>
     <WarningLevel>2</WarningLevel>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
