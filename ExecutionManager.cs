@@ -296,6 +296,7 @@ namespace MobiFlight
                     throw resultExc;
                 }
             }
+            fsuipcCache.ForceUpdate();
             isExecuting = false;
         }
 

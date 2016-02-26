@@ -185,8 +185,6 @@ namespace MobiFlight.InputConfig
 
                 fsuipcCache.setOffset(FSUIPCOffset, iValue);
             }
-
-            fsuipcCache.ForceUpdate();
         }
     }
 }
