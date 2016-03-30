@@ -406,8 +406,15 @@ namespace MobiFlight
             // fsuipc panel
             config.FSUIPCMask       = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x","").ToLower(),System.Globalization.NumberStyles.HexNumber);
             config.FSUIPCOffset     = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);            
-            config.FSUIPCSize       = Byte.Parse(fsuipcSizeComboBox.Text);
             config.FSUIPCOffsetType = (FSUIPCOffsetType) Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
+            if (config.FSUIPCOffsetType != FSUIPCOffsetType.String)
+            {
+                config.FSUIPCSize = Byte.Parse(fsuipcSizeComboBox.Text);
+            }else
+            {
+                config.FSUIPCSize = 255;
+            }
+
             config.FSUIPCMultiplier = Double.Parse(fsuipcMultiplyTextBox.Text);
             config.FSUIPCBcdMode    = fsuipcBcdModeCheckBox.Checked;
 
@@ -785,7 +792,9 @@ namespace MobiFlight
 
         private void fsuipcMaskTextBox_Validating(object sender, CancelEventArgs e)
         {
-            _validatingHexFields(sender, e, int.Parse(fsuipcSizeComboBox.Text)*2);
+            config.FSUIPCOffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
+            if (config.FSUIPCOffsetType != FSUIPCOffsetType.String)
+                _validatingHexFields(sender, e, int.Parse(fsuipcSizeComboBox.Text)*2);
         }
 
         private void _validatingHexFields(object sender, CancelEventArgs e, int length)

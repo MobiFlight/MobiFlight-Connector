@@ -67,6 +67,19 @@ namespace MobiFlight
             return true;
         }
 
+        public bool updateConnectedModuleName(MobiFlightModule m)
+        {
+            if (connectedModules == null) return false;
+
+            foreach (MobiFlightModuleInfo info in connectedModules)
+            {
+                if (info.Serial != m.Serial) continue;
+                info.Name = m.Name;
+            }
+
+            return true;
+        }
+
         public List<MobiFlightModuleInfo> getConnectedModules()
         {
             if (connectedModules == null)

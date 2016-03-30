@@ -16,7 +16,7 @@ namespace MobiFlight.Panels
         /// </summary>
         public event EventHandler Changed;
 
-        private MobiFlightModuleInfo module;
+        private MobiFlightModule module;
         bool initialized = false;
 
         public MFModulePanel()
@@ -24,12 +24,12 @@ namespace MobiFlight.Panels
             InitializeComponent();
         }
 
-        public MFModulePanel(MobiFlightModuleInfo module)
+        public MFModulePanel(MobiFlightModule module)
             : this()
         {
             // TODO: Complete member initialization
             this.module = module;
-            textBox1.Text = module.Name;
+            moduleNameTextBox.Text = module.Name;
             FirmwareValueLabel.Text = module.Version;
             SerialValueLabel.Text = module.Serial;
             TypeValueLabel.Text = module.Type.ToString();
@@ -42,10 +42,15 @@ namespace MobiFlight.Panels
         {
             if (!initialized) return;
 
-            // module.Name = textBox1.Text;
+            module.Name = moduleNameTextBox.Text;
 
             if (Changed != null)
                 Changed(module, new EventArgs());
+        }
+
+        private void moduleNameTextBox_Validating(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.moduleNameTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.FirmwareValueLabel = new System.Windows.Forms.Label();
-            this.FirmwareLabel = new System.Windows.Forms.Label();
-            this.PortValueLabel = new System.Windows.Forms.Label();
-            this.PortLabel = new System.Windows.Forms.Label();
-            this.SerialValueLabel = new System.Windows.Forms.Label();
-            this.SerialLabel = new System.Windows.Forms.Label();
             this.TypeValueLabel = new System.Windows.Forms.Label();
             this.TypeLabel = new System.Windows.Forms.Label();
+            this.SerialValueLabel = new System.Windows.Forms.Label();
+            this.SerialLabel = new System.Windows.Forms.Label();
+            this.PortValueLabel = new System.Windows.Forms.Label();
+            this.PortLabel = new System.Windows.Forms.Label();
+            this.FirmwareValueLabel = new System.Windows.Forms.Label();
+            this.FirmwareLabel = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.moduleNameTextBox);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
@@ -54,14 +54,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Name";
             // 
-            // textBox1
+            // moduleNameTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(18, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(151, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
+            this.moduleNameTextBox.Location = new System.Drawing.Point(18, 19);
+            this.moduleNameTextBox.Name = "moduleNameTextBox";
+            this.moduleNameTextBox.Size = new System.Drawing.Size(151, 20);
+            this.moduleNameTextBox.TabIndex = 0;
+            this.moduleNameTextBox.TextChanged += new System.EventHandler(this.value_Changed);
+            this.moduleNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.moduleNameTextBox_Validating);
             // 
             // groupBox1
             // 
@@ -81,41 +81,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
             // 
-            // FirmwareValueLabel
+            // TypeValueLabel
             // 
-            this.FirmwareValueLabel.AutoSize = true;
-            this.FirmwareValueLabel.Location = new System.Drawing.Point(73, 20);
-            this.FirmwareValueLabel.Name = "FirmwareValueLabel";
-            this.FirmwareValueLabel.Size = new System.Drawing.Size(28, 13);
-            this.FirmwareValueLabel.TabIndex = 1;
-            this.FirmwareValueLabel.Text = "x.x.x";
+            this.TypeValueLabel.AutoSize = true;
+            this.TypeValueLabel.Location = new System.Drawing.Point(73, 74);
+            this.TypeValueLabel.Name = "TypeValueLabel";
+            this.TypeValueLabel.Size = new System.Drawing.Size(85, 13);
+            this.TypeValueLabel.TabIndex = 7;
+            this.TypeValueLabel.Text = "MobiFlight Mega";
             // 
-            // FirmwareLabel
+            // TypeLabel
             // 
-            this.FirmwareLabel.AutoSize = true;
-            this.FirmwareLabel.Location = new System.Drawing.Point(18, 20);
-            this.FirmwareLabel.Name = "FirmwareLabel";
-            this.FirmwareLabel.Size = new System.Drawing.Size(49, 13);
-            this.FirmwareLabel.TabIndex = 0;
-            this.FirmwareLabel.Text = "Firmware";
-            // 
-            // PortValueLabel
-            // 
-            this.PortValueLabel.AutoSize = true;
-            this.PortValueLabel.Location = new System.Drawing.Point(73, 38);
-            this.PortValueLabel.Name = "PortValueLabel";
-            this.PortValueLabel.Size = new System.Drawing.Size(35, 13);
-            this.PortValueLabel.TabIndex = 3;
-            this.PortValueLabel.Text = "ComX";
-            // 
-            // PortLabel
-            // 
-            this.PortLabel.AutoSize = true;
-            this.PortLabel.Location = new System.Drawing.Point(18, 38);
-            this.PortLabel.Name = "PortLabel";
-            this.PortLabel.Size = new System.Drawing.Size(26, 13);
-            this.PortLabel.TabIndex = 2;
-            this.PortLabel.Text = "Port";
+            this.TypeLabel.AutoSize = true;
+            this.TypeLabel.Location = new System.Drawing.Point(18, 74);
+            this.TypeLabel.Name = "TypeLabel";
+            this.TypeLabel.Size = new System.Drawing.Size(31, 13);
+            this.TypeLabel.TabIndex = 6;
+            this.TypeLabel.Text = "Type";
             // 
             // SerialValueLabel
             // 
@@ -135,23 +117,41 @@
             this.SerialLabel.TabIndex = 4;
             this.SerialLabel.Text = "Serial";
             // 
-            // TypeValueLabel
+            // PortValueLabel
             // 
-            this.TypeValueLabel.AutoSize = true;
-            this.TypeValueLabel.Location = new System.Drawing.Point(73, 74);
-            this.TypeValueLabel.Name = "TypeValueLabel";
-            this.TypeValueLabel.Size = new System.Drawing.Size(85, 13);
-            this.TypeValueLabel.TabIndex = 7;
-            this.TypeValueLabel.Text = "MobiFlight Mega";
+            this.PortValueLabel.AutoSize = true;
+            this.PortValueLabel.Location = new System.Drawing.Point(73, 38);
+            this.PortValueLabel.Name = "PortValueLabel";
+            this.PortValueLabel.Size = new System.Drawing.Size(35, 13);
+            this.PortValueLabel.TabIndex = 3;
+            this.PortValueLabel.Text = "ComX";
             // 
-            // TypeLabel
+            // PortLabel
             // 
-            this.TypeLabel.AutoSize = true;
-            this.TypeLabel.Location = new System.Drawing.Point(18, 74);
-            this.TypeLabel.Name = "TypeLabel";
-            this.TypeLabel.Size = new System.Drawing.Size(31, 13);
-            this.TypeLabel.TabIndex = 6;
-            this.TypeLabel.Text = "Type";
+            this.PortLabel.AutoSize = true;
+            this.PortLabel.Location = new System.Drawing.Point(18, 38);
+            this.PortLabel.Name = "PortLabel";
+            this.PortLabel.Size = new System.Drawing.Size(26, 13);
+            this.PortLabel.TabIndex = 2;
+            this.PortLabel.Text = "Port";
+            // 
+            // FirmwareValueLabel
+            // 
+            this.FirmwareValueLabel.AutoSize = true;
+            this.FirmwareValueLabel.Location = new System.Drawing.Point(73, 20);
+            this.FirmwareValueLabel.Name = "FirmwareValueLabel";
+            this.FirmwareValueLabel.Size = new System.Drawing.Size(28, 13);
+            this.FirmwareValueLabel.TabIndex = 1;
+            this.FirmwareValueLabel.Text = "x.x.x";
+            // 
+            // FirmwareLabel
+            // 
+            this.FirmwareLabel.AutoSize = true;
+            this.FirmwareLabel.Location = new System.Drawing.Point(18, 20);
+            this.FirmwareLabel.Name = "FirmwareLabel";
+            this.FirmwareLabel.Size = new System.Drawing.Size(49, 13);
+            this.FirmwareLabel.TabIndex = 0;
+            this.FirmwareLabel.Text = "Firmware";
             // 
             // MFModulePanel
             // 
@@ -173,7 +173,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox moduleNameTextBox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label FirmwareValueLabel;
         private System.Windows.Forms.Label FirmwareLabel;

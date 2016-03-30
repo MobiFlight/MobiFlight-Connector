@@ -76,12 +76,13 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.4.0 : Servo + Stepper support
 // 1.4.1 : Reduce velocity
 // 1.5.0 : Improve servo behaviour
-const char version[8] = "1.5.0";
+// 1.6.0 : Set name
+const char version[8] = "1.6.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
 char serial[MEM_LEN_SERIAL] = "1234567890";
-char name[MEM_LEN_NAME]     = "MobiFlight Mega";
+char name[MEM_LEN_NAME]     = "Mega";
 int eepromSize = EEPROMSizeMega;
 const int  MEM_LEN_CONFIG    = 1024;
 #endif
@@ -89,7 +90,7 @@ const int  MEM_LEN_CONFIG    = 1024;
 #if MODULETYPE == MTYPE_MICRO
 char type[20]               = "MobiFlight Micro";
 char serial[MEM_LEN_SERIAL] = "0987654321";
-char name[MEM_LEN_NAME]     = "MobiFlight Micro";
+char name[MEM_LEN_NAME]     = "Micro";
 int eepromSize = EEPROMSizeMicro;
 const int  MEM_LEN_CONFIG    = 128;
 #endif
@@ -187,7 +188,7 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kResetConfig, OnResetConfig);
   cmdMessenger.attach(kSaveConfig, OnSaveConfig);
   cmdMessenger.attach(kActivateConfig, OnActivateConfig);  
-  //cmdMessenger.attach(kSetName, OnSetName);  
+  cmdMessenger.attach(kSetName, OnSetName);  
   cmdMessenger.attach(kGenNewSerial, OnGenNewSerial);
   cmdMessenger.attach(kResetStepper, OnResetStepper);
   cmdMessenger.attach(kSetZeroStepper, OnSetZeroStepper);
@@ -212,6 +213,7 @@ void setup()
   attachCommandCallbacks();
   lastCommand = millis();  
   loadConfig();
+  restoreName();
 }
 
 void generateSerial(bool force) 
@@ -798,6 +800,29 @@ void OnGenNewSerial()
   cmdMessenger.sendCmdStart(kInfo);
   cmdMessenger.sendCmdArg(serial);
   cmdMessenger.sendCmdEnd();
+}
+
+void OnSetName() {
+  String cfg = cmdMessenger.readStringArg();
+  cfg.toCharArray(&name[0], MEM_LEN_NAME);
+  storeName();
+  cmdMessenger.sendCmdStart(kStatus);
+  cmdMessenger.sendCmdArg(name);
+  cmdMessenger.sendCmdEnd();
+}
+
+void storeName() {
+  char prefix[] = "#";
+  EEPROM.writeBlock<char>(MEM_OFFSET_NAME, prefix, 1);
+  EEPROM.writeBlock<char>(MEM_OFFSET_NAME+1, name, MEM_LEN_NAME-1);
+}
+
+void restoreName() {
+  char testHasName[1] = "";
+  EEPROM.readBlock<char>(MEM_OFFSET_NAME, testHasName, 1); 
+  if (testHasName[0] != '#') return;
+  
+  EEPROM.readBlock<char>(MEM_OFFSET_NAME+1, name, MEM_LEN_NAME-1); 
 }
 
 

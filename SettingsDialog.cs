@@ -535,8 +535,8 @@ namespace MobiFlight
 
                 if (selectedNode.Level == 0)
                 {
-                    panel = new MobiFlight.Panels.MFModulePanel((selectedNode.Tag as MobiFlightModule).ToMobiFlightModuleInfo());
-                    (panel as MobiFlight.Panels.MFModulePanel).Changed += new EventHandler(mfConfigObject_changed);
+                    panel = new MobiFlight.Panels.MFModulePanel((selectedNode.Tag as MobiFlightModule));
+                    (panel as MobiFlight.Panels.MFModulePanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                 }
                 else
                 {
@@ -545,32 +545,32 @@ namespace MobiFlight
                     {
                         case DeviceType.LedModule:
                             panel = new MobiFlight.Panels.MFLedSegmentPanel(dev as MobiFlight.Config.LedModule);
-                            (panel as MobiFlight.Panels.MFLedSegmentPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            (panel as MobiFlight.Panels.MFLedSegmentPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Stepper:
                             panel = new MobiFlight.Panels.MFStepperPanel(dev as MobiFlight.Config.Stepper);
-                            (panel as MobiFlight.Panels.MFStepperPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            (panel as MobiFlight.Panels.MFStepperPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Servo:
                             panel = new MobiFlight.Panels.MFServoPanel(dev as MobiFlight.Config.Servo);
-                            (panel as MobiFlight.Panels.MFServoPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            (panel as MobiFlight.Panels.MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Button:
                             panel = new MobiFlight.Panels.MFButtonPanel(dev as MobiFlight.Config.Button);
-                            (panel as MobiFlight.Panels.MFButtonPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            (panel as MobiFlight.Panels.MFButtonPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Encoder:
                             panel = new MobiFlight.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder);
-                            (panel as MobiFlight.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            (panel as MobiFlight.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Output:
                             panel = new MobiFlight.Panels.MFOutputPanel(dev as MobiFlight.Config.Output);
-                            (panel as MobiFlight.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigObject_changed);
+                            (panel as MobiFlight.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
                         // output
                     }
@@ -595,12 +595,18 @@ namespace MobiFlight
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void mfConfigObject_changed(object sender, EventArgs e)
+        void mfConfigDeviceObject_changed(object sender, EventArgs e)
         {
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
-            String UniqueName = (sender as MobiFlight.Config.BaseDevice).Name;
+            String UniqueName;
+            bool BaseDeviceHasChanged = (sender is MobiFlight.Config.BaseDevice);
+
+            if (BaseDeviceHasChanged)
+                UniqueName = (sender as MobiFlight.Config.BaseDevice).Name;
+            else
+                UniqueName = (sender as MobiFlight.MobiFlightModule).Name;
 
             if (!MobiFlightModule.IsValidDeviceName(UniqueName))
             {
@@ -616,31 +622,42 @@ namespace MobiFlight
                                       invalidCharacterList,
                                       MobiFlightModule.MaxDeviceNameLength.ToString()));
                 UniqueName = UniqueName.Substring(0, UniqueName.Length - 1);
-                (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;
+
+                if (BaseDeviceHasChanged)
+                    (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;
+                else
+                    (sender as MobiFlight.MobiFlightModule).Name = UniqueName;
+
                 syncPanelWithSelectedDevice(mfModulesTreeView.SelectedNode);
                 return;
             }
 
             removeError(mfSettingsPanel.Controls[0]);
-            
 
-            List<String> NodeNames = new List<String>();
-            foreach (TreeNode node in parentNode.Nodes) {
-                if (node == mfModulesTreeView.SelectedNode) continue;
-                NodeNames.Add(node.Text);
-            }
-
-            UniqueName = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), UniqueName);
-
-            if (UniqueName != (sender as MobiFlight.Config.BaseDevice).Name)
+            if (BaseDeviceHasChanged)
             {
-                (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;
-                MessageBox.Show(MainForm._tr("uiMessageDeviceNameAlreadyUsed"), MainForm._tr("Hint"), MessageBoxButtons.OK);
+                List<String> NodeNames = new List<String>();
+                foreach (TreeNode node in parentNode.Nodes)
+                {
+                    if (node == mfModulesTreeView.SelectedNode) continue;
+                    NodeNames.Add(node.Text);
+                }
+
+                UniqueName = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), UniqueName);
+
+                if (UniqueName != (sender as MobiFlight.Config.BaseDevice).Name)
+                {
+                    (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;
+                    MessageBox.Show(MainForm._tr("uiMessageDeviceNameAlreadyUsed"), MainForm._tr("Hint"), MessageBoxButtons.OK);
+                }
+
+                mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.Config.BaseDevice).Name;
             }
-
-            mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.Config.BaseDevice).Name;            
+            else
+            {
+                mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.MobiFlightModule).Name;
+            }
             
-
             parentNode.ImageKey = "Changed";
             parentNode.SelectedImageKey = "Changed";
         }
@@ -746,6 +763,8 @@ namespace MobiFlight
             module.SaveConfig();
             module.Config = null;
             module.LoadConfig();
+            execManager.getMobiFlightModuleCache().updateConnectedModuleName(module);
+
             parentNode.ImageKey = "";
             parentNode.SelectedImageKey = "";
 

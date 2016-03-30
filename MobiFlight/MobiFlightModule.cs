@@ -133,29 +133,29 @@ namespace MobiFlight
 
         public enum Command
         {            
-            InitModule,     // 0
-            SetModule,      // 1
-            SetPin,         // 2
-            SetStepper,     // 3
-            SetServo,       // 4
-            Status,         // 5
-            EncoderChange,  // 6
-            ButtonChange,   // 7
-            StepperChange,  // 8
-            GetInfo,        // 9
-            Info,           // 10
-            SetConfig,      // 11
-            GetConfig,      // 12
-            ResetConfig,    // 13
-            SaveConfig,     // 14
-            ConfigSaved,    // 15
-            ActivateConfig, // 16
-            ConfigActivated, // 17
+            InitModule,         // 0
+            SetModule,          // 1
+            SetPin,             // 2
+            SetStepper,         // 3
+            SetServo,           // 4
+            Status,             // 5
+            EncoderChange,      // 6
+            ButtonChange,       // 7
+            StepperChange,      // 8
+            GetInfo,            // 9
+            Info,               // 10
+            SetConfig,          // 11
+            GetConfig,          // 12
+            ResetConfig,        // 13
+            SaveConfig,         // 14
+            ConfigSaved,        // 15
+            ActivateConfig,     // 16
+            ConfigActivated,    // 17
             SetPowerSavingMode, // 18
-            SetName, // 19
-			GenNewSerial, // 20
-            ResetStepper, // 21
-            SetZeroStepper // 21
+            SetName,            // 19
+			GenNewSerial,       // 20
+            ResetStepper,       // 21
+            SetZeroStepper      // 21
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -548,9 +548,21 @@ namespace MobiFlight
             return devInfo;
         }
 
-        public bool SaveConfig()
+        public bool SaveName()
         {
             bool isOk = true;
+            var command = new SendCommand((int)MobiFlightModule.Command.SetName, (int)MobiFlightModule.Command.Status, CommandTimeout);
+            command.AddArgument(Name);
+            ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
+
+            isOk = StatusCommand.Ok;
+
+            return isOk;
+        }
+
+        public bool SaveConfig()
+        {
+            bool isOk = SaveName();
             var command = new SendCommand((int)MobiFlightModule.Command.ResetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
             _cmdMessenger.SendCommand(command);
 
