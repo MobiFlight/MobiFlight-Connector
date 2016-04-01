@@ -1342,6 +1342,11 @@ namespace MobiFlight
             }
         }
 
+        /// <summary>
+        /// when using tab in the grid view, the focus ignores readonly cell and jumps ahead to the next cell
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void inputsDataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (inputsDataGridView[e.ColumnIndex, e.RowIndex].ReadOnly)
@@ -1766,8 +1771,29 @@ namespace MobiFlight
         {
             minimizeMainForm(false);
         }
+
+        private void dataGridViewConfig_KeyUp(object sender, KeyEventArgs e)
+        {
+            // do something
+            // toggle active if current key is space
+            if (e.KeyCode != Keys.Space) return;
+            e.SuppressKeyPress = true;
+
+            bool isChecked = false;
+            if ((sender as DataGridView).SelectedRows.Count == 0) return;
+
+            // it is assumed that the first cell is the one with the checkbox
+            isChecked = Boolean.Parse((sender as DataGridView).SelectedRows[0].Cells[0].Value.ToString());
+
+            foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
+            {
+                row.Cells[0].Value = !isChecked;
+            }
+
+            (sender as DataGridView).RefreshEdit();
+        }
     }
-    
+
     // this class just wraps some Win32 stuff that we're going to use
     internal class NativeMethods
     {

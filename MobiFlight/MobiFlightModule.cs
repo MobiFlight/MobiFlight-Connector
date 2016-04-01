@@ -35,6 +35,12 @@ namespace MobiFlight
         Servo,       // 6
     }
 
+    public class FirmwareFeature
+    {
+        public const string GenerateSerial = "1.3.0";
+        public const string SetName        = "1.6.0";
+    }
+
     public class MobiFlightModule : IModule, IOutputModule
     {
         public delegate void ButtonEventHandler(object sender, ButtonArgs e);
@@ -723,6 +729,14 @@ namespace MobiFlight
             SendCommand command = new SendCommand((int)MobiFlightModule.Command.GenNewSerial, (int)MobiFlightModule.Command.Status, CommandTimeout);
             ReceivedCommand StatusCommand = this._cmdMessenger.SendCommand(command);
             return StatusCommand.Ok;
+        }
+
+        public bool HasFirmwareFeature(String FirmwareFeature)
+        {
+            System.Version minVersion = new System.Version(FirmwareFeature);
+            System.Version currentVersion = new System.Version(this.Version);
+
+            return (currentVersion.CompareTo(minVersion) >= 0);
         }
 
         public void Stop()

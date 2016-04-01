@@ -170,10 +170,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
+    <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutForm.Designer.cs">
+    <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Arcaze\ArcazeModule.cs" />
@@ -184,35 +184,35 @@
     <Compile Include="Arcaze\ArcazeLedDigit.cs" />
     <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
     <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
-    <Compile Include="ArduinoIdePathForm.cs">
+    <Compile Include="MobiFlight\Forms\ArduinoIdePathForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ArduinoIdePathForm.Designer.cs">
+    <Compile Include="MobiFlight\Forms\ArduinoIdePathForm.Designer.cs">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\IFsuipcConfigItem.cs" />
     <Compile Include="Base\BaseConfigItem.cs" />
-    <Compile Include="BitMaskEditorForm.cs">
+    <Compile Include="Forms\BitMaskEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BitMaskEditorForm.Designer.cs">
+    <Compile Include="Forms\BitMaskEditorForm.Designer.cs">
       <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BooleanConverterConfig.cs" />
-    <Compile Include="BytePanel.cs">
+    <Compile Include="Base\BooleanConverterConfig.cs" />
+    <Compile Include="Panels\BytePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BytePanel.Designer.cs">
+    <Compile Include="Panels\BytePanel.Designer.cs">
       <DependentUpon>BytePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="CmdLineParams.cs" />
-    <Compile Include="ComboBoxHelper.cs" />
-    <Compile Include="ConfigErrorException.cs" />
-    <Compile Include="ConfigFile.cs" />
-    <Compile Include="ConfigWizard.cs">
+    <Compile Include="Base\CmdLineParams.cs" />
+    <Compile Include="Base\ComboBoxHelper.cs" />
+    <Compile Include="Base\ConfigErrorException.cs" />
+    <Compile Include="Base\ConfigFile.cs" />
+    <Compile Include="Forms\ConfigWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConfigWizard.Designer.cs">
+    <Compile Include="Forms\ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="FSUIPC\FSUIPCConfigItem.cs" />
@@ -221,14 +221,13 @@
     <Compile Include="MobiFlight\Interpolation.cs" />
     <Compile Include="MobiFlight\KeyboardInput.cs" />
     <Compile Include="MobiFlight\OutputConfigItem.cs" />
-    <Compile Include="ConnectorValue.cs" />
-    <Compile Include="ConverterConfig.cs" />
+    <Compile Include="Base\ConnectorValue.cs" />
+    <Compile Include="Base\ConverterConfig.cs" />
     <Compile Include="Arcaze\DeviceInfoAndCache.cs" />
-    <Compile Include="EnumFSUIPC.cs" />
-    <Compile Include="EventTimer.cs">
+    <Compile Include="Base\EventTimer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ExecutionManager.cs" />
+    <Compile Include="Base\ExecutionManager.cs" />
     <Compile Include="FSUIPC\fsuipc.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -237,21 +236,21 @@
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
     <Compile Include="FSUIPC\FsuipcHelper.cs" />
     <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
-    <Compile Include="InputConfigWizard.cs">
+    <Compile Include="Forms\InputConfigWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InputConfigWizard.Designer.cs">
+    <Compile Include="Forms\InputConfigWizard.Designer.cs">
       <DependentUpon>InputConfigWizard.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListItem.cs" />
-    <Compile Include="Log.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Base\ListItem.cs" />
+    <Compile Include="Base\Log.cs" />
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputConnectorInterface.cs" />
+    <Compile Include="Base\InputConnectorInterface.cs" />
     <Compile Include="Base\IModule.cs" />
     <Compile Include="Base\IModuleInfo.cs" />
     <Compile Include="Base\IOutputModule.cs" />
@@ -334,11 +333,11 @@
     <Compile Include="MobiFlight\Panels\MFLedSegmentPanel.Designer.cs">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModuleCacheInterface.cs" />
-    <Compile Include="OrphanedSerialsDialog.cs">
+    <Compile Include="MobiFlight\ModuleCacheInterface.cs" />
+    <Compile Include="Forms\OrphanedSerialsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OrphanedSerialsDialog.Designer.cs">
+    <Compile Include="Forms\OrphanedSerialsDialog.Designer.cs">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\Precondition.cs" />
@@ -445,21 +444,20 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="SettingsDialog.cs">
+    <Compile Include="Forms\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsDialog.Designer.cs">
+    <Compile Include="Forms\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\SourceCacheInterface.cs" />
-    <Compile Include="UsageDetails.cs" />
-    <Compile Include="WelcomeDialog.cs">
+    <Compile Include="Base\UsageDetails.cs" />
+    <Compile Include="Forms\WelcomeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WelcomeDialog.Designer.cs">
+    <Compile Include="Forms\WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -468,6 +466,9 @@
     </None>
     <None Include="firmware\mobiflight_mega_1_4_0.hex" />
     <None Include="firmware\mobiflight_mega_1_4_1.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_mega_1_6_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="presets_jeehell.cip">
@@ -483,10 +484,10 @@
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
-    <EmbeddedResource Include="ArduinoIdePathForm.de.resx">
+    <EmbeddedResource Include="MobiFlight\Forms\ArduinoIdePathForm.de.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ArduinoIdePathForm.resx">
+    <EmbeddedResource Include="MobiFlight\Forms\ArduinoIdePathForm.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.de.resx">
@@ -522,10 +523,10 @@
     <EmbeddedResource Include="Panels\StepperPanel.resx">
       <DependentUpon>StepperPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WelcomeDialog.de.resx">
+    <EmbeddedResource Include="Forms\WelcomeDialog.de.resx">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WelcomeDialog.resx">
+    <EmbeddedResource Include="Forms\WelcomeDialog.resx">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="examples\example-release-5.0.0.mcc" />
@@ -543,38 +544,38 @@
     <Content Include="Resources\output.png" />
     <Content Include="Resources\servo.png" />
     <Content Include="Resources\stepper.png" />
-    <EmbeddedResource Include="AboutForm.de.resx">
+    <EmbeddedResource Include="Forms\AboutForm.de.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="AboutForm.resx">
+    <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="BitMaskEditorForm.resx">
+    <EmbeddedResource Include="Forms\BitMaskEditorForm.resx">
       <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BytePanel.resx">
+    <EmbeddedResource Include="Panels\BytePanel.resx">
       <DependentUpon>BytePanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConfigWizard.de.resx">
+    <EmbeddedResource Include="Forms\ConfigWizard.de.resx">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConfigWizard.resx">
+    <EmbeddedResource Include="Forms\ConfigWizard.resx">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputConfigWizard.de.resx">
+    <EmbeddedResource Include="Forms\InputConfigWizard.de.resx">
       <DependentUpon>InputConfigWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="InputConfigWizard.resx">
+    <EmbeddedResource Include="Forms\InputConfigWizard.resx">
       <DependentUpon>InputConfigWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.de.resx">
+    <EmbeddedResource Include="Forms\MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -614,10 +615,10 @@
     <EmbeddedResource Include="MobiFlight\Panels\MFLedSegmentPanel.resx">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrphanedSerialsDialog.de.resx">
+    <EmbeddedResource Include="Forms\OrphanedSerialsDialog.de.resx">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrphanedSerialsDialog.resx">
+    <EmbeddedResource Include="Forms\OrphanedSerialsDialog.resx">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\ActionTypePanel.resx">
@@ -670,11 +671,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SettingsDialog.de.resx">
+    <EmbeddedResource Include="Forms\SettingsDialog.de.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsDialog.resx">
+    <EmbeddedResource Include="Forms\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">

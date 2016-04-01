@@ -82,7 +82,7 @@ const char version[8] = "1.6.0";
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
 char serial[MEM_LEN_SERIAL] = "1234567890";
-char name[MEM_LEN_NAME]     = "Mega";
+char name[MEM_LEN_NAME]     = "MobiFlight Mega";
 int eepromSize = EEPROMSizeMega;
 const int  MEM_LEN_CONFIG    = 1024;
 #endif
@@ -90,7 +90,7 @@ const int  MEM_LEN_CONFIG    = 1024;
 #if MODULETYPE == MTYPE_MICRO
 char type[20]               = "MobiFlight Micro";
 char serial[MEM_LEN_SERIAL] = "0987654321";
-char name[MEM_LEN_NAME]     = "Micro";
+char name[MEM_LEN_NAME]     = "MobiFlight Micro";
 int eepromSize = EEPROMSizeMicro;
 const int  MEM_LEN_CONFIG    = 128;
 #endif

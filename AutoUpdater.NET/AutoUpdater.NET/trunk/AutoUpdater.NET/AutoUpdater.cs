@@ -101,7 +101,6 @@ namespace AutoUpdaterDotNET
         /// <summary>
         ///     A delegate type for hooking up update notifications.
         /// </summary>
-        /// <param name="args">An object containing all the parameters recieved from AppCast XML file. If there will be an error while looking for the XML file then this object will be null.</param>
         public delegate void AutoUpdaterFinishedEventHandler ();
 
         /// <summary>

@@ -42,6 +42,11 @@ namespace MobiFlight.Panels
         {
             if (!initialized) return;
 
+            if (!module.HasFirmwareFeature(FirmwareFeature.SetName))
+            {
+                MessageBox.Show(MainForm._tr("uiMessageSettingsDialogFirmwareVersionTooLowException"), MainForm._tr("Hint"));
+                return;
+            }
             module.Name = moduleNameTextBox.Text;
 
             if (Changed != null)
