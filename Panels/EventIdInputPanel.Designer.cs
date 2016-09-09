@@ -51,9 +51,9 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetUseButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 
@@ -72,11 +72,11 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.eventIdTextBox);
             this.groupBox1.Controls.Add(this.paramTextBox);
             this.groupBox1.Controls.Add(this.EventIdLabel);
             this.groupBox1.Controls.Add(this.paramLabel);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -98,10 +98,11 @@
             // 
             // EventIdInputPanel
             // 
-            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "EventIdInputPanel";
+            resources.ApplyResources(this, "$this");
+            this.Load += new System.EventHandler(this.EventIdInputPanel_Load);
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

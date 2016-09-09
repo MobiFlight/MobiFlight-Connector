@@ -12,7 +12,8 @@ namespace MobiFlight
         byte FSUIPCSize { get; set; }
         FSUIPCOffsetType FSUIPCOffsetType { get; set; }
         long FSUIPCMask { get; set; }
-        double FSUIPCMultiplier { get; set; }
         bool FSUIPCBcdMode { get; set; }
+        string Value { get; set; }
+        Transformation Transform { get; set; }
     }
 }

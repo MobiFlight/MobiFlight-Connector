@@ -29,7 +29,15 @@
         private void InitializeComponent()
         {
             this.fsuipcMoreOptionsGroupBox = new System.Windows.Forms.GroupBox();
-            this.multiplayPanel = new System.Windows.Forms.Panel();
+            this.valuePanel = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.fsuipcValueTextBox = new System.Windows.Forms.TextBox();
+            this.SubstringPanel = new System.Windows.Forms.Panel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.SubStringLabelFrom = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.multiplyPanel = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.fsuipcMultiplyTextBox = new System.Windows.Forms.TextBox();
             this.maskAndBcdPanel = new System.Windows.Forms.Panel();
@@ -38,9 +46,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.fsuipcMaskTextBox = new System.Windows.Forms.TextBox();
             this.fsuipcBaseSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.valuePanel = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.fsuipcValueTextBox = new System.Windows.Forms.TextBox();
             this.offsetPanel = new System.Windows.Forms.Panel();
             this.fsuipcTypeLabel = new System.Windows.Forms.Label();
             this.fsuipcOffsetTypeComboBox = new System.Windows.Forms.ComboBox();
@@ -57,10 +62,11 @@
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
-            this.multiplayPanel.SuspendLayout();
+            this.valuePanel.SuspendLayout();
+            this.SubstringPanel.SuspendLayout();
+            this.multiplyPanel.SuspendLayout();
             this.maskAndBcdPanel.SuspendLayout();
             this.fsuipcBaseSettingsGroupBox.SuspendLayout();
-            this.valuePanel.SuspendLayout();
             this.offsetPanel.SuspendLayout();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
@@ -70,27 +76,108 @@
             // fsuipcMoreOptionsGroupBox
             // 
             this.fsuipcMoreOptionsGroupBox.AutoSize = true;
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.multiplayPanel);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.maskAndBcdPanel);
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.valuePanel);
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.SubstringPanel);
+            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.multiplyPanel);
             this.fsuipcMoreOptionsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.fsuipcMoreOptionsGroupBox.Location = new System.Drawing.Point(0, 144);
             this.fsuipcMoreOptionsGroupBox.Name = "fsuipcMoreOptionsGroupBox";
-            this.fsuipcMoreOptionsGroupBox.Size = new System.Drawing.Size(315, 68);
+            this.fsuipcMoreOptionsGroupBox.Size = new System.Drawing.Size(315, 93);
             this.fsuipcMoreOptionsGroupBox.TabIndex = 21;
             this.fsuipcMoreOptionsGroupBox.TabStop = false;
             this.fsuipcMoreOptionsGroupBox.Text = "More Options";
             // 
-            // multiplayPanel
+            // valuePanel
             // 
-            this.multiplayPanel.AutoSize = true;
-            this.multiplayPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.multiplayPanel.Controls.Add(this.label4);
-            this.multiplayPanel.Controls.Add(this.fsuipcMultiplyTextBox);
-            this.multiplayPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.multiplayPanel.Location = new System.Drawing.Point(3, 41);
-            this.multiplayPanel.Name = "multiplayPanel";
-            this.multiplayPanel.Size = new System.Drawing.Size(309, 24);
-            this.multiplayPanel.TabIndex = 15;
+            this.valuePanel.AutoSize = true;
+            this.valuePanel.Controls.Add(this.label5);
+            this.valuePanel.Controls.Add(this.fsuipcValueTextBox);
+            this.valuePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.valuePanel.Location = new System.Drawing.Point(3, 65);
+            this.valuePanel.Name = "valuePanel";
+            this.valuePanel.Size = new System.Drawing.Size(309, 25);
+            this.valuePanel.TabIndex = 9;
+            // 
+            // label5
+            // 
+            this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label5.Location = new System.Drawing.Point(53, 5);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Set Value";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // fsuipcValueTextBox
+            // 
+            this.fsuipcValueTextBox.Location = new System.Drawing.Point(110, 2);
+            this.fsuipcValueTextBox.Name = "fsuipcValueTextBox";
+            this.fsuipcValueTextBox.Size = new System.Drawing.Size(102, 20);
+            this.fsuipcValueTextBox.TabIndex = 17;
+            this.fsuipcValueTextBox.TextChanged += new System.EventHandler(this.fsuipcValueTextBox_TextChanged);
+            this.fsuipcValueTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcValueTextBox_Validating);
+            // 
+            // SubstringPanel
+            // 
+            this.SubstringPanel.AutoSize = true;
+            this.SubstringPanel.Controls.Add(this.textBox3);
+            this.SubstringPanel.Controls.Add(this.label6);
+            this.SubstringPanel.Controls.Add(this.SubStringLabelFrom);
+            this.SubstringPanel.Controls.Add(this.textBox2);
+            this.SubstringPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.SubstringPanel.Location = new System.Drawing.Point(3, 40);
+            this.SubstringPanel.Name = "SubstringPanel";
+            this.SubstringPanel.Size = new System.Drawing.Size(309, 25);
+            this.SubstringPanel.TabIndex = 11;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(192, 2);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(52, 20);
+            this.textBox3.TabIndex = 20;
+            // 
+            // label6
+            // 
+            this.label6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label6.Location = new System.Drawing.Point(165, 5);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(26, 13);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "to";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // SubStringLabelFrom
+            // 
+            this.SubStringLabelFrom.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.SubStringLabelFrom.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.SubStringLabelFrom.Location = new System.Drawing.Point(3, 5);
+            this.SubStringLabelFrom.Name = "SubStringLabelFrom";
+            this.SubStringLabelFrom.Size = new System.Drawing.Size(106, 13);
+            this.SubStringLabelFrom.TabIndex = 18;
+            this.SubStringLabelFrom.Text = "Substring from";
+            this.SubStringLabelFrom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(110, 2);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(52, 20);
+            this.textBox2.TabIndex = 17;
+            // 
+            // multiplyPanel
+            // 
+            this.multiplyPanel.AutoSize = true;
+            this.multiplyPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.multiplyPanel.Controls.Add(this.label4);
+            this.multiplyPanel.Controls.Add(this.fsuipcMultiplyTextBox);
+            this.multiplyPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.multiplyPanel.Location = new System.Drawing.Point(3, 16);
+            this.multiplyPanel.Name = "multiplyPanel";
+            this.multiplyPanel.Size = new System.Drawing.Size(309, 24);
+            this.multiplyPanel.TabIndex = 15;
             // 
             // label4
             // 
@@ -98,16 +185,16 @@
             this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label4.Location = new System.Drawing.Point(48, 4);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 14;
-            this.label4.Text = "Multiply by";
+            this.label4.Text = "Transform";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fsuipcMultiplyTextBox
             // 
             this.fsuipcMultiplyTextBox.Location = new System.Drawing.Point(110, 1);
             this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
-            this.fsuipcMultiplyTextBox.Size = new System.Drawing.Size(100, 20);
+            this.fsuipcMultiplyTextBox.Size = new System.Drawing.Size(195, 20);
             this.fsuipcMultiplyTextBox.TabIndex = 13;
             this.fsuipcMultiplyTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMultiplyTextBox_Validating);
             // 
@@ -120,7 +207,7 @@
             this.maskAndBcdPanel.Controls.Add(this.label3);
             this.maskAndBcdPanel.Controls.Add(this.fsuipcMaskTextBox);
             this.maskAndBcdPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.maskAndBcdPanel.Location = new System.Drawing.Point(3, 16);
+            this.maskAndBcdPanel.Location = new System.Drawing.Point(3, 67);
             this.maskAndBcdPanel.Margin = new System.Windows.Forms.Padding(0);
             this.maskAndBcdPanel.Name = "maskAndBcdPanel";
             this.maskAndBcdPanel.Size = new System.Drawing.Size(309, 25);
@@ -170,7 +257,7 @@
             // fsuipcBaseSettingsGroupBox
             // 
             this.fsuipcBaseSettingsGroupBox.AutoSize = true;
-            this.fsuipcBaseSettingsGroupBox.Controls.Add(this.valuePanel);
+            this.fsuipcBaseSettingsGroupBox.Controls.Add(this.maskAndBcdPanel);
             this.fsuipcBaseSettingsGroupBox.Controls.Add(this.offsetPanel);
             this.fsuipcBaseSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.fsuipcBaseSettingsGroupBox.Location = new System.Drawing.Point(0, 49);
@@ -179,37 +266,6 @@
             this.fsuipcBaseSettingsGroupBox.TabIndex = 20;
             this.fsuipcBaseSettingsGroupBox.TabStop = false;
             this.fsuipcBaseSettingsGroupBox.Text = "Base settings";
-            // 
-            // valuePanel
-            // 
-            this.valuePanel.AutoSize = true;
-            this.valuePanel.Controls.Add(this.label5);
-            this.valuePanel.Controls.Add(this.fsuipcValueTextBox);
-            this.valuePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.valuePanel.Location = new System.Drawing.Point(3, 67);
-            this.valuePanel.Name = "valuePanel";
-            this.valuePanel.Size = new System.Drawing.Size(309, 25);
-            this.valuePanel.TabIndex = 9;
-            // 
-            // label5
-            // 
-            this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label5.Location = new System.Drawing.Point(53, 5);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Value";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // fsuipcValueTextBox
-            // 
-            this.fsuipcValueTextBox.Location = new System.Drawing.Point(110, 2);
-            this.fsuipcValueTextBox.Name = "fsuipcValueTextBox";
-            this.fsuipcValueTextBox.Size = new System.Drawing.Size(102, 20);
-            this.fsuipcValueTextBox.TabIndex = 17;
-            this.fsuipcValueTextBox.TextChanged += new System.EventHandler(this.fsuipcValueTextBox_TextChanged);
-            this.fsuipcValueTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcValueTextBox_Validating);
             // 
             // offsetPanel
             // 
@@ -248,6 +304,7 @@
             this.fsuipcOffsetTypeComboBox.Name = "fsuipcOffsetTypeComboBox";
             this.fsuipcOffsetTypeComboBox.Size = new System.Drawing.Size(65, 21);
             this.fsuipcOffsetTypeComboBox.TabIndex = 14;
+            this.fsuipcOffsetTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.fsuipcOffsetTypeComboBox_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -287,9 +344,9 @@
             // 
             // fsuipcOffsetTextBox
             // 
-            this.fsuipcOffsetTextBox.Location = new System.Drawing.Point(112, 4);
+            this.fsuipcOffsetTextBox.Location = new System.Drawing.Point(110, 4);
             this.fsuipcOffsetTextBox.Name = "fsuipcOffsetTextBox";
-            this.fsuipcOffsetTextBox.Size = new System.Drawing.Size(50, 20);
+            this.fsuipcOffsetTextBox.Size = new System.Drawing.Size(52, 20);
             this.fsuipcOffsetTextBox.TabIndex = 11;
             this.fsuipcOffsetTextBox.Text = "0xAAAA";
             this.fsuipcOffsetTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcOffsetTextBox_Validating);
@@ -334,9 +391,9 @@
             this.fsuipcPresetComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.fsuipcPresetComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.fsuipcPresetComboBox.FormattingEnabled = true;
-            this.fsuipcPresetComboBox.Location = new System.Drawing.Point(116, 21);
+            this.fsuipcPresetComboBox.Location = new System.Drawing.Point(113, 21);
             this.fsuipcPresetComboBox.Name = "fsuipcPresetComboBox";
-            this.fsuipcPresetComboBox.Size = new System.Drawing.Size(156, 21);
+            this.fsuipcPresetComboBox.Size = new System.Drawing.Size(159, 21);
             this.fsuipcPresetComboBox.TabIndex = 4;
             // 
             // presetsDataSet
@@ -371,17 +428,20 @@
             this.Controls.Add(this.fsuipcBaseSettingsGroupBox);
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "FsuipcConfigPanel";
-            this.Size = new System.Drawing.Size(315, 209);
+            this.Size = new System.Drawing.Size(315, 239);
+            this.Load += new System.EventHandler(this.FsuipcConfigPanel_Load);
             this.fsuipcMoreOptionsGroupBox.ResumeLayout(false);
             this.fsuipcMoreOptionsGroupBox.PerformLayout();
-            this.multiplayPanel.ResumeLayout(false);
-            this.multiplayPanel.PerformLayout();
+            this.valuePanel.ResumeLayout(false);
+            this.valuePanel.PerformLayout();
+            this.SubstringPanel.ResumeLayout(false);
+            this.SubstringPanel.PerformLayout();
+            this.multiplyPanel.ResumeLayout(false);
+            this.multiplyPanel.PerformLayout();
             this.maskAndBcdPanel.ResumeLayout(false);
             this.maskAndBcdPanel.PerformLayout();
             this.fsuipcBaseSettingsGroupBox.ResumeLayout(false);
             this.fsuipcBaseSettingsGroupBox.PerformLayout();
-            this.valuePanel.ResumeLayout(false);
-            this.valuePanel.PerformLayout();
             this.offsetPanel.ResumeLayout(false);
             this.offsetPanel.PerformLayout();
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
@@ -415,7 +475,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox fsuipcSizeComboBox;
         private System.Windows.Forms.TextBox fsuipcOffsetTextBox;
-        private System.Windows.Forms.Panel multiplayPanel;
+        private System.Windows.Forms.Panel multiplyPanel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox fsuipcMultiplyTextBox;
         private System.Windows.Forms.Panel maskAndBcdPanel;
@@ -423,5 +483,10 @@
         private System.Windows.Forms.CheckBox fsuipcBcdModeCheckBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox fsuipcMaskTextBox;
+        private System.Windows.Forms.Panel SubstringPanel;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label SubStringLabelFrom;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

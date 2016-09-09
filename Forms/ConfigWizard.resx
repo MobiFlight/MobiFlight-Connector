@@ -123,10 +123,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="fsuipcSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 244</value>
+    <value>6, 247</value>
   </data>
   <data name="fsuipcSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 169</value>
+    <value>357, 166</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="fsuipcSpacerPanel.TabIndex" type="System.Int32, mscorlib">
@@ -144,515 +144,32 @@
   <data name="&gt;&gt;fsuipcSpacerPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="maskEditorButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="fsuipcConfigPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
   </data>
-  <data name="maskEditorButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>190, 17</value>
-  </data>
-  <data name="maskEditorButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 23</value>
-  </data>
-  <data name="maskEditorButton.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="maskEditorButton.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="&gt;&gt;maskEditorButton.Name" xml:space="preserve">
-    <value>maskEditorButton</value>
-  </data>
-  <data name="&gt;&gt;maskEditorButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;maskEditorButton.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;maskEditorButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>226, 21</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 17</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.Text" xml:space="preserve">
-    <value>BCD Mode</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Name" xml:space="preserve">
-    <value>fsuipcBcdModeCheckBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBcdModeCheckBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>51, 48</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 13</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Multiply by</value>
-  </data>
-  <data name="label4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="fsuipcMultiplyTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 45</value>
-  </data>
-  <data name="fsuipcMultiplyTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="fsuipcMultiplyTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.Name" xml:space="preserve">
-    <value>fsuipcMultiplyTextBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 22</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 13</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Mask value with</value>
-  </data>
-  <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="fsuipcMaskTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 19</value>
-  </data>
-  <data name="fsuipcMaskTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 20</value>
-  </data>
-  <data name="fsuipcMaskTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMaskTextBox.Name" xml:space="preserve">
-    <value>fsuipcMaskTextBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMaskTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMaskTextBox.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMaskTextBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="fsuipcConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="fsuipcMoreOptionsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 170</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 74</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
-    <value>More Options</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Name" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Parent" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fsuipcTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 46</value>
-  </data>
-  <data name="fsuipcTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 18</value>
-  </data>
-  <data name="fsuipcTypeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="fsuipcTypeLabel.Text" xml:space="preserve">
-    <value>Value Type</value>
-  </data>
-  <data name="fsuipcTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Name" xml:space="preserve">
-    <value>fsuipcTypeLabel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Items" xml:space="preserve">
-    <value>Int</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Items1" xml:space="preserve">
-    <value>Float</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Items2" xml:space="preserve">
-    <value>String</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 45</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 21</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Name" xml:space="preserve">
-    <value>fsuipcOffsetTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>167, 47</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 17</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Size in Bytes</value>
-  </data>
-  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 22</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 13</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Offset</value>
-  </data>
-  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Items" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Items1" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Items2" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Items3" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>249, 45</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 21</value>
-  </data>
-  <data name="fsuipcSizeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Name" xml:space="preserve">
-    <value>fsuipcSizeComboBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="fsuipcOffsetTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 19</value>
-  </data>
-  <data name="fsuipcOffsetTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="fsuipcOffsetTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="fsuipcOffsetTextBox.Text" xml:space="preserve">
-    <value>0xAAAA</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Name" xml:space="preserve">
-    <value>fsuipcOffsetTextBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 93</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 77</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
-    <value>Base settings</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Name" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Parent" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="fsuipcPresetUseButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>308, 20</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="fsuipcPresetUseButton.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Text" xml:space="preserve">
-    <value>use</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Name" xml:space="preserve">
-    <value>fsuipcPresetUseButton</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelFsuipcPreset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="labelFsuipcPreset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="labelFsuipcPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 24</value>
-  </data>
-  <data name="labelFsuipcPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 13</value>
-  </data>
-  <data name="labelFsuipcPreset.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="labelFsuipcPreset.Text" xml:space="preserve">
-    <value>Use preset</value>
-  </data>
-  <data name="labelFsuipcPreset.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Name" xml:space="preserve">
-    <value>labelFsuipcPreset</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fsuipcPresetComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 21</value>
-  </data>
-  <data name="fsuipcPresetComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>156, 21</value>
-  </data>
-  <data name="fsuipcPresetComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Name" xml:space="preserve">
-    <value>fsuipcPresetComboBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="fsuipcConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 38</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 55</value>
+  <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>357, 209</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+  <data name="fsuipcConfigPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
-    <value>Load preset</value>
+  <data name="&gt;&gt;fsuipcConfigPanel.Name" xml:space="preserve">
+    <value>fsuipcConfigPanel</value>
   </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Name" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
+  <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
+    <value>MobiFlight.Panels.Group.FsuipcConfigPanel, MFConnector, Version=7.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
   </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;fsuipcConfigPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="fsuipcHintTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -685,7 +202,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;fsuipcHintTextBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -757,7 +274,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.Panels.Group.InterpolationPanel, MFConnector, Version=6.3.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.Panels.Group.InterpolationPanel, MFConnector, Version=7.1.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -1256,7 +773,7 @@
     <value>Top</value>
   </data>
   <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 119</value>
+    <value>6, 133</value>
   </data>
   <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>357, 40</value>
@@ -1289,7 +806,7 @@
     <value>6, 114</value>
   </data>
   <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 5</value>
+    <value>357, 19</value>
   </data>
   <data name="groupBoxDisplaySettings.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -2214,51 +1731,51 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADM
-        CwAAAk1TRnQBSQFMAgEBAgEAAXwBAQF8AQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CwAAAk1TRnQBSQFMAgEBAgEAAbQBAQG0AQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ATkB/wH7AbEBHQH/AfwBqQEDAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ATkBhAL/
-        ASUBUwL/AREBSwL/AQABRQL/AQABSAL/AQABVQL/AQIBigL/AQkBlwL/AQ8BoQL/AQ8BowL/AQ8BpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAAU8B/wHwAakBJgH/AfABnwENAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ATIB/wH7AbEBFgH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ATIBhAL/
+        AR4BTAL/AQoBRAL/AQABPgL/AQABQQL/AQABTgL/AQABigL/AQIBlwL/AQgBoQL/AQgBowL/AQgBpQL/
+        Al0BYQHiiAACXAFVAeoB9gHAAUgB/wHwAakBHwH/AfABnwEGAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
         Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        AU4BkAH9Af8BKAFNAf4B/wETAUMC/wEBATwC/wEAATgC/wEAAUIC/wEAAU4C/wEAAYIC/wEGAY8C/wEL
-        AZsC/wELAZoC/wEOAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQFHAf8B6wGiASAB/wHqAZcBBgH/AeoBjAEA
+        AUcBkAH9Af8BIQFGAf4B/wEMATwC/wEAATUC/wEAATEC/wEAATsC/wEAAUcC/wEAAYIC/wEAAY8C/wEE
+        AZsC/wEEAZoC/wEHAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQFAAf8B6wGiARkB/wHqAZcBAAH/AeoBjAEA
         Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqAUcBiwH+Af8BIgFIAf4B/wENAT4C/wEAATYC/wEAATQC/wEAAUEC/wEA
-        AUwC/wEAAYEC/wEDAY0C/wEJAZYC/wEKAZgC/wEKAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAFFAf8B5gGc
-        AR0B/wHlAZABAwH/AeQBhQEAAf8B5QFXAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBRQGJAfwB/wEeAUQC/wEJATkC/wEA
-        ATEC/wEAATEC/wEAAT4C/wEAAUkC/wEAAVMC/wEAAYMC/wECAYkC/wEEAYsC/wEGAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABRQH/AeEBlwEdAf8B3wGLAQMB/wHeAVcBAAH/Ad8BUQEAAf8B4QFTAQAB/wHkAVYBAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqAUUBiAH7
-        Af8BHgFCAf0B/wEHATYC/wEAAS0C/wEAASwC/wEAATgC/wEAAUIC/wEAAUkC/wEAAVEC/wEAAVYC/wEA
-        AVcC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgFJAf8B3QGUASAB/wHbAYcBBgH/AdkBUwEAAf8B2AFL
-        AQAB/wHbAU0BAAH/Ad4BUAEAAf8B4QFTAQAB/wHjAVUBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBSQGIAfgB/wEgAUIB+gH/AQgBNAL/AQABKgL/AQABJQL/AQABLwL/AQABOQL/
-        AQABQQL/AQABRQL/AQABSQL/AQABSQL/AQABUAL/AlUBXAHqiAABXAJVAeoB5AGtAU4B/wHaAZQBJgH/
-        AdcBhgENAf8B1QFSAQAB/wHTAUYBAAH/AdUBRwEAAf8B2AFKAQAB/wHaAUwBAAH/Ad0BTwEAAf8B4AFS
-        AQAB/wHjAVUBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gFOAYwB9QH/ASYBRQH1Af8BDgE1Af0B/wEA
-        ASkC/wEAASAC/wEAASYC/wEAAS4C/wEAATYC/wEAATsC/wEAAT4C/wEAAT0C/wEAAUMC/wJVAVwB6ogA
-        AVwCVQHqAeMBrwFXAf8B2AGVAS8B/wHUAYcBFwH/AdEBUwEAAf8BzwFIAQAB/wHPAUABAAH/AdEBQwEA
-        Af8B1AFGAQAB/wHXAUkBAAH/AdoBTAEAAf8B3AFOAQAB/wHlAVcBAAH/AVwCVQHqCAACVQFcAeoBVwGS
-        AfMB/wEvAUkB8AH/ARcBOQH3Af8BAAErAf4B/wEAASEC/wEAARwC/wEAASQC/wEAASkC/wEAAS4C/wEA
-        ATAC/wEAATIC/wEAATYC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYAToB/wHSAYsBIwH/Ac8BVgEN
-        Af8BzAFLAQAB/wHLAUIBAAH/AcsBPgEAAf8BzgFAAQAB/wHRAUMBAAH/AdMBRQEAAf8B1gFIAQAB/wHf
-        AVEBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wE6AVAB7AH/ASMBQAHxAf8BDQEyAfcB/wEAASUC/wEA
-        ARsC/wEAARoC/wEAAR4C/wEAASIC/wEAASQC/wEAASQC/wEAASkC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
-        Af8B1gGdAUgB/wHSAZABMgH/Ac4BhAEdAf8BywFRAQkB/wHJAUgBAAH/AcgBQQEAAf8ByAE7AQAB/wHK
-        ATwBAAH/Ac0BPwEAAf8B0AFCAQAB/wHYAUkBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wFIAYEB6AH/
-        ATIBSQHrAf8BHQE7AfAB/wEJAS4B9QH/AQABIwH9Af8BAAEZAv8BAAEUAf4B/wEAARUC/wEAARcC/wEA
-        ARYC/wEAARsC/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBQgH/Ac4BiwEvAf8BywGB
-        AR0B/wHJAVABDAH/AcgBSQEAAf8ByAFEAQAB/wHIAUIBAAH/AcoBQgEAAf8BzQFEAQAB/wHVAU8BAAH/
-        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/AUIBVAHnAf8BLwFGAeoB/wEdATkB7gH/AQwBLgHy
-        Af8BAAElAfYB/wEAAR4B+gH/AQABGAH+Af8BAAEWAv8BAAEWAv8BAAEeAv8CVQFcAeqIAAFhAloB5AHv
-        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBTwH/AdMBlQE9Af8BzwGLASwB/wHOAYUBHwH/Ac0BgAEV
-        Af8BzgFVAQwB/wHPAVUBBwH/AdMBgAEHAf8B2gGJAQ0B/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
-        AewB/wGMAZgB6wH/AU8BigHtAf8BPQFTAe8B/wEsAUgB8QH/AR8BPgH1Af8BFQE2AfcB/wEMATIB+gH/
-        AQcBLgH6Af8BBwEuAfwB/wENATgC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
+        AQAB/wJcAVUB6ggAAlUBXAHqAUABiwH+Af8BGwFBAf4B/wEGATcC/wEAAS8C/wEAAS0C/wEAAToC/wEA
+        AUUC/wEAAYEC/wEAAY0C/wECAZYC/wEDAZgC/wEDAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAE+Af8B5gGc
+        ARYB/wHlAZABAAH/AeQBhQEAAf8B5QFQAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
+        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBPgGJAfwB/wEXAT0C/wECATIC/wEA
+        ASoC/wEAASoC/wEAATcC/wEAAUIC/wEAAUwC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
+        AlwBVQLqAbABPgH/AeEBlwEWAf8B3wGLAQAB/wHeAVABAAH/Ad8BSgEAAf8B4QFMAQAB/wHkAU8BAAH/
+        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqAT4BiAH7
+        Af8BFwE7Af0B/wEAAS8C/wEAASYC/wEAASUC/wEAATEC/wEAATsC/wEAAUIC/wEAAUoC/wEAAU8C/wEA
+        AVAC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgFCAf8B3QGUARkB/wHbAYcBAAH/AdkBTAEAAf8B2AFE
+        AQAB/wHbAUYBAAH/Ad4BSQEAAf8B4QFMAQAB/wHjAU4BAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
+        AlwBVQHqCAACVQFcAeoBQgGIAfgB/wEZATsB+gH/AQEBLQL/AQABIwL/AQABHgL/AQABKAL/AQABMgL/
+        AQABOgL/AQABPgL/AQABQgL/AQABQgL/AQABSQL/AlUBXAHqiAABXAJVAeoB5AGtAUcB/wHaAZQBHwH/
+        AdcBhgEGAf8B1QFLAQAB/wHTAT8BAAH/AdUBQAEAAf8B2AFDAQAB/wHaAUUBAAH/Ad0BSAEAAf8B4AFL
+        AQAB/wHjAU4BAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gFHAYwB9QH/AR8BPgH1Af8BBwEuAf0B/wEA
+        ASIC/wEAARkC/wEAAR8C/wEAAScC/wEAAS8C/wEAATQC/wEAATcC/wEAATYC/wEAATwC/wJVAVwB6ogA
+        AVwCVQHqAeMBrwFQAf8B2AGVASgB/wHUAYcBEAH/AdEBTAEAAf8BzwFBAQAB/wHPATkBAAH/AdEBPAEA
+        Af8B1AE/AQAB/wHXAUIBAAH/AdoBRQEAAf8B3AFHAQAB/wHlAVABAAH/AVwCVQHqCAACVQFcAeoBUAGS
+        AfMB/wEoAUIB8AH/ARABMgH3Af8BAAEkAf4B/wEAARoC/wEAARUC/wEAAR0C/wEAASIC/wEAAScC/wEA
+        ASkC/wEAASsC/wEAAS8C/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYATMB/wHSAYsBHAH/Ac8BTwEG
+        Af8BzAFEAQAB/wHLATsBAAH/AcsBNwEAAf8BzgE5AQAB/wHRATwBAAH/AdMBPgEAAf8B1gFBAQAB/wHf
+        AUoBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEzAUkB7AH/ARwBOQHxAf8BBgErAfcB/wEAAR4C/wEA
+        ARQC/wEAARMC/wEAARcC/wEAARsC/wEAAR0C/wEAAR0C/wEAASIC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
+        Af8B1gGdAUEB/wHSAZABKwH/Ac4BhAEWAf8BywFKAQIB/wHJAUEBAAH/AcgBOgEAAf8ByAE0AQAB/wHK
+        ATUBAAH/Ac0BOAEAAf8B0AE7AQAB/wHYAUIBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wFBAYEB6AH/
+        ASsBQgHrAf8BFgE0AfAB/wECAScB9QH/AQABHAH9Af8BAAESAv8BAAENAf4B/wEAAQ4C/wEAARAC/wEA
+        AQ8C/wEAARQC/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBOwH/Ac4BiwEoAf8BywGB
+        ARYB/wHJAUkBBQH/AcgBQgEAAf8ByAE9AQAB/wHIATsBAAH/AcoBOwEAAf8BzQE9AQAB/wHVAUgBAAH/
+        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/ATsBTQHnAf8BKAE/AeoB/wEWATIB7gH/AQUBJwHy
+        Af8BAAEeAfYB/wEAARcB+gH/AQABEQH+Af8BAAEPAv8BAAEPAv8BAAEXAv8CVQFcAeqIAAFhAloB5AHv
+        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBSAH/AdMBlQE2Af8BzwGLASUB/wHOAYUBGAH/Ac0BgAEO
+        Af8BzgFOAQUB/wHPAU4BAAH/AdMBgAEAAf8B2gGJAQYB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
+        AewB/wGMAZgB6wH/AUgBigHtAf8BNgFMAe8B/wElAUEB8QH/ARgBNwH1Af8BDgEvAfcB/wEFASsB+gH/
+        AQABJwH6Af8BAAEnAfwB/wEGATEC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
         AlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFhAloB5AM7AWQIAAM8AWYCWgFh
         AeQCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFc
         AeoCWgFhAeQDOwFk/wCFAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQA
@@ -2705,6 +2222,9 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

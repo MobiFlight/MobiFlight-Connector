@@ -19,18 +19,22 @@ namespace MobiFlight.Panels.Group
         public FsuipcConfigPanel()
         {
             InitializeComponent();
+        }
+
+        private void FsuipcConfigPanel_Load(object sender, EventArgs e)
+        {
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
             _initFsuipcOffsetTypeComboBox();
             PresetFile = Properties.Settings.Default.PresetFile;
             _loadPresets();
             fsuipcPresetComboBox.ResetText();
-            fsuipcSizeComboBox.SelectedIndex = 0;
         }
 
         public void setMode(bool isOutputPanel)
         {
-            multiplayPanel.Visible = isOutputPanel;
+            multiplyPanel.Visible = isOutputPanel;
+            valuePanel.Visible = !isOutputPanel;
             if (!isOutputPanel)
             {
                 PresetFile = Properties.Settings.Default.InputsPresetFile;
@@ -46,6 +50,7 @@ namespace MobiFlight.Panels.Group
             {
                 isLoaded = false;
                 MessageBox.Show(MainForm._tr("uiMessageConfigWizard_PresetsNotFound"), MainForm._tr("Hint"));
+                Log.Instance.log("Could not load file: " + PresetFile, LogSeverity.Debug);
             }
             else
             {
@@ -95,10 +100,7 @@ namespace MobiFlight.Panels.Group
                 DataRow[] rows = presetDataTable.Select("description = '" + fsuipcPresetComboBox.Text + "'");
                 if (rows.Length > 0)
                 {
-                    if (multiplayPanel.Visible)
-                        _syncConfigToForm(rows[0]["settings"] as OutputConfigItem);
-                    else
-                        syncFromConfig(rows[0]["settings"] as MobiFlight.InputConfig.FsuipcOffsetInputAction);
+                    syncFromConfig(rows[0]["settings"] as IFsuipcConfigItem);
                 }
             }
         }
@@ -146,48 +148,49 @@ namespace MobiFlight.Panels.Group
             }
         }
 
-        /// <summary>
-        /// sync the values from config with the config wizard form
-        /// </summary>
-        /// <param name="config"></param>
-        /// <returns></returns>
-        protected bool _syncConfigToForm(OutputConfigItem config)
-        {
-            string serial = null;
-            if (config == null) throw new Exception(MainForm._tr("uiException_ConfigItemNotFound"));
-            // first tab                        
-            fsuipcOffsetTextBox.Text = "0x" + config.FSUIPCOffset.ToString("X4");
-
-            // preselect fsuipc offset type
-            try
-            {
-                fsuipcOffsetTypeComboBox.SelectedValue = config.FSUIPCOffsetType.ToString();
-            }
-            catch (Exception exc)
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
-            }
-
-            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPCSize.ToString()))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in ComboBox", LogSeverity.Debug);
-            }
-
-            // mask
-            fsuipcMaskTextBox.Text = "0x" + config.FSUIPCMask.ToString("X" + config.FSUIPCSize);
-
-            return true;
-        }
-
         private void fsuipcValueTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
 
+        private void fsuipcOffsetTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateByteSizeComboBox();
+        }
+        
+        private void updateByteSizeComboBox()
+        {
+            string selectedText = fsuipcSizeComboBox.Text;
+            fsuipcSizeComboBox.Items.Clear();
+            fsuipcSizeComboBox.Enabled = true;
+            SubstringPanel.Visible = false;
 
-        internal void syncFromConfig(MobiFlight.InputConfig.FsuipcOffsetInputAction config)
+            if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.Integer.ToString())
+            {
+                fsuipcSizeComboBox.Items.Add("1");
+                fsuipcSizeComboBox.Items.Add("2");
+                fsuipcSizeComboBox.Items.Add("4");
+                fsuipcSizeComboBox.Items.Add("8");
+                ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, selectedText);
+            }
+            else if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.Float.ToString())
+            {
+                fsuipcSizeComboBox.Items.Add("4");
+                fsuipcSizeComboBox.Items.Add("8");
+                if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, selectedText))
+                {
+                    ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, "4");
+                };
+            }
+            else if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.String.ToString())
+            {
+                fsuipcSizeComboBox.Enabled = false;
+                SubstringPanel.Visible = false;
+                // show the string stuff instead
+            }
+        }
+
+        internal void syncFromConfig(IFsuipcConfigItem config)
         {
             if (config == null)
             {
@@ -205,22 +208,41 @@ namespace MobiFlight.Panels.Group
             catch (Exception exc)
             {
                 // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
+                Log.Instance.log("FsuipcConfigPanel::syncFromConfig : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
             }
 
             if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPCSize.ToString()))
             {
                 // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in ComboBox", LogSeverity.Debug);
+                Log.Instance.log("FsuipcConfigPanel::syncFromConfig : Exception on selecting item in ComboBox", LogSeverity.Debug);
             }
 
             // mask
             fsuipcMaskTextBox.Text = "0x" + config.FSUIPCMask.ToString("X" + config.FSUIPCSize);
 
             // multiplier
-            fsuipcMultiplyTextBox.Text = config.FSUIPCMultiplier.ToString();
+            fsuipcMultiplyTextBox.Text = config.Transform.Expression;
             fsuipcBcdModeCheckBox.Checked = config.FSUIPCBcdMode;
-            fsuipcValueTextBox.Text = config.InputValue;
+            fsuipcValueTextBox.Text = config.Value;
+        }
+
+        internal void syncToConfig(IFsuipcConfigItem config)
+        {
+            config.FSUIPCMask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
+            config.FSUIPCOffset = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
+            config.FSUIPCOffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
+            if (config.FSUIPCOffsetType != FSUIPCOffsetType.String)
+            {
+                config.FSUIPCSize = Byte.Parse(fsuipcSizeComboBox.Text);
+            }
+            else
+            {
+                config.FSUIPCSize = 255;
+            }
+            //config.FSUIPCMultiplier = Double.Parse(fsuipcMultiplyTextBox.Text);
+            config.Transform.Expression = fsuipcMultiplyTextBox.Text;
+            config.FSUIPCBcdMode = fsuipcBcdModeCheckBox.Checked;
+            config.Value = fsuipcValueTextBox.Text;
         }
 
         internal MobiFlight.InputConfig.InputAction ToConfig()
@@ -232,8 +254,9 @@ namespace MobiFlight.Panels.Group
             config.FSUIPCSize = Byte.Parse(fsuipcSizeComboBox.Text);
             config.FSUIPCOffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
             //config.FSUIPCMultiplier = Double.Parse(fsuipcMultiplyTextBox.Text);
+            config.Transform.Expression = fsuipcMultiplyTextBox.Text;
             config.FSUIPCBcdMode = fsuipcBcdModeCheckBox.Checked;
-            config.InputValue = fsuipcValueTextBox.Text;
+            config.Value = fsuipcValueTextBox.Text;
             return config;
         }
 
@@ -263,8 +286,10 @@ namespace MobiFlight.Panels.Group
         private void fsuipcMultiplyTextBox_Validating(object sender, CancelEventArgs e)
         {
             // do not validate when multiply panel is not visible
-            if ((sender as TextBox).Name == fsuipcMultiplyTextBox.Name && !multiplayPanel.Visible) return;
+            if ((sender as TextBox).Name == fsuipcMultiplyTextBox.Name && !multiplyPanel.Visible) return;
 
+            return;
+            /*
             try
             {
                 float.Parse((sender as TextBox).Text);
@@ -276,6 +301,7 @@ namespace MobiFlight.Panels.Group
                 displayError(sender as Control, MainForm._tr("uiMessageFsuipcConfigPanelMultiplyWrongFormat"));
                 e.Cancel = true;
             }
+            */
         }
 
         private void fsuipcValueTextBox_Validating(object sender, CancelEventArgs e)
@@ -306,5 +332,6 @@ namespace MobiFlight.Panels.Group
                     control,
                     "");
         }
+
     }
 }

@@ -18,6 +18,10 @@ namespace MobiFlight.Panels
         public EventIdInputPanel()
         {
             InitializeComponent();
+        }
+
+        private void EventIdInputPanel_Load(object sender, EventArgs e)
+        {
             PresetFile = Properties.Settings.Default.EventIdPresetFile;
             Data = new DataTable();
             _loadPresets();
@@ -162,5 +166,6 @@ namespace MobiFlight.Panels
                     control,
                     "");
         }
+
     }
 }

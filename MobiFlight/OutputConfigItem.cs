@@ -15,15 +15,22 @@ namespace MobiFlight
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
         public System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
-
+        
+        // this implements the FSUIPC Config Item Interface
+        // It would be nicer to have an aggregation of FSUIPC.FSUIPCConfigItem instead
         public const int    FSUIPCOffsetNull = 0;        
         public int          FSUIPCOffset                { get; set; }
         public byte         FSUIPCSize                  { get; set; }
         public FSUIPCOffsetType   
                             FSUIPCOffsetType            { get; set; }
         public long         FSUIPCMask                  { get; set; }
-        public double       FSUIPCMultiplier            { get; set; }
+        //[Obsolete]
+        //public double       FSUIPCMultiplier            { get; set; }
         public bool         FSUIPCBcdMode               { get; set; }
+        public Transformation
+                            Transform                   { get; set; }
+        public string       Value                       { get; set; }
+        //
         public bool         ComparisonActive            { get; set; }
         public string       ComparisonOperand           { get; set; }
         public string       ComparisonValue             { get; set; }
@@ -67,7 +74,7 @@ namespace MobiFlight
         {            
             FSUIPCOffset = FSUIPCOffsetNull;
             FSUIPCMask = 0xFF;
-            FSUIPCMultiplier = 1.0;
+            Transform = new Transformation();            
             FSUIPCOffsetType = FSUIPCOffsetType.Integer;
             FSUIPCSize = 1;
             FSUIPCBcdMode = false;
@@ -77,7 +84,7 @@ namespace MobiFlight
             ComparisonIfValue = "";
             ComparisonElseValue = "";
 
-            //DisplayPin = "A01";
+            //DisplayPin = "A01"; // not initialized anymore
             DisplayPinBrightness = byte.MaxValue;
             DisplayLedConnector = 1;
             DisplayLedAddress = "0";
@@ -125,12 +132,18 @@ namespace MobiFlight
                     if (FSUIPCSize == 8) FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Float;
                 }
                 FSUIPCMask = Int64.Parse(reader["mask"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
-                FSUIPCMultiplier = Double.Parse(reader["multiplier"] , serializationCulture );
+                
+                // backward compatibility
+                if (reader["multiplier"] != null) {
+                    double multiplier = Double.Parse(reader["multiplier"], serializationCulture);
+                    if (multiplier != 1.0)
+                        Transform.Expression = "$*" + multiplier.ToString();
+                }
+                
                 if (reader["bcdMode"] != null && reader["bcdMode"] != "")
                 {
                     FSUIPCBcdMode = Boolean.Parse(reader["bcdMode"]);
                 }
-
             }
 
             if (reader.ReadToNextSibling("comparison"))
@@ -242,6 +255,7 @@ namespace MobiFlight
                 if (reader.LocalName == "interpolation")
                 {
                     Interpolation.ReadXml(reader);
+                    reader.ReadEndElement();
                 }
             }
 
@@ -274,6 +288,11 @@ namespace MobiFlight
                     } while (reader.LocalName == "precondition");
                 }
             }
+
+            if (reader.LocalName == "transformation")
+            {
+                Transform.ReadXml(reader);
+            }
         }
 
         public virtual void WriteXml(XmlWriter writer)
@@ -284,7 +303,7 @@ namespace MobiFlight
                 writer.WriteAttributeString("offsetType", FSUIPCOffsetType.ToString());
                 writer.WriteAttributeString("size", FSUIPCSize.ToString());
                 writer.WriteAttributeString("mask", "0x" + FSUIPCMask.ToString("X4"));
-                writer.WriteAttributeString("multiplier", FSUIPCMultiplier.ToString(serializationCulture));
+                //writer.WriteAttributeString("multiplier", FSUIPCMultiplier.ToString(serializationCulture));
                 writer.WriteAttributeString("bcdMode", FSUIPCBcdMode.ToString());
             writer.WriteEndElement();
 
@@ -355,6 +374,8 @@ namespace MobiFlight
                 p.WriteXml(writer);
             }
             writer.WriteEndElement();
+
+            Transform.WriteXml(writer);
         }
 
         public object Clone()
@@ -364,7 +385,8 @@ namespace MobiFlight
             clone.FSUIPCOffsetType          = this.FSUIPCOffsetType;
             clone.FSUIPCSize                = this.FSUIPCSize;
             clone.FSUIPCMask                = this.FSUIPCMask;
-            clone.FSUIPCMultiplier          = this.FSUIPCMultiplier;
+            //clone.FSUIPCMultiplier          = this.FSUIPCMultiplier;
+            clone.Transform                 = this.Transform.Clone() as Transformation;
             clone.FSUIPCBcdMode             = this.FSUIPCBcdMode;
             clone.ComparisonActive          = this.ComparisonActive;
             clone.ComparisonOperand         = this.ComparisonOperand;
@@ -380,6 +402,7 @@ namespace MobiFlight
             clone.DisplayLedConnector       = this.DisplayLedConnector;
             clone.DisplayLedModuleSize      = this.DisplayLedModuleSize;
             clone.DisplayLedPadding         = this.DisplayLedPadding;
+            clone.DisplayLedPaddingChar     = this.DisplayLedPaddingChar;
             clone.DisplayLedDigits          = new List<string>(this.DisplayLedDigits); // we have to create an new object to clone, fix for https://forge.simple-solutions.de/issues/307
             clone.DisplayLedDecimalPoints   = new List<string>(this.DisplayLedDecimalPoints);
             // the bcd driver stuff
@@ -401,6 +424,8 @@ namespace MobiFlight
             {
                 clone.Preconditions.Add(p.Clone() as Precondition);
             }
+
+            clone.Interpolation = this.Interpolation.Clone() as Interpolation;
 
             return clone;
         }

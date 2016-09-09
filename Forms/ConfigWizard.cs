@@ -63,9 +63,9 @@ namespace MobiFlight
 
             _initDisplayPanels();
             _initPreconditionPanel();
-            _initFsuipcOffsetTypeComboBox();
-            _loadPresets();
-            fsuipcPresetComboBox.ResetText();
+            fsuipcConfigPanel.setMode(true);
+            fsuipcConfigPanel.syncFromConfig(cfg);
+            
             // displayLedDisplayComboBox.Items.Clear(); 
         }
 
@@ -98,41 +98,6 @@ namespace MobiFlight
 
             preconditionSettingsPanel.Enabled = false;
             preconditionApplyButton.Visible = false;
-        }
-
-        private void _loadPresets()
-        {
-            bool isLoaded = true;
-
-            if (!System.IO.File.Exists(Properties.Settings.Default.PresetFile))
-            {
-                isLoaded = false;
-                MessageBox.Show(MainForm._tr("uiMessageConfigWizard_PresetsNotFound"), MainForm._tr("Hint"));             
-            }
-            else
-            {
-
-                try
-                {
-                    presetsDataSet.Clear();
-                    presetsDataSet.ReadXml(Properties.Settings.Default.PresetFile);
-                    DataRow[] rows = presetDataTable.Select("", "description");
-                    fsuipcPresetComboBox.Items.Clear();
-
-                    foreach (DataRow row in rows)
-                    {
-                       fsuipcPresetComboBox.Items.Add(row["description"]);
-                    }
-                }
-                catch (Exception e)
-                {
-                    isLoaded = false;
-                    MessageBox.Show(MainForm._tr("uiMessageConfigWizard_ErrorLoadingPresets"), MainForm._tr("Hint"));                    
-                }
-            }
-
-            fsuipcPresetComboBox.Enabled = isLoaded;
-            fsuipcPresetUseButton.Enabled = isLoaded;
         }
 
         protected void _initDisplayPanels () {
@@ -356,32 +321,7 @@ namespace MobiFlight
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
         {
-            // first tab                        
-            fsuipcOffsetTextBox.Text = "0x" + config.FSUIPCOffset.ToString("X4");
-
-            // preselect fsuipc offset type
-            try
-            {
-                fsuipcOffsetTypeComboBox.SelectedValue = config.FSUIPCOffsetType.ToString();
-            }
-            catch (Exception exc)
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
-            }
-
-            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPCSize.ToString()))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in ComboBox", LogSeverity.Debug);
-            }
-
-            // mask
-            fsuipcMaskTextBox.Text = "0x" + config.FSUIPCMask.ToString("X" + config.FSUIPCSize);
-
-            // multiplier
-            fsuipcMultiplyTextBox.Text = config.FSUIPCMultiplier.ToString();
-            fsuipcBcdModeCheckBox.Checked = config.FSUIPCBcdMode;
+            fsuipcConfigPanel.syncFromConfig(config);
         }
 
         private void _addEmptyNodeToTreeView()
@@ -403,20 +343,7 @@ namespace MobiFlight
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            // fsuipc panel
-            config.FSUIPCMask       = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x","").ToLower(),System.Globalization.NumberStyles.HexNumber);
-            config.FSUIPCOffset     = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);            
-            config.FSUIPCOffsetType = (FSUIPCOffsetType) Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
-            if (config.FSUIPCOffsetType != FSUIPCOffsetType.String)
-            {
-                config.FSUIPCSize = Byte.Parse(fsuipcSizeComboBox.Text);
-            }else
-            {
-                config.FSUIPCSize = 255;
-            }
-
-            config.FSUIPCMultiplier = Double.Parse(fsuipcMultiplyTextBox.Text);
-            config.FSUIPCBcdMode    = fsuipcBcdModeCheckBox.Checked;
+            fsuipcConfigPanel.syncToConfig(config);
 
             // comparison panel
             config.ComparisonActive = comparisonActiveCheckBox.Checked;
@@ -746,35 +673,8 @@ namespace MobiFlight
         private void ConfigWizard_Load(object sender, EventArgs e)
         {
             _syncConfigToForm(config);
-            fsuipcOffsetTypeComboBox.SelectedIndexChanged += fsuipcOffsetTypeComboBox_SelectedIndexChanged;
         }
-
-        private void fsuipcPresetUseButton_Click(object sender, EventArgs e)
-        {
-            if (fsuipcPresetComboBox.Text != "")
-            {
-                DataRow[] rows = presetDataTable.Select("description = '" + fsuipcPresetComboBox.Text+"'");
-                if (rows.Length > 0)
-                {
-                    _syncConfigToForm(rows[0]["settings"] as OutputConfigItem);
-                }
-            }
-        }
-
-        private void _usePresetConfig(OutputConfigItem cfg)
-        {
-            
-        }
-
-        private void fsuipcSizeComboBox_TextChanged(object sender, EventArgs e)
-        {
-            // we always set the mask according to the set bytes
-            fsuipcMaskTextBox.Text = "0x" + (
-                                        new String ('F', 
-                                                    UInt16.Parse((sender as ComboBox).Text)* 2
-                                                   ));
-        }
-
+        
         private void fsuipcMultiplyTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -789,14 +689,7 @@ namespace MobiFlight
                 e.Cancel = true;
             }
         }
-
-        private void fsuipcMaskTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            config.FSUIPCOffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
-            if (config.FSUIPCOffsetType != FSUIPCOffsetType.String)
-                _validatingHexFields(sender, e, int.Parse(fsuipcSizeComboBox.Text)*2);
-        }
-
+        
         private void _validatingHexFields(object sender, CancelEventArgs e, int length)
         {
             try
@@ -1034,25 +927,13 @@ namespace MobiFlight
             lastTabActive = (sender as TabControl).SelectedIndex;
             _testModeStop();
         }
-
-        private void maskEditorButton_Click(object sender, EventArgs e)
-        {
-            BitMaskEditorForm bme = new BitMaskEditorForm(
-                                        Byte.Parse(fsuipcSizeComboBox.Text), 
-                                        UInt64.Parse(fsuipcMaskTextBox.Text.Replace("0x","").ToLower(),
-                                                     System.Globalization.NumberStyles.HexNumber));
-            bme.StartPosition = FormStartPosition.CenterParent;
-            if (bme.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                fsuipcMaskTextBox.Text = "0x" + bme.Result.ToString("X" + (Byte.Parse(fsuipcSizeComboBox.Text)*2));
-            }
-        }
-
+        
         private void fsuipcOffsetTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updateByteSizeComboBox();
+            //updateByteSizeComboBox();
         }
 
+        /*
         private void updateByteSizeComboBox()
         {
             string selectedText = fsuipcSizeComboBox.Text;
@@ -1078,22 +959,8 @@ namespace MobiFlight
                 fsuipcSizeComboBox.Enabled = false;
             }
         }
-
-        private void _initFsuipcOffsetTypeComboBox()
-        {
-            List<ListItem> offsetTypes = new List<ListItem>() {
-                new ListItem() { Value = FSUIPCOffsetType.Integer.ToString(),       Label = "Int" },
-                /*new ListItem() { Value = FSUIPCOffsetType.UnsignedInt.ToString(),   Label = "UInt" },*/
-                new ListItem() { Value = FSUIPCOffsetType.Float.ToString(),         Label = "Float" },
-                new ListItem() { Value = FSUIPCOffsetType.String.ToString(),        Label = "String" }
-            };
-
-            fsuipcOffsetTypeComboBox.DataSource = offsetTypes;
-            fsuipcOffsetTypeComboBox.DisplayMember = "Label";
-            fsuipcOffsetTypeComboBox.ValueMember = "Value";
-            fsuipcOffsetTypeComboBox.SelectedIndex = 0;
-        }
-
+        */
+        
         private void preconditionListTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             preconditionListTreeView.SelectedNode = e.Node;
@@ -1260,6 +1127,7 @@ namespace MobiFlight
 
         private void interpolationCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            interpolationPanel1.Enabled = (sender as CheckBox).Checked;
             if ((sender as CheckBox).Checked)
                 interpolationPanel1.Save = true;
         }

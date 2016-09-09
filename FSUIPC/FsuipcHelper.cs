@@ -121,7 +121,7 @@ namespace MobiFlight.FSUIPC
             {
                 case FSUIPCOffsetType.Integer:
                     tmpValue = value.Int64;
-                    tmpValue = tmpValue * cfg.FSUIPCMultiplier;
+                    tmpValue = cfg.Transform.Apply(tmpValue);
                     value.Int64 = (Int64)Math.Floor(tmpValue);
                     break;
 
@@ -132,7 +132,7 @@ namespace MobiFlight.FSUIPC
                     break;*/
 
                 case FSUIPCOffsetType.Float:
-                    value.Float64 = Math.Floor(value.Float64 * cfg.FSUIPCMultiplier);
+                    value.Float64 = Math.Floor(cfg.Transform.Apply(value.Float64));
                     break;
 
                 // nothing to do in case of string

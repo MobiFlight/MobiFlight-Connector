@@ -111,6 +111,7 @@
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "JeehellInputPanel";
             this.Size = new System.Drawing.Size(211, 104);
+            this.Load += new System.EventHandler(this.JeehellInputPanel_Load);
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             this.fsuipcLoadPresetGroupBox.PerformLayout();
             this.ResumeLayout(false);

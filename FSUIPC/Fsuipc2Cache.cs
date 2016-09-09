@@ -456,7 +456,8 @@ namespace MobiFlight
 
         internal void ForceUpdate()
         {
-            FSUIPCConnection.Process();
+            if (_offsetsRegistered)
+                FSUIPCConnection.Process();
         }
     }
 

@@ -81,8 +81,6 @@ namespace MobiFlight
 
                 reader.ReadEndElement();
             }
-
-            reader.ReadEndElement();
         }
 
         public double Value(double x)

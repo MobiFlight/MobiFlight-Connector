@@ -47,12 +47,21 @@ namespace MobiFlight
             preparePreconditionPanel(dataSetConfig, filterGuid);            
         }
 
+        private void ConfigWizard_Load(object sender, EventArgs e)
+        {
+
+            _loadPresets();
+            // displayLedDisplayComboBox.Items.Clear(); 
+
+            _syncConfigToForm(config);
+        }
+
         protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
         {
             this._execManager = mainForm;
             config = cfg;
             InitializeComponent();
-            
+
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
             //if (cfg.FSUIPCOffset == InputConfigItem.FSUIPCOffsetNull)
@@ -62,8 +71,6 @@ namespace MobiFlight
             tabControlFsuipc.SelectedIndex = lastTabActive;
 
             _initPreconditionPanel();
-            _loadPresets();
-            // displayLedDisplayComboBox.Items.Clear(); 
         }
 
         private void _initPreconditionPanel()
@@ -436,7 +443,7 @@ namespace MobiFlight
                     panel.Dock = DockStyle.Top;
                 }
             }
-            catch (Exception)
+            catch (Exception exc)
             {
                 MessageBox.Show(MainForm._tr("uiMessageNotImplementedYet"), 
                                 MainForm._tr("Hint"), 
@@ -462,11 +469,6 @@ namespace MobiFlight
                 }
             }
             displayLedDisplayPanel.SetConnectors(connectors);
-        }
-
-        private void ConfigWizard_Load(object sender, EventArgs e)
-        {
-            _syncConfigToForm(config);
         }
 
         private void displayError(Control control, String message)

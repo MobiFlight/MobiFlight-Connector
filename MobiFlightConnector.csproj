@@ -199,6 +199,7 @@
       <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\BooleanConverterConfig.cs" />
+    <Compile Include="MobiFlight\Transformation.cs" />
     <Compile Include="Panels\BytePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

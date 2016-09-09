@@ -42,5 +42,17 @@ namespace MobiFlight.FSUIPC
             get;
             set;
         }
+
+        public Transformation Transform
+        {
+            get;
+            set;
+        }
+
+        public String Value
+        {
+            get;
+            set;
+        }
     }
 }
