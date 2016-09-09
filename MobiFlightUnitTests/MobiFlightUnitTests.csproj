@@ -74,6 +74,12 @@
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="InterpolationTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\ButtonInputConfigTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\EncoderInputConfigTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\EventIdInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\FsuipcOffsetInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\JeehellInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\KeyInputActionTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
     <Compile Include="MobiFlight\TransformationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
