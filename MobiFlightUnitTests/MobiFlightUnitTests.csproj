@@ -73,6 +73,9 @@
   <ItemGroup>
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="InterpolationTests.cs" />
+    <Compile Include="MobiFlight\InputConfigItemTests.cs" />
+    <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
+    <Compile Include="MobiFlight\TransformationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +83,16 @@
       <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
       <Name>MobiFlightConnector</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\MobiFlight\OutputConfigItem\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfigItem\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

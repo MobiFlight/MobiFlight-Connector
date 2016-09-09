@@ -27,32 +27,25 @@ namespace MobiFlightUnitTests
             EventIdInputAction inputAction = new EventIdInputAction();
             inputAction.EventId = EventId;
             inputAction.Param = Param;
-
+            xmlWriter.WriteStartElement("onPress");
             inputAction.WriteXml(xmlWriter);
+            xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
             Assert.AreEqual(
 "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + "\r\n" +
-"<onPress type=\"EventIdInputAction\" >" + "\r\n" +
-"  <value x=\"0\" y=\"0\" />" + "\r\n" +
-"  <value x=\"0.5\" y=\"2\" />" + "\r\n" +
-"  <value x=\"1\" y=\"1\" />" + "\r\n" +
-"</onPress>",
+"<onPress type=\"EventIdInputAction\" eventId=\"321430\" param=\"123456\" />",
                 s,
                 "Serialization did not work correctly"
                 );
         }
 
         [TestMethod]
-        public void InterpolationDeserializesCorrectly()
+        public void EventIdInputActionDeserializesCorrectly()
         {
             String s =
 "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + "\r\n" +
-"<interpolation>" + "\r\n" +
-"  <value x=\"0\" y=\"0\" />" + "\r\n" +
-"  <value x=\"0.5\" y=\"2\" />" + "\r\n" +
-"  <value x=\"1\" y=\"1\" />" + "\r\n" +
-"</interpolation>";
+"<onPress type=\"EventIdInputAction\" eventId=\"321430\" param=\"123456\" />";
 
             StringReader sr = new StringReader(s);
             StringWriter sw = new StringWriter();
@@ -62,9 +55,10 @@ namespace MobiFlightUnitTests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr);
             EventIdInputAction i = new EventIdInputAction();
+            xmlReader.ReadToDescendant("onPress");
             i.ReadXml(xmlReader);
-            Assert.AreEqual(123456, i.EventId, "Value of EventId is wrong");
-            Assert.AreEqual(654321, i.Param, "Value of Param is wrong");
+            Assert.AreEqual(321430, i.EventId, "Value of EventId is wrong");
+            Assert.AreEqual(123456, i.Param, "Value of Param is wrong");
         }
     }
 }

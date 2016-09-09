@@ -67,6 +67,7 @@ namespace MobiFlightUnitTests
             float x2 = 1.0f; float y2 = 1.0f;
 
             Interpolation i = new Interpolation();
+            i.Active = true;
             i.Add(x1, y1);
             i.Add(x2, y2);
             i.Add(x3, y3);
@@ -75,7 +76,7 @@ namespace MobiFlightUnitTests
             string s = sw.ToString();
             Assert.AreEqual(
 "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + "\r\n" +
-"<interpolation>" + "\r\n" +
+"<interpolation active=\"True\">" + "\r\n" +
 "  <value x=\"0\" y=\"0\" />" + "\r\n" +
 "  <value x=\"0.5\" y=\"2\" />" + "\r\n" +
 "  <value x=\"1\" y=\"1\" />" + "\r\n" +
@@ -90,7 +91,7 @@ namespace MobiFlightUnitTests
         {
             String s =
 "<?xml version=\"1.0\" encoding=\"utf-16\"?>" + "\r\n" +
-"<interpolation>" + "\r\n" +
+"<interpolation active=\"True\">" + "\r\n" +
 "  <value x=\"0\" y=\"0\" />" + "\r\n" +
 "  <value x=\"0.5\" y=\"2\" />" + "\r\n" +
 "  <value x=\"1\" y=\"1\" />" + "\r\n" +
@@ -104,7 +105,9 @@ namespace MobiFlightUnitTests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr);
             Interpolation i = new Interpolation();
+            xmlReader.ReadToDescendant("interpolation");
             i.ReadXml(xmlReader);
+            Assert.AreEqual(true, i.Active, "Interpolation is not active");
             Assert.AreEqual(3, i.Count, "Number of items in Interpolation wrong");
             Assert.AreEqual(0, i.Value(0), "Value of interpolation is wrong");
             Assert.AreEqual(2, i.Value(0.5f), "Value of interpolation is wrong");
