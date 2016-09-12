@@ -20,7 +20,8 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void GetSchemaTest()
         {
-            Assert.Fail();
+            InputConfigItem o = generateTestObject();
+            Assert.IsNull(o.GetSchema());
         }
 
         [TestMethod()]
@@ -38,7 +39,26 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CloneTest()
         {
-            Assert.Fail();
+            InputConfigItem o = generateTestObject();
+            InputConfigItem c = (InputConfigItem) o.Clone();
+
+            Assert.IsNotNull(c.button, "Button is null");
+            Assert.IsNotNull(c.encoder, "Encoder is null");
+            Assert.AreEqual(o.ModuleSerial, c.ModuleSerial, "Module Serial not the same");
+            Assert.AreEqual(o.Name, c.Name, "Name not the same");
+            Assert.AreEqual(c.Preconditions.Count, 1, "Precondition Count is not 1");
+        }
+
+        private InputConfigItem generateTestObject()
+        {
+            InputConfigItem result = new InputConfigItem();
+            result.button = new InputConfig.ButtonInputConfig();
+            result.encoder = new InputConfig.EncoderInputConfig();
+            result.ModuleSerial = "TestSerial";
+            result.Name = "TestName";
+            result.Preconditions.Add(new Precondition() { PreconditionSerial = "PreConTestSerial" });
+
+            return result;
         }
     }
 }

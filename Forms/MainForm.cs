@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 using SimpleSolutions.Usb;
 using AutoUpdaterDotNET;
 using System.Runtime.InteropServices;
-
+using MobiFlight.FSUIPC;
 
 namespace MobiFlight
 {
@@ -137,7 +137,7 @@ namespace MobiFlight
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
                 // change ui icon to english
-                donateToolStripButton.Image = MobiFlight.Properties.Resources.btn_donate_uk_SM;
+                donateToolStripButton.Image = Properties.Resources.btn_donate_uk_SM;
             }
         }
 
@@ -441,7 +441,7 @@ namespace MobiFlight
         /// </summary>
         void arcazeCache_Closed(object sender, EventArgs e)
         {
-            arcazeUsbStatusToolStripStatusLabel.Image = MobiFlight.Properties.Resources.warning;
+            arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.warning;
         }
 
         /// <summary>
@@ -449,7 +449,7 @@ namespace MobiFlight
         /// </summary>
         void arcazeCache_Connected(object sender, EventArgs e)
         {
-            arcazeUsbStatusToolStripStatusLabel.Image = MobiFlight.Properties.Resources.check;
+            arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
         }
 

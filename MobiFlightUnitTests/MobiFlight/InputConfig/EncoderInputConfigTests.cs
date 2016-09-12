@@ -14,15 +14,23 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void CloneTest()
         {
-            Assert.Fail();
+            EncoderInputConfig o = generateTestObject();
+            EncoderInputConfig c = (EncoderInputConfig) o.Clone();
+
+            Assert.AreNotSame(o, c, "Objects are the same");
+            Assert.AreEqual((o.onLeft as FsuipcOffsetInputAction).FSUIPCOffset, (c.onLeft as FsuipcOffsetInputAction).FSUIPCOffset, "onLeft are not cloned correctly");
+            Assert.AreEqual((o.onLeftFast as FsuipcOffsetInputAction).FSUIPCOffset, (c.onLeftFast as FsuipcOffsetInputAction).FSUIPCOffset, "onLeftFast are not cloned correctly");
+            Assert.AreEqual((o.onRight as FsuipcOffsetInputAction).FSUIPCOffset, (c.onRight as FsuipcOffsetInputAction).FSUIPCOffset, "onRight are not cloned correctly");
+            Assert.AreEqual((o.onRightFast as FsuipcOffsetInputAction).FSUIPCOffset, (c.onRightFast as FsuipcOffsetInputAction).FSUIPCOffset, "onRightFast are not cloned correctly");
         }
 
         [TestMethod()]
         public void GetSchemaTest()
         {
-            Assert.Fail();
+            EncoderInputConfig o = generateTestObject();
+            Assert.IsNull(o.GetSchema());
         }
-
+        
         [TestMethod()]
         public void ReadXmlTest()
         {
@@ -33,6 +41,17 @@ namespace MobiFlight.InputConfig.Tests
         public void WriteXmlTest()
         {
             Assert.Fail();
+        }
+
+        private EncoderInputConfig generateTestObject()
+        {
+            EncoderInputConfig result = new EncoderInputConfig();
+            result.onLeft = new FsuipcOffsetInputAction() { FSUIPCOffset = 0x1234 };
+            result.onRight = new FsuipcOffsetInputAction() { FSUIPCOffset = 0x2345 };
+            result.onLeftFast = new FsuipcOffsetInputAction() { FSUIPCOffset = 0x3456 };
+            result.onRightFast = new FsuipcOffsetInputAction() { FSUIPCOffset = 0x4567 };
+
+            return result;
         }
     }
 }

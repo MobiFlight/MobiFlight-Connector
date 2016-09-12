@@ -8,7 +8,7 @@ namespace MobiFlight.FSUIPC
 {
     public class FsuipcHelper
     {
-        public static ConnectorValue executeRead(IFsuipcConfigItem cfg, Fsuipc2Cache fsuipcCache)
+        public static ConnectorValue executeRead(IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {
             ConnectorValue result = new ConnectorValue();
 
@@ -28,7 +28,7 @@ namespace MobiFlight.FSUIPC
             return result;
         }
 
-        private static ConnectorValue _executeReadInt(IFsuipcConfigItem cfg, Fsuipc2Cache fsuipcCache)
+        private static ConnectorValue _executeReadInt(IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {
             ConnectorValue result = new ConnectorValue();
             switch (cfg.FSUIPCSize)
@@ -86,7 +86,7 @@ namespace MobiFlight.FSUIPC
             return result;
         }
 
-        private static ConnectorValue _executeReadFloat(IFsuipcConfigItem cfg, Fsuipc2Cache fsuipcCache)
+        private static ConnectorValue _executeReadFloat(IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {
             ConnectorValue result = new ConnectorValue();
             result.type = FSUIPCOffsetType.Float;
@@ -237,7 +237,7 @@ namespace MobiFlight.FSUIPC
             return result;
         }
 
-        public static void executeWrite(String value, IFsuipcConfigItem cfg, Fsuipc2Cache fsuipcCache)
+        public static void executeWrite(String value, IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {
             if (cfg.FSUIPCSize == 1)
             {

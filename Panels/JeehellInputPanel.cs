@@ -115,7 +115,7 @@ namespace MobiFlight.Panels
             MobiFlight.InputConfig.JeehellInputAction result = new InputConfig.JeehellInputAction();
             if (currentRow != null)
             {
-                result.EventId = Int32.Parse(currentRow["EventId"].ToString());
+                result.EventId = Byte.Parse(currentRow["EventId"].ToString());
                 result.Param = ValueTextBox.Text;
             }
             return result;

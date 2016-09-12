@@ -5,9 +5,9 @@ using System.Text;
 using System.Diagnostics;
 using FSUIPC;
 
-namespace MobiFlight
+namespace MobiFlight.FSUIPC
 {
-    public class Fsuipc2Cache : SourceCacheInterface
+    public class Fsuipc2Cache : FSUIPCCacheInterface
     {
 
         public event EventHandler Closed;
@@ -27,7 +27,7 @@ namespace MobiFlight
         Dictionary<Int32, Offset<Double>> __cacheDouble = new Dictionary<Int32, Offset<Double>>();
         Dictionary<Int32, Offset<String>> __cacheString = new Dictionary<Int32, Offset<String>>();
         FlightSim[] _supportedFlightSims = new FlightSim[] { FlightSim.Any, FlightSim.FS2K4, FlightSim.FSX };
-        public FlightSimConnectionMethod FlightSimConnectionMethod = FlightSimConnectionMethod.NONE;
+        public MobiFlight.FlightSimConnectionMethod FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.NONE;
         
         bool _offsetsRegistered = false;
         bool _connected = false;
@@ -454,19 +454,10 @@ namespace MobiFlight
 //            _process();
         }
 
-        internal void ForceUpdate()
+        public void ForceUpdate()
         {
             if (_offsetsRegistered)
                 FSUIPCConnection.Process();
         }
-    }
-
-    public enum FlightSimConnectionMethod {
-        NONE,
-        UNKNOWN,        
-        FSUIPC,
-        WIDECLIENT,
-        XPUIPC,
-        OFFLINE
     }
 }

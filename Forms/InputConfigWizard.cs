@@ -288,14 +288,14 @@ namespace MobiFlight
             {
                 case DeviceType.Button:
                     config.Type = InputConfigItem.TYPE_BUTTON;
-                    if (config.button == null) config.button = new MobiFlight.InputConfig.ButtonInputConfig();
+                    if (config.button == null) config.button = new InputConfig.ButtonInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
                     break;
 
                 case DeviceType.Encoder:
                     config.Type = InputConfigItem.TYPE_ENCODER;
-                    if (config.encoder == null) config.encoder = new MobiFlight.InputConfig.EncoderInputConfig();
+                    if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
                     break;
@@ -340,7 +340,7 @@ namespace MobiFlight
                 
                 inputTypeComboBox.Items.Clear();
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-                foreach (MobiFlight.Config.BaseDevice device in module.GetConnectedInputDevices())
+                foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
                 {
                     switch (device.Type)
                     {
@@ -395,7 +395,7 @@ namespace MobiFlight
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
             // find the correct input type based on the name
-            foreach (MobiFlight.Config.BaseDevice device in module.GetConnectedInputDevices())
+            foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
             {
                 if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
 

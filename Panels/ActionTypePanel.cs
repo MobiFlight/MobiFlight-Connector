@@ -35,7 +35,7 @@ namespace MobiFlight.Panels
                 ActionTypeChanged(this, (sender as ComboBox).SelectedItem.ToString());
         }
 
-        internal void syncFromConfig(MobiFlight.InputConfig.InputAction inputAction)
+        internal void syncFromConfig(InputConfig.InputAction inputAction)
         {
             switch (inputAction.GetType().ToString()) {
                 case "MobiFlight.InputConfig.FsuipcOffsetInputAction":
@@ -56,7 +56,7 @@ namespace MobiFlight.Panels
             }
         }
 
-        internal void syncToConfig(MobiFlight.InputConfig.InputAction inputAction)
+        internal void syncToConfig(InputConfig.InputAction inputAction)
         {
             throw new NotImplementedException();
         }

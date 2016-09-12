@@ -17,7 +17,7 @@ namespace MobiFlight.InputConfig
         const Int16 Offset_CPT_QNH = 0x73C8;
         const Int16 Offset_FO_QNH = 0x73CA;
 
-        public Int32 EventId;
+        public Byte EventId;
         public String Param;
         
         override public object Clone()
@@ -34,7 +34,7 @@ namespace MobiFlight.InputConfig
             String eventId = reader["pipeId"];
             String param = reader["value"];
 
-            EventId = Int32.Parse(eventId);
+            EventId = Byte.Parse(eventId);
             Param = param;
         }
 
@@ -122,15 +122,15 @@ namespace MobiFlight.InputConfig
             return result;
         }
 
-        public override void execute(MobiFlight.Fsuipc2Cache fsuipcCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
         {
             String value = Param;
             IFsuipcConfigItem cfg = CreateFsuipcConfigItem();
 
             if (value.Contains("$"))
             {
-                ConnectorValue tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeRead(cfg, fsuipcCache);
-                tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeTransform(tmpValue, cfg);
+                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg, cache);
+                tmpValue = FSUIPC.FsuipcHelper.executeTransform(tmpValue, cfg);
                 Log.Instance.log("JeehellInputAction:Execute : Current value " + tmpValue.Int64.ToString(), LogSeverity.Debug);
 
                 String expression = value.Replace("$", tmpValue.Int64.ToString());
@@ -151,9 +151,9 @@ namespace MobiFlight.InputConfig
             cfg.FSUIPCMask = 0xFFFF;
 
             Log.Instance.log("JeehellInputAction:Execute : Setting value " + value + " for EventID: " + EventId, LogSeverity.Debug);
-            MobiFlight.FSUIPC.FsuipcHelper.executeWrite(value, cfg, fsuipcCache);
-            MobiFlight.FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), fsuipcCache);
-            fsuipcCache.ForceUpdate();
+            FSUIPC.FsuipcHelper.executeWrite(value, cfg, cache);
+            FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), cache);
+            cache.ForceUpdate();
         }
     }
 }

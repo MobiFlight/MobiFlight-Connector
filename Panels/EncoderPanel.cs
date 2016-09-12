@@ -14,7 +14,7 @@ namespace MobiFlight.Panels
 {
     public partial class EncoderPanel : UserControl
     {
-        MobiFlight.InputConfig.EncoderInputConfig _config;
+        InputConfig.EncoderInputConfig _config;
 
         public EncoderPanel()
         {
@@ -103,7 +103,7 @@ namespace MobiFlight.Panels
             }
         }
 
-        public void syncFromConfig(MobiFlight.InputConfig.EncoderInputConfig config)
+        public void syncFromConfig(InputConfig.EncoderInputConfig config)
         {
             if (config == null) return;
 
@@ -130,7 +130,7 @@ namespace MobiFlight.Panels
             }
         }
 
-        public void ToConfig(MobiFlight.InputConfig.EncoderInputConfig config)
+        public void ToConfig(InputConfig.EncoderInputConfig config)
         {
             // for on press check the action type
             if (onLeftActionTypePanel.ActionTypeComboBox.SelectedItem != null)

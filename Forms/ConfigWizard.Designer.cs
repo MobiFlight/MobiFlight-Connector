@@ -103,8 +103,8 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
-            this.fsuipcConfigPanel = new MobiFlight.Panels.Group.FsuipcConfigPanel();
-            this.interpolationPanel1 = new MobiFlight.Panels.Group.InterpolationPanel();
+            this.fsuipcConfigPanel = new Panels.Group.FsuipcConfigPanel();
+            this.interpolationPanel1 = new Panels.Group.InterpolationPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();

@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.bytePanel8 = new MobiFlight.BytePanel();
-            this.bytePanel7 = new MobiFlight.BytePanel();
-            this.bytePanel6 = new MobiFlight.BytePanel();
-            this.bytePanel5 = new MobiFlight.BytePanel();
-            this.bytePanel4 = new MobiFlight.BytePanel();
-            this.bytePanel3 = new MobiFlight.BytePanel();
-            this.bytePanel2 = new MobiFlight.BytePanel();
-            this.bytePanel1 = new MobiFlight.BytePanel();
+            this.bytePanel8 = new BytePanel();
+            this.bytePanel7 = new BytePanel();
+            this.bytePanel6 = new BytePanel();
+            this.bytePanel5 = new BytePanel();
+            this.bytePanel4 = new BytePanel();
+            this.bytePanel3 = new BytePanel();
+            this.bytePanel2 = new BytePanel();
+            this.bytePanel1 = new BytePanel();
             this.panel = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();

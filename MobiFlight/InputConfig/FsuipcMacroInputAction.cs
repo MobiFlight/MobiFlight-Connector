@@ -22,7 +22,7 @@ namespace MobiFlight.InputConfig
             throw new NotImplementedException();
         }
 
-        public override void execute(MobiFlight.Fsuipc2Cache fsuipcCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
         {
             throw new NotImplementedException();
         }

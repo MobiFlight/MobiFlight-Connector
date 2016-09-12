@@ -105,7 +105,7 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(MobiFlight.Fsuipc2Cache fsuipcCache, ButtonArgs e)
+        internal void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, ButtonArgs e)
         {
             if (e.Value == 0 && onPress != null)
             {

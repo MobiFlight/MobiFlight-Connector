@@ -51,7 +51,7 @@ namespace MobiFlight
 
         delegate void AddLogCallback(string text);
         SerialPort _serialPort;
-        protected MobiFlight.Config.Config _config = null;
+        protected Config.Config _config = null;
 
         public static List<string> ReservedChars = new List<string>
 		{
@@ -75,7 +75,7 @@ namespace MobiFlight
                 } }
         public String Serial { get; set; }
         public String Version { get; set; }
-        public MobiFlight.Config.Config Config { 
+        public Config.Config Config { 
             get {                    
                     if (_config==null) {
                         if (!Connected) return null;

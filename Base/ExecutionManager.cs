@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Drawing;
 using MobiFlight;
+using MobiFlight.FSUIPC;
 
 namespace MobiFlight
 {
@@ -725,7 +726,7 @@ namespace MobiFlight
                     //        value);
                     //    break;
 
-                    case MobiFlight.MobiFlightStepper.TYPE:
+                    case MobiFlightStepper.TYPE:
                         mobiFlightCache.setStepper(
                             serial,
                             cfg.StepperAddress,
@@ -735,7 +736,7 @@ namespace MobiFlight
                         );
                         break;
 
-                    case MobiFlight.MobiFlightServo.TYPE:
+                    case MobiFlightServo.TYPE:
                         mobiFlightCache.setServo(
                             serial,
                             cfg.ServoAddress,

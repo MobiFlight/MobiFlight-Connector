@@ -19,6 +19,7 @@ namespace MobiFlight.InputConfig
             clone.Key = Key;
             clone.Alt = Alt;
             clone.Shift = Shift;
+            clone.Control = Control;
 
             return clone;
         }
@@ -45,7 +46,7 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("key", value);
         }
 
-        public override void execute(MobiFlight.Fsuipc2Cache fsuipcCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
         {
             KeyboardInput.SendKeyAsInput(Key, Control, Alt, Shift);
         }

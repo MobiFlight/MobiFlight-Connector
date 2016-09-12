@@ -170,6 +170,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +185,8 @@
     <Compile Include="Arcaze\ArcazeLedDigit.cs" />
     <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
     <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
+    <Compile Include="FSUIPC\FSUIPCCacheInterface.cs" />
+    <Compile Include="MobiFlight\FlightSimConnectionMethod.cs" />
     <Compile Include="MobiFlight\Forms\ArduinoIdePathForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -451,7 +454,7 @@
     <Compile Include="Forms\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Base\SourceCacheInterface.cs" />
+    <Compile Include="Base\ReadCacheInterface.cs" />
     <Compile Include="Base\UsageDetails.cs" />
     <Compile Include="Forms\WelcomeDialog.cs">
       <SubType>Form</SubType>

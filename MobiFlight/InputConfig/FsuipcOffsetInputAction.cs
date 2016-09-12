@@ -115,85 +115,85 @@ namespace MobiFlight.InputConfig
                     Transform.ReadXml(reader);
                 }
             }
-}
+        }   
 
-public override void execute(Fsuipc2Cache fsuipcCache)
-{
-String value = Value;
-// apply ncalc logic
-if (value.Contains("$"))
-{
-    ConnectorValue tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeRead(this, fsuipcCache);
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
+        {
+                String value = Value;
+                // apply ncalc logic
+                if (value.Contains("$"))
+                {
+                    ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(this, cache);
 
-    String expression = Value.Replace("$", tmpValue.ToString());
-    var ce = new NCalc.Expression(expression);
-    try
-    {
-        value = (ce.Evaluate()).ToString();
-    }
-    catch
-    {
-        Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-        throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
-    }
-}
+                    String expression = Value.Replace("$", tmpValue.ToString());
+                    var ce = new NCalc.Expression(expression);
+                    try
+                    {
+                        value = (ce.Evaluate()).ToString();
+                    }
+                    catch
+                    {
+                        Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
+                        throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
+                    }
+                }
 
-if (FSUIPCSize == 1) {
-    System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
-    if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
-    byte bValue = Byte.Parse(value, format);
-    if (FSUIPCMask != 0xFF)
-    {
-        byte cByte = (byte)fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
-        if (bValue == 1)
-        {
-            bValue = (byte)(cByte | FSUIPCMask);
-        }
-        else
-        {
-            bValue = (byte)(cByte & ~FSUIPCMask);
-        }
-    }
-    fsuipcCache.setOffset(FSUIPCOffset, bValue);
-}
-else if (FSUIPCSize == 2)
-{
-    System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
-    if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
-    Int16 sValue = Int16.Parse(value, format);
-    if (FSUIPCMask != 0xFFFF)
-    {
-        Int16 cByte = (Int16) fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
-        if (sValue == 1)
-        {
-            sValue = (Int16)(cByte | FSUIPCMask);
-        }
-        else
-        {
-            sValue = (Int16)(cByte & ~FSUIPCMask);
-        }
-    }
-    
-    fsuipcCache.setOffset(FSUIPCOffset, sValue);
-}
-else if (FSUIPCSize == 4)
-{
-    Int32 iValue = Int32.Parse(value);
-    if (FSUIPCMask != 0xFFFFFFFF)
-    {
-        Int32 cByte = (Int32)fsuipcCache.getValue(FSUIPCOffset, FSUIPCSize);
-        if (iValue == 1)
-        {
-            iValue = (Int32)(cByte | FSUIPCMask);
-        }
-        else
-        {
-            iValue = (Int32)(cByte & ~FSUIPCMask);
-        }
-    }
+                if (FSUIPCSize == 1) {
+                    System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
+                    if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                    byte bValue = Byte.Parse(value, format);
+                    if (FSUIPCMask != 0xFF)
+                    {
+                        byte cByte = (byte)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                        if (bValue == 1)
+                        {
+                            bValue = (byte)(cByte | FSUIPCMask);
+                        }
+                        else
+                        {
+                            bValue = (byte)(cByte & ~FSUIPCMask);
+                        }
+                    }
+                    cache.setOffset(FSUIPCOffset, bValue);
+                }
+                else if (FSUIPCSize == 2)
+                {
+                    System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
+                    if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                    Int16 sValue = Int16.Parse(value, format);
+                    if (FSUIPCMask != 0xFFFF)
+                    {
+                        Int16 cByte = (Int16) cache.getValue(FSUIPCOffset, FSUIPCSize);
+                        if (sValue == 1)
+                        {
+                            sValue = (Int16)(cByte | FSUIPCMask);
+                        }
+                        else
+                        {
+                            sValue = (Int16)(cByte & ~FSUIPCMask);
+                        }
+                    }
 
-    fsuipcCache.setOffset(FSUIPCOffset, iValue);
-}
-}
-}
+                    cache.setOffset(FSUIPCOffset, sValue);
+                }
+                else if (FSUIPCSize == 4)
+                {
+                    Int32 iValue = Int32.Parse(value);
+                    if (FSUIPCMask != 0xFFFFFFFF)
+                    {
+                        Int32 cByte = (Int32)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                        if (iValue == 1)
+                        {
+                            iValue = (Int32)(cByte | FSUIPCMask);
+                        }
+                        else
+                        {
+                            iValue = (Int32)(cByte & ~FSUIPCMask);
+                        }
+                    }
+
+                    cache.setOffset(FSUIPCOffset, iValue);
+                }
+            }
+        }
 }

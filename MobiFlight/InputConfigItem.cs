@@ -141,7 +141,7 @@ namespace MobiFlight
             return clone;
         }
 
-        internal void execute(Fsuipc2Cache fsuipcCache, ButtonArgs e)
+        internal void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, ButtonArgs e)
         {
             switch (Type)
             {

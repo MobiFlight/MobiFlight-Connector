@@ -7,6 +7,6 @@ namespace MobiFlight
 {
     public interface IBaseConfigItem
     {
-        List<MobiFlight.Precondition> Preconditions { get; set; }
+        List<Precondition> Preconditions { get; set; }
     }
 }

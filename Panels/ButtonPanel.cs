@@ -14,7 +14,7 @@ namespace MobiFlight.Panels
 {
     public partial class ButtonPanel : UserControl
     {
-        MobiFlight.InputConfig.ButtonInputConfig _config;
+        InputConfig.ButtonInputConfig _config;
 
         public ButtonPanel()
         {
@@ -84,7 +84,7 @@ namespace MobiFlight.Panels
             }
         }
 
-        public void syncFromConfig(MobiFlight.InputConfig.ButtonInputConfig config)
+        public void syncFromConfig(InputConfig.ButtonInputConfig config)
         {
             if (config == null) return;
 
@@ -101,7 +101,7 @@ namespace MobiFlight.Panels
             }
         }
 
-        public void ToConfig(MobiFlight.InputConfig.ButtonInputConfig config)
+        public void ToConfig(InputConfig.ButtonInputConfig config)
         {
             // for on press check the action type
             if (onPressActionTypePanel.ActionTypeComboBox.SelectedItem != null)

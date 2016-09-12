@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using SimpleSolutions.Usb;
-using MobiFlight;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -19,7 +18,7 @@ namespace MobiFlight
         List <ArcazeModuleSettings> moduleSettings;
         ExecutionManager execManager;
         int lastSelectedIndex = -1;
-        MobiFlight.Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new MobiFlight.Forms.FirmwareUpdateProcess();
+        Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new Forms.FirmwareUpdateProcess();
         public bool MFModuleConfigChanged { get; set; }
 
         const bool StepperSupport = true;

@@ -245,7 +245,7 @@ namespace MobiFlight.Panels.Group
             config.Value = fsuipcValueTextBox.Text;
         }
 
-        internal MobiFlight.InputConfig.InputAction ToConfig()
+        internal InputConfig.InputAction ToConfig()
         {
             MobiFlight.InputConfig.FsuipcOffsetInputAction config = new FsuipcOffsetInputAction();
 

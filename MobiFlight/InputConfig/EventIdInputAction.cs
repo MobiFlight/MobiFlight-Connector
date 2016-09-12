@@ -38,11 +38,11 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("param", Param.ToString());
         }
 
-        public override void execute(MobiFlight.Fsuipc2Cache fsuipcCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
         {
-            fsuipcCache.setOffset(ParamOffset, Param);
-            fsuipcCache.setOffset(BaseOffset, EventId);            
-            fsuipcCache.ForceUpdate();
+            cache.setOffset(ParamOffset, Param);
+            cache.setOffset(BaseOffset, EventId);            
+            cache.ForceUpdate();
         }
     }
 }
