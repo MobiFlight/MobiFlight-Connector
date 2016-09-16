@@ -19,16 +19,17 @@ namespace MobiFlight.Panels.Group
         public FsuipcConfigPanel()
         {
             InitializeComponent();
-        }
-
-        private void FsuipcConfigPanel_Load(object sender, EventArgs e)
-        {
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
             _initFsuipcOffsetTypeComboBox();
             PresetFile = Properties.Settings.Default.PresetFile;
             _loadPresets();
             fsuipcPresetComboBox.ResetText();
+        }
+
+        private void FsuipcConfigPanel_Load(object sender, EventArgs e)
+        {
+            
         }
 
         public void setMode(bool isOutputPanel)

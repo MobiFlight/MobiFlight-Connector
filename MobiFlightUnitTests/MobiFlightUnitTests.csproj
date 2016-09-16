@@ -83,6 +83,7 @@
     <Compile Include="MobiFlight\InputConfig\KeyInputActionTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
     <Compile Include="MobiFlight\TransformationTests.cs" />
+    <Compile Include="mock\Base\KeyboardInputMock.cs" />
     <Compile Include="mock\FSUIPC\FSUIPCCacheMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -93,19 +94,67 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\MobiFlight\JeehellInputAction\ReadXmlTest.1.xml">
+    <Content Include="assets\MobiFlight\InputConfig\EncoderInputConfig\ReadXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\JeehellInputAction\WriteXmlTest.1.xml">
+    <Content Include="assets\MobiFlight\InputConfig\EncoderInputConfig\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\OutputConfigItem\WriteXmlTest.1.xml">
+    <Content Include="assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\OutputConfigItem\ReadXmlTest.1.xml">
+    <Content Include="assets\MobiFlight\InputConfig\ButtonInputConfig\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\EventIdInputAction\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\EventIdInputAction\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\FsuipcOffsetInputAction\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\FsuipcOffsetInputAction\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\KeyInputAction\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\KeyInputAction\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\JeehellInputAction\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\JeehellInputAction\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\InputConfigItem\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\InputConfigItem\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\OutputConfigItem\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

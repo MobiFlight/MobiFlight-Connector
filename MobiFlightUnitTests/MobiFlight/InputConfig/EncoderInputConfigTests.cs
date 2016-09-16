@@ -2,9 +2,11 @@
 using MobiFlight.InputConfig;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace MobiFlight.InputConfig.Tests
 {
@@ -34,13 +36,42 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void ReadXmlTest()
         {
-            Assert.Fail();
+            EncoderInputConfig o = new EncoderInputConfig();
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\EncoderInputConfig\ReadXmlTest.1.xml");
+            StringReader sr = new StringReader(s);
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("encoder");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual((o.onLeft as EventIdInputAction).EventId, 12345, "EventId not the same");
+            Assert.AreEqual((o.onLeftFast as JeehellInputAction).EventId, 127, "EventId not the same");
+            Assert.AreEqual((o.onRight as JeehellInputAction).EventId, 126, "EventId not the same");
+            Assert.AreEqual((o.onRightFast as JeehellInputAction).EventId, 125, "EventId not the same");
         }
 
         [TestMethod()]
         public void WriteXmlTest()
         {
-            Assert.Fail();
+            StringWriter sw = new StringWriter();
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Encoding = System.Text.Encoding.UTF8;
+            settings.Indent = true;
+            //settings.NewLineHandling = NewLineHandling.Entitize;
+            System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
+
+            EncoderInputConfig o = generateTestObject();
+            xmlWriter.WriteStartElement("encoder");
+            o.WriteXml(xmlWriter);
+            xmlWriter.WriteEndElement();
+            xmlWriter.Flush();
+            string s = sw.ToString();
+
+            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\EncoderInputConfig\WriteXmlTest.1.xml");
+
+            Assert.AreEqual(s, result, "The both strings are not equal");
         }
 
         private EncoderInputConfig generateTestObject()

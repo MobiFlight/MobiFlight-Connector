@@ -18,13 +18,14 @@ namespace MobiFlight.Panels
         public EventIdInputPanel()
         {
             InitializeComponent();
+            PresetFile = Properties.Settings.Default.EventIdPresetFile;
+            Data = new DataTable();
+            _loadPresets();
         }
 
         private void EventIdInputPanel_Load(object sender, EventArgs e)
         {
-            PresetFile = Properties.Settings.Default.EventIdPresetFile;
-            Data = new DataTable();
-            _loadPresets();
+
         }
 
         private void _loadPresets()

@@ -33,6 +33,7 @@ namespace MobiFlight.InputConfig
             FSUIPCSize = 1;
             FSUIPCBcdMode = false;
             Value = "";
+            Transform = new Transformation();
         }
 
         override public object Clone()
@@ -44,6 +45,7 @@ namespace MobiFlight.InputConfig
             clone.FSUIPCMask = this.FSUIPCMask;
             clone.FSUIPCBcdMode = this.FSUIPCBcdMode;
             clone.Value = this.Value;
+            clone.Transform = (Transformation) this.Transform.Clone();
             return clone;
         }
 
@@ -96,7 +98,14 @@ namespace MobiFlight.InputConfig
                 {
                     double multiplier = Double.Parse(reader["multiplier"], serializationCulture);
                     if (multiplier != 1.0)
-                        Transform.Expression = "$*" + multiplier.ToString();
+                        try
+                        {
+                            Transform.Expression = "$*" + multiplier;
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log("Error on converting multiplier.", LogSeverity.Error);
+                        }
                 }
 
                 if (reader["bcdMode"] != null && reader["bcdMode"] != "")

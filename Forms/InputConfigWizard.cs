@@ -44,16 +44,18 @@ namespace MobiFlight
             this.moduleSettings = moduleSettings;
             Init(mainForm, cfg);            
             initWithArcazeCache(arcazeCache);
-            preparePreconditionPanel(dataSetConfig, filterGuid);            
+            preparePreconditionPanel(dataSetConfig, filterGuid);
+            _loadPresets();
+            // displayLedDisplayComboBox.Items.Clear(); 
+            _syncConfigToForm(config);
         }
 
         private void ConfigWizard_Load(object sender, EventArgs e)
         {
 
-            _loadPresets();
-            // displayLedDisplayComboBox.Items.Clear(); 
 
-            _syncConfigToForm(config);
+
+            
         }
 
         protected void Init(ExecutionManager mainForm, InputConfigItem cfg)

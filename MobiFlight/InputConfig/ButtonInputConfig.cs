@@ -36,6 +36,7 @@ namespace MobiFlight.InputConfig
         {
 
             reader.Read(); // this should be the opening tag "onPress"
+            if (reader.LocalName == "") reader.Read();
             if (reader.LocalName == "onPress")
             {
                 switch (reader["type"])
@@ -64,6 +65,7 @@ namespace MobiFlight.InputConfig
             }
 
             reader.Read();
+            if (reader.LocalName == "") reader.Read();
             if (reader.LocalName == "onRelease")
             {
                 switch (reader["type"])
@@ -87,8 +89,8 @@ namespace MobiFlight.InputConfig
                         break;
 
                     case "JeehellInputAction":
-                        onPress = new JeehellInputAction();
-                        onPress.ReadXml(reader);
+                        onRelease = new JeehellInputAction();
+                        onRelease.ReadXml(reader);
                         break;
                 }
             }

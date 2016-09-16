@@ -12,6 +12,7 @@ namespace MobiFlight.InputConfig
         public bool Control;
         public bool Alt;
         public bool Shift;
+        public KeyboardInputInterface Keyboard;
 
         override public object Clone()
         {
@@ -48,7 +49,10 @@ namespace MobiFlight.InputConfig
 
         public override void execute(FSUIPC.FSUIPCCacheInterface cache)
         {
-            KeyboardInput.SendKeyAsInput(Key, Control, Alt, Shift);
+            if (Keyboard != null)
+                Keyboard.SendKeyAsInput(Key, Control, Alt, Shift);
+            else
+                KeyboardInput.SendKeyAsInput(Key, Control, Alt, Shift);
         }
     }
 }

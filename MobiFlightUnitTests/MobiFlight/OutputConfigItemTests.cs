@@ -31,14 +31,12 @@ namespace MobiFlight.Tests
         public void ReadXmlTest()
         {
             OutputConfigItem oci = new OutputConfigItem();
-            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfigItem\ReadXmlTest.1.xml");
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.1.xml");
             StringReader sr = new StringReader(s);
-            StringWriter sw = new StringWriter();
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Encoding = System.Text.Encoding.UTF8;
-            settings.Indent = true;
-            //settings.NewLineHandling = NewLineHandling.Entitize;
-            System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr);            
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
             Assert.AreEqual (oci.FSUIPCOffsetType, FSUIPCOffsetType.Integer);
             Assert.AreEqual(oci.FSUIPCOffset, 0x034E);
@@ -65,7 +63,7 @@ namespace MobiFlight.Tests
             xmlWriter.Flush();
             string s = sw.ToString();
 
-            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfigItem\WriteXmlTest.1.xml");
+            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\OutputConfigItem\WriteXmlTest.1.xml");
 
             Assert.AreEqual(s, result, "The both strings are not equal");
         }

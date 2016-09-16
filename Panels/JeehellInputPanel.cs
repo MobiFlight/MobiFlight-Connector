@@ -18,16 +18,17 @@ namespace MobiFlight.Panels
         public JeehellInputPanel()
         {
             InitializeComponent();
-        }
-
-
-        private void JeehellInputPanel_Load(object sender, EventArgs e)
-        {
             PresetFile = Properties.Settings.Default.JeehellPresetFile;
             Data = new DataTable();
             hintLabel.Visible = false;
 
             _loadPresets();
+        }
+
+
+        private void JeehellInputPanel_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void _loadPresets()

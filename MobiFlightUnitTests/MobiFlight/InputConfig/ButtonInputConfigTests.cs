@@ -2,9 +2,11 @@
 using MobiFlight.InputConfig;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace MobiFlight.InputConfig.Tests
 {
@@ -19,14 +21,14 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreNotSame(o, c, "Cloned object is the same");
             Assert.AreEqual((o.onPress as EventIdInputAction).EventId, (c.onPress as EventIdInputAction).EventId, "OnPress is not correct");
-            Assert.AreEqual((o.onRelease as EventIdInputAction).EventId, (c.onRelease as EventIdInputAction).EventId, "OnRelase is not correct");
+            Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelase is not correct");
         }
 
         private ButtonInputConfig generateTestObject()
         {
             ButtonInputConfig o = new ButtonInputConfig();
             o.onPress = new EventIdInputAction() { EventId = 12345 };
-            o.onRelease = new EventIdInputAction() { EventId = 54321 };
+            o.onRelease = new JeehellInputAction() { EventId = 127, Param = "123" };
             return o;
         }
 
@@ -40,13 +42,40 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void ReadXmlTest()
         {
-            Assert.Fail();
+            ButtonInputConfig o = new ButtonInputConfig();
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.1.xml");
+            StringReader sr = new StringReader(s);
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("button");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual((o.onPress as EventIdInputAction).EventId, 12345, "EventId not the same");
+            Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, 127, "EventId not the same");
         }
 
         [TestMethod()]
         public void WriteXmlTest()
         {
-            Assert.Fail();
+            StringWriter sw = new StringWriter();
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Encoding = System.Text.Encoding.UTF8;
+            settings.Indent = true;
+            //settings.NewLineHandling = NewLineHandling.Entitize;
+            System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
+
+            ButtonInputConfig o = generateTestObject();
+            xmlWriter.WriteStartElement("button");
+            o.WriteXml(xmlWriter);
+            xmlWriter.WriteEndElement();
+            xmlWriter.Flush();
+            string s = sw.ToString();
+
+            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\WriteXmlTest.1.xml");
+
+            Assert.AreEqual(s, result, "The both strings are not equal");
         }
     }
 }
