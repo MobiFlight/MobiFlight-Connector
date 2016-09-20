@@ -72,6 +72,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Base\CmdLineParamsTests.cs" />
+    <Compile Include="Base\ComboBoxHelperTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="InterpolationTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />

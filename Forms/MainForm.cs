@@ -83,7 +83,7 @@ namespace MobiFlight
 
 
             execManager = new ExecutionManager(dataGridViewConfig, inputsDataGridView);
-            cmdLineParams = new CmdLineParams();
+            cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
 
             execManager.OnExecute += new EventHandler(timer_Tick);

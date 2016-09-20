@@ -20,9 +20,8 @@ namespace MobiFlight
             get { return configFile; }
         }
 
-        public CmdLineParams()
+        public CmdLineParams(string[] args)
         {
-            string[] args = Environment.GetCommandLineArgs();
             autoRun = _hasCfgParam("autoRun", args);
             configFile = _getCfgParamValue("cfg", args, null);
         }
