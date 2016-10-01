@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
-    class ConverterConfig : IXmlSerializable
+    public abstract class ConverterConfig : IXmlSerializable
     {
         public System.Xml.Schema.XmlSchema GetSchema()
         {

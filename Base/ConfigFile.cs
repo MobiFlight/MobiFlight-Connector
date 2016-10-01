@@ -8,7 +8,7 @@ using System.IO;
 
 namespace MobiFlight
 {
-    class ConfigFile
+    public class ConfigFile
     {
         public String FileName { get; set; }
         System.Xml.XmlDocument xmlConfig = new System.Xml.XmlDocument();
@@ -70,6 +70,8 @@ namespace MobiFlight
         public XmlReader getInputConfig()
         {
             XmlReader result = null;
+            if (xmlConfig.DocumentElement == null) OpenFile();
+
             try
             {
                 result = getConfig("/MobiflightConnector/inputs");

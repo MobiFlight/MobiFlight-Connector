@@ -307,6 +307,9 @@ namespace MobiFlight.Panels.Group
 
         private void fsuipcValueTextBox_Validating(object sender, CancelEventArgs e)
         {
+            // do not validate when multiply panel is not visible
+            if (!valuePanel.Visible) return;
+            
             if ((sender as TextBox).Text.Trim() == "")
             {
                 displayError(sender as Control, MainForm._tr("uiMessageFsuipcConfigPanelNoValue"));

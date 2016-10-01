@@ -72,8 +72,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Base\BooleanConverterConfigTests.cs" />
     <Compile Include="Base\CmdLineParamsTests.cs" />
     <Compile Include="Base\ComboBoxHelperTests.cs" />
+    <Compile Include="Base\ConfigFileTests.cs" />
+    <Compile Include="Base\ConnectorValueTests.cs" />
+    <Compile Include="Base\PreconditionTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="InterpolationTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
@@ -96,6 +100,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\Base\ConfigFile\OpenFileTest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\ConfigFile\SaveFileTest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\Precondition\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\Precondition\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\MobiFlight\InputConfig\EncoderInputConfig\ReadXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -161,6 +179,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

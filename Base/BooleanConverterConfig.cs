@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace MobiFlight
 {    
-    class BooleanConverterConfig : ConverterConfig
+    public class BooleanConverterConfig : ConverterConfig
     {
         public const string LESS           = "<";
         public const string LESS_OR_EQUAL  = "<=";
@@ -54,9 +54,9 @@ namespace MobiFlight
             return type;
         }
 
-        public string getPins()
+        public List<string> getPins()
         {
-            return type;
+            return pins;
         }
     }
 }

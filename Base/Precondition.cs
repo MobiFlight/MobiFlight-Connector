@@ -9,6 +9,9 @@ namespace MobiFlight
 {
     public class Precondition : IXmlSerializable, ICloneable
     {
+        public const string LOGIC_AND = "and";
+        public const string LOGIC_OR = "or";
+        
         private string preconditionLabel = null;
         public string PreconditionLabel { 
             get {
@@ -121,6 +124,8 @@ namespace MobiFlight
             clone.PreconditionPin = this.PreconditionPin;
             clone.PreconditionOperand = this.PreconditionOperand;
             clone.PreconditionValue = this.PreconditionValue;
+            clone.PreconditionLogic = this.PreconditionLogic;
+            clone.preconditionLabel = this.preconditionLabel;
 
             return clone;
         }
