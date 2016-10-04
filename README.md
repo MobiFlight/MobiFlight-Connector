@@ -21,32 +21,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-# README #
-
-This README would normally document whatever steps are necessary to get your application up and running.
+# Readme #
 
 ### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+This repository holds the code for the Mobiflight Project
 
 ### How do I get set up? ###
 
 * Summary of set up
+Checkout the code and open the ArcazeFSUIPCConnector.sln project.
+
 * Configuration
+Compile with DEBUG option for development and debugging
+Compile with RELEASE option for release
+Compile with DEBUG (EN) option to force English UI - actually for testing purpose  
 * Dependencies
-* Database configuration
+All Dependecies are currently contained in the repository
 * How to run tests
+Run the MobiFlightConnectorTest project for unit tests
 * Deployment instructions
+The release package is generated using a RELEASE-build and WinRar with self exec settings. This needs to be added to the repository and ideally scripted and integrated as a POST BUILD step. 
 
 ### Contribution guidelines ###
 
+To be defined...
 * Writing tests
 * Code review
 * Other guidelines
 
 ### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Sebastian 
