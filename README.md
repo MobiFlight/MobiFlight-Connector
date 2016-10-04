@@ -28,7 +28,7 @@ This repository contains the code for the Mobiflight Project
 
 ### How do I get set up? ###
 
-#### Summary of set up #### 
+#### Summary of set up ####
 Checkout the code and open the ArcazeFSUIPCConnector.sln project.
 
 #### Configuration ####
