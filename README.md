@@ -28,18 +28,18 @@ This repository contains the code for the Mobiflight Project
 
 ### How do I get set up? ###
 
-* Summary of set up
+#### Summary of set up #### 
 Checkout the code and open the ArcazeFSUIPCConnector.sln project.
 
-* Configuration
+#### Configuration ####
 Compile with DEBUG option for development and debugging
 Compile with RELEASE option for release
 Compile with DEBUG (EN) option to force English UI - actually for testing purpose  
-* Dependencies
+#### Dependencies ####
 All Dependecies are currently contained in the repository
-* How to run tests
+#### How to run tests ####
 Run the MobiFlightConnectorTest project for unit tests
-* Deployment instructions
+#### Deployment instructions ####
 The release package is generated using a RELEASE-build and WinRar with self exec settings. This needs to be added to the repository and ideally scripted and integrated as a POST BUILD step. 
 
 ### Contribution guidelines ###
