@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<config type="&gt;" value="1">
+  <pins>
+    <pin>10</pin>
+    <pin>12</pin>
+  </pins>
+</config>

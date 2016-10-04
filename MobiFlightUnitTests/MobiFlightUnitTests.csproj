@@ -79,6 +79,7 @@
     <Compile Include="Base\ConnectorValueTests.cs" />
     <Compile Include="Base\PreconditionTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
+    <Compile Include="Forms\ConfigWizardTests.cs" />
     <Compile Include="InterpolationTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ButtonInputConfigTests.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="MobiFlight\TransformationTests.cs" />
     <Compile Include="mock\Base\KeyboardInputMock.cs" />
     <Compile Include="mock\FSUIPC\FSUIPCCacheMock.cs" />
+    <Compile Include="Panels\Group\InterpolationPanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +102,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\Base\BooleanConverterConfig\GetPins.xml" />
     <Content Include="assets\Base\ConfigFile\OpenFileTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

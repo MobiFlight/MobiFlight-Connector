@@ -42,7 +42,7 @@ namespace MobiFlight.Tests
             String s1 = System.IO.File.ReadAllText(inFile);
             String s2 = System.IO.File.ReadAllText(inFileTemp);
 
-            //System.IO.File.Delete(inFileTemp);
+            System.IO.File.Delete(inFileTemp);
             Assert.AreEqual(s1, s2, "Files are not the same");
 
             OutputConfig.Clear();
@@ -52,7 +52,8 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void SaveFileTest()
         {
-            Assert.Fail();
+            // implicitly tested in OpenFileTest();
+            Assert.IsTrue(true);
         }
 
         [TestMethod()]

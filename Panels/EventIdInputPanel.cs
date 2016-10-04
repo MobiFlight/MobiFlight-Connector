@@ -141,7 +141,7 @@ namespace MobiFlight.Panels
                     sender as Control, 
                     String.Format(
                         MainForm._tr("uiMessageConfigWizard_ValidNumberInRange"),
-                        "0", 
+                        Int32.MinValue.ToString(), 
                         Int32.MaxValue.ToString()
                     )
                 );

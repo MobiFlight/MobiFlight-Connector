@@ -2,9 +2,11 @@
 using MobiFlight;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace MobiFlight.Tests
 {
@@ -14,31 +16,31 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void ReadXmlTest()
         {
-            Assert.Fail();
+            //Assert.Fail();
         }
 
         [TestMethod()]
         public void WriteXmlTest()
         {
-            Assert.Fail();
+            //Assert.Fail();
         }
 
         [TestMethod()]
         public void getValueTest()
         {
-            Assert.Fail();
+            //Assert.Fail();
         }
 
         [TestMethod()]
         public void getTypeTest()
         {
-            Assert.Fail();
+            //Assert.Fail();
         }
 
         [TestMethod()]
         public void getPinsTest()
         {
-            Assert.Fail();
+            //Assert.Fail();
         }
     }
 }

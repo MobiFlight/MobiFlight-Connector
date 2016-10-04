@@ -394,6 +394,12 @@
     <Compile Include="Panels\Group\InterpolationPanel.Designer.cs">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\Group\PreconditionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Group\PreconditionPanel.Designer.cs">
+      <DependentUpon>PreconditionPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\InputActionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -509,6 +515,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\EventIdInputPanel.resx">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Group\PreconditionPanel.resx">
+      <DependentUpon>PreconditionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\JeehellInputPanel.resx">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
