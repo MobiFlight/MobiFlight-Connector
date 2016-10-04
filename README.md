@@ -24,7 +24,7 @@ SOFTWARE.
 # Readme #
 
 ### What is this repository for? ###
-This repository holds the code for the Mobiflight Project
+This repository contains the code for the Mobiflight Project
 
 ### How do I get set up? ###
 
@@ -50,4 +50,4 @@ To be defined...
 * Other guidelines
 
 ### Who do I talk to? ###
-Sebastian 
+Sebastian
