@@ -18,6 +18,8 @@ namespace MobiFlight.Tests
         {
             Transformation t = new Transformation();
             t.Expression = "$*0.5";
+            Assert.AreEqual(1, t.Apply(1));
+            t.Active = true;
             Assert.AreEqual(0.5, t.Apply(1));
             t.Expression = "$*2";
             Assert.AreEqual(2.0, t.Apply(1));
@@ -29,7 +31,10 @@ namespace MobiFlight.Tests
             // test the substring stuff
             t.SubStrStart = 1;
             t.SubStrEnd = 5;
+            t.Active = false;
             string test = "UnitTest";
+            Assert.AreEqual(test, t.Apply(test));
+            t.Active = true;
             Assert.AreEqual("nitT", t.Apply(test));
 
             // if SubStrEnd > length 

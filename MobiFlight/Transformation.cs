@@ -58,9 +58,11 @@ namespace MobiFlight
 
         public double Apply(double value)
         {
-            double result = 0;
-            string exp = Expression.Replace("$", value.ToString());
+            double result = value;
 
+            if (!Active) return result;
+
+            string exp = Expression.Replace("$", value.ToString());
             var ce = new NCalc.Expression(exp);
             try
             {
@@ -77,6 +79,8 @@ namespace MobiFlight
 
         public string Apply(string value)
         {
+            if (!Active) return value;
+
             if (SubStrStart > value.Length) return "";
 
             int length = (SubStrEnd - SubStrStart);
