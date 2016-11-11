@@ -267,8 +267,7 @@ namespace MobiFlight
                 row.Cells["fsuipcValueColumn"].Tag = value;
 
                 // only none string values get transformed
-                if (cfg.FSUIPCOffsetType != FSUIPCOffsetType.String)
-                    processedValue = executeTransform(value, cfg);
+                processedValue = executeTransform(value, cfg);
 
                 String strValue = executeComparison(processedValue, cfg);
                 String strValueAfterComparison = (string) strValue.Clone();
@@ -566,7 +565,9 @@ namespace MobiFlight
                     value.Float64 = Math.Floor(cfg.Transform.Apply(value.Float64));
                     break;
 
-                // nothing to do in case of string
+                case FSUIPCOffsetType.String:
+                    value.String = cfg.Transform.Apply(value.String);
+                    break;
             }
             return value;
         }

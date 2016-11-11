@@ -10,6 +10,7 @@ namespace MobiFlight
 {
     public class Transformation : IXmlSerializable, ICloneable
     {
+        public bool Active = false;
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
         public String Expression = "$";
         public int SubStrStart;
@@ -22,31 +23,33 @@ namespace MobiFlight
 
         public void ReadXml(XmlReader reader)
         {
+            if (reader["active"] != null)
+                Active = bool.Parse(reader["active"]);
             // read precondition settings if present
             if (reader["expression"] != null)
                 Expression = reader["expression"] as String;
-
+            
             if (reader["substrStart"] != null)
                 SubStrStart = int.Parse(reader["substrStart"]);
 
             if (reader["substrEnd"] != null)
                 SubStrEnd = int.Parse(reader["substrEnd"]);
-
-            reader.ReadEndElement();
         }
 
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("transformation");
+            writer.WriteAttributeString("active", Active.ToString());
             writer.WriteAttributeString("expression", Expression);
-            writer.WriteAttributeString("substrStart", Expression);
-            writer.WriteAttributeString("substrEnd", Expression);
+            writer.WriteAttributeString("substrStart", SubStrStart.ToString());
+            writer.WriteAttributeString("substrEnd", SubStrEnd.ToString());
             writer.WriteEndElement();
         }
 
         public object Clone()
         {
             Transformation Clone = new Transformation();
+            Clone.Active = Active;
             Clone.Expression = Expression;
             Clone.SubStrStart = SubStrStart;
             Clone.SubStrEnd = SubStrEnd;
@@ -74,7 +77,12 @@ namespace MobiFlight
 
         public string Apply(string value)
         {
-            return value.Substring(SubStrStart, (SubStrEnd - SubStrStart));
+            if (SubStrStart > value.Length) return "";
+
+            int length = (SubStrEnd - SubStrStart);
+            if (SubStrEnd > value.Length) length = value.Length - SubStrStart;
+
+            return value.Substring(SubStrStart, length);
         }
     }
 }

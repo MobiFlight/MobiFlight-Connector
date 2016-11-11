@@ -131,27 +131,27 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.Controls.Add(this.tabControlFsuipc);
             resources.ApplyResources(this.MainPanel, "MainPanel");
+            this.MainPanel.Controls.Add(this.tabControlFsuipc);
             this.MainPanel.Name = "MainPanel";
             // 
             // tabControlFsuipc
             // 
+            resources.ApplyResources(this.tabControlFsuipc, "tabControlFsuipc");
             this.tabControlFsuipc.Controls.Add(this.fsuipcTabPage);
             this.tabControlFsuipc.Controls.Add(this.compareTabPage);
             this.tabControlFsuipc.Controls.Add(this.displayTabPage);
             this.tabControlFsuipc.Controls.Add(this.preconditionTabPage);
-            resources.ApplyResources(this.tabControlFsuipc, "tabControlFsuipc");
             this.tabControlFsuipc.Name = "tabControlFsuipc";
             this.tabControlFsuipc.SelectedIndex = 0;
             this.tabControlFsuipc.SelectedIndexChanged += new System.EventHandler(this.tabControlFsuipc_SelectedIndexChanged);
             // 
             // fsuipcTabPage
             // 
+            resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Controls.Add(this.fsuipcSpacerPanel);
             this.fsuipcTabPage.Controls.Add(this.fsuipcConfigPanel);
             this.fsuipcTabPage.Controls.Add(this.fsuipcHintTextBox);
-            resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Name = "fsuipcTabPage";
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
             // 
@@ -168,21 +168,21 @@
             // 
             // fsuipcHintTextBox
             // 
+            resources.ApplyResources(this.fsuipcHintTextBox, "fsuipcHintTextBox");
             this.fsuipcHintTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.fsuipcHintTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.fsuipcHintTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.fsuipcHintTextBox, "fsuipcHintTextBox");
             this.fsuipcHintTextBox.Name = "fsuipcHintTextBox";
             this.fsuipcHintTextBox.ReadOnly = true;
             this.fsuipcHintTextBox.TabStop = false;
             // 
             // compareTabPage
             // 
+            resources.ApplyResources(this.compareTabPage, "compareTabPage");
             this.compareTabPage.Controls.Add(this.compareSpacerPanel);
             this.compareTabPage.Controls.Add(this.interpolationGroupBox);
             this.compareTabPage.Controls.Add(this.comparisonSettingsGroupBox);
             this.compareTabPage.Controls.Add(this.comparisonHintTtextBox);
-            resources.ApplyResources(this.compareTabPage, "compareTabPage");
             this.compareTabPage.Name = "compareTabPage";
             this.compareTabPage.UseVisualStyleBackColor = true;
             // 
@@ -193,9 +193,9 @@
             // 
             // interpolationGroupBox
             // 
+            resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
             this.interpolationGroupBox.Controls.Add(this.interpolationPanel1);
             this.interpolationGroupBox.Controls.Add(this.interpolationCheckBox);
-            resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
             this.interpolationGroupBox.Name = "interpolationGroupBox";
             this.interpolationGroupBox.TabStop = false;
             // 
@@ -216,14 +216,15 @@
             // 
             // comparisonSettingsGroupBox
             // 
+            resources.ApplyResources(this.comparisonSettingsGroupBox, "comparisonSettingsGroupBox");
             this.comparisonSettingsGroupBox.Controls.Add(this.comparisonSettingsPanel);
             this.comparisonSettingsGroupBox.Controls.Add(this.comparisonActiveCheckBox);
-            resources.ApplyResources(this.comparisonSettingsGroupBox, "comparisonSettingsGroupBox");
             this.comparisonSettingsGroupBox.Name = "comparisonSettingsGroupBox";
             this.comparisonSettingsGroupBox.TabStop = false;
             // 
             // comparisonSettingsPanel
             // 
+            resources.ApplyResources(this.comparisonSettingsPanel, "comparisonSettingsPanel");
             this.comparisonSettingsPanel.Controls.Add(this.comparisonValueTextBox);
             this.comparisonSettingsPanel.Controls.Add(this.comparisonElseValueTextBox);
             this.comparisonSettingsPanel.Controls.Add(this.label8);
@@ -231,7 +232,6 @@
             this.comparisonSettingsPanel.Controls.Add(this.label7);
             this.comparisonSettingsPanel.Controls.Add(this.comparisonOperandComboBox);
             this.comparisonSettingsPanel.Controls.Add(this.label6);
-            resources.ApplyResources(this.comparisonSettingsPanel, "comparisonSettingsPanel");
             this.comparisonSettingsPanel.Name = "comparisonSettingsPanel";
             // 
             // comparisonValueTextBox
@@ -261,6 +261,7 @@
             // 
             // comparisonOperandComboBox
             // 
+            resources.ApplyResources(this.comparisonOperandComboBox, "comparisonOperandComboBox");
             this.comparisonOperandComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comparisonOperandComboBox.FormattingEnabled = true;
             this.comparisonOperandComboBox.Items.AddRange(new object[] {
@@ -271,7 +272,6 @@
             resources.GetString("comparisonOperandComboBox.Items4"),
             resources.GetString("comparisonOperandComboBox.Items5"),
             resources.GetString("comparisonOperandComboBox.Items6")});
-            resources.ApplyResources(this.comparisonOperandComboBox, "comparisonOperandComboBox");
             this.comparisonOperandComboBox.Name = "comparisonOperandComboBox";
             // 
             // label6
@@ -288,29 +288,29 @@
             // 
             // comparisonHintTtextBox
             // 
+            resources.ApplyResources(this.comparisonHintTtextBox, "comparisonHintTtextBox");
             this.comparisonHintTtextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.comparisonHintTtextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.comparisonHintTtextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.comparisonHintTtextBox, "comparisonHintTtextBox");
             this.comparisonHintTtextBox.Name = "comparisonHintTtextBox";
             this.comparisonHintTtextBox.ReadOnly = true;
             this.comparisonHintTtextBox.TabStop = false;
             // 
             // displayTabPage
             // 
+            resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Controls.Add(this.testSettingsGroupBox);
             this.displayTabPage.Controls.Add(this.groupBoxDisplaySettings);
             this.displayTabPage.Controls.Add(this.displayTypeGroupBox);
             this.displayTabPage.Controls.Add(this.displayTabTextBox);
-            resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Name = "displayTabPage";
             this.displayTabPage.UseVisualStyleBackColor = true;
             // 
             // testSettingsGroupBox
             // 
+            resources.ApplyResources(this.testSettingsGroupBox, "testSettingsGroupBox");
             this.testSettingsGroupBox.Controls.Add(this.displayPinTestStopButton);
             this.testSettingsGroupBox.Controls.Add(this.displayPinTestButton);
-            resources.ApplyResources(this.testSettingsGroupBox, "testSettingsGroupBox");
             this.testSettingsGroupBox.Name = "testSettingsGroupBox";
             this.testSettingsGroupBox.TabStop = false;
             // 
@@ -338,11 +338,11 @@
             // 
             // displayTypeGroupBox
             // 
+            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
             this.displayTypeGroupBox.Controls.Add(this.displayModuleNameComboBox);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBoxLabel);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBox);
-            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
             // 
@@ -353,12 +353,12 @@
             // 
             // displayModuleNameComboBox
             // 
+            resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
             this.displayModuleNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayModuleNameComboBox.FormattingEnabled = true;
             this.displayModuleNameComboBox.Items.AddRange(new object[] {
             resources.GetString("displayModuleNameComboBox.Items"),
             resources.GetString("displayModuleNameComboBox.Items1")});
-            resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
             this.displayModuleNameComboBox.Name = "displayModuleNameComboBox";
             this.displayModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.displaySerialComboBox_SelectedIndexChanged);
             this.displayModuleNameComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.displayArcazeSerialComboBox_Validating);
@@ -370,33 +370,33 @@
             // 
             // displayTypeComboBox
             // 
+            resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
             this.displayTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayTypeComboBox.FormattingEnabled = true;
             this.displayTypeComboBox.Items.AddRange(new object[] {
             resources.GetString("displayTypeComboBox.Items"),
             resources.GetString("displayTypeComboBox.Items1"),
             resources.GetString("displayTypeComboBox.Items2")});
-            resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
             this.displayTypeComboBox.Name = "displayTypeComboBox";
             this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.displayTypeComboBox_SelectedIndexChanged);
             // 
             // displayTabTextBox
             // 
+            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
             this.displayTabTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.displayTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.displayTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
             this.displayTabTextBox.Name = "displayTabTextBox";
             this.displayTabTextBox.ReadOnly = true;
             this.displayTabTextBox.TabStop = false;
             // 
             // preconditionTabPage
             // 
+            resources.ApplyResources(this.preconditionTabPage, "preconditionTabPage");
             this.preconditionTabPage.Controls.Add(this.preconditionSpacerPanel);
             this.preconditionTabPage.Controls.Add(this.preconditionSettingsPanel);
             this.preconditionTabPage.Controls.Add(this.preconditionListgroupBox);
             this.preconditionTabPage.Controls.Add(this.preconditionTabTextBox);
-            resources.ApplyResources(this.preconditionTabPage, "preconditionTabPage");
             this.preconditionTabPage.Name = "preconditionTabPage";
             this.preconditionTabPage.UseVisualStyleBackColor = true;
             // 
@@ -407,22 +407,23 @@
             // 
             // preconditionSettingsPanel
             // 
+            resources.ApplyResources(this.preconditionSettingsPanel, "preconditionSettingsPanel");
             this.preconditionSettingsPanel.Controls.Add(this.preconditionSettingsGroupBox);
             this.preconditionSettingsPanel.Controls.Add(this.preconditionApplyButton);
             this.preconditionSettingsPanel.Controls.Add(this.preconditionSelectGroupBox);
-            resources.ApplyResources(this.preconditionSettingsPanel, "preconditionSettingsPanel");
             this.preconditionSettingsPanel.Name = "preconditionSettingsPanel";
             // 
             // preconditionSettingsGroupBox
             // 
+            resources.ApplyResources(this.preconditionSettingsGroupBox, "preconditionSettingsGroupBox");
             this.preconditionSettingsGroupBox.Controls.Add(this.preconditionPinPanel);
             this.preconditionSettingsGroupBox.Controls.Add(this.preconditionRuleConfigPanel);
-            resources.ApplyResources(this.preconditionSettingsGroupBox, "preconditionSettingsGroupBox");
             this.preconditionSettingsGroupBox.Name = "preconditionSettingsGroupBox";
             this.preconditionSettingsGroupBox.TabStop = false;
             // 
             // preconditionPinPanel
             // 
+            resources.ApplyResources(this.preconditionPinPanel, "preconditionPinPanel");
             this.preconditionPinPanel.Controls.Add(this.preconditionPinValueComboBox);
             this.preconditionPinPanel.Controls.Add(this.preconditionPinValueLabel);
             this.preconditionPinPanel.Controls.Add(this.preconditionPinComboBox);
@@ -430,17 +431,16 @@
             this.preconditionPinPanel.Controls.Add(this.preconditonPinLabel);
             this.preconditionPinPanel.Controls.Add(this.preconditionPinSerialComboBox);
             this.preconditionPinPanel.Controls.Add(this.preconditionPinSerialLabel);
-            resources.ApplyResources(this.preconditionPinPanel, "preconditionPinPanel");
             this.preconditionPinPanel.Name = "preconditionPinPanel";
             // 
             // preconditionPinValueComboBox
             // 
+            resources.ApplyResources(this.preconditionPinValueComboBox, "preconditionPinValueComboBox");
             this.preconditionPinValueComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.preconditionPinValueComboBox.FormattingEnabled = true;
             this.preconditionPinValueComboBox.Items.AddRange(new object[] {
             resources.GetString("preconditionPinValueComboBox.Items"),
             resources.GetString("preconditionPinValueComboBox.Items1")});
-            resources.ApplyResources(this.preconditionPinValueComboBox, "preconditionPinValueComboBox");
             this.preconditionPinValueComboBox.Name = "preconditionPinValueComboBox";
             // 
             // preconditionPinValueLabel
@@ -450,6 +450,7 @@
             // 
             // preconditionPinComboBox
             // 
+            resources.ApplyResources(this.preconditionPinComboBox, "preconditionPinComboBox");
             this.preconditionPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.preconditionPinComboBox.FormattingEnabled = true;
             this.preconditionPinComboBox.Items.AddRange(new object[] {
@@ -459,12 +460,12 @@
             resources.GetString("preconditionPinComboBox.Items3"),
             resources.GetString("preconditionPinComboBox.Items4"),
             resources.GetString("preconditionPinComboBox.Items5")});
-            resources.ApplyResources(this.preconditionPinComboBox, "preconditionPinComboBox");
             this.preconditionPinComboBox.Name = "preconditionPinComboBox";
             this.preconditionPinComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.preconditionPinComboBox_Validating);
             // 
             // preconditionPortComboBox
             // 
+            resources.ApplyResources(this.preconditionPortComboBox, "preconditionPortComboBox");
             this.preconditionPortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.preconditionPortComboBox.FormattingEnabled = true;
             this.preconditionPortComboBox.Items.AddRange(new object[] {
@@ -474,7 +475,6 @@
             resources.GetString("preconditionPortComboBox.Items3"),
             resources.GetString("preconditionPortComboBox.Items4"),
             resources.GetString("preconditionPortComboBox.Items5")});
-            resources.ApplyResources(this.preconditionPortComboBox, "preconditionPortComboBox");
             this.preconditionPortComboBox.Name = "preconditionPortComboBox";
             this.preconditionPortComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.preconditionPortComboBox_Validating);
             // 
@@ -485,12 +485,12 @@
             // 
             // preconditionPinSerialComboBox
             // 
+            resources.ApplyResources(this.preconditionPinSerialComboBox, "preconditionPinSerialComboBox");
             this.preconditionPinSerialComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.preconditionPinSerialComboBox.FormattingEnabled = true;
             this.preconditionPinSerialComboBox.Items.AddRange(new object[] {
             resources.GetString("preconditionPinSerialComboBox.Items"),
             resources.GetString("preconditionPinSerialComboBox.Items1")});
-            resources.ApplyResources(this.preconditionPinSerialComboBox, "preconditionPinSerialComboBox");
             this.preconditionPinSerialComboBox.Name = "preconditionPinSerialComboBox";
             this.preconditionPinSerialComboBox.SelectedIndexChanged += new System.EventHandler(this.preconditionPinSerialComboBox_SelectedIndexChanged);
             this.preconditionPinSerialComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.preconditionPinSerialComboBox_Validating);
@@ -502,12 +502,12 @@
             // 
             // preconditionRuleConfigPanel
             // 
+            resources.ApplyResources(this.preconditionRuleConfigPanel, "preconditionRuleConfigPanel");
             this.preconditionRuleConfigPanel.Controls.Add(this.preconditionRefValueTextBox);
             this.preconditionRuleConfigPanel.Controls.Add(this.preconditionRefOperandComboBox);
             this.preconditionRuleConfigPanel.Controls.Add(this.preconditionConfigRefOperandLabel);
             this.preconditionRuleConfigPanel.Controls.Add(this.preconditionConfigComboBox);
             this.preconditionRuleConfigPanel.Controls.Add(this.label11);
-            resources.ApplyResources(this.preconditionRuleConfigPanel, "preconditionRuleConfigPanel");
             this.preconditionRuleConfigPanel.Name = "preconditionRuleConfigPanel";
             this.preconditionRuleConfigPanel.Validating += new System.ComponentModel.CancelEventHandler(this.preconditionRuleConfigPanel_Validating);
             // 
@@ -519,6 +519,7 @@
             // 
             // preconditionRefOperandComboBox
             // 
+            resources.ApplyResources(this.preconditionRefOperandComboBox, "preconditionRefOperandComboBox");
             this.preconditionRefOperandComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.preconditionRefOperandComboBox.FormattingEnabled = true;
             this.preconditionRefOperandComboBox.Items.AddRange(new object[] {
@@ -528,7 +529,6 @@
             resources.GetString("preconditionRefOperandComboBox.Items3"),
             resources.GetString("preconditionRefOperandComboBox.Items4"),
             resources.GetString("preconditionRefOperandComboBox.Items5")});
-            resources.ApplyResources(this.preconditionRefOperandComboBox, "preconditionRefOperandComboBox");
             this.preconditionRefOperandComboBox.Name = "preconditionRefOperandComboBox";
             // 
             // preconditionConfigRefOperandLabel
@@ -538,12 +538,12 @@
             // 
             // preconditionConfigComboBox
             // 
+            resources.ApplyResources(this.preconditionConfigComboBox, "preconditionConfigComboBox");
             this.preconditionConfigComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.preconditionConfigComboBox.FormattingEnabled = true;
             this.preconditionConfigComboBox.Items.AddRange(new object[] {
             resources.GetString("preconditionConfigComboBox.Items"),
             resources.GetString("preconditionConfigComboBox.Items1")});
-            resources.ApplyResources(this.preconditionConfigComboBox, "preconditionConfigComboBox");
             this.preconditionConfigComboBox.Name = "preconditionConfigComboBox";
             // 
             // label11
@@ -560,21 +560,21 @@
             // 
             // preconditionSelectGroupBox
             // 
+            resources.ApplyResources(this.preconditionSelectGroupBox, "preconditionSelectGroupBox");
             this.preconditionSelectGroupBox.Controls.Add(this.preConditionTypeComboBox);
             this.preconditionSelectGroupBox.Controls.Add(this.preconditionTypeLabel);
-            resources.ApplyResources(this.preconditionSelectGroupBox, "preconditionSelectGroupBox");
             this.preconditionSelectGroupBox.Name = "preconditionSelectGroupBox";
             this.preconditionSelectGroupBox.TabStop = false;
             // 
             // preConditionTypeComboBox
             // 
+            resources.ApplyResources(this.preConditionTypeComboBox, "preConditionTypeComboBox");
             this.preConditionTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.preConditionTypeComboBox.FormattingEnabled = true;
             this.preConditionTypeComboBox.Items.AddRange(new object[] {
             resources.GetString("preConditionTypeComboBox.Items"),
             resources.GetString("preConditionTypeComboBox.Items1"),
             resources.GetString("preConditionTypeComboBox.Items2")});
-            resources.ApplyResources(this.preConditionTypeComboBox, "preConditionTypeComboBox");
             this.preConditionTypeComboBox.Name = "preConditionTypeComboBox";
             this.preConditionTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.preConditionTypeComboBox_SelectedIndexChanged);
             // 
@@ -585,16 +585,16 @@
             // 
             // preconditionListgroupBox
             // 
-            this.preconditionListgroupBox.Controls.Add(this.preconditionListTreeView);
             resources.ApplyResources(this.preconditionListgroupBox, "preconditionListgroupBox");
+            this.preconditionListgroupBox.Controls.Add(this.preconditionListTreeView);
             this.preconditionListgroupBox.Name = "preconditionListgroupBox";
             this.preconditionListgroupBox.TabStop = false;
             // 
             // preconditionListTreeView
             // 
+            resources.ApplyResources(this.preconditionListTreeView, "preconditionListTreeView");
             this.preconditionListTreeView.CheckBoxes = true;
             this.preconditionListTreeView.ContextMenuStrip = this.preconditionTreeContextMenuStrip;
-            resources.ApplyResources(this.preconditionListTreeView, "preconditionListTreeView");
             this.preconditionListTreeView.ImageList = this.preconditionTreeImageList;
             this.preconditionListTreeView.Name = "preconditionListTreeView";
             this.preconditionListTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
@@ -604,6 +604,7 @@
             // 
             // preconditionTreeContextMenuStrip
             // 
+            resources.ApplyResources(this.preconditionTreeContextMenuStrip, "preconditionTreeContextMenuStrip");
             this.preconditionTreeContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addPreconditionToolStripMenuItem,
             this.removePreconditionToolStripMenuItem,
@@ -613,58 +614,57 @@
             this.toolStripSeparator2,
             this.logicSelectToolStripMenuItem});
             this.preconditionTreeContextMenuStrip.Name = "preconditionTreeContextMenuStrip";
-            resources.ApplyResources(this.preconditionTreeContextMenuStrip, "preconditionTreeContextMenuStrip");
             // 
             // addPreconditionToolStripMenuItem
             // 
-            this.addPreconditionToolStripMenuItem.Name = "addPreconditionToolStripMenuItem";
             resources.ApplyResources(this.addPreconditionToolStripMenuItem, "addPreconditionToolStripMenuItem");
+            this.addPreconditionToolStripMenuItem.Name = "addPreconditionToolStripMenuItem";
             this.addPreconditionToolStripMenuItem.Click += new System.EventHandler(this.addPreconditionToolStripMenuItem_Click);
             // 
             // removePreconditionToolStripMenuItem
             // 
-            this.removePreconditionToolStripMenuItem.Name = "removePreconditionToolStripMenuItem";
             resources.ApplyResources(this.removePreconditionToolStripMenuItem, "removePreconditionToolStripMenuItem");
+            this.removePreconditionToolStripMenuItem.Name = "removePreconditionToolStripMenuItem";
             this.removePreconditionToolStripMenuItem.Click += new System.EventHandler(this.removePreconditionToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
             // 
             // addGroupToolStripMenuItem
             // 
-            this.addGroupToolStripMenuItem.Name = "addGroupToolStripMenuItem";
             resources.ApplyResources(this.addGroupToolStripMenuItem, "addGroupToolStripMenuItem");
+            this.addGroupToolStripMenuItem.Name = "addGroupToolStripMenuItem";
             // 
             // removeGroupToolStripMenuItem
             // 
-            this.removeGroupToolStripMenuItem.Name = "removeGroupToolStripMenuItem";
             resources.ApplyResources(this.removeGroupToolStripMenuItem, "removeGroupToolStripMenuItem");
+            this.removeGroupToolStripMenuItem.Name = "removeGroupToolStripMenuItem";
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
             // 
             // logicSelectToolStripMenuItem
             // 
+            resources.ApplyResources(this.logicSelectToolStripMenuItem, "logicSelectToolStripMenuItem");
             this.logicSelectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aNDToolStripMenuItem,
             this.oRToolStripMenuItem});
             this.logicSelectToolStripMenuItem.Name = "logicSelectToolStripMenuItem";
-            resources.ApplyResources(this.logicSelectToolStripMenuItem, "logicSelectToolStripMenuItem");
             // 
             // aNDToolStripMenuItem
             // 
-            this.aNDToolStripMenuItem.Name = "aNDToolStripMenuItem";
             resources.ApplyResources(this.aNDToolStripMenuItem, "aNDToolStripMenuItem");
+            this.aNDToolStripMenuItem.Name = "aNDToolStripMenuItem";
             this.aNDToolStripMenuItem.Click += new System.EventHandler(this.andOrToolStripMenuItem_Click);
             // 
             // oRToolStripMenuItem
             // 
-            this.oRToolStripMenuItem.Name = "oRToolStripMenuItem";
             resources.ApplyResources(this.oRToolStripMenuItem, "oRToolStripMenuItem");
+            this.oRToolStripMenuItem.Name = "oRToolStripMenuItem";
             this.oRToolStripMenuItem.Click += new System.EventHandler(this.andOrToolStripMenuItem_Click);
             // 
             // preconditionTreeImageList
@@ -676,19 +676,19 @@
             // 
             // preconditionTabTextBox
             // 
+            resources.ApplyResources(this.preconditionTabTextBox, "preconditionTabTextBox");
             this.preconditionTabTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.preconditionTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.preconditionTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.preconditionTabTextBox, "preconditionTabTextBox");
             this.preconditionTabTextBox.Name = "preconditionTabTextBox";
             this.preconditionTabTextBox.ReadOnly = true;
             this.preconditionTabTextBox.TabStop = false;
             // 
             // ButtonPanel
             // 
+            resources.ApplyResources(this.ButtonPanel, "ButtonPanel");
             this.ButtonPanel.Controls.Add(this.button1);
             this.ButtonPanel.Controls.Add(this.cancelButton);
-            resources.ApplyResources(this.ButtonPanel, "ButtonPanel");
             this.ButtonPanel.Name = "ButtonPanel";
             // 
             // button1
@@ -755,17 +755,14 @@
             this.displayTabPage.PerformLayout();
             this.testSettingsGroupBox.ResumeLayout(false);
             this.displayTypeGroupBox.ResumeLayout(false);
-            this.displayTypeGroupBox.PerformLayout();
             this.preconditionTabPage.ResumeLayout(false);
             this.preconditionTabPage.PerformLayout();
             this.preconditionSettingsPanel.ResumeLayout(false);
             this.preconditionSettingsGroupBox.ResumeLayout(false);
             this.preconditionPinPanel.ResumeLayout(false);
-            this.preconditionPinPanel.PerformLayout();
             this.preconditionRuleConfigPanel.ResumeLayout(false);
             this.preconditionRuleConfigPanel.PerformLayout();
             this.preconditionSelectGroupBox.ResumeLayout(false);
-            this.preconditionSelectGroupBox.PerformLayout();
             this.preconditionListgroupBox.ResumeLayout(false);
             this.preconditionTreeContextMenuStrip.ResumeLayout(false);
             this.ButtonPanel.ResumeLayout(false);

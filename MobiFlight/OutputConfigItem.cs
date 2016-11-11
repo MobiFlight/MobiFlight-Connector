@@ -137,7 +137,10 @@ namespace MobiFlight
                 if (reader["multiplier"] != null) {
                     double multiplier = Double.Parse(reader["multiplier"], serializationCulture);
                     if (multiplier != 1.0)
+                    {
+                        Transform.Active = true;
                         Transform.Expression = "$*" + multiplier.ToString();
+                    }
                 }
                 
                 if (reader["bcdMode"] != null && reader["bcdMode"] != "")
@@ -287,6 +290,8 @@ namespace MobiFlight
                         reader.ReadStartElement();
                     } while (reader.LocalName == "precondition");
                 }
+
+                reader.ReadStartElement();
             }
 
             if (reader.LocalName == "transformation")

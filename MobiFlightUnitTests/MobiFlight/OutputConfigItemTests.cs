@@ -41,9 +41,17 @@ namespace MobiFlight.Tests
             Assert.AreEqual (oci.FSUIPCOffsetType, FSUIPCOffsetType.Integer);
             Assert.AreEqual(oci.FSUIPCOffset, 0x034E);
             Assert.AreEqual(oci.FSUIPCSize, 2);
-            Assert.AreEqual(oci.Transform.Expression, "$");
+            Assert.AreEqual(oci.Transform.Expression, "$+123");
             Assert.AreEqual(oci.FSUIPCMask, 0xFFFF);
             Assert.AreEqual(oci.FSUIPCBcdMode, true);
+
+            // read backward compatible
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.2.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci.ReadXml(xmlReader);
+            Assert.AreEqual(oci.Transform.Active, true);
+            Assert.AreEqual(oci.Transform.Expression, "$*123");
         }
 
         [TestMethod()]
@@ -122,6 +130,7 @@ namespace MobiFlight.Tests
             o.FSUIPCOffset = 0x1234;
             o.FSUIPCMask = 0xFFFF;
             o.Transform = new Transformation();
+            o.Transform.Active = true;
             o.Transform.Expression = "$+123";
             o.Transform.SubStrEnd = 11;
             o.Transform.SubStrStart = 9;

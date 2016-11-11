@@ -9,7 +9,7 @@
         <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="TestBoard1/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
-        <transformation expression="$" substrStart="$" substrEnd="$" />
+        <transformation active="False" expression="$" substrStart="9" substrEnd="11" />
       </settings>
     </config>
     <config guid="08a7e927-7dfb-4d3d-8f9f-fd70ff3bd2ef">
@@ -20,7 +20,7 @@
         <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="TestBoard1/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
-        <transformation expression="$" substrStart="$" substrEnd="$" />
+        <transformation active="False" expression="$" substrStart="9" substrEnd="11" />
       </settings>
     </config>
   </outputs>

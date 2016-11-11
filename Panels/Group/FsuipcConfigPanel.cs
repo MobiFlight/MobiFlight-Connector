@@ -27,11 +27,6 @@ namespace MobiFlight.Panels.Group
             fsuipcPresetComboBox.ResetText();
         }
 
-        private void FsuipcConfigPanel_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         public void setMode(bool isOutputPanel)
         {
             multiplyPanel.Visible = isOutputPanel;
@@ -40,6 +35,12 @@ namespace MobiFlight.Panels.Group
             {
                 PresetFile = Properties.Settings.Default.InputsPresetFile;
                 _loadPresets();
+                // pop the string from the offset type options
+                if (fsuipcOffsetTypeComboBox.Items.Count == 3)
+                {
+                    (fsuipcOffsetTypeComboBox.DataSource as List<ListItem>).RemoveAt(2);
+                    fsuipcOffsetTypeComboBox.DataSource = fsuipcOffsetTypeComboBox.DataSource;
+                }
             }
         }
 
@@ -164,6 +165,9 @@ namespace MobiFlight.Panels.Group
             string selectedText = fsuipcSizeComboBox.Text;
             fsuipcSizeComboBox.Items.Clear();
             fsuipcSizeComboBox.Enabled = true;
+            fsuipcSizeComboBox.Visible = true;
+            maskAndBcdPanel.Enabled = true;
+            multiplyPanel.Enabled = true;
             SubstringPanel.Visible = false;
 
             if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.Integer.ToString())
@@ -172,7 +176,10 @@ namespace MobiFlight.Panels.Group
                 fsuipcSizeComboBox.Items.Add("2");
                 fsuipcSizeComboBox.Items.Add("4");
                 fsuipcSizeComboBox.Items.Add("8");
-                ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, selectedText);
+                if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, selectedText))
+                {
+                    ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, "1");
+                };
             }
             else if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.Float.ToString())
             {
@@ -186,8 +193,13 @@ namespace MobiFlight.Panels.Group
             else if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.String.ToString())
             {
                 fsuipcSizeComboBox.Enabled = false;
-                SubstringPanel.Visible = false;
+                fsuipcSizeComboBox.Visible = false;
+                // mask doesn't make sense
+                maskAndBcdPanel.Enabled = false;
+                // multiply doesn't make sense for strings
+                multiplyPanel.Enabled = false;
                 // show the string stuff instead
+                SubstringPanel.Visible = true;
             }
         }
 
@@ -219,29 +231,42 @@ namespace MobiFlight.Panels.Group
             }
 
             // mask
-            fsuipcMaskTextBox.Text = "0x" + config.FSUIPCMask.ToString("X" + config.FSUIPCSize);
+            fsuipcMaskTextBox.Text = "0xFF";
+            if (config.FSUIPCOffsetType != FSUIPCOffsetType.String)
+                fsuipcMaskTextBox.Text = "0x" + config.FSUIPCMask.ToString("X" + config.FSUIPCSize.ToString());
 
             // multiplier
+            TransformationCheckBox.Checked = config.Transform.Active;
             fsuipcMultiplyTextBox.Text = config.Transform.Expression;
             fsuipcBcdModeCheckBox.Checked = config.FSUIPCBcdMode;
             fsuipcValueTextBox.Text = config.Value;
+
+            // substring panel
+            SubStringFromTextBox.Text = config.Transform.SubStrStart.ToString();
+            SubStringToTextBox.Text = config.Transform.SubStrEnd.ToString();
         }
 
         internal void syncToConfig(IFsuipcConfigItem config)
         {
-            config.FSUIPCMask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
             config.FSUIPCOffset = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
             config.FSUIPCOffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
             if (config.FSUIPCOffsetType != FSUIPCOffsetType.String)
             {
+                // the mask has only meaning for values other than strings
+                config.FSUIPCMask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
                 config.FSUIPCSize = Byte.Parse(fsuipcSizeComboBox.Text);
             }
             else
             {
+
+                // by default we set the string length to 255
+                // because we don't offer an option for the string length yet
                 config.FSUIPCSize = 255;
             }
-            //config.FSUIPCMultiplier = Double.Parse(fsuipcMultiplyTextBox.Text);
+            config.Transform.Active = TransformationCheckBox.Checked;
             config.Transform.Expression = fsuipcMultiplyTextBox.Text;
+            config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
+            config.Transform.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
             config.FSUIPCBcdMode = fsuipcBcdModeCheckBox.Checked;
             config.Value = fsuipcValueTextBox.Text;
         }
@@ -249,15 +274,8 @@ namespace MobiFlight.Panels.Group
         internal InputConfig.InputAction ToConfig()
         {
             MobiFlight.InputConfig.FsuipcOffsetInputAction config = new FsuipcOffsetInputAction();
+            syncToConfig(config);
 
-            config.FSUIPCMask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
-            config.FSUIPCOffset = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
-            config.FSUIPCSize = Byte.Parse(fsuipcSizeComboBox.Text);
-            config.FSUIPCOffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
-            //config.FSUIPCMultiplier = Double.Parse(fsuipcMultiplyTextBox.Text);
-            config.Transform.Expression = fsuipcMultiplyTextBox.Text;
-            config.FSUIPCBcdMode = fsuipcBcdModeCheckBox.Checked;
-            config.Value = fsuipcValueTextBox.Text;
             return config;
         }
 
@@ -272,6 +290,10 @@ namespace MobiFlight.Panels.Group
 
         private void fsuipcMaskTextBox_Validating(object sender, CancelEventArgs e)
         {
+            // skip this test if the panel is not enabled
+            // because we have a string type offset
+            if (!maskAndBcdPanel.Enabled) return;
+
             try
             {
                 _validatingHexFields(sender, e, int.Parse(fsuipcSizeComboBox.Text) * 2);
@@ -287,10 +309,17 @@ namespace MobiFlight.Panels.Group
         private void fsuipcMultiplyTextBox_Validating(object sender, CancelEventArgs e)
         {
             // do not validate when multiply panel is not visible
-            if ((sender as TextBox).Name == fsuipcMultiplyTextBox.Name && !multiplyPanel.Visible) return;
+            // or disabled when dealing with strings
+            if ((sender as TextBox).Name == fsuipcMultiplyTextBox.Name && (!multiplyPanel.Visible||!multiplyPanel.Enabled)) return;
 
             return;
+            // we should add a parse error test here
+            // for the expression that is used.
+
             /*
+            // this code snippet was prior to allowing
+            // expressions in the multiply field
+
             try
             {
                 float.Parse((sender as TextBox).Text);
@@ -337,5 +366,9 @@ namespace MobiFlight.Panels.Group
                     "");
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            fsuipcMultiplyTextBox.Enabled = (sender as CheckBox).Checked;
+        }
     }
 }

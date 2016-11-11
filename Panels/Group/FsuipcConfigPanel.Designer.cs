@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FsuipcConfigPanel));
             this.fsuipcMoreOptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.valuePanel = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.fsuipcValueTextBox = new System.Windows.Forms.TextBox();
             this.SubstringPanel = new System.Windows.Forms.Panel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.SubStringLabelFrom = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.SubStringToTextBox = new System.Windows.Forms.TextBox();
+            this.SubStringToLabel = new System.Windows.Forms.Label();
+            this.SubStringFromLabel = new System.Windows.Forms.Label();
+            this.SubStringFromTextBox = new System.Windows.Forms.TextBox();
             this.multiplyPanel = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.TransformationCheckBox = new System.Windows.Forms.CheckBox();
             this.fsuipcMultiplyTextBox = new System.Windows.Forms.TextBox();
             this.maskAndBcdPanel = new System.Windows.Forms.Panel();
             this.maskEditorButton = new System.Windows.Forms.Button();
@@ -75,280 +76,179 @@
             // 
             // fsuipcMoreOptionsGroupBox
             // 
-            this.fsuipcMoreOptionsGroupBox.AutoSize = true;
+            resources.ApplyResources(this.fsuipcMoreOptionsGroupBox, "fsuipcMoreOptionsGroupBox");
             this.fsuipcMoreOptionsGroupBox.Controls.Add(this.valuePanel);
             this.fsuipcMoreOptionsGroupBox.Controls.Add(this.SubstringPanel);
             this.fsuipcMoreOptionsGroupBox.Controls.Add(this.multiplyPanel);
-            this.fsuipcMoreOptionsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fsuipcMoreOptionsGroupBox.Location = new System.Drawing.Point(0, 144);
             this.fsuipcMoreOptionsGroupBox.Name = "fsuipcMoreOptionsGroupBox";
-            this.fsuipcMoreOptionsGroupBox.Size = new System.Drawing.Size(315, 93);
-            this.fsuipcMoreOptionsGroupBox.TabIndex = 21;
             this.fsuipcMoreOptionsGroupBox.TabStop = false;
-            this.fsuipcMoreOptionsGroupBox.Text = "More Options";
             // 
             // valuePanel
             // 
-            this.valuePanel.AutoSize = true;
+            resources.ApplyResources(this.valuePanel, "valuePanel");
             this.valuePanel.Controls.Add(this.label5);
             this.valuePanel.Controls.Add(this.fsuipcValueTextBox);
-            this.valuePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.valuePanel.Location = new System.Drawing.Point(3, 65);
             this.valuePanel.Name = "valuePanel";
-            this.valuePanel.Size = new System.Drawing.Size(309, 25);
-            this.valuePanel.TabIndex = 9;
             // 
             // label5
             // 
-            this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label5.Location = new System.Drawing.Point(53, 5);
+            resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 13);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Set Value";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fsuipcValueTextBox
             // 
-            this.fsuipcValueTextBox.Location = new System.Drawing.Point(110, 2);
+            resources.ApplyResources(this.fsuipcValueTextBox, "fsuipcValueTextBox");
             this.fsuipcValueTextBox.Name = "fsuipcValueTextBox";
-            this.fsuipcValueTextBox.Size = new System.Drawing.Size(102, 20);
-            this.fsuipcValueTextBox.TabIndex = 17;
             this.fsuipcValueTextBox.TextChanged += new System.EventHandler(this.fsuipcValueTextBox_TextChanged);
             this.fsuipcValueTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcValueTextBox_Validating);
             // 
             // SubstringPanel
             // 
-            this.SubstringPanel.AutoSize = true;
-            this.SubstringPanel.Controls.Add(this.textBox3);
-            this.SubstringPanel.Controls.Add(this.label6);
-            this.SubstringPanel.Controls.Add(this.SubStringLabelFrom);
-            this.SubstringPanel.Controls.Add(this.textBox2);
-            this.SubstringPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.SubstringPanel.Location = new System.Drawing.Point(3, 40);
+            resources.ApplyResources(this.SubstringPanel, "SubstringPanel");
+            this.SubstringPanel.Controls.Add(this.SubStringToTextBox);
+            this.SubstringPanel.Controls.Add(this.SubStringToLabel);
+            this.SubstringPanel.Controls.Add(this.SubStringFromLabel);
+            this.SubstringPanel.Controls.Add(this.SubStringFromTextBox);
             this.SubstringPanel.Name = "SubstringPanel";
-            this.SubstringPanel.Size = new System.Drawing.Size(309, 25);
-            this.SubstringPanel.TabIndex = 11;
             // 
-            // textBox3
+            // SubStringToTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(192, 2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(52, 20);
-            this.textBox3.TabIndex = 20;
+            resources.ApplyResources(this.SubStringToTextBox, "SubStringToTextBox");
+            this.SubStringToTextBox.Name = "SubStringToTextBox";
             // 
-            // label6
+            // SubStringToLabel
             // 
-            this.label6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label6.Location = new System.Drawing.Point(165, 5);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(26, 13);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "to";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            resources.ApplyResources(this.SubStringToLabel, "SubStringToLabel");
+            this.SubStringToLabel.Name = "SubStringToLabel";
             // 
-            // SubStringLabelFrom
+            // SubStringFromLabel
             // 
-            this.SubStringLabelFrom.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.SubStringLabelFrom.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SubStringLabelFrom.Location = new System.Drawing.Point(3, 5);
-            this.SubStringLabelFrom.Name = "SubStringLabelFrom";
-            this.SubStringLabelFrom.Size = new System.Drawing.Size(106, 13);
-            this.SubStringLabelFrom.TabIndex = 18;
-            this.SubStringLabelFrom.Text = "Substring from";
-            this.SubStringLabelFrom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            resources.ApplyResources(this.SubStringFromLabel, "SubStringFromLabel");
+            this.SubStringFromLabel.Name = "SubStringFromLabel";
             // 
-            // textBox2
+            // SubStringFromTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(110, 2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(52, 20);
-            this.textBox2.TabIndex = 17;
+            resources.ApplyResources(this.SubStringFromTextBox, "SubStringFromTextBox");
+            this.SubStringFromTextBox.Name = "SubStringFromTextBox";
             // 
             // multiplyPanel
             // 
-            this.multiplyPanel.AutoSize = true;
-            this.multiplyPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.multiplyPanel.Controls.Add(this.label4);
+            resources.ApplyResources(this.multiplyPanel, "multiplyPanel");
+            this.multiplyPanel.Controls.Add(this.TransformationCheckBox);
             this.multiplyPanel.Controls.Add(this.fsuipcMultiplyTextBox);
-            this.multiplyPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.multiplyPanel.Location = new System.Drawing.Point(3, 16);
             this.multiplyPanel.Name = "multiplyPanel";
-            this.multiplyPanel.Size = new System.Drawing.Size(309, 24);
-            this.multiplyPanel.TabIndex = 15;
             // 
-            // label4
+            // TransformationCheckBox
             // 
-            this.label4.AutoSize = true;
-            this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label4.Location = new System.Drawing.Point(48, 4);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Transform";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TransformationCheckBox.Checked = true;
+            this.TransformationCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            resources.ApplyResources(this.TransformationCheckBox, "TransformationCheckBox");
+            this.TransformationCheckBox.Name = "TransformationCheckBox";
+            this.TransformationCheckBox.UseVisualStyleBackColor = true;
+            this.TransformationCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // fsuipcMultiplyTextBox
             // 
-            this.fsuipcMultiplyTextBox.Location = new System.Drawing.Point(110, 1);
+            resources.ApplyResources(this.fsuipcMultiplyTextBox, "fsuipcMultiplyTextBox");
             this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
-            this.fsuipcMultiplyTextBox.Size = new System.Drawing.Size(195, 20);
-            this.fsuipcMultiplyTextBox.TabIndex = 13;
             this.fsuipcMultiplyTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMultiplyTextBox_Validating);
             // 
             // maskAndBcdPanel
             // 
-            this.maskAndBcdPanel.AutoSize = true;
-            this.maskAndBcdPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            resources.ApplyResources(this.maskAndBcdPanel, "maskAndBcdPanel");
             this.maskAndBcdPanel.Controls.Add(this.maskEditorButton);
             this.maskAndBcdPanel.Controls.Add(this.fsuipcBcdModeCheckBox);
             this.maskAndBcdPanel.Controls.Add(this.label3);
             this.maskAndBcdPanel.Controls.Add(this.fsuipcMaskTextBox);
-            this.maskAndBcdPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.maskAndBcdPanel.Location = new System.Drawing.Point(3, 67);
-            this.maskAndBcdPanel.Margin = new System.Windows.Forms.Padding(0);
             this.maskAndBcdPanel.Name = "maskAndBcdPanel";
-            this.maskAndBcdPanel.Size = new System.Drawing.Size(309, 25);
-            this.maskAndBcdPanel.TabIndex = 14;
             // 
             // maskEditorButton
             // 
-            this.maskEditorButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.maskEditorButton.Location = new System.Drawing.Point(188, -1);
+            resources.ApplyResources(this.maskEditorButton, "maskEditorButton");
             this.maskEditorButton.Name = "maskEditorButton";
-            this.maskEditorButton.Size = new System.Drawing.Size(24, 23);
-            this.maskEditorButton.TabIndex = 17;
-            this.maskEditorButton.Text = "...";
             this.maskEditorButton.UseVisualStyleBackColor = true;
             this.maskEditorButton.Click += new System.EventHandler(this.maskEditorButton_Click);
             // 
             // fsuipcBcdModeCheckBox
             // 
-            this.fsuipcBcdModeCheckBox.AutoSize = true;
-            this.fsuipcBcdModeCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.fsuipcBcdModeCheckBox.Location = new System.Drawing.Point(231, 3);
+            resources.ApplyResources(this.fsuipcBcdModeCheckBox, "fsuipcBcdModeCheckBox");
             this.fsuipcBcdModeCheckBox.Name = "fsuipcBcdModeCheckBox";
-            this.fsuipcBcdModeCheckBox.Size = new System.Drawing.Size(78, 17);
-            this.fsuipcBcdModeCheckBox.TabIndex = 15;
-            this.fsuipcBcdModeCheckBox.Text = "BCD Mode";
             this.fsuipcBcdModeCheckBox.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(21, 4);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
-            this.label3.TabIndex = 16;
-            this.label3.Text = "Mask value with";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fsuipcMaskTextBox
             // 
-            this.fsuipcMaskTextBox.Location = new System.Drawing.Point(110, 1);
+            resources.ApplyResources(this.fsuipcMaskTextBox, "fsuipcMaskTextBox");
             this.fsuipcMaskTextBox.Name = "fsuipcMaskTextBox";
-            this.fsuipcMaskTextBox.Size = new System.Drawing.Size(75, 20);
-            this.fsuipcMaskTextBox.TabIndex = 14;
             this.fsuipcMaskTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMaskTextBox_Validating);
             // 
             // fsuipcBaseSettingsGroupBox
             // 
-            this.fsuipcBaseSettingsGroupBox.AutoSize = true;
+            resources.ApplyResources(this.fsuipcBaseSettingsGroupBox, "fsuipcBaseSettingsGroupBox");
             this.fsuipcBaseSettingsGroupBox.Controls.Add(this.maskAndBcdPanel);
             this.fsuipcBaseSettingsGroupBox.Controls.Add(this.offsetPanel);
-            this.fsuipcBaseSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fsuipcBaseSettingsGroupBox.Location = new System.Drawing.Point(0, 49);
             this.fsuipcBaseSettingsGroupBox.Name = "fsuipcBaseSettingsGroupBox";
-            this.fsuipcBaseSettingsGroupBox.Size = new System.Drawing.Size(315, 95);
-            this.fsuipcBaseSettingsGroupBox.TabIndex = 20;
             this.fsuipcBaseSettingsGroupBox.TabStop = false;
-            this.fsuipcBaseSettingsGroupBox.Text = "Base settings";
             // 
             // offsetPanel
             // 
-            this.offsetPanel.AutoSize = true;
+            resources.ApplyResources(this.offsetPanel, "offsetPanel");
             this.offsetPanel.Controls.Add(this.fsuipcTypeLabel);
             this.offsetPanel.Controls.Add(this.fsuipcOffsetTypeComboBox);
             this.offsetPanel.Controls.Add(this.label2);
             this.offsetPanel.Controls.Add(this.label1);
             this.offsetPanel.Controls.Add(this.fsuipcSizeComboBox);
             this.offsetPanel.Controls.Add(this.fsuipcOffsetTextBox);
-            this.offsetPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.offsetPanel.Location = new System.Drawing.Point(3, 16);
             this.offsetPanel.Name = "offsetPanel";
-            this.offsetPanel.Size = new System.Drawing.Size(309, 51);
-            this.offsetPanel.TabIndex = 10;
             // 
             // fsuipcTypeLabel
             // 
-            this.fsuipcTypeLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.fsuipcTypeLabel.Location = new System.Drawing.Point(1, 28);
+            resources.ApplyResources(this.fsuipcTypeLabel, "fsuipcTypeLabel");
             this.fsuipcTypeLabel.Name = "fsuipcTypeLabel";
-            this.fsuipcTypeLabel.Size = new System.Drawing.Size(108, 18);
-            this.fsuipcTypeLabel.TabIndex = 13;
-            this.fsuipcTypeLabel.Text = "Value Type";
-            this.fsuipcTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fsuipcOffsetTypeComboBox
             // 
             this.fsuipcOffsetTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fsuipcOffsetTypeComboBox.FormattingEnabled = true;
             this.fsuipcOffsetTypeComboBox.Items.AddRange(new object[] {
-            "Int",
-            "Float",
-            "String"});
-            this.fsuipcOffsetTypeComboBox.Location = new System.Drawing.Point(110, 27);
+            resources.GetString("fsuipcOffsetTypeComboBox.Items"),
+            resources.GetString("fsuipcOffsetTypeComboBox.Items1"),
+            resources.GetString("fsuipcOffsetTypeComboBox.Items2")});
+            resources.ApplyResources(this.fsuipcOffsetTypeComboBox, "fsuipcOffsetTypeComboBox");
             this.fsuipcOffsetTypeComboBox.Name = "fsuipcOffsetTypeComboBox";
-            this.fsuipcOffsetTypeComboBox.Size = new System.Drawing.Size(65, 21);
-            this.fsuipcOffsetTypeComboBox.TabIndex = 14;
             this.fsuipcOffsetTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.fsuipcOffsetTypeComboBox_SelectedIndexChanged);
             // 
             // label2
             // 
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(173, 29);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 17);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Size in Bytes";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(74, 7);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Offset";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fsuipcSizeComboBox
             // 
             this.fsuipcSizeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fsuipcSizeComboBox.FormattingEnabled = true;
             this.fsuipcSizeComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "4",
-            "8"});
-            this.fsuipcSizeComboBox.Location = new System.Drawing.Point(255, 27);
+            resources.GetString("fsuipcSizeComboBox.Items"),
+            resources.GetString("fsuipcSizeComboBox.Items1"),
+            resources.GetString("fsuipcSizeComboBox.Items2"),
+            resources.GetString("fsuipcSizeComboBox.Items3")});
+            resources.ApplyResources(this.fsuipcSizeComboBox, "fsuipcSizeComboBox");
             this.fsuipcSizeComboBox.Name = "fsuipcSizeComboBox";
-            this.fsuipcSizeComboBox.Size = new System.Drawing.Size(50, 21);
-            this.fsuipcSizeComboBox.TabIndex = 12;
             this.fsuipcSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.fsuipcSizeComboBox_SelectedIndexChanged);
             // 
             // fsuipcOffsetTextBox
             // 
-            this.fsuipcOffsetTextBox.Location = new System.Drawing.Point(110, 4);
+            resources.ApplyResources(this.fsuipcOffsetTextBox, "fsuipcOffsetTextBox");
             this.fsuipcOffsetTextBox.Name = "fsuipcOffsetTextBox";
-            this.fsuipcOffsetTextBox.Size = new System.Drawing.Size(52, 20);
-            this.fsuipcOffsetTextBox.TabIndex = 11;
-            this.fsuipcOffsetTextBox.Text = "0xAAAA";
             this.fsuipcOffsetTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcOffsetTextBox_Validating);
             // 
             // fsuipcLoadPresetGroupBox
@@ -356,45 +256,29 @@
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetUseButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.labelFsuipcPreset);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
-            this.fsuipcLoadPresetGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fsuipcLoadPresetGroupBox.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
-            this.fsuipcLoadPresetGroupBox.Size = new System.Drawing.Size(315, 49);
-            this.fsuipcLoadPresetGroupBox.TabIndex = 22;
             this.fsuipcLoadPresetGroupBox.TabStop = false;
-            this.fsuipcLoadPresetGroupBox.Text = "Load preset";
             // 
             // fsuipcPresetUseButton
             // 
-            this.fsuipcPresetUseButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.fsuipcPresetUseButton.Location = new System.Drawing.Point(274, 20);
+            resources.ApplyResources(this.fsuipcPresetUseButton, "fsuipcPresetUseButton");
             this.fsuipcPresetUseButton.Name = "fsuipcPresetUseButton";
-            this.fsuipcPresetUseButton.Size = new System.Drawing.Size(36, 23);
-            this.fsuipcPresetUseButton.TabIndex = 6;
-            this.fsuipcPresetUseButton.Text = "use";
             this.fsuipcPresetUseButton.UseVisualStyleBackColor = true;
             this.fsuipcPresetUseButton.Click += new System.EventHandler(this.fsuipcPresetUseButton_Click);
             // 
             // labelFsuipcPreset
             // 
-            this.labelFsuipcPreset.AutoSize = true;
-            this.labelFsuipcPreset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelFsuipcPreset.Location = new System.Drawing.Point(55, 24);
+            resources.ApplyResources(this.labelFsuipcPreset, "labelFsuipcPreset");
             this.labelFsuipcPreset.Name = "labelFsuipcPreset";
-            this.labelFsuipcPreset.Size = new System.Drawing.Size(58, 13);
-            this.labelFsuipcPreset.TabIndex = 5;
-            this.labelFsuipcPreset.Text = "Use preset";
-            this.labelFsuipcPreset.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // fsuipcPresetComboBox
             // 
             this.fsuipcPresetComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.fsuipcPresetComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.fsuipcPresetComboBox.FormattingEnabled = true;
-            this.fsuipcPresetComboBox.Location = new System.Drawing.Point(113, 21);
+            resources.ApplyResources(this.fsuipcPresetComboBox, "fsuipcPresetComboBox");
             this.fsuipcPresetComboBox.Name = "fsuipcPresetComboBox";
-            this.fsuipcPresetComboBox.Size = new System.Drawing.Size(159, 21);
-            this.fsuipcPresetComboBox.TabIndex = 4;
             // 
             // presetsDataSet
             // 
@@ -421,15 +305,12 @@
             // 
             // FsuipcConfigPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.fsuipcMoreOptionsGroupBox);
             this.Controls.Add(this.fsuipcBaseSettingsGroupBox);
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "FsuipcConfigPanel";
-            this.Size = new System.Drawing.Size(315, 239);
-            this.Load += new System.EventHandler(this.FsuipcConfigPanel_Load);
             this.fsuipcMoreOptionsGroupBox.ResumeLayout(false);
             this.fsuipcMoreOptionsGroupBox.PerformLayout();
             this.valuePanel.ResumeLayout(false);
@@ -476,7 +357,6 @@
         private System.Windows.Forms.ComboBox fsuipcSizeComboBox;
         private System.Windows.Forms.TextBox fsuipcOffsetTextBox;
         private System.Windows.Forms.Panel multiplyPanel;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox fsuipcMultiplyTextBox;
         private System.Windows.Forms.Panel maskAndBcdPanel;
         private System.Windows.Forms.Button maskEditorButton;
@@ -484,9 +364,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox fsuipcMaskTextBox;
         private System.Windows.Forms.Panel SubstringPanel;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label SubStringLabelFrom;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox SubStringToTextBox;
+        private System.Windows.Forms.Label SubStringToLabel;
+        private System.Windows.Forms.Label SubStringFromLabel;
+        private System.Windows.Forms.TextBox SubStringFromTextBox;
+        private System.Windows.Forms.CheckBox TransformationCheckBox;
     }
 }
