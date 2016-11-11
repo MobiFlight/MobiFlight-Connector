@@ -139,7 +139,8 @@ namespace MobiFlight
                     if (multiplier != 1.0)
                     {
                         Transform.Active = true;
-                        Transform.Expression = "$*" + multiplier.ToString();
+                        // we have to replace the decimal in case "," is used (german style)
+                        Transform.Expression = "$*" + multiplier.ToString().Replace(',','.');
                     }
                 }
                 
