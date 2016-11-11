@@ -828,6 +828,7 @@ namespace MobiFlight
                 foreach( MobiFlight.Config.BaseDevice device in newConfig.Items) {
                     TreeNode newNode = new TreeNode(device.Name);
                     newNode.Tag = device;
+                    newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
                     parentNode.Nodes.Add(newNode);
                 }
             } 
