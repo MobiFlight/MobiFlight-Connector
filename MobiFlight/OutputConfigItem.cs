@@ -290,9 +290,14 @@ namespace MobiFlight
                         Preconditions.Add(tmp);
                         reader.ReadStartElement();
                     } while (reader.LocalName == "precondition");
-                }
 
-                reader.ReadStartElement();
+                    // read to the end of preconditions-node
+                    reader.ReadEndElement();
+                }
+                else
+                {
+                    reader.ReadStartElement();
+                }
             }
 
             if (reader.LocalName == "transformation")

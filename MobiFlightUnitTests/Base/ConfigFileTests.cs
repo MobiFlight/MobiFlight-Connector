@@ -47,6 +47,22 @@ namespace MobiFlight.Tests
 
             OutputConfig.Clear();
             InputConfig.Clear();
+
+            inFile = @"assets\Base\ConfigFile\OpenFileTest.2912.xml";
+            inFileTemp = @"assets\Base\ConfigFile\temp_OpenFileTest.2912.xml";
+
+            o = new ConfigFile(inFile);
+            OutputConfig.ReadXml(o.getOutputConfig());
+            InputConfig.ReadXml(o.getInputConfig());
+
+            oTemp = new ConfigFile(inFileTemp);
+            oTemp.SaveFile(OutputConfig, InputConfig);
+
+            s1 = System.IO.File.ReadAllText(inFile);
+            s2 = System.IO.File.ReadAllText(inFileTemp);
+
+            System.IO.File.Delete(inFileTemp);
+            Assert.AreEqual(s1, s2, "Files are not the same");
         }
 
         [TestMethod()]

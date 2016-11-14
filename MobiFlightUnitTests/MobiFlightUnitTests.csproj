@@ -103,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Base\BooleanConverterConfig\GetPins.xml" />
+    <Content Include="assets\Base\ConfigFile\OpenFileTest.2912.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\Base\ConfigFile\OpenFileTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
