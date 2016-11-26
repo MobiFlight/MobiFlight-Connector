@@ -13,8 +13,8 @@ namespace MobiFlight
         public bool Active = false;
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
         public String Expression = "$";
-        public int SubStrStart;
-        public int SubStrEnd;
+        public int SubStrStart = 0;
+        public int SubStrEnd = 7;
 
         public XmlSchema GetSchema()
         {
