@@ -25,6 +25,7 @@ namespace MobiFlight.Tests
         public void OpenFileTest()
         {
             String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
+            String expFile = @"assets\Base\ConfigFile\OpenFileTest.xml.exp";
             String inFileTemp = @"assets\Base\ConfigFile\temp_OpenFileTest.xml";
             ConfigFile o = new ConfigFile(inFile);
             DataSet InputConfig = new DataSet();
@@ -39,7 +40,7 @@ namespace MobiFlight.Tests
             ConfigFile oTemp = new ConfigFile(inFileTemp);
             oTemp.SaveFile(OutputConfig, InputConfig);
 
-            String s1 = System.IO.File.ReadAllText(inFile);
+            String s1 = System.IO.File.ReadAllText(expFile);
             String s2 = System.IO.File.ReadAllText(inFileTemp);
 
             System.IO.File.Delete(inFileTemp);
@@ -63,6 +64,29 @@ namespace MobiFlight.Tests
 
             System.IO.File.Delete(inFileTemp);
             Assert.AreEqual(s1, s2, "Files are not the same");
+
+            foreach (string file in System.IO.Directory.GetFiles(@"assets\Base\ConfigFile\", "*.mcc")) {
+                OutputConfig.Clear();
+                InputConfig.Clear();
+
+                inFile = file;
+                expFile = inFile;
+                if (System.IO.File.Exists(inFile + ".exp")) expFile = inFile + ".exp";
+                inFileTemp = inFile + ".tmp";
+
+                o = new ConfigFile(inFile);
+                OutputConfig.ReadXml(o.getOutputConfig());
+                InputConfig.ReadXml(o.getInputConfig());
+
+                oTemp = new ConfigFile(inFileTemp);
+                oTemp.SaveFile(OutputConfig, InputConfig);
+
+                s1 = System.IO.File.ReadAllText(expFile);
+                s2 = System.IO.File.ReadAllText(inFileTemp);
+
+                System.IO.File.Delete(inFileTemp);
+                Assert.AreEqual(s1, s2, "Files are not the same");
+            }
         }
 
         [TestMethod()]

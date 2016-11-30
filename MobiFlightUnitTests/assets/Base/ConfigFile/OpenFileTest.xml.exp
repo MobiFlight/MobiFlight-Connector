@@ -12,6 +12,7 @@
           <precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
           <precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="5475ec4f-64ed-47b9-adba-e1ad19199dfc">

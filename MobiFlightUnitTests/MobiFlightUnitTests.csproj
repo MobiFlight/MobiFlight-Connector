@@ -108,6 +108,7 @@
     </Content>
     <Content Include="assets\Base\ConfigFile\OpenFileTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\Base\ConfigFile\SaveFileTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -197,7 +198,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="assets\Base\ConfigFile\example-default-plane-v6.1.mcc.exp" />
+    <None Include="assets\Base\ConfigFile\example-jeehell-datapipe.mcc.exp" />
+    <None Include="assets\Base\ConfigFile\example-release-5.0.0.mcc.exp" />
+    <None Include="assets\Base\ConfigFile\example-tutorial-7-segment.mcc.exp" />
+    <None Include="assets\Base\ConfigFile\mobiflight-in-action-episode-1.mcc.exp" />
+    <None Include="assets\Base\ConfigFile\OpenFileTest.xml.exp" />
+    <None Include="assets\Base\ConfigFile\tutorial-episode2.mcc.exp" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
@@ -218,6 +227,9 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy "$(SolutionDir)examples\*.mcc" "$(TargetDir)assets\Base\ConfigFile\" /Y /I</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
