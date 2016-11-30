@@ -10,6 +10,8 @@ namespace MobiFlight
     public class ArcazeModuleInfo : IModuleInfo
     {
         DeviceInfo _info;
+        public const String TYPE = "ArcazeUSB";
+
         public ArcazeModuleInfo(DeviceInfo info)
         {
             _info = info;
@@ -25,7 +27,7 @@ namespace MobiFlight
         {
             get
             {
-                return "ArcazeUSB";
+                return TYPE;
             }
             set
             {

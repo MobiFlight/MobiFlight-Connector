@@ -18,7 +18,7 @@ void MFServo::moveTo(int absolute)
 }
 
 void MFServo::update() {
-    if (_currentPos == _targetPos) return;
+    if (_currentPos == _targetPos) { detach(); return; }
     if ((millis()-_lastUpdate) < 25) return;
     
     if (_currentPos > _targetPos) _currentPos--;
@@ -29,7 +29,12 @@ void MFServo::update() {
     //delay(5);
 }
 
-void MFServo::detach() { _servo.detach(); _initialized = false; }
+void MFServo::detach() { 
+  if (_initialized) {
+    _servo.detach(); 
+    _initialized = false; 
+  }
+}
 
 void MFServo::attach(uint8_t pin, bool enable)
 {

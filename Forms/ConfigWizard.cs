@@ -222,7 +222,9 @@ namespace MobiFlight
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
                 displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
-                preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+
+                // Not yet supported for pins
+                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 #endif
             displayModuleNameComboBox.SelectedIndex = 0;
@@ -836,7 +838,7 @@ namespace MobiFlight
                 return;
             }
 
-            if (preconditionPinSerialComboBox.Text.Trim() == "-")
+            if (preconditionPinSerialComboBox.Items.Count > 1 && preconditionPinSerialComboBox.Text.Trim() == "-")
             {
                 e.Cancel = true;
                 tabControlFsuipc.SelectedTab = preconditionTabPage;
@@ -858,7 +860,7 @@ namespace MobiFlight
                 return;
             }
 
-            if (preconditionPinComboBox.SelectedIndex == -1)
+            if (preconditionPinSerialComboBox.SelectedIndex > 0 && preconditionPinComboBox.SelectedIndex == -1)
             {
                 e.Cancel = true;
                 tabControlFsuipc.SelectedTab = preconditionTabPage;
@@ -877,7 +879,7 @@ namespace MobiFlight
                 return;
             }
 
-            if (preconditionPortComboBox.SelectedIndex == -1)
+            if (preconditionPinSerialComboBox.SelectedIndex > 0 && preconditionPortComboBox.SelectedIndex == -1)
             {
                 e.Cancel = true;
                 tabControlFsuipc.SelectedTab = preconditionTabPage;
