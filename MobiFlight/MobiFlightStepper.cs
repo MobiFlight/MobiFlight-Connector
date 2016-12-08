@@ -71,11 +71,9 @@ namespace MobiFlight
                 outputValue += (OutputRevolutionSteps + delta);
                 else
                 outputValue -= (OutputRevolutionSteps - delta);
-                Log.Instance.log("Specia - Delta: " + delta + " Mapped: " + mappedValue + ", Output: " + outputValue, LogSeverity.Debug);
             } else
             {
                 outputValue += delta;
-                Log.Instance.log("Normal - Delta: " + delta + " Mapped: " + mappedValue + ", Output: " + outputValue, LogSeverity.Debug);
             }
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetStepper);

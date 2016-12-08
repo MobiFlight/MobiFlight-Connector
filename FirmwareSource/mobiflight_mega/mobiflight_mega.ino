@@ -77,6 +77,7 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.4.1 : Reduce velocity
 // 1.5.0 : Improve servo behaviour
 // 1.6.0 : Set name
+// 1.6.1 : Reduce servo noise
 const char version[8] = "1.6.1";
 
 #if MODULETYPE == MTYPE_MEGA

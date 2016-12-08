@@ -476,10 +476,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_mega_1_4_0.hex" />
-    <None Include="firmware\mobiflight_mega_1_4_1.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_mega_1_6_0.hex">
+    <None Include="firmware\mobiflight_mega_1_4_1.hex" />
+    <None Include="firmware\mobiflight_mega_1_6_0.hex" />
+    <None Include="firmware\mobiflight_mega_1_6_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="presets_jeehell.cip">

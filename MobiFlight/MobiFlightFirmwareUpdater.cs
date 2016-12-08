@@ -15,7 +15,7 @@ namespace MobiFlight
          */
         public static String ArduinoIdePath { get; set; }
         public static String AvrPath { get { return "hardware\\tools\\avr"; } }
-        public static String LatestFirmwareMega = "1.6.0";
+        public static String LatestFirmwareMega = "1.6.1";
         public static String LatestFirmwareMicro = "1.1.0";
         
         /***
