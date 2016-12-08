@@ -61,6 +61,7 @@ namespace MobiFlight
         public string       StepperInputRev             { get; set; }
         public string       StepperOutputRev            { get; set; }
         public string       StepperTestValue            { get; set; }
+        public bool         StepperCompassMode          { get; set; }
 
         // the interpolation settings
         public Interpolation Interpolation              { get; set; }
@@ -93,7 +94,9 @@ namespace MobiFlight
             DisplayLedModuleSize = 8;
             DisplayLedDigits = new List<string>();
             DisplayLedDecimalPoints = new List<string>();
-            
+
+            StepperCompassMode = false;
+                
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
 
             Interpolation = new Interpolation();
@@ -255,6 +258,11 @@ namespace MobiFlight
                     StepperTestValue = reader["stepperTestValue"];
                 }
 
+                if (reader["stepperCompassMode"] != null && reader["stepperCompassMode"] != "")
+                {
+                    StepperCompassMode = bool.Parse(reader["stepperCompassMode"]);
+                }
+
                 reader.ReadStartElement();
                 if (reader.LocalName == "interpolation")
                 {
@@ -368,7 +376,8 @@ namespace MobiFlight
                     writer.WriteAttributeString("stepperInputRev", StepperInputRev);
                     writer.WriteAttributeString("stepperOutputRev", StepperOutputRev);
                     writer.WriteAttributeString("stepperTestValue", StepperTestValue);
-                }
+                    writer.WriteAttributeString("stepperCompassMode", StepperCompassMode.ToString());
+            }
                 else
                 {
                     writer.WriteAttributeString("pin", DisplayPin);
@@ -430,6 +439,7 @@ namespace MobiFlight
             clone.StepperInputRev           = this.StepperInputRev;
             clone.StepperOutputRev          = this.StepperOutputRev;
             clone.StepperTestValue          = this.StepperTestValue;
+            clone.StepperCompassMode        = this.StepperCompassMode;
 
             foreach (Precondition p in Preconditions)
             {

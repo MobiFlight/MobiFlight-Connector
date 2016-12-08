@@ -199,13 +199,27 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\Base\ConfigFile\example-default-plane-v6.1.mcc.exp" />
-    <None Include="assets\Base\ConfigFile\example-jeehell-datapipe.mcc.exp" />
-    <None Include="assets\Base\ConfigFile\example-release-5.0.0.mcc.exp" />
-    <None Include="assets\Base\ConfigFile\example-tutorial-7-segment.mcc.exp" />
-    <None Include="assets\Base\ConfigFile\mobiflight-in-action-episode-1.mcc.exp" />
-    <None Include="assets\Base\ConfigFile\OpenFileTest.xml.exp" />
-    <None Include="assets\Base\ConfigFile\tutorial-episode2.mcc.exp" />
+    <None Include="assets\Base\ConfigFile\example-default-plane-v6.1.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\example-jeehell-datapipe.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\example-release-5.0.0.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\example-tutorial-7-segment.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\mobiflight-in-action-episode-1.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\OpenFileTest.xml.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\tutorial-episode2.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

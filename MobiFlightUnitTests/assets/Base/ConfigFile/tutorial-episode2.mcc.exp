@@ -95,7 +95,7 @@
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.1.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
-        <display type="Stepper" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-130">
+        <display type="Stepper" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-130" stepperCompassMode="False">
           <interpolation active="True">
             <value x="0" y="0" />
             <value x="16383" y="-130" />

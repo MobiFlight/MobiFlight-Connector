@@ -29,16 +29,20 @@ namespace MobiFlight
         public int StepperNumber { get; set; }
         public int InputRevolutionSteps { get; set; }
         public int OutputRevolutionSteps { get; set; }
+        public bool CompassMode { get; set; }
         protected DateTime lastCall;
         protected int lastValue;
+        protected int outputValue;
         protected bool moveCalled = false;
         protected int zeroPoint = 0;
         
         public MobiFlightStepper()
         {
             lastValue = 0;
+            outputValue = 0;
             StepperNumber = 0;
             InputRevolutionSteps = 1000;
+            CompassMode = false;
         }
 
         private int map(int value, int inputLower, int inputUpper, int outputLower, int outputUpper)
@@ -56,13 +60,27 @@ namespace MobiFlight
             }
             int currentSpeed = 100;
             
-            int delta = mappedValue - lastValue;            
+            int delta = mappedValue - lastValue; 
             lastValue = mappedValue;
 
             if (delta == 0) return;
+            
+            if (CompassMode && Math.Abs(delta) > (OutputRevolutionSteps/2))
+            {
+                if (delta < 0)
+                outputValue += (OutputRevolutionSteps + delta);
+                else
+                outputValue -= (OutputRevolutionSteps - delta);
+                Log.Instance.log("Specia - Delta: " + delta + " Mapped: " + mappedValue + ", Output: " + outputValue, LogSeverity.Debug);
+            } else
+            {
+                outputValue += delta;
+                Log.Instance.log("Normal - Delta: " + delta + " Mapped: " + mappedValue + ", Output: " + outputValue, LogSeverity.Debug);
+            }
+
             var command = new SendCommand((int)MobiFlightModule.Command.SetStepper);
             command.AddArgument(this.StepperNumber);
-            command.AddArgument(mappedValue);
+            command.AddArgument(outputValue);
             
             // Send command
             CmdMessenger.SendCommand(command);

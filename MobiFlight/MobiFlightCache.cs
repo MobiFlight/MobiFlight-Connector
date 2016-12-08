@@ -392,7 +392,7 @@ namespace MobiFlight
             }
         }
 
-        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps)
+        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode)
         {
             try
             {
@@ -404,6 +404,11 @@ namespace MobiFlight
                 if (module.GetStepper(address).OutputRevolutionSteps != outputRevolutionSteps)
                 {
                     module.GetStepper(address).OutputRevolutionSteps = outputRevolutionSteps;
+                }
+
+                if (module.GetStepper(address).CompassMode != CompassMode)
+                {
+                    module.GetStepper(address).CompassMode = CompassMode;
                 }
                 module.SetStepper(address, iValue, inputRevolutionSteps);
             }

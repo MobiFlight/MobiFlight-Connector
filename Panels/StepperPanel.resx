@@ -117,14 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CompassModeCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="CompassModeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 66</value>
+  </data>
+  <data name="CompassModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 17</value>
+  </data>
+  <data name="CompassModeCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="CompassModeCheckBox.Text" xml:space="preserve">
+    <value>Compass Mode</value>
+  </data>
+  <data name="CompassModeCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;CompassModeCheckBox.Name" xml:space="preserve">
+    <value>CompassModeCheckBox</value>
+  </data>
+  <data name="&gt;&gt;CompassModeCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CompassModeCheckBox.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;CompassModeCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="stepperTestValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>93, 40</value>
   </data>
   <data name="stepperTestValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 20</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="stepperTestValueTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
   </data>
@@ -141,7 +171,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;stepperTestValueTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -172,7 +202,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="outputRevTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>176, 18</value>
@@ -196,7 +226,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;outputRevTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="inputRevTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>93, 18</value>
@@ -220,7 +250,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;inputRevTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="displayPinComoBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -250,7 +280,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;displayPinComoBoxLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>

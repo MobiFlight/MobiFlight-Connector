@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StepperPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CompassModeCheckBox = new System.Windows.Forms.CheckBox();
             this.stepperTestValueTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.outputRevTextBox = new System.Windows.Forms.TextBox();
@@ -57,6 +58,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.CompassModeCheckBox);
             this.groupBox1.Controls.Add(this.stepperTestValueTextBox);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.outputRevTextBox);
@@ -65,6 +67,13 @@
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // CompassModeCheckBox
+            // 
+            resources.ApplyResources(this.CompassModeCheckBox, "CompassModeCheckBox");
+            this.CompassModeCheckBox.Name = "CompassModeCheckBox";
+            this.CompassModeCheckBox.UseVisualStyleBackColor = true;
+            this.CompassModeCheckBox.CheckedChanged += new System.EventHandler(this.CompassModeCheckBox_CheckedChanged);
             // 
             // stepperTestValueTextBox
             // 
@@ -229,6 +238,6 @@
         private System.Windows.Forms.Label ManualCalibrateLabel;
         public System.Windows.Forms.TextBox stepperTestValueTextBox;
         private System.Windows.Forms.Label label9;
-
+        private System.Windows.Forms.CheckBox CompassModeCheckBox;
     }
 }

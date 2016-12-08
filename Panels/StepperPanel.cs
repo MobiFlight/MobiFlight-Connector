@@ -40,6 +40,7 @@ namespace MobiFlight.Panels
             if (config.StepperInputRev != null) inputRevTextBox.Text = config.StepperInputRev;
             if (config.StepperOutputRev != null) outputRevTextBox.Text = config.StepperOutputRev;
             if (config.StepperTestValue != null) stepperTestValueTextBox.Text = config.StepperTestValue;
+            CompassModeCheckBox.Checked = config.StepperCompassMode;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
@@ -50,6 +51,7 @@ namespace MobiFlight.Panels
                 config.StepperInputRev = inputRevTextBox.Text;
                 config.StepperOutputRev = outputRevTextBox.Text;
                 config.StepperTestValue = stepperTestValueTextBox.Text;
+                config.StepperCompassMode = CompassModeCheckBox.Checked;
             }
             return config;
         }
@@ -143,6 +145,11 @@ namespace MobiFlight.Panels
             errorProvider.SetError(
                     control,
                     "");
+        }
+
+        private void CompassModeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

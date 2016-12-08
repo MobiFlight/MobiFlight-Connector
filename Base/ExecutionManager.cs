@@ -733,7 +733,8 @@ namespace MobiFlight
                             cfg.StepperAddress,
                             value,
                             int.Parse(cfg.StepperInputRev),
-                            int.Parse(cfg.StepperOutputRev)
+                            int.Parse(cfg.StepperOutputRev),
+                            cfg.StepperCompassMode
                         );
                         break;
 

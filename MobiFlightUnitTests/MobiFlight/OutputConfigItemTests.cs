@@ -172,6 +172,7 @@ namespace MobiFlight.Tests
             o.StepperInputRev = "1123";
             o.StepperOutputRev = "3212";
             o.StepperTestValue = "212";
+            o.StepperCompassMode = true;
 
             return o;
         }

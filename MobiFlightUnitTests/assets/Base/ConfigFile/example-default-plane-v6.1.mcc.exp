@@ -73,7 +73,7 @@
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.1.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x3324" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <comparison active="False" value="0" operand="=" ifValue="$-10" elseValue="$-10" />
-        <display type="Stepper" serial="TestBoard1/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="1000" stepperOutputRev="2041" stepperTestValue="2000" />
+        <display type="Stepper" serial="TestBoard1/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="1000" stepperOutputRev="2041" stepperTestValue="2000" stepperCompassMode="False" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
@@ -84,7 +84,7 @@
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.1.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x02C8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-        <display type="Stepper" serial="MobiFlight Mega/ SN-849-180" trigger="normal" stepperAddress="Stepper1" stepperInputRev="1000" stepperOutputRev="2040" stepperTestValue="4000" />
+        <display type="Stepper" serial="MobiFlight Mega/ SN-849-180" trigger="normal" stepperAddress="Stepper1" stepperInputRev="1000" stepperOutputRev="2040" stepperTestValue="4000" stepperCompassMode="False" />
         <preconditions />
         <transformation active="False" expression="$*0,768946875" substrStart="0" substrEnd="7" />
       </settings>
@@ -95,7 +95,7 @@
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.1.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x02BC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
-        <display type="Stepper" serial="MobiFlight Mega/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="180" />
+        <display type="Stepper" serial="MobiFlight Mega/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="180" stepperCompassMode="False" />
         <preconditions />
         <transformation active="False" expression="$*0,0078125" substrStart="0" substrEnd="7" />
       </settings>

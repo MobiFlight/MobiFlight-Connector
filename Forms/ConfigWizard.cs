@@ -138,6 +138,7 @@ namespace MobiFlight
 
         void stepperPanel_OnSetZeroTriggered(object sender, EventArgs e)
         {
+            _syncFormToConfig();
             String serial = config.DisplaySerial;
             if (serial.Contains('/'))
             {
@@ -148,9 +149,12 @@ namespace MobiFlight
 
         void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
         {
+            _syncFormToConfig();
             int steps = e.Steps;
             
             String serial = config.DisplaySerial;
+            if (serial == null) return;
+
             if (serial.Contains('/'))
             {
                 serial = serial.Split('/')[1].Trim();
@@ -168,7 +172,8 @@ namespace MobiFlight
                 config.StepperAddress,
                 (NextValue).ToString(),
                 Int16.Parse(config.StepperOutputRev),
-                Int16.Parse(config.StepperOutputRev)
+                Int16.Parse(config.StepperOutputRev),
+                config.StepperCompassMode
             );
             
         }        
