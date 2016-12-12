@@ -745,6 +745,13 @@ namespace MobiFlight
             {
                 SetPin("base", output.Name, 0);
             }
+            
+            foreach (MobiFlightLedModule module in ledModules.Values)
+            {
+                for(int i = 0; i!=module.SubModules;i++)
+                    SetDisplay(module.Name, i, 0, 0xff, "        ");
+            }
+            
             foreach (MobiFlightStepper stepper in stepperModules.Values)
             {
                 SetStepper(stepper.Name, 0);
