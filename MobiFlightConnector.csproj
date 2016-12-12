@@ -476,6 +476,9 @@
     <None Include="examples\example-jeehell-datapipe.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="examples\example-tutorial-7-segment.mcc" />
+    <None Include="examples\mobiflight-in-action-episode-1.mcc" />
+    <None Include="examples\tutorial-episode2.mcc" />
     <None Include="firmware\mobiflight_mega_1_4_0.hex" />
     <None Include="firmware\mobiflight_mega_1_4_1.hex" />
     <None Include="firmware\mobiflight_mega_1_6_0.hex" />
