@@ -70,15 +70,20 @@ namespace MobiFlight
         public XmlReader getInputConfig()
         {
             XmlReader result = null;
-            if (xmlConfig.DocumentElement == null) OpenFile();
-
+            
             try
             {
+                if (xmlConfig.DocumentElement == null) OpenFile();
+
                 result = getConfig("/MobiflightConnector/inputs");
             }
             catch (InvalidExpressionException e)
             {
                 throw e;
+            }
+            catch (Exception e)
+            {
+                throw new ConfigErrorException("Error reading config", e);
             }
             return result;
         }
@@ -86,15 +91,20 @@ namespace MobiFlight
         public XmlReader getOutputConfig()
         {
             XmlReader result = null;
-            if (xmlConfig.DocumentElement == null) OpenFile();
+            
             bool fallback = false;
             try
             {
+                if (xmlConfig.DocumentElement == null) OpenFile();
                 result = getConfig("/MobiflightConnector/outputs");
             }
             catch (InvalidExpressionException e)
             {
                 fallback = true;
+            }
+            catch (Exception e)
+            {
+                throw new ConfigErrorException("Error reading config", e);
             }
 
             if (fallback)

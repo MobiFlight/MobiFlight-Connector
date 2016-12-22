@@ -818,7 +818,16 @@ namespace MobiFlight
             dataSetConfig.Clear();
             dataSetInputs.Clear();
             ConfigFile configFile = new ConfigFile(fileName);
-            dataSetConfig.ReadXml(configFile.getOutputConfig());
+            try
+            {
+                dataSetConfig.ReadXml(configFile.getOutputConfig());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(_tr("uiMessageProblemLoadingConfig"), _tr("Hint"));
+                return;
+            }
+
             try
             {
                 dataSetInputs.ReadXml(configFile.getInputConfig());

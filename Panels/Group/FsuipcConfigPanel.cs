@@ -264,9 +264,14 @@ namespace MobiFlight.Panels.Group
                 config.FSUIPCSize = 255;
             }
             config.Transform.Active = TransformationCheckBox.Checked;
-            config.Transform.Expression = fsuipcMultiplyTextBox.Text;
-            config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
-            config.Transform.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
+
+            // TODO: refactor this conditional stuff.
+            if (fsuipcMultiplyTextBox.Visible)
+                config.Transform.Expression = fsuipcMultiplyTextBox.Text;
+            if (SubStringFromTextBox.Text!="")
+                config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
+            if (SubStringToTextBox.Text != "")
+                config.Transform.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
             config.FSUIPCBcdMode = fsuipcBcdModeCheckBox.Checked;
             config.Value = fsuipcValueTextBox.Text;
         }

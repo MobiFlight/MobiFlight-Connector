@@ -1,0 +1,5 @@
+;The comment below contains SFX script commands
+
+Setup=MFConnector.exe
+Silent=1
+Overwrite=1

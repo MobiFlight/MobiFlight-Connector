@@ -375,4 +375,7 @@ Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value
   <data name="uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease" xml:space="preserve">
     <value>Es sind nur Zahlen erlaubt. Bitte prüfe Deine Eingabe.</value>
   </data>
+  <data name="uiMessageProblemLoadingConfig" xml:space="preserve">
+    <value>Die Config konnte nicht geladen werden. Bitte prüfe auf Syntaxfehler.</value>
+  </data>
 </root>

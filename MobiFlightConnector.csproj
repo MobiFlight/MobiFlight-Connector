@@ -469,6 +469,9 @@
     <Compile Include="Forms\WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
+    <None Include="Build\Default.SFX" />
+    <None Include="Build\release.bat" />
+    <None Include="Build\sfx-mobiflight.diz" />
     <None Include="ClassDiagram1.cd" />
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -494,6 +497,7 @@
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />
+    <Content Include="Build\Rar.exe" />
     <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
@@ -782,6 +786,10 @@
       <Project>{FB9E7E6B-B19F-4F37-A708-2996190CEF13}</Project>
       <Name>AutoUpdater.NET</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+    <Folder Include="Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

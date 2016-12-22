@@ -1537,7 +1537,7 @@
     <value>comparisonHintTtextBox</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.Panels.Group.FsuipcConfigPanel, MFConnector, Version=7.1.2.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.Panels.Group.FsuipcConfigPanel, MFConnector, Version=7.1.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="displayTypeGroupBox.Text" xml:space="preserve">
     <value>Display type</value>
