@@ -472,7 +472,6 @@
     <None Include="Build\Default.SFX" />
     <None Include="Build\release.bat" />
     <None Include="Build\sfx-mobiflight.diz" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -792,6 +791,9 @@
     <Folder Include="Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
