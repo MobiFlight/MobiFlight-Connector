@@ -92,6 +92,18 @@ namespace MobiFlight.Panels
                     else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
                         (panel as Panels.JeehellInputPanel).syncFromConfig(_config.onRightFast as JeehellInputAction);
                     break;
+
+                case LuaMacroInputAction.Label:
+                    panel = new LuaMacroInputPanel();
+                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
+                        (panel as Panels.LuaMacroInputPanel).syncFromConfig(_config.onLeft as LuaMacroInputAction);
+                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
+                        (panel as Panels.LuaMacroInputPanel).syncFromConfig(_config.onLeftFast as LuaMacroInputAction);
+                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
+                        (panel as Panels.LuaMacroInputPanel).syncFromConfig(_config.onRight as LuaMacroInputAction);
+                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
+                        (panel as Panels.LuaMacroInputPanel).syncFromConfig(_config.onRightFast as LuaMacroInputAction);
+                    break;
             }
 
             if (panel != null)
@@ -149,6 +161,9 @@ namespace MobiFlight.Panels
                     case "Jeehell DataPipe":
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
+                    case LuaMacroInputAction.Label:
+                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as LuaMacroInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeft = null;
                         break;
@@ -172,6 +187,9 @@ namespace MobiFlight.Panels
                     case "Jeehell DataPipe":
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
+                    case LuaMacroInputAction.Label:
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as LuaMacroInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeftFast = null;
                         break;
@@ -194,6 +212,9 @@ namespace MobiFlight.Panels
                     case "Jeehell DataPipe":
                         config.onRight = (onRightActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
+                    case LuaMacroInputAction.Label:
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as LuaMacroInputPanel).ToConfig();
+                        break;
                     default:
                         config.onRight = null;
                         break;
@@ -215,6 +236,9 @@ namespace MobiFlight.Panels
                         break;
                     case "Jeehell DataPipe":
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
+                        break;
+                    case LuaMacroInputAction.Label:
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as LuaMacroInputPanel).ToConfig();
                         break;
                     default:
                         config.onRightFast = null;

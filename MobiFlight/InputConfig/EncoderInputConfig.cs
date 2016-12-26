@@ -48,24 +48,29 @@ namespace MobiFlight.InputConfig
             {
                 switch (reader["type"])
                 {
-                    case "FsuipcOffsetInputAction":
+                    case FsuipcOffsetInputAction.TYPE:
                         onLeft = new FsuipcOffsetInputAction();
                         onLeft.ReadXml(reader);
                         reader.ReadStartElement(); // this should be the closing tag "onPress"
                         break;
 
-                    case "KeyInputAction":
+                    case KeyInputAction.TYPE:
                         onLeft = new KeyInputAction();
                         onLeft.ReadXml(reader);
                         break;
 
-                    case "EventIdInputAction":
+                    case EventIdInputAction.TYPE:
                         onLeft = new EventIdInputAction();
                         onLeft.ReadXml(reader);
                         break;
 
-                    case "JeehellInputAction":
+                    case JeehellInputAction.TYPE:
                         onLeft = new JeehellInputAction();
+                        onLeft.ReadXml(reader);
+                        break;
+
+                    case LuaMacroInputAction.TYPE:
+                        onLeft = new LuaMacroInputAction();
                         onLeft.ReadXml(reader);
                         break;
                 }
@@ -76,24 +81,29 @@ namespace MobiFlight.InputConfig
             {
                 switch (reader["type"])
                 {
-                    case "FsuipcOffsetInputAction":
+                    case FsuipcOffsetInputAction.TYPE:
                         onLeftFast = new FsuipcOffsetInputAction();
                         onLeftFast.ReadXml(reader);
                         reader.ReadStartElement(); // this should be the closing tag "onPress"
                         break;
 
-                    case "KeyInputAction":
+                    case KeyInputAction.TYPE:
                         onLeftFast = new KeyInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
 
-                    case "EventIdInputAction":
+                    case EventIdInputAction.TYPE:
                         onLeftFast = new EventIdInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
 
-                    case "JeehellInputAction":
+                    case JeehellInputAction.TYPE:
                         onLeftFast = new JeehellInputAction();
+                        onLeftFast.ReadXml(reader);
+                        break;
+
+                    case LuaMacroInputAction.TYPE:
+                        onLeftFast = new LuaMacroInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
                 }
@@ -104,24 +114,29 @@ namespace MobiFlight.InputConfig
             {
                 switch (reader["type"])
                 {
-                    case "FsuipcOffsetInputAction":
+                    case FsuipcOffsetInputAction.TYPE:
                         onRight = new FsuipcOffsetInputAction();
                         onRight.ReadXml(reader);
                         reader.ReadStartElement();
                         break;
 
-                    case "KeyInputAction":
+                    case KeyInputAction.TYPE:
                         onRight = new KeyInputAction();
                         onRight.ReadXml(reader);
                         break;
 
-                    case "EventIdInputAction":
+                    case EventIdInputAction.TYPE:
                         onRight = new EventIdInputAction();
                         onRight.ReadXml(reader);
                         break;
 
-                    case "JeehellInputAction":
+                    case JeehellInputAction.TYPE:
                         onRight = new JeehellInputAction();
+                        onRight.ReadXml(reader);
+                        break;
+
+                    case LuaMacroInputAction.TYPE:
+                        onRight = new LuaMacroInputAction();
                         onRight.ReadXml(reader);
                         break;
                 }
@@ -132,24 +147,29 @@ namespace MobiFlight.InputConfig
             {
                 switch (reader["type"])
                 {
-                    case "FsuipcOffsetInputAction":
+                    case FsuipcOffsetInputAction.TYPE:
                         onRightFast = new FsuipcOffsetInputAction();
                         onRightFast.ReadXml(reader);
                         reader.ReadStartElement();
                         break;
 
-                    case "KeyInputAction":
+                    case KeyInputAction.TYPE:
                         onRightFast = new KeyInputAction();
                         onRightFast.ReadXml(reader);
                         break;
 
-                    case "EventIdInputAction":
+                    case EventIdInputAction.TYPE:
                         onRightFast = new EventIdInputAction();
                         onRightFast.ReadXml(reader);
                         break;
 
-                    case "JeehellInputAction":
+                    case JeehellInputAction.TYPE:
                         onRightFast = new JeehellInputAction();
+                        onRightFast.ReadXml(reader);
+                        break;
+
+                    case LuaMacroInputAction.TYPE:
+                        onRightFast = new LuaMacroInputAction();
                         onRightFast.ReadXml(reader);
                         break;
                 }

@@ -25,6 +25,8 @@ namespace MobiFlight.InputConfig
         [XmlAttribute]
         public Transformation Transform { get; set; }
 
+        public const String TYPE = "FsuipcOffsetInputAction";
+
         public FsuipcOffsetInputAction()
         {
             FSUIPCOffset = FSUIPCOffsetNull;
@@ -51,7 +53,7 @@ namespace MobiFlight.InputConfig
 
         public override void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteAttributeString("type", "FsuipcOffsetInputAction");
+            writer.WriteAttributeString("type", TYPE);
             writer.WriteStartElement("source");
                 writer.WriteAttributeString("type", "FSUIPC");
                 writer.WriteAttributeString("offset", "0x" + FSUIPCOffset.ToString("X4"));

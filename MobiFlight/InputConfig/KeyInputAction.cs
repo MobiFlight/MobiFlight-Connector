@@ -14,6 +14,8 @@ namespace MobiFlight.InputConfig
         public bool Shift;
         public KeyboardInputInterface Keyboard;
 
+        public const String TYPE = "KeyInputAction";
+
         override public object Clone()
         {
             KeyInputAction clone = new KeyInputAction();
@@ -43,7 +45,7 @@ namespace MobiFlight.InputConfig
             if (Shift) value += "Shift+";
             if (Alt) value += "Alt+";
             value += Key.ToString();
-            writer.WriteAttributeString("type", "KeyInputAction");
+            writer.WriteAttributeString("type", TYPE);
             writer.WriteAttributeString("key", value);
         }
 

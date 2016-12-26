@@ -41,24 +41,29 @@ namespace MobiFlight.InputConfig
             {
                 switch (reader["type"])
                 {
-                    case "FsuipcOffsetInputAction":
+                    case FsuipcOffsetInputAction.TYPE:
                         onPress = new FsuipcOffsetInputAction();
                         onPress.ReadXml(reader);
                         reader.Read(); // this should be the closing tag "onPress"
                         break;
 
-                    case "KeyInputAction":
+                    case KeyInputAction.TYPE:
                         onPress = new KeyInputAction();
                         onPress.ReadXml(reader);
                         break;
 
-                    case "EventIdInputAction":
+                    case EventIdInputAction.TYPE:
                         onPress = new EventIdInputAction();
                         onPress.ReadXml(reader);
                         break;
 
-                    case "JeehellInputAction":
+                    case JeehellInputAction.TYPE:
                         onPress = new JeehellInputAction();
+                        onPress.ReadXml(reader);
+                        break;
+
+                    case LuaMacroInputAction.TYPE:
+                        onPress = new LuaMacroInputAction();
                         onPress.ReadXml(reader);
                         break;
                 }
@@ -70,26 +75,31 @@ namespace MobiFlight.InputConfig
             {
                 switch (reader["type"])
                 {
-                    case "FsuipcOffsetInputAction":
+                    case FsuipcOffsetInputAction.TYPE:
                         onRelease = new FsuipcOffsetInputAction();
                         onRelease.ReadXml(reader);
                         reader.ReadStartElement();
                         break;
 
-                    case "KeyInputAction":
+                    case KeyInputAction.TYPE:
                         onRelease = new KeyInputAction();
                         onRelease.ReadXml(reader);
                         reader.ReadStartElement();
                         break;
 
-                    case "EventIdInputAction":
+                    case EventIdInputAction.TYPE:
                         onRelease = new EventIdInputAction();
                         onRelease.ReadXml(reader);
                         reader.ReadStartElement();
                         break;
 
-                    case "JeehellInputAction":
+                    case JeehellInputAction.TYPE:
                         onRelease = new JeehellInputAction();
+                        onRelease.ReadXml(reader);
+                        break;
+
+                    case LuaMacroInputAction.TYPE:
+                        onRelease = new LuaMacroInputAction();
                         onRelease.ReadXml(reader);
                         break;
                 }

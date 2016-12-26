@@ -17,6 +17,8 @@ namespace MobiFlight.InputConfig
         const Int16 Offset_CPT_QNH = 0x73C8;
         const Int16 Offset_FO_QNH = 0x73CA;
 
+        public const String TYPE = "JeehellInputAction";
+
         public Byte EventId;
         public String Param;
         
@@ -40,7 +42,7 @@ namespace MobiFlight.InputConfig
 
         public override void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteAttributeString("type", "JeehellInputAction");
+            writer.WriteAttributeString("type", TYPE);
             writer.WriteAttributeString("pipeId", EventId.ToString());
             writer.WriteAttributeString("value", Param.ToString());
         }

@@ -10,6 +10,7 @@ namespace MobiFlight.InputConfig
         const Int16 BaseOffset = 0x3110;
         const Int16 ParamOffset = 0x3114;
 
+        public const String TYPE = "EventIdInputAction";
         public Int32 EventId;
         public Int32 Param;
         
@@ -33,7 +34,7 @@ namespace MobiFlight.InputConfig
 
         public override void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteAttributeString("type", "EventIdInputAction");
+            writer.WriteAttributeString("type", EventIdInputAction.TYPE);
             writer.WriteAttributeString("eventId", EventId.ToString());
             writer.WriteAttributeString("param", Param.ToString());
         }

@@ -280,7 +280,7 @@
     <Compile Include="MobiFlight\InputConfig\BaseInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\ButtonInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\EncoderInputConfig.cs" />
-    <Compile Include="MobiFlight\InputConfig\FsuipcMacroInputAction.cs" />
+    <Compile Include="MobiFlight\InputConfig\LuaMacroInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\FsuipcOffsetInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\IInputActionType.cs" />
     <Compile Include="MobiFlight\InputConfig\InputAction.cs" />
@@ -418,6 +418,12 @@
     <Compile Include="Panels\EventIdInputPanel.Designer.cs">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\LuaMacroInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\LuaMacroInputPanel.Designer.cs">
+      <DependentUpon>LuaMacroInputPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\JeehellInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -527,6 +533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\PreconditionPanel.resx">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\LuaMacroInputPanel.resx">
+      <DependentUpon>LuaMacroInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\JeehellInputPanel.resx">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
@@ -787,7 +796,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="NewFolder1\" />
     <Folder Include="Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

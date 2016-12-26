@@ -8,6 +8,7 @@ namespace MobiFlight.InputConfig
 {
     abstract public class InputAction : IXmlSerializable, ICloneable
     {
+        public const String Label = "InputAction";
         protected System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
         abstract public object Clone();
         public System.Xml.Schema.XmlSchema GetSchema() {
