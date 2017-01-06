@@ -32,9 +32,14 @@ This repository contains the code for the Mobiflight Project
 Checkout the code and open the ArcazeFSUIPCConnector.sln project.
 
 #### Configuration ####
-Compile with DEBUG option for development and debugging
-Compile with RELEASE option for release
-Compile with DEBUG (EN) option to force English UI - actually for testing purpose  
+Compile with DEBUG-MOBIFLIGHT option for development and debugging
+
+Compile with RELEASE-MOBIFLIGHT option for release
+
+Compile with DEBUG-MOBIFLIGHT (EN) option to force English UI - actually for testing purpose  
+
+Compile with DEBUG-MOBIFLIGHT (Offline) option to not depend on FSUIPC runing - actually for testing purpose  
+
 #### Dependencies ####
 All Dependecies are currently contained in the repository
 #### How to run tests ####
