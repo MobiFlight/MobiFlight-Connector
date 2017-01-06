@@ -57,6 +57,7 @@ The release package is generated automatically using a RELEASE-build POST BUILD 
 ### Contribution guidelines ###
 
 To be defined...
+
 * Writing tests
 * Code review
 * Other guidelines
