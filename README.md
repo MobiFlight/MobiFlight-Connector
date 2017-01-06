@@ -29,7 +29,7 @@ This repository contains the code for the Mobiflight Project
 ### How do I get set up? ###
 
 #### Summary of set up ####
-Checkout the code and open the ArcazeFSUIPCConnector.sln project.
+Checkout the code and open the MobiFlightConnector.sln project.
 
 #### Configuration ####
 Compile with DEBUG-MOBIFLIGHT option for development and debugging
