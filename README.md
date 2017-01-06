@@ -42,10 +42,14 @@ Compile with DEBUG-MOBIFLIGHT (Offline) option to not depend on FSUIPC runing - 
 
 #### Dependencies ####
 All Dependecies are currently contained in the repository
+
+
+
+
 #### How to run tests ####
 Run the MobiFlightConnectorTest project for unit tests
-#### Deployment instructions ####
-The release package is generated using a RELEASE-build and WinRar with self exec settings. This needs to be added to the repository and ideally scripted and integrated as a POST BUILD step. 
+#### Build release package instructions ####
+The release package is generated automatically using a RELEASE-build POST BUILD STEP. The necessary program to "sniff" the current version is part of the solution.
 
 ### Contribution guidelines ###
 
