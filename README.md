@@ -41,10 +41,13 @@ Compile with DEBUG-MOBIFLIGHT (EN) option to force English UI - actually for tes
 Compile with DEBUG-MOBIFLIGHT (Offline) option to not depend on FSUIPC runing - actually for testing purpose  
 
 #### Dependencies ####
-All Dependecies are currently contained in the repository
+All Dependecies are currently contained in the repository and not referenced dynamically from their repository
 
-
-
+* AutoUpdater.NET - The auto update functionality - some minor local modifications
+* CommandMessenger - Library for communication back and forth between PC and Arduino
+* MobiflightConnector - The PC application for configuration and communication between Flightsim and Arduino
+* MobiFlightUnitTests - The test suite for the MobiFlight Connector
+* VersionInfo - A helper tool to detect the current release version, used during creation of Release Package
 
 #### How to run tests ####
 Run the MobiFlightConnectorTest project for unit tests
