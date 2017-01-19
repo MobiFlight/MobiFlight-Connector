@@ -29,22 +29,35 @@ This repository contains the code for the Mobiflight Project
 ### How do I get set up? ###
 
 #### Summary of set up ####
-Checkout the code and open the ArcazeFSUIPCConnector.sln project.
+Checkout the code and open the MobiFlightConnector.sln project.
 
 #### Configuration ####
-Compile with DEBUG option for development and debugging
-Compile with RELEASE option for release
-Compile with DEBUG (EN) option to force English UI - actually for testing purpose  
+Compile with DEBUG-MOBIFLIGHT option for development and debugging
+
+Compile with RELEASE-MOBIFLIGHT option for release
+
+Compile with DEBUG-MOBIFLIGHT (EN) option to force English UI - actually for testing purpose  
+
+Compile with DEBUG-MOBIFLIGHT (Offline) option to not depend on FSUIPC runing - actually for testing purpose  
+
 #### Dependencies ####
-All Dependecies are currently contained in the repository
+All Dependecies are currently contained in the repository and not referenced dynamically from their repository
+
+* AutoUpdater.NET - The auto update functionality - some minor local modifications
+* CommandMessenger - Library for communication back and forth between PC and Arduino
+* MobiflightConnector - The PC application for configuration and communication between Flightsim and Arduino
+* MobiFlightUnitTests - The test suite for the MobiFlight Connector
+* VersionInfo - A helper tool to detect the current release version, used during creation of Release Package
+
 #### How to run tests ####
 Run the MobiFlightConnectorTest project for unit tests
-#### Deployment instructions ####
-The release package is generated using a RELEASE-build and WinRar with self exec settings. This needs to be added to the repository and ideally scripted and integrated as a POST BUILD step. 
+#### Build release package instructions ####
+The release package is generated automatically using a RELEASE-build POST BUILD STEP. The necessary program to "sniff" the current version is part of the solution.
 
 ### Contribution guidelines ###
 
 To be defined...
+
 * Writing tests
 * Code review
 * Other guidelines
