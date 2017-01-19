@@ -149,9 +149,17 @@ namespace MobiFlight
             
             foreach (MobiFlightModule module in (sender as MobiFlightCache).GetModules())
             {
-                if (module.Type == MobiFlightModuleInfo.TYPE_MEGA)
-                {
+                if (module.Type == MobiFlightModuleInfo.TYPE_MEGA ||
+                    module.Type == MobiFlightModuleInfo.TYPE_MICRO ||
+                    module.Type == MobiFlightModuleInfo.TYPE_UNO
+                    )
+                    {
                     Version latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareMega);
+                    if (module.Type == MobiFlightModuleInfo.TYPE_MICRO)
+                        latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareMicro);
+                    if (module.Type == MobiFlightModuleInfo.TYPE_UNO)
+                        latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareUno);
+
                     Version currentVersion = new Version(module.Version);
                     if (currentVersion.CompareTo(latestVersion) < 0)
                     {
@@ -163,7 +171,10 @@ namespace MobiFlight
 
             foreach (MobiFlightModuleInfo moduleInfo in modules)
             {
-                if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
+                if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA ||
+                    moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO ||
+                    moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO
+                    )
                 {
                     modulesForFlashing.Add(moduleInfo);
                 }

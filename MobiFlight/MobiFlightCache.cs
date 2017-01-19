@@ -103,7 +103,10 @@ namespace MobiFlight
             RegistryKey regLocalMachine = Registry.LocalMachine;
             RegistryKey regUSB = regLocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Enum\\USB");
 
-            String[] arduinoVidPids = MobiFlightModuleInfo.VIDPID_MICRO.Concat(MobiFlightModuleInfo.VIDPID_MEGA).ToArray();
+            String[] arduinoVidPids = MobiFlightModuleInfo.VIDPID_MICRO
+                                        .Concat(MobiFlightModuleInfo.VIDPID_MEGA)
+                                        .Concat(MobiFlightModuleInfo.VIDPID_UNO).ToArray();
+
             Regex regEx = new Regex("^(" + string.Join("|", arduinoVidPids) + ")");
 
             Log.Instance.log(regEx.ToString(), LogSeverity.Debug);

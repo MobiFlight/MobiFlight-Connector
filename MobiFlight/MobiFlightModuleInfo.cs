@@ -8,16 +8,33 @@ namespace MobiFlight
     public class MobiFlightModuleInfo : IModuleInfo
     {
         public const String TYPE_UNKNOWN = "unknown";
+
+        // these types are used for standard stock arduino boards
         public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
         public const String TYPE_ARDUINO_MEGA = "Arduino Mega 2560";
+        public const String TYPE_ARDUINO_UNO = "Arduino Uno";
+
+        // these types are used once the MF firmware is installed
         public const String TYPE_MICRO = "MobiFlight Micro";
         public const String TYPE_MEGA = "MobiFlight Mega";
-                        
+        public const String TYPE_UNO = "MobiFlight Uno";
+
+        // message size is used for building
+        // correct chunk sizes for messages
+        // to the arduino boards
         public const int MESSAGE_MAX_SIZE_MICRO = 64;
+        public const int MESSAGE_MAX_SIZE_UNO = 64;
         public const int MESSAGE_MAX_SIZE_MEGA = 64;
+
+        // this is used to check for 
+        // maximum config length and
+        // alert the user in the UI if exceeded
         public const int EEPROM_SIZE_MICRO = 512;
+        public const int EEPROM_SIZE_UNO = 512;
         public const int EEPROM_SIZE_MEGA = 1024;
 
+        // this is not yet used
+        // available pins
         public static readonly Int16[] MEGA_PINS = {
             2,3,4,5,6,7,8,9,
             10,11,12,13,14,15,16,17,18,19,
@@ -27,15 +44,46 @@ namespace MobiFlight
             50,51,52,53
         };
 
+        public static readonly Int16[] MICRO_PINS = {
+            2,3,4,5,6,7,8,9,
+            10,11,12,13,14,15,16
+        };
+
+        public static readonly Int16[] UNO_PINS = {
+            2,3,4,5,6,7,8,9,
+            10,11,12,13
+        };
+
+        public static readonly Int16[] MEGA_PWM = {
+            2,3,4,5,6,7,8,9,
+            10,11,12,13
+        };
+
+        public static readonly Int16[] MICRO_PWM = {
+            3,5,6,9,
+            10
+        };
+
+        public static readonly Int16[] UNO_PWM = {
+            2,3,4,5,6,7,8,9,
+            10,11,12,13
+        };
+
+        // different vendor and product ids for 
+        // board detection
         public static readonly String[] VIDPID_MICRO = {
             "VID_1B4F&PID_9206"
+        };
+
+        public static readonly String[] VIDPID_UNO = {
+            "VID_1A86&PID_7523"
         };
 
         public static readonly String[] VIDPID_MEGA = {
             "VID_2341&PID_0042",
             "VID_2341&PID_0010",
             "VID_8087&PID_0024",
-            "VID_1A86&PID_7523",
+            //"VID_1A86&PID_7523", // this is actually an UNO
             "VID_2A03&PID_0042" // http://www.mobiflight.de/forum/message/983.html
         };
 
@@ -54,7 +102,7 @@ namespace MobiFlight
 
         public bool HasMfFirmware()
         {
-            return (Type == TYPE_MICRO) || (Type == TYPE_MEGA);
+            return (Type == TYPE_MICRO) || (Type == TYPE_MEGA) || (Type == TYPE_UNO);
         }
 
         public void SetTypeByName(String FriendlyName)
@@ -87,6 +135,12 @@ namespace MobiFlight
             {
                 Name = TYPE_ARDUINO_MICRO;
                 Type = TYPE_ARDUINO_MICRO;
+            }
+
+            else if (VIDPID_UNO.Contains(VidPid))
+            {
+                Name = TYPE_ARDUINO_UNO;
+                Type = TYPE_ARDUINO_UNO;
             }
         }
     }

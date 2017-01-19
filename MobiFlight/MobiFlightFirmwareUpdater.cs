@@ -15,9 +15,10 @@ namespace MobiFlight
          */
         public static String ArduinoIdePath { get; set; }
         public static String AvrPath { get { return "hardware\\tools\\avr"; } }
-        public static String LatestFirmwareMega = "1.6.1";
-        public static String LatestFirmwareMicro = "1.1.0";
-        
+        public static String LatestFirmwareMega = "1.7.0";
+        public static String LatestFirmwareMicro = "1.7.0";
+        public static String LatestFirmwareUno = "1.7.0";
+
         /***
          * C:\\Users\\SEBAST~1\\AppData\\Local\\Temp\\build2060068306446321513.tmp\\cmd_test_mega.cpp.hex
          **/
@@ -80,7 +81,15 @@ namespace MobiFlight
                 ArduinoChip = "atmega32u4"; 
                 Bytes = "57600"; 
                 C = "avr109"; 
+            } else if (MobiFlightModuleInfo.TYPE_ARDUINO_UNO == ArduinoType)
+            {
+                //:\Projekte\MobiFlightFC\FirmwareSource\arduino - 1.8.0\hardware\tools\avr / bin / avrdude - CD:\Projekte\MobiFlightFC\FirmwareSource\arduino - 1.8.0\hardware\tools\avr / etc / avrdude.conf - v - patmega328p - carduino - PCOM11 - b115200 - D - Uflash:w: C: \Users\SEBAST~1\AppData\Local\Temp\arduino_build_118832 / mobiflight_mega.ino.hex:i
+                FirmwareName = "mobiflight_uno_" + LatestFirmwareUno.Replace('.', '_') + ".hex";
+                ArduinoChip = "atmega328p";
+                Bytes = "115200";
+                C = "arduino";
             }
+
 
             if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + FirmwareName))
             {
@@ -90,7 +99,7 @@ namespace MobiFlight
             }
 
             String verboseLevel = "";
-            //if (false) verboseLevel = " -v -v -v -v";
+            //verboseLevel = " -v -v -v -v";
 
             String FullAvrDudePath = ArduinoIdePath + "\\" + AvrPath;
 
@@ -102,13 +111,20 @@ namespace MobiFlight
             //proc1.Verb = "runas";
             proc1.Arguments = anyCommand;
             proc1.WindowStyle = ProcessWindowStyle.Hidden;
+            //proc1.WindowStyle = ProcessWindowStyle.Maximized;
+            //proc1.RedirectStandardOutput = true;
+            //proc1.RedirectStandardError = true;
             Log.Instance.log("RunAvrDude : " + proc1.FileName, LogSeverity.Info);
             Log.Instance.log("RunAvrDude : " + anyCommand, LogSeverity.Info);
             Process p = Process.Start(proc1);
+            // string output = p.StandardOutput.ReadToEnd();
+            // string error = p.StandardError.ReadToEnd();
             p.WaitForExit();
-            Log.Instance.log("Exit Code: " + p.ExitCode, LogSeverity.Info);
+            //Log.Instance.log("Firmware Upload Output: " + output, LogSeverity.Debug);
+            Log.Instance.log("Firmware Upload Exit Code: " + p.ExitCode, LogSeverity.Info);
             if (p.ExitCode != 0)
             {
+                //Log.Instance.log("Firmware Upload Error Output: " + output, LogSeverity.Debug);
                 String message = "Something went wrong when flashing with command \n" + proc1.FileName + " " + anyCommand;
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new Exception(message);

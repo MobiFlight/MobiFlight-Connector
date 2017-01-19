@@ -986,8 +986,8 @@ namespace MobiFlight
             if (parentNode.Tag == null) return;
 
             bool isMobiFlightBoard = (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MEGA
-                                                &&
-                                             (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
+                                  && (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO
+                                  && (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_UNO;
 
             mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
             // this is the module node

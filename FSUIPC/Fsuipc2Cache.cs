@@ -454,6 +454,18 @@ namespace MobiFlight.FSUIPC
 //            _process();
         }
 
+        public void setOffset(int offset, string value)
+        {
+            if (!__cacheString.ContainsKey(offset))
+            {
+                __cacheString[offset] = new Offset<String>(offset,value.Length);
+                _offsetsRegistered = true;
+            }
+
+            __cacheString[offset].Value = value;
+            //            _process();
+        }
+
         public void ForceUpdate()
         {
             if (_offsetsRegistered)

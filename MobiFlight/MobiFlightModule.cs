@@ -71,6 +71,7 @@ namespace MobiFlight
         public String ArduinoType { get { 
                 if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO) return MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
                 if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA || Type == MobiFlightModuleInfo.TYPE_MEGA) return MobiFlightModuleInfo.TYPE_ARDUINO_MEGA;
+                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO || Type == MobiFlightModuleInfo.TYPE_UNO) return MobiFlightModuleInfo.TYPE_ARDUINO_UNO;
                 return MobiFlightModuleInfo.TYPE_UNKNOWN;
                 } }
         public String Serial { get; set; }
@@ -81,7 +82,17 @@ namespace MobiFlight
                         if (!Connected) return null;
                         var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
                         var InfoCommand = _cmdMessenger.SendCommand(command);
-                        InfoCommand = _cmdMessenger.SendCommand(command);
+                        int count = 0;
+
+                        // this is a workaround for a timing issue
+                        // that I had with especially the UNO
+                        // it seems that after connecting (and resetting) 
+                        // it takes a while until the messages
+                        // arrive properly on the PC side
+                        while (!InfoCommand.Ok && count++ < 10)
+                        {
+                            InfoCommand = _cmdMessenger.SendCommand(command);
+                        }
                         if (InfoCommand.Ok)
                         {
                             _config = new Config.Config(InfoCommand.ReadStringArg());
@@ -197,7 +208,7 @@ namespace MobiFlight
 
             _cmdMessenger = new CmdMessenger(_transportLayer)
 #if COMMAND_MESSENGER_3_6
-            {
+            {                
                 BoardType = BoardType.Bit16 // Set if it is communicating with a 16- or 32-bit Arduino board
             }
 #endif
@@ -544,7 +555,12 @@ namespace MobiFlight
 
                 MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MICRO;
                 EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MICRO;
-                if (ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
+
+                if (ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
+                {
+                    MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_UNO;
+                    EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_UNO;
+                } else if (ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
                 {
                     MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MEGA;
                     EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MEGA;

@@ -11,13 +11,19 @@ char foo;
 //#define DEBUG 0
 #define MTYPE_MEGA 1
 #define MTYPE_MICRO 2
+#define MTYPE_UNO 3
 #define MF_STEPPER_SUPPORT 1
 #define MF_SERVO_SUPPORT 1
 //#define MODULETYPE MTYPE_MEGA
 #define MODULETYPE MTYPE_MICRO
+//#define MODULETYPE MTYPE_UNO
 
 #if MODULETYPE == MTYPE_MEGA
 #define MODULE_MAX_PINS 58
+#endif
+
+#if MODULETYPE == MTYPE_UNO
+#define MODULE_MAX_PINS 13
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
@@ -25,12 +31,21 @@ char foo;
 #endif
 
 #define STEPS 64
-#define STEPPER_SPEED 200 // 300 already worked, 467, too?
-#define STEPPER_ACCEL 100
+#define STEPPER_SPEED 650 // 300 already worked, 467, too?
+#define STEPPER_ACCEL 900
 
 #if MODULETYPE == MTYPE_MICRO
 #define MAX_OUTPUTS     10
 #define MAX_BUTTONS     10
+#define MAX_LEDSEGMENTS 1
+#define MAX_ENCODERS    4
+#define MAX_STEPPERS    4
+#define MAX_MFSERVOS    4
+#endif
+
+#if MODULETYPE == MTYPE_UNO
+#define MAX_OUTPUTS     8
+#define MAX_BUTTONS     8
 #define MAX_LEDSEGMENTS 1
 #define MAX_ENCODERS    2
 #define MAX_STEPPERS    2
@@ -38,12 +53,12 @@ char foo;
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
-#define MAX_OUTPUTS     30
-#define MAX_BUTTONS     20
-#define MAX_LEDSEGMENTS 3
-#define MAX_ENCODERS    10
-#define MAX_STEPPERS    4
-#define MAX_MFSERVOS    4
+#define MAX_OUTPUTS     40
+#define MAX_BUTTONS     40
+#define MAX_LEDSEGMENTS 4
+#define MAX_ENCODERS    20
+#define MAX_STEPPERS    10
+#define MAX_MFSERVOS    10
 #endif
 
 #include <EEPROMex.h>
@@ -57,6 +72,7 @@ char foo;
 #include <MFEncoder.h>
 #if MF_STEPPER_SUPPORT == 1
   #include <AccelStepper.h>
+  #include <MFStepper.h>
   #include <Servo.h>
   #include <MFServo.h>
 #endif
@@ -70,14 +86,22 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 
 // 1.0.1 : Nicer firmware update, more outputs (20)
 // 1.1.0 : Encoder support, more outputs (30)
-const char version[8] = "1.1.0";
+// 1.2.0 : More outputs (40), more inputs (40), more led segments (4), more encoders (20), steppers (10), servos (10)
+// 1.3.0 : Generate New Serial
+// 1.4.0 : Servo + Stepper support
+// 1.4.1 : Reduce velocity
+// 1.5.0 : Improve servo behaviour
+// 1.6.0 : Set name
+// 1.6.1 : Reduce servo noise
+// 1.7.0 : New Arduino IDE, new AVR, Uno Support
+const char version[8] = "1.7.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
 char serial[MEM_LEN_SERIAL] = "1234567890";
 char name[MEM_LEN_NAME]     = "MobiFlight Mega";
 int eepromSize = EEPROMSizeMega;
-const int  MEM_LEN_CONFIG    = 768;
+const int  MEM_LEN_CONFIG    = 1024;
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
@@ -85,6 +109,14 @@ char type[20]               = "MobiFlight Micro";
 char serial[MEM_LEN_SERIAL] = "0987654321";
 char name[MEM_LEN_NAME]     = "MobiFlight Micro";
 int eepromSize = EEPROMSizeMicro;
+const int  MEM_LEN_CONFIG    = 128;
+#endif
+
+#if MODULETYPE == MTYPE_UNO
+char type[20]               = "MobiFlight Uno";
+char serial[MEM_LEN_SERIAL] = "0987654321";
+char name[MEM_LEN_NAME]     = "MobiFlight Uno";
+int eepromSize = EEPROMSizeUno;
 const int  MEM_LEN_CONFIG    = 128;
 #endif
 
@@ -115,7 +147,8 @@ MFEncoder encoders[MAX_ENCODERS];
 byte encodersRegistered = 0;
 
 #if MF_STEPPER_SUPPORT == 1
-  AccelStepper *steppers[MAX_STEPPERS]; //
+  //AccelStepper *steppers[MAX_STEPPERS]; //
+  MFStepper *steppers[MAX_STEPPERS]; //
   byte steppersRegistered = 0;
 
   MFServo servos[MAX_MFSERVOS];
@@ -156,6 +189,10 @@ enum
   kActivateConfig,     // 16
   kConfigActivated,    // 17
   kSetPowerSavingMode, // 18  
+  kSetName,            // 19
+  kGenNewSerial,       // 20
+  kResetStepper,       // 21
+  kSetZeroStepper      // 22
 };
 
 // Callbacks define on which received commands we take action
@@ -176,7 +213,10 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kResetConfig, OnResetConfig);
   cmdMessenger.attach(kSaveConfig, OnSaveConfig);
   cmdMessenger.attach(kActivateConfig, OnActivateConfig);  
-
+  cmdMessenger.attach(kSetName, OnSetName);  
+  cmdMessenger.attach(kGenNewSerial, OnGenNewSerial);
+  cmdMessenger.attach(kResetStepper, OnResetStepper);
+  cmdMessenger.attach(kSetZeroStepper, OnSetZeroStepper);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Attached callbacks");
 #endif  
@@ -191,19 +231,20 @@ void setup()
   
   configBuffer[0]='\0';  
   //readBuffer[0]='\0'; 
-  generateSerial(); 
+  generateSerial(false); 
   Serial.begin(115200);  
   clearRegisteredPins();
   cmdMessenger.printLfCr();   
   attachCommandCallbacks();
   lastCommand = millis();  
   loadConfig();
+  restoreName();
 }
 
-void generateSerial() 
+void generateSerial(bool force) 
 {
   EEPROM.readBlock<char>(MEM_OFFSET_SERIAL, serial, MEM_LEN_SERIAL); 
-  if (serial[0]=='S'&&serial[1]=='N') return;
+  if (!force&&serial[0]=='S'&&serial[1]=='N') return;
   randomSeed(analogRead(0));
   sprintf(serial,"SN-%03x-", (unsigned int) random(4095));
   sprintf(&serial[7],"%03x", (unsigned int) random(4095));
@@ -238,9 +279,9 @@ void SetPowerSavingMode(bool state)
   PowerSaveLedSegment(state);
 #ifdef DEBUG  
   if (state)
-    cmdMessenger.sendCmd(kStatus, "PwrOn");
+    cmdMessenger.sendCmd(kStatus, "On");
   else
-    cmdMessenger.sendCmd(kStatus, "PwrOff");    
+    cmdMessenger.sendCmd(kStatus, "Off");    
 #endif
   //PowerSaveOutputs(state);
 }
@@ -281,6 +322,7 @@ void loop()
   updateSteppers();  
 #endif
   // servos do not need update
+  updateServos();  
 }
 
 bool isPinRegistered(byte pin) {
@@ -325,7 +367,7 @@ void ClearOutputs()
   clearRegisteredPins(kTypeOutput);
   outputsRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Cleared Outputs");
+  cmdMessenger.sendCmd(kStatus,"Cleared outputs");
 #endif  
 }
 
@@ -429,19 +471,25 @@ void PowerSaveLedSegment(bool state)
 }
 #if MF_STEPPER_SUPPORT == 1
 //// STEPPER ////
-void AddStepper(int pin1, int pin2, int pin3, int pin4)
+void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
 {
   if (steppersRegistered == MAX_STEPPERS) return;
-  if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4)) return;
+  if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4) /* || isPinRegistered(btnPin1) */) {
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,"Conflict with stepper");
+#endif 
+    return;
+  }
   
-  steppers[steppersRegistered] = new AccelStepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3); // lc is our object 
-  steppers[steppersRegistered]->setSpeed(STEPPER_SPEED);
+  // steppers[steppersRegistered] = new AccelStepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3); // lc is our object 
+  steppers[steppersRegistered] = new MFStepper(pin1, pin2, pin3, pin4 /*, btnPin1*/ ); // is our object 
+  steppers[steppersRegistered]->setMaxSpeed(STEPPER_SPEED);
   steppers[steppersRegistered]->setAcceleration(STEPPER_ACCEL);
-  registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper);       
+  registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper); registerPin(btnPin1, kTypeStepper);
   steppersRegistered++;
   
 #ifdef DEBUG  
-  //cmdMessenger.sendCmd(kStatus,"Added stepper");
+  cmdMessenger.sendCmd(kStatus,"Added stepper");
 #endif 
 }
 
@@ -513,11 +561,13 @@ void OnSetConfig()
   lastCommand = millis();
   String cfg = cmdMessenger.readStringArg();
   int bufferSize = MEM_LEN_CONFIG - configLength;
-  cmdMessenger.sendCmd(kStatus,cfg);
-  cmdMessenger.sendCmd(kStatus,configBuffer);
+  if (bufferSize<1) return;
+  //cmdMessenger.sendCmd(kStatus,cfg);
+  //cmdMessenger.sendCmd(kStatus,configBuffer);
   cfg.toCharArray(&configBuffer[configLength], bufferSize);
-  cmdMessenger.sendCmd(kStatus,configBuffer);
   configLength += cfg.length();
+  cmdMessenger.sendCmd(kStatus,"OK");
+  //cmdMessenger.sendCmd(kStatus,configBuffer);
   // readConfig(cfg);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Setting config end");
@@ -545,12 +595,13 @@ void OnResetConfig()
 
 void OnSaveConfig()
 {
-  storeConfig();
   cmdMessenger.sendCmd(kConfigSaved, "OK");
+  storeConfig();
 }
 
 void OnActivateConfig() 
 {
+  readConfig(configBuffer);
   activateConfig();
   cmdMessenger.sendCmd(kConfigActivated, "OK");
 }
@@ -586,11 +637,11 @@ void readConfig(String cfg) {
         params[0] = strtok_r(NULL, ".", &p); // pin Data
         params[1] = strtok_r(NULL, ".", &p); // pin Cs
         params[2] = strtok_r(NULL, ".", &p); // pin Clk
-        params[3] = strtok_r(NULL, ".", &p); // numModules
-        params[4] = strtok_r(NULL, ".", &p); // brightness
+        params[3] = strtok_r(NULL, ".", &p); // brightness
+        params[4] = strtok_r(NULL, ".", &p); // numModules
         params[5] = strtok_r(NULL, ":", &p); // Name
         // int dataPin, int clkPin, int csPin, int numDevices, int brightness
-        AddLedSegment(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]));
+        AddLedSegment(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[4]), atoi(params[3]));
       break;
       
 #if MF_STEPPER_SUPPORT == 1      
@@ -600,8 +651,9 @@ void readConfig(String cfg) {
         params[1] = strtok_r(NULL, ".", &p); // pin2
         params[2] = strtok_r(NULL, ".", &p); // pin3
         params[3] = strtok_r(NULL, ".", &p); // pin4
-        params[4] = strtok_r(NULL, ":", &p); // Name
-        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]));
+        params[4] = strtok_r(NULL, ".", &p); // btnPin1
+        params[5] = strtok_r(NULL, ":", &p); // Name
+        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]));
       break;
       
       case kTypeServo:
@@ -633,7 +685,7 @@ void readConfig(String cfg) {
 void OnUnknownCommand()
 {
   lastCommand = millis();
-  //cmdMessenger.sendCmd(kStatus,"Uknwn");
+  cmdMessenger.sendCmd(kStatus,"No callback");
 }
 
 void OnGetInfo() {
@@ -700,8 +752,27 @@ void OnSetStepper()
 {
   int stepper    = cmdMessenger.readIntArg();
   int newPos     = cmdMessenger.readIntArg();
+  
   if (stepper >= steppersRegistered) return;
-  steppers[steppersRegistered]->moveTo(newPos);
+  steppers[stepper]->moveTo(newPos);
+  lastCommand = millis();
+}
+
+void OnResetStepper()
+{
+  int stepper    = cmdMessenger.readIntArg();
+  
+  if (stepper >= steppersRegistered) return;
+  steppers[stepper]->reset();
+  lastCommand = millis();
+}
+
+void OnSetZeroStepper()
+{
+  int stepper    = cmdMessenger.readIntArg();
+  
+  if (stepper >= steppersRegistered) return;
+  steppers[stepper]->setZero();
   lastCommand = millis();
 }
 
@@ -720,10 +791,19 @@ void OnSetServo()
 void updateSteppers()
 {
   for (int i=0; i!=steppersRegistered; i++) {
-    steppers[i]->run();
+    //steppers[i]->run();
+    steppers[i]->update();
   }
 }
 #endif
+
+void updateServos()
+{
+  for (int i=0; i!=servosRegistered; i++) {
+    //steppers[i]->run();
+    servos[i].update();
+  }
+}
 
 void readButtons()
 {
@@ -737,6 +817,37 @@ void readEncoder()
   for(int i=0; i!=encodersRegistered; i++) {
     encoders[i].update();
   }
+}
+
+void OnGenNewSerial() 
+{
+  generateSerial(true);
+  cmdMessenger.sendCmdStart(kInfo);
+  cmdMessenger.sendCmdArg(serial);
+  cmdMessenger.sendCmdEnd();
+}
+
+void OnSetName() {
+  String cfg = cmdMessenger.readStringArg();
+  cfg.toCharArray(&name[0], MEM_LEN_NAME);
+  storeName();
+  cmdMessenger.sendCmdStart(kStatus);
+  cmdMessenger.sendCmdArg(name);
+  cmdMessenger.sendCmdEnd();
+}
+
+void storeName() {
+  char prefix[] = "#";
+  EEPROM.writeBlock<char>(MEM_OFFSET_NAME, prefix, 1);
+  EEPROM.writeBlock<char>(MEM_OFFSET_NAME+1, name, MEM_LEN_NAME-1);
+}
+
+void restoreName() {
+  char testHasName[1] = "";
+  EEPROM.readBlock<char>(MEM_OFFSET_NAME, testHasName, 1); 
+  if (testHasName[0] != '#') return;
+  
+  EEPROM.readBlock<char>(MEM_OFFSET_NAME+1, name, MEM_LEN_NAME-1); 
 }
 
 

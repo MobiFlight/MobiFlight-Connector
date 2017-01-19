@@ -239,6 +239,12 @@ namespace MobiFlight.FSUIPC
 
         public static void executeWrite(String value, IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {
+            if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.String)
+            {
+                fsuipcCache.setOffset(cfg.FSUIPCOffset, value);
+                return;
+            }
+
             if (cfg.FSUIPCSize == 1)
             {
                 System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;

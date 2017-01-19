@@ -13,6 +13,8 @@ namespace MobiFlight.Base
 
         void setOffset(int offset, int value);
 
+        void setOffset(int offset, string value);
+
         void ForceUpdate();
     }
 }

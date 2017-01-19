@@ -7,7 +7,8 @@ namespace MobiFlight.InputConfig
 {
     class LuaMacroInputAction : InputAction
     {
-        const Int16 OFFSET_MACRO_NAME = 0x0D6C;
+        const Int16 OFFSET_MACRO_PARAM = 0x0D6C;
+        const Int16 OFFSET_MACRO_NAME = 0x0D70;
         public String MacroName = "";
         public const String Label = "Lua Macro";
         public const String TYPE = "LuaMacroInputAction";
@@ -43,6 +44,7 @@ namespace MobiFlight.InputConfig
             cfg.Value = MacroName;
 
             // later provide param for value too
+            Log.Instance.log("LuaMacoInputAction:Execute : Calling macro " + MacroName, LogSeverity.Debug);
             FSUIPC.FsuipcHelper.executeWrite(MacroName, cfg, cache);
             cache.ForceUpdate();
         }

@@ -11,13 +11,19 @@ char foo;
 //#define DEBUG 0
 #define MTYPE_MEGA 1
 #define MTYPE_MICRO 2
+#define MTYPE_UNO 3
 #define MF_STEPPER_SUPPORT 1
 #define MF_SERVO_SUPPORT 1
 #define MODULETYPE MTYPE_MEGA
 //#define MODULETYPE MTYPE_MICRO
+//#define MODULETYPE MTYPE_UNO
 
 #if MODULETYPE == MTYPE_MEGA
 #define MODULE_MAX_PINS 58
+#endif
+
+#if MODULETYPE == MTYPE_UNO
+#define MODULE_MAX_PINS 13
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
@@ -25,8 +31,8 @@ char foo;
 #endif
 
 #define STEPS 64
-#define STEPPER_SPEED 750 // 300 already worked, 467, too?
-#define STEPPER_ACCEL 500
+#define STEPPER_SPEED 650 // 300 already worked, 467, too?
+#define STEPPER_ACCEL 900
 
 #if MODULETYPE == MTYPE_MICRO
 #define MAX_OUTPUTS     10
@@ -35,6 +41,15 @@ char foo;
 #define MAX_ENCODERS    4
 #define MAX_STEPPERS    4
 #define MAX_MFSERVOS    4
+#endif
+
+#if MODULETYPE == MTYPE_UNO
+#define MAX_OUTPUTS     8
+#define MAX_BUTTONS     8
+#define MAX_LEDSEGMENTS 1
+#define MAX_ENCODERS    2
+#define MAX_STEPPERS    2
+#define MAX_MFSERVOS    2
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
@@ -78,7 +93,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.5.0 : Improve servo behaviour
 // 1.6.0 : Set name
 // 1.6.1 : Reduce servo noise
-const char version[8] = "1.6.1";
+// 1.7.0 : New Arduino IDE, new AVR, Uno Support
+const char version[8] = "1.7.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]               = "MobiFlight Mega";
@@ -93,6 +109,14 @@ char type[20]               = "MobiFlight Micro";
 char serial[MEM_LEN_SERIAL] = "0987654321";
 char name[MEM_LEN_NAME]     = "MobiFlight Micro";
 int eepromSize = EEPROMSizeMicro;
+const int  MEM_LEN_CONFIG    = 128;
+#endif
+
+#if MODULETYPE == MTYPE_UNO
+char type[20]               = "MobiFlight Uno";
+char serial[MEM_LEN_SERIAL] = "0987654321";
+char name[MEM_LEN_NAME]     = "MobiFlight Uno";
+int eepromSize = EEPROMSizeUno;
 const int  MEM_LEN_CONFIG    = 128;
 #endif
 
