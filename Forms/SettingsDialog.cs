@@ -784,6 +784,8 @@ namespace MobiFlight
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return;
+
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;
@@ -810,6 +812,8 @@ namespace MobiFlight
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return;
+
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
            
             OpenFileDialog fd = new OpenFileDialog();
@@ -837,6 +841,7 @@ namespace MobiFlight
         private void removeDeviceToolStripButton_Click(object sender, EventArgs e)
         {
             TreeNode node = mfModulesTreeView.SelectedNode;
+            if (node == null) return;
             if (node.Level == 0) return;
 
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
@@ -853,6 +858,8 @@ namespace MobiFlight
         private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return;
+
             if (this.mfModulesTreeView.SelectedNode == null) return;
 
             while (parentNode.Level > 0) parentNode = parentNode.Parent;

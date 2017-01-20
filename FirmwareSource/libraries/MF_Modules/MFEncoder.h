@@ -26,8 +26,8 @@ extern "C"
   typedef void (*encoderEvent) (byte, uint8_t, const String);
 };
 
-#define MF_ENC_MIN -10000
-#define MF_ENC_MAX 10000
+#define MF_ENC_MIN -2147483647
+#define MF_ENC_MAX 2147483647
 
 enum
 {

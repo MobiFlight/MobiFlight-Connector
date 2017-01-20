@@ -92,6 +92,7 @@
     <Compile Include="MobiFlight\TransformationTests.cs" />
     <Compile Include="mock\Base\KeyboardInputMock.cs" />
     <Compile Include="mock\FSUIPC\FSUIPCCacheMock.cs" />
+    <Compile Include="mock\MobiFlight\MobiFlightCacheMock.cs" />
     <Compile Include="Panels\Group\InterpolationPanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -221,6 +222,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -33,7 +33,7 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("macroName", MacroName);
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
         {
             if (MacroName == "") return;
 

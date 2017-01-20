@@ -172,7 +172,8 @@ namespace MobiFlight
             SetName,            // 19
 			GenNewSerial,       // 20
             ResetStepper,       // 21
-            SetZeroStepper      // 21
+            SetZeroStepper,     // 21
+            Retrigger,          // 22
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -526,6 +527,17 @@ namespace MobiFlight
             }
 
             return stepperModules[stepper];
+        }
+
+        public bool Retrigger ()
+        {
+            bool isOk = true;
+            var command = new SendCommand((int)MobiFlightModule.Command.Retrigger, (int)MobiFlightModule.Command.Status);
+            command.AddArgument(Name);
+            ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
+
+            isOk = StatusCommand.Ok;
+            return isOk;
         }
 
         public IModuleInfo GetInfo()

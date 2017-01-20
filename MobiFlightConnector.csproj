@@ -202,7 +202,9 @@
       <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\BooleanConverterConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\RetriggerInputAction.cs" />
     <Compile Include="MobiFlight\KeyboardInputInterface.cs" />
+    <Compile Include="MobiFlight\MobiFlightCacheInterface.cs" />
     <Compile Include="MobiFlight\Transformation.cs" />
     <Compile Include="Panels\BytePanel.cs">
       <SubType>UserControl</SubType>
@@ -418,6 +420,12 @@
     <Compile Include="Panels\EventIdInputPanel.Designer.cs">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\RetriggerInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\RetriggerInputPanel.Designer.cs">
+      <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\LuaMacroInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -551,6 +559,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\PreconditionPanel.resx">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\RetriggerInputPanel.resx">
+      <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\LuaMacroInputPanel.resx">
       <DependentUpon>LuaMacroInputPanel.cs</DependentUpon>

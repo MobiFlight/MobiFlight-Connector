@@ -22,10 +22,13 @@ namespace MobiFlight.Panels
             ActionTypeComboBox.Items.Add(MainForm._tr("none"));
             ActionTypeComboBox.Items.Add("FSUIPC Offset");
             ActionTypeComboBox.SelectedIndex = 0;
+            /*
             ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.LuaMacroInputAction.Label);
+            */
             ActionTypeComboBox.Items.Add("Key");
             ActionTypeComboBox.Items.Add("Event ID");
             ActionTypeComboBox.Items.Add("Jeehell DataPipe");
+            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.RetriggerInputAction.Label);
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 
@@ -56,6 +59,10 @@ namespace MobiFlight.Panels
 
                 case "MobiFlight.InputConfig.LuaMacroInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.LuaMacroInputAction.Label);
+                    break;
+
+                case "MobiFlight.InputConfig.RetriggerInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.RetriggerInputAction.Label);
                     break;
             }
         }

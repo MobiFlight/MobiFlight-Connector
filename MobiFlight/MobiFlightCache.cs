@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace MobiFlight
 {
-    public class MobiFlightCache : ModuleCacheInterface
+    public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
     {
         public delegate void ButtonEventHandler(object sender, ButtonArgs e);
         /// <summary>
@@ -448,7 +448,7 @@ namespace MobiFlight
             }
         }
         
-        internal IEnumerable<IModuleInfo> getModuleInfo()
+        public IEnumerable<IModuleInfo> getModuleInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
             foreach (MobiFlightModuleInfo moduleInfo in getConnectedModules())

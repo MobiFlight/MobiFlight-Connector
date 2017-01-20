@@ -14,9 +14,9 @@ char foo;
 #define MTYPE_UNO 3
 #define MF_STEPPER_SUPPORT 1
 #define MF_SERVO_SUPPORT 1
-#define MODULETYPE MTYPE_MEGA
+//#define MODULETYPE MTYPE_MEGA
 //#define MODULETYPE MTYPE_MICRO
-//#define MODULETYPE MTYPE_UNO
+#define MODULETYPE MTYPE_UNO
 
 #if MODULETYPE == MTYPE_MEGA
 #define MODULE_MAX_PINS 58
@@ -192,8 +192,7 @@ enum
   kSetName,            // 19
   kGenNewSerial,       // 20
   kResetStepper,       // 21
-  kSetZeroStepper,     // 22
-  kTrigger             // 23
+  kSetZeroStepper      // 22
 };
 
 // Callbacks define on which received commands we take action
@@ -218,7 +217,6 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kGenNewSerial, OnGenNewSerial);
   cmdMessenger.attach(kResetStepper, OnResetStepper);
   cmdMessenger.attach(kSetZeroStepper, OnSetZeroStepper);
-  cmdMessenger.attach(kTrigger, OnTrigger);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Attached callbacks");
 #endif  
@@ -850,13 +848,6 @@ void restoreName() {
   if (testHasName[0] != '#') return;
   
   EEPROM.readBlock<char>(MEM_OFFSET_NAME+1, name, MEM_LEN_NAME-1); 
-}
-
-void OnTrigger()
-{
-  for(int i=0; i!=buttonsRegistered; i++) {
-    buttons[i].trigger();
-  }  
 }
 
 

@@ -82,6 +82,15 @@ namespace MobiFlight.Panels
                         (panel as Panels.LuaMacroInputPanel).syncFromConfig(_config.onRelease as LuaMacroInputAction);
 
                     break;
+
+                case MobiFlight.InputConfig.RetriggerInputAction.Label:
+                    panel = new RetriggerInputPanel();
+                    if (isOnPress && _config != null && _config.onPress != null)
+                        (panel as Panels.RetriggerInputPanel).syncFromConfig(_config.onPress as RetriggerInputAction);
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as Panels.RetriggerInputPanel).syncFromConfig(_config.onRelease as RetriggerInputAction);
+
+                    break;
             }
 
             if (panel != null)
@@ -137,6 +146,10 @@ namespace MobiFlight.Panels
                         config.onPress = (onPressActionConfigPanel.Controls[0] as LuaMacroInputPanel).ToConfig();
                         break;
 
+                    case MobiFlight.InputConfig.RetriggerInputAction.Label:
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as RetriggerInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onPress = null;
                         break;
@@ -167,6 +180,9 @@ namespace MobiFlight.Panels
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as LuaMacroInputPanel).ToConfig();
                         break;
 
+                    case MobiFlight.InputConfig.RetriggerInputAction.Label:
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as RetriggerInputPanel).ToConfig();
+                        break;
 
                     default:
                         config.onRelease = null;

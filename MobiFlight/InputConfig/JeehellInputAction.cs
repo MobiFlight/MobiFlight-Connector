@@ -124,7 +124,7 @@ namespace MobiFlight.InputConfig
             return result;
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
         {
             String value = Param;
             IFsuipcConfigItem cfg = CreateFsuipcConfigItem();

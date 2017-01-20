@@ -75,7 +75,7 @@ namespace MobiFlight.InputConfig.Tests
         {
             EventIdInputAction o = generateTestObject();
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
-            o.execute(mock);
+            o.execute(mock, null);
             Assert.AreEqual(mock.Writes.Count, 3, "The message count is not as expected");
             Assert.AreEqual(mock.Writes[0].Offset, 0x3114, "The Param Offset is wrong");
             Assert.AreEqual(mock.Writes[0].Value, "54321", "The Param Value is wrong");

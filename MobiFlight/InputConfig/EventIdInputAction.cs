@@ -39,7 +39,7 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("param", Param.ToString());
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
         {
             cache.setOffset(ParamOffset, Param);
             cache.setOffset(BaseOffset, EventId);            

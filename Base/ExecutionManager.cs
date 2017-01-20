@@ -1067,7 +1067,9 @@ namespace MobiFlight
                 Log.Instance.log("No config found for button: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
-            
+
+            Log.Instance.log("Config found for button: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
+
             ConnectorValue currentValue = new ConnectorValue();
 
             foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
@@ -1082,7 +1084,7 @@ namespace MobiFlight
                     if (!checkPrecondition(tuple.Item1, currentValue)) continue;
                 }
 
-                tuple.Item1.execute(fsuipcCache, e);
+                tuple.Item1.execute(fsuipcCache, mobiFlightCache, e);
             }
 
             fsuipcCache.ForceUpdate();

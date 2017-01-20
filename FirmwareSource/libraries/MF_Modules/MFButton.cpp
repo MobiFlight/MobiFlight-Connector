@@ -22,12 +22,17 @@ void MFButton::update()
     _last = now;
     if (newState!=_state) {     
       _state = newState;
-      if (newState==LOW && _handlerList[btnOnPress]!= NULL) {
+      trigger();      
+    }
+}
+
+void MFButton::trigger()
+{
+      if (_state==LOW && _handlerList[btnOnPress]!= NULL) {
         (*_handlerList[btnOnPress])(btnOnPress, _pin, _name);
       }
       else if (_handlerList[btnOnRelease] != NULL)
         (*_handlerList[btnOnRelease])(btnOnRelease, _pin, _name);
-    }
 }
 
 void MFButton::attachHandler(byte eventId, buttonEvent newHandler)

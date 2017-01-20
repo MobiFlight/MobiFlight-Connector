@@ -97,7 +97,7 @@ namespace MobiFlight.Panels
         private void testButton_Click(object sender, EventArgs e)
         {
             MobiFlight.InputConfig.InputAction tmp = ToConfig();
-            tmp.execute(null);
+            tmp.execute(null, null);
         }
 
         private void fsuipcPresetUseButton_Click(object sender, EventArgs e)

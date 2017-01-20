@@ -66,6 +66,11 @@ namespace MobiFlight.InputConfig
                         onPress = new LuaMacroInputAction();
                         onPress.ReadXml(reader);
                         break;
+
+                    case RetriggerInputAction.TYPE:
+                        onPress = new RetriggerInputAction();
+                        onPress.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -102,6 +107,11 @@ namespace MobiFlight.InputConfig
                         onRelease = new LuaMacroInputAction();
                         onRelease.ReadXml(reader);
                         break;
+
+                    case RetriggerInputAction.TYPE:
+                        onRelease = new RetriggerInputAction();
+                        onRelease.ReadXml(reader);
+                        break;
                 }
             }
         }
@@ -117,17 +127,17 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, ButtonArgs e)
+        internal void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, MobiFlightCache moduleCache, ButtonArgs e)
         {
             if (e.Value == 0 && onPress != null)
             {
                 Log.Instance.log("Executing OnPress: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onPress.execute(fsuipcCache);
+                onPress.execute(fsuipcCache, moduleCache);
             }
             else if (e.Value == 1 && onPress != null)
             {
                 Log.Instance.log("Executing OnRelease: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onRelease.execute(fsuipcCache);
+                onRelease.execute(fsuipcCache, moduleCache);
             }
 
         }

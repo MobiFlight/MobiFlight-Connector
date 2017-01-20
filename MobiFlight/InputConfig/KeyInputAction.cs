@@ -49,7 +49,7 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("key", value);
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
         {
             if (Keyboard != null)
                 Keyboard.SendKeyAsInput(Key, Control, Alt, Shift);

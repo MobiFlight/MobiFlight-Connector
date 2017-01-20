@@ -36,7 +36,8 @@ class MFButton
 public:
     MFButton(uint8_t pin = 1, String name = "Button");
     void update();
-    void attachHandler(byte eventId, buttonEvent newHandler);
+    void trigger();
+    void attachHandler(byte eventId, buttonEvent newHandler);    
     String        _name;
     uint8_t       _pin;
     

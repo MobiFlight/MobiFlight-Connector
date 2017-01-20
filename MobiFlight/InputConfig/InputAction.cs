@@ -17,6 +17,6 @@ namespace MobiFlight.InputConfig
         abstract public void ReadXml(System.Xml.XmlReader reader);
         abstract public void WriteXml(System.Xml.XmlWriter writer);
 
-        abstract public void execute(FSUIPC.FSUIPCCacheInterface cache);
+        abstract public void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache);
     }
 }
