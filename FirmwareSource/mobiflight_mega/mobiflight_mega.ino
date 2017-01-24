@@ -234,13 +234,13 @@ void setup()
   configBuffer[0]='\0';  
   //readBuffer[0]='\0'; 
   generateSerial(false); 
-  Serial.begin(115200);  
   clearRegisteredPins();
   cmdMessenger.printLfCr();   
   attachCommandCallbacks();
   lastCommand = millis();  
   loadConfig();
   restoreName();
+  Serial.begin(115200);  
 }
 
 void generateSerial(bool force) 
@@ -858,8 +858,3 @@ void OnTrigger()
     buttons[i].trigger();
   }  
 }
-
-
-
-
-

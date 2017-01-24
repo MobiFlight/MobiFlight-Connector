@@ -1,0 +1,21 @@
+make clean
+make PID=0x9209 F_CPU=16000000
+copy Caterina.hex Caterina-wiflyin.hex
+make clean
+make PID=0x9207 F_CPU=8000000
+copy Caterina.hex Caterina-lilypadusb.hex
+make clean
+make PID=0x9205 F_CPU=16000000
+copy Caterina.hex Caterina-promicro16.hex
+make clean
+make PID=0x9203 F_CPU=8000000
+copy Caterina.hex Caterina-promicro8.hex 
+make clean
+make PID=0x2B74 F_CPU=16000000
+copy Caterina.hex Caterina-makey.hex
+make clean
+make PID=0xF100 F_CPU=8000000
+copy Caterina.hex Caterina-fio.hex
+make clean
+make PID=0x920B F_CPU=16000000
+copy Caterina.hex Caterina-minibench.hex

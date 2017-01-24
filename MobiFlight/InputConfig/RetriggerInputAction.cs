@@ -7,7 +7,7 @@ namespace MobiFlight.InputConfig
 {
     class RetriggerInputAction : InputAction
     {
-        public const String Label = "Retrigger Buttons";
+        public const String Label = "Retrigger Switches";
         public const String TYPE = "RetriggerInputAction";
         DateTime lastExecution = DateTime.Now;
 
@@ -32,7 +32,7 @@ namespace MobiFlight.InputConfig
         {
             // only execute if not happened last 1 seconds
             if (DateTime.Now.Ticks  - lastExecution.Ticks < 50000000) return;
-            Log.Instance.log("RetriggerInputAction.execute: Seconds since lastExecution " + (DateTime.Now.Ticks - lastExecution.Ticks), LogSeverity.Debug);
+            // Log.Instance.log("RetriggerInputAction.execute: Seconds since lastExecution " + (DateTime.Now.Ticks - lastExecution.Ticks), LogSeverity.Debug);
 
             foreach (MobiFlightModule module in moduleCache.GetModules()) {
                 module.Retrigger();

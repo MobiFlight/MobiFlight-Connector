@@ -1,0 +1,9 @@
+@ECHO OFF
+IF "%1"=="" avrdude -p m32u4 -P usb -c avrispmkii -U flash:w:Caterina.hex -U efuse:w:0xcb:m -U hfuse:w:0xd8:m -U lfuse:w:0xff:m
+IF "%1"=="lilypadusb" avrdude -p m32u4 -P usb -c avrispmkii -U flash:w:Caterina-lilypadusb.hex -U efuse:w:0xfe:m -U hfuse:w:0xd8:m -U lfuse:w:0xff:m
+IF "%1"=="fio" avrdude -p m32u4 -P usb -c avrispmkii -U flash:w:Caterina-fio.hex -U efuse:w:0xfe:m -U hfuse:w:0xd8:m -U lfuse:w:0xff:m
+IF "%1"=="promicro8" avrdude -p m32u4 -P usb -c avrispmkii -U flash:w:Caterina-promicro8.hex -U efuse:w:0xfe:m -U hfuse:w:0xd8:m -U lfuse:w:0xff:m
+IF "%1"=="promicro16" avrdude -p m32u4 -P usb -c avrispmkii -U flash:w:Caterina-promicro16.hex -U efuse:w:0xcb:m -U hfuse:w:0xd8:m -U lfuse:w:0xff:m
+IF "%1"=="makey" avrdude -p m32u4 -P usb -c avrispmkii -U flash:w:Caterina-makey.hex -U efuse:w:0xcb:m -U hfuse:w:0xd8:m -U lfuse:w:0xff:m
+IF "%1"=="wiflyin" avrdude -p m32u4 -P usb -c avrispmkii -U flash:w:Caterina-wiflyin.hex -U efuse:w:0xcb:m -U hfuse:w:0xd8:m -U lfuse:w:0xff:m
+IF "%1"=="minibench" avrdude -p m32u4 -P usb -c avrispmkii -U flash:w:Caterina-minibench.hex -U efuse:w:0xcb:m -U hfuse:w:0xd8:m -U lfuse:w:0xff:m

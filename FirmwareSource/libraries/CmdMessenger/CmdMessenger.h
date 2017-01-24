@@ -42,8 +42,8 @@ extern "C"
 
 #define MAXCALLBACKS        50   // The maximum number of commands   (default: 50)
 //#define MESSENGERBUFFERSIZE 128 // The maximum length of the buffer (default: 64)
-#define MESSENGERBUFFERSIZE 128  // The maximum length of the buffer (default: 64)
-#define MAXSTREAMBUFFERSIZE 128  // The maximum length of the buffer (default: 32)
+#define MESSENGERBUFFERSIZE 64  // The maximum length of the buffer (default: 64)
+#define MAXSTREAMBUFFERSIZE 64  // The maximum length of the buffer (default: 32)
 #define DEFAULT_TIMEOUT     5000 // Time out on unanswered messages. (default: 5s)
 
 // Message States

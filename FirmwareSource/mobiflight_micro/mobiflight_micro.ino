@@ -192,7 +192,8 @@ enum
   kSetName,            // 19
   kGenNewSerial,       // 20
   kResetStepper,       // 21
-  kSetZeroStepper      // 22
+  kSetZeroStepper,     // 22
+  kTrigger             // 23
 };
 
 // Callbacks define on which received commands we take action
@@ -217,6 +218,7 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kGenNewSerial, OnGenNewSerial);
   cmdMessenger.attach(kResetStepper, OnResetStepper);
   cmdMessenger.attach(kSetZeroStepper, OnSetZeroStepper);
+  cmdMessenger.attach(kTrigger, OnTrigger);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Attached callbacks");
 #endif  
@@ -232,13 +234,13 @@ void setup()
   configBuffer[0]='\0';  
   //readBuffer[0]='\0'; 
   generateSerial(false); 
-  Serial.begin(115200);  
   clearRegisteredPins();
   cmdMessenger.printLfCr();   
   attachCommandCallbacks();
   lastCommand = millis();  
   loadConfig();
   restoreName();
+  Serial.begin(115200);  
 }
 
 void generateSerial(bool force) 
@@ -850,7 +852,9 @@ void restoreName() {
   EEPROM.readBlock<char>(MEM_OFFSET_NAME+1, name, MEM_LEN_NAME-1); 
 }
 
-
-
-
-
+void OnTrigger()
+{
+  for(int i=0; i!=buttonsRegistered; i++) {
+    buttons[i].trigger();
+  }  
+}

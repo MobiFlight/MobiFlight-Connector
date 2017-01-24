@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 #if COMMAND_MESSENGER_3_6
 using CommandMessenger.Serialport;
 #endif
+using System.Threading;
 
 namespace MobiFlight
 {
@@ -341,6 +342,9 @@ namespace MobiFlight
         public String InitUploadAndReturnUploadPort()
         {
             String result = _comPort;
+
+            List<String> connectedPorts = SerialPort.GetPortNames().ToList();
+
             Disconnect();
             if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO)
             {
@@ -355,8 +359,13 @@ namespace MobiFlight
                 tmpSerial.StopListening();
 #endif
                 tmpSerial.Dispose();
-
-                result = "COM" + (byte.Parse(_comPort.Substring(3)) - 1);
+                Thread.Sleep(1000);
+                List<String> connectedPorts2 = SerialPort.GetPortNames().ToList();
+                connectedPorts2.Add(_comPort);
+                if (connectedPorts2.Except(connectedPorts).Count() > 0)
+                {
+                    result = connectedPorts2.Except(connectedPorts).Last();
+                }
             };
             return result;
         }
