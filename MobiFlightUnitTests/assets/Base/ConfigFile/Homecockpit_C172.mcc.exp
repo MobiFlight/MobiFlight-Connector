@@ -5,153 +5,165 @@
       <active>true</active>
       <description>Master Battery Switch (PreCon)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <comparison active="False" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="-" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="0b9418e9-47a9-400c-9c8a-317add6e5381">
       <active>true</active>
       <description>Avionics Switch (PreCon)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <comparison active="False" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="-" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="5475ec4f-64ed-47b9-adba-e1ad19199dfc">
       <active>true</active>
       <description>COM1 Active (ON)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="4d7decfc-3d55-4652-8836-62bd56db45fb">
       <active>true</active>
       <description>COM1 Active (OFF)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="        " elseValue="        " />
         <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="08a7e927-7dfb-4d3d-8f9f-fd70ff3bd2ef">
       <active>true</active>
       <description>COM1 Standby (ON)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="3" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="19499a2a-dd17-4bcb-93e6-edeba3fa032f">
       <active>true</active>
       <description>COM1 Standby (OFF)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="        " elseValue="        " />
         <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="3" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="5ea966e6-169e-4459-b86d-65a934d5df0e">
       <active>true</active>
       <description>NAV1 Active (ON)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="2" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="4d6cf1e8-ae19-400d-a19c-52993333828f">
       <active>true</active>
       <description>NAV1 Active (OFF)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="     " elseValue="      " />
         <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="2" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="7744df79-377f-4895-90b9-a60ea2c4c99b">
       <active>true</active>
       <description>NAV1 Standby (ON)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="4" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="a9a97b6f-0eb3-4ae8-ad9b-2c5476624ccc">
       <active>true</active>
       <description>NAV1 Standby (OFF)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <comparison active="True" value="0" operand="=" ifValue="     " elseValue="     " />
         <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="4" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" logic="and" />
         </preconditions>
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="13f1c313-d8d1-4139-9778-a0d0bf0b4bea">
       <active>true</active>
       <description>Nav1 Freq Sel (PreCon)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x66C1" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x66C1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="a18ef589-d13f-48cc-9ddb-8c037be68387">
       <active>true</active>
       <description>COM1 Freq Sel (PreCon)</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="bc39f5a3-9f89-4cf5-aa88-fb8c34cd9f96">
       <active>true</active>
       <description>Trim Wheel Setting</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0BC2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x0BC2" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-        <display type="Stepper" serial="C172Left/ SN-33a-cbd" trigger="normal" stepperAddress="TrimPosition" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-180">
+        <display type="Stepper" serial="C172Left/ SN-33a-cbd" trigger="normal" stepperAddress="TrimPosition" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-180" stepperCompassMode="False">
           <interpolation active="True">
             <value x="-16000" y="180" />
             <value x="0" y="0" />
@@ -159,81 +171,89 @@
           </interpolation>
         </display>
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="24e684e1-9f3c-4d0e-9493-0b959feaf672">
       <active>true</active>
       <description>Flaps Position Indicator</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="False" value="10908" operand="=" ifValue="1" elseValue="0" />
-        <display type="Stepper" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-143">
+        <display type="Stepper" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-143" stepperCompassMode="False">
           <interpolation active="True">
             <value x="0" y="0" />
             <value x="16383" y="-143" />
           </interpolation>
         </display>
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="038ee5f8-d415-44b1-9416-95c81850aa8c">
       <active>true</active>
       <description>Left Green</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="LeftGreen" pinBrightness="255" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="0f909a12-d688-45a9-bb0e-4aff0264b52b">
       <active>true</active>
       <description>Right Green</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="RightGreen" pinBrightness="255" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="3ff5083a-653c-41f5-997c-8a4b68f57b82">
       <active>true</active>
       <description>Left Red</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="LeftRed" pinBrightness="255" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="ca7a0a46-e414-460a-b2e4-78e9b290ec4b">
       <active>true</active>
       <description>Right Red</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="RightRed" pinBrightness="255" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="eaaea7cb-d58d-4655-8249-868e0a67e158">
       <active>true</active>
       <description>Top Red</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="NoseRed" pinBrightness="255" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
     <config guid="523d76ff-7381-40f2-b084-14b009570939">
       <active>true</active>
       <description>Top Green</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="FSUIPC" offset="0x0BEC" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <source type="FSUIPC" offset="0x0BEC" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="NoseGreen" pinBrightness="255" />
         <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
       </settings>
     </config>
   </outputs>
@@ -244,10 +264,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="MasterBattery" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -259,10 +279,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Generator" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -274,10 +294,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="FuelPump" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x3104" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x3104" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x3104" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x3104" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -289,10 +309,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Beacon" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0002" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0002" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0002" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0002" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -304,10 +324,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Landing" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="1" mask="0x0004" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="1" mask="0x0004" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="1" mask="0x0004" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="1" mask="0x0004" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -319,10 +339,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Taxi" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0008" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0008" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0008" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0008" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -334,10 +354,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="NavLight" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0001" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0001" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0001" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0001" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -349,10 +369,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Strobe" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0010" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0010" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0010" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0010" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -364,10 +384,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Pitot" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -379,10 +399,10 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Avionics Master" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="0" />
           </onRelease>
         </button>
         <preconditions />
@@ -394,7 +414,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Starter START" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="4" />
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="4" />
           </onPress>
           <onRelease />
         </button>
@@ -407,7 +427,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Starter BOTH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="3" />
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="3" />
           </onPress>
           <onRelease />
         </button>
@@ -420,7 +440,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Starter 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="2" />
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="2" />
           </onPress>
           <onRelease />
         </button>
@@ -433,7 +453,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Starter 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="1" />
           </onPress>
           <onRelease />
         </button>
@@ -446,7 +466,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172Left/ SN-33a-cbd" name="Starter Off" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="0" />
           </onPress>
           <onRelease />
         </button>
@@ -466,11 +486,11 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="Com1Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;1900,$-100,$+1800)" />
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&gt;1900,$-100,$+1800)" />
           </onLeft>
           <onLeftFast />
           <onRight type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;3697,$+100,$-1800)" />
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&lt;3697,$+100,$-1800)" />
           </onRight>
           <onRightFast />
         </encoder>
@@ -485,11 +505,11 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="Com1Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=1800,if($%5==0,$-3,$-2),3697)" />
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&gt;=1800,if($%5==0,$-3,$-2),3697)" />
           </onLeft>
           <onLeftFast />
           <onRight type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;3697,if($%5==0,$+2,$+3),1800)" />
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&lt;3697,if($%5==0,$+2,$+3),1800)" />
           </onRight>
           <onRightFast />
         </encoder>
@@ -504,11 +524,11 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="Nav1Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
+            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
           </onLeft>
           <onLeftFast />
           <onRight type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
+            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
           </onRight>
           <onRightFast />
         </encoder>
@@ -523,11 +543,11 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="Nav1Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=800,$-5,1795)" />
+            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&gt;=800,$-5,1795)" />
           </onLeft>
           <onLeftFast />
           <onRight type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1795,$+5,800)" />
+            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&lt;1795,$+5,800)" />
           </onRight>
           <onRightFast />
         </encoder>
@@ -542,7 +562,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="Nav1EncoderBtn" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x66C1" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="if($==1,0,1)" />
+            <source type="FSUIPC" offset="0x66C1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="if($==1,0,1)" />
           </onPress>
           <onRelease />
         </button>
@@ -555,7 +575,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="Com1 Encoder Btn" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="if($==1,0,1)" />
+            <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="if($==1,0,1)" />
           </onPress>
           <onRelease />
         </button>
@@ -568,7 +588,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="Nav1 Switch" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="66448" />
+            <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="66448" />
           </onPress>
           <onRelease />
         </button>
@@ -581,7 +601,7 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="COM Switch" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
-            <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="66372" />
+            <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="66372" />
           </onPress>
           <onRelease />
         </button>

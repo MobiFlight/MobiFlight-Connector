@@ -84,8 +84,8 @@ namespace MobiFlight.Tests
                 s1 = System.IO.File.ReadAllText(expFile);
                 s2 = System.IO.File.ReadAllText(inFileTemp);
 
-                System.IO.File.Delete(inFileTemp);
                 Assert.AreEqual(s1, s2, "Files are not the same");
+                System.IO.File.Delete(inFileTemp);
             }
         }
 

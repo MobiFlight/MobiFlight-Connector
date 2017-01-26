@@ -212,6 +212,9 @@
     <None Include="assets\Base\ConfigFile\example-tutorial-7-segment.mcc.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="assets\Base\ConfigFile\Homecockpit_C172.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="assets\Base\ConfigFile\mobiflight-in-action-episode-1.mcc.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
