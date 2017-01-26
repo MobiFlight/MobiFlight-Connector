@@ -6,7 +6,7 @@ using MobiFlight;
 
 namespace MobiFlight.FSUIPC
 {
-    public class FsuipcHelper
+    public static class FsuipcHelper
     {
         public static ConnectorValue executeRead(IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {

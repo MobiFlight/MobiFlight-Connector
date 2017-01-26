@@ -483,6 +483,7 @@
     <Compile Include="Forms\WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
+    <None Include="Build\build-firmware.bat" />
     <None Include="Build\Default.SFX" />
     <None Include="Build\release.bat" />
     <None Include="Build\sfx-mobiflight.diz" />

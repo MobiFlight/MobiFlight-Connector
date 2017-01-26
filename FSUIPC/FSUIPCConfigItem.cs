@@ -7,6 +7,10 @@ namespace MobiFlight.FSUIPC
 {
     class FSUIPCConfigItem : IFsuipcConfigItem
     {
+        public FSUIPCConfigItem()
+        {
+            Transform = new Transformation();
+        }
         public bool FSUIPCBcdMode
         {
             get;

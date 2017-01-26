@@ -55,8 +55,7 @@ namespace MobiFlight.InputConfig
             result.FSUIPCSize = 1;
             result.FSUIPCMask = 0xFF;
             result.FSUIPCBcdMode = false;
-            result.FSUIPCMultiplier = 1;
-
+            
             return result;
         }
 
@@ -67,7 +66,7 @@ namespace MobiFlight.InputConfig
             result.FSUIPCSize = 2;
             result.FSUIPCMask = 0xFFFF;
             result.FSUIPCBcdMode = false;
-            result.FSUIPCMultiplier = 1;
+
             switch (EventId)
             {
                 case 1:
