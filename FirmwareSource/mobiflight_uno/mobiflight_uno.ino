@@ -710,8 +710,8 @@ void OnGetConfig()
 void OnSetPin()
 {
   // Read led state argument, interpret string as boolean
-  int pin = cmdMessenger.readIntArg();
-  int state = cmdMessenger.readIntArg();
+  int pin = cmdMessenger.readInt16Arg();
+  int state = cmdMessenger.readInt16Arg();
   // Set led
   digitalWrite(pin, state > 0 ? HIGH : LOW);
   lastCommand = millis();
@@ -719,20 +719,20 @@ void OnSetPin()
 
 void OnInitModule()
 {
-  int module = cmdMessenger.readIntArg();
-  int subModule = cmdMessenger.readIntArg();  
-  int brightness = cmdMessenger.readIntArg();
+  int module = cmdMessenger.readInt16Arg();
+  int subModule = cmdMessenger.readInt16Arg();  
+  int brightness = cmdMessenger.readInt16Arg();
   ledSegments[module].setBrightness(subModule,brightness);
   lastCommand = millis();
 }
 
 void OnSetModule()
 {
-  int module = cmdMessenger.readIntArg();
-  int subModule = cmdMessenger.readIntArg();  
+  int module = cmdMessenger.readInt16Arg();
+  int subModule = cmdMessenger.readInt16Arg();  
   char * value = cmdMessenger.readStringArg();
-  byte points = (byte) cmdMessenger.readIntArg();
-  byte mask = (byte) cmdMessenger.readIntArg();
+  byte points = (byte) cmdMessenger.readInt16Arg();
+  byte mask = (byte) cmdMessenger.readInt16Arg();
 /**
 #ifdef DEBUG  
   cmdMessenger.sendCmdStart(kStatus);
@@ -750,8 +750,8 @@ void OnSetModule()
 #if MF_STEPPER_SUPPORT == 1
 void OnSetStepper()
 {
-  int stepper    = cmdMessenger.readIntArg();
-  int newPos     = cmdMessenger.readIntArg();
+  int stepper    = cmdMessenger.readInt16Arg();
+  int newPos     = cmdMessenger.readInt16Arg();
   
   if (stepper >= steppersRegistered) return;
   steppers[stepper]->moveTo(newPos);
@@ -760,7 +760,7 @@ void OnSetStepper()
 
 void OnResetStepper()
 {
-  int stepper    = cmdMessenger.readIntArg();
+  int stepper    = cmdMessenger.readInt16Arg();
   
   if (stepper >= steppersRegistered) return;
   steppers[stepper]->reset();
@@ -769,7 +769,7 @@ void OnResetStepper()
 
 void OnSetZeroStepper()
 {
-  int stepper    = cmdMessenger.readIntArg();
+  int stepper    = cmdMessenger.readInt16Arg();
   
   if (stepper >= steppersRegistered) return;
   steppers[stepper]->setZero();
@@ -778,8 +778,8 @@ void OnSetZeroStepper()
 
 void OnSetServo()
 { 
-  int servo    = cmdMessenger.readIntArg();
-  int newValue = cmdMessenger.readIntArg();
+  int servo    = cmdMessenger.readInt16Arg();
+  int newValue = cmdMessenger.readInt16Arg();
   if (servo >= servosRegistered) return;
   servos[servo].moveTo(newValue);  
   lastCommand = millis();
