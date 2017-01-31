@@ -212,7 +212,17 @@ namespace MobiFlight
                     }
                     else
                     {
-                        Version latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareMega);
+                        Version latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMega);
+                        switch(module.Type)
+                        {
+                            case MobiFlightModuleInfo.TYPE_ARDUINO_MICRO:
+                                latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMicro);
+                                break;
+
+                            case MobiFlightModuleInfo.TYPE_ARDUINO_UNO:
+                                latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareUno);
+                                break;
+                        }
                         Version currentVersion = new Version(module.Version);
                         if (currentVersion.CompareTo(latestVersion) < 0)
                         {
@@ -597,6 +607,8 @@ namespace MobiFlight
         void mfConfigDeviceObject_changed(object sender, EventArgs e)
         {
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return;
+
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
             String UniqueName;
@@ -699,6 +711,8 @@ namespace MobiFlight
                     return;
             }
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return; 
+
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
             List<String> NodeNames = new List<String>();
             foreach (TreeNode node in parentNode.Nodes)
@@ -737,6 +751,8 @@ namespace MobiFlight
             }
 
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return;
+
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;
@@ -1064,6 +1080,8 @@ namespace MobiFlight
         private void regenerateSerialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return;
+
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;
             try

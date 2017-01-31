@@ -15,9 +15,6 @@ namespace MobiFlight
          */
         public static String ArduinoIdePath { get; set; }
         public static String AvrPath { get { return "hardware\\tools\\avr"; } }
-        public static String LatestFirmwareMega = "1.7.0";
-        public static String LatestFirmwareMicro = "1.7.0";
-        public static String LatestFirmwareUno = "1.7.0";
 
         /***
          * C:\\Users\\SEBAST~1\\AppData\\Local\\Temp\\build2060068306446321513.tmp\\cmd_test_mega.cpp.hex
@@ -71,20 +68,20 @@ namespace MobiFlight
 
         public static void RunAvrDude(String Port, String ArduinoType) 
         {
-            String FirmwareName = "mobiflight_mega_" + LatestFirmwareMega.Replace('.', '_') + ".hex"; 
+            String FirmwareName = "mobiflight_mega_" + MobiFlightModuleInfo.LatestFirmwareMega.Replace('.', '_') + ".hex"; 
             String ArduinoChip = "atmega2560";
             String Bytes = "115200";
             String C = "wiring";
 
             if (MobiFlightModuleInfo.TYPE_ARDUINO_MICRO == ArduinoType) {
-                FirmwareName = "mobiflight_micro_" + LatestFirmwareMicro.Replace('.', '_') + ".hex";
+                FirmwareName = "mobiflight_micro_" + MobiFlightModuleInfo.LatestFirmwareMicro.Replace('.', '_') + ".hex";
                 ArduinoChip = "atmega32u4"; 
                 Bytes = "57600"; 
                 C = "avr109"; 
             } else if (MobiFlightModuleInfo.TYPE_ARDUINO_UNO == ArduinoType)
             {
                 //:\Projekte\MobiFlightFC\FirmwareSource\arduino - 1.8.0\hardware\tools\avr / bin / avrdude - CD:\Projekte\MobiFlightFC\FirmwareSource\arduino - 1.8.0\hardware\tools\avr / etc / avrdude.conf - v - patmega328p - carduino - PCOM11 - b115200 - D - Uflash:w: C: \Users\SEBAST~1\AppData\Local\Temp\arduino_build_118832 / mobiflight_mega.ino.hex:i
-                FirmwareName = "mobiflight_uno_" + LatestFirmwareUno.Replace('.', '_') + ".hex";
+                FirmwareName = "mobiflight_uno_" + MobiFlightModuleInfo.LatestFirmwareUno.Replace('.', '_') + ".hex";
                 ArduinoChip = "atmega328p";
                 Bytes = "115200";
                 C = "arduino";

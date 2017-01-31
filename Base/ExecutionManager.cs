@@ -536,7 +536,7 @@ namespace MobiFlight
                                                 cfg.FSUIPCSize
                                                 );
 
-                    result.Float64 = (int)(Math.Round(value64, 0));
+                    result.Float64 = value64;
 
                     break;
             }

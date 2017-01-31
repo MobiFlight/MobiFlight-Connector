@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -62,7 +63,8 @@ namespace MobiFlight
 
             if (!Active) return result;
 
-            string exp = Expression.Replace("$", value.ToString());
+            // we have to use the US culture because "." must be used as decimal separator
+            string exp = Expression.Replace("$", value.ToString(new CultureInfo("en-US")));
             var ce = new NCalc.Expression(exp);
             try
             {

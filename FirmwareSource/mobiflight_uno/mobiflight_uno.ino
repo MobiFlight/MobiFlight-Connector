@@ -94,29 +94,30 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.6.0 : Set name
 // 1.6.1 : Reduce servo noise
 // 1.7.0 : New Arduino IDE, new AVR, Uno Support
-const char version[8] = "1.7.0";
+// 1.7.1 : More UNO stability
+const char version[8] = "1.7.1";
 
 #if MODULETYPE == MTYPE_MEGA
-char type[20]               = "MobiFlight Mega";
-char serial[MEM_LEN_SERIAL] = "1234567890";
-char name[MEM_LEN_NAME]     = "MobiFlight Mega";
-int eepromSize = EEPROMSizeMega;
+char type[20]                = "MobiFlight Mega";
+char serial[MEM_LEN_SERIAL]  = "1234567890";
+char name[MEM_LEN_NAME]      = "MobiFlight Mega";
+int eepromSize               = EEPROMSizeMega;
 const int  MEM_LEN_CONFIG    = 1024;
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
-char type[20]               = "MobiFlight Micro";
-char serial[MEM_LEN_SERIAL] = "0987654321";
-char name[MEM_LEN_NAME]     = "MobiFlight Micro";
-int eepromSize = EEPROMSizeMicro;
+char type[20]                = "MobiFlight Micro";
+char serial[MEM_LEN_SERIAL]  = "0987654321";
+char name[MEM_LEN_NAME]      = "MobiFlight Micro";
+int eepromSize               = EEPROMSizeMicro;
 const int  MEM_LEN_CONFIG    = 128;
 #endif
 
 #if MODULETYPE == MTYPE_UNO
-char type[20]               = "MobiFlight Uno";
-char serial[MEM_LEN_SERIAL] = "0987654321";
-char name[MEM_LEN_NAME]     = "MobiFlight Uno";
-int eepromSize = EEPROMSizeUno;
+char type[20]                = "MobiFlight Uno";
+char serial[MEM_LEN_SERIAL]  = "0987654321";
+char name[MEM_LEN_NAME]      = "MobiFlight Uno";
+int eepromSize               = EEPROMSizeUno;
 const int  MEM_LEN_CONFIG    = 128;
 #endif
 
@@ -257,8 +258,10 @@ void loadConfig()
 {
   resetConfig();
   EEPROM.readBlock<char>(MEM_OFFSET_CONFIG, configBuffer, MEM_LEN_CONFIG);  
-  //cmdMessenger.sendCmd(kStatus, "Restored config");
-  //cmdMessenger.sendCmd(kStatus, configBuffer);  
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus, "Restored config");
+  cmdMessenger.sendCmd(kStatus, configBuffer);  
+#endif
   configLength = 0;
   for(configLength=0;configLength!=MEM_LEN_CONFIG;configLength++) {
     if (configBuffer[configLength]!='\0') continue;
@@ -360,7 +363,7 @@ void AddOutput(uint8_t pin = 1, String name = "Output")
   registerPin(pin, kTypeOutput);
   outputsRegistered++;
 #ifdef DEBUG  
-  //cmdMessenger.sendCmd(kStatus, "Added output " + name);
+  cmdMessenger.sendCmd(kStatus, "Added output " + name);
 #endif  
 }
 
@@ -387,7 +390,7 @@ void AddButton(uint8_t pin = 1, String name = "Button")
   registerPin(pin, kTypeButton);
   buttonsRegistered++;
 #ifdef DEBUG  
-  //cmdMessenger.sendCmd(kStatus, "Added button " + name);
+  cmdMessenger.sendCmd(kStatus, "Added button " + name);
 #endif
 }
 
@@ -416,7 +419,7 @@ void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, String name = "Encoder")
   registerPin(pin1, kTypeEncoder); registerPin(pin2, kTypeEncoder);    
   encodersRegistered++;
 #ifdef DEBUG  
-  //cmdMessenger.sendCmd(kStatus,"Added encoder");
+  cmdMessenger.sendCmd(kStatus,"Added encoder");
 #endif
 }
 
@@ -457,7 +460,7 @@ void ClearLedSegments()
   }
   ledSegmentsRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Cleared segments");
+  cmdMessenger.sendCmd(kStatus, "Cleared segments");
 #endif  
 }
 
@@ -482,12 +485,12 @@ void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
 #endif 
     return;
   }
-  
-  // steppers[steppersRegistered] = new AccelStepper(AccelStepper::FULL4WIRE, pin4, pin2, pin1, pin3); // lc is our object 
   steppers[steppersRegistered] = new MFStepper(pin1, pin2, pin3, pin4 /*, btnPin1*/ ); // is our object 
   steppers[steppersRegistered]->setMaxSpeed(STEPPER_SPEED);
   steppers[steppersRegistered]->setAcceleration(STEPPER_ACCEL);
-  registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper); registerPin(btnPin1, kTypeStepper);
+  registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper); 
+  // autoreset is not released yet
+  // registerPin(btnPin1, kTypeStepper);
   steppersRegistered++;
   
 #ifdef DEBUG  
@@ -564,13 +567,9 @@ void OnSetConfig()
   String cfg = cmdMessenger.readStringArg();
   int bufferSize = MEM_LEN_CONFIG - configLength;
   if (bufferSize<1) return;
-  //cmdMessenger.sendCmd(kStatus,cfg);
-  //cmdMessenger.sendCmd(kStatus,configBuffer);
   cfg.toCharArray(&configBuffer[configLength], bufferSize);
   configLength += cfg.length();
   cmdMessenger.sendCmd(kStatus,"OK");
-  //cmdMessenger.sendCmd(kStatus,configBuffer);
-  // readConfig(cfg);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Setting config end");
 #endif
@@ -597,15 +596,15 @@ void OnResetConfig()
 
 void OnSaveConfig()
 {
-  cmdMessenger.sendCmd(kConfigSaved, "OK");
+  cmdMessenger.sendCmd(kConfigSaved, 0);
   storeConfig();
 }
 
 void OnActivateConfig() 
 {
   readConfig(configBuffer);
+  cmdMessenger.sendCmd(kConfigActivated, 0);
   activateConfig();
-  cmdMessenger.sendCmd(kConfigActivated, "OK");
 }
 
 void activateConfig() {
@@ -687,7 +686,7 @@ void readConfig(String cfg) {
 void OnUnknownCommand()
 {
   lastCommand = millis();
-  cmdMessenger.sendCmd(kStatus,"No callback");
+  cmdMessenger.sendCmd(kStatus,"n/a");
 }
 
 void OnGetInfo() {
@@ -698,7 +697,6 @@ void OnGetInfo() {
   cmdMessenger.sendCmdArg(serial);
   cmdMessenger.sendCmdArg(version);
   cmdMessenger.sendCmdEnd();
-//  cmdMessenger.sendCmd(kInfo, type + "," + name);
 }
 
 void OnGetConfig() 
@@ -782,10 +780,7 @@ void OnSetServo()
 { 
   int servo    = cmdMessenger.readIntArg();
   int newValue = cmdMessenger.readIntArg();
-//  cmdMessenger.sendCmd(kStatus,servo);
-//  cmdMessenger.sendCmd(kStatus,servosRegistered);
   if (servo >= servosRegistered) return;
-//  cmdMessenger.sendCmd(kStatus,newValue);
   servos[servo].moveTo(newValue);  
   lastCommand = millis();
 }
@@ -793,7 +788,6 @@ void OnSetServo()
 void updateSteppers()
 {
   for (int i=0; i!=steppersRegistered; i++) {
-    //steppers[i]->run();
     steppers[i]->update();
   }
 }
@@ -802,7 +796,6 @@ void updateSteppers()
 void updateServos()
 {
   for (int i=0; i!=servosRegistered; i++) {
-    //steppers[i]->run();
     servos[i].update();
   }
 }

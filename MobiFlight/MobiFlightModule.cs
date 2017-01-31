@@ -81,6 +81,7 @@ namespace MobiFlight
             get {                    
                     if (_config==null) {
                         if (!Connected) return null;
+                        
                         var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
                         var InfoCommand = _cmdMessenger.SendCommand(command);
                         int count = 0;
@@ -90,10 +91,13 @@ namespace MobiFlight
                         // it seems that after connecting (and resetting) 
                         // it takes a while until the messages
                         // arrive properly on the PC side
-                        while (!InfoCommand.Ok && count++ < 10)
+                        /*
+                        while (!InfoCommand.Ok && count++ < 3)
                         {
+                            Thread.Sleep(CommandTimeout);
                             InfoCommand = _cmdMessenger.SendCommand(command);
                         }
+                        */
                         if (InfoCommand.Ok)
                         {
                             _config = new Config.Config(InfoCommand.ReadStringArg());

@@ -24,7 +24,7 @@ namespace MobiFlight.Tests
             t.Expression = "$*2";
             Assert.AreEqual(2.0, t.Apply(1));
             t.Expression = "$*2";
-            Assert.AreEqual(2.0, t.Apply(1.0));
+            Assert.AreEqual(2.4, t.Apply(1.2));
             t.Expression = "$*2.0";
             Assert.AreEqual(2.0, t.Apply(1));
 

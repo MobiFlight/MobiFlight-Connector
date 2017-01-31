@@ -154,11 +154,11 @@ namespace MobiFlight
                     module.Type == MobiFlightModuleInfo.TYPE_UNO
                     )
                     {
-                    Version latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareMega);
+                    Version latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMega);
                     if (module.Type == MobiFlightModuleInfo.TYPE_MICRO)
-                        latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareMicro);
+                        latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMicro);
                     if (module.Type == MobiFlightModuleInfo.TYPE_UNO)
-                        latestVersion = new Version(MobiFlightFirmwareUpdater.LatestFirmwareUno);
+                        latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareUno);
 
                     Version currentVersion = new Version(module.Version);
                     if (currentVersion.CompareTo(latestVersion) < 0)
