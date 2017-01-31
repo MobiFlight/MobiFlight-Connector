@@ -62,5 +62,8 @@ To be defined...
 * Code review
 * Other guidelines
 
+### Get more information ###
+Look at the wiki to [check for further information ](https://bitbucket.org/mobiflight/mobiflightfc/wiki/)
+
 ### Who do I talk to? ###
 Sebastian
