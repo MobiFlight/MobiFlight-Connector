@@ -85,9 +85,9 @@ namespace MobiFlight.Panels.Group
             }
             catch (Exception)
             {
-                MessageBox.Show(MainForm._tr("uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease"), MainForm._tr("hint"));
-                (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = MainForm._tr("uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease");
-                (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = MainForm._tr("uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease");
+                MessageBox.Show(MainForm._tr("uiMessageConfigWizardInterpolationOnlyNumbersPlease"), MainForm._tr("hint"));
+                (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = MainForm._tr("uiMessageConfigWizardInterpolationOnlyNumbersPlease");
+                (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = MainForm._tr("uiMessageConfigWizardInterpolationOnlyNumbersPlease");
                 e.Cancel = true;
             }
         }

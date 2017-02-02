@@ -54,5 +54,8 @@
     <Setting Name="JeehellPresetFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">presets_jeehell.cip</Value>
     </Setting>
+    <Setting Name="FwAutoUpdateCheck" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

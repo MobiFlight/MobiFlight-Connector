@@ -211,6 +211,12 @@ Helligkeit</value>
   <data name="arcazeModuleTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="arcazeModuleSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>182, 34</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 336</value>
+  </data>
   <data name="arcazeModuleSettingsGroupBox.Text" xml:space="preserve">
     <value>Einstellungen Extension-Modul</value>
   </data>
@@ -233,6 +239,15 @@ Helligkeit</value>
         aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8yBgQAAAAABgUAAAANTUZfTUlDUk9f
         Q09NNQD/////CQQAAAD/////CQQAAAAAAAAACw==
 </value>
+  </data>
+  <data name="ArcazeModuleTreeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 317</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 34</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 336</value>
   </data>
   <data name="arcazeModulesGroupBox.Text" xml:space="preserve">
     <value>Verfügbare Arcaze Module</value>
@@ -381,62 +396,42 @@ Helligkeit</value>
         X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
 </value>
   </data>
-  <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 238</value>
-  </data>
-  <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 238</value>
-  </data>
-  <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 28</value>
-  </data>
   <data name="uploadToolStripButton.Text" xml:space="preserve">
     <value>Aktuelle Konfiguration in Modul speichern</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 31</value>
-  </data>
-  <data name="openToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 28</value>
   </data>
   <data name="openToolStripButton.Text" xml:space="preserve">
     <value>Konfiguration laden</value>
   </data>
-  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 28</value>
-  </data>
   <data name="saveToolStripButton.Text" xml:space="preserve">
     <value>Aktuelle Konfiguration in Datei speichern</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 31</value>
   </data>
   <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
     <value>Schalter</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 28</value>
+    <value>107, 22</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
     <value>Neues Device</value>
   </data>
   <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 28</value>
+    <value>109, 22</value>
   </data>
   <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
     <value>Entferne Device</value>
   </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 31</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 254</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 31</value>
-  </data>
   <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
     <value>Angeschlossene Module</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>170, 17</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Text" xml:space="preserve">
+    <value>Firmware Auto Upload aktiviert</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.ToolTip" xml:space="preserve">
+    <value>MobiFlight prüft bei jedem Start alle angeschlossenen Arduino boards.
+Falls aktiviert, wirst Du gefragt ob du die MobiFlight Firmware hochladen möchtest.</value>
   </data>
   <data name="firmwareArduinoIdeLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 13</value>

@@ -364,7 +364,7 @@ You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</v
     <value>The value must not be empty.</value>
   </data>
   <data name="uiMessageUpdateArduinoOkCancel" xml:space="preserve">
-    <value>There are Arduino Megas connected to your PC - do you want to upload the MobiFlight Firmware to them?</value>
+    <value>There are Arduinos connected to your PC - do you want to upload the MobiFlight Firmware to them?</value>
   </data>
   <data name="uiMessageUpdateOldFirmwareOkCancel" xml:space="preserve">
     <value>Some Mobiflight Boards have an old firmware - update them now</value>
@@ -381,10 +381,14 @@ You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</v
   <data name="uiMessageConfigWizard_ValidNumberInRange" xml:space="preserve">
     <value>Value must be a number between {0} and {1}.</value>
   </data>
-  <data name="uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease" xml:space="preserve">
+  <data name="uiMessageConfigWizardInterpolationOnlyNumbersPlease" xml:space="preserve">
     <value>Only numbers allowed. Please check your input.</value>
   </data>
   <data name="uiMessageProblemLoadingConfig" xml:space="preserve">
     <value>Your Config could not be loaded. Please check for syntax errors.</value>
+  </data>
+  <data name="uiMessageUpdateArduinoFwAutoDisableYesNo" xml:space="preserve">
+    <value>Do you want to disable the automatic upload to new arduinos?
+You can always enable it later again in the settings menu.</value>
   </data>
 </root>

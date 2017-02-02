@@ -180,7 +180,7 @@ namespace MobiFlight
                 }
             }
 
-            if (modulesForFlashing.Count > 0 ||modulesForUpdate.Count > 0)
+            if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 ||modulesForUpdate.Count > 0))
             {
                 if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(Properties.Settings.Default.ArduinoIdePath))
                 {
@@ -210,12 +210,14 @@ namespace MobiFlight
                 };
             }
 
-            if (modulesForFlashing.Count > 0)
+            if (Properties.Settings.Default.FwAutoUpdateCheck && modulesForFlashing.Count > 0)
             {
-                if (MessageBox.Show(
+                DialogResult dr = MessageBox.Show(
                     _tr("uiMessageUpdateArduinoOkCancel"),
                     _tr("Hint"),
-                    MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    MessageBoxButtons.OKCancel);
+
+                if (dr == DialogResult.OK)
                 {
                     SettingsDialog dlg = new SettingsDialog(execManager);
                     dlg.StartPosition = FormStartPosition.CenterParent;
@@ -225,9 +227,20 @@ namespace MobiFlight
                     {
                     }
                 }
+                else {
+                    if (MessageBox.Show(
+                        _tr("uiMessageUpdateArduinoFwAutoDisableYesNo"),
+                        _tr("Hint"),
+                        MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        Properties.Settings.Default.FwAutoUpdateCheck = false;
+                    };
+                }
             }
         }
 
+        // this performs the update of the existing user settings 
+        // when updating to a new MobiFlight Version
         private void UpgradeSettingsFromPreviousInstallation()
         {
             if (Properties.Settings.Default.UpgradeRequired)

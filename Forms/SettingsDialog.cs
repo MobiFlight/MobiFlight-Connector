@@ -119,7 +119,7 @@ namespace MobiFlight
 
             ModuleConfigChanged = false;
             MFModuleConfigChanged = false;
-
+            
             // setup the background worker for firmware update
             firmwareUpdateBackgroundWorker.DoWork += new DoWorkEventHandler(firmwareUpdateBackgroundWorker_DoWork);
             firmwareUpdateBackgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(firmwareUpdateBackgroundWorker_RunWorkerCompleted);
@@ -251,6 +251,7 @@ namespace MobiFlight
             }
 
             firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
+            FwAutoUpdateCheckBox.Checked = Properties.Settings.Default.FwAutoUpdateCheck;
 #endif
         }
 
@@ -303,6 +304,10 @@ namespace MobiFlight
             Properties.Settings.Default.LogLevel = logLevelComboBox.SelectedItem as String;            
             Log.Instance.Enabled = logLevelCheckBox.Checked;
             Log.Instance.Severity = (LogSeverity) Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel);
+
+            // MobiFlight Tab
+            // only the Firmware Auto Check Update needs to be synchronized 
+            Properties.Settings.Default.FwAutoUpdateCheck = FwAutoUpdateCheckBox.Checked;
 
             try
             {

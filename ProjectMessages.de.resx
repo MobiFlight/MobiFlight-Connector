@@ -355,7 +355,7 @@ Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value
     <value>Der Wert darf nicht leer sein.</value>
   </data>
   <data name="uiMessageUpdateArduinoOkCancel" xml:space="preserve">
-    <value>Es wurden Arduino Mega ohne MobiFlight Firmware gefunden - jetzt updaten?</value>
+    <value>Es wurden Arduinos ohne MobiFlight Firmware gefunden - jetzt updaten?</value>
   </data>
   <data name="uiMessageUpdateOldFirmwareOkCancel" xml:space="preserve">
     <value>Die Firmware der MobiFlight Boards ist nicht aktuell - jetzt updaten?</value>
@@ -372,10 +372,14 @@ Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value
   <data name="uiMessageConfigWizard_ValidNumberInRange" xml:space="preserve">
     <value>Wert muss eine Zahl zwischen {0} und {1} sein.</value>
   </data>
-  <data name="uiMessage.ConfigWizard.Interpolation.OnlyNumbersPlease" xml:space="preserve">
+  <data name="uiMessageConfigWizardInterpolationOnlyNumbersPlease" xml:space="preserve">
     <value>Es sind nur Zahlen erlaubt. Bitte prüfe Deine Eingabe.</value>
   </data>
   <data name="uiMessageProblemLoadingConfig" xml:space="preserve">
     <value>Die Config konnte nicht geladen werden. Bitte prüfe auf Syntaxfehler.</value>
+  </data>
+  <data name="uiMessageUpdateArduinoFwAutoDisableYesNo" xml:space="preserve">
+    <value>Möchtest Du das automatische Updaten von neuen Arduinos deaktivieren?
+Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   </data>
 </root>
