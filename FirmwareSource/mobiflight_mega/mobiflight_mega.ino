@@ -70,12 +70,10 @@ char foo;
 #include <MFSegments.h> //  need the library
 #include <MFButton.h>
 #include <MFEncoder.h>
-#if MF_STEPPER_SUPPORT == 1
-  #include <AccelStepper.h>
-  #include <MFStepper.h>
-  #include <Servo.h>
-  #include <MFServo.h>
-#endif
+#include <AccelStepper.h>
+#include <MFStepper.h>
+#include <Servo.h>
+#include <MFServo.h>
 #include <MFOutput.h>
 
 const byte MEM_OFFSET_NAME   = 0;
@@ -203,10 +201,8 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kInitModule, OnInitModule);
   cmdMessenger.attach(kSetModule, OnSetModule);
   cmdMessenger.attach(kSetPin, OnSetPin);
-#if MF_STEPPER_SUPPORT == 1  
   cmdMessenger.attach(kSetStepper, OnSetStepper);
   cmdMessenger.attach(kSetServo, OnSetServo);  
-#endif  
   cmdMessenger.attach(kGetInfo, OnGetInfo);
   cmdMessenger.attach(kGetConfig, OnGetConfig);
   cmdMessenger.attach(kSetConfig, OnSetConfig);
@@ -699,6 +695,7 @@ void OnGetInfo() {
 
 void OnGetConfig() 
 {
+  lastCommand = millis();
   cmdMessenger.sendCmdStart(kInfo);
   cmdMessenger.sendCmdArg(configBuffer);
   cmdMessenger.sendCmdEnd();

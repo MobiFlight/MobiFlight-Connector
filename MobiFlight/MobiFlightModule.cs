@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.IO.Ports;
 using CommandMessenger;
-using CommandMessenger.TransportLayer;
+//using CommandMessenger.TransportLayer;
 using FSUIPC;
 using System.Text.RegularExpressions;
 #if COMMAND_MESSENGER_3_6
-using CommandMessenger.Serialport;
+//using CommandMessenger.Serialport;
+using CommandMessenger.Transport.Serial;
 #endif
 using System.Threading;
 
@@ -84,6 +85,9 @@ namespace MobiFlight
                         
                         var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
                         var InfoCommand = _cmdMessenger.SendCommand(command);
+                        InfoCommand = _cmdMessenger.SendCommand(command);
+                        //InfoCommand = _cmdMessenger.SendCommand(command);
+                        //InfoCommand = _cmdMessenger.SendCommand(command);
                         int count = 0;
 
                         // this is a workaround for a timing issue
@@ -178,7 +182,7 @@ namespace MobiFlight
 			GenNewSerial,       // 20
             ResetStepper,       // 21
             SetZeroStepper,     // 21
-            Retrigger,          // 22
+            Retrigger           // 22
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -201,36 +205,30 @@ namespace MobiFlight
         {
             if (this.Connected)
             {
-                Log.Instance.log("MobiflightModule.connect: Already connected to " + this.Name + " at " + _comPort, LogSeverity.Info);
+                Log.Instance.log("MobiflightModule.connect: Already connected to " + this.Name + " at " + _comPort + " of Type " + Type, LogSeverity.Info);
                 return;
             }
 
             // Create Serial Port object
+            bool dtrEnable = (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO);
             _transportLayer = new SerialTransport
             //_transportLayer = new SerialPortManager
             {
-                CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = true } // object initializer
+                CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
+                //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = true } // object initializer
             };
 
-            _cmdMessenger = new CmdMessenger(_transportLayer)
-#if COMMAND_MESSENGER_3_6
-            {                
-                BoardType = BoardType.Bit16 // Set if it is communicating with a 16- or 32-bit Arduino board
-            }
-#endif
-            ;
+            _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16);
 
             // Attach the callbacks to the Command Messenger
             AttachCommandCallBacks();
 
             // Start listening    
-#if COMMAND_MESSENGER_3_6        
-            _cmdMessenger.Connect();
-#else
-            _cmdMessenger.StartListening();                
-#endif
-            Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort, LogSeverity.Info);
-            this.Connected = true;
+            var status = _cmdMessenger.Connect();
+            Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort + " of Type " + Type + " (DTR=>" + _transportLayer.CurrentSerialSettings.DtrEnable + ")", LogSeverity.Info);
+            this.Connected = status;
+
+            if (!this.Connected) return;
 
             LoadConfig();
         }
@@ -555,11 +553,15 @@ namespace MobiFlight
 
         public IModuleInfo GetInfo()
         {
-            MobiFlightModuleInfo devInfo = new MobiFlightModuleInfo() { Name = "Unknown", Type = MobiFlightModuleInfo.TYPE_UNKNOWN, Port = _comPort };
+            MobiFlightModuleInfo devInfo = new MobiFlightModuleInfo() {
+                Name = "Unknown",
+                Type = Type,
+                Port = _comPort
+            };
 
             var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
             var InfoCommand = _cmdMessenger.SendCommand(command);
-            InfoCommand = _cmdMessenger.SendCommand(command);
+
             if (InfoCommand.Ok)
             {
                 devInfo.Type = InfoCommand.ReadStringArg();

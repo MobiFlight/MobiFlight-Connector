@@ -1,0 +1,7 @@
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger.Transport.Serial\bin\Debug\CommandMessenger.Transport.Serial.dll
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger.Transport.Serial\bin\Debug\CommandMessenger.Transport.Serial.pdb
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger.Transport.Serial\bin\Debug\CommandMessenger.dll
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger.Transport.Serial\bin\Debug\CommandMessenger.pdb
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger.Transport.Serial\obj\x86\Debug\CommandMessenger.Transport.Serial.csprojResolveAssemblyReference.cache
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger.Transport.Serial\obj\x86\Debug\CommandMessenger.Transport.Serial.dll
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger.Transport.Serial\obj\x86\Debug\CommandMessenger.Transport.Serial.pdb

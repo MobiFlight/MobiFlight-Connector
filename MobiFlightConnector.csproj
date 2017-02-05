@@ -814,13 +814,17 @@
     <None Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
-      <Project>{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}</Project>
-      <Name>CommandMessenger</Name>
-    </ProjectReference>
     <ProjectReference Include="AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\AutoUpdater.NET.csproj">
       <Project>{FB9E7E6B-B19F-4F37-A708-2996190CEF13}</Project>
       <Name>AutoUpdater.NET</Name>
+    </ProjectReference>
+    <ProjectReference Include="CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">
+      <Project>{00d85f0b-00a5-41fa-8a99-428c0199c663}</Project>
+      <Name>CommandMessenger.Transport.Serial</Name>
+    </ProjectReference>
+    <ProjectReference Include="CmdMessenger\CommandMessenger\CommandMessenger.csproj">
+      <Project>{3cf8f8fc-6f5c-46f8-94dc-c2e4c505eca4}</Project>
+      <Name>CommandMessenger</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

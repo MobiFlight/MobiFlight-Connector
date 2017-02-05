@@ -360,8 +360,14 @@ Helligkeit</value>
   <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 22</value>
   </data>
+  <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
+    <value>Reload Config</value>
+  </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 198</value>
+    <value>170, 242</value>
   </data>
   <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>

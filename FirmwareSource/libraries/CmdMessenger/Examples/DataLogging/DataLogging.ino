@@ -2,7 +2,7 @@
 
 // This example expands the previous SendandReceiveArguments example. 
 // The Arduino will now wait for the StartLogging command, before sending analog data to the PC
-// and sent multiple float values. 
+// and sent multiple float values in scientific format. 
 
 #include <CmdMessenger.h>  // CmdMessenger
 
@@ -112,7 +112,7 @@ void measure() {
    
    cmdMessenger.sendCmdStart(kPlotDataPoint); 
    cmdMessenger.sendCmdArg(seconds,4);   
-   cmdMessenger.sendCmdArg(Analog1);   
-   cmdMessenger.sendCmdArg(Analog2);   
+   cmdMessenger.sendCmdSciArg(Analog1);  
+   cmdMessenger.sendCmdSciArg(Analog2);    
    cmdMessenger.sendCmdEnd();
 } 

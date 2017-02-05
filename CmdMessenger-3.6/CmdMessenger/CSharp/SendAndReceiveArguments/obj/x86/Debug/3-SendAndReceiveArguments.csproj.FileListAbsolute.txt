@@ -1,6 +1,0 @@
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveArguments\bin\Debug\SendAndReceiveArguments.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveArguments\bin\Debug\SendAndReceiveArguments.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveArguments\bin\Debug\CommandMessenger.dll
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveArguments\bin\Debug\CommandMessenger.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveArguments\obj\x86\Debug\SendAndReceiveArguments.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveArguments\obj\x86\Debug\SendAndReceiveArguments.pdb

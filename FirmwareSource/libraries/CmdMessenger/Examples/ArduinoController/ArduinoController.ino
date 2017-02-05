@@ -97,7 +97,7 @@ void loop()
 }
 
 // Returns if it has been more than interval (in ms) ago. Used for periodic actions
-bool blinkLed() {
+void blinkLed() {
   if (  millis() - prevBlinkTime > intervalOff ) {
     // Turn led off during halfway interval
     prevBlinkTime = millis();

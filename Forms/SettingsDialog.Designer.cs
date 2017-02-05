@@ -116,6 +116,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.reloadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -341,7 +342,8 @@
             this.saveAsToolStripMenuItem,
             this.toolStripMenuItem3,
             this.updateFirmwareToolStripMenuItem,
-            this.regenerateSerialToolStripMenuItem});
+            this.regenerateSerialToolStripMenuItem,
+            this.reloadConfigToolStripMenuItem});
             this.mfModuleSettingsContextMenuStrip.Name = "mfModuleSettingsContextMenuStrip";
             this.toolTip1.SetToolTip(this.mfModuleSettingsContextMenuStrip, resources.GetString("mfModuleSettingsContextMenuStrip.ToolTip"));
             this.mfModuleSettingsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.mfModuleSettingsContextMenuStrip_Opening);
@@ -940,6 +942,12 @@
             this.errorProvider1.ContainerControl = this;
             resources.ApplyResources(this.errorProvider1, "errorProvider1");
             // 
+            // reloadConfigToolStripMenuItem
+            // 
+            resources.ApplyResources(this.reloadConfigToolStripMenuItem, "reloadConfigToolStripMenuItem");
+            this.reloadConfigToolStripMenuItem.Name = "reloadConfigToolStripMenuItem";
+            this.reloadConfigToolStripMenuItem.Click += new System.EventHandler(this.reloadConfigToolStripMenuItem_Click);
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -1072,5 +1080,6 @@
         private System.Windows.Forms.TreeView ArcazeModuleTreeView;
         private System.Windows.Forms.Label arcazeSettingsLabel;
         private System.Windows.Forms.CheckBox FwAutoUpdateCheckBox;
+        private System.Windows.Forms.ToolStripMenuItem reloadConfigToolStripMenuItem;
     }
 }

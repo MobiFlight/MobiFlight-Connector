@@ -160,7 +160,7 @@ namespace MobiFlight
                     if (module.Type == MobiFlightModuleInfo.TYPE_UNO)
                         latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareUno);
 
-                    Version currentVersion = new Version(module.Version);
+                    Version currentVersion = new Version(module.Version != "n/a" ? module.Version : "0.0.0");
                     if (currentVersion.CompareTo(latestVersion) < 0)
                     {
                         // Update needed!!!

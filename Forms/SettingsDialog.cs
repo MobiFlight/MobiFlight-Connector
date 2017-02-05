@@ -1156,6 +1156,18 @@ namespace MobiFlight
                 updateFirmware(module);
             }
         }
+
+        private void reloadConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return;
+
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            module.Config = null;
+            module.LoadConfig();
+            mfModulesTreeView_initNode(module.GetInfo() as MobiFlightModuleInfo, parentNode);
+        }
     }
 
     public class ArcazeListItem

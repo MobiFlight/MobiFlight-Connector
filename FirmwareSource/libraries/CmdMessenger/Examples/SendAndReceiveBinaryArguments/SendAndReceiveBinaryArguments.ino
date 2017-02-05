@@ -46,12 +46,13 @@ void OnUnknownCommand()
 void OnRequestPlainTextFloatSeries()
 {
   // Get series length from 1st parameter
-  int seriesLength = cmdMessenger.readIntArg();
-  float seriesBase = cmdMessenger.readFloatArg();
+  int16_t seriesLength = cmdMessenger.readInt16Arg();
+  float seriesBase     = cmdMessenger.readFloatArg();
  
   // Send back series of floats
   for(int i=0;i< seriesLength;i++) {
      cmdMessenger.sendCmdStart (kReceivePlainTextFloatSeries);
+     cmdMessenger.sendCmdArg<uint16_t>((uint16_t)i);
      cmdMessenger.sendCmdArg<float>(((float)i*(float)seriesBase),6);
      cmdMessenger.sendCmdEnd ();
   }
@@ -61,14 +62,15 @@ void OnRequestPlainTextFloatSeries()
 void OnRequestBinaryFloatSeries()
 {
   // Get series length from 1st parameter
-  int seriesLength = cmdMessenger.readBinArg<uint16_t>();
-  float seriesBase = cmdMessenger.readBinArg<float>(); 
+  int16_t seriesLength = cmdMessenger.readBinArg<uint16_t>();
+  float seriesBase     = cmdMessenger.readBinArg<float>(); 
 
   // Disable new lines, this saves another 2 chars per command
   cmdMessenger.printLfCr(false); 
   // Send back series of floats
   for(int i=0;i< seriesLength;i++) {
      cmdMessenger.sendCmdStart (kReceiveBinaryFloatSeries);
+     cmdMessenger.sendCmdBinArg<uint16_t>((uint16_t)i);
      cmdMessenger.sendCmdBinArg<float>(((float)i*(float)seriesBase));
      cmdMessenger.sendCmdEnd ();
   }

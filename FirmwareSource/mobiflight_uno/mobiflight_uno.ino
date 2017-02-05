@@ -70,12 +70,10 @@ char foo;
 #include <MFSegments.h> //  need the library
 #include <MFButton.h>
 #include <MFEncoder.h>
-#if MF_STEPPER_SUPPORT == 1
-  #include <AccelStepper.h>
-  #include <MFStepper.h>
-  #include <Servo.h>
-  #include <MFServo.h>
-#endif
+#include <AccelStepper.h>
+#include <MFStepper.h>
+#include <Servo.h>
+#include <MFServo.h>
 #include <MFOutput.h>
 
 const byte MEM_OFFSET_NAME   = 0;
@@ -122,8 +120,6 @@ const int  MEM_LEN_CONFIG    = 128;
 #endif
 
 char configBuffer[MEM_LEN_CONFIG] = "";
-
-int eepromOffset = 0;
 
 int configLength = 0;
 boolean configActivated = false;
@@ -205,10 +201,8 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kInitModule, OnInitModule);
   cmdMessenger.attach(kSetModule, OnSetModule);
   cmdMessenger.attach(kSetPin, OnSetPin);
-#if MF_STEPPER_SUPPORT == 1  
   cmdMessenger.attach(kSetStepper, OnSetStepper);
   cmdMessenger.attach(kSetServo, OnSetServo);  
-#endif  
   cmdMessenger.attach(kGetInfo, OnGetInfo);
   cmdMessenger.attach(kGetConfig, OnGetConfig);
   cmdMessenger.attach(kSetConfig, OnSetConfig);
@@ -596,14 +590,14 @@ void OnResetConfig()
 
 void OnSaveConfig()
 {
-  cmdMessenger.sendCmd(kConfigSaved, 0);
+  cmdMessenger.sendCmd(kConfigSaved, "OK");
   storeConfig();
 }
 
 void OnActivateConfig() 
 {
   readConfig(configBuffer);
-  cmdMessenger.sendCmd(kConfigActivated, 0);
+  cmdMessenger.sendCmd(kConfigActivated, "OK");
   activateConfig();
 }
 
@@ -701,6 +695,7 @@ void OnGetInfo() {
 
 void OnGetConfig() 
 {
+  lastCommand = millis();
   cmdMessenger.sendCmdStart(kInfo);
   cmdMessenger.sendCmdArg(configBuffer);
   cmdMessenger.sendCmdEnd();

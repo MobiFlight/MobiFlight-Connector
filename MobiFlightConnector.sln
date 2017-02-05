@@ -1,20 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "MobiFlightConnector.csproj", "{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}"
 	ProjectSection(ProjectDependencies) = postProject
+		{00D85F0B-00A5-41FA-8A99-428C0199C663} = {00D85F0B-00A5-41FA-8A99-428C0199C663}
 		{657624C9-3CA3-4DB3-8107-2CC0356A5026} = {657624C9-3CA3-4DB3-8107-2CC0356A5026}
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4} = {3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj", "{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdater.NET", "AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\AutoUpdater.NET.csproj", "{FB9E7E6B-B19F-4F37-A708-2996190CEF13}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightUnitTests", "MobiFlightUnitTests\MobiFlightUnitTests.csproj", "{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionInfo", "VersionInfo\VersionInfo.csproj", "{657624C9-3CA3-4DB3-8107-2CC0356A5026}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "CmdMessenger\CommandMessenger\CommandMessenger.csproj", "{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger.Transport.Serial", "CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj", "{00D85F0B-00A5-41FA-8A99-428C0199C663}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,45 +82,6 @@ Global
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Release-Mobiflight|Mixed Platforms.Build.0 = Release-Mobiflight|x86
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Release-Mobiflight|x86.ActiveCfg = Release-Mobiflight|x86
 		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}.Release-Mobiflight|x86.Build.0 = Release-Mobiflight|x86
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|Any CPU.ActiveCfg = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|Any CPU.Build.0 = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|Mixed Platforms.ActiveCfg = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|Mixed Platforms.Build.0 = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|x86.ActiveCfg = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|x86.Build.0 = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|Any CPU.ActiveCfg = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|Any CPU.Build.0 = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|Mixed Platforms.ActiveCfg = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|Mixed Platforms.Build.0 = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|x86.ActiveCfg = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|x86.Build.0 = Debug-Mobiflight Offline|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|Any CPU.Build.0 = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|x86.ActiveCfg = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|x86.Build.0 = Debug|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|x86.ActiveCfg = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|Any CPU.ActiveCfg = Release-Mobiflight (EN)|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|Any CPU.Build.0 = Release-Mobiflight (EN)|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|Mixed Platforms.ActiveCfg = Release-Mobiflight (EN)|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|Mixed Platforms.Build.0 = Release-Mobiflight (EN)|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|x86.ActiveCfg = Release-Mobiflight (EN)|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|x86.Build.0 = Release-Mobiflight (EN)|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Any CPU.ActiveCfg = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Any CPU.Build.0 = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Mixed Platforms.Build.0 = Release|Any CPU
-		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|x86.ActiveCfg = Release|Any CPU
 		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -240,6 +205,90 @@ Global
 		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Release-Mobiflight|Mixed Platforms.Build.0 = Release|Any CPU
 		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Release-Mobiflight|x86.ActiveCfg = Release|Any CPU
 		{657624C9-3CA3-4DB3-8107-2CC0356A5026}.Release-Mobiflight|x86.Build.0 = Release|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|x86.ActiveCfg = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug|x86.Build.0 = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|Any CPU.Build.0 = Debug|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|Mixed Platforms.ActiveCfg = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|Mixed Platforms.Build.0 = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|x86.ActiveCfg = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight (EN)|x86.Build.0 = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|Any CPU.Build.0 = Debug|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|Mixed Platforms.ActiveCfg = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|Mixed Platforms.Build.0 = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|x86.ActiveCfg = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight Offline|x86.Build.0 = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|Any CPU.Build.0 = Debug|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|Mixed Platforms.ActiveCfg = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|Mixed Platforms.Build.0 = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|x86.ActiveCfg = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Debug-Mobiflight|x86.Build.0 = Debug|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|Mixed Platforms.Build.0 = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|x86.ActiveCfg = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release|x86.Build.0 = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|Any CPU.ActiveCfg = Release|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|Any CPU.Build.0 = Release|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|Mixed Platforms.ActiveCfg = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|Mixed Platforms.Build.0 = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|x86.ActiveCfg = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight (EN)|x86.Build.0 = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Any CPU.ActiveCfg = Release|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Any CPU.Build.0 = Release|Any CPU
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Mixed Platforms.ActiveCfg = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|Mixed Platforms.Build.0 = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|x86.ActiveCfg = Release|x86
+		{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}.Release-Mobiflight|x86.Build.0 = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug|x86.ActiveCfg = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug|x86.Build.0 = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight (EN)|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight (EN)|Any CPU.Build.0 = Debug|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight (EN)|Mixed Platforms.ActiveCfg = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight (EN)|Mixed Platforms.Build.0 = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight (EN)|x86.ActiveCfg = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight (EN)|x86.Build.0 = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight Offline|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight Offline|Any CPU.Build.0 = Debug|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight Offline|Mixed Platforms.ActiveCfg = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight Offline|Mixed Platforms.Build.0 = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight Offline|x86.ActiveCfg = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight Offline|x86.Build.0 = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight|Any CPU.Build.0 = Debug|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight|Mixed Platforms.ActiveCfg = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight|Mixed Platforms.Build.0 = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight|x86.ActiveCfg = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Debug-Mobiflight|x86.Build.0 = Debug|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|Mixed Platforms.Build.0 = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|x86.ActiveCfg = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|x86.Build.0 = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight (EN)|Any CPU.ActiveCfg = Release|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight (EN)|Any CPU.Build.0 = Release|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight (EN)|Mixed Platforms.ActiveCfg = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight (EN)|Mixed Platforms.Build.0 = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight (EN)|x86.ActiveCfg = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight (EN)|x86.Build.0 = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight|Any CPU.ActiveCfg = Release|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight|Any CPU.Build.0 = Release|Any CPU
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight|Mixed Platforms.ActiveCfg = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight|Mixed Platforms.Build.0 = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight|x86.ActiveCfg = Release|x86
+		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release-Mobiflight|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -97,6 +97,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">
+      <Project>{00d85f0b-00a5-41fa-8a99-428c0199c663}</Project>
+      <Name>CommandMessenger.Transport.Serial</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CmdMessenger\CommandMessenger\CommandMessenger.csproj">
+      <Project>{3cf8f8fc-6f5c-46f8-94dc-c2e4c505eca4}</Project>
+      <Name>CommandMessenger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MobiFlightConnector.csproj">
       <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
       <Name>MobiFlightConnector</Name>
