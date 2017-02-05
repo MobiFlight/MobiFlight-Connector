@@ -27,3 +27,16 @@
 
 /MobiFlightUnitTests/bin
 /MobiFlightUnitTests/obj
+
+/CmdMessenger-3.6
+
+/CmdMessenger/CommandMessenger/bin
+
+/CmdMessenger/CommandMessenger/obj
+/CmdMessenger/CommandMessenger.Transport.Serial/bin
+/CmdMessenger/CommandMessenger.Transport.Serial/obj
+/FirmwareSource/arduino-1.8.0
+/VersionInfo/bin
+
+/VersionInfo/obj
+/FirmwareSource/arduino
