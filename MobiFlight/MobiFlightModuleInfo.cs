@@ -9,9 +9,9 @@ namespace MobiFlight
     {
         public const String TYPE_UNKNOWN = "unknown";
 
-        public const String LatestFirmwareMega = "1.7.1";
-        public const String LatestFirmwareMicro = "1.7.1";
-        public const String LatestFirmwareUno = "1.7.1";
+        public const String LatestFirmwareMega = "1.7.2";
+        public const String LatestFirmwareMicro = "1.7.2";
+        public const String LatestFirmwareUno = "1.7.2";
 
         // these types are used for standard stock arduino boards
         public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
@@ -80,14 +80,15 @@ namespace MobiFlight
         };
 
         public static readonly String[] VIDPID_UNO = {
-            "VID_1A86&PID_7523"
+            "VID_1A86&PID_7523",
+            "VID_2341&PID_0043"
         };
 
         public static readonly String[] VIDPID_MEGA = {
             "VID_2341&PID_0042",
             "VID_2341&PID_0010",
             "VID_8087&PID_0024",
-            //"VID_1A86&PID_7523", // this is actually an UNO CH-340
+            //"VID_1A86&PID_7523", // this is actually an CH-340 and can be a Mega OR an UNO
             "VID_2A03&PID_0042", // http://www.mobiflight.de/forum/message/983.html
             "VID_0403&PID_6001"  // http://www.mobiflight.de/forum/topic/570.html
 

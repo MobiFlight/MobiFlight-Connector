@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MobiFlight")]
 [assembly: AssemblyProduct("MobiFlight Connector")]
-[assembly: AssemblyCopyright("Copyright © Sebastian Moebius 2014 - 2016")]
+[assembly: AssemblyCopyright("Copyright © Sebastian Moebius 2014 - 2017")]
 [assembly: AssemblyTrademark("MobiFlight")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern 
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("7.2.1")]
-[assembly: AssemblyFileVersion("7.2.1")]
+[assembly: AssemblyVersion("7.2.2")]
+[assembly: AssemblyFileVersion("7.2.2")]

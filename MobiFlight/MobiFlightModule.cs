@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.IO.Ports;
 using CommandMessenger;
-//using CommandMessenger.TransportLayer;
+using CommandMessenger.TransportLayer;
 using FSUIPC;
 using System.Text.RegularExpressions;
 #if COMMAND_MESSENGER_3_6
-//using CommandMessenger.Serialport;
-using CommandMessenger.Transport.Serial;
+using CommandMessenger.Serialport;
+//using CommandMessenger.Transport.Serial;
 #endif
 using System.Threading;
 
@@ -86,8 +86,14 @@ namespace MobiFlight
                         var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
                         var InfoCommand = _cmdMessenger.SendCommand(command);
                         InfoCommand = _cmdMessenger.SendCommand(command);
-                        //InfoCommand = _cmdMessenger.SendCommand(command);
-                        //InfoCommand = _cmdMessenger.SendCommand(command);
+                        if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
+                        {
+                            if (!InfoCommand.Ok)
+                            InfoCommand = _cmdMessenger.SendCommand(command);
+                            if (!InfoCommand.Ok)
+                            InfoCommand = _cmdMessenger.SendCommand(command);
+                        }
+
                         int count = 0;
 
                         // this is a workaround for a timing issue
@@ -181,8 +187,9 @@ namespace MobiFlight
             SetName,            // 19
 			GenNewSerial,       // 20
             ResetStepper,       // 21
-            SetZeroStepper,     // 21
-            Retrigger           // 22
+            SetZeroStepper,     // 22
+            Retrigger,          // 23
+            ResetBoard          // 24
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -214,11 +221,17 @@ namespace MobiFlight
             _transportLayer = new SerialTransport
             //_transportLayer = new SerialPortManager
             {
-                CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
-                //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = true } // object initializer
+                //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
+                CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = true } // object initializer
             };
 
-            _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16);
+            _cmdMessenger = new CmdMessenger(_transportLayer)
+#if COMMAND_MESSENGER_3_6
+            {
+                BoardType = BoardType.Bit16 // Set if it is communicating with a 16- or 32-bit Arduino board
+            }
+#endif
+            ;
 
             // Attach the callbacks to the Command Messenger
             AttachCommandCallBacks();
@@ -226,11 +239,22 @@ namespace MobiFlight
             // Start listening    
             var status = _cmdMessenger.Connect();
             Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort + " of Type " + Type + " (DTR=>" + _transportLayer.CurrentSerialSettings.DtrEnable + ")", LogSeverity.Info);
-            this.Connected = status;
-
-            if (!this.Connected) return;
-
+            //this.Connected = status;
+            this.Connected = true;
+            
+            // workaround ahead!!!
+            if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
+                System.Threading.Thread.Sleep(500);
+            
+            //if (!this.Connected) return;
+            //ResetBoard();
             LoadConfig();
+        }
+
+        public void ResetBoard()
+        {
+            var command = new SendCommand((int)MobiFlightModule.Command.ResetBoard);
+            var InfoCommand = _cmdMessenger.SendCommand(command);
         }
 
         public void LoadConfig()
@@ -613,6 +637,7 @@ namespace MobiFlight
         {
             bool isOk = SaveName();
             var command = new SendCommand((int)MobiFlightModule.Command.ResetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
+            Log.Instance.log("Reset config: " + (int)MobiFlightModule.Command.ResetConfig, LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
             //foreach (MobiFlight.Config.BaseDevice dev in Config.Items)
@@ -622,7 +647,7 @@ namespace MobiFlight
                 Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
                 command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
                 command.AddArgument(MessagePart);
-                ReceivedCommand StatusCommand = this._cmdMessenger.SendCommand(command);
+                ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
                 if (!StatusCommand.Ok)
                 {
                     isOk = false;
@@ -637,6 +662,7 @@ namespace MobiFlight
             if (isOk)
             {
                 command = new SendCommand((int)MobiFlightModule.Command.SaveConfig, (int)MobiFlightModule.Command.ConfigSaved, CommandTimeout);
+                Log.Instance.log("Save config: " + (int)MobiFlightModule.Command.SaveConfig, LogSeverity.Debug);
                 ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
 
                 if (StatusCommand.Ok)

@@ -816,6 +816,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Upload finished with error. ähnelt.
+        /// </summary>
+        internal static string uiMessageUploadConfigurationFinishedWithError {
+            get {
+                return ResourceManager.GetString("uiMessageUploadConfigurationFinishedWithError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Upload configuration ähnelt.
         /// </summary>
         internal static string uiMessageUploadConfigurationHint {

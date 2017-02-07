@@ -382,4 +382,7 @@ Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value
     <value>Möchtest Du das automatische Updaten von neuen Arduinos deaktivieren?
 Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   </data>
+  <data name="uiMessageUploadConfigurationFinishedWithError" xml:space="preserve">
+    <value>Der Upload war nicht erfolgreich.</value>
+  </data>
 </root>

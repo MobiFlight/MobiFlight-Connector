@@ -93,7 +93,7 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.6.1 : Reduce servo noise
 // 1.7.0 : New Arduino IDE, new AVR, Uno Support
 // 1.7.1 : More UNO stability
-const char version[8] = "1.7.1";
+const char version[8] = "1.7.2";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
@@ -108,7 +108,7 @@ char type[20]                = "MobiFlight Micro";
 char serial[MEM_LEN_SERIAL]  = "0987654321";
 char name[MEM_LEN_NAME]      = "MobiFlight Micro";
 int eepromSize               = EEPROMSizeMicro;
-const int  MEM_LEN_CONFIG    = 128;
+const int  MEM_LEN_CONFIG    = 256;
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -116,7 +116,7 @@ char type[20]                = "MobiFlight Uno";
 char serial[MEM_LEN_SERIAL]  = "0987654321";
 char name[MEM_LEN_NAME]      = "MobiFlight Uno";
 int eepromSize               = EEPROMSizeUno;
-const int  MEM_LEN_CONFIG    = 128;
+const int  MEM_LEN_CONFIG    = 256;
 #endif
 
 char configBuffer[MEM_LEN_CONFIG] = "";
@@ -143,14 +143,11 @@ byte ledSegmentsRegistered = 0;
 MFEncoder encoders[MAX_ENCODERS];
 byte encodersRegistered = 0;
 
-#if MF_STEPPER_SUPPORT == 1
-  //AccelStepper *steppers[MAX_STEPPERS]; //
-  MFStepper *steppers[MAX_STEPPERS]; //
-  byte steppersRegistered = 0;
+MFStepper *steppers[MAX_STEPPERS]; //
+byte steppersRegistered = 0;
 
-  MFServo servos[MAX_MFSERVOS];
-  byte servosRegistered = 0;
-#endif
+MFServo servos[MAX_MFSERVOS];
+byte servosRegistered = 0;
 
 enum
 {
@@ -190,7 +187,8 @@ enum
   kGenNewSerial,       // 20
   kResetStepper,       // 21
   kSetZeroStepper,     // 22
-  kTrigger             // 23
+  kTrigger,            // 23
+  kResetBoard          // 24
 };
 
 // Callbacks define on which received commands we take action
@@ -214,15 +212,14 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kResetStepper, OnResetStepper);
   cmdMessenger.attach(kSetZeroStepper, OnSetZeroStepper);
   cmdMessenger.attach(kTrigger, OnTrigger);
+  cmdMessenger.attach(kResetBoard, OnResetBoard);
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Attached callbacks");
 #endif  
 
 }
 
-// Setup function
-void setup() 
-{
+void OnResetBoard() {
   EEPROM.setMaxAllowedWrites(1000);
   EEPROM.setMemPool(0, eepromSize);
   
@@ -230,12 +227,18 @@ void setup()
   //readBuffer[0]='\0'; 
   generateSerial(false); 
   clearRegisteredPins();
-  cmdMessenger.printLfCr();   
-  attachCommandCallbacks();
   lastCommand = millis();  
   loadConfig();
-  restoreName();
-  Serial.begin(115200);  
+  _restoreName();
+}
+
+// Setup function
+void setup() 
+{
+  Serial.begin(115200);
+  attachCommandCallbacks();
+  OnResetBoard();  
+  cmdMessenger.printLfCr();     
 }
 
 void generateSerial(bool force) 
@@ -256,18 +259,16 @@ void loadConfig()
   cmdMessenger.sendCmd(kStatus, "Restored config");
   cmdMessenger.sendCmd(kStatus, configBuffer);  
 #endif
-  configLength = 0;
   for(configLength=0;configLength!=MEM_LEN_CONFIG;configLength++) {
     if (configBuffer[configLength]!='\0') continue;
     break;
   }
   readConfig(configBuffer);
-  activateConfig();
+  _activateConfig();
 }
 
-void storeConfig() 
+void _storeConfig() 
 {
-  cmdMessenger.sendCmd(kStatus, "OK");
   EEPROM.writeBlock<char>(MEM_OFFSET_CONFIG, configBuffer, MEM_LEN_CONFIG);
 }
 
@@ -285,19 +286,7 @@ void SetPowerSavingMode(bool state)
   //PowerSaveOutputs(state);
 }
 
-// Loop function
-void loop() 
-{  
-  cmdMessenger.feedinSerialData();
-  #if DEBUG == 2
-  cmdMessenger.sendCmdStart(kStatus);
-  cmdMessenger.sendCmdArg(millis());
-  cmdMessenger.sendCmdArg(lastCommand);
-  cmdMessenger.sendCmdArg(millis()-lastCommand);
-  cmdMessenger.sendCmdArg(POWER_SAVING_TIME * 1000);
-  cmdMessenger.sendCmdEnd();
-  #endif 
-
+void updatePowerSaving() {
   if (!powerSavingMode && ((millis() - lastCommand) > (POWER_SAVING_TIME * 1000))) {
     // enable power saving
     SetPowerSavingMode(true);
@@ -305,6 +294,14 @@ void loop()
     // disable power saving
     SetPowerSavingMode(false);
   }
+}
+
+// Loop function
+void loop() 
+{ 
+  // Process incoming serial data, and perform callbacks   
+  cmdMessenger.feedinSerialData();
+  updatePowerSaving();
   
   // if config has been reset
   // and still is not activated
@@ -312,15 +309,11 @@ void loop()
   // to prevent mangling input for config (shared buffers)
   if (!configActivated) return;
   
-  // Process incoming serial data, and perform callbacks  
   readButtons();
   readEncoder();
+
   // segments do not need update
-  
-#if MF_STEPPER_SUPPORT == 1  
   updateSteppers();  
-#endif
-  // servos do not need update
   updateServos();  
 }
 
@@ -442,7 +435,7 @@ void AddLedSegment(int dataPin, int csPin, int clkPin, int numDevices, int brigh
   registerPin(clkPin, kTypeLedSegment);
   ledSegmentsRegistered++;
 #ifdef DEBUG  
-  //cmdMessenger.sendCmd(kStatus,"Added Led Segment");
+  cmdMessenger.sendCmd(kStatus,"Added Led Segment");
 #endif  
 }
 
@@ -468,7 +461,6 @@ void PowerSaveLedSegment(bool state)
     outputs[i].powerSavingMode(state);
   }
 }
-#if MF_STEPPER_SUPPORT == 1
 //// STEPPER ////
 void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
 {
@@ -528,8 +520,6 @@ void ClearServos()
   cmdMessenger.sendCmd(kStatus,"Cleared servos");
 #endif 
 }
-#endif
-
 
 //// EVENT HANDLER /////
 void handlerOnRelease(byte eventId, uint8_t pin, String name)
@@ -557,13 +547,18 @@ void OnSetConfig()
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Setting config start");
 #endif    
+
   lastCommand = millis();
   String cfg = cmdMessenger.readStringArg();
-  int bufferSize = MEM_LEN_CONFIG - configLength;
-  if (bufferSize<1) return;
-  cfg.toCharArray(&configBuffer[configLength], bufferSize);
-  configLength += cfg.length();
-  cmdMessenger.sendCmd(kStatus,"OK");
+  int cfgLen = cfg.length();
+  int bufferSize = MEM_LEN_CONFIG - (configLength+cfgLen);
+  
+  if (bufferSize>1) {    
+    cfg.toCharArray(&configBuffer[configLength], bufferSize);
+    configLength += cfgLen;
+    cmdMessenger.sendCmd(kStatus,configLength);
+  } else
+    cmdMessenger.sendCmd(kStatus,-1);  
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Setting config end");
 #endif
@@ -575,10 +570,8 @@ void resetConfig()
   ClearEncoders();
   ClearOutputs();
   ClearLedSegments();
-#if MF_STEPPER_SUPPORT == 1  
   ClearServos();
   ClearSteppers();
-#endif  
   configLength = 0;
   configActivated = false;
 }
@@ -586,22 +579,23 @@ void resetConfig()
 void OnResetConfig()
 {
   resetConfig();
+  cmdMessenger.sendCmd(kStatus, "OK");
 }
 
 void OnSaveConfig()
 {
+  _storeConfig();
   cmdMessenger.sendCmd(kConfigSaved, "OK");
-  storeConfig();
 }
 
 void OnActivateConfig() 
 {
   readConfig(configBuffer);
+  _activateConfig();
   cmdMessenger.sendCmd(kConfigActivated, "OK");
-  activateConfig();
 }
 
-void activateConfig() {
+void _activateConfig() {
   configActivated = true;
 }
 
@@ -639,7 +633,6 @@ void readConfig(String cfg) {
         AddLedSegment(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[4]), atoi(params[3]));
       break;
       
-#if MF_STEPPER_SUPPORT == 1      
       case kTypeStepper:
         // AddStepper(int pin1, int pin2, int pin3, int pin4)
         params[0] = strtok_r(NULL, ".", &p); // pin1
@@ -657,7 +650,6 @@ void readConfig(String cfg) {
         params[1] = strtok_r(NULL, ":", &p); // Name
         AddServo(atoi(params[0]));
       break;
-#endif      
       
       case kTypeEncoder:
         // AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, String name = "Encoder")
@@ -705,8 +697,8 @@ void OnGetConfig()
 void OnSetPin()
 {
   // Read led state argument, interpret string as boolean
-  int pin = cmdMessenger.readInt16Arg();
-  int state = cmdMessenger.readInt16Arg();
+  int pin = cmdMessenger.readIntArg();
+  int state = cmdMessenger.readIntArg();
   // Set led
   digitalWrite(pin, state > 0 ? HIGH : LOW);
   lastCommand = millis();
@@ -714,39 +706,28 @@ void OnSetPin()
 
 void OnInitModule()
 {
-  int module = cmdMessenger.readInt16Arg();
-  int subModule = cmdMessenger.readInt16Arg();  
-  int brightness = cmdMessenger.readInt16Arg();
+  int module = cmdMessenger.readIntArg();
+  int subModule = cmdMessenger.readIntArg();  
+  int brightness = cmdMessenger.readIntArg();
   ledSegments[module].setBrightness(subModule,brightness);
   lastCommand = millis();
 }
 
 void OnSetModule()
 {
-  int module = cmdMessenger.readInt16Arg();
-  int subModule = cmdMessenger.readInt16Arg();  
+  int module = cmdMessenger.readIntArg();
+  int subModule = cmdMessenger.readIntArg();  
   char * value = cmdMessenger.readStringArg();
-  byte points = (byte) cmdMessenger.readInt16Arg();
-  byte mask = (byte) cmdMessenger.readInt16Arg();
-/**
-#ifdef DEBUG  
-  cmdMessenger.sendCmdStart(kStatus);
-  cmdMessenger.sendCmdArg(module);
-  cmdMessenger.sendCmdArg(subModule);
-  cmdMessenger.sendCmdArg(value);
-  cmdMessenger.sendCmdArg(mask);
-  cmdMessenger.sendCmdEnd();
-#endif    
-**/
+  byte points = (byte) cmdMessenger.readIntArg();
+  byte mask = (byte) cmdMessenger.readIntArg();
   ledSegments[module].display(subModule, value, points, mask);
   lastCommand = millis();
 }
 
-#if MF_STEPPER_SUPPORT == 1
 void OnSetStepper()
 {
-  int stepper    = cmdMessenger.readInt16Arg();
-  int newPos     = cmdMessenger.readInt16Arg();
+  int stepper    = cmdMessenger.readIntArg();
+  int newPos     = cmdMessenger.readIntArg();
   
   if (stepper >= steppersRegistered) return;
   steppers[stepper]->moveTo(newPos);
@@ -755,7 +736,7 @@ void OnSetStepper()
 
 void OnResetStepper()
 {
-  int stepper    = cmdMessenger.readInt16Arg();
+  int stepper    = cmdMessenger.readIntArg();
   
   if (stepper >= steppersRegistered) return;
   steppers[stepper]->reset();
@@ -764,7 +745,7 @@ void OnResetStepper()
 
 void OnSetZeroStepper()
 {
-  int stepper    = cmdMessenger.readInt16Arg();
+  int stepper    = cmdMessenger.readIntArg();
   
   if (stepper >= steppersRegistered) return;
   steppers[stepper]->setZero();
@@ -773,8 +754,8 @@ void OnSetZeroStepper()
 
 void OnSetServo()
 { 
-  int servo    = cmdMessenger.readInt16Arg();
-  int newValue = cmdMessenger.readInt16Arg();
+  int servo    = cmdMessenger.readIntArg();
+  int newValue = cmdMessenger.readIntArg();
   if (servo >= servosRegistered) return;
   servos[servo].moveTo(newValue);  
   lastCommand = millis();
@@ -786,7 +767,6 @@ void updateSteppers()
     steppers[i]->update();
   }
 }
-#endif
 
 void updateServos()
 {
@@ -820,19 +800,19 @@ void OnGenNewSerial()
 void OnSetName() {
   String cfg = cmdMessenger.readStringArg();
   cfg.toCharArray(&name[0], MEM_LEN_NAME);
-  storeName();
+  _storeName();
   cmdMessenger.sendCmdStart(kStatus);
   cmdMessenger.sendCmdArg(name);
   cmdMessenger.sendCmdEnd();
 }
 
-void storeName() {
+void _storeName() {
   char prefix[] = "#";
   EEPROM.writeBlock<char>(MEM_OFFSET_NAME, prefix, 1);
   EEPROM.writeBlock<char>(MEM_OFFSET_NAME+1, name, MEM_LEN_NAME-1);
 }
 
-void restoreName() {
+void _restoreName() {
   char testHasName[1] = "";
   EEPROM.readBlock<char>(MEM_OFFSET_NAME, testHasName, 1); 
   if (testHasName[0] != '#') return;

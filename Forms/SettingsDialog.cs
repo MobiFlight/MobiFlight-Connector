@@ -780,17 +780,28 @@ namespace MobiFlight
 
             Log.Instance.log("Uploading config: " + LogMessage, LogSeverity.Info);
             
-            module.SaveConfig();
+            bool uploadResult = module.SaveConfig();
             module.Config = null;
+            //module.ResetBoard();
             module.LoadConfig();
             execManager.getMobiFlightModuleCache().updateConnectedModuleName(module);
 
             parentNode.ImageKey = "";
             parentNode.SelectedImageKey = "";
 
-            MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationFinished"),
-                            MainForm._tr("uiMessageUploadConfigurationHint"),
-                            MessageBoxButtons.OK);
+            //if (uploadResult)
+            //{
+                MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationFinished"),
+                                MainForm._tr("uiMessageUploadConfigurationHint"),
+                                MessageBoxButtons.OK);
+            /*}
+            else
+            {
+                MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationFinishedWithError"),
+                                MainForm._tr("uiMessageUploadConfigurationHint"),
+                                MessageBoxButtons.OK);
+            }
+            */            
         }
 
         /// <summary>

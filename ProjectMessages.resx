@@ -391,4 +391,7 @@ You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</v
     <value>Do you want to disable the automatic upload to new arduinos?
 You can always enable it later again in the settings menu.</value>
   </data>
+  <data name="uiMessageUploadConfigurationFinishedWithError" xml:space="preserve">
+    <value>Upload finished with error.</value>
+  </data>
 </root>
