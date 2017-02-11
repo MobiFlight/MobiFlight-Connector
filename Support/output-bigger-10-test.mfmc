@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <Output Name="Output" Pin="31" />
+  <Output Name="Output 1" Pin="32" />
+  <Output Name="Output 2" Pin="33" />
+  <Output Name="Output 3" Pin="34" />
+  <Output Name="Output 4" Pin="35" />
+  <Output Name="Output 5" Pin="36" />
+  <Output Name="Output 6" Pin="37" />
+  <Output Name="Output 7" Pin="38" />
+  <Output Name="Output 8" Pin="39" />
+  <Output Name="Output 9" Pin="40" />
+  <Output Name="Output 10" Pin="41" />
+  <Output Name="Output 11" Pin="42" />
+  <Output Name="Output 12" Pin="43" />
+  <Output Name="Output 13" Pin="44" />
+  <Output Name="Output 14" Pin="45" />
+  <Output Name="Output 15" Pin="46" />
+  <Output Name="Output 16" Pin="47" />
+  <Output Name="Output 17" Pin="48" />
+  <Output Name="Output 18" Pin="49" />
+  <Output Name="Output 19" Pin="50" />
+  <Output Name="Output 20" Pin="51" />
+  <Output Name="Output 21" Pin="52" />
+</Config>

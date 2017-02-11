@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <Button Name="Btn2" Pin="46" />
+  <Button Name="Btn3" Pin="48" />
+  <Button Name="Btn4" Pin="50" />
+  <Button Name="Btn5" Pin="52" />
+  <Button Name="testBtn1" Pin="28" />
+  <Button Name="xpndrBtn1" Pin="36" />
+  <Button Name="xpndrBtn2" Pin="38" />
+  <Button Name="altBtn1" Pin="40" />
+  <Button Name="altBtn2" Pin="42" />
+  <Button Name="prkbrkBtn1" Pin="30" />
+  <Output Name="Parking_Brake" Pin="25" />
+  <Output Name="xpndrFail" Pin="23" />
+  <Encoder Name="Squawk_Digit_1_2" PinLeft="5" PinRight="4" />
+  <Encoder Name="Squawk_Digit_2_3" PinLeft="7" PinRight="6" />
+  <LedModule Name="Squawk" DinPin="22" ClsPin="24" ClkPin="26" Brightness="15" NumModules="1" />
+</Config>

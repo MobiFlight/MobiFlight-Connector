@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="8d2bed22-241b-4731-88cb-505d1aa136c6">
+      <active>true</active>
+      <description>Test</description>
+      <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=5.2.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Display Module" serial="Arcaze V5.64/ 000393600000" trigger="normal" ledAddress="2" ledConnector="2" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3,4,5,6,7" ledDecimalPoints="0,1,2,3,4,5,6,7" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="92cd932f-4e7e-4b5a-97b1-bf0ab184aa56">
+      <active>false</active>
+      <description>LED</description>
+      <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=5.2.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Pin" serial="MobiFlight Mega/ SN-d90-e5c" trigger="normal" pin="Output7812345678901234567890" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="f1dda453-af4b-4e44-b88e-6cdb575abb50">
+      <active>false</active>
+      <description>MasterBattery ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=5.2.0.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="MasterBattery" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

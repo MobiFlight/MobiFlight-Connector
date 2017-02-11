@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="955f6680-be17-40a6-9fc4-e4f087036253">
+      <active>true</active>
+      <description>Heading</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" multiplier="0,0054931640625" bcdMode="False" />
+        <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+        <display type="" serial="MobiFlight Mega/ SN-849-180" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions>
+          <precondition type="pin" active="true" serial="MobiFlight Mega/ SN-849-180" pin="A02" operand="" value="0" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="56dadd94-8b45-43f3-8d41-56e224e8ca6f">
+      <active>true</active>
+      <description>Heading Kopie</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" multiplier="0,0054931640625" bcdMode="False" />
+        <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+        <display type="" serial="MobiFlight Mega/ SN-849-180" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions>
+          <precondition type="pin" active="true" serial="MobiFlight Mega/ SN-849-180" pin="A02" operand="" value="0" />
+          <precondition type="config" active="true" ref="955f6680-be17-40a6-9fc4-e4f087036253" operand="=" value="1" />
+        </preconditions>
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="f1bcd75d-45cc-42c8-ae42-d96a727c1c05">
+      <active>false</active>
+      <description>Precon Test</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.2.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07D4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$" />
+          </onLeft>
+          <onLeftFast />
+          <onRight />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="955f6680-be17-40a6-9fc4-e4f087036253" operand="=" value="1" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="70e394d6-8d40-4bb7-ae57-f35526c04ee9">
+      <active>false</active>
+      <description>Precon Multi Test</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.2.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="RedPushButton" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0BD0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07D0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onRelease>
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="955f6680-be17-40a6-9fc4-e4f087036253" operand="=" value="1" />
+          <precondition type="config" active="true" ref="955f6680-be17-40a6-9fc4-e4f087036253" operand="=" value="2" />
+        </preconditions>
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

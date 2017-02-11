@@ -1,0 +1,326 @@
+<?xml version="1.0" standalone="yes"?>
+<MobiflightConnector>
+<outputs>
+  <config guid="25c4775c-18ce-4d68-814a-c6c7ebcec049">
+    <active>false</active>
+    <description>Parking Brake</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BC8" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="32767" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="MobiFlight Mega/ SN-7a1-285" trigger="normal" pin="Parking_Brake" pinBrightness="255" />
+      <preconditions>
+        <precondition type="pin" active="true" serial="Arcaze MCP/ 000393601000" pin="A01" operand="" value="0" />
+        <precondition type="config" active="true" ref="b7a41b4a-2b76-44a3-9005-d26264677685" operand="=" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="0666d465-413a-4c83-8656-c10f35ef1ef3">
+    <active>false</active>
+    <description>Parking Brake Kopie</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BC8" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="32767" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="Arcaze MCP/ 000393601000" trigger="normal" pin="C20" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="b7a41b4a-2b76-44a3-9005-d26264677685">
+    <active>true</active>
+    <description>Fuel Pump Left</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0x0001" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="C16" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="&gt;" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="3bdea704-1701-4f43-9f51-f052ce2af637">
+    <active>true</active>
+    <description>Fuel Pump Left Off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0x0001" multiplier="0" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="C16" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="4fe292e6-4cb0-4325-b37c-71ac35bd7990">
+    <active>true</active>
+    <description>Fuel Pump Right</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0x0002" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="2" operand="=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="C15" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="&gt;" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="d28aaa96-c7eb-4a20-a2cc-4d9561ce6ed0">
+    <active>true</active>
+    <description>Fuel Pump Right Kopie</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0x0002" multiplier="0" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="C15" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="1c886e60-f91f-40ec-9139-94f527bfca2d">
+    <active>false</active>
+    <description>Nav Switch On</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x132C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="Arcaze MCP/ 000393601000" trigger="normal" pin="D19" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="d8ca80f4-429e-43d3-886a-0a28c1d2ad27">
+    <active>false</active>
+    <description>Kollsman</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0330" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="&lt;=" ifValue="Round($/16,1)*10" elseValue="Round($/16,1)*10" />
+      <display type="Display Module" serial="OVERHEAD_4/ 000003901100" trigger="normal" ledAddress="0" ledConnector="2" ledModuleSize="5" ledPadding="False" ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="&gt;" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="06f36b76-1748-44bf-8397-dca206090185">
+    <active>false</active>
+    <description>Kollsman Off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0330" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="&lt;=" ifValue="     " elseValue="     " />
+      <display type="Display Module" serial="OVERHEAD_4/ 000003901100" trigger="normal" ledAddress="0" ledConnector="2" ledModuleSize="5" ledPadding="False" ledDigits="0,1,2,3,4" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="8cc77c64-cb1c-427b-92ec-27e23a558beb">
+    <active>true</active>
+    <description>Master Alt Left</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="D15" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="&gt;" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="78302737-7dcf-4778-abf2-c9fbd1690c32">
+    <active>true</active>
+    <description>Master Alt Left Off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="0" elseValue="0" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="D15" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="cece6d45-7a89-45a1-b93f-8c1db40193df">
+    <active>true</active>
+    <description>Master Alt Right</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3AB8" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="D12" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="&gt;" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="d1bc8986-17b8-455a-bf7b-feef07673ccf">
+    <active>true</active>
+    <description>Master Alt Right Off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3AB8" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="0" elseValue="0" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="D12" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4">
+    <active>true</active>
+    <description>Battery Master Switch</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0x0001" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="D03" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="97224666-03fa-4763-9fc5-95072c7410a6">
+    <active>true</active>
+    <description>Pitot Heat</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="F13" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="&gt;" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="fa3cde2a-4a7c-4ce7-8700-86575d34e326">
+    <active>true</active>
+    <description>Pitot Heat Off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" multiplier="0" bcdMode="False" />
+      <comparison active="False" value="0" operand="=" ifValue="0" elseValue="0" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="F13" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="756a1889-67df-426b-aaee-26627587b09b">
+    <active>true</active>
+    <description>Avionics Master</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="D07" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="&gt;" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="87d4721b-559e-49d5-af2c-807d81330c25">
+    <active>true</active>
+    <description>Avionics Master Off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="0" elseValue="0" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="D07" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="5c7a8dd4-8892-443e-9bc1-a6c831b2d8a4" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="618447e3-1074-4e50-87db-a0e047cc5a50">
+    <active>true</active>
+    <description>V/S</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07F2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Display Module" serial="OVERHEAD_4/ 000003901100" trigger="normal" ledAddress="1" ledConnector="2" ledModuleSize="5" ledPadding="False" ledDigits="0,1,2,3,4" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="6ba119dd-70f4-47ba-9962-5db6db222c64">
+    <active>true</active>
+    <description>CRS On</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C4E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+      <display type="Display Module" serial="OVERHEAD_4/ 000003901100" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="0,1,2" />
+      <preconditions>
+        <precondition type="config" active="true" ref="756a1889-67df-426b-aaee-26627587b09b" operand="!=" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="8e0d6bc5-4f29-445a-9f0f-c43519e331b6">
+    <active>false</active>
+    <description>CRS Off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C4E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue=" " elseValue=" " />
+      <display type="Display Module" serial="OVERHEAD_4/ 000003901100" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="0,1,2" />
+      <preconditions>
+        <precondition type="config" active="true" ref="756a1889-67df-426b-aaee-26627587b09b" operand="=" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="9bc94009-0481-42c0-98f4-10b754e3b450">
+    <active>true</active>
+    <description>Current Alt</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3324" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Display Module" serial="OVERHEAD_4/ 000003901100" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="0,1,2,3,4,5,6,7" ledDecimalPoints="6" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="c828f3d5-4930-4254-922d-aa8caea47e32">
+    <active>false</active>
+    <description>PC: Autopilot ALT</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07D4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="5,0062E-05" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Display Module" serial="-" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="4,5,6,7" ledDecimalPoints="6" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="c118875f-ce05-4911-b565-a09c1ec8e8ee">
+    <active>true</active>
+    <description>Autopilot Alert ON</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3324" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="C03" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="c828f3d5-4930-4254-922d-aa8caea47e32" operand="&lt;=" value="$+100" />
+        <precondition type="config" active="true" ref="c828f3d5-4930-4254-922d-aa8caea47e32" operand="&gt;=" value="$-100" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="5c6f3f1c-5a81-4197-a327-6af25a495445">
+    <active>true</active>
+    <description>Autopilot Alert ON Kopie</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3324" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="OVERHEAD_1/ 000110801100" trigger="normal" pin="C04" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="c828f3d5-4930-4254-922d-aa8caea47e32" operand="&gt;" value="$+100" />
+        <precondition type="config" active="true" ref="c828f3d5-4930-4254-922d-aa8caea47e32" operand="&lt;" value="$-100" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="023592b9-86fd-4923-80ad-df42401aaacd">
+    <active>false</active>
+    <description>Squawk Code</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Display Module" serial="MobiFlight Mega/ SN-7a1-285" trigger="normal" ledAddress="Squawk" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="2,3,4,5" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="9fb0a4be-3ad6-4c91-89ae-f2984edc91cd">
+    <active>false</active>
+    <description>Transponder Fail</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+      <display type="Pin" serial="MobiFlight Mega/ SN-7a1-285" trigger="normal" pin="xpndrFail" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="1d009a79-a3b9-4b0b-8a26-1ceba020b13b">
+    <active>false</active>
+    <description>test</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0800" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="MobiFlight Micro/ SN-046-df5" trigger="normal" pin="Output8" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+</outputs>
+</MobiflightConnector>

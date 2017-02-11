@@ -824,10 +824,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\AutoUpdater.NET.csproj">
-      <Project>{FB9E7E6B-B19F-4F37-A708-2996190CEF13}</Project>
+      <Project>{fb9e7e6b-b19f-4f37-a708-2996190cef13}</Project>
       <Name>AutoUpdater.NET</Name>
     </ProjectReference>
-    <ProjectReference Include="CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
+    <ProjectReference Include="CmdMessenger\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
       <Project>{3cf8f8fc-6f5c-46f8-94dc-c2e4c505eca4}</Project>
       <Name>CommandMessenger</Name>
     </ProjectReference>

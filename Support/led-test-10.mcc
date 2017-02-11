@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="yes"?>
+<ArcazeUsbConnector>
+  <config guid="0ec12f67-3af6-4c56-96cd-7377e1fce37c">
+    <active>true</active>
+    <description>Led more than 10</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07D4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="5,0062E-05" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="MobiFlight Mega/ SN-33a-cbd" trigger="normal" pin="Led23" pinBrightness="113" />
+      <preconditions />
+    </settings>
+  </config>
+</ArcazeUsbConnector>

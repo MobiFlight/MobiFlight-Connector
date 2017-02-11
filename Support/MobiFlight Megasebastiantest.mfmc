@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <Output Name="22" Pin="22" />
+  <LedModule Name="LedModule Clock" DinPin="52" ClsPin="53" ClkPin="51" Brightness="15" NumModules="3" />
+  <Output Name="23" Pin="23" />
+  <Output Name="24" Pin="24" />
+  <Output Name="25" Pin="25" />
+  <Output Name="26" Pin="26" />
+  <Output Name="27" Pin="27" />
+  <Output Name="28" Pin="28" />
+  <Output Name="29" Pin="29" />
+  <Output Name="30" Pin="30" />
+  <Output Name="31" Pin="31" />
+  <Output Name="32" Pin="32" />
+  <Output Name="33" Pin="33" />
+  <Output Name="34" Pin="34" />
+  <Output Name="35" Pin="35" />
+  <Output Name="38" Pin="38" />
+  <Output Name="36" Pin="36" />
+  <Output Name="37" Pin="37" />
+  <LedModule Name="LedModule egt" DinPin="52" ClsPin="53" ClkPin="51" Brightness="15" NumModules="3" />
+  <Output Name="2" Pin="2" />
+  <Output Name="49" Pin="49" />
+  <Output Name="47" Pin="47" />
+  <Output Name="14" Pin="14" />
+  <Output Name="48" Pin="48" />
+</Config>

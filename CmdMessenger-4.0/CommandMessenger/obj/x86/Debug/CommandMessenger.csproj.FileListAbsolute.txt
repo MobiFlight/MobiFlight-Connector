@@ -1,0 +1,5 @@
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\bin\Debug\CommandMessenger.dll
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\bin\Debug\CommandMessenger.pdb
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\obj\x86\Debug\CommandMessenger.csprojResolveAssemblyReference.cache
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\obj\x86\Debug\CommandMessenger.dll
+D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\obj\x86\Debug\CommandMessenger.pdb

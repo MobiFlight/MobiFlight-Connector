@@ -1,0 +1,93 @@
+<?xml version="1.0" standalone="yes"?>
+<ArcazeUsbConnector>
+  <config guid="f325d3b9-fae6-4605-888f-9b143133d650">
+    <active>false</active>
+    <description>IAS Mach</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07E2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="&quot;&quot;" elseValue="" />
+      <display type="Display Module" serial="New Config/ 000466600000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="3" ledPadding="False" ledDigits="0,1,2" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="3b523bea-cc08-48ce-b7d7-b226a32613c8">
+    <active>false</active>
+    <description>HDG</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="0" operand="=" ifValue="360" elseValue="" />
+      <display type="Display Module" serial="New Config/ 000466600000" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="0,1,2,3" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="f7dccae9-61a0-43d0-929d-62cecbe55d3d">
+    <active>false</active>
+    <description>VS</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07F2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="&quot;&quot;" elseValue="" />
+      <display type="Display Module" serial="New Config/ 000466600000" trigger="normal" ledAddress="3" ledConnector="2" ledModuleSize="8" ledPadding="False" ledDigits="0,1,2,3,4,5,6,7" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="5953f37d-6984-41c4-ae04-d80fe0a2a82b">
+    <active>false</active>
+    <description>Altitude</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07D4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Display Module" serial="New Config/ 000466600000" trigger="normal" ledAddress="2" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="0,1,2,3,4,5,6,7" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="7e92c3d8-1f28-489b-adae-c10e5ed6242b">
+    <active>true</active>
+    <description>LED AP</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07BC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="MobiFlight Mega/ SN-33a-cbd" trigger="normal" pin="Led43" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="f5941737-649b-40d0-90fe-53d21829d033">
+    <active>true</active>
+    <description>LED A/T</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07DC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="MobiFlight Mega/ SN-33a-cbd" trigger="normal" pin="B18" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="41e212b9-edbf-4655-b7dc-8b68d9a0ddd3">
+    <active>true</active>
+    <description>LED VNAV</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07C4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="New Config/ 000466600000" trigger="normal" pin="A05" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="f0f2fd35-fb39-4204-ab8a-489de138ffd9">
+    <active>true</active>
+    <description>LED LNAV</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0804" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="New Config/ 000466600000" trigger="normal" pin="A04" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="0b0ec69c-b253-4a7f-be55-a1f0d5504e5d">
+    <active>true</active>
+    <description>LED VS</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07EC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="New Config/ 000466600000" trigger="normal" pin="A08" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+</ArcazeUsbConnector>

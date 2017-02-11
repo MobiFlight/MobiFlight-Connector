@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <Button Name="LH Ctr Fuel" Pin="52" />
+  <Button Name="Battery Master On" Pin="49" />
+  <Button Name="RH Ctr Fuel" Pin="48" />
+  <Button Name="LH Aft Fuel" Pin="13" />
+  <Button Name="LH Fwd Fuel" Pin="46" />
+  <Button Name="RH Aft Fuel" Pin="50" />
+  <Button Name="RH Fwd Fuel" Pin="44" />
+  <Button Name="LH Retract Ldg On" Pin="11" />
+  <Button Name="LH Fixed Ldg On" Pin="14" />
+  <Button Name="LH Turnoff" Pin="5" />
+  <Button Name="RH Retract Ldg On" Pin="10" />
+  <Button Name="RH Fixed Ldg On" Pin="15" />
+  <Button Name="Taxi Lights" Pin="16" />
+  <Button Name="LH Ldg Rtct Extend" Pin="12" />
+  <Button Name="RH Ldg Rtct Extend" Pin="2" />
+  <Button Name="Emer Lights On" Pin="51" />
+  <Button Name="Emer Lights Off" Pin="53" />
+  <Button Name="Eng 1 Hyd" Pin="26" />
+  <Button Name="Eng 2 Hyd" Pin="36" />
+  <Button Name="Elec 1 Hyd" Pin="22" />
+  <Button Name="Elec 2 Hyd" Pin="24" />
+  <Button Name="LH Side Wdw Heat" Pin="32" />
+  <Button Name="LH Fwd Wdw Heat" Pin="34" />
+  <Button Name="RH Fwd Wdw Heat" Pin="28" />
+  <Button Name="RH Side Wdw Heat" Pin="30" />
+  <Button Name="Eng 1 Anti-ice" Pin="38" />
+  <Button Name="Eng 2 Anti-ice" Pin="40" />
+  <Button Name="Wing Anti-ice" Pin="42" />
+  <Button Name="Eng 1 Gnd" Pin="6" />
+  <Button Name="Eng 1 Cont" Pin="8" />
+  <Button Name="Eng 1 Flt" Pin="4" />
+  <Button Name="Eng 2 Gnd" Pin="7" />
+  <Button Name="Eng 2 Cont" Pin="18" />
+  <Button Name="Eng 2 Flt" Pin="19" />
+  <Button Name="Eng Ign LH" Pin="17" />
+  <Button Name="Eng Ign RH" Pin="45" />
+  <Button Name="APU Start" Pin="9" />
+  <Button Name="APU Off" Pin="3" />
+</Config>

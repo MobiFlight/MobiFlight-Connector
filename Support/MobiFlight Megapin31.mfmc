@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <LedModule Name="LedModule Clock" DinPin="51" ClsPin="52" ClkPin="53" Brightness="15" NumModules="8" />
+  <Output Name="22 below GS vP inhibit" Pin="22" />
+  <Output Name="23 Stab Out of Trim" Pin="23" />
+  <Output Name="24 SpeedBrake do not arm" Pin="24" />
+  <Output Name="25 AP PRST" Pin="25" />
+  <Output Name="26 AT Trst" Pin="26" />
+  <Output Name="27 FMC PRST" Pin="27" />
+  <Output Name="28 Speed Brake Armed" Pin="28" />
+  <Output Name="29 LE Flaps Ext" Pin="29" />
+  <Output Name="30 LE Flap Transit" Pin="30" />
+</Config>

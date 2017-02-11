@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="4fa514fa-3226-4f6f-8625-64f7320803f4">
+      <active>true</active>
+      <description>test</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x313C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <comparison active="True" value="" operand="" ifValue="" elseValue="" />
+        <display type="Display Module" serial="-" trigger="normal" ledAddress="" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3,4,5">
+          <interpolation active="False">
+            <value x="0" y="100" />
+            <value x="2048" y="1024" />
+          </interpolation>
+        </display>
+        <preconditions />
+        <transformation active="False" expression="$*1.2" substrStart="1" substrEnd="2" />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

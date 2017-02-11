@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="yes"?>
+<ArcazeUsbConnector>
+  <config guid="6cca19d6-d1e0-4419-9769-05ab1ebd6824">
+    <active>true</active>
+    <description>test 1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C4E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+      <display type="Display Module" serial="MobiFlight Mega/ SN-7a1-285" trigger="normal" ledAddress="Squawk" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="0,1,2,3,4,5,6,7" />
+      <preconditions>
+        <precondition type="pin" active="true" serial="Arcaze MCP/ 000393601000" pin="A07" operand="" value="0" />
+        <precondition type="pin" active="true" serial="Arcaze MCP/ 000393601000" pin="B19" operand="" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="4a415c16-e95b-4e35-ab61-0f2e2f5768ea">
+    <active>true</active>
+    <description>test 2</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C4E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+      <display type="Display Module" serial="MobiFlight Mega/ SN-7a1-285" trigger="normal" ledAddress="Squawk" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="0,1,2,3,4,5,6,7" />
+      <preconditions>
+        <precondition type="pin" active="true" serial="Arcaze MCP/ 000393601000" pin="A07" operand="" value="0" />
+        <precondition type="pin" active="true" serial="Arcaze MCP/ 000393601000" pin="B19" operand="" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+</ArcazeUsbConnector>

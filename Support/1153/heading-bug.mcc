@@ -1,0 +1,546 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4">
+      <active>false</active>
+      <description>Master Battery Switch (PreCon)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <display type="Display Module" serial="-" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="0b9418e9-47a9-400c-9c8a-317add6e5381">
+      <active>false</active>
+      <description>Avionics Switch (PreCon)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <display type="Display Module" serial="-" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="5475ec4f-64ed-47b9-adba-e1ad19199dfc">
+      <active>false</active>
+      <description>COM1 Active (ON)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <preconditions>
+          <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" />
+          <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="4d7decfc-3d55-4652-8836-62bd56db45fb">
+      <active>false</active>
+      <description>COM1 Active (OFF)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="True" value="0" operand="=" ifValue="        " elseValue="        " />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
+        <preconditions>
+          <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" />
+          <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="08a7e927-7dfb-4d3d-8f9f-fd70ff3bd2ef">
+      <active>false</active>
+      <description>COM1 Standby (ON)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="3" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <preconditions>
+          <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" />
+          <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="19499a2a-dd17-4bcb-93e6-edeba3fa032f">
+      <active>false</active>
+      <description>COM1 Standby (OFF)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="True" value="0" operand="=" ifValue="        " elseValue="        " />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="3" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
+        <preconditions>
+          <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" />
+          <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="5ea966e6-169e-4459-b86d-65a934d5df0e">
+      <active>false</active>
+      <description>NAV1 Active</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="2" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="7744df79-377f-4895-90b9-a60ea2c4c99b">
+      <active>false</active>
+      <description>NAV1 Standby</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="4" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="13f1c313-d8d1-4139-9778-a0d0bf0b4bea">
+      <active>false</active>
+      <description>Nav1 Freq Sel</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x66C1" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="a18ef589-d13f-48cc-9ddb-8c037be68387">
+      <active>false</active>
+      <description>COM1 Freq Sel</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="955f6680-be17-40a6-9fc4-e4f087036253">
+      <active>true</active>
+      <description>Heading</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" multiplier="0,0054931640625" bcdMode="False" />
+        <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="7fd3c7f1-7cdf-4bc4-b3bd-ef9fc8e3c0bc">
+      <active>false</active>
+      <description>Precondition Bug</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions>
+          <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" />
+          <precondition type="pin" active="true" serial="MobiFlight Mega/ SN-849-180" pin="A01" operand="" value="0" />
+        </preconditions>
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="f1dda453-af4b-4e44-b88e-6cdb575abb50">
+      <active>false</active>
+      <description>MasterBattery ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="MasterBattery" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="790df32b-d694-4860-88f6-6fe718869038">
+      <active>false</active>
+      <description>MasterBattery ON/OFF Kopie</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="MasterBattery" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="805dc057-4e6b-44ea-ab63-aa460c2079ba">
+      <active>false</active>
+      <description>Generator ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Generator" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="42e02b43-15a9-47db-9497-fe0198c0b666">
+      <active>false</active>
+      <description>Generator ON/OFF Kopie</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Generator" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="53c85f5f-1af4-4610-84f7-80f68c68fc29">
+      <active>false</active>
+      <description>Fuel Pump ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="FuelPump" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x3104" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x3104" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="bf3d9161-df8a-4449-a6b8-73fe0cf6b4be">
+      <active>false</active>
+      <description>Beacon ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Beacon" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0002" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0002" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="11f6de8b-1ca0-491f-92f1-16ebec5747a2">
+      <active>false</active>
+      <description>LangingLight ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Landing" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="1" mask="0x0004" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="1" mask="0x0004" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="8629e0ca-b3c6-48ee-a346-5aea8230ec07">
+      <active>false</active>
+      <description>Taxi Light ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Taxi" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0008" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0008" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="3719bd6b-8b00-47d4-a6bc-e078b6f4c20d">
+      <active>false</active>
+      <description>Nav Position Light </description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="NavLight" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0001" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0001" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="6d332180-8663-430e-b241-db73a514cb36">
+      <active>false</active>
+      <description>Strobe Light ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Strobe" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0010" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0010" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="8f87d39c-22fd-4a0e-8c12-cd6024bcb6d8">
+      <active>false</active>
+      <description>Pitot Heat ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Pitot" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="54ec7574-d953-45ad-9e44-f647385b277d">
+      <active>false</active>
+      <description>Avionics Master ON/OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Avionics Master" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="cdfcadaf-b9f7-431e-8c54-a8b2fa81251f">
+      <active>false</active>
+      <description>Engine Starter START</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Starter START" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="4" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="67b2ed56-07e6-44e0-8b79-8852da4620ea">
+      <active>false</active>
+      <description>Engine Starter BOTH (1+2)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Starter BOTH" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="3" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="3169ccc9-3c5f-4f4a-9fad-c1fb03365458">
+      <active>false</active>
+      <description>Engine Starter Left</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Starter 2" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="2" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="ebb949ee-50bd-4f9f-b4a5-72365ee05397">
+      <active>false</active>
+      <description>Engine Starter Right</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Starter 1" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="04332969-0818-4d89-8a8c-829f25fd5092">
+      <active>false</active>
+      <description>Engine Starter OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-33a-cbd" name="Starter Off" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="0" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="8d4c174f-74d7-4f65-85e4-b2dc164877b6">
+      <active>false</active>
+      <description>Radio On</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="" name="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="eaf94969-44cc-466a-b105-618576366a10">
+      <active>false</active>
+      <description>Com1 STBY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-c2b-a22" name="Com1Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;1900,$-100,$+1800)" />
+          </onLeft>
+          <onLeftFast />
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;3697,$+100,$-1800)" />
+          </onRight>
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="a18ef589-d13f-48cc-9ddb-8c037be68387" operand="=" value="0" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="00613069-876d-465e-92d6-3a9b5b99854a">
+      <active>false</active>
+      <description>Com1 STBY KHz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-c2b-a22" name="Com1Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=1800,if($%5==0,$-3,$-2),3697)" />
+          </onLeft>
+          <onLeftFast />
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;3697,if($%5==0,$+2,$+3),1800)" />
+          </onRight>
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="a18ef589-d13f-48cc-9ddb-8c037be68387" operand="=" value="1" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="60e1375e-e6c0-44b9-8376-3d19cf8012db">
+      <active>false</active>
+      <description>Nav1 Stby MHz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-c2b-a22" name="Nav1Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
+          </onLeft>
+          <onLeftFast />
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
+          </onRight>
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="13f1c313-d8d1-4139-9778-a0d0bf0b4bea" operand="=" value="0" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="7d411c2b-6656-48cd-a70d-924dff0c0b10">
+      <active>false</active>
+      <description>Nav1 Stby KHz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-c2b-a22" name="Nav1Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=800,$-5,1795)" />
+          </onLeft>
+          <onLeftFast />
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1795,$+5,800)" />
+          </onRight>
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="13f1c313-d8d1-4139-9778-a0d0bf0b4bea" operand="=" value="1" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="50636809-c002-4908-9d38-639024325c1b">
+      <active>false</active>
+      <description>Nav1 MHZ Sel</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-c2b-a22" name="Nav1EncoderBtn" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x66C1" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="if($==1,0,1)" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="4f20728d-8ce4-4f56-9f80-41e27be3de13">
+      <active>false</active>
+      <description>COM1 MHZ Sel</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-c2b-a22" name="Com1 Encoder Btn" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="if($==1,0,1)" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="da72ce40-ca56-499f-8922-07c377c3589e">
+      <active>false</active>
+      <description>Nav1 Switch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-c2b-a22" name="Nav1 Switch" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="66448" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="2440b2d8-66d5-431f-b91f-9784213677af">
+      <active>false</active>
+      <description>COM1 Switch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-c2b-a22" name="COM Switch" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="66372" />
+          </onPress>
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="03b79b49-02fd-47cd-8e92-84538bdbca42">
+      <active>true</active>
+      <description>Heading Bug</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.3.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$-182" />
+          </onLeft>
+          <onLeftFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$-(182*2)" />
+          </onLeftFast>
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$+182" />
+          </onRight>
+          <onRightFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$+(182*2)" />
+          </onRightFast>
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="false" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="2" />
+          <precondition type="pin" active="false" serial="MobiFlight Mega/ SN-849-180" pin="A01" operand="=" value="1" />
+        </preconditions>
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

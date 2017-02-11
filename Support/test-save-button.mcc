@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs />
+  <inputs>
+    <config guid="9321dd18-7f63-49a2-b6d8-90b8fec6c939">
+      <active>false</active>
+      <description>test</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.1.0.0, Culture=neutral, PublicKeyToken=null" serial="TestBoard1/ SN-849-180" name="RedPushButton" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="EventIdInputAction" eventId="12345" param="54321" />
+          <onRelease type="JeehellInputAction" pipeId="1" value="12" />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

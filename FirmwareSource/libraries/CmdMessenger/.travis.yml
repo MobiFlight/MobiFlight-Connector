@@ -1,0 +1,24 @@
+language: c
+before_install:
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
+  - sleep 3
+  - export DISPLAY=:1.0
+  - wget http://downloads.arduino.cc/arduino-1.6.9-linux64.tar.xz
+  - tar xf arduino-1.6.9-linux64.tar.xz
+  - sudo mv arduino-1.6.9 /usr/local/share/arduino
+  - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
+install:
+  - ln -s $PWD /usr/local/share/arduino/libraries/CmdMessenger
+script:
+  - arduino --verify --board arduino:avr:uno $PWD/examples/ArduinoController/ArduinoController.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/CmdMessengerTest/CmdMessengerTest.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/ConsoleShell/ConsoleShell.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/DataLogging/DataLogging.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/Receive/Receive.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SendAndReceive/SendAndReceive.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SendAndReceiveArguments/SendAndReceiveArguments.ino
+  - arduino --verify --board arduino:avr:uno $PWD/examples/SendAndReceiveBinaryArguments/SendAndReceiveBinaryArguments.ino
+notifications:
+  email:
+    on_success: change
+    on_failure: change

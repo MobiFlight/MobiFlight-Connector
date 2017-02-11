@@ -1,0 +1,29 @@
+﻿<Properties StartupItem="TemperatureControl\9-TemperatureControl.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TemperatureControl\TemperatureControl.cs">
+    <Files>
+      <File FileName="ArduinoController\ArduinoController.cs" Line="1" Column="1" />
+      <File FileName="TemperatureControl\TemperatureControl.cs" Line="177" Column="1" />
+      <File FileName="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger\ConnectionManager.cs" Line="1" Column="1" />
+      <File FileName="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger\AsyncWorker.cs" Line="117" Column="1" />
+      <File FileName="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger\CmdMessenger.cs" Line="1" Column="1" />
+      <File FileName="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger\EventWaiter.cs" Line="1" Column="1" />
+      <File FileName="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger\Queue\CommandQueue.cs" Line="1" Column="1" />
+      <File FileName="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger\CommunicationManager.cs" Line="1" Column="1" />
+      <File FileName="CommandMessenger.Transport.Serial\SerialTransport.cs" Line="1" Column="1" />
+      <File FileName="CommandMessenger.Transport.Bluetooth\BluetoothTransport.cs" Line="1" Column="1" />
+      <File FileName="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger.Transport.Serial\SerialConnectionManager.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="D:\My Documents\Github\Arduino-Code-and-Libraries\Libraries\CmdMessenger\CSharp\CommandMessengerTests\Common.cs" line="266" column="1" />
+      <Breakpoint file="D:\My Documents\Github\Arduino-Code-and-Libraries\Libraries\CmdMessenger\CSharp\CommandMessengerTests\Common.cs" line="229" column="1" />
+      <Breakpoint file="D:\My Documents\Github\Arduino-Code-and-Libraries\Libraries\CmdMessenger\CSharp\CommandMessengerTests\Common.cs" line="235" column="1" />
+      <Breakpoint traceExpression="{this.Name}" file="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger\AsyncWorker.cs" line="32" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="d:\My Documents\Github\Arduino-Libraries-xprmt - Clean\Libraries\CmdMessenger\CSharp\CommandMessenger\AsyncWorker.cs" line="32" offsetX="340" offsetY="496" expression="this.Name" liveUpdate="True" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+</Properties>

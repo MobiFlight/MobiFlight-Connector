@@ -1,0 +1,36 @@
+{
+  "name": "CmdMessenger",
+  "keywords": "protocol, message, communication, serial",
+  "description": "A serial messaging library for the Arduino and .NET/Mono platform",
+  "authors":
+  [
+    {
+      "name": "Thijs Elenbaas",
+      "url": "http://thijs.elenbaas.net/about"
+    },
+	{
+      "name": "Valeriy Kucherenko",
+      "url": "https://github.com/valkuc"
+    }
+  ],
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/thijse/Arduino-CmdMessenger.git"
+  },
+  "dependencies": 
+  [
+    {
+      "name": "PID",
+      "frameworks": "arduino"
+    },
+    {
+      "name": "Adafruit-MAX31885",
+      "frameworks": "arduino"
+    }
+  ],
+  "frameworks": "arduino"
+}
+
+
+ 

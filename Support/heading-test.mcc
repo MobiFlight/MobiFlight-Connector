@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="167fd07f-0b35-41e9-aefd-8f4970e794bf">
+      <active>false</active>
+      <description>Heading (Gyro Compass)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x2B00" offsetType="Float" size="8" mask="0xFFFFFFFFFFFFFFFF" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="360" stepperOutputRev="2040" stepperTestValue="180" stepperCompassMode="True">
+          <interpolation active="True">
+            <value x="0" y="360" />
+            <value x="360" y="0" />
+          </interpolation>
+        </display>
+        <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+      </settings>
+    </config>
+    <config guid="985de28b-d645-48db-9193-26290d120e63">
+      <active>true</active>
+      <description>Heading (Whiskey Compass)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x02CC" offsetType="Float" size="8" mask="0xFFFFFFFFFFFFFFFF" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="360" stepperOutputRev="2040" stepperTestValue="180" stepperCompassMode="True">
+          <interpolation active="False">
+            <value x="0" y="360" />
+            <value x="360" y="0" />
+          </interpolation>
+        </display>
+        <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+      </settings>
+    </config>
+    <config guid="527b71a6-835f-4d27-8215-7ed40ef8220f">
+      <active>true</active>
+      <description>hdg</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4" />
+        <preconditions />
+        <transformation active="True" expression="$*0.0054931640625" substrStart="0" substrEnd="7" />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="434e2c6a-4167-4ec6-a61d-f7989a9c0dc6">
+      <active>true</active>
+      <description>macro</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.0.0, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="RedPushButton" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="1" />
+          </onPress>
+          <onRelease type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="2" />
+          </onRelease>
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

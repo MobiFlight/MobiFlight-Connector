@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="36fe0419-5205-4cf5-83ad-b32c80fbe1eb">
+      <active>true</active>
+      <description>Test</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x023B" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="7">
+          <interpolation active="False">
+            <value x="0" y="0" />
+            <value x="1024" y="2048" />
+          </interpolation>
+        </display>
+        <preconditions>
+          <precondition type="config" active="true" ref="5443de9f-8420-4de8-a1af-447140574248" operand="&gt;" value="1" logic="and" />
+          <precondition type="config" active="false" ref="5443de9f-8420-4de8-a1af-447140574248" operand="=" value="2" logic="or" />
+          <precondition type="config" active="true" ref="5443de9f-8420-4de8-a1af-447140574248" operand="&gt;=" value="3" logic="and" />
+        </preconditions>
+      </settings>
+    </config>
+    <config guid="5443de9f-8420-4de8-a1af-447140574248">
+      <active>true</active>
+      <description>Interpolation Active</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.3.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" multiplier="0,0054931640625" bcdMode="False" />
+        <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="7">
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1024" y="4096" />
+          </interpolation>
+        </display>
+        <preconditions />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

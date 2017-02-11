@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="af07f152-155c-4a2b-a820-31bb7d3b78db">
+      <active>true</active>
+      <description>Flaps Position</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
+        <display type="Servo" serial="MobiFlight Mega/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="16383" servoMaxRotationPercent="100" />
+        <preconditions />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

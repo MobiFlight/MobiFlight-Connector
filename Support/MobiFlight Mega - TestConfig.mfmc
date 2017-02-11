@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <LedModule Name="LedModule" DinPin="48" ClsPin="50" ClkPin="52" Brightness="15" NumModules="2" />
+  <Encoder Name="EncoderAlps" PinLeft="30" PinRight="31" />
+  <Encoder Name="EncoderNoName" PinLeft="26" PinRight="27" />
+  <Button Name="EncoderAlpsButton" Pin="28" />
+  <Button Name="EncoderNoNameButton" Pin="24" />
+  <Button Name="RedPushButton" Pin="25" />
+  <Button Name="SwitchUp" Pin="22" />
+  <Button Name="SwitchDown" Pin="23" />
+  <Servo Name="Servo" DataPin="2" />
+  <Stepper Name="Stepper1" Pin1="35" Pin2="37" Pin3="39" Pin4="41" BtnPin="5" />
+</Config>

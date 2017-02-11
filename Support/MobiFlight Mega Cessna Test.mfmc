@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <LedModule Name="LedModule" DinPin="48" ClsPin="50" ClkPin="52" Brightness="15" NumModules="2" />
+  <Encoder Name="EncoderAlps" PinLeft="30" PinRight="31" />
+  <Encoder Name="EncoderNoName" PinLeft="26" PinRight="27" />
+  <Button Name="EncoderAlpsButton" Pin="28" />
+  <Button Name="EncoderNoNameButton" Pin="24" />
+  <Button Name="RedPushButton" Pin="25" />
+  <Button Name="SwitchUp" Pin="22" />
+  <Button Name="SwitchDown" Pin="23" />
+  <Servo Name="Servo" DataPin="2" />
+  <LedModule Name="LedModule 1" DinPin="53" ClsPin="51" ClkPin="49" Brightness="15" NumModules="4" />
+  <Button Name="Radio ON" Pin="34" />
+  <Button Name="Radio Off" Pin="35" />
+  <Button Name="COM Switch" Pin="36" />
+  <Button Name="Com1 Encoder Btn" Pin="39" />
+  <Encoder Name="Com1Encoder" PinLeft="37" PinRight="38" />
+  <Button Name="Nav1 Switch" Pin="40" />
+  <Encoder Name="Nav1Encoder" PinLeft="41" PinRight="43" />
+  <Button Name="Nav1EncoderBtn" Pin="42" />
+</Config>

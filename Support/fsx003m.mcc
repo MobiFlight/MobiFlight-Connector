@@ -1,0 +1,1075 @@
+<?xml version="1.0" standalone="yes"?>
+<ArcazeUsbConnector>
+  <config guid="4c0fd3ef-4ea2-44a0-b61f-92d713e72226">
+    <active>true</active>
+    <description>gear_nose_move</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BEC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16380" operand="&gt;=" ifValue="0" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C01" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="23d85114-e0fe-4987-8a87-cbee0f2e4c6e">
+    <active>true</active>
+    <description>gear_left_move</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16380" operand="&gt;=" ifValue="0" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C03" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="8e19814b-7579-485e-ad6a-d2a6a8514988">
+    <active>true</active>
+    <description>gear_left_move Kopie</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16380" operand="&gt;=" ifValue="0" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C05" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="9278602c-f427-43af-9562-932b004de1ab">
+    <active>true</active>
+    <description>gear_right_move</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16380" operand="&gt;=" ifValue="0" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C07" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="96f6777e-9108-4dad-841b-2f88683cae28">
+    <active>true</active>
+    <description>gear-nose-down</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BEC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16382" operand="&lt;=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C02" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="718abe1a-1e17-478c-ba9e-a688a5e9efa5">
+    <active>true</active>
+    <description>gear_left_down</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16382" operand="&lt;=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C04" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="ccfde9aa-94c7-4398-ad65-9861e8c92920">
+    <active>true</active>
+    <description>gear_left_down Kopie</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16382" operand="&lt;=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C06" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="cc24ed4c-890e-4ca0-ba75-95458ebff94f">
+    <active>true</active>
+    <description>gear_right_down</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BF0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="16382" operand="&lt;=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C08" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="e4c9f858-e751-4e6c-8a43-8c817ffedf80">
+    <active>true</active>
+    <description>autobrake_active</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x2F80" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C09" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="d418bf9a-c6cf-446a-a6a0-4a46fa879f91">
+    <active>true</active>
+    <description>autobrake_activeRTO</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x2F80" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C11" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="bd3ecc35-25fe-4dc3-9b32-21705d2c29fc">
+    <active>true</active>
+    <description>autobrake_activeRTO Kopie</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x2F80" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C12" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="2946bc8a-68eb-488a-a03d-06605cb1caf4">
+    <active>true</active>
+    <description>autobrake decel</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3070" offsetType="Float" size="8" mask="0xFFFFFFFFFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="-1" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C10" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="f26798ca-4a20-4381-b689-c7320c62695d">
+    <active>true</active>
+    <description>TERR</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0E0E" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="2" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C13" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="7563e14a-d075-4099-ada7-1809cd796a14">
+    <active>true</active>
+    <description>northref</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x132C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C15" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="aed1a730-bcb5-4581-b0a2-80b928393e79">
+    <active>true</active>
+    <description>apu start on</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B54" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1100000000" operand="&gt;" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D01" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="f4b60667-4682-498d-8d2d-c16076bb8407">
+    <active>true</active>
+    <description>apu avail</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B54" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1118000000" operand="&gt;" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D02" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="2d63e1a6-9c37-46aa-91a1-64211f3e268a">
+    <active>true</active>
+    <description>apu master on</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B58" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="&gt;" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D03" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="3da4324a-9027-4af8-90ee-2936b8800d38">
+    <active>true</active>
+    <description>emer light</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="300" operand="&gt;" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D04" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="29b12eed-8892-45f5-9497-40a1ba2394f1">
+    <active>true</active>
+    <description>mastercaution</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8601" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C19" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="7938cbcc-6dfe-41a8-9511-45f5e713c9ab">
+    <active>true</active>
+    <description>masterwarn</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8600" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C18" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="ed18bf52-9820-422c-8941-2f94588115b1">
+    <active>true</active>
+    <description>autoland</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8604" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C20" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="3e58c1fd-91cc-4c1a-9cdc-5ee6879b0a3a">
+    <active>true</active>
+    <description>gpws warn</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8602" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C15" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="8409e8f5-d43c-4f58-a39d-7030786cdd78">
+    <active>true</active>
+    <description>GS warn</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8603" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C14" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="f9919815-dc3a-4678-96d7-2a69e553bb7d">
+    <active>true</active>
+    <description>wing anti ice</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x337D" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D05" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="5831fbf7-5e83-4bfc-a6e6-4add2159363f">
+    <active>true</active>
+    <description>eng1 anti ice</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x08B2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D06" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="4858bc0d-d142-4164-a13f-8d99c9ee86e8">
+    <active>true</active>
+    <description>eng2 anti ice</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x094A" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D07" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="1160efc0-4771-40db-89b2-745a1f8664c0">
+    <active>true</active>
+    <description>eng3 anti ice</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x09E2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D08" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="437cc2e7-58c1-4478-95fc-6af6ea660bab">
+    <active>true</active>
+    <description>eng4 anti ice</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0A7A" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D09" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="69480b3c-8484-4f8d-9f47-ce9c4d6fdeda">
+    <active>true</active>
+    <description>pitot heat</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D10" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="9a09aab8-8e49-4fcf-bc9c-f1045d0b625b">
+    <active>true</active>
+    <description>eng1 bleed</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B50" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="3" operand="!=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D11" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="efc8907e-0c15-4591-a534-b325aa96d2d7">
+    <active>true</active>
+    <description>eng2 bleed</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B50" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="3" operand="!=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D12" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="93a91bbd-a422-4ba2-a9da-652786f9a320">
+    <active>true</active>
+    <description>eng3 bleed </description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B50" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="3" operand="!=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D16" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="2f02097b-666f-476b-ab3b-03ebd1716d18">
+    <active>true</active>
+    <description>eng4 bleed</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B50" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="3" operand="!=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D17" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="eae3fe28-abb4-4943-bd43-9e797f2da7bf">
+    <active>true</active>
+    <description>apu bleed</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B50" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="2" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D13" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="574d7a81-9659-4e23-aa21-747302a99034">
+    <active>true</active>
+    <description>heat1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B50" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="!=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D14" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="add3ea47-71b9-4401-9c87-517ad1c89060">
+    <active>true</active>
+    <description>heat2</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B50" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="!=" ifValue="0" elseValue="1" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D15" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="75904f65-3bfd-4213-84de-f759bea34dd1">
+    <active>true</active>
+    <description>cabinpresss fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0328" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D19" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="33b104fb-0c5d-4a73-8f6b-771a57bf4f9b">
+    <active>true</active>
+    <description>cabinpresss man</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x031C" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D18" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="d6b7dcc3-6ded-48db-99b3-a372085bc3b1">
+    <active>true</active>
+    <description>ditching</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0832" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="D20" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="a290d1d9-bef6-4f9c-a639-2cd4caa4f47b">
+    <active>false</active>
+    <description>Stick CAPT</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C16" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="a7e8a9d3-2c1e-445c-9bbe-2b005ebb971d">
+    <active>false</active>
+    <description>Stick FO</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="C17" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="1e35e993-9c38-48d4-a707-fd8e9ae21aa5">
+    <active>true</active>
+    <description>eng0FIREpedestal</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3366" offsetType="Integer" size="1" mask="0x0001" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="E01" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="356b1b8a-5853-495c-abab-7ad12c1090ad">
+    <active>true</active>
+    <description>eng1FIREpedestal</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3366" offsetType="Integer" size="1" mask="0x0002" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="E03" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="ae93e0f6-6762-4819-bf0a-5ef5867f3073">
+    <active>true</active>
+    <description>eng2FIREpedestal</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3366" offsetType="Integer" size="1" mask="0x0004" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="E05" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="2fde0fa8-ad5c-4e20-8531-acb27f0b0752">
+    <active>true</active>
+    <description>eng3FIREpedestal</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3366" offsetType="Integer" size="1" mask="0x0008" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="E07" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="c6bd4a64-da21-4f95-a4ee-5b94be8ce31c">
+    <active>false</active>
+    <description>eng0FAULTpedestal</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0894" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="E02" pinBrightness="255" />
+      <preconditions>
+        <precondition type="pin" active="true" serial="mip_ohead1/ 000429700000" pin="B11" operand="" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="152fe153-ee62-4fb9-8822-c8f89393ca95">
+    <active>false</active>
+    <description>eng1FAULTpedestal</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x092C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="E04" pinBrightness="255" />
+      <preconditions>
+        <precondition type="pin" active="true" serial="mip_ohead1/ 000429700000" pin="B15" operand="" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="a5f55286-1103-458c-a060-584514c2c83a">
+    <active>false</active>
+    <description>eng2FAULTpedestal</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x09C4" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="E06" pinBrightness="255" />
+      <preconditions>
+        <precondition type="pin" active="true" serial="mip_ohead1/ 000429700000" pin="B16" operand="" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="695d56e9-4e30-4ce0-babd-2ca4a3a02574">
+    <active>false</active>
+    <description>eng3FAULTpedestal</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0A5C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="mip_ohead1/ 000429700000" trigger="normal" pin="E08" pinBrightness="255" />
+      <preconditions>
+        <precondition type="pin" active="true" serial="mip_ohead1/ 000429700000" pin="B17" operand="" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="bdf6618b-14b2-4676-954a-b16b146cd648">
+    <active>true</active>
+    <description>generator4 off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x393C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D01" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="96690093-6228-4dc4-90c9-0f01ae464155">
+    <active>true</active>
+    <description>generator3 off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x39FC" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D03" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="7f7fcb78-869e-4cf2-bd10-d44d57731e4d">
+    <active>true</active>
+    <description>generator2 of</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3ABC" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D07" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="04e64162-eb36-4f22-a1d6-be23b3f4fc4e">
+    <active>true</active>
+    <description>generator1 off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3B7C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D09" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="79f370ee-2340-46b7-b180-a12b24155201">
+    <active>true</active>
+    <description>apu generator off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B51" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D05" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="cc3386ad-09c0-4ebd-825c-a8f889af4a13">
+    <active>true</active>
+    <description>generator4 fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0A5C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D02" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="bdf6618b-14b2-4676-954a-b16b146cd648" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="c7dfe6fa-e630-4136-830c-07c4d0f6520b">
+    <active>true</active>
+    <description>generator3 fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x09C4" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D04" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="96690093-6228-4dc4-90c9-0f01ae464155" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="e4b76eb0-4cd8-4e05-9f3a-089fef542932">
+    <active>true</active>
+    <description>generator2 fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x092C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D08" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="7f7fcb78-869e-4cf2-bd10-d44d57731e4d" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="0509589e-467c-451e-a6d4-82307878d260">
+    <active>true</active>
+    <description>generator1 fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0894" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D10" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="04e64162-eb36-4f22-a1d6-be23b3f4fc4e" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="b35a5ae1-2d49-4578-8f7c-5536c444ad16">
+    <active>true</active>
+    <description>apu generator fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B58" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D06" pinBrightness="255" />
+      <preconditions>
+        <precondition type="config" active="true" ref="79f370ee-2340-46b7-b180-a12b24155201" operand="=" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="5deeaa11-e2e2-4e83-91ca-5fee3359e384">
+    <active>true</active>
+    <description>masterbat1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D11" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="f02e3c0f-4957-4c1d-8198-2d728f4e624d">
+    <active>true</active>
+    <description>masterbat1 Kopie apu</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D14" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="714ac01d-534a-4d13-9fb9-58957e6465ce">
+    <active>true</active>
+    <description>masterbat1 Kopie</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D13" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="eaa75c00-a2bd-4d79-bfca-97101f63b0fb">
+    <active>true</active>
+    <description>masterbat load</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x282C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D12" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="56e705ef-1ac7-4eff-ade5-3a46ca89e7c4">
+    <active>true</active>
+    <description>masterbat load Kopie apu</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x282C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D15" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="16d0c333-38a7-40e4-b95e-8966a214c44c">
+    <active>true</active>
+    <description>bustie</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D16" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="06d63570-799e-4585-8d4d-0e636af884ad">
+    <active>true</active>
+    <description>ac ess bus fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D18" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="a6a7b1c1-0add-4e3e-8254-ad0f6f762e53">
+    <active>true</active>
+    <description>ac ess bus altn</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D17" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="b2fe7550-02fc-4069-9c2f-4b24e9a81504">
+    <active>true</active>
+    <description>elec galley</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8605" offsetType="Integer" size="1" mask="0x0001" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D19" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="6f15ff87-5821-45a8-a510-d10e1c5e0650">
+    <active>true</active>
+    <description>elec commercial</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8605" offsetType="Integer" size="1" mask="0x0002" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="D20" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="c0294e40-b1a7-4120-b1b3-a5b884008e65">
+    <active>true</active>
+    <description>fpumpl1fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8621" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="10" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C01" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="4f476055-d92f-45f6-8999-41937e088285">
+    <active>true</active>
+    <description>fpumpl1off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0x0002" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C02" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="d44c281f-1405-4c96-b0af-6d7b9eb8ed4e">
+    <active>true</active>
+    <description>fpumpl2fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8622" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="10" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C03" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="52747063-7d8d-4ebd-b34b-1d34d6a69a31">
+    <active>true</active>
+    <description>fpumpl2off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0x0001" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C04" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="9a188804-5292-4aa6-b990-b5b5dfbe9354">
+    <active>true</active>
+    <description>fpumpctrLRfault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8623" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="10" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C05" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="e1c92105-39c1-4361-8855-e91e479c172b">
+    <active>true</active>
+    <description>fpumpctrman</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x861D" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C06" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="7ad8a66b-715d-43ad-a007-48e4ead61e8f">
+    <active>true</active>
+    <description>fpumpctrmanfault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8624" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="10" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C07" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="6d557731-8922-4f84-93d2-2f382822fde8">
+    <active>true</active>
+    <description>fpumtctrLoff</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x861C" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C08" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="9d1d9c5e-6f22-4c99-9470-0d10e6c2b8a1">
+    <active>true</active>
+    <description>fpumpctrRoff</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x861E" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C09" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="1385f646-ded4-494c-a151-b8f2ee51c4cc">
+    <active>true</active>
+    <description>fpumpauxfault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8627" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="10" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C10" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="b1282cbb-8994-4e87-8bdd-550ca6a71f48">
+    <active>true</active>
+    <description>fpumpauxon</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8620" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C11" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="a8e03d1b-0fd7-42c8-acd5-1e652fdab35f">
+    <active>true</active>
+    <description>fpumptrimfault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x1244" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="5" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C12" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="a6ed55a6-e5fb-4a4a-9cfa-7a35cc0285e9">
+    <active>true</active>
+    <description>fpumpr3fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8625" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="10" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C13" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="afe25456-34c3-460b-b625-829b6acaa791">
+    <active>true</active>
+    <description>fpumpr3off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0x0004" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C14" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="6dc3fe3b-c9fb-45e5-985d-0a1708105472">
+    <active>true</active>
+    <description>fpumpr4fault</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8626" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="10" operand="&lt;=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C15" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="36275237-c1f7-4218-b54a-e73319d47a27">
+    <active>true</active>
+    <description>fpumpr4off</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0x0008" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="8" operand="!=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C16" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="9cf9b821-8c56-423e-a668-a0d08f7ec6f8">
+    <active>true</active>
+    <description>xfer1on</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8614" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="True" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C17" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="149c184a-41c1-47aa-84aa-be9be23eed05">
+    <active>true</active>
+    <description>xfer2on</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8615" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C18" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="7ad27f1f-d5ac-41a0-a4f1-54f85c2eeaa1">
+    <active>true</active>
+    <description>xfer3on</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8616" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C19" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="588a76c9-60a4-48ca-961b-d271453dc372">
+    <active>true</active>
+    <description>xfer4on</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8617" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="C20" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="9021c5ba-940e-4653-a0f1-3321d450fd71">
+    <active>true</active>
+    <description>xfer1open</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8614" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="E01" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="5aa521c7-433c-4170-b199-506826a232bc">
+    <active>true</active>
+    <description>xfer2open</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8615" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="E02" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="922a408d-63b0-471e-a199-d8d6385553ce">
+    <active>true</active>
+    <description>xfer3open</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8616" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="E03" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="88725e58-8e08-429c-a775-4282714e69a0">
+    <active>true</active>
+    <description>xfer4open</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8617" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="E04" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="032469dc-5e36-48eb-95d0-3fd76e00e0b7">
+    <active>true</active>
+    <description>hydpump1</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x341E" offsetType="Integer" size="1" mask="0x0001" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="E05" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="bde23d12-c2d6-4d95-b8cb-8455626f6a01">
+    <active>true</active>
+    <description>hydpump2</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x341E" offsetType="Integer" size="1" mask="0x0002" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="E06" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="fe5446f8-14e8-453f-9d19-27b94bad67ba">
+    <active>true</active>
+    <description>hydpump3</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x341E" offsetType="Integer" size="1" mask="0x0004" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="E07" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="5ccb9567-b398-4775-bffe-916848215820">
+    <active>true</active>
+    <description>hydpump4</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x341E" offsetType="Integer" size="1" mask="0x0008" multiplier="1" bcdMode="True" />
+      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="ohead2/ 000430100000" trigger="normal" pin="E08" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="13c611ce-040e-43c0-8b02-233b78bc52dd">
+    <active>true</active>
+    <description>barostd</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8630" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+      <display type="Pin" serial="-" trigger="normal" pin="" pinBrightness="255" />
+      <preconditions />
+    </settings>
+  </config>
+  <config guid="05f22e31-c08e-4103-bf19-4c84c18b1884">
+    <active>true</active>
+    <description>barodisplayrightHPA</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0332" offsetType="Integer" size="2" mask="0xFFFF" multiplier="0,0625" bcdMode="False" />
+      <comparison active="False" value="1013" operand="=" ifValue="510" elseValue="" />
+      <display type="Display Module" serial="glare01/ 000462000000" trigger="normal" ledAddress="System.ListItem" ledConnector="2" ledModuleSize="4" ledPadding="False" ledDigits="0,1,2,3" />
+      <preconditions>
+        <precondition type="config" active="true" ref="13c611ce-040e-43c0-8b02-233b78bc52dd" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="6b51679f-9636-41b8-b4fe-a09bd7901165">
+    <active>true</active>
+    <description>barodisplayleftHPA</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0330" offsetType="Integer" size="2" mask="0xFFFF" multiplier="0,0625" bcdMode="False" />
+      <comparison active="False" value="1013" operand="=" ifValue="510" elseValue="" />
+      <display type="Display Module" serial="glare01/ 000462000000" trigger="normal" ledAddress="System.ListItem" ledConnector="1" ledModuleSize="4" ledPadding="False" ledDigits="0,1,2,3" />
+      <preconditions>
+        <precondition type="config" active="true" ref="13c611ce-040e-43c0-8b02-233b78bc52dd" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="831447d6-7682-456c-9ece-a0ff41c54552">
+    <active>false</active>
+    <description>barodisplayrightINHG</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0332" offsetType="Integer" size="2" mask="0xFFFF" multiplier="0,184562395625" bcdMode="False" />
+      <comparison active="False" value="2991" operand="=" ifValue="510" elseValue="" />
+      <display type="Display Module" serial="-" trigger="normal" ledAddress="" ledConnector="2" ledModuleSize="4" ledPadding="False" ledDigits="0,1,2,3" />
+      <preconditions>
+        <precondition type="pin" active="true" serial="glare01/ 000462000000" pin="B07" operand="=" value="0" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="0b15b6fc-5b83-41c5-ac8b-c46912a8cc02">
+    <active>false</active>
+    <description>barodisplayleftINHG</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0330" offsetType="Integer" size="2" mask="0xFFFF" multiplier="0,184562395625" bcdMode="False" />
+      <comparison active="False" value="2991" operand="=" ifValue="510" elseValue="" />
+      <display type="Display Module" serial="glare01/ 000462000000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="4" ledPadding="False" ledDigits="0,1,2,3" />
+      <preconditions>
+        <precondition type="config" active="false" ref="da4c61f0-b7c1-4a32-be4e-9589f194f6b2" operand="!=" value="1" />
+        <precondition type="pin" active="true" serial="glare01/ 000462000000" pin="B07" operand="" value="1" />
+        <precondition type="config" active="true" ref="da4c61f0-b7c1-4a32-be4e-9589f194f6b2" operand="!=" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="95fe424c-ba17-4355-b69f-f06e8a18fd28">
+    <active>true</active>
+    <description>barostddisplazleft</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8630" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="570" elseValue="" />
+      <display type="Display Module" serial="glare01/ 000462000000" trigger="normal" ledAddress="System.ListItem" ledConnector="2" ledModuleSize="4" ledPadding="False" ledDigits="0,1,2,3" />
+      <preconditions>
+        <precondition type="config" active="true" ref="13c611ce-040e-43c0-8b02-233b78bc52dd" operand="=" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+  <config guid="562fbabc-aebc-4822-b54d-b1262b2e91ce">
+    <active>true</active>
+    <description>barostddisplazright</description>
+    <settings msdata:InstanceType="ArcazeUSB.ArcazeConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x8630" offsetType="Integer" size="1" mask="0x00FF" multiplier="1" bcdMode="False" />
+      <comparison active="True" value="1" operand="=" ifValue="570" elseValue="" />
+      <display type="Display Module" serial="glare01/ 000462000000" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="4" ledPadding="False" ledDigits="0,1,2,3" />
+      <preconditions>
+        <precondition type="config" active="true" ref="13c611ce-040e-43c0-8b02-233b78bc52dd" operand="=" value="1" />
+      </preconditions>
+    </settings>
+  </config>
+</ArcazeUsbConnector>

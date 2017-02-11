@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="becc20a3-cfad-47c3-a80a-872f67c50711">
+      <active>false</active>
+      <description>Servo</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="0" operand="=" ifValue="1" elseValue="0" />
+        <display type="Servo" serial="MobiFlight Mega/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="16383" servoMaxRotationPercent="70" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="8a12f668-e762-43a8-b539-9ba28a31d906">
+      <active>false</active>
+      <description>COM1</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="4,5,6,7" ledDecimalPoints="6" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="150149d6-10e7-48a1-bcaa-c807c16270fa">
+      <active>true</active>
+      <description>COM1 Kopie</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0580" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="8,3819E-08" bcdMode="False" />
+        <comparison active="True" value="0" operand="&lt;=" ifValue="$+360" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="5,6,7" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="dd4ec674-6bfc-4da1-ac07-3f5b686f22c6">
+      <active>true</active>
+      <description>COM1 Kopie Copy</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" multiplier="0,0054931640625" bcdMode="False" />
+        <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="678bdb9c-3606-4c26-96fb-6d3369fd48f5">
+      <active>false</active>
+      <description>COM1 Stby</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
+        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <preconditions />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="9131eaf2-052a-4d8e-a10c-e23d377e2ae2">
+      <active>true</active>
+      <description>Flaps</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="SwitchDown" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="KeyInputAction" key="F5" />
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="d84019cb-e518-4b2c-9941-f10e60e5328d">
+      <active>true</active>
+      <description>COM1 Mhz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
+          </onLeft>
+          <onLeftFast />
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
+          </onRight>
+          <onRightFast />
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

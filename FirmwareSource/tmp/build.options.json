@@ -1,0 +1,10 @@
+{
+  "builtInLibrariesFolders": "D:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\libraries",
+  "customBuildProperties": "build.warn_data_percentage=75,runtime.tools.avrdude.path=D:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\hardware\\tools\\avr,runtime.tools.avr-gcc.path=D:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\hardware\\tools\\avr,runtime.tools.arduinoOTA.path=D:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\hardware\\tools\\avr",
+  "fqbn": "arduino:avr:uno",
+  "hardwareFolders": "D:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\hardware,D:\\Projekte\\MobiFlightFC\\FirmwareSource\\packages",
+  "otherLibrariesFolders": "D:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries",
+  "runtime.ide.version": "10800",
+  "sketchLocation": "D:\\Projekte\\MobiFlightFC\\FirmwareSource\\mobiflight_uno\\mobiflight_uno.ino",
+  "toolsFolders": "D:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\tools-builder,D:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\hardware\\tools\\avr,D:\\Projekte\\MobiFlightFC\\FirmwareSource\\packages"
+}

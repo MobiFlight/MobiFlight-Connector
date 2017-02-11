@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <Output Name="Output" Pin="1" />
+  <Button Name="Button" Pin="3" />
+  <Button Name="Button 1" Pin="4" />
+  <Button Name="Button 2" Pin="5" />
+  <Button Name="Button 3" Pin="6" />
+  <Button Name="Button 4" Pin="7" />
+  <Button Name="Button 5" Pin="8" />
+  <Button Name="But6" Pin="9" />
+  <Button Name="But7" Pin="10" />
+  <Button Name="Butt8" Pin="11" />
+  <Button Name="Butt9" Pin="12" />
+</Config>

@@ -40,3 +40,16 @@
 
 /VersionInfo/obj
 /FirmwareSource/arduino
+/CmdMessenger/CmdMessenger/CSharp/CommandMessenger/bin
+/CmdMessenger/CmdMessenger/CSharp/CommandMessenger/obj
+/.vs
+/Build/VersionInfo.exe
+/CmdMessenger/CmdMessenger/Documentation
+/CmdMessenger/CmdMessenger/Examples
+/CmdMessenger/CmdMessenger/Tools
+/CmdMessenger/CmdMessenger/README.markdown
+/CmdMessenger/CmdMessenger/LICENSE
+/CmdMessenger/CmdMessenger/keywords.txt
+/CmdMessenger/CmdMessenger/CmdMessenger.h
+/CmdMessenger/CmdMessenger/CmdMessenger.cpp
+/ArcazeFsuipcConnector.suo

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="9f9224f4-77d8-4e87-8e1c-4c019a543172">
+      <active>true</active>
+      <description>AP - Course</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0C4E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="0" operand="=" ifValue="360" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="5,6,7" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="0a162ccd-2425-46ef-a810-08357c37a5a0">
+      <active>true</active>
+      <description>AP - IAS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07E2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar=" " ledDigits="1,2,3" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="910c8be6-191d-46fc-935b-4aceb034b849">
+      <active>true</active>
+      <description>AP - Heading</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" multiplier="0,0055" bcdMode="False" />
+        <comparison active="False" value="0" operand="=" ifValue="360" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="5,6,7" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="58e02b41-516b-45d7-904c-ba7da7d80979">
+      <active>false</active>
+      <description>AP - Altitude</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07D4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="5,0062E-05" bcdMode="False" />
+        <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2,3" />
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="a9c0562f-1927-4c35-85f9-66f814d4b493">
+      <active>false</active>
+      <description>AP - Vertical Speed</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x07F2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
+        <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4,5,6,7" />
+        <preconditions />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="8af45774-17d4-4bbc-b6b5-c3ea9a5fc7f8">
+      <active>false</active>
+      <description>AP - CRS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0C4E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&gt;0,$-1,359)" />
+          </onLeft>
+          <onLeftFast />
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0C4E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&lt;=359,$+1,0)" />
+          </onRight>
+          <onRightFast />
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="a06bb114-4c77-43dd-a1cf-da8ea5a37ab1">
+      <active>false</active>
+      <description>AP - IAS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07E2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&gt;0,$-1,0)" />
+          </onLeft>
+          <onLeftFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07E2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&gt;0,$-10,0)" />
+          </onLeftFast>
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07E2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="$+1" />
+          </onRight>
+          <onRightFast />
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="03c16f91-b414-45c1-86f2-7044c3dbd0ac">
+      <active>false</active>
+      <description>AP - HDG</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$-182" />
+          </onLeft>
+          <onLeftFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$-1820" />
+          </onLeftFast>
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$+182" />
+          </onRight>
+          <onRightFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$+1820" />
+          </onRightFast>
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="882992ff-621a-4cbe-abbc-cde7cf33b77c">
+      <active>false</active>
+      <description>AP - Altimeter</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07D4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="if($&gt;0,$-1997537,0)" />
+          </onLeft>
+          <onLeftFast />
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07D4" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$+1997537" />
+          </onRight>
+          <onRightFast />
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="d3dab14b-5d35-4e41-83a1-95293b3f90e5">
+      <active>false</active>
+      <description>AP - VS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.0.5.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07F2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="$-100" />
+          </onLeft>
+          <onLeftFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07F2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="$-1000" />
+          </onLeftFast>
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07F2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="$+100" />
+          </onRight>
+          <onRightFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x07F2" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="$+1000" />
+          </onRightFast>
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

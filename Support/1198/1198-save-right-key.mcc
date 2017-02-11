@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs />
+  <inputs>
+    <config guid="87d974f0-c083-4d03-841c-af6d65d112c7">
+      <active>false</active>
+      <description>Test Key Config</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.4.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="KeyInputAction" key="L" />
+          <onLeftFast type="KeyInputAction" key="Shift+L" />
+          <onRight type="KeyInputAction" key="R" />
+          <onRightFast type="KeyInputAction" key="Shift+R" />
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="7adc4f20-fd90-4a2e-918b-457cf91f932c">
+      <active>false</active>
+      <description>Test Key Config Kopie</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.4.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft />
+          <onLeftFast type="KeyInputAction" key="Shift+L" />
+          <onRight type="KeyInputAction" key="R" />
+          <onRightFast type="KeyInputAction" key="Shift+R" />
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="c388213a-a305-47e5-bb8a-a4fa2bd0e8f7">
+      <active>false</active>
+      <description>Test FSUIPC Offset Config</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.4.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderNoName" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$-1" />
+          </onLeft>
+          <onLeftFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$-2" />
+          </onLeftFast>
+          <onRight type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$+1" />
+          </onRight>
+          <onRightFast type="FsuipcOffsetInputAction">
+            <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="$+2" />
+          </onRightFast>
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="08d2c47b-ce95-4c3f-864f-97e08fc5fa8e">
+      <active>false</active>
+      <description>Test Key Empty</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.4.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft />
+          <onLeftFast />
+          <onRight type="KeyInputAction" key="Shift+T" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+      </settings>
+    </config>
+    <config guid="a5e6225a-6123-4a07-9d8c-c894d3b5d4eb">
+      <active>false</active>
+      <description>Test Button OnRelease</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=6.1.4.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="SwitchUp" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="KeyInputAction" key="Shift+L" />
+          <onRelease type="KeyInputAction" key="Shift+R" />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <Output Name="Out53_12345678901234567890" Pin="53" />
+  <Output Name="Out52_12345678901234567890" Pin="52" />
+  <Output Name="Out51_12345678901234567890" Pin="51" />
+  <Output Name="Out50_12345678901234567890" Pin="50" />
+  <Output Name="Out49_12345678901234567890" Pin="49" />
+  <Output Name="Out48_12345678901234567890" Pin="48" />
+  <Output Name="Out47_12345678901234567890" Pin="47" />
+  <Output Name="Out46_12345678901234567890" Pin="46" />
+  <Output Name="Out45_12345678901234567890" Pin="45" />
+  <Output Name="Out44_12345678901234567890" Pin="44" />
+  <Output Name="Out43_12345678901234567890" Pin="43" />
+  <Output Name="Out42_12345678901234567890" Pin="42" />
+  <Output Name="Out41_12345678901234567890" Pin="41" />
+  <Output Name="Out40_12345678901234567890" Pin="40" />
+  <Output Name="Out39_12345678901234567890" Pin="39" />
+  <Output Name="Out38_12345678901234567890" Pin="38" />
+  <Output Name="Out37_12345678901234567890" Pin="37" />
+  <Output Name="Out36_12345678901234567890" Pin="36" />
+  <Output Name="Out35_12345678901234567890" Pin="35" />
+  <Output Name="Out34_12345678901234567890" Pin="34" />
+  <Output Name="Out33_12345678901234567890" Pin="33" />
+  <Output Name="Out32_12345678901234567890" Pin="32" />
+  <Output Name="Out31_12345678901234567890" Pin="31" />
+  <Output Name="Out30_12345678901234567890" Pin="30" />
+  <Output Name="Out29_12345678901234567890" Pin="29" />
+  <Output Name="Out28_12345678901234567890" Pin="28" />
+  <Output Name="Out27_12345678901234567890" Pin="27" />
+  <Output Name="Out26_12345678901234567890" Pin="26" />
+  <Output Name="Out25_12345678901234567890" Pin="25" />
+  <Output Name="Out24_12345678901234567890" Pin="24" />
+  <Output Name="Out23_12345678901234567890" Pin="23" />
+  <Output Name="Out22_12345678901234567890" Pin="22" />
+  <Output Name="Out21_12345678901234567890" Pin="21" />
+  <Output Name="Out21_12345678901234567890" Pin="20" />
+</Config>

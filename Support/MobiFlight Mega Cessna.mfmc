@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName />
+  <PowerSavingTime>600</PowerSavingTime>
+  <Button Name="FuelPump" Pin="34" />
+  <Button Name="Beacon" Pin="32" />
+  <Button Name="Landing" Pin="30" />
+  <Button Name="Taxi" Pin="28" />
+  <Button Name="NavLight" Pin="26" />
+  <Button Name="Strobe" Pin="24" />
+  <Button Name="Pitot" Pin="22" />
+  <Button Name="MasterBattery" Pin="36" />
+  <Button Name="Generator" Pin="38" />
+  <Button Name="Starter START" Pin="46" />
+  <Button Name="Starter BOTH" Pin="48" />
+  <Button Name="Starter 2" Pin="50" />
+  <Button Name="Starter 1" Pin="52" />
+  <Button Name="Starter Off" Pin="54" />
+</Config>
