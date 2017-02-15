@@ -9,6 +9,11 @@ SET TEMP_DIR=%FW_SOURCE_DIR%\tmp
 SET ARDUINO_DIR=%FW_SOURCE_DIR%\arduino
 SET VERSION=%2
 
+IF "%1" == "/?"  goto USAGE
+IF "%1" == ""    goto USAGE
+IF "%2" == ""    goto USAGE
+
+:RUN
 echo -----------------------------------------------------------
 echo Running command to create firmware files for version %VERSION%
 echo -----------------------------------------------------------
@@ -29,3 +34,14 @@ copy %TEMP_DIR%\mobiflight_uno.ino.hex %RELEASE_DIR%\mobiflight_uno_%VERSION%.he
 echo -----------------------------------------------------------
 echo DONE
 echo -----------------------------------------------------------
+goto END
+
+:USAGE
+echo --------------------------------------------------------------
+echo Usage:
+echo build-firmware.bat "absolute path to wokspace" "versionnumber"
+echo e.g. build-firmware.bat D:\Mobiflight\ 3_0_1
+echo --------------------------------------------------------------
+
+
+:END
