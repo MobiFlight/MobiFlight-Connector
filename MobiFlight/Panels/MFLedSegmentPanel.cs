@@ -18,20 +18,28 @@ namespace MobiFlight.Panels
         private Config.LedModule ledModule;
         bool initialized = false;
 
-        public MFLedSegmentPanel()
+        public MFLedSegmentPanel(List<int> usedPins)
         {
             InitializeComponent();
             if (Parent != null) mfIntensityTrackBar.BackColor = Parent.BackColor;
             foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
             {
-                mfPin1ComboBox.Items.Add(i);
-                mfPin2ComboBox.Items.Add(i);
-                mfPin3ComboBox.Items.Add(i);
+                if (usedPins.IndexOf(i) == -1)
+                {
+                    mfPin1ComboBox.Items.Add(i);
+                    mfPin2ComboBox.Items.Add(i);
+                    mfPin3ComboBox.Items.Add(i);
+                }
             }
-            mfPin1ComboBox.SelectedIndex = mfPin2ComboBox.SelectedIndex = mfPin3ComboBox.SelectedIndex = 0;
+            if (mfPin1ComboBox.Items.Count > 2)
+            {
+                mfPin1ComboBox.SelectedIndex = 0;
+                mfPin2ComboBox.SelectedIndex = 1;
+                mfPin3ComboBox.SelectedIndex = 2;
+            }
         }
 
-        public MFLedSegmentPanel(Config.LedModule ledModule):this()
+        public MFLedSegmentPanel(Config.LedModule ledModule, List<int> usedPins):this(usedPins)
         {
             // TODO: Complete member initialization
             this.ledModule = ledModule;
@@ -41,6 +49,7 @@ namespace MobiFlight.Panels
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, ledModule.NumModules);
             textBox1.Text = ledModule.Name;
             mfIntensityTrackBar.Value = ledModule.Brightness;
+            setValues();
 
             initialized = true;
         }
@@ -49,15 +58,20 @@ namespace MobiFlight.Panels
         {
             if (!initialized) return;
 
+            setValues();
+
+            if (Changed != null)
+                Changed(ledModule, new EventArgs());
+        }
+
+        private void setValues()
+        {
             ledModule.DinPin = mfPin1ComboBox.Text;
             ledModule.ClsPin = mfPin2ComboBox.Text;
             ledModule.ClkPin = mfPin3ComboBox.Text;
             ledModule.Name = textBox1.Text;
             ledModule.Brightness = (byte)(mfIntensityTrackBar.Value);
             ledModule.NumModules = mfNumModulesComboBox.Text;
-
-            if (Changed != null)
-                Changed(ledModule, new EventArgs());
         }
     }
 }
