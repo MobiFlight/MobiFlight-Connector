@@ -19,23 +19,30 @@ namespace MobiFlight.Panels
         private Config.Output output;
         bool initialized = false;
 
-        public MFOutputPanel()
+        public MFOutputPanel(List<int> usedPins)
         {
             InitializeComponent();
             foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
             {
-                mfPinComboBox.Items.Add(i);
+                if (usedPins.IndexOf(i) == -1)
+                {
+                    mfPinComboBox.Items.Add(i);
+                }
             }
-            mfPinComboBox.SelectedIndex = 0;
+            if (mfPinComboBox.Items.Count > 0)
+            {
+                mfPinComboBox.SelectedIndex = 0;
+            }
         }
 
-        public MFOutputPanel(Config.Output output)
-            : this()
+        public MFOutputPanel(Config.Output output, List<int> usedPins)
+            : this(usedPins)
         {
             // TODO: Complete member initialization
             this.output = output;
             ComboBoxHelper.SetSelectedItem(mfPinComboBox, output.Pin);
             textBox1.Text = output.Name;
+            setValues();
 
             initialized = true;
         }
@@ -44,11 +51,16 @@ namespace MobiFlight.Panels
         {
             if (!initialized) return;
 
-            output.Pin = mfPinComboBox.Text;
-            output.Name = textBox1.Text;
+            setValues();
 
             if (Changed != null)
                 Changed(output, new EventArgs());
+        }
+
+        private void setValues()
+        {
+            output.Pin = mfPinComboBox.Text;
+            output.Name = textBox1.Text;
         }
     }
 }

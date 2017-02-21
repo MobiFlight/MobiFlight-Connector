@@ -19,26 +19,33 @@ namespace MobiFlight.Panels
         private Config.Encoder encoder;
         bool initialized = false;
 
-        public MFEncoderPanel()
+        public MFEncoderPanel(List<int> usedPins)
         {
             InitializeComponent();
             foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
             {
-                mfLeftPinComboBox.Items.Add(i);
-                mfRightPinComboBox.Items.Add(i);
+                if (usedPins.IndexOf(i) == -1)
+                {
+                    mfLeftPinComboBox.Items.Add(i);
+                    mfRightPinComboBox.Items.Add(i);
+                }
             }
-            mfLeftPinComboBox.SelectedIndex = 0;
-            mfRightPinComboBox.SelectedIndex = 0;
+            if (mfLeftPinComboBox.Items.Count > 1)
+            {
+                mfLeftPinComboBox.SelectedIndex = 0;
+                mfRightPinComboBox.SelectedIndex = 1;
+            }
         }
 
-        public MFEncoderPanel(Config.Encoder encoder)
-            : this()
+        public MFEncoderPanel(Config.Encoder encoder, List<int> usedPins)
+            : this(usedPins)
         {
             // TODO: Complete member initialization
             this.encoder = encoder;
             ComboBoxHelper.SetSelectedItem(mfLeftPinComboBox, encoder.PinLeft);
             ComboBoxHelper.SetSelectedItem(mfRightPinComboBox, encoder.PinRight);
             textBox1.Text = encoder.Name;
+            setValues();
 
             initialized = true;
         }
@@ -47,12 +54,17 @@ namespace MobiFlight.Panels
         {
             if (!initialized) return;
 
-            encoder.PinLeft = mfLeftPinComboBox.Text;
-            encoder.PinRight = mfRightPinComboBox.Text;
-            encoder.Name = textBox1.Text;
+            setValues();
 
             if (Changed != null)
                 Changed(encoder, new EventArgs());
+        }
+
+        private void setValues()
+        {
+            encoder.PinLeft = mfLeftPinComboBox.Text;
+            encoder.PinRight = mfRightPinComboBox.Text;
+            encoder.Name = textBox1.Text;
         }
     }
 }
