@@ -18,35 +18,44 @@ namespace MobiFlight.Panels
         private Config.LedModule ledModule;
         bool initialized = false;
 
-        public MFLedSegmentPanel(List<byte> FreePins)
+        public MFLedSegmentPanel()
         {
             InitializeComponent();
+            mfPin1ComboBox.Items.Clear();
+            mfPin2ComboBox.Items.Clear();
+            mfPin3ComboBox.Items.Clear();
             if (Parent != null) mfIntensityTrackBar.BackColor = Parent.BackColor;
-            foreach (Int16 i in FreePins)
-            {
-                mfPin1ComboBox.Items.Add(i);
-                mfPin2ComboBox.Items.Add(i);
-                mfPin3ComboBox.Items.Add(i);
-            }
+        }
+
+        public MFLedSegmentPanel(Config.LedModule ledModule, List<byte> FreePins):this()
+        {
+            List<byte> Pin1Pins = FreePins.ToList(); if (Int16.Parse(ledModule.DinPin) > 0) Pin1Pins.Add(Byte.Parse(ledModule.DinPin)); Pin1Pins.Sort();
+            List<byte> Pin2Pins = FreePins.ToList(); if (Int16.Parse(ledModule.ClsPin) > 0) Pin2Pins.Add(Byte.Parse(ledModule.ClsPin)); Pin2Pins.Sort();
+            List<byte> Pin3Pins = FreePins.ToList(); if (Int16.Parse(ledModule.ClkPin) > 0) Pin3Pins.Add(Byte.Parse(ledModule.ClkPin)); Pin3Pins.Sort();
+
+            foreach (byte pin in Pin1Pins) mfPin1ComboBox.Items.Add(pin);
+            foreach (byte pin in Pin2Pins) mfPin2ComboBox.Items.Add(pin);
+            foreach (byte pin in Pin3Pins) mfPin3ComboBox.Items.Add(pin);
+
             if (mfPin1ComboBox.Items.Count > 2)
             {
                 mfPin1ComboBox.SelectedIndex = 0;
                 mfPin2ComboBox.SelectedIndex = 1;
                 mfPin3ComboBox.SelectedIndex = 2;
             }
-        }
-
-        public MFLedSegmentPanel(Config.LedModule ledModule, List<byte> FreePins):this(FreePins)
-        {
+            
             // TODO: Complete member initialization
             this.ledModule = ledModule;
+
             ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, ledModule.DinPin);
             ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, ledModule.ClsPin);
             ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, ledModule.ClkPin);
+
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, ledModule.NumModules);
+
             textBox1.Text = ledModule.Name;
             mfIntensityTrackBar.Value = ledModule.Brightness;
-            setValues();
+            //setValues();
 
             initialized = true;
         }

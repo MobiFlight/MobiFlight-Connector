@@ -19,22 +19,23 @@ namespace MobiFlight.Panels
         private Config.Output output;
         bool initialized = false;
 
-        public MFOutputPanel(List<byte> FreePins)
+        public MFOutputPanel()
         {
             InitializeComponent();
-            foreach (Int16 i in FreePins)
-            {
-                mfPinComboBox.Items.Add(i);
-            }
+            mfPinComboBox.Items.Clear();
+        }
+
+        public MFOutputPanel(Config.Output output, List<byte> FreePins)
+            : this()
+        {
+            List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(output.Pin)); Pin1Pins.Sort();
+            foreach (byte pin in Pin1Pins) mfPinComboBox.Items.Add(pin);
+
             if (mfPinComboBox.Items.Count > 0)
             {
                 mfPinComboBox.SelectedIndex = 0;
             }
-        }
 
-        public MFOutputPanel(Config.Output output, List<byte> FreePins)
-            : this(FreePins)
-        {
             // TODO: Complete member initialization
             this.output = output;
             ComboBoxHelper.SetSelectedItem(mfPinComboBox, output.Pin);

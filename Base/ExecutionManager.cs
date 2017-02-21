@@ -368,6 +368,11 @@ namespace MobiFlight
                         // iterate over the config row by row
                         foreach (DataGridViewRow row in dataGridViewConfig.Rows)
                         {
+                            // the last item is null and we hit that if we don't find the reference
+                            // because we deleted it for example
+                            if ((row.DataBoundItem as DataRowView) == null) continue;
+
+                            // here we just don't have a match
                             if ((row.DataBoundItem as DataRowView).Row["guid"].ToString() != p.PreconditionRef) continue;
                             if (row.Cells["arcazeValueColumn"].Value == null) break;
                             string value = row.Cells["arcazeValueColumn"].Value.ToString();

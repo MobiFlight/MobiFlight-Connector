@@ -19,25 +19,22 @@ namespace MobiFlight.Panels
         private Config.Servo servo;
         bool initialized = false;
 
-        public MFServoPanel(List<byte> FreePins)
+        public MFServoPanel()
         {
             InitializeComponent();
-            foreach (byte i in FreePins)
-            {
-                if (FreePins.IndexOf(i) == -1)
-                {
-                    mfPinComboBox.Items.Add(i);
-                }
-            }
+            mfPinComboBox.Items.Clear();
+        }
+
+        public MFServoPanel(Config.Servo servo, List<byte> FreePins)
+            : this()
+        {
+            List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(servo.DataPin)); Pin1Pins.Sort();
+            foreach (byte pin in Pin1Pins) mfPinComboBox.Items.Add(pin);
+            
             if (mfPinComboBox.Items.Count > 0)
             {
                 mfPinComboBox.SelectedIndex = 0;
             }
-        }
-
-        public MFServoPanel(Config.Servo servo, List<byte> FreePins)
-            : this(FreePins)
-        {
             // TODO: Complete member initialization
             this.servo = servo;
             ComboBoxHelper.SetSelectedItem(mfPinComboBox, servo.DataPin);

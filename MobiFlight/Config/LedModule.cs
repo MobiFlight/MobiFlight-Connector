@@ -10,11 +10,11 @@ namespace MobiFlight.Config
     {
         const ushort _paramCount = 6;
         [XmlAttribute]
-        public String DinPin = "1";
+        public String DinPin = "-1";
         [XmlAttribute]
-        public String ClsPin = "2";
+        public String ClsPin = "-2";
         [XmlAttribute]
-        public String ClkPin = "3";
+        public String ClkPin = "-3";
         [XmlAttribute]
         public Byte Brightness = 15;
         [XmlAttribute]
