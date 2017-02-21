@@ -39,7 +39,7 @@ namespace MobiFlight
 
         // this is not yet used
         // available pins
-        public static readonly Int16[] MEGA_PINS = {
+        public static readonly byte[] MEGA_PINS = {
             2,3,4,5,6,7,8,9,
             10,11,12,13,14,15,16,17,18,19,
             20,21,22,23,24,25,26,27,28,29,
@@ -48,27 +48,27 @@ namespace MobiFlight
             50,51,52,53
         };
 
-        public static readonly Int16[] MICRO_PINS = {
+        public static readonly byte[] MICRO_PINS = {
             2,3,4,5,6,7,8,9,
             10,11,12,13,14,15,16
         };
 
-        public static readonly Int16[] UNO_PINS = {
+        public static readonly byte[] UNO_PINS = {
             2,3,4,5,6,7,8,9,
             10,11,12,13
         };
 
-        public static readonly Int16[] MEGA_PWM = {
+        public static readonly byte[] MEGA_PWM = {
             2,3,4,5,6,7,8,9,
             10,11,12,13
         };
 
-        public static readonly Int16[] MICRO_PWM = {
+        public static readonly byte[] MICRO_PWM = {
             3,5,6,9,
             10
         };
 
-        public static readonly Int16[] UNO_PWM = {
+        public static readonly byte[] UNO_PWM = {
             2,3,4,5,6,7,8,9,
             10,11,12,13
         };

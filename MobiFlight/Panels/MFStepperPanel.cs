@@ -18,19 +18,16 @@ namespace MobiFlight.Panels
         private Config.Stepper stepper;
         bool initialized = false;
 
-        public MFStepperPanel(List<int> usedPins)
+        public MFStepperPanel(List<byte> FreePins)
         {
             InitializeComponent();
-            foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
+            foreach (byte i in FreePins)
             {
-                if (usedPins.IndexOf(i) == -1)
-                {
-                    mfPin1ComboBox.Items.Add(i);
-                    mfPin2ComboBox.Items.Add(i);
-                    mfPin3ComboBox.Items.Add(i);
-                    mfPin4ComboBox.Items.Add(i);
-                    mfBtnPinComboBox.Items.Add(i);
-                }
+                mfPin1ComboBox.Items.Add(i);
+                mfPin2ComboBox.Items.Add(i);
+                mfPin3ComboBox.Items.Add(i);
+                mfPin4ComboBox.Items.Add(i);
+                mfBtnPinComboBox.Items.Add(i);
             }
             if (mfPin1ComboBox.Items.Count > 4)
             {
@@ -42,8 +39,8 @@ namespace MobiFlight.Panels
             }
         }
 
-        public MFStepperPanel(Config.Stepper stepper, List<int> usedPins)
-            : this(usedPins)
+        public MFStepperPanel(Config.Stepper stepper, List<byte> FreePins)
+            : this(FreePins)
         {
             // TODO: Complete member initialization
             this.stepper = stepper;

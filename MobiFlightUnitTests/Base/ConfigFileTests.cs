@@ -22,6 +22,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
+        [Ignore]
         public void OpenFileTest()
         {
             String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";

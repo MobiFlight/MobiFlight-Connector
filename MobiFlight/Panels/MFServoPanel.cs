@@ -19,12 +19,12 @@ namespace MobiFlight.Panels
         private Config.Servo servo;
         bool initialized = false;
 
-        public MFServoPanel(List<int> usedPins)
+        public MFServoPanel(List<byte> FreePins)
         {
             InitializeComponent();
-            foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
+            foreach (byte i in FreePins)
             {
-                if (usedPins.IndexOf(i) == -1)
+                if (FreePins.IndexOf(i) == -1)
                 {
                     mfPinComboBox.Items.Add(i);
                 }
@@ -35,8 +35,8 @@ namespace MobiFlight.Panels
             }
         }
 
-        public MFServoPanel(Config.Servo servo, List<int> usedPins)
-            : this(usedPins)
+        public MFServoPanel(Config.Servo servo, List<byte> FreePins)
+            : this(FreePins)
         {
             // TODO: Complete member initialization
             this.servo = servo;

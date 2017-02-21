@@ -19,15 +19,12 @@ namespace MobiFlight.Panels
         private Config.Output output;
         bool initialized = false;
 
-        public MFOutputPanel(List<int> usedPins)
+        public MFOutputPanel(List<byte> FreePins)
         {
             InitializeComponent();
-            foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
+            foreach (Int16 i in FreePins)
             {
-                if (usedPins.IndexOf(i) == -1)
-                {
-                    mfPinComboBox.Items.Add(i);
-                }
+                mfPinComboBox.Items.Add(i);
             }
             if (mfPinComboBox.Items.Count > 0)
             {
@@ -35,8 +32,8 @@ namespace MobiFlight.Panels
             }
         }
 
-        public MFOutputPanel(Config.Output output, List<int> usedPins)
-            : this(usedPins)
+        public MFOutputPanel(Config.Output output, List<byte> FreePins)
+            : this(FreePins)
         {
             // TODO: Complete member initialization
             this.output = output;

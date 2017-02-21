@@ -18,18 +18,15 @@ namespace MobiFlight.Panels
         private Config.LedModule ledModule;
         bool initialized = false;
 
-        public MFLedSegmentPanel(List<int> usedPins)
+        public MFLedSegmentPanel(List<byte> FreePins)
         {
             InitializeComponent();
             if (Parent != null) mfIntensityTrackBar.BackColor = Parent.BackColor;
-            foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
+            foreach (Int16 i in FreePins)
             {
-                if (usedPins.IndexOf(i) == -1)
-                {
-                    mfPin1ComboBox.Items.Add(i);
-                    mfPin2ComboBox.Items.Add(i);
-                    mfPin3ComboBox.Items.Add(i);
-                }
+                mfPin1ComboBox.Items.Add(i);
+                mfPin2ComboBox.Items.Add(i);
+                mfPin3ComboBox.Items.Add(i);
             }
             if (mfPin1ComboBox.Items.Count > 2)
             {
@@ -39,7 +36,7 @@ namespace MobiFlight.Panels
             }
         }
 
-        public MFLedSegmentPanel(Config.LedModule ledModule, List<int> usedPins):this(usedPins)
+        public MFLedSegmentPanel(Config.LedModule ledModule, List<byte> FreePins):this(FreePins)
         {
             // TODO: Complete member initialization
             this.ledModule = ledModule;

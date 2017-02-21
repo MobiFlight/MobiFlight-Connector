@@ -18,15 +18,12 @@ namespace MobiFlight.Panels
         private Config.Button button;
         bool initialized = false;
 
-        public MFButtonPanel(List<int> usedPins)
+        public MFButtonPanel(List<byte> FreePins)
         {
             InitializeComponent();
-            foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
+            foreach (byte i in FreePins)
             {
-                if (usedPins.IndexOf(i) == -1)
-                {
-                    mfPinComboBox.Items.Add(i);
-                }
+                mfPinComboBox.Items.Add(i);
             }
             if (mfPinComboBox.Items.Count > 0)
             {
@@ -34,8 +31,8 @@ namespace MobiFlight.Panels
             }
         }
 
-        public MFButtonPanel(Config.Button button, List<int> usedPins)
-            : this(usedPins)
+        public MFButtonPanel(Config.Button button, List<byte> FreePins)
+            : this(FreePins)
         {
             // TODO: Complete member initialization
             this.button = button;

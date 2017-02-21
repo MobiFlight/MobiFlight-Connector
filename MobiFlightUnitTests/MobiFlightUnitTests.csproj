@@ -88,6 +88,7 @@
     <Compile Include="MobiFlight\InputConfig\FsuipcOffsetInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\JeehellInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\KeyInputActionTests.cs" />
+    <Compile Include="MobiFlight\MobiFlightModuleTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
     <Compile Include="MobiFlight\TransformationTests.cs" />
     <Compile Include="mock\Base\KeyboardInputMock.cs" />

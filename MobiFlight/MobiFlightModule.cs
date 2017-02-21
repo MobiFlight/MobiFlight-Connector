@@ -828,5 +828,70 @@ namespace MobiFlight
 
             lastValue.Clear();
         }
+
+        public List<byte> GetFreePins()
+        {
+            byte[] Pins = MobiFlightModuleInfo.MEGA_PINS;
+                 
+            if (Type == MobiFlightModuleInfo.TYPE_MICRO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO)
+            {
+                Pins = MobiFlightModuleInfo.MICRO_PINS;
+            }
+            else if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
+            {
+                Pins = MobiFlightModuleInfo.UNO_PINS;
+            }
+
+            List<byte> result = new List<byte>(Pins);
+            List<byte> usedPins = new List<byte>();
+
+            foreach (Config.BaseDevice device in Config.Items)
+            {
+                String deviceName = device.Name;
+                switch (device.Type)
+                {
+                    case DeviceType.LedModule:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.LedModule).ClkPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.LedModule).ClsPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.LedModule).DinPin));
+                        break;
+
+                    case DeviceType.Stepper:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin1));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin2));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin3));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin4));
+                        //usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).BtnPin));
+                        break;
+
+                    case DeviceType.Servo:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Servo).DataPin));
+                        break;
+
+                    case DeviceType.Button:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Button).Pin));
+                        break;
+
+                    case DeviceType.Encoder:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Encoder).PinLeft));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Encoder).PinRight));
+                        break;
+
+                    case DeviceType.Output:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Output).Pin));
+                        break;
+
+                    default:
+                        throw new NotImplementedException();
+                }
+            }
+
+            foreach (byte i in usedPins)
+            {
+                result.Remove(i);
+            }
+
+            return result;
+        }
     }
 }

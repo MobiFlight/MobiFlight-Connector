@@ -19,16 +19,13 @@ namespace MobiFlight.Panels
         private Config.Encoder encoder;
         bool initialized = false;
 
-        public MFEncoderPanel(List<int> usedPins)
+        public MFEncoderPanel(List<byte> FreePins)
         {
             InitializeComponent();
-            foreach (Int16 i in MobiFlightModuleInfo.MEGA_PINS)
+            foreach (byte i in FreePins)
             {
-                if (usedPins.IndexOf(i) == -1)
-                {
-                    mfLeftPinComboBox.Items.Add(i);
-                    mfRightPinComboBox.Items.Add(i);
-                }
+                mfLeftPinComboBox.Items.Add(i);
+                mfRightPinComboBox.Items.Add(i);
             }
             if (mfLeftPinComboBox.Items.Count > 1)
             {
@@ -37,8 +34,8 @@ namespace MobiFlight.Panels
             }
         }
 
-        public MFEncoderPanel(Config.Encoder encoder, List<int> usedPins)
-            : this(usedPins)
+        public MFEncoderPanel(Config.Encoder encoder, List<byte> FreePins)
+            : this(FreePins)
         {
             // TODO: Complete member initialization
             this.encoder = encoder;

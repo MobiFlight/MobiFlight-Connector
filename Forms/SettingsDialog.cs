@@ -554,36 +554,41 @@ namespace MobiFlight
                 }
                 else
                 {
+                    TreeNode parentNode = mfModulesTreeView.SelectedNode;
+                    if (parentNode == null) return;
+                    while (parentNode.Level > 0) parentNode = parentNode.Parent;
+                    MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+                    
                     MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
                     switch (dev.Type)
                     {
                         case DeviceType.LedModule:
-                            panel = new MobiFlight.Panels.MFLedSegmentPanel(dev as MobiFlight.Config.LedModule, getUsedMfPins(selectedNode));
+                            panel = new MobiFlight.Panels.MFLedSegmentPanel(dev as MobiFlight.Config.LedModule, module.GetFreePins());
                             (panel as MobiFlight.Panels.MFLedSegmentPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Stepper:
-                            panel = new MobiFlight.Panels.MFStepperPanel(dev as MobiFlight.Config.Stepper, getUsedMfPins(selectedNode));
+                            panel = new MobiFlight.Panels.MFStepperPanel(dev as MobiFlight.Config.Stepper, module.GetFreePins());
                             (panel as MobiFlight.Panels.MFStepperPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Servo:
-                            panel = new MobiFlight.Panels.MFServoPanel(dev as MobiFlight.Config.Servo, getUsedMfPins(selectedNode));
+                            panel = new MobiFlight.Panels.MFServoPanel(dev as MobiFlight.Config.Servo, module.GetFreePins());
                             (panel as MobiFlight.Panels.MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Button:
-                            panel = new MobiFlight.Panels.MFButtonPanel(dev as MobiFlight.Config.Button, getUsedMfPins(selectedNode));
+                            panel = new MobiFlight.Panels.MFButtonPanel(dev as MobiFlight.Config.Button, module.GetFreePins());
                             (panel as MobiFlight.Panels.MFButtonPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Encoder:
-                            panel = new MobiFlight.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder, getUsedMfPins(selectedNode));
+                            panel = new MobiFlight.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder, module.GetFreePins());
                             (panel as MobiFlight.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Output:
-                            panel = new MobiFlight.Panels.MFOutputPanel(dev as MobiFlight.Config.Output, getUsedMfPins(selectedNode));
+                            panel = new MobiFlight.Panels.MFOutputPanel(dev as MobiFlight.Config.Output, module.GetFreePins());
                             (panel as MobiFlight.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
                         // output
@@ -1185,64 +1190,6 @@ namespace MobiFlight
             TreeNode moduleNode = node;
             while (moduleNode.Level > 0) moduleNode = moduleNode.Parent;
             return moduleNode;
-        }
-
-        private List<int> getUsedMfPins(TreeNode aktiveNode)
-        {
-            TreeNode moduleNode = getModuleNode(aktiveNode);
-            List<int> usedPins = new List<int>();
-            foreach (TreeNode node in moduleNode.Nodes)
-            {
-                MobiFlight.Config.BaseDevice dev = (node.Tag as MobiFlight.Config.BaseDevice);
-                if (node.Text != aktiveNode.Text)
-                {
-                    try
-                    {
-                        switch (dev.Type)
-                        {
-                            case DeviceType.LedModule:
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.LedModule).ClkPin));
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.LedModule).ClsPin));
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.LedModule).DinPin));
-                                break;
-
-                            case DeviceType.Stepper:
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Stepper).Pin1));
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Stepper).Pin2));
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Stepper).Pin3));
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Stepper).Pin4));
-                                //usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Stepper).BtnPin));
-                                break;
-
-                            case DeviceType.Servo:
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Servo).DataPin));
-                                break;
-
-                            case DeviceType.Button:
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Button).Pin));
-                                break;
-
-                            case DeviceType.Encoder:
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Encoder).PinLeft));
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Encoder).PinRight));
-                                break;
-
-                            case DeviceType.Output:
-                                usedPins.Add(Convert.ToInt16((dev as MobiFlight.Config.Output).Pin));
-                                break;
-
-                            default:
-                                throw new NotImplementedException();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        continue;
-                    }
-                }
-            }
-
-            return usedPins;
         }
     }
 
