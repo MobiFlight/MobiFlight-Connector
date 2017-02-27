@@ -557,7 +557,7 @@ namespace MobiFlight
                     TreeNode parentNode = mfModulesTreeView.SelectedNode;
                     if (parentNode == null) return;
                     while (parentNode.Level > 0) parentNode = parentNode.Parent;
-                    MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+                    MobiFlightModule module = getModuleFromTree();
                     
                     MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
                     switch (dev.Type)
@@ -690,59 +690,80 @@ namespace MobiFlight
         /// <param name="e"></param>
         private void addDeviceTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MobiFlight.Config.BaseDevice cfgItem = null; 
-            switch ((sender as ToolStripMenuItem).Name) {
-                case "servoToolStripMenuItem":
-                case "addServoToolStripMenuItem":
-                    cfgItem = new MobiFlight.Config.Servo();
-                    break;
-                case "stepperToolStripMenuItem":
-                case "addStepperToolStripMenuItem":
-                    cfgItem = new MobiFlight.Config.Stepper();
-                    break;
-                case "ledOutputToolStripMenuItem":
-                case "addOutputToolStripMenuItem":
-                    cfgItem = new MobiFlight.Config.Output();
-                    break;
-                case "ledSegmentToolStripMenuItem":
-                case "addLedModuleToolStripMenuItem":
-                    cfgItem = new MobiFlight.Config.LedModule();
-                    break;
-                case "buttonToolStripMenuItem":
-                case "addButtonToolStripMenuItem":
-                    cfgItem = new MobiFlight.Config.Button();
-                    break;
-                case "encoderToolStripMenuItem":
-                case "addEncoderToolStripMenuItem":
-                    cfgItem = new MobiFlight.Config.Encoder();
-                    break;
-                default:
-                    // do nothing
-                    return;
-            }
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return; 
-
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-            List<String> NodeNames = new List<String>();
-            foreach (TreeNode node in parentNode.Nodes)
+            try
             {
-                NodeNames.Add(node.Text);
+                MobiFlight.Config.BaseDevice cfgItem = null;
+                switch ((sender as ToolStripMenuItem).Name)
+                {
+                    case "servoToolStripMenuItem":
+                    case "addServoToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.Servo();
+                        (cfgItem as MobiFlight.Config.Servo).DataPin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        break;
+                    case "stepperToolStripMenuItem":
+                    case "addStepperToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.Stepper();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin1 = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin2 = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin3 = getModuleFromTree().GetFreePins().ElementAt(2).ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin4 = getModuleFromTree().GetFreePins().ElementAt(3).ToString();
+                        break;
+                    case "ledOutputToolStripMenuItem":
+                    case "addOutputToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.Output();
+                        (cfgItem as MobiFlight.Config.Output).Pin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        break;
+                    case "ledSegmentToolStripMenuItem":
+                    case "addLedModuleToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.LedModule();
+                        (cfgItem as MobiFlight.Config.LedModule).DinPin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).ClkPin = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).ClsPin = getModuleFromTree().GetFreePins().ElementAt(2).ToString();
+                        break;
+                    case "buttonToolStripMenuItem":
+                    case "addButtonToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.Button();
+                        (cfgItem as MobiFlight.Config.Button).Pin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        break;
+                    case "encoderToolStripMenuItem":
+                    case "addEncoderToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.Encoder();
+                        (cfgItem as MobiFlight.Config.Encoder).PinLeft = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.Encoder).PinRight = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
+                        break;
+                    default:
+                        // do nothing
+                        return;
+                }
+                TreeNode parentNode = mfModulesTreeView.SelectedNode;
+                if (parentNode == null) return;
+
+                while (parentNode.Level > 0) parentNode = parentNode.Parent;
+                List<String> NodeNames = new List<String>();
+                foreach (TreeNode node in parentNode.Nodes)
+                {
+                    NodeNames.Add(node.Text);
+                }
+                cfgItem.Name = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), cfgItem.Name);
+
+                TreeNode newNode = new TreeNode(cfgItem.Name);
+                newNode.SelectedImageKey = newNode.ImageKey = cfgItem.Type.ToString();
+                newNode.Tag = cfgItem;
+
+                parentNode.Nodes.Add(newNode);
+                parentNode.ImageKey = "Changed";
+                parentNode.SelectedImageKey = "Changed";
+
+                //(parentNode.Tag as MobiFlightModule).Config.AddItem(cfgItem);
+
+                mfModulesTreeView.SelectedNode = newNode;
+                syncPanelWithSelectedDevice(newNode);
+            }catch(ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show(MainForm._tr("uiMessageNotEnoughPinsMessage"),
+                                MainForm._tr("uiMessageNotEnoughPinsHint"),
+                                MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
-            cfgItem.Name = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), cfgItem.Name);
-
-            TreeNode newNode = new TreeNode(cfgItem.Name);
-            newNode.SelectedImageKey = newNode.ImageKey = cfgItem.Type.ToString(); 
-            newNode.Tag = cfgItem;
-            
-            parentNode.Nodes.Add(newNode);
-            parentNode.ImageKey = "Changed";
-            parentNode.SelectedImageKey = "Changed";
-
-            //(parentNode.Tag as MobiFlightModule).Config.AddItem(cfgItem);
-            
-            mfModulesTreeView.SelectedNode = newNode;
-            syncPanelWithSelectedDevice(newNode);
             
         }
 
@@ -1190,6 +1211,26 @@ namespace MobiFlight
             TreeNode moduleNode = node;
             while (moduleNode.Level > 0) moduleNode = moduleNode.Parent;
             return moduleNode;
+        }
+
+        private MobiFlightModule getModuleFromTree()
+        {
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;
+            if (parentNode == null) return null;
+
+            parentNode = getModuleNode(parentNode);
+
+            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
+
+            foreach (TreeNode node in parentNode.Nodes)
+            {
+                newConfig.Items.Add(node.Tag as MobiFlight.Config.BaseDevice);
+            }
+
+            module.Config = newConfig;
+
+            return module;
         }
     }
 
