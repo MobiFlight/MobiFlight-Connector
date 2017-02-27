@@ -394,4 +394,10 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageUploadConfigurationFinishedWithError" xml:space="preserve">
     <value>Upload finished with error.</value>
   </data>
+  <data name="uiMessageNotEnoughPinsHint" xml:space="preserve">
+    <value>Not enough pins</value>
+  </data>
+  <data name="uiMessageNotEnoughPinsMessage" xml:space="preserve">
+    <value>Not enough free pins to add this device</value>
+  </data>
 </root>

@@ -680,6 +680,24 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Not enough pins ähnelt.
+        /// </summary>
+        internal static string uiMessageNotEnoughPinsHint {
+            get {
+                return ResourceManager.GetString("uiMessageNotEnoughPinsHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Not enough free pins to add this device ähnelt.
+        /// </summary>
+        internal static string uiMessageNotEnoughPinsMessage {
+            get {
+                return ResourceManager.GetString("uiMessageNotEnoughPinsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Not implemented yet. ähnelt.
         /// </summary>
         internal static string uiMessageNotImplementedYet {
