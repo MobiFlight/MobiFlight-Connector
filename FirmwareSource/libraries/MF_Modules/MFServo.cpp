@@ -6,7 +6,7 @@
 
 void MFServo::moveTo(int absolute)
 {
-		int newValue = map(absolute, _mapRange[0], _mapRange[1], _mapRange[2], _mapRange[3]);
+	int newValue = map(absolute, _mapRange[0], _mapRange[1], _mapRange[2], _mapRange[3]);
     if (_targetPos != newValue)
     {
 			_targetPos = newValue;
@@ -18,15 +18,20 @@ void MFServo::moveTo(int absolute)
 }
 
 void MFServo::update() {
-    if (_currentPos == _targetPos) { detach(); return; }
-    if ((millis()-_lastUpdate) < 25) return;
+	// after reaching final position
+	// detach the servo to prevent continuous noise
+    if (_currentPos == _targetPos) { 
+		// detach(); 
+		return; 
+	}
+	
+    //if ((millis()-_lastUpdate) < 5) return;
     
     if (_currentPos > _targetPos) _currentPos--;
     else _currentPos++;
     
     _lastUpdate = millis();
     _servo.write(_currentPos);
-    //delay(5);
 }
 
 void MFServo::detach() { 
@@ -40,11 +45,11 @@ void MFServo::attach(uint8_t pin, bool enable)
 {
 	_initialized = false;
 	_targetPos = 0;
-  _currentPos = 0;
+	_currentPos = 0;
 	setExternalRange(0,180);
 	setInternalRange(0,180);
 	_pin = pin;		
-  _lastUpdate = millis();
+	_lastUpdate = millis();
 }
 
 MFServo::MFServo() : _servo() {}
