@@ -31,7 +31,7 @@ char foo;
 #endif
 
 #define STEPS 64
-#define STEPPER_SPEED 650 // 300 already worked, 467, too?
+#define STEPPER_SPEED 600 // 300 already worked, 467, too?
 #define STEPPER_ACCEL 900
 
 #if MODULETYPE == MTYPE_MICRO
@@ -93,7 +93,9 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.6.1 : Reduce servo noise
 // 1.7.0 : New Arduino IDE, new AVR, Uno Support
 // 1.7.1 : More UNO stability
-const char version[8] = "1.7.2";
+// 1.7.2 : "???"
+// 1.7.3 : Servo behaviour improved, fixed stepper bug #178
+const char version[8] = "1.7.3";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
@@ -727,7 +729,7 @@ void OnSetModule()
 void OnSetStepper()
 {
   int stepper    = cmdMessenger.readIntArg();
-  int newPos     = cmdMessenger.readIntArg();
+  long newPos    = cmdMessenger.readLongArg();
   
   if (stepper >= steppersRegistered) return;
   steppers[stepper]->moveTo(newPos);
