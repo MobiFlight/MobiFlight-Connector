@@ -26,7 +26,8 @@ void MFEncoder::update()
 {
   if (!_initialized) return;
   
-  _encoder.update();
+  //_encoder.update();
+  _encoder.tick();
   long pos = _encoder.getPosition();
   
   if (pos == _pos) {
@@ -39,7 +40,7 @@ void MFEncoder::update()
   if (delta<0) dir = -1;  
   
   long absDelta = abs(delta);
-  if (absDelta <= 5) {
+  if (absDelta < 2) {
     // slow turn detected
     if (dir==1 && _handlerList[encLeft]!= NULL) {
         (*_handlerList[encLeft])(encLeft, _pin1, _name);

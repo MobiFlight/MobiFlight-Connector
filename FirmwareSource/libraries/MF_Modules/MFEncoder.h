@@ -17,9 +17,10 @@
 #include <wiring.h>
 #endif
 
-#include "../Button/Button.h"
-#include "../TicksPerSecond/TicksPerSecond.h"
-#include "../RotaryEncoderAcelleration/RotaryEncoderAcelleration.h"
+///#include "../Button/Button.h"
+///#include "../TicksPerSecond/TicksPerSecond.h"
+///#include "../RotaryEncoderAcelleration/RotaryEncoderAcelleration.h"
+#include <RotaryEncoder.h>
 
 extern "C"
 {
@@ -51,7 +52,7 @@ private:
     uint8_t                   _pin1;              
     uint8_t                   _pin2;
     bool                      _initialized;
-    RotaryEncoderAcelleration _encoder;
+    RotaryEncoder 		      _encoder;
     String                    _name;
     long                      _pos;
     encoderEvent              _handlerList[4];

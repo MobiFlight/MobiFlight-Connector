@@ -26,6 +26,12 @@ namespace MobiFlight.FSUIPC
         //Dictionary<Int32, Offset<UInt64>> __cacheULong = new Dictionary<Int32, Offset<UInt64>>();
         Dictionary<Int32, Offset<Double>> __cacheDouble = new Dictionary<Int32, Offset<Double>>();
         Dictionary<Int32, Offset<String>> __cacheString = new Dictionary<Int32, Offset<String>>();
+
+        HashSet<int> __cacheByteWriteOnly = new HashSet<int>();
+        HashSet<int> __cacheShortWriteOnly = new HashSet<int>();
+        HashSet<int> __cacheIntWriteOnly = new HashSet<int>();
+        HashSet<int> __cacheStringWriteOnly = new HashSet<int>();
+
         FlightSim[] _supportedFlightSims = new FlightSim[] { FlightSim.Any, FlightSim.FS2K4, FlightSim.FSX };
         public MobiFlight.FlightSimConnectionMethod FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.NONE;
         
@@ -45,7 +51,7 @@ namespace MobiFlight.FSUIPC
 
         public void Clear()
         {
-            __isProcessed = false;            
+            __isProcessed = false;
         }
 
         public bool IsAvailable()
@@ -79,7 +85,7 @@ namespace MobiFlight.FSUIPC
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
                 return true;
             }
-            // check for x-plane and xuipc
+            // check for x-plane and xpuipc
             proc = "x-plane";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
@@ -88,6 +94,13 @@ namespace MobiFlight.FSUIPC
             }
 
             proc = "x-plane-32bit";
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
+                return true;
+            }
+
+            proc = "xpwideclient";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
@@ -427,7 +440,13 @@ namespace MobiFlight.FSUIPC
             }
 
             __cacheByte[offset].Value = value;
- //           _process();
+            /*
+            //__cacheByte[offset].WriteOnly = true;
+           // __cacheByteWriteOnly.Add(offset);
+           // ForceUpdate();
+            //__cacheByte[offset].WriteOnly = false;
+            //_process();
+            */
         }
 
         public void setOffset(int offset, short value)
@@ -439,7 +458,13 @@ namespace MobiFlight.FSUIPC
             }
 
             __cacheShort[offset].Value = value;
-//            _process();
+            /*
+            //__cacheShort[offset].WriteOnly = true;
+            //__cacheShortWriteOnly.Add(offset);
+            //ForceUpdate();
+            //__cacheShort[offset].WriteOnly = false;
+            //_process();
+            */
         }
 
         public void setOffset(int offset, int value)
@@ -451,7 +476,12 @@ namespace MobiFlight.FSUIPC
             }
 
             __cacheInt[offset].Value = value;
-//            _process();
+            /*
+            //__cacheInt[offset].WriteOnly = true;
+            //__cacheIntWriteOnly.Add(offset);
+           // ForceUpdate();
+           // __cacheInt[offset].WriteOnly = false;
+           */
         }
 
         public void setOffset(int offset, string value)
@@ -463,13 +493,33 @@ namespace MobiFlight.FSUIPC
             }
 
             __cacheString[offset].Value = value;
-            //            _process();
+            /*
+            //__cacheString[offset].WriteOnly = true;
+            //__cacheStringWriteOnly.Add(offset);
+            //ForceUpdate();
+            //__cacheString[offset].WriteOnly = false;
+            */
         }
 
         public void ForceUpdate()
         {
             if (_offsetsRegistered)
+            {
                 FSUIPCConnection.Process();
+            }
         }
+        /*
+        public void ClearReadOnlyCache()
+        {
+            foreach (int offset in __cacheByteWriteOnly) { __cacheByte[offset].WriteOnly = false; }
+            foreach (int offset in __cacheShortWriteOnly) { __cacheShort[offset].WriteOnly = false; }
+            foreach (int offset in __cacheIntWriteOnly) { __cacheInt[offset].WriteOnly = false; }
+            foreach (int offset in __cacheStringWriteOnly) { __cacheString[offset].WriteOnly = false; }
+            __cacheByteWriteOnly.Clear();
+            __cacheShortWriteOnly.Clear();
+            __cacheIntWriteOnly.Clear();
+            __cacheStringWriteOnly.Clear();
+        }
+        */
     }
 }

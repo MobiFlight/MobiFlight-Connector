@@ -80,7 +80,7 @@ namespace MobiFlight
             }
             else
             {
-                textBox.Text = DateTime.Now + ": " + message + Environment.NewLine + textBox.Text;
+                textBox.Text = DateTime.Now + "("+DateTime.Now.Millisecond+")"+": " + message + Environment.NewLine + textBox.Text;
             }
         }
     }

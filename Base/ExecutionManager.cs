@@ -260,8 +260,6 @@ namespace MobiFlight
                 ConnectorValue processedValue = value;
 
                 row.DefaultCellStyle.ForeColor = Color.Empty;
-                row.ErrorText = "";
-
 
                 row.Cells["fsuipcValueColumn"].Value = value.ToString();
                 row.Cells["fsuipcValueColumn"].Tag = value;
@@ -283,6 +281,9 @@ namespace MobiFlight
                 {
                     row.ErrorText = MainForm._tr("uiMessagePreconditionNotSatisfied");
                     continue;
+                } else
+                {
+                    row.ErrorText = "";
                 }
 
                 try
@@ -296,7 +297,7 @@ namespace MobiFlight
                     throw resultExc;
                 }
             }
-            fsuipcCache.ForceUpdate();
+            //fsuipcCache.ForceUpdate();
             isExecuting = false;
         }
 
@@ -875,8 +876,9 @@ namespace MobiFlight
 
             if (!arcazeCache.isConnected() 
 #if MOBIFLIGHT
-                && !mobiFlightCache.isConnected())
+                && !mobiFlightCache.isConnected()
 #endif
+                )
             {
                 Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Modules", LogSeverity.Debug);
 
@@ -1045,7 +1047,8 @@ namespace MobiFlight
             {
                 inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
                 // check if we have configs for this button
-                // and store it                
+                // and store it      
+
                 foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
                 {
                     try
@@ -1086,13 +1089,20 @@ namespace MobiFlight
                 // if there are preconditions check and skip if necessary
                 if (tuple.Item1.Preconditions.Count > 0)
                 {
-                    if (!checkPrecondition(tuple.Item1, currentValue)) continue;
+                    if (!checkPrecondition(tuple.Item1, currentValue))
+                    {
+                        tuple.Item2.ErrorText = MainForm._tr("uiMessagePreconditionNotSatisfied");
+                        continue;
+                    } else
+                    {
+                        tuple.Item2.ErrorText = "";
+                    }
                 }
 
                 tuple.Item1.execute(fsuipcCache, mobiFlightCache, e);
             }
 
-            fsuipcCache.ForceUpdate();
+            //fsuipcCache.ForceUpdate();
         }
 #endif
     }

@@ -438,7 +438,7 @@ namespace MobiFlight
             String pos = arguments.ReadStringArg();
             int value;
             if (!int.TryParse(pos, out value)) return;
-
+            
             if (OnButtonPressed != null)
                 OnButtonPressed(this, new ButtonArgs() { Serial = this.Serial, ButtonId = enc, Type = DeviceType.Encoder, Value = value});
             //addLog("Enc: " + enc + ":" + pos);
