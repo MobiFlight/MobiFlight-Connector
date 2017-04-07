@@ -73,7 +73,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(mock.Writes[0].Value, Int16.MaxValue.ToString(), "The Param Value is wrong");
             Assert.AreEqual(mock.Writes[1].Offset, 0x73CC, "The Base Offset is wrong");
             Assert.AreEqual(mock.Writes[1].Value, "13", "The Base Value is wrong");
-            Assert.AreEqual(mock.Writes[2].Value, "ForceUpdate", "The ForceUpdate Value is wrong");
+            Assert.AreEqual(mock.Writes[2].Value, "Write", "The Write Value is wrong");
         }
 
         JeehellInputAction _generateTestObject()

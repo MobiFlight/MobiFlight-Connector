@@ -86,9 +86,9 @@ namespace MobiFlightUnitTests.mock.FSUIPC
             return;
         }
 
-        public void ForceUpdate()
+        public void Write()
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "ForceUpdate" });
+            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "Write" });
             return;
         }
     }

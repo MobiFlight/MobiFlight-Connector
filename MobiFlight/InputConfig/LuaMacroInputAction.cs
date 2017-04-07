@@ -10,7 +10,7 @@ namespace MobiFlight.InputConfig
         const Int16 OFFSET_MACRO_PARAM = 0x0D6C;
         const Int16 OFFSET_MACRO_NAME = 0x0D70;
         public String MacroName = "";
-        public const String Label = "Lua Macro";
+        public new const String Label = "Lua Macro";
         public const String TYPE = "LuaMacroInputAction";
 
         public override object Clone()
