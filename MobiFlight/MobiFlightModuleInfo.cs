@@ -81,7 +81,8 @@ namespace MobiFlight
 
         public static readonly String[] VIDPID_UNO = {
             //"VID_1A86&PID_7523",
-            "VID_2341&PID_0043"
+            "VID_2341&PID_0043",
+            "VID_2A03&PID_0043" // https://www.mobiflight.com/forum/topic/680.html
         };
 
         public static readonly String[] VIDPID_MEGA = {
