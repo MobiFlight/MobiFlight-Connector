@@ -1,0 +1,177 @@
+[
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\hardware\\arduino\\avr\\cores\\arduino"
+  },
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\hardware\\arduino\\avr\\variants\\standard"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "EEPROMex.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\EEPROMEx"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "CmdMessenger.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\CmdMessenger"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "LedControl.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\LedControl"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "Button.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\Button"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "TicksPerSecond.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\TicksPerSecond"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "RotaryEncoderAcelleration.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\RotaryEncoderAcelleration"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "MFSegments.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "RotaryEncoder.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\RotaryEncoder"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "AccelStepper.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\AccelStepper"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "Servo.h",
+    "Includepath": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\libraries\\Servo\\src"
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\tmp\\sketch\\mobiflight_uno.ino.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\EEPROMEx\\EEPROMex.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\CmdMessenger\\CmdMessenger.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\CmdMessenger\\utility\\DoEvery.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\CmdMessenger\\utility\\HeaterSim.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\LedControl\\LedControl.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\Button\\Button.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\TicksPerSecond\\TicksPerSecond.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\RotaryEncoderAcelleration\\RotaryEncoderAcelleration.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules\\MFButton.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules\\MFCore.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules\\MFEncoder.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules\\MFMain.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules\\MFOutput.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules\\MFSegments.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules\\MFServo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\MF_Modules\\MFStepper.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\RotaryEncoder\\RotaryEncoder.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\AccelStepper\\AccelStepper.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\sketchbooks\\libraries\\AccelStepper\\MultiStepper.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\libraries\\Servo\\src\\avr\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\libraries\\Servo\\src\\sam\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "E:\\Projekte\\MobiFlightFC\\FirmwareSource\\arduino\\libraries\\Servo\\src\\samd\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  }
+]

@@ -501,11 +501,21 @@ namespace MobiFlight.FSUIPC
             */
         }
 
-        public void ForceUpdate()
+        public void Write()
         {
-            if (_offsetsRegistered)
+            try
             {
-                FSUIPCConnection.Process();
+                // if we don't check on this
+                // the FSUIPC connection will 
+                // throw an exception in case that
+                // we have no offset registered
+                if (_offsetsRegistered)
+                    FSUIPCConnection.Process();
+            }
+            catch (Exception e)
+            {
+                this.ConnectionLost(this, new EventArgs());
+                throw e;
             }
         }
         /*

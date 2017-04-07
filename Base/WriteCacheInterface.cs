@@ -15,6 +15,6 @@ namespace MobiFlight.Base
 
         void setOffset(int offset, string value);
 
-        void ForceUpdate();
+        void Write();
     }
 }

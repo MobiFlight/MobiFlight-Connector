@@ -43,7 +43,7 @@ namespace MobiFlight.InputConfig
         {
             cache.setOffset(ParamOffset, Param);
             cache.setOffset(BaseOffset, EventId);            
-            cache.ForceUpdate();
+            cache.Write();
         }
     }
 }

@@ -46,7 +46,7 @@ namespace MobiFlight.InputConfig
             // later provide param for value too
             Log.Instance.log("LuaMacoInputAction:Execute : Calling macro " + MacroName, LogSeverity.Debug);
             FSUIPC.FsuipcHelper.executeWrite(MacroName, cfg, cache);
-            cache.ForceUpdate();
+            cache.Write();
         }
     }
 }

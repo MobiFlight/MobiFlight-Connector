@@ -147,17 +147,15 @@ namespace MobiFlight
 
         public void AutoConnectStart()
         {
-            //autoConnectTimer.Enabled = true;
             autoConnectTimer.Start();
             autoConnectTimer_Tick(null, null);
-            Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Info);
+            Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
         }
 
         public void AutoConnectStop()
         {
-            Log.Instance.log("ExecutionManager.AutoConnectStop:" + "Stopped auto connect timer", LogSeverity.Info);
+            Log.Instance.log("ExecutionManager.AutoConnectStop:" + "Stopped auto connect timer", LogSeverity.Debug);
             autoConnectTimer.Stop();
-            //autoConnectTimer.Enabled = false;
         }
 
         public bool IsStarted()
@@ -297,7 +295,11 @@ namespace MobiFlight
                     throw resultExc;
                 }
             }
-            //fsuipcCache.ForceUpdate();
+
+            // this update will trigger potential writes to the offsets
+            // that came from the inputs and are waiting to be written
+            fsuipcCache.Write();
+
             isExecuting = false;
         }
 
@@ -375,12 +377,16 @@ namespace MobiFlight
 
                             // here we just don't have a match
                             if ((row.DataBoundItem as DataRowView).Row["guid"].ToString() != p.PreconditionRef) continue;
-                            if (row.Cells["arcazeValueColumn"].Value == null) break;
-                            string value = row.Cells["arcazeValueColumn"].Value.ToString();
 
                             // if inactive ignore?
                             if (!(bool)row.Cells["active"].Value) break;
+                            
+                            // was there an error on reading the value?
+                            if (row.Cells["arcazeValueColumn"].Value == null) break;
 
+                            // read the value
+                            string value = row.Cells["arcazeValueColumn"].Value.ToString();
+                            
                             // if there hasn't been determined any value yet
                             // we cannot compare
                             if (value == "") break;
