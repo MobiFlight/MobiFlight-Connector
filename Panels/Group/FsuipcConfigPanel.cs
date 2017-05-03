@@ -15,6 +15,7 @@ namespace MobiFlight.Panels.Group
     {
         public String PresetFile { get; set; }
         ErrorProvider errorProvider = new ErrorProvider();
+        protected Boolean OutputPanelMode = true;
 
         public FsuipcConfigPanel()
         {
@@ -29,18 +30,19 @@ namespace MobiFlight.Panels.Group
 
         public void setMode(bool isOutputPanel)
         {
-            multiplyPanel.Visible = isOutputPanel;
-            valuePanel.Visible = !isOutputPanel;
-            if (!isOutputPanel)
+            OutputPanelMode = isOutputPanel;
+            // the transform field only is visible
+            // if we are dealing with outputs
+            multiplyPanel.Visible = OutputPanelMode;
+
+            // and the value panel vice versa
+            // only if we deal with inputs
+            valuePanel.Visible = !OutputPanelMode;
+
+            if (!OutputPanelMode)
             {
                 PresetFile = Properties.Settings.Default.InputsPresetFile;
                 _loadPresets();
-                // pop the string from the offset type options
-                if (fsuipcOffsetTypeComboBox.Items.Count == 3)
-                {
-                    (fsuipcOffsetTypeComboBox.DataSource as List<ListItem>).RemoveAt(2);
-                    fsuipcOffsetTypeComboBox.DataSource = fsuipcOffsetTypeComboBox.DataSource;
-                }
             }
         }
 
@@ -166,12 +168,14 @@ namespace MobiFlight.Panels.Group
             fsuipcSizeComboBox.Items.Clear();
             fsuipcSizeComboBox.Enabled = true;
             fsuipcSizeComboBox.Visible = true;
-            maskAndBcdPanel.Enabled = true;
-            multiplyPanel.Enabled = true;
-            SubstringPanel.Visible = false;
+            maskAndBcdPanel.Visible = true;
+            multiplyPanel.Visible = true && OutputPanelMode;
+            SubstringPanel.Visible = false && OutputPanelMode;
 
             if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.Integer.ToString())
             {
+                // INTs come with a min size of 1 byte
+                // up to 8 bytes
                 fsuipcSizeComboBox.Items.Add("1");
                 fsuipcSizeComboBox.Items.Add("2");
                 fsuipcSizeComboBox.Items.Add("4");
@@ -183,6 +187,8 @@ namespace MobiFlight.Panels.Group
             }
             else if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.Float.ToString())
             {
+                // floats always come with a min size of 4 bytes
+                // up to 8 bytes
                 fsuipcSizeComboBox.Items.Add("4");
                 fsuipcSizeComboBox.Items.Add("8");
                 if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, selectedText))
@@ -192,14 +198,21 @@ namespace MobiFlight.Panels.Group
             }
             else if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.String.ToString())
             {
+                // the size is always 255 and then defined
+                // by the zero-termination 
+                // this makes it easier for the user
+                // because s/he doesn't have to care about it.
                 fsuipcSizeComboBox.Enabled = false;
                 fsuipcSizeComboBox.Visible = false;
-                // mask doesn't make sense
-                maskAndBcdPanel.Enabled = false;
+
+                // mask doesn't make sense for strings
+                maskAndBcdPanel.Visible = false;
+
                 // multiply doesn't make sense for strings
-                multiplyPanel.Enabled = false;
+                multiplyPanel.Visible = false && OutputPanelMode;
+
                 // show the string stuff instead
-                SubstringPanel.Visible = true;
+                SubstringPanel.Visible = true && OutputPanelMode;
             }
         }
 
@@ -236,7 +249,13 @@ namespace MobiFlight.Panels.Group
                 fsuipcMaskTextBox.Text = "0x" + config.FSUIPCMask.ToString("X" + config.FSUIPCSize.ToString());
 
             // multiplier
-            TransformationCheckBox.Checked = config.Transform.Active;
+            if (config.FSUIPCOffsetType != FSUIPCOffsetType.String) {
+                TransformationCheckBox.Checked = config.Transform.Active;
+                SubstringTransformationCheckBox.Checked = false;
+            } else {
+                TransformationCheckBox.Checked = false;
+                SubstringTransformationCheckBox.Checked = config.Transform.Active;
+            }
             fsuipcMultiplyTextBox.Text = config.Transform.Expression;
             fsuipcBcdModeCheckBox.Checked = config.FSUIPCBcdMode;
             fsuipcValueTextBox.Text = config.Value;
@@ -255,15 +274,15 @@ namespace MobiFlight.Panels.Group
                 // the mask has only meaning for values other than strings
                 config.FSUIPCMask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
                 config.FSUIPCSize = Byte.Parse(fsuipcSizeComboBox.Text);
+                config.Transform.Active = TransformationCheckBox.Checked;
             }
             else
             {
-
                 // by default we set the string length to 255
                 // because we don't offer an option for the string length yet
                 config.FSUIPCSize = 255;
+                config.Transform.Active = SubstringTransformationCheckBox.Checked;
             }
-            config.Transform.Active = TransformationCheckBox.Checked;
 
             // TODO: refactor this conditional stuff.
             if (fsuipcMultiplyTextBox.Visible)
@@ -295,9 +314,9 @@ namespace MobiFlight.Panels.Group
 
         private void fsuipcMaskTextBox_Validating(object sender, CancelEventArgs e)
         {
-            // skip this test if the panel is not enabled
+            // skip this test if the panel is not visible
             // because we have a string type offset
-            if (!maskAndBcdPanel.Enabled) return;
+            if (!maskAndBcdPanel.Visible) return;
 
             try
             {
@@ -315,7 +334,7 @@ namespace MobiFlight.Panels.Group
         {
             // do not validate when multiply panel is not visible
             // or disabled when dealing with strings
-            if ((sender as TextBox).Name == fsuipcMultiplyTextBox.Name && (!multiplyPanel.Visible||!multiplyPanel.Enabled)) return;
+            if ((sender as TextBox).Name == fsuipcMultiplyTextBox.Name && (!multiplyPanel.Visible||!multiplyPanel.Visible)) return;
 
             return;
             // we should add a parse error test here

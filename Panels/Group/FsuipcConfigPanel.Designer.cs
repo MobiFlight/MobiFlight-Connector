@@ -36,7 +36,6 @@
             this.SubstringPanel = new System.Windows.Forms.Panel();
             this.SubStringToTextBox = new System.Windows.Forms.TextBox();
             this.SubStringToLabel = new System.Windows.Forms.Label();
-            this.SubStringFromLabel = new System.Windows.Forms.Label();
             this.SubStringFromTextBox = new System.Windows.Forms.TextBox();
             this.multiplyPanel = new System.Windows.Forms.Panel();
             this.TransformationCheckBox = new System.Windows.Forms.CheckBox();
@@ -62,6 +61,7 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
+            this.SubstringTransformationCheckBox = new System.Windows.Forms.CheckBox();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
             this.valuePanel.SuspendLayout();
             this.SubstringPanel.SuspendLayout();
@@ -105,9 +105,9 @@
             // SubstringPanel
             // 
             resources.ApplyResources(this.SubstringPanel, "SubstringPanel");
+            this.SubstringPanel.Controls.Add(this.SubstringTransformationCheckBox);
             this.SubstringPanel.Controls.Add(this.SubStringToTextBox);
             this.SubstringPanel.Controls.Add(this.SubStringToLabel);
-            this.SubstringPanel.Controls.Add(this.SubStringFromLabel);
             this.SubstringPanel.Controls.Add(this.SubStringFromTextBox);
             this.SubstringPanel.Name = "SubstringPanel";
             // 
@@ -120,11 +120,6 @@
             // 
             resources.ApplyResources(this.SubStringToLabel, "SubStringToLabel");
             this.SubStringToLabel.Name = "SubStringToLabel";
-            // 
-            // SubStringFromLabel
-            // 
-            resources.ApplyResources(this.SubStringFromLabel, "SubStringFromLabel");
-            this.SubStringFromLabel.Name = "SubStringFromLabel";
             // 
             // SubStringFromTextBox
             // 
@@ -303,6 +298,14 @@
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
             // 
+            // SubstringTransformCheckBox
+            // 
+            this.SubstringTransformationCheckBox.Checked = true;
+            this.SubstringTransformationCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            resources.ApplyResources(this.SubstringTransformationCheckBox, "SubstringTransformCheckBox");
+            this.SubstringTransformationCheckBox.Name = "SubstringTransformCheckBox";
+            this.SubstringTransformationCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FsuipcConfigPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -366,8 +369,8 @@
         private System.Windows.Forms.Panel SubstringPanel;
         private System.Windows.Forms.TextBox SubStringToTextBox;
         private System.Windows.Forms.Label SubStringToLabel;
-        private System.Windows.Forms.Label SubStringFromLabel;
         private System.Windows.Forms.TextBox SubStringFromTextBox;
         private System.Windows.Forms.CheckBox TransformationCheckBox;
+        private System.Windows.Forms.CheckBox SubstringTransformationCheckBox;
     }
 }

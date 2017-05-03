@@ -205,6 +205,10 @@ namespace MobiFlight.InputConfig
 
                     cache.setOffset(FSUIPCOffset, iValue);
                 }
-            }
+                else if (FSUIPCSize == 255)
+                {
+                    cache.setOffset(FSUIPCOffset, Value);
+                }
+        }
         }
 }

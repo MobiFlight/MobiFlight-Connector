@@ -207,6 +207,36 @@
   <data name="SubstringPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="SubstringTransformCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SubstringTransformCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 3</value>
+  </data>
+  <data name="SubstringTransformCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 18</value>
+  </data>
+  <data name="SubstringTransformCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="SubstringTransformCheckBox.Text" xml:space="preserve">
+    <value>Substring from</value>
+  </data>
+  <data name="SubstringTransformCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;SubstringTransformCheckBox.Name" xml:space="preserve">
+    <value>SubstringTransformCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SubstringTransformCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubstringTransformCheckBox.Parent" xml:space="preserve">
+    <value>SubstringPanel</value>
+  </data>
+  <data name="&gt;&gt;SubstringTransformCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="SubStringToTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>192, 2</value>
   </data>
@@ -226,7 +256,7 @@
     <value>SubstringPanel</value>
   </data>
   <data name="&gt;&gt;SubStringToTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="SubStringToLabel.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
@@ -259,39 +289,6 @@
     <value>SubstringPanel</value>
   </data>
   <data name="&gt;&gt;SubStringToLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="SubStringFromLabel.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="SubStringFromLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="SubStringFromLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 5</value>
-  </data>
-  <data name="SubStringFromLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 13</value>
-  </data>
-  <data name="SubStringFromLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="SubStringFromLabel.Text" xml:space="preserve">
-    <value>Substring from</value>
-  </data>
-  <data name="SubStringFromLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromLabel.Name" xml:space="preserve">
-    <value>SubStringFromLabel</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromLabel.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromLabel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="SubStringFromTextBox.Location" type="System.Drawing.Point, System.Drawing">
@@ -349,10 +346,10 @@
     <value>NoControl</value>
   </data>
   <data name="TransformationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>24, 3</value>
+    <value>15, 3</value>
   </data>
   <data name="TransformationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 18</value>
+    <value>95, 18</value>
   </data>
   <data name="TransformationCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
