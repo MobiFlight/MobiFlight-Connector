@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using MobiFlight;
+using MobiFlight.OutputConfig;
 
 namespace MobiFlight
 {
@@ -48,6 +49,10 @@ namespace MobiFlight
         public string       DisplayLedPaddingChar       { get; set; }
         public List<string> DisplayLedDigits            { get; set; }
         public List<string> DisplayLedDecimalPoints     { get; set; }
+
+        // the lcd display stuff
+        public LcdDisplay   LcdDisplay                  { get; set; }
+
         // the bcd driver stuff
         public List<string> BcdPins                     { get; set; }
         // the servo stuff
@@ -261,6 +266,12 @@ namespace MobiFlight
                 if (reader["stepperCompassMode"] != null && reader["stepperCompassMode"] != "")
                 {
                     StepperCompassMode = bool.Parse(reader["stepperCompassMode"]);
+                }
+
+                if (DisplayType == LcdDisplay.Type)
+                {
+                    if (LcdDisplay == null) LcdDisplay = new LcdDisplay();
+                    LcdDisplay.ReadXml(reader);
                 }
 
                 reader.ReadStartElement();

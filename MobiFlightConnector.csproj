@@ -186,6 +186,7 @@
     <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
     <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
     <Compile Include="FSUIPC\FSUIPCCacheInterface.cs" />
+    <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
     <Compile Include="MobiFlight\FlightSimConnectionMethod.cs" />
     <Compile Include="MobiFlight\Forms\ArduinoIdePathForm.cs">
       <SubType>Form</SubType>
@@ -205,6 +206,8 @@
     <Compile Include="MobiFlight\InputConfig\RetriggerInputAction.cs" />
     <Compile Include="MobiFlight\KeyboardInputInterface.cs" />
     <Compile Include="MobiFlight\MobiFlightCacheInterface.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Stepper.cs" />
+    <Compile Include="MobiFlight\OutputConfig\LcdDisplay.cs" />
     <Compile Include="MobiFlight\Transformation.cs" />
     <Compile Include="Panels\BytePanel.cs">
       <SubType>UserControl</SubType>
@@ -420,6 +423,12 @@
     <Compile Include="Panels\EventIdInputPanel.Designer.cs">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\LCDDisplayPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\LCDDisplayPanel.Designer.cs">
+      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\RetriggerInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -578,6 +587,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\PreconditionPanel.resx">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\LCDDisplayPanel.resx">
+      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\RetriggerInputPanel.resx">
       <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
