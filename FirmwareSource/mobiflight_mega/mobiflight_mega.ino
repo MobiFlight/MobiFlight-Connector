@@ -59,6 +59,7 @@ char foo;
 #define MAX_ENCODERS    20
 #define MAX_STEPPERS    10
 #define MAX_MFSERVOS    10
+#define MAX_MFLCD_I2C   1
 #endif
 
 #include <EEPROMex.h>
@@ -75,6 +76,7 @@ char foo;
 #include <Servo.h>
 #include <MFServo.h>
 #include <MFOutput.h>
+#include <LiquidCrystal_I2C.h>
 
 const byte MEM_OFFSET_NAME   = 0;
 const byte MEM_LEN_NAME      = 48;
@@ -95,7 +97,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.7.1 : More UNO stability
 // 1.7.2 : "???"
 // 1.7.3 : Servo behaviour improved, fixed stepper bug #178, increased number of buttons per module (MEGA)
-const char version[8] = "1.7.3";
+// 1.8.0 : added support for LCDs
+const char version[8] = "1.8.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
@@ -150,6 +153,9 @@ byte steppersRegistered = 0;
 
 MFServo servos[MAX_MFSERVOS];
 byte servosRegistered = 0;
+
+MFServo LCD_I2Cs[MAX_MFLCD_I2C];
+byte lcd_12cRegistered = 0;
 
 enum
 {
