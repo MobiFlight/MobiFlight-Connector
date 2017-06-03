@@ -8,35 +8,27 @@ namespace MobiFlight.Config
 {
     public class LCDDisplay : BaseDevice
     {
-        const ushort _paramCount = 6;
+        const ushort _paramCount = 4;
         [XmlAttribute]
-        public String DinPin = "-1";
+        public Byte Address = 0x27;
         [XmlAttribute]
-        public String ClsPin = "-2";
+        public Byte Cols = 16;
         [XmlAttribute]
-        public String ClkPin = "-3";
-        [XmlAttribute]
-        public Byte Brightness = 15;
-        [XmlAttribute]
-        public String NumModules = "1";
-
-        public LCDDisplay() { Name = "LCDDisplay"; _type = DeviceType.LedModule; }
+        public Byte Lines = 2;
+        
+        public LCDDisplay() { Name = "LCDDisplay"; _type = DeviceType.LcdDisplay; }
 
         override public String ToInternal()
         {
-            throw new NotImplementedException();
             return base.ToInternal() + Separator
-                 + DinPin + Separator                 
-                 + ClsPin + Separator
-                 + ClkPin + Separator
-                 + Brightness + Separator
-                 + NumModules + Separator
+                 + Address + Separator                 
+                 + Cols + Separator
+                 + Lines + Separator
                  + Name + End;
         }
 
         override public bool FromInternal(String value)
         {
-            throw new NotImplementedException();
             if (value.Length == value.IndexOf(End) + 1) value = value.Substring(0, value.Length - 1);
             String[] paramList = value.Split(Separator);
             if (paramList.Count() != _paramCount + 1)
@@ -44,14 +36,10 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
 
-            DinPin = paramList[1];            
-            ClsPin = paramList[2];
-            ClkPin = paramList[3];
-            byte brightness = 15;
-            Byte.TryParse(paramList[4], out brightness);
-            Brightness = brightness;
-            NumModules = paramList[5];
-            Name = paramList[6];
+            Address = byte.Parse(paramList[1]);
+            Cols = byte.Parse(paramList[2]);
+            Lines = byte.Parse(paramList[3]);
+            Name = paramList[4];
 
             return true;
         }

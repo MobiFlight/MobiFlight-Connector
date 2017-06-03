@@ -170,6 +170,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\ConfigRef.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
@@ -206,8 +207,15 @@
     <Compile Include="MobiFlight\InputConfig\RetriggerInputAction.cs" />
     <Compile Include="MobiFlight\KeyboardInputInterface.cs" />
     <Compile Include="MobiFlight\MobiFlightCacheInterface.cs" />
+    <Compile Include="MobiFlight\MobiFlightLcdDisplay.cs" />
     <Compile Include="MobiFlight\OutputConfig\Stepper.cs" />
     <Compile Include="MobiFlight\OutputConfig\LcdDisplay.cs" />
+    <Compile Include="MobiFlight\Panels\MFLcdDisplayPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Panels\MFLcdDisplayPanel.Designer.cs">
+      <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="MobiFlight\Transformation.cs" />
     <Compile Include="Panels\BytePanel.cs">
       <SubType>UserControl</SubType>
@@ -386,6 +394,12 @@
     </Compile>
     <Compile Include="Panels\ButtonPanel.Designer.cs">
       <DependentUpon>ButtonPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Group\ConfigRefPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Group\ConfigRefPanel.Designer.cs">
+      <DependentUpon>ConfigRefPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\Group\FsuipcConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -569,6 +583,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Panels\MFLcdDisplayPanel.resx">
+      <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Group\ConfigRefPanel.resx">
+      <DependentUpon>ConfigRefPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\FsuipcConfigPanel.de.resx">
       <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>

@@ -22,11 +22,11 @@ namespace System
 
         static public bool SetSelectedItemByPart(ComboBox comboBox, string value)
         {
-            foreach (string item in comboBox.Items)
+            foreach (object item in comboBox.Items)
             {
-                if (item.Contains(value))
+                if ((item.ToString()).Contains(value))
                 {
-                    comboBox.SelectedIndex = comboBox.FindStringExact(item);
+                    comboBox.SelectedIndex = comboBox.FindStringExact(item.ToString());
                     return true;
                 }
             }

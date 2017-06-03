@@ -101,6 +101,7 @@ namespace MobiFlight
             mfTreeViewImageList.Images.Add(DeviceType.Servo.ToString(), MobiFlight.Properties.Resources.servo);
             mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), MobiFlight.Properties.Resources.output);
             mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), MobiFlight.Properties.Resources.led7);
+            mfTreeViewImageList.Images.Add(DeviceType.LcdDisplay.ToString(), MobiFlight.Properties.Resources.led7);
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
@@ -591,7 +592,12 @@ namespace MobiFlight
                             panel = new MobiFlight.Panels.MFOutputPanel(dev as MobiFlight.Config.Output, module.GetFreePins());
                             (panel as MobiFlight.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
-                        // output
+
+                        case DeviceType.LcdDisplay:
+                            panel = new MobiFlight.Panels.MFLcddDisplayPanel(dev as MobiFlight.Config.LCDDisplay, module.GetFreePins());
+                            (panel as MobiFlight.Panels.MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+                            // output
                     }
                 }
 
@@ -731,6 +737,11 @@ namespace MobiFlight
                         (cfgItem as MobiFlight.Config.Encoder).PinLeft = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
                         (cfgItem as MobiFlight.Config.Encoder).PinRight = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
                         break;
+                    case "LcdDisplayToolStripMenuItem":
+                    case "addLcdDisplayToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.LCDDisplay();
+                        // does not deal yet with these kind of pins because we use I2C
+                        break;
                     default:
                         // do nothing
                         return;
@@ -815,19 +826,19 @@ namespace MobiFlight
             parentNode.ImageKey = "";
             parentNode.SelectedImageKey = "";
 
-            //if (uploadResult)
-            //{
+            if (uploadResult)
+            {
                 MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationFinished"),
                                 MainForm._tr("uiMessageUploadConfigurationHint"),
                                 MessageBoxButtons.OK);
-            /*}
+            }
             else
             {
                 MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationFinishedWithError"),
                                 MainForm._tr("uiMessageUploadConfigurationHint"),
                                 MessageBoxButtons.OK);
             }
-            */            
+                        
         }
 
         /// <summary>

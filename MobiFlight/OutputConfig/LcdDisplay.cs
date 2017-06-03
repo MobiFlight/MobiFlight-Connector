@@ -14,9 +14,15 @@ namespace MobiFlight.OutputConfig
         public String Address { get; set; }
         public List<String> Lines { get; set; }
 
+        public LcdDisplay ()
+        {
+            Lines = new List<string>();
+        }
+
         public object Clone()
         {
             LcdDisplay clone = new LcdDisplay();
+            clone.Address = Address;
             foreach(string line in Lines)
             {
                 clone.Lines.Add(line);
@@ -37,15 +43,32 @@ namespace MobiFlight.OutputConfig
                 Address = reader["address"].ToString();
             }
             reader.Read();
-            while ( reader.LocalName == "line")
+
+            if (reader.LocalName == "line")
             {
-                Lines.Add(reader.Value);
+                while (reader.LocalName == "line")
+                {
+                    if (!reader.IsEmptyElement)
+                    {
+                        reader.Read();
+                        Lines.Add(reader.Value);
+                        reader.Read();
+                        reader.ReadEndElement(); //line
+                    }
+                    else
+                    {
+                        Lines.Add("");
+                        reader.Read();
+                    }
+                }
             }
+
+            reader.ReadEndElement(); //display
         }
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("Address", Address);
+            writer.WriteAttributeString("address", Address);
 
             foreach (string line in Lines) {
                 writer.WriteElementString("line", line);

@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using MobiFlight;
 using MobiFlight.FSUIPC;
+using MobiFlight.Base;
 
 namespace MobiFlight
 {
@@ -761,6 +762,15 @@ namespace MobiFlight
                         );
                         break;
 
+                    case OutputConfig.LcdDisplay.Type:
+                        mobiFlightCache.setLcdDisplay(
+                            serial,
+                            cfg.LcdDisplay,
+                            value,
+                            GetRefs(cfg.ConfigRefs)
+                            );
+                        break;
+
                     default:
                         mobiFlightCache.setValue(serial,
                             cfg.DisplayPin,
@@ -770,6 +780,49 @@ namespace MobiFlight
             }
 
             return value.ToString();
+        }
+
+        private List<Tuple<string, string>> GetRefs(List<ConfigRef> configRefs)
+        {
+            List<Tuple<String, String>> result = new List<Tuple<string, string>>();
+            foreach(ConfigRef c in configRefs)
+            {
+                if (!c.Active) continue;
+                String s = findValueForRef(c.Ref);
+                if (s == null) continue;
+                result.Add(new Tuple<string,string>(c.Placeholder, s));
+            }
+            return result;
+        }
+
+        private String findValueForRef(String refId)
+        {
+            String result = null;
+            // iterate over the config row by row
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                // the last item is null and we hit that if we don't find the reference
+                // because we deleted it for example
+                if ((row.DataBoundItem as DataRowView) == null) continue;
+
+                // here we just don't have a match
+                if ((row.DataBoundItem as DataRowView).Row["guid"].ToString() != refId) continue;
+
+                // if inactive ignore?
+                if (!(bool)row.Cells["active"].Value) break;
+
+                // was there an error on reading the value?
+                if (row.Cells["arcazeValueColumn"].Value == null) break;
+
+                // read the value
+                string value = row.Cells["arcazeValueColumn"].Value.ToString();
+
+                // if there hasn't been determined any value yet
+                // we cannot compare
+                if (value == "") break;
+                result = value;
+            }
+            return result;
         }
 
         /// <summary>
@@ -1018,6 +1071,10 @@ namespace MobiFlight
                     executeDisplay(offCfg.ServoMin, offCfg);
                     break;
 
+                case OutputConfig.LcdDisplay.Type:
+                    executeDisplay(new string (' ', 20 *4), cfg);
+                    break;
+
                 default:
                     offCfg.DisplayLedDecimalPoints = new List<string>();
                     executeDisplay(offCfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
@@ -1035,6 +1092,10 @@ namespace MobiFlight
 
                 case MobiFlightServo.TYPE:
                     executeDisplay(cfg.ServoMax, cfg);
+                    break;
+
+                case OutputConfig.LcdDisplay.Type:
+                    executeDisplay("1234567890", cfg);
                     break;
 
                 default:

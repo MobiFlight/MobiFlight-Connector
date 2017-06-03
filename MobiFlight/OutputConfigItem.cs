@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using MobiFlight;
 using MobiFlight.OutputConfig;
+using MobiFlight.Base;
 
 namespace MobiFlight
 {
@@ -74,7 +75,9 @@ namespace MobiFlight
         // deprecated?
         public string       DisplayTrigger              { get; set; }
                 
-        public List<Precondition> Preconditions         { get; set; }
+        public List<Precondition>   Preconditions       { get; set; }
+
+        public List<ConfigRef>      ConfigRefs          { get; set; }
 
         public OutputConfigItem()
         {            
@@ -100,6 +103,8 @@ namespace MobiFlight
             DisplayLedDigits = new List<string>();
             DisplayLedDecimalPoints = new List<string>();
 
+            LcdDisplay = new LcdDisplay();
+
             StepperCompassMode = false;
                 
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
@@ -107,6 +112,8 @@ namespace MobiFlight
             Interpolation = new Interpolation();
 
             Preconditions = new List<Precondition>();
+
+            ConfigRefs = new List<ConfigRef>();
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -322,6 +329,31 @@ namespace MobiFlight
             if (reader.LocalName == "transformation")
             {
                 Transform.ReadXml(reader);
+                reader.Read();
+            }
+
+            if (reader.LocalName == "configrefs")
+            {
+                bool atPosition = false;
+                // read precondition settings if present
+                if (reader.ReadToDescendant("configref"))
+                {
+                    // load a list
+                    do
+                    {
+                        ConfigRef tmp = new ConfigRef();
+                        tmp.ReadXml(reader);
+                        ConfigRefs.Add(tmp);
+                        reader.ReadStartElement();
+                    } while (reader.LocalName == "configref");
+
+                    // read to the end of preconditions-node
+                    reader.ReadEndElement();
+                }
+                else
+                {
+                    reader.ReadStartElement();
+                }
             }
         }
 
@@ -388,7 +420,12 @@ namespace MobiFlight
                     writer.WriteAttributeString("stepperOutputRev", StepperOutputRev);
                     writer.WriteAttributeString("stepperTestValue", StepperTestValue);
                     writer.WriteAttributeString("stepperCompassMode", StepperCompassMode.ToString());
-            }
+                }
+                else if (DisplayType == LcdDisplay.Type)
+                {
+                    if (LcdDisplay == null) LcdDisplay = new LcdDisplay();
+                    LcdDisplay.WriteXml(writer);
+                }
                 else
                 {
                     writer.WriteAttributeString("pin", DisplayPin);
@@ -407,6 +444,13 @@ namespace MobiFlight
             writer.WriteEndElement();
 
             Transform.WriteXml(writer);
+
+            writer.WriteStartElement("configrefs");
+            foreach (ConfigRef p in ConfigRefs)
+            {
+                p.WriteXml(writer);
+            }
+            writer.WriteEndElement();
         }
 
         public object Clone()
@@ -451,6 +495,8 @@ namespace MobiFlight
             clone.StepperOutputRev          = this.StepperOutputRev;
             clone.StepperTestValue          = this.StepperTestValue;
             clone.StepperCompassMode        = this.StepperCompassMode;
+
+            clone.LcdDisplay                = this.LcdDisplay.Clone() as LcdDisplay;
 
             foreach (Precondition p in Preconditions)
             {

@@ -85,6 +85,10 @@ namespace MobiFlight.Config
                         case DeviceType.LedModule:
                             currentItem = new MobiFlight.Config.LedModule();
                             break;
+
+                        case DeviceType.LcdDisplay:
+                            currentItem = new MobiFlight.Config.LCDDisplay();
+                            break;
                     }
 
                     currentItem.FromInternal(item + BaseDevice.End);

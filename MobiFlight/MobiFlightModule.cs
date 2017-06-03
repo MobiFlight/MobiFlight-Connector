@@ -28,13 +28,14 @@ namespace MobiFlight
     // In order to receive, attach a callback function to these events
     public enum DeviceType
     {
-        NotSet,      // 0 
-        Button,      // 1
-        Encoder,     // 2
-        Output,      // 3
-        LedModule,   // 4
-        Stepper,     // 5
-        Servo,       // 6
+        NotSet,       // 0 
+        Button,       // 1
+        Encoder,      // 2
+        Output,       // 3
+        LedModule,    // 4
+        Stepper,      // 5
+        Servo,        // 6
+        LcdDisplay    // 7
     }
 
     public class FirmwareFeature
@@ -141,6 +142,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightStepper> stepperModules = new Dictionary<string, MobiFlightStepper>();
         Dictionary<String, MobiFlightServo> servoModules = new Dictionary<string, MobiFlightServo>();
         Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string,MobiFlightOutput>();
+        Dictionary<String, MobiFlightLcdDisplay> lcdDisplays = new Dictionary<string, MobiFlightLcdDisplay>();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -189,7 +191,8 @@ namespace MobiFlight
             ResetStepper,       // 21
             SetZeroStepper,     // 22
             Retrigger,          // 23
-            ResetBoard          // 24
+            ResetBoard,         // 24
+            SetLcdDisplayI2C    // 25
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -263,6 +266,7 @@ namespace MobiFlight
             stepperModules.Clear();
             servoModules.Clear();
             outputs.Clear();
+            lcdDisplays.Clear();
                         
             foreach (Config.BaseDevice device in Config.Items)
             {
@@ -289,6 +293,11 @@ namespace MobiFlight
                     case DeviceType.Output:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         outputs.Add(device.Name, new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
+                        break;
+
+                    case DeviceType.LcdDisplay:
+                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LCDDisplay).Cols, Lines = (device as Config.LCDDisplay).Lines });
                         break;
                 }                
             }
@@ -548,6 +557,20 @@ namespace MobiFlight
             return true;
         }
 
+        public bool SetLcdDisplay(string address, string value)
+        {
+            String key = "LCD_" + address;
+            String cachedValue = value;
+
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+                lastValue[key] == cachedValue) return false;
+
+            lastValue[key] = cachedValue;
+
+            lcdDisplays[address].Display(address, value);
+            return true;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -707,8 +730,51 @@ namespace MobiFlight
                 result.Add(servo);
             }
 
+            foreach (MobiFlightLcdDisplay lcdDisplay in lcdDisplays.Values)
+            {
+                result.Add(lcdDisplay);
+            }
+
             return result;
         }
+
+        public List<IConnectedDevice> GetConnectedDevices(String name)
+        {
+            List<IConnectedDevice> result = new List<IConnectedDevice>();
+
+            foreach (MobiFlightOutput output in outputs.Values)
+            {
+                if (output.Name == name)
+                    result.Add(output);
+            }
+
+            foreach (MobiFlightLedModule ledModule in ledModules.Values)
+            {
+                if (ledModule.Name == name)
+                    result.Add(ledModule);
+            }
+
+            foreach (MobiFlightStepper stepper in stepperModules.Values)
+            {
+                if (stepper.Name == name)
+                    result.Add(stepper);
+            }
+
+            foreach (MobiFlightServo servo in servoModules.Values)
+            {
+                if (servo.Name == name)
+                    result.Add(servo);
+            }
+
+            foreach (MobiFlightLcdDisplay lcdDisplay in lcdDisplays.Values)
+            {
+                if (lcdDisplay.Name == name)
+                    result.Add(lcdDisplay);
+            }
+
+            return result;
+        }
+
 
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
@@ -717,10 +783,11 @@ namespace MobiFlight
             if (ledModules.Count > 0) result.Add(DeviceType.LedModule);
             if (stepperModules.Count > 0) result.Add(DeviceType.Stepper);
             if (servoModules.Count > 0) result.Add(DeviceType.Servo);
+            if (lcdDisplays.Count > 0) result.Add(DeviceType.LcdDisplay);
 
             return result;
         }
-
+        
         public IEnumerable<DeviceType> GetConnectedInputDeviceTypes()
         {
             bool _hasButtons = false;
@@ -875,6 +942,10 @@ namespace MobiFlight
                     case DeviceType.Encoder:
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Encoder).PinLeft));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Encoder).PinRight));
+                        break;
+
+                    case DeviceType.LcdDisplay:
+                        // Nothing to do
                         break;
 
                     case DeviceType.Output:

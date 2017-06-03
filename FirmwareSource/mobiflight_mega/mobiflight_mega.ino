@@ -539,7 +539,9 @@ void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2
   if (lcd_12cRegistered == MAX_MFLCD_I2C) return;
   lcd_I2C[lcd_12cRegistered].attach(address, cols, lines);
   lcd_12cRegistered++;
+#ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Added lcdDisplay");
+#endif
 }
 
 void ClearLcdDisplays()

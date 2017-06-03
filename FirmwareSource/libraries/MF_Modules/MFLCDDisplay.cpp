@@ -12,9 +12,13 @@ MFLCDDisplay::MFLCDDisplay()
 void MFLCDDisplay::display(char *string)
 {
   if (!_initialized) return;
-  for (byte line=0;line!=_lines;line++) {
-	_lcdDisplay->setCursor(0, line);
-	_lcdDisplay->print(&string[_cols*line]);
+  char* test = "12345678901234567890aaaa5aaaa0aaaa5aaaa0bbbb5bbbb0bbbb5bbbb0cccc5cccc0cccc5cccc0";
+  char* tst  = "COM1: 121.703456789012345678901234567890bbbb5bbbb0bbbb5bbbb0                    ";
+  char readBuffer[21] = "";
+  for(byte l=0;l!=_lines;l++) {
+    _lcdDisplay->setCursor(0, l);
+    memcpy(readBuffer, string+_cols*l, _cols);
+    _lcdDisplay->print(readBuffer);
   }
 }
 
@@ -23,7 +27,7 @@ void MFLCDDisplay::attach(byte address, byte cols, byte lines)
   _address = address;
   _cols = cols;
   _lines = lines;
-  _lcdDisplay = new LiquidCrystal_I2C( (uint8_t)0x27, (uint8_t)cols, (uint8_t)lines );
+  _lcdDisplay = new LiquidCrystal_I2C( (uint8_t)address, (uint8_t)cols, (uint8_t)lines );
   _initialized = true;
   _lcdDisplay->begin();
   _lcdDisplay->backlight();
@@ -39,7 +43,10 @@ void MFLCDDisplay::detach()
 
 void MFLCDDisplay::powerSavingMode(bool state)
 {
-  _lcdDisplay->backlight();
+  if (state)
+    _lcdDisplay->noBacklight();
+  else
+    _lcdDisplay->backlight();
 }
 
 void MFLCDDisplay::test() {

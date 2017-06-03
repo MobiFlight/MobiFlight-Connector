@@ -26,12 +26,14 @@ namespace MobiFlight
 
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 
-        Panels.DisplayPinPanel displayPinPanel = new Panels.DisplayPinPanel();
-        Panels.DisplayBcdPanel displayBcdPanel = new Panels.DisplayBcdPanel();
-        Panels.DisplayLedDisplayPanel displayLedDisplayPanel = new Panels.DisplayLedDisplayPanel();
-        Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new Panels.DisplayNothingSelectedPanel();
-        Panels.ServoPanel servoPanel = new Panels.ServoPanel();
-        Panels.StepperPanel stepperPanel = new Panels.StepperPanel();
+        Panels.DisplayPinPanel              displayPinPanel             = new Panels.DisplayPinPanel();
+        Panels.DisplayBcdPanel              displayBcdPanel             = new Panels.DisplayBcdPanel();
+        Panels.DisplayLedDisplayPanel       displayLedDisplayPanel      = new Panels.DisplayLedDisplayPanel();
+        Panels.DisplayNothingSelectedPanel  displayNothingSelectedPanel = new Panels.DisplayNothingSelectedPanel();
+        Panels.LCDDisplayPanel              displayLcdDisplayPanel      = new Panels.LCDDisplayPanel();
+        Panels.ServoPanel                   servoPanel                  = new Panels.ServoPanel();
+        Panels.StepperPanel                 stepperPanel                = new Panels.StepperPanel();
+        
 
         public ConfigWizard(ExecutionManager mainForm, 
                              OutputConfigItem cfg, 
@@ -117,6 +119,10 @@ namespace MobiFlight
             stepperPanel.OnManualCalibrationTriggered += new EventHandler<Panels.ManualCalibrationTriggeredEventArgs>(stepperPanel_OnManualCalibrationTriggered);
             stepperPanel.OnSetZeroTriggered += new EventHandler(stepperPanel_OnSetZeroTriggered);
 
+
+            groupBoxDisplaySettings.Controls.Add(displayLcdDisplayPanel);
+            displayLcdDisplayPanel.Dock = DockStyle.Top;
+
             displayPanels.Clear();
             displayPanelHeight = 0;
             displayPanels.Add(displayPinPanel);
@@ -125,6 +131,7 @@ namespace MobiFlight
             displayPanels.Add(displayNothingSelectedPanel);
             displayPanels.Add(servoPanel);
             displayPanels.Add(stepperPanel);
+            displayPanels.Add(displayLcdDisplayPanel);
 
             foreach (UserControl p in displayPanels)
             {
@@ -201,6 +208,8 @@ namespace MobiFlight
                 preConditionTypeComboBox.ValueMember = "Value";
                 preConditionTypeComboBox.SelectedIndex = 0;
             }
+
+            displayLcdDisplayPanel.SetConfigRefsDataView(dv, filterGuid);
         }
 
         /// <summary>
@@ -270,6 +279,7 @@ namespace MobiFlight
                 }
             }
 
+
             displayPinPanel.syncFromConfig(config);
 
             displayBcdPanel.syncFromConfig(config);
@@ -279,6 +289,8 @@ namespace MobiFlight
             servoPanel.syncFromConfig(config);
 
             stepperPanel.syncFromConfig(config);
+
+            displayLcdDisplayPanel.syncFromConfig(config);
             
             preconditionListTreeView.Nodes.Clear();
 
@@ -376,6 +388,8 @@ namespace MobiFlight
             servoPanel.syncToConfig(config);
             
             stepperPanel.syncToConfig(config);
+
+            displayLcdDisplayPanel.syncToConfig(config);
             
             return true;
         }
@@ -460,6 +474,10 @@ namespace MobiFlight
 
                             case DeviceType.Stepper:
                                 displayTypeComboBox.Items.Add(DeviceType.Stepper.ToString("F"));
+                                break;
+
+                            case DeviceType.LcdDisplay:
+                                displayTypeComboBox.Items.Add(DeviceType.LcdDisplay.ToString("F"));
                                 break;
                         }
                     }
@@ -574,6 +592,7 @@ namespace MobiFlight
                     List<ListItem> ledSegments = new List<ListItem>();
                     List<ListItem> servos = new List<ListItem>();
                     List<ListItem> stepper = new List<ListItem>();
+                    List<ListItem> lcdDisplays = new List<ListItem>();
 
                     foreach (IConnectedDevice device in module.GetConnectedDevices())
                     {
@@ -595,6 +614,12 @@ namespace MobiFlight
                             case DeviceType.Stepper:
                                 stepper.Add(new ListItem() { Value = device.Name, Label = device.Name });
                                 break;
+
+                            case DeviceType.LcdDisplay:
+                                int Cols = (device as MobiFlightLcdDisplay).Cols;
+                                int Lines= (device as MobiFlightLcdDisplay).Lines;
+                                lcdDisplays.Add(new ListItem() { Value = device.Name+","+ Cols+","+Lines, Label = device.Name });
+                                break;
                         }                        
                     }
                     displayPinPanel.WideStyle = true;
@@ -608,6 +633,8 @@ namespace MobiFlight
                     servoPanel.SetAdresses(servos);
 
                     stepperPanel.SetAdresses(stepper);
+
+                    displayLcdDisplayPanel.SetAddresses(lcdDisplays);
                 }
                 if ((sender as ComboBox).Text == "Pin")
                 {
@@ -637,6 +664,11 @@ namespace MobiFlight
                 {
                     stepperPanel.Enabled = panelEnabled;
                     stepperPanel.Height = displayPanelHeight;
+                }
+                if ((sender as ComboBox).Text == DeviceType.LcdDisplay.ToString("F"))
+                {
+                    displayLcdDisplayPanel.Enabled = panelEnabled;
+                    displayLcdDisplayPanel.Height = displayPanelHeight;
                 }
             }
             catch (Exception)
