@@ -40,6 +40,7 @@ namespace MobiFlight.Base
         public object Clone()
         {
             ConfigRef clone = new ConfigRef();
+            clone.Active = Active;
             clone.Ref = Ref;
             clone.Placeholder = Placeholder;
             return clone;

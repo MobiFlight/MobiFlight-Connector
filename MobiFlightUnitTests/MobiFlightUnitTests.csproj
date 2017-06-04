@@ -76,6 +76,7 @@
     <Compile Include="Base\CmdLineParamsTests.cs" />
     <Compile Include="Base\ComboBoxHelperTests.cs" />
     <Compile Include="Base\ConfigFileTests.cs" />
+    <Compile Include="Base\ConfigRefTests.cs" />
     <Compile Include="Base\ConnectorValueTests.cs" />
     <Compile Include="Base\PreconditionTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
@@ -113,6 +114,15 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\Base\ConfigFile\SaveFileTest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\ConfigRef\WriteXmlTest.1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\ConfigRef\ReadXmlTest.2.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\ConfigRef\ReadXmlTest.1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\Base\Precondition\ReadXmlTest.1.xml">
