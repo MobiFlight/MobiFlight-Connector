@@ -74,7 +74,7 @@ namespace MobiFlight
             CmdMessenger.SendCommand(command);
         }
 
-        internal string Apply(LcdDisplay lcdConfig, string value, List<Tuple<String, String>> replacements)
+        public string Apply(LcdDisplay lcdConfig, string value, List<Tuple<String, String>> replacements)
         {
             String result = "";
             replacements.Add(new Tuple<string, string>("$", value));
