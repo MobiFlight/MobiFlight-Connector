@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using MobiFlight;
 using MobiFlight.InputConfig;
+using MobiFlight.Base;
 
 namespace MobiFlight
 {
@@ -25,11 +26,11 @@ namespace MobiFlight
         public string Type { get; set; }
         public ButtonInputConfig button  { get; set; }
         public EncoderInputConfig encoder { get; set; }
-        public List<Precondition> Preconditions             { get; set; }
+        public PreconditionList Preconditions             { get; set; }
         
         public InputConfigItem()
         {
-            Preconditions = new List<Precondition>();
+            Preconditions = new PreconditionList();
             Type = TYPE_NOTSET;
         }
 

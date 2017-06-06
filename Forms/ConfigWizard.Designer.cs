@@ -106,6 +106,9 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
+            this.overrideGroupBox = new System.Windows.Forms.GroupBox();
+            this.overridePreconditionCheckBox = new System.Windows.Forms.CheckBox();
+            this.overridePreconditionTextBox = new System.Windows.Forms.TextBox();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
@@ -127,6 +130,7 @@
             this.ButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
+            this.overrideGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -393,6 +397,7 @@
             // preconditionTabPage
             // 
             this.preconditionTabPage.Controls.Add(this.preconditionSpacerPanel);
+            this.preconditionTabPage.Controls.Add(this.overrideGroupBox);
             this.preconditionTabPage.Controls.Add(this.preconditionSettingsPanel);
             this.preconditionTabPage.Controls.Add(this.preconditionListgroupBox);
             this.preconditionTabPage.Controls.Add(this.preconditionTabTextBox);
@@ -728,6 +733,25 @@
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
             // 
+            // overrideGroupBox
+            // 
+            this.overrideGroupBox.Controls.Add(this.overridePreconditionTextBox);
+            this.overrideGroupBox.Controls.Add(this.overridePreconditionCheckBox);
+            resources.ApplyResources(this.overrideGroupBox, "overrideGroupBox");
+            this.overrideGroupBox.Name = "overrideGroupBox";
+            this.overrideGroupBox.TabStop = false;
+            // 
+            // overridePreconditionCheckBox
+            // 
+            resources.ApplyResources(this.overridePreconditionCheckBox, "overridePreconditionCheckBox");
+            this.overridePreconditionCheckBox.Name = "overridePreconditionCheckBox";
+            this.overridePreconditionCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // overridePreconditionTextBox
+            // 
+            resources.ApplyResources(this.overridePreconditionTextBox, "overridePreconditionTextBox");
+            this.overridePreconditionTextBox.Name = "overridePreconditionTextBox";
+            // 
             // ConfigWizard
             // 
             resources.ApplyResources(this, "$this");
@@ -771,6 +795,8 @@
             this.ButtonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
+            this.overrideGroupBox.ResumeLayout(false);
+            this.overrideGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -854,5 +880,8 @@
         private Panels.Group.InterpolationPanel interpolationPanel1;
         private System.Windows.Forms.CheckBox interpolationCheckBox;
         private Panels.Group.FsuipcConfigPanel fsuipcConfigPanel;
+        private System.Windows.Forms.GroupBox overrideGroupBox;
+        private System.Windows.Forms.TextBox overridePreconditionTextBox;
+        private System.Windows.Forms.CheckBox overridePreconditionCheckBox;
     }
 }

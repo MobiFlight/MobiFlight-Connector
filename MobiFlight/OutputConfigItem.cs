@@ -75,7 +75,7 @@ namespace MobiFlight
         // deprecated?
         public string       DisplayTrigger              { get; set; }
                 
-        public List<Precondition>   Preconditions       { get; set; }
+        public PreconditionList   Preconditions       { get; set; }
 
         public List<ConfigRef>      ConfigRefs          { get; set; }
 
@@ -111,7 +111,7 @@ namespace MobiFlight
 
             Interpolation = new Interpolation();
 
-            Preconditions = new List<Precondition>();
+            Preconditions = new PreconditionList();
 
             ConfigRefs = new List<ConfigRef>();
         }
@@ -294,36 +294,9 @@ namespace MobiFlight
                 reader.ReadStartElement();
 
             // read precondition settings if present
-            if (reader.LocalName == "precondition")
+            if (reader.LocalName == "precondition" || reader.LocalName == "preconditions")
             {
-                // do so
-                Precondition tmp = new Precondition();
-                tmp.ReadXml(reader);
-                Preconditions.Add(tmp);
-            }
-
-            if (reader.LocalName == "preconditions")
-            {
-                bool atPosition = false;
-                // read precondition settings if present
-                if (reader.ReadToDescendant("precondition"))
-                {
-                    // load a list
-                    do
-                    {
-                        Precondition tmp = new Precondition();
-                        tmp.ReadXml(reader);
-                        Preconditions.Add(tmp);
-                        reader.ReadStartElement();
-                    } while (reader.LocalName == "precondition");
-
-                    // read to the end of preconditions-node
-                    reader.ReadEndElement();
-                }
-                else
-                {
-                    reader.ReadStartElement();
-                }
+                Preconditions.ReadXml(reader);
             }
 
             if (reader.LocalName == "transformation")
@@ -347,7 +320,7 @@ namespace MobiFlight
                         reader.ReadStartElement();
                     } while (reader.LocalName == "configref");
 
-                    // read to the end of preconditions-node
+                    // read to the end of configref-node
                     reader.ReadEndElement();
                 }
                 else
@@ -436,12 +409,7 @@ namespace MobiFlight
 
             writer.WriteEndElement();
 
-            writer.WriteStartElement("preconditions");
-            foreach (Precondition p in Preconditions)
-            {
-                p.WriteXml(writer);
-            }
-            writer.WriteEndElement();
+            Preconditions.WriteXml(writer);
 
             Transform.WriteXml(writer);
 

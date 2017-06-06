@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight;
+using MobiFlight.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -160,7 +161,7 @@ namespace MobiFlight.Tests
             o.Interpolation = new Interpolation();
             o.Interpolation.Add(123, 456);
 
-            o.Preconditions = new List<Precondition>();
+            o.Preconditions = new PreconditionList();
             o.Preconditions.Add(new Precondition() { PreconditionLabel = "Test", PreconditionType = "config", PreconditionRef = "Ref123", PreconditionOperand = "op123", PreconditionValue = "val123", PreconditionLogic = "AND"  });
 
             o.ServoAddress = "A2";

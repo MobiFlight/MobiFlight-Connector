@@ -64,6 +64,7 @@
             this.preconditionListTreeView = new System.Windows.Forms.TreeView();
             this.preconditionSpacerPanel = new System.Windows.Forms.Panel();
             this.preconditionTabTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.preconditionSettingsPanel.SuspendLayout();
             this.preconditionSettingsGroupBox.SuspendLayout();
             this.preconditionPinPanel.SuspendLayout();
@@ -74,6 +75,7 @@
             // 
             // preconditionSettingsPanel
             // 
+            this.preconditionSettingsPanel.Controls.Add(this.groupBox1);
             this.preconditionSettingsPanel.Controls.Add(this.preconditionSettingsGroupBox);
             this.preconditionSettingsPanel.Controls.Add(this.preconditionApplyButton);
             this.preconditionSettingsPanel.Controls.Add(this.preconditionSelectGroupBox);
@@ -83,7 +85,7 @@
             this.preconditionSettingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.preconditionSettingsPanel.Location = new System.Drawing.Point(0, 0);
             this.preconditionSettingsPanel.Name = "preconditionSettingsPanel";
-            this.preconditionSettingsPanel.Size = new System.Drawing.Size(318, 353);
+            this.preconditionSettingsPanel.Size = new System.Drawing.Size(318, 389);
             this.preconditionSettingsPanel.TabIndex = 16;
             // 
             // preconditionSettingsGroupBox
@@ -275,7 +277,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.preconditionApplyButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.preconditionApplyButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.preconditionApplyButton.Location = new System.Drawing.Point(117, 324);
+            this.preconditionApplyButton.Location = new System.Drawing.Point(117, 360);
             this.preconditionApplyButton.Name = "preconditionApplyButton";
             this.preconditionApplyButton.Size = new System.Drawing.Size(79, 23);
             this.preconditionApplyButton.TabIndex = 32;
@@ -360,7 +362,7 @@
             this.preconditionSpacerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.preconditionSpacerPanel.Location = new System.Drawing.Point(0, 43);
             this.preconditionSpacerPanel.Name = "preconditionSpacerPanel";
-            this.preconditionSpacerPanel.Size = new System.Drawing.Size(318, 310);
+            this.preconditionSpacerPanel.Size = new System.Drawing.Size(318, 346);
             this.preconditionSpacerPanel.TabIndex = 34;
             // 
             // preconditionTabTextBox
@@ -381,13 +383,23 @@
     " erfüllt ist, wird die Konfiguration berücksichtigt. Das ist z.B. für ein Multi-" +
     "Radio sinnvoll.";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 320);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(318, 33);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "groupBox1";
+            // 
             // PreconditionPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.preconditionSettingsPanel);
             this.Name = "PreconditionPanel";
-            this.Size = new System.Drawing.Size(318, 353);
+            this.Size = new System.Drawing.Size(318, 389);
             this.preconditionSettingsPanel.ResumeLayout(false);
             this.preconditionSettingsPanel.PerformLayout();
             this.preconditionSettingsGroupBox.ResumeLayout(false);
@@ -426,5 +438,6 @@
         private System.Windows.Forms.TreeView preconditionListTreeView;
         private System.Windows.Forms.Panel preconditionSpacerPanel;
         private System.Windows.Forms.TextBox preconditionTabTextBox;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

@@ -1034,10 +1034,10 @@
     <value>Fill</value>
   </data>
   <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 344</value>
+    <value>6, 394</value>
   </data>
   <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 69</value>
+    <value>357, 19</value>
   </data>
   <data name="preconditionSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1053,6 +1053,81 @@
   </data>
   <data name="&gt;&gt;preconditionSpacerPanel.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="overridePreconditionTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>192, 19</value>
+  </data>
+  <data name="overridePreconditionTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="overridePreconditionTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;overridePreconditionTextBox.Name" xml:space="preserve">
+    <value>overridePreconditionTextBox</value>
+  </data>
+  <data name="&gt;&gt;overridePreconditionTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;overridePreconditionTextBox.Parent" xml:space="preserve">
+    <value>overrideGroupBox</value>
+  </data>
+  <data name="&gt;&gt;overridePreconditionTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="overridePreconditionCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="overridePreconditionCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 21</value>
+  </data>
+  <data name="overridePreconditionCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 17</value>
+  </data>
+  <data name="overridePreconditionCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="overridePreconditionCheckBox.Text" xml:space="preserve">
+    <value>still execute and set value to</value>
+  </data>
+  <data name="&gt;&gt;overridePreconditionCheckBox.Name" xml:space="preserve">
+    <value>overridePreconditionCheckBox</value>
+  </data>
+  <data name="&gt;&gt;overridePreconditionCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;overridePreconditionCheckBox.Parent" xml:space="preserve">
+    <value>overrideGroupBox</value>
+  </data>
+  <data name="&gt;&gt;overridePreconditionCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="overrideGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="overrideGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 344</value>
+  </data>
+  <data name="overrideGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>357, 50</value>
+  </data>
+  <data name="overrideGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="overrideGroupBox.Text" xml:space="preserve">
+    <value>Precondition is False settings</value>
+  </data>
+  <data name="&gt;&gt;overrideGroupBox.Name" xml:space="preserve">
+    <value>overrideGroupBox</value>
+  </data>
+  <data name="&gt;&gt;overrideGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;overrideGroupBox.Parent" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;overrideGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="preconditionPinValueComboBox.Items" xml:space="preserve">
     <value>On</value>
@@ -1646,7 +1721,7 @@
     <value>preconditionTabPage</value>
   </data>
   <data name="&gt;&gt;preconditionSettingsPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <metadata name="preconditionTreeContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>150, 17</value>
@@ -1731,51 +1806,51 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADM
-        CwAAAk1TRnQBSQFMAgEBAgEAAeQBAQHkAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CwAAAk1TRnQBSQFMAgEBAgEAAewBAQHsAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8AS0B/wH7AbEBEQH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/AS0BhAL/
-        ARkBRwL/AQUBPwL/AQABOQL/AQABPAL/AQABSQL/AQABigL/AQABlwL/AQMBoQL/AQMBowL/AQMBpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAAUMB/wHwAakBGgH/AfABnwEBAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ASwB/wH7AbEBEAH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ASwBhAL/
+        ARgBRgL/AQQBPgL/AQABOAL/AQABOwL/AQABSAL/AQABigL/AQABlwL/AQIBoQL/AQIBowL/AQIBpQL/
+        Al0BYQHiiAACXAFVAeoB9gHAAUIB/wHwAakBGQH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
         Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        AUIBkAH9Af8BHAFBAf4B/wEHATcC/wEAATAC/wEAASwC/wEAATYC/wEAAUIC/wEAAYIC/wEAAY8C/wEA
-        AZsC/wEAAZoC/wECAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQE7Af8B6wGiARQB/wHqAZcBAAH/AeoBjAEA
+        AUEBkAH9Af8BGwFAAf4B/wEGATYC/wEAAS8C/wEAASsC/wEAATUC/wEAAUEC/wEAAYIC/wEAAY8C/wEA
+        AZsC/wEAAZoC/wEBAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQE6Af8B6wGiARMB/wHqAZcBAAH/AeoBjAEA
         Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqATsBiwH+Af8BFgE8Af4B/wEBATIC/wEAASoC/wEAASgC/wEAATUC/wEA
-        AUAC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAE5Af8B5gGc
-        AREB/wHlAZABAAH/AeQBhQEAAf8B5QFLAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBOQGJAfwB/wESATgC/wEAAS0C/wEA
-        ASUC/wEAASUC/wEAATIC/wEAAT0C/wEAAUcC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABOQH/AeEBlwERAf8B3wGLAQAB/wHeAUsBAAH/Ad8BRQEAAf8B4QFHAQAB/wHkAUoBAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATkBiAH7
-        Af8BEgE2Af0B/wEAASoC/wEAASEC/wEAASAC/wEAASwC/wEAATYC/wEAAT0C/wEAAUUC/wEAAUoC/wEA
-        AUsC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE9Af8B3QGUARQB/wHbAYcBAAH/AdkBRwEAAf8B2AE/
-        AQAB/wHbAUEBAAH/Ad4BRAEAAf8B4QFHAQAB/wHjAUkBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBPQGIAfgB/wEUATYB+gH/AQABKAL/AQABHgL/AQABGQL/AQABIwL/AQABLQL/
-        AQABNQL/AQABOQL/AQABPQL/AQABPQL/AQABRAL/AlUBXAHqiAABXAJVAeoB5AGtAUIB/wHaAZQBGgH/
-        AdcBhgEBAf8B1QFGAQAB/wHTAToBAAH/AdUBOwEAAf8B2AE+AQAB/wHaAUABAAH/Ad0BQwEAAf8B4AFG
-        AQAB/wHjAUkBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gFCAYwB9QH/ARoBOQH1Af8BAgEpAf0B/wEA
-        AR0C/wEAARQC/wEAARoC/wEAASIC/wEAASoC/wEAAS8C/wEAATIC/wEAATEC/wEAATcC/wJVAVwB6ogA
-        AVwCVQHqAeMBrwFLAf8B2AGVASMB/wHUAYcBCwH/AdEBRwEAAf8BzwE8AQAB/wHPATQBAAH/AdEBNwEA
-        Af8B1AE6AQAB/wHXAT0BAAH/AdoBQAEAAf8B3AFCAQAB/wHlAUsBAAH/AVwCVQHqCAACVQFcAeoBSwGS
-        AfMB/wEjAT0B8AH/AQsBLQH3Af8BAAEfAf4B/wEAARUC/wEAARAC/wEAARgC/wEAAR0C/wEAASIC/wEA
-        ASQC/wEAASYC/wEAASoC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYAS4B/wHSAYsBFwH/Ac8BSgEB
-        Af8BzAE/AQAB/wHLATYBAAH/AcsBMgEAAf8BzgE0AQAB/wHRATcBAAH/AdMBOQEAAf8B1gE8AQAB/wHf
-        AUUBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEuAUQB7AH/ARcBNAHxAf8BAQEmAfcB/wEAARkC/wEA
-        AQ8C/wEAAQ4C/wEAARIC/wEAARYC/wEAARgC/wEAARgC/wEAAR0C/wJVAVwB6ogAAVwCVQHqAeIBuwGY
-        Af8B1gGdATwB/wHSAZABJgH/Ac4BhAERAf8BywFFAQAB/wHJATwBAAH/AcgBNQEAAf8ByAEvAQAB/wHK
-        ATABAAH/Ac0BMwEAAf8B0AE2AQAB/wHYAT0BAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE8AYEB6AH/
-        ASYBPQHrAf8BEQEvAfAB/wEAASIB9QH/AQABFwH9Af8BAAENAv8BAAEIAf4B/wEAAQkC/wEAAQsC/wEA
-        AQoC/wEAAQ8C/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBNgH/Ac4BiwEjAf8BywGB
-        AREB/wHJAUQBAAH/AcgBPQEAAf8ByAE4AQAB/wHIATYBAAH/AcoBNgEAAf8BzQE4AQAB/wHVAUMBAAH/
-        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/ATYBSAHnAf8BIwE6AeoB/wERAS0B7gH/AQABIgHy
-        Af8BAAEZAfYB/wEAARIB+gH/AQABDAH+Af8BAAEKAv8BAAEKAv8BAAESAv8CVQFcAeqIAAFhAloB5AHv
-        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBQwH/AdMBlQExAf8BzwGLASAB/wHOAYUBEwH/Ac0BgAEJ
-        Af8BzgFJAQAB/wHPAUkBAAH/AdMBgAEAAf8B2gGJAQEB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
-        AewB/wGMAZgB6wH/AUMBigHtAf8BMQFHAe8B/wEgATwB8QH/ARMBMgH1Af8BCQEqAfcB/wEAASYB+gH/
-        AQABIgH6Af8BAAEiAfwB/wEBASwC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
+        AQAB/wJcAVUB6ggAAlUBXAHqAToBiwH+Af8BFQE7Af4B/wEAATEC/wEAASkC/wEAAScC/wEAATQC/wEA
+        AT8C/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAE4Af8B5gGc
+        ARAB/wHlAZABAAH/AeQBhQEAAf8B5QFKAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
+        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBOAGJAfwB/wERATcC/wEAASwC/wEA
+        ASQC/wEAASQC/wEAATEC/wEAATwC/wEAAUYC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
+        AlwBVQLqAbABOAH/AeEBlwEQAf8B3wGLAQAB/wHeAUoBAAH/Ad8BRAEAAf8B4QFGAQAB/wHkAUkBAAH/
+        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATgBiAH7
+        Af8BEQE1Af0B/wEAASkC/wEAASAC/wEAAR8C/wEAASsC/wEAATUC/wEAATwC/wEAAUQC/wEAAUkC/wEA
+        AUoC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE8Af8B3QGUARMB/wHbAYcBAAH/AdkBRgEAAf8B2AE+
+        AQAB/wHbAUABAAH/Ad4BQwEAAf8B4QFGAQAB/wHjAUgBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
+        AlwBVQHqCAACVQFcAeoBPAGIAfgB/wETATUB+gH/AQABJwL/AQABHQL/AQABGAL/AQABIgL/AQABLAL/
+        AQABNAL/AQABOAL/AQABPAL/AQABPAL/AQABQwL/AlUBXAHqiAABXAJVAeoB5AGtAUEB/wHaAZQBGQH/
+        AdcBhgEAAf8B1QFFAQAB/wHTATkBAAH/AdUBOgEAAf8B2AE9AQAB/wHaAT8BAAH/Ad0BQgEAAf8B4AFF
+        AQAB/wHjAUgBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gFBAYwB9QH/ARkBOAH1Af8BAQEoAf0B/wEA
+        ARwC/wEAARMC/wEAARkC/wEAASEC/wEAASkC/wEAAS4C/wEAATEC/wEAATAC/wEAATYC/wJVAVwB6ogA
+        AVwCVQHqAeMBrwFKAf8B2AGVASIB/wHUAYcBCgH/AdEBRgEAAf8BzwE7AQAB/wHPATMBAAH/AdEBNgEA
+        Af8B1AE5AQAB/wHXATwBAAH/AdoBPwEAAf8B3AFBAQAB/wHlAUoBAAH/AVwCVQHqCAACVQFcAeoBSgGS
+        AfMB/wEiATwB8AH/AQoBLAH3Af8BAAEeAf4B/wEAARQC/wEAAQ8C/wEAARcC/wEAARwC/wEAASEC/wEA
+        ASMC/wEAASUC/wEAASkC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYAS0B/wHSAYsBFgH/Ac8BSQEA
+        Af8BzAE+AQAB/wHLATUBAAH/AcsBMQEAAf8BzgEzAQAB/wHRATYBAAH/AdMBOAEAAf8B1gE7AQAB/wHf
+        AUQBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEtAUMB7AH/ARYBMwHxAf8BAAElAfcB/wEAARgC/wEA
+        AQ4C/wEAAQ0C/wEAAREC/wEAARUC/wEAARcC/wEAARcC/wEAARwC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
+        Af8B1gGdATsB/wHSAZABJQH/Ac4BhAEQAf8BywFEAQAB/wHJATsBAAH/AcgBNAEAAf8ByAEuAQAB/wHK
+        AS8BAAH/Ac0BMgEAAf8B0AE1AQAB/wHYATwBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE7AYEB6AH/
+        ASUBPAHrAf8BEAEuAfAB/wEAASEB9QH/AQABFgH9Af8BAAEMAv8BAAEHAf4B/wEAAQgC/wEAAQoC/wEA
+        AQkC/wEAAQ4C/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBNQH/Ac4BiwEiAf8BywGB
+        ARAB/wHJAUMBAAH/AcgBPAEAAf8ByAE3AQAB/wHIATUBAAH/AcoBNQEAAf8BzQE3AQAB/wHVAUIBAAH/
+        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/ATUBRwHnAf8BIgE5AeoB/wEQASwB7gH/AQABIQHy
+        Af8BAAEYAfYB/wEAAREB+gH/AQABCwH+Af8BAAEJAv8BAAEJAv8BAAERAv8CVQFcAeqIAAFhAloB5AHv
+        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBQgH/AdMBlQEwAf8BzwGLAR8B/wHOAYUBEgH/Ac0BgAEI
+        Af8BzgFIAQAB/wHPAUgBAAH/AdMBgAEAAf8B2gGJAQAB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
+        AewB/wGMAZgB6wH/AUIBigHtAf8BMAFGAe8B/wEfATsB8QH/ARIBMQH1Af8BCAEpAfcB/wEAASUB+gH/
+        AQABIQH6Af8BAAEhAfwB/wEAASsC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
         AlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFhAloB5AM7AWQIAAM8AWYCWgFh
         AeQCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFc
         AeoCWgFhAeQDOwFk/wCFAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQA
@@ -1873,7 +1948,7 @@
     <value>preconditionTabPage</value>
   </data>
   <data name="&gt;&gt;preconditionListgroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="preconditionTabTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -1906,7 +1981,7 @@
     <value>preconditionTabPage</value>
   </data>
   <data name="&gt;&gt;preconditionTabTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

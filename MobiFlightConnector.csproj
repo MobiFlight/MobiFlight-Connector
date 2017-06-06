@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\ConfigRef.cs" />
+    <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>

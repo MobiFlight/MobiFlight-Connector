@@ -254,7 +254,6 @@ namespace MobiFlight
 
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
-
                 ConnectorValue value = executeRead(cfg);
                 ConnectorValue processedValue = value;
 
@@ -278,8 +277,13 @@ namespace MobiFlight
                 // check preconditions
                 if (!checkPrecondition(cfg, processedValue))
                 {
-                    row.ErrorText = MainForm._tr("uiMessagePreconditionNotSatisfied");
-                    continue;
+                    if (!cfg.Preconditions.ExecuteOnFalse) {
+                        row.ErrorText = MainForm._tr("uiMessagePreconditionNotSatisfied");
+                        continue;
+                    } else
+                    {
+                        strValue = cfg.Preconditions.FalseCaseValue;
+                    }
                 } else
                 {
                     row.ErrorText = "";

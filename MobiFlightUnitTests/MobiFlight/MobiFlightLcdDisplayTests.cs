@@ -28,6 +28,19 @@ namespace MobiFlight.Tests
             result = o.Apply(lcdConfig, value, replacements);
 
             Assert.AreEqual("COM1: 123.45        ", result, "Apply was not correct");
+
+            lcdConfig.Lines.Add("COM2: ###.##");
+            replacements.Add(new Tuple<string, string> ("#", "12345"));
+            result = o.Apply(lcdConfig, value, replacements);
+
+            Assert.AreEqual("COM1: 123.45        ", result, "Apply was not correct");
+
+            o.Lines = 2;
+            result = o.Apply(lcdConfig, value, replacements);
+
+            Assert.AreEqual("COM1: 123.45        "+
+                            "COM2: 123.45        ", result, "Apply was not correct");
+
         }
     }
 }

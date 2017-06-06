@@ -312,6 +312,9 @@ namespace MobiFlight
                 }                
             }
 
+            overridePreconditionCheckBox.Checked = config.Preconditions.ExecuteOnFalse;
+            overridePreconditionTextBox.Text = config.Preconditions.FalseCaseValue;
+
             if (preconditionListTreeView.Nodes.Count == 0)
             {
                 _addEmptyNodeToTreeView();
@@ -377,6 +380,11 @@ namespace MobiFlight
             config.DisplayType = displayTypeComboBox.Text;
             config.DisplayTrigger = "normal";
             config.DisplaySerial = displayModuleNameComboBox.Text;
+
+            // sync the two properties that are not part of the preconditions list
+
+            config.Preconditions.ExecuteOnFalse = overridePreconditionCheckBox.Checked;
+            config.Preconditions.FalseCaseValue = overridePreconditionTextBox.Text;
 
             // sync panels
             displayPinPanel.syncToConfig(config);
