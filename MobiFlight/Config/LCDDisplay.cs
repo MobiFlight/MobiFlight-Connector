@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
-    public class LCDDisplay : BaseDevice
+    public class LcdDisplay : BaseDevice
     {
         const ushort _paramCount = 4;
         [XmlAttribute]
@@ -16,7 +16,7 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public Byte Lines = 2;
         
-        public LCDDisplay() { Name = "LCDDisplay"; _type = DeviceType.LcdDisplay; }
+        public LcdDisplay() { Name = "LcdDisplay"; _type = DeviceType.LcdDisplay; }
 
         override public String ToInternal()
         {

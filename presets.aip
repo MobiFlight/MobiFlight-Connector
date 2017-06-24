@@ -247,7 +247,7 @@
       <source type="FSUIPC" offset="0x034E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
-      
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -257,7 +257,7 @@
       <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
-      
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -267,7 +267,7 @@
       <source type="FSUIPC" offset="0x3118" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
-      
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -277,7 +277,7 @@
       <source type="FSUIPC" offset="0x311C" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
       <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
       <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
-      
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>

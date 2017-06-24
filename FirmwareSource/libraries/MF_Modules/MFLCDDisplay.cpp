@@ -12,8 +12,6 @@ MFLCDDisplay::MFLCDDisplay()
 void MFLCDDisplay::display(char *string)
 {
   if (!_initialized) return;
-  char* test = "12345678901234567890aaaa5aaaa0aaaa5aaaa0bbbb5bbbb0bbbb5bbbb0cccc5cccc0cccc5cccc0";
-  char* tst  = "COM1: 121.703456789012345678901234567890bbbb5bbbb0bbbb5bbbb0                    ";
   char readBuffer[21] = "";
   for(byte l=0;l!=_lines;l++) {
     _lcdDisplay->setCursor(0, l);

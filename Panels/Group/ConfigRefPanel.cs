@@ -17,6 +17,7 @@ namespace MobiFlight.Panels.Group
         public ConfigRefPanel()
         {
             InitializeComponent();
+            comboBox1.Text = "select reference";
         }
 
         public void SetDataView(DataView dv)
@@ -27,6 +28,12 @@ namespace MobiFlight.Panels.Group
             comboBox1.ValueMember = "guid";
             comboBox1.DisplayMember = "description";
         }
+
+        public void SetPlaceholder (String placeholder)
+        {
+            textBox1.Text = placeholder;
+        }
+
         internal void syncFromConfig(ConfigRef config)
         {
             checkBox1.Checked = config.Active;
@@ -44,7 +51,8 @@ namespace MobiFlight.Panels.Group
         internal ConfigRef syncToConfig(ConfigRef config)
         {
             config.Active = checkBox1.Checked;
-            config.Ref = comboBox1.SelectedValue.ToString();
+            if (comboBox1.SelectedValue != null)
+                config.Ref = comboBox1.SelectedValue.ToString();
             config.Placeholder = textBox1.Text;
             return config;
         }

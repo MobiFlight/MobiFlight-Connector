@@ -121,6 +121,8 @@ namespace MobiFlight
 
 
             groupBoxDisplaySettings.Controls.Add(displayLcdDisplayPanel);
+            displayLcdDisplayPanel.AutoSize = false;
+            displayLcdDisplayPanel.Height = 0;
             displayLcdDisplayPanel.Dock = DockStyle.Top;
 
             displayPanels.Clear();
@@ -514,6 +516,7 @@ namespace MobiFlight
             foreach (UserControl p in displayPanels)
             {
                 p.Enabled = false;
+                p.AutoSize = false;
                 p.Height = 0;
             } //foreach
 
@@ -676,6 +679,7 @@ namespace MobiFlight
                 if ((sender as ComboBox).Text == DeviceType.LcdDisplay.ToString("F"))
                 {
                     displayLcdDisplayPanel.Enabled = panelEnabled;
+                    displayLcdDisplayPanel.AutoSize = true;
                     displayLcdDisplayPanel.Height = displayPanelHeight;
                 }
             }

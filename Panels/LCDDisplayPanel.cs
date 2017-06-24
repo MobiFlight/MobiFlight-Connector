@@ -57,14 +57,19 @@ namespace MobiFlight.Panels
                 ConfigRefPanel p = new ConfigRefPanel();
                 p.SetDataView(dv);
                 p.syncFromConfig(configRef);
+
                 p.Dock = DockStyle.Top;
                 configRefItemPanel.Controls.Add(p);
             }
+
+            string[] placeholder = { "#", "§", "&", "%" };
 
             while (configRefItemPanel.Controls.Count < 4)
             {
                 ConfigRefPanel p = new ConfigRefPanel();
                 p.SetDataView(dv);
+                p.SetPlaceholder(placeholder[configRefItemPanel.Controls.Count]);
+
                 p.Dock = DockStyle.Top;
                 configRefItemPanel.Controls.Add(p);
             }

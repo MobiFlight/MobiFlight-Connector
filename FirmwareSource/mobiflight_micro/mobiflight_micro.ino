@@ -41,6 +41,7 @@ char foo;
 #define MAX_ENCODERS    4
 #define MAX_STEPPERS    4
 #define MAX_MFSERVOS    4
+#define MAX_MFLCD_I2C   2
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -50,6 +51,7 @@ char foo;
 #define MAX_ENCODERS    2
 #define MAX_STEPPERS    2
 #define MAX_MFSERVOS    2
+#define MAX_MFLCD_I2C   2
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
@@ -59,6 +61,7 @@ char foo;
 #define MAX_ENCODERS    20
 #define MAX_STEPPERS    10
 #define MAX_MFSERVOS    10
+#define MAX_MFLCD_I2C   2
 #endif
 
 #include <EEPROMex.h>
@@ -66,7 +69,8 @@ char foo;
 #include <LedControl.h>    //  need the library
 #include <Button.h>
 #include <TicksPerSecond.h>
-#include <RotaryEncoderAcelleration.h>
+#include <RotaryEncoder.h>
+#include <Wire.h>
 #include <MFSegments.h> //  need the library
 #include <MFButton.h>
 #include <MFEncoder.h>
@@ -75,6 +79,8 @@ char foo;
 #include <Servo.h>
 #include <MFServo.h>
 #include <MFOutput.h>
+#include <LiquidCrystal_I2C.h>
+#include <MFLCDDisplay.h>
 
 const byte MEM_OFFSET_NAME   = 0;
 const byte MEM_LEN_NAME      = 48;
@@ -95,7 +101,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.7.1 : More UNO stability
 // 1.7.2 : "???"
 // 1.7.3 : Servo behaviour improved, fixed stepper bug #178, increased number of buttons per module (MEGA)
-const char version[8] = "1.7.3";
+// 1.8.0 : added support for LCDs
+const char version[8] = "1.8.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
@@ -151,15 +158,19 @@ byte steppersRegistered = 0;
 MFServo servos[MAX_MFSERVOS];
 byte servosRegistered = 0;
 
+MFLCDDisplay lcd_I2C[MAX_MFLCD_I2C];
+byte lcd_12cRegistered = 0;
+
 enum
 {
-  kTypeNotSet,      // 0 
-  kTypeButton,      // 1
-  kTypeEncoder,     // 2
-  kTypeOutput,      // 3
-  kTypeLedSegment,  // 4
-  kTypeStepper,     // 5
-  kTypeServo,       // 6
+  kTypeNotSet,        // 0 
+  kTypeButton,        // 1
+  kTypeEncoder,       // 2
+  kTypeOutput,        // 3
+  kTypeLedSegment,    // 4
+  kTypeStepper,       // 5
+  kTypeServo,         // 6
+  kTypeLcdDisplayI2C, // 7
 };  
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
@@ -190,7 +201,8 @@ enum
   kResetStepper,       // 21
   kSetZeroStepper,     // 22
   kTrigger,            // 23
-  kResetBoard          // 24
+  kResetBoard,         // 24
+  kSetLcdDisplayI2C,   // 25
 };
 
 // Callbacks define on which received commands we take action
@@ -215,6 +227,7 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kSetZeroStepper, OnSetZeroStepper);
   cmdMessenger.attach(kTrigger, OnTrigger);
   cmdMessenger.attach(kResetBoard, OnResetBoard);
+  cmdMessenger.attach(kSetLcdDisplayI2C, OnSetLcdDisplayI2C);  
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,"Attached callbacks");
 #endif  
@@ -523,6 +536,31 @@ void ClearServos()
 #endif 
 }
 
+//// LCD Display /////
+void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2, String name = "LCD")
+{  
+  if (lcd_12cRegistered == MAX_MFLCD_I2C) return;
+  lcd_I2C[lcd_12cRegistered].attach(address, cols, lines);
+  lcd_12cRegistered++;
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,"Added lcdDisplay");
+#endif
+}
+
+void ClearLcdDisplays()
+{
+  for (int i=0; i!=lcd_12cRegistered; i++) 
+  {
+    lcd_I2C[lcd_12cRegistered].detach();
+  }  
+  
+  lcd_12cRegistered = 0;
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,"Cleared lcdDisplays");
+#endif 
+}
+  
+
 //// EVENT HANDLER /////
 void handlerOnRelease(byte eventId, uint8_t pin, String name)
 {
@@ -574,6 +612,7 @@ void resetConfig()
   ClearLedSegments();
   ClearServos();
   ClearSteppers();
+  ClearLcdDisplays();
   configLength = 0;
   configActivated = false;
 }
@@ -659,6 +698,15 @@ void readConfig(String cfg) {
         params[1] = strtok_r(NULL, ".", &p); // pin2
         params[2] = strtok_r(NULL, ":", &p); // Name
         AddEncoder(atoi(params[0]), atoi(params[1]), params[2]);
+      break;
+
+      case kTypeLcdDisplayI2C:
+        // AddEncoder(uint8_t address = 0x24, uint8_t cols = 16, lines = 2, String name = "Lcd")
+        params[0] = strtok_r(NULL, ".", &p); // address
+        params[1] = strtok_r(NULL, ".", &p); // cols
+        params[2] = strtok_r(NULL, ".", &p); // lines
+        params[3] = strtok_r(NULL, ":", &p); // Name
+        AddLcdDisplay(atoi(params[0]), atoi(params[1]), atoi(params[2]), params[3]);
       break;
         
       default:
@@ -761,6 +809,14 @@ void OnSetServo()
   if (servo >= servosRegistered) return;
   servos[servo].moveTo(newValue);  
   lastCommand = millis();
+}
+
+void OnSetLcdDisplayI2C()
+{
+  int address  = cmdMessenger.readIntArg();
+  char *output   = cmdMessenger.readStringArg();
+  lcd_I2C[address].display(output);
+  cmdMessenger.sendCmd(kStatus, output);
 }
 
 void updateSteppers()

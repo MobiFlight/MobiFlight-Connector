@@ -594,7 +594,7 @@ namespace MobiFlight
                             break;
 
                         case DeviceType.LcdDisplay:
-                            panel = new MobiFlight.Panels.MFLcddDisplayPanel(dev as MobiFlight.Config.LCDDisplay, module.GetFreePins());
+                            panel = new MobiFlight.Panels.MFLcddDisplayPanel(dev as MobiFlight.Config.LcdDisplay, module.GetFreePins());
                             (panel as MobiFlight.Panels.MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
                             // output
@@ -739,7 +739,7 @@ namespace MobiFlight
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":
-                        cfgItem = new MobiFlight.Config.LCDDisplay();
+                        cfgItem = new MobiFlight.Config.LcdDisplay();
                         // does not deal yet with these kind of pins because we use I2C
                         break;
                     default:
@@ -819,7 +819,7 @@ namespace MobiFlight
             
             bool uploadResult = module.SaveConfig();
             module.Config = null;
-            //module.ResetBoard();
+            module.ResetBoard();
             module.LoadConfig();
             execManager.getMobiFlightModuleCache().updateConnectedModuleName(module);
 

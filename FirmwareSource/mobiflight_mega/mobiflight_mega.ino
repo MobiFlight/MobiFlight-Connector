@@ -41,6 +41,7 @@ char foo;
 #define MAX_ENCODERS    4
 #define MAX_STEPPERS    4
 #define MAX_MFSERVOS    4
+#define MAX_MFLCD_I2C   2
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -50,6 +51,7 @@ char foo;
 #define MAX_ENCODERS    2
 #define MAX_STEPPERS    2
 #define MAX_MFSERVOS    2
+#define MAX_MFLCD_I2C   2
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
@@ -59,7 +61,7 @@ char foo;
 #define MAX_ENCODERS    20
 #define MAX_STEPPERS    10
 #define MAX_MFSERVOS    10
-#define MAX_MFLCD_I2C   1
+#define MAX_MFLCD_I2C   2
 #endif
 
 #include <EEPROMex.h>
@@ -67,7 +69,8 @@ char foo;
 #include <LedControl.h>    //  need the library
 #include <Button.h>
 #include <TicksPerSecond.h>
-#include <RotaryEncoderAcelleration.h>
+#include <RotaryEncoder.h>
+#include <Wire.h>
 #include <MFSegments.h> //  need the library
 #include <MFButton.h>
 #include <MFEncoder.h>

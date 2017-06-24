@@ -16,7 +16,7 @@ namespace MobiFlight.Panels
         /// </summary>
         public event EventHandler Changed;
 
-        private Config.LCDDisplay config;
+        private Config.LcdDisplay config;
         bool initialized = false;
 
         public MFLcddDisplayPanel()
@@ -24,7 +24,7 @@ namespace MobiFlight.Panels
             InitializeComponent();
         }
 
-        public MFLcddDisplayPanel(Config.LCDDisplay config, List<byte> FreePins)
+        public MFLcddDisplayPanel(Config.LcdDisplay config, List<byte> FreePins)
             : this()
         {
             // TODO: Complete member initialization
