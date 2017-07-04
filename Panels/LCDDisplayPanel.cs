@@ -14,12 +14,13 @@ namespace MobiFlight.Panels
     public partial class LCDDisplayPanel : UserControl
     {
         DataView dv;
-
+        int Cols = 16;
+        int Lines = 2;
         public LCDDisplayPanel()
         {
             InitializeComponent();
         }
-
+        
         public void SetAddresses(List<ListItem> ports)
         {
             DisplayComboBox.DataSource = new List<ListItem>(ports);
@@ -62,7 +63,7 @@ namespace MobiFlight.Panels
                 configRefItemPanel.Controls.Add(p);
             }
 
-            string[] placeholder = { "#", "§", "&", "%" };
+            string[] placeholder = { "#", "§", "&", "?" };
 
             while (configRefItemPanel.Controls.Count < 4)
             {
@@ -105,10 +106,15 @@ namespace MobiFlight.Panels
         {
             if ((sender as ComboBox).SelectedValue == null) return;
 
-            int Cols = int.Parse(((sender as ComboBox).SelectedValue.ToString()).Split(',').ElementAt(1));
-            int Lines = int.Parse(((sender as ComboBox).SelectedValue.ToString()).Split(',').ElementAt(2));
+            Cols = int.Parse(((sender as ComboBox).SelectedValue.ToString()).Split(',').ElementAt(1));
+            Lines = int.Parse(((sender as ComboBox).SelectedValue.ToString()).Split(',').ElementAt(2));
             lcdDisplayTextBox.Width = 4 + (Cols * 8);
             lcdDisplayTextBox.Height = Lines * 16;
+        }
+
+        private void lcdDisplayTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

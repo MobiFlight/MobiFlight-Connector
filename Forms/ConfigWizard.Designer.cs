@@ -34,12 +34,10 @@
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.fsuipcSpacerPanel = new System.Windows.Forms.Panel();
-            this.fsuipcConfigPanel = new MobiFlight.Panels.Group.FsuipcConfigPanel();
             this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
             this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
-            this.interpolationPanel1 = new MobiFlight.Panels.Group.InterpolationPanel();
             this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
@@ -65,6 +63,9 @@
             this.displayTabTextBox = new System.Windows.Forms.TextBox();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
             this.preconditionSpacerPanel = new System.Windows.Forms.Panel();
+            this.overrideGroupBox = new System.Windows.Forms.GroupBox();
+            this.overridePreconditionTextBox = new System.Windows.Forms.TextBox();
+            this.overridePreconditionCheckBox = new System.Windows.Forms.CheckBox();
             this.preconditionSettingsPanel = new System.Windows.Forms.Panel();
             this.preconditionSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.preconditionPinPanel = new System.Windows.Forms.Panel();
@@ -105,10 +106,9 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.fsuipcConfigPanel = new MobiFlight.Panels.Group.FsuipcConfigPanel();
+            this.interpolationPanel1 = new MobiFlight.Panels.Group.InterpolationPanel();
             this.settingsColumn = new System.Data.DataColumn();
-            this.overrideGroupBox = new System.Windows.Forms.GroupBox();
-            this.overridePreconditionCheckBox = new System.Windows.Forms.CheckBox();
-            this.overridePreconditionTextBox = new System.Windows.Forms.TextBox();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
@@ -120,6 +120,7 @@
             this.testSettingsGroupBox.SuspendLayout();
             this.displayTypeGroupBox.SuspendLayout();
             this.preconditionTabPage.SuspendLayout();
+            this.overrideGroupBox.SuspendLayout();
             this.preconditionSettingsPanel.SuspendLayout();
             this.preconditionSettingsGroupBox.SuspendLayout();
             this.preconditionPinPanel.SuspendLayout();
@@ -130,7 +131,6 @@
             this.ButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
-            this.overrideGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -164,12 +164,6 @@
             resources.ApplyResources(this.fsuipcSpacerPanel, "fsuipcSpacerPanel");
             this.fsuipcSpacerPanel.Name = "fsuipcSpacerPanel";
             // 
-            // fsuipcConfigPanel
-            // 
-            resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
-            this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
-            this.fsuipcConfigPanel.PresetFile = "";
-            // 
             // fsuipcHintTextBox
             // 
             this.fsuipcHintTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -202,12 +196,6 @@
             resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
             this.interpolationGroupBox.Name = "interpolationGroupBox";
             this.interpolationGroupBox.TabStop = false;
-            // 
-            // interpolationPanel1
-            // 
-            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
-            this.interpolationPanel1.Name = "interpolationPanel1";
-            this.interpolationPanel1.Save = false;
             // 
             // interpolationCheckBox
             // 
@@ -409,6 +397,25 @@
             // 
             resources.ApplyResources(this.preconditionSpacerPanel, "preconditionSpacerPanel");
             this.preconditionSpacerPanel.Name = "preconditionSpacerPanel";
+            // 
+            // overrideGroupBox
+            // 
+            this.overrideGroupBox.Controls.Add(this.overridePreconditionTextBox);
+            this.overrideGroupBox.Controls.Add(this.overridePreconditionCheckBox);
+            resources.ApplyResources(this.overrideGroupBox, "overrideGroupBox");
+            this.overrideGroupBox.Name = "overrideGroupBox";
+            this.overrideGroupBox.TabStop = false;
+            // 
+            // overridePreconditionTextBox
+            // 
+            resources.ApplyResources(this.overridePreconditionTextBox, "overridePreconditionTextBox");
+            this.overridePreconditionTextBox.Name = "overridePreconditionTextBox";
+            // 
+            // overridePreconditionCheckBox
+            // 
+            resources.ApplyResources(this.overridePreconditionCheckBox, "overridePreconditionCheckBox");
+            this.overridePreconditionCheckBox.Name = "overridePreconditionCheckBox";
+            this.overridePreconditionCheckBox.UseVisualStyleBackColor = true;
             // 
             // preconditionSettingsPanel
             // 
@@ -727,30 +734,23 @@
             // 
             this.description.ColumnName = "description";
             // 
+            // fsuipcConfigPanel
+            // 
+            resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
+            this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
+            this.fsuipcConfigPanel.PresetFile = "";
+            // 
+            // interpolationPanel1
+            // 
+            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
+            this.interpolationPanel1.Name = "interpolationPanel1";
+            this.interpolationPanel1.Save = false;
+            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
-            // 
-            // overrideGroupBox
-            // 
-            this.overrideGroupBox.Controls.Add(this.overridePreconditionTextBox);
-            this.overrideGroupBox.Controls.Add(this.overridePreconditionCheckBox);
-            resources.ApplyResources(this.overrideGroupBox, "overrideGroupBox");
-            this.overrideGroupBox.Name = "overrideGroupBox";
-            this.overrideGroupBox.TabStop = false;
-            // 
-            // overridePreconditionCheckBox
-            // 
-            resources.ApplyResources(this.overridePreconditionCheckBox, "overridePreconditionCheckBox");
-            this.overridePreconditionCheckBox.Name = "overridePreconditionCheckBox";
-            this.overridePreconditionCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // overridePreconditionTextBox
-            // 
-            resources.ApplyResources(this.overridePreconditionTextBox, "overridePreconditionTextBox");
-            this.overridePreconditionTextBox.Name = "overridePreconditionTextBox";
             // 
             // ConfigWizard
             // 
@@ -782,6 +782,8 @@
             this.displayTypeGroupBox.PerformLayout();
             this.preconditionTabPage.ResumeLayout(false);
             this.preconditionTabPage.PerformLayout();
+            this.overrideGroupBox.ResumeLayout(false);
+            this.overrideGroupBox.PerformLayout();
             this.preconditionSettingsPanel.ResumeLayout(false);
             this.preconditionSettingsGroupBox.ResumeLayout(false);
             this.preconditionPinPanel.ResumeLayout(false);
@@ -795,8 +797,6 @@
             this.ButtonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
-            this.overrideGroupBox.ResumeLayout(false);
-            this.overrideGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }

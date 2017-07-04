@@ -49,8 +49,22 @@ void MFLCDDisplay::powerSavingMode(bool state)
 
 void MFLCDDisplay::test() {
   if (!_initialized) return;
-  _lcdDisplay->print("   Mobiflight   ");
-  _lcdDisplay->setCursor(0, 1);
-  _lcdDisplay->print("     Rocks!     ");
+  
+  _lcdDisplay->setCursor(0, (_lines/2)-1);
+  for(byte c=0;c!=((_cols-10)/2);c++) {
+    _lcdDisplay->print(" ");
+  }
+  _lcdDisplay->print("Mobiflight");
+  for(byte c=0;c!=((_cols-10)/2);c++) {
+    _lcdDisplay->print(" ");
+  }
+  _lcdDisplay->setCursor(0, (_lines/2));
+  for(byte c=0;c!=((_cols-6)/2);c++) {
+    _lcdDisplay->print(" ");
+  }
+  _lcdDisplay->print("Rocks!");
+  for(byte c=0;c!=((_cols-6)/2);c++) {
+    _lcdDisplay->print(" ");
+  }
   _lcdDisplay->setCursor(0, 0);
 }

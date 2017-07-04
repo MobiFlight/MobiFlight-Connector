@@ -103,14 +103,16 @@ namespace MobiFlight
             String result = "";
             Char[] lineArray = line.ToArray();
             int pos = value.Length - 1;
+
+            // go over the line from right to left
+            // and substitute all placeholders
             for (int j = (lineArray.Count() - 1); j >= 0; j--)
             {
                 if (lineArray[j] == replace)
                 {
-                    lineArray[j] = value[pos];
+                    // use space char padding if our value is too short for the placeholder
+                    lineArray[j] = (pos < 0) ? ' ' : value[pos];
                     pos--;
-
-                    if (pos < 0) break;
                 }
             }
             result += String.Join("", lineArray);

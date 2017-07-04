@@ -126,7 +126,7 @@
     <value>6, 264</value>
   </data>
   <data name="fsuipcSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 149</value>
+    <value>367, 169</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="fsuipcSpacerPanel.TabIndex" type="System.Int32, mscorlib">
@@ -154,7 +154,7 @@
     <value>6, 38</value>
   </data>
   <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 226</value>
+    <value>367, 226</value>
   </data>
   <data name="fsuipcConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -163,7 +163,7 @@
     <value>fsuipcConfigPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.Panels.Group.FsuipcConfigPanel, MFConnector, Version=7.3.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.Panels.Group.FsuipcConfigPanel, MFConnector, Version=7.4.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -184,7 +184,7 @@
     <value>True</value>
   </data>
   <data name="fsuipcHintTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 32</value>
+    <value>367, 32</value>
   </data>
   <data name="fsuipcHintTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -211,7 +211,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>369, 419</value>
+    <value>379, 439</value>
   </data>
   <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -238,7 +238,7 @@
     <value>6, 374</value>
   </data>
   <data name="compareSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 39</value>
+    <value>367, 59</value>
   </data>
   <data name="compareSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -265,7 +265,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="interpolationPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 130</value>
+    <value>361, 130</value>
   </data>
   <data name="interpolationPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -274,7 +274,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.Panels.Group.InterpolationPanel, MFConnector, Version=7.3.3.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.Panels.Group.InterpolationPanel, MFConnector, Version=7.4.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -298,7 +298,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="interpolationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 23</value>
+    <value>361, 23</value>
   </data>
   <data name="interpolationCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -325,7 +325,7 @@
     <value>6, 202</value>
   </data>
   <data name="interpolationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 172</value>
+    <value>367, 172</value>
   </data>
   <data name="interpolationGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -547,7 +547,7 @@
     <value>6, 36</value>
   </data>
   <data name="comparisonSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>345, 96</value>
+    <value>355, 96</value>
   </data>
   <data name="comparisonSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -577,7 +577,7 @@
     <value>6, 19</value>
   </data>
   <data name="comparisonActiveCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>345, 17</value>
+    <value>355, 17</value>
   </data>
   <data name="comparisonActiveCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -607,7 +607,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="comparisonSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 138</value>
+    <value>367, 138</value>
   </data>
   <data name="comparisonSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -640,7 +640,7 @@
     <value>True</value>
   </data>
   <data name="comparisonHintTtextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 58</value>
+    <value>367, 58</value>
   </data>
   <data name="comparisonHintTtextBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -668,7 +668,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="compareTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>369, 419</value>
+    <value>379, 439</value>
   </data>
   <data name="compareTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -701,7 +701,7 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinTestStopButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>204, 12</value>
+    <value>214, 12</value>
   </data>
   <data name="displayPinTestStopButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 23</value>
@@ -740,7 +740,7 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinTestButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>140, 12</value>
+    <value>150, 12</value>
   </data>
   <data name="displayPinTestButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 23</value>
@@ -773,10 +773,10 @@
     <value>Top</value>
   </data>
   <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 119</value>
+    <value>6, 133</value>
   </data>
   <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 40</value>
+    <value>367, 40</value>
   </data>
   <data name="testSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -806,7 +806,7 @@
     <value>6, 114</value>
   </data>
   <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 5</value>
+    <value>367, 19</value>
   </data>
   <data name="groupBoxDisplaySettings.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -950,7 +950,7 @@
     <value>6, 39</value>
   </data>
   <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 75</value>
+    <value>367, 75</value>
   </data>
   <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -983,7 +983,7 @@
     <value>True</value>
   </data>
   <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 33</value>
+    <value>367, 33</value>
   </data>
   <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1010,7 +1010,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>369, 419</value>
+    <value>379, 439</value>
   </data>
   <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1037,7 +1037,7 @@
     <value>6, 394</value>
   </data>
   <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 19</value>
+    <value>367, 39</value>
   </data>
   <data name="preconditionSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1055,10 +1055,10 @@
     <value>0</value>
   </data>
   <data name="overridePreconditionTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>192, 19</value>
+    <value>313, 18</value>
   </data>
   <data name="overridePreconditionTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+    <value>48, 20</value>
   </data>
   <data name="overridePreconditionTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1078,17 +1078,20 @@
   <data name="overridePreconditionCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="overridePreconditionCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="overridePreconditionCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 21</value>
+    <value>7, 21</value>
   </data>
   <data name="overridePreconditionCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 17</value>
+    <value>310, 17</value>
   </data>
   <data name="overridePreconditionCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="overridePreconditionCheckBox.Text" xml:space="preserve">
-    <value>still execute and set value to</value>
+    <value>if precondition is not true, still execute config but set value to</value>
   </data>
   <data name="&gt;&gt;overridePreconditionCheckBox.Name" xml:space="preserve">
     <value>overridePreconditionCheckBox</value>
@@ -1109,13 +1112,16 @@
     <value>6, 344</value>
   </data>
   <data name="overrideGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 50</value>
+    <value>367, 50</value>
   </data>
   <data name="overrideGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="overrideGroupBox.Text" xml:space="preserve">
-    <value>Precondition is False settings</value>
+    <value>Precondition option</value>
+  </data>
+  <data name="overrideGroupBox.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;overrideGroupBox.Name" xml:space="preserve">
     <value>overrideGroupBox</value>
@@ -1358,7 +1364,7 @@
     <value>3, 16</value>
   </data>
   <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 111</value>
+    <value>361, 111</value>
   </data>
   <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1529,7 +1535,7 @@
     <value>3, 16</value>
   </data>
   <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 111</value>
+    <value>361, 111</value>
   </data>
   <data name="preconditionRuleConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1559,7 +1565,7 @@
     <value>0, 130</value>
   </data>
   <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 130</value>
+    <value>367, 130</value>
   </data>
   <data name="preconditionSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1592,7 +1598,7 @@
     <value>117, 177</value>
   </data>
   <data name="preconditionApplyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>118, 23</value>
+    <value>128, 23</value>
   </data>
   <data name="preconditionApplyButton.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -1679,7 +1685,7 @@
     <value>0, 0</value>
   </data>
   <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 47</value>
+    <value>367, 47</value>
   </data>
   <data name="preconditionSelectGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1706,7 +1712,7 @@
     <value>6, 138</value>
   </data>
   <data name="preconditionSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 206</value>
+    <value>367, 206</value>
   </data>
   <data name="preconditionSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -1806,51 +1812,51 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADM
-        CwAAAk1TRnQBSQFMAgEBAgEAAewBAQHsAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CwAAAk1TRnQBSQFMAgEBAgEAAQQBAgEEAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ASwB/wH7AbEBEAH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ASwBhAL/
-        ARgBRgL/AQQBPgL/AQABOAL/AQABOwL/AQABSAL/AQABigL/AQABlwL/AQIBoQL/AQIBowL/AQIBpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAAUIB/wHwAakBGQH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ASkB/wH7AbEBDQH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ASkBhAL/
+        ARUBQwL/AQEBOwL/AQABNQL/AQABOAL/AQABRQL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
+        Al0BYQHiiAACXAFVAeoB9gHAAT8B/wHwAakBFgH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
         Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        AUEBkAH9Af8BGwFAAf4B/wEGATYC/wEAAS8C/wEAASsC/wEAATUC/wEAAUEC/wEAAYIC/wEAAY8C/wEA
-        AZsC/wEAAZoC/wEBAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQE6Af8B6wGiARMB/wHqAZcBAAH/AeoBjAEA
+        AT4BkAH9Af8BGAE9Af4B/wEDATMC/wEAASwC/wEAASgC/wEAATIC/wEAAT4C/wEAAYIC/wEAAY8C/wEA
+        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQE3Af8B6wGiARAB/wHqAZcBAAH/AeoBjAEA
         Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqAToBiwH+Af8BFQE7Af4B/wEAATEC/wEAASkC/wEAAScC/wEAATQC/wEA
-        AT8C/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAE4Af8B5gGc
-        ARAB/wHlAZABAAH/AeQBhQEAAf8B5QFKAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBOAGJAfwB/wERATcC/wEAASwC/wEA
-        ASQC/wEAASQC/wEAATEC/wEAATwC/wEAAUYC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABOAH/AeEBlwEQAf8B3wGLAQAB/wHeAUoBAAH/Ad8BRAEAAf8B4QFGAQAB/wHkAUkBAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATgBiAH7
-        Af8BEQE1Af0B/wEAASkC/wEAASAC/wEAAR8C/wEAASsC/wEAATUC/wEAATwC/wEAAUQC/wEAAUkC/wEA
-        AUoC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE8Af8B3QGUARMB/wHbAYcBAAH/AdkBRgEAAf8B2AE+
-        AQAB/wHbAUABAAH/Ad4BQwEAAf8B4QFGAQAB/wHjAUgBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBPAGIAfgB/wETATUB+gH/AQABJwL/AQABHQL/AQABGAL/AQABIgL/AQABLAL/
-        AQABNAL/AQABOAL/AQABPAL/AQABPAL/AQABQwL/AlUBXAHqiAABXAJVAeoB5AGtAUEB/wHaAZQBGQH/
-        AdcBhgEAAf8B1QFFAQAB/wHTATkBAAH/AdUBOgEAAf8B2AE9AQAB/wHaAT8BAAH/Ad0BQgEAAf8B4AFF
-        AQAB/wHjAUgBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gFBAYwB9QH/ARkBOAH1Af8BAQEoAf0B/wEA
-        ARwC/wEAARMC/wEAARkC/wEAASEC/wEAASkC/wEAAS4C/wEAATEC/wEAATAC/wEAATYC/wJVAVwB6ogA
-        AVwCVQHqAeMBrwFKAf8B2AGVASIB/wHUAYcBCgH/AdEBRgEAAf8BzwE7AQAB/wHPATMBAAH/AdEBNgEA
-        Af8B1AE5AQAB/wHXATwBAAH/AdoBPwEAAf8B3AFBAQAB/wHlAUoBAAH/AVwCVQHqCAACVQFcAeoBSgGS
-        AfMB/wEiATwB8AH/AQoBLAH3Af8BAAEeAf4B/wEAARQC/wEAAQ8C/wEAARcC/wEAARwC/wEAASEC/wEA
-        ASMC/wEAASUC/wEAASkC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYAS0B/wHSAYsBFgH/Ac8BSQEA
-        Af8BzAE+AQAB/wHLATUBAAH/AcsBMQEAAf8BzgEzAQAB/wHRATYBAAH/AdMBOAEAAf8B1gE7AQAB/wHf
-        AUQBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEtAUMB7AH/ARYBMwHxAf8BAAElAfcB/wEAARgC/wEA
-        AQ4C/wEAAQ0C/wEAAREC/wEAARUC/wEAARcC/wEAARcC/wEAARwC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
-        Af8B1gGdATsB/wHSAZABJQH/Ac4BhAEQAf8BywFEAQAB/wHJATsBAAH/AcgBNAEAAf8ByAEuAQAB/wHK
-        AS8BAAH/Ac0BMgEAAf8B0AE1AQAB/wHYATwBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE7AYEB6AH/
-        ASUBPAHrAf8BEAEuAfAB/wEAASEB9QH/AQABFgH9Af8BAAEMAv8BAAEHAf4B/wEAAQgC/wEAAQoC/wEA
-        AQkC/wEAAQ4C/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBNQH/Ac4BiwEiAf8BywGB
-        ARAB/wHJAUMBAAH/AcgBPAEAAf8ByAE3AQAB/wHIATUBAAH/AcoBNQEAAf8BzQE3AQAB/wHVAUIBAAH/
-        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/ATUBRwHnAf8BIgE5AeoB/wEQASwB7gH/AQABIQHy
-        Af8BAAEYAfYB/wEAAREB+gH/AQABCwH+Af8BAAEJAv8BAAEJAv8BAAERAv8CVQFcAeqIAAFhAloB5AHv
-        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBQgH/AdMBlQEwAf8BzwGLAR8B/wHOAYUBEgH/Ac0BgAEI
-        Af8BzgFIAQAB/wHPAUgBAAH/AdMBgAEAAf8B2gGJAQAB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
-        AewB/wGMAZgB6wH/AUIBigHtAf8BMAFGAe8B/wEfATsB8QH/ARIBMQH1Af8BCAEpAfcB/wEAASUB+gH/
-        AQABIQH6Af8BAAEhAfwB/wEAASsC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
+        AQAB/wJcAVUB6ggAAlUBXAHqATcBiwH+Af8BEgE4Af4B/wEAAS4C/wEAASYC/wEAASQC/wEAATEC/wEA
+        ATwC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAE1Af8B5gGc
+        AQ0B/wHlAZABAAH/AeQBhQEAAf8B5QFHAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
+        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBNQGJAfwB/wEOATQC/wEAASkC/wEA
+        ASEC/wEAASEC/wEAAS4C/wEAATkC/wEAAUMC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
+        AlwBVQLqAbABNQH/AeEBlwENAf8B3wGLAQAB/wHeAUcBAAH/Ad8BQQEAAf8B4QFDAQAB/wHkAUYBAAH/
+        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATUBiAH7
+        Af8BDgEyAf0B/wEAASYC/wEAAR0C/wEAARwC/wEAASgC/wEAATIC/wEAATkC/wEAAUEC/wEAAUYC/wEA
+        AUcC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE5Af8B3QGUARAB/wHbAYcBAAH/AdkBQwEAAf8B2AE7
+        AQAB/wHbAT0BAAH/Ad4BQAEAAf8B4QFDAQAB/wHjAUUBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
+        AlwBVQHqCAACVQFcAeoBOQGIAfgB/wEQATIB+gH/AQABJAL/AQABGgL/AQABFQL/AQABHwL/AQABKQL/
+        AQABMQL/AQABNQL/AQABOQL/AQABOQL/AQABQAL/AlUBXAHqiAABXAJVAeoB5AGtAT4B/wHaAZQBFgH/
+        AdcBhgEAAf8B1QFCAQAB/wHTATYBAAH/AdUBNwEAAf8B2AE6AQAB/wHaATwBAAH/Ad0BPwEAAf8B4AFC
+        AQAB/wHjAUUBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gE+AYwB9QH/ARYBNQH1Af8BAAElAf0B/wEA
+        ARkC/wEAARAC/wEAARYC/wEAAR4C/wEAASYC/wEAASsC/wEAAS4C/wEAAS0C/wEAATMC/wJVAVwB6ogA
+        AVwCVQHqAeMBrwFHAf8B2AGVAR8B/wHUAYcBBwH/AdEBQwEAAf8BzwE4AQAB/wHPATABAAH/AdEBMwEA
+        Af8B1AE2AQAB/wHXATkBAAH/AdoBPAEAAf8B3AE+AQAB/wHlAUcBAAH/AVwCVQHqCAACVQFcAeoBRwGS
+        AfMB/wEfATkB8AH/AQcBKQH3Af8BAAEbAf4B/wEAAREC/wEAAQwC/wEAARQC/wEAARkC/wEAAR4C/wEA
+        ASAC/wEAASIC/wEAASYC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYASoB/wHSAYsBEwH/Ac8BRgEA
+        Af8BzAE7AQAB/wHLATIBAAH/AcsBLgEAAf8BzgEwAQAB/wHRATMBAAH/AdMBNQEAAf8B1gE4AQAB/wHf
+        AUEBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEqAUAB7AH/ARMBMAHxAf8BAAEiAfcB/wEAARUC/wEA
+        AQsC/wEAAQoC/wEAAQ4C/wEAARIC/wEAARQC/wEAARQC/wEAARkC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
+        Af8B1gGdATgB/wHSAZABIgH/Ac4BhAENAf8BywFBAQAB/wHJATgBAAH/AcgBMQEAAf8ByAErAQAB/wHK
+        ASwBAAH/Ac0BLwEAAf8B0AEyAQAB/wHYATkBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE4AYEB6AH/
+        ASIBOQHrAf8BDQErAfAB/wEAAR4B9QH/AQABEwH9Af8BAAEJAv8BAAEEAf4B/wEAAQUC/wEAAQcC/wEA
+        AQYC/wEAAQsC/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBMgH/Ac4BiwEfAf8BywGB
+        AQ0B/wHJAUABAAH/AcgBOQEAAf8ByAE0AQAB/wHIATIBAAH/AcoBMgEAAf8BzQE0AQAB/wHVAT8BAAH/
+        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/ATIBRAHnAf8BHwE2AeoB/wENASkB7gH/AQABHgHy
+        Af8BAAEVAfYB/wEAAQ4B+gH/AQABCAH+Af8BAAEGAv8BAAEGAv8BAAEOAv8CVQFcAeqIAAFhAloB5AHv
+        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBPwH/AdMBlQEtAf8BzwGLARwB/wHOAYUBDwH/Ac0BgAEF
+        Af8BzgFFAQAB/wHPAUUBAAH/AdMBgAEAAf8B2gGJAQAB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
+        AewB/wGMAZgB6wH/AT8BigHtAf8BLQFDAe8B/wEcATgB8QH/AQ8BLgH1Af8BBQEmAfcB/wEAASIB+gH/
+        AQABHgH6Af8BAAEeAfwB/wEAASgC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
         AlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFhAloB5AM7AWQIAAM8AWYCWgFh
         AeQCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFc
         AeoCWgFhAeQDOwFk/wCFAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQA
@@ -1906,7 +1912,7 @@
     <value>0</value>
   </data>
   <data name="preconditionListTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 81</value>
+    <value>361, 81</value>
   </data>
   <data name="preconditionListTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1930,7 +1936,7 @@
     <value>6, 38</value>
   </data>
   <data name="preconditionListgroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 100</value>
+    <value>367, 100</value>
   </data>
   <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -1963,7 +1969,7 @@
     <value>True</value>
   </data>
   <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 32</value>
+    <value>367, 32</value>
   </data>
   <data name="preconditionTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -1990,7 +1996,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>369, 419</value>
+    <value>379, 439</value>
   </data>
   <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -2017,7 +2023,7 @@
     <value>0, 0</value>
   </data>
   <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>377, 445</value>
+    <value>387, 465</value>
   </data>
   <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -2041,7 +2047,7 @@
     <value>0, 0</value>
   </data>
   <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>377, 445</value>
+    <value>387, 465</value>
   </data>
   <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2065,7 +2071,7 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 0</value>
+    <value>237, 0</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -2095,7 +2101,7 @@
     <value>NoControl</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 0</value>
+    <value>312, 0</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -2122,10 +2128,10 @@
     <value>Bottom</value>
   </data>
   <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 445</value>
+    <value>0, 465</value>
   </data>
   <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>377, 28</value>
+    <value>387, 28</value>
   </data>
   <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2155,7 +2161,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>377, 473</value>
+    <value>387, 493</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2300,6 +2306,9 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
