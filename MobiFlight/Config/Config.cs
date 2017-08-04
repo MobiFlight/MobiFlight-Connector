@@ -65,35 +65,59 @@ namespace MobiFlight.Config
                     {
                         case DeviceType.Button:
                             currentItem = new MobiFlight.Config.Button();
+                            currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
-                        case DeviceType.Encoder:
-                            currentItem = new MobiFlight.Config.Encoder();
+                        case DeviceType.EncoderSingleDetent:
+
+                            // Single-detent encoder (previously just encoder) is retained
+                            // for backwards compatibility. We parse as a single detent encoder
+                            // and then convert into an encoder with configurable detents.
+                            var encoderSingleDetent = new MobiFlight.Config.EncoderSingleDetent();
+                            encoderSingleDetent.FromInternal(item + BaseDevice.End);
+
+                            // Create an encoder with configurable detents
+                            currentItem = new MobiFlight.Config.Encoder
+                            {
+                                PinLeft = encoderSingleDetent.PinLeft,
+                                PinRight = encoderSingleDetent.PinRight,
+                                Name = encoderSingleDetent.Name
+                            };
+
                             break;
 
                         case DeviceType.Output:
                             currentItem = new MobiFlight.Config.Output();
+                            currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.Servo:
                             currentItem = new MobiFlight.Config.Servo();
+                            currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.Stepper:
                             currentItem = new MobiFlight.Config.Stepper();
+                            currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.LedModule:
                             currentItem = new MobiFlight.Config.LedModule();
+                            currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
                         case DeviceType.LcdDisplay:
                             currentItem = new MobiFlight.Config.LcdDisplay();
+                            currentItem.FromInternal(item + BaseDevice.End);
                             break;
+
+                        case DeviceType.Encoder:
+                            currentItem = new MobiFlight.Config.Encoder();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
                     }
 
-                    currentItem.FromInternal(item + BaseDevice.End);
-                    
                     Items.Add(currentItem);
 
                 }

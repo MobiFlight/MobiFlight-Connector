@@ -20,6 +20,17 @@ namespace System
             return false;
         }
 
+        static public bool SetSelectedItemByIndex(ComboBox comboBox, int index)
+        {
+            Log.Instance.log("Set " + index + " in ComboBox: " + comboBox.Name, LogSeverity.Debug);
+            if (comboBox.Items.Count > index)
+            {
+                comboBox.SelectedIndex = index;
+                return true;
+            }
+            return false;
+        }
+
         static public bool SetSelectedItemByPart(ComboBox comboBox, string value)
         {
             foreach (object item in comboBox.Items)

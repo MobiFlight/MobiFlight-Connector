@@ -191,6 +191,8 @@
     <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
     <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
     <Compile Include="FSUIPC\FSUIPCCacheInterface.cs" />
+    <Compile Include="MobiFlight\Config\Encoder.cs" />
+    <Compile Include="MobiFlight\Config\EncoderSingleDetent.cs" />
     <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
     <Compile Include="MobiFlight\FlightSimConnectionMethod.cs" />
     <Compile Include="MobiFlight\Forms\ArduinoIdePathForm.cs">
@@ -280,7 +282,6 @@
     <Compile Include="MobiFlight\FirmwareVersionTooLowException.cs" />
     <Compile Include="MobiFlight\InputConfigItem.cs" />
     <Compile Include="MobiFlight\Config\BaseDevice.cs" />
-    <Compile Include="MobiFlight\Config\Encoder.cs" />
     <Compile Include="MobiFlight\Config\Button.cs" />
     <Compile Include="MobiFlight\Config\IConfigItem.cs" />
     <Compile Include="MobiFlight\Config\Config.cs" />
@@ -557,6 +558,9 @@
     <None Include="firmware\mobiflight_mega_1_8_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_mega_1_9_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_micro_1_7_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -567,6 +571,9 @@
     <None Include="firmware\mobiflight_micro_1_8_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_micro_1_9_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_uno_1_7_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -575,6 +582,9 @@
     </None>
     <None Include="firmware\mobiflight_uno_1_7_3.hex" />
     <None Include="firmware\mobiflight_uno_1_8_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_uno_1_9_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="presets_jeehell.cip">

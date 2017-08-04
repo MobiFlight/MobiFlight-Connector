@@ -44,7 +44,7 @@ class MFEncoder
 {
 public:
     MFEncoder();
-    void attach(uint8_t pin1, uint8_t pin2, String name = "Encoder");
+	void attach(uint8_t pin1, uint8_t pin2, uint8_t encoder_type, String name = "Encoder");
     void update();
     void attachHandler(byte eventId, encoderEvent newHandler);
     

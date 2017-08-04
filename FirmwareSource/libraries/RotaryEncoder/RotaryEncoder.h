@@ -15,8 +15,6 @@
 #include <TicksPerSecond.h>
 #include <Button.h>
 
-
-#define LATCHSTATE 3
 /**
  * Minimum rotary encoder tick per second to start acceleration.
  * If the speed of ticking is below this value no acceleration
@@ -39,11 +37,23 @@
  */
 #define TICKS_AT_MAX_SPEED_FOR_FULL_SPAN 30
 
+typedef struct {
+	// Detent positions in the quadrature (by value, not position)
+	bool    detents[4];
+
+	// Bit shift to apply given the detent resolution of this encoder.
+	//
+	// Example: An encoder with 1 detent per quadrature cycle has a useful resolution of
+    // 1/4 of the number of pulses so we can apply a simple bit shift of 2 to 
+	// determine the effective position of the encoder.
+	uint8_t resolutionShift;
+} encoderType;
+
 class RotaryEncoder
 {
 public:
   // ----- Constructor -----
-  void initialize(int pin1, int pin2);
+  void initialize(int pin1, int pin2, int encoder_type);
   
   void setMinMax(int min, int max);
   
@@ -68,7 +78,9 @@ private:
   
   long _minValue;
   long _maxValue;
-  
+
+  encoderType _encoderType;
+    
   TicksPerSecond tps;
 };
 

@@ -28,14 +28,15 @@ namespace MobiFlight
     // In order to receive, attach a callback function to these events
     public enum DeviceType
     {
-        NotSet,       // 0 
-        Button,       // 1
-        Encoder,      // 2
-        Output,       // 3
-        LedModule,    // 4
-        Stepper,      // 5
-        Servo,        // 6
-        LcdDisplay    // 7
+        NotSet,              // 0 
+        Button,              // 1
+        EncoderSingleDetent, // 2 (retained for backwards compatibility, use Encoder for new configs)
+        Output,              // 3
+        LedModule,           // 4
+        Stepper,             // 5
+        Servo,               // 6
+        LcdDisplay,          // 7
+        Encoder              // 8
     }
 
     public class FirmwareFeature

@@ -8,14 +8,14 @@ MFEncoder::MFEncoder() : _encoder() {
   _initialized = false;
 }
 
-void MFEncoder::attach(uint8_t pin1, uint8_t pin2, String name)
+void MFEncoder::attach(uint8_t pin1, uint8_t pin2, uint8_t encoder_type, String name)
 {
   _pos   = 0;  
   _name  = name;
   _pin1  = pin1;
   _pin2  = pin2;
   
-  _encoder.initialize(pin1,pin2);
+  _encoder.initialize(pin1,pin2, encoder_type);
   _encoder.setMinMax(MF_ENC_MIN,MF_ENC_MAX);
   _encoder.setPosition(_pos);
   

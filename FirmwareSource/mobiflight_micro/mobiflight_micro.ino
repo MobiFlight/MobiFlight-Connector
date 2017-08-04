@@ -102,7 +102,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.7.2 : "???"
 // 1.7.3 : Servo behaviour improved, fixed stepper bug #178, increased number of buttons per module (MEGA)
 // 1.8.0 : added support for LCDs
-const char version[8] = "1.8.0";
+// 1.9.0 : Support for rotary encoders with different detent configurations
+const char version[8] = "1.9.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
@@ -163,15 +164,16 @@ byte lcd_12cRegistered = 0;
 
 enum
 {
-  kTypeNotSet,        // 0 
-  kTypeButton,        // 1
-  kTypeEncoder,       // 2
-  kTypeOutput,        // 3
-  kTypeLedSegment,    // 4
-  kTypeStepper,       // 5
-  kTypeServo,         // 6
-  kTypeLcdDisplayI2C, // 7
-};  
+  kTypeNotSet,              // 0 
+  kTypeButton,              // 1
+  kTypeEncoderSingleDetent, // 2 (retained for backwards compatibility, use kTypeEncoder for new configs)
+  kTypeOutput,              // 3
+  kTypeLedSegment,          // 4
+  kTypeStepper,             // 5
+  kTypeServo,               // 6
+  kTypeLcdDisplayI2C,       // 7
+  kTypeEncoder,             // 8
+};
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
 // In order to receive, attach a callback function to these events
@@ -406,13 +408,13 @@ void ClearButtons()
 }
 
 //// ENCODERS /////
-void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, String name = "Encoder")
+void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, String name = "Encoder")
 {  
   if (encodersRegistered == MAX_ENCODERS) return;
   if (isPinRegistered(pin1) || isPinRegistered(pin2)) return;
   
   encoders[encodersRegistered] = MFEncoder();
-  encoders[encodersRegistered].attach(pin1, pin2, name);
+  encoders[encodersRegistered].attach(pin1, pin2, encoder_type, name);
   encoders[encodersRegistered].attachHandler(encLeft, handlerOnEncoder);
   encoders[encodersRegistered].attachHandler(encLeftFast, handlerOnEncoder);
   encoders[encodersRegistered].attachHandler(encRight, handlerOnEncoder);
@@ -692,13 +694,22 @@ void readConfig(String cfg) {
         AddServo(atoi(params[0]));
       break;
       
-      case kTypeEncoder:
-        // AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, String name = "Encoder")
-        params[0] = strtok_r(NULL, ".", &p); // pin1
-        params[1] = strtok_r(NULL, ".", &p); // pin2
-        params[2] = strtok_r(NULL, ":", &p); // Name
-        AddEncoder(atoi(params[0]), atoi(params[1]), params[2]);
-      break;
+	  case kTypeEncoderSingleDetent:
+		  // AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, String name = "Encoder")
+		  params[0] = strtok_r(NULL, ".", &p); // pin1
+		  params[1] = strtok_r(NULL, ".", &p); // pin2
+		  params[2] = strtok_r(NULL, ":", &p); // Name
+		  AddEncoder(atoi(params[0]), atoi(params[1]), 0, params[2]);
+		  break;
+
+	  case kTypeEncoder:
+		  // AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, String name = "Encoder")
+		  params[0] = strtok_r(NULL, ".", &p); // pin1
+		  params[1] = strtok_r(NULL, ".", &p); // pin2
+		  params[2] = strtok_r(NULL, ".", &p); // encoder_type
+		  params[3] = strtok_r(NULL, ":", &p); // Name
+		  AddEncoder(atoi(params[0]), atoi(params[1]), atoi(params[2]), params[3]);
+		  break;
 
       case kTypeLcdDisplayI2C:
         // AddEncoder(uint8_t address = 0x24, uint8_t cols = 16, lines = 2, String name = "Lcd")
