@@ -67,21 +67,21 @@ namespace MobiFlight
             }
              * */
 
-            INPUT structure = new INPUT();
-            structure.type = (int)InputType.INPUT_KEYBOARD;
-            structure.ki.wVk = (short)Key;
-            structure.ki.dwFlags = (int)KEYEVENTF.KEYDOWN;
-            structure.ki.dwExtraInfo = GetMessageExtraInfo();
+            INPUT keyDown = new INPUT();
+            keyDown.type = (int)InputType.INPUT_KEYBOARD;
+            keyDown.ki.wVk = (short)Key;
+            keyDown.ki.dwFlags = (int)KEYEVENTF.KEYDOWN;
+            keyDown.ki.dwExtraInfo = GetMessageExtraInfo();
 
-            keyPresses.Add(structure);
+            keyPresses.Add(keyDown);
 
-            INPUT input2 = new INPUT();
-            input2.type = (int)InputType.INPUT_KEYBOARD;
-            input2.ki.wVk = (short)Key;
-            input2.mi.dwFlags = (int)KEYEVENTF.KEYUP;
-            input2.ki.dwExtraInfo = GetMessageExtraInfo();
+            INPUT keyUp = new INPUT();
+            keyUp.type = (int)InputType.INPUT_KEYBOARD;
+            keyUp.ki.wVk = (short)Key;
+            keyUp.ki.dwFlags = (int)KEYEVENTF.KEYUP;
+            keyUp.ki.dwExtraInfo = GetMessageExtraInfo();
 
-            keyPresses.Add(input2);
+            keyPresses.Add(keyUp);
 
             if (Control)
             {
@@ -113,7 +113,7 @@ namespace MobiFlight
                 keyPresses.Add(shift);
             }
 
-            SendInput((uint)keyPresses.Count, (INPUT[]) (keyPresses.ToArray()), Marshal.SizeOf(structure));
+            SendInput((uint)keyPresses.Count, (INPUT[]) (keyPresses.ToArray()), Marshal.SizeOf(keyDown));
         }
 
         [StructLayout(LayoutKind.Explicit)]

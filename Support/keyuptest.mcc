@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs />
+  <inputs>
+    <config guid="274a2fe8-10e2-4cc1-848d-41b35482fefa">
+      <active>true</active>
+      <description>Keypress</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.4.0.0, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="RedPushButton" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="KeyInputAction" key="F" />
+          <onRelease />
+        </button>
+        <preconditions />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>
