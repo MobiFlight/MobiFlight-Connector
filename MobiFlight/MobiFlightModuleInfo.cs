@@ -76,7 +76,9 @@ namespace MobiFlight
         // different vendor and product ids for 
         // board detection
         public static readonly String[] VIDPID_MICRO = {
-            "VID_1B4F&PID_9206"
+            "VID_1B4F&PID_9206",
+            "VID_2341&PID_8036"  // Arduino Pro Micro
+
         };
 
         public static readonly String[] VIDPID_UNO = {
