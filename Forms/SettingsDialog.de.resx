@@ -118,6 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 57</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Wenn aktiviert, dann werden die Configs auch ohne Verbindung zum Flight Sim ausgeführt. Das ist sinnvoll für Keyboard Commands und Flight Sims die nicht speziell von MobiFlight unterstützt werden.</value>
+  </data>
+  <data name="offlineModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 17</value>
+  </data>
+  <data name="offlineModeCheckBox.Text" xml:space="preserve">
+    <value>aktiviert</value>
+  </data>
+  <data name="offlineModeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 80</value>
+  </data>
   <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 17</value>
   </data>
@@ -297,6 +312,9 @@ Helligkeit</value>
   <data name="stepperToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="LcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 22</value>
+  </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
     <value>141, 6</value>
   </data>
@@ -358,6 +376,9 @@ Helligkeit</value>
     <value>169, 22</value>
   </data>
   <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>169, 22</value>
+  </data>
+  <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 22</value>
   </data>
   <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">

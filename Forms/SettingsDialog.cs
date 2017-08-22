@@ -146,8 +146,12 @@ namespace MobiFlight
             else if (Properties.Settings.Default.TestTimerInterval == 125) testModeSpeedTrackBar.Value = 3;
             else if (Properties.Settings.Default.TestTimerInterval == 50) testModeSpeedTrackBar.Value = 4;
 
+            // Debug Mode
             logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
             ComboBoxHelper.SetSelectedItem(logLevelComboBox, Properties.Settings.Default.LogLevel);
+
+            // Offline Mode
+            offlineModeCheckBox.Checked = Properties.Settings.Default.OfflineMode;
 
             //
             // TAB Arcaze
@@ -305,6 +309,9 @@ namespace MobiFlight
             Properties.Settings.Default.LogLevel = logLevelComboBox.SelectedItem as String;            
             Log.Instance.Enabled = logLevelCheckBox.Checked;
             Log.Instance.Severity = (LogSeverity) Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel);
+
+            // Offline Mode
+            Properties.Settings.Default.OfflineMode = offlineModeCheckBox.Checked;
 
             // MobiFlight Tab
             // only the Firmware Auto Check Update needs to be synchronized 

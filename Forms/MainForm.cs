@@ -494,7 +494,7 @@ namespace MobiFlight
             switch (c.FlightSimConnectionMethod)
             {
                 case FlightSimConnectionMethod.OFFLINE:
-                    fsuipcToolStripStatusLabel.Text = "Offline" + "Status:";
+                    fsuipcToolStripStatusLabel.Text = "Offline Mode:";
                     break;
 
                 case FlightSimConnectionMethod.XPUIPC:

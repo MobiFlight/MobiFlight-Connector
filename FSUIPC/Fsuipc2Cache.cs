@@ -38,15 +38,18 @@ namespace MobiFlight.FSUIPC
         bool _offsetsRegistered = false;
         bool _connected = false;
         bool __isProcessed = false;
-        public bool OfflineMode { get; set; }
+        public bool OfflineMode {
+            get {
+#if FSUIPC_OFFLINE_MODE
+            return true;
+#else
+            return Properties.Settings.Default.OfflineMode;
+#endif
+            }
+        }
 
         public Fsuipc2Cache()
         {
-#if FSUIPC_OFFLINE_MODE
-            OfflineMode= true;
-#else
-            OfflineMode = false;
-#endif
         }
 
         public void Clear()

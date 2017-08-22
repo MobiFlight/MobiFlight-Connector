@@ -239,5 +239,17 @@ namespace MobiFlight.Properties {
                 this["FwAutoUpdateCheck"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OfflineMode {
+            get {
+                return ((bool)(this["OfflineMode"]));
+            }
+            set {
+                this["OfflineMode"] = value;
+            }
+        }
     }
 }
