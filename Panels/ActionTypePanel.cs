@@ -28,6 +28,7 @@ namespace MobiFlight.Panels
             ActionTypeComboBox.Items.Add("Key");
             ActionTypeComboBox.Items.Add("Event ID");
             ActionTypeComboBox.Items.Add("Jeehell DataPipe");
+            ActionTypeComboBox.Items.Add("vJoy virtual Joystick");
             ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.RetriggerInputAction.Label);
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
@@ -55,6 +56,10 @@ namespace MobiFlight.Panels
                     
                 case "MobiFlight.InputConfig.JeehellInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Jeehell DataPipe");
+                    break;
+
+                case "MobiFlight.InputConfig.VJoyInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "vJoy virtual Joystick");
                     break;
 
                 case "MobiFlight.InputConfig.LuaMacroInputAction":

@@ -168,6 +168,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="vJoyInterfaceWrap">
+      <HintPath>lib\vJoyInterfaceWrap.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\ConfigRef.cs" />
@@ -206,6 +209,7 @@
     </Compile>
     <Compile Include="Base\BooleanConverterConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\RetriggerInputAction.cs" />
+    <Compile Include="MobiFlight\InputConfig\VJoyInputAction.cs" />
     <Compile Include="MobiFlight\KeyboardInputInterface.cs" />
     <Compile Include="MobiFlight\MobiFlightCacheInterface.cs" />
     <Compile Include="MobiFlight\MobiFlightLcdDisplay.cs" />
@@ -438,12 +442,6 @@
     <Compile Include="Panels\EventIdInputPanel.Designer.cs">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\LCDDisplayPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Panels\LCDDisplayPanel.Designer.cs">
-      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Panels\RetriggerInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -506,6 +504,20 @@
     </Compile>
     <Compile Include="Forms\WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VJoy\VJoyExceptions.cs" />
+    <Compile Include="VJoy\VJoyHelper.cs" />
+    <Compile Include="Panels\VJoyInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\VJoyInputPanel.Designer.cs">
+      <DependentUpon>VJoyInputPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\LCDDisplayPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\LCDDisplayPanel.Designer.cs">
+      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </Compile>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\Default.SFX" />
@@ -614,9 +626,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\PreconditionPanel.resx">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\LCDDisplayPanel.resx">
-      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\RetriggerInputPanel.resx">
       <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
@@ -795,6 +804,12 @@
     <EmbeddedResource Include="Forms\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Panels\VJoyInputPanel.resx">
+      <DependentUpon>VJoyInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\LCDDisplayPanel.resx">
+      <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -889,8 +904,7 @@
     <PostBuildEvent>$(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>xcopy /R /Y "$(ProjectDir)Lib\vJoyInterface.dll" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
