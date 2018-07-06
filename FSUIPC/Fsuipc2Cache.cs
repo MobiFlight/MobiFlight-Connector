@@ -27,6 +27,9 @@ namespace MobiFlight.FSUIPC
         Dictionary<Int32, Offset<Double>> __cacheDouble = new Dictionary<Int32, Offset<Double>>();
         Dictionary<Int32, Offset<String>> __cacheString = new Dictionary<Int32, Offset<String>>();
 
+        private readonly Offset<Int32> __macroParam = new Offset<Int32>("macro", 0x0d6c, true);
+        private readonly Offset<string> __macroName = new Offset<string>("macro", 0xd70, 40, true);
+
         HashSet<int> __cacheByteWriteOnly = new HashSet<int>();
         HashSet<int> __cacheShortWriteOnly = new HashSet<int>();
         HashSet<int> __cacheIntWriteOnly = new HashSet<int>();
@@ -502,6 +505,20 @@ namespace MobiFlight.FSUIPC
             //ForceUpdate();
             //__cacheString[offset].WriteOnly = false;
             */
+        }
+
+        public void executeMacro(string macroName, int paramValue)
+        {
+            __macroParam.Value = paramValue;
+            __macroName.Value = macroName;
+            try {
+                FSUIPCConnection.Process("macro");
+            }
+            catch (Exception e)
+            {
+                this.ConnectionLost(this, new EventArgs());
+                throw e;
+            }
         }
 
         public void Write()

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MobiFlight.FSUIPC;
 
 namespace MobiFlight.InputConfig
 {
     class LuaMacroInputAction : InputAction
     {
-        const Int16 OFFSET_MACRO_PARAM = 0x0D6C;
-        const Int16 OFFSET_MACRO_NAME = 0x0D70;
         public String MacroName = "";
+        public Int32 MacroValue = 0;
         public new const String Label = "Lua Macro";
         public const String TYPE = "LuaMacroInputAction";
 
@@ -25,28 +25,22 @@ namespace MobiFlight.InputConfig
         {
 
             MacroName = reader["macroName"];
+            MacroValue = Int32.Parse(reader["value"]);
         }
 
         public override void WriteXml(System.Xml.XmlWriter writer)
         {
             writer.WriteAttributeString("type", TYPE);
             writer.WriteAttributeString("macroName", MacroName);
+            writer.WriteAttributeString("value", MacroValue.ToString());
         }
 
         public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
         {
             if (MacroName == "") return;
-
-            FSUIPC.FSUIPCConfigItem cfg = new FSUIPC.FSUIPCConfigItem();
-            cfg.FSUIPCOffset = OFFSET_MACRO_NAME;
-            cfg.FSUIPCOffsetType = FSUIPCOffsetType.String;
-            cfg.FSUIPCSize = (byte)(MacroName.Length);
-            cfg.Value = MacroName;
-
-            // later provide param for value too
+            
             Log.Instance.log("LuaMacoInputAction:Execute : Calling macro " + MacroName, LogSeverity.Debug);
-            FSUIPC.FsuipcHelper.executeWrite(MacroName, cfg, cache);
-            cache.Write();
+            cache.executeMacro(MacroName, MacroValue);
         }
     }
 }

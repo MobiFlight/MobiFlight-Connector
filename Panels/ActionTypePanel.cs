@@ -22,9 +22,7 @@ namespace MobiFlight.Panels
             ActionTypeComboBox.Items.Add(MainForm._tr("none"));
             ActionTypeComboBox.Items.Add("FSUIPC Offset");
             ActionTypeComboBox.SelectedIndex = 0;
-            /*
             ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.LuaMacroInputAction.Label);
-            */
             ActionTypeComboBox.Items.Add("Key");
             ActionTypeComboBox.Items.Add("Event ID");
             ActionTypeComboBox.Items.Add("Jeehell DataPipe");
