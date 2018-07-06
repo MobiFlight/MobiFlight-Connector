@@ -26,7 +26,7 @@ namespace MobiFlight.Panels
         {
             if (inputAction == null) return;
             MacroNameTextBox.Text = inputAction.MacroName;
-            MacroValueTextBox.Text = inputAction.MacroValue.ToString("X");
+            MacroValueTextBox.Text = inputAction.MacroValue.ToString();
         }
 
         internal InputConfig.InputAction ToConfig()
@@ -34,7 +34,7 @@ namespace MobiFlight.Panels
 
             MobiFlight.InputConfig.LuaMacroInputAction result = new InputConfig.LuaMacroInputAction();
             result.MacroName = MacroNameTextBox.Text.Trim();
-            result.MacroValue = Int32.Parse(MacroValueTextBox.Text, NumberStyles.HexNumber);
+            result.MacroValue = Int32.Parse(MacroValueTextBox.Text);
             return result;
         }
     }

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.MacroValueTextBox = new System.Windows.Forms.TextBox();
             this.MacroNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.MacroValueTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +49,24 @@
             this.fsuipcLoadPresetGroupBox.TabIndex = 24;
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             this.fsuipcLoadPresetGroupBox.Text = "FSUIPC Lua Macro Settings";
+            // 
+            // label2
+            // 
+            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label2.Location = new System.Drawing.Point(5, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Value";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // MacroValueTextBox
+            // 
+            this.MacroValueTextBox.Location = new System.Drawing.Point(81, 51);
+            this.MacroValueTextBox.Name = "MacroValueTextBox";
+            this.MacroValueTextBox.Size = new System.Drawing.Size(124, 20);
+            this.MacroValueTextBox.TabIndex = 18;
             // 
             // MacroNameTextBox
             // 
@@ -67,24 +85,6 @@
             this.label1.TabIndex = 16;
             this.label1.Text = "Macro Name";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // MacroValueTextBox
-            // 
-            this.MacroValueTextBox.Location = new System.Drawing.Point(81, 51);
-            this.MacroValueTextBox.Name = "MacroValueTextBox";
-            this.MacroValueTextBox.Size = new System.Drawing.Size(124, 20);
-            this.MacroValueTextBox.TabIndex = 18;
-            // 
-            // label2
-            // 
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(5, 54);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Value (Hex)";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LuaMacroInputPanel
             // 
