@@ -86,6 +86,12 @@ namespace MobiFlightUnitTests.mock.FSUIPC
             return;
         }
 
+        public void executeMacro(string macroName, int paramValue)
+        { 
+            //FIXME: need to mock this correctly.
+            return;
+        }
+        
         public void Write()
         {
             Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "Write" });

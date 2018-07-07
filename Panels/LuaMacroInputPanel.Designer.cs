@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.MacroValueTextBox = new System.Windows.Forms.TextBox();
             this.MacroNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
@@ -36,6 +38,8 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.label2);
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.MacroValueTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.MacroNameTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label1);
             this.fsuipcLoadPresetGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -45,6 +49,24 @@
             this.fsuipcLoadPresetGroupBox.TabIndex = 24;
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             this.fsuipcLoadPresetGroupBox.Text = "FSUIPC Lua Macro Settings";
+            // 
+            // label2
+            // 
+            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label2.Location = new System.Drawing.Point(5, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Value";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // MacroValueTextBox
+            // 
+            this.MacroValueTextBox.Location = new System.Drawing.Point(81, 51);
+            this.MacroValueTextBox.Name = "MacroValueTextBox";
+            this.MacroValueTextBox.Size = new System.Drawing.Size(124, 20);
+            this.MacroValueTextBox.TabIndex = 18;
             // 
             // MacroNameTextBox
             // 
@@ -64,12 +86,12 @@
             this.label1.Text = "Macro Name";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // FsuipcLuaMacroInputPanel
+            // LuaMacroInputPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
-            this.Name = "FsuipcLuaMacroInputPanel";
+            this.Name = "LuaMacroInputPanel";
             this.Size = new System.Drawing.Size(211, 104);
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             this.fsuipcLoadPresetGroupBox.PerformLayout();
@@ -82,5 +104,7 @@
         private System.Windows.Forms.GroupBox fsuipcLoadPresetGroupBox;
         private System.Windows.Forms.TextBox MacroNameTextBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox MacroValueTextBox;
     }
 }
