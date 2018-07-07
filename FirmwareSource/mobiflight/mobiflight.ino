@@ -14,9 +14,17 @@ char foo;
 #define MTYPE_UNO 3
 #define MF_STEPPER_SUPPORT 1
 #define MF_SERVO_SUPPORT 1
-//#define MODULETYPE MTYPE_MEGA
-//#define MODULETYPE MTYPE_MICRO
+
+#if defined(ARDUINO_AVR_MEGA2560)
+#define MODULETYPE MTYPE_MEGA
+#elif defined(ARDUINO_AVR_PROMICRO)
+#define MODULETYPE MTYPE_MICRO
+#elif defined(ARDUINO_AVR_UNO)
 #define MODULETYPE MTYPE_UNO
+#else
+  #error
+#endif
+
 
 #if MODULETYPE == MTYPE_MEGA
 #define MODULE_MAX_PINS 58
@@ -103,7 +111,7 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.7.3 : Servo behaviour improved, fixed stepper bug #178, increased number of buttons per module (MEGA)
 // 1.8.0 : added support for LCDs
 // 1.9.0 : Support for rotary encoders with different detent configurations
-const char version[8] = "1.8.0";
+const char version[8] = "1.9.0";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
@@ -173,7 +181,7 @@ enum
   kTypeServo,               // 6
   kTypeLcdDisplayI2C,       // 7
   kTypeEncoder,             // 8
-};
+};  
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
 // In order to receive, attach a callback function to these events
