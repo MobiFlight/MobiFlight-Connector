@@ -17,8 +17,10 @@
 /AutoUpdater.NET/AutoUpdater.NET/trunk/AutoUpdater.NET/obj/Release-Mobiflight (EN)/DesignTimeResolveAssemblyReferencesInput.cache
 /obj
 /Archive
-
+/Support
 /Website
+/FirmwareSource/.vscode
+/Release/*
 
 /Tutorials
 /TestResults
