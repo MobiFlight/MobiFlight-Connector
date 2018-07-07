@@ -71,6 +71,11 @@ namespace MobiFlight.InputConfig
                         onPress = new RetriggerInputAction();
                         onPress.ReadXml(reader);
                         break;
+
+                    case VJoyInputAction.TYPE:
+                        onPress = new VJoyInputAction();
+                        onPress.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -112,6 +117,11 @@ namespace MobiFlight.InputConfig
                         onRelease = new RetriggerInputAction();
                         onRelease.ReadXml(reader);
                         break;
+
+                    case VJoyInputAction.TYPE:
+                        onRelease = new VJoyInputAction();
+                        onRelease.ReadXml(reader);
+                        break;
                 }
             }
         }
@@ -133,7 +143,7 @@ namespace MobiFlight.InputConfig
             {
                 Log.Instance.log("Executing OnPress: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 onPress.execute(fsuipcCache, moduleCache);
-            }
+                }
             else if (e.Value == 1 && onPress != null)
             {
                 Log.Instance.log("Executing OnRelease: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);

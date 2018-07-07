@@ -74,6 +74,14 @@ namespace MobiFlight.Panels
 
                     break;
 
+                case "vJoy virtual Joystick":
+                    panel = new VJoyInputPanel();
+                    if (isOnPress && _config != null && _config.onPress != null)
+                        (panel as Panels.VJoyInputPanel).syncFromConfig(_config.onPress as VJoyInputAction);
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as Panels.VJoyInputPanel).syncFromConfig(_config.onRelease as VJoyInputAction);
+                    break;
+
                 case MobiFlight.InputConfig.LuaMacroInputAction.Label:
                     panel = new LuaMacroInputPanel();
                     if (isOnPress && _config != null && _config.onPress != null)
@@ -142,6 +150,10 @@ namespace MobiFlight.Panels
                         config.onPress = (onPressActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
 
+                    case "vJoy virtual Joystick":
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as VJoyInputPanel).ToConfig();
+                        break;
+
                     case MobiFlight.InputConfig.LuaMacroInputAction.Label:
                         config.onPress = (onPressActionConfigPanel.Controls[0] as LuaMacroInputPanel).ToConfig();
                         break;
@@ -174,6 +186,10 @@ namespace MobiFlight.Panels
 
                     case "Jeehell DataPipe":
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
+                        break;
+
+                    case "vJoy virtual Joystick":
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as VJoyInputPanel).ToConfig();
                         break;
 
                     case MobiFlight.InputConfig.LuaMacroInputAction.Label:
