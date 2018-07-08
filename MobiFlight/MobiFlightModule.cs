@@ -57,6 +57,15 @@ namespace MobiFlight
         SerialPort _serialPort;
         protected Config.Config _config = null;
 
+        /// <summary>
+        /// max length of device name
+        /// </summary>
+        /// <see cref="https://bitbucket.org/mobiflight/mobiflightfc/issues/195/length-of-device-names-occure-in-missing"/>
+        public const byte MaxDeviceNameLength = 16;
+
+        /// <summary>
+        /// characters that are not allowed in device names to prevent any conflict when parsing EEPROM text
+        /// </summary>
         public static List<string> ReservedChars = new List<string>
 		{
 			@":",
@@ -127,7 +136,7 @@ namespace MobiFlight
         }
 
         public const int CommandTimeout = 1500;
-        public const byte MaxDeviceNameLength = 32;
+        
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();
 
@@ -336,7 +345,7 @@ namespace MobiFlight
         public static bool IsValidDeviceName(string Name)
         {
             bool result;
-            if (Name.Length > 32)
+            if (Name.Length > MaxDeviceNameLength)
             {
                 result = false;
             }

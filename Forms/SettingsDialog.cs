@@ -168,7 +168,7 @@ namespace MobiFlight
                 }
                 catch (Exception e)
                 {
-                    Log.Instance.log("Exception on DEserializing arcaze extension module settings: " + e.Message, LogSeverity.Debug);
+                    Log.Instance.log("Exception on Deserializing arcaze extension module settings: " + e.Message, LogSeverity.Debug);
                 }
             }
 
@@ -814,6 +814,7 @@ namespace MobiFlight
 
             module.Config = newConfig;
 
+            // Prevent upload from too long configs that would exceed the available EEPROM size
             String LogMessage = String.Join("", module.Config.ToInternal(module.MaxMessageSize).ToArray());
             if (LogMessage.Length > module.EepromSize) {
                 MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationTooLong"), 
