@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.bytePanel8 = new BytePanel();
-            this.bytePanel7 = new BytePanel();
-            this.bytePanel6 = new BytePanel();
-            this.bytePanel5 = new BytePanel();
-            this.bytePanel4 = new BytePanel();
-            this.bytePanel3 = new BytePanel();
-            this.bytePanel2 = new BytePanel();
-            this.bytePanel1 = new BytePanel();
+            this.bytePanel8 = new MobiFlight.BytePanel();
+            this.bytePanel7 = new MobiFlight.BytePanel();
+            this.bytePanel6 = new MobiFlight.BytePanel();
+            this.bytePanel5 = new MobiFlight.BytePanel();
+            this.bytePanel4 = new MobiFlight.BytePanel();
+            this.bytePanel3 = new MobiFlight.BytePanel();
+            this.bytePanel2 = new MobiFlight.BytePanel();
+            this.bytePanel1 = new MobiFlight.BytePanel();
             this.panel = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.flowLayoutPanel.SuspendLayout();
             this.panel.SuspendLayout();
@@ -138,7 +138,7 @@
             // 
             this.panel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel.Controls.Add(this.button2);
+            this.panel.Controls.Add(this.cancelButton);
             this.panel.Controls.Add(this.button1);
             this.panel.Location = new System.Drawing.Point(309, 119);
             this.panel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -146,15 +146,16 @@
             this.panel.Size = new System.Drawing.Size(155, 27);
             this.panel.TabIndex = 5;
             // 
-            // button2
+            // cancelButton
             // 
-            this.button2.Location = new System.Drawing.Point(77, 1);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(77, 1);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 1;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -171,6 +172,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(816, 151);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.flowLayoutPanel);
@@ -191,7 +193,7 @@
         private BytePanel bytePanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button button1;
         private BytePanel bytePanel8;
         private BytePanel bytePanel7;

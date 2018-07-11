@@ -393,7 +393,7 @@
             this.dataGridViewConfig.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewConfig_CellValidating);
             this.dataGridViewConfig.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridViewConfig_DataError);
             this.dataGridViewConfig.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewConfig_DefaultValuesNeeded);
-            this.dataGridViewConfig.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridViewConfig_KeyUp);
+            this.dataGridViewConfig.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewConfig_KeyUp);
             // 
             // active
             // 
@@ -728,7 +728,7 @@
             this.inputsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.inputsDataGridView_DataBindingComplete);
             this.inputsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.inputsDataGridViewConfig_DefaultValuesNeeded);
             this.inputsDataGridView.VisibleChanged += new System.EventHandler(this.inputsDataGridView_VisibleChanged);
-            this.inputsDataGridView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridViewConfig_KeyUp);
+            this.inputsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewConfig_KeyUp);
             // 
             // inputActive
             // 

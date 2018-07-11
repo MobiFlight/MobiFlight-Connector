@@ -1271,23 +1271,18 @@ namespace MobiFlight
                     InputConfigItem cfg;
                     DataRow row = null;
                     bool create = false;
-                    if (isNew)
-                    {
-                        cfg = new InputConfigItem();
-                    }
-                    else
-                    {
-                        row = (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
+                    
+                    row = (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
 
-                        // the row had been saved but no config object has been created
-                        // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                        if (row["settings"].GetType() == typeof(System.DBNull))
-                        {
-                            row["settings"] = new InputConfigItem();
-                        }
-
-                        cfg = row["settings"] as InputConfigItem;
+                    // the row had been saved but no config object has been created
+                    // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
+                    if (row["settings"].GetType() == typeof(System.DBNull))
+                    {
+                        row["settings"] = new InputConfigItem();
                     }
+
+                    cfg = row["settings"] as InputConfigItem;
+
                     _editConfigWithInputWizard(
                              row,
                              cfg,
@@ -1807,23 +1802,127 @@ namespace MobiFlight
 
         private void dataGridViewConfig_KeyUp(object sender, KeyEventArgs e)
         {
+            DataGridView dgv = (sender as DataGridView);
+            int cellIndex = 2;
+            if (dgv.Name == inputsDataGridView.Name) cellIndex = 1;
+
             // do something
-            // toggle active if current key is space
-            if (e.KeyCode != Keys.Space) return;
-            e.SuppressKeyPress = true;
-
-            bool isChecked = false;
-            if ((sender as DataGridView).SelectedRows.Count == 0) return;
-
-            // it is assumed that the first cell is the one with the checkbox
-            isChecked = Boolean.Parse((sender as DataGridView).SelectedRows[0].Cells[0].Value.ToString());
-
-            foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
+            // toggle active if current key is a simple character
+            if (e.KeyCode.ToString().Length == 1)
             {
-                row.Cells[0].Value = !isChecked;
-            }
 
-            (sender as DataGridView).RefreshEdit();
+                // handle clicks on header cells or row-header cells
+                if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
+
+                dgv.CurrentCell = dgv[cellIndex, dgv.CurrentRow.Index];
+
+                if (!dgv.CurrentRow.Cells[cellIndex].IsInEditMode)
+                {
+                    dgv.BeginEdit(true);
+                    if (e.KeyCode != Keys.F2)
+                    {
+                        (dgv.EditingControl as TextBox).Text = (e.Shift) ? e.KeyCode.ToString() : e.KeyCode.ToString().ToLower();
+                        (dgv.EditingControl as TextBox).Select(1, 0);
+                    }
+                }
+                return;
+            }
+            // un/check all rows if key is a space
+            else if (e.KeyCode == Keys.Space)
+            {
+                e.SuppressKeyPress = true;
+
+                bool isChecked = false;
+                if ((sender as DataGridView).SelectedRows.Count == 0) return;
+
+                // it is assumed that the first cell is the one with the checkbox
+                isChecked = Boolean.Parse((sender as DataGridView).SelectedRows[0].Cells[0].Value.ToString());
+
+                foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
+                {
+                    row.Cells[0].Value = !isChecked;
+                }
+
+                dgv.RefreshEdit();
+            }
+            else if (e.KeyCode == Keys.Return)
+            {
+                // handle clicks on header cells or row-header cells
+                if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
+                
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+                if (!dgv.CurrentRow.Cells[cellIndex].IsInEditMode)
+                {
+                    if (dgv.Name == dataGridViewConfig.Name) {
+                        dgv.CurrentCell = dgv[cellIndex, dgv.CurrentRow.Index];
+
+                        OutputConfigItem cfg;
+                        DataRow row = null;
+                        bool create = false;
+
+                        row = (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row;
+
+                        // the row had been saved but no config object has been created
+                        // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
+                        if ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"].GetType() == typeof(System.DBNull))
+                        {
+                            (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"] = new OutputConfigItem();
+                        }
+
+                        cfg = ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+
+                        _editConfigWithWizard(
+                                 row,
+                                 cfg,
+                                 create);
+
+                        dataGridViewConfig.EndEdit();
+                    }
+
+                    if (dgv.Name == inputsDataGridView.Name)
+                    {
+                        dgv.CurrentCell = dgv[cellIndex, dgv.CurrentRow.Index];
+
+                        InputConfigItem cfg;
+                        DataRow row = null;
+                        bool create = false;
+
+                        row = (inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row;
+
+                        // the row had been saved but no config object has been created
+                        // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
+                        if (row["settings"].GetType() == typeof(System.DBNull))
+                        {
+                            row["settings"] = new InputConfigItem();
+                        }
+
+                        cfg = row["settings"] as InputConfigItem;
+
+                        _editConfigWithInputWizard(
+                                 row,
+                                 cfg,
+                                 create);
+
+                        inputsDataGridView.Rows[dgv.CurrentRow.Index].Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
+                        inputsDataGridView.Rows[dgv.CurrentRow.Index].Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
+                        inputsDataGridView.EndEdit();
+                    }
+                }
+            }
+            else
+            {
+                // do nothing
+            }           
+        }
+
+        private void dataGridViewConfig_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                e.Handled = true;
+            }
         }
     }
 

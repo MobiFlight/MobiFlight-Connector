@@ -122,9 +122,7 @@
             this.preconditionTabPage.Controls.Add(this.preconditionListgroupBox);
             this.preconditionTabPage.Controls.Add(this.preconditionSpacerPanel);
             this.preconditionTabPage.Controls.Add(this.preconditionTabTextBox);
-            this.preconditionTabPage.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditionTabPage.Name = "preconditionTabPage";
-            this.preconditionTabPage.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             this.preconditionTabPage.UseVisualStyleBackColor = true;
             // 
             // preconditionSettingsPanel
@@ -168,7 +166,6 @@
             // preconditionPinValueLabel
             // 
             resources.ApplyResources(this.preconditionPinValueLabel, "preconditionPinValueLabel");
-            this.preconditionPinValueLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditionPinValueLabel.Name = "preconditionPinValueLabel";
             // 
             // preconditionPinComboBox
@@ -204,7 +201,6 @@
             // preconditonPinLabel
             // 
             resources.ApplyResources(this.preconditonPinLabel, "preconditonPinLabel");
-            this.preconditonPinLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditonPinLabel.Name = "preconditonPinLabel";
             // 
             // preconditionPinSerialComboBox
@@ -222,7 +218,6 @@
             // preconditionPinSerialLabel
             // 
             resources.ApplyResources(this.preconditionPinSerialLabel, "preconditionPinSerialLabel");
-            this.preconditionPinSerialLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditionPinSerialLabel.Name = "preconditionPinSerialLabel";
             // 
             // preconditionRuleConfigPanel
@@ -259,7 +254,6 @@
             // preconditionConfigRefOperandLabel
             // 
             resources.ApplyResources(this.preconditionConfigRefOperandLabel, "preconditionConfigRefOperandLabel");
-            this.preconditionConfigRefOperandLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditionConfigRefOperandLabel.Name = "preconditionConfigRefOperandLabel";
             // 
             // preconditionConfigComboBox
@@ -275,13 +269,11 @@
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
-            this.label11.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.label11.Name = "label11";
             // 
             // preconditionApplyButton
             // 
             resources.ApplyResources(this.preconditionApplyButton, "preconditionApplyButton");
-            this.preconditionApplyButton.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditionApplyButton.Name = "preconditionApplyButton";
             this.preconditionApplyButton.UseVisualStyleBackColor = true;
             this.preconditionApplyButton.Click += new System.EventHandler(this.preconditionApplyButton_Click);
@@ -309,7 +301,6 @@
             // preconditionTypeLabel
             // 
             resources.ApplyResources(this.preconditionTypeLabel, "preconditionTypeLabel");
-            this.preconditionTypeLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditionTypeLabel.Name = "preconditionTypeLabel";
             // 
             // preconditionListgroupBox
@@ -324,13 +315,11 @@
             resources.ApplyResources(this.preconditionListTreeView, "preconditionListTreeView");
             this.preconditionListTreeView.CheckBoxes = true;
             this.preconditionListTreeView.ContextMenuStrip = this.preconditionTreeContextMenuStrip;
-            this.preconditionListTreeView.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditionListTreeView.ImageList = this.preconditionTreeImageList;
             this.preconditionListTreeView.Name = "preconditionListTreeView";
             this.preconditionListTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes"))),
             ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes1")))});
-            this.preconditionListTreeView.SelectedImageKey = global::MobiFlight.ProjectMessages.conf;
             this.preconditionListTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.preconditionListTreeView_NodeMouseClick);
             // 
             // preconditionTreeContextMenuStrip
@@ -426,9 +415,7 @@
             this.displayTabPage.Controls.Add(this.groupBoxInputSettings);
             this.displayTabPage.Controls.Add(this.displayTypeGroupBox);
             this.displayTabPage.Controls.Add(this.displayTabTextBox);
-            this.displayTabPage.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.displayTabPage.Name = "displayTabPage";
-            this.displayTabPage.ToolTipText = global::MobiFlight.ProjectMessages.conf;
             this.displayTabPage.UseVisualStyleBackColor = true;
             // 
             // groupBoxInputSettings
@@ -450,7 +437,6 @@
             // arcazeSerialLabel
             // 
             resources.ApplyResources(this.arcazeSerialLabel, "arcazeSerialLabel");
-            this.arcazeSerialLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.arcazeSerialLabel.Name = "arcazeSerialLabel";
             // 
             // inputModuleNameComboBox
@@ -468,7 +454,6 @@
             // inputTypeComboBoxLabel
             // 
             resources.ApplyResources(this.inputTypeComboBoxLabel, "inputTypeComboBoxLabel");
-            this.inputTypeComboBoxLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.inputTypeComboBoxLabel.Name = "inputTypeComboBoxLabel";
             // 
             // inputTypeComboBox
@@ -503,7 +488,6 @@
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
-            this.button1.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.okButton_Click);
@@ -511,7 +495,7 @@
             // cancelButton
             // 
             resources.ApplyResources(this.cancelButton, "cancelButton");
-            this.cancelButton.ImageKey = global::MobiFlight.ProjectMessages.conf;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -543,6 +527,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelButton;
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.ButtonPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

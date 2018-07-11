@@ -57,6 +57,7 @@
             // 
             // DlgCancelButton
             // 
+            this.DlgCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             resources.ApplyResources(this.DlgCancelButton, "DlgCancelButton");
             this.DlgCancelButton.Name = "DlgCancelButton";
             this.DlgCancelButton.UseVisualStyleBackColor = true;
@@ -118,6 +119,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.DlgCancelButton;
             this.Controls.Add(this.orphanedSerialsGroupBox);
             this.Controls.Add(this.connectedModulesGroupBox);
             this.Controls.Add(this.OkCancelPanel);

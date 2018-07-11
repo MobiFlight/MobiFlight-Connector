@@ -172,6 +172,7 @@
             // cancelButton
             // 
             resources.ApplyResources(this.cancelButton, "cancelButton");
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.errorProvider1.SetError(this.cancelButton, resources.GetString("cancelButton.Error"));
             this.errorProvider1.SetIconAlignment(this.cancelButton, ((System.Windows.Forms.ErrorIconAlignment)(resources.GetObject("cancelButton.IconAlignment"))));
             this.errorProvider1.SetIconPadding(this.cancelButton, ((int)(resources.GetObject("cancelButton.IconPadding"))));
@@ -1004,6 +1005,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.cancelButton;
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
