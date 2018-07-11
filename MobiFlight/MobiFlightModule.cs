@@ -135,7 +135,7 @@ namespace MobiFlight
             }
         }
 
-        public const int CommandTimeout = 1500;
+        public const int CommandTimeout = 2000;
         
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();
