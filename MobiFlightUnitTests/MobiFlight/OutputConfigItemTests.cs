@@ -120,8 +120,9 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.BcdPins[0], c.BcdPins[0], "clone: BcdPins not the same");
 
             //o. = new Interpolation();
-            Assert.AreEqual(o.Interpolation.Count, c.Interpolation.Count, "clone: Interpolation not the same");
-            Assert.AreEqual(o.Preconditions.Count, c.Preconditions.Count, "clone: Preconditions not the same");
+            Assert.AreEqual(o.Interpolation.Active, c.Interpolation.Active, "clone: Interpolation.Active is not the same.");
+            Assert.AreEqual(o.Interpolation.Count, c.Interpolation.Count, "clone: Interpolation.Count not the same");
+            Assert.AreEqual(o.Preconditions.Count, c.Preconditions.Count, "clone: Preconditions.Count not the same");
         }
 
         private OutputConfigItem _generateConfigItem()
@@ -159,6 +160,7 @@ namespace MobiFlight.Tests
 
             o.BcdPins = new List<string>() { "Moop" };
             o.Interpolation = new Interpolation();
+            o.Interpolation.Active = true;
             o.Interpolation.Add(123, 456);
 
             o.Preconditions = new PreconditionList();

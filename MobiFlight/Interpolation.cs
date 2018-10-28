@@ -49,6 +49,10 @@ namespace MobiFlight
         public object Clone()
         {
             Interpolation Clone = new Interpolation();
+            // clone the get/set properties
+            Clone.Active = Active;
+
+            // clone the Vlaues
             foreach(double Key in Values.Keys)
             {
                 Clone.Add(Key, Values[Key]);
