@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+  <comparison active="False" value="0" operand="=" ifValue="00000" elseValue="" />
+  <display type="LcdDisplay" serial="PWS-Encoder/ SN-fab-a8c" trigger="normal" address="AP-Display">
+    <line>       ALT ?????</line>
+    <line>       V/S &amp;&amp;&amp;&amp;&amp;</line>
+  </display>
+  <preconditions>
+    <precondition type="config" active="true" ref="09e33c51-498b-4290-aa7b-857ea697770d" operand="=" value="0" logic="and" />
+    <precondition type="config" active="true" ref="d167c033-bfcb-40f0-a64c-0b732631c3aa" operand="=" value="0" logic="and" />
+    <precondition type="config" active="true" ref="8aec21d5-d4bf-4a78-baf1-a42bf2083493" operand="=" value="0" logic="and" />
+    <precondition type="config" active="true" ref="37d77d71-68b1-477c-81b7-2de7e70a8018" operand="=" value="0" logic="and" />
+    <precondition type="config" active="true" ref="9171e6ad-bcb9-4728-a3e3-ffc49701c2f3" operand="=" value="0" logic="and" />
+    <precondition type="config" active="true" ref="19259e68-5d13-4e07-943c-1e1cc3ffcc18" operand="=" value="0" logic="and" />
+  </preconditions>
+  <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+  <configrefs>
+    <configref active="False" ref="c7cc0707-e124-4831-8463-3b134af9234e" placeholder="#" />
+    <configref active="False" ref="c7cc0707-e124-4831-8463-3b134af9234e" placeholder="§" />
+    <configref active="True" ref="e42ebf1c-e9c1-4426-b84a-89bf3dc1c647" placeholder="&amp;" />
+    <configref active="True" ref="c7cc0707-e124-4831-8463-3b134af9234e" placeholder="?" />
+  </configrefs>
+</settings>

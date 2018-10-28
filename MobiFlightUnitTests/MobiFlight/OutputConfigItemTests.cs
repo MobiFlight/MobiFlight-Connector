@@ -53,6 +53,14 @@ namespace MobiFlight.Tests
             oci.ReadXml(xmlReader);
             Assert.AreEqual(oci.Transform.Active, true);
             Assert.AreEqual(oci.Transform.Expression, "$*123");
+
+            // read problem with missing configrefs
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.3.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci.ReadXml(xmlReader);
+            Assert.AreEqual(6, oci.Preconditions.Count);
+            Assert.AreEqual(4, oci.ConfigRefs.Count);
         }
 
         [TestMethod()]

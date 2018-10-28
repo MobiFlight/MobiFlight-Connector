@@ -279,14 +279,19 @@ namespace MobiFlight
                 {
                     if (LcdDisplay == null) LcdDisplay = new LcdDisplay();
                     LcdDisplay.ReadXml(reader);
+                    
+                    // don't read to the end tag all the way
+                    reader.Read();
                 }
+            }
 
-                reader.ReadStartElement();
-                if (reader.LocalName == "interpolation")
-                {
-                    Interpolation.ReadXml(reader);
-                    reader.ReadEndElement();
-                }
+            // Actually interpolation is in he wrong spot. :(
+            // it should not be nested
+            // it should be outside of the display node
+            if (reader.LocalName == "interpolation")
+            {
+                Interpolation.ReadXml(reader);
+                reader.ReadEndElement(); // this closes the display node
             }
 
             // forward

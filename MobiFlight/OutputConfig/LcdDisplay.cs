@@ -62,8 +62,6 @@ namespace MobiFlight.OutputConfig
                     }
                 }
             }
-
-            reader.ReadEndElement(); //display
         }
 
         public void WriteXml(XmlWriter writer)
