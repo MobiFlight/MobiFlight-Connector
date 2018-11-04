@@ -41,8 +41,8 @@ namespace MobiFlight.InputConfig
 
         public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
         {
-            cache.setOffset(ParamOffset, Param);
-            cache.setOffset(BaseOffset, EventId);            
+            cache.setOffset(ParamOffset, Param, true);
+            cache.setOffset(BaseOffset, EventId, true);            
             cache.Write();
         }
     }

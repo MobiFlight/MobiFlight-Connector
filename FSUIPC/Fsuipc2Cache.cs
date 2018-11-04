@@ -473,11 +473,11 @@ namespace MobiFlight.FSUIPC
             */
         }
 
-        public void setOffset(int offset, int value)
+        public void setOffset(int offset, int value, bool writeOnly = false)
         {
             if (!__cacheInt.ContainsKey(offset))
             {
-                __cacheInt[offset] = new Offset<Int32>(offset);
+                __cacheInt[offset] = new Offset<Int32>(offset, writeOnly);
                 _offsetsRegistered = true;
             }
 

@@ -11,7 +11,7 @@ namespace MobiFlight.Base
 
         void setOffset(int offset, short value);
 
-        void setOffset(int offset, int value);
+        void setOffset(int offset, int value, bool writeOnly = false);
 
         void setOffset(int offset, string value);
 

@@ -303,7 +303,7 @@ namespace MobiFlight
 
             // this update will trigger potential writes to the offsets
             // that came from the inputs and are waiting to be written
-            fsuipcCache.Write();
+            // fsuipcCache.Write();
 
             isExecuting = false;
         }

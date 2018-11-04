@@ -130,85 +130,88 @@ namespace MobiFlight.InputConfig
 
         public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
         {
-                String value = Value;
-                // apply ncalc logic
-                if (value.Contains("$"))
-                {
-                    ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(this, cache);
+            String value = Value;
+            // apply ncalc logic
+            if (value.Contains("$"))
+            {
+                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(this, cache);
 
-                    String expression = Value.Replace("$", tmpValue.ToString());
-                    var ce = new NCalc.Expression(expression);
-                    try
+                String expression = Value.Replace("$", tmpValue.ToString());
+                var ce = new NCalc.Expression(expression);
+                try
+                {
+                    value = (ce.Evaluate()).ToString();
+                }
+                catch
+                {
+                    Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
+                    throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
+                }
+            }
+
+            if (FSUIPCSize == 1)
+            {
+                System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
+                if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                byte bValue = Byte.Parse(value, format);
+                if (FSUIPCMask != 0xFF)
+                {
+                    byte cByte = (byte)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                    if (bValue == 1)
                     {
-                        value = (ce.Evaluate()).ToString();
+                        bValue = (byte)(cByte | FSUIPCMask);
                     }
-                    catch
+                    else
                     {
-                        Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                        throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
+                        bValue = (byte)(cByte & ~FSUIPCMask);
+                    }
+                }
+                cache.setOffset(FSUIPCOffset, bValue);
+            }
+            else if (FSUIPCSize == 2)
+            {
+                System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
+                if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                Int16 sValue = Int16.Parse(value, format);
+                if (FSUIPCMask != 0xFFFF)
+                {
+                    Int16 cByte = (Int16)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                    if (sValue == 1)
+                    {
+                        sValue = (Int16)(cByte | FSUIPCMask);
+                    }
+                    else
+                    {
+                        sValue = (Int16)(cByte & ~FSUIPCMask);
                     }
                 }
 
-                if (FSUIPCSize == 1) {
-                    System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
-                    if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
-                    byte bValue = Byte.Parse(value, format);
-                    if (FSUIPCMask != 0xFF)
-                    {
-                        byte cByte = (byte)cache.getValue(FSUIPCOffset, FSUIPCSize);
-                        if (bValue == 1)
-                        {
-                            bValue = (byte)(cByte | FSUIPCMask);
-                        }
-                        else
-                        {
-                            bValue = (byte)(cByte & ~FSUIPCMask);
-                        }
-                    }
-                    cache.setOffset(FSUIPCOffset, bValue);
-                }
-                else if (FSUIPCSize == 2)
+                cache.setOffset(FSUIPCOffset, sValue);
+            }
+            else if (FSUIPCSize == 4)
+            {
+                Int32 iValue = Int32.Parse(value);
+                if (FSUIPCMask != 0xFFFFFFFF)
                 {
-                    System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
-                    if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
-                    Int16 sValue = Int16.Parse(value, format);
-                    if (FSUIPCMask != 0xFFFF)
+                    Int32 cByte = (Int32)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                    if (iValue == 1)
                     {
-                        Int16 cByte = (Int16) cache.getValue(FSUIPCOffset, FSUIPCSize);
-                        if (sValue == 1)
-                        {
-                            sValue = (Int16)(cByte | FSUIPCMask);
-                        }
-                        else
-                        {
-                            sValue = (Int16)(cByte & ~FSUIPCMask);
-                        }
+                        iValue = (Int32)(cByte | FSUIPCMask);
                     }
+                    else
+                    {
+                        iValue = (Int32)(cByte & ~FSUIPCMask);
+                    }
+                }
 
-                    cache.setOffset(FSUIPCOffset, sValue);
-                }
-                else if (FSUIPCSize == 4)
-                {
-                    Int32 iValue = Int32.Parse(value);
-                    if (FSUIPCMask != 0xFFFFFFFF)
-                    {
-                        Int32 cByte = (Int32)cache.getValue(FSUIPCOffset, FSUIPCSize);
-                        if (iValue == 1)
-                        {
-                            iValue = (Int32)(cByte | FSUIPCMask);
-                        }
-                        else
-                        {
-                            iValue = (Int32)(cByte & ~FSUIPCMask);
-                        }
-                    }
+                cache.setOffset(FSUIPCOffset, iValue);
+            }
+            else if (FSUIPCSize == 255)
+            {
+                cache.setOffset(FSUIPCOffset, Value);
+            }
 
-                    cache.setOffset(FSUIPCOffset, iValue);
-                }
-                else if (FSUIPCSize == 255)
-                {
-                    cache.setOffset(FSUIPCOffset, Value);
-                }
+            cache.Write();
         }
-        }
+    }
 }
