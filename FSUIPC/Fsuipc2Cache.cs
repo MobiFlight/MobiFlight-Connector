@@ -30,10 +30,14 @@ namespace MobiFlight.FSUIPC
         private readonly Offset<Int32> __macroParam = new Offset<Int32>("macro", 0x0d6c, true);
         private readonly Offset<string> __macroName = new Offset<string>("macro", 0xd70, 40, true);
 
+        private int _readLimitInMs = 300;
+
         HashSet<int> __cacheByteWriteOnly = new HashSet<int>();
         HashSet<int> __cacheShortWriteOnly = new HashSet<int>();
         HashSet<int> __cacheIntWriteOnly = new HashSet<int>();
         HashSet<int> __cacheStringWriteOnly = new HashSet<int>();
+
+        long lastProcessedMs = 0;
 
         FlightSim[] _supportedFlightSims = new FlightSim[] { FlightSim.Any, FlightSim.FS2K4, FlightSim.FSX };
         public MobiFlight.FlightSimConnectionMethod FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.NONE;
@@ -53,6 +57,12 @@ namespace MobiFlight.FSUIPC
 
         public Fsuipc2Cache()
         {
+            SetReadLimitInMs(Properties.Settings.Default.PollInterval);
+        }
+
+        public void SetReadLimitInMs (int limit)
+        {
+            _readLimitInMs = limit - 5; // we reduce by 5 because timer is not so accurate
         }
 
         public void Clear()
@@ -172,9 +182,18 @@ namespace MobiFlight.FSUIPC
         protected void _process() {
             // test the cache and gather data from fsuipc if necessary
             if (_offsetsRegistered && !__isProcessed) {
+                long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                // new method to prevent too many reads
+                if (milliseconds - lastProcessedMs < _readLimitInMs)
+                {
+                    Log.Instance.log("FSUIPC2Cache: skipping Process(), last read (" + (milliseconds - lastProcessedMs) + ") less than " + _readLimitInMs, LogSeverity.Debug);
+                    return;
+                }
+
                 try
                 {
                     FSUIPCConnection.Process();
+                    lastProcessedMs = milliseconds;
                 }
                 catch (Exception e)
                 {
@@ -530,7 +549,11 @@ namespace MobiFlight.FSUIPC
                 // throw an exception in case that
                 // we have no offset registered
                 if (_offsetsRegistered)
+                {
                     FSUIPCConnection.Process();
+                    long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                    lastProcessedMs = milliseconds;
+                }
             }
             catch (Exception e)
             {

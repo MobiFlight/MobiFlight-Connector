@@ -76,7 +76,7 @@ namespace MobiFlight
                                                       this.ModuleNumber + "," +
                                                       subModule + "," +
                                                       value + "," +
-                                                      mask + ";>", LogSeverity.Info);
+                                                      mask + ";>", LogSeverity.Debug);
 
             // Send command
             CmdMessenger.SendCommand(command);

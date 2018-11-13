@@ -113,6 +113,7 @@ namespace MobiFlight
         public void SetFsuipcInterval(int value)
         {
             timer.Interval = value;
+            fsuipcCache.SetReadLimitInMs(value); // -5 is because the timer is not very accurate
         }
 
         public void SetTestModeInterval(int value)
@@ -1114,6 +1115,7 @@ namespace MobiFlight
             if (!IsStarted()) return;
 
             String inputKey = e.Serial+e.Type+e.ButtonId;
+            
             if (!inputCache.ContainsKey(inputKey))
             {
                 inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();

@@ -74,7 +74,7 @@ namespace MobiFlightUnitTests.mock.FSUIPC
             return;
         }
 
-        public void setOffset(int offset, int value)
+        public void setOffset(int offset, int value, bool writeOnly)
         {
             Writes.Add(new FSUIPCMockOffset() { Offset = offset, Value = value.ToString() });
             return;
