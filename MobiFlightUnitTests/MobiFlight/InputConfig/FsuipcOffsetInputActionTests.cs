@@ -107,7 +107,7 @@ namespace MobiFlight.InputConfig.Tests
             o.FSUIPCBcdMode = false;
             o.Value = "12";
             o.execute(mock, null);
-            Assert.AreEqual(mock.Writes.Count, 1, "The message count is not as expected");
+            Assert.AreEqual(mock.Writes.Count, 2, "The message count is not as expected"); // there is one write in the mock for setting the offset and one write for writing to the cache.
             Assert.AreEqual(mock.Writes[0].Offset, 0x1234, "The Offset is wrong");
             Assert.AreEqual(mock.Writes[0].Value, "12", "The Param Value is wrong");
         }

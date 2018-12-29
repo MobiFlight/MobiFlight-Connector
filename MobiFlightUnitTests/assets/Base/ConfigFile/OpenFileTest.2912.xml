@@ -4,7 +4,7 @@
     <config guid="b566ace0-e626-47ec-b412-57779114d937">
       <active>true</active>
       <description>Test</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x07E2" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         <display type="Pin" serial="Overhead_1/ 000512500000" trigger="normal" pin="C20" pinBrightness="255" />
@@ -12,6 +12,7 @@
           <precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
         </preconditions>
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
   </outputs>

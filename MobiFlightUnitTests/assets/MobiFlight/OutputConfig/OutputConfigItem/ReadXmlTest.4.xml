@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.3.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <source type="FSUIPC" offset="0x037C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+  <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+  <display type="Servo" serial="TestBoard/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="100">
+    <interpolation active="True">
+      <value x="-1055" y="130" />
+      <value x="-512" y="110" />
+      <value x="0" y="90" />
+      <value x="512" y="70" />
+      <value x="1055" y="50" />
+    </interpolation>
+  </display>
+  <preconditions />
+  <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+  <configRef />
+</settings>

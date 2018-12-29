@@ -62,7 +62,7 @@ namespace MobiFlight.FSUIPC
 
         public void SetReadLimitInMs (int limit)
         {
-            _readLimitInMs = limit - 5; // we reduce by 5 because timer is not so accurate
+            _readLimitInMs = limit - 10; // we reduce by 10 because timer is not so accurate
         }
 
         public void Clear()

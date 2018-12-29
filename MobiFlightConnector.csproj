@@ -401,12 +401,6 @@
     <Compile Include="Panels\ButtonPanel.Designer.cs">
       <DependentUpon>ButtonPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Group\ConfigRefContainerPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Panels\Group\ConfigRefContainerPanel.Designer.cs">
-      <DependentUpon>ConfigRefContainerPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Panels\Group\ConfigRefPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -621,9 +615,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Panels\MFLcdDisplayPanel.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\ConfigRefContainerPanel.resx">
-      <DependentUpon>ConfigRefContainerPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\ConfigRefPanel.resx">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>

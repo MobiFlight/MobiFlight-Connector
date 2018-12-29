@@ -75,6 +75,7 @@ namespace MobiFlight
             // read precondition settings if present
             if (reader.ReadToDescendant("value"))
             {
+                Values.Clear();
                 // load a list
                 do
                 {

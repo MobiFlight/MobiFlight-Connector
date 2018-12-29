@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="c7533794-6d67-48ba-b586-11481ff44e67">
+      <active>true</active>
+      <description>Has Interpolation Active</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="" serial="MobiFlight Mega/ SN-b6e-4e3" trigger="normal" pin="" pinBrightness="255">
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="512" y="2048" />
+          </interpolation>
+        </display>
+        <preconditions />
+        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>    
+    <config guid="c7533794-6d67-48ba-b586-11481ff44e67">
+      <active>true</active>
+      <description>Has Interpolation False</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <display type="" serial="MobiFlight Mega/ SN-b6e-4e3" trigger="normal" pin="" pinBrightness="255">
+          <interpolation active="False">
+            <value x="0" y="0" />
+            <value x="512" y="2048" />
+          </interpolation>
+        </display>
+        <preconditions />
+        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>    
+  </outputs>
+  <inputs>
+  </inputs>
+</MobiflightConnector>

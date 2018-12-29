@@ -184,98 +184,107 @@ namespace MobiFlight
                 DisplaySerial = reader["serial"];
                 DisplayTrigger = reader["trigger"];
 
-                if (reader["pinBrightness"] != null && reader["pinBrightness"] != "")
+                if (DisplayType == MobiFlightOutput.TYPE)
                 {
-                    DisplayPinBrightness = byte.Parse(reader["pinBrightness"]);
+                    if (reader["pinBrightness"] != null && reader["pinBrightness"] != "")
+                    {
+                        DisplayPinBrightness = byte.Parse(reader["pinBrightness"]);
+                    }
                 }
-                
-                if (reader["ledAddress"] != null && reader["ledAddress"] != "")
-                {
-                    DisplayLedAddress = reader["ledAddress"];
-                }
-                
-                if (reader["ledConnector"] != null && reader["ledConnector"] != "")
-                {
-                    DisplayLedConnector = byte.Parse(reader["ledConnector"]);                    
-                }
+                else if (DisplayType == MobiFlightLedModule.TYPE) {
 
-                if (reader["ledModuleSize"] != null && reader["ledModuleSize"] != "")
-                {
-                    DisplayLedModuleSize = byte.Parse(reader["ledModuleSize"]);
-                }
+                    if (reader["ledAddress"] != null && reader["ledAddress"] != "")
+                    {
+                        DisplayLedAddress = reader["ledAddress"];
+                    }
 
-                if (reader["ledPadding"] != null && reader["ledPadding"] != "")
-                {
-                    DisplayLedPadding = Boolean.Parse(reader["ledPadding"]);
-                }
+                    if (reader["ledConnector"] != null && reader["ledConnector"] != "")
+                    {
+                        DisplayLedConnector = byte.Parse(reader["ledConnector"]);
+                    }
 
-                if (reader["ledPaddingChar"] != null && reader["ledPaddingChar"] != "")
-                {
-                    DisplayLedPaddingChar = reader["ledPaddingChar"];
-                }
+                    if (reader["ledModuleSize"] != null && reader["ledModuleSize"] != "")
+                    {
+                        DisplayLedModuleSize = byte.Parse(reader["ledModuleSize"]);
+                    }
 
-                // ignore empty values
-                if (reader["ledDigits"] != null && reader["ledDigits"]!="")
-                {
-                    DisplayLedDigits = reader["ledDigits"].Split(',').ToList();
-                }
+                    if (reader["ledPadding"] != null && reader["ledPadding"] != "")
+                    {
+                        DisplayLedPadding = Boolean.Parse(reader["ledPadding"]);
+                    }
 
-                // ignore empty values
-                if (reader["ledDecimalPoints"] != null && reader["ledDecimalPoints"]!="")
-                {
-                    DisplayLedDecimalPoints = reader["ledDecimalPoints"].Split(',').ToList();
-                }
+                    if (reader["ledPaddingChar"] != null && reader["ledPaddingChar"] != "")
+                    {
+                        DisplayLedPaddingChar = reader["ledPaddingChar"];
+                    }
 
-                // ignore empty values
-                if (reader["bcdPins"] != null && reader["bcdPins"] != "")
-                {
-                    BcdPins = reader["bcdPins"].Split(',').ToList();
-                }
+                    // ignore empty values
+                    if (reader["ledDigits"] != null && reader["ledDigits"] != "")
+                    {
+                        DisplayLedDigits = reader["ledDigits"].Split(',').ToList();
+                    }
 
-                // ignore empty values
-                if (reader["servoAddress"] != null && reader["servoAddress"] != "")
-                {
-                    ServoAddress = reader["servoAddress"];
+                    // ignore empty values
+                    if (reader["ledDecimalPoints"] != null && reader["ledDecimalPoints"] != "")
+                    {
+                        DisplayLedDecimalPoints = reader["ledDecimalPoints"].Split(',').ToList();
+                    }
                 }
-                if (reader["servoMin"] != null && reader["servoMin"] != "")
-                {
-                    ServoMin = reader["servoMin"];
+                else if (DisplayType == ArcazeBcd4056.TYPE) { 
+                    // ignore empty values
+                    if (reader["bcdPins"] != null && reader["bcdPins"] != "")
+                    {
+                        BcdPins = reader["bcdPins"].Split(',').ToList();
+                    }
                 }
-                if (reader["servoMax"] != null && reader["servoMax"] != "")
+                else if (DisplayType == MobiFlightServo.TYPE)
                 {
-                    ServoMax = reader["servoMax"];
-                }
+                    // ignore empty values
+                    if (reader["servoAddress"] != null && reader["servoAddress"] != "")
+                    {
+                        ServoAddress = reader["servoAddress"];
+                    }
+                    if (reader["servoMin"] != null && reader["servoMin"] != "")
+                    {
+                        ServoMin = reader["servoMin"];
+                    }
+                    if (reader["servoMax"] != null && reader["servoMax"] != "")
+                    {
+                        ServoMax = reader["servoMax"];
+                    }
 
-                if (reader["servoMaxRotationPercent"] != null && reader["servoMaxRotationPercent"] != "")
-                {
-                    ServoMaxRotationPercent = reader["servoMaxRotationPercent"];
+                    if (reader["servoMaxRotationPercent"] != null && reader["servoMaxRotationPercent"] != "")
+                    {
+                        ServoMaxRotationPercent = reader["servoMaxRotationPercent"];
+                    }
                 }
+                else if (DisplayType == MobiFlightStepper.TYPE)
+                {
+                    // ignore empty values
+                    if (reader["stepperAddress"] != null && reader["stepperAddress"] != "")
+                    {
+                        StepperAddress = reader["stepperAddress"];
+                    }
+                    if (reader["stepperInputRev"] != null && reader["stepperInputRev"] != "")
+                    {
+                        StepperInputRev = reader["stepperInputRev"];
+                        StepperTestValue = reader["stepperInputRev"];
+                    }
+                    if (reader["stepperOutputRev"] != null && reader["stepperOutputRev"] != "")
+                    {
+                        StepperOutputRev = reader["stepperOutputRev"];
+                    }
+                    if (reader["stepperTestValue"] != null && reader["stepperTestValue"] != "")
+                    {
+                        StepperTestValue = reader["stepperTestValue"];
+                    }
 
-                // ignore empty values
-                if (reader["stepperAddress"] != null && reader["stepperAddress"] != "")
-                {
-                    StepperAddress = reader["stepperAddress"];
-                }
-                if (reader["stepperInputRev"] != null && reader["stepperInputRev"] != "")
-                {
-                    StepperInputRev = reader["stepperInputRev"];
-                    StepperTestValue = reader["stepperInputRev"];
-                }
-                if (reader["stepperOutputRev"] != null && reader["stepperOutputRev"] != "")
-                {
-                    StepperOutputRev = reader["stepperOutputRev"];
-                }
-                if (reader["stepperTestValue"] != null && reader["stepperTestValue"] != "")
-                {
-                    StepperTestValue = reader["stepperTestValue"];
-                }
-
-                if (reader["stepperCompassMode"] != null && reader["stepperCompassMode"] != "")
-                {
-                    StepperCompassMode = bool.Parse(reader["stepperCompassMode"]);
-                }
-
-                if (DisplayType == LcdDisplay.Type)
+                    if (reader["stepperCompassMode"] != null && reader["stepperCompassMode"] != "")
+                    {
+                        StepperCompassMode = bool.Parse(reader["stepperCompassMode"]);
+                    }
+                }              
+                else if (DisplayType == LcdDisplay.Type)
                 {
                     if (LcdDisplay == null) LcdDisplay = new LcdDisplay();
                     LcdDisplay.ReadXml(reader);
@@ -291,12 +300,22 @@ namespace MobiFlight
             if (reader.LocalName == "interpolation")
             {
                 Interpolation.ReadXml(reader);
-                reader.ReadEndElement(); // this closes the display node
+                if (reader.LocalName == "display")
+                    reader.ReadEndElement(); // this closes the display node
             }
 
             // forward
             if (reader.LocalName == "display")
                 reader.ReadStartElement();
+
+            // Actually interpolation is in he wrong spot. :(
+            // it should not be nested
+            // it should be outside of the display node
+            if (reader.LocalName == "interpolation")
+            {
+                Interpolation.ReadXml(reader);
+                reader.ReadEndElement(); // this closes the display node
+            }
 
             // read precondition settings if present
             if (reader.LocalName == "precondition" || reader.LocalName == "preconditions")
@@ -410,9 +429,10 @@ namespace MobiFlight
                     writer.WriteAttributeString("pinBrightness", DisplayPinBrightness.ToString());
 
                 }
-                Interpolation.WriteXml(writer);
+                                
+            writer.WriteEndElement(); // end of display
 
-            writer.WriteEndElement();
+            Interpolation.WriteXml(writer);
 
             Preconditions.WriteXml(writer);
 

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.3.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <source type="FSUIPC" offset="0x037C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+  <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+  <display type="LcdDisplay" serial="PWS-Encoder/ SN-fab-a8c" trigger="normal" address="AP-Display">
+    <line>       ALT ?????</line>
+    <line>       V/S &amp;&amp;&amp;&amp;&amp;</line>
+  </display>
+  <interpolation active="True">
+    <value x="-1055" y="130" />
+    <value x="-512" y="110" />
+    <value x="0" y="90" />
+    <value x="512" y="70" />
+    <value x="1055" y="50" />
+  </interpolation>
+  <preconditions />
+  <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+  <configRef />
+</settings>

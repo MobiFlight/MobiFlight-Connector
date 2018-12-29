@@ -10,6 +10,7 @@
         <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="LeftGreen" pinBrightness="255" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
     <config guid="0f909a12-d688-45a9-bb0e-4aff0264b52b">
@@ -21,6 +22,7 @@
         <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="RightGreen" pinBrightness="255" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
     <config guid="3ff5083a-653c-41f5-997c-8a4b68f57b82">
@@ -32,6 +34,7 @@
         <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="LeftRed" pinBrightness="255" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
     <config guid="ca7a0a46-e414-460a-b2e4-78e9b290ec4b">
@@ -43,6 +46,7 @@
         <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="RightRed" pinBrightness="255" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
     <config guid="eaaea7cb-d58d-4655-8249-868e0a67e158">
@@ -54,6 +58,7 @@
         <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="NoseRed" pinBrightness="255" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
     <config guid="86a93e09-c999-4ed5-9010-655732bf2688">
@@ -65,6 +70,7 @@
         <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="NoseRed" pinBrightness="255" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
     <config guid="523d76ff-7381-40f2-b084-14b009570939">
@@ -76,6 +82,7 @@
         <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="NoseGreen" pinBrightness="255" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
     <config guid="9c208f98-843c-48ad-a805-461a7b64a464">
@@ -87,6 +94,7 @@
         <display type="Pin" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="ParkingBrake" pinBrightness="255" />
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
     <config guid="fccbd842-25ea-48e2-9536-31956de7c0f4">
@@ -95,14 +103,14 @@
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
-        <display type="Stepper" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-130" stepperCompassMode="False">
-          <interpolation active="True">
-            <value x="0" y="0" />
-            <value x="16383" y="-130" />
-          </interpolation>
-        </display>
+        <display type="Stepper" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-130" stepperCompassMode="False" />
+        <interpolation active="True">
+          <value x="0" y="0" />
+          <value x="16383" y="-130" />
+        </interpolation>
         <preconditions />
         <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
       </settings>
     </config>
   </outputs>

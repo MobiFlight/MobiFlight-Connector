@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -22,7 +23,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
-        [Ignore]
+        //[Ignore]
         public void OpenFileTest()
         {
             String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
@@ -33,16 +34,21 @@ namespace MobiFlight.Tests
             DataSet OutputConfig = new DataSet();
             initializeOutputDataSet(OutputConfig);
             initializeInputDataSet(InputConfig);
-            
+
             //o.OpenFile();
             OutputConfig.ReadXml(o.getOutputConfig());
             InputConfig.ReadXml(o.getInputConfig());
-            
+
             ConfigFile oTemp = new ConfigFile(inFileTemp);
             oTemp.SaveFile(OutputConfig, InputConfig);
 
             String s1 = System.IO.File.ReadAllText(expFile);
             String s2 = System.IO.File.ReadAllText(inFileTemp);
+
+            // get rid of the individual version number
+            // that varies every time we increment the MobiFlight version
+            s1 = replaceVersionInformation(s1);
+            s2 = replaceVersionInformation(s2);
 
             System.IO.File.Delete(inFileTemp);
             Assert.AreEqual(s1, s2, "Files are not the same");
@@ -62,6 +68,11 @@ namespace MobiFlight.Tests
 
             s1 = System.IO.File.ReadAllText(inFile);
             s2 = System.IO.File.ReadAllText(inFileTemp);
+
+            // get rid of the individual version number
+            // that varies every time we increment the MobiFlight version
+            s1 = replaceVersionInformation(s1);
+            s2 = replaceVersionInformation(s2);
 
             System.IO.File.Delete(inFileTemp);
             Assert.AreEqual(s1, s2, "Files are not the same");
@@ -84,6 +95,11 @@ namespace MobiFlight.Tests
 
                 s1 = System.IO.File.ReadAllText(expFile);
                 s2 = System.IO.File.ReadAllText(inFileTemp);
+
+                // get rid of the individual version number
+                // that varies every time we increment the MobiFlight version
+                s1 = replaceVersionInformation(s1);
+                s2 = replaceVersionInformation(s2);
 
                 Assert.AreEqual(s1, s2, "Files are not the same");
                 System.IO.File.Delete(inFileTemp);
@@ -115,6 +131,12 @@ namespace MobiFlight.Tests
             XmlReader xr = o.getOutputConfig();
 
             Assert.IsNotNull(xr);
+        }
+
+        string replaceVersionInformation(string s1)
+        {
+            s1 = Regex.Replace(s1, @"Version=[^,]+", "Version=1.0.0.0");
+            return s1;
         }
 
         void initializeOutputDataSet(DataSet dataSetConfig)

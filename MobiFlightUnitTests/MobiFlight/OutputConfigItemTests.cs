@@ -32,7 +32,7 @@ namespace MobiFlight.Tests
         public void ReadXmlTest()
         {
             OutputConfigItem oci = new OutputConfigItem();
-            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.1.xml");
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.1.xml");
             StringReader sr = new StringReader(s);
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
@@ -47,7 +47,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(oci.FSUIPCBcdMode, true);
 
             // read backward compatible
-            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.2.xml");
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.2.xml");
             sr = new StringReader(s);
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
@@ -55,12 +55,28 @@ namespace MobiFlight.Tests
             Assert.AreEqual(oci.Transform.Expression, "$*123");
 
             // read problem with missing configrefs
-            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.3.xml");
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.3.xml");
             sr = new StringReader(s);
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
             Assert.AreEqual(6, oci.Preconditions.Count);
             Assert.AreEqual(4, oci.ConfigRefs.Count);
+
+            // read problem with interpolation inside of display node
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.4.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci.ReadXml(xmlReader);
+            Assert.AreEqual(true, oci.Interpolation.Active, "Interpolation is supposed to be active");
+            Assert.AreEqual(5, oci.Interpolation.Count);
+
+            // read problem with interpolation OUTSIDE of display node
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.5.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci.ReadXml(xmlReader);
+            Assert.AreEqual(true, oci.Interpolation.Active, "Interpolation is supposed to be active");
+            Assert.AreEqual(5, oci.Interpolation.Count);
         }
 
         [TestMethod()]
@@ -80,7 +96,7 @@ namespace MobiFlight.Tests
             xmlWriter.Flush();
             string s = sw.ToString();
 
-            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\OutputConfigItem\WriteXmlTest.1.xml");
+            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\WriteXmlTest.1.xml");
 
             Assert.AreEqual(s, result, "The both strings are not equal");
         }

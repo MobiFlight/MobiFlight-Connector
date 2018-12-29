@@ -191,19 +191,27 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.3.xml">
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.5.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.2.xml">
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.4.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\InputConfig\OutputConfigItem\WriteXmlTest.1.xml">
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.3.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\InputConfig\OutputConfigItem\ReadXmlTest.1.xml">
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.2.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -240,6 +248,7 @@
     <None Include="assets\Base\ConfigFile\Homecockpit_C172.mcc.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="assets\Base\ConfigFile\interpolation-checkmark-test.mcc" />
     <None Include="assets\Base\ConfigFile\mobiflight-in-action-episode-1.mcc.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
