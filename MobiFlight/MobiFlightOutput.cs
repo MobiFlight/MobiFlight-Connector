@@ -36,6 +36,10 @@ namespace MobiFlight
             command.AddArgument(Pin);
             command.AddArgument(value);
             // Send command
+            Log.Instance.log("Command: SetPin <" + (int)MobiFlightModule.Command.SetPin + "," +
+                                          Pin + "," +
+                                          value + ";>", LogSeverity.Debug);
+
             CmdMessenger.SendCommand(command);
         }
     }

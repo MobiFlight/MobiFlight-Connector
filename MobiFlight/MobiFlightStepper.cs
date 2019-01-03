@@ -79,7 +79,9 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.SetStepper);
             command.AddArgument(this.StepperNumber);
             command.AddArgument(outputValue);
-            
+            Log.Instance.log("Command: SetStepper <" + (int)MobiFlightModule.Command.SetStepper + "," +
+                  StepperNumber + "," +
+                  outputValue + ";>", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
         }

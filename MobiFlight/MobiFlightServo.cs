@@ -54,7 +54,9 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.SetServo);
             command.AddArgument(ServoNumber);
             command.AddArgument(mappedValue);
-            
+            Log.Instance.log("Command: SetServo <" + (int)MobiFlightModule.Command.SetServo + "," +
+                              ServoNumber + "," +
+                              mappedValue + ";>", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
         }

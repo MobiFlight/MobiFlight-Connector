@@ -111,7 +111,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.7.3 : Servo behaviour improved, fixed stepper bug #178, increased number of buttons per module (MEGA)
 // 1.8.0 : added support for LCDs
 // 1.9.0 : Support for rotary encoders with different detent configurations
-const char version[8] = "1.9.0";
+// 1.9.1 : Set "lastCommand" for LCD output command
+const char version[8] = "1.9.1";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
@@ -836,6 +837,7 @@ void OnSetLcdDisplayI2C()
   char *output   = cmdMessenger.readStringArg();
   lcd_I2C[address].display(output);
   cmdMessenger.sendCmd(kStatus, output);
+  lastCommand = millis();
 }
 
 void updateSteppers()
