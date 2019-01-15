@@ -314,7 +314,8 @@ namespace MobiFlight
             if (reader.LocalName == "interpolation")
             {
                 Interpolation.ReadXml(reader);
-                reader.ReadEndElement(); // this closes the display node
+                if (reader.LocalName != "preconditions")
+                    reader.ReadEndElement(); // this closes the display node
             }
 
             // read precondition settings if present

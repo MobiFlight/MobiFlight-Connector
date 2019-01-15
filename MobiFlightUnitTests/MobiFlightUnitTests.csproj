@@ -233,6 +233,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="assets\Base\ConfigFile\example-default-plane-v6.1.mcc.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

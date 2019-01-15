@@ -77,6 +77,57 @@ namespace MobiFlight.Tests
             System.IO.File.Delete(inFileTemp);
             Assert.AreEqual(s1, s2, "Files are not the same");
 
+            OutputConfig.Clear();
+            InputConfig.Clear();
+
+            inFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc";
+            inFileTemp = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.tmp";
+            expFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp";
+
+            o = new ConfigFile(inFile);
+            OutputConfig.ReadXml(o.getOutputConfig());
+            InputConfig.ReadXml(o.getInputConfig());
+
+            oTemp = new ConfigFile(inFileTemp);
+            oTemp.SaveFile(OutputConfig, InputConfig);
+
+            s1 = System.IO.File.ReadAllText(expFile);
+            s2 = System.IO.File.ReadAllText(inFileTemp);
+
+            // get rid of the individual version number
+            // that varies every time we increment the MobiFlight version
+            s1 = replaceVersionInformation(s1);
+            s2 = replaceVersionInformation(s2);
+            
+            Assert.AreEqual(s1, s2, "Files are not the same");
+            System.IO.File.Delete(inFileTemp);
+
+            // Load the new version was problematic\
+            OutputConfig.Clear();
+            InputConfig.Clear();
+
+            inFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp";
+            inFileTemp = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.tmp";
+            expFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp";
+
+            o = new ConfigFile(inFile);
+            OutputConfig.ReadXml(o.getOutputConfig());
+            InputConfig.ReadXml(o.getInputConfig());
+
+            oTemp = new ConfigFile(inFileTemp);
+            oTemp.SaveFile(OutputConfig, InputConfig);
+
+            s1 = System.IO.File.ReadAllText(expFile);
+            s2 = System.IO.File.ReadAllText(inFileTemp);
+
+            // get rid of the individual version number
+            // that varies every time we increment the MobiFlight version
+            s1 = replaceVersionInformation(s1);
+            s2 = replaceVersionInformation(s2);
+
+            Assert.AreEqual(s1, s2, "Files are not the same");
+            System.IO.File.Delete(inFileTemp);
+
             foreach (string file in System.IO.Directory.GetFiles(@"assets\Base\ConfigFile\", "*.mcc")) {
                 OutputConfig.Clear();
                 InputConfig.Clear();
