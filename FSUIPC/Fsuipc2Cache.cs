@@ -30,8 +30,6 @@ namespace MobiFlight.FSUIPC
         private readonly Offset<Int32> __macroParam = new Offset<Int32>("macro", 0x0d6c, true);
         private readonly Offset<string> __macroName = new Offset<string>("macro", 0xd70, 40, true);
 
-        private int _readLimitInMs = 300;
-
         HashSet<int> __cacheByteWriteOnly = new HashSet<int>();
         HashSet<int> __cacheShortWriteOnly = new HashSet<int>();
         HashSet<int> __cacheIntWriteOnly = new HashSet<int>();
@@ -57,12 +55,6 @@ namespace MobiFlight.FSUIPC
 
         public Fsuipc2Cache()
         {
-            SetReadLimitInMs(Properties.Settings.Default.PollInterval);
-        }
-
-        public void SetReadLimitInMs (int limit)
-        {
-            _readLimitInMs = limit - 10; // we reduce by 10 because timer is not so accurate
         }
 
         public void Clear()
@@ -182,18 +174,9 @@ namespace MobiFlight.FSUIPC
         protected void _process() {
             // test the cache and gather data from fsuipc if necessary
             if (_offsetsRegistered && !__isProcessed) {
-                long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-                // new method to prevent too many reads
-                if (milliseconds - lastProcessedMs < _readLimitInMs)
-                {
-                    Log.Instance.log("FSUIPC2Cache: skipping Process(), last read (" + (milliseconds - lastProcessedMs) + ") less than " + _readLimitInMs, LogSeverity.Debug);
-                    return;
-                }
-
                 try
                 {
                     FSUIPCConnection.Process();
-                    lastProcessedMs = milliseconds;
                 }
                 catch (Exception e)
                 {
@@ -465,13 +448,6 @@ namespace MobiFlight.FSUIPC
             }
 
             __cacheByte[offset].Value = value;
-            /*
-            //__cacheByte[offset].WriteOnly = true;
-           // __cacheByteWriteOnly.Add(offset);
-           // ForceUpdate();
-            //__cacheByte[offset].WriteOnly = false;
-            //_process();
-            */
         }
 
         public void setOffset(int offset, short value)
@@ -483,13 +459,6 @@ namespace MobiFlight.FSUIPC
             }
 
             __cacheShort[offset].Value = value;
-            /*
-            //__cacheShort[offset].WriteOnly = true;
-            //__cacheShortWriteOnly.Add(offset);
-            //ForceUpdate();
-            //__cacheShort[offset].WriteOnly = false;
-            //_process();
-            */
         }
 
         public void setOffset(int offset, int value, bool writeOnly = false)
@@ -501,12 +470,6 @@ namespace MobiFlight.FSUIPC
             }
 
             __cacheInt[offset].Value = value;
-            /*
-            //__cacheInt[offset].WriteOnly = true;
-            //__cacheIntWriteOnly.Add(offset);
-           // ForceUpdate();
-           // __cacheInt[offset].WriteOnly = false;
-           */
         }
 
         public void setOffset(int offset, string value)
@@ -518,12 +481,6 @@ namespace MobiFlight.FSUIPC
             }
 
             __cacheString[offset].Value = value;
-            /*
-            //__cacheString[offset].WriteOnly = true;
-            //__cacheStringWriteOnly.Add(offset);
-            //ForceUpdate();
-            //__cacheString[offset].WriteOnly = false;
-            */
         }
 
         public void executeMacro(string macroName, int paramValue)
@@ -532,6 +489,18 @@ namespace MobiFlight.FSUIPC
             __macroName.Value = macroName;
             try {
                 FSUIPCConnection.Process("macro");
+            }
+            catch (Exception e)
+            {
+                this.ConnectionLost(this, new EventArgs());
+                throw e;
+            }
+        }
+
+        public void setEventID(int eventID, int param)
+        {
+            try {
+                FSUIPCConnection.SendControlToFS(eventID, param);
             }
             catch (Exception e)
             {
@@ -561,18 +530,5 @@ namespace MobiFlight.FSUIPC
                 throw e;
             }
         }
-        /*
-        public void ClearReadOnlyCache()
-        {
-            foreach (int offset in __cacheByteWriteOnly) { __cacheByte[offset].WriteOnly = false; }
-            foreach (int offset in __cacheShortWriteOnly) { __cacheShort[offset].WriteOnly = false; }
-            foreach (int offset in __cacheIntWriteOnly) { __cacheInt[offset].WriteOnly = false; }
-            foreach (int offset in __cacheStringWriteOnly) { __cacheString[offset].WriteOnly = false; }
-            __cacheByteWriteOnly.Clear();
-            __cacheShortWriteOnly.Clear();
-            __cacheIntWriteOnly.Clear();
-            __cacheStringWriteOnly.Clear();
-        }
-        */
     }
 }
