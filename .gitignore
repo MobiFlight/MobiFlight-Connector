@@ -35,8 +35,8 @@
 /CmdMessenger/CommandMessenger/bin
 
 /CmdMessenger/CommandMessenger/obj
-/CmdMessenger/CommandMessenger.Transport.Serial/bin
-/CmdMessenger/CommandMessenger.Transport.Serial/obj
+/CmdMessenger/**/bin
+/CmdMessenger/**/obj
 /FirmwareSource/arduino-1.8.0
 /VersionInfo/bin
 
@@ -61,3 +61,6 @@
 /firmware/mobiflight_uno_1.9.1.hex
 /firmware/mobiflight_micro_1.9.1.hex
 /firmware/mobiflight_mega_1.9.1.hex
+
+/FirmwareSource/__backup
+/FirmwareSource/libraries/CmdMessenger/**/obj

@@ -1,4 +1,0 @@
-D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\bin\Release\CommandMessenger.dll
-D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\bin\Release\CommandMessenger.pdb
-D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\obj\x86\Release\CommandMessenger.dll
-D:\Projekte\MobiFlightFC\CmdMessenger\CommandMessenger\obj\x86\Release\CommandMessenger.pdb
