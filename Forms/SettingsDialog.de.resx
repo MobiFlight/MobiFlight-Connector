@@ -133,6 +133,9 @@
   <data name="offlineModeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>378, 80</value>
   </data>
+  <data name="logLevelComboBox.Items2" xml:space="preserve">
+    <value>Warn</value>
+  </data>
   <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 17</value>
   </data>
