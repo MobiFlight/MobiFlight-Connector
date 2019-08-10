@@ -113,7 +113,6 @@ namespace MobiFlight
         public void SetFsuipcInterval(int value)
         {
             timer.Interval = value;
-            fsuipcCache.SetReadLimitInMs(value); // -5 is because the timer is not very accurate
         }
 
         public void SetTestModeInterval(int value)

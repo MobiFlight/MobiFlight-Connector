@@ -11,7 +11,8 @@
     <RootNamespace>MobiFlight</RootNamespace>
     <AssemblyName>MFConnector</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>C:\Temp\MFConnector\</PublishUrl>
@@ -150,9 +151,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
     </Reference>
-    <Reference Include="FSUIPCClient, Version=2.0.4008.2, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\FSUIPCClient.dll</HintPath>
+    <Reference Include="FSUIPCClient, Version=3.1.11.313, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
+      <HintPath>packages\FSUIPCClientDLL.3.1.11\lib\net40\FSUIPCClient.dll</HintPath>
     </Reference>
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
@@ -587,6 +587,7 @@
     <None Include="firmware\mobiflight_uno_1_9_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="presets_jeehell.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
