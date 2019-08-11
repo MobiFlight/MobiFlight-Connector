@@ -472,6 +472,28 @@ namespace MobiFlight.FSUIPC
             __cacheInt[offset].Value = value;
         }
 
+        public void setOffset(int offset, float value)
+        {
+            if (!__cacheFloat.ContainsKey(offset))
+            {
+                __cacheFloat[offset] = new Offset<float>(offset);
+                _offsetsRegistered = true;
+            }
+
+            __cacheFloat[offset].Value = value;
+        }
+
+        public void setOffset(int offset, double value)
+        {
+            if (!__cacheDouble.ContainsKey(offset))
+            {
+                __cacheDouble[offset] = new Offset<double>(offset);
+                _offsetsRegistered = true;
+            }
+
+            __cacheDouble[offset].Value = value;
+        }
+
         public void setOffset(int offset, string value)
         {
             if (!__cacheString.ContainsKey(offset))

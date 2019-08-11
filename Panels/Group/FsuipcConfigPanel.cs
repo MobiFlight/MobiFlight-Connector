@@ -195,6 +195,9 @@ namespace MobiFlight.Panels.Group
                 {
                     ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, "4");
                 };
+
+                // mask doesn't make sense for floats
+                maskAndBcdPanel.Visible = false;
             }
             else if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.String.ToString())
             {

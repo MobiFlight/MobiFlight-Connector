@@ -190,21 +190,47 @@ namespace MobiFlight.InputConfig
             }
             else if (FSUIPCSize == 4)
             {
-                Int32 iValue = Int32.Parse(value);
-                if (FSUIPCMask != 0xFFFFFFFF)
+                if (FSUIPCOffsetType == FSUIPCOffsetType.Integer)
                 {
-                    Int32 cByte = (Int32)cache.getValue(FSUIPCOffset, FSUIPCSize);
-                    if (iValue == 1)
+                    Int32 iValue = Int32.Parse(value);
+                    if (FSUIPCMask != 0xFFFFFFFF)
                     {
-                        iValue = (Int32)(cByte | FSUIPCMask);
+                        Int32 cByte = (Int32)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                        if (iValue == 1)
+                        {
+                            iValue = (Int32)(cByte | FSUIPCMask);
+                        }
+                        else
+                        {
+                            iValue = (Int32)(cByte & ~FSUIPCMask);
+                        }
                     }
-                    else
-                    {
-                        iValue = (Int32)(cByte & ~FSUIPCMask);
-                    }
-                }
 
-                cache.setOffset(FSUIPCOffset, iValue);
+                    cache.setOffset(FSUIPCOffset, iValue);
+                }
+                else if (FSUIPCOffsetType == FSUIPCOffsetType.Float)
+                {
+                    float fValue = float.Parse(value);
+                    if (FSUIPCMask != 0xFFFFFFFF)
+                    {
+                        new Exception("Float Inputs don't accept masked values.");
+                    }
+
+                    cache.setOffset(FSUIPCOffset, fValue);
+                }
+            }
+            else if (FSUIPCSize == 8)
+            {
+                if (FSUIPCOffsetType == FSUIPCOffsetType.Float)
+                {
+                    double fValue = double.Parse(value);
+                    //if (FSUIPCMask != 0xFFFFFFFF)
+                    //{
+                    //    new Exception("Float Inputs don't accept masked values.");
+                    //}
+
+                    cache.setOffset(FSUIPCOffset, fValue);
+                }
             }
             else if (FSUIPCSize == 255)
             {

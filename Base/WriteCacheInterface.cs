@@ -13,6 +13,10 @@ namespace MobiFlight.Base
 
         void setOffset(int offset, int value, bool writeOnly = false);
 
+        void setOffset(int offset, float value);
+
+        void setOffset(int offset, double value);
+
         void setOffset(int offset, string value);
 
         void executeMacro(string macroName, int parameter);
