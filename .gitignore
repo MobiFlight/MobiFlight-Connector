@@ -64,3 +64,6 @@
 
 /FirmwareSource/__backup
 /FirmwareSource/libraries/CmdMessenger/**/obj
+/CmdMessenger/CmdMessenger/VisualBasic
+/CmdMessenger_bak/CmdMessenger/CSharp
+/FirmwareSource/libraries/CmdMessenger_
