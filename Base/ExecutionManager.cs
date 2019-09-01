@@ -563,12 +563,13 @@ namespace MobiFlight
         private ConnectorValue executeTransform(ConnectorValue value, OutputConfigItem cfg)
         {
             double tmpValue;
+            List<Tuple<string, string>> configRefs = GetRefs(cfg.ConfigRefs);
 
             switch (value.type)
             {
                 case FSUIPCOffsetType.Integer:
                     tmpValue = value.Int64;
-                    tmpValue = cfg.Transform.Apply(tmpValue);
+                    tmpValue = cfg.Transform.Apply(tmpValue, configRefs);
                     value.Int64 = (Int64)Math.Floor(tmpValue);
                     break;
 
@@ -579,7 +580,7 @@ namespace MobiFlight
                     break;*/
 
                 case FSUIPCOffsetType.Float:
-                    value.Float64 = Math.Floor(cfg.Transform.Apply(value.Float64));
+                    value.Float64 = Math.Floor(cfg.Transform.Apply(value.Float64, configRefs));
                     break;
 
                 case FSUIPCOffsetType.String:
@@ -592,6 +593,8 @@ namespace MobiFlight
         private string executeComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
         {
             string result = null;
+            List<Tuple<string, string>> configRefs = GetRefs(cfg.ConfigRefs);
+
             if (connectorValue.type == FSUIPCOffsetType.String)
             {
                 return _executeStringComparison(connectorValue, cfg);
@@ -644,6 +647,12 @@ namespace MobiFlight
             if (result.Contains("$"))
             {
                 result = result.Replace("$", value.ToString());
+
+                foreach (Tuple<string, string> configRef in configRefs)
+                {
+                    result = result.Replace(configRef.Item1, configRef.Item2);
+                }
+
                 var ce = new NCalc.Expression(result);
                 try
                 {

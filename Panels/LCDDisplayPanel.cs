@@ -16,6 +16,9 @@ namespace MobiFlight.Panels
         DataView dv;
         int Cols = 16;
         int Lines = 2;
+        static byte MAX_CONFIG_REFS = 6;
+        static string[] CONFIG_REFS_PLACEHOLDER = { "#", "§", "&", "?", "@", "^", "%" };
+
         public LCDDisplayPanel()
         {
             InitializeComponent();
@@ -31,12 +34,6 @@ namespace MobiFlight.Panels
 
             DisplayComboBox.Enabled = ports.Count > 0;
         }
-
-        public void SetConfigRefsDataView(DataView dv, String filterGuid)
-        {
-            this.dv = dv;
-            dv.RowFilter = "guid <> '" + filterGuid + "'";
-        }
         
         internal void syncFromConfig(OutputConfigItem config)
         {
@@ -51,29 +48,6 @@ namespace MobiFlight.Panels
             }
 
             lcdDisplayTextBox.Lines = config.LcdDisplay.Lines.ToArray();
-            configRefItemPanel.Controls.Clear();
-
-            foreach (ConfigRef configRef in config.ConfigRefs)
-            {
-                ConfigRefPanel p = new ConfigRefPanel();
-                p.SetDataView(dv);
-                p.syncFromConfig(configRef);
-
-                p.Dock = DockStyle.Top;
-                configRefItemPanel.Controls.Add(p);
-            }
-
-            string[] placeholder = { "#", "§", "&", "?" };
-
-            while (configRefItemPanel.Controls.Count < 4)
-            {
-                ConfigRefPanel p = new ConfigRefPanel();
-                p.SetDataView(dv);
-                p.SetPlaceholder(placeholder[configRefItemPanel.Controls.Count]);
-
-                p.Dock = DockStyle.Top;
-                configRefItemPanel.Controls.Add(p);
-            }
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
@@ -88,17 +62,6 @@ namespace MobiFlight.Panels
             {
                 config.LcdDisplay.Lines.Add(line);
             }
-
-            config.ConfigRefs.Clear();
-
-            // sync the config ref settings back to the config
-            foreach (ConfigRefPanel p in configRefItemPanel.Controls.OfType<ConfigRefPanel>())
-            {
-                ConfigRef configRef = new ConfigRef();
-                p.syncToConfig(configRef);
-                config.ConfigRefs.Add(configRef);
-            }
-
             return config;
         }
 

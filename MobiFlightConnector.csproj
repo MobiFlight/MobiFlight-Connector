@@ -407,6 +407,12 @@
     <Compile Include="Panels\Group\ConfigRefPanel.Designer.cs">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\Group\ConfigRefPanelItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Group\ConfigRefPanelItem.Designer.cs">
+      <DependentUpon>ConfigRefPanelItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\Group\FsuipcConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -619,6 +625,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\ConfigRefPanel.resx">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Group\ConfigRefPanelItem.de.resx">
+      <DependentUpon>ConfigRefPanelItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Group\ConfigRefPanelItem.resx">
+      <DependentUpon>ConfigRefPanelItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\FsuipcConfigPanel.de.resx">
       <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>

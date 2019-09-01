@@ -116,12 +116,13 @@ namespace MobiFlight.FSUIPC
         public static ConnectorValue executeTransform(ConnectorValue value, IFsuipcConfigItem cfg)
         {
             double tmpValue;
+            List<Tuple<string, string>> configRefs = new List<Tuple<string, string>>();
 
             switch (value.type)
             {
                 case FSUIPCOffsetType.Integer:
                     tmpValue = value.Int64;
-                    tmpValue = cfg.Transform.Apply(tmpValue);
+                    tmpValue = cfg.Transform.Apply(tmpValue, configRefs);
                     value.Int64 = (Int64)Math.Floor(tmpValue);
                     break;
 
@@ -132,7 +133,7 @@ namespace MobiFlight.FSUIPC
                     break;*/
 
                 case FSUIPCOffsetType.Float:
-                    value.Float64 = Math.Floor(cfg.Transform.Apply(value.Float64));
+                    value.Float64 = Math.Floor(cfg.Transform.Apply(value.Float64, configRefs));
                     break;
 
                 // nothing to do in case of string

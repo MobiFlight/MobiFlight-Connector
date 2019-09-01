@@ -132,6 +132,7 @@ namespace MobiFlight.InputConfig
             {
                 ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg, cache);
                 tmpValue = FSUIPC.FsuipcHelper.executeTransform(tmpValue, cfg);
+
                 Log.Instance.log("JeehellInputAction:Execute : Current value " + tmpValue.Int64.ToString(), LogSeverity.Debug);
 
                 String expression = value.Replace("$", tmpValue.Int64.ToString());

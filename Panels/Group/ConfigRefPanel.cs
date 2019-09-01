@@ -13,47 +13,63 @@ namespace MobiFlight.Panels.Group
     public partial class ConfigRefPanel : UserControl
     {
         DataView dv;
+        static byte MAX_CONFIG_REFS = 6;
+        static string[] CONFIG_REFS_PLACEHOLDER = { "#", "§", "?", "@", "A", "B", "C" };
 
         public ConfigRefPanel()
         {
             InitializeComponent();
-            comboBox1.Text = "select reference";
         }
 
-        public void SetDataView(DataView dv)
+        private void ConfigRefPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public void SetConfigRefsDataView(DataView dv, String filterGuid)
         {
             this.dv = dv;
-
-            comboBox1.DataSource = dv;
-            comboBox1.ValueMember = "guid";
-            comboBox1.DisplayMember = "description";
+            dv.RowFilter = "guid <> '" + filterGuid + "'";
         }
 
-        public void SetPlaceholder (String placeholder)
+        internal void syncFromConfig(OutputConfigItem config)
         {
-            textBox1.Text = placeholder;
-        }
+            configRefItemPanel.Controls.Clear();
 
-        internal void syncFromConfig(ConfigRef config)
-        {
-            checkBox1.Checked = config.Active;
-            try {
-                comboBox1.SelectedValue = config.Ref;
-            }
-            catch (Exception exc)
+            foreach (ConfigRef configRef in config.ConfigRefs)
             {
-                // precondition could not be loaded, reference not valid anymore
-                Log.Instance.log("ConfigRefPanel.syncFromConfig : Precondition could not be loaded, " + exc.Message, LogSeverity.Debug);
+                ConfigRefPanelItem p = new ConfigRefPanelItem();
+                p.SetDataView(dv);
+                p.syncFromConfig(configRef);
+
+                p.Dock = DockStyle.Top;
+                configRefItemPanel.Controls.Add(p);
             }
-            textBox1.Text = config.Placeholder;
+
+            while (configRefItemPanel.Controls.Count < dv.Count &&
+                   configRefItemPanel.Controls.Count < MAX_CONFIG_REFS)
+            {
+                ConfigRefPanelItem p = new ConfigRefPanelItem();
+                p.SetDataView(dv);
+                p.SetPlaceholder(CONFIG_REFS_PLACEHOLDER[configRefItemPanel.Controls.Count]);
+
+                p.Dock = DockStyle.Top;
+                configRefItemPanel.Controls.Add(p);
+            }
         }
 
-        internal ConfigRef syncToConfig(ConfigRef config)
+        internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
-            config.Active = checkBox1.Checked;
-            if (comboBox1.SelectedValue != null)
-                config.Ref = comboBox1.SelectedValue.ToString();
-            config.Placeholder = textBox1.Text;
+            config.ConfigRefs.Clear();
+
+            // sync the config ref settings back to the config
+            foreach (ConfigRefPanelItem p in configRefItemPanel.Controls.OfType<ConfigRefPanelItem>())
+            {
+                ConfigRef configRef = new ConfigRef();
+                p.syncToConfig(configRef);
+                config.ConfigRefs.Add(configRef);
+            }
+
             return config;
         }
     }

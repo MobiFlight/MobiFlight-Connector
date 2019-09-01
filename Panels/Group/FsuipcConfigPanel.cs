@@ -39,6 +39,8 @@ namespace MobiFlight.Panels.Group
             // only if we deal with inputs
             valuePanel.Visible = !OutputPanelMode;
 
+            AutoSize = true;
+
             if (!OutputPanelMode)
             {
                 PresetFile = Properties.Settings.Default.InputsPresetFile;

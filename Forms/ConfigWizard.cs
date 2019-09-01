@@ -33,7 +33,6 @@ namespace MobiFlight
         Panels.LCDDisplayPanel              displayLcdDisplayPanel      = new Panels.LCDDisplayPanel();
         Panels.ServoPanel                   servoPanel                  = new Panels.ServoPanel();
         Panels.StepperPanel                 stepperPanel                = new Panels.StepperPanel();
-        
 
         public ConfigWizard(ExecutionManager mainForm, 
                              OutputConfigItem cfg, 
@@ -211,7 +210,7 @@ namespace MobiFlight
                 preConditionTypeComboBox.SelectedIndex = 0;
             }
 
-            displayLcdDisplayPanel.SetConfigRefsDataView(dv, filterGuid);
+            configRefPanel.SetConfigRefsDataView(dv, filterGuid);
         }
 
         /// <summary>
@@ -346,6 +345,7 @@ namespace MobiFlight
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
         {
             fsuipcConfigPanel.syncFromConfig(config);
+            configRefPanel.syncFromConfig(config);
         }
 
         private void _addEmptyNodeToTreeView()
@@ -368,6 +368,7 @@ namespace MobiFlight
         protected bool _syncFormToConfig()
         {
             fsuipcConfigPanel.syncToConfig(config);
+            configRefPanel.syncToConfig(config);
 
             // comparison panel
             config.ComparisonActive = comparisonActiveCheckBox.Checked;

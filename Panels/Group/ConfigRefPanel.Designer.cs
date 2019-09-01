@@ -3,14 +3,14 @@
     partial class ConfigRefPanel
     {
         /// <summary> 
-        /// Erforderliche Designervariable.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
-        /// Verwendete Ressourcen bereinigen.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">True, wenn verwaltete Ressourcen gelöscht werden sollen; andernfalls False.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,66 +20,60 @@
             base.Dispose(disposing);
         }
 
-        #region Vom Komponenten-Designer generierter Code
+        #region Component Designer generated code
 
         /// <summary> 
-        /// Erforderliche Methode für die Designerunterstützung. 
-        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigRefPanel));
+            this.configRefItemPanel = new System.Windows.Forms.Panel();
+            this.configRefPanelItem4 = new MobiFlight.Panels.Group.ConfigRefPanelItem();
+            this.configRefPanelItem3 = new MobiFlight.Panels.Group.ConfigRefPanelItem();
+            this.configRefPanelItem2 = new MobiFlight.Panels.Group.ConfigRefPanelItem();
+            this.configRefPanelItem1 = new MobiFlight.Panels.Group.ConfigRefPanelItem();
+            this.configRefItemPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // textBox1
+            // configRefItemPanel
             // 
-            this.textBox1.Location = new System.Drawing.Point(196, 3);
-            this.textBox1.MaxLength = 1;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(27, 20);
-            this.textBox1.TabIndex = 18;
-            this.textBox1.Text = "$";
+            resources.ApplyResources(this.configRefItemPanel, "configRefItemPanel");
+            this.configRefItemPanel.Controls.Add(this.configRefPanelItem4);
+            this.configRefItemPanel.Controls.Add(this.configRefPanelItem3);
+            this.configRefItemPanel.Controls.Add(this.configRefPanelItem2);
+            this.configRefItemPanel.Controls.Add(this.configRefPanelItem1);
+            this.configRefItemPanel.Name = "configRefItemPanel";
             // 
-            // comboBox1
+            // configRefPanelItem4
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(48, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 17;
+            resources.ApplyResources(this.configRefPanelItem4, "configRefPanelItem4");
+            this.configRefPanelItem4.Name = "configRefPanelItem4";
             // 
-            // checkBox1
+            // configRefPanelItem3
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(5, 4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(43, 17);
-            this.checkBox1.TabIndex = 16;
-            this.checkBox1.Text = "use";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.configRefPanelItem3, "configRefPanelItem3");
+            this.configRefPanelItem3.Name = "configRefPanelItem3";
             // 
-            // label3
+            // configRefPanelItem2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(174, 5);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(18, 13);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "as";
+            resources.ApplyResources(this.configRefPanelItem2, "configRefPanelItem2");
+            this.configRefPanelItem2.Name = "configRefPanelItem2";
+            // 
+            // configRefPanelItem1
+            // 
+            resources.ApplyResources(this.configRefPanelItem1, "configRefPanelItem1");
+            this.configRefPanelItem1.Name = "configRefPanelItem1";
             // 
             // ConfigRefPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.configRefItemPanel);
             this.Name = "ConfigRefPanel";
-            this.Size = new System.Drawing.Size(239, 26);
+            this.Load += new System.EventHandler(this.ConfigRefPanel_Load);
+            this.configRefItemPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -87,9 +81,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel configRefItemPanel;
+        private ConfigRefPanelItem configRefPanelItem4;
+        private ConfigRefPanelItem configRefPanelItem3;
+        private ConfigRefPanelItem configRefPanelItem2;
+        private ConfigRefPanelItem configRefPanelItem1;
     }
 }
