@@ -46,8 +46,8 @@ namespace MobiFlight.Panels
                     Log.Instance.log("_syncConfigToForm : Exception on selecting item in LCD Address ComboBox", LogSeverity.Debug);
                 }
             }
-
-            lcdDisplayTextBox.Lines = config.LcdDisplay.Lines.ToArray();
+            if (config.LcdDisplay.Lines.Count > 0)
+                lcdDisplayTextBox.Lines = config.LcdDisplay.Lines.ToArray();
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)

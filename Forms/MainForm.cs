@@ -60,6 +60,10 @@ namespace MobiFlight
 #if MF_FORCE_EN
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
 #endif
+
+#if MF_FORCE_DE
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
+#endif
             InitializeComponent();
             UpgradeSettingsFromPreviousInstallation();
 

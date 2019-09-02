@@ -1085,7 +1085,9 @@ namespace MobiFlight
                     break;
 
                 case OutputConfig.LcdDisplay.Type:
-                    executeDisplay(new string (' ', 20 *4), cfg);
+                    offCfg.LcdDisplay.Lines.Clear();
+                    offCfg.LcdDisplay.Lines.Add(new string(' ', 20 * 4));
+                    executeDisplay(new string (' ', 20 *4), offCfg);
                     break;
 
                 default:

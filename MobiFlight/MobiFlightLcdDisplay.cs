@@ -88,7 +88,10 @@ namespace MobiFlight
                     {
                         cLine = _ApplyReplacement(cLine, rep.Item1[0], rep.Item2);
                     }
-                    result += cLine + new string(' ', Cols - (cLine.Length));
+
+                    if (cLine.Length > Cols) { cLine = cLine.Substring(0, Cols); }
+
+                    result += cLine + new string(' ', Cols - cLine.Length);
                 } else
                 {
                     result += new string(' ', Cols);
