@@ -1155,11 +1155,12 @@ namespace MobiFlight
             // no config for this button found
             if (inputCache[inputKey].Count == 0)
             {
-                Log.Instance.log("No config found for button: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
+       
+                Log.Instance.log("No config found for "+ e.Type +": " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
 
-            Log.Instance.log("Config found for button: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
+            Log.Instance.log("Config found for " + e.Type + ": " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
 
             ConnectorValue currentValue = new ConnectorValue();
 
