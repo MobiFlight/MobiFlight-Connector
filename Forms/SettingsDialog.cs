@@ -113,7 +113,7 @@ namespace MobiFlight
             languageComboBox.Items.Clear();
 
             List<ListItem> languageOptions = new List<ListItem>();
-            languageOptions.Add(new ListItem() { Value = "", Label = "System Settings" });
+            languageOptions.Add(new ListItem() { Value = "", Label = "System Default" });
             languageOptions.Add(new ListItem() { Value = "en-US", Label = "English" });
             languageOptions.Add(new ListItem() { Value = "de-DE", Label = "Deutsch" });
 
