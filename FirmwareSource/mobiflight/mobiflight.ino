@@ -8,7 +8,7 @@ char foo;
   #include <Arduino.h>
 #endif
 
-//#define DEBUG 0
+//#define DEBUG 1
 #define MTYPE_MEGA 1
 #define MTYPE_MICRO 2
 #define MTYPE_UNO 3
@@ -24,7 +24,6 @@ char foo;
 #else
   #error
 #endif
-
 
 #if MODULETYPE == MTYPE_MEGA
 #define MODULE_MAX_PINS 58
@@ -112,7 +111,8 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.8.0 : added support for LCDs
 // 1.9.0 : Support for rotary encoders with different detent configurations
 // 1.9.1 : Set "lastCommand" for LCD output command
-const char version[8] = "1.9.1";
+// 1.9.2 : Fixed problems with long button and encoder names
+const char version[8] = "1.9.2";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
@@ -240,7 +240,7 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kResetBoard, OnResetBoard);
   cmdMessenger.attach(kSetLcdDisplayI2C, OnSetLcdDisplayI2C);  
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Attached callbacks");
+  cmdMessenger.sendCmd(kStatus,F("Attached callbacks"));
 #endif  
 
 }
@@ -282,7 +282,7 @@ void loadConfig()
   resetConfig();
   EEPROM.readBlock<char>(MEM_OFFSET_CONFIG, configBuffer, MEM_LEN_CONFIG);  
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus, "Restored config");
+  cmdMessenger.sendCmd(kStatus, F("Restored config"));
   cmdMessenger.sendCmd(kStatus, configBuffer);  
 #endif
   for(configLength=0;configLength!=MEM_LEN_CONFIG;configLength++) {
@@ -305,9 +305,9 @@ void SetPowerSavingMode(bool state)
   PowerSaveLedSegment(state);
 #ifdef DEBUG  
   if (state)
-    cmdMessenger.sendCmd(kStatus, "On");
+    cmdMessenger.sendCmd(kStatus, F("On"));
   else
-    cmdMessenger.sendCmd(kStatus, "Off");    
+    cmdMessenger.sendCmd(kStatus, F("Off"));    
 #endif
   //PowerSaveOutputs(state);
 }
@@ -367,7 +367,7 @@ void clearRegisteredPins() {
 }
 
 //// OUTPUT /////
-void AddOutput(uint8_t pin = 1, String name = "Output")
+void AddOutput(uint8_t pin = 1, char * name = "Output")
 {
   if (outputsRegistered == MAX_OUTPUTS) return;
   if (isPinRegistered(pin)) return;
@@ -376,7 +376,7 @@ void AddOutput(uint8_t pin = 1, String name = "Output")
   registerPin(pin, kTypeOutput);
   outputsRegistered++;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus, "Added output " + name);
+  cmdMessenger.sendCmd(kStatus, F("Added output"));
 #endif  
 }
 
@@ -385,12 +385,12 @@ void ClearOutputs()
   clearRegisteredPins(kTypeOutput);
   outputsRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Cleared outputs");
+  cmdMessenger.sendCmd(kStatus,F("Cleared outputs"));
 #endif  
 }
 
 //// BUTTONS /////
-void AddButton(uint8_t pin = 1, String name = "Button")
+void AddButton(uint8_t pin = 1, char * name = "Button")
 {  
   if (buttonsRegistered == MAX_BUTTONS) return;
   
@@ -403,7 +403,7 @@ void AddButton(uint8_t pin = 1, String name = "Button")
   registerPin(pin, kTypeButton);
   buttonsRegistered++;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus, "Added button " + name);
+  cmdMessenger.sendCmd(kStatus, F("Added button ")/* + name */);
 #endif
 }
 
@@ -412,12 +412,12 @@ void ClearButtons()
   clearRegisteredPins(kTypeButton);
   buttonsRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Cleared buttons");
+  cmdMessenger.sendCmd(kStatus,F("Cleared buttons"));
 #endif  
 }
 
 //// ENCODERS /////
-void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, String name = "Encoder")
+void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, char * name = "Encoder")
 {  
   if (encodersRegistered == MAX_ENCODERS) return;
   if (isPinRegistered(pin1) || isPinRegistered(pin2)) return;
@@ -432,7 +432,7 @@ void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, St
   registerPin(pin1, kTypeEncoder); registerPin(pin2, kTypeEncoder);    
   encodersRegistered++;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Added encoder");
+  cmdMessenger.sendCmd(kStatus,F("Added encoder"));
 #endif
 }
 
@@ -441,7 +441,7 @@ void ClearEncoders()
   clearRegisteredPins(kTypeEncoder);
   encodersRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Cleared encoders");
+  cmdMessenger.sendCmd(kStatus,F("Cleared encoders"));
 #endif  
 }
 
@@ -461,7 +461,7 @@ void AddLedSegment(int dataPin, int csPin, int clkPin, int numDevices, int brigh
   registerPin(clkPin, kTypeLedSegment);
   ledSegmentsRegistered++;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Added Led Segment");
+  cmdMessenger.sendCmd(kStatus,F("Added Led Segment"));
 #endif  
 }
 
@@ -473,7 +473,7 @@ void ClearLedSegments()
   }
   ledSegmentsRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus, "Cleared segments");
+  cmdMessenger.sendCmd(kStatus, F("Cleared segments"));
 #endif  
 }
 
@@ -493,7 +493,7 @@ void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
   if (steppersRegistered == MAX_STEPPERS) return;
   if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4) /* || isPinRegistered(btnPin1) */) {
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Conflict with stepper");
+  cmdMessenger.sendCmd(kStatus,F("Conflict with stepper"));
 #endif 
     return;
   }
@@ -506,7 +506,7 @@ void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
   steppersRegistered++;
   
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Added stepper");
+  cmdMessenger.sendCmd(kStatus,F("Added stepper"));
 #endif 
 }
 
@@ -519,7 +519,7 @@ void ClearSteppers()
   clearRegisteredPins(kTypeStepper);
   steppersRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Cleared steppers");
+  cmdMessenger.sendCmd(kStatus,F("Cleared steppers"));
 #endif 
 }
 
@@ -543,18 +543,18 @@ void ClearServos()
   clearRegisteredPins(kTypeServo);
   servosRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Cleared servos");
+  cmdMessenger.sendCmd(kStatus,F("Cleared servos"));
 #endif 
 }
 
 //// LCD Display /////
-void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2, String name = "LCD")
+void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2, char * name = "LCD")
 {  
   if (lcd_12cRegistered == MAX_MFLCD_I2C) return;
   lcd_I2C[lcd_12cRegistered].attach(address, cols, lines);
   lcd_12cRegistered++;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Added lcdDisplay");
+  cmdMessenger.sendCmd(kStatus,F("Added lcdDisplay"));
 #endif
 }
 
@@ -567,13 +567,13 @@ void ClearLcdDisplays()
   
   lcd_12cRegistered = 0;
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Cleared lcdDisplays");
+  cmdMessenger.sendCmd(kStatus,F("Cleared lcdDisplays"));
 #endif 
 }
   
 
 //// EVENT HANDLER /////
-void handlerOnRelease(byte eventId, uint8_t pin, String name)
+void handlerOnRelease(byte eventId, uint8_t pin, char * name)
 {
   cmdMessenger.sendCmdStart(kButtonChange);
   cmdMessenger.sendCmdArg(name);
@@ -582,7 +582,7 @@ void handlerOnRelease(byte eventId, uint8_t pin, String name)
 };
 
 //// EVENT HANDLER /////
-void handlerOnEncoder(byte eventId, uint8_t pin, String name)
+void handlerOnEncoder(byte eventId, uint8_t pin, char * name)
 {
   cmdMessenger.sendCmdStart(kEncoderChange);
   cmdMessenger.sendCmdArg(name);
@@ -596,7 +596,7 @@ void handlerOnEncoder(byte eventId, uint8_t pin, String name)
 void OnSetConfig() 
 {
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Setting config start");
+  cmdMessenger.sendCmd(kStatus,F("Setting config start"));
 #endif    
 
   lastCommand = millis();
@@ -611,7 +611,7 @@ void OnSetConfig()
   } else
     cmdMessenger.sendCmd(kStatus,-1);  
 #ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,"Setting config end");
+  cmdMessenger.sendCmd(kStatus,F("Setting config end"));
 #endif
 }
 
@@ -631,20 +631,20 @@ void resetConfig()
 void OnResetConfig()
 {
   resetConfig();
-  cmdMessenger.sendCmd(kStatus, "OK");
+  cmdMessenger.sendCmd(kStatus, F("OK"));
 }
 
 void OnSaveConfig()
 {
   _storeConfig();
-  cmdMessenger.sendCmd(kConfigSaved, "OK");
+  cmdMessenger.sendCmd(kConfigSaved, F("OK"));
 }
 
 void OnActivateConfig() 
 {
   readConfig(configBuffer);
   _activateConfig();
-  cmdMessenger.sendCmd(kConfigActivated, "OK");
+  cmdMessenger.sendCmd(kConfigActivated, F("OK"));
 }
 
 void _activateConfig() {
@@ -742,7 +742,7 @@ void readConfig(String cfg) {
 void OnUnknownCommand()
 {
   lastCommand = millis();
-  cmdMessenger.sendCmd(kStatus,"n/a");
+  cmdMessenger.sendCmd(kStatus,F("n/a"));
 }
 
 void OnGetInfo() {

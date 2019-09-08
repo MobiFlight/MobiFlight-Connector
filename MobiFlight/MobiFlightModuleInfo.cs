@@ -27,14 +27,14 @@ namespace MobiFlight
         // correct chunk sizes for messages
         // to the arduino boards
         public const int MESSAGE_MAX_SIZE_MICRO = 64;
-        public const int MESSAGE_MAX_SIZE_UNO = 64;
+        public const int MESSAGE_MAX_SIZE_UNO = 32;
         public const int MESSAGE_MAX_SIZE_MEGA = 64;
 
         // this is used to check for 
         // maximum config length and
         // alert the user in the UI if exceeded
-        public const int EEPROM_SIZE_MICRO = 128;
-        public const int EEPROM_SIZE_UNO = 128;
+        public const int EEPROM_SIZE_MICRO = 256;
+        public const int EEPROM_SIZE_UNO = 256;
         public const int EEPROM_SIZE_MEGA = 1024;
 
         // this is not yet used
@@ -81,9 +81,9 @@ namespace MobiFlight
         };
 
         public static readonly String[] VIDPID_UNO = {
-            //"VID_1A86&PID_7523",
+            //"VID_1A86&PID_7523", // this is actually an CH-340 and can be a Mega OR an UNO
             "VID_2341&PID_0043",
-            "VID_2A03&PID_0043" // https://www.mobiflight.com/forum/topic/680.html
+            "VID_2A03&PID_0043"  // https://www.mobiflight.com/forum/topic/680.html
         };
 
         public static readonly String[] VIDPID_MEGA = {

@@ -156,8 +156,13 @@ namespace MobiFlight
                                 if (MobiFlightModuleInfo.VIDPID_MICRO.Contains(VidPid)) ArduinoType = MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
                                 else if (MobiFlightModuleInfo.VIDPID_UNO.Contains(VidPid)) ArduinoType = MobiFlightModuleInfo.TYPE_ARDUINO_UNO;
 
-                                result.Add(new Tuple<string, string>(portName, ArduinoType));
-                                Log.Instance.log("Found potentially compatible module " + ArduinoType + " by VID/PID: " + VidPid + "@" + portName, LogSeverity.Debug);
+                                if (result.Exists(x => x.Item1 == portName))
+                                {
+                                    Log.Instance.log("Duplicate Entry for Port: " + ArduinoType + " by VID/PID: " + VidPid + "@" + portName, LogSeverity.Debug);
+                                } else { 
+                                    result.Add(new Tuple<string, string>(portName, ArduinoType));
+                                    Log.Instance.log("Found potentially compatible module " + ArduinoType + " by VID/PID: " + VidPid + "@" + portName, LogSeverity.Debug);
+                                }
                             }
                             continue;
                         }

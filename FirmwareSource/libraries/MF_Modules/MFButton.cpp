@@ -4,7 +4,7 @@
 
 #include "MFButton.h"
 
-MFButton::MFButton(uint8_t pin, String name)
+MFButton::MFButton(uint8_t pin, char * name)
 {   
   _pin  = pin;
   _name = name;

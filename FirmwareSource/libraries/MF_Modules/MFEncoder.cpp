@@ -8,7 +8,7 @@ MFEncoder::MFEncoder() : _encoder() {
   _initialized = false;
 }
 
-void MFEncoder::attach(uint8_t pin1, uint8_t pin2, uint8_t encoder_type, String name)
+void MFEncoder::attach(uint8_t pin1, uint8_t pin2, uint8_t encoder_type, char * name)
 {
   _pos   = 0;  
   _name  = name;

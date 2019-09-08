@@ -54,17 +54,17 @@ void MFLCDDisplay::test() {
   for(byte c=0;c!=((_cols-10)/2);c++) {
     _lcdDisplay->print(" ");
   }
-  _lcdDisplay->print("Mobiflight");
+  _lcdDisplay->print(F("Mobiflight"));
   for(byte c=0;c!=((_cols-10)/2);c++) {
-    _lcdDisplay->print(" ");
+    _lcdDisplay->print(F(" "));
   }
   _lcdDisplay->setCursor(0, (_lines/2));
   for(byte c=0;c!=((_cols-6)/2);c++) {
-    _lcdDisplay->print(" ");
+    _lcdDisplay->print(F(" "));
   }
-  _lcdDisplay->print("Rocks!");
+  _lcdDisplay->print(F("Rocks!"));
   for(byte c=0;c!=((_cols-6)/2);c++) {
-    _lcdDisplay->print(" ");
+    _lcdDisplay->print(F(" "));
   }
   _lcdDisplay->setCursor(0, 0);
 }

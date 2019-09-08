@@ -24,7 +24,7 @@
 
 extern "C"
 {
-  typedef void (*encoderEvent) (byte, uint8_t, const String);
+  typedef void (*encoderEvent) (byte, uint8_t, const char *);
 };
 
 #define MF_ENC_MIN -2147483647
@@ -44,7 +44,7 @@ class MFEncoder
 {
 public:
     MFEncoder();
-	void attach(uint8_t pin1, uint8_t pin2, uint8_t encoder_type, String name = "Encoder");
+	void attach(uint8_t pin1, uint8_t pin2, uint8_t encoder_type, char * name = "Encoder");
     void update();
     void attachHandler(byte eventId, encoderEvent newHandler);
     
@@ -52,8 +52,8 @@ private:
     uint8_t                   _pin1;              
     uint8_t                   _pin2;
     bool                      _initialized;
-    RotaryEncoder 		      _encoder;
-    String                    _name;
+    RotaryEncoder  		        _encoder;
+    char *                    _name;
     long                      _pos;
     encoderEvent              _handlerList[4];
 };
