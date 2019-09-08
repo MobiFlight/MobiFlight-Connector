@@ -110,9 +110,10 @@ const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 // 1.7.3 : Servo behaviour improved, fixed stepper bug #178, increased number of buttons per module (MEGA)
 // 1.8.0 : added support for LCDs
 // 1.9.0 : Support for rotary encoders with different detent configurations
-// 1.9.1 : Set "lastCommand" for LCD output command
-// 1.9.2 : Fixed problems with long button and encoder names
-const char version[8] = "1.9.2";
+// 1.9.1 : Set "lastCommand" for LCD output command, 
+//         Fixed problems with long button and encoder names
+//         Memory optimization
+const char version[8] = "1.9.1";
 
 #if MODULETYPE == MTYPE_MEGA
 char type[20]                = "MobiFlight Mega";
