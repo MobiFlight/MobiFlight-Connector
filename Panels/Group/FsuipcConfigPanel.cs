@@ -268,6 +268,19 @@ namespace MobiFlight.Panels.Group
             // substring panel
             SubStringFromTextBox.Text = config.Transform.SubStrStart.ToString();
             SubStringToTextBox.Text = config.Transform.SubStrEnd.ToString();
+
+            foreach (DataRow row in presetDataTable.Rows)
+            {
+                if ((row["settings"] as IFsuipcConfigItem).FSUIPCOffset == config.FSUIPCOffset &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPCOffsetType == config.FSUIPCOffsetType &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPCSize == config.FSUIPCSize &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPCMask == config.FSUIPCMask &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPCBcdMode == config.FSUIPCBcdMode
+                    ) {
+                    fsuipcPresetComboBox.SelectedText = row["description"].ToString();
+                    break;
+                }
+            }
         }
 
         internal void syncToConfig(IFsuipcConfigItem config)

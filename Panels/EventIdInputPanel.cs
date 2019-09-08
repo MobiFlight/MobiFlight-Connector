@@ -84,6 +84,15 @@ namespace MobiFlight.Panels
             if (eventIdInputAction == null) return;
             eventIdTextBox.Text = eventIdInputAction.EventId.ToString();
             paramTextBox.Text = eventIdInputAction.Param.ToString();
+
+            foreach (DataRow row in Data.Rows)
+            {
+                if (row["EventID"] as String == eventIdInputAction.EventId.ToString())
+                {
+                    fsuipcPresetComboBox.Text = row["Label"].ToString();
+                    break;
+                }
+            }
         }
 
         internal InputConfig.InputAction ToConfig()
