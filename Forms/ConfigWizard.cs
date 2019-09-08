@@ -211,6 +211,8 @@ namespace MobiFlight
             }
 
             configRefPanel.SetConfigRefsDataView(dv, filterGuid);
+            if (dv.Count != 0)
+                noRefConfigsAvailableLabel.Visible = false;
         }
 
         /// <summary>

@@ -17,16 +17,16 @@ namespace MobiFlight.Panels.Group
         public ConfigRefPanelItem()
         {
             InitializeComponent();
-            comboBox1.Text = "select reference";
+            configRefComboBox.Text = "Select reference";
         }
 
         public void SetDataView(DataView dv)
         {
             this.dv = dv;
 
-            comboBox1.DataSource = dv;
-            comboBox1.ValueMember = "guid";
-            comboBox1.DisplayMember = "description";
+            configRefComboBox.DataSource = dv;
+            configRefComboBox.ValueMember = "guid";
+            configRefComboBox.DisplayMember = "description";
         }
 
         public void SetPlaceholder (String placeholder)
@@ -38,7 +38,25 @@ namespace MobiFlight.Panels.Group
         {
             checkBox1.Checked = config.Active;
             try {
-                comboBox1.SelectedValue = config.Ref;
+                // if we have a null value, it might have happened
+                // that we use to have a reference that got deleted
+                // and the dialog was loaded and saved again.
+                // then the Ref will be null.
+                // in this case we don't preselect an item but we also
+                // dont ignore the config entirely.
+                if (config.Ref == null)
+                {
+                    configRefComboBox.SelectedIndex = -1;
+                    configRefComboBox.Text = "Select reference";
+                    errorProvider1.SetError(configRefComboBox, "No valid reference");
+                }
+                else 
+                    configRefComboBox.SelectedValue = config.Ref;
+
+                if (configRefComboBox.SelectedValue == null)
+                {
+                    configRefComboBox.Text = "Select reference";
+                };
             }
             catch (Exception exc)
             {
@@ -51,8 +69,8 @@ namespace MobiFlight.Panels.Group
         internal ConfigRef syncToConfig(ConfigRef config)
         {
             config.Active = checkBox1.Checked;
-            if (comboBox1.SelectedValue != null)
-                config.Ref = comboBox1.SelectedValue.ToString();
+            if (configRefComboBox.SelectedValue != null)
+                config.Ref = configRefComboBox.SelectedValue.ToString();
             config.Placeholder = textBox1.Text;
             return config;
         }

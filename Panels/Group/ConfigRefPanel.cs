@@ -50,8 +50,14 @@ namespace MobiFlight.Panels.Group
                    configRefItemPanel.Controls.Count < MAX_CONFIG_REFS)
             {
                 ConfigRefPanelItem p = new ConfigRefPanelItem();
+                int SelectedIndex = 0;
+                SelectedIndex = (dv.Count > MAX_CONFIG_REFS) ? 
+                                (MAX_CONFIG_REFS - configRefItemPanel.Controls.Count) - 1: 
+                                (dv.Count - configRefItemPanel.Controls.Count) - 1;
+
                 p.SetDataView(dv);
-                p.SetPlaceholder(CONFIG_REFS_PLACEHOLDER[configRefItemPanel.Controls.Count]);
+                p.SetPlaceholder(CONFIG_REFS_PLACEHOLDER[SelectedIndex]);
+                p.configRefComboBox.SelectedIndex = SelectedIndex;
 
                 p.Dock = DockStyle.Top;
                 configRefItemPanel.Controls.Add(p);
