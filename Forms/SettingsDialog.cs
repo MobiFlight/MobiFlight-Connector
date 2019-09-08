@@ -110,6 +110,18 @@ namespace MobiFlight
             addStepperToolStripMenuItem.Visible = stepperToolStripMenuItem.Visible = StepperSupport;
             addServoToolStripMenuItem.Visible = servoToolStripMenuItem.Visible = ServoSupport;
 
+            languageComboBox.Items.Clear();
+
+            List<ListItem> languageOptions = new List<ListItem>();
+            languageOptions.Add(new ListItem() { Value = "", Label = "System Settings" });
+            languageOptions.Add(new ListItem() { Value = "en-US", Label = "English" });
+            languageOptions.Add(new ListItem() { Value = "de-DE", Label = "Deutsch" });
+
+            languageComboBox.DataSource = languageOptions;
+            languageComboBox.DisplayMember = "Label";
+            languageComboBox.ValueMember = "Value";
+            languageComboBox.SelectedIndex = 0;
+
             loadSettings();
 
 #if MOBIFLIGHT
@@ -128,7 +140,7 @@ namespace MobiFlight
 
         
         /// <summary>
-        /// Load all settings for each tabns
+        /// Load all settings for each tab
         /// </summary>
         private void loadSettings ()
         {            
@@ -153,6 +165,9 @@ namespace MobiFlight
             // Offline Mode
             offlineModeCheckBox.Checked = Properties.Settings.Default.OfflineMode;
 
+            // System Language
+            languageComboBox.SelectedValue = Properties.Settings.Default.Language;
+            
             //
             // TAB Arcaze
             //
@@ -312,6 +327,8 @@ namespace MobiFlight
 
             // Offline Mode
             Properties.Settings.Default.OfflineMode = offlineModeCheckBox.Checked;
+
+            Properties.Settings.Default.Language = languageComboBox.SelectedValue.ToString();
 
             // MobiFlight Tab
             // only the Firmware Auto Check Update needs to be synchronized 

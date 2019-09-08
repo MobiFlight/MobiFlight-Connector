@@ -67,6 +67,9 @@
             this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.languageGroupBox = new System.Windows.Forms.GroupBox();
+            this.languageComboBox = new System.Windows.Forms.ComboBox();
+            this.languageLabel = new System.Windows.Forms.Label();
             this.offlineModeGroupBox = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.offlineModeCheckBox = new System.Windows.Forms.CheckBox();
@@ -122,6 +125,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -130,6 +134,7 @@
             this.arcazeModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.generalTabPage.SuspendLayout();
+            this.languageGroupBox.SuspendLayout();
             this.offlineModeGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
             this.testModeSpeedGroupBox.SuspendLayout();
@@ -423,12 +428,37 @@
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.generalTabPage.Controls.Add(this.languageGroupBox);
             this.generalTabPage.Controls.Add(this.offlineModeGroupBox);
             this.generalTabPage.Controls.Add(this.debugGroupBox);
             this.generalTabPage.Controls.Add(this.testModeSpeedGroupBox);
             this.generalTabPage.Controls.Add(this.recentFilesGroupBox);
             resources.ApplyResources(this.generalTabPage, "generalTabPage");
             this.generalTabPage.Name = "generalTabPage";
+            // 
+            // languageGroupBox
+            // 
+            this.languageGroupBox.Controls.Add(this.label9);
+            this.languageGroupBox.Controls.Add(this.languageComboBox);
+            this.languageGroupBox.Controls.Add(this.languageLabel);
+            resources.ApplyResources(this.languageGroupBox, "languageGroupBox");
+            this.languageGroupBox.Name = "languageGroupBox";
+            this.languageGroupBox.TabStop = false;
+            // 
+            // languageComboBox
+            // 
+            this.languageComboBox.FormattingEnabled = true;
+            this.languageComboBox.Items.AddRange(new object[] {
+            resources.GetString("languageComboBox.Items"),
+            resources.GetString("languageComboBox.Items1"),
+            resources.GetString("languageComboBox.Items2")});
+            resources.ApplyResources(this.languageComboBox, "languageComboBox");
+            this.languageComboBox.Name = "languageComboBox";
+            // 
+            // languageLabel
+            // 
+            resources.ApplyResources(this.languageLabel, "languageLabel");
+            this.languageLabel.Name = "languageLabel";
             // 
             // offlineModeGroupBox
             // 
@@ -807,6 +837,11 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -826,6 +861,8 @@
             this.arcazeModulesGroupBox.ResumeLayout(false);
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
             this.generalTabPage.ResumeLayout(false);
+            this.languageGroupBox.ResumeLayout(false);
+            this.languageGroupBox.PerformLayout();
             this.offlineModeGroupBox.ResumeLayout(false);
             this.offlineModeGroupBox.PerformLayout();
             this.debugGroupBox.ResumeLayout(false);
@@ -947,5 +984,9 @@
         private System.Windows.Forms.GroupBox offlineModeGroupBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox offlineModeCheckBox;
+        private System.Windows.Forms.GroupBox languageGroupBox;
+        private System.Windows.Forms.ComboBox languageComboBox;
+        private System.Windows.Forms.Label languageLabel;
+        private System.Windows.Forms.Label label9;
     }
 }

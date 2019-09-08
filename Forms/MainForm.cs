@@ -64,6 +64,11 @@ namespace MobiFlight
 #if MF_FORCE_DE
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
 #endif
+            if (Properties.Settings.Default.Language != "")
+            {
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
+            }
+
             InitializeComponent();
             UpgradeSettingsFromPreviousInstallation();
 

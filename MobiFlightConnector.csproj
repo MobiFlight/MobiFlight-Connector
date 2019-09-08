@@ -580,6 +580,9 @@
     <None Include="firmware\mobiflight_mega_1_9_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_mega_1_9_1.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_micro_1_7_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -593,6 +596,9 @@
     <None Include="firmware\mobiflight_micro_1_9_0.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_micro_1_9_1.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_uno_1_7_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -604,6 +610,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_uno_1_9_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_uno_1_9_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
