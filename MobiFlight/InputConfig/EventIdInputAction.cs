@@ -41,7 +41,7 @@ namespace MobiFlight.InputConfig
 
         public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
         {
-            (cache as MobiFlight.FSUIPC.Fsuipc2Cache).setEventID(EventId, Param);
+            (cache as MobiFlight.FSUIPC.FSUIPCCacheInterface).setEventID(EventId, Param);
         }
     }
 }

@@ -21,6 +21,8 @@ namespace MobiFlight.Base
 
         void executeMacro(string macroName, int parameter);
 
+        void setEventID(int eventID, int param);
+
         void Write();
     }
 }

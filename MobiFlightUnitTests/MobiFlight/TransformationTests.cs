@@ -17,16 +17,18 @@ namespace MobiFlight.Tests
         public void ApplyTest()
         {
             Transformation t = new Transformation();
+            List<Tuple<string, string>> configRefs = new List<Tuple<string, string>>();
+
             t.Expression = "$*0.5";
-            Assert.AreEqual(1, t.Apply(1));
+            Assert.AreEqual(1, t.Apply(1, configRefs));
             t.Active = true;
-            Assert.AreEqual(0.5, t.Apply(1));
+            Assert.AreEqual(0.5, t.Apply(1, configRefs));
             t.Expression = "$*2";
-            Assert.AreEqual(2.0, t.Apply(1));
+            Assert.AreEqual(2.0, t.Apply(1, configRefs));
             t.Expression = "$*2";
-            Assert.AreEqual(2.4, t.Apply(1.2));
+            Assert.AreEqual(2.4, t.Apply(1.2, configRefs));
             t.Expression = "$*2.0";
-            Assert.AreEqual(2.0, t.Apply(1));
+            Assert.AreEqual(2.0, t.Apply(1, configRefs));
 
             // test the substring stuff
             t.SubStrStart = 1;
