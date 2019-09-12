@@ -39,7 +39,7 @@ namespace MobiFlight.Panels.Group
             // only if we deal with inputs
             valuePanel.Visible = !OutputPanelMode;
 
-            AutoSize = true;
+            AutoSize = isOutputPanel;
 
             if (!OutputPanelMode)
             {
