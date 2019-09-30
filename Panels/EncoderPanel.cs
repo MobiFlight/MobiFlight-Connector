@@ -81,6 +81,18 @@ namespace MobiFlight.Panels
                         (panel as Panels.EventIdInputPanel).syncFromConfig(_config.onRightFast as EventIdInputAction);
                     break;
 
+                case PmdgEventIdInputAction.Label:
+                    panel = new PmdgEventIdInputPanel(PmdgEventIdInputPanel.AircraftType.B737);
+                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
+                        (panel as Panels.PmdgEventIdInputPanel).syncFromConfig(_config.onLeft as PmdgEventIdInputAction);
+                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
+                        (panel as Panels.PmdgEventIdInputPanel).syncFromConfig(_config.onLeftFast as PmdgEventIdInputAction);
+                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
+                        (panel as Panels.PmdgEventIdInputPanel).syncFromConfig(_config.onRight as PmdgEventIdInputAction);
+                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
+                        (panel as Panels.PmdgEventIdInputPanel).syncFromConfig(_config.onRightFast as PmdgEventIdInputAction);
+                    break;
+
                 case "Jeehell DataPipe":
                     panel = new JeehellInputPanel();
                     if (isLeft && !isFast && _config != null && _config.onLeft != null)
@@ -170,6 +182,9 @@ namespace MobiFlight.Panels
                     case "Event ID":
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
+                    case PmdgEventIdInputAction.Label:
+                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
+                        break;
                     case "Jeehell DataPipe":
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
@@ -198,6 +213,9 @@ namespace MobiFlight.Panels
                         break;
                     case "Event ID":
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
+                        break;
+                    case PmdgEventIdInputAction.Label:
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
                         break;
                     case "Jeehell DataPipe":
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
@@ -228,6 +246,9 @@ namespace MobiFlight.Panels
                     case "Event ID":
                         config.onRight = (onRightActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
+                    case PmdgEventIdInputAction.Label:
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
+                        break;
                     case "Jeehell DataPipe":
                         config.onRight = (onRightActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
@@ -255,6 +276,9 @@ namespace MobiFlight.Panels
                         break;
                     case "Event ID":
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
+                        break;
+                    case PmdgEventIdInputAction.Label:
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
                         break;
                     case "Jeehell DataPipe":
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();

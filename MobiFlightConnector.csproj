@@ -223,6 +223,7 @@
       <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\BooleanConverterConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\PmdgEventIdInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\RetriggerInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VJoyInputAction.cs" />
     <Compile Include="MobiFlight\KeyboardInputInterface.cs" />
@@ -413,6 +414,12 @@
     </Compile>
     <Compile Include="Panels\ButtonPanel.Designer.cs">
       <DependentUpon>ButtonPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PmdgEventIdInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PmdgEventIdInputPanel.Designer.cs">
+      <DependentUpon>PmdgEventIdInputPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\Group\ConfigRefPanel.cs">
       <SubType>UserControl</SubType>
@@ -616,6 +623,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="presets_eventids_pmdg_737.cip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="presets_eventids_pmdg_777.cip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="presets_jeehell.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -644,6 +657,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Panels\MFLcdDisplayPanel.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PmdgEventIdInputPanel.de.resx">
+      <DependentUpon>PmdgEventIdInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PmdgEventIdInputPanel.resx">
+      <DependentUpon>PmdgEventIdInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\ConfigRefPanel.resx">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>

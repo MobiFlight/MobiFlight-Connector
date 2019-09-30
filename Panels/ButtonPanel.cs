@@ -65,6 +65,16 @@ namespace MobiFlight.Panels
   
                     break;
 
+
+                case MobiFlight.InputConfig.PmdgEventIdInputAction.Label:
+                    panel = new PmdgEventIdInputPanel(PmdgEventIdInputPanel.AircraftType.B737);
+                    if (isOnPress && _config != null && _config.onPress != null)
+                        (panel as Panels.PmdgEventIdInputPanel).syncFromConfig(_config.onPress as PmdgEventIdInputAction);
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as Panels.PmdgEventIdInputPanel).syncFromConfig(_config.onRelease as PmdgEventIdInputAction);
+
+                    break;
+
                 case "Jeehell DataPipe":
                     panel = new JeehellInputPanel();
                     if (isOnPress && _config != null && _config.onPress != null)
@@ -146,6 +156,10 @@ namespace MobiFlight.Panels
                         config.onPress = (onPressActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
 
+                    case MobiFlight.InputConfig.PmdgEventIdInputAction.Label:
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
+                        break;
+
                     case "Jeehell DataPipe":
                         config.onPress = (onPressActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
@@ -182,6 +196,10 @@ namespace MobiFlight.Panels
 
                     case "Event ID":
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.PmdgEventIdInputAction.Label:
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
                         break;
 
                     case "Jeehell DataPipe":

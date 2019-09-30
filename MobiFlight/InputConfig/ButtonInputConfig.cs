@@ -57,6 +57,11 @@ namespace MobiFlight.InputConfig
                         onPress.ReadXml(reader);
                         break;
 
+                    case PmdgEventIdInputAction.TYPE:
+                        onPress = new PmdgEventIdInputAction();
+                        onPress.ReadXml(reader);
+                        break;
+
                     case JeehellInputAction.TYPE:
                         onPress = new JeehellInputAction();
                         onPress.ReadXml(reader);
@@ -99,6 +104,12 @@ namespace MobiFlight.InputConfig
 
                     case EventIdInputAction.TYPE:
                         onRelease = new EventIdInputAction();
+                        onRelease.ReadXml(reader);
+                        reader.ReadStartElement();
+                        break;
+
+                    case PmdgEventIdInputAction.TYPE:
+                        onRelease = new PmdgEventIdInputAction();
                         onRelease.ReadXml(reader);
                         reader.ReadStartElement();
                         break;

@@ -22,10 +22,11 @@ namespace MobiFlight.Panels
             ActionTypeComboBox.Items.Add(MainForm._tr("none"));
             ActionTypeComboBox.Items.Add("FSUIPC Offset");
             ActionTypeComboBox.SelectedIndex = 0;
-            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.LuaMacroInputAction.Label);
-            ActionTypeComboBox.Items.Add("Key");
             ActionTypeComboBox.Items.Add("Event ID");
+            ActionTypeComboBox.Items.Add("Key");
+            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.PmdgEventIdInputAction.Label);
             ActionTypeComboBox.Items.Add("Jeehell DataPipe");
+            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.LuaMacroInputAction.Label);
             ActionTypeComboBox.Items.Add("vJoy virtual Joystick");
             ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.RetriggerInputAction.Label);
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
@@ -51,7 +52,11 @@ namespace MobiFlight.Panels
                 case "MobiFlight.InputConfig.EventIdInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Event ID");
                     break;
-                    
+
+                case "MobiFlight.InputConfig.PmdgEventIdInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.PmdgEventIdInputAction.Label);
+                    break;
+
                 case "MobiFlight.InputConfig.JeehellInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Jeehell DataPipe");
                     break;

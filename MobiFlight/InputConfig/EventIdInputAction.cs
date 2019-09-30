@@ -34,9 +34,14 @@ namespace MobiFlight.InputConfig
 
         public override void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteAttributeString("type", EventIdInputAction.TYPE);
+            writer.WriteAttributeString("type", getType());
             writer.WriteAttributeString("eventId", EventId.ToString());
             writer.WriteAttributeString("param", Param.ToString());
+        }
+
+        protected virtual String getType()
+        {
+            return TYPE;
         }
 
         public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)

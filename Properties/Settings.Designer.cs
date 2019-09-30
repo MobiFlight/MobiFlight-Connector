@@ -263,5 +263,29 @@ namespace MobiFlight.Properties {
                 this["Language"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("presets_eventids_pmdg_737.cip")]
+        public string Pmdg737EventIdPresetFile {
+            get {
+                return ((string)(this["Pmdg737EventIdPresetFile"]));
+            }
+            set {
+                this["Pmdg737EventIdPresetFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("presets_eventids_pmdg_777.cip")]
+        public string Pmdg777EventIdPresetFile {
+            get {
+                return ((string)(this["Pmdg777EventIdPresetFile"]));
+            }
+            set {
+                this["Pmdg777EventIdPresetFile"] = value;
+            }
+        }
     }
 }
