@@ -89,11 +89,11 @@ char foo;
 #include <LiquidCrystal_I2C.h>
 #include <MFLCDDisplay.h>
 
-const byte MEM_OFFSET_NAME   = 0;
-const byte MEM_LEN_NAME      = 48;
-const byte MEM_OFFSET_SERIAL = MEM_OFFSET_NAME + MEM_LEN_NAME;
-const byte MEM_LEN_SERIAL    = 11;
-const byte MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
+const uint8_t MEM_OFFSET_NAME   = 0;
+const uint8_t MEM_LEN_NAME      = 48;
+const uint8_t MEM_OFFSET_SERIAL = MEM_OFFSET_NAME + MEM_LEN_NAME;
+const uint8_t MEM_LEN_SERIAL    = 11;
+const uint8_t MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIAL;
 
 // 1.0.1 : Nicer firmware update, more outputs (20)
 // 1.1.0 : Encoder support, more outputs (30)
@@ -145,32 +145,32 @@ int configLength = 0;
 boolean configActivated = false;
 
 bool powerSavingMode = false;
-byte pinsRegistered[MODULE_MAX_PINS];
+uint8_t pinsRegistered[MODULE_MAX_PINS];
 const unsigned long POWER_SAVING_TIME = 60*15; // in seconds
 
 CmdMessenger cmdMessenger = CmdMessenger(Serial);
 unsigned long lastCommand;
 
 MFOutput outputs[MAX_OUTPUTS];
-byte outputsRegistered = 0;
+uint8_t outputsRegistered = 0;
 
 MFButton buttons[MAX_BUTTONS];
-byte buttonsRegistered = 0;
+uint8_t buttonsRegistered = 0;
 
 MFSegments ledSegments[MAX_LEDSEGMENTS];
-byte ledSegmentsRegistered = 0;
+uint8_t ledSegmentsRegistered = 0;
 
 MFEncoder encoders[MAX_ENCODERS];
-byte encodersRegistered = 0;
+uint8_t encodersRegistered = 0;
 
 MFStepper *steppers[MAX_STEPPERS]; //
-byte steppersRegistered = 0;
+uint8_t steppersRegistered = 0;
 
 MFServo servos[MAX_MFSERVOS];
-byte servosRegistered = 0;
+uint8_t servosRegistered = 0;
 
 MFLCDDisplay lcd_I2C[MAX_MFLCD_I2C];
-byte lcd_12cRegistered = 0;
+uint8_t lcd_12cRegistered = 0;
 
 enum
 {
@@ -344,19 +344,19 @@ void loop()
   updateServos();  
 }
 
-bool isPinRegistered(byte pin) {
+bool isPinRegistered(uint8_t pin) {
   return pinsRegistered[pin] != kTypeNotSet;
 }
 
-bool isPinRegisteredForType(byte pin, byte type) {
+bool isPinRegisteredForType(uint8_t pin, uint8_t type) {
   return pinsRegistered[pin] == type;
 }
 
-void registerPin(byte pin, byte type) {
+void registerPin(uint8_t pin, uint8_t type) {
   pinsRegistered[pin] = type;
 }
 
-void clearRegisteredPins(byte type) {
+void clearRegisteredPins(uint8_t type) {
   for(int i=0; i!=MODULE_MAX_PINS;++i)
     if (pinsRegistered[i] == type)
       pinsRegistered[i] = kTypeNotSet;
@@ -368,7 +368,7 @@ void clearRegisteredPins() {
 }
 
 //// OUTPUT /////
-void AddOutput(uint8_t pin = 1, char * name = "Output")
+void AddOutput(uint8_t pin = 1, char const * name = "Output")
 {
   if (outputsRegistered == MAX_OUTPUTS) return;
   if (isPinRegistered(pin)) return;
@@ -391,7 +391,7 @@ void ClearOutputs()
 }
 
 //// BUTTONS /////
-void AddButton(uint8_t pin = 1, char * name = "Button")
+void AddButton(uint8_t pin = 1, char const * name = "Button")
 {  
   if (buttonsRegistered == MAX_BUTTONS) return;
   
@@ -418,7 +418,7 @@ void ClearButtons()
 }
 
 //// ENCODERS /////
-void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, char * name = "Encoder")
+void AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, char const * name = "Encoder")
 {  
   if (encodersRegistered == MAX_ENCODERS) return;
   if (isPinRegistered(pin1) || isPinRegistered(pin2)) return;
@@ -549,7 +549,7 @@ void ClearServos()
 }
 
 //// LCD Display /////
-void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2, char * name = "LCD")
+void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2, char const * name = "LCD")
 {  
   if (lcd_12cRegistered == MAX_MFLCD_I2C) return;
   lcd_I2C[lcd_12cRegistered].attach(address, cols, lines);
@@ -574,7 +574,7 @@ void ClearLcdDisplays()
   
 
 //// EVENT HANDLER /////
-void handlerOnRelease(byte eventId, uint8_t pin, char * name)
+void handlerOnRelease(uint8_t eventId, uint8_t pin, const char * name)
 {
   cmdMessenger.sendCmdStart(kButtonChange);
   cmdMessenger.sendCmdArg(name);
@@ -583,7 +583,7 @@ void handlerOnRelease(byte eventId, uint8_t pin, char * name)
 };
 
 //// EVENT HANDLER /////
-void handlerOnEncoder(byte eventId, uint8_t pin, char * name)
+void handlerOnEncoder(uint8_t eventId, uint8_t pin, const char * name)
 {
   cmdMessenger.sendCmdStart(kEncoderChange);
   cmdMessenger.sendCmdArg(name);
@@ -632,7 +632,7 @@ void resetConfig()
 void OnResetConfig()
 {
   resetConfig();
-  cmdMessenger.sendCmd(kStatus, F("OK"));
+  cmdMessenger.sendCmd(kStatus, F("OK") );
 }
 
 void OnSaveConfig()
@@ -667,15 +667,15 @@ void readConfig(String cfg) {
         params[0] = strtok_r(NULL, ".", &p); // pin
         params[1] = strtok_r(NULL, ":", &p); // name
         AddButton(atoi(params[0]), params[1]);
-      break;
-      
+        break; 
+
       case kTypeOutput:
         params[0] = strtok_r(NULL, ".", &p); // pin
         params[1] = strtok_r(NULL, ":", &p); // Name
         AddOutput(atoi(params[0]), params[1]);
-      break;
-      
-      case kTypeLedSegment:       
+        break;
+
+      case kTypeLedSegment:      
         params[0] = strtok_r(NULL, ".", &p); // pin Data
         params[1] = strtok_r(NULL, ".", &p); // pin Cs
         params[2] = strtok_r(NULL, ".", &p); // pin Clk
@@ -789,8 +789,8 @@ void OnSetModule()
   int module = cmdMessenger.readIntArg();
   int subModule = cmdMessenger.readIntArg();  
   char * value = cmdMessenger.readStringArg();
-  byte points = (byte) cmdMessenger.readIntArg();
-  byte mask = (byte) cmdMessenger.readIntArg();
+  uint8_t points = (uint8_t) cmdMessenger.readIntArg();
+  uint8_t mask = (uint8_t) cmdMessenger.readIntArg();
   ledSegments[module].display(subModule, value, points, mask);
   lastCommand = millis();
 }

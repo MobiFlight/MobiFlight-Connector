@@ -24,11 +24,12 @@
 
 extern "C"
 {
-  typedef void (*encoderEvent) (byte, uint8_t, const char *);
+  typedef void (*encoderEvent) (uint8_t, uint8_t, const char *);
 };
 
-#define MF_ENC_MIN -2147483647
-#define MF_ENC_MAX 2147483647
+#define MF_ENC_MIN -32768
+#define MF_ENC_MAX 32767
+#define MF_ENC_FAST_LIMIT 512
 
 enum
 {
@@ -44,17 +45,19 @@ class MFEncoder
 {
 public:
     MFEncoder();
-	void attach(uint8_t pin1, uint8_t pin2, uint8_t encoder_type, char * name = "Encoder");
+	  void attach(uint8_t pin1, uint8_t pin2, uint8_t encoderType, const char * name = "Encoder");
     void update();
-    void attachHandler(byte eventId, encoderEvent newHandler);
+    void attachHandler(uint8_t eventId, encoderEvent newHandler);
     
 private:
     uint8_t                   _pin1;              
     uint8_t                   _pin2;
     bool                      _initialized;
     RotaryEncoder  		        _encoder;
-    char *                    _name;
+    const char *              _name;
     long                      _pos;
     encoderEvent              _handlerList[4];
+    uint8_t                   _encoderType;
+    uint16_t                  _fastLimit = MF_ENC_FAST_LIMIT;
 };
 #endif 

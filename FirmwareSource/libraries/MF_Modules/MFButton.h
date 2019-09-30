@@ -34,11 +34,11 @@ enum
 class MFButton
 {
 public:
-    MFButton(uint8_t pin = 1, char * name = "Button");
+    MFButton(uint8_t pin = 1, const char * name = "Button");
     void update();
     void trigger();
     void attachHandler(byte eventId, buttonEvent newHandler);    
-    char*         _name;
+    const char *  _name;
     uint8_t       _pin;
     
 private:

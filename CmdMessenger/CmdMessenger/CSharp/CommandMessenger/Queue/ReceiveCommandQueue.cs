@@ -63,7 +63,7 @@ namespace CommandMessenger
                 // Calculate sleep time based on incoming command speed
                 //_queueSpeed.SetCount(Queue.Count);
                 //_queueSpeed.CalcSleepTime();
-                EventWaiter.Wait(100);
+                EventWaiter.Wait(10);
 
                 // Process queue unless stopped
                 if (ThreadRunState == ThreadRunStates.Start)
