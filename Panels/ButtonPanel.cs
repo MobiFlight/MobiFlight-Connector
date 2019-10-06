@@ -67,7 +67,7 @@ namespace MobiFlight.Panels
 
 
                 case MobiFlight.InputConfig.PmdgEventIdInputAction.Label:
-                    panel = new PmdgEventIdInputPanel(PmdgEventIdInputPanel.AircraftType.B737);
+                    panel = new PmdgEventIdInputPanel();
                     if (isOnPress && _config != null && _config.onPress != null)
                         (panel as Panels.PmdgEventIdInputPanel).syncFromConfig(_config.onPress as PmdgEventIdInputAction);
                     else if (!isOnPress && _config != null && _config.onRelease != null)

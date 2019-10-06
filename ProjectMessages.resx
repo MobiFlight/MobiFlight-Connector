@@ -400,4 +400,7 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageNotEnoughPinsMessage" xml:space="preserve">
     <value>Not enough free pins to add this device</value>
   </data>
+  <data name="uiPmdgEventIdInputPanelCustomParam" xml:space="preserve">
+    <value>Custom Param</value>
+  </data>
 </root>

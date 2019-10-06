@@ -861,6 +861,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom Param.
+        /// </summary>
+        internal static string uiPmdgEventIdInputPanelCustomParam {
+            get {
+                return ResourceManager.GetString("uiPmdgEventIdInputPanelCustomParam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://mobiflight.moebiuz.de/dokumentation/software.html.
         /// </summary>
         internal static string WebsiteUrlHelp {

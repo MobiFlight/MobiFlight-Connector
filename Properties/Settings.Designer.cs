@@ -287,5 +287,17 @@ namespace MobiFlight.Properties {
                 this["Pmdg777EventIdPresetFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("presets_eventids_pmdg_747.cip")]
+        public string Pmdg747EventIdPresetFile {
+            get {
+                return ((string)(this["Pmdg747EventIdPresetFile"]));
+            }
+            set {
+                this["Pmdg747EventIdPresetFile"] = value;
+            }
+        }
     }
 }

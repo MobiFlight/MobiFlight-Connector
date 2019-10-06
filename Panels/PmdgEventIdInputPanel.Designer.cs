@@ -31,12 +31,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PmdgEventIdInputPanel));
             this.fsuipcPresetComboBox = new System.Windows.Forms.ComboBox();
             this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
+            this.pmdg777radioButton = new System.Windows.Forms.RadioButton();
+            this.pmdg737radioButton = new System.Windows.Forms.RadioButton();
             this.fsuipcPresetUseButton = new System.Windows.Forms.Button();
             this.eventIdTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.customParamTextBox = new System.Windows.Forms.TextBox();
+            this.customParamLabel = new System.Windows.Forms.Label();
+            this.MouseEventComboBox = new System.Windows.Forms.ComboBox();
             this.EventIdLabel = new System.Windows.Forms.Label();
             this.paramLabel = new System.Windows.Forms.Label();
-            this.MouseEventComboBox = new System.Windows.Forms.ComboBox();
+            this.pmdg747radioButton = new System.Windows.Forms.RadioButton();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -51,11 +56,30 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg747radioButton);
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg777radioButton);
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg737radioButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetUseButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
             resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
+            // 
+            // pmdg777radioButton
+            // 
+            resources.ApplyResources(this.pmdg777radioButton, "pmdg777radioButton");
+            this.pmdg777radioButton.Name = "pmdg777radioButton";
+            this.pmdg777radioButton.TabStop = true;
+            this.pmdg777radioButton.UseVisualStyleBackColor = true;
+            this.pmdg777radioButton.CheckedChanged += new System.EventHandler(this.pmdg737radioButton_CheckedChanged);
+            // 
+            // pmdg737radioButton
+            // 
+            resources.ApplyResources(this.pmdg737radioButton, "pmdg737radioButton");
+            this.pmdg737radioButton.Name = "pmdg737radioButton";
+            this.pmdg737radioButton.TabStop = true;
+            this.pmdg737radioButton.UseVisualStyleBackColor = true;
+            this.pmdg737radioButton.CheckedChanged += new System.EventHandler(this.pmdg737radioButton_CheckedChanged);
             // 
             // fsuipcPresetUseButton
             // 
@@ -72,6 +96,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.customParamTextBox);
+            this.groupBox1.Controls.Add(this.customParamLabel);
             this.groupBox1.Controls.Add(this.MouseEventComboBox);
             this.groupBox1.Controls.Add(this.eventIdTextBox);
             this.groupBox1.Controls.Add(this.EventIdLabel);
@@ -79,6 +105,23 @@
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // customParamTextBox
+            // 
+            resources.ApplyResources(this.customParamTextBox, "customParamTextBox");
+            this.customParamTextBox.Name = "customParamTextBox";
+            // 
+            // customParamLabel
+            // 
+            resources.ApplyResources(this.customParamLabel, "customParamLabel");
+            this.customParamLabel.Name = "customParamLabel";
+            // 
+            // MouseEventComboBox
+            // 
+            resources.ApplyResources(this.MouseEventComboBox, "MouseEventComboBox");
+            this.MouseEventComboBox.FormattingEnabled = true;
+            this.MouseEventComboBox.Name = "MouseEventComboBox";
+            this.MouseEventComboBox.SelectedIndexChanged += new System.EventHandler(this.MouseEventComboBox_SelectedIndexChanged);
             // 
             // EventIdLabel
             // 
@@ -90,11 +133,13 @@
             resources.ApplyResources(this.paramLabel, "paramLabel");
             this.paramLabel.Name = "paramLabel";
             // 
-            // MouseEventComboBox
+            // pmdg747radioButton
             // 
-            this.MouseEventComboBox.FormattingEnabled = true;
-            resources.ApplyResources(this.MouseEventComboBox, "MouseEventComboBox");
-            this.MouseEventComboBox.Name = "MouseEventComboBox";
+            resources.ApplyResources(this.pmdg747radioButton, "pmdg747radioButton");
+            this.pmdg747radioButton.Name = "pmdg747radioButton";
+            this.pmdg747radioButton.TabStop = true;
+            this.pmdg747radioButton.UseVisualStyleBackColor = true;
+            this.pmdg747radioButton.CheckedChanged += new System.EventHandler(this.pmdg737radioButton_CheckedChanged);
             // 
             // PmdgEventIdInputPanel
             // 
@@ -104,6 +149,7 @@
             resources.ApplyResources(this, "$this");
             this.Load += new System.EventHandler(this.EventIdInputPanel_Load);
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
+            this.fsuipcLoadPresetGroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -119,5 +165,10 @@
         private System.Windows.Forms.TextBox eventIdTextBox;
         private System.Windows.Forms.Button fsuipcPresetUseButton;
         private System.Windows.Forms.ComboBox MouseEventComboBox;
+        private System.Windows.Forms.TextBox customParamTextBox;
+        private System.Windows.Forms.Label customParamLabel;
+        private System.Windows.Forms.RadioButton pmdg777radioButton;
+        private System.Windows.Forms.RadioButton pmdg737radioButton;
+        private System.Windows.Forms.RadioButton pmdg747radioButton;
     }
 }

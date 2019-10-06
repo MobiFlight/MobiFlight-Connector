@@ -69,5 +69,8 @@
     <Setting Name="Pmdg777EventIdPresetFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">presets_eventids_pmdg_777.cip</Value>
     </Setting>
+    <Setting Name="Pmdg747EventIdPresetFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">presets_eventids_pmdg_747.cip</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

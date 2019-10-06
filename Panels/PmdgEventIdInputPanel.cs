@@ -6,33 +6,41 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.Panels
 {
     public partial class PmdgEventIdInputPanel : UserControl
     {
+        static PmdgEventIdInputAction.PmdgAircraftType lastUsedType = PmdgEventIdInputAction.PmdgAircraftType.B737;
         public String PresetFile { get; set; }
         private DataTable Data;
         ErrorProvider errorProvider = new ErrorProvider();
         List<ListItem> MouseParams = new List<ListItem>();
 
-        public enum AircraftType { B737, B777 };
+        
 
-        public PmdgEventIdInputPanel(AircraftType type)
+        public PmdgEventIdInputPanel()
         {
             InitializeComponent();
-            PresetFile = Properties.Settings.Default.Pmdg737EventIdPresetFile;
-            if (type==AircraftType.B777)
-                PresetFile = Properties.Settings.Default.Pmdg777EventIdPresetFile;
 
             Data = new DataTable();
-            _loadPresets();
+            _updateRadioButtons();
+            //_loadPresets();
             _loadMouseParams();
+        }
+
+        private void _updateRadioButtons()
+        {
+            pmdg737radioButton.Checked = (lastUsedType == PmdgEventIdInputAction.PmdgAircraftType.B737);
+            pmdg777radioButton.Checked = (lastUsedType == PmdgEventIdInputAction.PmdgAircraftType.B777);
+            pmdg747radioButton.Checked = (lastUsedType == PmdgEventIdInputAction.PmdgAircraftType.B747);
         }
 
         private void _loadMouseParams()
         {
             MouseParams.Clear();
+            MouseParams.Add(new ListItem() { Label = MainForm._tr("uiPmdgEventIdInputPanelCustomParam"), Value = "0" });
             MouseParams.Add(new ListItem() { Label = "MOUSE_FLAG_RIGHTSINGLE", Value = "2147483648" });
             MouseParams.Add(new ListItem() { Label = "MOUSE_FLAG_MIDDLESINGLE", Value = "1073741824" });
             MouseParams.Add(new ListItem() { Label = "MOUSE_FLAG_LEFTSINGLE", Value = "536870912" });
@@ -64,6 +72,12 @@ namespace MobiFlight.Panels
 
         private void _loadPresets()
         {
+            PresetFile = Properties.Settings.Default.Pmdg737EventIdPresetFile;
+            if (lastUsedType == PmdgEventIdInputAction.PmdgAircraftType.B777)
+                PresetFile = Properties.Settings.Default.Pmdg777EventIdPresetFile;
+            else if (lastUsedType == PmdgEventIdInputAction.PmdgAircraftType.B747)
+                PresetFile = Properties.Settings.Default.Pmdg747EventIdPresetFile;
+
             bool isLoaded = true;
 
             if (!System.IO.File.Exists(PresetFile))
@@ -77,6 +91,7 @@ namespace MobiFlight.Panels
                 try
                 {
                     Data.Clear();
+                    Data.Columns.Clear();
                     Data.Columns.Add(new DataColumn("Label"));
                     Data.Columns.Add(new DataColumn("EventID"));
                     Data.Columns.Add(new DataColumn("Param"));
@@ -121,7 +136,14 @@ namespace MobiFlight.Panels
         {
             if (eventIdInputAction == null) return;
             eventIdTextBox.Text = eventIdInputAction.EventId.ToString();
-            MouseEventComboBox.SelectedValue = eventIdInputAction.Param.ToString();
+            try { 
+                MouseEventComboBox.SelectedValue = eventIdInputAction.Param.ToString();
+            } catch (Exception e)
+            {
+                MouseEventComboBox.SelectedValue = "0"; // this is the custom param default value.
+                // this will fail if we have a custom param that doesn't show in the list.
+            }
+            customParamTextBox.Text = eventIdInputAction.Param.ToString();
 
             foreach (DataRow row in Data.Rows)
             {
@@ -137,7 +159,7 @@ namespace MobiFlight.Panels
         {
             MobiFlight.InputConfig.PmdgEventIdInputAction result = new InputConfig.PmdgEventIdInputAction();
             result.EventId = Int32.Parse(eventIdTextBox.Text);
-            result.Param = UInt32.Parse(MouseEventComboBox.SelectedValue.ToString());
+            result.Param = UInt32.Parse(customParamTextBox.Text);
             return result;
         }
 
@@ -215,5 +237,29 @@ namespace MobiFlight.Panels
                     "");
         }
 
+        private void MouseEventComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (sender as ComboBox);
+            String selectedValue = cb.SelectedValue.ToString();
+            customParamLabel.Visible = (selectedValue == "0");
+            customParamTextBox.Visible = (selectedValue == "0");
+
+            customParamTextBox.Text = selectedValue;
+        }
+
+        private void pmdg737radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton cb = (sender as RadioButton);
+            if (!cb.Checked) return;
+
+            lastUsedType = PmdgEventIdInputAction.PmdgAircraftType.B737;
+            if (cb == pmdg777radioButton)
+                lastUsedType = PmdgEventIdInputAction.PmdgAircraftType.B777;
+            else if (cb == pmdg747radioButton)
+                lastUsedType = PmdgEventIdInputAction.PmdgAircraftType.B747;
+
+            _updateRadioButtons();
+            _loadPresets();
+        }
     }
 }

@@ -82,7 +82,7 @@ namespace MobiFlight.Panels
                     break;
 
                 case PmdgEventIdInputAction.Label:
-                    panel = new PmdgEventIdInputPanel(PmdgEventIdInputPanel.AircraftType.B737);
+                    panel = new PmdgEventIdInputPanel();
                     if (isLeft && !isFast && _config != null && _config.onLeft != null)
                         (panel as Panels.PmdgEventIdInputPanel).syncFromConfig(_config.onLeft as PmdgEventIdInputAction);
                     else if (isLeft && isFast && _config != null && _config.onLeftFast != null)

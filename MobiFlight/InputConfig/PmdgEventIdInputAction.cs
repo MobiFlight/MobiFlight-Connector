@@ -10,6 +10,9 @@ namespace MobiFlight.InputConfig
         public new const String TYPE = "PmdgEventIdInputAction";
         public new const String Label = "PMDG - Event ID";
         public new UInt32 Param;
+        public enum PmdgAircraftType { B737, B777, B747 };
+        public PmdgAircraftType AircraftType = PmdgAircraftType.B737;
+
 
         protected override String getType()
         {
@@ -21,9 +24,12 @@ namespace MobiFlight.InputConfig
 
             String eventId = reader["eventId"];
             String param = reader["param"];
+            String aircraftType = reader["aircraft"];
             
             EventId = Int32.Parse(eventId);
             Param = UInt32.Parse(param);
+            if (aircraftType!=null)
+                AircraftType = (PmdgAircraftType)Enum.Parse(typeof(PmdgAircraftType), aircraftType);
         }
 
         public override void WriteXml(System.Xml.XmlWriter writer)
@@ -31,6 +37,7 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("type", getType());
             writer.WriteAttributeString("eventId", EventId.ToString());
             writer.WriteAttributeString("param", Param.ToString());
+            writer.WriteAttributeString("aircraft", AircraftType.ToString());
         }
 
         public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
