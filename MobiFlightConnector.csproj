@@ -568,62 +568,29 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_1_4_0.hex" />
-    <None Include="firmware\mobiflight_mega_1_4_1.hex" />
-    <None Include="firmware\mobiflight_mega_1_6_0.hex" />
-    <None Include="firmware\mobiflight_mega_1_6_1.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_mega_1_7_1.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_mega_1_7_2.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_mega_1_7_3.hex" />
-    <None Include="firmware\mobiflight_mega_1_8_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_mega_1_9_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="firmware\mobiflight_mega_1_9_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_1_7_1.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_micro_1_7_2.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_micro_1_7_3.hex" />
-    <None Include="firmware\mobiflight_micro_1_8_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_micro_1_9_0.hex">
+    <None Include="firmware\mobiflight_mega_1_9_2.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_micro_1_9_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_1_7_1.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_uno_1_7_2.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_uno_1_7_3.hex" />
-    <None Include="firmware\mobiflight_uno_1_8_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_uno_1_9_0.hex">
+    <None Include="firmware\mobiflight_micro_1_9_2.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_uno_1_9_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_uno_1_9_2.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="presets_eventids_pmdg_737.cip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="presets_eventids_pmdg_747.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="presets_eventids_pmdg_777.cip">
@@ -725,10 +692,6 @@
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="examples\example-release-5.0.0.mcc" />
-    <None Include="firmware\mobiflight_mega_1_1_1.hex" />
-    <None Include="firmware\mobiflight_mega_1_2_0.hex" />
-    <None Include="firmware\mobiflight_mega_1_3_0.hex" />
-    <None Include="firmware\mobiflight_micro_1_1_0.hex" />
     <None Include="Resources\module-unknown.png" />
     <None Include="Resources\module-arduino.png" />
     <None Include="Resources\module-mobiflight.png" />
@@ -834,6 +797,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Group\FsuipcConfigPanel.resx">
       <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\InputActionPanel.resx">
       <DependentUpon>InputActionPanel.cs</DependentUpon>

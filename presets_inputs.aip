@@ -1,572 +1,971 @@
 <?xml version="1.0" standalone="yes"?>
-<ArcazeUsbConnector>
+<MobiflightConnector>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Systems - Pitot Heat (On)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x029C" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="1" />
-      <comparison active="False" value="" operand="=" ifValue="" elseValue=""/>
-      <display type="Pin" trigger="normal" pin="" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Systems - Pitot Heat (Off)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x029C" size="1" mask="0x00FF" multiplier="1" bcdMode="False" inputValue="0" />
+    <description>Cockpit - Nav Lights</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0280" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
-      <display type="Pin" trigger="normal" pin="" />
-
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Autopilot - Heading</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07CC" size="4" mask="0xFFFFFFFF" multiplier="0,0054931640625" bcdMode="False" />
+    <description>Cockpit - Strobe/Beacon Lights</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0281" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Landing Lights</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x028C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Alternate static air source</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x029B" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Pitot heat</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - ADF2 freq (FS2004)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x02D4" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - ADF2 Extended Freq (FS2004)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x02D6" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - ADF2 ident sound switch (FS2004)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x02FB" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Altimeter setting (mb)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0330" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$/16" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - G1000 altimeter setting (mb)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0332" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$/16" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - ADF Freq</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x034C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - COM Freq</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - NAV1 Freq</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - NAV2 Freq</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0352" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - XPND - Transponder Freq.</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - ADF Extended Freq</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0356" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Simulation - Instrument: Com Freq inc.</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0358" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Simulation - Instrument: Adf Freq inc.</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x035C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - NAV1/2 Select</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0374" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - DME1/2 Select</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0378" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Plane - Smoke System control</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x05D8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Autopilot - AP Master Switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07BC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Autopilot - AP Wing LVL</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07C0" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Autopilot - AP Nav1 Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07C4" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Autopilot - AP Heading Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07C8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Autopilot - AP Heading Value</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
       <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="0,1,2" />
-      
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="($ * 360) / 65536" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Autopilot - IAS</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07E2" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Autopilot - CRS/OBS 1 (+) Increase</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0C4E" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&lt;=359,$+1,0)"/>
-      <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="5,6,7" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Autopilot - CRS/OBS 1 (-) Decrease</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0C4E" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" inputValue="if($&gt;=0,$-1,359)"/>
-      <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="5,6,7" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Flaps</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BE0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="normal" pin="B01" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - NAV1 Standby Freq MHz (+) Increase</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - NAV1 Standby Freq MHz (-) Decrease</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - NAV1 Standby Freq KHz (+) Increase</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;1795,$+5,800)" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - NAV1 Standby Freq KHz (-) Decrease</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311E" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;800,$-5,1795)" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledDigits="3,4,5,6" ledDecimalPoints="5" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - NAV1 Switch Freq</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3110" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="66448" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-    </settings>
-  </config>  
-  <config>
-    <active>true</active>
-    <description>Radio - COM1 Standby Freq MHz (+) Increase</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;3697,$+100,$-1800)" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - COM1 Standby Freq MHz (-) Decrease</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;1900,$-100,$+1800)" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - COM1 Standby Freq KHz (+) Increase</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&lt;3697,if($%5==0,$+2,$+3),1800)" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - COM1 Standby Freq KHz (-) Decrease</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311A" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" inputValue="if($&gt;=1800,if($%5==0,$-3,$-2),3697)" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-    </settings>
-  </config>
-
-  <config>
-    <active>true</active>
-    <description>Radio - COM1 Switch Freq</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3110" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" inputValue="66372" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-    </settings>
-  </config>  
-  
-  <config>
-    <active>true</active>
-    <description>Radio - COM2 Active Freq</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3118" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - COM2 Standby Freq</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x311C" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio - Transponder (Squawk)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0354" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio Audio Switch - Com1</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3122" size="1" mask="0x80" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio Audio Switch - Com2</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3122" size="1" mask="0x40" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio Audio Switch - Com Both</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3122" size="1" mask="0x20" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="1" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6" ledDecimalPoints="5" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio Audio Switch - Nav1</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3122" size="1" mask="0x10" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio Audio Switch - Nav2</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3122" size="1" mask="0x08" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio Audio Switch - Marker</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3122" size="1" mask="0x04" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio Audio Switch - DME</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3122" size="1" mask="0x02" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Radio Audio Switch - ADF1</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x3122" size="1" mask="0x01" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="" serial="" trigger="change" pin="" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>General - Current V/S</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x02C8" size="4" mask="0xFFFFFFFF" multiplier="0,768946875" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" ledDigits="3,4,5,6,7" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>General - Parking Brake</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BC8" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="32767" operand="=" ifValue="1" elseValue="0" />
-      <display type="" serial="" trigger="change" pin="" />
-      
-    </settings>
-  </config>  
-  <config>
-    <active>true</active>
-    <description>Autopilot - V/S</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07F2" size="2" mask="0xFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Autopilot - Altitude</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07D4" size="4" mask="0xFFFFFFFF" multiplier="5,0062E-05" bcdMode="False" />
-      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
-      <display type="Display Module" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="False" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Autopilot - Altitude Hold</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07D0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
-      <display type="Pin" trigger="normal" pin="" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Autopilot - Heading Hold</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07C8" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Altitude Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07D0" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Autopilot - Approach Hold</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0800" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Altitude Value</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07D4" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$*3.28084/65536" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Autopilot - Back Course Hold</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0804" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Attitude Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07D8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Autopilot - Nav1 Hold</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07C4" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Air Speed Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07DC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Autopilot - V/S Hold</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07EC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Air Speed Value</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07E2" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Autopilot - Master Switch</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07BC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Mach Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07E4" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Autopilot - IAS Hold</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x07DC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Mach Value</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07E8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$/65536" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Flight System - Spoiler ARM</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BD0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="4800" operand="=" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="normal" pin="A13" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Flight System - Spoiler Position</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BD0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="4800" operand="=" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="normal" pin="A13" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Lights - Landing Lights</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="1" mask="0x0004" multiplier="1" bcdMode="False" />
-      <comparison active="False" value="" operand="" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="normal" pin="A14" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Landing Gear - Nose (Extended)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="rising" pin="B05" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Landing Gear - Nose (moving)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BEC" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="rising" pin="B02" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Landing Gear - Left (moving)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="rising" pin="B03" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Landing Gear - Right (moving)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="&lt;" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="rising" pin="B01" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Landing Gear - Left (extracted)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF4" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="rising" pin="B06" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Landing Gear - Right (extracted)</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0BF0" size="4" mask="0xFFFFFFFF" multiplier="1" bcdMode="False" />
-      <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
-      <display type="Pin" trigger="rising" pin="B04" />
-      
-    </settings>
-  </config>
-  <config>
-    <active>true</active>
-    <description>Lights - Navigation Lights</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0001" multiplier="1" bcdMode="False"  />
+    <description>Autopilot - AP V/S Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07EC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Lights - Beacon</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0002" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP V/S Value</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07F2" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Lights - Taxi</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0008" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP RPM (N1) Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07F4" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Lights - Strobes</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0010" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP RPM (N1) Value</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07F8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$*100/16384" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Lights - Instruments</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0020" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP GS Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x07FC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Lights - Recognition</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0040" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Approach Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0800" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Lights - Wing</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0080" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP BackCourse Hold</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0804" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Lights - Logo</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0100" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP Yaw damper</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0808" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
+  <active>true</active>
   <config>
-    <active>true</active>
-    <description>Lights - Cabin</description>
-    <settings msdata:InstanceType="MobiFlight.InputConfig.FsuipcOffsetInputAction, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0D0C" size="2" mask="0x0200" multiplier="1" bcdMode="False" />
+    <description>Autopilot - AP TO/GA</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x080C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
-      
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
     </settings>
   </config>
-</ArcazeUsbConnector>
+  <active>true</active>
+  <config>
+    <description>Autopilot - AP Auto-Throttle ARM</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0810" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - ENG1 Ant-Ice / Carb heat</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x08B2" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - ENG2 Ant-Ice / Carb heat</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x094A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - ENG3 Ant-Ice / Carb heat</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x09E2" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - ENG4 Ant-Ice / Carb heat</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0A7A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Unknown - Fuel tank select</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0AF8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Misc - Bleed air source control</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B50" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Misc - APU generator switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B51" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Misc - APU starter percent</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B58" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Misc - APU generator voltage</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B5C" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Controls - Brake parking</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BC8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Spoiler arm</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BCC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Controls - Spoiler control</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BD0" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Controls - Flaps control</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BDC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Controls - Gear Commanded</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BE8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Controls - Flaps index</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0BFC" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - NAV1 OBS (CRS)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C4E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - NAV2 OBS (CRS)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C5E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - ADF dial heading</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0C6C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Lights [FS2000+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Fuel centre2 level (%) (FS2000+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x1244" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$*100/(128*65536)" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Fuel centre3 level (%) (FS2000+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x124C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$*100/(128*65536)" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Fuel external1 level (%) (FS2000+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x1254" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$*100/(128*65536)" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Fuel external2 level (%) (FS2000+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x125C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$*100/(128*65536)" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - GPS/NAV switch [FS2000+]</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x132C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Engines - Turb. ENG1 Ignition Switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x208C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Engines - Turb. ENG2 Ignition Switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x218C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Engines - Turb. ENG3 Ignition Switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x228C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Engines - Turb. ENG4 Ignition Switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x238C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Avionics Master Switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Panel Autobrake Switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x2F80" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - COM2 freq (FS2002+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3118" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - COM1 STBY freq (FS2002+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - COM2 STBY freq (FS2002+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - NAV1 STBY freq (FS2002+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Radios - NAV2 STBY freq (FS2002+)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3120" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="TRUE" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Fuel pump switches (separate per engine))</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - No smoking switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x341C" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Seat belt switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x341D" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Hydraulics - Hydraulic pump switches</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x341E" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Fuel crossfeed switch</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x341F" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Cockpit - Standby altimeter pressure setting (mb x 16)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3542" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$/16" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Engine 1 Fuel Valve [FS2002+]</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3590" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Engine 2 Fuel Valve [FS2002+]</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3594" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Engine 3 Fuel Valve [FS2002+]</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3598" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <active>true</active>
+  <config>
+    <description>Fuel - Engine 4 Fuel Valve [FS2002+]</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x359C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  </MobiflightConnector>
