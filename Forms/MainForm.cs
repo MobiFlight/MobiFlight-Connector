@@ -38,7 +38,7 @@ namespace MobiFlight
         private ExecutionManager execManager;
 
         private bool _onClosing = false;
-        private readonly string MobiFlightUpdateUrl = "http://www.mobiflight.de/tl_files/download/releases/mobiflightconnector.xml";
+        private readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector.xml";
 
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
