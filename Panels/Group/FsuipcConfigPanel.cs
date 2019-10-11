@@ -277,7 +277,7 @@ namespace MobiFlight.Panels.Group
                     (row["settings"] as IFsuipcConfigItem).FSUIPCMask == config.FSUIPCMask &&
                     (row["settings"] as IFsuipcConfigItem).FSUIPCBcdMode == config.FSUIPCBcdMode
                     ) {
-                    fsuipcPresetComboBox.SelectedText = row["description"].ToString();
+                    fsuipcPresetComboBox.Text = row["description"].ToString();
                     break;
                 }
             }
