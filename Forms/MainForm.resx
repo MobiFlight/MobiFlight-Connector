@@ -186,7 +186,7 @@
     <value>Settings</value>
   </data>
   <data name="extrasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 20</value>
+    <value>50, 20</value>
   </data>
   <data name="extrasToolStripMenuItem.Text" xml:space="preserve">
     <value>Extras</value>
@@ -7007,7 +7007,7 @@
     <value>Run</value>
   </data>
   <data name="runTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 25</value>
+    <value>47, 25</value>
   </data>
   <data name="runTestToolStripButton.Text" xml:space="preserve">
     <value>Test</value>
@@ -7082,7 +7082,7 @@
     <value>Magenta</value>
   </data>
   <data name="exitToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 25</value>
+    <value>46, 25</value>
   </data>
   <data name="exitToolStripButton.Text" xml:space="preserve">
     <value>Exit</value>
@@ -7472,7 +7472,7 @@
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>MobiFlight Connector</value>
+    <value>MobiFlight Connector - BETA - Do Not Distribute</value>
   </data>
   <data name="&gt;&gt;fileToolStripMenuItem.Name" xml:space="preserve">
     <value>fileToolStripMenuItem</value>

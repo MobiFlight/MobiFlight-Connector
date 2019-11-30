@@ -43,7 +43,7 @@ public:
     
 private:
     bool          _state;
-    long          _last;
+    uint32_t      _last;
     buttonEvent   _handlerList[2];    
 };
 #endif 

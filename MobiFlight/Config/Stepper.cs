@@ -19,7 +19,7 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String Pin4 = "4";
         [XmlAttribute]
-        public String BtnPin = "5";
+        public String BtnPin = "0";
 
         public Stepper() { Name = "Stepper"; _type = DeviceType.Stepper; }
 

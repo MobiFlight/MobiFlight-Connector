@@ -26,7 +26,8 @@ char foo;
 // 1.9.1 : Set "lastCommand" for LCD output command, 
 //         Fixed problems with long button and encoder names
 //         Memory optimization
-const char version[8] = "1.9.1";
+// 1.9.2 : Auto reset stepper, experimental
+const char version[8] = "1.9.2";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -92,13 +93,13 @@ const char version[8] = "1.9.1";
 #endif
 
 #include <EEPROMex.h>
-#include <CmdMessenger.h>  // CmdMessenger
-#include <LedControl.h>    //  need the library
+#include <CmdMessenger.h>
+#include <LedControl.h>
 #include <Button.h>
 #include <TicksPerSecond.h>
 #include <RotaryEncoder.h>
 #include <Wire.h>
-#include <MFSegments.h> //  need the library
+#include <MFSegments.h>
 #include <MFButton.h>
 #include <MFEncoder.h>
 #include <AccelStepper.h>
@@ -179,10 +180,11 @@ enum
   kTypeEncoderSingleDetent, // 2 (retained for backwards compatibility, use kTypeEncoder for new configs)
   kTypeOutput,              // 3
   kTypeLedSegment,          // 4
-  kTypeStepper,             // 5
+  kTypeStepperDeprecated,   // 5 (keep for backwards compatibility, doesn't support autohome)
   kTypeServo,               // 6
   kTypeLcdDisplayI2C,       // 7
   kTypeEncoder,             // 8
+  kTypeStepper              // 9 (new stepper type with auto zero support if btnPin is > 0)
 };  
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
@@ -492,18 +494,27 @@ void PowerSaveLedSegment(bool state)
 void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
 {
   if (steppersRegistered == MAX_STEPPERS) return;
-  if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4) /* || isPinRegistered(btnPin1) */) {
+  if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4) 
+  || (btnPin1 > 0 && isPinRegistered(btnPin1))) {
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,F("Conflict with stepper"));
 #endif 
     return;
   }
-  steppers[steppersRegistered] = new MFStepper(pin1, pin2, pin3, pin4 /*, btnPin1*/ ); // is our object 
+
+  steppers[steppersRegistered] = new MFStepper(pin1, pin2, pin3, pin4, btnPin1); // is our object 
   steppers[steppersRegistered]->setMaxSpeed(STEPPER_SPEED);
   steppers[steppersRegistered]->setAcceleration(STEPPER_ACCEL);
+
   registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper); 
   // autoreset is not released yet
-  // registerPin(btnPin1, kTypeStepper);
+  if (btnPin1>0) {
+    registerPin(btnPin1, kTypeStepper);
+    // this triggers the auto reset if we need to reset
+    steppers[steppersRegistered]->reset();
+  }
+
+  // all set
   steppersRegistered++;
   
 #ifdef DEBUG  
@@ -686,6 +697,17 @@ void readConfig(String cfg) {
         AddLedSegment(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[4]), atoi(params[3]));
       break;
       
+      case kTypeStepperDeprecated:
+        // this is for backwards compatibility
+        params[0] = strtok_r(NULL, ".", &p); // pin1
+        params[1] = strtok_r(NULL, ".", &p); // pin2
+        params[2] = strtok_r(NULL, ".", &p); // pin3
+        params[3] = strtok_r(NULL, ".", &p); // pin4
+        params[4] = strtok_r(NULL, ".", &p); // btnPin1
+        params[5] = strtok_r(NULL, ":", &p); // Name
+        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), 0);
+      break;
+
       case kTypeStepper:
         // AddStepper(int pin1, int pin2, int pin3, int pin4)
         params[0] = strtok_r(NULL, ".", &p); // pin1

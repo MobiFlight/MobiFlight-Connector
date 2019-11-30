@@ -16,9 +16,9 @@ MFButton::MFButton(uint8_t pin, const char * name)
 
 void MFButton::update()
 {
-    long now = millis();
+    uint32_t now = millis();
     if (now-_last <= 10) return;
-    byte newState = digitalRead(_pin);
+    uint8_t newState = (uint8_t) digitalRead(_pin);
     _last = now;
     if (newState!=_state) {     
       _state = newState;

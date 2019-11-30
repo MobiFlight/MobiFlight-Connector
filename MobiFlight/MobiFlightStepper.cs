@@ -29,6 +29,7 @@ namespace MobiFlight
         public int StepperNumber { get; set; }
         public int InputRevolutionSteps { get; set; }
         public int OutputRevolutionSteps { get; set; }
+        public bool HasAutoZero { get; set; }
         public bool CompassMode { get; set; }
         protected DateTime lastCall;
         protected int lastValue;
@@ -38,6 +39,7 @@ namespace MobiFlight
         
         public MobiFlightStepper()
         {
+            HasAutoZero = false;
             lastValue = 0;
             outputValue = 0;
             StepperNumber = 0;

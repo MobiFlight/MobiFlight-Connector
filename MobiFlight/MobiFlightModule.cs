@@ -33,10 +33,11 @@ namespace MobiFlight
         EncoderSingleDetent, // 2 (retained for backwards compatibility, use Encoder for new configs)
         Output,              // 3
         LedModule,           // 4
-        Stepper,             // 5
+        StepperDeprecated,   // 5
         Servo,               // 6
         LcdDisplay,          // 7
-        Encoder              // 8
+        Encoder,             // 8,
+        Stepper              // 9
     }
 
     public class FirmwareFeature
@@ -292,9 +293,9 @@ namespace MobiFlight
 
                     case DeviceType.Stepper:
                         device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
-                        stepperModules.Add(device.Name, new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count });
+                        stepperModules.Add(device.Name, new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count, HasAutoZero = (device as Config.Stepper).BtnPin != "0" });
                         break;
-                    
+
                     case DeviceType.Servo:
                         device.Name = GenerateUniqueDeviceName(servoModules.Keys.ToArray(), device.Name);
                         servoModules.Add(device.Name, new MobiFlightServo() { CmdMessenger = _cmdMessenger, Name = device.Name, ServoNumber = servoModules.Count });
@@ -938,7 +939,10 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin2));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin3));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin4));
-                        //usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).BtnPin));
+
+                        // We don't have to set the default 0 pin (for none auto zero)
+                        if ((device as MobiFlight.Config.Stepper).BtnPin != "0")
+                            usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).BtnPin));
                         break;
 
                     case DeviceType.Servo:

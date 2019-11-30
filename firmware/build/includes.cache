@@ -1,0 +1,212 @@
+[
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "D:\\Tools\\arduino-1.8.8\\hardware\\arduino\\avr\\cores\\arduino"
+  },
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "D:\\Tools\\arduino-1.8.8\\hardware\\arduino\\avr\\variants\\mega"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "EEPROMex.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\EEPROMEx"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "CmdMessenger.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\CmdMessenger"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "LedControl.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\LedControl"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "Button.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\Button"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "TicksPerSecond.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\TicksPerSecond"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "RotaryEncoder.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\RotaryEncoder"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "D:\\Tools\\arduino-1.8.8\\hardware\\arduino\\avr\\libraries\\Wire\\src"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "MFSegments.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "AccelStepper.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\AccelStepper"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "Servo.h",
+    "Includepath": "D:\\Tools\\arduino-1.8.8\\libraries\\Servo\\src"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "LiquidCrystal_I2C.h",
+    "Includepath": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\LiquidCrystal-I2C"
+  },
+  {
+    "Sourcefile": "d:\\projects\\MobiFlight\\firmware\\build\\sketch\\mobiflight.ino.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\EEPROMEx\\EEPROMex.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\CmdMessenger\\CmdMessenger.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\CmdMessenger\\utility\\DoEvery.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\CmdMessenger\\utility\\HeaterSim.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\LedControl\\LedControl.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\Button\\Button.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\TicksPerSecond\\TicksPerSecond.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\RotaryEncoder\\RotaryEncoder.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "D:\\Tools\\arduino-1.8.8\\hardware\\arduino\\avr\\libraries\\Wire\\src\\Wire.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "D:\\Tools\\arduino-1.8.8\\hardware\\arduino\\avr\\libraries\\Wire\\src\\utility\\twi.c",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFButton.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFCore.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFEncoder.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFLCDDisplay.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFMain.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFOutput.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFSegments.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFServo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\MF_Modules\\MFStepper.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\AccelStepper\\AccelStepper.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\AccelStepper\\MultiStepper.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "D:\\Tools\\arduino-1.8.8\\libraries\\Servo\\src\\avr\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "D:\\Tools\\arduino-1.8.8\\libraries\\Servo\\src\\megaavr\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "D:\\Tools\\arduino-1.8.8\\libraries\\Servo\\src\\nrf52\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "D:\\Tools\\arduino-1.8.8\\libraries\\Servo\\src\\sam\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "D:\\Tools\\arduino-1.8.8\\libraries\\Servo\\src\\samd\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "D:\\Tools\\arduino-1.8.8\\libraries\\Servo\\src\\stm32f4\\Servo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\Sebastian\\Documents\\Arduino\\libraries\\LiquidCrystal-I2C\\LiquidCrystal_I2C.cpp",
+    "Include": "",
+    "Includepath": ""
+  }
+]

@@ -1,7 +1,0 @@
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceive\bin\Release\SendAndReceive.exe
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceive\bin\Release\SendAndReceive.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceive\bin\Release\CommandMessenger.dll
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceive\bin\Release\CommandMessenger.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceive\obj\x86\Release\SendAndReceive.exe
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceive\obj\x86\Release\SendAndReceive.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceive\obj\x86\Release\2-SendAndReceive.csprojResolveAssemblyReference.cache

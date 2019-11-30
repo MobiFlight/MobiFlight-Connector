@@ -39,12 +39,13 @@
             this.mfPin2ComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.mfNameTextBox = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.autoZeroPinGroupBox = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.mfBtnPinComboBox = new System.Windows.Forms.ComboBox();
+            this.autoZeroCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.autoZeroPinGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -60,7 +61,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(185, 73);
+            this.groupBox1.Size = new System.Drawing.Size(203, 73);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pin Settings Motor";
@@ -143,7 +144,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 118);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(185, 48);
+            this.groupBox2.Size = new System.Drawing.Size(203, 48);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Name";
@@ -156,22 +157,22 @@
             this.mfNameTextBox.TabIndex = 0;
             this.mfNameTextBox.TextChanged += new System.EventHandler(this.value_Changed);
             // 
-            // groupBox3
+            // autoZeroPinGroupBox
             // 
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.mfBtnPinComboBox);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox3.Location = new System.Drawing.Point(0, 73);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(185, 45);
-            this.groupBox3.TabIndex = 3;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Pin Zero Input";
-            this.groupBox3.Visible = false;
+            this.autoZeroPinGroupBox.Controls.Add(this.autoZeroCheckBox);
+            this.autoZeroPinGroupBox.Controls.Add(this.label2);
+            this.autoZeroPinGroupBox.Controls.Add(this.mfBtnPinComboBox);
+            this.autoZeroPinGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.autoZeroPinGroupBox.Location = new System.Drawing.Point(0, 73);
+            this.autoZeroPinGroupBox.Name = "autoZeroPinGroupBox";
+            this.autoZeroPinGroupBox.Size = new System.Drawing.Size(203, 45);
+            this.autoZeroPinGroupBox.TabIndex = 3;
+            this.autoZeroPinGroupBox.TabStop = false;
+            this.autoZeroPinGroupBox.Text = "Auto Zero Input";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(57, 21);
+            this.label2.Location = new System.Drawing.Point(145, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 18);
             this.label2.TabIndex = 16;
@@ -180,11 +181,23 @@
             // mfBtnPinComboBox
             // 
             this.mfBtnPinComboBox.FormattingEnabled = true;
-            this.mfBtnPinComboBox.Location = new System.Drawing.Point(18, 18);
+            this.mfBtnPinComboBox.Location = new System.Drawing.Point(106, 13);
             this.mfBtnPinComboBox.MaxLength = 2;
             this.mfBtnPinComboBox.Name = "mfBtnPinComboBox";
             this.mfBtnPinComboBox.Size = new System.Drawing.Size(35, 21);
             this.mfBtnPinComboBox.TabIndex = 15;
+            this.mfBtnPinComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            // 
+            // autoZeroCheckBox
+            // 
+            this.autoZeroCheckBox.AutoSize = true;
+            this.autoZeroCheckBox.Location = new System.Drawing.Point(18, 16);
+            this.autoZeroCheckBox.Name = "autoZeroCheckBox";
+            this.autoZeroCheckBox.Size = new System.Drawing.Size(52, 17);
+            this.autoZeroCheckBox.TabIndex = 17;
+            this.autoZeroCheckBox.Text = "None";
+            this.autoZeroCheckBox.UseVisualStyleBackColor = true;
+            this.autoZeroCheckBox.CheckedChanged += new System.EventHandler(this.autoZeroCheckBox_CheckedChanged);
             // 
             // MFStepperPanel
             // 
@@ -192,14 +205,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.autoZeroPinGroupBox);
             this.Controls.Add(this.groupBox1);
             this.Name = "MFStepperPanel";
-            this.Size = new System.Drawing.Size(185, 192);
+            this.Size = new System.Drawing.Size(203, 192);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
+            this.autoZeroPinGroupBox.ResumeLayout(false);
+            this.autoZeroPinGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -217,9 +231,9 @@
         private System.Windows.Forms.ComboBox mfPin4ComboBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox mfNameTextBox;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox autoZeroPinGroupBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox mfBtnPinComboBox;
-
+        private System.Windows.Forms.CheckBox autoZeroCheckBox;
     }
 }

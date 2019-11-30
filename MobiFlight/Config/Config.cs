@@ -96,6 +96,12 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        case DeviceType.StepperDeprecated:
+                            currentItem = new MobiFlight.Config.Stepper();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            (currentItem as Stepper).BtnPin = "0"; // set this explicitly to 0 because the default used to be 5.
+                            break;
+
                         case DeviceType.Stepper:
                             currentItem = new MobiFlight.Config.Stepper();
                             currentItem.FromInternal(item + BaseDevice.End);

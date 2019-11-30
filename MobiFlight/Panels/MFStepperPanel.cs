@@ -21,6 +21,7 @@ namespace MobiFlight.Panels
         public MFStepperPanel(List<byte> FreePins)
         {
             InitializeComponent();
+
             mfPin1ComboBox.Items.Clear();
             mfPin2ComboBox.Items.Clear();
             mfPin3ComboBox.Items.Clear();
@@ -43,9 +44,14 @@ namespace MobiFlight.Panels
             List<byte> Pin4Pins = FreePins.ToList(); Pin4Pins.Add(Convert.ToByte(stepper.Pin4)); Pin4Pins.Sort();
             foreach (byte pin in Pin4Pins) mfPin4ComboBox.Items.Add(pin);
 
-            List<byte> Pin5Pins = FreePins.ToList(); Pin5Pins.Add(Convert.ToByte(stepper.BtnPin)); Pin5Pins.Sort();
-            foreach (byte pin in Pin5Pins) mfBtnPinComboBox.Items.Add(pin);
-
+            List<byte> Pin5Pins = FreePins.ToList();
+            if (stepper.BtnPin!="0") Pin5Pins.Add(Convert.ToByte(stepper.BtnPin));
+            Pin5Pins.Sort();
+            foreach (byte pin in Pin5Pins)
+            {
+                mfBtnPinComboBox.Items.Add(pin);
+            }
+                       
             if (mfPin1ComboBox.Items.Count > 4)
             {
                 mfPin1ComboBox.SelectedIndex = 0;
@@ -63,8 +69,13 @@ namespace MobiFlight.Panels
             ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, stepper.Pin3);
             ComboBoxHelper.SetSelectedItem(mfPin4ComboBox, stepper.Pin4);
             ComboBoxHelper.SetSelectedItem(mfPin4ComboBox, stepper.Pin4);
-            ComboBoxHelper.SetSelectedItem(mfBtnPinComboBox, stepper.BtnPin);
+
             mfNameTextBox.Text = stepper.Name;
+
+            autoZeroCheckBox.Checked = stepper.BtnPin == "0";
+            if (stepper.BtnPin != "0")
+                ComboBoxHelper.SetSelectedItem(mfBtnPinComboBox, stepper.BtnPin);
+
             setValues();
 
             initialized = true;
@@ -86,8 +97,14 @@ namespace MobiFlight.Panels
             stepper.Pin2 = mfPin2ComboBox.Text;
             stepper.Pin3 = mfPin3ComboBox.Text;
             stepper.Pin4 = mfPin4ComboBox.Text;
-            stepper.BtnPin = mfBtnPinComboBox.Text;
+            stepper.BtnPin = autoZeroCheckBox.Checked ? "0" : mfBtnPinComboBox.Text;
             stepper.Name = mfNameTextBox.Text;
+        }
+
+        private void autoZeroCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            mfBtnPinComboBox.Enabled = !(sender as CheckBox).Checked;
+            setValues();
         }
     }
 }

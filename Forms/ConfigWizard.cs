@@ -117,6 +117,7 @@ namespace MobiFlight
             stepperPanel.Dock = DockStyle.Top;
             stepperPanel.OnManualCalibrationTriggered += new EventHandler<Panels.ManualCalibrationTriggeredEventArgs>(stepperPanel_OnManualCalibrationTriggered);
             stepperPanel.OnSetZeroTriggered += new EventHandler(stepperPanel_OnSetZeroTriggered);
+            stepperPanel.OnStepperSelected +=  StepperPanel_OnStepperSelected;
 
 
             groupBoxDisplaySettings.Controls.Add(displayLcdDisplayPanel);
@@ -142,6 +143,23 @@ namespace MobiFlight
 
             displayNothingSelectedPanel.Height = displayPanelHeight;
             displayNothingSelectedPanel.Enabled = true;
+        }
+
+        private void StepperPanel_OnStepperSelected(object sender, EventArgs e)
+        {
+            _syncFormToConfig();
+            String stepperAddress = (sender as ComboBox).SelectedValue.ToString();
+            String serial = config.DisplaySerial;
+            if (serial.Contains('/'))
+            {
+                serial = serial.Split('/')[1].Trim();
+            }
+
+            MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
+                                            .GetModuleBySerial(serial)
+                                            .GetStepper(stepperAddress);
+            stepperPanel.ShowManualCalibation(!stepper.HasAutoZero);
+            // sorry for this hack...
         }
 
         void stepperPanel_OnSetZeroTriggered(object sender, EventArgs e)
@@ -291,6 +309,8 @@ namespace MobiFlight
 
             servoPanel.syncFromConfig(config);
 
+            // it is not nice but we haev to check what kind of stepper the stepper is
+            // to show or not show the manual calibration piece.
             stepperPanel.syncFromConfig(config);
 
             displayLcdDisplayPanel.syncFromConfig(config);

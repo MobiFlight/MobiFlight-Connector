@@ -15,6 +15,8 @@ namespace MobiFlight.Panels
 
         public event EventHandler<ManualCalibrationTriggeredEventArgs> OnManualCalibrationTriggered;
         public event EventHandler OnSetZeroTriggered;
+        public event EventHandler OnStepperSelected;
+
         int[] StepValues = { -50, -10, -1, 1, 10, 50 };
         ErrorProvider errorProvider = new ErrorProvider();
 
@@ -26,6 +28,11 @@ namespace MobiFlight.Panels
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public void ShowManualCalibation(Boolean state)
+        {
+            groupBox2.Enabled = state;
         }
 
         internal void syncFromConfig(OutputConfigItem config)
@@ -150,6 +157,12 @@ namespace MobiFlight.Panels
         private void CompassModeCheckBox_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void stepperAddressesComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (OnStepperSelected != null)
+                OnStepperSelected(sender, e);
         }
     }
 

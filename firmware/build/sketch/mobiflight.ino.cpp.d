@@ -1,0 +1,37 @@
+d:\projects\MobiFlight\firmware\build\sketch\mobiflight.ino.cpp.o: \
+ d:\projects\MobiFlight\firmware\build\sketch\mobiflight.ino.cpp \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Arduino.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/binary.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/WCharacter.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/WString.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/HardwareSerial.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Stream.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Print.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Printable.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/USBAPI.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Arduino.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\variants\mega/pins_arduino.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\EEPROMEx/EEPROMex.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\CmdMessenger/CmdMessenger.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\LedControl/LedControl.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\Button/Button.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\TicksPerSecond/TicksPerSecond.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\RotaryEncoder/RotaryEncoder.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\libraries\Wire\src/Wire.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Stream.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\MF_Modules/MFSegments.h \
+ c:\users\sebastian\documents\arduino\libraries\ledcontrol\ledcontrol.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\MF_Modules/MFButton.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\MF_Modules/MFEncoder.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\AccelStepper/AccelStepper.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\MF_Modules/MFStepper.h \
+ c:\users\sebastian\documents\arduino\libraries\accelstepper\accelstepper.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\MF_Modules/MFButton.h \
+ D:\Tools\arduino-1.8.8\libraries\Servo\src/Servo.h \
+ D:\Tools\arduino-1.8.8\libraries\Servo\src/avr/ServoTimers.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\MF_Modules/MFServo.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\MF_Modules/MFOutput.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\LiquidCrystal-I2C/LiquidCrystal_I2C.h \
+ D:\Tools\arduino-1.8.8\hardware\arduino\avr\cores\arduino/Print.h \
+ C:\Users\Sebastian\Documents\Arduino\libraries\MF_Modules/MFLCDDisplay.h \
+ c:\users\sebastian\documents\arduino\libraries\liquidcrystal-i2c\liquidcrystal_i2c.h

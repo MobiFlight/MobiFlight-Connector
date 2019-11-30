@@ -1,1 +1,0 @@
-Link these libs into your Arduino libs folder to make sure everybody uses the same libraries to compile the firmware.
