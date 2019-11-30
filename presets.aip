@@ -206,7 +206,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$*3600/65536/1852" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$*(3600/65536)/1852" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -415,7 +415,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -426,7 +426,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -437,7 +437,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -554,11 +554,11 @@
     <active>true</active>
     <description>Pos./Attitude - Altitude of aircraft</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-      <source type="FSUIPC" offset="0x0570" offsetType="Integer" size="8" mask="0xFFFFFFFFFFFFFFFF" bcdMode="False" />
+      <source type="FSUIPC" offset="0x0574" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="(($*3.28084)/65536)/65536" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$*3.28084" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -569,7 +569,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="($*360/65536)/65536" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="Round(-($*(360/65536)/65536),0)" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -580,7 +580,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="($*360/65536)/65536" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$*(360/65536)/65536" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -591,7 +591,7 @@
       <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="($*360/65536)/65536" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$*(360/65536)/65536" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -1747,6 +1747,28 @@
       <display type="" trigger="normal" pin="" />
       <preconditions />
       <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Fuel - Fuel Left Main Level (%)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B7C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$*100/(128*65536)" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Fuel - Fuel Right Main Level (%)</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x0B94" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$*100/(128*65536)" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -3759,7 +3781,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -3770,7 +3792,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -3781,7 +3803,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -3792,7 +3814,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -3803,7 +3825,7 @@
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
-      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+      <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
     </settings>
   </config>
   <config>
@@ -3811,6 +3833,17 @@
     <description>Fuel - Fuel pump switches (separate per engine))</description>
     <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
       <source type="FSUIPC" offset="0x3125" offsetType="Integer" size="1" mask="0xFF" bcdMode="False" />
+      <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
+      <display type="" trigger="normal" pin="" />
+      <preconditions />
+      <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+    </settings>
+  </config>
+  <config>
+    <active>true</active>
+    <description>Cockpit - Altimeter altitude in feet OR metres</description>
+    <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <source type="FSUIPC" offset="0x3324" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
       <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
       <display type="" trigger="normal" pin="" />
       <preconditions />
