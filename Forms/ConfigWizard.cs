@@ -147,7 +147,13 @@ namespace MobiFlight
 
         private void StepperPanel_OnStepperSelected(object sender, EventArgs e)
         {
-            _syncFormToConfig();
+            // in case the module has changed
+            // we have to sync those changes to properly
+            // find the stepper and be able to
+            // show manual calibration group box or not.
+            display_syncToConfig();
+            stepperPanel.syncToConfig(config);
+
             String stepperAddress = (sender as ComboBox).SelectedValue.ToString();
             String serial = config.DisplaySerial;
             if (serial.Contains('/'))
@@ -392,19 +398,13 @@ namespace MobiFlight
             fsuipcConfigPanel.syncToConfig(config);
             configRefPanel.syncToConfig(config);
 
-            // comparison panel
-            config.ComparisonActive = comparisonActiveCheckBox.Checked;
-            config.ComparisonValue = comparisonValueTextBox.Text;
-            config.ComparisonOperand = comparisonOperandComboBox.Text;
-            config.ComparisonIfValue = comparisonIfValueTextBox.Text;
-            config.ComparisonElseValue = comparisonElseValueTextBox.Text;
+            // refactor!!!
+            comparisonPanel_syncToConfig();
 
             config.Interpolation.Active = interpolationCheckBox.Checked;
             interpolationPanel1.syncToConfig(config.Interpolation);
 
-            config.DisplayType = displayTypeComboBox.Text;
-            config.DisplayTrigger = "normal";
-            config.DisplaySerial = displayModuleNameComboBox.Text;
+            display_syncToConfig();
 
             // sync the two properties that are not part of the preconditions list
 
@@ -413,18 +413,35 @@ namespace MobiFlight
 
             // sync panels
             displayPinPanel.syncToConfig(config);
-            
+
             displayLedDisplayPanel.syncToConfig(config);
 
             displayBcdPanel.syncToConfig(config);
 
             servoPanel.syncToConfig(config);
-            
+
             stepperPanel.syncToConfig(config);
 
             displayLcdDisplayPanel.syncToConfig(config);
-            
+
             return true;
+        }
+
+        private void comparisonPanel_syncToConfig()
+        {
+            // comparison panel
+            config.ComparisonActive = comparisonActiveCheckBox.Checked;
+            config.ComparisonValue = comparisonValueTextBox.Text;
+            config.ComparisonOperand = comparisonOperandComboBox.Text;
+            config.ComparisonIfValue = comparisonIfValueTextBox.Text;
+            config.ComparisonElseValue = comparisonElseValueTextBox.Text;
+        }
+
+        private void display_syncToConfig()
+        {
+            config.DisplayType = displayTypeComboBox.Text;
+            config.DisplayTrigger = "normal";
+            config.DisplaySerial = displayModuleNameComboBox.Text;
         }
 
         private void button1_Click(object sender, EventArgs e)
