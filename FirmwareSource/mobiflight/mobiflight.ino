@@ -26,7 +26,7 @@ char foo;
 // 1.9.1 : Set "lastCommand" for LCD output command, 
 //         Fixed problems with long button and encoder names
 //         Memory optimization
-// 1.9.2 : Auto reset stepper, experimental
+// 1.9.2 : Auto reset stepper, more characters for 7 segments
 const char version[8] = "1.9.2";
 
 //#define DEBUG 1
