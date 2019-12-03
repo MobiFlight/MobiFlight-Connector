@@ -48,7 +48,7 @@ namespace MobiFlight
             50,51,52,53,
             // Analog Pins
                         54,55,56,57,58,59,
-            60,61,62,63,64,65,66,67,68
+            60,61,62,63,64,65,66,67,68,69
         };
 
         public static readonly byte[] MICRO_PINS = {
@@ -78,7 +78,7 @@ namespace MobiFlight
 
         public static readonly byte[] MEGA_PINS_ANALOG = {
                         54,55,56,57,58,59,
-            60,61,62,63,64,65,66,67,68
+            60,61,62,63,64,65,66,67,68,69
         };
 
         public static readonly byte[] MICRO_PINS_ANALOG = {
@@ -87,8 +87,7 @@ namespace MobiFlight
         };
 
         public static readonly byte[] UNO_PINS_ANALOG = {
-                        54,55,56,57,58,59,
-            60,61,62,63,64,65,66,67,68
+                        14,15,16,7,18,19
         };
 
         // different vendor and product ids for 
@@ -105,13 +104,18 @@ namespace MobiFlight
         };
 
         public static readonly String[] VIDPID_MEGA = {
-            "VID_2341&PID_0042",
             "VID_2341&PID_0010",
+            "VID_2341&PID_0042",
+            "VID_2341&PID_0001", // was reported on youtube video
             "VID_8087&PID_0024",
             "VID_1A86&PID_7523", // this is actually an CH-340 and can be a Mega OR an UNO
             "VID_2A03&PID_0042", // http://www.mobiflight.de/forum/message/983.html
-            "VID_0403&PID_6001"  // http://www.mobiflight.de/forum/topic/570.html
+            "VID_0403&PID_6001",  // http://www.mobiflight.de/forum/topic/570.html
 
+            // added from https://github.com/arduino/Arduino/blob/1.8.0/hardware/arduino/avr/boards.txt#L51-L58
+            "VID_2A03&PID_0010",
+            "VID_2341&PID_0210",
+            "VID_2341&PID_0242"
         };
 
         String _version = "n/a";
@@ -172,3 +176,4 @@ namespace MobiFlight
         }
     }
 }
+ 
