@@ -447,6 +447,7 @@ namespace MobiFlight
             }
             catch (Exception exc)
             {
+                Log.Instance.log("InputConfigWizard.inputTypeComboBox_SelectedIndexChanged: EXC " + exc.Message, LogSeverity.Debug);
                 MessageBox.Show(MainForm._tr("uiMessageNotImplementedYet"), 
                                 MainForm._tr("Hint"), 
                                 MessageBoxButtons.OK, 

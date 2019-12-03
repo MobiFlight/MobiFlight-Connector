@@ -723,8 +723,9 @@ namespace MobiFlight
                     displayLcdDisplayPanel.Height = displayPanelHeight;
                 }
             }
-            catch (Exception)
+            catch (Exception exc)
             {
+                Log.Instance.log("ConfigWizard.displayTypeComboBox_SelectedIndexChanged: EXC " + exc.Message, LogSeverity.Debug);
                 MessageBox.Show(MainForm._tr("uiMessageNotImplementedYet"), 
                                 MainForm._tr("Hint"), 
                                 MessageBoxButtons.OK, 
