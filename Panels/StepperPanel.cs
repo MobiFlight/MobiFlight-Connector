@@ -161,6 +161,7 @@ namespace MobiFlight.Panels
 
         private void stepperAddressesComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
+            if ((sender as ComboBox).Items.Count == 0) return;
             if (OnStepperSelected != null)
                 OnStepperSelected(sender, e);
         }
