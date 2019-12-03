@@ -291,10 +291,10 @@
     <value>173, 48</value>
   </data>
   <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>558, 149</value>
+    <value>594, 149</value>
   </data>
   <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>564, 155</value>
+    <value>600, 155</value>
   </data>
   <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>608, 181</value>
