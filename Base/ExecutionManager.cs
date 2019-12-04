@@ -213,7 +213,8 @@ namespace MobiFlight
             mobiFlightCache.disconnect();
 #endif
             fsuipcCache.disconnect(); 
-            this.OnModulesDisconnected(this, new EventArgs());         
+            if (this.OnModulesDisconnected != null)
+                this.OnModulesDisconnected(this, new EventArgs());         
         }
 
         public void updateModuleSettings(Dictionary<string, ArcazeModuleSettings> arcazeSettings)
@@ -914,7 +915,8 @@ namespace MobiFlight
         void arcazeCache_Closed(object sender, EventArgs e)
         {
             TestModeStop();
-            this.OnModulesDisconnected(sender, e);
+            if (this.OnModulesDisconnected != null)
+                this.OnModulesDisconnected(sender, e);
         }
 
         /// <summary>

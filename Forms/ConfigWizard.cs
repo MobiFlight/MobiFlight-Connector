@@ -152,7 +152,6 @@ namespace MobiFlight
             // find the stepper and be able to
             // show manual calibration group box or not.
             display_syncToConfig();
-            stepperPanel.syncToConfig(config);
 
             String stepperAddress = (sender as ComboBox).SelectedValue.ToString();
             String serial = config.DisplaySerial;
