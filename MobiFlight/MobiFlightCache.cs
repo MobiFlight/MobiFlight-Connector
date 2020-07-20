@@ -128,7 +128,7 @@ namespace MobiFlight
                         if (portName != null)
                         {
                             result.Add(new Tuple<string, string>(portName, MobiFlightModuleInfo.TYPE_ARDUINO_MEGA));
-                            Log.Instance.log("Found potentially compatible module: " + regDevice + "@" + portName, LogSeverity.Debug);
+                            Log.Instance.log("Found potentially compatible module (Mega 2560): " + regDevice + "@" + portName, LogSeverity.Debug);
                         }
                         continue;
                     }
@@ -138,7 +138,7 @@ namespace MobiFlight
                         if (portName != null)
                         {
                             result.Add(new Tuple<string, string>(portName, MobiFlightModuleInfo.TYPE_ARDUINO_MICRO));
-                            Log.Instance.log("Found potentially compatible module: " + regDevice + "@" + portName, LogSeverity.Debug);
+                            Log.Instance.log("Found potentially compatible module (Pro Micro): " + regDevice + "@" + portName, LogSeverity.Debug);
                         }
                         continue;
                     }
@@ -161,7 +161,7 @@ namespace MobiFlight
                                     Log.Instance.log("Duplicate Entry for Port: " + ArduinoType + " by VID/PID: " + VidPid + "@" + portName, LogSeverity.Debug);
                                 } else { 
                                     result.Add(new Tuple<string, string>(portName, ArduinoType));
-                                    Log.Instance.log("Found potentially compatible module " + ArduinoType + " by VID/PID: " + VidPid + "@" + portName, LogSeverity.Debug);
+                                    Log.Instance.log("Found potentially compatible module (" + ArduinoType + " by VID/PID): " + VidPid + "@" + portName, LogSeverity.Debug);
                                 }
                             }
                             continue;
@@ -195,6 +195,17 @@ namespace MobiFlight
                 String ArduinoType = item.Item2;
 
                 if (!connectedPorts.Contains(portName)) continue;
+
+                bool portAlreadyConnected = false;
+                foreach (MobiFlightModuleInfo info in result) {
+                    if (info.Port==portName)
+                    {
+                        portAlreadyConnected = true;
+                        break;
+                    }
+                }
+                if (portAlreadyConnected) continue;
+
                 MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName, Type = ArduinoType });
                 tmp.Connect();
                 MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
