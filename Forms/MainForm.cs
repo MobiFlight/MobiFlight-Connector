@@ -39,9 +39,12 @@ namespace MobiFlight
 
         private bool _onClosing = false;
         private readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector.xml";
+        //private readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/beta/mobiflightconnector.xml";
 
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
+
+        private bool SilentUpdateCheck = true;
 
         /// <summary>
         /// get a localized string
@@ -260,19 +263,51 @@ namespace MobiFlight
             }
         }
 
+        /// <summary>
+        /// properly disconnects all connections to FSUIPC and Arcaze
+        /// </summary>
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            execManager.Shutdown();
+            Properties.Settings.Default.Save();
+        } //Form1_FormClosed
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
+            //AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
+            CheckForUpdate(false, true);
+        }
+
+        private void AutoUpdater_AutoUpdaterFinishedEvent()
+        {
+            //this.Invoke(new VoidDelegate(startAutoConnectThreadSafe));
+            AutoUpdater.CheckForUpdateEvent -= AutoUpdater_CheckForUpdateEvent;
+            Application.Exit();
+        }
+
+        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckForUpdate(true);
+        }
+
         void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
         {
             // TODO: Does this happen with no internet connection???
             if (args != null)
             {
 
-                if (!args.IsUpdateAvailable && !args.DoSilent)
+                if (!args.IsUpdateAvailable && !SilentUpdateCheck /* && !args.DoSilent */)
                 {
                     this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(_tr("uiMessageNoUpdateNecessary"), Version), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (!args.IsUpdateAvailable)
                 {
                     Log.Instance.log("No updates necessary. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
+                } else
+                {
+                    AutoUpdater.ShowUpdateForm();
                 }
 
             } else
@@ -295,16 +330,20 @@ namespace MobiFlight
 
         private void CheckForUpdate(bool force, bool silent = false)
         {
-            AutoUpdater.LetUserSelectRemindLater = true;
+            AutoUpdater.Mandatory = force;
+            AutoUpdater.ShowSkipButton = true;
+            AutoUpdater.ShowRemindLaterButton = true;
+            AutoUpdater.UpdateFormSize = new System.Drawing.Size(600, 500);
+
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
 
             String trackingParams = "?cache=" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
             // trackingParams = "";
 
             Log.Instance.log("Checking for updates", LogSeverity.Info);
-            AutoUpdater.Start(MobiFlightUpdateUrl + trackingParams, 
-                               force, 
-                               silent);
+            AutoUpdater.RunUpdateAsAdmin = true;
+            SilentUpdateCheck = silent;
+            AutoUpdater.Start(MobiFlightUpdateUrl + trackingParams + "1");
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)
@@ -625,15 +664,6 @@ namespace MobiFlight
             // only enable button if modules are available            
             return (arcazeSerial.Items.Count > 0);
         } //fillComboBoxesWithArcazeModules()
-
-        /// <summary>
-        /// properly disconnects all connections to FSUIPC and Arcaze
-        /// </summary>
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            execManager.Shutdown();
-            Properties.Settings.Default.Save();
-        } //Form1_FormClosed
 
         /// <summary>
         /// toggles the current timer when user clicks on respective run/stop buttons
@@ -1760,24 +1790,6 @@ namespace MobiFlight
                     gridRow.Cells["inputType"].Value = cfg.Type;
                 }
             }
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
-            AutoUpdater.AutoUpdaterFinishedEvent += AutoUpdater_AutoUpdaterFinishedEvent;
-            CheckForUpdate(false, true);
-        }
-
-        private void AutoUpdater_AutoUpdaterFinishedEvent()
-        {
-            this.Invoke(new VoidDelegate(startAutoConnectThreadSafe));
-        }
-
-        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            CheckForUpdate(true);
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

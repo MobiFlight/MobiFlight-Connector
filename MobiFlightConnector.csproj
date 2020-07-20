@@ -164,6 +164,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
     </Reference>
+    <Reference Include="AutoUpdater.NET, Version=1.5.8.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
+      <HintPath>packages\Autoupdater.NET.Official.1.5.8\lib\net40\AutoUpdater.NET.dll</HintPath>
+    </Reference>
     <Reference Include="FSUIPCClient, Version=3.1.11.313, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
       <HintPath>packages\FSUIPCClientDLL.3.1.11\lib\net40\FSUIPCClient.dll</HintPath>
     </Reference>
@@ -574,10 +577,16 @@
     <None Include="firmware\mobiflight_mega_1_9_2.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_mega_1_9_3.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_micro_1_9_1.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_micro_1_9_2.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_micro_1_9_3.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_uno_1_9_1.hex">
@@ -586,7 +595,12 @@
     <None Include="firmware\mobiflight_uno_1_9_2.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
+    <None Include="firmware\mobiflight_uno_1_9_3.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="presets_eventids_pmdg_737.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -917,10 +931,6 @@
     <None Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="AutoUpdater.NET\AutoUpdater.NET\trunk\AutoUpdater.NET\AutoUpdater.NET.csproj">
-      <Project>{fb9e7e6b-b19f-4f37-a708-2996190cef13}</Project>
-      <Name>AutoUpdater.NET</Name>
-    </ProjectReference>
     <ProjectReference Include="CmdMessenger\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
       <Project>{3cf8f8fc-6f5c-46f8-94dc-c2e4c505eca4}</Project>
       <Name>CommandMessenger</Name>

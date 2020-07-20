@@ -27,6 +27,7 @@ char foo;
 //         Fixed problems with long button and encoder names
 //         Memory optimization
 // 1.9.2 : Auto reset stepper, more characters for 7 segments
+// 1.9.3 : Increased number of pins for MEGA
 const char version[8] = "1.9.3";
 
 //#define DEBUG 1

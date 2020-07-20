@@ -233,6 +233,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

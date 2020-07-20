@@ -31,8 +31,8 @@ char foo;
 // 1.9.1 : Set "lastCommand" for LCD output command, 
 //         Fixed problems with long button and encoder names
 //         Memory optimization
-// 1.9.2 : Auto reset stepper, experimental
-const char version[8] = "1.9.2";
+// 1.9.2 : Auto reset stepper, more characters for 7 segments
+const char version[8] = "1.9.3";
 
 //#define DEBUG 1
 # 95 "d:\\projects\\MobiFlight\\FirmwareSource\\mobiflight\\mobiflight.ino"
@@ -73,7 +73,7 @@ int configLength = 0;
 boolean configActivated = false;
 
 bool powerSavingMode = false;
-uint8_t pinsRegistered[58];
+uint8_t pinsRegistered[68];
 const unsigned long POWER_SAVING_TIME = 60*15; // in seconds
 
 CmdMessenger cmdMessenger = CmdMessenger(Serial);
@@ -107,11 +107,11 @@ enum
   kTypeEncoderSingleDetent, // 2 (retained for backwards compatibility, use kTypeEncoder for new configs)
   kTypeOutput, // 3
   kTypeLedSegment, // 4
-  kTypeStepper, // 5
+  kTypeStepperDeprecated, // 5 (keep for backwards compatibility, doesn't support autohome)
   kTypeServo, // 6
   kTypeLcdDisplayI2C, // 7
-  kTypeEncoder, // 8,
-  kTypeStepperWithAutoZero // 9
+  kTypeEncoder, // 8
+  kTypeStepper // 9 (new stepper type with auto zero support if btnPin is > 0)
 };
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
@@ -286,13 +286,13 @@ void registerPin(uint8_t pin, uint8_t type) {
 }
 
 void clearRegisteredPins(uint8_t type) {
-  for(int i=0; i!=58;++i)
+  for(int i=0; i!=68;++i)
     if (pinsRegistered[i] == type)
       pinsRegistered[i] = kTypeNotSet;
 }
 
 void clearRegisteredPins() {
-  for(int i=0; i!=58;++i)
+  for(int i=0; i!=68;++i)
     pinsRegistered[i] = kTypeNotSet;
 }
 
@@ -418,7 +418,7 @@ void PowerSaveLedSegment(bool state)
   }
 }
 //// STEPPER ////
-void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1, uint8_t stepperType)
+void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
 {
   if (steppersRegistered == 10) return;
   if (isPinRegistered(pin1) || isPinRegistered(pin2) || isPinRegistered(pin3) || isPinRegistered(pin4)
@@ -430,13 +430,13 @@ void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1, uint8_t ste
   }
 
   steppers[steppersRegistered] = new MFStepper(pin1, pin2, pin3, pin4, btnPin1); // is our object 
-  steppers[steppersRegistered]->setMaxSpeed(600 /* 300 already worked, 467, too?*/);
-  steppers[steppersRegistered]->setAcceleration(900);
+  steppers[steppersRegistered]->setMaxSpeed(400 /* 300 already worked, 467, too?*/);
+  steppers[steppersRegistered]->setAcceleration(800);
 
-  registerPin(pin1, stepperType); registerPin(pin2, stepperType); registerPin(pin3, stepperType); registerPin(pin4, stepperType);
+  registerPin(pin1, kTypeStepper); registerPin(pin2, kTypeStepper); registerPin(pin3, kTypeStepper); registerPin(pin4, kTypeStepper);
   // autoreset is not released yet
   if (btnPin1>0) {
-    registerPin(btnPin1, stepperType);
+    registerPin(btnPin1, kTypeStepper);
     // this triggers the auto reset if we need to reset
     steppers[steppersRegistered]->reset();
   }
@@ -695,8 +695,8 @@ void readConfig(String cfg) {
         AddLedSegment(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[4]), atoi(params[3]));
       break;
 
-      case kTypeStepper:
-        // AddStepper(int pin1, int pin2, int pin3, int pin4)
+      case kTypeStepperDeprecated:
+        // this is for backwards compatibility
         params[0] = strtok_r(
 # 702 "d:\\projects\\MobiFlight\\FirmwareSource\\mobiflight\\mobiflight.ino" 3 4
                             __null
@@ -727,10 +727,10 @@ void readConfig(String cfg) {
                             __null
 # 707 "d:\\projects\\MobiFlight\\FirmwareSource\\mobiflight\\mobiflight.ino"
                                 , ":", &p); // Name
-        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), 0, kTypeStepper);
+        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), 0);
       break;
 
-      case kTypeStepperWithAutoZero:
+      case kTypeStepper:
         // AddStepper(int pin1, int pin2, int pin3, int pin4)
         params[0] = strtok_r(
 # 713 "d:\\projects\\MobiFlight\\FirmwareSource\\mobiflight\\mobiflight.ino" 3 4
@@ -762,7 +762,7 @@ void readConfig(String cfg) {
                             __null
 # 718 "d:\\projects\\MobiFlight\\FirmwareSource\\mobiflight\\mobiflight.ino"
                                 , ":", &p); // Name
-        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]), kTypeStepperWithAutoZero);
+        AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]));
       break;
 
       case kTypeServo:

@@ -149,7 +149,7 @@ namespace MobiFlight
         public void AutoConnectStart()
         {
             autoConnectTimer.Start();
-            autoConnectTimer_Tick(null, null);
+            //autoConnectTimer_Tick(null, null);
             Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
         }
 
@@ -264,9 +264,18 @@ namespace MobiFlight
                 row.Cells["fsuipcValueColumn"].Tag = value;
 
                 // only none string values get transformed
-                processedValue = executeTransform(value, cfg);
+                String strValue = "";
+                try { 
+                    processedValue = executeTransform(value, cfg);
+                    strValue = executeComparison(processedValue, cfg);
 
-                String strValue = executeComparison(processedValue, cfg);
+                } catch (Exception e)
+                {
+                    Log.Instance.log("Problem with transform. " + e.Message, LogSeverity.Error);
+                    row.ErrorText = MainForm._tr("uiMessageTransformError");
+                    continue;
+                }
+
                 String strValueAfterComparison = (string) strValue.Clone();
                 strValue = executeInterpolation(strValue, cfg);
 
