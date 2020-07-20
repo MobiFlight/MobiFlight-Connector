@@ -27,7 +27,7 @@ char foo;
 //         Fixed problems with long button and encoder names
 //         Memory optimization
 // 1.9.2 : Auto reset stepper, more characters for 7 segments
-const char version[8] = "1.9.2";
+const char version[8] = "1.9.3";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -47,7 +47,7 @@ const char version[8] = "1.9.2";
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
-#define MODULE_MAX_PINS 58
+#define MODULE_MAX_PINS 68
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -59,8 +59,8 @@ const char version[8] = "1.9.2";
 #endif
 
 #define STEPS 64
-#define STEPPER_SPEED 600 // 300 already worked, 467, too?
-#define STEPPER_ACCEL 900
+#define STEPPER_SPEED 400 // 300 already worked, 467, too?
+#define STEPPER_ACCEL 800
 
 #if MODULETYPE == MTYPE_MICRO
 #define MAX_OUTPUTS     10
