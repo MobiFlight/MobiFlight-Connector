@@ -62,13 +62,15 @@ namespace MobiFlight
             }
             int currentSpeed = 100;
             
-            int delta = mappedValue - lastValue; 
+            int delta = mappedValue - lastValue;
+
             lastValue = mappedValue;
 
             if (delta == 0) return;
             
             if (CompassMode && Math.Abs(delta) > (OutputRevolutionSteps/2))
             {
+               
                 if (delta < 0)
                 outputValue += (OutputRevolutionSteps + delta);
                 else
@@ -98,6 +100,9 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.ResetStepper);
             command.AddArgument(this.StepperNumber);
 
+            Log.Instance.log("Command: ResetStepper <" + (int)MobiFlightModule.Command.SetZeroStepper + "," +
+                  StepperNumber + ";>", LogSeverity.Debug);
+
             // Send command
             CmdMessenger.SendCommand(command);
         }
@@ -106,6 +111,10 @@ namespace MobiFlight
         {
             var command = new SendCommand((int)MobiFlightModule.Command.SetZeroStepper);
             command.AddArgument(this.StepperNumber);
+
+            Log.Instance.log("Command: SetZeroStepper <" + (int)MobiFlightModule.Command.SetZeroStepper + "," +
+                  StepperNumber + ";>", LogSeverity.Debug);
+
             // Send command
             CmdMessenger.SendCommand(command);
         }
