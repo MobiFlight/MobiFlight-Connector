@@ -36,7 +36,7 @@ namespace MobiFlight
         protected int outputValue;
         protected bool moveCalled = false;
         protected int zeroPoint = 0;
-        
+
         public MobiFlightStepper()
         {
             HasAutoZero = false;
@@ -50,7 +50,7 @@ namespace MobiFlight
         private int map(int value, int inputLower, int inputUpper, int outputLower, int outputUpper)
         {
             float relVal = (value - inputLower) / (float)(inputUpper - inputLower);
-            return (int) Math.Round((relVal * (outputUpper - outputLower)) + inputLower, 0);
+            return (int)Math.Round((relVal * (outputUpper - outputLower)) + inputLower, 0);
         }
 
         public void MoveToPosition(int value, bool direction)
@@ -61,19 +61,22 @@ namespace MobiFlight
                 mappedValue = Convert.ToInt32(Math.Ceiling((value / (double)InputRevolutionSteps) * OutputRevolutionSteps));
             }
             int currentSpeed = 100;
-            
-            int delta = mappedValue - lastValue; 
+
+            int delta = mappedValue - lastValue;
+
             lastValue = mappedValue;
 
             if (delta == 0) return;
-            
-            if (CompassMode && Math.Abs(delta) > (OutputRevolutionSteps/2))
+
+            if (CompassMode && Math.Abs(delta) > (OutputRevolutionSteps / 2))
             {
+
                 if (delta < 0)
-                outputValue += (OutputRevolutionSteps + delta);
+                    outputValue += (OutputRevolutionSteps + delta);
                 else
-                outputValue -= (OutputRevolutionSteps - delta);
-            } else
+                    outputValue -= (OutputRevolutionSteps - delta);
+            }
+            else
             {
                 outputValue += delta;
             }
@@ -98,6 +101,9 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.ResetStepper);
             command.AddArgument(this.StepperNumber);
 
+            Log.Instance.log("Command: ResetStepper <" + (int)MobiFlightModule.Command.SetZeroStepper + "," +
+                  StepperNumber + ";>", LogSeverity.Debug);
+
             // Send command
             CmdMessenger.SendCommand(command);
         }
@@ -106,6 +112,10 @@ namespace MobiFlight
         {
             var command = new SendCommand((int)MobiFlightModule.Command.SetZeroStepper);
             command.AddArgument(this.StepperNumber);
+
+            Log.Instance.log("Command: SetZeroStepper <" + (int)MobiFlightModule.Command.SetZeroStepper + "," +
+                  StepperNumber + ";>", LogSeverity.Debug);
+
             // Send command
             CmdMessenger.SendCommand(command);
         }

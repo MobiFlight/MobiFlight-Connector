@@ -13,7 +13,7 @@ namespace MobiFlight
             _name = "Stepper 28BYJ";
             StepperNumber = 0;
             InputRevolutionSteps = 1000;
-            OutputRevolutionSteps = 2040;
+            OutputRevolutionSteps = 2048;
         }
     }
 }
