@@ -9,9 +9,9 @@ namespace MobiFlight
     {
         public const String TYPE_UNKNOWN = "unknown";
 
-        public const String LatestFirmwareMega = "1.9.2";
-        public const String LatestFirmwareMicro = "1.9.2";
-        public const String LatestFirmwareUno = "1.9.2";
+        public const String LatestFirmwareMega = "1.9.3";
+        public const String LatestFirmwareMicro = "1.9.3";
+        public const String LatestFirmwareUno = "1.9.3";
 
         // these types are used for standard stock arduino boards
         public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
@@ -119,15 +119,15 @@ namespace MobiFlight
         };
 
         String _version = "n/a";
-        public String Type   { get; set; }
+        public String Type { get; set; }
         public String Serial { get; set; }
-        public String Port   { get; set; }
-        public String Name   { get; set; }
+        public String Port { get; set; }
+        public String Name { get; set; }
         public String Config { get; set; }
 
         public String Version
         {
-            get { return _version;  }
+            get { return _version; }
             set { _version = value; }
         }
 
@@ -176,4 +176,3 @@ namespace MobiFlight
         }
     }
 }
- 
