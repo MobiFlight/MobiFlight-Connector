@@ -91,8 +91,7 @@ namespace MobiFlight
             timer.Started += new EventHandler(timer_Started);
 
             autoConnectTimer.Interval = 5000;
-            autoConnectTimer.Tick += new EventHandler(autoConnectTimer_Tick);
-            //autoConnectTimer.Start();            
+            autoConnectTimer.Tick += new EventHandler(autoConnectTimer_Tick);        
 
             testModeTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
@@ -104,10 +103,7 @@ namespace MobiFlight
 
         void mobiFlightCache_LookupFinished(object sender, EventArgs e)
         {
-            if (OnModuleLookupFinished != null)
-            {
-                OnModuleLookupFinished(sender, e);
-            }
+            OnModuleLookupFinished?.Invoke(sender, e);
         }
 
         public void SetFsuipcInterval(int value)
@@ -149,7 +145,7 @@ namespace MobiFlight
         public void AutoConnectStart()
         {
             autoConnectTimer.Start();
-            //autoConnectTimer_Tick(null, null);
+            autoConnectTimer_Tick(null, null);
             Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
         }
 
@@ -243,7 +239,8 @@ namespace MobiFlight
             // iterate over the config row by row
             foreach (DataGridViewRow row in dataGridViewConfig.Rows)
             {
-
+                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
+                // and the ones that are not checked active
                 if (row.IsNewRow || !(bool)row.Cells["active"].Value) continue;
 
                 // initialisiere den adapter
