@@ -167,6 +167,9 @@ namespace MobiFlight
 
             // System Language
             languageComboBox.SelectedValue = Properties.Settings.Default.Language;
+
+            // Beta Versions
+            BetaUpdateCheckBox.Checked = Properties.Settings.Default.BetaUpdates;
             
             //
             // TAB Arcaze
@@ -327,8 +330,12 @@ namespace MobiFlight
 
             // Offline Mode
             Properties.Settings.Default.OfflineMode = offlineModeCheckBox.Checked;
-
+            
+            // System Language
             Properties.Settings.Default.Language = languageComboBox.SelectedValue.ToString();
+
+            // Beta Versions
+            Properties.Settings.Default.BetaUpdates = BetaUpdateCheckBox.Checked;
 
             // MobiFlight Tab
             // only the Firmware Auto Check Update needs to be synchronized 

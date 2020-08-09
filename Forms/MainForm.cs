@@ -39,7 +39,7 @@ namespace MobiFlight
 
         private bool _onClosing = false;
         private readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector.xml";
-        //private readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/beta/mobiflightconnector.xml";
+        private readonly string MobiFlightUpdateBetasUrl = "https://www.mobiflight.com/tl_files/download/releases/beta/mobiflightconnector.xml";
 
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
@@ -58,7 +58,7 @@ namespace MobiFlight
             return resourceManager.GetString(s);
         }
 
-        public MainForm()
+        private void InitializeUILanguage()
         {
 #if MF_FORCE_EN
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
@@ -71,18 +71,18 @@ namespace MobiFlight
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
             }
+        }
 
-            InitializeComponent();
-            UpgradeSettingsFromPreviousInstallation();
+        private void InitializeLogging()
+        {
+            LogAppenderTextBox logAppenderTextBox = new LogAppenderTextBox(logTextBox);
+            LogAppenderFile logAppenderFile = new LogAppenderFile();
 
-            inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
-
-            // init logging
-            LogAppenderTextBox logAppenderTextBox = new LogAppenderTextBox (logTextBox);
             Log.Instance.AddAppender(logAppenderTextBox);
+            Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
             logTextBox.Visible = Log.Instance.Enabled;
-            
+
             try
             {
                 Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel, true);
@@ -92,15 +92,43 @@ namespace MobiFlight
                 Log.Instance.log("MainForm() : Unknown log level", LogSeverity.Error);
             }
             Log.Instance.log("MainForm() : Logger initialized " + Log.Instance.Severity.ToString(), LogSeverity.Info);
+        }
 
-
-            execManager = new ExecutionManager(dataGridViewConfig, inputsDataGridView);
-            cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
+        private void InitializeSettings()
+        {
+            UpgradeSettingsFromPreviousInstallation();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
 
+        }
+
+        public MainForm()
+        {
+
+            InitializeUILanguage();
+            InitializeComponent();
+            InitializeLogging();
+            
+            inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
+
+            cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
+            
+            execManager = new ExecutionManager(dataGridViewConfig, inputsDataGridView);
             execManager.OnExecute += new EventHandler(timer_Tick);
             execManager.OnStopped += new EventHandler(timer_Stopped);
             execManager.OnStarted += new EventHandler(timer_Started);
+
+            execManager.OnSimCacheConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
+            execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
+            execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
+            execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
+
+            execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
+            execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
+            execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+            execManager.OnModuleLookupFinished += new EventHandler(execManager_OnModuleLookupFinished);
+
+            execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
+
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
             // because latter shall only have an temporary influence
@@ -113,20 +141,8 @@ namespace MobiFlight
             
             arcazeSerial.Items.Clear();
             arcazeSerial.Items.Add( _tr("none") );
-
-            execManager.OnSimCacheConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
-            execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
-            execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
-            execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
-
-            execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
-            execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
-            execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
-            execManager.OnModuleLookupFinished += new EventHandler(execManager_OnModuleLookupFinished);
+            
             _initializeModuleSettings();
-
-            execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);     
-                       
             _updateRecentFilesMenuItems();
             _autoloadConfig();
             //_autoloadLastConfig();
@@ -136,7 +152,6 @@ namespace MobiFlight
             inputsDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
             inputsDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
             dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(dataGridViewConfig_RowsAdded);
-
 
             // the debug output for selected offsets
             fsuipcOffsetValueLabel.Visible = false;
@@ -276,15 +291,15 @@ namespace MobiFlight
         {
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
-            //AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
-            CheckForUpdate(false, true);
+            AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
+            //CheckForUpdate(false, true);
+            execManager.AutoConnectStart();
         }
 
         private void AutoUpdater_AutoUpdaterFinishedEvent()
         {
-            //this.Invoke(new VoidDelegate(startAutoConnectThreadSafe));
             AutoUpdater.CheckForUpdateEvent -= AutoUpdater_CheckForUpdateEvent;
-            Application.Exit();
+            Close();
         }
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -302,12 +317,15 @@ namespace MobiFlight
                 {
                     this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(_tr("uiMessageNoUpdateNecessary"), Version), MainForm._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
                 if (!args.IsUpdateAvailable)
                 {
                     Log.Instance.log("No updates necessary. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
                 } else
                 {
-                    AutoUpdater.ShowUpdateForm();
+                    Log.Instance.log("Updates available. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
+                    AutoUpdater.ShowUpdateForm(args);
+                    return;
                 }
 
             } else
@@ -338,12 +356,14 @@ namespace MobiFlight
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
 
             String trackingParams = "?cache=" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
-            // trackingParams = "";
 
             Log.Instance.log("Checking for updates", LogSeverity.Info);
             AutoUpdater.RunUpdateAsAdmin = true;
             SilentUpdateCheck = silent;
-            AutoUpdater.Start(MobiFlightUpdateUrl + trackingParams + "1");
+
+            String updateUrl = MobiFlightUpdateUrl;
+            if (Properties.Settings.Default.BetaUpdates) updateUrl = MobiFlightUpdateBetasUrl;
+            AutoUpdater.Start(updateUrl + trackingParams + "1");
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)

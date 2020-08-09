@@ -299,5 +299,17 @@ namespace MobiFlight.Properties {
                 this["Pmdg747EventIdPresetFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool BetaUpdates {
+            get {
+                return ((bool)(this["BetaUpdates"]));
+            }
+            set {
+                this["BetaUpdates"] = value;
+            }
+        }
     }
 }

@@ -67,6 +67,8 @@
             this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.BetaUpdatesGroupBox = new System.Windows.Forms.GroupBox();
+            this.BetaUpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.languageGroupBox = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.languageComboBox = new System.Windows.Forms.ComboBox();
@@ -134,6 +136,7 @@
             this.arcazeModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.generalTabPage.SuspendLayout();
+            this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.offlineModeGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
@@ -428,6 +431,7 @@
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.generalTabPage.Controls.Add(this.BetaUpdatesGroupBox);
             this.generalTabPage.Controls.Add(this.languageGroupBox);
             this.generalTabPage.Controls.Add(this.offlineModeGroupBox);
             this.generalTabPage.Controls.Add(this.debugGroupBox);
@@ -435,6 +439,19 @@
             this.generalTabPage.Controls.Add(this.recentFilesGroupBox);
             resources.ApplyResources(this.generalTabPage, "generalTabPage");
             this.generalTabPage.Name = "generalTabPage";
+            // 
+            // BetaUpdatesGroupBox
+            // 
+            this.BetaUpdatesGroupBox.Controls.Add(this.BetaUpdateCheckBox);
+            resources.ApplyResources(this.BetaUpdatesGroupBox, "BetaUpdatesGroupBox");
+            this.BetaUpdatesGroupBox.Name = "BetaUpdatesGroupBox";
+            this.BetaUpdatesGroupBox.TabStop = false;
+            // 
+            // BetaUpdateCheckBox
+            // 
+            resources.ApplyResources(this.BetaUpdateCheckBox, "BetaUpdateCheckBox");
+            this.BetaUpdateCheckBox.Name = "BetaUpdateCheckBox";
+            this.BetaUpdateCheckBox.UseVisualStyleBackColor = true;
             // 
             // languageGroupBox
             // 
@@ -861,6 +878,8 @@
             this.arcazeModulesGroupBox.ResumeLayout(false);
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
             this.generalTabPage.ResumeLayout(false);
+            this.BetaUpdatesGroupBox.ResumeLayout(false);
+            this.BetaUpdatesGroupBox.PerformLayout();
             this.languageGroupBox.ResumeLayout(false);
             this.languageGroupBox.PerformLayout();
             this.offlineModeGroupBox.ResumeLayout(false);
@@ -988,5 +1007,7 @@
         private System.Windows.Forms.ComboBox languageComboBox;
         private System.Windows.Forms.Label languageLabel;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox BetaUpdatesGroupBox;
+        private System.Windows.Forms.CheckBox BetaUpdateCheckBox;
     }
 }

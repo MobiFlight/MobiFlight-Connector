@@ -72,5 +72,8 @@
     <Setting Name="Pmdg747EventIdPresetFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">presets_eventids_pmdg_747.cip</Value>
     </Setting>
+    <Setting Name="BetaUpdates" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
