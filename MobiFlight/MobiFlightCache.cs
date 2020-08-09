@@ -74,7 +74,9 @@ namespace MobiFlight
             foreach (MobiFlightModuleInfo info in connectedModules)
             {
                 if (info.Serial != m.Serial) continue;
+
                 info.Name = m.Name;
+                break;
             }
 
             return true;
@@ -156,13 +158,15 @@ namespace MobiFlight
                                 if (MobiFlightModuleInfo.VIDPID_MICRO.Contains(VidPid)) ArduinoType = MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
                                 else if (MobiFlightModuleInfo.VIDPID_UNO.Contains(VidPid)) ArduinoType = MobiFlightModuleInfo.TYPE_ARDUINO_UNO;
 
+                                
                                 if (result.Exists(x => x.Item1 == portName))
                                 {
                                     Log.Instance.log("Duplicate Entry for Port: " + ArduinoType + " by VID/PID: " + VidPid + "@" + portName, LogSeverity.Debug);
-                                } else { 
-                                    result.Add(new Tuple<string, string>(portName, ArduinoType));
-                                    Log.Instance.log("Found potentially compatible module (" + ArduinoType + " by VID/PID): " + VidPid + "@" + portName, LogSeverity.Debug);
+                                    continue;
                                 }
+                                
+                                result.Add(new Tuple<string, string>(portName, ArduinoType));
+                                Log.Instance.log("Found potentially compatible module (" + ArduinoType + " by VID/PID): " + VidPid + "@" + portName, LogSeverity.Debug);
                             }
                             continue;
                         }
@@ -176,7 +180,7 @@ namespace MobiFlight
                 }
 
                 if (message != null)
-                Log.Instance.log(message, LogSeverity.Debug);
+                    Log.Instance.log(message, LogSeverity.Debug);
             }
             return result;
         }
