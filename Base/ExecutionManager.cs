@@ -718,13 +718,15 @@ namespace MobiFlight
                 switch (cfg.DisplayType)
                 {
                     case ArcazeLedDigit.TYPE:
+                        var val = value.PadRight(cfg.DisplayLedDigits.Count, cfg.DisplayLedPaddingChar[0]);
+                        if (cfg.DisplayLedPadding) val = value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]);
                         arcazeCache.setDisplay(
                             serial,
                             cfg.DisplayLedAddress,
                             cfg.DisplayLedConnector,
                             cfg.DisplayLedDigits,
                             cfg.DisplayLedDecimalPoints,
-                            value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]));
+                            val);
                         break;
 
                     case ArcazeBcd4056.TYPE:
@@ -745,13 +747,15 @@ namespace MobiFlight
                 switch (cfg.DisplayType)
                 {
                     case ArcazeLedDigit.TYPE:
+                        var val = value.PadRight(cfg.DisplayLedDigits.Count, cfg.DisplayLedPaddingChar[0]);
+                        if (cfg.DisplayLedPadding) val = value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]);
                         mobiFlightCache.setDisplay(
                             serial,
                             cfg.DisplayLedAddress,
                             cfg.DisplayLedConnector,
                             cfg.DisplayLedDigits,
                             cfg.DisplayLedDecimalPoints,
-                            value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]));
+                            val);
                         break;
 
                     //case ArcazeBcd4056.TYPE:
