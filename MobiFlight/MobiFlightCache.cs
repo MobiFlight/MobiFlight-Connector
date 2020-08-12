@@ -6,6 +6,8 @@ using System.IO.Ports;
 using MobiFlight;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MobiFlight
 {
@@ -187,11 +189,14 @@ namespace MobiFlight
 
         private List<MobiFlightModuleInfo> lookupModules()
         {
+            Log.Instance.log("MobiFlightCache.lookupModules: Start", LogSeverity.Debug);
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
             string[] connectedPorts = SerialPort.GetPortNames();
 
             if (_lookingUpModules) return result;
             _lookingUpModules = true;
+
+            List<Thread> workerThreads = new List<Thread>();
 
             foreach (Tuple<string, string> item in getArduinoPorts())
             {
@@ -210,28 +215,48 @@ namespace MobiFlight
                 }
                 if (portAlreadyConnected) continue;
 
-                MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName, Type = ArduinoType });
-                tmp.Connect();
-                MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
-                tmp.Disconnect();
-
-                if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
+                
+                List<MobiFlightModule> modules = new List<MobiFlightModule>();
+                Thread thread = new Thread(() =>
                 {
-                    devInfo.SetTypeByName(item.Item2);
-                }
 
-                if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
-                {
-                    devInfo.SetTypeByVidPid(item.Item2);
-                }
+                    MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName, Type = ArduinoType });
+                    tmp.Connect();
+                    MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
 
-                result.Add(devInfo);
+                    tmp.Disconnect();
+
+                    if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
+                    {
+                        devInfo.SetTypeByName(item.Item2);
+                    }
+
+                    if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
+                    {
+                        devInfo.SetTypeByVidPid(item.Item2);
+                    }
+                    lock (result) result.Add(devInfo);
+                });
+                workerThreads.Add(thread);
+                thread.IsBackground = true;
+                thread.Start();
             }
+
+            // Wait for all the threads to finish
+            // If a thread is already finished when Join is called, Join will return immediately.
+            foreach (Thread thread in workerThreads)
+            {
+                thread.Join(3000);
+            }
+  
+            Log.Instance.log("MobiFlightCache.lookupModules: End", LogSeverity.Debug);
+
             _lookingUpModules = false;
             return result;
         }
 
-        public bool connect(bool force=false)
+        //public async Task<bool> connectAsync(bool force=false)
+        public bool connect(bool force = false)
         {
             if (isConnected() && force) { 
                 disconnect(); 
@@ -257,19 +282,34 @@ namespace MobiFlight
                 RegisterModule(m, devInfo);
             }
 
+            List<Thread> workerThreads = new List<Thread>();
+
+
+            //List<Task> connectTasks = new List<Task>();
+
             // Connect to all attached modules            
             foreach (MobiFlightModule module in Modules.Values)
             {
-                module.Connect();
-                module.GetInfo();
+                Thread thread = new Thread(() =>
+                {
+                    module.Connect();
+                    module.GetInfo();
+                });
+                workerThreads.Add(thread);
+                thread.IsBackground = true;
+                thread.Start();
+            }
+
+            // Wait for all the threads to finish so that the results list is populated.
+            // If a thread is already finished when Join is called, Join will return immediately.
+            foreach (Thread thread in workerThreads)
+            {
+                thread.Join(3000);
             }
 
             if (isFirstTimeLookup) {
                 isFirstTimeLookup = false;
-                if (LookupFinished != null)
-                {
-                    LookupFinished(this, new EventArgs());
-                }
+                LookupFinished?.Invoke(this, new EventArgs());
             }
 
             if (isConnected())

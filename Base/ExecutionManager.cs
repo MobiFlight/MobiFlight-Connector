@@ -90,7 +90,7 @@ namespace MobiFlight
             timer.Stopped += new EventHandler(timer_Stopped);
             timer.Started += new EventHandler(timer_Started);
 
-            autoConnectTimer.Interval = 5000;
+            autoConnectTimer.Interval = 10000;
             autoConnectTimer.Tick += new EventHandler(autoConnectTimer_Tick);        
 
             testModeTimer.Interval = Properties.Settings.Default.TestTimerInterval;

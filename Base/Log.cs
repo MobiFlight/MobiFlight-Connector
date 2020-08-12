@@ -71,17 +71,17 @@ namespace MobiFlight
         public void log(string message, LogSeverity severity)
         {
             if (textBox == null) return;
+            
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
             // If these threads are different, it returns true.
             if (textBox.InvokeRequired)
             {
-                logCallback d = new logCallback(log);
-                textBox.FindForm().Invoke(d, new object[] { message, severity });
+                textBox.Invoke(new logCallback(log), new object[] { message, severity });
             }
             else
             {
-                textBox.Text = DateTime.Now + "("+DateTime.Now.Millisecond+")"+": " + message + Environment.NewLine + textBox.Text;
+                textBox.Text = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message + Environment.NewLine + textBox.Text;
             }
         }
     }
@@ -94,6 +94,8 @@ namespace MobiFlight
         // the text property on a TextBox control.
         delegate void logCallback(string message, LogSeverity severity);
 
+        private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
+
         public LogAppenderFile()
         {
             if (File.Exists(FileName))
@@ -102,13 +104,23 @@ namespace MobiFlight
 
         public void log(string message, LogSeverity severity)
         {
-            if (writer == null) { writer = File.AppendText(FileName); }
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
-            writer.WriteLine(msg);
-            writer.Close(); writer = null;
+            // Set Status to Locked
+            _readWriteLock.EnterWriteLock();
+            try
+            {
+                String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
+                // Append text to the file
+                using (StreamWriter sw = File.AppendText(FileName))
+                {
+                    sw.WriteLine(msg);
+                    sw.Close();
+                }
+            }
+            finally
+            {
+                // Release lock
+                _readWriteLock.ExitWriteLock();
+            }
         }
     }
 }

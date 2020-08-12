@@ -78,7 +78,7 @@ namespace MobiFlight
             LogAppenderTextBox logAppenderTextBox = new LogAppenderTextBox(logTextBox);
             LogAppenderFile logAppenderFile = new LogAppenderFile();
 
-            Log.Instance.AddAppender(logAppenderTextBox);
+            //Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
             logTextBox.Visible = Log.Instance.Enabled;
@@ -103,15 +103,35 @@ namespace MobiFlight
 
         public MainForm()
         {
-
             InitializeUILanguage();
             InitializeComponent();
             InitializeLogging();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
             
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.Started == 0)
+            {
+                int i = Properties.Settings.Default.Started;
+                WelcomeDialog wd = new WelcomeDialog();
+                wd.StartPosition = FormStartPosition.CenterParent;
+                wd.Text = String.Format(wd.Text, Version);
+                wd.ShowDialog();
+                this.BringToFront();
+            }
+
+            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
+
+            // this is everything that used to be directly in the constructor
             inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
 
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
-            
+
             execManager = new ExecutionManager(dataGridViewConfig, inputsDataGridView);
             execManager.OnExecute += new EventHandler(timer_Tick);
             execManager.OnStopped += new EventHandler(timer_Stopped);
@@ -138,14 +158,11 @@ namespace MobiFlight
             runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected();
             runTestToolStripButton.Enabled = execManager.ModulesConnected();
             updateNotifyContextMenu(false);
-            
+
             arcazeSerial.Items.Clear();
-            arcazeSerial.Items.Add( _tr("none") );
-            
-            _initializeModuleSettings();
+            arcazeSerial.Items.Add(_tr("none"));
+
             _updateRecentFilesMenuItems();
-            _autoloadConfig();
-            //_autoloadLastConfig();
 
             configDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
             configDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
@@ -160,27 +177,54 @@ namespace MobiFlight
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
             inputsDataGridView.Columns["inputDescription"].DefaultCellStyle.NullValue = MainForm._tr("uiLabelDoubleClickToAddConfig");
             inputsDataGridView.Columns["inputEditButtonColumn"].DefaultCellStyle.NullValue = "...";
-            
+
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
                 // change ui icon to english
                 donateToolStripButton.Image = Properties.Resources.btn_donate_uk_SM;
             }
+
+
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
+            AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
+
+            Update();
+            Refresh();
+            execManager.AutoConnectStart();
         }
+        
+        /// <summary>
+        /// properly disconnects all connections to FSUIPC and Arcaze
+        /// </summary>
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            execManager.Shutdown();
+            Properties.Settings.Default.Save();
+        } //Form1_FormClosed
 
         void execManager_OnModuleLookupFinished(object sender, EventArgs e)
         {
-            List<MobiFlightModuleInfo> modules = (sender as MobiFlightCache).getConnectedModules();
-            List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule> ();
+            _initializeModuleSettings();
+            CheckForFirmwareUpdates();
+            _autoloadConfig();
+        }
+
+        void CheckForFirmwareUpdates ()
+        {
+            MobiFlightCache mfCache = execManager.getMobiFlightModuleCache();
+
+            List<MobiFlightModuleInfo> modules = mfCache.getConnectedModules();
+            List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule>();
             List<MobiFlightModuleInfo> modulesForFlashing = new List<MobiFlightModuleInfo>();
-            
-            foreach (MobiFlightModule module in (sender as MobiFlightCache).GetModules())
+
+            foreach (MobiFlightModule module in mfCache.GetModules())
             {
                 if (module.Type == MobiFlightModuleInfo.TYPE_MEGA ||
                     module.Type == MobiFlightModuleInfo.TYPE_MICRO ||
                     module.Type == MobiFlightModuleInfo.TYPE_UNO
                     )
-                    {
+                {
                     Version latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMega);
                     if (module.Type == MobiFlightModuleInfo.TYPE_MICRO)
                         latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMicro);
@@ -207,7 +251,7 @@ namespace MobiFlight
                 }
             }
 
-            if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 ||modulesForUpdate.Count > 0))
+            if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0))
             {
                 if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(Properties.Settings.Default.ArduinoIdePath))
                 {
@@ -223,8 +267,8 @@ namespace MobiFlight
             if (modulesForUpdate.Count > 0)
             {
                 if (MessageBox.Show(
-                    _tr("uiMessageUpdateOldFirmwareOkCancel"), 
-                    _tr("Hint"), 
+                    _tr("uiMessageUpdateOldFirmwareOkCancel"),
+                    _tr("Hint"),
                     MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
                     SettingsDialog dlg = new SettingsDialog(execManager);
@@ -254,7 +298,8 @@ namespace MobiFlight
                     {
                     }
                 }
-                else {
+                else
+                {
                     if (MessageBox.Show(
                         _tr("uiMessageUpdateArduinoFwAutoDisableYesNo"),
                         _tr("Hint"),
@@ -277,25 +322,7 @@ namespace MobiFlight
                 Properties.Settings.Default.Save();
             }
         }
-
-        /// <summary>
-        /// properly disconnects all connections to FSUIPC and Arcaze
-        /// </summary>
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            execManager.Shutdown();
-            Properties.Settings.Default.Save();
-        } //Form1_FormClosed
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
-            AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
-            //CheckForUpdate(false, true);
-            execManager.AutoConnectStart();
-        }
-
+        
         private void AutoUpdater_AutoUpdaterFinishedEvent()
         {
             AutoUpdater.CheckForUpdateEvent -= AutoUpdater_CheckForUpdateEvent;
@@ -1812,20 +1839,6 @@ namespace MobiFlight
             }
         }
 
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.Started == 0)
-            {
-                int i = Properties.Settings.Default.Started;
-                WelcomeDialog wd = new WelcomeDialog();
-                wd.StartPosition = FormStartPosition.CenterParent;
-                wd.Text = String.Format(wd.Text, Version);
-                wd.ShowDialog();
-                this.BringToFront();
-            }
-
-            Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
-        }
 
         protected override void WndProc(ref Message m)
         {
