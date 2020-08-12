@@ -37,7 +37,7 @@ namespace MobiFlight
         public event EventHandler LookupFinished;
 
 
-        private List<MobiFlightModuleInfo> connectedModules = null;
+        private List<MobiFlightModuleInfo> connectedArduinoModules = null;
         Boolean isFirstTimeLookup = false;
 
         private bool _lookingUpModules = false;
@@ -71,9 +71,9 @@ namespace MobiFlight
 
         public bool updateConnectedModuleName(MobiFlightModule m)
         {
-            if (connectedModules == null) return false;
+            if (connectedArduinoModules == null) return false;
 
-            foreach (MobiFlightModuleInfo info in connectedModules)
+            foreach (MobiFlightModuleInfo info in connectedArduinoModules)
             {
                 if (info.Serial != m.Serial) continue;
 
@@ -84,19 +84,22 @@ namespace MobiFlight
             return true;
         }
 
-        public List<MobiFlightModuleInfo> getConnectedModules()
+        public List<MobiFlightModuleInfo> GetDetectedArduinoModules()
         {
-            if (connectedModules == null)
-            {
-                connectedModules = lookupModules();
-                isFirstTimeLookup = true;
-            }
-            return connectedModules;
+            return connectedArduinoModules;
+        }
+
+        public async Task<IEnumerable<MobiFlightModule>> GetModulesAsync()
+        {
+            if (!isConnected())
+                await connectAsync();
+            return Modules.Values;
         }
 
         public IEnumerable<MobiFlightModule> GetModules()
         {
-            if (!isConnected()) connect();
+            if (!isConnected())
+                return new List<MobiFlightModule>();
             return Modules.Values;
         }
 
@@ -187,7 +190,7 @@ namespace MobiFlight
             return result;
         }
 
-        private List<MobiFlightModuleInfo> lookupModules()
+        private async  Task<List<MobiFlightModuleInfo>> LookupAllConnectedArduinoModulesAsync()
         {
             Log.Instance.log("MobiFlightCache.lookupModules: Start", LogSeverity.Debug);
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
@@ -195,8 +198,8 @@ namespace MobiFlight
 
             if (_lookingUpModules) return result;
             _lookingUpModules = true;
-
-            List<Thread> workerThreads = new List<Thread>();
+            
+            List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
 
             foreach (Tuple<string, string> item in getArduinoPorts())
             {
@@ -215,9 +218,7 @@ namespace MobiFlight
                 }
                 if (portAlreadyConnected) continue;
 
-                
-                List<MobiFlightModule> modules = new List<MobiFlightModule>();
-                Thread thread = new Thread(() =>
+                tasks.Add(Task.Run(() =>
                 {
 
                     MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName, Type = ArduinoType });
@@ -235,19 +236,13 @@ namespace MobiFlight
                     {
                         devInfo.SetTypeByVidPid(item.Item2);
                     }
-                    lock (result) result.Add(devInfo);
-                });
-                workerThreads.Add(thread);
-                thread.IsBackground = true;
-                thread.Start();
+                    result.Add(devInfo);
+
+                    return devInfo;
+                }));
             }
 
-            // Wait for all the threads to finish
-            // If a thread is already finished when Join is called, Join will return immediately.
-            foreach (Thread thread in workerThreads)
-            {
-                thread.Join(3000);
-            }
+            var infos = await Task.WhenAll(tasks);
   
             Log.Instance.log("MobiFlightCache.lookupModules: End", LogSeverity.Debug);
 
@@ -255,23 +250,22 @@ namespace MobiFlight
             return result;
         }
 
-        //public async Task<bool> connectAsync(bool force=false)
-        public bool connect(bool force = false)
+        public async Task<bool> connectAsync(bool force=false)
         {
             if (isConnected() && force) { 
                 disconnect(); 
             }
             
-            if (connectedModules == null)
+            if (connectedArduinoModules == null)
             {
-                connectedModules = lookupModules();
+                connectedArduinoModules = await LookupAllConnectedArduinoModulesAsync();
                 isFirstTimeLookup = true;
             }
 
             Log.Instance.log("MobiFlightCache.connect: Clearing modules",LogSeverity.Debug);
             Modules.Clear();
 
-            foreach (MobiFlightModuleInfo devInfo in connectedModules)
+            foreach (MobiFlightModuleInfo devInfo in connectedArduinoModules)
             {
                 if (!devInfo.HasMfFirmware()) continue;
 
@@ -282,30 +276,19 @@ namespace MobiFlight
                 RegisterModule(m, devInfo);
             }
 
-            List<Thread> workerThreads = new List<Thread>();
-
-
-            //List<Task> connectTasks = new List<Task>();
+            List<Task> connectTasks = new List<Task>();
 
             // Connect to all attached modules            
             foreach (MobiFlightModule module in Modules.Values)
             {
-                Thread thread = new Thread(() =>
+                connectTasks.Add(Task.Run(() =>
                 {
                     module.Connect();
                     module.GetInfo();
-                });
-                workerThreads.Add(thread);
-                thread.IsBackground = true;
-                thread.Start();
+                }));
             }
 
-            // Wait for all the threads to finish so that the results list is populated.
-            // If a thread is already finished when Join is called, Join will return immediately.
-            foreach (Thread thread in workerThreads)
-            {
-                thread.Join(3000);
-            }
+            await Task.WhenAll(connectTasks);
 
             if (isFirstTimeLookup) {
                 isFirstTimeLookup = false;
@@ -562,7 +545,7 @@ namespace MobiFlight
         public IEnumerable<IModuleInfo> getModuleInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
-            foreach (MobiFlightModuleInfo moduleInfo in getConnectedModules())
+            foreach (MobiFlightModuleInfo moduleInfo in GetDetectedArduinoModules())
             {
                 if (moduleInfo.HasMfFirmware())
                     result.Add(moduleInfo);
@@ -583,14 +566,14 @@ namespace MobiFlight
 
         public MobiFlightModule RefreshModule(MobiFlightModule module)
         {
-            MobiFlightModuleInfo oldDevInfo = connectedModules.Find(delegate(MobiFlightModuleInfo devInfo)
+            MobiFlightModuleInfo oldDevInfo = connectedArduinoModules.Find(delegate(MobiFlightModuleInfo devInfo)
             {
                 return devInfo.Port == module.Port;
             }
             );
 
-            if (oldDevInfo != null) connectedModules.Remove(oldDevInfo);
-            connectedModules.Add(module.ToMobiFlightModuleInfo());
+            if (oldDevInfo != null) connectedArduinoModules.Remove(oldDevInfo);
+            connectedArduinoModules.Add(module.ToMobiFlightModuleInfo());
 
             RegisterModule(module, module.ToMobiFlightModuleInfo(), true);
 

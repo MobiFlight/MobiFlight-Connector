@@ -91,7 +91,7 @@ namespace MobiFlight
             timer.Started += new EventHandler(timer_Started);
 
             autoConnectTimer.Interval = 10000;
-            autoConnectTimer.Tick += new EventHandler(autoConnectTimer_Tick);        
+            autoConnectTimer.Tick += new EventHandler(autoConnectTimer_TickAsync);        
 
             testModeTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
@@ -145,7 +145,7 @@ namespace MobiFlight
         public void AutoConnectStart()
         {
             autoConnectTimer.Start();
-            autoConnectTimer_Tick(null, null);
+            autoConnectTimer_TickAsync(null, null);
             Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
         }
 
@@ -193,7 +193,7 @@ namespace MobiFlight
             return arcazeCache;
         }
 
-        public List<IModuleInfo> getConnectedModulesInfo()
+        public List<IModuleInfo> getAllConnectedModulesInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
             result.AddRange(arcazeCache.getModuleInfo());
@@ -942,7 +942,7 @@ namespace MobiFlight
         /// auto connect is only done if current timer is not running since we suppose that an established
         /// connection was already available before the timer was started
         /// </remarks>
-        void autoConnectTimer_Tick(object sender, EventArgs e)
+        async void autoConnectTimer_TickAsync(object sender, EventArgs e)
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
@@ -964,7 +964,7 @@ namespace MobiFlight
 
                 arcazeCache.connect(); //  _initializeArcaze();
 #if MOBIFLIGHT
-                mobiFlightCache.connect();
+                await mobiFlightCache.connectAsync();
 #endif
             }
             //if (!arcazeCache.isConnected()) arcazeCache.connect();

@@ -78,7 +78,7 @@ namespace MobiFlight
             LogAppenderTextBox logAppenderTextBox = new LogAppenderTextBox(logTextBox);
             LogAppenderFile logAppenderFile = new LogAppenderFile();
 
-            //Log.Instance.AddAppender(logAppenderTextBox);
+            Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
             logTextBox.Visible = Log.Instance.Enabled;
@@ -145,7 +145,7 @@ namespace MobiFlight
             execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
             execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
             execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
-            execManager.OnModuleLookupFinished += new EventHandler(execManager_OnModuleLookupFinished);
+            execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
 
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
 
@@ -203,7 +203,7 @@ namespace MobiFlight
             Properties.Settings.Default.Save();
         } //Form1_FormClosed
 
-        void execManager_OnModuleLookupFinished(object sender, EventArgs e)
+        void ExecManager_OnModuleLookupFinished(object sender, EventArgs e)
         {
             _initializeModuleSettings();
             CheckForFirmwareUpdates();
@@ -214,7 +214,7 @@ namespace MobiFlight
         {
             MobiFlightCache mfCache = execManager.getMobiFlightModuleCache();
 
-            List<MobiFlightModuleInfo> modules = mfCache.getConnectedModules();
+            List<MobiFlightModuleInfo> modules = mfCache.GetDetectedArduinoModules();
             List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule>();
             List<MobiFlightModuleInfo> modulesForFlashing = new List<MobiFlightModuleInfo>();
 
@@ -973,7 +973,7 @@ namespace MobiFlight
         {
             List<string> serials = new List<string>();
             
-            foreach (IModuleInfo moduleInfo in execManager.getConnectedModulesInfo())
+            foreach (IModuleInfo moduleInfo in execManager.getAllConnectedModulesInfo())
             {
                 serials.Add(moduleInfo.Name + "/ " + moduleInfo.Serial);
             }

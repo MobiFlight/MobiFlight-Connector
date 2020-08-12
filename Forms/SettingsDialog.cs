@@ -225,7 +225,7 @@ namespace MobiFlight
             mfModulesTreeView.Nodes.Clear();
             try
             {
-                foreach (MobiFlightModuleInfo module in mobiflightCache.getConnectedModules())
+                foreach (MobiFlightModuleInfo module in mobiflightCache.GetDetectedArduinoModules())
                 {
                     TreeNode node = new TreeNode();
                     node = mfModulesTreeView_initNode(module, node);
@@ -1132,7 +1132,7 @@ namespace MobiFlight
 
             MobiFlightCache mobiflightCache = execManager.getMobiFlightModuleCache();
             
-            if (mobiflightCache.getConnectedModules().Count > 0 && 
+            if (mobiflightCache.GetDetectedArduinoModules().Count > 0 && 
                 !MobiFlightFirmwareUpdater.IsValidArduinoIdePath(tb.Text))
             {
                 displayError(tb, MainForm._tr("uiMessageInvalidArduinoIdePath"));
