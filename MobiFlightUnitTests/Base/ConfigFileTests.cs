@@ -155,6 +155,38 @@ namespace MobiFlight.Tests
                 Assert.AreEqual(s1, s2, "Files are not the same");
                 System.IO.File.Delete(inFileTemp);
             }
+
+            // load a broken config
+            OutputConfig.Clear();
+            InputConfig.Clear();
+
+            inFile = @"assets\Base\ConfigFile\OpenFileBrokenTest.xml";
+            inFileTemp = @"assets\Base\ConfigFile\OpenFileBrokenTest.xml.tmp";
+
+            try {
+                s1 = "a";
+                s2 = "b";
+                o = new ConfigFile(inFile);
+
+                OutputConfig.ReadXml(o.getOutputConfig());
+                InputConfig.ReadXml(o.getInputConfig());
+
+                oTemp = new ConfigFile(inFileTemp);
+                oTemp.SaveFile(OutputConfig, InputConfig);
+
+                s1 = System.IO.File.ReadAllText(inFile);
+                s2 = System.IO.File.ReadAllText(inFileTemp);
+
+                // get rid of the individual version number
+                // that varies every time we increment the MobiFlight version
+                s1 = replaceVersionInformation(s1);
+                s2 = replaceVersionInformation(s2);
+
+
+            } catch (Exception e)
+            {
+                Assert.IsTrue(e.Message == "Error reading config");
+            }
         }
 
         [TestMethod()]

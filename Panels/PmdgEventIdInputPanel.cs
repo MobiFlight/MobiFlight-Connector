@@ -18,8 +18,6 @@ namespace MobiFlight.Panels
         ErrorProvider errorProvider = new ErrorProvider();
         List<ListItem> MouseParams = new List<ListItem>();
 
-        
-
         public PmdgEventIdInputPanel()
         {
             InitializeComponent();
@@ -136,6 +134,14 @@ namespace MobiFlight.Panels
         {
             if (eventIdInputAction == null) return;
             eventIdTextBox.Text = eventIdInputAction.EventId.ToString();
+
+            if (lastUsedType!=eventIdInputAction.AircraftType)
+            {
+                lastUsedType = eventIdInputAction.AircraftType;
+                _updateRadioButtons();
+                _loadPresets();
+            }
+
             try { 
                 MouseEventComboBox.SelectedValue = eventIdInputAction.Param.ToString();
             } catch (Exception e)
@@ -155,11 +161,12 @@ namespace MobiFlight.Panels
             }
         }
 
-        internal InputConfig.InputAction ToConfig()
+        internal InputConfig.PmdgEventIdInputAction ToConfig()
         {
             MobiFlight.InputConfig.PmdgEventIdInputAction result = new InputConfig.PmdgEventIdInputAction();
             result.EventId = Int32.Parse(eventIdTextBox.Text);
             result.Param = UInt32.Parse(customParamTextBox.Text);
+            result.AircraftType = lastUsedType;
             return result;
         }
 

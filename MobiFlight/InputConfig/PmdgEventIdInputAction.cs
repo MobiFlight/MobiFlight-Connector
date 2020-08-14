@@ -13,6 +13,15 @@ namespace MobiFlight.InputConfig
         public enum PmdgAircraftType { B737, B777, B747 };
         public PmdgAircraftType AircraftType = PmdgAircraftType.B737;
 
+        override public object Clone()
+        {
+            PmdgEventIdInputAction clone = new PmdgEventIdInputAction();
+            clone.EventId = EventId;
+            clone.Param = Param;
+            clone.AircraftType = AircraftType;
+
+            return clone;
+        }
 
         protected override String getType()
         {
