@@ -28,7 +28,8 @@ char foo;
 //         Memory optimization
 // 1.9.2 : Auto reset stepper, more characters for 7 segments
 // 1.9.3 : Increased number of pins for MEGA, reduced speed for stepper for more torque
-const char version[8] = "1.9.3";
+// 1.9.4 : Increased MAX_PINS for MEGA.
+const char version[8] = "1.9.4";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -48,7 +49,7 @@ const char version[8] = "1.9.3";
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
-#define MODULE_MAX_PINS 68
+#define MODULE_MAX_PINS 69
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -56,7 +57,7 @@ const char version[8] = "1.9.3";
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
-#define MODULE_MAX_PINS 20
+#define MODULE_MAX_PINS 21
 #endif
 
 #define STEPS 64
