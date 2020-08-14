@@ -61,6 +61,7 @@
 /firmware/mobiflight_uno_1.9.1.hex
 /firmware/mobiflight_micro_1.9.1.hex
 /firmware/mobiflight_mega_1.9.1.hex
+/firmware/build
 
 /FirmwareSource/__backup
 /FirmwareSource/libraries/CmdMessenger/**/obj
