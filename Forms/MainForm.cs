@@ -110,7 +110,8 @@ namespace MobiFlight
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+            panelMain.Visible = false;
+            startupPanel.Visible = true;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -148,6 +149,8 @@ namespace MobiFlight
             execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
 
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
+
+            execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
@@ -191,9 +194,15 @@ namespace MobiFlight
 
             Update();
             Refresh();
+            startupPanel.UpdateStatusText("Connecting to Modules");
             execManager.AutoConnectStart();
         }
-        
+
+        private void MainForm_ModuleConnected(object sender, EventArgs e)
+        {
+            startupPanel.UpdateProgressBar(startupPanel.GetProgressBar() + 5);
+        }
+
         /// <summary>
         /// properly disconnects all connections to FSUIPC and Arcaze
         /// </summary>
@@ -206,8 +215,18 @@ namespace MobiFlight
         void ExecManager_OnModuleLookupFinished(object sender, EventArgs e)
         {
             _initializeModuleSettings();
+
+            startupPanel.UpdateStatusText("Checking for Firmware Updates...");
+            startupPanel.UpdateProgressBar(70);
             CheckForFirmwareUpdates();
+
+            startupPanel.UpdateStatusText("Loading last config...");
+            startupPanel.UpdateProgressBar(90);
             _autoloadConfig();
+
+            startupPanel.UpdateProgressBar(100);
+            panelMain.Visible = true;
+            startupPanel.Visible = false;
         }
 
         void CheckForFirmwareUpdates ()

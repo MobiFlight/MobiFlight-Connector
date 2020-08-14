@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO.Ports;
-using MobiFlight;
 using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -31,6 +30,10 @@ namespace MobiFlight
         /// Gets raised whenever connection is lost
         /// </summary>
         public event EventHandler ConnectionLost;
+        /// <summary>
+        /// Gets raised whenever connection is established
+        /// </summary>
+        public event EventHandler ModuleConnecting;
         /// <summary>
         /// Gets raised whenever the initial scan for modules is done
         /// </summary>
@@ -86,6 +89,8 @@ namespace MobiFlight
 
         public List<MobiFlightModuleInfo> GetDetectedArduinoModules()
         {
+            if (connectedArduinoModules == null)
+                    return new List<MobiFlightModuleInfo>();
             return connectedArduinoModules;
         }
 
@@ -222,10 +227,12 @@ namespace MobiFlight
                 {
 
                     MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName, Type = ArduinoType });
+                    ModuleConnecting?.Invoke(this, new EventArgs());
                     tmp.Connect();
                     MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
 
                     tmp.Disconnect();
+                    ModuleConnecting?.Invoke(this, new EventArgs());
 
                     if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
                     {
@@ -283,8 +290,10 @@ namespace MobiFlight
             {
                 connectTasks.Add(Task.Run(() =>
                 {
+                    ModuleConnecting?.Invoke(this, new EventArgs());
                     module.Connect();
                     module.GetInfo();
+                    ModuleConnecting?.Invoke(this, new EventArgs());
                 }));
             }
 
