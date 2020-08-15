@@ -13,6 +13,8 @@ namespace MobiFlight
     public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
     {
         public delegate void ButtonEventHandler(object sender, ButtonArgs e);
+        public delegate void ModuleConnectEventHandler(object sender, String status, int progress);
+
         /// <summary>
         /// Gets raised whenever a button is pressed
         /// </summary>
@@ -33,7 +35,7 @@ namespace MobiFlight
         /// <summary>
         /// Gets raised whenever connection is established
         /// </summary>
-        public event EventHandler ModuleConnecting;
+        public event ModuleConnectEventHandler ModuleConnecting;
         /// <summary>
         /// Gets raised whenever the initial scan for modules is done
         /// </summary>
@@ -205,11 +207,14 @@ namespace MobiFlight
             _lookingUpModules = true;
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
+            List<Tuple<string, string>> arduinoPorts = getArduinoPorts();
 
-            foreach (Tuple<string, string> item in getArduinoPorts())
+            for (var i = 0; i != arduinoPorts.Count; i++)
             {
+                Tuple<string, string> item = arduinoPorts[i];
                 String portName = item.Item1;
                 String ArduinoType = item.Item2;
+                int progressValue = (i * 25) / arduinoPorts.Count;
 
                 if (!connectedPorts.Contains(portName)) continue;
 
@@ -227,12 +232,12 @@ namespace MobiFlight
                 {
 
                     MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName, Type = ArduinoType });
-                    ModuleConnecting?.Invoke(this, new EventArgs());
+                    ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue);
                     tmp.Connect();
                     MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
 
                     tmp.Disconnect();
-                    ModuleConnecting?.Invoke(this, new EventArgs());
+                    ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue + 5);
 
                     if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
                     {
@@ -285,15 +290,18 @@ namespace MobiFlight
 
             List<Task> connectTasks = new List<Task>();
 
+            var i = 0;
+
             // Connect to all attached modules            
             foreach (MobiFlightModule module in Modules.Values)
             {
+                int progressValue = (i * 50) / Modules.Values.Count;
                 connectTasks.Add(Task.Run(() =>
                 {
-                    ModuleConnecting?.Invoke(this, new EventArgs());
+                    ModuleConnecting?.Invoke(this, "Connecting to MobiFlight Modules", progressValue);
                     module.Connect();
                     module.GetInfo();
-                    ModuleConnecting?.Invoke(this, new EventArgs());
+                    ModuleConnecting?.Invoke(this, "Connecting to MobiFlight Modules", progressValue);
                 }));
             }
 

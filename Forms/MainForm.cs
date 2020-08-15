@@ -112,6 +112,7 @@ namespace MobiFlight
         {
             panelMain.Visible = false;
             startupPanel.Visible = true;
+            menuStrip.Enabled = false;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -192,15 +193,17 @@ namespace MobiFlight
             AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
             AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
 
+            startupPanel.UpdateStatusText("Start Connecting");
             Update();
             Refresh();
-            startupPanel.UpdateStatusText("Connecting to Modules");
             execManager.AutoConnectStart();
         }
 
-        private void MainForm_ModuleConnected(object sender, EventArgs e)
+        private void MainForm_ModuleConnected(object sender, String text, int progress)
         {
-            startupPanel.UpdateProgressBar(startupPanel.GetProgressBar() + 5);
+            startupPanel.UpdateStatusText(text);
+            if (startupPanel.GetProgressBar() < progress + 10)
+                startupPanel.UpdateProgressBar(progress + 10);
         }
 
         /// <summary>
@@ -227,6 +230,7 @@ namespace MobiFlight
             startupPanel.UpdateProgressBar(100);
             panelMain.Visible = true;
             startupPanel.Visible = false;
+            menuStrip.Enabled = true;
         }
 
         void CheckForFirmwareUpdates ()

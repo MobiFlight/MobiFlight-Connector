@@ -79,6 +79,7 @@
             this.Controls.Add(this.progressBar);
             this.Name = "StartupPanel";
             this.Size = new System.Drawing.Size(387, 192);
+            this.Load += new System.EventHandler(this.StartupPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

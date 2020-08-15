@@ -13,6 +13,7 @@ namespace MobiFlight.Forms
     public partial class StartupPanel : UserControl
     {
         delegate void progressBarCallback(int percent);
+        delegate void updateStatusTextCallback(String StatusText);
 
         public StartupPanel()
         {
@@ -21,7 +22,17 @@ namespace MobiFlight.Forms
 
         public void UpdateStatusText(String StatusText)
         {
-            this.StatusText.Text = StatusText;
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.StatusText.InvokeRequired)
+            {
+                this.StatusText.Invoke(new updateStatusTextCallback(UpdateStatusText), new object[] { StatusText });
+            }
+            else
+            {
+                this.StatusText.Text = StatusText;
+            }
         }
 
         public void UpdateProgressBar(int percent)
@@ -35,6 +46,7 @@ namespace MobiFlight.Forms
             }
             else
             {
+                if (percent > 100) percent = percent / 2;
                 this.progressBar.Value = percent;
             }
         }
@@ -45,6 +57,11 @@ namespace MobiFlight.Forms
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StartupPanel_Load(object sender, EventArgs e)
         {
 
         }
