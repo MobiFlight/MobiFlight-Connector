@@ -105,6 +105,7 @@ namespace MobiFlight
         {
             InitializeUILanguage();
             InitializeComponent();
+            InitializeSettings();
             InitializeLogging();
         }
 
