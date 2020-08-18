@@ -194,6 +194,13 @@ namespace MobiFlight
                 if (message != null)
                     Log.Instance.log(message, LogSeverity.Debug);
             }
+
+            result = result.Distinct().ToList();
+            result.Sort((Tuple<string, string> item1, Tuple<string, string> item2) => {
+                if (item1.Item1.CompareTo(item2.Item1) == 0) return item1.Item2.CompareTo(item2.Item2);
+                return item1.Item1.CompareTo(item2.Item1);
+            });
+
             return result;
         }
 
@@ -208,7 +215,8 @@ namespace MobiFlight
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
             List<Tuple<string, string>> arduinoPorts = getArduinoPorts();
-
+            List<string> connectingPorts = new List<string>();
+            
             for (var i = 0; i != arduinoPorts.Count; i++)
             {
                 Tuple<string, string> item = arduinoPorts[i];
@@ -217,20 +225,12 @@ namespace MobiFlight
                 int progressValue = (i * 25) / arduinoPorts.Count;
 
                 if (!connectedPorts.Contains(portName)) continue;
+                if (connectingPorts.Contains(portName)) continue;
 
-                bool portAlreadyConnected = false;
-                foreach (MobiFlightModuleInfo info in result) {
-                    if (info.Port==portName)
-                    {
-                        portAlreadyConnected = true;
-                        break;
-                    }
-                }
-                if (portAlreadyConnected) continue;
+                connectingPorts.Add(portName);
 
                 tasks.Add(Task.Run(() =>
                 {
-
                     MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName, Type = ArduinoType });
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue);
                     tmp.Connect();
