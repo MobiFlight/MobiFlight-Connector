@@ -121,6 +121,37 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 24</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="menuStrip.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
@@ -154,7 +185,6 @@
   <data name="recentDocsToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 6</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="recentDocsToolStripSeparator.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -164,11 +194,11 @@
   <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
+  <data name="extrasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
   </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
+  <data name="extrasToolStripMenuItem.Text" xml:space="preserve">
+    <value>Extras</value>
   </data>
   <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 22</value>
@@ -185,11 +215,11 @@
   <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="extrasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
+  <data name="hilfeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
   </data>
-  <data name="extrasToolStripMenuItem.Text" xml:space="preserve">
-    <value>Extras</value>
+  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 22</value>
@@ -212,36 +242,6 @@
   <data name="überToolStripMenuItem.Text" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="hilfeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 24</value>
-  </data>
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="menuStrip.Text" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
-    <value>menuStrip</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
   <data name="panelMain.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -249,11 +249,176 @@
   <data name="panelMain.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
+  <data name="&gt;&gt;inputsTabControl.Name" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Parent" xml:space="preserve">
+    <value>panelMain</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="panelMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 52</value>
+  </data>
+  <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 183</value>
+  </data>
+  <data name="panelMain.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panelMain.Name" xml:space="preserve">
+    <value>panelMain</value>
+  </data>
+  <data name="&gt;&gt;panelMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelMain.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Name" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Parent" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;InputTabPage.Name" xml:space="preserve">
+    <value>InputTabPage</value>
+  </data>
+  <data name="&gt;&gt;InputTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputTabPage.Parent" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;InputTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="inputsTabControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="inputsTabControl.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="inputsTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 183</value>
+  </data>
+  <data name="inputsTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Name" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Parent" xml:space="preserve">
+    <value>panelMain</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Name" xml:space="preserve">
+    <value>MappingConfigGroupBox</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Parent" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="OutputTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="OutputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>600, 157</value>
+  </data>
+  <data name="OutputTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="OutputTabPage.Text" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Name" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Parent" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="MappingConfigGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="MappingConfigGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Name" xml:space="preserve">
+    <value>dataGridViewConfig</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Parent" xml:space="preserve">
+    <value>MappingConfigGroupBox</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="MappingConfigGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="MappingConfigGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>594, 151</value>
+  </data>
+  <data name="MappingConfigGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="MappingConfigGroupBox.Text" xml:space="preserve">
+    <value>Mappings</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Name" xml:space="preserve">
+    <value>MappingConfigGroupBox</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Parent" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="active.HeaderText" xml:space="preserve">
     <value>active</value>
@@ -465,21 +630,6 @@
   <metadata name="dataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>367, 56</value>
   </metadata>
-  <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Duplicate row</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete row</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Delete the current selected row</value>
-  </data>
   <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 48</value>
   </data>
@@ -507,62 +657,110 @@
   <data name="&gt;&gt;dataGridViewConfig.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="MappingConfigGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
   </data>
-  <data name="MappingConfigGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Duplicate row</value>
   </data>
-  <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>594, 151</value>
+  <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
   </data>
-  <data name="MappingConfigGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+  <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete row</value>
   </data>
-  <data name="MappingConfigGroupBox.Text" xml:space="preserve">
-    <value>Mappings</value>
+  <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Delete the current selected row</value>
   </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Name" xml:space="preserve">
-    <value>MappingConfigGroupBox</value>
+  <data name="&gt;&gt;inputsDataGridView.Name" xml:space="preserve">
+    <value>inputsDataGridView</value>
   </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;inputsDataGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Parent" xml:space="preserve">
-    <value>OutputTabPage</value>
+  <data name="&gt;&gt;inputsDataGridView.Parent" xml:space="preserve">
+    <value>InputTabPage</value>
   </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;inputsDataGridView.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="OutputTabPage.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="InputTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="OutputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="InputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
     <value>600, 157</value>
   </data>
-  <data name="OutputTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="InputTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="OutputTabPage.Text" xml:space="preserve">
-    <value>Output</value>
+  <data name="InputTabPage.Text" xml:space="preserve">
+    <value>Inputs</value>
   </data>
-  <data name="&gt;&gt;OutputTabPage.Name" xml:space="preserve">
-    <value>OutputTabPage</value>
+  <data name="&gt;&gt;InputTabPage.Name" xml:space="preserve">
+    <value>InputTabPage</value>
   </data>
-  <data name="&gt;&gt;OutputTabPage.Type" xml:space="preserve">
+  <data name="&gt;&gt;InputTabPage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;OutputTabPage.Parent" xml:space="preserve">
+  <data name="&gt;&gt;InputTabPage.Parent" xml:space="preserve">
     <value>inputsTabControl</value>
   </data>
-  <data name="&gt;&gt;OutputTabPage.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;InputTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
+  <metadata name="inputsGuid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="inputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="inputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="inputEditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataSetInputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>591, 56</value>
+  </metadata>
+  <metadata name="inputsDataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>724, 17</value>
+  </metadata>
   <data name="inputsDataGridView.ColumnHeadersHeight" type="System.Int32, mscorlib">
     <value>34</value>
+  </data>
+  <data name="inputsDataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="inputsDataGridView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
+    <value>inputsDataGridViewContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>594, 151</value>
+  </data>
+  <data name="inputsDataGridView.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridView.Name" xml:space="preserve">
+    <value>inputsDataGridView</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridView.Parent" xml:space="preserve">
+    <value>InputTabPage</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridView.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="inputActive.HeaderText" xml:space="preserve">
     <value>active</value>
@@ -615,15 +813,18 @@
   <metadata name="dataSetInputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>591, 56</value>
   </metadata>
-  <data name="inputsDataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="inputsDataGridView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
   <metadata name="inputsDataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>724, 17</value>
   </metadata>
+  <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 48</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
+    <value>inputsDataGridViewContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="duplicateInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 22</value>
   </data>
@@ -636,114 +837,18 @@
   <data name="deleteInputsRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete Row</value>
   </data>
-  <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 48</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
-    <value>inputsDataGridViewContextMenuStrip</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>594, 151</value>
-  </data>
-  <data name="inputsDataGridView.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.Name" xml:space="preserve">
-    <value>inputsDataGridView</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.Parent" xml:space="preserve">
-    <value>InputTabPage</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="InputTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="InputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>600, 157</value>
-  </data>
-  <data name="InputTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="InputTabPage.Text" xml:space="preserve">
-    <value>Inputs</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.Name" xml:space="preserve">
-    <value>InputTabPage</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.Parent" xml:space="preserve">
-    <value>inputsTabControl</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="inputsTabControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="inputsTabControl.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt</value>
-  </data>
-  <data name="inputsTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 183</value>
-  </data>
-  <data name="inputsTabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.Name" xml:space="preserve">
-    <value>inputsTabControl</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.Parent" xml:space="preserve">
-    <value>panelMain</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="panelMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 52</value>
-  </data>
-  <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 183</value>
-  </data>
-  <data name="panelMain.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panelMain.Name" xml:space="preserve">
-    <value>panelMain</value>
-  </data>
-  <data name="&gt;&gt;panelMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelMain.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panelMain.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <metadata name="contextMenuStripFsuipcOffset.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>983, 17</value>
   </metadata>
+  <data name="contextMenuStripFsuipcOffset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 31</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripFsuipcOffset.Name" xml:space="preserve">
+    <value>contextMenuStripFsuipcOffset</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripFsuipcOffset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="toolStripComboBox1.Items" xml:space="preserve">
     <value>dasdasdsad</value>
   </data>
@@ -759,42 +864,12 @@
   <data name="toolStripComboBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>121, 23</value>
   </data>
-  <data name="contextMenuStripFsuipcOffset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 31</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripFsuipcOffset.Name" xml:space="preserve">
-    <value>contextMenuStripFsuipcOffset</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStripFsuipcOffset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
   </metadata>
   <metadata name="contextMenuStripNotifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>518, 17</value>
   </metadata>
-  <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
-  </data>
-  <data name="startToolStripMenuItem.Text" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
-  </data>
-  <data name="stopToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 6</value>
-  </data>
-  <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
-  </data>
-  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Wiederherstellen</value>
-  </data>
   <data name="contextMenuStripNotifyIcon.Size" type="System.Drawing.Size, System.Drawing">
     <value>163, 76</value>
   </data>
@@ -6979,9 +7054,54 @@
   <data name="notifyIcon.Text" xml:space="preserve">
     <value>MobiFlight Connector</value>
   </data>
+  <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 22</value>
+  </data>
+  <data name="startToolStripMenuItem.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 22</value>
+  </data>
+  <data name="stopToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 6</value>
+  </data>
+  <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 22</value>
+  </data>
+  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Wiederherstellen</value>
+  </data>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>146, 56</value>
   </metadata>
+  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 24</value>
+  </data>
+  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 28</value>
+  </data>
+  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="toolStrip1.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
   <data name="saveToolStripButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -7087,38 +7207,80 @@
   <data name="exitToolStripButton.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 24</value>
-  </data>
-  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 28</value>
-  </data>
-  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="toolStrip1.Text" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
+  <metadata name="statusStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>251, 56</value>
+  </metadata>
   <data name="statusStripPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Name" xml:space="preserve">
+    <value>statusStrip2</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Parent" xml:space="preserve">
+    <value>statusStripPanel</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="statusStripPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 285</value>
+  </data>
+  <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 22</value>
+  </data>
+  <data name="statusStripPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Name" xml:space="preserve">
+    <value>statusStripPanel</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.ZOrder" xml:space="preserve">
+    <value>8</value>
   </data>
   <metadata name="statusStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>251, 56</value>
   </metadata>
   <data name="statusStrip2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
+  </data>
+  <data name="statusStrip2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 22</value>
+  </data>
+  <data name="statusStrip2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="statusStrip2.Text" xml:space="preserve">
+    <value>statusStrip2</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Name" xml:space="preserve">
+    <value>statusStrip2</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Parent" xml:space="preserve">
+    <value>statusStripPanel</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="ArcazeUSBTtoolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 17</value>
@@ -7195,57 +7357,6 @@
   <data name="toolStripStatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="statusStrip2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 22</value>
-  </data>
-  <data name="statusStrip2.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="statusStrip2.Text" xml:space="preserve">
-    <value>statusStrip2</value>
-  </data>
-  <data name="&gt;&gt;statusStrip2.Name" xml:space="preserve">
-    <value>statusStrip2</value>
-  </data>
-  <data name="&gt;&gt;statusStrip2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusStrip2.Parent" xml:space="preserve">
-    <value>statusStripPanel</value>
-  </data>
-  <data name="&gt;&gt;statusStrip2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="statusStripPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 285</value>
-  </data>
-  <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>608, 22</value>
-  </data>
-  <data name="statusStripPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;statusStripPanel.Name" xml:space="preserve">
-    <value>statusStripPanel</value>
-  </data>
-  <data name="&gt;&gt;statusStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusStripPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;statusStripPanel.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
   <data name="logTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
@@ -7257,6 +7368,9 @@
   </data>
   <data name="logTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="logTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
   </data>
   <data name="logTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>608, 50</value>
@@ -7274,7 +7388,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;logTextBox.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="activeDataGridViewCheckBoxColumn.HeaderText" xml:space="preserve">
     <value>active</value>
@@ -7309,6 +7423,36 @@
   <data name="dataGridViewTextBoxColumn4.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="logSplitter.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="logSplitter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 232</value>
+  </data>
+  <data name="logSplitter.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="logSplitter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 3</value>
+  </data>
+  <data name="logSplitter.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;logSplitter.Name" xml:space="preserve">
+    <value>logSplitter</value>
+  </data>
+  <data name="&gt;&gt;logSplitter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Splitter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logSplitter.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;logSplitter.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="startupPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -7331,7 +7475,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;startupPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>5</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

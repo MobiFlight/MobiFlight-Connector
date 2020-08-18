@@ -82,6 +82,7 @@ namespace MobiFlight
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
             logTextBox.Visible = Log.Instance.Enabled;
+            logSplitter.Visible = Log.Instance.Enabled;
 
             try
             {
@@ -536,6 +537,7 @@ namespace MobiFlight
                     {
                         Properties.Settings.Default.Save();
                         logTextBox.Visible = Log.Instance.Enabled;
+                        logSplitter.Visible = Log.Instance.Enabled;
                     }
                 }
             }           
@@ -1509,6 +1511,7 @@ namespace MobiFlight
                 Properties.Settings.Default.Save();
                 // TODO: refactor
                 logTextBox.Visible = Log.Instance.Enabled;
+                logSplitter.Visible = Log.Instance.Enabled;
                 execManager.updateModuleSettings(getArcazeModuleSettings());                
             }
         }
@@ -2002,6 +2005,7 @@ namespace MobiFlight
                 e.Handled = true;
             }
         }
+
     }
 
     // this class just wraps some Win32 stuff that we're going to use
