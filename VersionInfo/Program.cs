@@ -17,7 +17,10 @@ namespace VersionInfo
                                 ? target
                                 : Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName) + Path.DirectorySeparatorChar + target;
 
-            Console.Write(Assembly.LoadFile(path).GetName().Version.ToString(3));
+            if (Assembly.LoadFile(path).GetName().Version.Revision>0)
+                Console.Write(Assembly.LoadFile(path).GetName().Version.ToString(4));
+            else
+                Console.Write(Assembly.LoadFile(path).GetName().Version.ToString(3));
         }
 
         static void ShowUsage()

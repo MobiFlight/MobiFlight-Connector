@@ -233,6 +233,8 @@ namespace MobiFlight
             panelMain.Visible = true;
             startupPanel.Visible = false;
             menuStrip.Enabled = true;
+
+            CheckForUpdate(false, true);
         }
 
         void CheckForFirmwareUpdates ()
