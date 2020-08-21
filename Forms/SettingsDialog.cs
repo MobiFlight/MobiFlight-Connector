@@ -10,6 +10,8 @@ using System.Xml.Serialization;
 using SimpleSolutions.Usb;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using MobiFlight.Forms;
 
 namespace MobiFlight
 {
@@ -815,7 +817,7 @@ namespace MobiFlight
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void uploadToolStripButton_Click(object sender, EventArgs e)
+        private async void uploadToolStripButton_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(MainForm._tr("uiMessageUploadConfigurationConfirm"), 
                                 MainForm._tr("uiMessageUploadConfigurationHint"), 
@@ -849,15 +851,34 @@ namespace MobiFlight
             }
 
             Log.Instance.log("Uploading config: " + LogMessage, LogSeverity.Info);
-            
-            bool uploadResult = module.SaveConfig();
-            module.Config = null;
-            module.ResetBoard();
-            module.LoadConfig();
-            execManager.getMobiFlightModuleCache().updateConnectedModuleName(module);
 
-            parentNode.ImageKey = "";
-            parentNode.SelectedImageKey = "";
+            bool uploadResult = false;
+
+            ConfigUploadProgress form = new ConfigUploadProgress();
+            form.StartPosition = FormStartPosition.CenterParent;
+            
+            await Task.Run(new Action(() => {
+                this.BeginInvoke(new Action(() => { form.ShowDialog(); }));
+                form.Progress = 25;
+                form.Status = "Uploading.";
+                uploadResult = module.SaveConfig();
+                form.Progress = 50;
+                module.Config = null;
+                form.Status = "Resetting Board.";
+                module.ResetBoard();
+                form.Progress = 75;
+
+                form.Status = "Loading Config.";
+                module.LoadConfig();
+                form.Progress = 100;
+                execManager.getMobiFlightModuleCache().updateConnectedModuleName(module);
+            })).ContinueWith(new Action<Task>(task =>
+            {
+                // Close modal dialog
+                // - No need to use BeginInvoke here
+                //   because ContinueWith was called with TaskScheduler.FromCurrentSynchronizationContext()
+                form.Close();
+            }), TaskScheduler.FromCurrentSynchronizationContext());
 
             if (uploadResult)
             {
@@ -871,7 +892,8 @@ namespace MobiFlight
                                 MainForm._tr("uiMessageUploadConfigurationHint"),
                                 MessageBoxButtons.OK);
             }
-                        
+            parentNode.ImageKey = "";
+            parentNode.SelectedImageKey = "";
         }
 
         /// <summary>
