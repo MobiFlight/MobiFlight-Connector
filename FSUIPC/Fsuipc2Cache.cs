@@ -78,6 +78,15 @@ namespace MobiFlight.FSUIPC
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
                 return true;
             }
+
+            proc = "flightsimulator";
+            // check for msfs2020
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
+                return true;
+            }
+
             proc = "wideclient";
             // check for FSUIPC wide client
             if (Process.GetProcessesByName(proc).Length > 0)
