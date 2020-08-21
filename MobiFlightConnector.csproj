@@ -234,6 +234,12 @@
       <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\BooleanConverterConfig.cs" />
+    <Compile Include="MobiFlight\Forms\ConfigUploadProgress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MobiFlight\Forms\ConfigUploadProgress.Designer.cs">
+      <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
+    </Compile>
     <Compile Include="MobiFlight\Forms\StartupPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -653,6 +659,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Forms\ArduinoIdePathForm.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MobiFlight\Forms\ConfigUploadProgress.resx">
+      <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
