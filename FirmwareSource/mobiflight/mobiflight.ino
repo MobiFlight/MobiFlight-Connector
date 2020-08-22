@@ -29,7 +29,8 @@ char foo;
 // 1.9.2 : Auto reset stepper, more characters for 7 segments
 // 1.9.3 : Increased number of pins for MEGA, reduced speed for stepper for more torque
 // 1.9.4 : Increased MAX_PINS for MEGA.
-const char version[8] = "1.9.4";
+// 1.9.5 : Increased MAX_BUTTONS for MEGA and Micro Pro.
+const char version[8] = "1.9.5";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -66,7 +67,7 @@ const char version[8] = "1.9.4";
 
 #if MODULETYPE == MTYPE_MICRO
 #define MAX_OUTPUTS     10
-#define MAX_BUTTONS     10
+#define MAX_BUTTONS     16
 #define MAX_LEDSEGMENTS 1
 #define MAX_ENCODERS    4
 #define MAX_STEPPERS    4
@@ -86,7 +87,7 @@ const char version[8] = "1.9.4";
 
 #if MODULETYPE == MTYPE_MEGA
 #define MAX_OUTPUTS     40
-#define MAX_BUTTONS     50
+#define MAX_BUTTONS     69
 #define MAX_LEDSEGMENTS 4
 #define MAX_ENCODERS    20
 #define MAX_STEPPERS    10

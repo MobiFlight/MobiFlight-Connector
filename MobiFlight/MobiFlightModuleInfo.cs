@@ -9,9 +9,9 @@ namespace MobiFlight
     {
         public const String TYPE_UNKNOWN = "unknown";
 
-        public const String LatestFirmwareMega = "1.9.4";
-        public const String LatestFirmwareMicro = "1.9.4";
-        public const String LatestFirmwareUno = "1.9.4";
+        public const String LatestFirmwareMega = "1.9.5";
+        public const String LatestFirmwareMicro = "1.9.5";
+        public const String LatestFirmwareUno = "1.9.5";
 
         // these types are used for standard stock arduino boards
         public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
