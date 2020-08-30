@@ -13,6 +13,7 @@ using SimpleSolutions.Usb;
 using AutoUpdaterDotNET;
 using System.Runtime.InteropServices;
 using MobiFlight.FSUIPC;
+using System.Reflection;
 
 namespace MobiFlight
 {
@@ -108,6 +109,8 @@ namespace MobiFlight
             InitializeComponent();
             InitializeSettings();
             InitializeLogging();
+            Helper.DoubleBufferedDGV(inputsDataGridView, true);
+            Helper.DoubleBufferedDGV(dataGridViewConfig, true);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -2007,7 +2010,17 @@ namespace MobiFlight
                 e.Handled = true;
             }
         }
+    }
 
+    internal static class Helper
+    {
+        public static void DoubleBufferedDGV(this DataGridView dgv, bool setting)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+                  BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, setting, null);
+        }
     }
 
     // this class just wraps some Win32 stuff that we're going to use
