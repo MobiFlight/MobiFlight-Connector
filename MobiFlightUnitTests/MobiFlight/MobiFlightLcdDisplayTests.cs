@@ -52,6 +52,22 @@ namespace MobiFlight.Tests
             Assert.AreEqual("COM1: 123.45        " +
                             "COM2:   1.23        ", result, "Apply was not correct. Wrong padding.");
 
+            replacements.Clear();
+            replacements.Add(new Tuple<string, string>("$", "")); // zero length string, replace them all
+            replacements.Add(new Tuple<string, string>("#", "123")); // too short, padding needed
+            result = o.Apply(lcdConfig, value, replacements);
+
+            Assert.AreEqual("COM1:    .          " +
+                            "COM2:   1.23        ", result, "Apply was not correct. Wrong replacement of zero length string.");
+
+            replacements.Clear();
+            replacements.Add(new Tuple<string, string>("$", null)); // zero length string, replace them all
+            replacements.Add(new Tuple<string, string>("#", "123")); // too short, padding needed
+            result = o.Apply(lcdConfig, value, replacements);
+
+            Assert.AreEqual("COM1:    .          " +
+                            "COM2:   1.23        ", result, "Apply was not correct. Wrong replacement of zero length string.");
+
         }
     }
 }

@@ -105,7 +105,8 @@ namespace MobiFlight
         {
             String result = "";
             Char[] lineArray = line.ToArray();
-            int pos = value.Length - 1;
+            
+            int pos = (value ?? "").Length - 1; // make sure we handle a null String 
 
             // go over the line from right to left
             // and substitute all placeholders
