@@ -43,14 +43,17 @@ namespace MobiFlight.FSUIPC
         bool _offsetsRegistered = false;
         bool _connected = false;
         bool __isProcessed = false;
+        bool _offlineMode = false;
         public bool OfflineMode {
             get {
 #if FSUIPC_OFFLINE_MODE
             return true;
 #else
-            return Properties.Settings.Default.OfflineMode;
+            return _offlineMode;
 #endif
             }
+
+            set { _offlineMode = value;  }
         }
 
         public Fsuipc2Cache()
@@ -135,7 +138,7 @@ namespace MobiFlight.FSUIPC
 
         public bool isConnected()
         {
-            return _connected || OfflineMode;
+            return _connected;
         }
 
         public bool connect()

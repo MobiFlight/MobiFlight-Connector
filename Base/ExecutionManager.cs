@@ -111,6 +111,11 @@ namespace MobiFlight
             timer.Interval = value;
         }
 
+        public void SetOfflineMode (bool value)
+        {
+            fsuipcCache.OfflineMode = value;
+        }
+
         public void SetTestModeInterval(int value)
         {
             testModeTimer.Interval = value;
@@ -147,6 +152,12 @@ namespace MobiFlight
             autoConnectTimer.Start();
             autoConnectTimer_TickAsync(null, null);
             Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
+        }
+
+        public void ReconnectSim()
+        {
+            fsuipcCache.disconnect();
+            fsuipcCache.connect();
         }
 
         public void AutoConnectStop()

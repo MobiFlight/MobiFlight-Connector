@@ -100,7 +100,6 @@ namespace MobiFlight
         {
             UpgradeSettingsFromPreviousInstallation();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
-
         }
 
         public MainForm()
@@ -157,6 +156,8 @@ namespace MobiFlight
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
 
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
+
+            execManager.SetOfflineMode(Properties.Settings.Default.OfflineMode);
 
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
@@ -441,6 +442,12 @@ namespace MobiFlight
                 // set FSUIPC update interval
                 execManager.SetFsuipcInterval((int)e.NewValue);
             }
+
+            if (e.SettingName == "OfflineMode")
+            {
+                execManager.SetOfflineMode((bool)e.NewValue);
+                execManager.ReconnectSim();
+            }
         }
 
         private void _autoloadConfig()
@@ -608,6 +615,7 @@ namespace MobiFlight
         /// </summary>
         void fsuipcCache_Closed(object sender, EventArgs e)
         {
+            fsuipcToolStripStatusLabel.Text = "Sim Status:";
             fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.warning;
         }
 
@@ -623,16 +631,20 @@ namespace MobiFlight
                     fsuipcToolStripStatusLabel.Text = "Offline Mode:";
                     break;
 
+                case FlightSimConnectionMethod.FSUIPC:
+                    fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
+                    break;
+
                 case FlightSimConnectionMethod.XPUIPC:
-                    fsuipcToolStripStatusLabel.Text = "XPUIPC" + "Status:";
+                    fsuipcToolStripStatusLabel.Text = "XPUIPC Status:";
                     break;
 
                 case FlightSimConnectionMethod.WIDECLIENT:
-                    fsuipcToolStripStatusLabel.Text = "WideClient" + "Status:";
+                    fsuipcToolStripStatusLabel.Text = "WideClient Status:";
                     break;
 
                 default:
-                    fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
+                    fsuipcToolStripStatusLabel.Text = "Sim Status:";
                     break;
             }
             

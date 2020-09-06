@@ -405,9 +405,6 @@
   <data name="Typ.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="Typ.Width" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
   <metadata name="arcazeSerial.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -7166,10 +7163,10 @@
     <value>|</value>
   </data>
   <data name="fsuipcToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 17</value>
+    <value>65, 17</value>
   </data>
   <data name="fsuipcToolStripStatusLabel.Text" xml:space="preserve">
-    <value>FSUIPC Status:</value>
+    <value>Sim Status:</value>
   </data>
   <data name="fsuipcStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 17</value>
@@ -7190,7 +7187,7 @@
     <value>|</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>283, 17</value>
+    <value>270, 17</value>
   </data>
   <data name="toolStripStatusLabel.Text" xml:space="preserve">
     <value>Status Info...</value>
@@ -7361,7 +7358,7 @@
     <value>startupPanel</value>
   </data>
   <data name="&gt;&gt;startupPanel.Type" xml:space="preserve">
-    <value>MobiFlight.Forms.StartupPanel, MFConnector, Version=7.9.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.Forms.StartupPanel, MFConnector, Version=7.9.0.4, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;startupPanel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -7524,9 +7521,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>560, 250</value>
@@ -7831,6 +7825,12 @@
   <data name="&gt;&gt;arcazeSerialDataColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
+    <value>settingsColumn</value>
+  </data>
+  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;guidDataColumn.Name" xml:space="preserve">
     <value>guidDataColumn</value>
   </data>
@@ -7913,6 +7913,12 @@
     <value>inputsGuidDataColumn</value>
   </data>
   <data name="&gt;&gt;inputsGuidDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsSettingsDataColumn.Name" xml:space="preserve">
+    <value>inputsSettingsDataColumn</value>
+  </data>
+  <data name="&gt;&gt;inputsSettingsDataColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;duplicateInputsRowToolStripMenuItem.Name" xml:space="preserve">
@@ -8130,18 +8136,6 @@
   </data>
   <data name="&gt;&gt;dataGridViewTextBoxColumn4.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
-    <value>settingsColumn</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsSettingsDataColumn.Name" xml:space="preserve">
-    <value>inputsSettingsDataColumn</value>
-  </data>
-  <data name="&gt;&gt;inputsSettingsDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>
