@@ -37,8 +37,8 @@ namespace MobiFlight.FSUIPC
 
         long lastProcessedMs = 0;
 
-        FlightSim[] _supportedFlightSims = new FlightSim[] { FlightSim.Any, FlightSim.FS2K4, FlightSim.FSX };
         public MobiFlight.FlightSimConnectionMethod FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.NONE;
+        public MobiFlight.FlightSim FlightSim = FlightSim.NONE;
         
         bool _offsetsRegistered = false;
         bool _connected = false;
@@ -72,6 +72,7 @@ namespace MobiFlight.FSUIPC
             if (Process.GetProcessesByName(proc).Length > 0)
             {
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
+                FlightSim = FlightSim.FS9;
                 return true;
             }
             proc = "fsx";
@@ -79,6 +80,7 @@ namespace MobiFlight.FSUIPC
             if (Process.GetProcessesByName(proc).Length > 0)
             {
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
+                FlightSim = FlightSim.FSX;
                 return true;
             }
 
@@ -87,6 +89,7 @@ namespace MobiFlight.FSUIPC
             if (Process.GetProcessesByName(proc).Length > 0)
             {
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
+                FlightSim = FlightSim.MSFS2020;
                 return true;
             }
 
@@ -96,6 +99,7 @@ namespace MobiFlight.FSUIPC
             {
                 //fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.WIDECLIENT;
+                FlightSim = FlightSim.UNKNOWN;
                 return true;
             }
             // check for prepar3d
@@ -103,6 +107,7 @@ namespace MobiFlight.FSUIPC
             if (Process.GetProcessesByName(proc).Length > 0)
             {
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
+                FlightSim = FlightSim.P3D;
                 return true;
             }
             // check for x-plane and xpuipc
@@ -110,6 +115,7 @@ namespace MobiFlight.FSUIPC
             if (Process.GetProcessesByName(proc).Length > 0)
             {
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
+                FlightSim = FlightSim.XPLANE;
                 return true;
             }
 
@@ -117,19 +123,22 @@ namespace MobiFlight.FSUIPC
             if (Process.GetProcessesByName(proc).Length > 0)
             {
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
+                FlightSim = FlightSim.XPLANE;
                 return true;
             }
 
             proc = "xpwideclient";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
+                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.WIDECLIENT;
+                FlightSim = FlightSim.XPLANE;
                 return true;
             }
 
             if (OfflineMode)
             {
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.OFFLINE;
+                FlightSim = FlightSim.UNKNOWN;
                 return true;
             }
 

@@ -58,6 +58,8 @@ namespace MobiFlight
         Fsuipc2Cache fsuipcCache = new Fsuipc2Cache();
         ArcazeCache arcazeCache = new ArcazeCache();
 
+        public bool OfflineMode { get { return fsuipcCache.OfflineMode; } set { fsuipcCache.OfflineMode = value; } }
+
 #if MOBIFLIGHT
         MobiFlightCache mobiFlightCache = new MobiFlightCache();
 #endif
@@ -109,11 +111,6 @@ namespace MobiFlight
         public void SetFsuipcInterval(int value)
         {
             timer.Interval = value;
-        }
-
-        public void SetOfflineMode (bool value)
-        {
-            fsuipcCache.OfflineMode = value;
         }
 
         public void SetTestModeInterval(int value)

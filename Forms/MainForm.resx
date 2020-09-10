@@ -7358,7 +7358,7 @@
     <value>startupPanel</value>
   </data>
   <data name="&gt;&gt;startupPanel.Type" xml:space="preserve">
-    <value>MobiFlight.Forms.StartupPanel, MFConnector, Version=7.9.0.4, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.Forms.StartupPanel, MFConnector, Version=7.10.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;startupPanel.Parent" xml:space="preserve">
     <value>$this</value>

@@ -157,7 +157,7 @@ namespace MobiFlight
 
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
-            execManager.SetOfflineMode(Properties.Settings.Default.OfflineMode);
+            execManager.OfflineMode = Properties.Settings.Default.OfflineMode;
 
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
@@ -445,7 +445,7 @@ namespace MobiFlight
 
             if (e.SettingName == "OfflineMode")
             {
-                execManager.SetOfflineMode((bool)e.NewValue);
+                execManager.OfflineMode = (bool)e.NewValue;
                 execManager.ReconnectSim();
             }
         }
@@ -632,7 +632,7 @@ namespace MobiFlight
                     break;
 
                 case FlightSimConnectionMethod.FSUIPC:
-                    fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
+                    fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + " ("+ c.FlightSim.ToString() +"):";
                     break;
 
                 case FlightSimConnectionMethod.XPUIPC:
@@ -647,7 +647,9 @@ namespace MobiFlight
                     fsuipcToolStripStatusLabel.Text = "Sim Status:";
                     break;
             }
-            
+
+            if (execManager.OfflineMode) fsuipcToolStripStatusLabel.Text = "Offline Mode:";
+
             fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;            
         }
 
