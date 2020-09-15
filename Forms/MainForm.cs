@@ -1025,19 +1025,26 @@ namespace MobiFlight
 
             if (serials.Count == 0) return;
 
-            OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configDataTable, inputsDataTable);
-            opd.StartPosition = FormStartPosition.CenterParent;
-            if (opd.HasOrphanedSerials())
+            try
             {
-                if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configDataTable, inputsDataTable);
+                opd.StartPosition = FormStartPosition.CenterParent;
+                if (opd.HasOrphanedSerials())
                 {
-                    _restoreValuesInGridView();
-                    saveToolStripButton.Enabled = opd.HasChanged();
+                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        _restoreValuesInGridView();
+                        saveToolStripButton.Enabled = opd.HasChanged();
+                    }
+                }
+                else if (showNotNecessaryMessage)
+                {
+                    MessageBox.Show(_tr("uiMessageNoOrphanedSerialsFound"), _tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            else if (showNotNecessaryMessage)
-            {
-                MessageBox.Show(_tr("uiMessageNoOrphanedSerialsFound"), _tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            catch (Exception e) {
+                // do nothing
+                Log.Instance.log("Orphaned Serials Exception. " + e.Message, LogSeverity.Error);
             }
         }
 
