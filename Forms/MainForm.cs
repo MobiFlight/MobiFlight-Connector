@@ -200,6 +200,7 @@ namespace MobiFlight
             AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
 
             startupPanel.UpdateStatusText("Start Connecting");
+            _initializeArcazeModuleSettings();
             Update();
             Refresh();
             execManager.AutoConnectStart();
@@ -223,8 +224,6 @@ namespace MobiFlight
 
         void ExecManager_OnModuleLookupFinished(object sender, EventArgs e)
         {
-            _initializeModuleSettings();
-
             startupPanel.UpdateStatusText("Checking for Firmware Updates...");
             startupPanel.UpdateProgressBar(70);
             CheckForFirmwareUpdates();
@@ -518,7 +517,7 @@ namespace MobiFlight
             base.WndProc(ref m);            
         } */
 
-        private void _initializeModuleSettings()
+        private void _initializeArcazeModuleSettings()
         {
             Dictionary<string, ArcazeModuleSettings> settings = getArcazeModuleSettings();
             List<string> serials = new List<string>();
