@@ -189,8 +189,8 @@ namespace MobiFlight
 
                                     result.Add(new Tuple<string, string>(portName, ArduinoType));
                                     Log.Instance.log("Found potentially compatible module (" + ArduinoType + " by VID/PID): " + VidPid + "@" + portName, LogSeverity.Debug);
+                                    continue;
                                 }
-                                continue;
                             }
                             catch (Exception e)
                             {

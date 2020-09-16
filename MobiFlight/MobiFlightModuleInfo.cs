@@ -106,11 +106,12 @@ namespace MobiFlight
         public static readonly String[] VIDPID_MEGA = {
             "VID_2341&PID_0010",
             "VID_2341&PID_0042",
-            "VID_2341&PID_0001", // was reported on youtube video
+            "VID_2341&PID_0001",            // was reported on youtube video
             "VID_8087&PID_0024",
-            "VID_1A86&PID_7523", // this is actually an CH-340 and can be a Mega OR an UNO
-            "VID_2A03&PID_0042", // http://www.mobiflight.de/forum/message/983.html
-            "VID_0403.PID_6001.*",  // http://www.mobiflight.de/forum/topic/570.html
+            "VID_1A86&PID_7523",            // this is actually an CH-340 and can be a Mega OR an UNO
+            "VID_2A03&PID_0042",            // http://www.mobiflight.de/forum/message/983.html
+            "VID_0403&PID_6001",            // http://www.mobiflight.de/forum/topic/570.html
+            "VID_0403\\+PID_6001\\+A50285BIA",  // https://bitbucket.org/mobiflight/mobiflightfc/issues/265
 
             // added from https://github.com/arduino/Arduino/blob/1.8.0/hardware/arduino/avr/boards.txt#L51-L58
             "VID_2A03&PID_0010",
