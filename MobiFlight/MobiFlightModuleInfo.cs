@@ -110,7 +110,7 @@ namespace MobiFlight
             "VID_8087&PID_0024",
             "VID_1A86&PID_7523", // this is actually an CH-340 and can be a Mega OR an UNO
             "VID_2A03&PID_0042", // http://www.mobiflight.de/forum/message/983.html
-            "VID_0403&PID_6001",  // http://www.mobiflight.de/forum/topic/570.html
+            "VID_0403.PID_6001.*",  // http://www.mobiflight.de/forum/topic/570.html
 
             // added from https://github.com/arduino/Arduino/blob/1.8.0/hardware/arduino/avr/boards.txt#L51-L58
             "VID_2A03&PID_0010",
