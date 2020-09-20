@@ -97,7 +97,14 @@ namespace MobiFlight
                         
                         var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
                         var InfoCommand = _cmdMessenger.SendCommand(command);
-                        InfoCommand = _cmdMessenger.SendCommand(command);
+
+                        // Sometimes first attempt times out.
+                        if (!InfoCommand.Ok)
+                        {
+                            Log.Instance.log("MobiflightModule.Config: Timeout. !InfoCommand.Ok. Retrying...", LogSeverity.Debug);
+                            InfoCommand = _cmdMessenger.SendCommand(command);
+                        }
+                        
                         if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
                         {
                             if (!InfoCommand.Ok)
@@ -106,26 +113,16 @@ namespace MobiFlight
                             InfoCommand = _cmdMessenger.SendCommand(command);
                         }
 
-                        int count = 0;
-
-                        // this is a workaround for a timing issue
-                        // that I had with especially the UNO
-                        // it seems that after connecting (and resetting) 
-                        // it takes a while until the messages
-                        // arrive properly on the PC side
-                        /*
-                        while (!InfoCommand.Ok && count++ < 3)
-                        {
-                            Thread.Sleep(CommandTimeout);
-                            InfoCommand = _cmdMessenger.SendCommand(command);
-                        }
-                        */
                         if (InfoCommand.Ok)
                         {
                             _config = new Config.Config(InfoCommand.ReadStringArg());
                         }
                         else
+                        {
+                            Log.Instance.log("MobiflightModule.Config: !InfoCommand.Ok. Init with empty config.", LogSeverity.Debug);
                             _config = new Config.Config();
+                        }
+                            
                     }
                     return _config;
                 }
@@ -255,11 +252,11 @@ namespace MobiFlight
             Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort + " of Type " + Type + " (DTR=>" + _transportLayer.CurrentSerialSettings.DtrEnable + ")", LogSeverity.Info);
             //this.Connected = status;
             this.Connected = true;
-            
+
             // workaround ahead!!!
             if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
                 System.Threading.Thread.Sleep(500);
-            
+
             //if (!this.Connected) return;
             //ResetBoard();
             LoadConfig();
@@ -868,7 +865,7 @@ namespace MobiFlight
         public bool GenerateNewSerial()
         {
             System.Version minVersion = new System.Version("1.3.0");
-            System.Version currentVersion = new System.Version(this.Version);
+            System.Version currentVersion = new System.Version(Version != "n/a" ? Version : "0.0.0");
             if (currentVersion.CompareTo(minVersion) < 0)
             {
                 throw new FirmwareVersionTooLowException(minVersion, currentVersion);
@@ -881,7 +878,7 @@ namespace MobiFlight
         public bool HasFirmwareFeature(String FirmwareFeature)
         {
             System.Version minVersion = new System.Version(FirmwareFeature);
-            System.Version currentVersion = new System.Version(this.Version);
+            System.Version currentVersion = new System.Version(Version != "n/a" ? Version : "0.0.0");
 
             return (currentVersion.CompareTo(minVersion) >= 0);
         }
