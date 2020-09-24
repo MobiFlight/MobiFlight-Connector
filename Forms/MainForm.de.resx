@@ -119,40 +119,40 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="toolStripMenuItem3.Text" xml:space="preserve">
     <value>Neu</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Öffnen...</value>
   </data>
   <data name="konfigurationSpeichernToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="konfigurationSpeichernToolStripMenuItem.Text" xml:space="preserve">
-    <value>Speichern...</value>
+    <value>Speichern als...</value>
   </data>
   <data name="AfterFileActionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="recentDocumentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="recentDocumentsToolStripMenuItem.Text" xml:space="preserve">
     <value>Zuletzt geöffnet...</value>
   </data>
   <data name="recentDocsToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="beendenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
     <value>Beenden</value>
@@ -508,7 +508,7 @@
     <value>4, 19</value>
   </data>
   <data name="fsuipcToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 19</value>
+    <value>65, 19</value>
   </data>
   <data name="fsuipcStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 19</value>
@@ -520,7 +520,7 @@
     <value>4, 19</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>288, 19</value>
+    <value>306, 19</value>
   </data>
   <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
     <value>608, 24</value>
@@ -536,6 +536,12 @@
   </data>
   <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 233</value>
+  </data>
+  <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 230</value>
+  </data>
+  <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>608, 181</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
