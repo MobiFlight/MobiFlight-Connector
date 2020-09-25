@@ -147,6 +147,10 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Interpolation.Active, c.Interpolation.Active, "clone: Interpolation.Active is not the same.");
             Assert.AreEqual(o.Interpolation.Count, c.Interpolation.Count, "clone: Interpolation.Count not the same");
             Assert.AreEqual(o.Preconditions.Count, c.Preconditions.Count, "clone: Preconditions.Count not the same");
+
+            // Config References
+            Assert.AreEqual(o.ConfigRefs.Count, c.ConfigRefs.Count, "clone: ConfigRefs.Count not the same");
+
         }
 
         private OutputConfigItem _generateConfigItem()
@@ -200,6 +204,9 @@ namespace MobiFlight.Tests
             o.StepperOutputRev = "3212";
             o.StepperTestValue = "212";
             o.StepperCompassMode = true;
+
+            o.ConfigRefs.Add(new ConfigRef() { Active = true, Placeholder = "#", Ref = "123" });
+            o.ConfigRefs.Add(new ConfigRef() { Active = false, Placeholder = "$", Ref = "321" });
 
             return o;
         }

@@ -499,6 +499,11 @@ namespace MobiFlight
 
             clone.Interpolation = this.Interpolation.Clone() as Interpolation;
 
+            foreach (ConfigRef configRef in ConfigRefs)
+            {
+                clone.ConfigRefs.Add(configRef.Clone() as ConfigRef);
+            }
+
             return clone;
         }
     }
