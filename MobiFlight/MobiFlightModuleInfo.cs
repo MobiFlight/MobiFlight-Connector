@@ -116,7 +116,8 @@ namespace MobiFlight
             // added from https://github.com/arduino/Arduino/blob/1.8.0/hardware/arduino/avr/boards.txt#L51-L58
             "VID_2A03&PID_0010",
             "VID_2341&PID_0210",
-            "VID_2341&PID_0242"
+            "VID_2341&PID_0242",
+            "VID_10C4&PID_EA60"             // https://www.mobiflight.com/forum/message/20158.html
         };
 
         String _version = "n/a";
