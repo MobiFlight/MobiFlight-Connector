@@ -29,6 +29,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(2.4, t.Apply(1.2, configRefs));
             t.Expression = "$*2.0";
             Assert.AreEqual(2.0, t.Apply(1, configRefs));
+            t.Expression = "Round(14.6,0)";
+            Assert.AreEqual(15, t.Apply(1, configRefs));
 
             // test the substring stuff
             t.SubStrStart = 1;
