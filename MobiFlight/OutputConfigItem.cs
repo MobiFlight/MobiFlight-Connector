@@ -50,6 +50,7 @@ namespace MobiFlight
         public string       DisplayLedPaddingChar       { get; set; }
         public List<string> DisplayLedDigits            { get; set; }
         public List<string> DisplayLedDecimalPoints     { get; set; }
+        public bool         DisplayLedReverseDigits     { get; set; }
 
         // the lcd display stuff
         public LcdDisplay   LcdDisplay                  { get; set; }
@@ -98,6 +99,7 @@ namespace MobiFlight
             DisplayLedConnector = 1;
             DisplayLedAddress = "0";
             DisplayLedPadding = false;
+            DisplayLedReverseDigits = false;
             DisplayLedPaddingChar = "0";
             DisplayLedModuleSize = 8;
             DisplayLedDigits = new List<string>();
@@ -211,6 +213,11 @@ namespace MobiFlight
                     if (reader["ledPadding"] != null && reader["ledPadding"] != "")
                     {
                         DisplayLedPadding = Boolean.Parse(reader["ledPadding"]);
+                    }
+
+                    if (reader["ledReverseDigits"] != null && reader["ledReverseDigits"] != "")
+                    {
+                        DisplayLedReverseDigits = Boolean.Parse(reader["ledReverseDigits"]);
                     }
 
                     if (reader["ledPaddingChar"] != null && reader["ledPaddingChar"] != "")
@@ -388,6 +395,7 @@ namespace MobiFlight
                     writer.WriteAttributeString("ledConnector", DisplayLedConnector.ToString());
                     writer.WriteAttributeString("ledModuleSize", DisplayLedModuleSize.ToString());
                     writer.WriteAttributeString("ledPadding", DisplayLedPadding.ToString());
+                    writer.WriteAttributeString("ledReverseDigits", DisplayLedReverseDigits.ToString());
                     writer.WriteAttributeString("ledPaddingChar", DisplayLedPaddingChar);
 
                     if (DisplayLedDigits.Count > 0)
@@ -464,6 +472,7 @@ namespace MobiFlight
             clone.ComparisonElseValue       = this.ComparisonElseValue;
             clone.DisplayType               = this.DisplayType;
             clone.DisplaySerial             = this.DisplaySerial;
+            clone.DisplayLedReverseDigits   = this.DisplayLedReverseDigits;
             clone.DisplayPin                = this.DisplayPin;
             clone.DisplayPinBrightness      = this.DisplayPinBrightness;
             // the display stuff

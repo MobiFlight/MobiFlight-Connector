@@ -46,6 +46,7 @@ namespace MobiFlight.Panels
             }
 
             displayLedPaddingCheckBox.Checked = config.DisplayLedPadding;
+            displayLedReverseDigitsCheckBox.Checked = config.DisplayLedReverseDigits;
             SetPaddingChar(config.DisplayLedPaddingChar);
 
             foreach (string digit in config.DisplayLedDigits)
@@ -123,6 +124,7 @@ namespace MobiFlight.Panels
         {
             config.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
             config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
+            config.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
             config.DisplayLedPaddingChar = GetPaddingChar();
             try
             {

@@ -63,9 +63,7 @@ namespace MobiFlight
             // clamp and reverse the string
             if (value.Length > 8) value = value.Substring(0, 8);
             //while (value.Length < 8) value += " ";
-            
-            //value = new string(value.ToCharArray().Reverse().ToArray());
-            
+
             command.AddArgument(this.ModuleNumber);
             command.AddArgument(subModule);            
             command.AddArgument(value);

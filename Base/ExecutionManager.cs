@@ -757,6 +757,12 @@ namespace MobiFlight
                     case ArcazeLedDigit.TYPE:
                         var val = value.PadRight(cfg.DisplayLedDigits.Count, cfg.DisplayLedPaddingChar[0]);
                         if (cfg.DisplayLedPadding) val = value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]);
+
+                        if (cfg.DisplayLedReverseDigits)
+                        {
+                            val = new string(value.ToCharArray().Reverse().ToArray());
+                        }
+
                         mobiFlightCache.setDisplay(
                             serial,
                             cfg.DisplayLedAddress,

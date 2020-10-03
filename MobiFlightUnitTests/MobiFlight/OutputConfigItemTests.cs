@@ -126,6 +126,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.DisplayLedConnector, c.DisplayLedConnector, "clone: DisplayLedConnector not the same");
             Assert.AreEqual(o.DisplayLedAddress, c.DisplayLedAddress, "clone: DisplayLedAddress not the same");
             Assert.AreEqual(o.DisplayLedPadding, c.DisplayLedPadding, "clone: DisplayLedPadding not the same");
+            Assert.AreEqual(o.DisplayLedReverseDigits, c.DisplayLedReverseDigits, "clone: DisplayLedReverseDigits not the same");
             Assert.AreEqual(o.DisplayLedPaddingChar, c.DisplayLedPaddingChar, "clone: DisplayLedPaddingChar not the same");
             Assert.AreEqual(o.DisplayLedModuleSize, c.DisplayLedModuleSize, "clone: DisplayLedModuleSize not the same");
             
@@ -181,6 +182,7 @@ namespace MobiFlight.Tests
             o.DisplayLedConnector = 2;
             o.DisplayLedAddress = "1";
             o.DisplayLedPadding = true;
+            o.DisplayLedReverseDigits = true;
             o.DisplayLedPaddingChar = "1";
             o.DisplayLedModuleSize = 7;
             o.DisplayLedDigits = new List<string>() { "1", "2" };

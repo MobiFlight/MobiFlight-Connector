@@ -117,4 +117,1267 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="displayLedDigit7CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="displayLedDigit7CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="displayLedDigit7CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="displayLedDigit7CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigit7CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDigit7CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit7CheckBox.Name" xml:space="preserve">
+    <value>displayLedDigit7CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit7CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit7CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit7CheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ledDisplayComboBoxLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="ledDisplayComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ledDisplayComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 12</value>
+  </data>
+  <data name="ledDisplayComboBoxLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="ledDisplayComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 20</value>
+  </data>
+  <data name="ledDisplayComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="ledDisplayComboBoxLabel.Text" xml:space="preserve">
+    <value>Addr / Connector</value>
+  </data>
+  <data name="&gt;&gt;ledDisplayComboBoxLabel.Name" xml:space="preserve">
+    <value>ledDisplayComboBoxLabel</value>
+  </data>
+  <data name="&gt;&gt;ledDisplayComboBoxLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ledDisplayComboBoxLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ledDisplayComboBoxLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="displayLedDigit6CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDigit6CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDigit6CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 5</value>
+  </data>
+  <data name="displayLedDigit6CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigit6CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDigit6CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit6CheckBox.Name" xml:space="preserve">
+    <value>displayLedDigit6CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit6CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit6CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit6CheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="displayLedDigit5CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDigit5CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDigit5CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>64, 5</value>
+  </data>
+  <data name="displayLedDigit5CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigit5CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDigit5CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit5CheckBox.Name" xml:space="preserve">
+    <value>displayLedDigit5CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit5CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit5CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit5CheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="displayLedDigit4CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDigit4CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDigit4CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>94, 5</value>
+  </data>
+  <data name="displayLedDigit4CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigit4CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDigit4CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit4CheckBox.Name" xml:space="preserve">
+    <value>displayLedDigit4CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit4CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit4CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit4CheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="displayLedDecimalPoint7CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPoint7CheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="displayLedDecimalPoint7CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPoint7CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint7CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint7CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDecimalPoint7CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint7CheckBox.Name" xml:space="preserve">
+    <value>displayLedDecimalPoint7CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint7CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint7CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint7CheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="displayLedDigit3CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDigit3CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDigit3CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 5</value>
+  </data>
+  <data name="displayLedDigit3CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigit3CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDigit3CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit3CheckBox.Name" xml:space="preserve">
+    <value>displayLedDigit3CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit3CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit3CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit3CheckBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="displayLedDigit2CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDigit2CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDigit2CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>154, 5</value>
+  </data>
+  <data name="displayLedDigit2CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigit2CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDigit2CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit2CheckBox.Name" xml:space="preserve">
+    <value>displayLedDigit2CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit2CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit2CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit2CheckBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="displayLedDecimalPoint6CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPoint6CheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="displayLedDecimalPoint6CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPoint6CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>34, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint6CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint6CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDecimalPoint6CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint6CheckBox.Name" xml:space="preserve">
+    <value>displayLedDecimalPoint6CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint6CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint6CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint6CheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="displayLedDecimalPoint5CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPoint5CheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="displayLedDecimalPoint5CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPoint5CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>64, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint5CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint5CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDecimalPoint5CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint5CheckBox.Name" xml:space="preserve">
+    <value>displayLedDecimalPoint5CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint5CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint5CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint5CheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="displayLedDecimalPoint4CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPoint4CheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="displayLedDecimalPoint4CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPoint4CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>94, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint4CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint4CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDecimalPoint4CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint4CheckBox.Name" xml:space="preserve">
+    <value>displayLedDecimalPoint4CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint4CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint4CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint4CheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="displayLedDecimalPoint3CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPoint3CheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="displayLedDecimalPoint3CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPoint3CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint3CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint3CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDecimalPoint3CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint3CheckBox.Name" xml:space="preserve">
+    <value>displayLedDecimalPoint3CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint3CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint3CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint3CheckBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="displayLedDecimalPoint2CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPoint2CheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="displayLedDecimalPoint2CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPoint2CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>154, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint2CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint2CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDecimalPoint2CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint2CheckBox.Name" xml:space="preserve">
+    <value>displayLedDecimalPoint2CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint2CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint2CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint2CheckBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="displayLedDecimalPoint1CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPoint1CheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="displayLedDecimalPoint1CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPoint1CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint1CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint1CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDecimalPoint1CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint1CheckBox.Name" xml:space="preserve">
+    <value>displayLedDecimalPoint1CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint1CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint1CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint1CheckBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="displayLedDecimalPoint0CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPoint0CheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="displayLedDecimalPoint0CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPoint0CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>214, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint0CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPoint0CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDecimalPoint0CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint0CheckBox.Name" xml:space="preserve">
+    <value>displayLedDecimalPoint0CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint0CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint0CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPoint0CheckBox.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="displayLedDecimalPointFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 131</value>
+  </data>
+  <data name="displayLedDecimalPointFlowLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDecimalPointFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 34</value>
+  </data>
+  <data name="displayLedDecimalPointFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="displayLedDecimalPointFlowLayoutPanel.WrapContents" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPointFlowLayoutPanel.Name" xml:space="preserve">
+    <value>displayLedDecimalPointFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPointFlowLayoutPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPointFlowLayoutPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPointFlowLayoutPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="displayLedDigit1CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDigit1CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDigit1CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>184, 5</value>
+  </data>
+  <data name="displayLedDigit1CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigit1CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDigit1CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit1CheckBox.Name" xml:space="preserve">
+    <value>displayLedDigit1CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit1CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit1CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit1CheckBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="displayLedDigit0CheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDigit0CheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDigit0CheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>214, 5</value>
+  </data>
+  <data name="displayLedDigit0CheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigit0CheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>22, 21</value>
+  </data>
+  <data name="displayLedDigit0CheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit0CheckBox.Name" xml:space="preserve">
+    <value>displayLedDigit0CheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit0CheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit0CheckBox.Parent" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigit0CheckBox.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="displayLedDigitFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>159, 85</value>
+  </data>
+  <data name="displayLedDigitFlowLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedDigitFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 28</value>
+  </data>
+  <data name="displayLedDigitFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>68</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigitFlowLayoutPanel.Name" xml:space="preserve">
+    <value>displayLedDigitFlowLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigitFlowLayoutPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigitFlowLayoutPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDigitFlowLayoutPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Items" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Items1" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Items2" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Items3" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Items4" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>160, 46</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 28</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="&gt;&gt;displayLedModuleSizeComboBox.Name" xml:space="preserve">
+    <value>displayLedModuleSizeComboBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedModuleSizeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedModuleSizeComboBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedModuleSizeComboBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="NumberOfDigitsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="NumberOfDigitsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="NumberOfDigitsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>26, 52</value>
+  </data>
+  <data name="NumberOfDigitsLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="NumberOfDigitsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 20</value>
+  </data>
+  <data name="NumberOfDigitsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="NumberOfDigitsLabel.Text" xml:space="preserve">
+    <value>Number of digits</value>
+  </data>
+  <data name="&gt;&gt;NumberOfDigitsLabel.Name" xml:space="preserve">
+    <value>NumberOfDigitsLabel</value>
+  </data>
+  <data name="&gt;&gt;NumberOfDigitsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NumberOfDigitsLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NumberOfDigitsLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="displayLedPaddingCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedPaddingCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>238, 51</value>
+  </data>
+  <data name="displayLedPaddingCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedPaddingCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 26</value>
+  </data>
+  <data name="displayLedPaddingCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="displayLedPaddingCheckBox.Text" xml:space="preserve">
+    <value>Use Left Padding</value>
+  </data>
+  <data name="&gt;&gt;displayLedPaddingCheckBox.Name" xml:space="preserve">
+    <value>displayLedPaddingCheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedPaddingCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedPaddingCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedPaddingCheckBox.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="displayLedDisplayLabel0.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDisplayLabel0.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDisplayLabel0.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 112</value>
+  </data>
+  <data name="displayLedDisplayLabel0.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDisplayLabel0.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="displayLedDisplayLabel0.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="displayLedDisplayLabel0.Text" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel0.Name" xml:space="preserve">
+    <value>displayLedDisplayLabel0</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel0.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel0.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel0.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="displayLedDisplayLabel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDisplayLabel1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDisplayLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>194, 112</value>
+  </data>
+  <data name="displayLedDisplayLabel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDisplayLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="displayLedDisplayLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="displayLedDisplayLabel1.Text" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel1.Name" xml:space="preserve">
+    <value>displayLedDisplayLabel1</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel1.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="displayLedDisplayLabel2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDisplayLabel2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDisplayLabel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 112</value>
+  </data>
+  <data name="displayLedDisplayLabel2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDisplayLabel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="displayLedDisplayLabel2.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="displayLedDisplayLabel2.Text" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel2.Name" xml:space="preserve">
+    <value>displayLedDisplayLabel2</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel2.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="displayLedDisplayLabel3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDisplayLabel3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDisplayLabel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>256, 112</value>
+  </data>
+  <data name="displayLedDisplayLabel3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDisplayLabel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="displayLedDisplayLabel3.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="displayLedDisplayLabel3.Text" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel3.Name" xml:space="preserve">
+    <value>displayLedDisplayLabel3</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel3.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="displayLedDisplayLabel4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDisplayLabel4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDisplayLabel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>288, 112</value>
+  </data>
+  <data name="displayLedDisplayLabel4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDisplayLabel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="displayLedDisplayLabel4.TabIndex" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="displayLedDisplayLabel4.Text" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel4.Name" xml:space="preserve">
+    <value>displayLedDisplayLabel4</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel4.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="displayLedDisplayLabel5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDisplayLabel5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDisplayLabel5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>320, 112</value>
+  </data>
+  <data name="displayLedDisplayLabel5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDisplayLabel5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="displayLedDisplayLabel5.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="displayLedDisplayLabel5.Text" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel5.Name" xml:space="preserve">
+    <value>displayLedDisplayLabel5</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel5.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="displayLedDisplayLabel6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDisplayLabel6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDisplayLabel6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>351, 112</value>
+  </data>
+  <data name="displayLedDisplayLabel6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDisplayLabel6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="displayLedDisplayLabel6.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="displayLedDisplayLabel6.Text" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel6.Name" xml:space="preserve">
+    <value>displayLedDisplayLabel6</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel6.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel6.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="displayLedDisplayLabel7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDisplayLabel7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDisplayLabel7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>382, 112</value>
+  </data>
+  <data name="displayLedDisplayLabel7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDisplayLabel7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 20</value>
+  </data>
+  <data name="displayLedDisplayLabel7.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="displayLedDisplayLabel7.Text" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel7.Name" xml:space="preserve">
+    <value>displayLedDisplayLabel7</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel7.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDisplayLabel7.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="displayLedDecimalPointLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedDecimalPointLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayLedDecimalPointLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 132</value>
+  </data>
+  <data name="displayLedDecimalPointLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="displayLedDecimalPointLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 20</value>
+  </data>
+  <data name="displayLedDecimalPointLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="displayLedDecimalPointLabel.Text" xml:space="preserve">
+    <value>set decimal point</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPointLabel.Name" xml:space="preserve">
+    <value>displayLedDecimalPointLabel</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPointLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPointLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedDecimalPointLabel.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>64, 88</value>
+  </data>
+  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 20</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>use display</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items1" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items2" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items3" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items4" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items5" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items6" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items7" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items8" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items9" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items10" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items11" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items12" xml:space="preserve">
+    <value>C</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items13" xml:space="preserve">
+    <value>D</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items14" xml:space="preserve">
+    <value>E</value>
+  </data>
+  <data name="displayLedAddressComboBox.Items15" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="displayLedAddressComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 5</value>
+  </data>
+  <data name="displayLedAddressComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayLedAddressComboBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>200, 0</value>
+  </data>
+  <data name="displayLedAddressComboBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>50, 0</value>
+  </data>
+  <data name="displayLedAddressComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>196, 28</value>
+  </data>
+  <data name="displayLedAddressComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>65</value>
+  </data>
+  <data name="&gt;&gt;displayLedAddressComboBox.Name" xml:space="preserve">
+    <value>displayLedAddressComboBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedAddressComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedAddressComboBox.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;displayLedAddressComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 0</value>
+  </data>
+  <data name="label9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>18, 42</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>67</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>/</value>
+  </data>
+  <data name="label9.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="displayLedConnectorComboBox.Items" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="displayLedConnectorComboBox.Items1" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="displayLedConnectorComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>234, 5</value>
+  </data>
+  <data name="displayLedConnectorComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 0, 5</value>
+  </data>
+  <data name="displayLedConnectorComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 28</value>
+  </data>
+  <data name="displayLedConnectorComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>66</value>
+  </data>
+  <data name="&gt;&gt;displayLedConnectorComboBox.Name" xml:space="preserve">
+    <value>displayLedConnectorComboBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedConnectorComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedConnectorComboBox.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;displayLedConnectorComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 0</value>
+  </data>
+  <data name="flowLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 5, 0, 5</value>
+  </data>
+  <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 42</value>
+  </data>
+  <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>69</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Name" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="PaddingCharComboBox.Items" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PaddingCharComboBox.Items1" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="PaddingCharComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>399, 46</value>
+  </data>
+  <data name="PaddingCharComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="PaddingCharComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 28</value>
+  </data>
+  <data name="PaddingCharComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>70</value>
+  </data>
+  <data name="&gt;&gt;PaddingCharComboBox.Name" xml:space="preserve">
+    <value>PaddingCharComboBox</value>
+  </data>
+  <data name="&gt;&gt;PaddingCharComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PaddingCharComboBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PaddingCharComboBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="displayLedReverseDigitsCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayLedReverseDigitsCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 174</value>
+  </data>
+  <data name="displayLedReverseDigitsCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 24</value>
+  </data>
+  <data name="displayLedReverseDigitsCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="displayLedReverseDigitsCheckBox.Text" xml:space="preserve">
+    <value>Reverse digits</value>
+  </data>
+  <data name="&gt;&gt;displayLedReverseDigitsCheckBox.Name" xml:space="preserve">
+    <value>displayLedReverseDigitsCheckBox</value>
+  </data>
+  <data name="&gt;&gt;displayLedReverseDigitsCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayLedReverseDigitsCheckBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;displayLedReverseDigitsCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>9, 20</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>477, 212</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DisplayLedDisplayPanel</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
