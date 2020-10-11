@@ -61,7 +61,7 @@ namespace MobiFlight
         /// <summary>
         /// max length of device name
         /// </summary>
-        /// <see cref="https://bitbucket.org/mobiflight/mobiflightfc/issues/195/length-of-device-names-occure-in-missing"/>
+        /// <see href="https://bitbucket.org/mobiflight/mobiflightfc/issues/195/length-of-device-names-occure-in-missing"/>
         public const byte MaxDeviceNameLength = 16;
 
         /// <summary>
