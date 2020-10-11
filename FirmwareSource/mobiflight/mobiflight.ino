@@ -30,7 +30,8 @@ char foo;
 // 1.9.3 : Increased number of pins for MEGA, reduced speed for stepper for more torque
 // 1.9.4 : Increased MAX_PINS for MEGA.
 // 1.9.5 : Increased MAX_BUTTONS for MEGA and Micro Pro.
-const char version[8] = "1.9.5";
+// 1.9.6 : Fixed the MAXCALLBACKS for UNO, optimized Build settings for Micro to save memory.
+const char version[8] = "1.9.6";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -70,8 +71,8 @@ const char version[8] = "1.9.5";
 #define MAX_BUTTONS     16
 #define MAX_LEDSEGMENTS 1
 #define MAX_ENCODERS    4
-#define MAX_STEPPERS    4
-#define MAX_MFSERVOS    4
+#define MAX_STEPPERS    2
+#define MAX_MFSERVOS    2
 #define MAX_MFLCD_I2C   2
 #endif
 
@@ -90,7 +91,7 @@ const char version[8] = "1.9.5";
 #define MAX_BUTTONS     69
 #define MAX_LEDSEGMENTS 4
 #define MAX_ENCODERS    20
-#define MAX_STEPPERS    10
+#define MAX_STEPPERS    2
 #define MAX_MFSERVOS    10
 #define MAX_MFLCD_I2C   2
 #endif
@@ -192,6 +193,9 @@ enum
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
 // In order to receive, attach a callback function to these events
+//
+// If you increase this list, make sure to check that the MAXCALLBACKS value 
+// in CmdMessenger.h is set apropriately
 enum
 {
   kInitModule,         // 0

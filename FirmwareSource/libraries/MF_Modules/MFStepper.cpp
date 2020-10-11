@@ -5,8 +5,52 @@
 #include "MFStepper.h"
 #include "MFButton.h"
 
+#define MTYPE_MEGA 1
+#define MTYPE_MICRO 2
+#define MTYPE_UNO 3
+
+#if defined(ARDUINO_AVR_MEGA2560)
+#define MODULETYPE MTYPE_MEGA
+#elif defined(ARDUINO_AVR_PROMICRO)
+#define MODULETYPE MTYPE_MICRO
+#elif defined(ARDUINO_AVR_UNO)
+#define MODULETYPE MTYPE_UNO
+#else
+  #error
+#endif
+
+#if MODULETYPE == MTYPE_MICRO
+#define MAX_OUTPUTS     10
+#define MAX_BUTTONS     16
+#define MAX_LEDSEGMENTS 1
+#define MAX_ENCODERS    4
+#define MAX_STEPPERS    2
+#define MAX_MFSERVOS    4
+#define MAX_MFLCD_I2C   2
+#endif
+
+#if MODULETYPE == MTYPE_UNO
+#define MAX_OUTPUTS     8
+#define MAX_BUTTONS     8
+#define MAX_LEDSEGMENTS 1
+#define MAX_ENCODERS    2
+#define MAX_STEPPERS    2
+#define MAX_MFSERVOS    2
+#define MAX_MFLCD_I2C   2
+#endif
+
+#if MODULETYPE == MTYPE_MEGA
+#define MAX_OUTPUTS     40
+#define MAX_BUTTONS     69
+#define MAX_LEDSEGMENTS 4
+#define MAX_ENCODERS    20
+#define MAX_STEPPERS    2
+#define MAX_MFSERVOS    10
+#define MAX_MFLCD_I2C   2
+#endif
+
 uint8_t MFStepper_stepperCount = 0;
-MFStepper* MFStepper_steppers[10];
+MFStepper* MFStepper_steppers[MAX_STEPPERS];
 
 void addStepper(MFStepper *stepper) {
   MFStepper_steppers[MFStepper_stepperCount] = stepper;

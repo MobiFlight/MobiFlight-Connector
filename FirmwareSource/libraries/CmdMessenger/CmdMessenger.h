@@ -41,14 +41,17 @@ extern "C"
 }
 
 #if defined(ARDUINO_AVR_UNO)
-  #define MAXCALLBACKS        25   // The maximum number of commands   (default: 50)
-  //#define MESSENGERBUFFERSIZE 128 // The maximum length of the buffer (default: 64)
+  #define MAXCALLBACKS        30   // The maximum number of commands   (default: 50)
+  #define MESSENGERBUFFERSIZE 64  // The maximum length of the buffer (default: 64)
+  #define MAXSTREAMBUFFERSIZE 64  // The maximum length of the buffer (default: 32)
+  #define DEFAULT_TIMEOUT     5000 // Time out on unanswered messages. (default: 5s)
+#elif defined(ARDUINO_AVR_PROMICRO)
+  #define MAXCALLBACKS        30   // The maximum number of commands   (default: 50)
   #define MESSENGERBUFFERSIZE 64  // The maximum length of the buffer (default: 64)
   #define MAXSTREAMBUFFERSIZE 64  // The maximum length of the buffer (default: 32)
   #define DEFAULT_TIMEOUT     5000 // Time out on unanswered messages. (default: 5s)
 #else
-  #define MAXCALLBACKS        50   // The maximum number of commands   (default: 50)
-  //#define MESSENGERBUFFERSIZE 128 // The maximum length of the buffer (default: 64)
+  #define MAXCALLBACKS        30   // The maximum number of commands   (default: 50)
   #define MESSENGERBUFFERSIZE 96  // The maximum length of the buffer (default: 64)
   #define MAXSTREAMBUFFERSIZE 96  // The maximum length of the buffer (default: 32)
   #define DEFAULT_TIMEOUT     5000 // Time out on unanswered messages. (default: 5s)
