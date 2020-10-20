@@ -91,7 +91,7 @@ const char version[8] = "1.9.6";
 #define MAX_BUTTONS     69
 #define MAX_LEDSEGMENTS 4
 #define MAX_ENCODERS    20
-#define MAX_STEPPERS    2
+#define MAX_STEPPERS    10
 #define MAX_MFSERVOS    10
 #define MAX_MFLCD_I2C   2
 #endif
