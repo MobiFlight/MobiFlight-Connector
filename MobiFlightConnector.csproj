@@ -175,8 +175,8 @@
     <Reference Include="AutoUpdater.NET, Version=1.6.0.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
       <HintPath>packages\Autoupdater.NET.Official.1.6.0\lib\net40\AutoUpdater.NET.dll</HintPath>
     </Reference>
-    <Reference Include="FSUIPCClient, Version=3.1.18.324, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
-      <HintPath>packages\FSUIPCClientDLL.3.1.18\lib\net40\FSUIPCClient.dll</HintPath>
+    <Reference Include="FSUIPCClient, Version=3.1.22.335, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
+      <HintPath>packages\FSUIPCClientDLL.3.1.22\lib\net40\FSUIPCClient.dll</HintPath>
     </Reference>
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
