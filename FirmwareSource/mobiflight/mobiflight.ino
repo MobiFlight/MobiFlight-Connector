@@ -37,8 +37,16 @@ const char version[8] = "1.9.6";
 #define MTYPE_MEGA 1
 #define MTYPE_MICRO 2
 #define MTYPE_UNO 3
-#define MF_STEPPER_SUPPORT 1
-#define MF_SERVO_SUPPORT 1
+#define MF_SEGMENT_SUPPORT  1
+#define MF_LCD_SUPPORT      1
+#define MF_STEPPER_SUPPORT  1
+#define MF_SERVO_SUPPORT    1
+// ALL 24780
+// No Segments 23040 (1740)
+// No Steppers 20208 (4572)
+// NO Servos   23302 (1478)
+// No LCDs     22850 (1930)
+// 
 
 #if defined(ARDUINO_AVR_MEGA2560)
 #define MODULETYPE MTYPE_MEGA
@@ -103,16 +111,30 @@ const char version[8] = "1.9.6";
 #include <TicksPerSecond.h>
 #include <RotaryEncoder.h>
 #include <Wire.h>
+
+#if MF_SEGMENT_SUPPORT == 1
 #include <MFSegments.h>
+#endif
+
 #include <MFButton.h>
 #include <MFEncoder.h>
+
+#if MF_STEPPER_SUPPORT == 1
 #include <AccelStepper.h>
 #include <MFStepper.h>
+#endif
+
+#if MF_SERVO_SUPPORT == 1
 #include <Servo.h>
 #include <MFServo.h>
+#endif
+
 #include <MFOutput.h>
+
+#if MF_LCD_SUPPORT == 1
 #include <LiquidCrystal_I2C.h>
 #include <MFLCDDisplay.h>
+#endif
 
 const uint8_t MEM_OFFSET_NAME   = 0;
 const uint8_t MEM_LEN_NAME      = 48;
@@ -162,20 +184,28 @@ uint8_t outputsRegistered = 0;
 MFButton buttons[MAX_BUTTONS];
 uint8_t buttonsRegistered = 0;
 
+#if MF_SEGMENT_SUPPORT == 1
 MFSegments ledSegments[MAX_LEDSEGMENTS];
 uint8_t ledSegmentsRegistered = 0;
+#endif 
 
 MFEncoder encoders[MAX_ENCODERS];
 uint8_t encodersRegistered = 0;
 
+#if MF_STEPPER_SUPPORT == 1
 MFStepper *steppers[MAX_STEPPERS]; //
 uint8_t steppersRegistered = 0;
+#endif
 
+#if MF_SERVO_SUPPORT == 1
 MFServo servos[MAX_MFSERVOS];
 uint8_t servosRegistered = 0;
+#endif
 
+#if MF_LCD_SUPPORT == 1
 MFLCDDisplay lcd_I2C[MAX_MFLCD_I2C];
 uint8_t lcd_12cRegistered = 0;
+#endif 
 
 enum
 {
@@ -231,11 +261,22 @@ void attachCommandCallbacks()
 {
   // Attach callback methods
   cmdMessenger.attach(OnUnknownCommand);
+
+#if MF_SEGMENT_SUPPORT == 1
   cmdMessenger.attach(kInitModule, OnInitModule);
   cmdMessenger.attach(kSetModule, OnSetModule);
+#endif 
+
   cmdMessenger.attach(kSetPin, OnSetPin);
+
+#if MF_STEPPER_SUPPORT == 1
   cmdMessenger.attach(kSetStepper, OnSetStepper);
-  cmdMessenger.attach(kSetServo, OnSetServo);  
+#endif
+
+#if MF_SERVO_SUPPORT == 1
+  cmdMessenger.attach(kSetServo, OnSetServo);
+#endif
+
   cmdMessenger.attach(kGetInfo, OnGetInfo);
   cmdMessenger.attach(kGetConfig, OnGetConfig);
   cmdMessenger.attach(kSetConfig, OnSetConfig);
@@ -244,11 +285,19 @@ void attachCommandCallbacks()
   cmdMessenger.attach(kActivateConfig, OnActivateConfig);  
   cmdMessenger.attach(kSetName, OnSetName);  
   cmdMessenger.attach(kGenNewSerial, OnGenNewSerial);
+
+#if MF_STEPPER_SUPPORT == 1
   cmdMessenger.attach(kResetStepper, OnResetStepper);
   cmdMessenger.attach(kSetZeroStepper, OnSetZeroStepper);
+#endif 
+
   cmdMessenger.attach(kTrigger, OnTrigger);
   cmdMessenger.attach(kResetBoard, OnResetBoard);
+
+#if MF_LCD_SUPPORT == 1
   cmdMessenger.attach(kSetLcdDisplayI2C, OnSetLcdDisplayI2C);  
+#endif 
+
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,F("Attached callbacks"));
 #endif  
@@ -312,7 +361,11 @@ void SetPowerSavingMode(bool state)
 {
   // disable the lights ;)
   powerSavingMode = state;
+
+#if MF_SEGMENT_SUPPORT == 1
   PowerSaveLedSegment(state);
+#endif
+
 #ifdef DEBUG  
   if (state)
     cmdMessenger.sendCmd(kStatus, F("On"));
@@ -349,8 +402,13 @@ void loop()
   readEncoder();
 
   // segments do not need update
+#if MF_STEPPER_SUPPORT == 1
   updateSteppers();  
+#endif
+
+#if MF_SERVO_SUPPORT == 1
   updateServos();  
+#endif
 }
 
 bool isPinRegistered(uint8_t pin) {
@@ -457,6 +515,7 @@ void ClearEncoders()
 
 //// OUTPUTS /////
 
+#if MF_SEGMENT_SUPPORT == 1
 //// SEGMENTS /////
 void AddLedSegment(int dataPin, int csPin, int clkPin, int numDevices, int brightness)
 {
@@ -497,6 +556,9 @@ void PowerSaveLedSegment(bool state)
     outputs[i].powerSavingMode(state);
   }
 }
+#endif
+
+#if MF_STEPPER_SUPPORT == 1
 //// STEPPER ////
 void AddStepper(int pin1, int pin2, int pin3, int pin4, int btnPin1)
 {
@@ -541,7 +603,9 @@ void ClearSteppers()
   cmdMessenger.sendCmd(kStatus,F("Cleared steppers"));
 #endif 
 }
+#endif
 
+#if MF_SERVO_SUPPORT == 1
 //// SERVOS /////
 void AddServo(int pin)
 {
@@ -565,7 +629,9 @@ void ClearServos()
   cmdMessenger.sendCmd(kStatus,F("Cleared servos"));
 #endif 
 }
+#endif
 
+#if MF_LCD_SUPPORT == 1
 //// LCD Display /////
 void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2, char const * name = "LCD")
 {  
@@ -589,6 +655,7 @@ void ClearLcdDisplays()
   cmdMessenger.sendCmd(kStatus,F("Cleared lcdDisplays"));
 #endif 
 }
+#endif
   
 
 //// EVENT HANDLER /////
@@ -639,10 +706,23 @@ void resetConfig()
   ClearButtons();
   ClearEncoders();
   ClearOutputs();
+
+#if MF_SEGMENT_SUPPORT == 1
   ClearLedSegments();
+#endif
+
+#if MF_SERVO_SUPPORT == 1
   ClearServos();
+#endif 
+
+#if MF_STEPPER_SUPPORT == 1
   ClearSteppers();
+#endif 
+
+#if MF_LCD_SUPPORT == 1
   ClearLcdDisplays();
+#endif
+
   configLength = 0;
   configActivated = false;
 }
@@ -701,7 +781,9 @@ void readConfig(String cfg) {
         params[4] = strtok_r(NULL, ".", &p); // numModules
         params[5] = strtok_r(NULL, ":", &p); // Name
         // int dataPin, int clkPin, int csPin, int numDevices, int brightness
+#if MF_SEGMENT_SUPPORT == 1
         AddLedSegment(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[4]), atoi(params[3]));
+#endif
       break;
       
       case kTypeStepperDeprecated:
@@ -712,7 +794,9 @@ void readConfig(String cfg) {
         params[3] = strtok_r(NULL, ".", &p); // pin4
         params[4] = strtok_r(NULL, ".", &p); // btnPin1
         params[5] = strtok_r(NULL, ":", &p); // Name
+#if MF_STEPPER_SUPPORT == 1
         AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), 0);
+#endif
       break;
 
       case kTypeStepper:
@@ -723,14 +807,18 @@ void readConfig(String cfg) {
         params[3] = strtok_r(NULL, ".", &p); // pin4
         params[4] = strtok_r(NULL, ".", &p); // btnPin1
         params[5] = strtok_r(NULL, ":", &p); // Name
+#if MF_STEPPER_SUPPORT == 1
         AddStepper(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]));
+#endif
       break;
       
       case kTypeServo:
         // AddServo(int pin)
         params[0] = strtok_r(NULL, ".", &p); // pin1
         params[1] = strtok_r(NULL, ":", &p); // Name
+#if MF_SERVO_SUPPORT == 1
         AddServo(atoi(params[0]));
+#endif
       break;
       
 	  case kTypeEncoderSingleDetent:
@@ -756,7 +844,9 @@ void readConfig(String cfg) {
         params[1] = strtok_r(NULL, ".", &p); // cols
         params[2] = strtok_r(NULL, ".", &p); // lines
         params[3] = strtok_r(NULL, ":", &p); // Name
+#if MF_LCD_SUPPORT == 1
         AddLcdDisplay(atoi(params[0]), atoi(params[1]), atoi(params[2]), params[3]);
+#endif
       break;
         
       default:
@@ -804,6 +894,7 @@ void OnSetPin()
   lastCommand = millis();
 }
 
+#if MF_SEGMENT_SUPPORT == 1
 void OnInitModule()
 {
   int module = cmdMessenger.readIntArg();
@@ -823,7 +914,9 @@ void OnSetModule()
   ledSegments[module].display(subModule, value, points, mask);
   lastCommand = millis();
 }
+#endif
 
+#if MF_STEPPER_SUPPORT == 1
 void OnSetStepper()
 {
   int stepper    = cmdMessenger.readIntArg();
@@ -852,6 +945,15 @@ void OnSetZeroStepper()
   lastCommand = millis();
 }
 
+void updateSteppers()
+{
+  for (int i=0; i!=steppersRegistered; i++) {
+    steppers[i]->update();
+  }
+}
+#endif
+
+#if MF_SERVO_SUPPORT == 1
 void OnSetServo()
 { 
   int servo    = cmdMessenger.readIntArg();
@@ -861,6 +963,15 @@ void OnSetServo()
   lastCommand = millis();
 }
 
+void updateServos()
+{
+  for (int i=0; i!=servosRegistered; i++) {
+    servos[i].update();
+  }
+}
+#endif
+
+#if MF_LCD_SUPPORT == 1
 void OnSetLcdDisplayI2C()
 {
   int address  = cmdMessenger.readIntArg();
@@ -869,20 +980,7 @@ void OnSetLcdDisplayI2C()
   cmdMessenger.sendCmd(kStatus, output);
   lastCommand = millis();
 }
-
-void updateSteppers()
-{
-  for (int i=0; i!=steppersRegistered; i++) {
-    steppers[i]->update();
-  }
-}
-
-void updateServos()
-{
-  for (int i=0; i!=servosRegistered; i++) {
-    servos[i].update();
-  }
-}
+#endif
 
 void readButtons()
 {
