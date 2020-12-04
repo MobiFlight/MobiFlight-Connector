@@ -130,6 +130,8 @@ namespace MobiFlight.SimConnect
                 if (!result) continue;
                 (sender).MapClientEventToSimEvent(currentEventId, "MobiFlight." + enumValue);
             }
+
+            Connected?.Invoke(this, null);
         }
 
         /// The case where the user closes game
@@ -152,6 +154,10 @@ namespace MobiFlight.SimConnect
                 m_oSimConnect = null;
             }
             _connected = false;
+
+            ConnectionLost?.Invoke(this, null);
+            Closed?.Invoke(this, null);
+            
             return true;
         }
 
