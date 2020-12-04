@@ -111,8 +111,8 @@ namespace MobiFlight
             "VID_1A86&PID_7523",            // this is actually an CH-340 and can be a Mega OR an UNO
             "VID_2A03&PID_0042",            // http://www.mobiflight.de/forum/message/983.html
             "VID_0403&PID_6001",            // http://www.mobiflight.de/forum/topic/570.html
-            "VID_0403\\+PID_6001\\+A50285BIA",  // https://bitbucket.org/mobiflight/mobiflightfc/issues/265
-
+            "VID_0403\\+PID_6001\\+.+",     // https://bitbucket.org/mobiflight/mobiflightfc/issues/265
+                                            // https://bitbucket.org/mobiflight/mobiflightfc/issues/280/ftdi-driver-board-is-not-connected
             // added from https://github.com/arduino/Arduino/blob/1.8.0/hardware/arduino/avr/boards.txt#L51-L58
             "VID_2A03&PID_0010",
             "VID_2341&PID_0210",
