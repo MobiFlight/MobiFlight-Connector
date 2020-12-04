@@ -294,9 +294,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Base\ExecutionManager.cs" />
-    <Compile Include="FSUIPC\fsuipc.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="FSUIPC\Fsuipc2Cache.cs" />
     <Compile Include="FSUIPC\fsuipcBCD.cs" />
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
