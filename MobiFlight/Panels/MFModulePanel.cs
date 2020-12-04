@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MobiFlight.Panels
+namespace MobiFlight.UI.Panels
 {
     public partial class MFModulePanel : UserControl
     {
@@ -44,7 +44,7 @@ namespace MobiFlight.Panels
 
             if (!module.HasFirmwareFeature(FirmwareFeature.SetName))
             {
-                MessageBox.Show(MainForm._tr("uiMessageSettingsDialogFirmwareVersionTooLowException"), MainForm._tr("Hint"));
+                MessageBox.Show(i18n._tr("uiMessageSettingsDialogFirmwareVersionTooLowException"), i18n._tr("Hint"));
                 return;
             }
             module.Name = moduleNameTextBox.Text;

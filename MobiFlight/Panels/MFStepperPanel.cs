@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MobiFlight.Panels
+namespace MobiFlight.UI.Panels
 {
     public partial class MFStepperPanel : UserControl
     {

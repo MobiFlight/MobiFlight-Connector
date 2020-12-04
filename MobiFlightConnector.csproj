@@ -202,12 +202,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\ConfigRef.cs" />
+    <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
-    <Compile Include="Forms\AboutForm.cs">
+    <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AboutForm.Designer.cs">
+    <Compile Include="UI\Dialogs\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Arcaze\ArcazeModule.cs" />
@@ -223,31 +224,31 @@
     <Compile Include="MobiFlight\Config\EncoderSingleDetent.cs" />
     <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
     <Compile Include="MobiFlight\FlightSimConnectionMethod.cs" />
-    <Compile Include="MobiFlight\Forms\ArduinoIdePathForm.cs">
+    <Compile Include="UI\Forms\ArduinoIdePathForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MobiFlight\Forms\ArduinoIdePathForm.Designer.cs">
+    <Compile Include="UI\Forms\ArduinoIdePathForm.Designer.cs">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\IFsuipcConfigItem.cs" />
     <Compile Include="Base\BaseConfigItem.cs" />
-    <Compile Include="Forms\BitMaskEditorForm.cs">
+    <Compile Include="UI\Forms\BitMaskEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\BitMaskEditorForm.Designer.cs">
+    <Compile Include="UI\Forms\BitMaskEditorForm.Designer.cs">
       <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\BooleanConverterConfig.cs" />
-    <Compile Include="MobiFlight\Forms\ConfigUploadProgress.cs">
+    <Compile Include="UI\Forms\ConfigUploadProgress.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MobiFlight\Forms\ConfigUploadProgress.Designer.cs">
+    <Compile Include="UI\Forms\ConfigUploadProgress.Designer.cs">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
     </Compile>
-    <Compile Include="MobiFlight\Forms\StartupPanel.cs">
+    <Compile Include="UI\Panels\StartupPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MobiFlight\Forms\StartupPanel.Designer.cs">
+    <Compile Include="UI\Panels\StartupPanel.Designer.cs">
       <DependentUpon>StartupPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\InputConfig\PmdgEventIdInputAction.cs" />
@@ -265,20 +266,20 @@
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\Transformation.cs" />
-    <Compile Include="Panels\BytePanel.cs">
+    <Compile Include="UI\Panels\BytePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\BytePanel.Designer.cs">
+    <Compile Include="UI\Panels\BytePanel.Designer.cs">
       <DependentUpon>BytePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\CmdLineParams.cs" />
     <Compile Include="Base\ComboBoxHelper.cs" />
     <Compile Include="Base\ConfigErrorException.cs" />
     <Compile Include="Base\ConfigFile.cs" />
-    <Compile Include="Forms\ConfigWizard.cs">
+    <Compile Include="UI\Dialogs\ConfigWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ConfigWizard.Designer.cs">
+    <Compile Include="UI\Dialogs\ConfigWizard.Designer.cs">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="FSUIPC\FSUIPCConfigItem.cs" />
@@ -299,18 +300,18 @@
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
     <Compile Include="FSUIPC\FsuipcHelper.cs" />
     <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
-    <Compile Include="Forms\InputConfigWizard.cs">
+    <Compile Include="UI\Dialogs\InputConfigWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\InputConfigWizard.Designer.cs">
+    <Compile Include="UI\Dialogs\InputConfigWizard.Designer.cs">
       <DependentUpon>InputConfigWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\ListItem.cs" />
     <Compile Include="Base\Log.cs" />
-    <Compile Include="Forms\MainForm.cs">
+    <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\MainForm.Designer.cs">
+    <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\InputConnectorInterface.cs" />
@@ -327,10 +328,10 @@
     <Compile Include="MobiFlight\Config\Stepper.cs" />
     <Compile Include="MobiFlight\Config\Servo.cs" />
     <Compile Include="MobiFlight\Config\LedModule.cs" />
-    <Compile Include="MobiFlight\Forms\FirmwareUpdateProcess.cs">
+    <Compile Include="UI\Forms\FirmwareUpdateProcess.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MobiFlight\Forms\FirmwareUpdateProcess.Designer.cs">
+    <Compile Include="UI\Forms\FirmwareUpdateProcess.Designer.cs">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\IConnectedDevice.cs" />
@@ -396,137 +397,137 @@
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\ModuleCacheInterface.cs" />
-    <Compile Include="Forms\OrphanedSerialsDialog.cs">
+    <Compile Include="UI\Dialogs\OrphanedSerialsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\OrphanedSerialsDialog.Designer.cs">
+    <Compile Include="UI\Dialogs\OrphanedSerialsDialog.Designer.cs">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\Precondition.cs" />
-    <Compile Include="Panels\ActionTypePanel.cs">
+    <Compile Include="UI\Panels\ActionTypePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\ActionTypePanel.Designer.cs">
+    <Compile Include="UI\Panels\ActionTypePanel.Designer.cs">
       <DependentUpon>ActionTypePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\DisplayBcdPanel.cs">
+    <Compile Include="UI\Panels\DisplayBcdPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\DisplayBcdPanel.Designer.cs">
+    <Compile Include="UI\Panels\DisplayBcdPanel.Designer.cs">
       <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\DisplayLedDisplayPanel.cs">
+    <Compile Include="UI\Panels\DisplayLedDisplayPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\DisplayLedDisplayPanel.Designer.cs">
+    <Compile Include="UI\Panels\DisplayLedDisplayPanel.Designer.cs">
       <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\DisplayNothingSelectedPanel.cs">
+    <Compile Include="UI\Panels\DisplayNothingSelectedPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\DisplayNothingSelectedPanel.Designer.cs">
+    <Compile Include="UI\Panels\DisplayNothingSelectedPanel.Designer.cs">
       <DependentUpon>DisplayNothingSelectedPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\DisplayPinPanel.cs">
+    <Compile Include="UI\Panels\DisplayPinPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\DisplayPinPanel.Designer.cs">
+    <Compile Include="UI\Panels\DisplayPinPanel.Designer.cs">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\ButtonPanel.cs">
+    <Compile Include="UI\Panels\ButtonPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\ButtonPanel.Designer.cs">
+    <Compile Include="UI\Panels\ButtonPanel.Designer.cs">
       <DependentUpon>ButtonPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\PmdgEventIdInputPanel.cs">
+    <Compile Include="UI\Panels\PmdgEventIdInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\PmdgEventIdInputPanel.Designer.cs">
+    <Compile Include="UI\Panels\PmdgEventIdInputPanel.Designer.cs">
       <DependentUpon>PmdgEventIdInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Group\ConfigRefPanel.cs">
+    <Compile Include="UI\Panels\Group\ConfigRefPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\Group\ConfigRefPanel.Designer.cs">
+    <Compile Include="UI\Panels\Group\ConfigRefPanel.Designer.cs">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Group\ConfigRefPanelItem.cs">
+    <Compile Include="UI\Panels\Group\ConfigRefPanelItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\Group\ConfigRefPanelItem.Designer.cs">
+    <Compile Include="UI\Panels\Group\ConfigRefPanelItem.Designer.cs">
       <DependentUpon>ConfigRefPanelItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Group\FsuipcConfigPanel.cs">
+    <Compile Include="UI\Panels\Group\FsuipcConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\Group\FsuipcConfigPanel.Designer.cs">
+    <Compile Include="UI\Panels\Group\FsuipcConfigPanel.Designer.cs">
       <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Group\InterpolationPanel.cs">
+    <Compile Include="UI\Panels\Group\InterpolationPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\Group\InterpolationPanel.Designer.cs">
+    <Compile Include="UI\Panels\Group\InterpolationPanel.Designer.cs">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Group\PreconditionPanel.cs">
+    <Compile Include="UI\Panels\Group\PreconditionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\Group\PreconditionPanel.Designer.cs">
+    <Compile Include="UI\Panels\Group\PreconditionPanel.Designer.cs">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\InputActionPanel.cs">
+    <Compile Include="UI\Panels\InputActionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\InputActionPanel.Designer.cs">
+    <Compile Include="UI\Panels\InputActionPanel.Designer.cs">
       <DependentUpon>InputActionPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\EncoderPanel.cs">
+    <Compile Include="UI\Panels\EncoderPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\EncoderPanel.Designer.cs">
+    <Compile Include="UI\Panels\EncoderPanel.Designer.cs">
       <DependentUpon>EncoderPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\EventIdInputPanel.cs">
+    <Compile Include="UI\Panels\EventIdInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\EventIdInputPanel.Designer.cs">
+    <Compile Include="UI\Panels\EventIdInputPanel.Designer.cs">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\RetriggerInputPanel.cs">
+    <Compile Include="UI\Panels\RetriggerInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\RetriggerInputPanel.Designer.cs">
+    <Compile Include="UI\Panels\RetriggerInputPanel.Designer.cs">
       <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\LuaMacroInputPanel.cs">
+    <Compile Include="UI\Panels\LuaMacroInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\LuaMacroInputPanel.Designer.cs">
+    <Compile Include="UI\Panels\LuaMacroInputPanel.Designer.cs">
       <DependentUpon>LuaMacroInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\JeehellInputPanel.cs">
+    <Compile Include="UI\Panels\JeehellInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\JeehellInputPanel.Designer.cs">
+    <Compile Include="UI\Panels\JeehellInputPanel.Designer.cs">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\KeyboardInputPanel.cs">
+    <Compile Include="UI\Panels\KeyboardInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\KeyboardInputPanel.Designer.cs">
+    <Compile Include="UI\Panels\KeyboardInputPanel.Designer.cs">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\StepperPanel.cs">
+    <Compile Include="UI\Panels\StepperPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\StepperPanel.Designer.cs">
+    <Compile Include="UI\Panels\StepperPanel.Designer.cs">
       <DependentUpon>StepperPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\ServoPanel.cs">
+    <Compile Include="UI\Panels\ServoPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\ServoPanel.Designer.cs">
+    <Compile Include="UI\Panels\ServoPanel.Designer.cs">
       <DependentUpon>ServoPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -542,33 +543,33 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Forms\SettingsDialog.cs">
+    <Compile Include="UI\Dialogs\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SettingsDialog.Designer.cs">
+    <Compile Include="UI\Dialogs\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\ReadCacheInterface.cs" />
     <Compile Include="Base\UsageDetails.cs" />
-    <Compile Include="Forms\WelcomeDialog.cs">
+    <Compile Include="UI\Dialogs\WelcomeDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\WelcomeDialog.Designer.cs">
+    <Compile Include="UI\Dialogs\WelcomeDialog.Designer.cs">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SimConnect\SimConnectCacheInterface.cs" />
     <Compile Include="VJoy\VJoyExceptions.cs" />
     <Compile Include="VJoy\VJoyHelper.cs" />
-    <Compile Include="Panels\VJoyInputPanel.cs">
+    <Compile Include="UI\Panels\VJoyInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\VJoyInputPanel.Designer.cs">
+    <Compile Include="UI\Panels\VJoyInputPanel.Designer.cs">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\LCDDisplayPanel.cs">
+    <Compile Include="UI\Panels\LCDDisplayPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Panels\LCDDisplayPanel.Designer.cs">
+    <Compile Include="UI\Panels\LCDDisplayPanel.Designer.cs">
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </Compile>
     <None Include="Build\build-firmware.bat" />
@@ -635,91 +636,91 @@
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
-    <EmbeddedResource Include="Forms\SettingsDialog.de-DE.resx">
+    <EmbeddedResource Include="UI\Dialogs\SettingsDialog.de-DE.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MobiFlight\Forms\ArduinoIdePathForm.de.resx">
+    <EmbeddedResource Include="UI\Forms\ArduinoIdePathForm.de.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MobiFlight\Forms\ArduinoIdePathForm.resx">
+    <EmbeddedResource Include="UI\Forms\ArduinoIdePathForm.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MobiFlight\Forms\ConfigUploadProgress.resx">
+    <EmbeddedResource Include="UI\Forms\ConfigUploadProgress.resx">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.de.resx">
+    <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MobiFlight\Forms\StartupPanel.resx">
+    <EmbeddedResource Include="UI\Panels\StartupPanel.resx">
       <DependentUpon>StartupPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Panels\MFLcdDisplayPanel.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\PmdgEventIdInputPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\PmdgEventIdInputPanel.de.resx">
       <DependentUpon>PmdgEventIdInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\PmdgEventIdInputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\PmdgEventIdInputPanel.resx">
       <DependentUpon>PmdgEventIdInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\ConfigRefPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Group\ConfigRefPanel.resx">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\ConfigRefPanelItem.de.resx">
+    <EmbeddedResource Include="UI\Panels\Group\ConfigRefPanelItem.de.resx">
       <DependentUpon>ConfigRefPanelItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\ConfigRefPanelItem.resx">
+    <EmbeddedResource Include="UI\Panels\Group\ConfigRefPanelItem.resx">
       <DependentUpon>ConfigRefPanelItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\FsuipcConfigPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Group\FsuipcConfigPanel.de.resx">
       <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\InterpolationPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Group\InterpolationPanel.de.resx">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\InterpolationPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Group\InterpolationPanel.resx">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\EventIdInputPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\EventIdInputPanel.de.resx">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\EventIdInputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\EventIdInputPanel.resx">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\PreconditionPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Group\PreconditionPanel.resx">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\LCDDisplayPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\LCDDisplayPanel.de.resx">
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\RetriggerInputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\RetriggerInputPanel.resx">
       <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\LuaMacroInputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\LuaMacroInputPanel.resx">
       <DependentUpon>LuaMacroInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\JeehellInputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\JeehellInputPanel.resx">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\KeyboardInputPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\KeyboardInputPanel.de.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\KeyboardInputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\KeyboardInputPanel.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\ServoPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\ServoPanel.de.resx">
       <DependentUpon>ServoPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\StepperPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\StepperPanel.de.resx">
       <DependentUpon>StepperPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\StepperPanel.resx">
+    <EmbeddedResource Include="UI\Panels\StepperPanel.resx">
       <DependentUpon>StepperPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WelcomeDialog.de.resx">
+    <EmbeddedResource Include="UI\Dialogs\WelcomeDialog.de.resx">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\WelcomeDialog.resx">
+    <EmbeddedResource Include="UI\Dialogs\WelcomeDialog.resx">
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="examples\example-release-5.0.0.mcc" />
@@ -731,42 +732,43 @@
     <Content Include="Resources\output.png" />
     <Content Include="Resources\servo.png" />
     <Content Include="Resources\stepper.png" />
-    <EmbeddedResource Include="Forms\AboutForm.de.resx">
+    <EmbeddedResource Include="UI\Dialogs\AboutForm.de.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AboutForm.resx">
+    <EmbeddedResource Include="UI\Dialogs\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\BitMaskEditorForm.resx">
+    <EmbeddedResource Include="UI\Forms\BitMaskEditorForm.resx">
       <DependentUpon>BitMaskEditorForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\BytePanel.resx">
+    <EmbeddedResource Include="UI\Panels\BytePanel.resx">
       <DependentUpon>BytePanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ConfigWizard.de.resx">
+    <EmbeddedResource Include="UI\Dialogs\ConfigWizard.de.resx">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ConfigWizard.resx">
+    <EmbeddedResource Include="UI\Dialogs\ConfigWizard.resx">
       <DependentUpon>ConfigWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InputConfigWizard.de.resx">
+    <EmbeddedResource Include="UI\Dialogs\InputConfigWizard.de.resx">
       <DependentUpon>InputConfigWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\InputConfigWizard.resx">
+    <EmbeddedResource Include="UI\Dialogs\InputConfigWizard.resx">
       <DependentUpon>InputConfigWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.de.resx">
+    <EmbeddedResource Include="UI\MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
+    <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="MobiFlight\Forms\FirmwareUpdateProcess.resx">
+    <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MobiFlight\Panels\MFButtonPanel.de.resx">
@@ -802,41 +804,41 @@
     <EmbeddedResource Include="MobiFlight\Panels\MFLedSegmentPanel.resx">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OrphanedSerialsDialog.de.resx">
+    <EmbeddedResource Include="UI\Dialogs\OrphanedSerialsDialog.de.resx">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OrphanedSerialsDialog.resx">
+    <EmbeddedResource Include="UI\Dialogs\OrphanedSerialsDialog.resx">
       <DependentUpon>OrphanedSerialsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\ActionTypePanel.resx">
+    <EmbeddedResource Include="UI\Panels\ActionTypePanel.resx">
       <DependentUpon>ActionTypePanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\DisplayBcdPanel.resx">
+    <EmbeddedResource Include="UI\Panels\DisplayBcdPanel.resx">
       <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\DisplayLedDisplayPanel.resx">
+    <EmbeddedResource Include="UI\Panels\DisplayLedDisplayPanel.resx">
       <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\DisplayNothingSelectedPanel.resx">
+    <EmbeddedResource Include="UI\Panels\DisplayNothingSelectedPanel.resx">
       <DependentUpon>DisplayNothingSelectedPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\DisplayPinPanel.resx">
+    <EmbeddedResource Include="UI\Panels\DisplayPinPanel.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\ButtonPanel.resx">
+    <EmbeddedResource Include="UI\Panels\ButtonPanel.resx">
       <DependentUpon>ButtonPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Group\FsuipcConfigPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Group\FsuipcConfigPanel.resx">
       <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\InputActionPanel.resx">
+    <EmbeddedResource Include="UI\Panels\InputActionPanel.resx">
       <DependentUpon>InputActionPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\EncoderPanel.resx">
+    <EmbeddedResource Include="UI\Panels\EncoderPanel.resx">
       <DependentUpon>EncoderPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\ServoPanel.resx">
+    <EmbeddedResource Include="UI\Panels\ServoPanel.resx">
       <DependentUpon>ServoPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectMessages.de.resx">
@@ -859,17 +861,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Forms\SettingsDialog.de.resx">
+    <EmbeddedResource Include="UI\Dialogs\SettingsDialog.de.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SettingsDialog.resx">
+    <EmbeddedResource Include="UI\Dialogs\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\VJoyInputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\VJoyInputPanel.resx">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\LCDDisplayPanel.resx">
+    <EmbeddedResource Include="UI\Panels\LCDDisplayPanel.resx">
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
@@ -955,6 +957,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\" />
+    <Folder Include="MobiFlight\Forms\" />
     <Folder Include="Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

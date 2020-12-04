@@ -277,7 +277,7 @@ namespace MobiFlight
                 } catch (Exception e)
                 {
                     Log.Instance.log("Problem with transform. " + e.Message, LogSeverity.Error);
-                    row.ErrorText = MainForm._tr("uiMessageTransformError");
+                    row.ErrorText = i18n._tr("uiMessageTransformError");
                     continue;
                 }
 
@@ -293,7 +293,7 @@ namespace MobiFlight
                 if (!checkPrecondition(cfg, processedValue))
                 {
                     if (!cfg.Preconditions.ExecuteOnFalse) {
-                        row.ErrorText = MainForm._tr("uiMessagePreconditionNotSatisfied");
+                        row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
                         continue;
                     } else
                     {
@@ -676,7 +676,7 @@ namespace MobiFlight
                 catch
                 {
                     Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                    throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
+                    throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
                 }
             }
 
@@ -1201,7 +1201,7 @@ namespace MobiFlight
                 {
                     if (!checkPrecondition(tuple.Item1, currentValue))
                     {
-                        tuple.Item2.ErrorText = MainForm._tr("uiMessagePreconditionNotSatisfied");
+                        tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
                         continue;
                     } else
                     {

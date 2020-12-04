@@ -218,7 +218,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new ArcazeCommandExecutionException(MainForm._tr("ConfigErrorException_WritingDisplay"), e);
+                throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
             }
         }
 
@@ -276,7 +276,7 @@ namespace MobiFlight
             }
             catch (Exception e)
             {
-                throw new ArcazeCommandExecutionException(MainForm._tr("ConfigErrorException_WritingDisplay"), e);
+                throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplay"), e);
             }
         }
         */

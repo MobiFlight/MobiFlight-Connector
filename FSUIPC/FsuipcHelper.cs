@@ -204,7 +204,7 @@ namespace MobiFlight.FSUIPC
                 catch
                 {
                     Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                    throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
+                    throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
                 }
             }
 

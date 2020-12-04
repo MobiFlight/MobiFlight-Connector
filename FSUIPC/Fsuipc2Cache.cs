@@ -97,7 +97,7 @@ namespace MobiFlight.FSUIPC
             // check for FSUIPC wide client
             if (Process.GetProcessesByName(proc).Length > 0)
             {
-                //fsuipcToolStripStatusLabel.Text = _tr("fsuipcStatus") + ":";
+                //fsuipcToolStripStatusLabel.Text = i18n._tr("fsuipcStatus") + ":";
                 FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.WIDECLIENT;
                 FlightSim = FlightSim.UNKNOWN;
                 return true;

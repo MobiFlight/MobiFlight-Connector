@@ -118,7 +118,8 @@ namespace MobiFlight.InputConfig
             11 FWD Cargo TEMP => 2?
             12 AFT Cargo TEMP => 2?
             13 Trim wheel Threshold degrees*100. Default is 100 (equals to 1°
-            out of trim command) => 2?            */
+            out of trim command) => 2?
+            */
 
             return result;
         }
@@ -144,7 +145,7 @@ namespace MobiFlight.InputConfig
                 catch
                 {
                     Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                    throw new Exception(MainForm._tr("uiMessageErrorOnParsingExpression"));
+                    throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
                 }
             }
 

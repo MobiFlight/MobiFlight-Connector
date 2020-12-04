@@ -1,4 +1,4 @@
-﻿namespace MobiFlight.Panels
+﻿namespace MobiFlight.UI.Panels
 {
     partial class MFLcddDisplayPanel
     {

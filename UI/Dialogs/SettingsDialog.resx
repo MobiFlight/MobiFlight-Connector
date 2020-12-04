@@ -1,0 +1,2860 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="&gt;&gt;okButton.Name" xml:space="preserve">
+    <value>okButton</value>
+  </data>
+  <data name="&gt;&gt;okButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;okButton.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;okButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
+    <value>cancelButton</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 407</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 25</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="okButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="okButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 0</value>
+  </data>
+  <data name="okButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
+  </data>
+  <data name="okButton.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="okButton.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="&gt;&gt;okButton.Name" xml:space="preserve">
+    <value>okButton</value>
+  </data>
+  <data name="&gt;&gt;okButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;okButton.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;okButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cancelButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>317, 0</value>
+  </data>
+  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 25</value>
+  </data>
+  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="cancelButton.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
+    <value>cancelButton</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Name" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Parent" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;arcazeModulesGroupBox.Name" xml:space="preserve">
+    <value>arcazeModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModulesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeModulesGroupBox.Parent" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
+  </data>
+  <data name="&gt;&gt;arcazeModulesGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;arcazeSettingsLabel.Name" xml:space="preserve">
+    <value>arcazeSettingsLabel</value>
+  </data>
+  <data name="&gt;&gt;arcazeSettingsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeSettingsLabel.Parent" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
+  </data>
+  <data name="&gt;&gt;arcazeSettingsLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="ledDisplaysTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="ledDisplaysTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="ledDisplaysTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 381</value>
+  </data>
+  <data name="ledDisplaysTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="ledDisplaysTabPage.Text" xml:space="preserve">
+    <value>Arcaze Modules</value>
+  </data>
+  <data name="&gt;&gt;ledDisplaysTabPage.Name" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
+  </data>
+  <data name="&gt;&gt;ledDisplaysTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ledDisplaysTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;ledDisplaysTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;numModulesLabel.Name" xml:space="preserve">
+    <value>numModulesLabel</value>
+  </data>
+  <data name="&gt;&gt;numModulesLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numModulesLabel.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;numModulesLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.Name" xml:space="preserve">
+    <value>numModulesNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.Name" xml:space="preserve">
+    <value>arcazeModuleTypeComboBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessLabel.Name" xml:space="preserve">
+    <value>globalBrightnessLabel</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessLabel.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.Name" xml:space="preserve">
+    <value>globalBrightnessTrackBar</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.Name" xml:space="preserve">
+    <value>arcazeModuleTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>182, 3</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 375</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="arcazeModuleSettingsGroupBox.Text" xml:space="preserve">
+    <value>Module Settings</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Name" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Parent" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="numModulesLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="numModulesLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="numModulesLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>47, 55</value>
+  </data>
+  <data name="numModulesLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 13</value>
+  </data>
+  <data name="numModulesLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="numModulesLabel.Text" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="&gt;&gt;numModulesLabel.Name" xml:space="preserve">
+    <value>numModulesLabel</value>
+  </data>
+  <data name="&gt;&gt;numModulesLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numModulesLabel.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;numModulesLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="numModulesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>88, 53</value>
+  </data>
+  <data name="numModulesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 20</value>
+  </data>
+  <data name="numModulesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="numModulesNumericUpDown.ToolTip" xml:space="preserve">
+    <value>The number of extensions modules connected to the current arcaze</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.Name" xml:space="preserve">
+    <value>numModulesNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;numModulesNumericUpDown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.Items" xml:space="preserve">
+    <value>Modul A</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>88, 19</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 21</value>
+  </data>
+  <data name="arcazeModuleTypeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.Name" xml:space="preserve">
+    <value>arcazeModuleTypeComboBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="globalBrightnessLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="globalBrightnessLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="globalBrightnessLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>37, 86</value>
+  </data>
+  <data name="globalBrightnessLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 26</value>
+  </data>
+  <data name="globalBrightnessLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="globalBrightnessLabel.Text" xml:space="preserve">
+    <value>Global 
+intensity</value>
+  </data>
+  <data name="globalBrightnessLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessLabel.Name" xml:space="preserve">
+    <value>globalBrightnessLabel</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessLabel.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="globalBrightnessTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="globalBrightnessTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>80, 84</value>
+  </data>
+  <data name="globalBrightnessTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 45</value>
+  </data>
+  <data name="globalBrightnessTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="globalBrightnessTrackBar.ToolTip" xml:space="preserve">
+    <value>The intensity value for brightness used for all connected extension modules</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.Name" xml:space="preserve">
+    <value>globalBrightnessTrackBar</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;globalBrightnessTrackBar.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="arcazeModuleTypeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="arcazeModuleTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="arcazeModuleTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 22</value>
+  </data>
+  <data name="arcazeModuleTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 13</value>
+  </data>
+  <data name="arcazeModuleTypeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="arcazeModuleTypeLabel.Text" xml:space="preserve">
+    <value>Extension Type</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.Name" xml:space="preserve">
+    <value>arcazeModuleTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.Parent" xml:space="preserve">
+    <value>arcazeModuleSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModuleTypeLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;ArcazeModuleTreeView.Name" xml:space="preserve">
+    <value>ArcazeModuleTreeView</value>
+  </data>
+  <data name="&gt;&gt;ArcazeModuleTreeView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ArcazeModuleTreeView.Parent" xml:space="preserve">
+    <value>arcazeModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;ArcazeModuleTreeView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 375</value>
+  </data>
+  <data name="arcazeModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="arcazeModulesGroupBox.Text" xml:space="preserve">
+    <value>Available Arcaze Modules</value>
+  </data>
+  <data name="&gt;&gt;arcazeModulesGroupBox.Name" xml:space="preserve">
+    <value>arcazeModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeModulesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeModulesGroupBox.Parent" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
+  </data>
+  <data name="&gt;&gt;arcazeModulesGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ArcazeModuleTreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="ArcazeModuleTreeView.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <metadata name="mfTreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>696, 17</value>
+  </metadata>
+  <data name="mfTreeViewImageList.ImageSize" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
+  </data>
+  <data name="ArcazeModuleTreeView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="ArcazeModuleTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8xBgQAAAAABgUAAAAITW9kdWxlXzAA
+        /////wkEAAAA/////wkEAAAAAAAAAAs=
+</value>
+  </data>
+  <data name="ArcazeModuleTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8yBgQAAAAABgUAAAANTUZfTUlDUk9f
+        Q09NNQD/////CQQAAAD/////CQQAAAAAAAAACw==
+</value>
+  </data>
+  <data name="ArcazeModuleTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ArcazeModuleTreeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 356</value>
+  </data>
+  <data name="ArcazeModuleTreeView.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;ArcazeModuleTreeView.Name" xml:space="preserve">
+    <value>ArcazeModuleTreeView</value>
+  </data>
+  <data name="&gt;&gt;ArcazeModuleTreeView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ArcazeModuleTreeView.Parent" xml:space="preserve">
+    <value>arcazeModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;ArcazeModuleTreeView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="arcazeSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="arcazeSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 23</value>
+  </data>
+  <data name="arcazeSettingsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;arcazeSettingsLabel.Name" xml:space="preserve">
+    <value>arcazeSettingsLabel</value>
+  </data>
+  <data name="&gt;&gt;arcazeSettingsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeSettingsLabel.Parent" xml:space="preserve">
+    <value>ledDisplaysTabPage</value>
+  </data>
+  <data name="&gt;&gt;arcazeSettingsLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="mfModuleSettingsContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>114, 17</value>
+  </metadata>
+  <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>165, 220</value>
+  </data>
+  <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Name" xml:space="preserve">
+    <value>mfModuleSettingsContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="addToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add device</value>
+  </data>
+  <data name="ledOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="ledOutputToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED / Output</value>
+  </data>
+  <data name="ledSegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="ledSegmentToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED 7-Segment</value>
+  </data>
+  <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="servoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Servo</value>
+  </data>
+  <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stepper</value>
+  </data>
+  <data name="LcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="LcdDisplayToolStripMenuItem.Text" xml:space="preserve">
+    <value>LCD Display</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 6</value>
+  </data>
+  <data name="buttonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="encoderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Encoder</value>
+  </data>
+  <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="removeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove device</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 6</value>
+  </data>
+  <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="uploadToolStripMenuItem.Text" xml:space="preserve">
+    <value>Upload Config</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 6</value>
+  </data>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="openToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 6</value>
+  </data>
+  <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="updateFirmwareToolStripMenuItem.Text" xml:space="preserve">
+    <value>Update Firmware</value>
+  </data>
+  <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="regenerateSerialToolStripMenuItem.Text" xml:space="preserve">
+    <value>Regenerate Serial</value>
+  </data>
+  <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 22</value>
+  </data>
+  <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
+    <value>Reload Config</value>
+  </data>
+  <data name="BetaUpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BetaUpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 17</value>
+  </data>
+  <data name="BetaUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 17</value>
+  </data>
+  <data name="BetaUpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="BetaUpdateCheckBox.Text" xml:space="preserve">
+    <value>I would like to receive beta version updates.</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdateCheckBox.Name" xml:space="preserve">
+    <value>BetaUpdateCheckBox</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdateCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdateCheckBox.Parent" xml:space="preserve">
+    <value>BetaUpdatesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdateCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 338</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 40</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.Text" xml:space="preserve">
+    <value>Beta Versions</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdatesGroupBox.Name" xml:space="preserve">
+    <value>BetaUpdatesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdatesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdatesGroupBox.Parent" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdatesGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.Name" xml:space="preserve">
+    <value>languageComboBox</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.Name" xml:space="preserve">
+    <value>languageLabel</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="languageGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="languageGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 264</value>
+  </data>
+  <data name="languageGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 74</value>
+  </data>
+  <data name="languageGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="languageGroupBox.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="&gt;&gt;languageGroupBox.Name" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;languageGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;languageGroupBox.Parent" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;languageGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>offlineModeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;offlineModeCheckBox.Name" xml:space="preserve">
+    <value>offlineModeCheckBox</value>
+  </data>
+  <data name="&gt;&gt;offlineModeCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;offlineModeCheckBox.Parent" xml:space="preserve">
+    <value>offlineModeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;offlineModeCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="offlineModeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="offlineModeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 173</value>
+  </data>
+  <data name="offlineModeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 91</value>
+  </data>
+  <data name="offlineModeGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="offlineModeGroupBox.Text" xml:space="preserve">
+    <value>Offline Mode</value>
+  </data>
+  <data name="&gt;&gt;offlineModeGroupBox.Name" xml:space="preserve">
+    <value>offlineModeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;offlineModeGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;offlineModeGroupBox.Parent" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;offlineModeGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Name" xml:space="preserve">
+    <value>logLevelComboBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.Name" xml:space="preserve">
+    <value>logLevelLabel</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Name" xml:space="preserve">
+    <value>logLevelCheckBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="debugGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="debugGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 123</value>
+  </data>
+  <data name="debugGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 50</value>
+  </data>
+  <data name="debugGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="debugGroupBox.Text" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="&gt;&gt;debugGroupBox.Name" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;debugGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;debugGroupBox.Parent" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;debugGroupBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Name" xml:space="preserve">
+    <value>testModeSpeedTrackBar</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 49</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 74</value>
+  </data>
+  <data name="testModeSpeedGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
+    <value>Test mode speed</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.Name" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.Parent" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>recentFilesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Name" xml:space="preserve">
+    <value>recentFilesNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Parent" xml:space="preserve">
+    <value>recentFilesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="recentFilesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="recentFilesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="recentFilesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 46</value>
+  </data>
+  <data name="recentFilesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="recentFilesGroupBox.Text" xml:space="preserve">
+    <value>Recent files</value>
+  </data>
+  <data name="&gt;&gt;recentFilesGroupBox.Name" xml:space="preserve">
+    <value>recentFilesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;recentFilesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;recentFilesGroupBox.Parent" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;recentFilesGroupBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="generalTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="generalTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="generalTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 381</value>
+  </data>
+  <data name="generalTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="generalTabPage.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="&gt;&gt;generalTabPage.Name" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;generalTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;generalTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;generalTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label9.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 49</value>
+  </data>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>292, 13</value>
+  </data>
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>It requires a restart of MobiFlight if you change the language.</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="languageComboBox.Items" xml:space="preserve">
+    <value>System Default</value>
+  </data>
+  <data name="languageComboBox.Items1" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="languageComboBox.Items2" xml:space="preserve">
+    <value>Deutsch</value>
+  </data>
+  <data name="languageComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>189, 19</value>
+  </data>
+  <data name="languageComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
+  </data>
+  <data name="languageComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.Name" xml:space="preserve">
+    <value>languageComboBox</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="languageLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="languageLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>21, 22</value>
+  </data>
+  <data name="languageLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 13</value>
+  </data>
+  <data name="languageLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="languageLabel.Text" xml:space="preserve">
+    <value>Change the language of the UI:</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.Name" xml:space="preserve">
+    <value>languageLabel</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 20</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 55</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>If enabled, configs are executed without connection to the Flight Sim. This is useful for Keyboard Commands and Flight Sims that are not explicitly supported by MobiFlight.</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>offlineModeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="offlineModeCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="offlineModeCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="offlineModeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 19</value>
+  </data>
+  <data name="offlineModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
+  </data>
+  <data name="offlineModeCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="offlineModeCheckBox.Text" xml:space="preserve">
+    <value>enabled</value>
+  </data>
+  <data name="&gt;&gt;offlineModeCheckBox.Name" xml:space="preserve">
+    <value>offlineModeCheckBox</value>
+  </data>
+  <data name="&gt;&gt;offlineModeCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;offlineModeCheckBox.Parent" xml:space="preserve">
+    <value>offlineModeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;offlineModeCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="logLevelComboBox.Items" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="logLevelComboBox.Items1" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="logLevelComboBox.Items2" xml:space="preserve">
+    <value>Warn</value>
+  </data>
+  <data name="logLevelComboBox.Items3" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="logLevelComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 18</value>
+  </data>
+  <data name="logLevelComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>58, 21</value>
+  </data>
+  <data name="logLevelComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Name" xml:space="preserve">
+    <value>logLevelComboBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="logLevelLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="logLevelLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 21</value>
+  </data>
+  <data name="logLevelLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="logLevelLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="logLevelLabel.Text" xml:space="preserve">
+    <value>Log Level</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.Name" xml:space="preserve">
+    <value>logLevelLabel</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="logLevelCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="logLevelCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 20</value>
+  </data>
+  <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
+  </data>
+  <data name="logLevelCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="logLevelCheckBox.Text" xml:space="preserve">
+    <value>enabled</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Name" xml:space="preserve">
+    <value>logLevelCheckBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>321, 48</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 13</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Very Fast</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 48</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="testModeSpeedTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 45</value>
+  </data>
+  <data name="testModeSpeedTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Name" xml:space="preserve">
+    <value>testModeSpeedTrackBar</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 21</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 18</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Set the number of files shown in the list to</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>recentFilesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="recentFilesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>242, 19</value>
+  </data>
+  <data name="recentFilesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 20</value>
+  </data>
+  <data name="recentFilesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Name" xml:space="preserve">
+    <value>recentFilesNumericUpDown</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Parent" xml:space="preserve">
+    <value>recentFilesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Name" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Parent" xml:space="preserve">
+    <value>mobiFlightTabPage</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Name" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Parent" xml:space="preserve">
+    <value>mobiFlightTabPage</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Name" xml:space="preserve">
+    <value>mobiflightSettingsLabel</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Parent" xml:space="preserve">
+    <value>mobiFlightTabPage</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="mobiFlightTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="mobiFlightTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="mobiFlightTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 381</value>
+  </data>
+  <data name="mobiFlightTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="mobiFlightTabPage.Text" xml:space="preserve">
+    <value>MobiFlight Modules</value>
+  </data>
+  <data name="&gt;&gt;mobiFlightTabPage.Name" xml:space="preserve">
+    <value>mobiFlightTabPage</value>
+  </data>
+  <data name="&gt;&gt;mobiFlightTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mobiFlightTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;mobiFlightTabPage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>fsuipcTabPage</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="fsuipcTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 381</value>
+  </data>
+  <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="fsuipcTabPage.Text" xml:space="preserve">
+    <value>FSUIPC</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTabPage.Name" xml:space="preserve">
+    <value>fsuipcTabPage</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTabPage.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>392, 407</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="mobiflightSettingsToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>495, 17</value>
+  </metadata>
+  <data name="&gt;&gt;mfModulesTreeView.Name" xml:space="preserve">
+    <value>mfModulesTreeView</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Name" xml:space="preserve">
+    <value>mfSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Name" xml:space="preserve">
+    <value>mobiflightSettingsToolStrip</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 34</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 280</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
+    <value>Configured modules</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Name" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Parent" xml:space="preserve">
+    <value>mobiFlightTabPage</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="mfModulesTreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="mfModulesTreeView.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mfModulesTreeView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQwAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wCWNoaWxkcmVuMQljaGlsZHJlbjIBAQEAAAEAAQAEBAQBCAgIHVN5c3Rl
+        bS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlAgAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQIA
+        AAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYDAAAADk1GX01FR0EgKENPTTMp
+        BgQAAAAABgUAAAAITW9kdWxlXzAA/////wkEAAAA/////wkEAAAAAwAAAAkHAAAACQgAAAAJCQAAAAUH
+        AAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCQAAAARUZXh0C1Rvb2xUaXBUZXh0BE5hbWUJ
+        SXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUluZGV4EFNlbGVjdGVkSW1h
+        Z2VLZXkKQ2hpbGRDb3VudAEBAQAAAQABAAEICAgCAAAABgoAAAAOTEVEIFNlZ21lbnQgIzEJBAAAAAYM
+        AAAABUxFRDAxAP////8JBAAAAP////8JBAAAAAAAAAAFCAAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5U
+        cmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdl
+        S2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQAB
+        CAgIAgAAAAYOAAAACFNlcnZvICMxCQQAAAAGEAAAAAdTRVJWTzAxAP////8JBAAAAP////8JBAAAAAAA
+        AAAFCQAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dARO
+        YW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3Rl
+        ZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYSAAAACFNlcnZvICMyCQQAAAAGFAAA
+        AAhTRVJWT18wMgD/////CQQAAAD/////CQQAAAAAAAAACw==
+</value>
+  </data>
+  <data name="mfModulesTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAAD01GIE1pY3JvIChDT001KQYEAAAAAAYFAAAADU1G
+        X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
+</value>
+  </data>
+  <data name="mfModulesTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 236</value>
+  </data>
+  <data name="mfModulesTreeView.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.Name" xml:space="preserve">
+    <value>mfModulesTreeView</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="mfSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="mfSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>179, 16</value>
+  </data>
+  <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>196, 236</value>
+  </data>
+  <data name="mfSettingsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Name" xml:space="preserve">
+    <value>mfSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="mobiflightSettingsToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>495, 17</value>
+  </metadata>
+  <data name="mobiflightSettingsToolStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 252</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 25</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Name" xml:space="preserve">
+    <value>mobiflightSettingsToolStrip</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="uploadToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="uploadToolStripButton.Text" xml:space="preserve">
+    <value>Upload current config to module</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="openToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="openToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="openToolStripButton.Text" xml:space="preserve">
+    <value>Load config</value>
+  </data>
+  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="saveToolStripButton.Text" xml:space="preserve">
+    <value>Save current config to file</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 22</value>
+  </data>
+  <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
+    <value>Add device</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Encoder</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 6</value>
+  </data>
+  <data name="addStepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addStepperToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stepper</value>
+  </data>
+  <data name="addStepperToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="addServoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addServoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Servo</value>
+  </data>
+  <data name="addServoToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="addLedModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addLedModuleToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED 7-Segment</value>
+  </data>
+  <data name="addOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addOutputToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED / Output</value>
+  </data>
+  <data name="addLcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>155, 22</value>
+  </data>
+  <data name="addLcdDisplayToolStripMenuItem.Text" xml:space="preserve">
+    <value>LCD Display</value>
+  </data>
+  <data name="removeDeviceToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 22</value>
+  </data>
+  <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
+    <value>Remove device</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Name" xml:space="preserve">
+    <value>FwAutoUpdateCheckBox</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.Name" xml:space="preserve">
+    <value>firmwareArduinoIdeButton</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Name" xml:space="preserve">
+    <value>firmwareArduinoIdePathTextBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.Name" xml:space="preserve">
+    <value>firmwareArduinoIdeLabel</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 314</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 64</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
+    <value>Firmware Flash Settings</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Name" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Parent" xml:space="preserve">
+    <value>mobiFlightTabPage</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 44</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 17</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Text" xml:space="preserve">
+    <value>Firmware Auto Upload enabled</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.ToolTip" xml:space="preserve">
+    <value>MobiFlight checks on every start for Arduino boards that are connected.
+If enabled, it will ask you to upload the MobiFlight Firmware.</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Name" xml:space="preserve">
+    <value>FwAutoUpdateCheckBox</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>346, 16</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>27, 23</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="firmwareArduinoIdeButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
+    <value>ImageAboveText</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.Name" xml:space="preserve">
+    <value>firmwareArduinoIdeButton</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="firmwareArduinoIdePathTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 18</value>
+  </data>
+  <data name="firmwareArduinoIdePathTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 20</value>
+  </data>
+  <data name="firmwareArduinoIdePathTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Name" xml:space="preserve">
+    <value>firmwareArduinoIdePathTextBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdePathTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="firmwareArduinoIdeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="firmwareArduinoIdeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 21</value>
+  </data>
+  <data name="firmwareArduinoIdeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 13</value>
+  </data>
+  <data name="firmwareArduinoIdeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="firmwareArduinoIdeLabel.Text" xml:space="preserve">
+    <value>Path to Arduino IDE</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.Name" xml:space="preserve">
+    <value>firmwareArduinoIdeLabel</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareArduinoIdeLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="mobiflightSettingsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 31</value>
+  </data>
+  <data name="mobiflightSettingsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Text" xml:space="preserve">
+    <value>Configure connected MobiFlight modules. You can save and load configurations and upload them to your modules.</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Name" xml:space="preserve">
+    <value>mobiflightSettingsLabel</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Parent" xml:space="preserve">
+    <value>mobiFlightTabPage</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Name" xml:space="preserve">
+    <value>fsuipcPollIntervalTrackBar</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 375</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>FSUIPC Polling Interval</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>fsuipcTabPage</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>175, 53</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>300ms</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>330, 53</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>500ms</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 53</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>100ms</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 64</value>
+  </data>
+  <data name="label5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 10, 0, 0</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>366, 305</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Adjust the polling interval for reading values from FSUIPC. The lower the value the more updates you'll have but it might hit the performance.</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>366, 45</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Name" xml:space="preserve">
+    <value>fsuipcPollIntervalTrackBar</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="firmwareSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="firmwareSettingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 6</value>
+  </data>
+  <data name="firmwareUpdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>116, 22</value>
+  </data>
+  <data name="firmwareUpdateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="firmwareUpdateBackgroundWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
+  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>365, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>392, 432</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAMAICAAAAEAIAAoEAAANgAAABgYAAABACAAKAkAAF4QAAAQEAAAAQAgACgEAACGGQAAKAAAACAA
+        AABAAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMxmMrbbbDfYzGUx2MxlMdjMZTHYzGUx2Mxl
+        MdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2Mxl
+        MdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2NtsN9jLZDK3zGUx5+12O//cbjf/3G43/9xu
+        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xu
+        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/7XY7/8xmMejKZDHX3G43/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//cbjf/zGUx2Mhd
+        KdfbazL/zGc0/8xlMv/KYS3/yl8q/8pfKv/KYCv/y2Iu/8xlMv/MZTL/y2Iu/8pgK//KXyr/yl8q/8pg
+        K//LYy//zGYz/8tkMP/KYCv/yl8q/8pfKv/KXyr/ymAr/8tkMP/MZjP/zGYz/8xmM//MZjP/zGYz/9xu
+        N//MZTHYymQx19xuN//MZjL/zGYz/8xmM//MZjP/zGYz/8xmM//MZTL/zGYy/8xmM//MZjT/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xnNP/MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/3G43/8xlMdjsxrPX65x1/8hbJP/QcUH/46yQ/+zGs//sxrP/6sCr/9yWc//ObDz/0HRF/9+i
+        gv/qwa3/7Maz/+zGs//pvaf/2Y1n/8xlMv/Xhl7/68Ou/+zGs//sxrP/7Maz/+i7pP/Wg1r/zGYz/8tl
+        Mf/MZjL/zGYz/8xmM//cbjf/zGUx2P39/df7yrL/ymAr/9N6Tf/03tP/////////////////8NLD/9R9
+        Uv/Qc0T/6sGs///////////////////+/f/mtJv/zmw7/9uUcP/89vL//////////////////fv5/+Kn
+        if/Pbj7/y2Mu/8xmMv/MZjP/zGYz/9xuN//MZTHY/f391//byP/Sdkn/0nhK//DSw///////////////
+        ///68u3/3Zl3/8xoNv/ho4T/+/Pu/////////////fv5/+zHtf/Te0//1YBW//DRwv/+/Pv/////////
+        ///9+fX/6b2n/9R8Uf/KYSz/zGUy/8xmM//MZjP/3G43/8xlMdj9/f3X/+vd/9eJYf/RdUf/68Sw//35
+        9////////////////v/pvaf/0XNF/9eIYf/36eH//////////////v7/9ODW/9iKY//Qc0T/6buk//z2
+        8/////////////77+f/w0cP/14hf/8leKf/MZTH/zGYz/8xmM//cbjf/zGUx2P39/df/+vb/3p19/9F0
+        Rf/pv6r//fj2//////////////////Xg1//Zj2r/0nhL//HVx//////////////////68e3/25Nv/81p
+        N//lrpL/+/Pv//////////////7+//nr5f/clXH/yFsm/8tkMf/MZjP/zGYz/9xuN//MZTHY/f391///
+        ///ms5r/0XVI/+i8pv/89/T//////////////////Pj2/+Wymf/Tek3/6Lul//z28/////////////77
+        +f/gooL/y2Ux/92ZeP/57+r///////////////////38/9+ff//IWyX/y2Qx/8xmM//MZjP/3G43/8xl
+        Mdj9/f3X/////+zGs//UgFb/57ef//vy7v//////////////////////8NLD/9qPav/hqIv/9ubd////
+        /////////////+e5of/ObDv/1YJZ//bk3P//////////////////////4quP/8tlM//LZDH/zGYy/8xm
+        M//cbjf/zGUx2P39/df/////8NTF/9yYdf/nt57/+Ozm///////////////////////46eL/5bGX/96d
+        fP/y18r/////////////////786+/9V/VP/Rd0r/7s6+//79/f/////////////////pwKr/0nlN/8tj
+        Lv/KYi7/y2Qw/9xsNP/LYzDY/f391//////039X/46yQ/+a2nf/3597////////////+/v3///7+//76
+        +P/y2Mv/3JZz/+3Luf/////////////////139X/25Ju/9BxQv/ls5r/+/Lt/////////////////+/R
+        wf/Whl7/yFoi/8dXH//IWyT/2WMo/8dYI9j9/f3X//////nt5v/qwaz/5rOa//Xg1v///////vr4//bk
+        2v/78e3///////nt6P/fn4D/68Sw//77+v////////////vy7f/iqIv/zms6/92bev/25dz/////////
+        ////////9+ni/+m+qP/foID/3559/9+ggf/ppYP/359/2P39/df//////fn3//Lazf/ntp3/89zQ////
+        ///78e3/6sCr//Pd0f//////+/Tx/+vCr//sxbL/+Ovk/////////////////+q+qP/Najr/1oVd//La
+        zv/////////////////////////////////////////////////9/f3Y/f391///////////+e7o/+rA
+        q//03tP///////rv6v/lspn/7cq4//36+P/+/f3/+u/q/+/Ovf/y2Mr///7+////////////79HB/9J5
+        TP/PcUL/7cq5//////////////////////////////////////////////////39/dj9/f3X////////
+        ///89fL/7sy8//Xk2v//////+vLt/+a1nf/jrI//89rO////////////8dbI//HVxv///v7/////////
+        ///14NX/2pBr/81rOf/ntZ3//vv5/////////////////////////////////////////////f392P39
+        /df///////////349v/14tj/+u/q///////79fH/6Lih/9iJYv/mtJv////////////359//9+bd///+
+        /v////////////ns5v/ip4v/z28+/9+efv/56+T//////////////////Pbz//Pd0f/tyLb/68Ov//LI
+        s//sxbHY/f391////////////v39//359f/++/r///////z18v/ouaP/0nZJ/9yWc//57uj///7+//36
+        +P/9+ff//////////////////Pbz/+q+qf/Qc0T/14hg//HWyP/////////////////57uj/5LCV/89w
+        QP/KXyr/3G43/8xlMdj9/f3X/////////////////////////////////Pj1/+vBrP/SeEv/0nhM/+vB
+        rf/99/X//////////////////////////////v3/89nL/9J6Tf/RdUf/7MWy//////////////////35
+        9//sxLH/z28//8ZVG//aZiz/yF0l2Pnu6Nf////////////////////////////////9+ff/7cm2/9V/
+        Vf/LYi7/3pp5//vy7v/////////////////////////////////46eL/2Itk/8xnNP/ksJb/////////
+        //////////////Xg1v/SeUz/xlIY/9ljJ//HWCPY7s/A1//79/////////////////////////////37
+        +f/vz7//14Zc/8hYIf/Uf1X/8tjL//77+f////////////////////////////rx7P/hpIX/zGY0/92a
+        eP/99/T/////////////////+/Tx/+e2nf/enHv/6aSC/9+ff9jjtJrX//Hl////////////////////
+        /////////vz6//HVyP/YimL/x1cg/85uPv/krZP/+e3n/////////////////////////////Pfz/+m8
+        pf/Rc0T/2Ilh//Tg1f///v7//////////////////////////////////f392Nycetf/59j/////////
+        ////////////////////////897T/9mNaP/IWiP/zGYz/9mMZv/z3M//////////////////////////
+        ///+/fz/8NLE/9aBV//TeU3/7Ma0//36+f/////////////////////////////////9/f3Y03xQ1//e
+        zf/////////////////////////////////57Ob/25Rx/8hcJf/KYSz/z28//+m9p////v7/////////
+        ///////////////////89vP/3JVx/85rOv/ms5n//v38//////////////////////////////////39
+        /djKaDbX8KqI/+zFsf/sxbH/7MWx/+zFsf/sxbH/7MWy/+e1nf/Vglj/ymEs/8tiLf/LYy//2Itl/+e5
+        of/sxbH/7MWx/+zFsf/sxbH/7MWy/+vCrv/Xh17/zGUy/9mMZv/ovKX/7MWx/+zFsf/sxbH/7MWx/+zF
+        sf/yyLP/7MWx2MpkMNfcbjb/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        Mv/MZTL/zGUy/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYy/8xmMv/MZjP/zGYz/8xm
+        M//MZjP/zGYz/9xuN//MZTHYymQx19tqMf/KXyr/yl8q/8pfKv/KXyr/yl8q/8pfKv/KYSz/y2Qw/8xm
+        NP/MZjP/zGYz/8tjL//KYCv/yl8q/8pfKv/KXyr/yl8q/8pfKv/KYCv/y2Qw/8xmM//LYy//ymAr/8pf
+        Kv/KXyr/yl8q/8pfKv/KXyr/22gu/8heKtjKZDHX3G43/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//cbjf/zGUx2MtmMejtdjv/3G43/9xuN//cbjf/3G43/9xu
+        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xu
+        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/+12O//KZDLpzGUxtdtuNtfKZDHXymQx18pk
+        MdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pk
+        MdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHX224218xjMrYoAAAAGAAAADAA
+        AAABACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP//////89w
+        Qf/MZjP/+Ovk////////////5K2S/8xmM//nuKD/////////////////3Zl3/8xmM//89fH/////////
+        ////////1oVc/8xmM//MZjP/zGYz/8xmM//MZjP//////92Zd//MZjP/+Ovk////////////+Ovk/8xm
+        M//dmXf/////////////////57ig/8xmM//uzLv/////////////////5K2S/8xmM//MZjP/zGYz/8xm
+        M//MZjP//////+e4oP/MZjP/8dbJ/////////////////92Zd//PcEH/////////////////9eDW/8xm
+        M//krZL/////////////////7sy7/8xmM//MZjP/zGYz/8xmM//MZjP///////Xg1v/MZjP/8dbJ////
+        //////////////HWyf/MZjP/9eDW/////////////PXx/8xmM//dmXf//////////////////PXx/8xm
+        M//MZjP/zGYz/8xmM//MZjP////////////PcEH/7sy7///////////////////////WhVz/57ig////
+        /////////////9aFXP/PcEH//////////////////////89wQf/MZjP/zGYz/8xmM//MZjP/////////
+        ///dmXf/68Kt///////////////////////rwq3/3Zl3/////////////////+Stkv/MZjP/9eDW////
+        /////////////92Zd//MZjP/zGYz/8xmM//MZjP////////////nuKD/57ig/////////////PXx////
+        ////////1oVc/////////////////+7Mu//MZjP/57ig/////////////////+e4oP/MZjP/zGYz/8xm
+        M//MZjP////////////14Nb/5K2S////////////57ig////////////5K2S//Xg1v////////////z1
+        8f/MZjP/3Zl3////////////////////////////////////////////////////////////57ig////
+        ////////4KOF//jr5P///////PXx/+vCrf/////////////////WhVz/z3BB////////////////////
+        ////////////////////////////////////////7sy7////////////5K2S/+Cjhf///////////+7M
+        u//////////////////krZL/zGYz//Xg1v//////////////////////////////////////////////
+        /////////PXx////////////5K2S/89wQf/89fH///////z18f/////////////////uzLv/zGYz/+e4
+        oP/////////////////nuKD/zGYz/8xmM//MZjP/////////////////////////////////57ig/8xm
+        M//krZL////////////////////////////89fH/zGYz/92Zd//////////////////14Nb/zGYz/8xm
+        M//MZjP/9eDW////////////////////////////68Kt/8xmM//Tek7/////////////////////////
+        ////////1oVc/89wQf//////////////////////z3BB/8xmM//MZjP/57ig////////////////////
+        ////////7sy7/8xmM//MZjP/68Kt////////////////////////////5K2S/8xmM//14Nb/////////
+        ////////////////////////3Zl3////////////////////////////8dbJ/8xmM//MZjP/2o9p////
+        ////////////////////////7sy7/8xmM//nuKD/////////////////////////////////z3BB////
+        ////////////////////////9eDW/8xmM//MZjP/zGYz//HWyf///////////////////////PXx/8xm
+        M//dmXf/////////////////////////////////zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/KAAAABAA
+        AAAgAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM1kMdzPaTLtzGYx7cxmMe3MZjHtzGYx7cxm
+        Me3MZjHtzGYx7cxmMe3MZjHtzGYx7cxmMe3MZjHtz2ky7c1kMdzJXyfz1ms1/85fKP/OXib/0GUw/9Bl
+        L//OXib/zl4m/9FmMf/PYiz/zl4m/85eJv/RZzH/0mk1/9dsNf/LZTLz14Vc7dFpNf/bk2//3Zl3/9By
+        Q//SeU3/3Zp4/92Yd//Pbj7/14Ze/92Zd//cl3T/z249/8tkMf/RaTT/zGYx7fPaze3XeUr/+e/p////
+        ///lsZb/2o9p////////////3JVy/+a0m////////////9yUcf/KXyr/0Wk0/8xmMe347Ojt3Yxk//HW
+        yf//////9uXb/9aCWP/57ej//////+e1nP/Zjmj////////////mtZz/yV0m/9FpNP/MZjHt/f397eal
+        hv/vzr7////////////go4X/7ci2///////vz77/03xP//z28///////78++/8pfKf/RaDP/zGYx7f39
+        /e3ww67/7cu5////////////8dbJ/+e2nf//////+Oni/9R+VP/y18n///////bj2v/Nazn/zFog/8lb
+        I+39/f3t+uPY/+7Luv/9+vn/9ePa//36+f/qv6r//fj2//78+//ZjWj/5bKY///////9+vn/8dXG/+/L
+        uP/szLvt/f397f/9+v/z2cz//fj1/+e5ov/8+PX/9+Xc//fo4P//////4qiL/9yVcv//////////////
+        /////////f397f39/e3//////PTx///+/v/dmXj/7cu5//79/P/89vP//////+7Mu//Wgln/+vDr////
+        ///z3ND/4Zt4/9uWde38+fjt////////////////3Zt5/9mMZv/////////////////57uj/0nhL//LZ
+        zP//////9ePZ/89eJv/CTBDt8tnN7f///////////////+KpjP/LYy//893S//////////////79/9iL
+        ZP/ouKH////////+/v/y08T/7Mq27ee2oe3////////////////ouqT/xlUc/+Glh///////////////
+        ///mtZz/25Rx//////////////////39/e3ReEvt4Jt4/92Zd//dmXf/1oJZ/8pgK//Obj7/3Jd0/92Z
+        d//dmXf/14Ze/89uPv/dmHX/3Zl3/+CbeP/cmHftymAt89NhJ//OXib/zl4m/89jLP/Sajb/0WYx/85e
+        Jv/OXib/zl4m/89iLP/RZjH/zl4m/85eJv/TYSf/yVsj881kMdzPaTLtzGYx7cxmMe3MZjHtzGYx7cxm
+        Me3MZjHtzGYx7cxmMe3MZjHtzGYx7cxmMe3MZjHtz2ky7c1kMdwAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="&gt;&gt;mfTreeViewImageList.Name" xml:space="preserve">
+    <value>mfTreeViewImageList</value>
+  </data>
+  <data name="&gt;&gt;mfTreeViewImageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addToolStripMenuItem.Name" xml:space="preserve">
+    <value>addToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ledOutputToolStripMenuItem.Name" xml:space="preserve">
+    <value>ledOutputToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ledOutputToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ledSegmentToolStripMenuItem.Name" xml:space="preserve">
+    <value>ledSegmentToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ledSegmentToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;servoToolStripMenuItem.Name" xml:space="preserve">
+    <value>servoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;servoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;stepperToolStripMenuItem.Name" xml:space="preserve">
+    <value>stepperToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;stepperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LcdDisplayToolStripMenuItem.Name" xml:space="preserve">
+    <value>LcdDisplayToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;LcdDisplayToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonToolStripMenuItem.Name" xml:space="preserve">
+    <value>buttonToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;buttonToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;encoderToolStripMenuItem.Name" xml:space="preserve">
+    <value>encoderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;encoderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;removeToolStripMenuItem.Name" xml:space="preserve">
+    <value>removeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;removeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripMenuItem.Name" xml:space="preserve">
+    <value>uploadToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
+    <value>toolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
+    <value>openToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveAsToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveAsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveAsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
+    <value>toolStripMenuItem3</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;updateFirmwareToolStripMenuItem.Name" xml:space="preserve">
+    <value>updateFirmwareToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;updateFirmwareToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;regenerateSerialToolStripMenuItem.Name" xml:space="preserve">
+    <value>regenerateSerialToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;regenerateSerialToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;reloadConfigToolStripMenuItem.Name" xml:space="preserve">
+    <value>reloadConfigToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;reloadConfigToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripButton.Name" xml:space="preserve">
+    <value>uploadToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openToolStripButton.Name" xml:space="preserve">
+    <value>openToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;openToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
+    <value>saveToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Name" xml:space="preserve">
+    <value>addDeviceToolStripDropDownButton</value>
+  </data>
+  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addEncoderToolStripMenuItem.Name" xml:space="preserve">
+    <value>addEncoderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addEncoderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addButtonToolStripMenuItem.Name" xml:space="preserve">
+    <value>addButtonToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addButtonToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Name" xml:space="preserve">
+    <value>addStepperToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addServoToolStripMenuItem.Name" xml:space="preserve">
+    <value>addServoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addServoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addLedModuleToolStripMenuItem.Name" xml:space="preserve">
+    <value>addLedModuleToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addLedModuleToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addOutputToolStripMenuItem.Name" xml:space="preserve">
+    <value>addOutputToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addOutputToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addLcdDisplayToolStripMenuItem.Name" xml:space="preserve">
+    <value>addLcdDisplayToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addLcdDisplayToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
+    <value>removeDeviceToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;removeDeviceToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>firmwareSettingsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Name" xml:space="preserve">
+    <value>toolStripSeparator5</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareUpdateToolStripMenuItem.Name" xml:space="preserve">
+    <value>firmwareUpdateToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;firmwareUpdateToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Name" xml:space="preserve">
+    <value>firmwareUpdateBackgroundWorker</value>
+  </data>
+  <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
+    <value>errorProvider1</value>
+  </data>
+  <data name="&gt;&gt;errorProvider1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>SettingsDialog</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>
