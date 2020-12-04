@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.UI.Panels;
+using MobiFlight.UI.Panels.Input;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -428,13 +429,13 @@ namespace MobiFlight.UI.Dialogs
                 switch (currentInputType)
                 {
                     case DeviceType.Button:
-                        panel = new Panels.ButtonPanel();
-                        (panel as Panels.ButtonPanel).syncFromConfig(config.button);
+                        panel = new Panels.Input.ButtonPanel();
+                        (panel as Panels.Input.ButtonPanel).syncFromConfig(config.button);
                         break;
 
                     case DeviceType.Encoder:
-                        panel = new Panels.EncoderPanel();
-                        (panel as Panels.EncoderPanel).syncFromConfig(config.encoder);
+                        panel = new Panels.Input.EncoderPanel();
+                        (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
                         break;
                 }
 

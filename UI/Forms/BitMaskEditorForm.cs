@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.UI.Panels.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

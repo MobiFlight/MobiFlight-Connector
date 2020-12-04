@@ -12,6 +12,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MobiFlight.UI.Forms;
+using MobiFlight.UI.Panels.Settings;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -583,8 +584,8 @@ namespace MobiFlight.UI.Dialogs
 
                 if (selectedNode.Level == 0)
                 {
-                    panel = new MobiFlight.UI.Panels.MFModulePanel((selectedNode.Tag as MobiFlightModule));
-                    (panel as MobiFlight.UI.Panels.MFModulePanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                    panel = new MFModulePanel((selectedNode.Tag as MobiFlightModule));
+                    (panel as MFModulePanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                 }
                 else
                 {
@@ -597,38 +598,38 @@ namespace MobiFlight.UI.Dialogs
                     switch (dev.Type)
                     {
                         case DeviceType.LedModule:
-                            panel = new MobiFlight.UI.Panels.MFLedSegmentPanel(dev as MobiFlight.Config.LedModule, module.GetFreePins());
-                            (panel as MobiFlight.UI.Panels.MFLedSegmentPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            panel = new MFLedSegmentPanel(dev as MobiFlight.Config.LedModule, module.GetFreePins());
+                            (panel as MFLedSegmentPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Stepper:
-                            panel = new MobiFlight.UI.Panels.MFStepperPanel(dev as MobiFlight.Config.Stepper, module.GetFreePins());
-                            (panel as MobiFlight.UI.Panels.MFStepperPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            panel = new MFStepperPanel(dev as MobiFlight.Config.Stepper, module.GetFreePins());
+                            (panel as MFStepperPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Servo:
-                            panel = new MobiFlight.UI.Panels.MFServoPanel(dev as MobiFlight.Config.Servo, module.GetFreePins());
-                            (panel as MobiFlight.UI.Panels.MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            panel = new MFServoPanel(dev as MobiFlight.Config.Servo, module.GetFreePins());
+                            (panel as MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Button:
-                            panel = new MobiFlight.UI.Panels.MFButtonPanel(dev as MobiFlight.Config.Button, module.GetFreePins());
-                            (panel as MobiFlight.UI.Panels.MFButtonPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            panel = new MFButtonPanel(dev as MobiFlight.Config.Button, module.GetFreePins());
+                            (panel as MFButtonPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Encoder:
-                            panel = new MobiFlight.UI.Panels.MFEncoderPanel(dev as MobiFlight.Config.Encoder, module.GetFreePins());
-                            (panel as MobiFlight.UI.Panels.MFEncoderPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            panel = new MFEncoderPanel(dev as MobiFlight.Config.Encoder, module.GetFreePins());
+                            (panel as MFEncoderPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Output:
-                            panel = new MobiFlight.UI.Panels.MFOutputPanel(dev as MobiFlight.Config.Output, module.GetFreePins());
-                            (panel as MobiFlight.UI.Panels.MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetFreePins());
+                            (panel as MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.LcdDisplay:
-                            panel = new MobiFlight.UI.Panels.MFLcddDisplayPanel(dev as MobiFlight.Config.LcdDisplay, module.GetFreePins());
-                            (panel as MobiFlight.UI.Panels.MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            panel = new MFLcddDisplayPanel(dev as MobiFlight.Config.LcdDisplay, module.GetFreePins());
+                            (panel as MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
                             // output
                     }
