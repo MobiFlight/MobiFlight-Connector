@@ -42,8 +42,10 @@ namespace MobiFlight.UI.Dialogs
                              DataSet dataSetConfig, 
                              String filterGuid)
         {
+
             this.moduleSettings = moduleSettings;
             Init(mainForm, cfg);            
+
             initWithArcazeCache(arcazeCache);
             preparePreconditionPanel(dataSetConfig, filterGuid);
             _loadPresets();
@@ -171,13 +173,14 @@ namespace MobiFlight.UI.Dialogs
             preconditionPinSerialComboBox.Items.Clear();
             inputModuleNameComboBox.Items.Add("-");
             preconditionPinSerialComboBox.Items.Add("-");
-
+#if ARCAZE
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 arcazeFirmware[module.Serial] = module.Version;
                 //displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
                 preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
+#endif
 #if MOBIFLIGHT
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {

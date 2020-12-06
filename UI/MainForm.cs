@@ -132,10 +132,11 @@ namespace MobiFlight.UI
             execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
-
+#if ARCAZE
             execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
             execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
             execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+#endif
             execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
 
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
@@ -185,7 +186,9 @@ namespace MobiFlight.UI
             AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
 
             startupPanel.UpdateStatusText("Start Connecting");
+#if ARCAZE
             _initializeArcazeModuleSettings();
+#endif
             Update();
             Refresh();
             execManager.AutoConnectStart();
@@ -501,7 +504,7 @@ namespace MobiFlight.UI
             }
             base.WndProc(ref m);            
         } */
-
+#if ARCAZE
         private void _initializeArcazeModuleSettings()
         {
             Dictionary<string, ArcazeModuleSettings> settings = getArcazeModuleSettings();
@@ -593,6 +596,7 @@ namespace MobiFlight.UI
             arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
         }
+#endif
 
         /// <summary>
         /// updates the UI with appropriate icon states
@@ -718,13 +722,15 @@ namespace MobiFlight.UI
             arcazeSerial.Items.Add("none");
             arcazeUsbToolStripDropDownButton.DropDownItems.Clear();
             arcazeUsbToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoArcazeModuleFound");
-
+#if ARCAZE
             // TODO: refactor!!!
             foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
             {
                 arcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
                 arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
             }
+#endif
+
 #if MOBIFLIGHT
             foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
             {
@@ -1427,9 +1433,14 @@ namespace MobiFlight.UI
             // refactor!!! dependency to arcaze cache etc not nice
             InputConfigWizard wizard = new InputConfigWizard ( 
                                 execManager, 
-                                cfg, 
+                                cfg,
+#if ARCAZE
                                 execManager.getModuleCache(), 
                                 getArcazeModuleSettings(),
+#else
+                                null, 
+                                null,
+#endif
                                 dataSetConfig, 
                                 dataRow["guid"].ToString()
                                 );
@@ -1463,9 +1474,14 @@ namespace MobiFlight.UI
         {
             // refactor!!! dependency to arcaze cache etc not nice
             Form wizard = new ConfigWizard( execManager, 
-                                            cfg, 
+                                            cfg,
+#if ARCAZE
                                             execManager.getModuleCache(), 
                                             getArcazeModuleSettings(), 
+#else
+                                            null,
+                                            null,
+#endif
                                             dataSetConfig, 
                                             dataRow["guid"].ToString()
                                           );
@@ -1522,7 +1538,9 @@ namespace MobiFlight.UI
                 // TODO: refactor
                 logTextBox.Visible = Log.Instance.Enabled;
                 logSplitter.Visible = Log.Instance.Enabled;
-                execManager.updateModuleSettings(getArcazeModuleSettings());                
+#if ARCAZE
+                execManager.updateModuleSettings(getArcazeModuleSettings());
+#endif
             }
         }
 

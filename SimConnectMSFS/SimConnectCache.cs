@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Microsoft.FlightSimulator.SimConnect;
+//using LockheedMartin.Prepar3D.SimConnect;
 
-namespace MobiFlight.SimConnect
+namespace MobiFlight.SimConnectMSFS
 {
-    class SimConnectCacheInterface
+    class SimConnectCache
     {
         public event EventHandler Closed;
         public event EventHandler Connected;
@@ -90,7 +91,7 @@ namespace MobiFlight.SimConnect
         private IntPtr m_hWnd = new IntPtr(0);
 
         /// SimConnect object
-        private Microsoft.FlightSimulator.SimConnect.SimConnect m_oSimConnect = null;
+        private SimConnect m_oSimConnect = null;
 
         /* public void Clear()
          {
@@ -102,14 +103,14 @@ namespace MobiFlight.SimConnect
             try
             {
                 /// The constructor is similar to SimConnect_Open in the native API
-                m_oSimConnect = new Microsoft.FlightSimulator.SimConnect.SimConnect("Simconnect - Simvar test", m_hWnd, WM_USER_SIMCONNECT, null, 0);
+                m_oSimConnect = new SimConnect("Simconnect - Simvar test", m_hWnd, WM_USER_SIMCONNECT, null, 0);
 
                 /// Listen to connect and quit msgs
-                m_oSimConnect.OnRecvOpen += new Microsoft.FlightSimulator.SimConnect.SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
-                m_oSimConnect.OnRecvQuit += new Microsoft.FlightSimulator.SimConnect.SimConnect.RecvQuitEventHandler(SimConnect_OnRecvQuit);
+                m_oSimConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
+                m_oSimConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(SimConnect_OnRecvQuit);
 
                 /// Listen to exceptions
-                m_oSimConnect.OnRecvException += new Microsoft.FlightSimulator.SimConnect.SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
+                m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
             }
             catch (COMException ex)
             {
@@ -119,7 +120,7 @@ namespace MobiFlight.SimConnect
             return true;
         }
 
-        private void SimConnect_OnRecvOpen(Microsoft.FlightSimulator.SimConnect.SimConnect sender, SIMCONNECT_RECV_OPEN data)
+        private void SimConnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
         {
             _connected = true;
 
@@ -135,12 +136,12 @@ namespace MobiFlight.SimConnect
         }
 
         /// The case where the user closes game
-        private void SimConnect_OnRecvQuit(Microsoft.FlightSimulator.SimConnect.SimConnect sender, SIMCONNECT_RECV data)
+        private void SimConnect_OnRecvQuit(SimConnect sender, SIMCONNECT_RECV data)
         {
             Disconnect();
         }
 
-        private void SimConnect_OnRecvException(Microsoft.FlightSimulator.SimConnect.SimConnect sender, SIMCONNECT_RECV_EXCEPTION data)
+        private void SimConnect_OnRecvException(SimConnect sender, SIMCONNECT_RECV_EXCEPTION data)
         {
             SIMCONNECT_EXCEPTION eException = (SIMCONNECT_EXCEPTION)data.dwException;
         }

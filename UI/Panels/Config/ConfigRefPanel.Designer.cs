@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigRefPanel));
             this.configRefItemPanel = new System.Windows.Forms.Panel();
-            this.configRefPanelItem4 = new MobiFlight.UI.Panels.Config.ConfigRefPanelItem();
-            this.configRefPanelItem3 = new MobiFlight.UI.Panels.Config.ConfigRefPanelItem();
-            this.configRefPanelItem2 = new MobiFlight.UI.Panels.Config.ConfigRefPanelItem();
-            this.configRefPanelItem1 = new MobiFlight.UI.Panels.Config.ConfigRefPanelItem();
+            this.configRefPanelItem3 = new ConfigRefPanelItem();
+            this.configRefPanelItem4 = new ConfigRefPanelItem();
+            this.configRefPanelItem2 = new ConfigRefPanelItem();
+            this.configRefPanelItem1 = new ConfigRefPanelItem();
             this.configRefItemPanel.SuspendLayout();
             this.SuspendLayout();
             // 

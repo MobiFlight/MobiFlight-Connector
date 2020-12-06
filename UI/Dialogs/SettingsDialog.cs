@@ -43,10 +43,12 @@ namespace MobiFlight.UI.Dialogs
             modulesForFlashing = new List<MobiFlightModuleInfo>();
             modulesForUpdate = new List<MobiFlightModule>();
             Init();
-
+#if ARCAZE
             InitArcazeModuleTreeView(execManager);
+#endif
         }
-        
+
+#if ARCAZE
         private void InitArcazeModuleTreeView(ExecutionManager execManager)
         {
             ArcazeCache arcazeCache = execManager.getModuleCache();
@@ -80,7 +82,7 @@ namespace MobiFlight.UI.Dialogs
                 arcazeModuleSettingsGroupBox.Enabled = false;
             }
         }
-
+#endif
         private void Init()
         {
             InitializeComponent();
