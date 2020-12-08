@@ -23,6 +23,8 @@ namespace MobiFlight.Base
 
         void setEventID(int eventID, int param);
 
+        void setEventID(string eventID);
+
         void Write();
     }
 }

@@ -147,7 +147,6 @@
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "PmdgEventIdInputPanel";
             resources.ApplyResources(this, "$this");
-            this.Load += new System.EventHandler(this.EventIdInputPanel_Load);
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             this.fsuipcLoadPresetGroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);

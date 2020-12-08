@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,9 +45,9 @@ namespace MobiFlight.InputConfig
             return TYPE;
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCacheInterface moduleCache)
         {
-            (cache as MobiFlight.FSUIPC.FSUIPCCacheInterface).setEventID(EventId, Param);
+            fsuipcCache.setEventID(EventId, Param);
         }
     }
 }

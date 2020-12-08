@@ -552,6 +552,11 @@ namespace MobiFlight.FSUIPC
             }
         }
 
+        public void setEventID(string eventID)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Write()
         {
             try
@@ -573,5 +578,6 @@ namespace MobiFlight.FSUIPC
                 throw e;
             }
         }
+
     }
 }

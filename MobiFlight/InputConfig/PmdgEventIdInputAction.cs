@@ -49,9 +49,9 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("aircraft", AircraftType.ToString());
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCacheInterface moduleCache)
         {
-            (cache as MobiFlight.FSUIPC.FSUIPCCacheInterface).setEventID(EventId, (int) Param);
+            fsuipcCache.setEventID(EventId, (int) Param);
         }
     }
 }

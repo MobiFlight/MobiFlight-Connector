@@ -90,6 +90,7 @@
     <Compile Include="MobiFlight\InputConfig\FsuipcOffsetInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\JeehellInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\KeyInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLcdDisplayTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
@@ -153,6 +154,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\MobiFlight\InputConfig\ButtonInputConfig\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\MSFS2020EventIdInputAction\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\MSFS2020EventIdInputAction\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

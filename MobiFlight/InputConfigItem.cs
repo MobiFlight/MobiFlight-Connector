@@ -142,18 +142,18 @@ namespace MobiFlight
             return clone;
         }
 
-        internal void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, MobiFlightCache moduleCache, ButtonArgs e)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, ButtonArgs e)
         {
             switch (Type)
             {
                 case TYPE_BUTTON:
                     if (button!=null)
-                        button.execute(fsuipcCache, moduleCache, e);
+                        button.execute(fsuipcCache, simConnectCache, moduleCache, e);
                     break;
 
                 case TYPE_ENCODER:
                     if (encoder!=null)
-                        encoder.execute(fsuipcCache, moduleCache, e);
+                        encoder.execute(fsuipcCache, simConnectCache, moduleCache, e);
                     break;
             }
         }

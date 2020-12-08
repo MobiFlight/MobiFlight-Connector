@@ -78,6 +78,10 @@ namespace MobiFlight.InputConfig
                         onLeft = new LuaMacroInputAction();
                         onLeft.ReadXml(reader);
                         break;
+                    case MSFS2020EventIdInputAction.TYPE:
+                        onLeft = new MSFS2020EventIdInputAction();
+                        onLeft.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -114,6 +118,11 @@ namespace MobiFlight.InputConfig
 
                     case LuaMacroInputAction.TYPE:
                         onLeftFast = new LuaMacroInputAction();
+                        onLeftFast.ReadXml(reader);
+                        break;
+
+                    case MSFS2020EventIdInputAction.TYPE:
+                        onLeftFast = new MSFS2020EventIdInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
                 }
@@ -154,6 +163,11 @@ namespace MobiFlight.InputConfig
                         onRight = new LuaMacroInputAction();
                         onRight.ReadXml(reader);
                         break;
+
+                    case MSFS2020EventIdInputAction.TYPE:
+                        onRight = new MSFS2020EventIdInputAction();
+                        onRight.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -192,6 +206,11 @@ namespace MobiFlight.InputConfig
                         onRightFast = new LuaMacroInputAction();
                         onRightFast.ReadXml(reader);
                         break;
+
+                    case MSFS2020EventIdInputAction.TYPE:
+                        onRightFast = new MSFS2020EventIdInputAction();
+                        onRightFast.ReadXml(reader);
+                        break;
                 }
             }
         }
@@ -215,27 +234,27 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, MobiFlightCache moduleCache, ButtonArgs e)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, ButtonArgs e)
         {
             if ((e.Value == 0 && onLeft != null) || (e.Value == 1 && onLeftFast == null))
             {
                 Log.Instance.log("Executing OnLeft: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onLeft.execute(fsuipcCache, moduleCache);
+                onLeft.execute(fsuipcCache, simConnectCache, moduleCache);
             }
             else if (e.Value == 1 && onLeftFast != null)
             {
                 Log.Instance.log("Executing OnLeftFast: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onLeftFast.execute(fsuipcCache, moduleCache);
+                onLeftFast.execute(fsuipcCache, simConnectCache, moduleCache);
             }
             else if ((e.Value == 2 && onRight != null) || (e.Value == 3 && onRightFast == null))
             {
                 Log.Instance.log("Executing OnRight: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onRight.execute(fsuipcCache, moduleCache);
+                onRight.execute(fsuipcCache, simConnectCache, moduleCache);
             }
             else if (e.Value == 3 && onRightFast != null)
             {
                 Log.Instance.log("Executing OnRightFast: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onRightFast.execute(fsuipcCache, moduleCache);
+                onRightFast.execute(fsuipcCache, simConnectCache, moduleCache);
             }
 
         }

@@ -124,14 +124,14 @@ namespace MobiFlight.InputConfig
             return result;
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.Fsuipc2Cache cache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCacheInterface moduleCache)
         {
             String value = Param;
             IFsuipcConfigItem cfg = CreateFsuipcConfigItem();
 
             if (value.Contains("$"))
             {
-                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg, cache);
+                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg, cache as FSUIPC.FSUIPCCacheInterface);
                 tmpValue = FSUIPC.FsuipcHelper.executeTransform(tmpValue, cfg);
 
                 Log.Instance.log("JeehellInputAction:Execute : Current value " + tmpValue.Int64.ToString(), LogSeverity.Debug);
@@ -154,8 +154,8 @@ namespace MobiFlight.InputConfig
             cfg.FSUIPCMask = 0xFFFF;
 
             Log.Instance.log("JeehellInputAction:Execute : Setting value " + value + " for EventID: " + EventId, LogSeverity.Debug);
-            FSUIPC.FsuipcHelper.executeWrite(value, cfg, cache);
-            FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), cache);
+            FSUIPC.FsuipcHelper.executeWrite(value, cfg, cache as FSUIPC.FSUIPCCacheInterface);
+            FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), cache as FSUIPC.FSUIPCCacheInterface);
             cache.Write();
         }
     }

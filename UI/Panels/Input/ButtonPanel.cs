@@ -108,6 +108,15 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as MobiFlight.UI.Panels.Action.RetriggerInputPanel).syncFromConfig(_config.onRelease as RetriggerInputAction);
 
                     break;
+
+                case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
+                    panel = new MobiFlight.UI.Panels.Action.MSFS2020InputPanel();
+                    if (isOnPress && _config != null && _config.onPress != null)
+                        (panel as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).syncFromConfig(_config.onPress as MSFS2020EventIdInputAction);
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).syncFromConfig(_config.onRelease as MSFS2020EventIdInputAction);
+
+                    break;
             }
 
             if (panel != null)
@@ -174,6 +183,9 @@ namespace MobiFlight.UI.Panels.Input
                     case MobiFlight.InputConfig.RetriggerInputAction.Label:
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.RetriggerInputPanel).ToConfig();
                         break;
+                    case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).ToConfig();
+                        break;
 
                     default:
                         config.onPress = null;
@@ -215,6 +227,10 @@ namespace MobiFlight.UI.Panels.Input
 
                     case MobiFlight.InputConfig.RetriggerInputAction.Label:
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.RetriggerInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
+                        config.onRelease = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).ToConfig();
                         break;
 
                     default:

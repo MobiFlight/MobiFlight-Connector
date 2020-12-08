@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
+using MobiFlight.Base;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -482,7 +483,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 // disable test button
                 // in case that no display is selected                
-                String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+                String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
 
                 displayTypeComboBox.Enabled = groupBoxDisplaySettings.Enabled = testSettingsGroupBox.Enabled = (serial != "");
                 // serial is empty if no module is selected (on init of form)
@@ -564,7 +565,7 @@ namespace MobiFlight.UI.Dialogs
                 bool panelEnabled = true;
                 // get the deviceinfo for the current arcaze
                 ComboBox cb = displayModuleNameComboBox;                
-                String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+                String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
 
                 // we remove the callback method to ensure, that it is not added more than once
                 displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged -= displayLedAddressComboBox_SelectedIndexChanged;
@@ -735,7 +736,7 @@ namespace MobiFlight.UI.Dialogs
         void displayLedAddressComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = displayModuleNameComboBox;                
-            String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
             List<ListItem> connectors = new List<ListItem>();
@@ -1183,7 +1184,7 @@ namespace MobiFlight.UI.Dialogs
         {
             // get the deviceinfo for the current arcaze
             ComboBox cb = preconditionPinSerialComboBox;
-            String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
             // if (serial == "" && config.DisplaySerial != null) serial = ArcazeModuleSettings.ExtractSerial(config.DisplaySerial);
 
             if (serial.IndexOf("SN") != 0)

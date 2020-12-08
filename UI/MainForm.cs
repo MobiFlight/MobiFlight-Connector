@@ -123,7 +123,7 @@ namespace MobiFlight.UI
 
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
-            execManager = new ExecutionManager(dataGridViewConfig, inputsDataGridView);
+            execManager = new ExecutionManager(dataGridViewConfig, inputsDataGridView, this.Handle);
             execManager.OnExecute += new EventHandler(timer_Tick);
             execManager.OnStopped += new EventHandler(timer_Stopped);
             execManager.OnStarted += new EventHandler(timer_Started);
@@ -492,18 +492,6 @@ namespace MobiFlight.UI
              * */
         }
 
-        /**
-        private const int WM_DEVICECHANGE = 0x0219;  // int = 537
-        private const int DEVICE_NOTIFY_ALL_INTERFACE_CLASSES = 0x00000004; 
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == WM_DEVICECHANGE)
-            {
-                arcazeCache_ConnectionLost(null, null);                
-            }
-            base.WndProc(ref m);            
-        } */
 #if ARCAZE
         private void _initializeArcazeModuleSettings()
         {
@@ -612,6 +600,8 @@ namespace MobiFlight.UI
         /// </summary>        
         void fsuipcCache_Connected(object sender, EventArgs e)
         {
+            if (sender.GetType() != typeof(Fsuipc2Cache)) return;
+
             Fsuipc2Cache c = sender as Fsuipc2Cache;
             switch (c.FlightSimConnectionMethod)
             {
@@ -1434,13 +1424,10 @@ namespace MobiFlight.UI
             InputConfigWizard wizard = new InputConfigWizard ( 
                                 execManager, 
                                 cfg,
-#if ARCAZE
-                                execManager.getModuleCache(), 
-                                getArcazeModuleSettings(),
-#else
-                                null, 
-                                null,
-#endif
+//#if ARCAZE
+//                                execManager.getModuleCache(), 
+//                                getArcazeModuleSettings(),
+//#endif
                                 dataSetConfig, 
                                 dataRow["guid"].ToString()
                                 );
@@ -1901,6 +1888,8 @@ namespace MobiFlight.UI
             {
                 ShowMe();
             }
+            if (m.Msg == SimConnectMSFS.SimConnectCache.WM_USER_SIMCONNECT) execManager?.HandleWndProc(ref m);
+
             base.WndProc(ref m);
         }
 

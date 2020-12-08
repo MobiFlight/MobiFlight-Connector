@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using SimpleSolutions.Usb;
+//using SimpleSolutions.Usb;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,7 +18,9 @@ namespace MobiFlight.UI.Dialogs
 {
     public partial class SettingsDialog : Form
     {
+#if ARCAZE
         List <ArcazeModuleSettings> moduleSettings;
+#endif 
         ExecutionManager execManager;
         int lastSelectedIndex = -1;
         Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new Forms.FirmwareUpdateProcess();
@@ -86,13 +88,14 @@ namespace MobiFlight.UI.Dialogs
         private void Init()
         {
             InitializeComponent();
-
+#if ARCAZE
             arcazeModuleTypeComboBox.Items.Clear();
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.InternalIo.ToString());
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.DisplayDriver.ToString());
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.LedDriver2.ToString());
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.LedDriver3.ToString());
             arcazeModuleTypeComboBox.SelectedIndex = 0;
+#endif
 
             // initialize mftreeviewimagelist
             mfTreeViewImageList.Images.Add("module", MobiFlight.Properties.Resources.module_mobiflight);
@@ -175,10 +178,11 @@ namespace MobiFlight.UI.Dialogs
 
             // Beta Versions
             BetaUpdateCheckBox.Checked = Properties.Settings.Default.BetaUpdates;
-            
+
             //
             // TAB Arcaze
             //
+#if ARCAZE
             moduleSettings = new List<ArcazeModuleSettings>();
             if ("" != Properties.Settings.Default.ModuleSettings)
             {
@@ -194,6 +198,7 @@ namespace MobiFlight.UI.Dialogs
                     Log.Instance.log("Exception on Deserializing arcaze extension module settings: " + e.Message, LogSeverity.Debug);
                 }
             }
+#endif
 
             //
             // TAB MobiFlight
@@ -345,7 +350,7 @@ namespace MobiFlight.UI.Dialogs
             // MobiFlight Tab
             // only the Firmware Auto Check Update needs to be synchronized 
             Properties.Settings.Default.FwAutoUpdateCheck = FwAutoUpdateCheckBox.Checked;
-
+#if ARCAZE
             try
             {
                 XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));                
@@ -358,6 +363,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 Log.Instance.log("Exception on serializing arcaze extension module settings: " + e.Message, LogSeverity.Debug);
             }
+#endif
         }
 
         /// <summary>
@@ -406,6 +412,7 @@ namespace MobiFlight.UI.Dialogs
         /// </summary>
         /// <param name="serial"></param>
         private void _syncToModuleSettings(string serial) {
+#if ARCAZE
             if (IgnoreArcazeModuleSettingsChangeEvents) return;
 
             ArcazeModuleSettings settingsToSave = null;
@@ -439,8 +446,10 @@ namespace MobiFlight.UI.Dialogs
                     ArcazeModuleTreeView.SelectedNode.SelectedImageKey = ArcazeModuleTreeView.SelectedNode.ImageKey = "Changed-arcaze";
                 }
             }
+#endif
         }
 
+#if ARCAZE
         /// <summary>
         /// Restore the arcaze settings
         /// </summary>
@@ -478,6 +487,7 @@ namespace MobiFlight.UI.Dialogs
             }
             IgnoreArcazeModuleSettingsChangeEvents = false;
         }
+#endif
 
         /// <summary>
         /// Validate settings, e.g. ensure that every Arcaze has been configured.
@@ -505,6 +515,7 @@ namespace MobiFlight.UI.Dialogs
             DialogResult = DialogResult.Cancel;
         }
 
+
         /// <summary>
         /// Callback if extension type is changed for a selected Arcaze Board
         /// Show the correct options
@@ -513,6 +524,7 @@ namespace MobiFlight.UI.Dialogs
         /// <param name="e"></param>
         private void arcazeModuleTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+#if ARCAZE
             numModulesLabel.Visible = (sender as ComboBox).SelectedIndex != 0;
             numModulesNumericUpDown.Visible = (sender as ComboBox).SelectedIndex != 0;
 
@@ -549,6 +561,7 @@ namespace MobiFlight.UI.Dialogs
             }
 
             _syncToModuleSettings((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial);
+#endif
         }
 
         private void mobiflightSettingsLabel_Click(object sender, EventArgs e)
@@ -1212,14 +1225,18 @@ namespace MobiFlight.UI.Dialogs
             syncPanelWithSelectedDevice(parentNode);
         }
 
+
         private void ArcazeModuleTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+#if ARCAZE
             if (e.Node == null) return;
             TreeNode parentNode = e.Node;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
             arcazeModuleSettingsGroupBox.Visible = true;
             _syncFromModuleSettings((parentNode.Tag as ArcazeModuleInfo).Serial);
+#endif
         }
+
 
         private void numModulesNumericUpDown_ValueChanged(object sender, EventArgs e)
         {

@@ -53,6 +53,9 @@ namespace MobiFlight
         private Timer testModeTimer = new Timer();
         int testModeIndex = 0;
 
+        /// Window handle
+        private IntPtr handle = new IntPtr(0);
+
         /// <summary>
         /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
         /// </summary>
@@ -73,7 +76,7 @@ namespace MobiFlight
 
         private bool _autoConnectTimerRunning = false;
 
-        public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView)
+        public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView, IntPtr handle)
         {
             this.dataGridViewConfig = dataGridViewConfig;
             this.inputsDataGridView = inputsDataGridView;
@@ -82,6 +85,7 @@ namespace MobiFlight
             fsuipcCache.Connected += new EventHandler(fsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(fsuipcCache_Closed);
 
+            simConnectCache.SetHandle(handle);
             simConnectCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             simConnectCache.Connected += new EventHandler(simConnect_Connected);
             simConnectCache.Closed += new EventHandler(simConnect_Closed);
@@ -111,6 +115,14 @@ namespace MobiFlight
 #if MOBIFLIGHT
             mobiFlightCache.OnButtonPressed += new MobiFlightCache.ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
+        }
+
+        public void HandleWndProc(ref Message m)
+        {
+            if (m.Msg == SimConnectMSFS.SimConnectCache.WM_USER_SIMCONNECT)
+            {
+                simConnectCache.ReceiveSimConnectMessage();
+            }
         }
 
         private void simConnect_Closed(object sender, EventArgs e)
@@ -1012,7 +1024,7 @@ namespace MobiFlight
         {
             TestModeStop();
             Stop();
-            this.OnModulesConnected(sender, e);
+            this.OnModulesConnected?.Invoke(sender, e);
         }
 
         /// <summary>
@@ -1276,7 +1288,7 @@ namespace MobiFlight
                     }
                 }
 
-                tuple.Item1.execute(fsuipcCache, mobiFlightCache, e);
+                tuple.Item1.execute(fsuipcCache, simConnectCache, mobiFlightCache, e);
             }
 
             //fsuipcCache.ForceUpdate();

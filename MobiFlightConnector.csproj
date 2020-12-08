@@ -307,9 +307,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\ConfigRef.cs" />
+    <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\PreconditionList.cs" />
+    <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -349,6 +352,12 @@
     </Compile>
     <Compile Include="UI\Forms\ConfigUploadProgress.Designer.cs">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Action\MSFS2020InputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
+      <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\StartupPanel.cs">
       <SubType>UserControl</SubType>
@@ -717,20 +726,23 @@
     <None Include="firmware\mobiflight_uno_1_9_6.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\msfs2020_eventids.cip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
-    <None Include="presets_eventids_pmdg_737.cip">
+    <None Include="Presets\presets_eventids_pmdg_737.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="presets_eventids_pmdg_747.cip">
+    <None Include="Presets\presets_eventids_pmdg_747.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="presets_eventids_pmdg_777.cip">
+    <None Include="Presets\presets_eventids_pmdg_777.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="presets_jeehell.cip">
+    <None Include="Presets\presets_jeehell.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="presets_eventids.cip">
+    <None Include="Presets\presets_eventids.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\arcaze-module.png" />
@@ -755,6 +767,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\MSFS2020InputPanel.resx">
+      <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\StartupPanel.resx">
       <DependentUpon>StartupPanel.cs</DependentUpon>
@@ -982,11 +997,11 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="presets.aip">
+    <None Include="Presets\presets.aip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-    <None Include="presets_inputs.aip">
+    <None Include="Presets\presets_inputs.aip">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

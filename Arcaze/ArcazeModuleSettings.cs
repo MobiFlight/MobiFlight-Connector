@@ -106,12 +106,5 @@ namespace MobiFlight
 
             return ArcazeCommand.ExtModuleType.InternalIo;
         }
-
-        public static string ExtractSerial(String s)
-        {
-            if (!s.Contains("/")) return "";
-
-            return s.Split('/')[1].Trim();
-        }
     }
 }

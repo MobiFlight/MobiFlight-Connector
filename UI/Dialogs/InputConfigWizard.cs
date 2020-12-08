@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
+using MobiFlight.Base;
 using MobiFlight.UI.Panels;
 using MobiFlight.UI.Panels.Input;
 
@@ -26,8 +27,9 @@ namespace MobiFlight.UI.Dialogs
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
         DataSet _dataSetConfig = null;
-
+#if ARCAZE
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
+#endif
 
         UI.Panels.DisplayPinPanel displayPinPanel = new UI.Panels.DisplayPinPanel();
         UI.Panels.DisplayBcdPanel displayBcdPanel = new UI.Panels.DisplayBcdPanel();
@@ -36,17 +38,21 @@ namespace MobiFlight.UI.Dialogs
         UI.Panels.ServoPanel servoPanel = new UI.Panels.ServoPanel();
 
         public InputConfigWizard(ExecutionManager mainForm, 
-                             InputConfigItem cfg, 
+                             InputConfigItem cfg,
+#if ARCAZE
                              ArcazeCache arcazeCache, 
                              Dictionary<string, ArcazeModuleSettings> moduleSettings, 
+#endif
                              DataSet dataSetConfig, 
                              String filterGuid)
         {
-
+            Init(mainForm, cfg);
+#if ARCAZE
             this.moduleSettings = moduleSettings;
-            Init(mainForm, cfg);            
-
             initWithArcazeCache(arcazeCache);
+#else
+            initWithoutArcazeCache();
+#endif
             preparePreconditionPanel(dataSetConfig, filterGuid);
             _loadPresets();
             // displayLedDisplayComboBox.Items.Clear(); 
@@ -159,7 +165,7 @@ namespace MobiFlight.UI.Dialogs
                 preConditionTypeComboBox.SelectedIndex = 0;
             }
         }
-
+#if ARCAZE
         /// <summary>
         /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
         /// </summary>
@@ -173,23 +179,39 @@ namespace MobiFlight.UI.Dialogs
             preconditionPinSerialComboBox.Items.Clear();
             inputModuleNameComboBox.Items.Add("-");
             preconditionPinSerialComboBox.Items.Add("-");
-#if ARCAZE
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 arcazeFirmware[module.Serial] = module.Version;
                 //displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
                 preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
-#endif
-#if MOBIFLIGHT
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
                 inputModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
                 preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
-#endif
             inputModuleNameComboBox.SelectedIndex = 0;
             preconditionPinSerialComboBox.SelectedIndex = 0;            
+        }
+#endif
+
+        public void initWithoutArcazeCache()
+        {
+
+            // update the display box with
+            // modules
+            inputModuleNameComboBox.Items.Clear();
+            preconditionPinSerialComboBox.Items.Clear();
+            inputModuleNameComboBox.Items.Add("-");
+            preconditionPinSerialComboBox.Items.Add("-");
+
+            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
+            {
+                inputModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
+                preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+            }
+            inputModuleNameComboBox.SelectedIndex = 0;
+            preconditionPinSerialComboBox.SelectedIndex = 0;
         }
 
         protected string _extractSerial(String ModuleSerial)
@@ -335,7 +357,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 // disable test button
                 // in case that no display is selected                
-                String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+                String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
 
                 inputTypeComboBox.Enabled = groupBoxInputSettings.Enabled = (serial != "");
                 // serial is empty if no module is selected (on init of form)
@@ -422,7 +444,7 @@ namespace MobiFlight.UI.Dialogs
                 bool panelEnabled = true;
                 // get the deviceinfo for the current arcaze
                 ComboBox cb = inputModuleNameComboBox;                
-                String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+                String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
 
                 // we remove the callback method to ensure, that it is not added more than once
                 // displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged -= displayLedAddressComboBox_SelectedIndexChanged;
@@ -462,7 +484,7 @@ namespace MobiFlight.UI.Dialogs
         void displayLedAddressComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = inputModuleNameComboBox;                
-            String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
             List<ListItem> connectors = new List<ListItem>();
@@ -800,9 +822,9 @@ namespace MobiFlight.UI.Dialogs
         {
             // get the deviceinfo for the current arcaze
             ComboBox cb = preconditionPinSerialComboBox;
-            String serial = ArcazeModuleSettings.ExtractSerial(cb.SelectedItem.ToString());
+            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
             // if (serial == "" && config.ModuleSerial != null) serial = ArcazeModuleSettings.ExtractSerial(config.ModuleSerial);
-
+#if ARCAZE
             if (serial.IndexOf("SN") != 0)
             {
                 preconditionPortComboBox.Items.Clear();
@@ -831,6 +853,7 @@ namespace MobiFlight.UI.Dialogs
                     preconditionPinComboBox.Items.Add(v);
                 }
             }
+#endif
         }
     }
 }

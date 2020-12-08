@@ -81,6 +81,11 @@ namespace MobiFlight.InputConfig
                         onPress = new VJoyInputAction();
                         onPress.ReadXml(reader);
                         break;
+
+                    case MSFS2020EventIdInputAction.TYPE:
+                        onPress = new MSFS2020EventIdInputAction();
+                        onPress.ReadXml(reader);
+                        break;
                 }
             }
 
@@ -133,6 +138,10 @@ namespace MobiFlight.InputConfig
                         onRelease = new VJoyInputAction();
                         onRelease.ReadXml(reader);
                         break;
+                    case MSFS2020EventIdInputAction.TYPE:
+                        onRelease = new MSFS2020EventIdInputAction();
+                        onRelease.ReadXml(reader);
+                        break;
                 }
             }
         }
@@ -148,17 +157,17 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, MobiFlightCache moduleCache, ButtonArgs e)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, ButtonArgs e)
         {
             if (e.Value == 0 && onPress != null)
             {
                 Log.Instance.log("Executing OnPress: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onPress.execute(fsuipcCache, moduleCache);
-                }
-            else if (e.Value == 1 && onPress != null)
+                onPress.execute(fsuipcCache, simConnectCache, moduleCache);
+            }
+            else if (e.Value == 1 && onRelease != null)
             {
                 Log.Instance.log("Executing OnRelease: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onRelease.execute(fsuipcCache, moduleCache);
+                onRelease.execute(fsuipcCache, simConnectCache, moduleCache);
             }
 
         }

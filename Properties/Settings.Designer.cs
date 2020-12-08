@@ -12,7 +12,7 @@ namespace MobiFlight.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -61,7 +61,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("presets.aip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets.aip")]
         public string PresetFile {
             get {
                 return ((string)(this["PresetFile"]));
@@ -145,7 +145,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("presets_inputs.aip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_inputs.aip")]
         public string InputsPresetFile {
             get {
                 return ((string)(this["InputsPresetFile"]));
@@ -193,7 +193,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("presets_eventids.cip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_eventids.cip")]
         public string EventIdPresetFile {
             get {
                 return ((string)(this["EventIdPresetFile"]));
@@ -218,7 +218,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("presets_jeehell.cip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_jeehell.cip")]
         public string JeehellPresetFile {
             get {
                 return ((string)(this["JeehellPresetFile"]));
@@ -266,7 +266,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("presets_eventids_pmdg_737.cip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_eventids_pmdg_737.cip")]
         public string Pmdg737EventIdPresetFile {
             get {
                 return ((string)(this["Pmdg737EventIdPresetFile"]));
@@ -278,7 +278,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("presets_eventids_pmdg_777.cip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_eventids_pmdg_777.cip")]
         public string Pmdg777EventIdPresetFile {
             get {
                 return ((string)(this["Pmdg777EventIdPresetFile"]));
@@ -290,7 +290,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("presets_eventids_pmdg_747.cip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_eventids_pmdg_747.cip")]
         public string Pmdg747EventIdPresetFile {
             get {
                 return ((string)(this["Pmdg747EventIdPresetFile"]));
@@ -309,6 +309,18 @@ namespace MobiFlight.Properties {
             }
             set {
                 this["BetaUpdates"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_eventids.cip")]
+        public string MSFS2020EventsPresetFile {
+            get {
+                return ((string)(this["MSFS2020EventsPresetFile"]));
+            }
+            set {
+                this["MSFS2020EventsPresetFile"] = value;
             }
         }
     }

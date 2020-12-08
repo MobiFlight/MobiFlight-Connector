@@ -29,6 +29,7 @@ namespace MobiFlight.UI.Panels.Config
             ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.LuaMacroInputAction.Label);
             ActionTypeComboBox.Items.Add("vJoy virtual Joystick");
             ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.RetriggerInputAction.Label);
+            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label);
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 
@@ -71,6 +72,9 @@ namespace MobiFlight.UI.Panels.Config
 
                 case "MobiFlight.InputConfig.RetriggerInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.RetriggerInputAction.Label);
+                    break;
+                case "MobiFlight.InputConfig.MSFS2020EventIdInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label);
                     break;
             }
         }

@@ -31,7 +31,7 @@ namespace MobiFlight.InputConfig
             return clone;
         }
 
-        public override void execute(FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCacheInterface moduleCache)
         {
             if (buttonNr > 0)
             {

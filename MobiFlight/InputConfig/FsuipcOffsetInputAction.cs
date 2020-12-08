@@ -128,13 +128,13 @@ namespace MobiFlight.InputConfig
             }
         }   
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.Fsuipc2Cache cache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCacheInterface moduleCache)
         {
             String value = Value;
             // apply ncalc logic
             if (value.Contains("$"))
             {
-                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(this, cache);
+                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(this, cache as FSUIPC.FSUIPCCacheInterface);
 
                 String expression = Value.Replace("$", tmpValue.ToString());
                 var ce = new NCalc.Expression(expression);
