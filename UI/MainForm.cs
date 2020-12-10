@@ -132,11 +132,11 @@ namespace MobiFlight.UI
             execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
-#if ARCAZE
+//#if ARCAZE
             execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
             execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
             execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
-#endif
+//#endif
             execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
 
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
@@ -561,7 +561,7 @@ namespace MobiFlight.UI
                
             return result;
         }
-
+#endif
         void arcazeCache_ConnectionLost(object sender, EventArgs e)
         {
             //_disconnectArcaze();
@@ -584,7 +584,7 @@ namespace MobiFlight.UI
             arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
         }
-#endif
+
 
         /// <summary>
         /// updates the UI with appropriate icon states

@@ -40,7 +40,7 @@
     <OutputPath>bin\Debug-Mobiflight Offline\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -99,6 +99,7 @@
     <Compile Include="mock\Base\KeyboardInputMock.cs" />
     <Compile Include="mock\FSUIPC\FSUIPCCacheMock.cs" />
     <Compile Include="mock\MobiFlight\MobiFlightCacheMock.cs" />
+    <Compile Include="mock\SimConnectMSFS\SimConnectCacheMock.cs" />
     <Compile Include="Panels\Group\InterpolationPanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
