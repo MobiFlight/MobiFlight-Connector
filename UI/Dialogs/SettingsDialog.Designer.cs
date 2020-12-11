@@ -67,26 +67,6 @@
             this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generalTabPage = new System.Windows.Forms.TabPage();
-            this.BetaUpdatesGroupBox = new System.Windows.Forms.GroupBox();
-            this.BetaUpdateCheckBox = new System.Windows.Forms.CheckBox();
-            this.languageGroupBox = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.languageComboBox = new System.Windows.Forms.ComboBox();
-            this.languageLabel = new System.Windows.Forms.Label();
-            this.offlineModeGroupBox = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.offlineModeCheckBox = new System.Windows.Forms.CheckBox();
-            this.debugGroupBox = new System.Windows.Forms.GroupBox();
-            this.logLevelComboBox = new System.Windows.Forms.ComboBox();
-            this.logLevelLabel = new System.Windows.Forms.Label();
-            this.logLevelCheckBox = new System.Windows.Forms.CheckBox();
-            this.testModeSpeedGroupBox = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.testModeSpeedTrackBar = new System.Windows.Forms.TrackBar();
-            this.recentFilesGroupBox = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.recentFilesNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
             this.mfConfiguredModulesGroupBox = new System.Windows.Forms.GroupBox();
@@ -128,6 +108,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.generalPanel = new MobiFlight.UI.Panels.Settings.GeneralPanel();
             this.panel1.SuspendLayout();
             this.ledDisplaysTabPage.SuspendLayout();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
@@ -136,14 +117,6 @@
             this.arcazeModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.generalTabPage.SuspendLayout();
-            this.BetaUpdatesGroupBox.SuspendLayout();
-            this.languageGroupBox.SuspendLayout();
-            this.offlineModeGroupBox.SuspendLayout();
-            this.debugGroupBox.SuspendLayout();
-            this.testModeSpeedGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.testModeSpeedTrackBar)).BeginInit();
-            this.recentFilesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.recentFilesNumericUpDown)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
             this.mfConfiguredModulesGroupBox.SuspendLayout();
@@ -431,151 +404,9 @@
             // generalTabPage
             // 
             this.generalTabPage.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.generalTabPage.Controls.Add(this.BetaUpdatesGroupBox);
-            this.generalTabPage.Controls.Add(this.languageGroupBox);
-            this.generalTabPage.Controls.Add(this.offlineModeGroupBox);
-            this.generalTabPage.Controls.Add(this.debugGroupBox);
-            this.generalTabPage.Controls.Add(this.testModeSpeedGroupBox);
-            this.generalTabPage.Controls.Add(this.recentFilesGroupBox);
+            this.generalTabPage.Controls.Add(this.generalPanel);
             resources.ApplyResources(this.generalTabPage, "generalTabPage");
             this.generalTabPage.Name = "generalTabPage";
-            // 
-            // BetaUpdatesGroupBox
-            // 
-            this.BetaUpdatesGroupBox.Controls.Add(this.BetaUpdateCheckBox);
-            resources.ApplyResources(this.BetaUpdatesGroupBox, "BetaUpdatesGroupBox");
-            this.BetaUpdatesGroupBox.Name = "BetaUpdatesGroupBox";
-            this.BetaUpdatesGroupBox.TabStop = false;
-            // 
-            // BetaUpdateCheckBox
-            // 
-            resources.ApplyResources(this.BetaUpdateCheckBox, "BetaUpdateCheckBox");
-            this.BetaUpdateCheckBox.Name = "BetaUpdateCheckBox";
-            this.BetaUpdateCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // languageGroupBox
-            // 
-            this.languageGroupBox.Controls.Add(this.label9);
-            this.languageGroupBox.Controls.Add(this.languageComboBox);
-            this.languageGroupBox.Controls.Add(this.languageLabel);
-            resources.ApplyResources(this.languageGroupBox, "languageGroupBox");
-            this.languageGroupBox.Name = "languageGroupBox";
-            this.languageGroupBox.TabStop = false;
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // languageComboBox
-            // 
-            this.languageComboBox.FormattingEnabled = true;
-            this.languageComboBox.Items.AddRange(new object[] {
-            resources.GetString("languageComboBox.Items"),
-            resources.GetString("languageComboBox.Items1"),
-            resources.GetString("languageComboBox.Items2")});
-            resources.ApplyResources(this.languageComboBox, "languageComboBox");
-            this.languageComboBox.Name = "languageComboBox";
-            // 
-            // languageLabel
-            // 
-            resources.ApplyResources(this.languageLabel, "languageLabel");
-            this.languageLabel.Name = "languageLabel";
-            // 
-            // offlineModeGroupBox
-            // 
-            this.offlineModeGroupBox.Controls.Add(this.label7);
-            this.offlineModeGroupBox.Controls.Add(this.offlineModeCheckBox);
-            resources.ApplyResources(this.offlineModeGroupBox, "offlineModeGroupBox");
-            this.offlineModeGroupBox.Name = "offlineModeGroupBox";
-            this.offlineModeGroupBox.TabStop = false;
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // offlineModeCheckBox
-            // 
-            resources.ApplyResources(this.offlineModeCheckBox, "offlineModeCheckBox");
-            this.offlineModeCheckBox.Name = "offlineModeCheckBox";
-            this.offlineModeCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // debugGroupBox
-            // 
-            this.debugGroupBox.Controls.Add(this.logLevelComboBox);
-            this.debugGroupBox.Controls.Add(this.logLevelLabel);
-            this.debugGroupBox.Controls.Add(this.logLevelCheckBox);
-            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
-            this.debugGroupBox.Name = "debugGroupBox";
-            this.debugGroupBox.TabStop = false;
-            // 
-            // logLevelComboBox
-            // 
-            this.logLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.logLevelComboBox.FormattingEnabled = true;
-            this.logLevelComboBox.Items.AddRange(new object[] {
-            resources.GetString("logLevelComboBox.Items"),
-            resources.GetString("logLevelComboBox.Items1"),
-            resources.GetString("logLevelComboBox.Items2"),
-            resources.GetString("logLevelComboBox.Items3")});
-            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
-            this.logLevelComboBox.Name = "logLevelComboBox";
-            // 
-            // logLevelLabel
-            // 
-            resources.ApplyResources(this.logLevelLabel, "logLevelLabel");
-            this.logLevelLabel.Name = "logLevelLabel";
-            // 
-            // logLevelCheckBox
-            // 
-            resources.ApplyResources(this.logLevelCheckBox, "logLevelCheckBox");
-            this.logLevelCheckBox.Name = "logLevelCheckBox";
-            this.logLevelCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // testModeSpeedGroupBox
-            // 
-            this.testModeSpeedGroupBox.Controls.Add(this.label8);
-            this.testModeSpeedGroupBox.Controls.Add(this.label6);
-            this.testModeSpeedGroupBox.Controls.Add(this.testModeSpeedTrackBar);
-            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
-            this.testModeSpeedGroupBox.Name = "testModeSpeedGroupBox";
-            this.testModeSpeedGroupBox.TabStop = false;
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // testModeSpeedTrackBar
-            // 
-            resources.ApplyResources(this.testModeSpeedTrackBar, "testModeSpeedTrackBar");
-            this.testModeSpeedTrackBar.Maximum = 4;
-            this.testModeSpeedTrackBar.Name = "testModeSpeedTrackBar";
-            // 
-            // recentFilesGroupBox
-            // 
-            this.recentFilesGroupBox.Controls.Add(this.label1);
-            this.recentFilesGroupBox.Controls.Add(this.recentFilesNumericUpDown);
-            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
-            this.recentFilesGroupBox.Name = "recentFilesGroupBox";
-            this.recentFilesGroupBox.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoEllipsis = true;
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // recentFilesNumericUpDown
-            // 
-            resources.ApplyResources(this.recentFilesNumericUpDown, "recentFilesNumericUpDown");
-            this.recentFilesNumericUpDown.Name = "recentFilesNumericUpDown";
             // 
             // tabControl1
             // 
@@ -859,6 +690,11 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // generalPanel
+            // 
+            resources.ApplyResources(this.generalPanel, "generalPanel");
+            this.generalPanel.Name = "generalPanel";
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -878,19 +714,6 @@
             this.arcazeModulesGroupBox.ResumeLayout(false);
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
             this.generalTabPage.ResumeLayout(false);
-            this.BetaUpdatesGroupBox.ResumeLayout(false);
-            this.BetaUpdatesGroupBox.PerformLayout();
-            this.languageGroupBox.ResumeLayout(false);
-            this.languageGroupBox.PerformLayout();
-            this.offlineModeGroupBox.ResumeLayout(false);
-            this.offlineModeGroupBox.PerformLayout();
-            this.debugGroupBox.ResumeLayout(false);
-            this.debugGroupBox.PerformLayout();
-            this.testModeSpeedGroupBox.ResumeLayout(false);
-            this.testModeSpeedGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.testModeSpeedTrackBar)).EndInit();
-            this.recentFilesGroupBox.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.recentFilesNumericUpDown)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
             this.mfConfiguredModulesGroupBox.ResumeLayout(false);
@@ -916,9 +739,6 @@
         private System.Windows.Forms.TabPage ledDisplaysTabPage;
         private System.Windows.Forms.GroupBox arcazeModulesGroupBox;
         private System.Windows.Forms.TabPage generalTabPage;
-        private System.Windows.Forms.GroupBox recentFilesGroupBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown recentFilesNumericUpDown;
         private System.Windows.Forms.TabPage fsuipcTabPage;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
@@ -934,10 +754,6 @@
         private System.Windows.Forms.Label arcazeModuleTypeLabel;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox testModeSpeedGroupBox;
-        private System.Windows.Forms.TrackBar testModeSpeedTrackBar;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox mfConfiguredModulesGroupBox;
         private System.Windows.Forms.Panel mfSettingsPanel;
         private System.Windows.Forms.TreeView mfModulesTreeView;
@@ -971,10 +787,6 @@
         private System.Windows.Forms.ToolStripMenuItem addEncoderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addButtonToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.GroupBox debugGroupBox;
-        private System.Windows.Forms.ComboBox logLevelComboBox;
-        private System.Windows.Forms.Label logLevelLabel;
-        private System.Windows.Forms.CheckBox logLevelCheckBox;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem updateFirmwareToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -1000,14 +812,6 @@
         private System.Windows.Forms.ToolStripMenuItem reloadConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LcdDisplayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addLcdDisplayToolStripMenuItem;
-        private System.Windows.Forms.GroupBox offlineModeGroupBox;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox offlineModeCheckBox;
-        private System.Windows.Forms.GroupBox languageGroupBox;
-        private System.Windows.Forms.ComboBox languageComboBox;
-        private System.Windows.Forms.Label languageLabel;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox BetaUpdatesGroupBox;
-        private System.Windows.Forms.CheckBox BetaUpdateCheckBox;
+        private Panels.Settings.GeneralPanel generalPanel;
     }
 }

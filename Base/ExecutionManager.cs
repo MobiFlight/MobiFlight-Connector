@@ -157,7 +157,7 @@ namespace MobiFlight
 
         public bool SimConnected()
         {
-            return fsuipcCache.isConnected();
+            return fsuipcCache.isConnected() || simConnectCache.isConnected();
         }
 
         public bool ModulesConnected()
@@ -292,7 +292,7 @@ namespace MobiFlight
         private void executeConfig()
         {
             // prevent execution if not connected to either FSUIPC or Arcaze
-            if (!fsuipcCache.isConnected()) return;
+            if (!fsuipcCache.isConnected() && !simConnectCache.isConnected()) return;
             if (
 #if ARCAZE
                 !arcazeCache.isConnected() && 

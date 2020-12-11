@@ -360,6 +360,12 @@
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Settings\GeneralPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Settings\GeneralPanel.Designer.cs">
+      <DependentUpon>GeneralPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\StartupPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -771,6 +777,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\MSFS2020InputPanel.resx">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.resx">
+      <DependentUpon>GeneralPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\StartupPanel.resx">
       <DependentUpon>StartupPanel.cs</DependentUpon>

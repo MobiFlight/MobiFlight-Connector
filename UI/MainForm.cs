@@ -16,6 +16,7 @@ using MobiFlight.FSUIPC;
 using System.Reflection;
 using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
+using MobiFlight.SimConnectMSFS;
 
 namespace MobiFlight.UI
 {
@@ -151,8 +152,8 @@ namespace MobiFlight.UI
             // on the program
             setAutoRunValue(Properties.Settings.Default.AutoRun);
 
-            runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected();
-            runTestToolStripButton.Enabled = execManager.ModulesConnected();
+            runToolStripButton.Enabled = false;
+            runTestToolStripButton.Enabled = false;
             updateNotifyContextMenu(false);
 
             arcazeSerial.Items.Clear();
@@ -583,6 +584,7 @@ namespace MobiFlight.UI
         {
             arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
+            runTestToolStripButton.Enabled = execManager.ModulesConnected();
         }
 
 
@@ -600,35 +602,44 @@ namespace MobiFlight.UI
         /// </summary>        
         void fsuipcCache_Connected(object sender, EventArgs e)
         {
-            if (sender.GetType() != typeof(Fsuipc2Cache)) return;
 
-            Fsuipc2Cache c = sender as Fsuipc2Cache;
-            switch (c.FlightSimConnectionMethod)
+            if (sender.GetType() == typeof(SimConnectCache))
             {
-                case FlightSimConnectionMethod.OFFLINE:
-                    fsuipcToolStripStatusLabel.Text = "Offline Mode:";
-                    break;
+                fsuipcToolStripStatusLabel.Text = "SimConnect (MSFS2020):";
+            }
 
-                case FlightSimConnectionMethod.FSUIPC:
-                    fsuipcToolStripStatusLabel.Text = i18n._tr("fsuipcStatus") + " ("+ c.FlightSim.ToString() +"):";
-                    break;
+            else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
 
-                case FlightSimConnectionMethod.XPUIPC:
-                    fsuipcToolStripStatusLabel.Text = "XPUIPC Status:";
-                    break;
+                Fsuipc2Cache c = sender as Fsuipc2Cache;
+                switch (c.FlightSimConnectionMethod)
+                {
+                    case FlightSimConnectionMethod.OFFLINE:
+                        fsuipcToolStripStatusLabel.Text = "Offline Mode:";
+                        break;
 
-                case FlightSimConnectionMethod.WIDECLIENT:
-                    fsuipcToolStripStatusLabel.Text = "WideClient Status:";
-                    break;
+                    case FlightSimConnectionMethod.FSUIPC:
+                        fsuipcToolStripStatusLabel.Text = i18n._tr("fsuipcStatus") + " ("+ c.FlightSim.ToString() +"):";
+                        break;
 
-                default:
-                    fsuipcToolStripStatusLabel.Text = "Sim Status:";
-                    break;
+                    case FlightSimConnectionMethod.XPUIPC:
+                        fsuipcToolStripStatusLabel.Text = "XPUIPC Status:";
+                        break;
+
+                    case FlightSimConnectionMethod.WIDECLIENT:
+                        fsuipcToolStripStatusLabel.Text = "WideClient Status:";
+                        break;
+
+                    default:
+                        fsuipcToolStripStatusLabel.Text = "Sim Status:";
+                        break;
+                }
             }
 
             if (execManager.OfflineMode) fsuipcToolStripStatusLabel.Text = "Offline Mode:";
 
-            fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;            
+            fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+
+            runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
         }
 
         /// <summary>

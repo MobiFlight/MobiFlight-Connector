@@ -393,7 +393,6 @@ namespace MobiFlight.SimConnectMSFS
             }
             _connected = false;
 
-            ConnectionLost?.Invoke(this, null);
             Closed?.Invoke(this, null);
             
             return true;
