@@ -100,8 +100,8 @@ namespace MobiFlight.UI.Panels.Action
         internal InputConfig.InputAction ToConfig()
         {
             MobiFlight.InputConfig.MSFS2020EventIdInputAction result = new InputConfig.MSFS2020EventIdInputAction();
-            result.EventId = EventIdComboBox.SelectedItem as String;
-            return result;
+            result.EventId = EventIdComboBox.Text as String;
+                return result;
         }
 
         private void DeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)

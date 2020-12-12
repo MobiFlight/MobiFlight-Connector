@@ -50,8 +50,8 @@ namespace MobiFlight.Tests
             s1 = replaceVersionInformation(s1);
             s2 = replaceVersionInformation(s2);
 
+            Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
             System.IO.File.Delete(inFileTemp);
-            Assert.AreEqual(s1, s2, "Files are not the same");
 
             OutputConfig.Clear();
             InputConfig.Clear();
@@ -74,8 +74,8 @@ namespace MobiFlight.Tests
             s1 = replaceVersionInformation(s1);
             s2 = replaceVersionInformation(s2);
 
+            Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
             System.IO.File.Delete(inFileTemp);
-            Assert.AreEqual(s1, s2, "Files are not the same");
 
             OutputConfig.Clear();
             InputConfig.Clear();
@@ -99,7 +99,7 @@ namespace MobiFlight.Tests
             s1 = replaceVersionInformation(s1);
             s2 = replaceVersionInformation(s2);
             
-            Assert.AreEqual(s1, s2, "Files are not the same");
+            Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
             System.IO.File.Delete(inFileTemp);
 
             // Load the new version was problematic\
@@ -125,7 +125,7 @@ namespace MobiFlight.Tests
             s1 = replaceVersionInformation(s1);
             s2 = replaceVersionInformation(s2);
 
-            Assert.AreEqual(s1, s2, "Files are not the same");
+            Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
             System.IO.File.Delete(inFileTemp);
 
             foreach (string file in System.IO.Directory.GetFiles(@"assets\Base\ConfigFile\", "*.mcc")) {
@@ -152,7 +152,7 @@ namespace MobiFlight.Tests
                 s1 = replaceVersionInformation(s1);
                 s2 = replaceVersionInformation(s2);
 
-                Assert.AreEqual(s1, s2, "Files are not the same");
+                Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
                 System.IO.File.Delete(inFileTemp);
             }
 

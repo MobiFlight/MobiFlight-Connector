@@ -9,7 +9,7 @@ using Microsoft.FlightSimulator.SimConnect;
 
 namespace MobiFlight.SimConnectMSFS
 {
-    public class SimConnectCache : Base.WriteCacheInterface
+    public class SimConnectCache : SimConnectCacheInterface
     {
         public event EventHandler Closed;
         public event EventHandler Connected;

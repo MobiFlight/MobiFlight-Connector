@@ -314,6 +314,7 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
+    <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1096,6 +1097,7 @@
   <PropertyGroup>
     <PreBuildEvent>xcopy /R /Y "$(ProjectDir)Lib\vJoyInterface.dll" "$(TargetDir)"
 xcopy /R /Y "$(ProjectDir)Lib\SimConnect.dll" "$(TargetDir)"
+xcopy /R /E /Y /I "$(ProjectDir)MSFS2020-module" "$(TargetDir)MSFS2020-module"
 del "$(TargetDir)\log.txt"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

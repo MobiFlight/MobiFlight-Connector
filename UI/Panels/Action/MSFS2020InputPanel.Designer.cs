@@ -52,11 +52,11 @@
             this.DeviceComboBox.TabIndex = 1;
             this.DeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.DeviceComboBox_SelectedIndexChanged);
             // 
-            // eventIdComboBox
+            // EventIdComboBox
             // 
             this.EventIdComboBox.FormattingEnabled = true;
             this.EventIdComboBox.Location = new System.Drawing.Point(71, 48);
-            this.EventIdComboBox.Name = "eventIdComboBox";
+            this.EventIdComboBox.Name = "EventIdComboBox";
             this.EventIdComboBox.Size = new System.Drawing.Size(171, 21);
             this.EventIdComboBox.TabIndex = 3;
             // 

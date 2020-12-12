@@ -73,9 +73,12 @@ namespace MobiFlight.InputConfig.Tests
             KeyInputAction o = generateTestObject();
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.MobiFlight.MobiFlightCacheMock mockMfCache = new MobiFlightUnitTests.mock.MobiFlight.MobiFlightCacheMock();
+            MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
+
+
             MobiFlightUnitTests.mock.Base.KeyboardInputMock keybMock = new MobiFlightUnitTests.mock.Base.KeyboardInputMock();
             o.Keyboard = keybMock;
-            o.execute(mock, mockMfCache);
+            o.execute(mock, simConnectMock, mockMfCache);
             Assert.AreEqual(keybMock.Writes.Count, 1, "The message count is not as expected");
             Assert.AreEqual(keybMock.Writes[0], "Ctrl+Shift+Alt+A", "The sent string is wrong");
         }

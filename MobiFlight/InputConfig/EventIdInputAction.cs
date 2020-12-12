@@ -45,7 +45,7 @@ namespace MobiFlight.InputConfig
             return TYPE;
         }
 
-        public override void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
         {
             fsuipcCache.setEventID(EventId, Param);
         }

@@ -69,11 +69,12 @@ namespace MobiFlightUnitTests.MobiFlight.InputConfig
         public void executeTest()
         {
             MSFS2020EventIdInputAction o = generateTestObject();
+            o.EventId = "SetEventID";
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
             o.execute(mock, simConnectMock, null);
-            Assert.AreEqual(mock.Writes.Count, 1, "The message count is not as expected");
-            Assert.AreEqual(mock.Writes[0].Value, "SetEventID", "The Write Value is wrong");
+            Assert.AreEqual(simConnectMock.Writes.Count, 1, "The message count is not as expected");
+            Assert.AreEqual(simConnectMock.Writes[0].Value, "SetEventID", "The Write Value is wrong");
         }
     }
 }

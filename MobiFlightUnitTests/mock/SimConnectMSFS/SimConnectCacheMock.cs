@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace MobiFlightUnitTests.mock.SimConnectMSFS
 {
-    class SimConnectCacheMock : SimConnectCache
+    class SimConnectCacheMock : SimConnectCacheInterface
     {
+        public List<FSUIPCMockOffset> Writes = new List<FSUIPCMockOffset>();
+        public List<FSUIPCMockOffset> Reads = new List<FSUIPCMockOffset>();
         public void Clear()
         {
             return;

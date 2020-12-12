@@ -395,7 +395,8 @@ namespace MobiFlight
                     writer.WriteAttributeString("ledConnector", DisplayLedConnector.ToString());
                     writer.WriteAttributeString("ledModuleSize", DisplayLedModuleSize.ToString());
                     writer.WriteAttributeString("ledPadding", DisplayLedPadding.ToString());
-                    writer.WriteAttributeString("ledReverseDigits", DisplayLedReverseDigits.ToString());
+                    if (DisplayLedReverseDigits)
+                        writer.WriteAttributeString("ledReverseDigits", DisplayLedReverseDigits.ToString());
                     writer.WriteAttributeString("ledPaddingChar", DisplayLedPaddingChar);
 
                     if (DisplayLedDigits.Count > 0)

@@ -128,7 +128,7 @@ namespace MobiFlight.InputConfig
             }
         }   
 
-        public override void execute(FSUIPC.Fsuipc2Cache cache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
         {
             String value = Value;
             // apply ncalc logic
