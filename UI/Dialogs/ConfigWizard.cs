@@ -22,10 +22,12 @@ namespace MobiFlight.UI.Dialogs
         List<UserControl> displayPanels = new List<UserControl>();
         OutputConfigItem config = null;
         ErrorProvider errorProvider = new ErrorProvider();
-        Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
         DataSet _dataSetConfig = null;
 
+#if ARCAZE
+        Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
+#endif
 
         Panels.DisplayPinPanel              displayPinPanel             = new Panels.DisplayPinPanel();
         Panels.DisplayBcdPanel              displayBcdPanel             = new Panels.DisplayBcdPanel();
@@ -36,15 +38,21 @@ namespace MobiFlight.UI.Dialogs
         Panels.StepperPanel                 stepperPanel                = new Panels.StepperPanel();
 
         public ConfigWizard(ExecutionManager mainForm, 
-                             OutputConfigItem cfg, 
+                             OutputConfigItem cfg,
+#if ARCAZE
                              ArcazeCache arcazeCache, 
                              Dictionary<string, ArcazeModuleSettings> moduleSettings, 
+#endif
                              DataSet dataSetConfig, 
                              String filterGuid)
         {
+            Init(mainForm, cfg);
+#if ARCAZE
             this.moduleSettings = moduleSettings;
-            Init(mainForm, cfg);            
             initWithArcazeCache(arcazeCache);
+#else
+            initWithoutArcazeCache();
+#endif
             preparePreconditionPanel(dataSetConfig, filterGuid);            
         }
 
@@ -239,6 +247,7 @@ namespace MobiFlight.UI.Dialogs
                 noRefConfigsAvailableLabel.Visible = false;
         }
 
+#if ARCAZE
         /// <summary>
         /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
         /// </summary>
@@ -259,7 +268,8 @@ namespace MobiFlight.UI.Dialogs
                 displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
                 preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
-#if MOBIFLIGHT
+
+
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
                 displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
@@ -267,11 +277,38 @@ namespace MobiFlight.UI.Dialogs
                 // Not yet supported for pins
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
-#endif
+
             displayModuleNameComboBox.SelectedIndex = 0;
             preconditionPinSerialComboBox.SelectedIndex = 0;            
         }
+#endif
+#if MOBIFLIGHT
+        /// <summary>
+        /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
+        /// </summary>
+        /// <param name="arcazeCache"></param>
+        public void initWithoutArcazeCache()
+        {
 
+            // update the display box with
+            // modules
+            displayModuleNameComboBox.Items.Clear();
+            preconditionPinSerialComboBox.Items.Clear();
+            displayModuleNameComboBox.Items.Add("-");
+            preconditionPinSerialComboBox.Items.Add("-");
+
+            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
+            {
+                displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
+
+                // Not yet supported for pins
+                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+            }
+
+            displayModuleNameComboBox.SelectedIndex = 0;
+            preconditionPinSerialComboBox.SelectedIndex = 0;
+        }
+#endif
         /// <summary>
         /// sync the values from config with the config wizard form
         /// </summary>
@@ -570,6 +607,7 @@ namespace MobiFlight.UI.Dialogs
                 // we remove the callback method to ensure, that it is not added more than once
                 displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged -= displayLedAddressComboBox_SelectedIndexChanged;
 
+#if ARCAZE
                 if (arcazeFirmware.ContainsKey(serial))
                 {
 
@@ -632,7 +670,9 @@ namespace MobiFlight.UI.Dialogs
                     displayLedDisplayPanel.SetAddresses(addr);
                     displayLedDisplayPanel.SetConnectors(connectors);                    
                 }
-                else if (serial.IndexOf("SN") == 0)
+                else 
+#endif
+                if (serial.IndexOf("SN") == 0)
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 

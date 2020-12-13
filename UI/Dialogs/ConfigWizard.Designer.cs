@@ -36,6 +36,8 @@
             this.noRefConfigsAvailableLabel = new System.Windows.Forms.Label();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.spacerPanel = new System.Windows.Forms.Panel();
             this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
@@ -112,8 +114,6 @@
             this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
             this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
             this.settingsColumn = new System.Data.DataColumn();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.spacerPanel = new System.Windows.Forms.Panel();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
@@ -185,6 +185,21 @@
             // 
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.TabStop = false;
+            // 
+            // spacerPanel
+            // 
+            resources.ApplyResources(this.spacerPanel, "spacerPanel");
+            this.spacerPanel.Name = "spacerPanel";
             // 
             // fsuipcHintTextBox
             // 
@@ -779,21 +794,6 @@
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.TabStop = false;
-            // 
-            // spacerPanel
-            // 
-            resources.ApplyResources(this.spacerPanel, "spacerPanel");
-            this.spacerPanel.Name = "spacerPanel";
             // 
             // ConfigWizard
             // 

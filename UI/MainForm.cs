@@ -1435,10 +1435,10 @@ namespace MobiFlight.UI
             InputConfigWizard wizard = new InputConfigWizard ( 
                                 execManager, 
                                 cfg,
-//#if ARCAZE
-//                                execManager.getModuleCache(), 
-//                                getArcazeModuleSettings(),
-//#endif
+#if ARCAZE
+                                execManager.getModuleCache(), 
+                                getArcazeModuleSettings(),
+#endif
                                 dataSetConfig, 
                                 dataRow["guid"].ToString()
                                 );
@@ -1476,9 +1476,6 @@ namespace MobiFlight.UI
 #if ARCAZE
                                             execManager.getModuleCache(), 
                                             getArcazeModuleSettings(), 
-#else
-                                            null,
-                                            null,
 #endif
                                             dataSetConfig, 
                                             dataRow["guid"].ToString()
