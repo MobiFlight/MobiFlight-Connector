@@ -37,7 +37,7 @@ namespace MobiFlight.UI.Panels
             if (ports.Count>0)
                 displayPortComboBox.SelectedIndex = 0;
 
-            displayPortComboBox.Visible = displayPortComboBox.Enabled = ports.Count > 0;
+            displayPinBrightnessPanel.Visible = displayPinBrightnessPanel.Enabled = displayPortComboBox.Visible = displayPortComboBox.Enabled = ports.Count > 0;
             
         }
 

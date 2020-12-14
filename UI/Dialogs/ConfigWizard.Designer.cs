@@ -35,13 +35,16 @@
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.noRefConfigsAvailableLabel = new System.Windows.Forms.Label();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.spacerPanel = new System.Windows.Forms.Panel();
+            this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
             this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
             this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
+            this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
             this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
@@ -110,9 +113,6 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
-            this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
-            this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
@@ -181,6 +181,11 @@
             this.referencesGroupBox.Name = "referencesGroupBox";
             this.referencesGroupBox.TabStop = false;
             // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
+            // 
             // panel1
             // 
             resources.ApplyResources(this.panel1, "panel1");
@@ -200,6 +205,12 @@
             // 
             resources.ApplyResources(this.spacerPanel, "spacerPanel");
             this.spacerPanel.Name = "spacerPanel";
+            // 
+            // fsuipcConfigPanel
+            // 
+            resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
+            this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
+            this.fsuipcConfigPanel.PresetFile = "";
             // 
             // fsuipcHintTextBox
             // 
@@ -233,6 +244,12 @@
             resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
             this.interpolationGroupBox.Name = "interpolationGroupBox";
             this.interpolationGroupBox.TabStop = false;
+            // 
+            // interpolationPanel1
+            // 
+            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
+            this.interpolationPanel1.Name = "interpolationPanel1";
+            this.interpolationPanel1.Save = false;
             // 
             // interpolationCheckBox
             // 
@@ -771,23 +788,6 @@
             // description
             // 
             this.description.ColumnName = "description";
-            // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
-            // 
-            // fsuipcConfigPanel
-            // 
-            resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
-            this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
-            this.fsuipcConfigPanel.PresetFile = "";
-            // 
-            // interpolationPanel1
-            // 
-            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
-            this.interpolationPanel1.Name = "interpolationPanel1";
-            this.interpolationPanel1.Save = false;
             // 
             // settingsColumn
             // 

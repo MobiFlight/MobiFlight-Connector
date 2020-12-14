@@ -1,4 +1,4 @@
 ;The comment below contains SFX script commands 
-Setup=MobiFlight-Updater.exe 7.10.0.13 
+Setup=MobiFlight-Updater.exe 7.10.0.14 
 Silent=1 
 Overwrite=1 

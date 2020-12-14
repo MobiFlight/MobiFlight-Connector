@@ -150,11 +150,14 @@
   <data name="&gt;&gt;noRefConfigsAvailableLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="configRefPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="configRefPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+    <value>64, 16</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>279, 150</value>
+    <value>300, 105</value>
   </data>
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -163,7 +166,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=7.10.0.13, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>referencesGroupBox</value>
@@ -301,7 +304,7 @@
     <value>fsuipcConfigPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=7.10.0.13, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -412,7 +415,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=7.10.0.13, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -911,7 +914,7 @@
     <value>Top</value>
   </data>
   <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 133</value>
+    <value>6, 119</value>
   </data>
   <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>367, 40</value>
@@ -944,7 +947,7 @@
     <value>6, 114</value>
   </data>
   <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 19</value>
+    <value>367, 5</value>
   </data>
   <data name="groupBoxDisplaySettings.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1950,50 +1953,50 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACY
-        CwAAAk1TRnQBSQFMAgEBAgEAAcABAgHAAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CwAAAk1TRnQBSQFMAgEBAgEAAcgBAgHIAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ARMB/wH7AbEBAAH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ARMBhAL/
-        AQABLQL/AQABJQL/AQABHwL/AQABIgL/AQABLwL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAASkB/wHwAakBAAH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ARIB/wH7AbEBAAH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ARIBhAL/
+        AQABLAL/AQABJAL/AQABHgL/AQABIQL/AQABLgL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
+        Al0BYQHiiAACXAFVAeoB9gHAASgB/wHwAakBAAH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
         Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        ASgBkAH9Af8BAgEnAf4B/wEAAR0C/wEAARYC/wEAARIC/wEAARwC/wEAASgC/wEAAYIC/wEAAY8C/wEA
-        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQEhAf8B6wGiAQAB/wHqAZcBAAH/AeoBjAEA
+        AScBkAH9Af8BAQEmAf4B/wEAARwC/wEAARUC/wEAAREC/wEAARsC/wEAAScC/wEAAYIC/wEAAY8C/wEA
+        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQEgAf8B6wGiAQAB/wHqAZcBAAH/AeoBjAEA
         Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqASEBiwH+Af8BAAEiAf4B/wEAARgC/wEAARAC/wEAAQ4C/wEAARsC/wEA
-        ASYC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAEfAf8B5gGc
-        AQAB/wHlAZABAAH/AeQBhQEAAf8B5QExAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBHwGJAfwB/wEAAR4C/wEAARMC/wEA
-        AQsC/wEAAQsC/wEAARgC/wEAASMC/wEAAS0C/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABHwH/AeEBlwEAAf8B3wGLAQAB/wHeATEBAAH/Ad8BKwEAAf8B4QEtAQAB/wHkATABAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqAR8BiAH7
-        Af8BAAEcAf0B/wEAARAC/wEAAQcC/wEAAQYC/wEAARIC/wEAARwC/wEAASMC/wEAASsC/wEAATAC/wEA
-        ATEC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgEjAf8B3QGUAQAB/wHbAYcBAAH/AdkBLQEAAf8B2AEl
-        AQAB/wHbAScBAAH/Ad4BKgEAAf8B4QEtAQAB/wHjAS8BAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBIwGIAfgB/wEAARwB+gH/AQABDgL/AQABBAL/AgAC/wEAAQkC/wEAARMC/wEA
-        ARsC/wEAAR8C/wEAASMC/wEAASMC/wEAASoC/wJVAVwB6ogAAVwCVQHqAeQBrQEoAf8B2gGUAQAB/wHX
-        AYYBAAH/AdUBLAEAAf8B0wEgAQAB/wHVASEBAAH/AdgBJAEAAf8B2gEmAQAB/wHdASkBAAH/AeABLAEA
-        Af8B4wEvAQAB/wHsAYYBAAH/AVwCVQHqCAACVQFcAeoBKAGMAfUB/wEAAR8B9QH/AQABDwH9Af8BAAED
-        Av8CAAL/AgAC/wEAAQgC/wEAARAC/wEAARUC/wEAARgC/wEAARcC/wEAAR0C/wJVAVwB6ogAAVwCVQHq
-        AeMBrwExAf8B2AGVAQkB/wHUAYcBAAH/AdEBLQEAAf8BzwEiAQAB/wHPARoBAAH/AdEBHQEAAf8B1AEg
-        AQAB/wHXASMBAAH/AdoBJgEAAf8B3AEoAQAB/wHlATEBAAH/AVwCVQHqCAACVQFcAeoBMQGSAfMB/wEJ
-        ASMB8AH/AQABEwH3Af8BAAEFAf4B/wIAAv8CAAL/AgAC/wEAAQMC/wEAAQgC/wEAAQoC/wEAAQwC/wEA
-        ARAC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYARQB/wHSAYsBAAH/Ac8BMAEAAf8BzAElAQAB/wHL
-        ARwBAAH/AcsBGAEAAf8BzgEaAQAB/wHRAR0BAAH/AdMBHwEAAf8B1gEiAQAB/wHfASsBAAH/AVwCVQHq
-        CAACVQFcAeoBiwGaAfAB/wEUASoB7AH/AQABGgHxAf8BAAEMAfcB/wIAAv8CAAL/AgAC/wIAAv8CAAL/
-        AgAC/wIAAv8BAAEDAv8CVQFcAeqIAAFcAlUB6gHiAbsBmAH/AdYBnQEiAf8B0gGQAQwB/wHOAYQBAAH/
-        AcsBKwEAAf8ByQEiAQAB/wHIARsBAAH/AcgBFQEAAf8BygEWAQAB/wHNARkBAAH/AdABHAEAAf8B2AEj
-        AQAB/wFcAlUB6ggAAlUBXAHqAZgBpQHvAf8BIgGBAegB/wEMASMB6wH/AQABFQHwAf8BAAEIAfUB/wIA
+        AQAB/wJcAVUB6ggAAlUBXAHqASABiwH+Af8BAAEhAf4B/wEAARcC/wEAAQ8C/wEAAQ0C/wEAARoC/wEA
+        ASUC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAEeAf8B5gGc
+        AQAB/wHlAZABAAH/AeQBhQEAAf8B5QEwAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
+        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBHgGJAfwB/wEAAR0C/wEAARIC/wEA
+        AQoC/wEAAQoC/wEAARcC/wEAASIC/wEAASwC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
+        AlwBVQLqAbABHgH/AeEBlwEAAf8B3wGLAQAB/wHeATABAAH/Ad8BKgEAAf8B4QEsAQAB/wHkAS8BAAH/
+        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqAR4BiAH7
+        Af8BAAEbAf0B/wEAAQ8C/wEAAQYC/wEAAQUC/wEAAREC/wEAARsC/wEAASIC/wEAASoC/wEAAS8C/wEA
+        ATAC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgEiAf8B3QGUAQAB/wHbAYcBAAH/AdkBLAEAAf8B2AEk
+        AQAB/wHbASYBAAH/Ad4BKQEAAf8B4QEsAQAB/wHjAS4BAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
+        AlwBVQHqCAACVQFcAeoBIgGIAfgB/wEAARsB+gH/AQABDQL/AQABAwL/AgAC/wEAAQgC/wEAARIC/wEA
+        ARoC/wEAAR4C/wEAASIC/wEAASIC/wEAASkC/wJVAVwB6ogAAVwCVQHqAeQBrQEnAf8B2gGUAQAB/wHX
+        AYYBAAH/AdUBKwEAAf8B0wEfAQAB/wHVASABAAH/AdgBIwEAAf8B2gElAQAB/wHdASgBAAH/AeABKwEA
+        Af8B4wEuAQAB/wHsAYYBAAH/AVwCVQHqCAACVQFcAeoBJwGMAfUB/wEAAR4B9QH/AQABDgH9Af8BAAEC
+        Av8CAAL/AgAC/wEAAQcC/wEAAQ8C/wEAARQC/wEAARcC/wEAARYC/wEAARwC/wJVAVwB6ogAAVwCVQHq
+        AeMBrwEwAf8B2AGVAQgB/wHUAYcBAAH/AdEBLAEAAf8BzwEhAQAB/wHPARkBAAH/AdEBHAEAAf8B1AEf
+        AQAB/wHXASIBAAH/AdoBJQEAAf8B3AEnAQAB/wHlATABAAH/AVwCVQHqCAACVQFcAeoBMAGSAfMB/wEI
+        ASIB8AH/AQABEgH3Af8BAAEEAf4B/wIAAv8CAAL/AgAC/wEAAQIC/wEAAQcC/wEAAQkC/wEAAQsC/wEA
+        AQ8C/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYARMB/wHSAYsBAAH/Ac8BLwEAAf8BzAEkAQAB/wHL
+        ARsBAAH/AcsBFwEAAf8BzgEZAQAB/wHRARwBAAH/AdMBHgEAAf8B1gEhAQAB/wHfASoBAAH/AVwCVQHq
+        CAACVQFcAeoBiwGaAfAB/wETASkB7AH/AQABGQHxAf8BAAELAfcB/wIAAv8CAAL/AgAC/wIAAv8CAAL/
+        AgAC/wIAAv8BAAECAv8CVQFcAeqIAAFcAlUB6gHiAbsBmAH/AdYBnQEhAf8B0gGQAQsB/wHOAYQBAAH/
+        AcsBKgEAAf8ByQEhAQAB/wHIARoBAAH/AcgBFAEAAf8BygEVAQAB/wHNARgBAAH/AdABGwEAAf8B2AEi
+        AQAB/wFcAlUB6ggAAlUBXAHqAZgBpQHvAf8BIQGBAegB/wELASIB6wH/AQABFAHwAf8BAAEHAfUB/wIA
         Af0B/wIAAv8CAAH+Af8CAAL/AgAC/wIAAv8CAAL/AlUBXAHqiAABXAJVAeoB5QHCAakB/wHXAaUBgAH/
-        AdIBlwEcAf8BzgGLAQkB/wHLAYEBAAH/AckBKgEAAf8ByAEjAQAB/wHIAR4BAAH/AcgBHAEAAf8BygEc
-        AQAB/wHNAR4BAAH/AdUBKQEAAf8BXAJVAeoIAAJVAVwB6gGpAbEB7wH/AYABjAHmAf8BHAEuAecB/wEJ
-        ASAB6gH/AQABEwHuAf8BAAEIAfIB/wIAAfYB/wIAAfoB/wIAAf4B/wIAAv8CAAL/AgAC/wJVAVwB6ogA
-        AWECWgHkAe8B2QHKAf8B4gG9AaMB/wHcAa0BjAH/AdYBoQEpAf8B0wGVARcB/wHPAYsBBgH/Ac4BhQEA
-        Af8BzQGAAQAB/wHOAS8BAAH/Ac8BLwEAAf8B0wGAAQAB/wHaAYkBAAH/AV8CWAHjCAACWgFhAeQBygHQ
-        AfUB/wGjAawB7AH/AYwBmAHrAf8BKQGKAe0B/wEXAS0B7wH/AQYBIgHxAf8BAAEYAfUB/wEAARAB9wH/
-        AQABDAH6Af8BAAEIAfoB/wEAAQgB/AH/AQABEgL/AlgBXwHjiAADPAFmAWECWgHkAVwCVQHqAVwCVQHq
+        AdIBlwEbAf8BzgGLAQgB/wHLAYEBAAH/AckBKQEAAf8ByAEiAQAB/wHIAR0BAAH/AcgBGwEAAf8BygEb
+        AQAB/wHNAR0BAAH/AdUBKAEAAf8BXAJVAeoIAAJVAVwB6gGpAbEB7wH/AYABjAHmAf8BGwEtAecB/wEI
+        AR8B6gH/AQABEgHuAf8BAAEHAfIB/wIAAfYB/wIAAfoB/wIAAf4B/wIAAv8CAAL/AgAC/wJVAVwB6ogA
+        AWECWgHkAe8B2QHKAf8B4gG9AaMB/wHcAa0BjAH/AdYBoQEoAf8B0wGVARYB/wHPAYsBBQH/Ac4BhQEA
+        Af8BzQGAAQAB/wHOAS4BAAH/Ac8BLgEAAf8B0wGAAQAB/wHaAYkBAAH/AV8CWAHjCAACWgFhAeQBygHQ
+        AfUB/wGjAawB7AH/AYwBmAHrAf8BKAGKAe0B/wEWASwB7wH/AQUBIQHxAf8BAAEXAfUB/wEAAQ8B9wH/
+        AQABCwH6Af8BAAEHAfoB/wEAAQcB/AH/AQABEQL/AlgBXwHjiAADPAFmAWECWgHkAVwCVQHqAVwCVQHq
         AVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAWECWgHkAzsBZAgA
         AzwBZgJaAWEB5AJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJV
         AVwB6gJVAVwB6gJaAWEB5AM7AWT/AIUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcA
@@ -2443,9 +2446,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
