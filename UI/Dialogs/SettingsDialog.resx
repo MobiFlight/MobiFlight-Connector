@@ -228,440 +228,41 @@
   <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Name" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Parent" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;arcazeModulesGroupBox.Name" xml:space="preserve">
-    <value>arcazeModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModulesGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeModulesGroupBox.Parent" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
-  </data>
-  <data name="&gt;&gt;arcazeModulesGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;arcazeSettingsLabel.Name" xml:space="preserve">
-    <value>arcazeSettingsLabel</value>
-  </data>
-  <data name="&gt;&gt;arcazeSettingsLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeSettingsLabel.Parent" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
-  </data>
-  <data name="&gt;&gt;arcazeSettingsLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="ledDisplaysTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="ledDisplaysTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="ledDisplaysTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 381</value>
-  </data>
-  <data name="ledDisplaysTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="ledDisplaysTabPage.Text" xml:space="preserve">
-    <value>Arcaze Modules</value>
-  </data>
-  <data name="&gt;&gt;ledDisplaysTabPage.Name" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
-  </data>
-  <data name="&gt;&gt;ledDisplaysTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ledDisplaysTabPage.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;ledDisplaysTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;numModulesLabel.Name" xml:space="preserve">
-    <value>numModulesLabel</value>
-  </data>
-  <data name="&gt;&gt;numModulesLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numModulesLabel.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;numModulesLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.Name" xml:space="preserve">
-    <value>numModulesNumericUpDown</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.Name" xml:space="preserve">
-    <value>arcazeModuleTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.Name" xml:space="preserve">
-    <value>globalBrightnessLabel</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.Name" xml:space="preserve">
-    <value>globalBrightnessTrackBar</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.Name" xml:space="preserve">
-    <value>arcazeModuleTypeLabel</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="arcazePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="arcazeModuleSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 3</value>
+  <data name="arcazePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 45</value>
   </data>
-  <data name="arcazeModuleSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 375</value>
+  <data name="arcazePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 333</value>
   </data>
-  <data name="arcazeModuleSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="arcazePanel.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
-  <data name="arcazeModuleSettingsGroupBox.Text" xml:space="preserve">
-    <value>Module Settings</value>
+  <data name="&gt;&gt;arcazePanel.Name" xml:space="preserve">
+    <value>arcazePanel</value>
   </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Name" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
+  <data name="&gt;&gt;arcazePanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Settings.ArcazePanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;arcazePanel.Parent" xml:space="preserve">
+    <value>ArcazeTabPage</value>
   </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.Parent" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleSettingsGroupBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;arcazePanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="numModulesLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="arcazeSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="numModulesLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="arcazeSettingsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
-  </data>
-  <data name="numModulesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>47, 55</value>
-  </data>
-  <data name="numModulesLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 13</value>
-  </data>
-  <data name="numModulesLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="numModulesLabel.Text" xml:space="preserve">
-    <value>Count</value>
-  </data>
-  <data name="&gt;&gt;numModulesLabel.Name" xml:space="preserve">
-    <value>numModulesLabel</value>
-  </data>
-  <data name="&gt;&gt;numModulesLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numModulesLabel.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;numModulesLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="numModulesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 53</value>
-  </data>
-  <data name="numModulesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 20</value>
-  </data>
-  <data name="numModulesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="numModulesNumericUpDown.ToolTip" xml:space="preserve">
-    <value>The number of extensions modules connected to the current arcaze</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.Name" xml:space="preserve">
-    <value>numModulesNumericUpDown</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;numModulesNumericUpDown.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.Items" xml:space="preserve">
-    <value>Modul A</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 19</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 21</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.Name" xml:space="preserve">
-    <value>arcazeModuleTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="globalBrightnessLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="globalBrightnessLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="globalBrightnessLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 86</value>
-  </data>
-  <data name="globalBrightnessLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 26</value>
-  </data>
-  <data name="globalBrightnessLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="globalBrightnessLabel.Text" xml:space="preserve">
-    <value>Global 
-intensity</value>
-  </data>
-  <data name="globalBrightnessLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.Name" xml:space="preserve">
-    <value>globalBrightnessLabel</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="globalBrightnessTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="globalBrightnessTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 84</value>
-  </data>
-  <data name="globalBrightnessTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 45</value>
-  </data>
-  <data name="globalBrightnessTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="globalBrightnessTrackBar.ToolTip" xml:space="preserve">
-    <value>The intensity value for brightness used for all connected extension modules</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.Name" xml:space="preserve">
-    <value>globalBrightnessTrackBar</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;globalBrightnessTrackBar.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 22</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 13</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.Text" xml:space="preserve">
-    <value>Extension Type</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.Name" xml:space="preserve">
-    <value>arcazeModuleTypeLabel</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.Parent" xml:space="preserve">
-    <value>arcazeModuleSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModuleTypeLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;ArcazeModuleTreeView.Name" xml:space="preserve">
-    <value>ArcazeModuleTreeView</value>
-  </data>
-  <data name="&gt;&gt;ArcazeModuleTreeView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ArcazeModuleTreeView.Parent" xml:space="preserve">
-    <value>arcazeModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;ArcazeModuleTreeView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="arcazeModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="arcazeModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="arcazeModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 375</value>
-  </data>
-  <data name="arcazeModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="arcazeModulesGroupBox.Text" xml:space="preserve">
-    <value>Available Arcaze Modules</value>
-  </data>
-  <data name="&gt;&gt;arcazeModulesGroupBox.Name" xml:space="preserve">
-    <value>arcazeModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeModulesGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeModulesGroupBox.Parent" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
-  </data>
-  <data name="&gt;&gt;arcazeModulesGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="ArcazeModuleTreeView.ImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <metadata name="mfTreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>696, 17</value>
-  </metadata>
-  <data name="mfTreeViewImageList.ImageSize" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8xBgQAAAAABgUAAAAITW9kdWxlXzAA
-        /////wkEAAAA/////wkEAAAAAAAAAAs=
-</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8yBgQAAAAABgUAAAANTUZfTUlDUk9f
-        Q09NNQD/////CQQAAAD/////CQQAAAAAAAAACw==
-</value>
-  </data>
-  <data name="ArcazeModuleTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 356</value>
-  </data>
-  <data name="ArcazeModuleTreeView.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;ArcazeModuleTreeView.Name" xml:space="preserve">
-    <value>ArcazeModuleTreeView</value>
-  </data>
-  <data name="&gt;&gt;ArcazeModuleTreeView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ArcazeModuleTreeView.Parent" xml:space="preserve">
-    <value>arcazeModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;ArcazeModuleTreeView.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="arcazeSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
   <data name="arcazeSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 23</value>
+    <value>378, 42</value>
   </data>
   <data name="arcazeSettingsLabel.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -673,10 +274,43 @@ intensity</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;arcazeSettingsLabel.Parent" xml:space="preserve">
-    <value>ledDisplaysTabPage</value>
+    <value>ArcazeTabPage</value>
   </data>
   <data name="&gt;&gt;arcazeSettingsLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
+  </data>
+  <data name="ArcazeTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="ArcazeTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="ArcazeTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>384, 381</value>
+  </data>
+  <data name="ArcazeTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="ArcazeTabPage.Text" xml:space="preserve">
+    <value>Arcaze Modules</value>
+  </data>
+  <data name="&gt;&gt;ArcazeTabPage.Name" xml:space="preserve">
+    <value>ArcazeTabPage</value>
+  </data>
+  <data name="&gt;&gt;ArcazeTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ArcazeTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;ArcazeTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="mfTreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>696, 17</value>
+  </metadata>
+  <data name="mfTreeViewImageList.ImageSize" type="System.Drawing.Size, System.Drawing">
+    <value>16, 16</value>
   </data>
   <metadata name="mfModuleSettingsContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>114, 17</value>
@@ -798,23 +432,11 @@ intensity</value>
   <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
     <value>Reload Config</value>
   </data>
-  <data name="generalPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="generalPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="generalPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 375</value>
-  </data>
-  <data name="generalPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;generalPanel.Name" xml:space="preserve">
     <value>generalPanel</value>
   </data>
   <data name="&gt;&gt;generalPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=7.10.0.12, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;generalPanel.Parent" xml:space="preserve">
     <value>generalTabPage</value>
@@ -847,6 +469,30 @@ intensity</value>
     <value>tabControl1</value>
   </data>
   <data name="&gt;&gt;generalTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="generalPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="generalPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="generalPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>378, 375</value>
+  </data>
+  <data name="generalPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Name" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Parent" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;mfConfiguredModulesGroupBox.Name" xml:space="preserve">
@@ -1338,6 +984,9 @@ intensity</value>
   <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="FwAutoUpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>

@@ -33,18 +33,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
-            this.ledDisplaysTabPage = new System.Windows.Forms.TabPage();
-            this.arcazeModuleSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.numModulesLabel = new System.Windows.Forms.Label();
-            this.numModulesNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.arcazeModuleTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.globalBrightnessLabel = new System.Windows.Forms.Label();
-            this.globalBrightnessTrackBar = new System.Windows.Forms.TrackBar();
-            this.arcazeModuleTypeLabel = new System.Windows.Forms.Label();
-            this.arcazeModulesGroupBox = new System.Windows.Forms.GroupBox();
-            this.ArcazeModuleTreeView = new System.Windows.Forms.TreeView();
-            this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
+            this.ArcazeTabPage = new System.Windows.Forms.TabPage();
+            this.arcazePanel = new MobiFlight.UI.Panels.Settings.ArcazePanel();
             this.arcazeSettingsLabel = new System.Windows.Forms.Label();
+            this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.mfModuleSettingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ledOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +59,7 @@
             this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.generalPanel = new MobiFlight.UI.Panels.Settings.GeneralPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
             this.mfConfiguredModulesGroupBox = new System.Windows.Forms.GroupBox();
@@ -108,13 +101,8 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.generalPanel = new MobiFlight.UI.Panels.Settings.GeneralPanel();
             this.panel1.SuspendLayout();
-            this.ledDisplaysTabPage.SuspendLayout();
-            this.arcazeModuleSettingsGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numModulesNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.globalBrightnessTrackBar)).BeginInit();
-            this.arcazeModulesGroupBox.SuspendLayout();
+            this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -150,113 +138,31 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // ledDisplaysTabPage
+            // ArcazeTabPage
             // 
-            this.ledDisplaysTabPage.Controls.Add(this.arcazeModuleSettingsGroupBox);
-            this.ledDisplaysTabPage.Controls.Add(this.arcazeModulesGroupBox);
-            this.ledDisplaysTabPage.Controls.Add(this.arcazeSettingsLabel);
-            resources.ApplyResources(this.ledDisplaysTabPage, "ledDisplaysTabPage");
-            this.ledDisplaysTabPage.Name = "ledDisplaysTabPage";
-            this.ledDisplaysTabPage.UseVisualStyleBackColor = true;
-            this.ledDisplaysTabPage.Validating += new System.ComponentModel.CancelEventHandler(this.ledDisplaysTabPage_Validating);
+            this.ArcazeTabPage.Controls.Add(this.arcazePanel);
+            this.ArcazeTabPage.Controls.Add(this.arcazeSettingsLabel);
+            resources.ApplyResources(this.ArcazeTabPage, "ArcazeTabPage");
+            this.ArcazeTabPage.Name = "ArcazeTabPage";
+            this.ArcazeTabPage.UseVisualStyleBackColor = true;
+            this.ArcazeTabPage.Validating += new System.ComponentModel.CancelEventHandler(this.ledDisplaysTabPage_Validating);
             // 
-            // arcazeModuleSettingsGroupBox
+            // arcazePanel
             // 
-            this.arcazeModuleSettingsGroupBox.Controls.Add(this.numModulesLabel);
-            this.arcazeModuleSettingsGroupBox.Controls.Add(this.numModulesNumericUpDown);
-            this.arcazeModuleSettingsGroupBox.Controls.Add(this.arcazeModuleTypeComboBox);
-            this.arcazeModuleSettingsGroupBox.Controls.Add(this.globalBrightnessLabel);
-            this.arcazeModuleSettingsGroupBox.Controls.Add(this.globalBrightnessTrackBar);
-            this.arcazeModuleSettingsGroupBox.Controls.Add(this.arcazeModuleTypeLabel);
-            resources.ApplyResources(this.arcazeModuleSettingsGroupBox, "arcazeModuleSettingsGroupBox");
-            this.arcazeModuleSettingsGroupBox.Name = "arcazeModuleSettingsGroupBox";
-            this.arcazeModuleSettingsGroupBox.TabStop = false;
+            resources.ApplyResources(this.arcazePanel, "arcazePanel");
+            this.arcazePanel.ModuleConfigChanged = false;
+            this.arcazePanel.Name = "arcazePanel";
             // 
-            // numModulesLabel
+            // arcazeSettingsLabel
             // 
-            resources.ApplyResources(this.numModulesLabel, "numModulesLabel");
-            this.numModulesLabel.Name = "numModulesLabel";
-            // 
-            // numModulesNumericUpDown
-            // 
-            resources.ApplyResources(this.numModulesNumericUpDown, "numModulesNumericUpDown");
-            this.numModulesNumericUpDown.Maximum = new decimal(new int[] {
-            16,
-            0,
-            0,
-            0});
-            this.numModulesNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numModulesNumericUpDown.Name = "numModulesNumericUpDown";
-            this.toolTip1.SetToolTip(this.numModulesNumericUpDown, resources.GetString("numModulesNumericUpDown.ToolTip"));
-            this.numModulesNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numModulesNumericUpDown.ValueChanged += new System.EventHandler(this.numModulesNumericUpDown_ValueChanged);
-            // 
-            // arcazeModuleTypeComboBox
-            // 
-            this.arcazeModuleTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.arcazeModuleTypeComboBox.FormattingEnabled = true;
-            this.arcazeModuleTypeComboBox.Items.AddRange(new object[] {
-            resources.GetString("arcazeModuleTypeComboBox.Items")});
-            resources.ApplyResources(this.arcazeModuleTypeComboBox, "arcazeModuleTypeComboBox");
-            this.arcazeModuleTypeComboBox.Name = "arcazeModuleTypeComboBox";
-            this.arcazeModuleTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.arcazeModuleTypeComboBox_SelectedIndexChanged);
-            // 
-            // globalBrightnessLabel
-            // 
-            resources.ApplyResources(this.globalBrightnessLabel, "globalBrightnessLabel");
-            this.globalBrightnessLabel.Name = "globalBrightnessLabel";
-            // 
-            // globalBrightnessTrackBar
-            // 
-            this.globalBrightnessTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            resources.ApplyResources(this.globalBrightnessTrackBar, "globalBrightnessTrackBar");
-            this.globalBrightnessTrackBar.Maximum = 9;
-            this.globalBrightnessTrackBar.Minimum = 1;
-            this.globalBrightnessTrackBar.Name = "globalBrightnessTrackBar";
-            this.toolTip1.SetToolTip(this.globalBrightnessTrackBar, resources.GetString("globalBrightnessTrackBar.ToolTip"));
-            this.globalBrightnessTrackBar.Value = 9;
-            this.globalBrightnessTrackBar.ValueChanged += new System.EventHandler(this.numModulesNumericUpDown_ValueChanged);
-            // 
-            // arcazeModuleTypeLabel
-            // 
-            resources.ApplyResources(this.arcazeModuleTypeLabel, "arcazeModuleTypeLabel");
-            this.arcazeModuleTypeLabel.Name = "arcazeModuleTypeLabel";
-            // 
-            // arcazeModulesGroupBox
-            // 
-            this.arcazeModulesGroupBox.Controls.Add(this.ArcazeModuleTreeView);
-            resources.ApplyResources(this.arcazeModulesGroupBox, "arcazeModulesGroupBox");
-            this.arcazeModulesGroupBox.Name = "arcazeModulesGroupBox";
-            this.arcazeModulesGroupBox.TabStop = false;
-            // 
-            // ArcazeModuleTreeView
-            // 
-            resources.ApplyResources(this.ArcazeModuleTreeView, "ArcazeModuleTreeView");
-            this.ArcazeModuleTreeView.ImageList = this.mfTreeViewImageList;
-            this.ArcazeModuleTreeView.Name = "ArcazeModuleTreeView";
-            this.ArcazeModuleTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            ((System.Windows.Forms.TreeNode)(resources.GetObject("ArcazeModuleTreeView.Nodes"))),
-            ((System.Windows.Forms.TreeNode)(resources.GetObject("ArcazeModuleTreeView.Nodes1")))});
-            this.ArcazeModuleTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ArcazeModuleTreeView_AfterSelect);
+            resources.ApplyResources(this.arcazeSettingsLabel, "arcazeSettingsLabel");
+            this.arcazeSettingsLabel.Name = "arcazeSettingsLabel";
             // 
             // mfTreeViewImageList
             // 
             this.mfTreeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             resources.ApplyResources(this.mfTreeViewImageList, "mfTreeViewImageList");
             this.mfTreeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // arcazeSettingsLabel
-            // 
-            resources.ApplyResources(this.arcazeSettingsLabel, "arcazeSettingsLabel");
-            this.arcazeSettingsLabel.Name = "arcazeSettingsLabel";
             // 
             // mfModuleSettingsContextMenuStrip
             // 
@@ -276,7 +182,6 @@
             this.reloadConfigToolStripMenuItem});
             this.mfModuleSettingsContextMenuStrip.Name = "mfModuleSettingsContextMenuStrip";
             resources.ApplyResources(this.mfModuleSettingsContextMenuStrip, "mfModuleSettingsContextMenuStrip");
-            this.mfModuleSettingsContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.mfModuleSettingsContextMenuStrip_Opening);
             // 
             // addToolStripMenuItem
             // 
@@ -408,10 +313,15 @@
             resources.ApplyResources(this.generalTabPage, "generalTabPage");
             this.generalTabPage.Name = "generalTabPage";
             // 
+            // generalPanel
+            // 
+            resources.ApplyResources(this.generalPanel, "generalPanel");
+            this.generalPanel.Name = "generalPanel";
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.generalTabPage);
-            this.tabControl1.Controls.Add(this.ledDisplaysTabPage);
+            this.tabControl1.Controls.Add(this.ArcazeTabPage);
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
             this.tabControl1.Controls.Add(this.fsuipcTabPage);
             resources.ApplyResources(this.tabControl1, "tabControl1");
@@ -466,7 +376,6 @@
             this.removeDeviceToolStripButton,
             this.toolStripSeparator4});
             this.mobiflightSettingsToolStrip.Name = "mobiflightSettingsToolStrip";
-            this.mobiflightSettingsToolStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mobiflightSettingsToolStrip_ItemClicked);
             // 
             // uploadToolStripButton
             // 
@@ -617,7 +526,6 @@
             // 
             resources.ApplyResources(this.mobiflightSettingsLabel, "mobiflightSettingsLabel");
             this.mobiflightSettingsLabel.Name = "mobiflightSettingsLabel";
-            this.mobiflightSettingsLabel.Click += new System.EventHandler(this.mobiflightSettingsLabel_Click);
             // 
             // fsuipcTabPage
             // 
@@ -690,11 +598,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // generalPanel
-            // 
-            resources.ApplyResources(this.generalPanel, "generalPanel");
-            this.generalPanel.Name = "generalPanel";
-            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -706,12 +609,7 @@
             this.Name = "SettingsDialog";
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.panel1.ResumeLayout(false);
-            this.ledDisplaysTabPage.ResumeLayout(false);
-            this.arcazeModuleSettingsGroupBox.ResumeLayout(false);
-            this.arcazeModuleSettingsGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numModulesNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.globalBrightnessTrackBar)).EndInit();
-            this.arcazeModulesGroupBox.ResumeLayout(false);
+            this.ArcazeTabPage.ResumeLayout(false);
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
             this.generalTabPage.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -736,8 +634,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TabPage ledDisplaysTabPage;
-        private System.Windows.Forms.GroupBox arcazeModulesGroupBox;
+        private System.Windows.Forms.TabPage ArcazeTabPage;
         private System.Windows.Forms.TabPage generalTabPage;
         private System.Windows.Forms.TabPage fsuipcTabPage;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -745,13 +642,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar fsuipcPollIntervalTrackBar;
-        private System.Windows.Forms.GroupBox arcazeModuleSettingsGroupBox;
-        private System.Windows.Forms.Label numModulesLabel;
-        private System.Windows.Forms.NumericUpDown numModulesNumericUpDown;
-        private System.Windows.Forms.ComboBox arcazeModuleTypeComboBox;
-        private System.Windows.Forms.Label globalBrightnessLabel;
-        private System.Windows.Forms.TrackBar globalBrightnessTrackBar;
-        private System.Windows.Forms.Label arcazeModuleTypeLabel;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox mfConfiguredModulesGroupBox;
@@ -806,12 +696,12 @@
         public System.Windows.Forms.TabPage mobiFlightTabPage;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ToolStripMenuItem regenerateSerialToolStripMenuItem;
-        private System.Windows.Forms.TreeView ArcazeModuleTreeView;
-        private System.Windows.Forms.Label arcazeSettingsLabel;
         private System.Windows.Forms.CheckBox FwAutoUpdateCheckBox;
         private System.Windows.Forms.ToolStripMenuItem reloadConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LcdDisplayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addLcdDisplayToolStripMenuItem;
         private Panels.Settings.GeneralPanel generalPanel;
+        private Panels.Settings.ArcazePanel arcazePanel;
+        private System.Windows.Forms.Label arcazeSettingsLabel;
     }
 }

@@ -142,7 +142,9 @@ namespace MobiFlight
             return clone;
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, ButtonArgs e)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, 
+            SimConnectMSFS.SimConnectCache simConnectCache, 
+            MobiFlightCache moduleCache, ButtonArgs e)
         {
             switch (Type)
             {

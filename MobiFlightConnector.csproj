@@ -193,7 +193,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug-Mobiflight\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG SIMCONNECT</DefineConstants>
     <DocumentationFile>bin\Debug-Mobiflight\MFConnector.xml</DocumentationFile>
     <WarningLevel>2</WarningLevel>
     <DebugType>full</DebugType>
@@ -206,7 +206,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight|x64'">
     <OutputPath>bin\x64\Release-Mobiflight\</OutputPath>
-    <DefineConstants>TRACE;MOBIFLIGHT RELEASE</DefineConstants>
+    <DefineConstants>TRACE;MOBIFLIGHT RELEASE SIMCONNECT</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>2</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
@@ -233,7 +233,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight %28EN%29|x64'">
     <OutputPath>bin\x64\Release-Mobiflight %28EN%29\</OutputPath>
-    <DefineConstants>TRACE;MOBIFLIGHT RELEASE MF_FORCE_EN</DefineConstants>
+    <DefineConstants>TRACE;MOBIFLIGHT RELEASE MF_FORCE_EN SIMCONNECT</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>2</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
@@ -247,7 +247,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight %28EN%29|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug-Mobiflight %28EN%29\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_EN</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_EN SIMCONNECT</DefineConstants>
     <DocumentationFile>bin\Debug-Mobiflight %28EN%29\MFConnector.xml</DocumentationFile>
     <WarningLevel>2</WarningLevel>
     <DebugType>full</DebugType>
@@ -261,7 +261,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight %28DE%29|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug-Mobiflight %28DE%29\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_DE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_DE SIMCONNECT</DefineConstants>
     <DocumentationFile>bin\Debug-Mobiflight %28EN%29\MFConnector.xml</DocumentationFile>
     <WarningLevel>2</WarningLevel>
     <DebugType>full</DebugType>
@@ -360,6 +360,12 @@
     </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Settings\ArcazePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Settings\ArcazePanel.Designer.cs">
+      <DependentUpon>ArcazePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Settings\GeneralPanel.cs">
       <SubType>UserControl</SubType>
@@ -778,6 +784,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\MSFS2020InputPanel.resx">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.resx">
+      <DependentUpon>ArcazePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>

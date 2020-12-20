@@ -18,9 +18,7 @@ namespace MobiFlight.UI.Dialogs
 {
     public partial class SettingsDialog : Form
     {
-#if ARCAZE
-        List <ArcazeModuleSettings> moduleSettings;
-#endif 
+
         ExecutionManager execManager;
         int lastSelectedIndex = -1;
         Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new Forms.FirmwareUpdateProcess();
@@ -29,7 +27,6 @@ namespace MobiFlight.UI.Dialogs
         const bool StepperSupport = true;
         const bool ServoSupport = true;
         private int NumberOfModulesForFirmwareUpdate = 0;
-        bool IgnoreArcazeModuleSettingsChangeEvents = false;
 
         public List<MobiFlightModuleInfo> modulesForFlashing;
         public List<MobiFlightModule> modulesForUpdate;
@@ -45,57 +42,12 @@ namespace MobiFlight.UI.Dialogs
             modulesForFlashing = new List<MobiFlightModuleInfo>();
             modulesForUpdate = new List<MobiFlightModule>();
             Init();
-#if ARCAZE
-            InitArcazeModuleTreeView(execManager);
-#endif
         }
 
-#if ARCAZE
-        private void InitArcazeModuleTreeView(ExecutionManager execManager)
-        {
-            ArcazeCache arcazeCache = execManager.getModuleCache();
-
-            ArcazeModuleTreeView.Nodes.Clear();
-            foreach (IModuleInfo module in arcazeCache.getModuleInfo())
-            {
-                ArcazeListItem arcazeItem = new ArcazeListItem();
-                arcazeItem.Text = module.Name + "/ " + module.Serial;
-                arcazeItem.Value = module as ArcazeModuleInfo;
-
-                TreeNode NewNode = new TreeNode();
-                NewNode.Text = module.Name + "/ " + module.Serial;
-                NewNode.Tag = module as ArcazeModuleInfo;
-                NewNode.SelectedImageKey = NewNode.ImageKey = "module-arcaze";
-                if (moduleSettings.Find(item => item.serial == module.Serial) == null)
-                {
-                    NewNode.SelectedImageKey = NewNode.ImageKey = "new-arcaze";
-                }
-                
-                ArcazeModuleTreeView.Nodes.Add(NewNode);
-            }
-
-            if (ArcazeModuleTreeView.Nodes.Count == 0)
-            {
-                TreeNode NewNode = new TreeNode();
-                NewNode.Text = i18n._tr("none");
-                NewNode.SelectedImageKey = NewNode.ImageKey = "module-arcaze";
-                ArcazeModuleTreeView.Nodes.Add(NewNode);
-                ArcazeModuleTreeView.Enabled = false;
-                arcazeModuleSettingsGroupBox.Enabled = false;
-            }
-        }
-#endif
         private void Init()
         {
             InitializeComponent();
-#if ARCAZE
-            arcazeModuleTypeComboBox.Items.Clear();
-            arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.InternalIo.ToString());
-            arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.DisplayDriver.ToString());
-            arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.LedDriver2.ToString());
-            arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.LedDriver3.ToString());
-            arcazeModuleTypeComboBox.SelectedIndex = 0;
-#endif
+            // init Arcaze Tab Panel
 
             // initialize mftreeviewimagelist
             mfTreeViewImageList.Images.Add("module", MobiFlight.Properties.Resources.module_mobiflight);
@@ -117,14 +69,16 @@ namespace MobiFlight.UI.Dialogs
 
             addStepperToolStripMenuItem.Visible = stepperToolStripMenuItem.Visible = StepperSupport;
             addServoToolStripMenuItem.Visible = servoToolStripMenuItem.Visible = ServoSupport;
-
-
-
+#if ARCAZE
+            arcazePanel.Init(execManager.getModuleCache());
+#endif
             loadSettings();
 
-#if MOBIFLIGHT
-            // do nothing
-#else
+#if !ARCAZE
+            tabControl1.TabPages.Remove(ArcazeTabPage);
+#endif
+
+#if !MOBIFLIGHT
             tabControl1.TabPages.Remove(mobiFlightTabPage);
 #endif
 
@@ -151,23 +105,8 @@ namespace MobiFlight.UI.Dialogs
             // TAB Arcaze
             //
 #if ARCAZE
-            moduleSettings = new List<ArcazeModuleSettings>();
-            if ("" != Properties.Settings.Default.ModuleSettings)
-            {
-                try
-                {                
-                    XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));
-                    System.IO.StringReader w = new System.IO.StringReader(Properties.Settings.Default.ModuleSettings);
-                    moduleSettings = (List<ArcazeModuleSettings>)SerializerObj.Deserialize(w);
-                    string test = w.ToString();
-                }
-                catch (Exception e)
-                {
-                    Log.Instance.log("Exception on Deserializing arcaze extension module settings: " + e.Message, LogSeverity.Debug);
-                }
-            }
+            arcazePanel.LoadSettings();
 #endif
-
             //
             // TAB MobiFlight
             //
@@ -292,23 +231,15 @@ namespace MobiFlight.UI.Dialogs
             // General Tab
             generalPanel.saveSettings();
 
+            // Arcaze Tab
+#if ARCAZE
+            arcazePanel.SaveSettings();
+#endif
+
             // MobiFlight Tab
             // only the Firmware Auto Check Update needs to be synchronized 
             Properties.Settings.Default.FwAutoUpdateCheck = FwAutoUpdateCheckBox.Checked;
-#if ARCAZE
-            try
-            {
-                XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));                
-                System.IO.StringWriter w = new System.IO.StringWriter();
-                SerializerObj.Serialize(w, moduleSettings);
-                Properties.Settings.Default.ModuleSettings = w.ToString();
-                Log.Instance.log("Serialized Arcaze Extension Module Settings: " + Properties.Settings.Default.ModuleSettings, LogSeverity.Debug);
-            }
-            catch (Exception e)
-            {
-                Log.Instance.log("Exception on serializing arcaze extension module settings: " + e.Message, LogSeverity.Debug);
-            }
-#endif
+
             // FSUIPC poll interval
             Properties.Settings.Default.PollInterval = (int)(fsuipcPollIntervalTrackBar.Value * 50);
         }
@@ -347,94 +278,11 @@ namespace MobiFlight.UI.Dialogs
             }
 
             DialogResult = DialogResult.OK;
-            if (ArcazeModuleTreeView.SelectedNode != null)
-            {
-                _syncToModuleSettings((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial);
-            }
+
             saveSettings();
         }
 
-        /// <summary>
-        /// Save the module settings for the different Arcaze Boards
-        /// </summary>
-        /// <param name="serial"></param>
-        private void _syncToModuleSettings(string serial) {
-#if ARCAZE
-            if (IgnoreArcazeModuleSettingsChangeEvents) return;
-
-            ArcazeModuleSettings settingsToSave = null;
-            if (serial.Contains("/"))
-                serial = serial.Split('/')[1].Trim();
-
-            foreach (ArcazeModuleSettings settings in moduleSettings)
-            {
-                if (settings.serial != serial) continue;
-
-                settingsToSave = settings;
-            }
-
-            bool hasChanged = false;
-
-            if (settingsToSave == null)
-            {
-                settingsToSave = new ArcazeModuleSettings() { serial = serial };
-                moduleSettings.Add(settingsToSave);
-            }
-
-            settingsToSave.type = settingsToSave.stringToExtModuleType(arcazeModuleTypeComboBox.SelectedItem.ToString());
-            settingsToSave.numModules = (byte) numModulesNumericUpDown.Value;
-            settingsToSave.globalBrightness = (byte) (255 * ((globalBrightnessTrackBar.Value) / (double) (globalBrightnessTrackBar.Maximum)));
-
-            if (settingsToSave.HasChanged && ArcazeModuleTreeView.SelectedNode != null)
-            {
-                ModuleConfigChanged = true;
-                if ((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial == serial)
-                {
-                    ArcazeModuleTreeView.SelectedNode.SelectedImageKey = ArcazeModuleTreeView.SelectedNode.ImageKey = "Changed-arcaze";
-                }
-            }
-#endif
-        }
-
-#if ARCAZE
-        /// <summary>
-        /// Restore the arcaze settings
-        /// </summary>
-        /// <param name="serial"></param>
-        private void _syncFromModuleSettings(string serial) {
-            if (moduleSettings == null) return;
-            if (IgnoreArcazeModuleSettingsChangeEvents) return;
-
-            bool moduleSettingsAvailable = false;
-            IgnoreArcazeModuleSettingsChangeEvents = true;
-
-            foreach (ArcazeModuleSettings settings in moduleSettings)
-            {
-                if (serial.Contains("/"))
-                    serial = serial.Split('/')[1].Trim();
-
-                if (settings.serial != serial) continue;
-
-                arcazeModuleTypeComboBox.SelectedItem = settings.type.ToString();
-                numModulesNumericUpDown.Value = settings.numModules;
-                int range = globalBrightnessTrackBar.Maximum - globalBrightnessTrackBar.Minimum;
-
-                globalBrightnessTrackBar.Value = (int) ((settings.globalBrightness / (double) 255) *  (range)) + globalBrightnessTrackBar.Minimum;
-                moduleSettingsAvailable = true;
-                break;
-            }
-
-            if (!moduleSettingsAvailable)
-            {
-                arcazeModuleTypeComboBox.SelectedItem = ArcazeCommand.ExtModuleType.InternalIo.ToString();
-                numModulesNumericUpDown.Value = 1;
-                
-                IgnoreArcazeModuleSettingsChangeEvents = false;
-                _syncToModuleSettings(serial);
-            }
-            IgnoreArcazeModuleSettingsChangeEvents = false;
-        }
-#endif
+        
 
         /// <summary>
         /// Validate settings, e.g. ensure that every Arcaze has been configured.
@@ -460,74 +308,6 @@ namespace MobiFlight.UI.Dialogs
             }
 
             DialogResult = DialogResult.Cancel;
-        }
-
-
-        /// <summary>
-        /// Callback if extension type is changed for a selected Arcaze Board
-        /// Show the correct options
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void arcazeModuleTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-#if ARCAZE
-            numModulesLabel.Visible = (sender as ComboBox).SelectedIndex != 0;
-            numModulesNumericUpDown.Visible = (sender as ComboBox).SelectedIndex != 0;
-
-            bool brightnessVisible = (sender as ComboBox).SelectedIndex != 0 && ((sender as ComboBox).SelectedItem.ToString() != ArcazeCommand.ExtModuleType.LedDriver2.ToString());
-            globalBrightnessLabel.Visible = brightnessVisible;
-            globalBrightnessTrackBar.Visible = brightnessVisible;
-
-            // check if the extension is compatible
-            // but only if not the first item (please select) == 0
-            // or none selected yet == -1
-            if (ArcazeModuleTreeView.SelectedNode == null) return;
-            
-            // IModuleInfo devInfo = (IModuleInfo) ((arcazeSerialComboBox.SelectedItem as ArcazeListItem).Value);
-            IModuleInfo devInfo = (IModuleInfo)(ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo);
-            
-            
-            string errMessage = null;
-            
-            switch ((sender as ComboBox).SelectedItem.ToString()) {
-                case "DisplayDriver":
-                    // check for 5.30
-                    break;
-                case "LedDriver2":
-                    // check for v.5.54
-                    break;             
-                case "LedDriver3":
-                    // check for v.5.55
-                    break;
-            }
-
-            if (errMessage != null)
-            {
-                MessageBox.Show(i18n._tr(errMessage));
-            }
-
-            _syncToModuleSettings((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial);
-#endif
-        }
-
-        private void mobiflightSettingsLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mobiflightSettingsToolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Eventhandler whenever a module has been selected in treeview
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
         }
 
         /// <summary>
@@ -1065,11 +845,6 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        private void mfModuleSettingsContextMenuStrip_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node == null) return;
@@ -1172,32 +947,6 @@ namespace MobiFlight.UI.Dialogs
             syncPanelWithSelectedDevice(parentNode);
         }
 
-
-        private void ArcazeModuleTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-#if ARCAZE
-            if (e.Node == null) return;
-            TreeNode parentNode = e.Node;
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-            arcazeModuleSettingsGroupBox.Visible = true;
-            _syncFromModuleSettings((parentNode.Tag as ArcazeModuleInfo).Serial);
-#endif
-        }
-
-
-        private void numModulesNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            if (ArcazeModuleTreeView.SelectedNode != null)
-            {
-                _syncToModuleSettings((ArcazeModuleTreeView.SelectedNode.Tag as ArcazeModuleInfo).Serial);
-            }
-        }
-
-        private void numModulesNumericUpDown_Leave(object sender, EventArgs e)
-        {
-
-        }
-
         private void SettingsDialog_Shown(object sender, EventArgs e)
         {
             // Auto Update Functionality
@@ -1264,18 +1013,6 @@ namespace MobiFlight.UI.Dialogs
             module.Config = newConfig;
 
             return module;
-        }
-    }
-
-
-    public class ArcazeListItem
-    {
-        public string Text { get; set; }
-        public ArcazeModuleInfo Value { get; set; }
-
-        public override string ToString()
-        {
-            return Text;
         }
     }
 }

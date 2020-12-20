@@ -60,7 +60,10 @@ namespace MobiFlight
         /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
         /// </summary>
         Fsuipc2Cache fsuipcCache = new Fsuipc2Cache();
+
+#if SIMCONNECT
         SimConnectCache simConnectCache = new SimConnectCache();
+#endif
 
 #if ARCAZE
         ArcazeCache arcazeCache = new ArcazeCache();
@@ -85,10 +88,12 @@ namespace MobiFlight
             fsuipcCache.Connected += new EventHandler(fsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(fsuipcCache_Closed);
 
+#if SIMCONNECT
             simConnectCache.SetHandle(handle);
             simConnectCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             simConnectCache.Connected += new EventHandler(simConnect_Connected);
             simConnectCache.Closed += new EventHandler(simConnect_Closed);
+#endif
 
 #if ARCAZE
             arcazeCache.Connected += new EventHandler(arcazeCache_Connected);
@@ -119,10 +124,12 @@ namespace MobiFlight
 
         public void HandleWndProc(ref Message m)
         {
+#if SIMCONNECT
             if (m.Msg == SimConnectMSFS.SimConnectCache.WM_USER_SIMCONNECT)
             {
                 simConnectCache.ReceiveSimConnectMessage();
             }
+#endif
         }
 
         private void simConnect_Closed(object sender, EventArgs e)
@@ -157,7 +164,11 @@ namespace MobiFlight
 
         public bool SimConnected()
         {
-            return fsuipcCache.isConnected() || simConnectCache.isConnected();
+            return fsuipcCache.isConnected()
+#if SIMCONNECT
+                || simConnectCache.isConnected()
+#endif
+                ;
         }
 
         public bool ModulesConnected()
@@ -166,7 +177,7 @@ namespace MobiFlight
             return
 #if ARCAZE
                 arcazeCache.isConnected() || 
-#endif 
+#endif
                 mobiFlightCache.isConnected();
 #else
             return arcazeCache.isConnected();
@@ -196,8 +207,10 @@ namespace MobiFlight
         {
             fsuipcCache.disconnect();
             fsuipcCache.connect();
+#if SIMCONNECT
             simConnectCache.Disconnect();
             simConnectCache.Connect();
+#endif
         }
 
         public void AutoConnectStop()
@@ -254,7 +267,7 @@ namespace MobiFlight
             List<IModuleInfo> result = new List<IModuleInfo>();
 #if ARCAZE
             result.AddRange(arcazeCache.getModuleInfo());
-#endif 
+#endif
             result.AddRange(mobiFlightCache.getModuleInfo());
             return result;
         }
@@ -270,7 +283,10 @@ namespace MobiFlight
             mobiFlightCache.disconnect();
 #endif
             fsuipcCache.disconnect();
+
+#if SIMCONNECT
             simConnectCache.Disconnect();
+#endif
 
             if (this.OnModulesDisconnected != null)
                 this.OnModulesDisconnected(this, new EventArgs());         
@@ -292,7 +308,11 @@ namespace MobiFlight
         private void executeConfig()
         {
             // prevent execution if not connected to either FSUIPC or Arcaze
-            if (!fsuipcCache.isConnected() && !simConnectCache.isConnected()) return;
+            if (!fsuipcCache.isConnected()
+#if SIMCONNECT
+                && !simConnectCache.isConnected()
+#endif
+                ) return;
             if (
 #if ARCAZE
                 !arcazeCache.isConnected() && 
@@ -311,7 +331,7 @@ namespace MobiFlight
 
 #if ARCAZE
             arcazeCache.clearGetValues();
-#endif 
+#endif
 
             // iterate over the config row by row
             foreach (DataGridViewRow row in dataGridViewConfig.Rows)
@@ -417,6 +437,8 @@ namespace MobiFlight
                     continue;
                 }
 
+                OutputConfigItem tmp = new OutputConfigItem();
+
                 switch (p.PreconditionType)
                 {
 #if ARCAZE
@@ -435,7 +457,7 @@ namespace MobiFlight
                         connectorValue.type = FSUIPCOffsetType.Integer;
                         connectorValue.Int64 = Int64.Parse(val);
 
-                        OutputConfigItem tmp = new OutputConfigItem();
+                        tmp = new OutputConfigItem();
                         tmp.ComparisonActive = true;
                         tmp.ComparisonValue = p.PreconditionValue;
                         tmp.ComparisonOperand = "=";
@@ -458,7 +480,6 @@ namespace MobiFlight
                         break;
 #endif
                     case "config":
-                        OutputConfigItem tmp = new OutputConfigItem();
                         // iterate over the config row by row
                         foreach (DataGridViewRow row in dataGridViewConfig.Rows)
                         {
@@ -1071,7 +1092,9 @@ namespace MobiFlight
                 Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
 
                 fsuipcCache.connect();
+#if SIMCONNECT
                 simConnectCache.Connect();
+#endif
                 // we return here to prevent the disabling of the timer
                 // so that autostart-feature can work properly
                 _autoConnectTimerRunning = false;
@@ -1287,12 +1310,18 @@ namespace MobiFlight
                         tuple.Item2.ErrorText = "";
                     }
                 }
+#if SIMCONNECT
+                tuple.Item1.execute(
+                    fsuipcCache,
+                    simConnectCache, 
+                    mobiFlightCache, 
+                    e);
+#endif
 
-                tuple.Item1.execute(fsuipcCache, simConnectCache, mobiFlightCache, e);
             }
 
             //fsuipcCache.ForceUpdate();
         }
 #endif
-    }
+            }
 }
