@@ -593,8 +593,16 @@ namespace MobiFlight.UI
         /// </summary>
         void fsuipcCache_Closed(object sender, EventArgs e)
         {
-            fsuipcToolStripStatusLabel.Text = "Sim Status:";
-            fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+            if (!execManager.OfflineMode)
+            {
+                if (execManager.OfflineMode) fsuipcToolStripStatusLabel.Text = "Offline Mode:";
+                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+            }
+            else
+            {
+                fsuipcToolStripStatusLabel.Text = "Sim Status:";
+                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+            }
         }
 
         /// <summary>
