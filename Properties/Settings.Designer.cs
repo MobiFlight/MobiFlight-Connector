@@ -62,12 +62,12 @@ namespace MobiFlight.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets.aip")]
-        public string PresetFile {
+        public string PresetFileOutputs {
             get {
-                return ((string)(this["PresetFile"]));
+                return ((string)(this["PresetFileOutputs"]));
             }
             set {
-                this["PresetFile"] = value;
+                this["PresetFileOutputs"] = value;
             }
         }
         
@@ -146,12 +146,12 @@ namespace MobiFlight.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_inputs.aip")]
-        public string InputsPresetFile {
+        public string PresetFileInputs {
             get {
-                return ((string)(this["InputsPresetFile"]));
+                return ((string)(this["PresetFileInputs"]));
             }
             set {
-                this["InputsPresetFile"] = value;
+                this["PresetFileInputs"] = value;
             }
         }
         
@@ -194,12 +194,12 @@ namespace MobiFlight.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_eventids.cip")]
-        public string EventIdPresetFile {
+        public string PresetFileEventId {
             get {
-                return ((string)(this["EventIdPresetFile"]));
+                return ((string)(this["PresetFileEventId"]));
             }
             set {
-                this["EventIdPresetFile"] = value;
+                this["PresetFileEventId"] = value;
             }
         }
         
@@ -219,12 +219,12 @@ namespace MobiFlight.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_jeehell.cip")]
-        public string JeehellPresetFile {
+        public string PresetFileJeehell {
             get {
-                return ((string)(this["JeehellPresetFile"]));
+                return ((string)(this["PresetFileJeehell"]));
             }
             set {
-                this["JeehellPresetFile"] = value;
+                this["PresetFileJeehell"] = value;
             }
         }
         
@@ -267,36 +267,36 @@ namespace MobiFlight.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_eventids_pmdg_737.cip")]
-        public string Pmdg737EventIdPresetFile {
+        public string PresetFilePmdg737EventId {
             get {
-                return ((string)(this["Pmdg737EventIdPresetFile"]));
+                return ((string)(this["PresetFilePmdg737EventId"]));
             }
             set {
-                this["Pmdg737EventIdPresetFile"] = value;
+                this["PresetFilePmdg737EventId"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_eventids_pmdg_777.cip")]
-        public string Pmdg777EventIdPresetFile {
+        public string PresetFilePmdg777EventId {
             get {
-                return ((string)(this["Pmdg777EventIdPresetFile"]));
+                return ((string)(this["PresetFilePmdg777EventId"]));
             }
             set {
-                this["Pmdg777EventIdPresetFile"] = value;
+                this["PresetFilePmdg777EventId"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\presets_eventids_pmdg_747.cip")]
-        public string Pmdg747EventIdPresetFile {
+        public string PresetFilePmdg747EventId {
             get {
-                return ((string)(this["Pmdg747EventIdPresetFile"]));
+                return ((string)(this["PresetFilePmdg747EventId"]));
             }
             set {
-                this["Pmdg747EventIdPresetFile"] = value;
+                this["PresetFilePmdg747EventId"] = value;
             }
         }
         
@@ -315,12 +315,12 @@ namespace MobiFlight.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_eventids.cip")]
-        public string MSFS2020EventsPresetFile {
+        public string PresetFileMSFS2020Events {
             get {
-                return ((string)(this["MSFS2020EventsPresetFile"]));
+                return ((string)(this["PresetFileMSFS2020Events"]));
             }
             set {
-                this["MSFS2020EventsPresetFile"] = value;
+                this["PresetFileMSFS2020Events"] = value;
             }
         }
     }

@@ -30,17 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -147,7 +147,6 @@
             this.dividerToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.fsuipcToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.fsuipcStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.fsuipcOffsetValueLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.logTextBox = new System.Windows.Forms.TextBox();
@@ -160,6 +159,9 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
+            this.SimConnectLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SimConnectStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -344,14 +346,14 @@
             this.dataGridViewConfig.AllowUserToResizeRows = false;
             this.dataGridViewConfig.AutoGenerateColumns = false;
             this.dataGridViewConfig.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewConfig.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewConfig.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewConfig.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewConfig.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.active,
@@ -372,14 +374,14 @@
             this.EditButtonColumn});
             this.dataGridViewConfig.DataMember = "config";
             this.dataGridViewConfig.DataSource = this.dataSetConfig;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewConfig.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewConfig.DefaultCellStyle = dataGridViewCellStyle19;
             resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dataGridViewConfig.Name = "dataGridViewConfig";
@@ -415,8 +417,8 @@
             // 
             this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Description.DataPropertyName = "description";
-            dataGridViewCellStyle2.NullValue = "Doppelklicken für neuen Eintrag...";
-            this.Description.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle13.NullValue = "Doppelklicken für neuen Eintrag...";
+            this.Description.DefaultCellStyle = dataGridViewCellStyle13;
             resources.ApplyResources(this.Description, "Description");
             this.Description.Name = "Description";
             // 
@@ -424,8 +426,8 @@
             // 
             this.FsuipcOffset.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.FsuipcOffset.DataPropertyName = "fsuipcOffset";
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.FsuipcOffset.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.FsuipcOffset.DefaultCellStyle = dataGridViewCellStyle14;
             this.FsuipcOffset.FillWeight = 1000F;
             resources.ApplyResources(this.FsuipcOffset, "FsuipcOffset");
             this.FsuipcOffset.Name = "FsuipcOffset";
@@ -516,8 +518,8 @@
             // arcazeSerial
             // 
             this.arcazeSerial.DataPropertyName = "arcazeSerial";
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.arcazeSerial.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.arcazeSerial.DefaultCellStyle = dataGridViewCellStyle15;
             this.arcazeSerial.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             resources.ApplyResources(this.arcazeSerial, "arcazeSerial");
             this.arcazeSerial.Items.AddRange(new object[] {
@@ -528,8 +530,8 @@
             // 
             // fsuipcValueColumn
             // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.fsuipcValueColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.fsuipcValueColumn.DefaultCellStyle = dataGridViewCellStyle16;
             resources.ApplyResources(this.fsuipcValueColumn, "fsuipcValueColumn");
             this.fsuipcValueColumn.Name = "fsuipcValueColumn";
             this.fsuipcValueColumn.ReadOnly = true;
@@ -538,8 +540,8 @@
             // 
             // arcazeValueColumn
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.arcazeValueColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.arcazeValueColumn.DefaultCellStyle = dataGridViewCellStyle17;
             resources.ApplyResources(this.arcazeValueColumn, "arcazeValueColumn");
             this.arcazeValueColumn.Name = "arcazeValueColumn";
             this.arcazeValueColumn.ReadOnly = true;
@@ -548,10 +550,10 @@
             // 
             // EditButtonColumn
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle7.NullValue = "...";
-            this.EditButtonColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle18.NullValue = "...";
+            this.EditButtonColumn.DefaultCellStyle = dataGridViewCellStyle18;
             resources.ApplyResources(this.EditButtonColumn, "EditButtonColumn");
             this.EditButtonColumn.Name = "EditButtonColumn";
             this.EditButtonColumn.Text = "...";
@@ -755,8 +757,8 @@
             // 
             // inputName
             // 
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.inputName.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.inputName.DefaultCellStyle = dataGridViewCellStyle20;
             resources.ApplyResources(this.inputName, "inputName");
             this.inputName.Name = "inputName";
             this.inputName.ReadOnly = true;
@@ -766,8 +768,8 @@
             // inputType
             // 
             this.inputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.inputType.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.inputType.DefaultCellStyle = dataGridViewCellStyle21;
             resources.ApplyResources(this.inputType, "inputType");
             this.inputType.Name = "inputType";
             this.inputType.ReadOnly = true;
@@ -776,10 +778,10 @@
             // inputEditButtonColumn
             // 
             this.inputEditButtonColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle11.NullValue = "...";
-            this.inputEditButtonColumn.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle22.NullValue = "...";
+            this.inputEditButtonColumn.DefaultCellStyle = dataGridViewCellStyle22;
             resources.ApplyResources(this.inputEditButtonColumn, "inputEditButtonColumn");
             this.inputEditButtonColumn.Name = "inputEditButtonColumn";
             this.inputEditButtonColumn.Text = "...";
@@ -1015,7 +1017,9 @@
             this.dividerToolStripStatusLabel1,
             this.fsuipcToolStripStatusLabel,
             this.fsuipcStatusToolStripStatusLabel,
-            this.fsuipcOffsetValueLabel,
+            this.toolStripStatusLabel4,
+            this.SimConnectLabel,
+            this.SimConnectStatusLabel,
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel});
             this.statusStrip2.Name = "statusStrip2";
@@ -1057,11 +1061,6 @@
             this.fsuipcStatusToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
             this.fsuipcStatusToolStripStatusLabel.Name = "fsuipcStatusToolStripStatusLabel";
             resources.ApplyResources(this.fsuipcStatusToolStripStatusLabel, "fsuipcStatusToolStripStatusLabel");
-            // 
-            // fsuipcOffsetValueLabel
-            // 
-            this.fsuipcOffsetValueLabel.Name = "fsuipcOffsetValueLabel";
-            resources.ApplyResources(this.fsuipcOffsetValueLabel, "fsuipcOffsetValueLabel");
             // 
             // toolStripStatusLabel1
             // 
@@ -1137,6 +1136,25 @@
             this.startupPanel.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
+            // 
+            // SimConnectLabel
+            // 
+            this.SimConnectLabel.Name = "SimConnectLabel";
+            resources.ApplyResources(this.SimConnectLabel, "SimConnectLabel");
+            // 
+            // SimConnectStatusLabel
+            // 
+            this.SimConnectStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SimConnectStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
+            this.SimConnectStatusLabel.Name = "SimConnectStatusLabel";
+            resources.ApplyResources(this.SimConnectStatusLabel, "SimConnectStatusLabel");
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            resources.ApplyResources(this.toolStripStatusLabel4, "toolStripStatusLabel4");
             // 
             // MainForm
             // 
@@ -1250,7 +1268,6 @@
         private System.Windows.Forms.ToolStripButton runToolStripButton;
         private System.Windows.Forms.ToolStripButton stopTestToolStripButton;
         private System.Windows.Forms.ToolStripButton runTestToolStripButton;
-        private System.Windows.Forms.ToolStripStatusLabel fsuipcOffsetValueLabel;
         private System.Windows.Forms.ToolStripMenuItem extrasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton autoRunToolStripButton;
@@ -1313,6 +1330,9 @@
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
         private UI.Panels.StartupPanel startupPanel;
         private System.Windows.Forms.Splitter logSplitter;
+        private System.Windows.Forms.ToolStripStatusLabel SimConnectLabel;
+        private System.Windows.Forms.ToolStripStatusLabel SimConnectStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
     }
 }
 

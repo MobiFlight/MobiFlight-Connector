@@ -24,7 +24,7 @@ namespace MobiFlight.UI.Panels.Config
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
             _initFsuipcOffsetTypeComboBox();
-            PresetFile = Properties.Settings.Default.PresetFile;
+            PresetFile = Properties.Settings.Default.PresetFileOutputs;
             _loadPresets();
             fsuipcPresetComboBox.ResetText();
         }
@@ -44,7 +44,7 @@ namespace MobiFlight.UI.Panels.Config
 
             if (!OutputPanelMode)
             {
-                PresetFile = Properties.Settings.Default.InputsPresetFile;
+                PresetFile = Properties.Settings.Default.PresetFileInputs;
                 _loadPresets();
             }
         }

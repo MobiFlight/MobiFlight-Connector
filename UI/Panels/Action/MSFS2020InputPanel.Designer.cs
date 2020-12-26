@@ -40,7 +40,7 @@
             this.DeviceLabel.Name = "DeviceLabel";
             this.DeviceLabel.Size = new System.Drawing.Size(51, 18);
             this.DeviceLabel.TabIndex = 0;
-            this.DeviceLabel.Text = "Device";
+            this.DeviceLabel.Text = "Group";
             this.DeviceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // DeviceComboBox

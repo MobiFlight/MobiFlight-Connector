@@ -18,7 +18,7 @@ namespace MobiFlight.UI.Panels.Action
         public JeehellInputPanel()
         {
             InitializeComponent();
-            PresetFile = Properties.Settings.Default.JeehellPresetFile;
+            PresetFile = Properties.Settings.Default.PresetFileJeehell;
             Data = new DataTable();
             hintLabel.Visible = false;
 

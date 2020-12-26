@@ -119,7 +119,7 @@ namespace MobiFlight.UI.Dialogs
         {
             bool isLoaded = true;
 
-            if (!System.IO.File.Exists(Properties.Settings.Default.PresetFile))
+            if (!System.IO.File.Exists(Properties.Settings.Default.PresetFileOutputs))
             {
                 isLoaded = false;
                 MessageBox.Show(i18n._tr("uiMessageConfigWizard_PresetsNotFound"), i18n._tr("Hint"));             
@@ -130,7 +130,7 @@ namespace MobiFlight.UI.Dialogs
                 try
                 {
                     presetsDataSet.Clear();
-                    presetsDataSet.ReadXml(Properties.Settings.Default.PresetFile);
+                    presetsDataSet.ReadXml(Properties.Settings.Default.PresetFileOutputs);
                     DataRow[] rows = presetDataTable.Select("", "description");
                 }
                 catch (Exception e)

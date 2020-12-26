@@ -310,7 +310,7 @@ namespace MobiFlight
             // prevent execution if not connected to either FSUIPC or Arcaze
             if (!fsuipcCache.isConnected()
 #if SIMCONNECT
-                && !simConnectCache.isConnected()
+                //&& !simConnectCache.isConnected()
 #endif
                 ) return;
             if (
@@ -1087,18 +1087,23 @@ namespace MobiFlight
             //if (!arcazeCache.isConnected()) arcazeCache.connect();
             //if (!mobiFlightCache.isConnected()) mobiFlightCache.connect();
 
-            if (SimAvailable() && !fsuipcCache.isConnected())
+            if (SimAvailable())
             {
                 Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
 
-                fsuipcCache.connect();
+                if (!fsuipcCache.isConnected())
+                    fsuipcCache.connect();
 #if SIMCONNECT
-                simConnectCache.Connect();
+                if (!simConnectCache.isConnected())
+                    simConnectCache.Connect();
 #endif
                 // we return here to prevent the disabling of the timer
                 // so that autostart-feature can work properly
                 _autoConnectTimerRunning = false;
                 return;
+            } else
+            {
+                Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
             }
 
             // this line here provokes a timer stop event each time

@@ -66,11 +66,11 @@ namespace MobiFlight.UI.Panels.Action
 
         private void _loadPresets()
         {
-            PresetFile = Properties.Settings.Default.Pmdg737EventIdPresetFile;
+            PresetFile = Properties.Settings.Default.PresetFilePmdg737EventId;
             if (lastUsedType == PmdgEventIdInputAction.PmdgAircraftType.B777)
-                PresetFile = Properties.Settings.Default.Pmdg777EventIdPresetFile;
+                PresetFile = Properties.Settings.Default.PresetFilePmdg777EventId;
             else if (lastUsedType == PmdgEventIdInputAction.PmdgAircraftType.B747)
-                PresetFile = Properties.Settings.Default.Pmdg747EventIdPresetFile;
+                PresetFile = Properties.Settings.Default.PresetFilePmdg747EventId;
 
             bool isLoaded = true;
 

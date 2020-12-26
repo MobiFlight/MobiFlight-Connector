@@ -167,9 +167,6 @@ namespace MobiFlight.UI
             inputsDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
             dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(dataGridViewConfig_RowsAdded);
 
-            // the debug output for selected offsets
-            fsuipcOffsetValueLabel.Visible = false;
-
             dataGridViewConfig.Columns["Description"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
             inputsDataGridView.Columns["inputDescription"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
@@ -593,15 +590,23 @@ namespace MobiFlight.UI
         /// </summary>
         void fsuipcCache_Closed(object sender, EventArgs e)
         {
-            if (!execManager.OfflineMode)
+            if (execManager.OfflineMode)
             {
-                if (execManager.OfflineMode) fsuipcToolStripStatusLabel.Text = "Offline Mode:";
+                fsuipcToolStripStatusLabel.Text = "Offline Mode:";
                 fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
             }
             else
             {
-                fsuipcToolStripStatusLabel.Text = "Sim Status:";
-                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+                if (sender.GetType() == typeof(SimConnectCache))
+                {
+                    SimConnectLabel.Text = "SimConnect:";
+                    SimConnectStatusLabel.Image = Properties.Resources.warning;
+                } else
+                {
+                    fsuipcToolStripStatusLabel.Text = "Sim Status:";
+                    fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+                }
+                runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
             }
         }
 
@@ -613,7 +618,8 @@ namespace MobiFlight.UI
 
             if (sender.GetType() == typeof(SimConnectCache))
             {
-                fsuipcToolStripStatusLabel.Text = "SimConnect (MSFS2020):";
+                SimConnectLabel.Text = "SimConnect (MSFS2020):";
+                SimConnectStatusLabel.Image = Properties.Resources.check;
             }
 
             else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
@@ -641,12 +647,15 @@ namespace MobiFlight.UI
                         fsuipcToolStripStatusLabel.Text = "Sim Status:";
                         break;
                 }
+                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
             }
 
-            if (execManager.OfflineMode) fsuipcToolStripStatusLabel.Text = "Offline Mode:";
-
-            fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
-
+            if (execManager.OfflineMode)
+            {
+                fsuipcToolStripStatusLabel.Text = "Offline Mode:";
+                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+            }
+               
             runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
         }
 

@@ -19,7 +19,7 @@ namespace MobiFlight.UI.Panels.Action
         public MSFS2020InputPanel()
         {
             InitializeComponent();
-            PresetFile = Properties.Settings.Default.MSFS2020EventsPresetFile;
+            PresetFile = Properties.Settings.Default.PresetFileMSFS2020Events;
             _loadPresets();
         }
 

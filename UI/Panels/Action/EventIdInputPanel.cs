@@ -18,7 +18,7 @@ namespace MobiFlight.UI.Panels.Action
         public EventIdInputPanel()
         {
             InitializeComponent();
-            PresetFile = Properties.Settings.Default.EventIdPresetFile;
+            PresetFile = Properties.Settings.Default.PresetFileEventId;
             Data = new DataTable();
             _loadPresets();
         }

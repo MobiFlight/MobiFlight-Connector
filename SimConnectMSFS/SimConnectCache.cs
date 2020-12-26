@@ -24,6 +24,8 @@ namespace MobiFlight.SimConnectMSFS
             DUMMY
         };
 
+        private const string STANDARD_EVENT_GROUP = "STANDARD";
+
         private bool _connected = false;
 
         /// User-defined win32 event
@@ -35,7 +37,7 @@ namespace MobiFlight.SimConnectMSFS
         /// SimConnect object
         private SimConnect m_oSimConnect = null;
 
-        public List<String> Events { get; private set; }
+        public Dictionary<String, List<Tuple<String, uint>>> Events { get; private set; }
 
         public String PresetFile = null;
 
@@ -56,17 +58,25 @@ namespace MobiFlight.SimConnectMSFS
 
         private void _loadEventPresets()
         {
-            if (Events == null) Events = new List<string>();
+            if (Events == null) Events = new Dictionary<string, List<Tuple<String, uint>>> ();
             Events.Clear();
+
             if (PresetFile == null) PresetFile = @"Presets\msfs2020_eventids.cip";
             string[] lines = System.IO.File.ReadAllLines(PresetFile);
+            var GroupKey = "Dummy";
+            uint EventIdx = 0;
 
             foreach (string line in lines)
             {
                 var cols = line.Split(':');
-                if (cols.Length > 1) continue; // we found a group
+                if (cols.Length > 1)
+                {
+                    GroupKey = cols[0];
+                    Events[GroupKey] = new List<Tuple<String, uint>>();
+                    continue; // we found a group
+                }
 
-                Events.Add(cols[0]);
+                Events[GroupKey].Add(new Tuple<string, uint>(cols[0], EventIdx++));
             }
         } 
 
@@ -98,13 +108,14 @@ namespace MobiFlight.SimConnectMSFS
         {
             _connected = true;
 
-            int eventIdx = 0;
-
             // register Events
-            foreach (string eventName in Events)
-            {
-                (sender).MapClientEventToSimEvent((MOBIFLIGHT_EVENTS) eventIdx, "MobiFlight." + eventName);
-                eventIdx++;
+            foreach (string GroupKey in Events.Keys) { 
+                foreach (Tuple<string, uint> eventItem in Events[GroupKey])
+                {
+                    var prefix = "";
+                    if (GroupKey != STANDARD_EVENT_GROUP) prefix = "MobiFlight.";
+                    (sender).MapClientEventToSimEvent((MOBIFLIGHT_EVENTS) eventItem.Item2, prefix + eventItem.Item1);
+                }
             }
 
             Connected?.Invoke(this, null);
@@ -145,19 +156,22 @@ namespace MobiFlight.SimConnectMSFS
         {
             if (m_oSimConnect == null || !isConnected()) return;
 
-            int eventIdx = Events.FindIndex(x => x==eventID);
-            if (eventIdx < 0)
+            Tuple<String, uint> eventItem = null;
+
+            foreach (String GroupKey in Events.Keys)
+            {
+                eventItem = Events[GroupKey].Find(x => x.Item1 == eventID);
+                if (eventItem != null) break;
+            }
+
+            if (eventItem == null)
             {
                 Log.Instance.log("SimConnectCache::setEventID: Unknown event ID: " + eventID, LogSeverity.Error);
                 return;
             }
-
-            //var result = Enum.TryParse(eventID, out MOBIFLIGHT_EVENTS selectedEventId);
-            //if (!result) return;
-
             m_oSimConnect.TransmitClientEvent(
                     0,
-                    (MOBIFLIGHT_EVENTS) eventIdx,
+                    (MOBIFLIGHT_EVENTS)eventItem.Item2,
                     1,
                     SIMCONNECT_NOTIFICATION_GROUP_ID.SIMCONNECT_GROUP_PRIORITY_DEFAULT,
                     SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
