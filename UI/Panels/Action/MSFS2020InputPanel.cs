@@ -54,12 +54,14 @@ namespace MobiFlight.UI.Panels.Action
                         }
                     }
 
-                    DeviceComboBox.Items.Clear();
+                    GroupComboBox.Items.Clear();
                     EventIdComboBox.Items.Clear();
+
+                    if (data["Default"].Count == 0) data.Remove("Default");
 
                     foreach (String key in data.Keys)
                     {
-                        DeviceComboBox.Items.Add(key);
+                        GroupComboBox.Items.Add(key);
                     }
                 }
                 catch (Exception e)
@@ -69,7 +71,7 @@ namespace MobiFlight.UI.Panels.Action
                 }
             }
 
-            DeviceComboBox.Enabled = isLoaded;
+            GroupComboBox.Enabled = isLoaded;
  
         }
 
@@ -84,8 +86,8 @@ namespace MobiFlight.UI.Panels.Action
             {
                 if (!data[key].Contains(eventIdInputAction.EventId.ToString())) continue;
 
-                DeviceComboBox.SelectedIndexChanged -= DeviceComboBox_SelectedIndexChanged;
-                DeviceComboBox.Text = key;
+                GroupComboBox.SelectedIndexChanged -= DeviceComboBox_SelectedIndexChanged;
+                GroupComboBox.Text = key;
                 EventIdComboBox.Items.Clear();
 
                 foreach (String eventId in data[key])
@@ -93,7 +95,7 @@ namespace MobiFlight.UI.Panels.Action
                     EventIdComboBox.Items.Add(eventId);
                 }          
 
-                DeviceComboBox.SelectedIndexChanged += DeviceComboBox_SelectedIndexChanged;
+                GroupComboBox.SelectedIndexChanged += DeviceComboBox_SelectedIndexChanged;
             }
         }
 

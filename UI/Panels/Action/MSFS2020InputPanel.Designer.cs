@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.DeviceLabel = new System.Windows.Forms.Label();
-            this.DeviceComboBox = new System.Windows.Forms.ComboBox();
+            this.GroupComboBox = new System.Windows.Forms.ComboBox();
             this.EventIdComboBox = new System.Windows.Forms.ComboBox();
             this.EventLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -43,14 +43,14 @@
             this.DeviceLabel.Text = "Group";
             this.DeviceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // DeviceComboBox
+            // GroupComboBox
             // 
-            this.DeviceComboBox.FormattingEnabled = true;
-            this.DeviceComboBox.Location = new System.Drawing.Point(71, 19);
-            this.DeviceComboBox.Name = "DeviceComboBox";
-            this.DeviceComboBox.Size = new System.Drawing.Size(171, 21);
-            this.DeviceComboBox.TabIndex = 1;
-            this.DeviceComboBox.SelectedIndexChanged += new System.EventHandler(this.DeviceComboBox_SelectedIndexChanged);
+            this.GroupComboBox.FormattingEnabled = true;
+            this.GroupComboBox.Location = new System.Drawing.Point(71, 19);
+            this.GroupComboBox.Name = "GroupComboBox";
+            this.GroupComboBox.Size = new System.Drawing.Size(171, 21);
+            this.GroupComboBox.TabIndex = 1;
+            this.GroupComboBox.SelectedIndexChanged += new System.EventHandler(this.DeviceComboBox_SelectedIndexChanged);
             // 
             // EventIdComboBox
             // 
@@ -75,7 +75,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.EventIdComboBox);
             this.Controls.Add(this.EventLabel);
-            this.Controls.Add(this.DeviceComboBox);
+            this.Controls.Add(this.GroupComboBox);
             this.Controls.Add(this.DeviceLabel);
             this.Name = "MSFS2020InputPanel";
             this.Size = new System.Drawing.Size(265, 96);
@@ -86,7 +86,7 @@
         #endregion
 
         private System.Windows.Forms.Label DeviceLabel;
-        private System.Windows.Forms.ComboBox DeviceComboBox;
+        private System.Windows.Forms.ComboBox GroupComboBox;
         private System.Windows.Forms.ComboBox EventIdComboBox;
         private System.Windows.Forms.Label EventLabel;
     }
