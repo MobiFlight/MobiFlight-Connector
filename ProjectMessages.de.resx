@@ -284,7 +284,7 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
     <value>Bearbeiten</value>
   </data>
   <data name="WebsiteUrlHelp" xml:space="preserve">
-    <value>http://mobiflight.moebiuz.de/dokumentation/software.html</value>
+    <value>https://www.mobiflight.com/de/dokumentation/software.html</value>
   </data>
   <data name="suffixCopy" xml:space="preserve">
     <value>Kopie</value>
