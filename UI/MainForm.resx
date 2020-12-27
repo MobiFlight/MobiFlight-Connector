@@ -117,278 +117,167 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="&gt;&gt;typeDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FsuipcOffset.ToolTipText" xml:space="preserve">
+    <value>Der FSUIPC Offset laut Dokumentation</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="MappingConfigGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 24</value>
+  <data name="runToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 25</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;Description.Name" xml:space="preserve">
+    <value>Description</value>
   </data>
-  <data name="menuStrip.Text" xml:space="preserve">
-    <value>menuStrip1</value>
+  <data name="Typ.ToolTipText" xml:space="preserve">
+    <value>Signal Typ</value>
   </data>
-  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
-    <value>menuStrip</value>
+  <data name="&gt;&gt;inputsDataGridView.Parent" xml:space="preserve">
+    <value>InputTabPage</value>
   </data>
-  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="toolStripMenuItem3.Text" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 6</value>
-  </data>
-  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="openToolStripMenuItem.Text" xml:space="preserve">
-    <value>Open...</value>
-  </data>
-  <data name="konfigurationSpeichernToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="konfigurationSpeichernToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save As...</value>
-  </data>
-  <data name="AfterFileActionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 6</value>
-  </data>
-  <data name="recentDocumentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="recentDocumentsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Recent Documents...</value>
-  </data>
-  <data name="recentDocsToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 6</value>
-  </data>
-  <data name="recentDocsToolStripSeparator.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="beendenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="extrasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 20</value>
-  </data>
-  <data name="extrasToolStripMenuItem.Text" xml:space="preserve">
-    <value>Extras</value>
-  </data>
-  <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="orphanedSerialsFinderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Manage orphaned serials</value>
-  </data>
-  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 6</value>
-  </data>
-  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
-  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="hilfeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Help</value>
-  </data>
-  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 22</value>
-  </data>
-  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
-    <value>Open help in web</value>
-  </data>
-  <data name="checkForUpdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 22</value>
-  </data>
-  <data name="checkForUpdateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Check for update</value>
-  </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 6</value>
+  <data name="stopToolStripButton.Text" xml:space="preserve">
+    <value>Stop</value>
   </data>
   <data name="überToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 22</value>
   </data>
-  <data name="überToolStripMenuItem.Text" xml:space="preserve">
-    <value>About</value>
+  <data name="&gt;&gt;inputsSettingsDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="panelMain.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="toolStripComboBox1.Items" xml:space="preserve">
+    <value>dasdasdsad</value>
+  </data>
+  <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
+    <value>openToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;stopTestToolStripButton.Name" xml:space="preserve">
+    <value>stopTestToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;hilfeToolStripMenuItem.Name" xml:space="preserve">
+    <value>hilfeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;fsuipcStatusToolStripStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="panelMain.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="&gt;&gt;inputsTabControl.Name" xml:space="preserve">
-    <value>inputsTabControl</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.Parent" xml:space="preserve">
-    <value>panelMain</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="panelMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 52</value>
-  </data>
-  <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 305</value>
-  </data>
-  <data name="panelMain.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panelMain.Name" xml:space="preserve">
-    <value>panelMain</value>
-  </data>
-  <data name="&gt;&gt;panelMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panelMain.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panelMain.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;OutputTabPage.Name" xml:space="preserve">
-    <value>OutputTabPage</value>
-  </data>
-  <data name="&gt;&gt;OutputTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;OutputTabPage.Parent" xml:space="preserve">
-    <value>inputsTabControl</value>
-  </data>
-  <data name="&gt;&gt;OutputTabPage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.Name" xml:space="preserve">
-    <value>InputTabPage</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 25</value>
   </data>
   <data name="&gt;&gt;InputTabPage.Parent" xml:space="preserve">
     <value>inputsTabControl</value>
   </data>
-  <data name="&gt;&gt;InputTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;fsuipcSizeDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="inputsTabControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="arcazePin.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="inputsTabControl.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt</value>
+  <data name="arcazePin.ToolTipText" xml:space="preserve">
+    <value>Der Pin des ArcazeUSB-Moduls</value>
   </data>
-  <data name="inputsTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>690, 273</value>
   </data>
-  <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 305</value>
+  <data name="&gt;&gt;konfigurationSpeichernToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="inputsTabControl.TabIndex" type="System.Int32, mscorlib">
+  <data name="comparison.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="logTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.Name" xml:space="preserve">
-    <value>inputsTabControl</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.Parent" xml:space="preserve">
-    <value>panelMain</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Name" xml:space="preserve">
-    <value>MappingConfigGroupBox</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Parent" xml:space="preserve">
-    <value>OutputTabPage</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="OutputTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="OutputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>696, 279</value>
-  </data>
-  <data name="OutputTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="OutputTabPage.Text" xml:space="preserve">
-    <value>Output</value>
-  </data>
-  <data name="&gt;&gt;OutputTabPage.Name" xml:space="preserve">
-    <value>OutputTabPage</value>
   </data>
   <data name="&gt;&gt;OutputTabPage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;OutputTabPage.Parent" xml:space="preserve">
-    <value>inputsTabControl</value>
+  <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 48</value>
   </data>
-  <data name="&gt;&gt;OutputTabPage.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="toolStripComboBox1.Items2" xml:space="preserve">
+    <value>asdasdasdasd</value>
   </data>
-  <data name="MappingConfigGroupBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="fsuipcStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 17</value>
   </data>
-  <data name="MappingConfigGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
+  <data name="openToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open...</value>
   </data>
-  <data name="&gt;&gt;dataGridViewConfig.Name" xml:space="preserve">
-    <value>dataGridViewConfig</value>
+  <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="&gt;&gt;dataGridViewConfig.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;logTextBox.Name" xml:space="preserve">
+    <value>logTextBox</value>
   </data>
-  <data name="&gt;&gt;dataGridViewConfig.Parent" xml:space="preserve">
-    <value>MappingConfigGroupBox</value>
+  <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Duplicate row</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetDataColumn.Name" xml:space="preserve">
+    <value>fsuipcOffsetDataColumn</value>
+  </data>
+  <data name="Description.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="stopToolStripButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="donateToolStripButton.Text" xml:space="preserve">
+    <value>donateToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;orphanedSerialsFinderToolStripMenuItem.Name" xml:space="preserve">
+    <value>orphanedSerialsFinderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;guid.Name" xml:space="preserve">
+    <value>guid</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn3</value>
+  </data>
+  <data name="statusStripPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="dataGridViewConfig.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;InputTabPage.Name" xml:space="preserve">
+    <value>InputTabPage</value>
+  </data>
+  <data name="Typ.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="InputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridView.Name" xml:space="preserve">
+    <value>inputsDataGridView</value>
+  </data>
+  <data name="&gt;&gt;fsuipcToolStripStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="arcazeSerial.HeaderText" xml:space="preserve">
+    <value>Module Serial</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="trigger.HeaderText" xml:space="preserve">
+    <value>Arcaze Trigger</value>
+  </data>
+  <data name="toolStripStatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;dataGridViewConfig.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -396,488 +285,1151 @@
   <data name="MappingConfigGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="MappingConfigGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>690, 273</value>
+  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="MappingConfigGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="MappingConfigGroupBox.Text" xml:space="preserve">
-    <value>Mappings</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Name" xml:space="preserve">
-    <value>MappingConfigGroupBox</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Parent" xml:space="preserve">
-    <value>OutputTabPage</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="active.HeaderText" xml:space="preserve">
+  <data name="activeDataGridViewCheckBoxColumn.HeaderText" xml:space="preserve">
     <value>active</value>
   </data>
-  <data name="active.Width" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <metadata name="guid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="guid.HeaderText" xml:space="preserve">
-    <value>guid</value>
-  </data>
-  <data name="guid.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <metadata name="Description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Description.HeaderText" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="Description.MinimumWidth" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="Description.ToolTipText" xml:space="preserve">
-    <value>Hinweistext für den einfachen Überblick</value>
-  </data>
-  <metadata name="FsuipcOffset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="FsuipcOffset.HeaderText" xml:space="preserve">
-    <value>FSUIPC Offset</value>
-  </data>
-  <data name="FsuipcOffset.MinimumWidth" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="FsuipcOffset.ToolTipText" xml:space="preserve">
-    <value>Der FSUIPC Offset laut Dokumentation</value>
-  </data>
-  <data name="FsuipcOffset.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <metadata name="FsuipcSize.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="FsuipcSize.HeaderText" xml:space="preserve">
-    <value>FSUIPC Size</value>
-  </data>
-  <data name="FsuipcSize.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="FsuipcSize.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <metadata name="Converter.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Converter.HeaderText" xml:space="preserve">
-    <value>Converter</value>
-  </data>
-  <data name="Converter.ToolTipText" xml:space="preserve">
-    <value>Ein Art den ausgelesenen Wert zu interpretieren bzw. konvertieren</value>
-  </data>
-  <data name="Converter.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="Converter.Width" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <metadata name="Mask.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Mask.HeaderText" xml:space="preserve">
-    <value>Mask</value>
-  </data>
-  <data name="Mask.ToolTipText" xml:space="preserve">
-    <value>maskiert die relevanten Bits des ausgelesenen Werts</value>
-  </data>
-  <data name="Mask.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="Mask.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <metadata name="comparison.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="comparison.HeaderText" xml:space="preserve">
-    <value>Compare Type</value>
-  </data>
-  <data name="comparison.ToolTipText" xml:space="preserve">
-    <value>Die Art welche zum Vergleich des Wertes aus FSUIPC verwendet wird</value>
-  </data>
-  <data name="comparison.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comparison.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <metadata name="comparisonValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="comparisonValue.HeaderText" xml:space="preserve">
-    <value>Compare Value</value>
-  </data>
-  <data name="comparisonValue.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="comparisonValue.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <metadata name="arcazePin.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="arcazePin.HeaderText" xml:space="preserve">
-    <value>Arcaze Pin</value>
-  </data>
-  <data name="arcazePin.ToolTipText" xml:space="preserve">
-    <value>Der Pin des ArcazeUSB-Moduls</value>
-  </data>
-  <data name="arcazePin.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="arcazePin.Width" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <metadata name="trigger.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="trigger.HeaderText" xml:space="preserve">
-    <value>Arcaze Trigger</value>
-  </data>
-  <data name="trigger.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="trigger.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <metadata name="Typ.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Typ.HeaderText" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="Typ.ToolTipText" xml:space="preserve">
-    <value>Signal Typ</value>
-  </data>
-  <data name="Typ.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <metadata name="arcazeSerial.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="arcazeSerial.HeaderText" xml:space="preserve">
-    <value>Module Serial</value>
-  </data>
-  <data name="arcazeSerial.MinimumWidth" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="arcazeSerial.Width" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <metadata name="fsuipcValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="fsuipcValueColumn.HeaderText" xml:space="preserve">
-    <value>FSUIPC Value</value>
-  </data>
-  <data name="fsuipcValueColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="fsuipcValueColumn.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <metadata name="arcazeValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="arcazeValueColumn.HeaderText" xml:space="preserve">
-    <value>Output Value</value>
-  </data>
-  <data name="arcazeValueColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="arcazeValueColumn.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <metadata name="EditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="EditButtonColumn.HeaderText" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="EditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="EditButtonColumn.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <metadata name="dataSetConfig.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
-  </metadata>
-  <data name="dataGridViewConfig.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="dataGridViewConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <metadata name="dataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>367, 56</value>
-  </metadata>
-  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 48</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewContextMenuStrip.Name" xml:space="preserve">
-    <value>dataGridViewContextMenuStrip</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewContextMenuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>684, 254</value>
-  </data>
-  <data name="dataGridViewConfig.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewConfig.Name" xml:space="preserve">
-    <value>dataGridViewConfig</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewConfig.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewConfig.Parent" xml:space="preserve">
-    <value>MappingConfigGroupBox</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewConfig.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Duplicate row</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete row</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Delete the current selected row</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.Name" xml:space="preserve">
-    <value>inputsDataGridView</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.Parent" xml:space="preserve">
-    <value>InputTabPage</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="InputTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="InputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>696, 279</value>
-  </data>
-  <data name="InputTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="InputTabPage.Text" xml:space="preserve">
-    <value>Inputs</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.Name" xml:space="preserve">
-    <value>InputTabPage</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.Parent" xml:space="preserve">
-    <value>inputsTabControl</value>
-  </data>
-  <data name="&gt;&gt;InputTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="inputsGuid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="inputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="inputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="inputEditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataSetInputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>591, 56</value>
-  </metadata>
-  <metadata name="inputsDataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>724, 17</value>
-  </metadata>
-  <data name="inputsDataGridView.ColumnHeadersHeight" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="inputsDataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="inputsDataGridView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
-    <value>inputsDataGridViewContextMenuStrip</value>
+  <data name="toolStripStatusLabel.Text" xml:space="preserve">
+    <value>Status Info...</value>
   </data>
   <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>690, 273</value>
+  <data name="&gt;&gt;startupPanel.Name" xml:space="preserve">
+    <value>startupPanel</value>
   </data>
-  <data name="inputsDataGridView.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;trigger.Name" xml:space="preserve">
+    <value>trigger</value>
   </data>
-  <data name="&gt;&gt;inputsDataGridView.Name" xml:space="preserve">
-    <value>inputsDataGridView</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.Parent" xml:space="preserve">
-    <value>InputTabPage</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="inputActive.HeaderText" xml:space="preserve">
-    <value>active</value>
-  </data>
-  <data name="inputActive.Width" type="System.Int32, mscorlib">
-    <value>42</value>
-  </data>
-  <data name="inputDescription.HeaderText" xml:space="preserve">
-    <value>description</value>
-  </data>
-  <metadata name="inputsGuid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="inputsGuid.HeaderText" xml:space="preserve">
     <value>guid</value>
   </data>
-  <data name="inputsGuid.Visible" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;OutputTabPage.Parent" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;recentDocumentsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonValueDataColumn.Name" xml:space="preserve">
+    <value>comparisonValueDataColumn</value>
+  </data>
+  <data name="dividerToolStripStatusLabel1.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="logSplitter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 3</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
+    <value>saveToolStripButton</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn3.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <metadata name="inputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="&gt;&gt;überToolStripMenuItem.Name" xml:space="preserve">
+    <value>überToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;Mask.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>MobiFlight Connector</value>
+  </data>
+  <data name="arcazePin.HeaderText" xml:space="preserve">
+    <value>Arcaze Pin</value>
+  </data>
+  <data name="&gt;&gt;Typ.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazePin.Name" xml:space="preserve">
+    <value>arcazePin</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="panelMain.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <data name="inputName.HeaderText" xml:space="preserve">
-    <value>Input</value>
   </data>
-  <metadata name="inputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="&gt;&gt;checkForUpdateToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inputsTabControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;arcazePin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="statusStrip2.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="stopToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="MappingConfigGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
-  <data name="inputType.HeaderText" xml:space="preserve">
-    <value>Type</value>
   </data>
-  <data name="inputType.Width" type="System.Int32, mscorlib">
-    <value>56</value>
+  <data name="FsuipcOffset.HeaderText" xml:space="preserve">
+    <value>FSUIPC Offset</value>
   </data>
-  <metadata name="inputEditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="inputEditButtonColumn.HeaderText" xml:space="preserve">
-    <value>Edit</value>
+  <data name="arcazeValueColumn.HeaderText" xml:space="preserve">
+    <value>Output Value</value>
   </data>
-  <data name="inputEditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>55</value>
+  <data name="&gt;&gt;statusStrip2.Name" xml:space="preserve">
+    <value>statusStrip2</value>
   </data>
-  <data name="inputEditButtonColumn.ToolTipText" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="inputEditButtonColumn.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <metadata name="dataSetInputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>591, 56</value>
-  </metadata>
-  <metadata name="inputsDataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>724, 17</value>
-  </metadata>
-  <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 48</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
-    <value>inputsDataGridViewContextMenuStrip</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="duplicateInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 22</value>
-  </data>
-  <data name="duplicateInputsRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Duplicate Row</value>
-  </data>
-  <data name="deleteInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 22</value>
-  </data>
-  <data name="deleteInputsRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete Row</value>
-  </data>
-  <metadata name="contextMenuStripFsuipcOffset.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>983, 17</value>
-  </metadata>
   <data name="contextMenuStripFsuipcOffset.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 31</value>
   </data>
   <data name="&gt;&gt;contextMenuStripFsuipcOffset.Name" xml:space="preserve">
     <value>contextMenuStripFsuipcOffset</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripFsuipcOffset.Type" xml:space="preserve">
+  <data name="&gt;&gt;InputTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FsuipcOffset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="beendenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="duplicateInputsRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Duplicate Row</value>
+  </data>
+  <data name="inputActive.HeaderText" xml:space="preserve">
+    <value>active</value>
+  </data>
+  <data name="arcazeValueColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
+    <value>settingsColumn</value>
+  </data>
+  <data name="saveToolStripButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="stopToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="arcazeUsbStatusToolStripStatusLabel.Text" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="fsuipcStatusToolStripStatusLabel.Text" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="&gt;&gt;panelMain.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;startupPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.StartupPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="exitToolStripButton.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="runTestToolStripButton.Text" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="stopTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 25</value>
+  </data>
+  <data name="logTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete row</value>
+  </data>
+  <data name="stopTestToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="toolStrip1.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;activeDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonDataColumn.Name" xml:space="preserve">
+    <value>comparisonDataColumn</value>
+  </data>
+  <data name="arcazeUsbToolStripDropDownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAgNJREFUOE+lkutLk2EYxvePhJaHShFBUTEPiCieQOmDiEZgrEbpYGiCQxkqA80I
+        RUkUEZ0YRMS+DDI70MkTmzJnDc8iU8QT2mAEItnle90wHwTDyBduXnie5/rd133Q4ZKfAJqHFs9E08A8
+        zD1emDpmYXjqRlnTFIrMk8iuGkNaxWekGEaQrHecBfw+/vPXODw6hj9whN2fh/Bt/8LSRgA3cxr/DeBZ
+        9kvmTNMoHGNbIrYN+3Aj23IxgJkpds0doP3VstgmsNexhutZ9QrAms8T0zYzU5xXM46kcjsmvfvoeL2i
+        AeoUgA07T8yaaZuZKab1rzN74jgys1YB2O2gmBZzH49LODXrrJlnzEzxe9cOLH1ziMioVgCOiuIFX0CE
+        Q+/WYf+yieiCFrRp9tkwxnP7Kt5MbKGm6wfC000KwDlTXNLgEvHMkh+Db32o7fYivtQm1l9+3IBOp5P7
+        yjYPwlKNCsAluWudxgvtknb5t9oWcL/VLU2Mvd2JFq3uqs7vAtE/ceNayiMF4KiYMSjmY2O7B4Ua+NaD
+        YQGEJumRbvyG1IcfBHI12aAAXM8R57aIWTNrLLY4tfNPiCvpR1SeVeu6WWzHFD6THSDwFMDdpmUG62NJ
+        PKM4Or9ZxBxb8H8l7g5CEu8pAOfM3WanSeeS8CFHxW4zM2umbWamOCShXAH+/wNOANABIDUxWnDPAAAA
+        AElFTkSuQmCC
+</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Parent" xml:space="preserve">
+    <value>panelMain</value>
+  </data>
+  <data name="&gt;&gt;SimConnectStatusLabel.Name" xml:space="preserve">
+    <value>SimConnectStatusLabel</value>
+  </data>
+  <data name="fsuipcToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 17</value>
+  </data>
+  <data name="comparisonValue.HeaderText" xml:space="preserve">
+    <value>Compare Value</value>
+  </data>
+  <data name="ArcazeUSBTtoolStripStatusLabel.Text" xml:space="preserve">
+    <value>Modules:</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="&gt;&gt;maskDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsDescriptionDataColumn.Name" xml:space="preserve">
+    <value>inputsDescriptionDataColumn</value>
+  </data>
+  <data name="&gt;&gt;helpToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="&gt;&gt;inputActive.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 354</value>
+  </data>
+  <data name="Converter.Width" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 6</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Name" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="panelMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 52</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="statusStripPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="&gt;&gt;toolStripComboBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;recentDocsToolStripSeparator.Name" xml:space="preserve">
+    <value>recentDocsToolStripSeparator</value>
+  </data>
+  <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 407</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="donateToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 25</value>
+  </data>
+  <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel.Name" xml:space="preserve">
+    <value>toolStripStatusLabel</value>
+  </data>
+  <data name="inputEditButtonColumn.HeaderText" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Mask.ToolTipText" xml:space="preserve">
+    <value>maskiert die relevanten Bits des ausgelesenen Werts</value>
+  </data>
+  <data name="MappingConfigGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;settingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="InputTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;startupPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="FsuipcSize.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="inputsDataGridView.ColumnHeadersHeight" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;exitToolStripButton.Name" xml:space="preserve">
+    <value>exitToolStripButton</value>
+  </data>
+  <data name="Converter.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkForUpdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 22</value>
+  </data>
+  <data name="logTextBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>4, 50</value>
+  </data>
+  <data name="&gt;&gt;inputsDataTable.Name" xml:space="preserve">
+    <value>inputsDataTable</value>
+  </data>
+  <data name="&gt;&gt;logTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;logSplitter.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;inputEditButtonColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Mask.Width" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="ArcazeUSBTtoolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 17</value>
+  </data>
+  <data name="&gt;&gt;runTestToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deleteRowToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteRowToolStripMenuItem</value>
+  </data>
+  <data name="hilfeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="autoRunToolStripButton.Text" xml:space="preserve">
+    <value>AutoRun</value>
+  </data>
+  <data name="inputsDataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;durationDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;durationDataColumn.Name" xml:space="preserve">
+    <value>durationDataColumn</value>
+  </data>
+  <data name="OutputTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="duplicateInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 22</value>
+  </data>
+  <data name="Description.MinimumWidth" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="&gt;&gt;inputsDataTable.Type" xml:space="preserve">
+    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="startupPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
+    <value>toolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStripComboBox1.Items" xml:space="preserve">
-    <value>dasdasdsad</value>
+  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Help</value>
   </data>
-  <data name="toolStripComboBox1.Items1" xml:space="preserve">
-    <value>asdasdasdsa</value>
+  <data name="comparisonValue.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="toolStripComboBox1.Items2" xml:space="preserve">
-    <value>asdasdasdasd</value>
+  <data name="inputsDataGridView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="fsuipcValueColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;inputActive.Name" xml:space="preserve">
+    <value>inputActive</value>
+  </data>
+  <data name="fsuipcValueColumn.HeaderText" xml:space="preserve">
+    <value>FSUIPC Value</value>
+  </data>
+  <data name="orphanedSerialsFinderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Manage orphaned serials</value>
+  </data>
+  <data name="autoRunToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 25</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Name" xml:space="preserve">
+    <value>statusStripPanel</value>
+  </data>
+  <data name="FsuipcSize.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>560, 250</value>
   </data>
   <data name="toolStripComboBox1.Items3" xml:space="preserve">
     <value>asdasdsadasd</value>
   </data>
-  <data name="toolStripComboBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 23</value>
+  <data name="toolStripComboBox1.Items1" xml:space="preserve">
+    <value>asdasdasdsa</value>
   </data>
-  <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>248, 17</value>
-  </metadata>
-  <metadata name="contextMenuStripNotifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>518, 17</value>
-  </metadata>
-  <data name="contextMenuStripNotifyIcon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 76</value>
+  <data name="inputEditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>55</value>
   </data>
-  <data name="&gt;&gt;contextMenuStripNotifyIcon.Name" xml:space="preserve">
-    <value>contextMenuStripNotifyIcon</value>
+  <data name="&gt;&gt;inputName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autoRunToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dividerToolStripStatusLabel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="autoRunToolStripButton.ToolTipText" xml:space="preserve">
+    <value>If activated the last loaded config will be run automatically on next start-up</value>
+  </data>
+  <data name="&gt;&gt;extrasToolStripMenuItem.Name" xml:space="preserve">
+    <value>extrasToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;fsuipcToolStripStatusLabel.Name" xml:space="preserve">
+    <value>fsuipcToolStripStatusLabel</value>
+  </data>
+  <data name="&gt;&gt;inputsGuidDataColumn.Name" xml:space="preserve">
+    <value>inputsGuidDataColumn</value>
+  </data>
+  <data name="&gt;&gt;active.Name" xml:space="preserve">
+    <value>active</value>
+  </data>
+  <data name="&gt;&gt;helpToolStripMenuItem.Name" xml:space="preserve">
+    <value>helpToolStripMenuItem</value>
+  </data>
+  <data name="deleteInputsRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete Row</value>
+  </data>
+  <data name="&gt;&gt;dataSetInputs.Name" xml:space="preserve">
+    <value>dataSetInputs</value>
+  </data>
+  <data name="runToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="dataGridViewConfig.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open help in web</value>
+  </data>
+  <data name="&gt;&gt;runToolStripButton.Name" xml:space="preserve">
+    <value>runToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;duplicateInputsRowToolStripMenuItem.Name" xml:space="preserve">
+    <value>duplicateInputsRowToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeUsbToolStripDropDownButton.Name" xml:space="preserve">
+    <value>arcazeUsbToolStripDropDownButton</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeValueColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsGuid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fileToolStripMenuItem.Name" xml:space="preserve">
+    <value>fileToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;FsuipcOffset.Name" xml:space="preserve">
+    <value>FsuipcOffset</value>
+  </data>
+  <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="stopTestToolStripButton.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Parent" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;InputTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dataSetConfig.Type" xml:space="preserve">
+    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Typ.HeaderText" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;activeDataGridViewCheckBoxColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FsuipcSize.HeaderText" xml:space="preserve">
+    <value>FSUIPC Size</value>
+  </data>
+  <data name="&gt;&gt;fsuipcValueColumn.Name" xml:space="preserve">
+    <value>fsuipcValueColumn</value>
+  </data>
+  <data name="konfigurationSpeichernToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="&gt;&gt;notifyIcon.Name" xml:space="preserve">
+    <value>notifyIcon</value>
+  </data>
+  <data name="&gt;&gt;panelMain.Name" xml:space="preserve">
+    <value>panelMain</value>
+  </data>
+  <data name="arcazeSerial.MinimumWidth" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="Mask.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="arcazeUsbToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 20</value>
+  </data>
+  <data name="exitToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 25</value>
+  </data>
+  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;inputDescription.Name" xml:space="preserve">
+    <value>inputDescription</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="inputEditButtonColumn.Width" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="statusStrip2.Text" xml:space="preserve">
+    <value>statusStrip2</value>
+  </data>
+  <data name="&gt;&gt;FsuipcSize.Name" xml:space="preserve">
+    <value>FsuipcSize</value>
+  </data>
+  <data name="inputType.Width" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="&gt;&gt;guidDataColumn.Name" xml:space="preserve">
+    <value>guidDataColumn</value>
+  </data>
+  <data name="&gt;&gt;stopTestToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="recentDocsToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 6</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="active.Width" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="MappingConfigGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="OutputTabPage.Text" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="&gt;&gt;startToolStripMenuItem.Name" xml:space="preserve">
+    <value>startToolStripMenuItem</value>
+  </data>
+  <data name="FsuipcOffset.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>385, 17</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn4.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 28</value>
+  </data>
+  <data name="&gt;&gt;notifyIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="&gt;&gt;stopToolStripMenuItem.Name" xml:space="preserve">
+    <value>stopToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="donateToolStripButton.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="&gt;&gt;logSplitter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Splitter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inputActive.Width" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 305</value>
+  </data>
+  <data name="inputsTabControl.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Parent" xml:space="preserve">
+    <value>statusStripPanel</value>
+  </data>
+  <data name="trigger.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;hilfeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;stopToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dividerToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>4, 17</value>
+  </data>
+  <data name="&gt;&gt;SimConnectLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;contextMenuStripNotifyIcon.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAMAICAAAAEAIAAoEAAANgAAABgYAAABACAAKAkAAF4QAAAQEAAAAQAgACgEAACGGQAAKAAAACAA
+        AABAAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMxmMrbbbDfYzGUx2MxlMdjMZTHYzGUx2Mxl
+        MdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2Mxl
+        MdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2NtsN9jLZDK3zGUx5+12O//cbjf/3G43/9xu
+        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xu
+        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/7XY7/8xmMejKZDHX3G43/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//cbjf/zGUx2Mhd
+        KdfbazL/zGc0/8xlMv/KYS3/yl8q/8pfKv/KYCv/y2Iu/8xlMv/MZTL/y2Iu/8pgK//KXyr/yl8q/8pg
+        K//LYy//zGYz/8tkMP/KYCv/yl8q/8pfKv/KXyr/ymAr/8tkMP/MZjP/zGYz/8xmM//MZjP/zGYz/9xu
+        N//MZTHYymQx19xuN//MZjL/zGYz/8xmM//MZjP/zGYz/8xmM//MZTL/zGYy/8xmM//MZjT/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xnNP/MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/3G43/8xlMdjsxrPX65x1/8hbJP/QcUH/46yQ/+zGs//sxrP/6sCr/9yWc//ObDz/0HRF/9+i
+        gv/qwa3/7Maz/+zGs//pvaf/2Y1n/8xlMv/Xhl7/68Ou/+zGs//sxrP/7Maz/+i7pP/Wg1r/zGYz/8tl
+        Mf/MZjL/zGYz/8xmM//cbjf/zGUx2P39/df7yrL/ymAr/9N6Tf/03tP/////////////////8NLD/9R9
+        Uv/Qc0T/6sGs///////////////////+/f/mtJv/zmw7/9uUcP/89vL//////////////////fv5/+Kn
+        if/Pbj7/y2Mu/8xmMv/MZjP/zGYz/9xuN//MZTHY/f391//byP/Sdkn/0nhK//DSw///////////////
+        ///68u3/3Zl3/8xoNv/ho4T/+/Pu/////////////fv5/+zHtf/Te0//1YBW//DRwv/+/Pv/////////
+        ///9+fX/6b2n/9R8Uf/KYSz/zGUy/8xmM//MZjP/3G43/8xlMdj9/f3X/+vd/9eJYf/RdUf/68Sw//35
+        9////////////////v/pvaf/0XNF/9eIYf/36eH//////////////v7/9ODW/9iKY//Qc0T/6buk//z2
+        8/////////////77+f/w0cP/14hf/8leKf/MZTH/zGYz/8xmM//cbjf/zGUx2P39/df/+vb/3p19/9F0
+        Rf/pv6r//fj2//////////////////Xg1//Zj2r/0nhL//HVx//////////////////68e3/25Nv/81p
+        N//lrpL/+/Pv//////////////7+//nr5f/clXH/yFsm/8tkMf/MZjP/zGYz/9xuN//MZTHY/f391///
+        ///ms5r/0XVI/+i8pv/89/T//////////////////Pj2/+Wymf/Tek3/6Lul//z28/////////////77
+        +f/gooL/y2Ux/92ZeP/57+r///////////////////38/9+ff//IWyX/y2Qx/8xmM//MZjP/3G43/8xl
+        Mdj9/f3X/////+zGs//UgFb/57ef//vy7v//////////////////////8NLD/9qPav/hqIv/9ubd////
+        /////////////+e5of/ObDv/1YJZ//bk3P//////////////////////4quP/8tlM//LZDH/zGYy/8xm
+        M//cbjf/zGUx2P39/df/////8NTF/9yYdf/nt57/+Ozm///////////////////////46eL/5bGX/96d
+        fP/y18r/////////////////786+/9V/VP/Rd0r/7s6+//79/f/////////////////pwKr/0nlN/8tj
+        Lv/KYi7/y2Qw/9xsNP/LYzDY/f391//////039X/46yQ/+a2nf/3597////////////+/v3///7+//76
+        +P/y2Mv/3JZz/+3Luf/////////////////139X/25Ju/9BxQv/ls5r/+/Lt/////////////////+/R
+        wf/Whl7/yFoi/8dXH//IWyT/2WMo/8dYI9j9/f3X//////nt5v/qwaz/5rOa//Xg1v///////vr4//bk
+        2v/78e3///////nt6P/fn4D/68Sw//77+v////////////vy7f/iqIv/zms6/92bev/25dz/////////
+        ////////9+ni/+m+qP/foID/3559/9+ggf/ppYP/359/2P39/df//////fn3//Lazf/ntp3/89zQ////
+        ///78e3/6sCr//Pd0f//////+/Tx/+vCr//sxbL/+Ovk/////////////////+q+qP/Najr/1oVd//La
+        zv/////////////////////////////////////////////////9/f3Y/f391///////////+e7o/+rA
+        q//03tP///////rv6v/lspn/7cq4//36+P/+/f3/+u/q/+/Ovf/y2Mr///7+////////////79HB/9J5
+        TP/PcUL/7cq5//////////////////////////////////////////////////39/dj9/f3X////////
+        ///89fL/7sy8//Xk2v//////+vLt/+a1nf/jrI//89rO////////////8dbI//HVxv///v7/////////
+        ///14NX/2pBr/81rOf/ntZ3//vv5/////////////////////////////////////////////f392P39
+        /df///////////349v/14tj/+u/q///////79fH/6Lih/9iJYv/mtJv////////////359//9+bd///+
+        /v////////////ns5v/ip4v/z28+/9+efv/56+T//////////////////Pbz//Pd0f/tyLb/68Ov//LI
+        s//sxbHY/f391////////////v39//359f/++/r///////z18v/ouaP/0nZJ/9yWc//57uj///7+//36
+        +P/9+ff//////////////////Pbz/+q+qf/Qc0T/14hg//HWyP/////////////////57uj/5LCV/89w
+        QP/KXyr/3G43/8xlMdj9/f3X/////////////////////////////////Pj1/+vBrP/SeEv/0nhM/+vB
+        rf/99/X//////////////////////////////v3/89nL/9J6Tf/RdUf/7MWy//////////////////35
+        9//sxLH/z28//8ZVG//aZiz/yF0l2Pnu6Nf////////////////////////////////9+ff/7cm2/9V/
+        Vf/LYi7/3pp5//vy7v/////////////////////////////////46eL/2Itk/8xnNP/ksJb/////////
+        //////////////Xg1v/SeUz/xlIY/9ljJ//HWCPY7s/A1//79/////////////////////////////37
+        +f/vz7//14Zc/8hYIf/Uf1X/8tjL//77+f////////////////////////////rx7P/hpIX/zGY0/92a
+        eP/99/T/////////////////+/Tx/+e2nf/enHv/6aSC/9+ff9jjtJrX//Hl////////////////////
+        /////////vz6//HVyP/YimL/x1cg/85uPv/krZP/+e3n/////////////////////////////Pfz/+m8
+        pf/Rc0T/2Ilh//Tg1f///v7//////////////////////////////////f392Nycetf/59j/////////
+        ////////////////////////897T/9mNaP/IWiP/zGYz/9mMZv/z3M//////////////////////////
+        ///+/fz/8NLE/9aBV//TeU3/7Ma0//36+f/////////////////////////////////9/f3Y03xQ1//e
+        zf/////////////////////////////////57Ob/25Rx/8hcJf/KYSz/z28//+m9p////v7/////////
+        ///////////////////89vP/3JVx/85rOv/ms5n//v38//////////////////////////////////39
+        /djKaDbX8KqI/+zFsf/sxbH/7MWx/+zFsf/sxbH/7MWy/+e1nf/Vglj/ymEs/8tiLf/LYy//2Itl/+e5
+        of/sxbH/7MWx/+zFsf/sxbH/7MWy/+vCrv/Xh17/zGUy/9mMZv/ovKX/7MWx/+zFsf/sxbH/7MWx/+zF
+        sf/yyLP/7MWx2MpkMNfcbjb/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        Mv/MZTL/zGUy/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYy/8xmMv/MZjP/zGYz/8xm
+        M//MZjP/zGYz/9xuN//MZTHYymQx19tqMf/KXyr/yl8q/8pfKv/KXyr/yl8q/8pfKv/KYSz/y2Qw/8xm
+        NP/MZjP/zGYz/8tjL//KYCv/yl8q/8pfKv/KXyr/yl8q/8pfKv/KYCv/y2Qw/8xmM//LYy//ymAr/8pf
+        Kv/KXyr/yl8q/8pfKv/KXyr/22gu/8heKtjKZDHX3G43/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//cbjf/zGUx2MtmMejtdjv/3G43/9xuN//cbjf/3G43/9xu
+        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xu
+        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/+12O//KZDLpzGUxtdtuNtfKZDHXymQx18pk
+        MdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pk
+        MdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHX224218xjMrYoAAAAGAAAADAA
+        AAABACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP//////89w
+        Qf/MZjP/+Ovk////////////5K2S/8xmM//nuKD/////////////////3Zl3/8xmM//89fH/////////
+        ////////1oVc/8xmM//MZjP/zGYz/8xmM//MZjP//////92Zd//MZjP/+Ovk////////////+Ovk/8xm
+        M//dmXf/////////////////57ig/8xmM//uzLv/////////////////5K2S/8xmM//MZjP/zGYz/8xm
+        M//MZjP//////+e4oP/MZjP/8dbJ/////////////////92Zd//PcEH/////////////////9eDW/8xm
+        M//krZL/////////////////7sy7/8xmM//MZjP/zGYz/8xmM//MZjP///////Xg1v/MZjP/8dbJ////
+        //////////////HWyf/MZjP/9eDW/////////////PXx/8xmM//dmXf//////////////////PXx/8xm
+        M//MZjP/zGYz/8xmM//MZjP////////////PcEH/7sy7///////////////////////WhVz/57ig////
+        /////////////9aFXP/PcEH//////////////////////89wQf/MZjP/zGYz/8xmM//MZjP/////////
+        ///dmXf/68Kt///////////////////////rwq3/3Zl3/////////////////+Stkv/MZjP/9eDW////
+        /////////////92Zd//MZjP/zGYz/8xmM//MZjP////////////nuKD/57ig/////////////PXx////
+        ////////1oVc/////////////////+7Mu//MZjP/57ig/////////////////+e4oP/MZjP/zGYz/8xm
+        M//MZjP////////////14Nb/5K2S////////////57ig////////////5K2S//Xg1v////////////z1
+        8f/MZjP/3Zl3////////////////////////////////////////////////////////////57ig////
+        ////////4KOF//jr5P///////PXx/+vCrf/////////////////WhVz/z3BB////////////////////
+        ////////////////////////////////////////7sy7////////////5K2S/+Cjhf///////////+7M
+        u//////////////////krZL/zGYz//Xg1v//////////////////////////////////////////////
+        /////////PXx////////////5K2S/89wQf/89fH///////z18f/////////////////uzLv/zGYz/+e4
+        oP/////////////////nuKD/zGYz/8xmM//MZjP/////////////////////////////////57ig/8xm
+        M//krZL////////////////////////////89fH/zGYz/92Zd//////////////////14Nb/zGYz/8xm
+        M//MZjP/9eDW////////////////////////////68Kt/8xmM//Tek7/////////////////////////
+        ////////1oVc/89wQf//////////////////////z3BB/8xmM//MZjP/57ig////////////////////
+        ////////7sy7/8xmM//MZjP/68Kt////////////////////////////5K2S/8xmM//14Nb/////////
+        ////////////////////////3Zl3////////////////////////////8dbJ/8xmM//MZjP/2o9p////
+        ////////////////////////7sy7/8xmM//nuKD/////////////////////////////////z3BB////
+        ////////////////////////9eDW/8xmM//MZjP/zGYz//HWyf///////////////////////PXx/8xm
+        M//dmXf/////////////////////////////////zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
+        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/KAAAABAA
+        AAAgAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM1kMdzPaTLtzGYx7cxmMe3MZjHtzGYx7cxm
+        Me3MZjHtzGYx7cxmMe3MZjHtzGYx7cxmMe3MZjHtz2ky7c1kMdzJXyfz1ms1/85fKP/OXib/0GUw/9Bl
+        L//OXib/zl4m/9FmMf/PYiz/zl4m/85eJv/RZzH/0mk1/9dsNf/LZTLz14Vc7dFpNf/bk2//3Zl3/9By
+        Q//SeU3/3Zp4/92Yd//Pbj7/14Ze/92Zd//cl3T/z249/8tkMf/RaTT/zGYx7fPaze3XeUr/+e/p////
+        ///lsZb/2o9p////////////3JVy/+a0m////////////9yUcf/KXyr/0Wk0/8xmMe347Ojt3Yxk//HW
+        yf//////9uXb/9aCWP/57ej//////+e1nP/Zjmj////////////mtZz/yV0m/9FpNP/MZjHt/f397eal
+        hv/vzr7////////////go4X/7ci2///////vz77/03xP//z28///////78++/8pfKf/RaDP/zGYx7f39
+        /e3ww67/7cu5////////////8dbJ/+e2nf//////+Oni/9R+VP/y18n///////bj2v/Nazn/zFog/8lb
+        I+39/f3t+uPY/+7Luv/9+vn/9ePa//36+f/qv6r//fj2//78+//ZjWj/5bKY///////9+vn/8dXG/+/L
+        uP/szLvt/f397f/9+v/z2cz//fj1/+e5ov/8+PX/9+Xc//fo4P//////4qiL/9yVcv//////////////
+        /////////f397f39/e3//////PTx///+/v/dmXj/7cu5//79/P/89vP//////+7Mu//Wgln/+vDr////
+        ///z3ND/4Zt4/9uWde38+fjt////////////////3Zt5/9mMZv/////////////////57uj/0nhL//LZ
+        zP//////9ePZ/89eJv/CTBDt8tnN7f///////////////+KpjP/LYy//893S//////////////79/9iL
+        ZP/ouKH////////+/v/y08T/7Mq27ee2oe3////////////////ouqT/xlUc/+Glh///////////////
+        ///mtZz/25Rx//////////////////39/e3ReEvt4Jt4/92Zd//dmXf/1oJZ/8pgK//Obj7/3Jd0/92Z
+        d//dmXf/14Ze/89uPv/dmHX/3Zl3/+CbeP/cmHftymAt89NhJ//OXib/zl4m/89jLP/Sajb/0WYx/85e
+        Jv/OXib/zl4m/89iLP/RZjH/zl4m/85eJv/TYSf/yVsj881kMdzPaTLtzGYx7cxmMe3MZjHtzGYx7cxm
+        Me3MZjHtzGYx7cxmMe3MZjHtzGYx7cxmMe3MZjHtz2ky7c1kMdwAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+</value>
+  </data>
+  <data name="notifyIcon.Text" xml:space="preserve">
+    <value>MobiFlight Connector</value>
+  </data>
+  <data name="&gt;&gt;panelMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logSplitter.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="logTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="deleteInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 22</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="statusStripPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialDataColumn.Name" xml:space="preserve">
+    <value>arcazeSerialDataColumn</value>
+  </data>
+  <data name="arcazeUsbStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 17</value>
+  </data>
+  <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 6</value>
+  </data>
+  <data name="recentDocsToolStripSeparator.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn2</value>
+  </data>
+  <data name="&gt;&gt;inputEditButtonColumn.Name" xml:space="preserve">
+    <value>inputEditButtonColumn</value>
+  </data>
+  <data name="donateToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="logTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 50</value>
+  </data>
+  <data name="&gt;&gt;startToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="exitToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="panelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;descriptionDataColumn.Name" xml:space="preserve">
+    <value>descriptionDataColumn</value>
+  </data>
+  <data name="toolStripComboBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 23</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerial.Name" xml:space="preserve">
+    <value>arcazeSerial</value>
+  </data>
+  <data name="&gt;&gt;dataTable1.Name" xml:space="preserve">
+    <value>dataTable1</value>
+  </data>
+  <data name="&gt;&gt;typeDataColumn.Name" xml:space="preserve">
+    <value>typeDataColumn</value>
+  </data>
+  <data name="&gt;&gt;triggerDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SimConnectStatusLabel.Text" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="&gt;&gt;fsuipcStatusToolStripStatusLabel.Name" xml:space="preserve">
+    <value>fsuipcStatusToolStripStatusLabel</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
+    <value>inputsDataGridViewContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;stopToolStripButton.Name" xml:space="preserve">
+    <value>stopToolStripButton</value>
+  </data>
+  <data name="arcazePin.Width" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="logSplitter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;donateToolStripButton.Name" xml:space="preserve">
+    <value>donateToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;active.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonValueDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logSplitter.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputDescription.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="startupPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 52</value>
+  </data>
+  <data name="AfterFileActionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 6</value>
+  </data>
+  <data name="&gt;&gt;FsuipcSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;überToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;settingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>settingsToolStripMenuItem</value>
+  </data>
+  <data name="konfigurationSpeichernToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
+  <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 22</value>
+  </data>
+  <data name="inputsTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 22</value>
+  </data>
+  <data name="&gt;&gt;Converter.Name" xml:space="preserve">
+    <value>Converter</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inputDescription.HeaderText" xml:space="preserve">
+    <value>description</value>
+  </data>
+  <data name="&gt;&gt;inputsGuid.Name" xml:space="preserve">
+    <value>inputsGuid</value>
+  </data>
+  <data name="&gt;&gt;konfigurationSpeichernToolStripMenuItem.Name" xml:space="preserve">
+    <value>konfigurationSpeichernToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fsuipcValueColumn.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="active.HeaderText" xml:space="preserve">
+    <value>active</value>
+  </data>
+  <data name="&gt;&gt;activeDataColumn.Name" xml:space="preserve">
+    <value>activeDataColumn</value>
+  </data>
+  <data name="&gt;&gt;beendenToolStripMenuItem.Name" xml:space="preserve">
+    <value>beendenToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;arcazeUsbStatusToolStripStatusLabel.Name" xml:space="preserve">
+    <value>arcazeUsbStatusToolStripStatusLabel</value>
+  </data>
+  <data name="autoRunToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="inputType.HeaderText" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="FsuipcOffset.MinimumWidth" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="arcazeUsbToolStripDropDownButton.Text" xml:space="preserve">
+    <value>toolStripDropDownButton1</value>
+  </data>
+  <data name="SimConnectLabel.Text" xml:space="preserve">
+    <value>SimConnect Status:</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="startToolStripMenuItem.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 305</value>
+  </data>
+  <data name="MappingConfigGroupBox.Text" xml:space="preserve">
+    <value>Mappings</value>
+  </data>
+  <data name="&gt;&gt;arcazeValueColumn.Name" xml:space="preserve">
+    <value>arcazeValueColumn</value>
+  </data>
+  <data name="&gt;&gt;inputType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="&gt;&gt;descriptionDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;trigger.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="contextMenuStripNotifyIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>175, 76</value>
+  </data>
+  <data name="extrasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 20</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn4</value>
+  </data>
+  <data name="&gt;&gt;ArcazeUSBTtoolStripStatusLabel.Name" xml:space="preserve">
+    <value>ArcazeUSBTtoolStripStatusLabel</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Name" xml:space="preserve">
+    <value>MappingConfigGroupBox</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel1.Name" xml:space="preserve">
+    <value>toolStripStatusLabel1</value>
+  </data>
+  <data name="&gt;&gt;guid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ArcazeUSBTtoolStripStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SimConnectStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Mask.Name" xml:space="preserve">
+    <value>Mask</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 24</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="InputTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewContextMenuStrip.Name" xml:space="preserve">
+    <value>dataGridViewContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;toolStripComboBox1.Name" xml:space="preserve">
+    <value>toolStripComboBox1</value>
+  </data>
+  <data name="runTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 25</value>
+  </data>
+  <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 357</value>
+  </data>
+  <data name="dataGridViewConfig.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="runToolStripButton.Text" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="saveToolStripButton.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inputsTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;deleteInputsRowToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataSetInputs.Type" xml:space="preserve">
+    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn4.HeaderText" xml:space="preserve">
+    <value>guid</value>
+  </data>
+  <data name="OutputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="&gt;&gt;configDataTable.Type" xml:space="preserve">
+    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcValueColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>4, 17</value>
+  </data>
+  <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Delete the current selected row</value>
+  </data>
+  <data name="menuStrip.Text" xml:space="preserve">
+    <value>menuStrip1</value>
+  </data>
+  <data name="&gt;&gt;usbArcazePinDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="notifyIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -7051,1216 +7603,568 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 </value>
   </data>
-  <data name="notifyIcon.Text" xml:space="preserve">
-    <value>MobiFlight Connector</value>
+  <data name="fsuipcToolStripStatusLabel.Text" xml:space="preserve">
+    <value>Sim Status:</value>
   </data>
-  <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
+  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>696, 279</value>
   </data>
-  <data name="startToolStripMenuItem.Text" xml:space="preserve">
-    <value>Start</value>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
   </data>
-  <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
+  <data name="&gt;&gt;inputsGuidDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="stopToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stop</value>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 6</value>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
+  <data name="EditButtonColumn.Width" type="System.Int32, mscorlib">
+    <value>55</value>
   </data>
-  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Wiederherstellen</value>
-  </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>146, 56</value>
-  </metadata>
-  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 24</value>
-  </data>
-  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 28</value>
-  </data>
-  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="toolStrip1.Text" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;beendenToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;arcazeSerial.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="saveToolStripButton.Enabled" type="System.Boolean, mscorlib">
+  <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 305</value>
+  </data>
+  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>696, 279</value>
+  </data>
+  <data name="guid.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 25</value>
+  <data name="&gt;&gt;comparison.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="saveToolStripButton.Text" xml:space="preserve">
-    <value>Save</value>
+  <data name="&gt;&gt;usbArcazePinDataColumn.Name" xml:space="preserve">
+    <value>usbArcazePinDataColumn</value>
   </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 28</value>
+  <data name="&gt;&gt;activeDataGridViewCheckBoxColumn.Name" xml:space="preserve">
+    <value>activeDataGridViewCheckBoxColumn</value>
   </data>
-  <data name="runToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="&gt;&gt;converterDataColumn.Name" xml:space="preserve">
+    <value>converterDataColumn</value>
   </data>
-  <data name="runToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 25</value>
+  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="runToolStripButton.Text" xml:space="preserve">
-    <value>Run</value>
+  <data name="EditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>55</value>
   </data>
-  <data name="runTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 25</value>
-  </data>
-  <data name="runTestToolStripButton.Text" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="runTestToolStripButton.ToolTipText" xml:space="preserve">
-    <value>Run test mode to check if all display settings are correct.</value>
-  </data>
-  <data name="stopToolStripButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="stopToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="stopToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 25</value>
-  </data>
-  <data name="stopToolStripButton.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="stopTestToolStripButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="stopTestToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="stopTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 25</value>
-  </data>
-  <data name="stopTestToolStripButton.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="stopTestToolStripButton.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 28</value>
-  </data>
-  <data name="autoRunToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="autoRunToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 25</value>
-  </data>
-  <data name="autoRunToolStripButton.Text" xml:space="preserve">
-    <value>AutoRun</value>
-  </data>
-  <data name="autoRunToolStripButton.ToolTipText" xml:space="preserve">
-    <value>If activated the last loaded config will be run automatically on next start-up</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 28</value>
-  </data>
-  <data name="donateToolStripButton.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="donateToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="donateToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 25</value>
-  </data>
-  <data name="donateToolStripButton.Text" xml:space="preserve">
-    <value>donateToolStripButton</value>
-  </data>
-  <data name="donateToolStripButton.ToolTipText" xml:space="preserve">
-    <value>Say "Thank You" to Sebastian by donating via PayPal</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 28</value>
-  </data>
-  <data name="exitToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="exitToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 25</value>
-  </data>
-  <data name="exitToolStripButton.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="statusStripPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <metadata name="statusStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>251, 56</value>
-  </metadata>
-  <data name="statusStrip2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="ArcazeUSBTtoolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 17</value>
-  </data>
-  <data name="ArcazeUSBTtoolStripStatusLabel.Text" xml:space="preserve">
-    <value>Modules:</value>
-  </data>
-  <data name="arcazeUsbStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 17</value>
-  </data>
-  <data name="arcazeUsbStatusToolStripStatusLabel.Text" xml:space="preserve">
-    <value>Not Found</value>
-  </data>
-  <data name="arcazeUsbToolStripDropDownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
-        YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
-        0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
-        bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
-        VzOOpHI7Jr376Hi9ogHqFIANO0/MmmmbmSmm9a8ze+I4MrNWAdjtoJgWcx+PSzg166yZZ8xM8XvXDix9
-        c4jIqFYAjoriBV9AhEPv1mH/sonogha0afbZMMZz+yreTGyhpusHwtNNCsA5U1zS4BLxzJIfg299qO32
-        Ir7UJtZfftyATqeT+8o2D8JSjQrAJblrncYL7ZJ2+bfaFnC/1S1NjL3diRat7qrO7wLRP3HjWsojBeCo
-        mDEo5mNjuweFGvjWg2EBhCbpkW78htSHHwRyNdmgAFzPEee2iFkzayy2OLXzT4gr6UdUnlXrullsxxQ+
-        kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
-        TgDQASA1MVpwzwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="arcazeUsbToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="arcazeUsbToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 20</value>
-  </data>
-  <data name="arcazeUsbToolStripDropDownButton.Text" xml:space="preserve">
-    <value>toolStripDropDownButton1</value>
-  </data>
-  <data name="dividerToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
-  </data>
-  <data name="dividerToolStripStatusLabel1.Text" xml:space="preserve">
-    <value>|</value>
-  </data>
-  <data name="fsuipcToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 17</value>
-  </data>
-  <data name="fsuipcToolStripStatusLabel.Text" xml:space="preserve">
-    <value>Sim Status:</value>
-  </data>
-  <data name="fsuipcStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 17</value>
-  </data>
-  <data name="fsuipcStatusToolStripStatusLabel.Text" xml:space="preserve">
-    <value>Not Found</value>
-  </data>
-  <data name="toolStripStatusLabel4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
-  </data>
-  <data name="toolStripStatusLabel4.Text" xml:space="preserve">
-    <value>|</value>
-  </data>
-  <data name="SimConnectLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 17</value>
-  </data>
-  <data name="SimConnectLabel.Text" xml:space="preserve">
-    <value>SimConnect Status:</value>
-  </data>
-  <data name="SimConnectStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 17</value>
-  </data>
-  <data name="SimConnectStatusLabel.Text" xml:space="preserve">
-    <value>Not Found</value>
-  </data>
-  <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
-  </data>
-  <data name="toolStripStatusLabel1.Text" xml:space="preserve">
-    <value>|</value>
-  </data>
-  <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>354, 17</value>
-  </data>
-  <data name="toolStripStatusLabel.Text" xml:space="preserve">
-    <value>Status Info...</value>
-  </data>
-  <data name="toolStripStatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="statusStrip2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 22</value>
-  </data>
-  <data name="statusStrip2.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="statusStrip2.Text" xml:space="preserve">
-    <value>statusStrip2</value>
-  </data>
-  <data name="&gt;&gt;statusStrip2.Name" xml:space="preserve">
-    <value>statusStrip2</value>
-  </data>
-  <data name="&gt;&gt;statusStrip2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusStrip2.Parent" xml:space="preserve">
-    <value>statusStripPanel</value>
-  </data>
-  <data name="&gt;&gt;statusStrip2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="statusStripPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 407</value>
-  </data>
-  <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 22</value>
-  </data>
-  <data name="statusStripPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;statusStripPanel.Name" xml:space="preserve">
-    <value>statusStripPanel</value>
-  </data>
-  <data name="&gt;&gt;statusStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusStripPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;statusStripPanel.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="logTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 357</value>
-  </data>
-  <data name="logTextBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>4, 50</value>
-  </data>
-  <data name="logTextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="logTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
-    <value>Vertical</value>
-  </data>
-  <data name="logTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 50</value>
-  </data>
-  <data name="logTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;logTextBox.Name" xml:space="preserve">
-    <value>logTextBox</value>
-  </data>
-  <data name="&gt;&gt;logTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;logTextBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;logTextBox.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="activeDataGridViewCheckBoxColumn.HeaderText" xml:space="preserve">
-    <value>active</value>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn1</value>
   </data>
   <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
     <value>settings</value>
   </data>
-  <data name="dataGridViewTextBoxColumn1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="statusStrip2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;SimConnectLabel.Name" xml:space="preserve">
+    <value>SimConnectLabel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="arcazeUsbToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;runTestToolStripButton.Name" xml:space="preserve">
+    <value>runTestToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;configDataTable.Name" xml:space="preserve">
+    <value>configDataTable</value>
+  </data>
+  <data name="inputsDataGridView.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 6</value>
+  </data>
+  <data name="&gt;&gt;arcazeUsbToolStripDropDownButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonValue.Name" xml:space="preserve">
+    <value>comparisonValue</value>
+  </data>
+  <data name="&gt;&gt;inputsActiveDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comparisonValue.Width" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="&gt;&gt;runToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
+    <value>toolStripMenuItem3</value>
+  </data>
+  <data name="toolStripMenuItem3.Text" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="&gt;&gt;inputsSettingsDataColumn.Name" xml:space="preserve">
+    <value>inputsSettingsDataColumn</value>
   </data>
   <data name="dataGridViewTextBoxColumn3.HeaderText" xml:space="preserve">
     <value>guid</value>
   </data>
-  <data name="dataGridViewTextBoxColumn3.Visible" type="System.Boolean, mscorlib">
+  <data name="arcazeSerial.Width" type="System.Int32, mscorlib">
+    <value>80</value>
+  </data>
+  <data name="&gt;&gt;extrasToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Name" xml:space="preserve">
+    <value>dataGridViewConfig</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItemDivider.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="EditButtonColumn.HeaderText" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="&gt;&gt;dataSetConfig.Name" xml:space="preserve">
+    <value>dataSetConfig</value>
+  </data>
+  <data name="OutputTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="&gt;&gt;autoRunToolStripButton.Name" xml:space="preserve">
+    <value>autoRunToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripFsuipcOffset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripStatusLabel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>4, 17</value>
+  </data>
+  <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="inputName.HeaderText" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="stopTestToolStripButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="&gt;&gt;wiederherstellenToolStripMenuItem.Name" xml:space="preserve">
+    <value>wiederherstellenToolStripMenuItem</value>
+  </data>
+  <data name="comparison.ToolTipText" xml:space="preserve">
+    <value>Die Art welche zum Vergleich des Wertes aus FSUIPC verwendet wird</value>
+  </data>
+  <data name="&gt;&gt;duplicateRowToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 6</value>
   </data>
   <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
     <value>guid</value>
   </data>
-  <data name="dataGridViewTextBoxColumn2.Visible" type="System.Boolean, mscorlib">
+  <data name="&gt;&gt;dividerToolStripStatusLabel1.Name" xml:space="preserve">
+    <value>dividerToolStripStatusLabel1</value>
+  </data>
+  <data name="toolStripStatusLabel1.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="InputTabPage.Text" xml:space="preserve">
+    <value>Inputs</value>
+  </data>
+  <data name="inputsGuid.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn5.HeaderText" xml:space="preserve">
-    <value>guid</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn5.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn4.HeaderText" xml:space="preserve">
-    <value>guid</value>
-  </data>
-  <data name="dataGridViewTextBoxColumn4.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="logSplitter.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="logSplitter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 354</value>
-  </data>
-  <data name="logSplitter.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
-    <value>Yes</value>
-  </data>
-  <data name="logSplitter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 3</value>
-  </data>
-  <data name="logSplitter.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;logSplitter.Name" xml:space="preserve">
-    <value>logSplitter</value>
-  </data>
-  <data name="&gt;&gt;logSplitter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Splitter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;logSplitter.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;logSplitter.ZOrder" xml:space="preserve">
-    <value>4</value>
   </data>
   <data name="startupPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="startupPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 52</value>
+  <data name="&gt;&gt;duplicateRowToolStripMenuItem.Name" xml:space="preserve">
+    <value>duplicateRowToolStripMenuItem</value>
   </data>
-  <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 305</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
   </data>
-  <data name="startupPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="comparison.Width" type="System.Int32, mscorlib">
+    <value>55</value>
   </data>
-  <data name="&gt;&gt;startupPanel.Name" xml:space="preserve">
-    <value>startupPanel</value>
+  <data name="überToolStripMenuItem.Text" xml:space="preserve">
+    <value>About</value>
   </data>
-  <data name="&gt;&gt;startupPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.StartupPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;AfterFileActionsToolStripMenuItem.Name" xml:space="preserve">
+    <value>AfterFileActionsToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;startupPanel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="SimConnectLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 17</value>
+  </data>
+  <data name="&gt;&gt;arcazeUsbStatusToolStripStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logSplitter.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="&gt;&gt;inputsActiveDataColumn.Name" xml:space="preserve">
+    <value>inputsActiveDataColumn</value>
+  </data>
+  <data name="comparison.HeaderText" xml:space="preserve">
+    <value>Compare Type</value>
+  </data>
+  <data name="&gt;&gt;dataTable1.Type" xml:space="preserve">
+    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="inputEditButtonColumn.ToolTipText" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn5.HeaderText" xml:space="preserve">
+    <value>guid</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;deleteRowToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exitToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SimConnectStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 17</value>
+  </data>
+  <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="stopTestToolStripButton.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Restore MobiFlight</value>
+  </data>
+  <data name="arcazeValueColumn.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="extrasToolStripMenuItem.Text" xml:space="preserve">
+    <value>Extras</value>
+  </data>
+  <data name="&gt;&gt;maskDataColumn.Name" xml:space="preserve">
+    <value>maskDataColumn</value>
+  </data>
+  <data name="statusStrip2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>704, 429</value>
+  </data>
+  <data name="&gt;&gt;panelMain.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Parent" xml:space="preserve">
+    <value>MappingConfigGroupBox</value>
+  </data>
+  <data name="&gt;&gt;wiederherstellenToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 24</value>
+  </data>
+  <data name="panelMain.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;recentDocsToolStripSeparator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EditButtonColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>704, 22</value>
+  </data>
+  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 48</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn5.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;converterDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="recentDocumentsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Recent Documents...</value>
+  </data>
+  <data name="recentDocumentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="&gt;&gt;comparison.Name" xml:space="preserve">
+    <value>comparison</value>
+  </data>
+  <data name="&gt;&gt;Converter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logTextBox.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;logSplitter.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;inputName.Name" xml:space="preserve">
+    <value>inputName</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;checkForUpdateToolStripMenuItem.Name" xml:space="preserve">
+    <value>checkForUpdateToolStripMenuItem</value>
+  </data>
+  <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>690, 273</value>
+  </data>
+  <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
+    <value>684, 254</value>
+  </data>
+  <data name="&gt;&gt;Description.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;AfterFileActionsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EditButtonColumn.Name" xml:space="preserve">
+    <value>EditButtonColumn</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="toolStripStatusLabel4.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeDataColumn.Name" xml:space="preserve">
+    <value>fsuipcSizeDataColumn</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
+  <data name="trigger.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Name" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;guidDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Mask.HeaderText" xml:space="preserve">
+    <value>Mask</value>
+  </data>
+  <data name="&gt;&gt;deleteInputsRowToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteInputsRowToolStripMenuItem</value>
+  </data>
+  <data name="Description.ToolTipText" xml:space="preserve">
+    <value>Hinweistext für den einfachen Überblick</value>
+  </data>
+  <data name="&gt;&gt;duplicateInputsRowToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="guid.HeaderText" xml:space="preserve">
+    <value>guid</value>
+  </data>
+  <data name="Converter.ToolTipText" xml:space="preserve">
+    <value>Ein Art den ausgelesenen Wert zu interpretieren bzw. konvertieren</value>
+  </data>
+  <data name="&gt;&gt;donateToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;startupPanel.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="&gt;&gt;orphanedSerialsFinderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsDescriptionDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;logSplitter.Name" xml:space="preserve">
+    <value>logSplitter</value>
+  </data>
+  <data name="&gt;&gt;stopToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="stopToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 25</value>
+  </data>
+  <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;triggerDataColumn.Name" xml:space="preserve">
+    <value>triggerDataColumn</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn5.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn5</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Typ.Name" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
+  </data>
+  <data name="&gt;&gt;inputType.Name" xml:space="preserve">
+    <value>inputType</value>
+  </data>
+  <data name="runTestToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Run test mode to check if all display settings are correct.</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel4.Name" xml:space="preserve">
+    <value>toolStripStatusLabel4</value>
+  </data>
+  <data name="Converter.HeaderText" xml:space="preserve">
+    <value>Converter</value>
+  </data>
+  <data name="&gt;&gt;recentDocumentsToolStripMenuItem.Name" xml:space="preserve">
+    <value>recentDocumentsToolStripMenuItem</value>
+  </data>
+  <data name="donateToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Say "Thank You" to Sebastian by donating via PayPal</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStripNotifyIcon.Name" xml:space="preserve">
+    <value>contextMenuStripNotifyIcon</value>
+  </data>
+  <data name="checkForUpdateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Check for update</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItemDivider.Name" xml:space="preserve">
+    <value>toolStripMenuItemDivider</value>
+  </data>
+  <metadata name="inputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="arcazePin.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="inputEditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>146</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>704, 429</value>
-  </data>
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAMAICAAAAEAIAAoEAAANgAAABgYAAABACAAKAkAAF4QAAAQEAAAAQAgACgEAACGGQAAKAAAACAA
-        AABAAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMxmMrbbbDfYzGUx2MxlMdjMZTHYzGUx2Mxl
-        MdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2Mxl
-        MdjMZTHYzGUx2MxlMdjMZTHYzGUx2MxlMdjMZTHYzGUx2NtsN9jLZDK3zGUx5+12O//cbjf/3G43/9xu
-        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xu
-        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/7XY7/8xmMejKZDHX3G43/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//cbjf/zGUx2Mhd
-        KdfbazL/zGc0/8xlMv/KYS3/yl8q/8pfKv/KYCv/y2Iu/8xlMv/MZTL/y2Iu/8pgK//KXyr/yl8q/8pg
-        K//LYy//zGYz/8tkMP/KYCv/yl8q/8pfKv/KXyr/ymAr/8tkMP/MZjP/zGYz/8xmM//MZjP/zGYz/9xu
-        N//MZTHYymQx19xuN//MZjL/zGYz/8xmM//MZjP/zGYz/8xmM//MZTL/zGYy/8xmM//MZjT/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xnNP/MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/3G43/8xlMdjsxrPX65x1/8hbJP/QcUH/46yQ/+zGs//sxrP/6sCr/9yWc//ObDz/0HRF/9+i
-        gv/qwa3/7Maz/+zGs//pvaf/2Y1n/8xlMv/Xhl7/68Ou/+zGs//sxrP/7Maz/+i7pP/Wg1r/zGYz/8tl
-        Mf/MZjL/zGYz/8xmM//cbjf/zGUx2P39/df7yrL/ymAr/9N6Tf/03tP/////////////////8NLD/9R9
-        Uv/Qc0T/6sGs///////////////////+/f/mtJv/zmw7/9uUcP/89vL//////////////////fv5/+Kn
-        if/Pbj7/y2Mu/8xmMv/MZjP/zGYz/9xuN//MZTHY/f391//byP/Sdkn/0nhK//DSw///////////////
-        ///68u3/3Zl3/8xoNv/ho4T/+/Pu/////////////fv5/+zHtf/Te0//1YBW//DRwv/+/Pv/////////
-        ///9+fX/6b2n/9R8Uf/KYSz/zGUy/8xmM//MZjP/3G43/8xlMdj9/f3X/+vd/9eJYf/RdUf/68Sw//35
-        9////////////////v/pvaf/0XNF/9eIYf/36eH//////////////v7/9ODW/9iKY//Qc0T/6buk//z2
-        8/////////////77+f/w0cP/14hf/8leKf/MZTH/zGYz/8xmM//cbjf/zGUx2P39/df/+vb/3p19/9F0
-        Rf/pv6r//fj2//////////////////Xg1//Zj2r/0nhL//HVx//////////////////68e3/25Nv/81p
-        N//lrpL/+/Pv//////////////7+//nr5f/clXH/yFsm/8tkMf/MZjP/zGYz/9xuN//MZTHY/f391///
-        ///ms5r/0XVI/+i8pv/89/T//////////////////Pj2/+Wymf/Tek3/6Lul//z28/////////////77
-        +f/gooL/y2Ux/92ZeP/57+r///////////////////38/9+ff//IWyX/y2Qx/8xmM//MZjP/3G43/8xl
-        Mdj9/f3X/////+zGs//UgFb/57ef//vy7v//////////////////////8NLD/9qPav/hqIv/9ubd////
-        /////////////+e5of/ObDv/1YJZ//bk3P//////////////////////4quP/8tlM//LZDH/zGYy/8xm
-        M//cbjf/zGUx2P39/df/////8NTF/9yYdf/nt57/+Ozm///////////////////////46eL/5bGX/96d
-        fP/y18r/////////////////786+/9V/VP/Rd0r/7s6+//79/f/////////////////pwKr/0nlN/8tj
-        Lv/KYi7/y2Qw/9xsNP/LYzDY/f391//////039X/46yQ/+a2nf/3597////////////+/v3///7+//76
-        +P/y2Mv/3JZz/+3Luf/////////////////139X/25Ju/9BxQv/ls5r/+/Lt/////////////////+/R
-        wf/Whl7/yFoi/8dXH//IWyT/2WMo/8dYI9j9/f3X//////nt5v/qwaz/5rOa//Xg1v///////vr4//bk
-        2v/78e3///////nt6P/fn4D/68Sw//77+v////////////vy7f/iqIv/zms6/92bev/25dz/////////
-        ////////9+ni/+m+qP/foID/3559/9+ggf/ppYP/359/2P39/df//////fn3//Lazf/ntp3/89zQ////
-        ///78e3/6sCr//Pd0f//////+/Tx/+vCr//sxbL/+Ovk/////////////////+q+qP/Najr/1oVd//La
-        zv/////////////////////////////////////////////////9/f3Y/f391///////////+e7o/+rA
-        q//03tP///////rv6v/lspn/7cq4//36+P/+/f3/+u/q/+/Ovf/y2Mr///7+////////////79HB/9J5
-        TP/PcUL/7cq5//////////////////////////////////////////////////39/dj9/f3X////////
-        ///89fL/7sy8//Xk2v//////+vLt/+a1nf/jrI//89rO////////////8dbI//HVxv///v7/////////
-        ///14NX/2pBr/81rOf/ntZ3//vv5/////////////////////////////////////////////f392P39
-        /df///////////349v/14tj/+u/q///////79fH/6Lih/9iJYv/mtJv////////////359//9+bd///+
-        /v////////////ns5v/ip4v/z28+/9+efv/56+T//////////////////Pbz//Pd0f/tyLb/68Ov//LI
-        s//sxbHY/f391////////////v39//359f/++/r///////z18v/ouaP/0nZJ/9yWc//57uj///7+//36
-        +P/9+ff//////////////////Pbz/+q+qf/Qc0T/14hg//HWyP/////////////////57uj/5LCV/89w
-        QP/KXyr/3G43/8xlMdj9/f3X/////////////////////////////////Pj1/+vBrP/SeEv/0nhM/+vB
-        rf/99/X//////////////////////////////v3/89nL/9J6Tf/RdUf/7MWy//////////////////35
-        9//sxLH/z28//8ZVG//aZiz/yF0l2Pnu6Nf////////////////////////////////9+ff/7cm2/9V/
-        Vf/LYi7/3pp5//vy7v/////////////////////////////////46eL/2Itk/8xnNP/ksJb/////////
-        //////////////Xg1v/SeUz/xlIY/9ljJ//HWCPY7s/A1//79/////////////////////////////37
-        +f/vz7//14Zc/8hYIf/Uf1X/8tjL//77+f////////////////////////////rx7P/hpIX/zGY0/92a
-        eP/99/T/////////////////+/Tx/+e2nf/enHv/6aSC/9+ff9jjtJrX//Hl////////////////////
-        /////////vz6//HVyP/YimL/x1cg/85uPv/krZP/+e3n/////////////////////////////Pfz/+m8
-        pf/Rc0T/2Ilh//Tg1f///v7//////////////////////////////////f392Nycetf/59j/////////
-        ////////////////////////897T/9mNaP/IWiP/zGYz/9mMZv/z3M//////////////////////////
-        ///+/fz/8NLE/9aBV//TeU3/7Ma0//36+f/////////////////////////////////9/f3Y03xQ1//e
-        zf/////////////////////////////////57Ob/25Rx/8hcJf/KYSz/z28//+m9p////v7/////////
-        ///////////////////89vP/3JVx/85rOv/ms5n//v38//////////////////////////////////39
-        /djKaDbX8KqI/+zFsf/sxbH/7MWx/+zFsf/sxbH/7MWy/+e1nf/Vglj/ymEs/8tiLf/LYy//2Itl/+e5
-        of/sxbH/7MWx/+zFsf/sxbH/7MWy/+vCrv/Xh17/zGUy/9mMZv/ovKX/7MWx/+zFsf/sxbH/7MWx/+zF
-        sf/yyLP/7MWx2MpkMNfcbjb/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        Mv/MZTL/zGUy/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYy/8xmMv/MZjP/zGYz/8xm
-        M//MZjP/zGYz/9xuN//MZTHYymQx19tqMf/KXyr/yl8q/8pfKv/KXyr/yl8q/8pfKv/KYSz/y2Qw/8xm
-        NP/MZjP/zGYz/8tjL//KYCv/yl8q/8pfKv/KXyr/yl8q/8pfKv/KYCv/y2Qw/8xmM//LYy//ymAr/8pf
-        Kv/KXyr/yl8q/8pfKv/KXyr/22gu/8heKtjKZDHX3G43/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//cbjf/zGUx2MtmMejtdjv/3G43/9xuN//cbjf/3G43/9xu
-        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/9xu
-        N//cbjf/3G43/9xuN//cbjf/3G43/9xuN//cbjf/3G43/+12O//KZDLpzGUxtdtuNtfKZDHXymQx18pk
-        MdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pk
-        MdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHXymQx18pkMdfKZDHX224218xjMrYoAAAAGAAAADAA
-        AAABACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP//////89w
-        Qf/MZjP/+Ovk////////////5K2S/8xmM//nuKD/////////////////3Zl3/8xmM//89fH/////////
-        ////////1oVc/8xmM//MZjP/zGYz/8xmM//MZjP//////92Zd//MZjP/+Ovk////////////+Ovk/8xm
-        M//dmXf/////////////////57ig/8xmM//uzLv/////////////////5K2S/8xmM//MZjP/zGYz/8xm
-        M//MZjP//////+e4oP/MZjP/8dbJ/////////////////92Zd//PcEH/////////////////9eDW/8xm
-        M//krZL/////////////////7sy7/8xmM//MZjP/zGYz/8xmM//MZjP///////Xg1v/MZjP/8dbJ////
-        //////////////HWyf/MZjP/9eDW/////////////PXx/8xmM//dmXf//////////////////PXx/8xm
-        M//MZjP/zGYz/8xmM//MZjP////////////PcEH/7sy7///////////////////////WhVz/57ig////
-        /////////////9aFXP/PcEH//////////////////////89wQf/MZjP/zGYz/8xmM//MZjP/////////
-        ///dmXf/68Kt///////////////////////rwq3/3Zl3/////////////////+Stkv/MZjP/9eDW////
-        /////////////92Zd//MZjP/zGYz/8xmM//MZjP////////////nuKD/57ig/////////////PXx////
-        ////////1oVc/////////////////+7Mu//MZjP/57ig/////////////////+e4oP/MZjP/zGYz/8xm
-        M//MZjP////////////14Nb/5K2S////////////57ig////////////5K2S//Xg1v////////////z1
-        8f/MZjP/3Zl3////////////////////////////////////////////////////////////57ig////
-        ////////4KOF//jr5P///////PXx/+vCrf/////////////////WhVz/z3BB////////////////////
-        ////////////////////////////////////////7sy7////////////5K2S/+Cjhf///////////+7M
-        u//////////////////krZL/zGYz//Xg1v//////////////////////////////////////////////
-        /////////PXx////////////5K2S/89wQf/89fH///////z18f/////////////////uzLv/zGYz/+e4
-        oP/////////////////nuKD/zGYz/8xmM//MZjP/////////////////////////////////57ig/8xm
-        M//krZL////////////////////////////89fH/zGYz/92Zd//////////////////14Nb/zGYz/8xm
-        M//MZjP/9eDW////////////////////////////68Kt/8xmM//Tek7/////////////////////////
-        ////////1oVc/89wQf//////////////////////z3BB/8xmM//MZjP/57ig////////////////////
-        ////////7sy7/8xmM//MZjP/68Kt////////////////////////////5K2S/8xmM//14Nb/////////
-        ////////////////////////3Zl3////////////////////////////8dbJ/8xmM//MZjP/2o9p////
-        ////////////////////////7sy7/8xmM//nuKD/////////////////////////////////z3BB////
-        ////////////////////////9eDW/8xmM//MZjP/zGYz//HWyf///////////////////////PXx/8xm
-        M//dmXf/////////////////////////////////zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xm
-        M//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/zGYz/8xmM//MZjP/KAAAABAA
-        AAAgAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM1kMdzPaTLtzGYx7cxmMe3MZjHtzGYx7cxm
-        Me3MZjHtzGYx7cxmMe3MZjHtzGYx7cxmMe3MZjHtz2ky7c1kMdzJXyfz1ms1/85fKP/OXib/0GUw/9Bl
-        L//OXib/zl4m/9FmMf/PYiz/zl4m/85eJv/RZzH/0mk1/9dsNf/LZTLz14Vc7dFpNf/bk2//3Zl3/9By
-        Q//SeU3/3Zp4/92Yd//Pbj7/14Ze/92Zd//cl3T/z249/8tkMf/RaTT/zGYx7fPaze3XeUr/+e/p////
-        ///lsZb/2o9p////////////3JVy/+a0m////////////9yUcf/KXyr/0Wk0/8xmMe347Ojt3Yxk//HW
-        yf//////9uXb/9aCWP/57ej//////+e1nP/Zjmj////////////mtZz/yV0m/9FpNP/MZjHt/f397eal
-        hv/vzr7////////////go4X/7ci2///////vz77/03xP//z28///////78++/8pfKf/RaDP/zGYx7f39
-        /e3ww67/7cu5////////////8dbJ/+e2nf//////+Oni/9R+VP/y18n///////bj2v/Nazn/zFog/8lb
-        I+39/f3t+uPY/+7Luv/9+vn/9ePa//36+f/qv6r//fj2//78+//ZjWj/5bKY///////9+vn/8dXG/+/L
-        uP/szLvt/f397f/9+v/z2cz//fj1/+e5ov/8+PX/9+Xc//fo4P//////4qiL/9yVcv//////////////
-        /////////f397f39/e3//////PTx///+/v/dmXj/7cu5//79/P/89vP//////+7Mu//Wgln/+vDr////
-        ///z3ND/4Zt4/9uWde38+fjt////////////////3Zt5/9mMZv/////////////////57uj/0nhL//LZ
-        zP//////9ePZ/89eJv/CTBDt8tnN7f///////////////+KpjP/LYy//893S//////////////79/9iL
-        ZP/ouKH////////+/v/y08T/7Mq27ee2oe3////////////////ouqT/xlUc/+Glh///////////////
-        ///mtZz/25Rx//////////////////39/e3ReEvt4Jt4/92Zd//dmXf/1oJZ/8pgK//Obj7/3Jd0/92Z
-        d//dmXf/14Ze/89uPv/dmHX/3Zl3/+CbeP/cmHftymAt89NhJ//OXib/zl4m/89jLP/Sajb/0WYx/85e
-        Jv/OXib/zl4m/89iLP/RZjH/zl4m/85eJv/TYSf/yVsj881kMdzPaTLtzGYx7cxmMe3MZjHtzGYx7cxm
-        Me3MZjHtzGYx7cxmMe3MZjHtzGYx7cxmMe3MZjHtz2ky7c1kMdwAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
-</value>
-  </data>
-  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>560, 250</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterScreen</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>MobiFlight Connector</value>
-  </data>
-  <data name="&gt;&gt;fileToolStripMenuItem.Name" xml:space="preserve">
-    <value>fileToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
-    <value>toolStripMenuItem3</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
-    <value>toolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
-    <value>openToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;konfigurationSpeichernToolStripMenuItem.Name" xml:space="preserve">
-    <value>konfigurationSpeichernToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;konfigurationSpeichernToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;AfterFileActionsToolStripMenuItem.Name" xml:space="preserve">
-    <value>AfterFileActionsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;AfterFileActionsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;recentDocumentsToolStripMenuItem.Name" xml:space="preserve">
-    <value>recentDocumentsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;recentDocumentsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;recentDocsToolStripSeparator.Name" xml:space="preserve">
-    <value>recentDocsToolStripSeparator</value>
-  </data>
-  <data name="&gt;&gt;recentDocsToolStripSeparator.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;beendenToolStripMenuItem.Name" xml:space="preserve">
-    <value>beendenToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;beendenToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;extrasToolStripMenuItem.Name" xml:space="preserve">
-    <value>extrasToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;extrasToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;orphanedSerialsFinderToolStripMenuItem.Name" xml:space="preserve">
-    <value>orphanedSerialsFinderToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;orphanedSerialsFinderToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
-    <value>toolStripMenuItem4</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsToolStripMenuItem.Name" xml:space="preserve">
-    <value>settingsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;settingsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;hilfeToolStripMenuItem.Name" xml:space="preserve">
-    <value>hilfeToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;hilfeToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;helpToolStripMenuItem.Name" xml:space="preserve">
-    <value>helpToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;helpToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkForUpdateToolStripMenuItem.Name" xml:space="preserve">
-    <value>checkForUpdateToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;checkForUpdateToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;überToolStripMenuItem.Name" xml:space="preserve">
-    <value>überToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;überToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;active.Name" xml:space="preserve">
-    <value>active</value>
-  </data>
-  <data name="&gt;&gt;active.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;guid.Name" xml:space="preserve">
-    <value>guid</value>
-  </data>
-  <data name="&gt;&gt;guid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Description.Name" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="&gt;&gt;Description.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FsuipcOffset.Name" xml:space="preserve">
-    <value>FsuipcOffset</value>
-  </data>
-  <data name="&gt;&gt;FsuipcOffset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FsuipcSize.Name" xml:space="preserve">
-    <value>FsuipcSize</value>
-  </data>
-  <data name="&gt;&gt;FsuipcSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Converter.Name" xml:space="preserve">
-    <value>Converter</value>
-  </data>
-  <data name="&gt;&gt;Converter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Mask.Name" xml:space="preserve">
-    <value>Mask</value>
-  </data>
-  <data name="&gt;&gt;Mask.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparison.Name" xml:space="preserve">
-    <value>comparison</value>
-  </data>
-  <data name="&gt;&gt;comparison.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonValue.Name" xml:space="preserve">
-    <value>comparisonValue</value>
-  </data>
-  <data name="&gt;&gt;comparisonValue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazePin.Name" xml:space="preserve">
-    <value>arcazePin</value>
-  </data>
-  <data name="&gt;&gt;arcazePin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;trigger.Name" xml:space="preserve">
-    <value>trigger</value>
-  </data>
-  <data name="&gt;&gt;trigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Typ.Name" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="&gt;&gt;Typ.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerial.Name" xml:space="preserve">
-    <value>arcazeSerial</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerial.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcValueColumn.Name" xml:space="preserve">
-    <value>fsuipcValueColumn</value>
-  </data>
-  <data name="&gt;&gt;fsuipcValueColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeValueColumn.Name" xml:space="preserve">
-    <value>arcazeValueColumn</value>
-  </data>
-  <data name="&gt;&gt;arcazeValueColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;EditButtonColumn.Name" xml:space="preserve">
-    <value>EditButtonColumn</value>
-  </data>
-  <data name="&gt;&gt;EditButtonColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataSetConfig.Name" xml:space="preserve">
-    <value>dataSetConfig</value>
-  </data>
-  <data name="&gt;&gt;dataSetConfig.Type" xml:space="preserve">
-    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;configDataTable.Name" xml:space="preserve">
-    <value>configDataTable</value>
-  </data>
-  <data name="&gt;&gt;configDataTable.Type" xml:space="preserve">
-    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;activeDataColumn.Name" xml:space="preserve">
-    <value>activeDataColumn</value>
-  </data>
-  <data name="&gt;&gt;activeDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetDataColumn.Name" xml:space="preserve">
-    <value>fsuipcOffsetDataColumn</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;converterDataColumn.Name" xml:space="preserve">
-    <value>converterDataColumn</value>
-  </data>
-  <data name="&gt;&gt;converterDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;maskDataColumn.Name" xml:space="preserve">
-    <value>maskDataColumn</value>
-  </data>
-  <data name="&gt;&gt;maskDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;usbArcazePinDataColumn.Name" xml:space="preserve">
-    <value>usbArcazePinDataColumn</value>
-  </data>
-  <data name="&gt;&gt;usbArcazePinDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;typeDataColumn.Name" xml:space="preserve">
-    <value>typeDataColumn</value>
-  </data>
-  <data name="&gt;&gt;typeDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;durationDataColumn.Name" xml:space="preserve">
-    <value>durationDataColumn</value>
-  </data>
-  <data name="&gt;&gt;durationDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonDataColumn.Name" xml:space="preserve">
-    <value>comparisonDataColumn</value>
-  </data>
-  <data name="&gt;&gt;comparisonDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonValueDataColumn.Name" xml:space="preserve">
-    <value>comparisonValueDataColumn</value>
-  </data>
-  <data name="&gt;&gt;comparisonValueDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;descriptionDataColumn.Name" xml:space="preserve">
-    <value>descriptionDataColumn</value>
-  </data>
-  <data name="&gt;&gt;descriptionDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeDataColumn.Name" xml:space="preserve">
-    <value>fsuipcSizeDataColumn</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;triggerDataColumn.Name" xml:space="preserve">
-    <value>triggerDataColumn</value>
-  </data>
-  <data name="&gt;&gt;triggerDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialDataColumn.Name" xml:space="preserve">
-    <value>arcazeSerialDataColumn</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
-    <value>settingsColumn</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;guidDataColumn.Name" xml:space="preserve">
-    <value>guidDataColumn</value>
-  </data>
-  <data name="&gt;&gt;guidDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;duplicateRowToolStripMenuItem.Name" xml:space="preserve">
-    <value>duplicateRowToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;duplicateRowToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteRowToolStripMenuItem.Name" xml:space="preserve">
-    <value>deleteRowToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deleteRowToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputActive.Name" xml:space="preserve">
-    <value>inputActive</value>
-  </data>
-  <data name="&gt;&gt;inputActive.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputDescription.Name" xml:space="preserve">
-    <value>inputDescription</value>
-  </data>
-  <data name="&gt;&gt;inputDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsGuid.Name" xml:space="preserve">
-    <value>inputsGuid</value>
-  </data>
-  <data name="&gt;&gt;inputsGuid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputName.Name" xml:space="preserve">
-    <value>inputName</value>
-  </data>
-  <data name="&gt;&gt;inputName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputType.Name" xml:space="preserve">
-    <value>inputType</value>
-  </data>
-  <data name="&gt;&gt;inputType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputEditButtonColumn.Name" xml:space="preserve">
-    <value>inputEditButtonColumn</value>
-  </data>
-  <data name="&gt;&gt;inputEditButtonColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataSetInputs.Name" xml:space="preserve">
-    <value>dataSetInputs</value>
-  </data>
-  <data name="&gt;&gt;dataSetInputs.Type" xml:space="preserve">
-    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsDataTable.Name" xml:space="preserve">
-    <value>inputsDataTable</value>
-  </data>
-  <data name="&gt;&gt;inputsDataTable.Type" xml:space="preserve">
-    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsActiveDataColumn.Name" xml:space="preserve">
-    <value>inputsActiveDataColumn</value>
-  </data>
-  <data name="&gt;&gt;inputsActiveDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsDescriptionDataColumn.Name" xml:space="preserve">
-    <value>inputsDescriptionDataColumn</value>
-  </data>
-  <data name="&gt;&gt;inputsDescriptionDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsGuidDataColumn.Name" xml:space="preserve">
-    <value>inputsGuidDataColumn</value>
-  </data>
-  <data name="&gt;&gt;inputsGuidDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsSettingsDataColumn.Name" xml:space="preserve">
-    <value>inputsSettingsDataColumn</value>
-  </data>
-  <data name="&gt;&gt;inputsSettingsDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;duplicateInputsRowToolStripMenuItem.Name" xml:space="preserve">
-    <value>duplicateInputsRowToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;duplicateInputsRowToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteInputsRowToolStripMenuItem.Name" xml:space="preserve">
-    <value>deleteInputsRowToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;deleteInputsRowToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripComboBox1.Name" xml:space="preserve">
-    <value>toolStripComboBox1</value>
-  </data>
-  <data name="&gt;&gt;toolStripComboBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon.Name" xml:space="preserve">
-    <value>notifyIcon</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;startToolStripMenuItem.Name" xml:space="preserve">
-    <value>startToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;startToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stopToolStripMenuItem.Name" xml:space="preserve">
-    <value>stopToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;stopToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemDivider.Name" xml:space="preserve">
-    <value>toolStripMenuItemDivider</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemDivider.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;wiederherstellenToolStripMenuItem.Name" xml:space="preserve">
-    <value>wiederherstellenToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;wiederherstellenToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
-    <value>saveToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;runToolStripButton.Name" xml:space="preserve">
-    <value>runToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;runToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;runTestToolStripButton.Name" xml:space="preserve">
-    <value>runTestToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;runTestToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stopToolStripButton.Name" xml:space="preserve">
-    <value>stopToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;stopToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stopTestToolStripButton.Name" xml:space="preserve">
-    <value>stopTestToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;stopTestToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autoRunToolStripButton.Name" xml:space="preserve">
-    <value>autoRunToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;autoRunToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;donateToolStripButton.Name" xml:space="preserve">
-    <value>donateToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;donateToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;exitToolStripButton.Name" xml:space="preserve">
-    <value>exitToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;exitToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ArcazeUSBTtoolStripStatusLabel.Name" xml:space="preserve">
-    <value>ArcazeUSBTtoolStripStatusLabel</value>
-  </data>
-  <data name="&gt;&gt;ArcazeUSBTtoolStripStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeUsbStatusToolStripStatusLabel.Name" xml:space="preserve">
-    <value>arcazeUsbStatusToolStripStatusLabel</value>
-  </data>
-  <data name="&gt;&gt;arcazeUsbStatusToolStripStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeUsbToolStripDropDownButton.Name" xml:space="preserve">
-    <value>arcazeUsbToolStripDropDownButton</value>
-  </data>
-  <data name="&gt;&gt;arcazeUsbToolStripDropDownButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dividerToolStripStatusLabel1.Name" xml:space="preserve">
-    <value>dividerToolStripStatusLabel1</value>
-  </data>
-  <data name="&gt;&gt;dividerToolStripStatusLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcToolStripStatusLabel.Name" xml:space="preserve">
-    <value>fsuipcToolStripStatusLabel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcToolStripStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcStatusToolStripStatusLabel.Name" xml:space="preserve">
-    <value>fsuipcStatusToolStripStatusLabel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcStatusToolStripStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel1.Name" xml:space="preserve">
-    <value>toolStripStatusLabel1</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel.Name" xml:space="preserve">
-    <value>toolStripStatusLabel</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;activeDataGridViewCheckBoxColumn.Name" xml:space="preserve">
-    <value>activeDataGridViewCheckBoxColumn</value>
-  </data>
-  <data name="&gt;&gt;activeDataGridViewCheckBoxColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataTable1.Name" xml:space="preserve">
-    <value>dataTable1</value>
-  </data>
-  <data name="&gt;&gt;dataTable1.Type" xml:space="preserve">
-    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn1</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn3</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn2</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn5.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn5</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn4</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SimConnectLabel.Name" xml:space="preserve">
-    <value>SimConnectLabel</value>
-  </data>
-  <data name="&gt;&gt;SimConnectLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SimConnectStatusLabel.Name" xml:space="preserve">
-    <value>SimConnectStatusLabel</value>
-  </data>
-  <data name="&gt;&gt;SimConnectStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel4.Name" xml:space="preserve">
-    <value>toolStripStatusLabel4</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
+  <metadata name="contextMenuStripFsuipcOffset.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>983, 17</value>
+  </metadata>
+  <metadata name="arcazeValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="inputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="inputsDataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>724, 17</value>
+  </metadata>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>146, 56</value>
+  </metadata>
+  <metadata name="fsuipcValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="FsuipcSize.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="EditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Mask.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>248, 17</value>
+  </metadata>
+  <metadata name="dataSetConfig.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
+  <metadata name="inputsGuid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataSetInputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>591, 56</value>
+  </metadata>
+  <metadata name="FsuipcOffset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Typ.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="trigger.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>367, 56</value>
+  </metadata>
+  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="contextMenuStripNotifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>518, 17</value>
+  </metadata>
+  <metadata name="comparison.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="comparisonValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Converter.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="arcazeSerial.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="statusStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>251, 56</value>
+  </metadata>
+  <metadata name="guid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
