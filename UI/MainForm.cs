@@ -30,7 +30,7 @@ namespace MobiFlight.UI
         /// </summary>
         private string currentFileName = null;
 
-        private int lastClickedRow = -1;
+        
 
         private CmdLineParams cmdLineParams;
 
@@ -94,8 +94,6 @@ namespace MobiFlight.UI
             InitializeComponent();
             InitializeSettings();
             InitializeLogging();
-            Helper.DoubleBufferedDGV(inputsDataGridView, true);
-            Helper.DoubleBufferedDGV(dataGridViewConfig, true);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -124,7 +122,7 @@ namespace MobiFlight.UI
 
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
-            execManager = new ExecutionManager(dataGridViewConfig, inputsDataGridView, this.Handle);
+            execManager = new ExecutionManager(outputConfigPanel.DataGridViewConfig, inputConfigPanel.InputsDataGridView, this.Handle);
             execManager.OnExecute += new EventHandler(timer_Tick);
             execManager.OnStopped += new EventHandler(timer_Stopped);
             execManager.OnStarted += new EventHandler(timer_Started);
@@ -156,28 +154,22 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = false;
             updateNotifyContextMenu(false);
 
-            arcazeSerial.Items.Clear();
-            arcazeSerial.Items.Add(i18n._tr("none"));
-
             _updateRecentFilesMenuItems();
 
-            configDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
-            configDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
-            inputsDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
-            inputsDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
-            dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(dataGridViewConfig_RowsAdded);
+            // TODO: REFACTOR THIS DEPENDENCY
+            outputConfigPanel.ExecutionManager = execManager;
+            outputConfigPanel.SettingsChanged += OutputConfigPanel_SettingsChanged;
 
-            dataGridViewConfig.Columns["Description"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
-            dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
-            inputsDataGridView.Columns["inputDescription"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
-            inputsDataGridView.Columns["inputEditButtonColumn"].DefaultCellStyle.NullValue = "...";
+
+            inputConfigPanel.ExecutionManager = execManager;
+            inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
+            inputConfigPanel.SettingsDialogRequested += InputConfigPanel_SettingsDialogRequested;
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
                 // change ui icon to english
                 donateToolStripButton.Image = Properties.Resources.btn_donate_uk_SM;
             }
-
 
             //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
             AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
@@ -190,6 +182,21 @@ namespace MobiFlight.UI
             Update();
             Refresh();
             execManager.AutoConnectStart();
+        }
+
+        private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)
+        {
+            saveToolStripButton.Enabled = true;
+        }
+
+        private void InputConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
+        {
+            settingsToolStripMenuItem_Click(sender, null);
+        }
+
+        private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
+        {
+            saveToolStripButton.Enabled = true;
         }
 
         private void MainForm_ModuleConnected(object sender, String text, int progress)
@@ -475,21 +482,6 @@ namespace MobiFlight.UI
             } //if 
         }
 
-        void dataGridViewConfig_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-            // if datagridviewconfig.RowCount == 1 this means that only the "new line" is added yet
-            /*
-            if (e.RowIndex != -1 && dataGridViewConfig.RowCount != 1)
-            {
-                (sender as DataGridView).Rows[e.RowIndex].Cells["active"].Style.BackColor
-                       = (sender as DataGridView).DefaultCellStyle.BackColor;             
-
-                (sender as DataGridView).Rows[e.RowIndex].Cells["description"].Style.BackColor
-                       = (sender as DataGridView).DefaultCellStyle.BackColor;             
-            }
-             * */
-        }
-
 #if ARCAZE
         private void _initializeArcazeModuleSettings()
         {
@@ -686,15 +678,6 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// enables the save button in toolbar after the user has changed config data
-        /// </summary>        
-        void configDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
-        {
-            saveToolStripButton.Enabled = true;
-        } //configDataTable_RowChanged
-
-
-        /// <summary>
         /// handler which sets the states of UI elements when timer gets started
         /// </summary>
         void timer_Started(object sender, EventArgs e)
@@ -736,15 +719,15 @@ namespace MobiFlight.UI
         {
             // remove the items from all comboboxes
             // and set default items
-            arcazeSerial.Items.Clear();
-            arcazeSerial.Items.Add("none");
+            outputConfigPanel.ArcazeSerial.Items.Clear();
+            outputConfigPanel.ArcazeSerial.Items.Add("none");
             arcazeUsbToolStripDropDownButton.DropDownItems.Clear();
             arcazeUsbToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoArcazeModuleFound");
 #if ARCAZE
             // TODO: refactor!!!
             foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
             {
-                arcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
+                outputConfigPanel.ArcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
                 arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
             }
 #endif
@@ -752,17 +735,16 @@ namespace MobiFlight.UI
 #if MOBIFLIGHT
             foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                arcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
+                outputConfigPanel.ArcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
                 arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
             }
 #endif
-
-            if (arcazeSerial.Items.Count > 0)
+            if (outputConfigPanel.ArcazeSerial.Items.Count > 0)
             {
                 arcazeUsbToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageArcazeModuleFound");
             }
             // only enable button if modules are available            
-            return (arcazeSerial.Items.Count > 0);
+            return (outputConfigPanel.ArcazeSerial.Items.Count > 0);
         } //fillComboBoxesWithArcazeModules()
 
         /// <summary>
@@ -978,12 +960,14 @@ namespace MobiFlight.UI
             }
 
             execManager.Stop();
-            dataSetConfig.Clear();
-            dataSetInputs.Clear();
+            outputConfigPanel.DataSetConfig.Clear();
+            inputConfigPanel.InputDataSetConfig.Clear();
+
             ConfigFile configFile = new ConfigFile(fileName);
             try
             {
-                dataSetConfig.ReadXml(configFile.getOutputConfig());
+                // refactor!!!
+                outputConfigPanel.DataSetConfig.ReadXml(configFile.getOutputConfig());
             }
             catch (Exception ex)
             {
@@ -993,7 +977,8 @@ namespace MobiFlight.UI
 
             try
             {
-                dataSetInputs.ReadXml(configFile.getInputConfig());
+                // refactor!!!
+                inputConfigPanel.InputDataSetConfig.ReadXml(configFile.getInputConfig());
             }
             catch (InvalidExpressionException ex)
             {
@@ -1022,6 +1007,11 @@ namespace MobiFlight.UI
             _checkForOrphanedSerials( false );
         }
 
+        private void _restoreValuesInGridView()
+        {
+            outputConfigPanel.RestoreValuesInGridView();
+        }
+
         private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
         {
             List<string> serials = new List<string>();
@@ -1035,7 +1025,7 @@ namespace MobiFlight.UI
 
             try
             {
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configDataTable, inputsDataTable);
+                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, outputConfigPanel.ConfigDataTable, inputConfigPanel.ConfigDataTable);
                 opd.StartPosition = FormStartPosition.CenterParent;
                 if (opd.HasOrphanedSerials())
                 {
@@ -1068,7 +1058,7 @@ namespace MobiFlight.UI
         /// </summary>
         private void _applyBackwardCompatibilityLoading()
         {            
-            foreach (DataRow row in configDataTable.Rows) {
+            foreach (DataRow row in outputConfigPanel.ConfigDataTable.Rows) {
                 if (row["settings"].GetType() == typeof(System.DBNull))
                 {
                     OutputConfigItem cfgItem = new OutputConfigItem();
@@ -1129,10 +1119,10 @@ namespace MobiFlight.UI
         /// </summary>        
         private void _saveConfig(string fileName)
         {
-            _applyBackwardCompatibilitySaving();
+            outputConfigPanel.ApplyBackwardCompatibilitySaving();
 
             ConfigFile configFile = new ConfigFile(fileName);
-            configFile.SaveFile(dataSetConfig, dataSetInputs);
+            configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
             currentFileName=fileName;
             //dataSetConfig.WriteXml(fileName);
             _restoreValuesInGridView();
@@ -1140,50 +1130,6 @@ namespace MobiFlight.UI
             _setFilenameInTitle(fileName);
             saveToolStripButton.Enabled = false;
         }
-
-        /// <summary>
-        /// use the settings from the config object and initialize the grid cells 
-        /// this is needed after loading and saving configs
-        /// </summary>
-        private void _restoreValuesInGridView()
-        {
-            foreach (DataRow row in configDataTable.Rows)
-            {
-                OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
-                if (cfgItem != null)
-                {
-                    row["fsuipcOffset"] = "0x" + cfgItem.FSUIPCOffset.ToString("X4");
-                    if (cfgItem.DisplaySerial != null)
-                    {
-                        row["arcazeSerial"] = cfgItem.DisplaySerial.ToString();
-                    }
-                }
-            }
-        } //_restoreValuesInGridView()
-
-        /// <summary>
-        /// removes unnecessary information that is now stored in the settings node itself
-        /// </summary>
-        /// <remarks>DEPRECATED</remarks>
-        private void _applyBackwardCompatibilitySaving()
-        {
-            // delete old values from config that are part of the new settings-node now
-            foreach (DataRow row in configDataTable.Rows)
-            {
-                if (row["settings"].GetType() != typeof(System.DBNull))
-                {
-                    row["converter"] = null;
-                    row["trigger"] = null;
-                    row["fsuipcOffset"] = null;
-                    row["fsuipcSize"] = null;
-                    row["mask"] = null;
-                    row["comparison"] = null;
-                    row["comparisonValue"] = null;
-                    row["usbArcazePin"] = null;
-                    row["arcazeSerial"] = null;
-                }
-            }
-        } //_saveConfig()
 
         /// <summary>
         /// triggers the save dialog if user clicks on according buttons
@@ -1221,57 +1167,10 @@ namespace MobiFlight.UI
                 execManager.Stop();
                 currentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
-                configDataTable.Clear();
-                inputsDataTable.Clear();
+                outputConfigPanel.ConfigDataTable.Clear();
+                inputConfigPanel.ConfigDataTable.Clear();
             };
         } //toolStripMenuItem3_Click()
-
-        /// <summary>
-        /// gets triggered if user changes values in the data grid
-        /// </summary>
-        private void dataGridViewConfig_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {            
-            if ( (e.FormattedValue as String) == "" ) return;
-
-            switch (dataGridViewConfig[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
-            {
-                case "FsuipcOffset":
-                    try
-                    {
-                        Int32 tmp = Int32.Parse((e.FormattedValue as String).Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
-                    }
-                    catch
-                    {
-                        e.Cancel = true;
-                        MessageBox.Show(
-                                i18n._tr("uiMessageInvalidValueHexOnly"),
-                                i18n._tr("InputValidation"),
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                    }
-                    break;
-            }
-            
-        } //dataGridViewConfig_CellValidating()
-
-        /// <summary>
-        /// handles errors when user submits data to the datagrid
-        /// </summary>
-        private void dataGridViewConfig_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            switch (dataGridViewConfig[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
-            {
-                case "arcazeSerial":
-                    // when loading config and not beeing connected to arcaze modules
-                    // we actually do not know whether the serial infos are correct or not
-                    // so in this case we add the new value to our items
-                    //
-                    // otherwise we would get an error due to validation issues
-                    arcazeSerial.Items.Add(dataGridViewConfig[e.ColumnIndex, e.RowIndex].Value.ToString());
-                    e.Cancel = false;
-                    break;
-            }
-        } //dataGridViewConfig_DataError()
 
         /// <summary>
         /// gets triggered if user uses quick save button from toolbar
@@ -1336,203 +1235,6 @@ namespace MobiFlight.UI
             runToolStripButton.Enabled = true && execManager.ModulesConnected() && execManager.SimConnected() && !execManager.TestModeIsStarted();
         }
 
-
-        /// <summary>
-        /// click event when button in gridview gets clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridViewConfig_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // handle clicks on header cells or row-header cells
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;            
-
-            switch (dataGridViewConfig[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
-            {                
-                case "FsuipcOffset":
-                case "fsuipcValueColumn":
-                case "arcazeValueColumn":
-                case "arcazeSerial":                    
-                case "EditButtonColumn":
-                    bool isNew = dataGridViewConfig.Rows[e.RowIndex].IsNewRow;
-                    if (isNew)
-                    {                        
-                        MessageBox.Show(i18n._tr("uiMessageConfigLineNotSavedYet"),
-                                        i18n._tr("Hint"));
-                        return;
-                    } //if
-
-                    OutputConfigItem cfg;
-                    DataRow row = null;
-                    bool create = false;
-                    if (isNew) {
-                        cfg = new OutputConfigItem();                        
-                    } else {
-                        row = (dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
-
-                        // the row had been saved but no config object has been created
-                        // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                        if ((dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"].GetType() == typeof(System.DBNull))
-                        {
-                            (dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] = new OutputConfigItem();
-                        }
-
-                        cfg = ((dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);                        
-                    }
-                    _editConfigWithWizard(
-                             row,
-                             cfg,
-                             create);
-
-                    dataGridViewConfig.EndEdit();
-                    break;                    
-                case "Active":
-                    // always end editing to store changes
-                    dataGridViewConfig.EndEdit();
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// click event when button in gridview gets clicked
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void inputsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // handle clicks on header cells or row-header cells
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
-            switch (inputsDataGridView[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
-            {
-                case "inputEditButtonColumn":
-                    bool isNew = inputsDataGridView.Rows[e.RowIndex].IsNewRow;
-                    if (isNew)
-                    {
-                        MessageBox.Show(i18n._tr("uiMessageConfigLineNotSavedYet"),
-                                        i18n._tr("Hint"));
-                        return;
-                    } //if
-
-                    InputConfigItem cfg;
-                    DataRow row = null;
-                    bool create = false;
-                    
-                    row = (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
-
-                    // the row had been saved but no config object has been created
-                    // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                    if (row["settings"].GetType() == typeof(System.DBNull))
-                    {
-                        row["settings"] = new InputConfigItem();
-                    }
-
-                    cfg = row["settings"] as InputConfigItem;
-
-                    _editConfigWithInputWizard(
-                             row,
-                             cfg,
-                             create);
-                    
-                    inputsDataGridView.Rows[e.RowIndex].Cells["inputName"].Value  =  cfg.Name + "/" + cfg.ModuleSerial;
-                    inputsDataGridView.Rows[e.RowIndex].Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
-                    inputsDataGridView.EndEdit();
-                    break;
-
-                case "inputActive":
-                    // always end editing to store changes
-                    inputsDataGridView.EndEdit();
-                    break;
-            }
-        }
-
-        private void _editConfigWithInputWizard(DataRow dataRow, InputConfigItem cfg, bool create)
-        {
-            // refactor!!! dependency to arcaze cache etc not nice
-            InputConfigWizard wizard = new InputConfigWizard ( 
-                                execManager, 
-                                cfg,
-#if ARCAZE
-                                execManager.getModuleCache(), 
-                                getArcazeModuleSettings(),
-#endif
-                                dataSetConfig, 
-                                dataRow["guid"].ToString()
-                                );
-            wizard.StartPosition = FormStartPosition.CenterParent;
-            wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
-            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                saveToolStripButton.Enabled = true;
-                if (dataRow == null) return;
-                // do something special
-                // Show used Button
-                // Show Type of Output
-                // Show last set value
-            };            
-        }
-
-        void wizard_SettingsDialogRequested(object sender, EventArgs e)
-        {
-            //(sender as InputConfigWizard).Close();
-            settingsToolStripMenuItem_Click(sender, null);
-        }
-
-        /// <summary>
-        /// initializes the config wizard and shows the modal dialog.
-        /// afterwards stores some values in the data set so that the visible grid columns are filled with data.
-        /// </summary>
-        /// <param name="dataRow"></param>
-        /// <param name="cfg"></param>
-        /// <param name="create"></param>
-        private void _editConfigWithWizard(DataRow dataRow, OutputConfigItem cfg, bool create)
-        {
-            // refactor!!! dependency to arcaze cache etc not nice
-            Form wizard = new ConfigWizard( execManager, 
-                                            cfg,
-#if ARCAZE
-                                            execManager.getModuleCache(), 
-                                            getArcazeModuleSettings(), 
-#endif
-                                            dataSetConfig, 
-                                            dataRow["guid"].ToString()
-                                          );
-            wizard.StartPosition = FormStartPosition.CenterParent;
-            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                if (dataRow == null) return;
-                // do something special
-                dataRow["fsuipcOffset"] = "0x" + cfg.FSUIPCOffset.ToString("X4");
-                dataRow["arcazeSerial"] =  cfg.DisplaySerial;
-            };            
-        }
-
-        /// <summary>
-        /// when using tab in the grid view, the focus ignores readonly cell and jumps ahead to the next cell
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridViewConfig_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dataGridViewConfig[e.ColumnIndex, e.RowIndex].ReadOnly)
-            {
-                SendKeys.Send("{TAB}");
-            }
-        }
-
-        /// <summary>
-        /// when using tab in the grid view, the focus ignores readonly cell and jumps ahead to the next cell
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void inputsDataGridView_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (inputsDataGridView[e.ColumnIndex, e.RowIndex].ReadOnly)
-            {
-                SendKeys.Send("{TAB}");
-            }
-        }
-
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // TODO: refactor dependency to module cache
@@ -1574,96 +1276,6 @@ namespace MobiFlight.UI
             }
         }
 
-        private void dataGridViewConfig_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            dataGridViewConfig_CellContentClick(sender, e);
-        }
-
-        private void inputsDataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            inputsDataGridView_CellContentClick(sender, e);
-        }
-
-        private void dataGridViewConfig_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
-        {
-            e.Row.Cells["guid"].Value = Guid.NewGuid();
-        }
-
-        private void inputsDataGridViewConfig_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
-        {
-            e.Row.Cells["inputsGuid"].Value = Guid.NewGuid();
-        }
-
-
-
-        private void configDataTable_TableNewRow(object sender, DataTableNewRowEventArgs e)
-        {
-            e.Row["guid"] = Guid.NewGuid();        
-        }
-
-        private void configDataTable_RowChanged_1(object sender, DataRowChangeEventArgs e)
-        {
-            if (e.Row["guid"] == DBNull.Value)
-                e.Row["guid"] = Guid.NewGuid();
-        }
-        
-        private void deleteRowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // do somehting here
-            foreach (DataGridViewRow row in dataGridViewConfig.SelectedRows)
-            {
-                // we cannot delete a row which hasn't been saved yet
-                if (row.IsNewRow) continue;
-                dataGridViewConfig.Rows.Remove(row);
-            }            
-        }
-
-        private void deleteInputsRowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // do somehting here
-            foreach (DataGridViewRow row in inputsDataGridView.SelectedRows)
-            {
-                // we cannot delete a row which hasn't been saved yet
-                if (row.IsNewRow) continue;
-                inputsDataGridView.Rows.Remove(row);
-            }
-        }
-
-        /// <summary>
-        /// this method is used to select the current row so that the context menu events may detect the current row
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridViewConfig_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                dataGridViewConfig.EndEdit();
-                lastClickedRow = e.RowIndex;
-
-                if (e.RowIndex != -1 && e.RowIndex != (sender as DataGridView).Rows.Count-1)
-                {
-                    if (!(sender as DataGridView).Rows[e.RowIndex].Selected)
-                    {
-                        // reset all rows since we are not right clicking on a currently
-                        // selected one
-                        foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
-                        {
-                            row.Selected = false;
-                        }
-                    }
-
-                    // the current one becomes selected in any case
-                    (sender as DataGridView).Rows[e.RowIndex].Selected = true;
-                }
-            }            
-        }
-
-        private void dataGridViewConfig_CellValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            dataGridViewConfig.EndEdit();
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             execManager.Stop();
@@ -1679,154 +1291,14 @@ namespace MobiFlight.UI
             };
         }
 
-        private void dataGridViewConfig_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // handle clicks on header cells or row-header cells
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            switch (dataGridViewConfig[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
-            {
-                case "Description":
-                    dataGridViewConfig.CurrentCell = dataGridViewConfig[e.ColumnIndex, e.RowIndex];
-                    dataGridViewConfig.BeginEdit(true);
-                    break;
-            }
-        }
-
-        private void inputsDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // handle clicks on header cells or row-header cells
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
-            switch (inputsDataGridView[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
-            {
-                case "inputDescription":
-                    inputsDataGridView.CurrentCell = inputsDataGridView[e.ColumnIndex, e.RowIndex];
-                    inputsDataGridView.BeginEdit(true);
-                    break;
-            }
-        }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(i18n._tr("WebsiteUrlHelp"));
         }
 
-        private void duplicateRowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // this is called to ensure 
-            // that all data has been stored in
-            // the data table
-            // otherwise there can occur strange inserts of new rows
-            // at the first position instead of the expected one
-            this.Validate();
-            
-            // do somehting here
-            foreach (DataGridViewRow row in dataGridViewConfig.SelectedRows)
-            {
-                // ignore new rows since they cannot be copied nor deleted
-                if (row.IsNewRow) continue;                
-                
-                // get current config item
-                // duplicate it
-                // duplicate row 
-                // link to new config item 
-                DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
-                DataRow newRow = configDataTable.NewRow();
-                
-                foreach (DataColumn col in configDataTable.Columns) {
-                    newRow[col.ColumnName] = currentRow[col.ColumnName];
-                }
-                
-                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
-                if (cfg != null) {
-                    cfg = (cfg.Clone() as OutputConfigItem);
-                } else {
-                    cfg = new OutputConfigItem();
-                }
 
-                newRow["description"] += " " + i18n._tr("suffixCopy");
-                newRow["settings"] = cfg;
-                newRow["guid"] = Guid.NewGuid();                
-
-                int currentPosition = configDataTable.Rows.IndexOf(currentRow);
-                if (currentPosition == -1)
-                {
-                    currentPosition = 1;
-                }
-
-                configDataTable.Rows.InsertAt(newRow, currentPosition + 1);
-
-                row.Selected = false;
-            }            
-        }
-
-        private void duplicateInputsRowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // this is called to ensure 
-            // that all data has been stored in
-            // the data table
-            // otherwise there can occur strange inserts of new rows
-            // at the first position instead of the expected one
-            this.Validate();
-
-            // do somehting here
-            foreach (DataGridViewRow row in inputsDataGridView.SelectedRows)
-            {
-                // ignore new rows since they cannot be copied nor deleted
-                if (row.IsNewRow) continue;
-
-                // get current config item
-                // duplicate it
-                // duplicate row 
-                // link to new config item 
-                DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
-                DataRow newRow = inputsDataTable.NewRow();
-
-                foreach (DataColumn col in inputsDataTable.Columns)
-                {
-                    newRow[col.ColumnName] = currentRow[col.ColumnName];
-                }
-
-                InputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-                if (cfg != null)
-                {
-                    cfg = (cfg.Clone() as InputConfigItem);
-                }
-                else
-                {
-                    cfg = new InputConfigItem();
-                }
-
-                newRow["description"] += " " + i18n._tr("suffixCopy");
-                newRow["settings"] = cfg;
-                newRow["guid"] = Guid.NewGuid();
-
-                int currentPosition = inputsDataTable.Rows.IndexOf(currentRow);
-                if (currentPosition == -1)
-                {
-                    currentPosition = 1;
-                }
-
-                inputsDataTable.Rows.InsertAt(newRow, currentPosition + 1);
-
-                row.Selected = false;
-            }
-        }
-
-        private void dataGridViewContextMenuStrip_Opening(object sender, CancelEventArgs e)
-        {
-            // do not show up context menu
-            // id there is only the new line visible
-            e.Cancel = (dataGridViewConfig.Rows.Count == 1 || (lastClickedRow == dataGridViewConfig.Rows.Count-1));
-        }
-
-        private void inputsDataGridViewContextMenuStrip_Opening(object sender, CancelEventArgs e)
-        {
-            // do not show up context menu
-            // id there is only the new line visible
-            e.Cancel = (inputsDataGridView.Rows.Count == 1 || (lastClickedRow == inputsDataGridView.Rows.Count - 1));
-        }
 
         private void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1885,28 +1357,6 @@ namespace MobiFlight.UI
             }
         }
 
-        private void inputsDataGridView_VisibleChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void inputsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            foreach (DataGridViewRow gridRow in inputsDataGridView.Rows)
-            {
-                if (gridRow.DataBoundItem  == null) continue;
-                DataRow dataRow = ((gridRow.DataBoundItem as DataRowView).Row as DataRow);
-                if (dataRow["settings"] is InputConfigItem)
-                {
-                    InputConfigItem cfg = (dataRow["settings"] as InputConfigItem);
-
-                    gridRow.Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
-                    gridRow.Cells["inputType"].Value = cfg.Type;
-                }
-            }
-        }
-
-
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == NativeMethods.WM_SHOWME)
@@ -1923,130 +1373,6 @@ namespace MobiFlight.UI
             minimizeMainForm(false);
         }
 
-        private void dataGridViewConfig_KeyUp(object sender, KeyEventArgs e)
-        {
-            DataGridView dgv = (sender as DataGridView);
-            int cellIndex = 2;
-            if (dgv.Name == inputsDataGridView.Name) cellIndex = 1;
-
-            // do something
-            // toggle active if current key is a simple character
-            if (e.KeyCode.ToString().Length == 1)
-            {
-
-                // handle clicks on header cells or row-header cells
-                if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
-
-                dgv.CurrentCell = dgv[cellIndex, dgv.CurrentRow.Index];
-
-                if (!dgv.CurrentRow.Cells[cellIndex].IsInEditMode)
-                {
-                    dgv.BeginEdit(true);
-                    if (e.KeyCode != Keys.F2)
-                    {
-                        (dgv.EditingControl as TextBox).Text = (e.Shift) ? e.KeyCode.ToString() : e.KeyCode.ToString().ToLower();
-                        (dgv.EditingControl as TextBox).Select(1, 0);
-                    }
-                }
-                return;
-            }
-            // un/check all rows if key is a space
-            else if (e.KeyCode == Keys.Space)
-            {
-                e.SuppressKeyPress = true;
-
-                bool isChecked = false;
-                if ((sender as DataGridView).SelectedRows.Count == 0) return;
-
-                // it is assumed that the first cell is the one with the checkbox
-                isChecked = Boolean.Parse((sender as DataGridView).SelectedRows[0].Cells[0].Value.ToString());
-
-                foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
-                {
-                    row.Cells[0].Value = !isChecked;
-                }
-
-                dgv.RefreshEdit();
-            }
-            else if (e.KeyCode == Keys.Return)
-            {
-                // handle clicks on header cells or row-header cells
-                if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
-                
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-
-                if (!dgv.CurrentRow.Cells[cellIndex].IsInEditMode)
-                {
-                    if (dgv.Name == dataGridViewConfig.Name) {
-                        dgv.CurrentCell = dgv[cellIndex, dgv.CurrentRow.Index];
-
-                        OutputConfigItem cfg;
-                        DataRow row = null;
-                        bool create = false;
-
-                        row = (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row;
-
-                        // the row had been saved but no config object has been created
-                        // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                        if ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"].GetType() == typeof(System.DBNull))
-                        {
-                            (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"] = new OutputConfigItem();
-                        }
-
-                        cfg = ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
-
-                        _editConfigWithWizard(
-                                 row,
-                                 cfg,
-                                 create);
-
-                        dataGridViewConfig.EndEdit();
-                    }
-
-                    if (dgv.Name == inputsDataGridView.Name)
-                    {
-                        dgv.CurrentCell = dgv[cellIndex, dgv.CurrentRow.Index];
-
-                        InputConfigItem cfg;
-                        DataRow row = null;
-                        bool create = false;
-
-                        row = (inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row;
-
-                        // the row had been saved but no config object has been created
-                        // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                        if (row["settings"].GetType() == typeof(System.DBNull))
-                        {
-                            row["settings"] = new InputConfigItem();
-                        }
-
-                        cfg = row["settings"] as InputConfigItem;
-
-                        _editConfigWithInputWizard(
-                                 row,
-                                 cfg,
-                                 create);
-
-                        inputsDataGridView.Rows[dgv.CurrentRow.Index].Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
-                        inputsDataGridView.Rows[dgv.CurrentRow.Index].Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
-                        inputsDataGridView.EndEdit();
-                    }
-                }
-            }
-            else
-            {
-                // do nothing
-            }           
-        }
-
-        private void dataGridViewConfig_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Return)
-            {
-                e.Handled = true;
-            }
-        }
     }
 
     internal static class Helper

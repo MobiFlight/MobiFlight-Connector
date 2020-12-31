@@ -37,7 +37,7 @@ namespace MobiFlight.UI.Dialogs
         Panels.ServoPanel                   servoPanel                  = new Panels.ServoPanel();
         Panels.StepperPanel                 stepperPanel                = new Panels.StepperPanel();
 
-        public ConfigWizard(ExecutionManager mainForm, 
+        public ConfigWizard( ExecutionManager mainForm, 
                              OutputConfigItem cfg,
 #if ARCAZE
                              ArcazeCache arcazeCache, 
