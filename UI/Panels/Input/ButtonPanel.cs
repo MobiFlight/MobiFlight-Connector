@@ -230,7 +230,7 @@ namespace MobiFlight.UI.Panels.Input
                         break;
 
                     case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
-                        config.onRelease = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).ToConfig();
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).ToConfig();
                         break;
 
                     default:
