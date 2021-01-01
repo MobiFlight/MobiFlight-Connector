@@ -33,11 +33,10 @@ namespace MobiFlight.UI.Panels
             dataGridViewConfig.Columns["Description"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
 
-            dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(dataGridViewConfig_RowsAdded);
+            dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(DataGridViewConfig_RowsAdded);
 
-            configDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
-            configDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
-
+            configDataTable.RowChanged += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
+            configDataTable.RowDeleted += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
 
             Helper.DoubleBufferedDGV(dataGridViewConfig, true);
         }
@@ -49,7 +48,7 @@ namespace MobiFlight.UI.Panels
 
         public DataGridView DataGridViewConfig { get { return dataGridViewConfig; } }
 
-        void dataGridViewConfig_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        void DataGridViewConfig_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             // if datagridviewconfig.RowCount == 1 this means that only the "new line" is added yet
             /*
@@ -67,7 +66,7 @@ namespace MobiFlight.UI.Panels
         /// <summary>
         /// gets triggered if user changes values in the data grid
         /// </summary>
-        private void dataGridViewConfig_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private void DataGridViewConfig_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             if ((e.FormattedValue as String) == "") return;
 
@@ -90,12 +89,12 @@ namespace MobiFlight.UI.Panels
                     break;
             }
 
-        } //dataGridViewConfig_CellValidating()
+        } //DataGridViewConfig_CellValidating()
 
         /// <summary>
         /// handles errors when user submits data to the datagrid
         /// </summary>
-        private void dataGridViewConfig_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void DataGridViewConfig_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             switch (dataGridViewConfig[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
             {
@@ -109,14 +108,14 @@ namespace MobiFlight.UI.Panels
                     e.Cancel = false;
                     break;
             }
-        } //dataGridViewConfig_DataError()
+        } //DataGridViewConfig_DataError()
 
         /// <summary>
         /// click event when button in gridview gets clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridViewConfig_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewConfig_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // handle clicks on header cells or row-header cells
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
@@ -156,7 +155,7 @@ namespace MobiFlight.UI.Panels
 
                         cfg = ((dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
                     }
-                    _editConfigWithWizard(
+                    EditConfigWithWizard(
                              row,
                              cfg,
                              create);
@@ -175,7 +174,7 @@ namespace MobiFlight.UI.Panels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridViewConfig_CellEnter(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewConfig_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridViewConfig[e.ColumnIndex, e.RowIndex].ReadOnly)
             {
@@ -183,7 +182,7 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private void deleteRowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // do somehting here
             foreach (DataGridViewRow row in dataGridViewConfig.SelectedRows)
@@ -199,7 +198,7 @@ namespace MobiFlight.UI.Panels
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridViewConfig_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        private void DataGridViewConfig_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -224,12 +223,12 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private void dataGridViewConfig_CellValidated(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewConfig_CellValidated(object sender, DataGridViewCellEventArgs e)
         {
             dataGridViewConfig.EndEdit();
         }
 
-        private void dataGridViewConfig_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewConfig_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             // handle clicks on header cells or row-header cells
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
@@ -243,7 +242,7 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private void duplicateRowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DuplicateRowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // this is called to ensure 
             // that all data has been stored in
@@ -296,14 +295,14 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private void dataGridViewContextMenuStrip_Opening(object sender, CancelEventArgs e)
+        private void DataGridViewContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
             // do not show up context menu
             // id there is only the new line visible
             e.Cancel = (dataGridViewConfig.Rows.Count == 1 || (lastClickedRow == dataGridViewConfig.Rows.Count - 1));
         }
 
-        private void dataGridViewConfig_KeyUp(object sender, KeyEventArgs e)
+        private void DataGridViewConfig_KeyUp(object sender, KeyEventArgs e)
         {
             DataGridView dgv = (sender as DataGridView);
             int cellIndex = 2;
@@ -376,7 +375,7 @@ namespace MobiFlight.UI.Panels
 
                         cfg = ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
 
-                        _editConfigWithWizard(
+                        EditConfigWithWizard(
                                  row,
                                  cfg,
                                  create);
@@ -391,9 +390,9 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private void dataGridViewConfig_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewConfig_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridViewConfig_CellContentClick(sender, e);
+            DataGridViewConfig_CellContentClick(sender, e);
         }
 
         /// <summary>
@@ -403,10 +402,10 @@ namespace MobiFlight.UI.Panels
         /// <param name="dataRow"></param>
         /// <param name="cfg"></param>
         /// <param name="create"></param>
-        private void _editConfigWithWizard(DataRow dataRow, OutputConfigItem cfg, bool create)
+        private void EditConfigWithWizard(DataRow dataRow, OutputConfigItem cfg, bool create)
         {
             // refactor!!! dependency to arcaze cache etc not nice
-            Form wizard = new ConfigWizard( ExecutionManager,
+            Form wizard = new ConfigWizard(ExecutionManager,
                                             cfg,
 #if ARCAZE
                                             execManager.getModuleCache(), 
@@ -414,8 +413,10 @@ namespace MobiFlight.UI.Panels
 #endif
                                             dataSetConfig,
                                             dataRow["guid"].ToString()
-                                          );
-            wizard.StartPosition = FormStartPosition.CenterParent;
+                                          )
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (dataRow == null) return;
@@ -428,23 +429,23 @@ namespace MobiFlight.UI.Panels
         /// <summary>
         /// enables the save button in toolbar after the user has changed config data
         /// </summary>        
-        void configDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
+        void ConfigDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
             SettingsChanged?.Invoke(sender, null);
         } //configDataTable_RowChanged
 
-        private void configDataTable_TableNewRow(object sender, DataTableNewRowEventArgs e)
+        private void ConfigDataTable_TableNewRow(object sender, DataTableNewRowEventArgs e)
         {
             e.Row["guid"] = Guid.NewGuid();
         }
 
-        private void configDataTable_RowChanged_1(object sender, DataRowChangeEventArgs e)
+        private void ConfigDataTable_RowChanged_1(object sender, DataRowChangeEventArgs e)
         {
             if (e.Row["guid"] == DBNull.Value)
                 e.Row["guid"] = Guid.NewGuid();
         }
 
-        private void dataGridViewConfig_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        private void DataGridViewConfig_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
             e.Row.Cells["guid"].Value = Guid.NewGuid();
         }
@@ -495,7 +496,7 @@ namespace MobiFlight.UI.Panels
 
 
 
-        private void dataGridViewConfig_KeyDown(object sender, KeyEventArgs e)
+        private void DataGridViewConfig_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
