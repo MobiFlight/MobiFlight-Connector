@@ -671,6 +671,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No active FSUIPC connection..
+        /// </summary>
+        internal static string uiMessageNoFSUIPCConnection {
+            get {
+                return ResourceManager.GetString("uiMessageNoFSUIPCConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no orphaned serials in the current config..
         /// </summary>
         internal static string uiMessageNoOrphanedSerialsFound {
@@ -775,6 +784,15 @@ namespace MobiFlight {
         internal static string uiMessageSettingsDlgOldFirmware {
             get {
                 return ResourceManager.GetString("uiMessageSettingsDlgOldFirmware", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transform Error. .
+        /// </summary>
+        internal static string uiMessageTransformError {
+            get {
+                return ResourceManager.GetString("uiMessageTransformError", resourceCulture);
             }
         }
         

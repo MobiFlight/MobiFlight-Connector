@@ -307,12 +307,6 @@ namespace MobiFlight
         /// </summary>
         private void executeConfig()
         {
-            // prevent execution if not connected to either FSUIPC or Arcaze
-            if (!fsuipcCache.isConnected()
-#if SIMCONNECT
-                //&& !simConnectCache.isConnected()
-#endif
-                ) return;
             if (
 #if ARCAZE
                 !arcazeCache.isConnected() && 
@@ -340,6 +334,17 @@ namespace MobiFlight
                 // and the ones that are not checked active
                 if (row.IsNewRow || !(bool)row.Cells["active"].Value) continue;
 
+                // If not connected to FSUIPC show an error message
+                if (!fsuipcCache.isConnected()
+#if SIMCONNECT
+                //&& !simConnectCache.isConnected()
+#endif
+                )
+                {
+                    row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
+                    continue;
+                }
+
                 // initialisiere den adapter
                 //// nimm type von col.type
                 //// nimm config von col.config                
@@ -366,7 +371,7 @@ namespace MobiFlight
                 } catch (Exception e)
                 {
                     Log.Instance.log("Problem with transform. " + e.Message, LogSeverity.Error);
-                    row.ErrorText = i18n._tr("uiMessageTransformError");
+                    row.ErrorText = i18n._tr("uiMessageTransformError") + "(" + e.Message + ")";
                     continue;
                 }
 

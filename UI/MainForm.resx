@@ -222,7 +222,7 @@
     <value>0, 0</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 24</value>
+    <value>850, 24</value>
   </data>
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -256,7 +256,7 @@
     <value>3, 3</value>
   </data>
   <data name="outputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>690, 273</value>
+    <value>836, 341</value>
   </data>
   <data name="outputConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -280,7 +280,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>696, 279</value>
+    <value>842, 347</value>
   </data>
   <data name="OutputTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -361,7 +361,7 @@
     <value>0, 0</value>
   </data>
   <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 305</value>
+    <value>850, 373</value>
   </data>
   <data name="inputsTabControl.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -385,7 +385,7 @@
     <value>0, 52</value>
   </data>
   <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 305</value>
+    <value>850, 373</value>
   </data>
   <data name="panelMain.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -6725,7 +6725,7 @@
     <value>0, 24</value>
   </data>
   <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 28</value>
+    <value>850, 28</value>
   </data>
   <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -6833,7 +6833,7 @@
     <value>|</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>385, 17</value>
+    <value>531, 17</value>
   </data>
   <data name="toolStripStatusLabel.Text" xml:space="preserve">
     <value>Status Info...</value>
@@ -6845,7 +6845,7 @@
     <value>0, 0</value>
   </data>
   <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 22</value>
+    <value>850, 22</value>
   </data>
   <data name="statusStrip2.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -6869,13 +6869,13 @@
     <value>Bottom</value>
   </data>
   <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 407</value>
+    <value>0, 475</value>
   </data>
   <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 22</value>
+    <value>850, 22</value>
   </data>
   <data name="statusStripPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -6896,7 +6896,7 @@
     <value>Bottom</value>
   </data>
   <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 357</value>
+    <value>0, 425</value>
   </data>
   <data name="logTextBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>4, 50</value>
@@ -6908,7 +6908,7 @@
     <value>Vertical</value>
   </data>
   <data name="logTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 50</value>
+    <value>850, 50</value>
   </data>
   <data name="logTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -6965,13 +6965,13 @@
     <value>NoControl</value>
   </data>
   <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 354</value>
+    <value>0, 422</value>
   </data>
   <data name="logSplitter.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
   <data name="logSplitter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 3</value>
+    <value>850, 3</value>
   </data>
   <data name="logSplitter.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -6995,7 +6995,7 @@
     <value>0, 52</value>
   </data>
   <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 305</value>
+    <value>850, 373</value>
   </data>
   <data name="startupPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -7022,7 +7022,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>704, 429</value>
+    <value>850, 497</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

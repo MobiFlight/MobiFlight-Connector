@@ -403,4 +403,10 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiPmdgEventIdInputPanelCustomParam" xml:space="preserve">
     <value>Custom Param</value>
   </data>
+  <data name="uiMessageNoFSUIPCConnection" xml:space="preserve">
+    <value>No active FSUIPC connection.</value>
+  </data>
+  <data name="uiMessageTransformError" xml:space="preserve">
+    <value>Transform Error. </value>
+  </data>
 </root>

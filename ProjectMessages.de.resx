@@ -391,4 +391,10 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   <data name="uiMessageNotEnoughPinsMessage" xml:space="preserve">
     <value>Nicht genügend freie Pins zum Anlegen dieses Devices vorhanden</value>
   </data>
+  <data name="uiMessageNoFSUIPCConnection" xml:space="preserve">
+    <value>Keine aktive FSUIPC Verbindung.</value>
+  </data>
+  <data name="uiMessageTransformError" xml:space="preserve">
+    <value>Fehler bei Transform. </value>
+  </data>
 </root>

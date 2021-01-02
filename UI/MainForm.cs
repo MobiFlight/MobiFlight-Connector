@@ -9,7 +9,9 @@ using System.Resources;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Xml.Serialization;
+#if ARCAZE
 using SimpleSolutions.Usb;
+#endif
 using AutoUpdaterDotNET;
 using System.Runtime.InteropServices;
 using MobiFlight.FSUIPC;

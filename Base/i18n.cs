@@ -25,7 +25,12 @@ namespace MobiFlight
             {
                 resourceManager = new ResourceManager("MobiFlight.ProjectMessages", typeof(UI.MainForm).Assembly);
             }
-            return resourceManager.GetString(s);
+            String result = resourceManager.GetString(s);
+            if(result == null) {
+                result = s;
+            }
+            
+            return result;
         }
     }
 }
