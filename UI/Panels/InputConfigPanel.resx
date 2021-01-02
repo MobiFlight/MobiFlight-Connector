@@ -122,19 +122,19 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="duplicateInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="duplicateInputsRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Duplicate Row</value>
   </data>
   <data name="deleteInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="deleteInputsRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete Row</value>
   </data>
   <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 48</value>
+    <value>181, 70</value>
   </data>
   <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
     <value>inputsDataGridViewContextMenuStrip</value>
@@ -166,6 +166,12 @@
   </data>
   <data name="inputsGuid.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <metadata name="module.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="module.HeaderText" xml:space="preserve">
+    <value>Module</value>
   </data>
   <metadata name="inputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -295,6 +301,12 @@
     <value>inputsGuid</value>
   </data>
   <data name="&gt;&gt;inputsGuid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;module.Name" xml:space="preserve">
+    <value>module</value>
+  </data>
+  <data name="&gt;&gt;module.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;inputName.Name" xml:space="preserve">

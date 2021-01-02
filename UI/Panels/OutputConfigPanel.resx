@@ -117,520 +117,376 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;converterDataColumn.Name" xml:space="preserve">
-    <value>converterDataColumn</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="comparisonValue.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="&gt;&gt;configDataTable.Name" xml:space="preserve">
-    <value>configDataTable</value>
-  </data>
-  <data name="&gt;&gt;Description.Name" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="Mask.ToolTipText" xml:space="preserve">
-    <value>maskiert die relevanten Bits des ausgelesenen Werts</value>
-  </data>
-  <data name="&gt;&gt;Typ.Name" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="fsuipcValueColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="guid.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;comparisonValue.Name" xml:space="preserve">
-    <value>comparisonValue</value>
-  </data>
-  <data name="&gt;&gt;typeDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FsuipcOffset.MinimumWidth" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="&gt;&gt;comparison.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>929, 629</value>
-  </data>
-  <data name="arcazeValueColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="&gt;&gt;EditButtonColumn.Name" xml:space="preserve">
-    <value>EditButtonColumn</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeDataColumn.Name" xml:space="preserve">
-    <value>fsuipcSizeDataColumn</value>
-  </data>
-  <data name="&gt;&gt;Mask.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete row(s)</value>
-  </data>
-  <data name="&gt;&gt;arcazeValueColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;guidDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Converter.ToolTipText" xml:space="preserve">
-    <value>Ein Art den ausgelesenen Wert zu interpretieren bzw. konvertieren</value>
-  </data>
-  <data name="arcazeSerial.MinimumWidth" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="FsuipcOffset.HeaderText" xml:space="preserve">
-    <value>FSUIPC Offset</value>
-  </data>
-  <data name="&gt;&gt;Mask.Name" xml:space="preserve">
-    <value>Mask</value>
-  </data>
-  <data name="&gt;&gt;trigger.Name" xml:space="preserve">
-    <value>trigger</value>
-  </data>
-  <data name="Typ.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="Typ.ToolTipText" xml:space="preserve">
-    <value>Signal Typ</value>
-  </data>
-  <data name="comparisonValue.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewConfig.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcValueColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;activeDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FsuipcSize.HeaderText" xml:space="preserve">
-    <value>FSUIPC Size</value>
-  </data>
-  <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>923, 610</value>
-  </data>
-  <data name="&gt;&gt;arcazePin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
-    <value>settingsColumn</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="comparisonValue.HeaderText" xml:space="preserve">
-    <value>Compare Value</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewConfig.Name" xml:space="preserve">
-    <value>dataGridViewConfig</value>
-  </data>
-  <data name="MappingConfigGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Description.MinimumWidth" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="&gt;&gt;FsuipcSize.Name" xml:space="preserve">
-    <value>FsuipcSize</value>
-  </data>
-  <data name="Mask.HeaderText" xml:space="preserve">
-    <value>Mask</value>
-  </data>
-  <data name="&gt;&gt;Description.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="trigger.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Delete selected row(s)</value>
-  </data>
-  <data name="&gt;&gt;arcazePin.Name" xml:space="preserve">
-    <value>arcazePin</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewConfig.Parent" xml:space="preserve">
-    <value>MappingConfigGroupBox</value>
-  </data>
-  <data name="&gt;&gt;converterDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewContextMenuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;active.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;maskDataColumn.Name" xml:space="preserve">
-    <value>maskDataColumn</value>
-  </data>
-  <data name="arcazeValueColumn.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="trigger.HeaderText" xml:space="preserve">
-    <value>Arcaze Trigger</value>
-  </data>
-  <data name="guid.HeaderText" xml:space="preserve">
-    <value>guid</value>
-  </data>
-  <data name="&gt;&gt;triggerDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;guidDataColumn.Name" xml:space="preserve">
-    <value>guidDataColumn</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewConfig.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="fsuipcValueColumn.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="&gt;&gt;triggerDataColumn.Name" xml:space="preserve">
-    <value>triggerDataColumn</value>
-  </data>
-  <data name="&gt;&gt;dataGridViewContextMenuStrip.Name" xml:space="preserve">
-    <value>dataGridViewContextMenuStrip</value>
-  </data>
-  <data name="Typ.Width" type="System.Int32, mscorlib">
-    <value>39</value>
-  </data>
-  <data name="comparison.HeaderText" xml:space="preserve">
-    <value>Compare Type</value>
-  </data>
-  <data name="arcazePin.HeaderText" xml:space="preserve">
-    <value>Arcaze Pin</value>
-  </data>
-  <data name="arcazePin.ToolTipText" xml:space="preserve">
-    <value>Der Pin des ArcazeUSB-Moduls</value>
-  </data>
-  <data name="&gt;&gt;comparisonValue.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonValueDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Description.ToolTipText" xml:space="preserve">
-    <value>Hinweistext für den einfachen Überblick</value>
-  </data>
-  <data name="MappingConfigGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="MappingConfigGroupBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MappingConfigGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="active.HeaderText" xml:space="preserve">
+    <value>active</value>
   </data>
   <data name="active.Width" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
-  <data name="FsuipcSize.Visible" type="System.Boolean, mscorlib">
+  <metadata name="guid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="guid.HeaderText" xml:space="preserve">
+    <value>guid</value>
+  </data>
+  <data name="guid.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <metadata name="Description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Description.HeaderText" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Description.MinimumWidth" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="Description.ToolTipText" xml:space="preserve">
+    <value>Hinweistext für den einfachen Überblick</value>
+  </data>
+  <metadata name="arcazeSerial.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="arcazeSerial.HeaderText" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="arcazeSerial.MinimumWidth" type="System.Int32, mscorlib">
+    <value>80</value>
   </data>
   <data name="arcazeSerial.Width" type="System.Int32, mscorlib">
     <value>80</value>
   </data>
-  <data name="&gt;&gt;fsuipcOffsetDataColumn.Name" xml:space="preserve">
-    <value>fsuipcOffsetDataColumn</value>
-  </data>
-  <data name="arcazePin.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="FsuipcSize.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="&gt;&gt;durationDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MappingConfigGroupBox.Text" xml:space="preserve">
-    <value>Mappings</value>
-  </data>
-  <data name="&gt;&gt;activeDataColumn.Name" xml:space="preserve">
-    <value>activeDataColumn</value>
-  </data>
-  <data name="&gt;&gt;Converter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;dataSetConfig.Name" xml:space="preserve">
-    <value>dataSetConfig</value>
-  </data>
-  <data name="Typ.HeaderText" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="arcazePin.Width" type="System.Int32, mscorlib">
-    <value>40</value>
-  </data>
-  <data name="MappingConfigGroupBox.AutoSize" type="System.Boolean, mscorlib">
+  <metadata name="OutputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <data name="OutputType.HeaderText" xml:space="preserve">
+    <value>Output Type</value>
   </data>
-  <data name="&gt;&gt;descriptionDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <metadata name="FsuipcOffset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="FsuipcOffset.HeaderText" xml:space="preserve">
+    <value>FSUIPC Offset</value>
   </data>
-  <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
-  </data>
-  <data name="arcazeSerial.HeaderText" xml:space="preserve">
-    <value>Module Serial</value>
-  </data>
-  <data name="trigger.Width" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="&gt;&gt;durationDataColumn.Name" xml:space="preserve">
-    <value>durationDataColumn</value>
-  </data>
-  <data name="&gt;&gt;duplicateRowToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;active.Name" xml:space="preserve">
-    <value>active</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MappingConfigGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerial.Name" xml:space="preserve">
-    <value>arcazeSerial</value>
-  </data>
-  <data name="&gt;&gt;descriptionDataColumn.Name" xml:space="preserve">
-    <value>descriptionDataColumn</value>
-  </data>
-  <data name="fsuipcValueColumn.HeaderText" xml:space="preserve">
-    <value>FSUIPC Value</value>
-  </data>
-  <data name="&gt;&gt;FsuipcOffset.Name" xml:space="preserve">
-    <value>FsuipcOffset</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;maskDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;Converter.Name" xml:space="preserve">
-    <value>Converter</value>
-  </data>
-  <data name="&gt;&gt;usbArcazePinDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>929, 629</value>
-  </data>
-  <data name="&gt;&gt;duplicateRowToolStripMenuItem.Name" xml:space="preserve">
-    <value>duplicateRowToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;arcazeValueColumn.Name" xml:space="preserve">
-    <value>arcazeValueColumn</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>OutputConfigPanel</value>
-  </data>
-  <data name="EditButtonColumn.HeaderText" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="&gt;&gt;trigger.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;EditButtonColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MappingConfigGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Duplicate row</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Converter.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comparison.ToolTipText" xml:space="preserve">
-    <value>Die Art welche zum Vergleich des Wertes aus FSUIPC verwendet wird</value>
-  </data>
-  <data name="&gt;&gt;FsuipcSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="EditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="&gt;&gt;FsuipcOffset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comparison.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="dataGridViewConfig.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="EditButtonColumn.Width" type="System.Int32, mscorlib">
-    <value>55</value>
-  </data>
-  <data name="Converter.HeaderText" xml:space="preserve">
-    <value>Converter</value>
-  </data>
-  <data name="Description.HeaderText" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="&gt;&gt;comparison.Name" xml:space="preserve">
-    <value>comparison</value>
-  </data>
-  <data name="&gt;&gt;guid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;deleteRowToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="&gt;&gt;usbArcazePinDataColumn.Name" xml:space="preserve">
-    <value>usbArcazePinDataColumn</value>
-  </data>
-  <data name="&gt;&gt;comparisonValueDataColumn.Name" xml:space="preserve">
-    <value>comparisonValueDataColumn</value>
-  </data>
-  <data name="arcazeValueColumn.HeaderText" xml:space="preserve">
-    <value>Output Value</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonDataColumn.Name" xml:space="preserve">
-    <value>comparisonDataColumn</value>
-  </data>
-  <data name="&gt;&gt;fsuipcValueColumn.Name" xml:space="preserve">
-    <value>fsuipcValueColumn</value>
-  </data>
-  <data name="Mask.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;deleteRowToolStripMenuItem.Name" xml:space="preserve">
-    <value>deleteRowToolStripMenuItem</value>
+  <data name="FsuipcOffset.MinimumWidth" type="System.Int32, mscorlib">
+    <value>40</value>
   </data>
   <data name="FsuipcOffset.ToolTipText" xml:space="preserve">
     <value>Der FSUIPC Offset laut Dokumentation</value>
   </data>
-  <data name="&gt;&gt;configDataTable.Type" xml:space="preserve">
-    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="dataGridViewConfig.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
   <data name="FsuipcOffset.Width" type="System.Int32, mscorlib">
     <value>50</value>
   </data>
-  <data name="Converter.Width" type="System.Int32, mscorlib">
-    <value>60</value>
+  <metadata name="fsuipcValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="fsuipcValueColumn.HeaderText" xml:space="preserve">
+    <value>FSUIPC Value</value>
   </data>
-  <data name="&gt;&gt;typeDataColumn.Name" xml:space="preserve">
-    <value>typeDataColumn</value>
+  <data name="fsuipcValueColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>40</value>
   </data>
-  <data name="comparison.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="fsuipcValueColumn.Width" type="System.Int32, mscorlib">
+    <value>50</value>
   </data>
-  <data name="&gt;&gt;arcazeSerialDataColumn.Name" xml:space="preserve">
-    <value>arcazeSerialDataColumn</value>
+  <metadata name="arcazeValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="arcazeValueColumn.HeaderText" xml:space="preserve">
+    <value>Output Value</value>
   </data>
-  <data name="&gt;&gt;dataSetConfig.Type" xml:space="preserve">
-    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="arcazeValueColumn.MinimumWidth" type="System.Int32, mscorlib">
+    <value>40</value>
   </data>
-  <data name="&gt;&gt;guid.Name" xml:space="preserve">
-    <value>guid</value>
+  <data name="arcazeValueColumn.Width" type="System.Int32, mscorlib">
+    <value>50</value>
   </data>
-  <data name="&gt;&gt;Typ.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <metadata name="EditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="EditButtonColumn.HeaderText" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="&gt;&gt;arcazeSerial.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Mask.Width" type="System.Int32, mscorlib">
+  <data name="EditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
     <value>55</value>
   </data>
-  <data name="&gt;&gt;MappingConfigGroupBox.Name" xml:space="preserve">
-    <value>MappingConfigGroupBox</value>
-  </data>
-  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 48</value>
+  <data name="EditButtonColumn.Width" type="System.Int32, mscorlib">
+    <value>55</value>
   </data>
   <metadata name="dataSetConfig.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>815, 56</value>
   </metadata>
-  <metadata name="Converter.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <data name="dataGridViewConfig.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="dataGridViewConfig.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <metadata name="dataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>591, 56</value>
   </metadata>
-  <metadata name="FsuipcSize.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="fsuipcValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="guid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Duplicate row</value>
+  </data>
+  <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 22</value>
+  </data>
+  <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
+    <value>Delete row(s)</value>
+  </data>
+  <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>Delete selected row(s)</value>
+  </data>
+  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 48</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewContextMenuStrip.Name" xml:space="preserve">
+    <value>dataGridViewContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewContextMenuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
+    <value>923, 610</value>
+  </data>
+  <data name="dataGridViewConfig.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Name" xml:space="preserve">
+    <value>dataGridViewConfig</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.Parent" xml:space="preserve">
+    <value>MappingConfigGroupBox</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewConfig.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="MappingConfigGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="MappingConfigGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>929, 629</value>
+  </data>
+  <data name="MappingConfigGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="MappingConfigGroupBox.Text" xml:space="preserve">
+    <value>Mappings</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Name" xml:space="preserve">
+    <value>MappingConfigGroupBox</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="FsuipcOffset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="comparison.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Typ.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>246</value>
   </metadata>
-  <metadata name="Description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Mask.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="arcazePin.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="EditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="comparisonValue.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="arcazeValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridViewContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>591, 56</value>
-  </metadata>
-  <metadata name="arcazeSerial.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="trigger.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>929, 629</value>
+  </data>
+  <data name="&gt;&gt;dataSetConfig.Name" xml:space="preserve">
+    <value>dataSetConfig</value>
+  </data>
+  <data name="&gt;&gt;dataSetConfig.Type" xml:space="preserve">
+    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;configDataTable.Name" xml:space="preserve">
+    <value>configDataTable</value>
+  </data>
+  <data name="&gt;&gt;configDataTable.Type" xml:space="preserve">
+    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;activeDataColumn.Name" xml:space="preserve">
+    <value>activeDataColumn</value>
+  </data>
+  <data name="&gt;&gt;activeDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetDataColumn.Name" xml:space="preserve">
+    <value>fsuipcOffsetDataColumn</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;converterDataColumn.Name" xml:space="preserve">
+    <value>converterDataColumn</value>
+  </data>
+  <data name="&gt;&gt;converterDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;maskDataColumn.Name" xml:space="preserve">
+    <value>maskDataColumn</value>
+  </data>
+  <data name="&gt;&gt;maskDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usbArcazePinDataColumn.Name" xml:space="preserve">
+    <value>usbArcazePinDataColumn</value>
+  </data>
+  <data name="&gt;&gt;usbArcazePinDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;typeDataColumn.Name" xml:space="preserve">
+    <value>typeDataColumn</value>
+  </data>
+  <data name="&gt;&gt;typeDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;durationDataColumn.Name" xml:space="preserve">
+    <value>durationDataColumn</value>
+  </data>
+  <data name="&gt;&gt;durationDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonDataColumn.Name" xml:space="preserve">
+    <value>comparisonDataColumn</value>
+  </data>
+  <data name="&gt;&gt;comparisonDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonValueDataColumn.Name" xml:space="preserve">
+    <value>comparisonValueDataColumn</value>
+  </data>
+  <data name="&gt;&gt;comparisonValueDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;descriptionDataColumn.Name" xml:space="preserve">
+    <value>descriptionDataColumn</value>
+  </data>
+  <data name="&gt;&gt;descriptionDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeDataColumn.Name" xml:space="preserve">
+    <value>fsuipcSizeDataColumn</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;triggerDataColumn.Name" xml:space="preserve">
+    <value>triggerDataColumn</value>
+  </data>
+  <data name="&gt;&gt;triggerDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialDataColumn.Name" xml:space="preserve">
+    <value>arcazeSerialDataColumn</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;guidDataColumn.Name" xml:space="preserve">
+    <value>guidDataColumn</value>
+  </data>
+  <data name="&gt;&gt;guidDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;duplicateRowToolStripMenuItem.Name" xml:space="preserve">
+    <value>duplicateRowToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;duplicateRowToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deleteRowToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteRowToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;deleteRowToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
+    <value>settingsColumn</value>
+  </data>
+  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;active.Name" xml:space="preserve">
+    <value>active</value>
+  </data>
+  <data name="&gt;&gt;active.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;guid.Name" xml:space="preserve">
+    <value>guid</value>
+  </data>
+  <data name="&gt;&gt;guid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Description.Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="&gt;&gt;Description.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerial.Name" xml:space="preserve">
+    <value>arcazeSerial</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerial.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OutputType.Name" xml:space="preserve">
+    <value>OutputType</value>
+  </data>
+  <data name="&gt;&gt;OutputType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FsuipcOffset.Name" xml:space="preserve">
+    <value>FsuipcOffset</value>
+  </data>
+  <data name="&gt;&gt;FsuipcOffset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcValueColumn.Name" xml:space="preserve">
+    <value>fsuipcValueColumn</value>
+  </data>
+  <data name="&gt;&gt;fsuipcValueColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeValueColumn.Name" xml:space="preserve">
+    <value>arcazeValueColumn</value>
+  </data>
+  <data name="&gt;&gt;arcazeValueColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;EditButtonColumn.Name" xml:space="preserve">
+    <value>EditButtonColumn</value>
+  </data>
+  <data name="&gt;&gt;EditButtonColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>OutputConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

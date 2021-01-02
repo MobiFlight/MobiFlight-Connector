@@ -123,8 +123,9 @@ namespace MobiFlight.UI.Panels
                              cfg,
                              create);
 
-                    inputsDataGridView.Rows[e.RowIndex].Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
+                    inputsDataGridView.Rows[e.RowIndex].Cells["inputName"].Value = cfg.Name;
                     inputsDataGridView.Rows[e.RowIndex].Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
+                    inputsDataGridView.Rows[e.RowIndex].Cells["Module"].Value = cfg.ModuleSerial;
                     inputsDataGridView.EndEdit();
                     break;
 
@@ -237,8 +238,9 @@ namespace MobiFlight.UI.Panels
                 {
                     InputConfigItem cfg = (dataRow["settings"] as InputConfigItem);
 
-                    gridRow.Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
+                    gridRow.Cells["inputName"].Value = cfg.Name;
                     gridRow.Cells["inputType"].Value = cfg.Type;
+                    gridRow.Cells["Module"].Value = cfg.ModuleSerial;
                 }
             }
         }

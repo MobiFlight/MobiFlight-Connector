@@ -40,22 +40,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MappingConfigGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridViewConfig = new System.Windows.Forms.DataGridView();
-            this.active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.guid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FsuipcOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FsuipcSize = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Converter = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Mask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comparison = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.comparisonValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.arcazePin = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.trigger = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Typ = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.arcazeSerial = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.fsuipcValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.arcazeValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EditButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataSetConfig = new System.Data.DataSet();
             this.configDataTable = new System.Data.DataTable();
             this.activeDataColumn = new System.Data.DataColumn();
@@ -76,6 +60,15 @@
             this.duplicateRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsColumn = new System.Data.DataColumn();
+            this.active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.guid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.arcazeSerial = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.OutputType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FsuipcOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fsuipcValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.arcazeValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EditButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.MappingConfigGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).BeginInit();
@@ -92,7 +85,6 @@
             // 
             // dataGridViewConfig
             // 
-            resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.AllowUserToResizeColumns = false;
             this.dataGridViewConfig.AllowUserToResizeRows = false;
             this.dataGridViewConfig.AutoGenerateColumns = false;
@@ -110,16 +102,9 @@
             this.active,
             this.guid,
             this.Description,
-            this.FsuipcOffset,
-            this.FsuipcSize,
-            this.Converter,
-            this.Mask,
-            this.comparison,
-            this.comparisonValue,
-            this.arcazePin,
-            this.trigger,
-            this.Typ,
             this.arcazeSerial,
+            this.OutputType,
+            this.FsuipcOffset,
             this.fsuipcValueColumn,
             this.arcazeValueColumn,
             this.EditButtonColumn});
@@ -133,6 +118,7 @@
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewConfig.DefaultCellStyle = dataGridViewCellStyle8;
+            resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dataGridViewConfig.Name = "dataGridViewConfig";
             this.dataGridViewConfig.RowTemplate.ContextMenuStrip = this.dataGridViewContextMenuStrip;
@@ -145,169 +131,10 @@
             this.dataGridViewConfig.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridViewConfig_CellMouseDown);
             this.dataGridViewConfig.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewConfig_CellValidated);
             this.dataGridViewConfig.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.DataGridViewConfig_CellValidating);
+            this.dataGridViewConfig.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewConfig_DataBindingComplete);
             this.dataGridViewConfig.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataGridViewConfig_DataError);
             this.dataGridViewConfig.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DataGridViewConfig_DefaultValuesNeeded);
             this.dataGridViewConfig.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewConfig_KeyUp);
-            // 
-            // active
-            // 
-            this.active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.active.DataPropertyName = "active";
-            resources.ApplyResources(this.active, "active");
-            this.active.Name = "active";
-            // 
-            // guid
-            // 
-            this.guid.DataPropertyName = "guid";
-            resources.ApplyResources(this.guid, "guid");
-            this.guid.Name = "guid";
-            this.guid.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Description.DataPropertyName = "description";
-            dataGridViewCellStyle2.NullValue = "Doppelklicken für neuen Eintrag...";
-            this.Description.DefaultCellStyle = dataGridViewCellStyle2;
-            resources.ApplyResources(this.Description, "Description");
-            this.Description.Name = "Description";
-            // 
-            // FsuipcOffset
-            // 
-            this.FsuipcOffset.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.FsuipcOffset.DataPropertyName = "fsuipcOffset";
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.FsuipcOffset.DefaultCellStyle = dataGridViewCellStyle3;
-            this.FsuipcOffset.FillWeight = 1000F;
-            resources.ApplyResources(this.FsuipcOffset, "FsuipcOffset");
-            this.FsuipcOffset.Name = "FsuipcOffset";
-            this.FsuipcOffset.ReadOnly = true;
-            // 
-            // FsuipcSize
-            // 
-            this.FsuipcSize.DataPropertyName = "fsuipcSize";
-            this.FsuipcSize.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            resources.ApplyResources(this.FsuipcSize, "FsuipcSize");
-            this.FsuipcSize.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "4"});
-            this.FsuipcSize.Name = "FsuipcSize";
-            // 
-            // Converter
-            // 
-            this.Converter.DataPropertyName = "converter";
-            this.Converter.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            resources.ApplyResources(this.Converter, "Converter");
-            this.Converter.Items.AddRange(new object[] {
-            "Boolean",
-            "StrobeBCD"});
-            this.Converter.Name = "Converter";
-            // 
-            // Mask
-            // 
-            this.Mask.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Mask.DataPropertyName = "mask";
-            this.Mask.FillWeight = 50F;
-            resources.ApplyResources(this.Mask, "Mask");
-            this.Mask.Name = "Mask";
-            // 
-            // comparison
-            // 
-            this.comparison.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.comparison.DataPropertyName = "comparison";
-            this.comparison.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            resources.ApplyResources(this.comparison, "comparison");
-            this.comparison.Items.AddRange(new object[] {
-            "=",
-            "<",
-            ">"});
-            this.comparison.Name = "comparison";
-            this.comparison.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.comparison.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // comparisonValue
-            // 
-            this.comparisonValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.comparisonValue.DataPropertyName = "comparisonValue";
-            this.comparisonValue.FillWeight = 50F;
-            resources.ApplyResources(this.comparisonValue, "comparisonValue");
-            this.comparisonValue.Name = "comparisonValue";
-            // 
-            // arcazePin
-            // 
-            this.arcazePin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.arcazePin.DataPropertyName = "usbArcazePin";
-            this.arcazePin.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            resources.ApplyResources(this.arcazePin, "arcazePin");
-            this.arcazePin.Name = "arcazePin";
-            this.arcazePin.ReadOnly = true;
-            // 
-            // trigger
-            // 
-            this.trigger.DataPropertyName = "Trigger";
-            this.trigger.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            resources.ApplyResources(this.trigger, "trigger");
-            this.trigger.Items.AddRange(new object[] {
-            "change",
-            "falling",
-            "rising"});
-            this.trigger.Name = "trigger";
-            // 
-            // Typ
-            // 
-            this.Typ.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Typ.DataPropertyName = "type";
-            this.Typ.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            resources.ApplyResources(this.Typ, "Typ");
-            this.Typ.Items.AddRange(new object[] {
-            "Konstant",
-            "Periode"});
-            this.Typ.Name = "Typ";
-            // 
-            // arcazeSerial
-            // 
-            this.arcazeSerial.DataPropertyName = "arcazeSerial";
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.arcazeSerial.DefaultCellStyle = dataGridViewCellStyle4;
-            this.arcazeSerial.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            resources.ApplyResources(this.arcazeSerial, "arcazeSerial");
-            this.arcazeSerial.Items.AddRange(new object[] {
-            "none"});
-            this.arcazeSerial.Name = "arcazeSerial";
-            this.arcazeSerial.ReadOnly = true;
-            this.arcazeSerial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // fsuipcValueColumn
-            // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.fsuipcValueColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            resources.ApplyResources(this.fsuipcValueColumn, "fsuipcValueColumn");
-            this.fsuipcValueColumn.Name = "fsuipcValueColumn";
-            this.fsuipcValueColumn.ReadOnly = true;
-            this.fsuipcValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.fsuipcValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // arcazeValueColumn
-            // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.arcazeValueColumn.DefaultCellStyle = dataGridViewCellStyle6;
-            resources.ApplyResources(this.arcazeValueColumn, "arcazeValueColumn");
-            this.arcazeValueColumn.Name = "arcazeValueColumn";
-            this.arcazeValueColumn.ReadOnly = true;
-            this.arcazeValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.arcazeValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // EditButtonColumn
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle7.NullValue = "...";
-            this.EditButtonColumn.DefaultCellStyle = dataGridViewCellStyle7;
-            resources.ApplyResources(this.EditButtonColumn, "EditButtonColumn");
-            this.EditButtonColumn.Name = "EditButtonColumn";
-            this.EditButtonColumn.Text = "...";
-            this.EditButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // dataSetConfig
             // 
@@ -418,27 +245,27 @@
             // 
             // dataGridViewContextMenuStrip
             // 
-            resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
             this.dataGridViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.duplicateRowToolStripMenuItem,
             this.deleteRowToolStripMenuItem});
             this.dataGridViewContextMenuStrip.Name = "dataGridViewContextMenuStrip";
+            resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
             this.dataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.DataGridViewContextMenuStrip_Opening);
             // 
             // duplicateRowToolStripMenuItem
             // 
-            resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
             this.duplicateRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.duplicateRowToolStripMenuItem.Image = global::MobiFlight.Properties.Resources.star_yellow_new;
             this.duplicateRowToolStripMenuItem.Name = "duplicateRowToolStripMenuItem";
+            resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
             this.duplicateRowToolStripMenuItem.Click += new System.EventHandler(this.DuplicateRowToolStripMenuItem_Click);
             // 
             // deleteRowToolStripMenuItem
             // 
-            resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
             this.deleteRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.deleteRowToolStripMenuItem.Image = global::MobiFlight.Properties.Resources.delete2;
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
+            resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.DeleteRowToolStripMenuItem_Click);
             // 
             // settingsColumn
@@ -446,6 +273,89 @@
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
+            // 
+            // active
+            // 
+            this.active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.active.DataPropertyName = "active";
+            resources.ApplyResources(this.active, "active");
+            this.active.Name = "active";
+            // 
+            // guid
+            // 
+            this.guid.DataPropertyName = "guid";
+            resources.ApplyResources(this.guid, "guid");
+            this.guid.Name = "guid";
+            this.guid.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Description.DataPropertyName = "description";
+            dataGridViewCellStyle2.NullValue = "Doppelklicken für neuen Eintrag...";
+            this.Description.DefaultCellStyle = dataGridViewCellStyle2;
+            resources.ApplyResources(this.Description, "Description");
+            this.Description.Name = "Description";
+            // 
+            // arcazeSerial
+            // 
+            this.arcazeSerial.DataPropertyName = "arcazeSerial";
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.arcazeSerial.DefaultCellStyle = dataGridViewCellStyle3;
+            this.arcazeSerial.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            resources.ApplyResources(this.arcazeSerial, "arcazeSerial");
+            this.arcazeSerial.Items.AddRange(new object[] {
+            "none"});
+            this.arcazeSerial.Name = "arcazeSerial";
+            this.arcazeSerial.ReadOnly = true;
+            this.arcazeSerial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // OutputType
+            // 
+            resources.ApplyResources(this.OutputType, "OutputType");
+            this.OutputType.Name = "OutputType";
+            // 
+            // FsuipcOffset
+            // 
+            this.FsuipcOffset.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.FsuipcOffset.DataPropertyName = "fsuipcOffset";
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.FsuipcOffset.DefaultCellStyle = dataGridViewCellStyle4;
+            this.FsuipcOffset.FillWeight = 1000F;
+            resources.ApplyResources(this.FsuipcOffset, "FsuipcOffset");
+            this.FsuipcOffset.Name = "FsuipcOffset";
+            this.FsuipcOffset.ReadOnly = true;
+            // 
+            // fsuipcValueColumn
+            // 
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.fsuipcValueColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            resources.ApplyResources(this.fsuipcValueColumn, "fsuipcValueColumn");
+            this.fsuipcValueColumn.Name = "fsuipcValueColumn";
+            this.fsuipcValueColumn.ReadOnly = true;
+            this.fsuipcValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.fsuipcValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // arcazeValueColumn
+            // 
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.arcazeValueColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            resources.ApplyResources(this.arcazeValueColumn, "arcazeValueColumn");
+            this.arcazeValueColumn.Name = "arcazeValueColumn";
+            this.arcazeValueColumn.ReadOnly = true;
+            this.arcazeValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.arcazeValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // EditButtonColumn
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle7.NullValue = "...";
+            this.EditButtonColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            resources.ApplyResources(this.EditButtonColumn, "EditButtonColumn");
+            this.EditButtonColumn.Name = "EditButtonColumn";
+            this.EditButtonColumn.Text = "...";
+            this.EditButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // OutputConfigPanel
             // 
@@ -467,22 +377,6 @@
 
         private System.Windows.Forms.GroupBox MappingConfigGroupBox;
         public System.Windows.Forms.DataGridView dataGridViewConfig;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn active;
-        private System.Windows.Forms.DataGridViewTextBoxColumn guid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FsuipcOffset;
-        private System.Windows.Forms.DataGridViewComboBoxColumn FsuipcSize;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Converter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mask;
-        private System.Windows.Forms.DataGridViewComboBoxColumn comparison;
-        private System.Windows.Forms.DataGridViewTextBoxColumn comparisonValue;
-        private System.Windows.Forms.DataGridViewComboBoxColumn arcazePin;
-        private System.Windows.Forms.DataGridViewComboBoxColumn trigger;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Typ;
-        private System.Windows.Forms.DataGridViewComboBoxColumn arcazeSerial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fsuipcValueColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn arcazeValueColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn EditButtonColumn;
         private System.Windows.Forms.ContextMenuStrip dataGridViewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem duplicateRowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteRowToolStripMenuItem;
@@ -504,5 +398,14 @@
         private System.Data.DataColumn guidDataColumn;
 
         private System.Data.DataTable configDataTable;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn active;
+        private System.Windows.Forms.DataGridViewTextBoxColumn guid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewComboBoxColumn arcazeSerial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OutputType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FsuipcOffset;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fsuipcValueColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn arcazeValueColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn EditButtonColumn;
     }
 }

@@ -48,6 +48,22 @@ namespace MobiFlight.UI.Panels
 
         public DataGridView DataGridViewConfig { get { return dataGridViewConfig; } }
 
+        private void dataGridViewConfig_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow gridRow in dataGridViewConfig.Rows)
+            {
+                if (gridRow.DataBoundItem == null) continue;
+                DataRow dataRow = ((gridRow.DataBoundItem as DataRowView).Row as DataRow);
+                if (dataRow["settings"] is OutputConfigItem)
+                {
+                    OutputConfigItem cfg = (dataRow["settings"] as OutputConfigItem);
+
+                    //gridRow.Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
+                    //gridRow.Cells["inputType"].Value = cfg.Type;
+                }
+            }
+        }
+
         void DataGridViewConfig_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             // if datagridviewconfig.RowCount == 1 this means that only the "new line" is added yet

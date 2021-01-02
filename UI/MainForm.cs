@@ -164,6 +164,7 @@ namespace MobiFlight.UI
             inputConfigPanel.ExecutionManager = execManager;
             inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
             inputConfigPanel.SettingsDialogRequested += InputConfigPanel_SettingsDialogRequested;
+            inputConfigPanel.OutputDataSetConfig = outputConfigPanel.DataSetConfig;
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
