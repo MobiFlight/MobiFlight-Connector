@@ -125,7 +125,7 @@ namespace MobiFlight.UI.Panels
 
                     inputsDataGridView.Rows[e.RowIndex].Cells["inputName"].Value = cfg.Name;
                     inputsDataGridView.Rows[e.RowIndex].Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
-                    inputsDataGridView.Rows[e.RowIndex].Cells["Module"].Value = cfg.ModuleSerial;
+                    inputsDataGridView.Rows[e.RowIndex].Cells["moduleSerial"].Value = cfg.ModuleSerial;
                     inputsDataGridView.EndEdit();
                     break;
 
@@ -230,19 +230,19 @@ namespace MobiFlight.UI.Panels
 
         private void inputsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            foreach (DataGridViewRow gridRow in inputsDataGridView.Rows)
-            {
-                if (gridRow.DataBoundItem == null) continue;
-                DataRow dataRow = ((gridRow.DataBoundItem as DataRowView).Row as DataRow);
-                if (dataRow["settings"] is InputConfigItem)
-                {
-                    InputConfigItem cfg = (dataRow["settings"] as InputConfigItem);
+            //foreach (DataGridViewRow gridRow in inputsDataGridView.Rows)
+            //{
+            //    if (gridRow.DataBoundItem == null) continue;
+            //    DataRow dataRow = ((gridRow.DataBoundItem as DataRowView).Row as DataRow);
+            //    if (dataRow["settings"] is InputConfigItem)
+            //    {
+            //        InputConfigItem cfg = (dataRow["settings"] as InputConfigItem);
 
-                    gridRow.Cells["inputName"].Value = cfg.Name;
-                    gridRow.Cells["inputType"].Value = cfg.Type;
-                    gridRow.Cells["Module"].Value = cfg.ModuleSerial;
-                }
-            }
+            //        gridRow.Cells["inputName"].Value = cfg.Name;
+            //        gridRow.Cells["inputType"].Value = cfg.Type;
+            //        gridRow.Cells["Module"].Value = cfg.ModuleSerial;
+            //    }
+            //}
         }
 
 
@@ -359,6 +359,22 @@ namespace MobiFlight.UI.Panels
                 e.Row["guid"] = Guid.NewGuid();
         }
 
-
+        /// <summary>
+        /// use the settings from the config object and initialize the grid cells 
+        /// this is needed after loading and saving configs
+        /// </summary>
+        public void RestoreValuesInGridView()
+        {
+            foreach (DataRow row in ConfigDataTable.Rows)
+            {
+                InputConfigItem cfg = row["settings"] as InputConfigItem;
+                if (cfg != null)
+                {
+                    row["inputName"] = cfg.Name;
+                    row["inputType"] = cfg.Type;
+                    row["moduleSerial"] = cfg.ModuleSerial.Split('/')[0];
+                }
+            }
+        } //_restoreValuesInGridView()
     }
 }

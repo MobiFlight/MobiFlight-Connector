@@ -720,32 +720,31 @@ namespace MobiFlight.UI
         {
             // remove the items from all comboboxes
             // and set default items
-            outputConfigPanel.ArcazeSerial.Items.Clear();
-            outputConfigPanel.ArcazeSerial.Items.Add("none");
+            bool modulesFound = false;
             arcazeUsbToolStripDropDownButton.DropDownItems.Clear();
             arcazeUsbToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoArcazeModuleFound");
 #if ARCAZE
             // TODO: refactor!!!
             foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
             {
-                outputConfigPanel.ArcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
                 arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+                modulesFound = true;
             }
 #endif
 
 #if MOBIFLIGHT
             foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                outputConfigPanel.ArcazeSerial.Items.Add(module.Name + "/ " + module.Serial);
                 arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+                modulesFound = true;
             }
 #endif
-            if (outputConfigPanel.ArcazeSerial.Items.Count > 0)
+            if (modulesFound)
             {
                 arcazeUsbToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageArcazeModuleFound");
             }
             // only enable button if modules are available            
-            return (outputConfigPanel.ArcazeSerial.Items.Count > 0);
+            return (modulesFound);
         } //fillComboBoxesWithArcazeModules()
 
         /// <summary>
@@ -1011,6 +1010,7 @@ namespace MobiFlight.UI
         private void _restoreValuesInGridView()
         {
             outputConfigPanel.RestoreValuesInGridView();
+            inputConfigPanel.RestoreValuesInGridView();
         }
 
         private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
@@ -1125,7 +1125,6 @@ namespace MobiFlight.UI
             ConfigFile configFile = new ConfigFile(fileName);
             configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
             currentFileName=fileName;
-            //dataSetConfig.WriteXml(fileName);
             _restoreValuesInGridView();
             _storeAsRecentFile(fileName);
             _setFilenameInTitle(fileName);

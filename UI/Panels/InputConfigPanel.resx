@@ -122,19 +122,19 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="duplicateInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>150, 22</value>
   </data>
   <data name="duplicateInputsRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Duplicate Row</value>
   </data>
   <data name="deleteInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>150, 22</value>
   </data>
   <data name="deleteInputsRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete Row</value>
   </data>
   <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>181, 70</value>
+    <value>151, 48</value>
   </data>
   <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
     <value>inputsDataGridViewContextMenuStrip</value>
@@ -167,10 +167,10 @@
   <data name="inputsGuid.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <metadata name="module.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="moduleSerial.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="module.HeaderText" xml:space="preserve">
+  <data name="moduleSerial.HeaderText" xml:space="preserve">
     <value>Module</value>
   </data>
   <metadata name="inputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -184,9 +184,6 @@
   </metadata>
   <data name="inputType.HeaderText" xml:space="preserve">
     <value>Type</value>
-  </data>
-  <data name="inputType.Width" type="System.Int32, mscorlib">
-    <value>56</value>
   </data>
   <metadata name="inputEditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -279,10 +276,22 @@
   <data name="&gt;&gt;inputsGuidDataColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;inputsSettingsDataColumn.Name" xml:space="preserve">
-    <value>inputsSettingsDataColumn</value>
+  <data name="&gt;&gt;inputNameDataColumn.Name" xml:space="preserve">
+    <value>inputNameDataColumn</value>
   </data>
-  <data name="&gt;&gt;inputsSettingsDataColumn.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputNameDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputTypeDataColumn.Name" xml:space="preserve">
+    <value>inputTypeDataColumn</value>
+  </data>
+  <data name="&gt;&gt;inputTypeDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;moduleSerialDataColumn.Name" xml:space="preserve">
+    <value>moduleSerialDataColumn</value>
+  </data>
+  <data name="&gt;&gt;moduleSerialDataColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;inputActive.Name" xml:space="preserve">
@@ -303,10 +312,10 @@
   <data name="&gt;&gt;inputsGuid.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;module.Name" xml:space="preserve">
-    <value>module</value>
+  <data name="&gt;&gt;moduleSerial.Name" xml:space="preserve">
+    <value>moduleSerial</value>
   </data>
-  <data name="&gt;&gt;module.Type" xml:space="preserve">
+  <data name="&gt;&gt;moduleSerial.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;inputName.Name" xml:space="preserve">
@@ -326,6 +335,12 @@
   </data>
   <data name="&gt;&gt;inputEditButtonColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsSettingsDataColumn.Name" xml:space="preserve">
+    <value>inputsSettingsDataColumn</value>
+  </data>
+  <data name="&gt;&gt;inputsSettingsDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>InputConfigPanel</value>

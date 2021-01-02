@@ -17,8 +17,7 @@ namespace MobiFlight.UI.Panels
 
         private int lastClickedRow = -1;
         //private DataTable configDataTable;
-        public DataGridViewComboBoxColumn ArcazeSerial {  get { return arcazeSerial;  } }
-
+        
         public OutputConfigPanel()
         {
             InitializeComponent();
@@ -27,9 +26,6 @@ namespace MobiFlight.UI.Panels
 
         private void Init()
         {
-            arcazeSerial.Items.Clear();
-            arcazeSerial.Items.Add(i18n._tr("none"));
-
             dataGridViewConfig.Columns["Description"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
 
@@ -47,22 +43,6 @@ namespace MobiFlight.UI.Panels
         public DataTable ConfigDataTable { get { return configDataTable; } }
 
         public DataGridView DataGridViewConfig { get { return dataGridViewConfig; } }
-
-        private void dataGridViewConfig_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            foreach (DataGridViewRow gridRow in dataGridViewConfig.Rows)
-            {
-                if (gridRow.DataBoundItem == null) continue;
-                DataRow dataRow = ((gridRow.DataBoundItem as DataRowView).Row as DataRow);
-                if (dataRow["settings"] is OutputConfigItem)
-                {
-                    OutputConfigItem cfg = (dataRow["settings"] as OutputConfigItem);
-
-                    //gridRow.Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
-                    //gridRow.Cells["inputType"].Value = cfg.Type;
-                }
-            }
-        }
 
         void DataGridViewConfig_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
@@ -108,25 +88,6 @@ namespace MobiFlight.UI.Panels
         } //DataGridViewConfig_CellValidating()
 
         /// <summary>
-        /// handles errors when user submits data to the datagrid
-        /// </summary>
-        private void DataGridViewConfig_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            switch (dataGridViewConfig[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
-            {
-                case "arcazeSerial":
-                    // when loading config and not beeing connected to arcaze modules
-                    // we actually do not know whether the serial infos are correct or not
-                    // so in this case we add the new value to our items
-                    //
-                    // otherwise we would get an error due to validation issues
-                    arcazeSerial.Items.Add(dataGridViewConfig[e.ColumnIndex, e.RowIndex].Value.ToString());
-                    e.Cancel = false;
-                    break;
-            }
-        } //DataGridViewConfig_DataError()
-
-        /// <summary>
         /// click event when button in gridview gets clicked
         /// </summary>
         /// <param name="sender"></param>
@@ -141,7 +102,7 @@ namespace MobiFlight.UI.Panels
                 case "FsuipcOffset":
                 case "fsuipcValueColumn":
                 case "arcazeValueColumn":
-                case "arcazeSerial":
+                case "moduleSerial":
                 case "EditButtonColumn":
                     bool isNew = dataGridViewConfig.Rows[e.RowIndex].IsNewRow;
                     if (isNew)
@@ -480,7 +441,27 @@ namespace MobiFlight.UI.Panels
                     row["fsuipcOffset"] = "0x" + cfgItem.FSUIPCOffset.ToString("X4");
                     if (cfgItem.DisplaySerial != null)
                     {
-                        row["arcazeSerial"] = cfgItem.DisplaySerial.ToString();
+                        row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];
+                    }
+                    row["OutputType"] = cfgItem.DisplayType;
+                    switch(cfgItem.DisplayType)
+                    {
+                        case MobiFlightLedModule.TYPE:
+                            row["Output"] = cfgItem.DisplayLedAddress;
+                            break;
+                        case "Pin":
+                        case MobiFlightOutput.TYPE:
+                            row["Output"] = cfgItem.DisplayPin;
+                            break;
+                        case MobiFlightLcdDisplay.TYPE:
+                            row["Output"] = cfgItem.LcdDisplay.Address;
+                            break;
+                        case MobiFlightServo.TYPE:
+                            row["Output"] = cfgItem.ServoAddress;
+                            break;
+                        case MobiFlightStepper.TYPE:
+                            row["Output"] = cfgItem.StepperAddress;
+                            break;
                     }
                 }
             }

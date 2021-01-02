@@ -33,6 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.inputsDataGridViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.duplicateInputsRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteInputsRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,14 +43,17 @@
             this.inputsDescriptionDataColumn = new System.Data.DataColumn();
             this.inputsGuidDataColumn = new System.Data.DataColumn();
             this.inputsDataGridView = new System.Windows.Forms.DataGridView();
-            this.inputsSettingsDataColumn = new System.Data.DataColumn();
+            this.inputNameDataColumn = new System.Data.DataColumn();
+            this.inputTypeDataColumn = new System.Data.DataColumn();
+            this.moduleSerialDataColumn = new System.Data.DataColumn();
             this.inputActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.inputDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputsGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.module = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.moduleSerial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputEditButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.inputsSettingsDataColumn = new System.Data.DataColumn();
             this.inputsDataGridViewContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetInputs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputsDataTable)).BeginInit();
@@ -88,7 +92,10 @@
             this.inputsActiveDataColumn,
             this.inputsDescriptionDataColumn,
             this.inputsGuidDataColumn,
-            this.inputsSettingsDataColumn});
+            this.inputsSettingsDataColumn,
+            this.inputNameDataColumn,
+            this.inputTypeDataColumn,
+            this.moduleSerialDataColumn});
             this.inputsDataTable.TableName = "config";
             this.inputsDataTable.RowChanged += new System.Data.DataRowChangeEventHandler(this.configDataTable_RowChanged_1);
             this.inputsDataTable.TableNewRow += new System.Data.DataTableNewRowEventHandler(this.configDataTable_TableNewRow);
@@ -115,7 +122,6 @@
             // 
             // inputsDataGridView
             // 
-            this.inputsDataGridView.AllowUserToResizeColumns = false;
             this.inputsDataGridView.AllowUserToResizeRows = false;
             this.inputsDataGridView.AutoGenerateColumns = false;
             this.inputsDataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
@@ -125,7 +131,7 @@
             this.inputActive,
             this.inputDescription,
             this.inputsGuid,
-            this.module,
+            this.moduleSerial,
             this.inputName,
             this.inputType,
             this.inputEditButtonColumn});
@@ -143,10 +149,20 @@
             this.inputsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.inputsDataGridViewConfig_DefaultValuesNeeded);
             this.inputsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewConfig_KeyUp);
             // 
-            // inputsSettingsDataColumn
+            // inputNameDataColumn
             // 
-            this.inputsSettingsDataColumn.ColumnName = "settings";
-            this.inputsSettingsDataColumn.DataType = typeof(object);
+            this.inputNameDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
+            this.inputNameDataColumn.ColumnName = "inputName";
+            // 
+            // inputTypeDataColumn
+            // 
+            this.inputTypeDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
+            this.inputTypeDataColumn.ColumnName = "inputType";
+            // 
+            // moduleSerialDataColumn
+            // 
+            this.moduleSerialDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
+            this.moduleSerialDataColumn.ColumnName = "moduleSerial";
             // 
             // inputActive
             // 
@@ -159,6 +175,7 @@
             // 
             this.inputDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.inputDescription.DataPropertyName = "description";
+            this.inputDescription.FillWeight = 1000F;
             resources.ApplyResources(this.inputDescription, "inputDescription");
             this.inputDescription.Name = "inputDescription";
             // 
@@ -169,29 +186,37 @@
             this.inputsGuid.Name = "inputsGuid";
             this.inputsGuid.ReadOnly = true;
             // 
-            // module
+            // moduleSerial
             // 
-            resources.ApplyResources(this.module, "module");
-            this.module.Name = "module";
-            this.module.ReadOnly = true;
-            this.module.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.module.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.moduleSerial.DataPropertyName = "moduleSerial";
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.moduleSerial.DefaultCellStyle = dataGridViewCellStyle1;
+            this.moduleSerial.FillWeight = 150F;
+            resources.ApplyResources(this.moduleSerial, "moduleSerial");
+            this.moduleSerial.Name = "moduleSerial";
+            this.moduleSerial.ReadOnly = true;
+            this.moduleSerial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // inputName
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.inputName.DefaultCellStyle = dataGridViewCellStyle1;
+            this.inputName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.inputName.DataPropertyName = "inputName";
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.inputName.DefaultCellStyle = dataGridViewCellStyle2;
+            this.inputName.FillWeight = 150F;
             resources.ApplyResources(this.inputName, "inputName");
             this.inputName.Name = "inputName";
             this.inputName.ReadOnly = true;
             this.inputName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.inputName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // inputType
             // 
-            this.inputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.inputType.DefaultCellStyle = dataGridViewCellStyle2;
+            this.inputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.inputType.DataPropertyName = "inputType";
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.inputType.DefaultCellStyle = dataGridViewCellStyle3;
+            this.inputType.FillWeight = 150F;
             resources.ApplyResources(this.inputType, "inputType");
             this.inputType.Name = "inputType";
             this.inputType.ReadOnly = true;
@@ -199,15 +224,20 @@
             // inputEditButtonColumn
             // 
             this.inputEditButtonColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle3.NullValue = "...";
-            this.inputEditButtonColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle4.NullValue = "...";
+            this.inputEditButtonColumn.DefaultCellStyle = dataGridViewCellStyle4;
             resources.ApplyResources(this.inputEditButtonColumn, "inputEditButtonColumn");
             this.inputEditButtonColumn.Name = "inputEditButtonColumn";
             this.inputEditButtonColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.inputEditButtonColumn.Text = "...";
             this.inputEditButtonColumn.UseColumnTextForButtonValue = true;
+            // 
+            // inputsSettingsDataColumn
+            // 
+            this.inputsSettingsDataColumn.ColumnName = "settings";
+            this.inputsSettingsDataColumn.DataType = typeof(object);
             // 
             // InputConfigPanel
             // 
@@ -235,10 +265,13 @@
         private System.Data.DataColumn inputsGuidDataColumn;
         private System.Data.DataColumn inputsSettingsDataColumn;
         private System.Windows.Forms.DataGridView inputsDataGridView;
+        private System.Data.DataColumn inputNameDataColumn;
+        private System.Data.DataColumn inputTypeDataColumn;
+        private System.Data.DataColumn moduleSerialDataColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn inputActive;
         private System.Windows.Forms.DataGridViewTextBoxColumn inputDescription;
         private System.Windows.Forms.DataGridViewTextBoxColumn inputsGuid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn module;
+        private System.Windows.Forms.DataGridViewTextBoxColumn moduleSerial;
         private System.Windows.Forms.DataGridViewTextBoxColumn inputName;
         private System.Windows.Forms.DataGridViewTextBoxColumn inputType;
         private System.Windows.Forms.DataGridViewButtonColumn inputEditButtonColumn;

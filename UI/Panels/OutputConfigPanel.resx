@@ -126,10 +126,10 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="active.HeaderText" xml:space="preserve">
-    <value>active</value>
+    <value>Active</value>
   </data>
   <data name="active.Width" type="System.Int32, mscorlib">
-    <value>42</value>
+    <value>43</value>
   </data>
   <metadata name="guid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -152,23 +152,29 @@
   <data name="Description.ToolTipText" xml:space="preserve">
     <value>Hinweistext für den einfachen Überblick</value>
   </data>
-  <metadata name="arcazeSerial.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="moduleSerial.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="arcazeSerial.HeaderText" xml:space="preserve">
+  <data name="moduleSerial.HeaderText" xml:space="preserve">
     <value>Module</value>
   </data>
-  <data name="arcazeSerial.MinimumWidth" type="System.Int32, mscorlib">
-    <value>80</value>
-  </data>
-  <data name="arcazeSerial.Width" type="System.Int32, mscorlib">
-    <value>80</value>
+  <data name="moduleSerial.MinimumWidth" type="System.Int32, mscorlib">
+    <value>90</value>
   </data>
   <metadata name="OutputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="OutputType.HeaderText" xml:space="preserve">
-    <value>Output Type</value>
+    <value>Output</value>
+  </data>
+  <data name="OutputType.MinimumWidth" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
+  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>Type</value>
   </data>
   <metadata name="FsuipcOffset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -177,13 +183,13 @@
     <value>FSUIPC Offset</value>
   </data>
   <data name="FsuipcOffset.MinimumWidth" type="System.Int32, mscorlib">
-    <value>40</value>
+    <value>65</value>
   </data>
   <data name="FsuipcOffset.ToolTipText" xml:space="preserve">
     <value>Der FSUIPC Offset laut Dokumentation</value>
   </data>
   <data name="FsuipcOffset.Width" type="System.Int32, mscorlib">
-    <value>50</value>
+    <value>65</value>
   </data>
   <metadata name="fsuipcValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -192,10 +198,10 @@
     <value>FSUIPC Value</value>
   </data>
   <data name="fsuipcValueColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>40</value>
+    <value>65</value>
   </data>
   <data name="fsuipcValueColumn.Width" type="System.Int32, mscorlib">
-    <value>50</value>
+    <value>65</value>
   </data>
   <metadata name="arcazeValueColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -207,7 +213,7 @@
     <value>40</value>
   </data>
   <data name="arcazeValueColumn.Width" type="System.Int32, mscorlib">
-    <value>50</value>
+    <value>65</value>
   </data>
   <metadata name="EditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -405,6 +411,12 @@
   <data name="&gt;&gt;arcazeSerialDataColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
+    <value>settingsColumn</value>
+  </data>
+  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;guidDataColumn.Name" xml:space="preserve">
     <value>guidDataColumn</value>
   </data>
@@ -423,10 +435,16 @@
   <data name="&gt;&gt;deleteRowToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
-    <value>settingsColumn</value>
+  <data name="&gt;&gt;outputDataColumn.Name" xml:space="preserve">
+    <value>outputDataColumn</value>
   </data>
-  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+  <data name="&gt;&gt;outputDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;outputTypeDataColumn.Name" xml:space="preserve">
+    <value>outputTypeDataColumn</value>
+  </data>
+  <data name="&gt;&gt;outputTypeDataColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;active.Name" xml:space="preserve">
@@ -447,16 +465,22 @@
   <data name="&gt;&gt;Description.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;arcazeSerial.Name" xml:space="preserve">
-    <value>arcazeSerial</value>
+  <data name="&gt;&gt;moduleSerial.Name" xml:space="preserve">
+    <value>moduleSerial</value>
   </data>
-  <data name="&gt;&gt;arcazeSerial.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewComboBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;moduleSerial.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;OutputType.Name" xml:space="preserve">
     <value>OutputType</value>
   </data>
   <data name="&gt;&gt;OutputType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn1</value>
+  </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;FsuipcOffset.Name" xml:space="preserve">
