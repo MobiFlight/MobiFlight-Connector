@@ -657,6 +657,7 @@ namespace MobiFlight.UI.Dialogs
 
             MobiFlightModule module = parentNode.Tag as MobiFlightModule;
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
+            newConfig.ModuleName = module.Name;
 
             foreach (TreeNode node in parentNode.Nodes)
             {
@@ -694,6 +695,12 @@ namespace MobiFlight.UI.Dialogs
                 newConfig = (MobiFlight.Config.Config)serializer.Deserialize(textReader);
                 textReader.Close();
 
+                if (newConfig.ModuleName!=null && newConfig.ModuleName != "")
+                {
+                    parentNode.Text = (parentNode.Tag as MobiFlightModule).Name = newConfig.ModuleName;
+                    
+                }
+                        
                 parentNode.Nodes.Clear();
 
                 foreach( MobiFlight.Config.BaseDevice device in newConfig.Items) {
@@ -702,6 +709,9 @@ namespace MobiFlight.UI.Dialogs
                     newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
                     parentNode.Nodes.Add(newNode);
                 }
+
+                parentNode.ImageKey = "Changed";
+                parentNode.SelectedImageKey = "Changed";
             } 
         }
 
