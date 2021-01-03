@@ -29,8 +29,8 @@
     <Setting Name="LogLevel" Type="System.String" Scope="User">
       <Value Profile="(Default)">info</Value>
     </Setting>
-    <Setting Name="ArduinoIdePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="ArduinoIdePathDefault" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Arduino</Value>
     </Setting>
     <Setting Name="PresetFileInputs" Type="System.String" Scope="User">
       <Value Profile="(Default)">Presets\presets_inputs.aip</Value>

@@ -190,7 +190,7 @@ namespace MobiFlight.UI.Dialogs
                 mfModulesTreeView.Enabled = false;
             }
 
-            firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePath;
+            firmwareArduinoIdePathTextBox.Text = Properties.Settings.Default.ArduinoIdePathDefault;
             FwAutoUpdateCheckBox.Checked = Properties.Settings.Default.FwAutoUpdateCheck;
 #endif
         }
@@ -736,7 +736,7 @@ namespace MobiFlight.UI.Dialogs
         }
 
         protected void updateFirmware (MobiFlightModule module) {
-            String arduinoIdePath = firmwareArduinoIdePathTextBox.Text;
+            String arduinoIdePath = Properties.Settings.Default.ArduinoIdePathDefault;
             String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
 
             if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(arduinoIdePath))
@@ -901,7 +901,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 removeError(tb);
             }
-            Properties.Settings.Default.ArduinoIdePath = tb.Text;
+            Properties.Settings.Default.ArduinoIdePathDefault = tb.Text;
         }
 
         private void displayError(Control control, String message)

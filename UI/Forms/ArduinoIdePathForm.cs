@@ -37,7 +37,7 @@ namespace MobiFlight.UI.Forms
             else
             {
                 button1.Enabled = true;
-                Properties.Settings.Default.ArduinoIdePath = firmwareArduinoIdePathTextBox.Text;
+                Properties.Settings.Default.ArduinoIdePathDefault = firmwareArduinoIdePathTextBox.Text;
             }
         }
 

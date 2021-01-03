@@ -42,10 +42,11 @@
             this.inputsActiveDataColumn = new System.Data.DataColumn();
             this.inputsDescriptionDataColumn = new System.Data.DataColumn();
             this.inputsGuidDataColumn = new System.Data.DataColumn();
-            this.inputsDataGridView = new System.Windows.Forms.DataGridView();
+            this.inputsSettingsDataColumn = new System.Data.DataColumn();
             this.inputNameDataColumn = new System.Data.DataColumn();
             this.inputTypeDataColumn = new System.Data.DataColumn();
             this.moduleSerialDataColumn = new System.Data.DataColumn();
+            this.inputsDataGridView = new System.Windows.Forms.DataGridView();
             this.inputActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.inputDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputsGuid = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,7 +54,6 @@
             this.inputName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inputEditButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.inputsSettingsDataColumn = new System.Data.DataColumn();
             this.inputsDataGridViewContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetInputs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.inputsDataTable)).BeginInit();
@@ -120,6 +120,26 @@
             this.inputsGuidDataColumn.ColumnName = "guid";
             this.inputsGuidDataColumn.DataType = typeof(System.Guid);
             // 
+            // inputsSettingsDataColumn
+            // 
+            this.inputsSettingsDataColumn.ColumnName = "settings";
+            this.inputsSettingsDataColumn.DataType = typeof(object);
+            // 
+            // inputNameDataColumn
+            // 
+            this.inputNameDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
+            this.inputNameDataColumn.ColumnName = "inputName";
+            // 
+            // inputTypeDataColumn
+            // 
+            this.inputTypeDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
+            this.inputTypeDataColumn.ColumnName = "inputType";
+            // 
+            // moduleSerialDataColumn
+            // 
+            this.moduleSerialDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
+            this.moduleSerialDataColumn.ColumnName = "moduleSerial";
+            // 
             // inputsDataGridView
             // 
             this.inputsDataGridView.AllowUserToResizeRows = false;
@@ -140,6 +160,8 @@
             this.inputsDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.inputsDataGridView.Name = "inputsDataGridView";
             this.inputsDataGridView.RowTemplate.ContextMenuStrip = this.inputsDataGridViewContextMenuStrip;
+            this.inputsDataGridView.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.inputsDataGridView.RowTemplate.Height = 26;
             this.inputsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.inputsDataGridView.ShowEditingIcon = false;
             this.inputsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellContentClick);
@@ -148,21 +170,6 @@
             this.inputsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.inputsDataGridView_DataBindingComplete);
             this.inputsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.inputsDataGridViewConfig_DefaultValuesNeeded);
             this.inputsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewConfig_KeyUp);
-            // 
-            // inputNameDataColumn
-            // 
-            this.inputNameDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
-            this.inputNameDataColumn.ColumnName = "inputName";
-            // 
-            // inputTypeDataColumn
-            // 
-            this.inputTypeDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
-            this.inputTypeDataColumn.ColumnName = "inputType";
-            // 
-            // moduleSerialDataColumn
-            // 
-            this.moduleSerialDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
-            this.moduleSerialDataColumn.ColumnName = "moduleSerial";
             // 
             // inputActive
             // 
@@ -233,11 +240,6 @@
             this.inputEditButtonColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.inputEditButtonColumn.Text = "...";
             this.inputEditButtonColumn.UseColumnTextForButtonValue = true;
-            // 
-            // inputsSettingsDataColumn
-            // 
-            this.inputsSettingsDataColumn.ColumnName = "settings";
-            this.inputsSettingsDataColumn.DataType = typeof(object);
             // 
             // InputConfigPanel
             // 

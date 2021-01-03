@@ -150,13 +150,13 @@
     <value>34</value>
   </data>
   <data name="inputActive.HeaderText" xml:space="preserve">
-    <value>active</value>
+    <value>Active</value>
   </data>
   <data name="inputActive.Width" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
   <data name="inputDescription.HeaderText" xml:space="preserve">
-    <value>description</value>
+    <value>Description</value>
   </data>
   <metadata name="inputsGuid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -276,6 +276,12 @@
   <data name="&gt;&gt;inputsGuidDataColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;inputsSettingsDataColumn.Name" xml:space="preserve">
+    <value>inputsSettingsDataColumn</value>
+  </data>
+  <data name="&gt;&gt;inputsSettingsDataColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;inputNameDataColumn.Name" xml:space="preserve">
     <value>inputNameDataColumn</value>
   </data>
@@ -335,12 +341,6 @@
   </data>
   <data name="&gt;&gt;inputEditButtonColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewButtonColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputsSettingsDataColumn.Name" xml:space="preserve">
-    <value>inputsSettingsDataColumn</value>
-  </data>
-  <data name="&gt;&gt;inputsSettingsDataColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>InputConfigPanel</value>

@@ -84,9 +84,6 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.FwAutoUpdateCheckBox = new System.Windows.Forms.CheckBox();
-            this.firmwareArduinoIdeButton = new System.Windows.Forms.Button();
-            this.firmwareArduinoIdePathTextBox = new System.Windows.Forms.TextBox();
-            this.firmwareArduinoIdeLabel = new System.Windows.Forms.Label();
             this.mobiflightSettingsLabel = new System.Windows.Forms.Label();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -101,6 +98,10 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.FirmwarePathToIdePanel = new System.Windows.Forms.Panel();
+            this.firmwareArduinoIdeButton = new System.Windows.Forms.Button();
+            this.firmwareArduinoIdePathTextBox = new System.Windows.Forms.TextBox();
+            this.firmwareArduinoIdeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
@@ -114,6 +115,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.FirmwarePathToIdePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -488,9 +490,7 @@
             // firmwareSettingsGroupBox
             // 
             this.firmwareSettingsGroupBox.Controls.Add(this.FwAutoUpdateCheckBox);
-            this.firmwareSettingsGroupBox.Controls.Add(this.firmwareArduinoIdeButton);
-            this.firmwareSettingsGroupBox.Controls.Add(this.firmwareArduinoIdePathTextBox);
-            this.firmwareSettingsGroupBox.Controls.Add(this.firmwareArduinoIdeLabel);
+            this.firmwareSettingsGroupBox.Controls.Add(this.FirmwarePathToIdePanel);
             resources.ApplyResources(this.firmwareSettingsGroupBox, "firmwareSettingsGroupBox");
             this.firmwareSettingsGroupBox.Name = "firmwareSettingsGroupBox";
             this.firmwareSettingsGroupBox.TabStop = false;
@@ -501,26 +501,6 @@
             this.FwAutoUpdateCheckBox.Name = "FwAutoUpdateCheckBox";
             this.toolTip1.SetToolTip(this.FwAutoUpdateCheckBox, resources.GetString("FwAutoUpdateCheckBox.ToolTip"));
             this.FwAutoUpdateCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // firmwareArduinoIdeButton
-            // 
-            this.firmwareArduinoIdeButton.Image = global::MobiFlight.Properties.Resources.folder1;
-            resources.ApplyResources(this.firmwareArduinoIdeButton, "firmwareArduinoIdeButton");
-            this.firmwareArduinoIdeButton.Name = "firmwareArduinoIdeButton";
-            this.firmwareArduinoIdeButton.UseVisualStyleBackColor = true;
-            this.firmwareArduinoIdeButton.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // firmwareArduinoIdePathTextBox
-            // 
-            resources.ApplyResources(this.firmwareArduinoIdePathTextBox, "firmwareArduinoIdePathTextBox");
-            this.firmwareArduinoIdePathTextBox.Name = "firmwareArduinoIdePathTextBox";
-            this.firmwareArduinoIdePathTextBox.TextChanged += new System.EventHandler(this.firmwareArduinoIdePathTextBox_TextChanged);
-            this.firmwareArduinoIdePathTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.firmwareArduinoIdePathTextBox_Validating);
-            // 
-            // firmwareArduinoIdeLabel
-            // 
-            resources.ApplyResources(this.firmwareArduinoIdeLabel, "firmwareArduinoIdeLabel");
-            this.firmwareArduinoIdeLabel.Name = "firmwareArduinoIdeLabel";
             // 
             // mobiflightSettingsLabel
             // 
@@ -598,6 +578,31 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // FirmwarePathToIdePanel
+            // 
+            this.FirmwarePathToIdePanel.Controls.Add(this.firmwareArduinoIdeButton);
+            this.FirmwarePathToIdePanel.Controls.Add(this.firmwareArduinoIdePathTextBox);
+            this.FirmwarePathToIdePanel.Controls.Add(this.firmwareArduinoIdeLabel);
+            resources.ApplyResources(this.FirmwarePathToIdePanel, "FirmwarePathToIdePanel");
+            this.FirmwarePathToIdePanel.Name = "FirmwarePathToIdePanel";
+            // 
+            // firmwareArduinoIdeButton
+            // 
+            this.firmwareArduinoIdeButton.Image = global::MobiFlight.Properties.Resources.folder1;
+            resources.ApplyResources(this.firmwareArduinoIdeButton, "firmwareArduinoIdeButton");
+            this.firmwareArduinoIdeButton.Name = "firmwareArduinoIdeButton";
+            this.firmwareArduinoIdeButton.UseVisualStyleBackColor = true;
+            // 
+            // firmwareArduinoIdePathTextBox
+            // 
+            resources.ApplyResources(this.firmwareArduinoIdePathTextBox, "firmwareArduinoIdePathTextBox");
+            this.firmwareArduinoIdePathTextBox.Name = "firmwareArduinoIdePathTextBox";
+            // 
+            // firmwareArduinoIdeLabel
+            // 
+            resources.ApplyResources(this.firmwareArduinoIdeLabel, "firmwareArduinoIdeLabel");
+            this.firmwareArduinoIdeLabel.Name = "firmwareArduinoIdeLabel";
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -625,6 +630,8 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.FirmwarePathToIdePanel.ResumeLayout(false);
+            this.FirmwarePathToIdePanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -685,9 +692,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem firmwareUpdateToolStripMenuItem;
         private System.Windows.Forms.GroupBox firmwareSettingsGroupBox;
-        private System.Windows.Forms.Button firmwareArduinoIdeButton;
-        private System.Windows.Forms.TextBox firmwareArduinoIdePathTextBox;
-        private System.Windows.Forms.Label firmwareArduinoIdeLabel;
         private System.ComponentModel.BackgroundWorker firmwareUpdateBackgroundWorker;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem buttonToolStripMenuItem;
@@ -703,5 +707,9 @@
         private Panels.Settings.GeneralPanel generalPanel;
         private Panels.Settings.ArcazePanel arcazePanel;
         private System.Windows.Forms.Label arcazeSettingsLabel;
+        private System.Windows.Forms.Panel FirmwarePathToIdePanel;
+        private System.Windows.Forms.Button firmwareArduinoIdeButton;
+        private System.Windows.Forms.TextBox firmwareArduinoIdePathTextBox;
+        private System.Windows.Forms.Label firmwareArduinoIdeLabel;
     }
 }

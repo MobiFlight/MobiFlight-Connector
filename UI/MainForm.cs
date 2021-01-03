@@ -279,7 +279,7 @@ namespace MobiFlight.UI
 
             if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0))
             {
-                if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(Properties.Settings.Default.ArduinoIdePath))
+                if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(Properties.Settings.Default.ArduinoIdePathDefault))
                 {
                     ArduinoIdePathForm idePath = new ArduinoIdePathForm();
                     idePath.StartPosition = FormStartPosition.CenterParent;

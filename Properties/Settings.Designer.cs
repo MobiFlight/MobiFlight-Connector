@@ -133,13 +133,13 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ArduinoIdePath {
+        [global::System.Configuration.DefaultSettingValueAttribute("Arduino")]
+        public string ArduinoIdePathDefault {
             get {
-                return ((string)(this["ArduinoIdePath"]));
+                return ((string)(this["ArduinoIdePathDefault"]));
             }
             set {
-                this["ArduinoIdePath"] = value;
+                this["ArduinoIdePathDefault"] = value;
             }
         }
         
