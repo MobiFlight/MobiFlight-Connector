@@ -671,8 +671,6 @@ namespace MobiFlight
             Log.Instance.log("Reset config: " + (int)MobiFlightModule.Command.ResetConfig, LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
-            //foreach (MobiFlight.Config.BaseDevice dev in Config.Items)
-            //{
             foreach (string MessagePart in this.Config.ToInternal(this.MaxMessageSize))
             {
                 Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
