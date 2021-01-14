@@ -31,7 +31,7 @@ char foo;
 // 1.9.4 : Increased MAX_PINS for MEGA.
 // 1.9.5 : Increased MAX_BUTTONS for MEGA and Micro Pro.
 // 1.9.6 : Fixed the MAXCALLBACKS for UNO, optimized Build settings for Micro to save memory.
-const char version[8] = "1.9.6";
+const char version[8] = "1.9.7";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -254,6 +254,7 @@ enum
   kTrigger,            // 23
   kResetBoard,         // 24
   kSetLcdDisplayI2C,   // 25
+  kSetModuleBrightness // 26
 };
 
 // Callbacks define on which received commands we take action
@@ -265,6 +266,7 @@ void attachCommandCallbacks()
 #if MF_SEGMENT_SUPPORT == 1
   cmdMessenger.attach(kInitModule, OnInitModule);
   cmdMessenger.attach(kSetModule, OnSetModule);
+  cmdMessenger.attach(kSetModuleBrightness, OnSetModuleBrightness);
 #endif 
 
   cmdMessenger.attach(kSetPin, OnSetPin);
@@ -912,6 +914,17 @@ void OnSetModule()
   uint8_t points = (uint8_t) cmdMessenger.readIntArg();
   uint8_t mask = (uint8_t) cmdMessenger.readIntArg();
   ledSegments[module].display(subModule, value, points, mask);
+  lastCommand = millis();
+}
+
+void OnSetModuleBrightness()
+{
+  int module = cmdMessenger.readIntArg();
+  int brightness = cmdMessenger.readIntArg();
+
+  for (int i=0; i<8; ++i) {
+    ledSegments[module].setBrightness(i, brightness);    
+  }
   lastCommand = millis();
 }
 #endif

@@ -853,21 +853,28 @@ namespace MobiFlight
                 switch (cfg.DisplayType)
                 {
                     case ArcazeLedDigit.TYPE:
-                        var val = value.PadRight(cfg.DisplayLedDigits.Count, cfg.DisplayLedPaddingChar[0]);
-                        if (cfg.DisplayLedPadding) val = value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]);
-
-                        if (cfg.DisplayLedReverseDigits)
+                        if (cfg.DisplayLedSetBrightnessMode)
                         {
-                            val = new string(value.ToCharArray().Reverse().ToArray());
+                            mobiFlightCache.setDisplayBrightness(serial, cfg.DisplayLedAddress, value);
                         }
+                        else
+                        {
+                            var val = value.PadRight(cfg.DisplayLedDigits.Count, cfg.DisplayLedPaddingChar[0]);
+                            if (cfg.DisplayLedPadding) val = value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]);
 
-                        mobiFlightCache.setDisplay(
-                            serial,
-                            cfg.DisplayLedAddress,
-                            cfg.DisplayLedConnector,
-                            cfg.DisplayLedDigits,
-                            cfg.DisplayLedDecimalPoints,
-                            val);
+                            if (cfg.DisplayLedReverseDigits)
+                            {
+                                val = new string(value.ToCharArray().Reverse().ToArray());
+                            }
+
+                            mobiFlightCache.setDisplay(
+                                serial,
+                                cfg.DisplayLedAddress,
+                                cfg.DisplayLedConnector,
+                                cfg.DisplayLedDigits,
+                                cfg.DisplayLedDecimalPoints,
+                                val);
+                        }
                         break;
 
                     //case ArcazeBcd4056.TYPE:

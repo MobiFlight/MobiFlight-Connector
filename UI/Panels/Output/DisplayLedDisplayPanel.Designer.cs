@@ -67,9 +67,14 @@
             this.displayLedConnectorComboBox = new System.Windows.Forms.ComboBox();
             this.PaddingCharComboBox = new System.Windows.Forms.ComboBox();
             this.displayLedReverseDigitsCheckBox = new System.Windows.Forms.CheckBox();
+            this.displayLedBrightnessModeCheckbox = new System.Windows.Forms.CheckBox();
+            this.displayLedGroupFlowLayoutPanel = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.displayLedDecimalPointFlowLayoutPanel.SuspendLayout();
             this.displayLedDigitFlowLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.displayLedGroupFlowLayoutPanel.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayLedDigit7CheckBox
@@ -337,35 +342,61 @@
             this.displayLedReverseDigitsCheckBox.Name = "displayLedReverseDigitsCheckBox";
             this.displayLedReverseDigitsCheckBox.UseVisualStyleBackColor = true;
             // 
+            // displayLedBrightnessModeCheckbox
+            // 
+            resources.ApplyResources(this.displayLedBrightnessModeCheckbox, "displayLedBrightnessModeCheckbox");
+            this.displayLedBrightnessModeCheckbox.Name = "displayLedBrightnessModeCheckbox";
+            this.displayLedBrightnessModeCheckbox.UseVisualStyleBackColor = true;
+            this.displayLedBrightnessModeCheckbox.CheckedChanged += new System.EventHandler(this.brightnessCheckbox_CheckedChanged);
+            // 
+            // displayLedGroupFlowLayoutPanel
+            // 
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDigitFlowLayoutPanel);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.label5);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDecimalPointLabel);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedReverseDigitsCheckBox);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel7);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel6);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDecimalPointFlowLayoutPanel);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel5);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel4);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedModuleSizeComboBox);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel3);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.NumberOfDigitsLabel);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel2);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.PaddingCharComboBox);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel1);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel0);
+            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedPaddingCheckBox);
+            resources.ApplyResources(this.displayLedGroupFlowLayoutPanel, "displayLedGroupFlowLayoutPanel");
+            this.displayLedGroupFlowLayoutPanel.Name = "displayLedGroupFlowLayoutPanel";
+            this.displayLedGroupFlowLayoutPanel.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.displayLedBrightnessModeCheckbox);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
             // DisplayLedDisplayPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.displayLedReverseDigitsCheckBox);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.displayLedGroupFlowLayoutPanel);
             this.Controls.Add(this.ledDisplayComboBoxLabel);
-            this.Controls.Add(this.displayLedDecimalPointFlowLayoutPanel);
-            this.Controls.Add(this.displayLedDigitFlowLayoutPanel);
-            this.Controls.Add(this.displayLedModuleSizeComboBox);
-            this.Controls.Add(this.NumberOfDigitsLabel);
-            this.Controls.Add(this.PaddingCharComboBox);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.displayLedPaddingCheckBox);
-            this.Controls.Add(this.displayLedDisplayLabel0);
-            this.Controls.Add(this.displayLedDisplayLabel1);
-            this.Controls.Add(this.displayLedDisplayLabel2);
-            this.Controls.Add(this.displayLedDisplayLabel3);
-            this.Controls.Add(this.displayLedDisplayLabel4);
-            this.Controls.Add(this.displayLedDisplayLabel5);
-            this.Controls.Add(this.displayLedDisplayLabel6);
-            this.Controls.Add(this.displayLedDisplayLabel7);
-            this.Controls.Add(this.displayLedDecimalPointLabel);
-            this.Controls.Add(this.label5);
             this.Name = "DisplayLedDisplayPanel";
             this.displayLedDecimalPointFlowLayoutPanel.ResumeLayout(false);
             this.displayLedDecimalPointFlowLayoutPanel.PerformLayout();
             this.displayLedDigitFlowLayoutPanel.ResumeLayout(false);
             this.displayLedDigitFlowLayoutPanel.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.displayLedGroupFlowLayoutPanel.ResumeLayout(false);
+            this.displayLedGroupFlowLayoutPanel.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -411,5 +442,8 @@
         public System.Windows.Forms.ComboBox displayLedConnectorComboBox;
         public System.Windows.Forms.ComboBox PaddingCharComboBox;
         private System.Windows.Forms.CheckBox displayLedReverseDigitsCheckBox;
+        private System.Windows.Forms.CheckBox displayLedBrightnessModeCheckbox;
+        private System.Windows.Forms.GroupBox displayLedGroupFlowLayoutPanel;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }

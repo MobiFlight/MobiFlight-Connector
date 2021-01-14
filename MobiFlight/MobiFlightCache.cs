@@ -466,6 +466,32 @@ namespace MobiFlight
             }
         }
 
+        public void setDisplayBrightness(string serial, string address, string value)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            if (address == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_AddressNull");
+            }
+
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                ArcazeLedDigit ledDigit = new ArcazeLedDigit();
+                MobiFlightModule module = Modules[serial];
+                module.SetDisplayBrigtness(address, value);
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplayBrightness"), e);
+            }
+        }
+
         public void setServo(string serial, string address, string value, int min, int max, byte maxRotationPercent)
         {
             try

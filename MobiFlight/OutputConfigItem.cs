@@ -51,6 +51,8 @@ namespace MobiFlight
         public List<string> DisplayLedDigits            { get; set; }
         public List<string> DisplayLedDecimalPoints     { get; set; }
         public bool         DisplayLedReverseDigits     { get; set; }
+        public bool         DisplayLedSetBrightnessMode { get; set; }
+
 
         // the lcd display stuff
         public LcdDisplay   LcdDisplay                  { get; set; }
@@ -100,6 +102,7 @@ namespace MobiFlight
             DisplayLedAddress = "0";
             DisplayLedPadding = false;
             DisplayLedReverseDigits = false;
+            DisplayLedSetBrightnessMode = false;
             DisplayLedPaddingChar = "0";
             DisplayLedModuleSize = 8;
             DisplayLedDigits = new List<string>();
@@ -218,6 +221,10 @@ namespace MobiFlight
                     if (reader["ledReverseDigits"] != null && reader["ledReverseDigits"] != "")
                     {
                         DisplayLedReverseDigits = Boolean.Parse(reader["ledReverseDigits"]);
+                    }
+                    if (reader["ledBrightnessMode"] != null && reader["ledBrightnessMode"] != "")
+                    {
+                        DisplayLedSetBrightnessMode = Boolean.Parse(reader["ledBrightnessMode"]);
                     }
 
                     if (reader["ledPaddingChar"] != null && reader["ledPaddingChar"] != "")
@@ -397,6 +404,9 @@ namespace MobiFlight
                     writer.WriteAttributeString("ledPadding", DisplayLedPadding.ToString());
                     if (DisplayLedReverseDigits)
                         writer.WriteAttributeString("ledReverseDigits", DisplayLedReverseDigits.ToString());
+                    if (DisplayLedSetBrightnessMode)
+                        writer.WriteAttributeString("ledBrightnessMode", DisplayLedSetBrightnessMode.ToString());
+
                     writer.WriteAttributeString("ledPaddingChar", DisplayLedPaddingChar);
 
                     if (DisplayLedDigits.Count > 0)

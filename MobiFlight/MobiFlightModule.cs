@@ -200,7 +200,8 @@ namespace MobiFlight
             SetZeroStepper,     // 22
             Retrigger,          // 23
             ResetBoard,         // 24
-            SetLcdDisplayI2C    // 25
+            SetLcdDisplayI2C,   // 25
+            SetModuleBrightness // 26    // 25
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -508,6 +509,21 @@ namespace MobiFlight
             ledModules[name].Display(module, value, points, mask);
             return true;
         }
+
+        public bool SetDisplayBrigtness(string name, string value)
+        {
+            String key = "LEDBrightness_" + name;
+            String cachedValue = value;
+
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+                lastValue[key] == cachedValue) return false;
+
+            lastValue[key] = cachedValue;
+            ledModules[name].DisplayBrigtness(value);
+            return true;
+        }
+
+
 
         public bool SetServo(string servoAddress, int value, int min, int max, byte maxRotationPercent)
         {

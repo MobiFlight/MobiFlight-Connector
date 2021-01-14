@@ -58,7 +58,14 @@ namespace MobiFlight.UI.Panels
             {
                 (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
+
+            if (config.DisplayLedSetBrightnessMode)
+            {
+                displayLedBrightnessModeCheckbox.Checked = true;
+                SetLedSegmentDisplayState(!displayLedBrightnessModeCheckbox.Checked);
+            }
         }
+    
 
         public void SetPaddingChar(String prefix)
         {
@@ -97,7 +104,7 @@ namespace MobiFlight.UI.Panels
             {
                 displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"].Visible = i < value;
                 displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"].Visible = i < value;
-                Controls["displayLedDisplayLabel" + i].Visible = i < value;
+                displayLedGroupFlowLayoutPanel.Controls["displayLedDisplayLabel" + i].Visible = i < value;
 
                 // uncheck all invisible checkboxes to ensure correct mask
                 if (i >= value)
@@ -123,36 +130,64 @@ namespace MobiFlight.UI.Panels
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             config.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
-            config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
-            config.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
-            config.DisplayLedPaddingChar = GetPaddingChar();
-            try
-            {
-                config.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
-                config.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
-            }
-            catch (FormatException e)
-            {
-                Log.Instance.log("_syncFormToConfig : Parsing values", LogSeverity.Debug);
-            }
-            config.DisplayLedDigits.Clear();
-            config.DisplayLedDecimalPoints.Clear();
-            for (int i = 0; i < 8; i++)
-            {
-                CheckBox cb = (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
-                if (cb.Checked)
-                {
-                    config.DisplayLedDigits.Add(i.ToString());
-                } //if
 
-                cb = (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
-                if (cb.Checked)
+            if (displayLedBrightnessModeCheckbox.Checked)
+            {
+                config.DisplayLedSetBrightnessMode = displayLedBrightnessModeCheckbox.Checked;
+            }
+            else
+            {
+                config.DisplayLedSetBrightnessMode = false;
+
+                config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
+                config.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
+                config.DisplayLedPaddingChar = GetPaddingChar();
+                try
                 {
-                    config.DisplayLedDecimalPoints.Add(i.ToString());
-                } //if
+                    config.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
+                    config.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
+                }
+                catch (FormatException e)
+                {
+                    Log.Instance.log("_syncFormToConfig : Parsing values", LogSeverity.Debug);
+                }
+                config.DisplayLedDigits.Clear();
+                config.DisplayLedDecimalPoints.Clear();
+                for (int i = 0; i < 8; i++)
+                {
+                    CheckBox cb = (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
+                    if (cb.Checked)
+                    {
+                        config.DisplayLedDigits.Add(i.ToString());
+                    } //if
+
+                    cb = (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
+                    if (cb.Checked)
+                    {
+                        config.DisplayLedDecimalPoints.Add(i.ToString());
+                    } //if
+                }
             }
 
             return config;
+        }
+
+        private void brightnessCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (displayLedBrightnessModeCheckbox.Checked)
+            {
+                SetLedSegmentDisplayState(false);
+            }
+            else
+            {
+                SetLedSegmentDisplayState(true);
+            }
+        }
+
+        private void SetLedSegmentDisplayState(bool enabled)
+        {
+            displayLedGroupFlowLayoutPanel.Enabled = enabled;
+            displayLedConnectorComboBox.Enabled = enabled;
         }
     }
 }
