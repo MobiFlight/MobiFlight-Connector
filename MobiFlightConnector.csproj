@@ -385,6 +385,12 @@
     <Compile Include="UI\Panels\Settings\GeneralPanel.Designer.cs">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Settings\MobiFlightPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Settings\MobiFlightPanel.Designer.cs">
+      <DependentUpon>MobiFlightPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\StartupPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -399,10 +405,10 @@
     <Compile Include="MobiFlight\MobiFlightLcdDisplay.cs" />
     <Compile Include="MobiFlight\OutputConfig\Stepper.cs" />
     <Compile Include="MobiFlight\OutputConfig\LcdDisplay.cs" />
-    <Compile Include="UI\Panels\Settings\MFLcdDisplayPanel.cs">
+    <Compile Include="UI\Panels\Device\MFLcdDisplayPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFLcdDisplayPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFLcdDisplayPanel.Designer.cs">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\Transformation.cs" />
@@ -494,46 +500,46 @@
     <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
-    <Compile Include="UI\Panels\Settings\MFModulePanel.cs">
+    <Compile Include="UI\Panels\Device\MFModulePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFModulePanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFModulePanel.Designer.cs">
       <DependentUpon>MFModulePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFOutputPanel.cs">
+    <Compile Include="UI\Panels\Device\MFOutputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFOutputPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFOutputPanel.Designer.cs">
       <DependentUpon>MFOutputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFEncoderPanel.cs">
+    <Compile Include="UI\Panels\Device\MFEncoderPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFEncoderPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFEncoderPanel.Designer.cs">
       <DependentUpon>MFEncoderPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFButtonPanel.cs">
+    <Compile Include="UI\Panels\Device\MFButtonPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFButtonPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFButtonPanel.Designer.cs">
       <DependentUpon>MFButtonPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFStepperPanel.cs">
+    <Compile Include="UI\Panels\Device\MFStepperPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFStepperPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFStepperPanel.Designer.cs">
       <DependentUpon>MFStepperPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFServoPanel.cs">
+    <Compile Include="UI\Panels\Device\MFServoPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFServoPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFServoPanel.Designer.cs">
       <DependentUpon>MFServoPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFLedSegmentPanel.cs">
+    <Compile Include="UI\Panels\Device\MFLedSegmentPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFLedSegmentPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFLedSegmentPanel.Designer.cs">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\ModuleCacheInterface.cs" />
@@ -813,10 +819,13 @@
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.resx">
+      <DependentUpon>MobiFlightPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\StartupPanel.resx">
       <DependentUpon>StartupPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFLcdDisplayPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\PmdgEventIdInputPanel.de.resx">
@@ -934,37 +943,37 @@
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFButtonPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFButtonPanel.de.resx">
       <DependentUpon>MFButtonPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFEncoderPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFEncoderPanel.de.resx">
       <DependentUpon>MFEncoderPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFLedSegmentPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFLedSegmentPanel.de.resx">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFModulePanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFModulePanel.resx">
       <DependentUpon>MFModulePanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFOutputPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFOutputPanel.de.resx">
       <DependentUpon>MFOutputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFOutputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFOutputPanel.resx">
       <DependentUpon>MFOutputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFEncoderPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFEncoderPanel.resx">
       <DependentUpon>MFEncoderPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFButtonPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFButtonPanel.resx">
       <DependentUpon>MFButtonPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFStepperPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFStepperPanel.resx">
       <DependentUpon>MFStepperPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFServoPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFServoPanel.resx">
       <DependentUpon>MFServoPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFLedSegmentPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFLedSegmentPanel.resx">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\OrphanedSerialsDialog.de.resx">
