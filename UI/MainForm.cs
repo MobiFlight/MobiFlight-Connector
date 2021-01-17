@@ -299,8 +299,8 @@ namespace MobiFlight.UI
                 {
                     SettingsDialog dlg = new SettingsDialog(execManager);
                     dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.modulesForUpdate = modulesForUpdate;
+                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
+                    dlg.MobiFlightModulesForUpdate = modulesForUpdate;
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                     }
@@ -318,8 +318,8 @@ namespace MobiFlight.UI
                 {
                     SettingsDialog dlg = new SettingsDialog(execManager);
                     dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.modulesForFlashing = modulesForFlashing;
+                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
+                    dlg.MobiFlightModulesForFlashing = modulesForFlashing;
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                     }
