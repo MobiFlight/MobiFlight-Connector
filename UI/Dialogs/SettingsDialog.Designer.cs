@@ -294,6 +294,7 @@
             // mobiFlightPanel
             // 
             resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
+            this.mobiFlightPanel.MFModuleConfigChanged = false;
             this.mobiFlightPanel.Name = "mobiFlightPanel";
             // 
             // fsuipcTabPage
@@ -370,8 +371,8 @@
             this.CancelButton = this.cancelButton;
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "SettingsDialog";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.panel1.ResumeLayout(false);
             this.ArcazeTabPage.ResumeLayout(false);
             this.mfModuleSettingsContextMenuStrip.ResumeLayout(false);
