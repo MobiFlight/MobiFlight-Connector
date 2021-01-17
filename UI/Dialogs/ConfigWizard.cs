@@ -286,7 +286,6 @@ namespace MobiFlight.UI.Dialogs
         /// <summary>
         /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
         /// </summary>
-        /// <param name="arcazeCache"></param>
         public void initWithoutArcazeCache()
         {
 

@@ -522,12 +522,14 @@ namespace MobiFlight
                 throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SettingServo"), e);
             }
         }
+
         /// <summary>
         /// set the display module
         /// </summary>
         /// <param name="serial"></param>
-        /// <param name="address"></param>
+        /// <param name="LcdConfig"></param>
         /// <param name="value"></param>
+        /// <param name="replacements"></param>
         public void setLcdDisplay(string serial, OutputConfig.LcdDisplay LcdConfig, string value, List<Tuple<String,String>> replacements)
         {
             if (serial == null)

@@ -86,14 +86,14 @@ namespace MobiFlight.SimConnectMSFS
 
             try
             {
-                /// The constructor is similar to SimConnect_Open in the native API
+                // The constructor is similar to SimConnect_Open in the native API
                 m_oSimConnect = new SimConnect("Simconnect - Simvar test", _handle, WM_USER_SIMCONNECT, null, 0);
 
-                /// Listen to connect and quit msgs
+                // Listen to connect and quit msgs
                 m_oSimConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
                 m_oSimConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(SimConnect_OnRecvQuit);
 
-                /// Listen to exceptions
+                // Listen to exceptions
                 m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
             }
             catch (COMException ex)
@@ -136,7 +136,7 @@ namespace MobiFlight.SimConnectMSFS
         {
             if (m_oSimConnect != null)
             {
-                /// Dispose serves the same purpose as SimConnect_Close()
+                // Dispose serves the same purpose as SimConnect_Close()
                 m_oSimConnect.Dispose();
                 m_oSimConnect = null;
             }
