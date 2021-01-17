@@ -819,6 +819,9 @@
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.de.resx">
+      <DependentUpon>MobiFlightPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
     </EmbeddedResource>
