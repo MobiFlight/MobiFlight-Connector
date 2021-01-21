@@ -104,6 +104,8 @@ namespace MobiFlight.UI.Panels
                 case "arcazeValueColumn":
                 case "moduleSerial":
                 case "EditButtonColumn":
+                case "OutputName":
+                case "OutputType":
                     bool isNew = dataGridViewConfig.Rows[e.RowIndex].IsNewRow;
                     if (isNew)
                     {
@@ -447,20 +449,20 @@ namespace MobiFlight.UI.Panels
                     switch(cfgItem.DisplayType)
                     {
                         case MobiFlightLedModule.TYPE:
-                            row["Output"] = cfgItem.DisplayLedAddress;
+                            row["OutputName"] = cfgItem.DisplayLedAddress;
                             break;
                         case "Pin":
                         case MobiFlightOutput.TYPE:
-                            row["Output"] = cfgItem.DisplayPin;
+                            row["OutputName"] = cfgItem.DisplayPin;
                             break;
                         case MobiFlightLcdDisplay.TYPE:
-                            row["Output"] = cfgItem.LcdDisplay.Address;
+                            row["OutputName"] = cfgItem.LcdDisplay.Address;
                             break;
                         case MobiFlightServo.TYPE:
-                            row["Output"] = cfgItem.ServoAddress;
+                            row["OutputName"] = cfgItem.ServoAddress;
                             break;
                         case MobiFlightStepper.TYPE:
-                            row["Output"] = cfgItem.StepperAddress;
+                            row["OutputName"] = cfgItem.StepperAddress;
                             break;
                     }
                 }

@@ -307,7 +307,7 @@
     <value>3, 3</value>
   </data>
   <data name="inputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>690, 273</value>
+    <value>836, 341</value>
   </data>
   <data name="inputConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -331,7 +331,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>696, 279</value>
+    <value>842, 347</value>
   </data>
   <data name="InputTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
