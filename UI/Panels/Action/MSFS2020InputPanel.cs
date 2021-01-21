@@ -112,10 +112,13 @@ namespace MobiFlight.UI.Panels.Action
             if (!data.ContainsKey(selectedDevice)) return;
 
             EventIdComboBox.Items.Clear();
+            EventIdComboBox.SelectedText = "";
 
             foreach (String eventId in data[selectedDevice]) {
                 EventIdComboBox.Items.Add(eventId);
             }
+
+            EventIdComboBox.SelectedIndex = 0;
         }
     }
 }
