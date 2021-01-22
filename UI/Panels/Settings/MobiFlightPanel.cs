@@ -29,7 +29,7 @@ namespace MobiFlight.UI.Panels.Settings
         private String FirmwareUpdatePath = "";
         public List<MobiFlightModuleInfo> modulesForFlashing = new List<MobiFlightModuleInfo>();
         public List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule>();
-        public bool MFModuleConfigChanged { get; set; }
+        public bool MFModuleConfigChanged { get { return _IsModified(); } }
 
         MobiFlightCache mobiflightCache;
 
@@ -502,7 +502,6 @@ namespace MobiFlight.UI.Panels.Settings
             parentNode.SelectedImageKey = "Changed";
 
             OnModuleConfigChanged?.Invoke(sender, null);
-            MFModuleConfigChanged = true;
         }
 
 
@@ -673,6 +672,15 @@ namespace MobiFlight.UI.Panels.Settings
             }
             parentNode.ImageKey = "";
             parentNode.SelectedImageKey = "";
+        }
+
+        protected bool _IsModified()
+        {
+            foreach (TreeNode node in mfModulesTreeView.Nodes)
+            {
+                if (node.ImageKey != "") return true;
+            }
+            return false;
         }
 
         private TreeNode getModuleNode(TreeNode node)

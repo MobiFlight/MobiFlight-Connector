@@ -134,7 +134,7 @@ namespace MobiFlight.UI.Dialogs
                                     i18n._tr("Hint"),
                                     MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
                 {
-                    tabControl1.SelectedIndex = 2;
+                    tabControl1.SelectedTab = mobiFlightTabPage;
                     return;
                 }
             }

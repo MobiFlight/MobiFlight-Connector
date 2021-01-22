@@ -294,7 +294,6 @@
             // mobiFlightPanel
             // 
             resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
-            this.mobiFlightPanel.MFModuleConfigChanged = false;
             this.mobiFlightPanel.Name = "mobiFlightPanel";
             // 
             // fsuipcTabPage
