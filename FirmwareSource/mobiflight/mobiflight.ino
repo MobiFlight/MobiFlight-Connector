@@ -31,7 +31,7 @@ char foo;
 // 1.9.4 : Increased MAX_PINS for MEGA.
 // 1.9.5 : Increased MAX_BUTTONS for MEGA and Micro Pro.
 // 1.9.6 : Fixed the MAXCALLBACKS for UNO, optimized Build settings for Micro to save memory.
-// 1.9.7 : Doubled EEPROM area for storing config
+// 1.9.7 : Increased EEPROM area for storing config
 const char version[8] = "1.9.7";
 
 //#define DEBUG 1
@@ -148,7 +148,7 @@ char type[20]                = "MobiFlight Mega";
 char serial[MEM_LEN_SERIAL]  = "1234567890";
 char name[MEM_LEN_NAME]      = "MobiFlight Mega";
 int eepromSize               = EEPROMSizeMega;
-const int  MEM_LEN_CONFIG    = 2048;
+const int  MEM_LEN_CONFIG    = 1536;
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
@@ -156,7 +156,7 @@ char type[20]                = "MobiFlight Micro";
 char serial[MEM_LEN_SERIAL]  = "0987654321";
 char name[MEM_LEN_NAME]      = "MobiFlight Micro";
 int eepromSize               = EEPROMSizeMicro;
-const int  MEM_LEN_CONFIG    = 512;
+const int  MEM_LEN_CONFIG    = 256;
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -164,7 +164,7 @@ char type[20]                = "MobiFlight Uno";
 char serial[MEM_LEN_SERIAL]  = "0987654321";
 char name[MEM_LEN_NAME]      = "MobiFlight Uno";
 int eepromSize               = EEPROMSizeUno;
-const int  MEM_LEN_CONFIG    = 512;
+const int  MEM_LEN_CONFIG    = 256;
 #endif
 
 char configBuffer[MEM_LEN_CONFIG] = "";

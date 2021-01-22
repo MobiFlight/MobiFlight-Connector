@@ -33,9 +33,9 @@ namespace MobiFlight
         // this is used to check for 
         // maximum config length and
         // alert the user in the UI if exceeded
-        public const int EEPROM_SIZE_MICRO = 512;
-        public const int EEPROM_SIZE_UNO = 512;
-        public const int EEPROM_SIZE_MEGA = 2048;
+        public const int EEPROM_SIZE_MICRO = 256;
+        public const int EEPROM_SIZE_UNO = 256;
+        public const int EEPROM_SIZE_MEGA = 1536;
 
         // this is not yet used
         // available pins
