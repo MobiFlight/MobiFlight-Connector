@@ -788,6 +788,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error during Test-Mode: Module not connected..
+        /// </summary>
+        internal static string uiMessageTestModeModuleNotConnected {
+            get {
+                return ResourceManager.GetString("uiMessageTestModeModuleNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transform Error. .
         /// </summary>
         internal static string uiMessageTransformError {
