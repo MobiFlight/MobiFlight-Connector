@@ -1155,6 +1155,12 @@ namespace MobiFlight
                 {
                     executeTestOff(cfg);
                 }
+                catch (IndexOutOfRangeException ex)
+                {
+                    String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
+                    Log.Instance.log("Error Test Mode execution. Module not connected > " + RowDescription + ". " + ex.Message, LogSeverity.Error);
+                    OnTestModeException(new Exception(i18n._tr("uiMessageTestModeModuleNotConnected")), new EventArgs());
+                }
                 catch (Exception ex)
                 {
                     // TODO: refactor - check if we can stop the execution and this way update the interface accordingly too
@@ -1200,6 +1206,12 @@ namespace MobiFlight
                 try
                 {
                     executeTestOn(cfg);
+                }
+                catch (IndexOutOfRangeException ex)
+                {
+                    String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
+                    Log.Instance.log("Error Test Mode execution. Module not connected > " + RowDescription + ". " + ex.Message, LogSeverity.Error);
+                    OnTestModeException(new Exception(i18n._tr("uiMessageTestModeModuleNotConnected")), new EventArgs());
                 }
                 catch (Exception ex)
                 {

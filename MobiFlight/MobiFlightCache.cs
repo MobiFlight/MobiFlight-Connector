@@ -397,12 +397,18 @@ namespace MobiFlight
         /// <param name="value">the value to be used</param>
         public void setValue(string serial, string name, string value)
         {
-            try{
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            try
+            {
                 if (name == null || name == "") return;
 
-                MobiFlightModule module = GetModuleBySerial(serial);
-                if (module == null) return;
+                if (!Modules.ContainsKey(serial)) return;
 
+                MobiFlightModule module = GetModuleBySerial(serial);
                 module.SetPin("base", name, Int16.Parse(value));
             }
             catch (ConfigErrorException e)
