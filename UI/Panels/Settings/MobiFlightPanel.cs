@@ -678,7 +678,7 @@ namespace MobiFlight.UI.Panels.Settings
         {
             foreach (TreeNode node in mfModulesTreeView.Nodes)
             {
-                if (node.ImageKey != "") return true;
+                if (node.ImageKey == "Changed") return true;
             }
             return false;
         }
