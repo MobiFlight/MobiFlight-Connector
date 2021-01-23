@@ -9,9 +9,9 @@ namespace MobiFlight
     {
         public const String TYPE_UNKNOWN = "unknown";
 
-        public const String LatestFirmwareMega = "1.9.7";
-        public const String LatestFirmwareMicro = "1.9.7";
-        public const String LatestFirmwareUno = "1.9.7";
+        public const String LatestFirmwareMega = "1.9.8";
+        public const String LatestFirmwareMicro = "1.9.8";
+        public const String LatestFirmwareUno = "1.9.8";
 
         // these types are used for standard stock arduino boards
         public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
@@ -35,7 +35,7 @@ namespace MobiFlight
         // alert the user in the UI if exceeded
         public const int EEPROM_SIZE_MICRO = 256;
         public const int EEPROM_SIZE_UNO = 256;
-        public const int EEPROM_SIZE_MEGA = 1536;
+        public const int EEPROM_SIZE_MEGA = 768;
 
         // this is not yet used
         // available pins

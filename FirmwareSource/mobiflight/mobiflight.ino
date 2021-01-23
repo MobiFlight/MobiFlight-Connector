@@ -32,7 +32,8 @@ char foo;
 // 1.9.5 : Increased MAX_BUTTONS for MEGA and Micro Pro.
 // 1.9.6 : Fixed the MAXCALLBACKS for UNO, optimized Build settings for Micro to save memory.
 // 1.9.7 : Increased EEPROM area for storing config
-const char version[8] = "1.9.7";
+// 1.9.8 : Decreased EEPROM area again, changed order during reset/load 
+const char version[8] = "1.9.8";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -147,8 +148,9 @@ const uint8_t MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIA
 char type[20]                = "MobiFlight Mega";
 char serial[MEM_LEN_SERIAL]  = "1234567890";
 char name[MEM_LEN_NAME]      = "MobiFlight Mega";
-int eepromSize               = EEPROMSizeMega;
-const int  MEM_LEN_CONFIG    = 1536;
+//int eepromSize               = EEPROMSizeMega;
+const int  MEM_LEN_CONFIG    = 768;
+int eepromSize = MEM_LEN_NAME + MEM_LEN_SERIAL + MEM_LEN_CONFIG;
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
@@ -323,8 +325,8 @@ void setup()
 {
   Serial.begin(115200);
   attachCommandCallbacks();
-  OnResetBoard();  
-  cmdMessenger.printLfCr();     
+  cmdMessenger.printLfCr();
+  OnResetBoard();
 }
 
 void generateSerial(bool force) 
@@ -744,11 +746,12 @@ void OnActivateConfig()
 {
   readConfig(configBuffer);
   _activateConfig();
-  cmdMessenger.sendCmd(kConfigActivated, F("OK"));
+  //cmdMessenger.sendCmd(kConfigActivated, F("OK"));
 }
 
 void _activateConfig() {
   configActivated = true;
+  cmdMessenger.sendCmd(kConfigActivated, F("OK"));
 }
 
 void readConfig(String cfg) {
