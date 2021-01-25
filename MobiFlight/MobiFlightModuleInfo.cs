@@ -35,7 +35,7 @@ namespace MobiFlight
         // alert the user in the UI if exceeded
         public const int EEPROM_SIZE_MICRO = 256;
         public const int EEPROM_SIZE_UNO = 256;
-        public const int EEPROM_SIZE_MEGA = 768;
+        public const int EEPROM_SIZE_MEGA = 1024;
 
         // this is not yet used
         // available pins

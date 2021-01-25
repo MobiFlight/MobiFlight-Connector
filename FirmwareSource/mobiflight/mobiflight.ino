@@ -148,9 +148,8 @@ const uint8_t MEM_OFFSET_CONFIG = MEM_OFFSET_NAME + MEM_LEN_NAME + MEM_LEN_SERIA
 char type[20]                = "MobiFlight Mega";
 char serial[MEM_LEN_SERIAL]  = "1234567890";
 char name[MEM_LEN_NAME]      = "MobiFlight Mega";
-//int eepromSize               = EEPROMSizeMega;
-const int  MEM_LEN_CONFIG    = 768;
-int eepromSize = MEM_LEN_NAME + MEM_LEN_SERIAL + MEM_LEN_CONFIG;
+int eepromSize               = EEPROMSizeMega;
+const int  MEM_LEN_CONFIG    = 1024;
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
