@@ -56,7 +56,7 @@ namespace MobiFlight.SimConnectMSFS
             m_oSimConnect?.ReceiveMessage();
         }
 
-        private void _loadEventPresets()
+        private void loadEventPresets()
         {
             if (Events == null) Events = new Dictionary<string, List<Tuple<String, uint>>> ();
             Events.Clear();
@@ -82,7 +82,7 @@ namespace MobiFlight.SimConnectMSFS
 
         public bool Connect()
         {
-            _loadEventPresets();
+            loadEventPresets();
 
             try
             {
@@ -147,14 +147,14 @@ namespace MobiFlight.SimConnectMSFS
             return true;
         }
 
-        public bool isConnected()
+        public bool IsConnected()
         {
             return _connected;
         }
 
         public void setEventID(string eventID)
         {
-            if (m_oSimConnect == null || !isConnected()) return;
+            if (m_oSimConnect == null || !IsConnected()) return;
 
             Tuple<String, uint> eventItem = null;
 

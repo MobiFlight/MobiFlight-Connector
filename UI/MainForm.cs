@@ -134,9 +134,9 @@ namespace MobiFlight.UI
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
 //#if ARCAZE
-            execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
-            execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
-            execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+            execManager.OnModulesConnected += new EventHandler(ArcazeCache_Connected);
+            execManager.OnModulesDisconnected += new EventHandler(ArcazeCache_Closed);
+            execManager.OnModuleConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
 //#endif
             execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
 
@@ -525,7 +525,7 @@ namespace MobiFlight.UI
             execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
         }
 #endif
-        void arcazeCache_ConnectionLost(object sender, EventArgs e)
+        void ArcazeCache_ConnectionLost(object sender, EventArgs e)
         {
             //_disconnectArcaze();
             _showError(i18n._tr("uiMessageArcazeConnectionLost"));            
@@ -534,7 +534,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void arcazeCache_Closed(object sender, EventArgs e)
+        void ArcazeCache_Closed(object sender, EventArgs e)
         {
             arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.warning;
         }
@@ -542,7 +542,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void arcazeCache_Connected(object sender, EventArgs e)
+        void ArcazeCache_Connected(object sender, EventArgs e)
         {
             arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
@@ -722,7 +722,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// toggles the current timer when user clicks on respective run/stop buttons
         /// </summary>
-        private void buttonToggleStart_Click(object sender, EventArgs e)
+        private void ButtonToggleStart_Click(object sender, EventArgs e)
         {
             if (execManager.IsStarted()) execManager.Stop();
             else execManager.Start();
@@ -989,7 +989,7 @@ namespace MobiFlight.UI
         {
             List<string> serials = new List<string>();
             
-            foreach (IModuleInfo moduleInfo in execManager.getAllConnectedModulesInfo())
+            foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
             {
                 serials.Add(moduleInfo.Name + "/ " + moduleInfo.Serial);
             }
@@ -1119,7 +1119,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// shows the about form
         /// </summary>
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm ab = new AboutForm();
             ab.StartPosition = FormStartPosition.CenterParent;
@@ -1230,7 +1230,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private void autoRunToolStripButton_Click(object sender, EventArgs e)
+        private void AutoRunToolStripButton_Click(object sender, EventArgs e)
         {
             setAutoRunValue(!Properties.Settings.Default.AutoRun);
         }

@@ -233,7 +233,7 @@
             // 
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
             resources.ApplyResources(this.überToolStripMenuItem, "überToolStripMenuItem");
-            this.überToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.überToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // panelMain
             // 
@@ -298,13 +298,13 @@
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
             resources.ApplyResources(this.startToolStripMenuItem, "startToolStripMenuItem");
-            this.startToolStripMenuItem.Click += new System.EventHandler(this.buttonToggleStart_Click);
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.ButtonToggleStart_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             resources.ApplyResources(this.stopToolStripMenuItem, "stopToolStripMenuItem");
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.buttonToggleStart_Click);
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.ButtonToggleStart_Click);
             // 
             // toolStripMenuItemDivider
             // 
@@ -352,7 +352,7 @@
             this.runToolStripButton.Image = global::MobiFlight.Properties.Resources.media_play_green;
             resources.ApplyResources(this.runToolStripButton, "runToolStripButton");
             this.runToolStripButton.Name = "runToolStripButton";
-            this.runToolStripButton.Click += new System.EventHandler(this.buttonToggleStart_Click);
+            this.runToolStripButton.Click += new System.EventHandler(this.ButtonToggleStart_Click);
             // 
             // runTestToolStripButton
             // 
@@ -366,7 +366,7 @@
             resources.ApplyResources(this.stopToolStripButton, "stopToolStripButton");
             this.stopToolStripButton.Image = global::MobiFlight.Properties.Resources.media_stop_red;
             this.stopToolStripButton.Name = "stopToolStripButton";
-            this.stopToolStripButton.Click += new System.EventHandler(this.buttonToggleStart_Click);
+            this.stopToolStripButton.Click += new System.EventHandler(this.ButtonToggleStart_Click);
             // 
             // stopTestToolStripButton
             // 
@@ -385,7 +385,7 @@
             this.autoRunToolStripButton.Image = global::MobiFlight.Properties.Resources.lightbulb;
             resources.ApplyResources(this.autoRunToolStripButton, "autoRunToolStripButton");
             this.autoRunToolStripButton.Name = "autoRunToolStripButton";
-            this.autoRunToolStripButton.Click += new System.EventHandler(this.autoRunToolStripButton_Click);
+            this.autoRunToolStripButton.Click += new System.EventHandler(this.AutoRunToolStripButton_Click);
             // 
             // toolStripSeparator3
             // 

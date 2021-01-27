@@ -1037,7 +1037,7 @@ namespace MobiFlight.UI.Dialogs
             displayPinTestButton.Enabled = false;
             displayTypeGroupBox.Enabled = false;
             groupBoxDisplaySettings.Enabled = false;
-            _execManager.executeTestOn(config);
+            _execManager.ExecuteTestOn(config);
         }
 
         private void _testModeStop()
@@ -1049,7 +1049,7 @@ namespace MobiFlight.UI.Dialogs
             displayPinTestButton.Enabled = true;
             displayTypeGroupBox.Enabled = true;
             groupBoxDisplaySettings.Enabled = true;
-            _execManager.executeTestOff(config);
+            _execManager.ExecuteTestOff(config);
         }
 
         private void tabControlFsuipc_SelectedIndexChanged(object sender, EventArgs e)

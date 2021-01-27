@@ -40,17 +40,17 @@ namespace MobiFlight
         /// <summary>
         /// the timer used for polling
         /// </summary>
-        private EventTimer timer = new EventTimer();
+        private readonly EventTimer timer = new EventTimer();
 
         /// <summary>
         /// the timer used for auto connect of FSUIPC and Arcaze
         /// </summary>
-        private Timer autoConnectTimer = new Timer();
+        private readonly Timer autoConnectTimer = new Timer();
 
         /// <summary>
         /// the timer used for execution of test mode
         /// </summary>
-        private Timer testModeTimer = new Timer();
+        private readonly Timer testModeTimer = new Timer();
         int testModeIndex = 0;
 
         /// Window handle
@@ -59,19 +59,19 @@ namespace MobiFlight
         /// <summary>
         /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
         /// </summary>
-        Fsuipc2Cache fsuipcCache = new Fsuipc2Cache();
+        readonly Fsuipc2Cache fsuipcCache = new Fsuipc2Cache();
 
 #if SIMCONNECT
-        SimConnectCache simConnectCache = new SimConnectCache();
+        readonly SimConnectCache simConnectCache = new SimConnectCache();
 #endif
 
 #if ARCAZE
-        ArcazeCache arcazeCache = new ArcazeCache();
+        readonly ArcazeCache arcazeCache = new ArcazeCache();
 #endif
         public bool OfflineMode { get { return fsuipcCache.OfflineMode; } set { fsuipcCache.OfflineMode = value; } }
 
 #if MOBIFLIGHT
-        MobiFlightCache mobiFlightCache = new MobiFlightCache();
+        readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
 #endif
         DataGridView dataGridViewConfig = null;
         DataGridView inputsDataGridView = null;
@@ -84,9 +84,9 @@ namespace MobiFlight
             this.dataGridViewConfig = dataGridViewConfig;
             this.inputsDataGridView = inputsDataGridView;
 
-            fsuipcCache.ConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
-            fsuipcCache.Connected += new EventHandler(fsuipcCache_Connected);
-            fsuipcCache.Closed += new EventHandler(fsuipcCache_Closed);
+            fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
+            fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
+            fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);
 
 #if SIMCONNECT
             simConnectCache.SetHandle(handle);
@@ -96,14 +96,14 @@ namespace MobiFlight
 #endif
 
 #if ARCAZE
-            arcazeCache.Connected += new EventHandler(arcazeCache_Connected);
-            arcazeCache.Closed += new EventHandler(arcazeCache_Closed);
-            arcazeCache.ConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+            arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
+            arcazeCache.Closed += new EventHandler(ArcazeCache_Closed);
+            arcazeCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
 #endif
 
-            mobiFlightCache.Connected += new EventHandler(arcazeCache_Connected);
-            mobiFlightCache.Closed += new EventHandler(arcazeCache_Closed);
-            mobiFlightCache.ConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+            mobiFlightCache.Connected += new EventHandler(ArcazeCache_Connected);
+            mobiFlightCache.Closed += new EventHandler(ArcazeCache_Closed);
+            mobiFlightCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
             
             timer.Interval = Properties.Settings.Default.PollInterval;
@@ -112,7 +112,7 @@ namespace MobiFlight
             timer.Started += new EventHandler(timer_Started);
 
             autoConnectTimer.Interval = 10000;
-            autoConnectTimer.Tick += new EventHandler(autoConnectTimer_TickAsync);        
+            autoConnectTimer.Tick += new EventHandler(AutoConnectTimer_TickAsync);        
 
             testModeTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
@@ -166,7 +166,7 @@ namespace MobiFlight
         {
             return fsuipcCache.isConnected()
 #if SIMCONNECT
-                || simConnectCache.isConnected()
+                || simConnectCache.IsConnected()
 #endif
                 ;
         }
@@ -199,7 +199,7 @@ namespace MobiFlight
         public void AutoConnectStart()
         {
             autoConnectTimer.Start();
-            autoConnectTimer_TickAsync(null, null);
+            AutoConnectTimer_TickAsync(null, null);
             Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
         }
 
@@ -262,7 +262,7 @@ namespace MobiFlight
         }
 #endif
 
-        public List<IModuleInfo> getAllConnectedModulesInfo()
+        public List<IModuleInfo> GetAllConnectedModulesInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
 #if ARCAZE
@@ -288,8 +288,7 @@ namespace MobiFlight
             simConnectCache.Disconnect();
 #endif
 
-            if (this.OnModulesDisconnected != null)
-                this.OnModulesDisconnected(this, new EventArgs());         
+            this.OnModulesDisconnected?.Invoke(this, new EventArgs());
         }
 
 #if ARCAZE
@@ -304,7 +303,7 @@ namespace MobiFlight
         /// <summary>
         /// the main method where the configuration is parsed and executed
         /// </summary>
-        private void executeConfig()
+        private void ExecuteConfig()
         {
             if (
 #if ARCAZE
@@ -353,7 +352,7 @@ namespace MobiFlight
 
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
-                ConnectorValue value = executeRead(cfg);
+                ConnectorValue value = ExecuteRead(cfg);
                 ConnectorValue processedValue = value;
 
                 row.DefaultCellStyle.ForeColor = Color.Empty;
@@ -364,8 +363,8 @@ namespace MobiFlight
                 // only none string values get transformed
                 String strValue = "";
                 try { 
-                    processedValue = executeTransform(value, cfg);
-                    strValue = executeComparison(processedValue, cfg);
+                    processedValue = ExecuteTransform(value, cfg);
+                    strValue = ExecuteComparison(processedValue, cfg);
 
                 } catch (Exception e)
                 {
@@ -375,7 +374,7 @@ namespace MobiFlight
                 }
 
                 String strValueAfterComparison = (string) strValue.Clone();
-                strValue = executeInterpolation(strValue, cfg);
+                strValue = ExecuteInterpolation(strValue, cfg);
 
 
                 row.Cells["arcazeValueColumn"].Value = strValue;
@@ -383,7 +382,7 @@ namespace MobiFlight
                 row.Cells["arcazeValueColumn"].Tag = processedValue + " / " + strValueAfterComparison;
 
                 // check preconditions
-                if (!checkPrecondition(cfg, processedValue))
+                if (!CheckPrecondition(cfg, processedValue))
                 {
                     if (!cfg.Preconditions.ExecuteOnFalse) {
                         row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
@@ -399,7 +398,7 @@ namespace MobiFlight
 
                 try
                 {
-                    executeDisplay(strValue, cfg);
+                    ExecuteDisplay(strValue, cfg);
                 }
                 catch (Exception exc)
                 {
@@ -416,7 +415,7 @@ namespace MobiFlight
             isExecuting = false;
         }
 
-        private string executeInterpolation(string strValue, OutputConfigItem cfg)
+        private string ExecuteInterpolation(string strValue, OutputConfigItem cfg)
         {
             if (cfg.Interpolation.Count > 0 && cfg.Interpolation.Active)
             {
@@ -426,7 +425,7 @@ namespace MobiFlight
             return strValue;
         }
 
-        private bool checkPrecondition(IBaseConfigItem cfg, ConnectorValue currentValue)
+        private bool CheckPrecondition(IBaseConfigItem cfg, ConnectorValue currentValue)
         {
             bool finalResult = true;
             bool result = true;
@@ -471,7 +470,7 @@ namespace MobiFlight
                         try
                         {
                             
-                            String execResult = executeComparison(connectorValue, tmp);
+                            String execResult = ExecuteComparison(connectorValue, tmp);
                             //Log.Instance.log(p.PreconditionLabel + " - Pin - val:"+val+" - " + execResult + "==" + tmp.ComparisonIfValue, LogSeverity.Debug);
                             result = (execResult == tmp.ComparisonIfValue);
                         }
@@ -538,7 +537,7 @@ namespace MobiFlight
 
                             try
                             {
-                                result = (executeComparison(connectorValue, tmp) == "1");
+                                result = (ExecuteComparison(connectorValue, tmp) == "1");
                             }
                             catch (FormatException e)
                             {
@@ -560,13 +559,13 @@ namespace MobiFlight
                     finalResult &= result;
                 }
 
-                logicOr = (p.PreconditionLogic == "or" ? true : false);
+                logicOr = (p.PreconditionLogic == "or");
             } // foreach
 
             return finalResult;
         }
 
-        private ConnectorValue executeRead(OutputConfigItem cfg)
+        private ConnectorValue ExecuteRead(OutputConfigItem cfg)
         {
             ConnectorValue result = new ConnectorValue();
 
@@ -577,16 +576,16 @@ namespace MobiFlight
             }
             else if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.Integer)
             {
-                result = _executeReadInt(cfg);
+                result = ExecuteReadInt(cfg);
             }
             else if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.Float)
             {
-                result = _executeReadFloat(cfg);
+                result = ExecuteReadFloat(cfg);
             }
             return result;
         }
 
-        private ConnectorValue _executeReadInt(OutputConfigItem cfg)
+        private ConnectorValue ExecuteReadInt(OutputConfigItem cfg)
         {
             ConnectorValue result = new ConnectorValue();
             switch (cfg.FSUIPCSize)
@@ -644,7 +643,7 @@ namespace MobiFlight
             return result;
         }
 
-        private ConnectorValue _executeReadFloat(OutputConfigItem cfg)
+        private ConnectorValue ExecuteReadFloat(OutputConfigItem cfg)
         {
             ConnectorValue result = new ConnectorValue();
             result.type = FSUIPCOffsetType.Float;
@@ -671,7 +670,7 @@ namespace MobiFlight
             return result;
         }
 
-        private ConnectorValue executeTransform(ConnectorValue value, OutputConfigItem cfg)
+        private ConnectorValue ExecuteTransform(ConnectorValue value, OutputConfigItem cfg)
         {
             double tmpValue;
             List<Tuple<string, string>> configRefs = GetRefs(cfg.ConfigRefs);
@@ -701,14 +700,14 @@ namespace MobiFlight
             return value;
         }
 
-        private string executeComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
+        private string ExecuteComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
         {
             string result = null;
             List<Tuple<string, string>> configRefs = GetRefs(cfg.ConfigRefs);
 
             if (connectorValue.type == FSUIPCOffsetType.String)
             {
-                return _executeStringComparison(connectorValue, cfg);
+                return ExecuteStringComparison(connectorValue, cfg);
             }
 
             Double value = connectorValue.Int64;
@@ -779,7 +778,7 @@ namespace MobiFlight
             return result;
         }
 
-        private string _executeStringComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
+        private string ExecuteStringComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
         {
             string result = connectorValue.String;
             string value = connectorValue.String;
@@ -806,7 +805,7 @@ namespace MobiFlight
             return result;
         }
 
-        private string executeDisplay(string value, OutputConfigItem cfg)
+        private string ExecuteDisplay(string value, OutputConfigItem cfg)
         {
             string serial = "";
             if (cfg.DisplaySerial.Contains("/"))
@@ -923,14 +922,14 @@ namespace MobiFlight
             foreach(ConfigRef c in configRefs)
             {
                 if (!c.Active) continue;
-                String s = findValueForRef(c.Ref);
+                String s = FindValueForRef(c.Ref);
                 if (s == null) continue;
                 result.Add(new Tuple<string,string>(c.Placeholder, s));
             }
             return result;
         }
 
-        private String findValueForRef(String refId)
+        private String FindValueForRef(String refId)
         {
             String result = null;
             // iterate over the config row by row
@@ -963,7 +962,7 @@ namespace MobiFlight
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void fsuipcCache_Closed(object sender, EventArgs e)
+        void FsuipcCache_Closed(object sender, EventArgs e)
         {
             this.OnSimCacheClosed(sender, e);
         }
@@ -971,7 +970,7 @@ namespace MobiFlight
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>        
-        void fsuipcCache_Connected(object sender, EventArgs e)
+        void FsuipcCache_Connected(object sender, EventArgs e)
         {
             this.OnSimCacheConnected(sender, e);
         }
@@ -979,7 +978,7 @@ namespace MobiFlight
         /// <summary>
         /// shows message to user and stops execution of timer
         /// </summary>
-        void fsuipcCache_ConnectionLost(object sender, EventArgs e)
+        void FsuipcCache_ConnectionLost(object sender, EventArgs e)
         {
             fsuipcCache.disconnect();
             this.OnSimCacheConnectionLost(sender, e);
@@ -1013,9 +1012,8 @@ namespace MobiFlight
         {
             try
             {
-                executeConfig();
-                if (this.OnExecute != null)
-                    this.OnExecute(this, new EventArgs());
+                ExecuteConfig();
+                this.OnExecute?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
             {
@@ -1025,7 +1023,7 @@ namespace MobiFlight
             }
         } //timer_Tick()
 
-        void arcazeCache_ConnectionLost(object sender, EventArgs e)
+        void ArcazeCache_ConnectionLost(object sender, EventArgs e)
         {
             //_disconnectArcaze();
             this.OnModuleConnectionLost(sender, e);
@@ -1035,17 +1033,16 @@ namespace MobiFlight
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void arcazeCache_Closed(object sender, EventArgs e)
+        void ArcazeCache_Closed(object sender, EventArgs e)
         {
             TestModeStop();
-            if (this.OnModulesDisconnected != null)
-                this.OnModulesDisconnected(sender, e);
+            this.OnModulesDisconnected?.Invoke(sender, e);
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void arcazeCache_Connected(object sender, EventArgs e)
+        void ArcazeCache_Connected(object sender, EventArgs e)
         {
             TestModeStop();
             Stop();
@@ -1059,7 +1056,7 @@ namespace MobiFlight
         /// auto connect is only done if current timer is not running since we suppose that an established
         /// connection was already available before the timer was started
         /// </remarks>
-        async void autoConnectTimer_TickAsync(object sender, EventArgs e)
+        async void AutoConnectTimer_TickAsync(object sender, EventArgs e)
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
@@ -1098,7 +1095,7 @@ namespace MobiFlight
                 if (!fsuipcCache.isConnected())
                     fsuipcCache.connect();
 #if SIMCONNECT
-                if (!simConnectCache.isConnected())
+                if (!simConnectCache.IsConnected())
                     simConnectCache.Connect();
 #endif
                 // we return here to prevent the disabling of the timer
@@ -1152,7 +1149,7 @@ namespace MobiFlight
                 lastRow.Selected = false;
                 try
                 {
-                    executeTestOff(cfg);
+                    ExecuteTestOff(cfg);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1204,7 +1201,7 @@ namespace MobiFlight
 
                 try
                 {
-                    executeTestOn(cfg);
+                    ExecuteTestOn(cfg);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1224,46 +1221,46 @@ namespace MobiFlight
         }
 
 
-        public void executeTestOff(OutputConfigItem cfg)
+        public void ExecuteTestOff(OutputConfigItem cfg)
         {
             OutputConfigItem offCfg = (OutputConfigItem) cfg.Clone();
             switch (offCfg.DisplayType)
             {
                 case MobiFlightServo.TYPE:
-                    executeDisplay(offCfg.ServoMin, offCfg);
+                    ExecuteDisplay(offCfg.ServoMin, offCfg);
                     break;
 
                 case OutputConfig.LcdDisplay.Type:
                     offCfg.LcdDisplay.Lines.Clear();
                     offCfg.LcdDisplay.Lines.Add(new string(' ', 20 * 4));
-                    executeDisplay(new string (' ', 20 *4), offCfg);
+                    ExecuteDisplay(new string (' ', 20 *4), offCfg);
                     break;
 
                 default:
                     offCfg.DisplayLedDecimalPoints = new List<string>();
-                    executeDisplay(offCfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
+                    ExecuteDisplay(offCfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
                     break;
             }
         }
 
-        public void executeTestOn(OutputConfigItem cfg)
+        public void ExecuteTestOn(OutputConfigItem cfg)
         {
             switch (cfg.DisplayType)
             {
                 case MobiFlightStepper.TYPE:
-                    executeDisplay((Int16.Parse(cfg.StepperTestValue)).ToString(), cfg);
+                    ExecuteDisplay((Int16.Parse(cfg.StepperTestValue)).ToString(), cfg);
                     break;
 
                 case MobiFlightServo.TYPE:
-                    executeDisplay(cfg.ServoMax, cfg);
+                    ExecuteDisplay(cfg.ServoMax, cfg);
                     break;
 
                 case OutputConfig.LcdDisplay.Type:
-                    executeDisplay("1234567890", cfg);
+                    ExecuteDisplay("1234567890", cfg);
                     break;
 
                 default:
-                    executeDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "8", cfg);
+                    ExecuteDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "8", cfg);
                     break;
             }
         }
@@ -1322,7 +1319,7 @@ namespace MobiFlight
                 // if there are preconditions check and skip if necessary
                 if (tuple.Item1.Preconditions.Count > 0)
                 {
-                    if (!checkPrecondition(tuple.Item1, currentValue))
+                    if (!CheckPrecondition(tuple.Item1, currentValue))
                     {
                         tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
                         continue;
