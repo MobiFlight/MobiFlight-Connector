@@ -488,7 +488,7 @@ namespace MobiFlight.UI
 #if ARCAZE
         private void _initializeArcazeModuleSettings()
         {
-            Dictionary<string, ArcazeModuleSettings> settings = getArcazeModuleSettings();
+            Dictionary<string, ArcazeModuleSettings> settings = execManager.getModuleCache().GetArcazeModuleSettings();
             List<string> serials = new List<string>();
 
             // get all currently connected devices
@@ -522,37 +522,7 @@ namespace MobiFlight.UI
                 }
             }           
  
-            execManager.updateModuleSettings(getArcazeModuleSettings());
-        }
-
-        /// <summary>
-        /// rebuilt Arcaze module settings from the stored configuration
-        /// </summary>
-        /// <returns></returns>
-        protected Dictionary<string, ArcazeModuleSettings> getArcazeModuleSettings()
-        {
-            List<ArcazeModuleSettings> moduleSettings = new List<ArcazeModuleSettings>();
-            Dictionary<string, ArcazeModuleSettings> result = new Dictionary<string, ArcazeModuleSettings>();
-
-            if ("" == Properties.Settings.Default.ModuleSettings) return result;
-
-            try
-            {
-                XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));
-                System.IO.StringReader w = new System.IO.StringReader(Properties.Settings.Default.ModuleSettings);
-                moduleSettings = (List<ArcazeModuleSettings>)SerializerObj.Deserialize(w);
-            }
-            catch (Exception e)
-            {
-                Log.Instance.log("MainForm.getArcazeModuleSettings() : Deserialize problem.", LogSeverity.Warn);
-            }
-
-            foreach (ArcazeModuleSettings setting in moduleSettings)
-            {
-                result[setting.serial] = setting;
-            }
-               
-            return result;
+            execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
         }
 #endif
         void arcazeCache_ConnectionLost(object sender, EventArgs e)
@@ -1255,7 +1225,7 @@ namespace MobiFlight.UI
                 logTextBox.Visible = Log.Instance.Enabled;
                 logSplitter.Visible = Log.Instance.Enabled;
 #if ARCAZE
-                execManager.updateModuleSettings(getArcazeModuleSettings());
+                execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
 #endif
             }
         }

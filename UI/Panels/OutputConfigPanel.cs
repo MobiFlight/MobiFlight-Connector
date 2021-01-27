@@ -387,8 +387,8 @@ namespace MobiFlight.UI.Panels
             Form wizard = new ConfigWizard(ExecutionManager,
                                             cfg,
 #if ARCAZE
-                                            execManager.getModuleCache(), 
-                                            getArcazeModuleSettings(), 
+                                            ExecutionManager.getModuleCache(),
+                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(), 
 #endif
                                             dataSetConfig,
                                             dataRow["guid"].ToString()

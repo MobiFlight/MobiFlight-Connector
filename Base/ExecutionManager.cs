@@ -298,7 +298,6 @@ namespace MobiFlight
 
             arcazeCache.updateModuleSettings(arcazeSettings);
             arcazeCache.disconnect();
-
         }
 #endif
 

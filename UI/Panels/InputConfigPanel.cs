@@ -47,8 +47,8 @@ namespace MobiFlight.UI.Panels
                                 ExecutionManager,
                                 cfg,
 #if ARCAZE
-                                execManager.getModuleCache(), 
-                                getArcazeModuleSettings(),
+                                ExecutionManager.getModuleCache(),
+                                ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
                                 OutputDataSetConfig,
                                 dataRow["guid"].ToString()
