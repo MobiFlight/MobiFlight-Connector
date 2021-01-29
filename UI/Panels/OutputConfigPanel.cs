@@ -400,8 +400,7 @@ namespace MobiFlight.UI.Panels
             {
                 if (dataRow == null) return;
                 // do something special
-                dataRow["fsuipcOffset"] = "0x" + cfg.FSUIPCOffset.ToString("X4");
-                dataRow["arcazeSerial"] = cfg.DisplaySerial;
+                RestoreValuesInGridView();
             };
         }
 

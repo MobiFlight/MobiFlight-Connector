@@ -63,6 +63,7 @@ namespace MobiFlight.UI.Panels
                 // Show used Button
                 // Show Type of Output
                 // Show last set value
+                RestoreValuesInGridView();
             };
         }
 
