@@ -53,7 +53,13 @@ namespace MobiFlight.SimConnectMSFS
 
         public void ReceiveSimConnectMessage()
         {
-            m_oSimConnect?.ReceiveMessage();
+            try
+            {
+                m_oSimConnect?.ReceiveMessage();
+            } catch(Exception)
+            {
+                Disconnect();
+            }
         }
 
         private void loadEventPresets()
