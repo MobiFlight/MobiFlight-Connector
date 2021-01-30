@@ -284,7 +284,6 @@
       <HintPath>packages\FSUIPCClientDLL.3.1.22\lib\net40\FSUIPCClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
     <Reference Include="NCalc">
@@ -1127,11 +1126,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4</PostBuildEvent>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release-Mobiflight" ($(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>xcopy /R /Y "$(ProjectDir)Lib\vJoyInterface.dll" "$(TargetDir)"
-xcopy /R /Y "$(ProjectDir)Lib\SimConnect.dll" "$(TargetDir)"
+xcopy /R /Y "$(ProjectDir)Lib\x86\SimConnect.dll" "$(TargetDir)"
 xcopy /R /E /Y /I "$(ProjectDir)MSFS2020-module" "$(TargetDir)MSFS2020-module"
 xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
 del "$(TargetDir)\log.txt"</PreBuildEvent>
