@@ -25,6 +25,7 @@ namespace MobiFlight.UI
     public partial class MainForm : Form
     {
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+        public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
 
         /// <summary>
@@ -156,12 +157,14 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = false;
             updateNotifyContextMenu(false);
 
+            // Reset the Title of the Main Window so that it displays the Version too.
+            SetTitle("");
+
             _updateRecentFilesMenuItems();
 
             // TODO: REFACTOR THIS DEPENDENCY
             outputConfigPanel.ExecutionManager = execManager;
             outputConfigPanel.SettingsChanged += OutputConfigPanel_SettingsChanged;
-
 
             inputConfigPanel.ExecutionManager = execManager;
             inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
@@ -1019,11 +1022,24 @@ namespace MobiFlight.UI
             }
         }
 
+        private void SetTitle(string title)
+        {
+            string NewTitle = "MobiFlight Connector ("+ Version +")";
+            if (VersionBeta.Split('.')[3]!="0") {
+                NewTitle = "MobiFlight Connector BETA (" + VersionBeta + ")";
+            }
+            if (title!=null && title!="")
+            {
+                NewTitle = title + " - " + NewTitle;
+            }
+
+            Text = NewTitle;
+        }
+
         private void _setFilenameInTitle(string fileName)
         {
-            fileName = fileName.Substring(fileName.LastIndexOf('\\')+1);
-            Text = fileName + " - MobiFlight Connector";            
-        } //_loadConfig()
+            SetTitle(fileName.Substring(fileName.LastIndexOf('\\')+1));
+        }
 
         /// <summary>
         /// due to the new settings-node there must be some routine to load 
