@@ -30,7 +30,7 @@ namespace MobiFlight.UI.Panels
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
 
             dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(DataGridViewConfig_RowsAdded);
-
+            
             configDataTable.RowChanged += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
             configDataTable.RowDeleted += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
 
@@ -400,6 +400,7 @@ namespace MobiFlight.UI.Panels
             {
                 if (dataRow == null) return;
                 // do something special
+                SettingsChanged?.Invoke(cfg, null);
                 RestoreValuesInGridView();
             };
         }
@@ -409,7 +410,7 @@ namespace MobiFlight.UI.Panels
         /// </summary>        
         void ConfigDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            SettingsChanged?.Invoke(sender, null);
+            if (e.Action==DataRowAction.Add) SettingsChanged?.Invoke(sender, null);
         } //configDataTable_RowChanged
 
         private void ConfigDataTable_TableNewRow(object sender, DataTableNewRowEventArgs e)
