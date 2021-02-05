@@ -33,8 +33,6 @@ namespace MobiFlight.UI
         /// </summary>
         private string currentFileName = null;
 
-        
-
         private CmdLineParams cmdLineParams;
 
         private ExecutionManager execManager;
@@ -50,13 +48,6 @@ namespace MobiFlight.UI
 
         private void InitializeUILanguage()
         {
-#if MF_FORCE_EN
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-#endif
-
-#if MF_FORCE_DE
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
-#endif
             if (Properties.Settings.Default.Language != "")
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
@@ -93,9 +84,16 @@ namespace MobiFlight.UI
 
         public MainForm()
         {
+            // this shall happen before anything else
             InitializeUILanguage();
+
+            // then initialize components
             InitializeComponent();
+
+            // then restore settings
             InitializeSettings();
+
+            // finally set up logging (based on settings)
             InitializeLogging();
         }
 

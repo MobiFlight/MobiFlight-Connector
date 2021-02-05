@@ -265,7 +265,7 @@
     <value>outputConfigPanel</value>
   </data>
   <data name="&gt;&gt;outputConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.OutputConfigPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.OutputConfigPanel, MFConnector, Version=7.10.0.19, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;outputConfigPanel.Parent" xml:space="preserve">
     <value>OutputTabPage</value>
@@ -316,7 +316,7 @@
     <value>inputConfigPanel</value>
   </data>
   <data name="&gt;&gt;inputConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.InputConfigPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.InputConfigPanel, MFConnector, Version=7.10.0.19, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;inputConfigPanel.Parent" xml:space="preserve">
     <value>InputTabPage</value>
@@ -7004,7 +7004,7 @@
     <value>startupPanel</value>
   </data>
   <data name="&gt;&gt;startupPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.StartupPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.StartupPanel, MFConnector, Version=7.10.0.19, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;startupPanel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -7016,7 +7016,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>146</value>
+    <value>67</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
