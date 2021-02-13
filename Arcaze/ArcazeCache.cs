@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SimpleSolutions.Usb;
 using MobiFlight;
+using System.Xml.Serialization;
 
 namespace MobiFlight
 {
@@ -298,6 +299,36 @@ namespace MobiFlight
         internal void setBcd4056(string serial, List<string> list, string value)
         {
             Modules[serial].setBcd4056(list, value);
+        }
+
+        /// <summary>
+        /// rebuilt Arcaze module settings from the stored configuration
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, ArcazeModuleSettings> GetArcazeModuleSettings()
+        {
+            List<ArcazeModuleSettings> moduleSettings = new List<ArcazeModuleSettings>();
+            Dictionary<string, ArcazeModuleSettings> result = new Dictionary<string, ArcazeModuleSettings>();
+
+            if ("" == Properties.Settings.Default.ModuleSettings) return result;
+
+            try
+            {
+                XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));
+                System.IO.StringReader w = new System.IO.StringReader(Properties.Settings.Default.ModuleSettings);
+                moduleSettings = (List<ArcazeModuleSettings>)SerializerObj.Deserialize(w);
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log("MainForm.getArcazeModuleSettings() : Deserialize problem.", LogSeverity.Warn);
+            }
+
+            foreach (ArcazeModuleSettings setting in moduleSettings)
+            {
+                result[setting.serial] = setting;
+            }
+
+            return result;
         }
     }
 }

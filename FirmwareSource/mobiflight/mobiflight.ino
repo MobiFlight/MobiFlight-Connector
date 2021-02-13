@@ -31,7 +31,9 @@ char foo;
 // 1.9.4 : Increased MAX_PINS for MEGA.
 // 1.9.5 : Increased MAX_BUTTONS for MEGA and Micro Pro.
 // 1.9.6 : Fixed the MAXCALLBACKS for UNO, optimized Build settings for Micro to save memory.
-const char version[8] = "1.9.7";
+// 1.9.7 : Increased EEPROM area for storing config
+// 1.9.8 : Decreased EEPROM area again, changed order during reset/load 
+const char version[8] = "1.9.8";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -324,8 +326,8 @@ void setup()
 {
   Serial.begin(115200);
   attachCommandCallbacks();
-  OnResetBoard();  
-  cmdMessenger.printLfCr();     
+  cmdMessenger.printLfCr();
+  OnResetBoard();
 }
 
 void generateSerial(bool force) 
@@ -745,11 +747,12 @@ void OnActivateConfig()
 {
   readConfig(configBuffer);
   _activateConfig();
-  cmdMessenger.sendCmd(kConfigActivated, F("OK"));
+  //cmdMessenger.sendCmd(kConfigActivated, F("OK"));
 }
 
 void _activateConfig() {
   configActivated = true;
+  cmdMessenger.sendCmd(kConfigActivated, F("OK"));
 }
 
 void readConfig(String cfg) {

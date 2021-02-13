@@ -25,14 +25,13 @@ namespace MobiFlight.UI
     public partial class MainForm : Form
     {
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+        public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
 
         /// <summary>
         /// the currently used filename of the loaded config file
         /// </summary>
         private string currentFileName = null;
-
-        
 
         private CmdLineParams cmdLineParams;
 
@@ -49,13 +48,6 @@ namespace MobiFlight.UI
 
         private void InitializeUILanguage()
         {
-#if MF_FORCE_EN
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-#endif
-
-#if MF_FORCE_DE
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("de-DE");
-#endif
             if (Properties.Settings.Default.Language != "")
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
@@ -92,9 +84,16 @@ namespace MobiFlight.UI
 
         public MainForm()
         {
+            // this shall happen before anything else
             InitializeUILanguage();
+
+            // then initialize components
             InitializeComponent();
+
+            // then restore settings
             InitializeSettings();
+
+            // finally set up logging (based on settings)
             InitializeLogging();
         }
 
@@ -134,9 +133,9 @@ namespace MobiFlight.UI
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
 //#if ARCAZE
-            execManager.OnModulesConnected += new EventHandler(arcazeCache_Connected);
-            execManager.OnModulesDisconnected += new EventHandler(arcazeCache_Closed);
-            execManager.OnModuleConnectionLost += new EventHandler(arcazeCache_ConnectionLost);
+            execManager.OnModulesConnected += new EventHandler(ArcazeCache_Connected);
+            execManager.OnModulesDisconnected += new EventHandler(ArcazeCache_Closed);
+            execManager.OnModuleConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
 //#endif
             execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
 
@@ -156,12 +155,14 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = false;
             updateNotifyContextMenu(false);
 
+            // Reset the Title of the Main Window so that it displays the Version too.
+            SetTitle("");
+
             _updateRecentFilesMenuItems();
 
             // TODO: REFACTOR THIS DEPENDENCY
             outputConfigPanel.ExecutionManager = execManager;
             outputConfigPanel.SettingsChanged += OutputConfigPanel_SettingsChanged;
-
 
             inputConfigPanel.ExecutionManager = execManager;
             inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
@@ -299,8 +300,8 @@ namespace MobiFlight.UI
                 {
                     SettingsDialog dlg = new SettingsDialog(execManager);
                     dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.modulesForUpdate = modulesForUpdate;
+                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
+                    dlg.MobiFlightModulesForUpdate = modulesForUpdate;
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                     }
@@ -318,8 +319,8 @@ namespace MobiFlight.UI
                 {
                     SettingsDialog dlg = new SettingsDialog(execManager);
                     dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.modulesForFlashing = modulesForFlashing;
+                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
+                    dlg.MobiFlightModulesForFlashing = modulesForFlashing;
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                     }
@@ -488,7 +489,7 @@ namespace MobiFlight.UI
 #if ARCAZE
         private void _initializeArcazeModuleSettings()
         {
-            Dictionary<string, ArcazeModuleSettings> settings = getArcazeModuleSettings();
+            Dictionary<string, ArcazeModuleSettings> settings = execManager.getModuleCache().GetArcazeModuleSettings();
             List<string> serials = new List<string>();
 
             // get all currently connected devices
@@ -522,40 +523,10 @@ namespace MobiFlight.UI
                 }
             }           
  
-            execManager.updateModuleSettings(getArcazeModuleSettings());
-        }
-
-        /// <summary>
-        /// rebuilt Arcaze module settings from the stored configuration
-        /// </summary>
-        /// <returns></returns>
-        protected Dictionary<string, ArcazeModuleSettings> getArcazeModuleSettings()
-        {
-            List<ArcazeModuleSettings> moduleSettings = new List<ArcazeModuleSettings>();
-            Dictionary<string, ArcazeModuleSettings> result = new Dictionary<string, ArcazeModuleSettings>();
-
-            if ("" == Properties.Settings.Default.ModuleSettings) return result;
-
-            try
-            {
-                XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));
-                System.IO.StringReader w = new System.IO.StringReader(Properties.Settings.Default.ModuleSettings);
-                moduleSettings = (List<ArcazeModuleSettings>)SerializerObj.Deserialize(w);
-            }
-            catch (Exception e)
-            {
-                Log.Instance.log("MainForm.getArcazeModuleSettings() : Deserialize problem.", LogSeverity.Warn);
-            }
-
-            foreach (ArcazeModuleSettings setting in moduleSettings)
-            {
-                result[setting.serial] = setting;
-            }
-               
-            return result;
+            execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
         }
 #endif
-        void arcazeCache_ConnectionLost(object sender, EventArgs e)
+        void ArcazeCache_ConnectionLost(object sender, EventArgs e)
         {
             //_disconnectArcaze();
             _showError(i18n._tr("uiMessageArcazeConnectionLost"));            
@@ -564,7 +535,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void arcazeCache_Closed(object sender, EventArgs e)
+        void ArcazeCache_Closed(object sender, EventArgs e)
         {
             arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.warning;
         }
@@ -572,7 +543,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void arcazeCache_Connected(object sender, EventArgs e)
+        void ArcazeCache_Connected(object sender, EventArgs e)
         {
             arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
@@ -752,7 +723,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// toggles the current timer when user clicks on respective run/stop buttons
         /// </summary>
-        private void buttonToggleStart_Click(object sender, EventArgs e)
+        private void ButtonToggleStart_Click(object sender, EventArgs e)
         {
             if (execManager.IsStarted()) execManager.Stop();
             else execManager.Start();
@@ -1019,7 +990,7 @@ namespace MobiFlight.UI
         {
             List<string> serials = new List<string>();
             
-            foreach (IModuleInfo moduleInfo in execManager.getAllConnectedModulesInfo())
+            foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
             {
                 serials.Add(moduleInfo.Name + "/ " + moduleInfo.Serial);
             }
@@ -1049,11 +1020,24 @@ namespace MobiFlight.UI
             }
         }
 
+        private void SetTitle(string title)
+        {
+            string NewTitle = "MobiFlight Connector ("+ Version +")";
+            if (VersionBeta.Split('.')[3]!="0") {
+                NewTitle = "MobiFlight Connector BETA (" + VersionBeta + ")";
+            }
+            if (title!=null && title!="")
+            {
+                NewTitle = title + " - " + NewTitle;
+            }
+
+            Text = NewTitle;
+        }
+
         private void _setFilenameInTitle(string fileName)
         {
-            fileName = fileName.Substring(fileName.LastIndexOf('\\')+1);
-            Text = fileName + " - MobiFlight Connector";            
-        } //_loadConfig()
+            SetTitle(fileName.Substring(fileName.LastIndexOf('\\')+1));
+        }
 
         /// <summary>
         /// due to the new settings-node there must be some routine to load 
@@ -1149,7 +1133,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// shows the about form
         /// </summary>
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm ab = new AboutForm();
             ab.StartPosition = FormStartPosition.CenterParent;
@@ -1255,12 +1239,12 @@ namespace MobiFlight.UI
                 logTextBox.Visible = Log.Instance.Enabled;
                 logSplitter.Visible = Log.Instance.Enabled;
 #if ARCAZE
-                execManager.updateModuleSettings(getArcazeModuleSettings());
+                execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
 #endif
             }
         }
 
-        private void autoRunToolStripButton_Click(object sender, EventArgs e)
+        private void AutoRunToolStripButton_Click(object sender, EventArgs e)
         {
             setAutoRunValue(!Properties.Settings.Default.AutoRun);
         }

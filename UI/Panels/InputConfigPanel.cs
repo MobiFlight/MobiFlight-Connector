@@ -47,8 +47,8 @@ namespace MobiFlight.UI.Panels
                                 ExecutionManager,
                                 cfg,
 #if ARCAZE
-                                execManager.getModuleCache(), 
-                                getArcazeModuleSettings(),
+                                ExecutionManager.getModuleCache(),
+                                ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
                                 OutputDataSetConfig,
                                 dataRow["guid"].ToString()
@@ -57,12 +57,13 @@ namespace MobiFlight.UI.Panels
             wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                SettingsChanged?.Invoke(cfg, null);
                 if (dataRow == null) return;
                 // do something special
                 // Show used Button
                 // Show Type of Output
                 // Show last set value
+                SettingsChanged?.Invoke(cfg, null);
+                RestoreValuesInGridView();
             };
         }
 
@@ -73,13 +74,12 @@ namespace MobiFlight.UI.Panels
             
         }
 
-
         /// <summary>
         /// enables the save button in toolbar after the user has changed config data
         /// </summary>        
         void configDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            SettingsChanged?.Invoke(sender, null);
+            if (e.Action == DataRowAction.Add) SettingsChanged?.Invoke(sender, null);
         } //configDataTable_RowChanged
 
         /// <summary>
@@ -123,9 +123,6 @@ namespace MobiFlight.UI.Panels
                              cfg,
                              create);
 
-                    inputsDataGridView.Rows[e.RowIndex].Cells["inputName"].Value = cfg.Name;
-                    inputsDataGridView.Rows[e.RowIndex].Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
-                    inputsDataGridView.Rows[e.RowIndex].Cells["moduleSerial"].Value = cfg.ModuleSerial;
                     inputsDataGridView.EndEdit();
                     break;
 
@@ -324,9 +321,6 @@ namespace MobiFlight.UI.Panels
                                  row,
                                  cfg,
                                  create);
-
-                        inputsDataGridView.Rows[dgv.CurrentRow.Index].Cells["inputName"].Value = cfg.Name + "/" + cfg.ModuleSerial;
-                        inputsDataGridView.Rows[dgv.CurrentRow.Index].Cells["inputType"].Value = cfg.button != null ? "Button" : "Encoder";
                         inputsDataGridView.EndEdit();
                     }
                 }

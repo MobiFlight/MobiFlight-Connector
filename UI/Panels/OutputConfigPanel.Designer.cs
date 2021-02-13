@@ -43,16 +43,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MappingConfigGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridViewConfig = new System.Windows.Forms.DataGridView();
-            this.active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.guid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.moduleSerial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OutputType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FsuipcOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fsuipcValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.arcazeValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EditButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataSetConfig = new System.Data.DataSet();
             this.configDataTable = new System.Data.DataTable();
             this.activeDataColumn = new System.Data.DataColumn();
@@ -68,13 +58,23 @@
             this.fsuipcSizeDataColumn = new System.Data.DataColumn();
             this.triggerDataColumn = new System.Data.DataColumn();
             this.arcazeSerialDataColumn = new System.Data.DataColumn();
+            this.settingsColumn = new System.Data.DataColumn();
             this.guidDataColumn = new System.Data.DataColumn();
             this.outputDataColumn = new System.Data.DataColumn();
             this.outputTypeDataColumn = new System.Data.DataColumn();
             this.dataGridViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.duplicateRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsColumn = new System.Data.DataColumn();
+            this.active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.guid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.moduleSerial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OutputName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OutputType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FsuipcOffset = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fsuipcValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.arcazeValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EditButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.MappingConfigGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).BeginInit();
@@ -110,8 +110,8 @@
             this.guid,
             this.Description,
             this.moduleSerial,
+            this.OutputName,
             this.OutputType,
-            this.dataGridViewTextBoxColumn1,
             this.FsuipcOffset,
             this.fsuipcValueColumn,
             this.arcazeValueColumn,
@@ -151,106 +151,6 @@
             this.dataGridViewConfig.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.DataGridViewConfig_CellValidating);
             this.dataGridViewConfig.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DataGridViewConfig_DefaultValuesNeeded);
             this.dataGridViewConfig.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewConfig_KeyUp);
-            // 
-            // active
-            // 
-            this.active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.active.DataPropertyName = "active";
-            this.active.FillWeight = 50F;
-            resources.ApplyResources(this.active, "active");
-            this.active.Name = "active";
-            // 
-            // guid
-            // 
-            this.guid.DataPropertyName = "guid";
-            resources.ApplyResources(this.guid, "guid");
-            this.guid.Name = "guid";
-            this.guid.ReadOnly = true;
-            // 
-            // Description
-            // 
-            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Description.DataPropertyName = "description";
-            dataGridViewCellStyle2.NullValue = "Doppelklicken für neuen Eintrag...";
-            this.Description.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Description.FillWeight = 1000F;
-            resources.ApplyResources(this.Description, "Description");
-            this.Description.Name = "Description";
-            // 
-            // moduleSerial
-            // 
-            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.moduleSerial.DataPropertyName = "arcazeSerial";
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.moduleSerial.DefaultCellStyle = dataGridViewCellStyle3;
-            this.moduleSerial.FillWeight = 150F;
-            resources.ApplyResources(this.moduleSerial, "moduleSerial");
-            this.moduleSerial.Name = "moduleSerial";
-            this.moduleSerial.ReadOnly = true;
-            this.moduleSerial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // OutputType
-            // 
-            this.OutputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.OutputType.DataPropertyName = "Output";
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.OutputType.DefaultCellStyle = dataGridViewCellStyle4;
-            this.OutputType.FillWeight = 150F;
-            resources.ApplyResources(this.OutputType, "OutputType");
-            this.OutputType.Name = "OutputType";
-            this.OutputType.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "OutputType";
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle5;
-            resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // FsuipcOffset
-            // 
-            this.FsuipcOffset.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.FsuipcOffset.DataPropertyName = "fsuipcOffset";
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.FsuipcOffset.DefaultCellStyle = dataGridViewCellStyle6;
-            resources.ApplyResources(this.FsuipcOffset, "FsuipcOffset");
-            this.FsuipcOffset.Name = "FsuipcOffset";
-            this.FsuipcOffset.ReadOnly = true;
-            // 
-            // fsuipcValueColumn
-            // 
-            this.fsuipcValueColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.fsuipcValueColumn.DefaultCellStyle = dataGridViewCellStyle7;
-            this.fsuipcValueColumn.FillWeight = 150F;
-            resources.ApplyResources(this.fsuipcValueColumn, "fsuipcValueColumn");
-            this.fsuipcValueColumn.Name = "fsuipcValueColumn";
-            this.fsuipcValueColumn.ReadOnly = true;
-            this.fsuipcValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.fsuipcValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // arcazeValueColumn
-            // 
-            this.arcazeValueColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.arcazeValueColumn.DefaultCellStyle = dataGridViewCellStyle8;
-            this.arcazeValueColumn.FillWeight = 150F;
-            resources.ApplyResources(this.arcazeValueColumn, "arcazeValueColumn");
-            this.arcazeValueColumn.Name = "arcazeValueColumn";
-            this.arcazeValueColumn.ReadOnly = true;
-            this.arcazeValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // EditButtonColumn
-            // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle9.NullValue = "...";
-            this.EditButtonColumn.DefaultCellStyle = dataGridViewCellStyle9;
-            resources.ApplyResources(this.EditButtonColumn, "EditButtonColumn");
-            this.EditButtonColumn.Name = "EditButtonColumn";
-            this.EditButtonColumn.Text = "...";
-            this.EditButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // dataSetConfig
             // 
@@ -355,6 +255,12 @@
             this.arcazeSerialDataColumn.ColumnName = "arcazeSerial";
             this.arcazeSerialDataColumn.DefaultValue = "";
             // 
+            // settingsColumn
+            // 
+            this.settingsColumn.Caption = "settings";
+            this.settingsColumn.ColumnName = "settings";
+            this.settingsColumn.DataType = typeof(object);
+            // 
             // guidDataColumn
             // 
             this.guidDataColumn.ColumnMapping = System.Data.MappingType.Attribute;
@@ -365,7 +271,7 @@
             // 
             this.outputDataColumn.Caption = "Output";
             this.outputDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
-            this.outputDataColumn.ColumnName = "Output";
+            this.outputDataColumn.ColumnName = "OutputName";
             // 
             // outputTypeDataColumn
             // 
@@ -398,11 +304,106 @@
             resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.DeleteRowToolStripMenuItem_Click);
             // 
-            // settingsColumn
+            // active
             // 
-            this.settingsColumn.Caption = "settings";
-            this.settingsColumn.ColumnName = "settings";
-            this.settingsColumn.DataType = typeof(object);
+            this.active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.active.DataPropertyName = "active";
+            this.active.FillWeight = 50F;
+            resources.ApplyResources(this.active, "active");
+            this.active.Name = "active";
+            // 
+            // guid
+            // 
+            this.guid.DataPropertyName = "guid";
+            resources.ApplyResources(this.guid, "guid");
+            this.guid.Name = "guid";
+            this.guid.ReadOnly = true;
+            // 
+            // Description
+            // 
+            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Description.DataPropertyName = "description";
+            dataGridViewCellStyle2.NullValue = "Doppelklicken für neuen Eintrag...";
+            this.Description.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Description.FillWeight = 1000F;
+            resources.ApplyResources(this.Description, "Description");
+            this.Description.Name = "Description";
+            // 
+            // moduleSerial
+            // 
+            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.moduleSerial.DataPropertyName = "arcazeSerial";
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.moduleSerial.DefaultCellStyle = dataGridViewCellStyle3;
+            this.moduleSerial.FillWeight = 150F;
+            resources.ApplyResources(this.moduleSerial, "moduleSerial");
+            this.moduleSerial.Name = "moduleSerial";
+            this.moduleSerial.ReadOnly = true;
+            this.moduleSerial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // OutputName
+            // 
+            this.OutputName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.OutputName.DataPropertyName = "OutputName";
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.OutputName.DefaultCellStyle = dataGridViewCellStyle4;
+            this.OutputName.FillWeight = 150F;
+            resources.ApplyResources(this.OutputName, "OutputName");
+            this.OutputName.Name = "OutputName";
+            this.OutputName.ReadOnly = true;
+            // 
+            // OutputType
+            // 
+            this.OutputType.DataPropertyName = "OutputType";
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.OutputType.DefaultCellStyle = dataGridViewCellStyle5;
+            resources.ApplyResources(this.OutputType, "OutputType");
+            this.OutputType.Name = "OutputType";
+            this.OutputType.ReadOnly = true;
+            // 
+            // FsuipcOffset
+            // 
+            this.FsuipcOffset.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.FsuipcOffset.DataPropertyName = "fsuipcOffset";
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.FsuipcOffset.DefaultCellStyle = dataGridViewCellStyle6;
+            resources.ApplyResources(this.FsuipcOffset, "FsuipcOffset");
+            this.FsuipcOffset.Name = "FsuipcOffset";
+            this.FsuipcOffset.ReadOnly = true;
+            // 
+            // fsuipcValueColumn
+            // 
+            this.fsuipcValueColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.fsuipcValueColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.fsuipcValueColumn.FillWeight = 150F;
+            resources.ApplyResources(this.fsuipcValueColumn, "fsuipcValueColumn");
+            this.fsuipcValueColumn.Name = "fsuipcValueColumn";
+            this.fsuipcValueColumn.ReadOnly = true;
+            this.fsuipcValueColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.fsuipcValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // arcazeValueColumn
+            // 
+            this.arcazeValueColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.arcazeValueColumn.DefaultCellStyle = dataGridViewCellStyle8;
+            this.arcazeValueColumn.FillWeight = 150F;
+            resources.ApplyResources(this.arcazeValueColumn, "arcazeValueColumn");
+            this.arcazeValueColumn.Name = "arcazeValueColumn";
+            this.arcazeValueColumn.ReadOnly = true;
+            this.arcazeValueColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // EditButtonColumn
+            // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle9.NullValue = "...";
+            this.EditButtonColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            resources.ApplyResources(this.EditButtonColumn, "EditButtonColumn");
+            this.EditButtonColumn.Name = "EditButtonColumn";
+            this.EditButtonColumn.Text = "...";
+            this.EditButtonColumn.UseColumnTextForButtonValue = true;
             // 
             // OutputConfigPanel
             // 
@@ -451,8 +452,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn guid;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn moduleSerial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OutputName;
         private System.Windows.Forms.DataGridViewTextBoxColumn OutputType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn FsuipcOffset;
         private System.Windows.Forms.DataGridViewTextBoxColumn fsuipcValueColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn arcazeValueColumn;

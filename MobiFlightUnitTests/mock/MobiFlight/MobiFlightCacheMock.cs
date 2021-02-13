@@ -11,12 +11,16 @@ namespace MobiFlightUnitTests.mock.MobiFlight
     {
         public async Task<IEnumerable<MobiFlightModule>> GetModulesAsync()
         {
-            List<MobiFlightModule> list = new List<MobiFlightModule>()
-            {
-                new MobiFlightModule(new MobiFlightModuleConfig())
-            };
+            return await Task.Run(() => {
+                List<MobiFlightModule> list = new List<MobiFlightModule>()
+                {
+                    new MobiFlightModule(new MobiFlightModuleConfig())
+                };
 
-            return list;
+                    return list;
+                }
+            );
+            
         }
 
         public IEnumerable<MobiFlightModule> GetModules()

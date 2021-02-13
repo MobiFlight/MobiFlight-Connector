@@ -1,6 +1,6 @@
-﻿namespace MobiFlight.UI.Panels.Settings
+﻿namespace MobiFlight.UI.Panels.Settings.Device
 {
-    partial class MFButtonPanel
+    partial class MFOutputPanel
     {
         /// <summary> 
         /// Erforderliche Designervariable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFButtonPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFOutputPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mfPinLabel = new System.Windows.Forms.Label();
             this.mfPinComboBox = new System.Windows.Forms.ComboBox();
@@ -49,6 +49,7 @@
             // mfPinLabel
             // 
             resources.ApplyResources(this.mfPinLabel, "mfPinLabel");
+            this.mfPinLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPinLabel.Name = "mfPinLabel";
             // 
             // mfPinComboBox
@@ -71,13 +72,13 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
-            // MFButtonPanel
+            // MFOutputPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "MFButtonPanel";
+            this.Name = "MFOutputPanel";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

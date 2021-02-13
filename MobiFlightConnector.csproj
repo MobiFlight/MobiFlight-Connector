@@ -76,14 +76,13 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>mobiflight.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-Mobiflight\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG SIMCONNECT</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG SIMCONNECT ARCAZE</DefineConstants>
     <DocumentationFile>bin\Debug-Mobiflight\MFConnector.xml</DocumentationFile>
     <WarningLevel>2</WarningLevel>
     <DebugType>full</DebugType>
@@ -95,7 +94,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight|x86'">
     <OutputPath>bin\Release-Mobiflight\</OutputPath>
-    <DefineConstants>TRACE;MOBIFLIGHT RELEASE SIMCONNECT</DefineConstants>
+    <DefineConstants>TRACE;MOBIFLIGHT RELEASE SIMCONNECT ARCAZE</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>2</WarningLevel>
     <DebugType>none</DebugType>
@@ -285,8 +284,7 @@
       <HintPath>packages\FSUIPCClientDLL.3.1.22\lib\net40\FSUIPCClient.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>SimConnectMSFS\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
+      <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
@@ -386,6 +384,12 @@
     <Compile Include="UI\Panels\Settings\GeneralPanel.Designer.cs">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Settings\MobiFlightPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Settings\MobiFlightPanel.Designer.cs">
+      <DependentUpon>MobiFlightPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\StartupPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -400,10 +404,10 @@
     <Compile Include="MobiFlight\MobiFlightLcdDisplay.cs" />
     <Compile Include="MobiFlight\OutputConfig\Stepper.cs" />
     <Compile Include="MobiFlight\OutputConfig\LcdDisplay.cs" />
-    <Compile Include="UI\Panels\Settings\MFLcdDisplayPanel.cs">
+    <Compile Include="UI\Panels\Device\MFLcdDisplayPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFLcdDisplayPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFLcdDisplayPanel.Designer.cs">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\Transformation.cs" />
@@ -495,46 +499,46 @@
     <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
-    <Compile Include="UI\Panels\Settings\MFModulePanel.cs">
+    <Compile Include="UI\Panels\Device\MFModulePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFModulePanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFModulePanel.Designer.cs">
       <DependentUpon>MFModulePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFOutputPanel.cs">
+    <Compile Include="UI\Panels\Device\MFOutputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFOutputPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFOutputPanel.Designer.cs">
       <DependentUpon>MFOutputPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFEncoderPanel.cs">
+    <Compile Include="UI\Panels\Device\MFEncoderPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFEncoderPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFEncoderPanel.Designer.cs">
       <DependentUpon>MFEncoderPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFButtonPanel.cs">
+    <Compile Include="UI\Panels\Device\MFButtonPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFButtonPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFButtonPanel.Designer.cs">
       <DependentUpon>MFButtonPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFStepperPanel.cs">
+    <Compile Include="UI\Panels\Device\MFStepperPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFStepperPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFStepperPanel.Designer.cs">
       <DependentUpon>MFStepperPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFServoPanel.cs">
+    <Compile Include="UI\Panels\Device\MFServoPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFServoPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFServoPanel.Designer.cs">
       <DependentUpon>MFServoPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFLedSegmentPanel.cs">
+    <Compile Include="UI\Panels\Device\MFLedSegmentPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\MFLedSegmentPanel.Designer.cs">
+    <Compile Include="UI\Panels\Device\MFLedSegmentPanel.Designer.cs">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\ModuleCacheInterface.cs" />
@@ -735,31 +739,13 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_1_9_5.hex">
+    <None Include="firmware\mobiflight_mega_1_9_8.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_1_9_6.hex">
+    <None Include="firmware\mobiflight_micro_1_9_8.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_1_9_7.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_micro_1_9_5.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_micro_1_9_6.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_micro_1_9_7.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_uno_1_9_5.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_uno_1_9_6.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_uno_1_9_7.hex">
+    <None Include="firmware\mobiflight_uno_1_9_8.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Presets\msfs2020_eventids.cip">
@@ -823,10 +809,16 @@
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.de.resx">
+      <DependentUpon>MobiFlightPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.resx">
+      <DependentUpon>MobiFlightPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\StartupPanel.resx">
       <DependentUpon>StartupPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFLcdDisplayPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\PmdgEventIdInputPanel.de.resx">
@@ -944,37 +936,37 @@
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFButtonPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFButtonPanel.de.resx">
       <DependentUpon>MFButtonPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFEncoderPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFEncoderPanel.de.resx">
       <DependentUpon>MFEncoderPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFLedSegmentPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFLedSegmentPanel.de.resx">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFModulePanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFModulePanel.resx">
       <DependentUpon>MFModulePanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFOutputPanel.de.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFOutputPanel.de.resx">
       <DependentUpon>MFOutputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFOutputPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFOutputPanel.resx">
       <DependentUpon>MFOutputPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFEncoderPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFEncoderPanel.resx">
       <DependentUpon>MFEncoderPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFButtonPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFButtonPanel.resx">
       <DependentUpon>MFButtonPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFStepperPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFStepperPanel.resx">
       <DependentUpon>MFStepperPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFServoPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFServoPanel.resx">
       <DependentUpon>MFServoPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\MFLedSegmentPanel.resx">
+    <EmbeddedResource Include="UI\Panels\Device\MFLedSegmentPanel.resx">
       <DependentUpon>MFLedSegmentPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\OrphanedSerialsDialog.de.resx">
@@ -1134,11 +1126,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4</PostBuildEvent>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release-Mobiflight" ($(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>xcopy /R /Y "$(ProjectDir)Lib\vJoyInterface.dll" "$(TargetDir)"
-xcopy /R /Y "$(ProjectDir)Lib\SimConnect.dll" "$(TargetDir)"
+xcopy /R /Y "$(ProjectDir)Lib\x86\SimConnect.dll" "$(TargetDir)"
 xcopy /R /E /Y /I "$(ProjectDir)MSFS2020-module" "$(TargetDir)MSFS2020-module"
 xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
 del "$(TargetDir)\log.txt"</PreBuildEvent>

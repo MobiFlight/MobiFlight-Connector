@@ -1,4 +1,4 @@
-﻿namespace MobiFlight.UI.Panels.Settings
+﻿namespace MobiFlight.UI.Panels.Settings.Device
 {
     partial class MFEncoderPanel
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MobiFlight.UI.Panels.Settings
+namespace MobiFlight.UI.Panels.Settings.Device
 {
     public partial class MFLedSegmentPanel : UserControl
     {

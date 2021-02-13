@@ -397,12 +397,18 @@ namespace MobiFlight
         /// <param name="value">the value to be used</param>
         public void setValue(string serial, string name, string value)
         {
-            try{
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            try
+            {
                 if (name == null || name == "") return;
 
-                MobiFlightModule module = GetModuleBySerial(serial);
-                if (module == null) return;
+                if (!Modules.ContainsKey(serial)) return;
 
+                MobiFlightModule module = GetModuleBySerial(serial);
                 module.SetPin("base", name, Int16.Parse(value));
             }
             catch (ConfigErrorException e)
@@ -548,12 +554,14 @@ namespace MobiFlight
                 throw new ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SettingServo"), e);
             }
         }
+
         /// <summary>
         /// set the display module
         /// </summary>
         /// <param name="serial"></param>
-        /// <param name="address"></param>
+        /// <param name="LcdConfig"></param>
         /// <param name="value"></param>
+        /// <param name="replacements"></param>
         public void setLcdDisplay(string serial, OutputConfig.LcdDisplay LcdConfig, string value, List<Tuple<String,String>> replacements)
         {
             if (serial == null)

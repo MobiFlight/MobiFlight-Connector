@@ -409,4 +409,7 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageTransformError" xml:space="preserve">
     <value>Transform Error. </value>
   </data>
+  <data name="uiMessageTestModeModuleNotConnected" xml:space="preserve">
+    <value>Error during Test-Mode: Module not connected.</value>
+  </data>
 </root>

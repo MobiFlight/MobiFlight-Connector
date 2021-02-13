@@ -30,7 +30,7 @@ namespace MobiFlight.UI.Panels
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
 
             dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(DataGridViewConfig_RowsAdded);
-
+            
             configDataTable.RowChanged += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
             configDataTable.RowDeleted += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
 
@@ -104,6 +104,8 @@ namespace MobiFlight.UI.Panels
                 case "arcazeValueColumn":
                 case "moduleSerial":
                 case "EditButtonColumn":
+                case "OutputName":
+                case "OutputType":
                     bool isNew = dataGridViewConfig.Rows[e.RowIndex].IsNewRow;
                     if (isNew)
                     {
@@ -385,8 +387,8 @@ namespace MobiFlight.UI.Panels
             Form wizard = new ConfigWizard(ExecutionManager,
                                             cfg,
 #if ARCAZE
-                                            execManager.getModuleCache(), 
-                                            getArcazeModuleSettings(), 
+                                            ExecutionManager.getModuleCache(),
+                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(), 
 #endif
                                             dataSetConfig,
                                             dataRow["guid"].ToString()
@@ -398,8 +400,8 @@ namespace MobiFlight.UI.Panels
             {
                 if (dataRow == null) return;
                 // do something special
-                dataRow["fsuipcOffset"] = "0x" + cfg.FSUIPCOffset.ToString("X4");
-                dataRow["arcazeSerial"] = cfg.DisplaySerial;
+                SettingsChanged?.Invoke(cfg, null);
+                RestoreValuesInGridView();
             };
         }
 
@@ -408,7 +410,7 @@ namespace MobiFlight.UI.Panels
         /// </summary>        
         void ConfigDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            SettingsChanged?.Invoke(sender, null);
+            if (e.Action==DataRowAction.Add) SettingsChanged?.Invoke(sender, null);
         } //configDataTable_RowChanged
 
         private void ConfigDataTable_TableNewRow(object sender, DataTableNewRowEventArgs e)
@@ -447,20 +449,20 @@ namespace MobiFlight.UI.Panels
                     switch(cfgItem.DisplayType)
                     {
                         case MobiFlightLedModule.TYPE:
-                            row["Output"] = cfgItem.DisplayLedAddress;
+                            row["OutputName"] = cfgItem.DisplayLedAddress;
                             break;
                         case "Pin":
                         case MobiFlightOutput.TYPE:
-                            row["Output"] = cfgItem.DisplayPin;
+                            row["OutputName"] = cfgItem.DisplayPin;
                             break;
                         case MobiFlightLcdDisplay.TYPE:
-                            row["Output"] = cfgItem.LcdDisplay.Address;
+                            row["OutputName"] = cfgItem.LcdDisplay.Address;
                             break;
                         case MobiFlightServo.TYPE:
-                            row["Output"] = cfgItem.ServoAddress;
+                            row["OutputName"] = cfgItem.ServoAddress;
                             break;
                         case MobiFlightStepper.TYPE:
-                            row["Output"] = cfgItem.StepperAddress;
+                            row["OutputName"] = cfgItem.StepperAddress;
                             break;
                     }
                 }
