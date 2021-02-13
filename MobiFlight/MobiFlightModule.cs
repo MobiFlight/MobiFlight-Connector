@@ -232,8 +232,8 @@ namespace MobiFlight
             _transportLayer = new SerialTransport
             //_transportLayer = new SerialPortManager
             {
-                CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
-                //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = true } // object initializer
+                //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
+                CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = true } // object initializer
             };
 
             _cmdMessenger = new CmdMessenger(_transportLayer)
