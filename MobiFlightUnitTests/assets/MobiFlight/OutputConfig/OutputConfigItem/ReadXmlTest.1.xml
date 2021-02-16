@@ -2,7 +2,7 @@
 <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=6.4.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
   <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" multiplier="1" bcdMode="True" />
   <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
-  <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+  <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" ledBrightnessMode="True"/>
   <preconditions />
   <transformation expression="$+123" substrStart="3" substrEnd="5" />
 </settings>

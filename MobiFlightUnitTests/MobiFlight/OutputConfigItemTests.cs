@@ -53,6 +53,7 @@ namespace MobiFlight.Tests
             oci.ReadXml(xmlReader);
             Assert.AreEqual(oci.Transform.Active, true);
             Assert.AreEqual(oci.Transform.Expression, "$*123");
+            Assert.AreEqual(oci.DisplayLedSetBrightnessMode, true);
 
             // read problem with missing configrefs
             s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.3.xml");
@@ -129,6 +130,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.DisplayLedReverseDigits, c.DisplayLedReverseDigits, "clone: DisplayLedReverseDigits not the same");
             Assert.AreEqual(o.DisplayLedPaddingChar, c.DisplayLedPaddingChar, "clone: DisplayLedPaddingChar not the same");
             Assert.AreEqual(o.DisplayLedModuleSize, c.DisplayLedModuleSize, "clone: DisplayLedModuleSize not the same");
+            Assert.AreEqual(o.DisplayLedSetBrightnessMode, c.DisplayLedSetBrightnessMode, "clone: DisplayLedSetBrightnessMode is not the same");
             
             Assert.AreEqual(o.DisplayLedDigits[0], c.DisplayLedDigits[0], "clone: DisplayLedDigits not the same");
             Assert.AreEqual(o.DisplayLedDecimalPoints[0], c.DisplayLedDecimalPoints[0], "clone: DisplayLedDecimalPoints not the same");
@@ -187,7 +189,7 @@ namespace MobiFlight.Tests
             o.DisplayLedModuleSize = 7;
             o.DisplayLedDigits = new List<string>() { "1", "2" };
             o.DisplayLedDecimalPoints = new List<string>() { "3", "4" };
-
+            o.DisplayLedSetBrightnessMode = true; // testing with true as default is false
             o.BcdPins = new List<string>() { "Moop" };
             o.Interpolation = new Interpolation();
             o.Interpolation.Active = true;

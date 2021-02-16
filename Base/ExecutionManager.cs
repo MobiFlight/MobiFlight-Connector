@@ -673,7 +673,7 @@ namespace MobiFlight
         private ConnectorValue ExecuteTransform(ConnectorValue value, OutputConfigItem cfg)
         {
             double tmpValue;
-            List<Tuple<string, string>> configRefs = GetRefs(cfg.ConfigRefs);
+            List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
 
             switch (value.type)
             {
@@ -703,7 +703,7 @@ namespace MobiFlight
         private string ExecuteComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
         {
             string result = null;
-            List<Tuple<string, string>> configRefs = GetRefs(cfg.ConfigRefs);
+            List< ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
 
             if (connectorValue.type == FSUIPCOffsetType.String)
             {
@@ -758,9 +758,9 @@ namespace MobiFlight
             {
                 result = result.Replace("$", value.ToString());
 
-                foreach (Tuple<string, string> configRef in configRefs)
+                foreach (ConfigRefValue configRef in configRefs)
                 {
-                    result = result.Replace(configRef.Item1, configRef.Item2);
+                    result = result.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
                 }
 
                 var ce = new NCalc.Expression(result);
@@ -850,10 +850,10 @@ namespace MobiFlight
             {
                 switch (cfg.DisplayType)
                 {
-                    case ArcazeLedDigit.TYPE:
-                        if (cfg.DisplayLedSetBrightnessMode)
+                    case ArcazeLedDigit.TYPE:                        
+                        if (!string.IsNullOrEmpty(cfg.DisplayLedBrighntessReference))
                         {
-                            mobiFlightCache.setDisplayBrightness(serial, cfg.DisplayLedAddress, value);
+                            mobiFlightCache.setDisplayBrightness(serial, cfg.DisplayLedAddress, cfg.DisplayLedBrighntessReference, GetRefs(cfg.ConfigRefs));
                         }
                         else
                         {
@@ -923,15 +923,15 @@ namespace MobiFlight
             return value.ToString();
         }
 
-        private List<Tuple<string, string>> GetRefs(List<ConfigRef> configRefs)
+        private List<ConfigRefValue> GetRefs(List<ConfigRef> configRefs)
         {
-            List<Tuple<String, String>> result = new List<Tuple<string, string>>();
+            List<ConfigRefValue> result = new List<ConfigRefValue>();
             foreach(ConfigRef c in configRefs)
             {
                 if (!c.Active) continue;
                 String s = FindValueForRef(c.Ref);
                 if (s == null) continue;
-                result.Add(new Tuple<string,string>(c.Placeholder, s));
+                result.Add(new ConfigRefValue(c, s));
             }
             return result;
         }
@@ -1349,4 +1349,18 @@ namespace MobiFlight
         }
 #endif
             }
+
+    public class ConfigRefValue
+    {
+
+        public ConfigRefValue() { }
+        public ConfigRefValue(ConfigRef c, string value) {
+            this.Value = value;
+            this.ConfigRef = c.Clone() as ConfigRef;
+        }
+
+        public string Value { get; set; }
+        public ConfigRef ConfigRef { get; set; }
+        
+    }
 }

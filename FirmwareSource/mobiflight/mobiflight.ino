@@ -923,11 +923,8 @@ void OnSetModule()
 void OnSetModuleBrightness()
 {
   int module = cmdMessenger.readIntArg();
-  int brightness = cmdMessenger.readIntArg();
-
-  for (int i=0; i<8; ++i) {
-    ledSegments[module].setBrightness(i, brightness);    
-  }
+  int brightness = cmdMessenger.readIntArg();  
+  ledSegments[module].setBrightness(brightness);      
   lastCommand = millis();
 }
 #endif

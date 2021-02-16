@@ -6,12 +6,14 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight.Base;
 
 namespace MobiFlight.UI.Panels
 {
     public partial class DisplayLedDisplayPanel : UserControl
     {
         public bool WideStyle = false;
+        DataView RefsDataView = null; // Used to resolve names... Is there a better way? We should probably move that to some base part of mobiflight.
 
         public DisplayLedDisplayPanel()
         {
@@ -22,7 +24,7 @@ namespace MobiFlight.UI.Panels
         {
             // preselect display stuff
             if (config.DisplayLedAddress != null)
-            { 
+            {
                 if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
                 {
                     // TODO: provide error message
@@ -59,13 +61,38 @@ namespace MobiFlight.UI.Panels
                 (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
 
-            if (config.DisplayLedSetBrightnessMode)
+
+            // TODO: Show a hint if no references are available?
+            List<ListItem> configRefs = new List<ListItem>();
+            configRefs.Add(new ListItem { Value = string.Empty, Label = "<None>" });
+            foreach (DataRow refRow in RefsDataView.Table.Rows)
             {
-                displayLedBrightnessModeCheckbox.Checked = true;
-                SetLedSegmentDisplayState(!displayLedBrightnessModeCheckbox.Checked);
+                configRefs.Add(new ListItem { Value = ((Guid)refRow["guid"]).ToString(), Label = refRow["description"] as string });
+            }
+
+            brightnessDropDown.DataSource = configRefs;
+            brightnessDropDown.DisplayMember = "Label";
+            brightnessDropDown.ValueMember = "Value";
+
+            if (!string.IsNullOrEmpty(config.DisplayLedBrighntessReference))
+            {
+                brightnessDropDown.SelectedValue = config.DisplayLedBrighntessReference;
             }
         }
-    
+
+        private string ResolveRefName(string refGuidStr)
+        {
+            if (RefsDataView != null)
+            {
+                var found = RefsDataView.Find(refGuidStr);
+                if (found >= 0)
+                {
+                    return RefsDataView[found].Row.Field<string>("description");
+                }
+
+            }
+            return string.Empty;
+        }
 
         public void SetPaddingChar(String prefix)
         {
@@ -94,7 +121,7 @@ namespace MobiFlight.UI.Panels
             if (pins.Count > 0)
                 displayLedConnectorComboBox.SelectedIndex = 0;
 
-            displayLedConnectorComboBox.Enabled = pins.Count > 0;            
+            displayLedConnectorComboBox.Enabled = pins.Count > 0;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,9 +145,11 @@ namespace MobiFlight.UI.Panels
         public string GetPaddingChar()
         {
             String result = "0";
-            
-            switch (PaddingCharComboBox.SelectedIndex) {
-                case 1: result = " ";
+
+            switch (PaddingCharComboBox.SelectedIndex)
+            {
+                case 1:
+                    result = " ";
                     break;
             }
 
@@ -131,13 +160,13 @@ namespace MobiFlight.UI.Panels
         {
             config.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
 
-            if (displayLedBrightnessModeCheckbox.Checked)
+            if (brightnessDropDown.SelectedIndex <= 0)
             {
-                config.DisplayLedSetBrightnessMode = displayLedBrightnessModeCheckbox.Checked;
+                config.DisplayLedBrighntessReference = string.Empty;
             }
             else
             {
-                config.DisplayLedSetBrightnessMode = false;
+                config.DisplayLedBrighntessReference = brightnessDropDown.SelectedValue.ToString();
 
                 config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
                 config.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
@@ -172,22 +201,10 @@ namespace MobiFlight.UI.Panels
             return config;
         }
 
-        private void brightnessCheckbox_CheckedChanged(object sender, EventArgs e)
+        internal void SetConfigRefsDataView(DataView dv)
         {
-            if (displayLedBrightnessModeCheckbox.Checked)
-            {
-                SetLedSegmentDisplayState(false);
-            }
-            else
-            {
-                SetLedSegmentDisplayState(true);
-            }
-        }
-
-        private void SetLedSegmentDisplayState(bool enabled)
-        {
-            displayLedGroupFlowLayoutPanel.Enabled = enabled;
-            displayLedConnectorComboBox.Enabled = enabled;
+            RefsDataView = dv;
+            RefsDataView.Sort = "guid";
         }
     }
 }

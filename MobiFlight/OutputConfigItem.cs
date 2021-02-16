@@ -51,7 +51,7 @@ namespace MobiFlight
         public List<string> DisplayLedDigits            { get; set; }
         public List<string> DisplayLedDecimalPoints     { get; set; }
         public bool         DisplayLedReverseDigits     { get; set; }
-        public bool         DisplayLedSetBrightnessMode { get; set; }
+        public string       DisplayLedBrighntessReference { get; set; }
 
 
         // the lcd display stuff
@@ -102,7 +102,7 @@ namespace MobiFlight
             DisplayLedAddress = "0";
             DisplayLedPadding = false;
             DisplayLedReverseDigits = false;
-            DisplayLedSetBrightnessMode = false;
+            DisplayLedBrighntessReference = string.Empty;
             DisplayLedPaddingChar = "0";
             DisplayLedModuleSize = 8;
             DisplayLedDigits = new List<string>();
@@ -222,9 +222,9 @@ namespace MobiFlight
                     {
                         DisplayLedReverseDigits = Boolean.Parse(reader["ledReverseDigits"]);
                     }
-                    if (reader["ledBrightnessMode"] != null && reader["ledBrightnessMode"] != "")
+                    if (reader["ledBrightnessRef"] != null && reader["ledBrightnessRef"] != "")
                     {
-                        DisplayLedSetBrightnessMode = Boolean.Parse(reader["ledBrightnessMode"]);
+                        DisplayLedBrighntessReference = reader["ledBrightnessRef"];
                     }
 
                     if (reader["ledPaddingChar"] != null && reader["ledPaddingChar"] != "")
@@ -404,8 +404,8 @@ namespace MobiFlight
                     writer.WriteAttributeString("ledPadding", DisplayLedPadding.ToString());
                     if (DisplayLedReverseDigits)
                         writer.WriteAttributeString("ledReverseDigits", DisplayLedReverseDigits.ToString());
-                    if (DisplayLedSetBrightnessMode)
-                        writer.WriteAttributeString("ledBrightnessMode", DisplayLedSetBrightnessMode.ToString());
+                    if (!string.IsNullOrEmpty(DisplayLedBrighntessReference))
+                        writer.WriteAttributeString("ledBrightnessRef", DisplayLedBrighntessReference.ToString());
 
                     writer.WriteAttributeString("ledPaddingChar", DisplayLedPaddingChar);
 
@@ -494,7 +494,8 @@ namespace MobiFlight
             clone.DisplayLedPaddingChar     = this.DisplayLedPaddingChar;
             clone.DisplayLedDigits          = new List<string>(this.DisplayLedDigits); // we have to create an new object to clone, fix for https://forge.simple-solutions.de/issues/307
             clone.DisplayLedDecimalPoints   = new List<string>(this.DisplayLedDecimalPoints);
-            // the bcd driver stuff
+            clone.DisplayLedBrighntessReference = this.DisplayLedBrighntessReference;
+            
             clone.BcdPins                   = new List<string>(this.BcdPins);
 
             clone.DisplayTrigger            = this.DisplayTrigger;

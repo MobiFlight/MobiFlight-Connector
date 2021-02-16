@@ -243,6 +243,8 @@ namespace MobiFlight.UI.Dialogs
             }
 
             configRefPanel.SetConfigRefsDataView(dv, filterGuid);
+            displayLedDisplayPanel.SetConfigRefsDataView(dv);
+
             if (dv.Count != 0)
                 noRefConfigsAvailableLabel.Visible = false;
         }

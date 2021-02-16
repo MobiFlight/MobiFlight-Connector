@@ -279,6 +279,8 @@ namespace MobiFlight
                         
             foreach (Config.BaseDevice device in Config.Items)
             {
+                if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
+
                 String deviceName = device.Name;
                 switch(device.Type) {
                     case DeviceType.LedModule:
