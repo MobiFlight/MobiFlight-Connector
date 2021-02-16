@@ -40,6 +40,7 @@ namespace MobiFlight.UI
         private bool _onClosing = false;
         private readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector.xml";
         private readonly string MobiFlightUpdateBetasUrl = "https://www.mobiflight.com/tl_files/download/releases/beta/mobiflightconnector.xml";
+        private readonly string MobiFlightUpdateDebugUrl = "https://www.mobiflight.com/tl_files/download/releases/debug/mobiflightconnector.xml";
 
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
@@ -417,6 +418,10 @@ namespace MobiFlight.UI
 
             String updateUrl = MobiFlightUpdateUrl;
             if (Properties.Settings.Default.BetaUpdates) updateUrl = MobiFlightUpdateBetasUrl;
+#if DEBUG
+            if (Properties.Settings.Default.BetaUpdates) updateUrl = MobiFlightUpdateDebugUrl;
+#endif
+            AutoUpdater.DownloadPath = Environment.CurrentDirectory;
             AutoUpdater.Start(updateUrl + trackingParams + "1");
         }
 
