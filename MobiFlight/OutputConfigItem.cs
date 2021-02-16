@@ -51,7 +51,7 @@ namespace MobiFlight
         public List<string> DisplayLedDigits            { get; set; }
         public List<string> DisplayLedDecimalPoints     { get; set; }
         public bool         DisplayLedReverseDigits     { get; set; }
-        public string       DisplayLedBrighntessReference { get; set; }
+        public string       DisplayLedBrightnessReference { get; set; }
 
 
         // the lcd display stuff
@@ -102,7 +102,7 @@ namespace MobiFlight
             DisplayLedAddress = "0";
             DisplayLedPadding = false;
             DisplayLedReverseDigits = false;
-            DisplayLedBrighntessReference = string.Empty;
+            DisplayLedBrightnessReference = string.Empty;
             DisplayLedPaddingChar = "0";
             DisplayLedModuleSize = 8;
             DisplayLedDigits = new List<string>();
@@ -224,7 +224,7 @@ namespace MobiFlight
                     }
                     if (reader["ledBrightnessRef"] != null && reader["ledBrightnessRef"] != "")
                     {
-                        DisplayLedBrighntessReference = reader["ledBrightnessRef"];
+                        DisplayLedBrightnessReference = reader["ledBrightnessRef"];
                     }
 
                     if (reader["ledPaddingChar"] != null && reader["ledPaddingChar"] != "")
@@ -404,8 +404,8 @@ namespace MobiFlight
                     writer.WriteAttributeString("ledPadding", DisplayLedPadding.ToString());
                     if (DisplayLedReverseDigits)
                         writer.WriteAttributeString("ledReverseDigits", DisplayLedReverseDigits.ToString());
-                    if (!string.IsNullOrEmpty(DisplayLedBrighntessReference))
-                        writer.WriteAttributeString("ledBrightnessRef", DisplayLedBrighntessReference.ToString());
+                    if (!string.IsNullOrEmpty(DisplayLedBrightnessReference))
+                        writer.WriteAttributeString("ledBrightnessRef", DisplayLedBrightnessReference.ToString());
 
                     writer.WriteAttributeString("ledPaddingChar", DisplayLedPaddingChar);
 
@@ -494,7 +494,7 @@ namespace MobiFlight
             clone.DisplayLedPaddingChar     = this.DisplayLedPaddingChar;
             clone.DisplayLedDigits          = new List<string>(this.DisplayLedDigits); // we have to create an new object to clone, fix for https://forge.simple-solutions.de/issues/307
             clone.DisplayLedDecimalPoints   = new List<string>(this.DisplayLedDecimalPoints);
-            clone.DisplayLedBrighntessReference = this.DisplayLedBrighntessReference;
+            clone.DisplayLedBrightnessReference = this.DisplayLedBrightnessReference;
             
             clone.BcdPins                   = new List<string>(this.BcdPins);
 

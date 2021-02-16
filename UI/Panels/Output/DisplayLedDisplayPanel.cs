@@ -74,9 +74,9 @@ namespace MobiFlight.UI.Panels
             brightnessDropDown.DisplayMember = "Label";
             brightnessDropDown.ValueMember = "Value";
 
-            if (!string.IsNullOrEmpty(config.DisplayLedBrighntessReference))
+            if (!string.IsNullOrEmpty(config.DisplayLedBrightnessReference))
             {
-                brightnessDropDown.SelectedValue = config.DisplayLedBrighntessReference;
+                brightnessDropDown.SelectedValue = config.DisplayLedBrightnessReference;
             }
         }
 
@@ -162,11 +162,11 @@ namespace MobiFlight.UI.Panels
 
             if (brightnessDropDown.SelectedIndex <= 0)
             {
-                config.DisplayLedBrighntessReference = string.Empty;
+                config.DisplayLedBrightnessReference = string.Empty;
             }
             else
             {
-                config.DisplayLedBrighntessReference = brightnessDropDown.SelectedValue.ToString();
+                config.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
 
                 config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
                 config.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;

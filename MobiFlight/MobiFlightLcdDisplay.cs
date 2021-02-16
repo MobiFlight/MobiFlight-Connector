@@ -91,7 +91,7 @@ namespace MobiFlight
                     String cLine = lcdConfig.Lines[line];
                     foreach (ConfigRefValue rep in replacements)
                     {
-                        cLine = _ApplyReplacement(cLine, rep.ConfigRef.Placeholder[0], value);
+                        cLine = _ApplyReplacement(cLine, rep.ConfigRef.Placeholder[0], rep.Value);
                     }
 
                     if (cLine.Length > Cols) { cLine = cLine.Substring(0, Cols); }

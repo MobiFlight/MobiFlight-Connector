@@ -17,7 +17,7 @@ namespace MobiFlight.Tests
         public void ApplyTest()
         {
             Transformation t = new Transformation();
-            List<Tuple<string, string>> configRefs = new List<Tuple<string, string>>();
+            List<ConfigRefValue> configRefs = new List<ConfigRefValue>();
 
             t.Expression = "$*0.5";
             Assert.AreEqual(1, t.Apply(1, configRefs));

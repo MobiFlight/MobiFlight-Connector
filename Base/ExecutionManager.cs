@@ -851,9 +851,9 @@ namespace MobiFlight
                 switch (cfg.DisplayType)
                 {
                     case ArcazeLedDigit.TYPE:                        
-                        if (!string.IsNullOrEmpty(cfg.DisplayLedBrighntessReference))
+                        if (!string.IsNullOrEmpty(cfg.DisplayLedBrightnessReference))
                         {
-                            mobiFlightCache.setDisplayBrightness(serial, cfg.DisplayLedAddress, cfg.DisplayLedBrighntessReference, GetRefs(cfg.ConfigRefs));
+                            mobiFlightCache.setDisplayBrightness(serial, cfg.DisplayLedAddress, cfg.DisplayLedBrightnessReference, GetRefs(cfg.ConfigRefs));
                         }
                         else
                         {
