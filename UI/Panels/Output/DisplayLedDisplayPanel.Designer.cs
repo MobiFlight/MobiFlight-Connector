@@ -70,10 +70,13 @@
             this.displayLedGroupFlowLayoutPanel = new System.Windows.Forms.GroupBox();
             this.brightnessDropDown = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.displayLedDecimalPointFlowLayoutPanel.SuspendLayout();
             this.displayLedDigitFlowLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.displayLedGroupFlowLayoutPanel.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayLedDigit7CheckBox
@@ -343,12 +346,9 @@
             // 
             // displayLedGroupFlowLayoutPanel
             // 
-            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.brightnessDropDown);
-            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.label1);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDigitFlowLayoutPanel);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.label5);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDecimalPointLabel);
-            this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedReverseDigitsCheckBox);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel7);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel6);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDecimalPointFlowLayoutPanel);
@@ -384,10 +384,26 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.displayLedReverseDigitsCheckBox);
+            this.groupBox1.Controls.Add(this.brightnessDropDown);
+            this.groupBox1.Controls.Add(this.label1);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
             // DisplayLedDisplayPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.displayLedGroupFlowLayoutPanel);
             this.Controls.Add(this.ledDisplayComboBoxLabel);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -399,6 +415,8 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.displayLedGroupFlowLayoutPanel.ResumeLayout(false);
             this.displayLedGroupFlowLayoutPanel.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -447,5 +465,7 @@
         private System.Windows.Forms.GroupBox displayLedGroupFlowLayoutPanel;
         public System.Windows.Forms.ComboBox brightnessDropDown;
         public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.Label label2;
     }
 }

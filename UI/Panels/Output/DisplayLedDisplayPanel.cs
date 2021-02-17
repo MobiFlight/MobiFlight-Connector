@@ -193,9 +193,7 @@ namespace MobiFlight.UI.Panels
         internal void SetConfigRefsDataView(DataView dv, string filterGuid)
         {            
             this.filterReferenceGuid = filterGuid==null?string.Empty:filterGuid;
-            RefsDataView = dv;
-            //RefsDataView.Sort = "guid";
-            
+            RefsDataView = dv;                        
         }
     }
 }
