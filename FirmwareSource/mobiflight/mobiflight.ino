@@ -905,7 +905,7 @@ void OnInitModule()
   int module = cmdMessenger.readIntArg();
   int subModule = cmdMessenger.readIntArg();  
   int brightness = cmdMessenger.readIntArg();
-  ledSegments[module].setBrightness(subModule,brightness);
+  ledSegments[module].setBrightness(brightness);
   lastCommand = millis();
 }
 
