@@ -42,8 +42,8 @@ void MFSegments::attach(int dataPin, int csPin, int clkPin, int moduleCount, int
   _ledControl = new LedControl(dataPin, clkPin, csPin, moduleCount);
   _initialized = true;
   _moduleCount = moduleCount;
-  for (int i=0; i!=_moduleCount; ++i) {
-    setBrightness(i, brightness);
+  setBrightness(brightness);
+  for (int i=0; i!=_moduleCount; ++i) {    
     _ledControl->shutdown(i,false);
     _ledControl->clearDisplay(i);
   }
