@@ -13,6 +13,7 @@ namespace MobiFlight.UI.Panels
     public partial class DisplayLedDisplayPanel : UserControl
     {
         public bool WideStyle = false;
+        private string filterReferenceGuid;
         DataView RefsDataView = null; // Used to resolve names... Is there a better way? We should probably move that to some base part of mobiflight.
 
         public DisplayLedDisplayPanel()
@@ -61,13 +62,15 @@ namespace MobiFlight.UI.Panels
                 (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
 
-
-            // TODO: Show a hint if no references are available?
             List<ListItem> configRefs = new List<ListItem>();
             configRefs.Add(new ListItem { Value = string.Empty, Label = "<None>" });
             foreach (DataRow refRow in RefsDataView.Table.Rows)
             {
-                configRefs.Add(new ListItem { Value = ((Guid)refRow["guid"]).ToString(), Label = refRow["description"] as string });
+
+                if (!filterReferenceGuid.Equals(refRow["guid"].ToString()))
+                {
+                    configRefs.Add(new ListItem { Value = ((Guid)refRow["guid"]).ToString(), Label = refRow["description"] as string });
+                }                
             }
 
             brightnessDropDown.DataSource = configRefs;
@@ -78,20 +81,6 @@ namespace MobiFlight.UI.Panels
             {
                 brightnessDropDown.SelectedValue = config.DisplayLedBrightnessReference;
             }
-        }
-
-        private string ResolveRefName(string refGuidStr)
-        {
-            if (RefsDataView != null)
-            {
-                var found = RefsDataView.Find(refGuidStr);
-                if (found >= 0)
-                {
-                    return RefsDataView[found].Row.Field<string>("description");
-                }
-
-            }
-            return string.Empty;
         }
 
         public void SetPaddingChar(String prefix)
@@ -201,10 +190,12 @@ namespace MobiFlight.UI.Panels
             return config;
         }
 
-        internal void SetConfigRefsDataView(DataView dv)
-        {
+        internal void SetConfigRefsDataView(DataView dv, string filterGuid)
+        {            
+            this.filterReferenceGuid = filterGuid==null?string.Empty:filterGuid;
             RefsDataView = dv;
-            RefsDataView.Sort = "guid";
+            //RefsDataView.Sort = "guid";
+            
         }
     }
 }
