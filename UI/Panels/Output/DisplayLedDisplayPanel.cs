@@ -148,45 +148,43 @@ namespace MobiFlight.UI.Panels
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             config.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
+            config.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
 
+            config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
+            config.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
+            config.DisplayLedPaddingChar = GetPaddingChar();
+            try
+            {
+                config.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
+                config.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
+            }
+            catch (FormatException e)
+            {
+                Log.Instance.log("_syncFormToConfig : Parsing values", LogSeverity.Debug);
+            }
+            config.DisplayLedDigits.Clear();
+            config.DisplayLedDecimalPoints.Clear();
+            for (int i = 0; i < 8; i++)
+            {
+                CheckBox cb = (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
+                if (cb.Checked)
+                {
+                    config.DisplayLedDigits.Add(i.ToString());
+                } //if
+
+                cb = (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
+                if (cb.Checked)
+                {
+                    config.DisplayLedDecimalPoints.Add(i.ToString());
+                } //if
+            }
             if (brightnessDropDown.SelectedIndex <= 0)
             {
                 config.DisplayLedBrightnessReference = string.Empty;
-            }
-            else
+            } else
             {
                 config.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
-
-                config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
-                config.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
-                config.DisplayLedPaddingChar = GetPaddingChar();
-                try
-                {
-                    config.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
-                    config.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
-                }
-                catch (FormatException e)
-                {
-                    Log.Instance.log("_syncFormToConfig : Parsing values", LogSeverity.Debug);
-                }
-                config.DisplayLedDigits.Clear();
-                config.DisplayLedDecimalPoints.Clear();
-                for (int i = 0; i < 8; i++)
-                {
-                    CheckBox cb = (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
-                    if (cb.Checked)
-                    {
-                        config.DisplayLedDigits.Add(i.ToString());
-                    } //if
-
-                    cb = (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
-                    if (cb.Checked)
-                    {
-                        config.DisplayLedDecimalPoints.Add(i.ToString());
-                    } //if
-                }
             }
-
             return config;
         }
 
