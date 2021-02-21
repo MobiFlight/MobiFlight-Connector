@@ -40,6 +40,7 @@ namespace MobiFlight.SimConnectMSFS
         public Dictionary<String, List<Tuple<String, uint>>> Events { get; private set; }
 
         public String PresetFile = null;
+        public String PresetFileUser = null;
 
         /* public void Clear()
          {
@@ -72,8 +73,11 @@ namespace MobiFlight.SimConnectMSFS
             var GroupKey = "Dummy";
             uint EventIdx = 0;
 
+            Events[GroupKey] = new List<Tuple<String, uint>>();
             foreach (string line in lines)
             {
+                if (line.StartsWith("//")) continue;
+
                 var cols = line.Split(':');
                 if (cols.Length > 1)
                 {
@@ -83,6 +87,26 @@ namespace MobiFlight.SimConnectMSFS
                 }
 
                 Events[GroupKey].Add(new Tuple<string, uint>(cols[0], EventIdx++));
+            }
+
+            if (PresetFileUser == null) PresetFileUser = @"Presets\msfs2020_eventids_user.cip";
+            if (System.IO.File.Exists(PresetFileUser)) { 
+                lines = System.IO.File.ReadAllLines(PresetFileUser);
+                GroupKey = "User";
+                Events[GroupKey] = new List<Tuple<String, uint>>();
+                foreach (string line in lines)
+                {
+                    if (line.StartsWith("//")) continue;
+                    var cols = line.Split(':');
+                    if (cols.Length > 1)
+                    {
+                        GroupKey = cols[0];
+                        Events[GroupKey] = new List<Tuple<String, uint>>();
+                        continue; // we found a group
+                    }
+
+                    Events[GroupKey].Add(new Tuple<string, uint>(cols[0], EventIdx++));
+                }
             }
         } 
 

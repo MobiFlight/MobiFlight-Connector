@@ -766,7 +766,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="Presets\msfs2020_eventids_user.txt.inactive">
+    <None Include="Presets\msfs2020_eventids_user.cip.inactive">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Presets\presets_eventids_pmdg_737.cip">
