@@ -45,6 +45,7 @@ namespace MobiFlight.UI.Panels.Action
 
                     foreach (string line in lines)
                     {
+                        if (line.StartsWith("//")) continue;
                         var cols = line.Split(':');
                         if (cols.Count() == 2) {
                             GroupKey = cols[0];
@@ -68,6 +69,7 @@ namespace MobiFlight.UI.Panels.Action
 
                         foreach (string line in lines)
                         {
+                            if (line.StartsWith("//")) continue;
                             var cols = line.Split(':');
                             if (cols.Count() == 2)
                             {
