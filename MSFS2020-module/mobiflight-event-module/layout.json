@@ -1,14 +1,19 @@
 {
   "content": [
     {
+      "path": "modules/events.code.txt",
+      "size": 259,
+      "date": 132578948261408850
+    },
+    {
       "path": "modules/events.txt",
-      "size": 10710,
-      "date": 132553847047252982
+      "size": 12587,
+      "date": 132569399887803924
     },
     {
       "path": "modules/StandaloneModule.wasm",
-      "size": 766803,
-      "date": 132553848070225380
+      "size": 689489,
+      "date": 132584176791849428
     }
   ]
 }

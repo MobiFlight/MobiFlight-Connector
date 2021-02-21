@@ -13,6 +13,7 @@ namespace MobiFlight.UI.Panels.Action
     public partial class MSFS2020InputPanel : UserControl
     {
         public String PresetFile { get; set; }
+        public String PresetFileUser { get; set; }
         Dictionary<String, List<String>> data = new Dictionary<string, List<String>>();
         ErrorProvider errorProvider = new ErrorProvider();
 
@@ -20,6 +21,7 @@ namespace MobiFlight.UI.Panels.Action
         {
             InitializeComponent();
             PresetFile = Properties.Settings.Default.PresetFileMSFS2020Events;
+            PresetFileUser = Properties.Settings.Default.PresetFileMSFS2020EventsUser;
             _loadPresets();
         }
 
@@ -54,10 +56,38 @@ namespace MobiFlight.UI.Panels.Action
                         }
                     }
 
+                    if (data["Default"].Count == 0) data.Remove("Default");
+
+
+                    if (System.IO.File.Exists(PresetFileUser))
+                    {
+                        Log.Instance.log("MSFS2020InputPanel.cs: User events found.", LogSeverity.Debug);
+                        lines = System.IO.File.ReadAllLines(PresetFileUser);
+                        GroupKey = "User";
+                        data.Add(GroupKey, new List<String>());
+
+                        foreach (string line in lines)
+                        {
+                            var cols = line.Split(':');
+                            if (cols.Count() == 2)
+                            {
+                                GroupKey = "User: " + cols[0];
+                                data.Add(GroupKey, new List<String>());
+                            }
+                            else
+                            {
+                                data[GroupKey].Add(cols[0]);
+                            }
+                        }
+
+                        if (data["User"].Count == 0) data.Remove("User");
+                    } else
+                    {
+                        Log.Instance.log("MSFS2020InputPanel.cs: No user event found.", LogSeverity.Debug);
+                    }
+
                     GroupComboBox.Items.Clear();
                     EventIdComboBox.Items.Clear();
-
-                    if (data["Default"].Count == 0) data.Remove("Default");
 
                     foreach (String key in data.Keys)
                     {

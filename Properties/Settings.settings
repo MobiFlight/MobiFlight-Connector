@@ -78,5 +78,8 @@
     <Setting Name="PresetFileMSFS2020Events" Type="System.String" Scope="User">
       <Value Profile="(Default)">Presets\msfs2020_eventids.cip</Value>
     </Setting>
+    <Setting Name="PresetFileMSFS2020EventsUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Presets\msfs2020_eventids_user.cip</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

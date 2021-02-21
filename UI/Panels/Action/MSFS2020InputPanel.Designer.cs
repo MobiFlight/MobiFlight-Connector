@@ -45,6 +45,8 @@
             // 
             // GroupComboBox
             // 
+            this.GroupComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GroupComboBox.FormattingEnabled = true;
             this.GroupComboBox.Location = new System.Drawing.Point(71, 19);
             this.GroupComboBox.Name = "GroupComboBox";
@@ -54,6 +56,9 @@
             // 
             // EventIdComboBox
             // 
+            this.EventIdComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.EventIdComboBox.DropDownWidth = 300;
             this.EventIdComboBox.FormattingEnabled = true;
             this.EventIdComboBox.Location = new System.Drawing.Point(71, 48);
             this.EventIdComboBox.Name = "EventIdComboBox";
