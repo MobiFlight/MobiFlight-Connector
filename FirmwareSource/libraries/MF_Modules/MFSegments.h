@@ -29,7 +29,7 @@ public:
     void detach();
     void test();
     void powerSavingMode(bool state);
-    void setBrightness(int module, int value);
+    void setBrightness(int value);
     
 private:
     LedControl  *_ledControl;

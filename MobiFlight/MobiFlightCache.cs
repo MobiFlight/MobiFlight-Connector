@@ -472,6 +472,47 @@ namespace MobiFlight
             }
         }
 
+        public void setDisplayBrightness(string serial, string address, string reference,  List<ConfigRefValue> referenceList)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            if (address == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_AddressNull");
+            }
+
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                ArcazeLedDigit ledDigit = new ArcazeLedDigit();
+                MobiFlightModule module = Modules[serial];
+
+                string value = GetValueForReference(reference, referenceList);
+                if (value != null)
+                {
+                    module.SetDisplayBrigtness(address, value);
+                }                
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WritingDisplayBrightness"), e);
+            }
+        }
+
+        private string GetValueForReference(string reference, List<ConfigRefValue> referenceList)
+        {
+            if (referenceList == null)
+            {
+                return null;
+            }
+            var found = referenceList.Find(x => x.ConfigRef.Ref.Equals(reference));
+            return found?.Value;
+        }
+
         public void setServo(string serial, string address, string value, int min, int max, byte maxRotationPercent)
         {
             try
@@ -536,7 +577,7 @@ namespace MobiFlight
         /// <param name="LcdConfig"></param>
         /// <param name="value"></param>
         /// <param name="replacements"></param>
-        public void setLcdDisplay(string serial, OutputConfig.LcdDisplay LcdConfig, string value, List<Tuple<String,String>> replacements)
+        public void setLcdDisplay(string serial, OutputConfig.LcdDisplay LcdConfig, string value, List<ConfigRefValue> replacements)
         {
             if (serial == null)
             {

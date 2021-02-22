@@ -116,7 +116,7 @@ namespace MobiFlight.FSUIPC
         public static ConnectorValue executeTransform(ConnectorValue value, IFsuipcConfigItem cfg)
         {
             double tmpValue;
-            List<Tuple<string, string>> configRefs = new List<Tuple<string, string>>();
+            List<ConfigRefValue> configRefs = new List<ConfigRefValue>();
 
             switch (value.type)
             {

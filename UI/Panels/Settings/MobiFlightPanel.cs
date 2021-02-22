@@ -242,6 +242,8 @@ namespace MobiFlight.UI.Panels.Settings
 
                 foreach (MobiFlight.Config.BaseDevice device in (node.Tag as MobiFlightModule).Config.Items)
                 {
+                    if (device == null) continue; // Happens if working on an older firmware version. Ok.
+
                     TreeNode deviceNode = new TreeNode(device.Name);
                     deviceNode.Tag = device;
                     deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();

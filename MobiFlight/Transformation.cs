@@ -57,7 +57,7 @@ namespace MobiFlight
             return Clone;
         }
 
-        public double Apply(double value, List<Tuple<string, string>> configRefs)
+        public double Apply(double value, List<ConfigRefValue> configRefs)
         {
             double result = value;
 
@@ -66,9 +66,9 @@ namespace MobiFlight
             // we have to use the US culture because "." must be used as decimal separator
             string exp = Expression.Replace("$", value.ToString(new CultureInfo("en-US")));
 
-            foreach (Tuple<string, string> configRef in configRefs)
+            foreach (ConfigRefValue configRef in configRefs)
             {
-                exp = exp.Replace(configRef.Item1, configRef.Item2);
+                exp = exp.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
             }
 
             var ce = new NCalc.Expression(exp);

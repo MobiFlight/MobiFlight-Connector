@@ -256,6 +256,7 @@ enum
   kTrigger,            // 23
   kResetBoard,         // 24
   kSetLcdDisplayI2C,   // 25
+  kSetModuleBrightness // 26
 };
 
 // Callbacks define on which received commands we take action
@@ -267,6 +268,7 @@ void attachCommandCallbacks()
 #if MF_SEGMENT_SUPPORT == 1
   cmdMessenger.attach(kInitModule, OnInitModule);
   cmdMessenger.attach(kSetModule, OnSetModule);
+  cmdMessenger.attach(kSetModuleBrightness, OnSetModuleBrightness);
 #endif 
 
   cmdMessenger.attach(kSetPin, OnSetPin);
@@ -903,7 +905,7 @@ void OnInitModule()
   int module = cmdMessenger.readIntArg();
   int subModule = cmdMessenger.readIntArg();  
   int brightness = cmdMessenger.readIntArg();
-  ledSegments[module].setBrightness(subModule,brightness);
+  ledSegments[module].setBrightness(brightness);
   lastCommand = millis();
 }
 
@@ -915,6 +917,14 @@ void OnSetModule()
   uint8_t points = (uint8_t) cmdMessenger.readIntArg();
   uint8_t mask = (uint8_t) cmdMessenger.readIntArg();
   ledSegments[module].display(subModule, value, points, mask);
+  lastCommand = millis();
+}
+
+void OnSetModuleBrightness()
+{
+  int module = cmdMessenger.readIntArg();
+  int brightness = cmdMessenger.readIntArg();  
+  ledSegments[module].setBrightness(brightness);      
   lastCommand = millis();
 }
 #endif

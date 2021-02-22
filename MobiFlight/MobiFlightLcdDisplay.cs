@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CommandMessenger;
+using MobiFlight.Base;
 using MobiFlight.OutputConfig;
 
 namespace MobiFlight
@@ -74,19 +75,23 @@ namespace MobiFlight
             CmdMessenger.SendCommand(command);
         }
 
-        public string Apply(LcdDisplay lcdConfig, string value, List<Tuple<String, String>> replacements)
+        public string Apply(LcdDisplay lcdConfig, string value, List<ConfigRefValue> replacements)
         {
             String result = "";
-            replacements.Add(new Tuple<string, string>("$", value));
+            replacements.Add(new ConfigRefValue
+            {
+                ConfigRef = new ConfigRef { Placeholder = "$", Ref = "" },
+                Value = value
+            });                                              
 
             for (int line = 0; line != Lines; line++)
             {
                 if (line < lcdConfig.Lines.Count)
                 {
                     String cLine = lcdConfig.Lines[line];
-                    foreach (Tuple<String, String> rep in replacements)
+                    foreach (ConfigRefValue rep in replacements)
                     {
-                        cLine = _ApplyReplacement(cLine, rep.Item1[0], rep.Item2);
+                        cLine = _ApplyReplacement(cLine, rep.ConfigRef.Placeholder[0], rep.Value);
                     }
 
                     if (cLine.Length > Cols) { cLine = cLine.Substring(0, Cols); }
