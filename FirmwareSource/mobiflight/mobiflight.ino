@@ -32,8 +32,9 @@ char foo;
 // 1.9.5 : Increased MAX_BUTTONS for MEGA and Micro Pro.
 // 1.9.6 : Fixed the MAXCALLBACKS for UNO, optimized Build settings for Micro to save memory.
 // 1.9.7 : Increased EEPROM area for storing config
-// 1.9.8 : Decreased EEPROM area again, changed order during reset/load 
-const char version[8] = "1.9.8";
+// 1.9.8 : Decreased EEPROM area again, changed order during reset/load
+// 1.9.9 : Changed MODULE_MAX_PINS and MAX_BUTTONS to 68 (69 is internally needed but it is confusing)
+const char version[8] = "1.9.9";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -61,7 +62,7 @@ const char version[8] = "1.9.8";
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
-#define MODULE_MAX_PINS 69
+#define MODULE_MAX_PINS 68
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -98,7 +99,7 @@ const char version[8] = "1.9.8";
 
 #if MODULETYPE == MTYPE_MEGA
 #define MAX_OUTPUTS     40
-#define MAX_BUTTONS     69
+#define MAX_BUTTONS     68
 #define MAX_LEDSEGMENTS 4
 #define MAX_ENCODERS    20
 #define MAX_STEPPERS    10
@@ -174,7 +175,7 @@ int configLength = 0;
 boolean configActivated = false;
 
 bool powerSavingMode = false;
-uint8_t pinsRegistered[MODULE_MAX_PINS];
+uint8_t pinsRegistered[MODULE_MAX_PINS+1];
 const unsigned long POWER_SAVING_TIME = 60*15; // in seconds
 
 CmdMessenger cmdMessenger = CmdMessenger(Serial);
@@ -428,13 +429,13 @@ void registerPin(uint8_t pin, uint8_t type) {
 }
 
 void clearRegisteredPins(uint8_t type) {
-  for(int i=0; i!=MODULE_MAX_PINS;++i)
+  for(int i=0; i!=MODULE_MAX_PINS+1;++i)
     if (pinsRegistered[i] == type)
       pinsRegistered[i] = kTypeNotSet;
 }
 
 void clearRegisteredPins() {
-  for(int i=0; i!=MODULE_MAX_PINS;++i)
+  for(int i=0; i!=MODULE_MAX_PINS+1;++i)
     pinsRegistered[i] = kTypeNotSet;
 }
 
