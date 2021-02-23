@@ -279,7 +279,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>mobiflight-sign-key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ArcazeHid, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
@@ -761,7 +762,6 @@
     <None Include="firmware\mobiflight_uno_1_9_8.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mobiflight-sign-key.snk" />
     <None Include="Presets\msfs2020_eventids.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
