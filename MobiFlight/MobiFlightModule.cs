@@ -154,7 +154,10 @@ namespace MobiFlight
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
-        public bool Connected { get; set; }
+        private bool connected;
+        public bool Connected {
+            get { return connected; }
+        }
 
         /// <summary>
         /// the look up table with the last set values
@@ -224,7 +227,7 @@ namespace MobiFlight
         {
             if (this.Connected)
             {
-                Log.Instance.log("MobiflightModule.connect: Already connected to " + this.Name + " at " + _comPort + " of Type " + Type, LogSeverity.Info);
+                Log.Instance.log("MobiflightModule.connect: Already connected to " + this.Name + " at " + _comPort + " of Type " + Type, LogSeverity.Warn);
                 return;
             }
 
@@ -252,7 +255,7 @@ namespace MobiFlight
             var status = _cmdMessenger.Connect();
             Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort + " of Type " + Type + " (DTR=>" + _transportLayer.CurrentSerialSettings.DtrEnable + ")", LogSeverity.Info);
             //this.Connected = status;
-            this.Connected = true;
+            this.connected = true;
 
             // workaround ahead!!!
             if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
@@ -276,7 +279,7 @@ namespace MobiFlight
             servoModules.Clear();
             outputs.Clear();
             lcdDisplays.Clear();
-                        
+
             foreach (Config.BaseDevice device in Config.Items)
             {
                 if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
@@ -370,7 +373,7 @@ namespace MobiFlight
                 return;
             }
 
-            this.Connected = false;
+            this.connected = false;
             
 #if COMMAND_MESSENGER_3_6    
             _cmdMessenger.Disconnect();

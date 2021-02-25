@@ -7,7 +7,7 @@ namespace MobiFlight
 {
     public interface IModule
     {
-        bool Connected { get; set; }
+        bool Connected { get; }
         void Connect();
         void Disconnect();
         IModuleInfo GetInfo();

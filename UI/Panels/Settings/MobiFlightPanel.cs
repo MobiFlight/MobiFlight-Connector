@@ -240,6 +240,8 @@ namespace MobiFlight.UI.Panels.Settings
                 node.Tag = mobiflightCache.GetModule(module);
                 node.Nodes.Clear();
 
+                if (null == (node.Tag as MobiFlightModule).Config) return node;
+
                 foreach (MobiFlight.Config.BaseDevice device in (node.Tag as MobiFlightModule).Config.Items)
                 {
                     if (device == null) continue; // Happens if working on an older firmware version. Ok.
