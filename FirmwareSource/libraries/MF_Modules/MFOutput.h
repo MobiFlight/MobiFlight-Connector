@@ -23,11 +23,11 @@ class MFOutput
 {
 public:
     MFOutput(uint8_t pin = 1);
-    void set(bool state);
+    void set(uint8_t value);
     void powerSavingMode(bool state);
     
 private:
     uint8_t       _pin;
-    bool          _state;
+    uint8_t       _value;
 };
 #endif 

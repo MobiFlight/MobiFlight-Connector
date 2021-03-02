@@ -472,7 +472,7 @@ namespace MobiFlight
             }
         }
 
-        public void setDisplayBrightness(string serial, string address, string reference,  List<ConfigRefValue> referenceList)
+        public void setDisplayBrightness(string serial, string address, byte connector, string value)
         {
             if (serial == null)
             {
@@ -491,10 +491,9 @@ namespace MobiFlight
                 ArcazeLedDigit ledDigit = new ArcazeLedDigit();
                 MobiFlightModule module = Modules[serial];
 
-                string value = GetValueForReference(reference, referenceList);
                 if (value != null)
                 {
-                    module.SetDisplayBrigtness(address, value);
+                    module.SetDisplayBrightness(address, connector - 1, value);
                 }                
             }
             catch (Exception e)

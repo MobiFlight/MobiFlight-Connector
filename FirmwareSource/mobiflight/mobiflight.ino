@@ -34,6 +34,7 @@ char foo;
 // 1.9.7 : Increased EEPROM area for storing config
 // 1.9.8 : Decreased EEPROM area again, changed order during reset/load
 // 1.9.9 : Changed MODULE_MAX_PINS and MAX_BUTTONS to 68 (69 is internally needed but it is confusing)
+//         Added PWM output
 const char version[8] = "1.9.9";
 
 //#define DEBUG 1
@@ -896,7 +897,7 @@ void OnSetPin()
   int pin = cmdMessenger.readIntArg();
   int state = cmdMessenger.readIntArg();
   // Set led
-  digitalWrite(pin, state > 0 ? HIGH : LOW);
+  analogWrite(pin, state);
   lastCommand = millis();
 }
 
@@ -906,7 +907,7 @@ void OnInitModule()
   int module = cmdMessenger.readIntArg();
   int subModule = cmdMessenger.readIntArg();  
   int brightness = cmdMessenger.readIntArg();
-  ledSegments[module].setBrightness(brightness);
+  ledSegments[module].setBrightness(subModule, brightness);
   lastCommand = millis();
 }
 
@@ -924,8 +925,9 @@ void OnSetModule()
 void OnSetModuleBrightness()
 {
   int module = cmdMessenger.readIntArg();
+  int subModule = cmdMessenger.readIntArg();  
   int brightness = cmdMessenger.readIntArg();  
-  ledSegments[module].setBrightness(brightness);      
+  ledSegments[module].setBrightness(subModule, brightness);      
   lastCommand = millis();
 }
 #endif

@@ -54,7 +54,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display( int subModule, String value, byte points, byte mask )
+        public void Display(int subModule, String value, byte points, byte mask )
         {
             if (!_initialized) Initialize();
 
@@ -80,7 +80,7 @@ namespace MobiFlight
             CmdMessenger.SendCommand(command);
         }
 
-        public void DisplayBrigtness(String value)
+        public void SetBrightness(int subModule, String value)
         {
             if (!_initialized) Initialize();
 
@@ -89,10 +89,12 @@ namespace MobiFlight
             // clamp and reverse the string
             if (value.Length > 8) value = value.Substring(0, 8);
             command.AddArgument(this.ModuleNumber);
+            command.AddArgument(subModule);
             command.AddArgument(value);
 
             Log.Instance.log("Command: SetModuleBrightness <" + (int)MobiFlightModule.Command.SetModuleBrightness + "," +
                                                       this.ModuleNumber + "," +
+                                                      subModule +"," +
                                                       value + ";>", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);

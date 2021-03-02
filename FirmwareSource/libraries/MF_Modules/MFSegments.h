@@ -25,11 +25,11 @@ class MFSegments
 public:
     MFSegments();
     void display(byte module, char *string, byte points, byte mask, bool convertPoints = false);
-    void attach(int dataPin, int csPin, int clkPin, int moduleCount, int brightness);
+    void attach(int dataPin, int csPin, int clkPin, byte moduleCount, byte brightness);
     void detach();
     void test();
     void powerSavingMode(bool state);
-    void setBrightness(int value);
+    void setBrightness(byte module, byte value);
     
 private:
     LedControl  *_ledControl;

@@ -515,16 +515,16 @@ namespace MobiFlight
             return true;
         }
 
-        public bool SetDisplayBrigtness(string name, string value)
+        public bool SetDisplayBrightness(string name, int module, string value)
         {
-            String key = "LEDBrightness_" + name;
+            String key = "LEDBrightness_" + name + "_" + module;
             String cachedValue = value;
 
             if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
                 lastValue[key] == cachedValue) return false;
 
             lastValue[key] = cachedValue;
-            ledModules[name].DisplayBrigtness(value);
+            ledModules[name].SetBrightness(module, value);
             return true;
         }
 

@@ -854,16 +854,29 @@ namespace MobiFlight
                         
                         
                         var val = value.PadRight(cfg.DisplayLedDigits.Count, cfg.DisplayLedPaddingChar[0]);
+                        var decimalPoints = cfg.DisplayLedDecimalPoints;
+
                         if (cfg.DisplayLedPadding) val = value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]);
 
                         if (!string.IsNullOrEmpty(cfg.DisplayLedBrightnessReference))
                         {
-                            mobiFlightCache.setDisplayBrightness(serial, cfg.DisplayLedAddress, cfg.DisplayLedBrightnessReference, GetRefs(cfg.ConfigRefs));
+                            string refValue = FindValueForRef(cfg.DisplayLedBrightnessReference);
+                            
+                            mobiFlightCache.setDisplayBrightness(
+                                serial, 
+                                cfg.DisplayLedAddress, 
+                                cfg.DisplayLedConnector,
+                                refValue
+                                );
                         }
 
                         if (cfg.DisplayLedReverseDigits)
                         {
-                            val = new string(value.ToCharArray().Reverse().ToArray());
+                            val = new string(val.ToCharArray().Reverse().ToArray());
+                            for (int i=0; i!= decimalPoints.Count; i++)
+                            {
+                                decimalPoints[i] = (7 - int.Parse(decimalPoints[i])).ToString();
+                            };
                         }
 
                         mobiFlightCache.setDisplay(
@@ -871,7 +884,7 @@ namespace MobiFlight
                             cfg.DisplayLedAddress,
                             cfg.DisplayLedConnector,
                             cfg.DisplayLedDigits,
-                            cfg.DisplayLedDecimalPoints,
+                            decimalPoints,
                             val);
                         
                         break;
@@ -916,7 +929,7 @@ namespace MobiFlight
                     default:
                         mobiFlightCache.setValue(serial,
                             cfg.DisplayPin,
-                            (value != "0" ? cfg.DisplayPinBrightness.ToString() : "0"));
+                            (value != "0" ? value : "0"));
                         break;
                 }
             }
@@ -1268,7 +1281,7 @@ namespace MobiFlight
                     break;
 
                 default:
-                    ExecuteDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "8", cfg);
+                    ExecuteDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "255", cfg);
                     break;
             }
         }

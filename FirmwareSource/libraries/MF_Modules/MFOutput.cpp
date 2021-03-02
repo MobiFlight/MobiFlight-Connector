@@ -7,19 +7,19 @@
 MFOutput::MFOutput(uint8_t pin)
 {   
   _pin  = pin;
-  _state = false;
+  _value = false;
   pinMode(_pin, OUTPUT);    // set pin to input
-  set(_state);
+  set(_value);
 }
 
-void MFOutput::set(bool state)
+void MFOutput::set(uint8_t value)
 {
-  _state = state;
-  digitalWrite(_pin, (_state) ? HIGH : LOW);
+  _value = value;
+  analogWrite(_pin, _value);
 }
 
 void MFOutput::powerSavingMode(bool state) 
 {
-  if (state) digitalWrite(_pin, LOW);
-  else set(_state);
+  if (state) set(0);
+  else set(_value);
 }

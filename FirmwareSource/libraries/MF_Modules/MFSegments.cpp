@@ -19,31 +19,26 @@ void MFSegments::display(byte module, char *string, byte points, byte mask, bool
   for(int i=0; i!=8; i++){
     digit--;
     if(((1<<digit) & mask) == 0) continue;
-    //bool hasPoint = pos+1<str.length() && (str.charAt(pos+1)=='.' || str.charAt(pos+1)==',');
     _ledControl->setChar(module,digit,str.charAt(pos),((1<<digit) & points));
-    //if (hasPoint) pos++;
     pos++;
   }
 }
 
-void MFSegments::setBrightness(int value) 
+void MFSegments::setBrightness(byte module, byte value) 
 {
   if (!_initialized) return;
-  
-  //if (module < _ledControl->getDeviceCount()) // no need to check, this is done by the lib itself
-  //_ledControl->setIntensity(module, value);
-  for (int i=0; i!=_moduleCount; ++i) {
-    _ledControl->setIntensity(i, value);
+  if (module < _moduleCount) {
+    _ledControl->setIntensity(module, value);
   }
 }
 
-void MFSegments::attach(int dataPin, int csPin, int clkPin, int moduleCount, int brightness)
+void MFSegments::attach(int dataPin, int csPin, int clkPin, byte moduleCount, byte brightness)
 {
   _ledControl = new LedControl(dataPin, clkPin, csPin, moduleCount);
   _initialized = true;
   _moduleCount = moduleCount;
-  setBrightness(brightness);
-  for (int i=0; i!=_moduleCount; ++i) {    
+  for (int i=0; i!=_moduleCount; ++i) {
+    setBrightness(i, brightness);    
     _ledControl->shutdown(i,false);
     _ledControl->clearDisplay(i);
   }
