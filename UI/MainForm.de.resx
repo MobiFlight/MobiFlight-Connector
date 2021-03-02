@@ -118,15 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 20</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Datei</value>
-  </data>
-  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Hilfe</value>
-  </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 22</value>
   </data>
@@ -165,6 +156,12 @@
   </data>
   <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
     <value>Beenden</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Datei</value>
   </data>
   <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>221, 22</value>
@@ -205,105 +202,50 @@
   <data name="überToolStripMenuItem.Text" xml:space="preserve">
     <value>Info</value>
   </data>
-  <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 303</value>
+  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Hilfe</value>
   </data>
-  <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 303</value>
+  <data name="outputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>836, 339</value>
   </data>
   <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>696, 277</value>
+    <value>842, 345</value>
   </data>
-  <data name="MappingConfigGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="inputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>690, 271</value>
   </data>
-  <data name="active.HeaderText" xml:space="preserve">
-    <value>Aktiv</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="active.Width" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="Description.HeaderText" xml:space="preserve">
-    <value>Beschreibung</value>
-  </data>
-  <data name="fsuipcValueColumn.HeaderText" xml:space="preserve">
-    <value>FSUIPC Wert</value>
-  </data>
-  <data name="arcazeValueColumn.HeaderText" xml:space="preserve">
-    <value>Ausgabe Wert</value>
-  </data>
-  <data name="EditButtonColumn.HeaderText" xml:space="preserve">
-    <value>Bearbeiten</value>
-  </data>
-  <data name="EditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="EditButtonColumn.Width" type="System.Int32, mscorlib">
-    <value>60</value>
-  </data>
-  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 48</value>
-  </data>
-  <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>684, 252</value>
-  </data>
-  <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 22</value>
-  </data>
-  <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Eintrag duplizieren</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 22</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Eintrag löschen</value>
-  </data>
   <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>600, 155</value>
+    <value>696, 277</value>
   </data>
-  <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>594, 149</value>
+  <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 371</value>
   </data>
-  <data name="inputActive.HeaderText" xml:space="preserve">
-    <value>Aktiv</value>
+  <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 371</value>
   </data>
-  <data name="inputDescription.HeaderText" xml:space="preserve">
-    <value>Beschreibung</value>
+  <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="inputType.HeaderText" xml:space="preserve">
-    <value>Typ</value>
+  <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="inputType.Width" type="System.Int32, mscorlib">
-    <value>50</value>
+  <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 6</value>
   </data>
-  <data name="inputEditButtonColumn.HeaderText" xml:space="preserve">
-    <value>Bearbeiten</value>
+  <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="inputEditButtonColumn.MinimumWidth" type="System.Int32, mscorlib">
-    <value>60</value>
+  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Wiederherstellen</value>
   </data>
-  <data name="inputEditButtonColumn.Width" type="System.Int32, mscorlib">
-    <value>60</value>
+  <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 48</value>
-  </data>
-  <data name="duplicateInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 22</value>
-  </data>
-  <data name="duplicateInputsRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Eintrag duplizieren</value>
-  </data>
-  <data name="deleteInputsRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>172, 22</value>
-  </data>
-  <data name="deleteInputsRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Eintrag löschen</value>
+  <data name="exitToolStripMenuItem.Text" xml:space="preserve">
+    <value>Beenden</value>
   </data>
   <data name="contextMenuStripNotifyIcon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>163, 76</value>
+    <value>181, 120</value>
   </data>
   <data name="notifyIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -452,21 +394,6 @@
   <data name="notifyIcon.Text" xml:space="preserve">
     <value>MFConnector</value>
   </data>
-  <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
-  </data>
-  <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
-  </data>
-  <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 6</value>
-  </data>
-  <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 22</value>
-  </data>
-  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Wiederherstellen</value>
-  </data>
   <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>79, 25</value>
   </data>
@@ -494,18 +421,6 @@
   </data>
   <data name="exitToolStripButton.Text" xml:space="preserve">
     <value>Beenden</value>
-  </data>
-  <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 405</value>
-  </data>
-  <data name="statusStripPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 24</value>
-  </data>
-  <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 24</value>
-  </data>
-  <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 24</value>
   </data>
   <data name="ArcazeUSBTtoolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 19</value>
@@ -556,16 +471,28 @@
     <value>4, 19</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>390, 19</value>
+    <value>536, 19</value>
+  </data>
+  <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 24</value>
+  </data>
+  <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 473</value>
+  </data>
+  <data name="statusStripPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 24</value>
+  </data>
+  <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 24</value>
   </data>
   <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 355</value>
+    <value>0, 423</value>
   </data>
   <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 352</value>
+    <value>0, 420</value>
   </data>
   <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>704, 303</value>
+    <value>850, 371</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
