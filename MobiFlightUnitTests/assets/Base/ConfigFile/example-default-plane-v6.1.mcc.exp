@@ -207,6 +207,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="805dc057-4e6b-44ea-ab63-aa460c2079ba">
@@ -222,6 +223,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="53c85f5f-1af4-4610-84f7-80f68c68fc29">
@@ -237,6 +239,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="bf3d9161-df8a-4449-a6b8-73fe0cf6b4be">
@@ -252,6 +255,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="11f6de8b-1ca0-491f-92f1-16ebec5747a2">
@@ -267,6 +271,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="8629e0ca-b3c6-48ee-a346-5aea8230ec07">
@@ -282,6 +287,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="3719bd6b-8b00-47d4-a6bc-e078b6f4c20d">
@@ -297,6 +303,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="6d332180-8663-430e-b241-db73a514cb36">
@@ -312,6 +319,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="8f87d39c-22fd-4a0e-8c12-cd6024bcb6d8">
@@ -327,6 +335,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="54ec7574-d953-45ad-9e44-f647385b277d">
@@ -342,6 +351,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="cdfcadaf-b9f7-431e-8c54-a8b2fa81251f">
@@ -355,6 +365,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="67b2ed56-07e6-44e0-8b79-8852da4620ea">
@@ -368,6 +379,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="3169ccc9-3c5f-4f4a-9fad-c1fb03365458">
@@ -381,6 +393,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="ebb949ee-50bd-4f9f-b4a5-72365ee05397">
@@ -394,6 +407,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="04332969-0818-4d89-8a8c-829f25fd5092">
@@ -407,6 +421,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="8d4c174f-74d7-4f65-85e4-b2dc164877b6">
@@ -414,6 +429,7 @@
       <description>Radio On</description>
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" serial="" name="" type="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="eaf94969-44cc-466a-b105-618576366a10">
@@ -434,6 +450,7 @@
           <precondition type="config" active="true" ref="a18ef589-d13f-48cc-9ddb-8c037be68387" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="57e136d1-e0de-402f-96d4-3520297e88a2" operand="=" value="0" logic="and" />
         </preconditions>
+        <configrefs />
       </settings>
     </config>
     <config guid="00613069-876d-465e-92d6-3a9b5b99854a">
@@ -454,6 +471,7 @@
           <precondition type="config" active="true" ref="a18ef589-d13f-48cc-9ddb-8c037be68387" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="57e136d1-e0de-402f-96d4-3520297e88a2" operand="=" value="1" logic="and" />
         </preconditions>
+        <configrefs />
       </settings>
     </config>
     <config guid="60e1375e-e6c0-44b9-8376-3d19cf8012db">
@@ -473,6 +491,7 @@
         <preconditions>
           <precondition type="config" active="true" ref="13f1c313-d8d1-4139-9778-a0d0bf0b4bea" operand="=" value="0" logic="and" />
         </preconditions>
+        <configrefs />
       </settings>
     </config>
     <config guid="7d411c2b-6656-48cd-a70d-924dff0c0b10">
@@ -492,6 +511,7 @@
         <preconditions>
           <precondition type="config" active="true" ref="13f1c313-d8d1-4139-9778-a0d0bf0b4bea" operand="=" value="1" logic="and" />
         </preconditions>
+        <configrefs />
       </settings>
     </config>
     <config guid="50636809-c002-4908-9d38-639024325c1b">
@@ -505,6 +525,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="4f20728d-8ce4-4f56-9f80-41e27be3de13">
@@ -518,6 +539,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="da72ce40-ca56-499f-8922-07c377c3589e">
@@ -529,6 +551,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="2440b2d8-66d5-431f-b91f-9784213677af">
@@ -540,6 +563,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="561240b6-0465-427e-bfbb-e3a177ffcd6e">
@@ -561,6 +585,7 @@
           </onRightFast>
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
   </inputs>

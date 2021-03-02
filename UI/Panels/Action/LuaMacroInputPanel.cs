@@ -34,7 +34,7 @@ namespace MobiFlight.UI.Panels.Action
 
             MobiFlight.InputConfig.LuaMacroInputAction result = new InputConfig.LuaMacroInputAction();
             result.MacroName = MacroNameTextBox.Text.Trim();
-            result.MacroValue = Int32.Parse(MacroValueTextBox.Text);
+            result.MacroValue = MacroValueTextBox.Text;
             return result;
         }
     }

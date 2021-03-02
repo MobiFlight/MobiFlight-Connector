@@ -100,27 +100,13 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
 
         public void setEventID(int eventID, int param)
         {
-            /*
-             * This is the old way of setting the eventID
-             * It actually became deprecated with the 
-             * new FSUIPC library because it offers
-             * a special function and there is not 
-             * so much that we can test here
-             */
-            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID" });
+            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID>" + eventID + ">" + param });
             return;
         }
 
-        public void setEventID(string param)
+        public void setEventID(string eventID)
         {
-            /*
-             * This is the old way of setting the eventID
-             * It actually became deprecated with the 
-             * new FSUIPC library because it offers
-             * a special function and there is not 
-             * so much that we can test here
-             */
-            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID" });
+            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID>" + eventID });
             return;
         }
 

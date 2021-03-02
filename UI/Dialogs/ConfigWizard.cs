@@ -244,9 +244,6 @@ namespace MobiFlight.UI.Dialogs
 
             configRefPanel.SetConfigRefsDataView(dv, filterGuid);
             displayLedDisplayPanel.SetConfigRefsDataView(dv, filterGuid);
-
-            if (dv.Count != 0)
-                noRefConfigsAvailableLabel.Visible = false;
         }
 
 #if ARCAZE

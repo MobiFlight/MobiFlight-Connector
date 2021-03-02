@@ -46,6 +46,7 @@
           </onRightFast>
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
   </inputs>

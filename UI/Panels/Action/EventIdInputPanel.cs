@@ -99,14 +99,14 @@ namespace MobiFlight.UI.Panels.Action
         {
             MobiFlight.InputConfig.EventIdInputAction result = new InputConfig.EventIdInputAction();
             result.EventId = Int32.Parse(eventIdTextBox.Text);
-            result.Param = Int32.Parse(paramTextBox.Text);
+            result.Param = paramTextBox.Text;
             return result;
         }
 
         private void testButton_Click(object sender, EventArgs e)
         {
             MobiFlight.InputConfig.InputAction tmp = ToConfig();
-            tmp.execute(null, null, null);
+            tmp.execute(null, null, null, null);
         }
 
         private void fsuipcPresetUseButton_Click(object sender, EventArgs e)

@@ -161,7 +161,7 @@ namespace MobiFlight.UI.Panels.Action
         {
             MobiFlight.InputConfig.PmdgEventIdInputAction result = new InputConfig.PmdgEventIdInputAction();
             result.EventId = Int32.Parse(eventIdTextBox.Text);
-            result.Param = UInt32.Parse(customParamTextBox.Text);
+            result.Param = customParamTextBox.Text;
             result.AircraftType = lastUsedType;
             return result;
         }
@@ -169,7 +169,7 @@ namespace MobiFlight.UI.Panels.Action
         private void testButton_Click(object sender, EventArgs e)
         {
             MobiFlight.InputConfig.InputAction tmp = ToConfig();
-            tmp.execute(null, null, null);
+            tmp.execute(null, null, null, null);
         }
 
         private void fsuipcPresetUseButton_Click(object sender, EventArgs e)

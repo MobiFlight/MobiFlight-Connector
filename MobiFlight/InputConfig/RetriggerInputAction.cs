@@ -28,7 +28,7 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("type", TYPE);
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
         {
             // only execute if not happened last 1 seconds
             if (DateTime.Now.Ticks  - lastExecution.Ticks < 50000000) return;

@@ -9,7 +9,7 @@ namespace MobiFlight.InputConfig
     {
         public new const String TYPE = "PmdgEventIdInputAction";
         public new const String Label = "PMDG - Event ID";
-        public new UInt32 Param;
+        public new String Param;
         public enum PmdgAircraftType { B737, B777, B747 };
         public PmdgAircraftType AircraftType = PmdgAircraftType.B737;
 
@@ -36,7 +36,7 @@ namespace MobiFlight.InputConfig
             String aircraftType = reader["aircraft"];
             
             EventId = Int32.Parse(eventId);
-            Param = UInt32.Parse(param);
+            Param = param;
             if (aircraftType!=null)
                 AircraftType = (PmdgAircraftType)Enum.Parse(typeof(PmdgAircraftType), aircraftType);
         }
@@ -49,9 +49,20 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("aircraft", AircraftType.ToString());
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
         {
-            fsuipcCache.setEventID(EventId, (int) Param);
+            String value = Param;
+
+            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+            foreach (ConfigRefValue item in configRefs)
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
+                replacements.Add(replacement);
+            }
+
+            value = Replace(value, replacements);
+
+            fsuipcCache.setEventID(EventId, (int) UInt32.Parse(value));
         }
     }
 }

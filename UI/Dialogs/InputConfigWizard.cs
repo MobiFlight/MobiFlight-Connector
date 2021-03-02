@@ -56,15 +56,11 @@ namespace MobiFlight.UI.Dialogs
             preparePreconditionPanel(dataSetConfig, filterGuid);
             _loadPresets();
             // displayLedDisplayComboBox.Items.Clear(); 
-            _syncConfigToForm(config);
         }
 
         private void ConfigWizard_Load(object sender, EventArgs e)
         {
-
-
-
-            
+            _syncConfigToForm(config);
         }
 
         protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
@@ -164,6 +160,8 @@ namespace MobiFlight.UI.Dialogs
                 preConditionTypeComboBox.ValueMember = "Value";
                 preConditionTypeComboBox.SelectedIndex = 0;
             }
+
+            configRefPanel.SetConfigRefsDataView(dv, filterGuid);
         }
 #if ARCAZE
         /// <summary>
@@ -282,6 +280,8 @@ namespace MobiFlight.UI.Dialogs
                 _addEmptyNodeToTreeView();
             }
 
+            configRefPanel.syncFromConfig(config);
+
             return true;
         }
 
@@ -330,7 +330,8 @@ namespace MobiFlight.UI.Dialogs
             }
             // depending on the current type, choose the appropriate
             // input config object
-            
+            configRefPanel.syncToConfig(config);
+
             return true;
         }
 

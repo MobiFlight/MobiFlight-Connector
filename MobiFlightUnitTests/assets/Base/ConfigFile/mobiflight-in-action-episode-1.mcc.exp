@@ -100,6 +100,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="6646cdbc-0cdd-439c-b3c6-36a3a788ac71">
@@ -111,6 +112,7 @@
           <onRelease />
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
   </inputs>

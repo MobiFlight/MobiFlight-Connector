@@ -234,27 +234,27 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, ButtonArgs e)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, ButtonArgs e, List<ConfigRefValue> configRefs)
         {
             if ((e.Value == 0 && onLeft != null) || (e.Value == 1 && onLeftFast == null))
             {
                 Log.Instance.log("Executing OnLeft: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onLeft.execute(fsuipcCache, simConnectCache, moduleCache);
+                onLeft.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
             }
             else if (e.Value == 1 && onLeftFast != null)
             {
                 Log.Instance.log("Executing OnLeftFast: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onLeftFast.execute(fsuipcCache, simConnectCache, moduleCache);
+                onLeftFast.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
             }
             else if ((e.Value == 2 && onRight != null) || (e.Value == 3 && onRightFast == null))
             {
                 Log.Instance.log("Executing OnRight: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onRight.execute(fsuipcCache, simConnectCache, moduleCache);
+                onRight.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
             }
             else if (e.Value == 3 && onRightFast != null)
             {
                 Log.Instance.log("Executing OnRightFast: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onRightFast.execute(fsuipcCache, simConnectCache, moduleCache);
+                onRightFast.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
             }
 
         }

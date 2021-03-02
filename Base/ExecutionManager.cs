@@ -1354,7 +1354,9 @@ namespace MobiFlight
                     fsuipcCache,
                     simConnectCache, 
                     mobiFlightCache, 
-                    e);
+                    e,
+                    GetRefs(tuple.Item1.ConfigRefs))
+                    ;
 #endif
 
             }

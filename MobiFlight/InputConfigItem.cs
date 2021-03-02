@@ -27,11 +27,14 @@ namespace MobiFlight
         public ButtonInputConfig button  { get; set; }
         public EncoderInputConfig encoder { get; set; }
         public PreconditionList Preconditions             { get; set; }
-        
+        public List<ConfigRef> ConfigRefs { get; set; }
+
         public InputConfigItem()
         {
             Preconditions = new PreconditionList();
             Type = TYPE_NOTSET;
+
+            ConfigRefs = new List<ConfigRef>();
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -90,6 +93,31 @@ namespace MobiFlight
                         reader.ReadStartElement();
                     } while (reader.LocalName == "precondition");
                 }
+                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
+            }
+
+            if (reader.LocalName == "configrefs")
+            {
+                bool atPosition = false;
+                // read precondition settings if present
+                if (reader.ReadToDescendant("configref"))
+                {
+                    // load a list
+                    do
+                    {
+                        ConfigRef tmp = new ConfigRef();
+                        tmp.ReadXml(reader);
+                        ConfigRefs.Add(tmp);
+                        reader.ReadStartElement();
+                    } while (reader.LocalName == "configref");
+
+                    // read to the end of configref-node
+                    reader.ReadEndElement();
+                }
+                else
+                {
+                    reader.ReadStartElement();
+                }
             }
         }
 
@@ -119,6 +147,13 @@ namespace MobiFlight
                 p.WriteXml(writer);
             }
             writer.WriteEndElement();
+
+            writer.WriteStartElement("configrefs");
+            foreach (ConfigRef p in ConfigRefs)
+            {
+                p.WriteXml(writer);
+            }
+            writer.WriteEndElement();
         }
         
         public object Clone()
@@ -139,23 +174,31 @@ namespace MobiFlight
                 clone.Preconditions.Add(p.Clone() as Precondition);
             }
 
+            foreach (ConfigRef configRef in ConfigRefs)
+            {
+                clone.ConfigRefs.Add(configRef.Clone() as ConfigRef);
+            }
+
             return clone;
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, 
+        internal void execute(
+            FSUIPC.Fsuipc2Cache fsuipcCache, 
             SimConnectMSFS.SimConnectCache simConnectCache, 
-            MobiFlightCache moduleCache, ButtonArgs e)
+            MobiFlightCache moduleCache,
+            ButtonArgs e,
+            List<ConfigRefValue> configRefs)
         {
             switch (Type)
             {
                 case TYPE_BUTTON:
                     if (button!=null)
-                        button.execute(fsuipcCache, simConnectCache, moduleCache, e);
+                        button.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
 
                 case TYPE_ENCODER:
                     if (encoder!=null)
-                        encoder.execute(fsuipcCache, simConnectCache, moduleCache, e);
+                        encoder.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
             }
         }

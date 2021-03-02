@@ -69,7 +69,7 @@ namespace MobiFlight.InputConfig.Tests
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
 
-            o.execute(mock, simConnectMock, null);
+            o.execute(mock, simConnectMock, null, new List<ConfigRefValue>());
             Assert.AreEqual(mock.Writes.Count, 3, "The message count is not as expected");
             Assert.AreEqual(mock.Writes[0].Offset, 0x73CD, "The Param Offset is wrong");
             Assert.AreEqual(mock.Writes[0].Value, Int16.MaxValue.ToString(), "The Param Value is wrong");

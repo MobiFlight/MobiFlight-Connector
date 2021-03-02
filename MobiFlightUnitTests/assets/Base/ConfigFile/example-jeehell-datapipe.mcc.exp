@@ -86,6 +86,7 @@
           <onRightFast type="JeehellInputAction" pipeId="1" value="$+5" />
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="1b65c524-117d-4c0b-937d-5710629ae323">
@@ -99,6 +100,7 @@
           <onRightFast type="JeehellInputAction" pipeId="3" value="$+10" />
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="6c549b2c-12ce-4bca-b106-2a899fee472f">
@@ -112,6 +114,7 @@
           <onRightFast type="JeehellInputAction" pipeId="2" value="$+10" />
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="0a993250-4bab-498b-ba08-a753b5f2ed7c">
@@ -125,6 +128,7 @@
           <onRightFast type="JeehellInputAction" pipeId="5" value="$+10" />
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="d2736b42-f0e7-43e0-adfa-c81e43533578">
@@ -138,6 +142,7 @@
           <onRightFast type="JeehellInputAction" pipeId="6" value="$+10" />
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="af1f07d8-7f86-4092-b237-67b60b80987d">
@@ -151,6 +156,7 @@
           <onRightFast type="JeehellInputAction" pipeId="4" value="if($==129,0,if($&lt;=80,$,$-256)*100+1000)" />
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
   </inputs>

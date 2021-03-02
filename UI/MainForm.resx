@@ -121,37 +121,31 @@
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="dataGridViewTextBoxColumn3.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;inputConfigPanel.Type" xml:space="preserve">
     <value>MobiFlight.UI.Panels.InputConfigPanel, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="stopToolStripButton.Text" xml:space="preserve">
     <value>Stop</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="überToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>167, 22</value>
+  <data name="&gt;&gt;startToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
     <value>openToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;stopTestToolStripButton.Name" xml:space="preserve">
-    <value>stopTestToolStripButton</value>
+  <data name="&gt;&gt;hilfeToolStripMenuItem.Name" xml:space="preserve">
+    <value>hilfeToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="stopTestToolStripButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>850, 497</value>
   </data>
-  <data name="panelMain.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
+  <data name="&gt;&gt;dividerToolStripStatusLabel1.Name" xml:space="preserve">
+    <value>dividerToolStripStatusLabel1</value>
   </data>
   <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 25</value>
@@ -159,17 +153,20 @@
   <data name="&gt;&gt;InputTabPage.Parent" xml:space="preserve">
     <value>inputsTabControl</value>
   </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
   <data name="&gt;&gt;konfigurationSpeichernToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn5.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn5</value>
+  </data>
   <data name="startupPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 52</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="outputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>836, 341</value>
@@ -183,8 +180,8 @@
   <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>174, 22</value>
   </data>
-  <data name="&gt;&gt;logTextBox.Name" xml:space="preserve">
-    <value>logTextBox</value>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>guid</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>164, 6</value>
@@ -198,6 +195,9 @@
   <data name="donateToolStripButton.Text" xml:space="preserve">
     <value>donateToolStripButton</value>
   </data>
+  <data name="&gt;&gt;orphanedSerialsFinderToolStripMenuItem.Name" xml:space="preserve">
+    <value>orphanedSerialsFinderToolStripMenuItem</value>
+  </data>
   <data name="&gt;&gt;dataGridViewTextBoxColumn3.Name" xml:space="preserve">
     <value>dataGridViewTextBoxColumn3</value>
   </data>
@@ -210,11 +210,14 @@
   <data name="InputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
+  <data name="panelMain.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
   <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
     <value>toolStripMenuItem4</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;fsuipcToolStripStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripStatusLabel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -222,8 +225,8 @@
   <data name="toolStripStatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="&gt;&gt;logSplitter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Splitter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;outputConfigPanel.Name" xml:space="preserve">
+    <value>outputConfigPanel</value>
   </data>
   <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
     <value>$this</value>
@@ -258,14 +261,17 @@
   <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
     <value>saveToolStripButton</value>
   </data>
-  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>842, 347</value>
+  <data name="dataGridViewTextBoxColumn3.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;überToolStripMenuItem.Name" xml:space="preserve">
     <value>überToolStripMenuItem</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>MobiFlight Connector</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
     <value>toolStripSeparator1</value>
@@ -275,6 +281,9 @@
   </data>
   <data name="&gt;&gt;checkForUpdateToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="statusStripPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="stopTestToolStripButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -293,6 +302,9 @@
   </data>
   <data name="&gt;&gt;InputTabPage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="beendenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
   </data>
   <data name="saveToolStripButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -381,8 +393,8 @@
   <data name="&gt;&gt;helpToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
     <value>toolStripSeparator4</value>
@@ -423,8 +435,14 @@
   <data name="&gt;&gt;settingsToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;inputConfigPanel.Name" xml:space="preserve">
+    <value>inputConfigPanel</value>
+  </data>
   <data name="&gt;&gt;startupPanel.Parent" xml:space="preserve">
     <value>$this</value>
+  </data>
+  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>842, 347</value>
   </data>
   <data name="&gt;&gt;exitToolStripButton.Name" xml:space="preserve">
     <value>exitToolStripButton</value>
@@ -437,9 +455,6 @@
   </data>
   <data name="&gt;&gt;logTextBox.Parent" xml:space="preserve">
     <value>$this</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItemDivider.Name" xml:space="preserve">
-    <value>toolStripMenuItemDivider</value>
   </data>
   <data name="&gt;&gt;outputConfigPanel.Parent" xml:space="preserve">
     <value>OutputTabPage</value>
@@ -456,20 +471,17 @@
   <data name="&gt;&gt;runTestToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;hilfeToolStripMenuItem.Name" xml:space="preserve">
-    <value>hilfeToolStripMenuItem</value>
-  </data>
   <data name="hilfeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 20</value>
   </data>
   <data name="autoRunToolStripButton.Text" xml:space="preserve">
     <value>AutoRun</value>
   </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 28</value>
-  </data>
-  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
     <value>File</value>
@@ -477,14 +489,11 @@
   <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
     <value>Help</value>
   </data>
-  <data name="&gt;&gt;outputConfigPanel.Name" xml:space="preserve">
-    <value>outputConfigPanel</value>
-  </data>
   <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 28</value>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="autoRunToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>74, 25</value>
@@ -528,17 +537,14 @@
   <data name="&gt;&gt;dataGridViewTextBoxColumn3.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;activeDataGridViewCheckBoxColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="helpToolStripMenuItem.Text" xml:space="preserve">
     <value>Open help in web</value>
   </data>
   <data name="&gt;&gt;runToolStripButton.Name" xml:space="preserve">
     <value>runToolStripButton</value>
   </data>
-  <data name="&gt;&gt;AfterFileActionsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;exitToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="logSplitter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -555,20 +561,14 @@
   <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
-  <data name="&gt;&gt;fsuipcToolStripStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="stopTestToolStripButton.Text" xml:space="preserve">
     <value>Stop</value>
   </data>
   <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;toolStripStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripStatusLabel1.Name" xml:space="preserve">
-    <value>toolStripStatusLabel1</value>
+  <data name="&gt;&gt;activeDataGridViewCheckBoxColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="OutputTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -627,8 +627,8 @@
   <data name="donateToolStripButton.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
     <value>None</value>
   </data>
-  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>842, 347</value>
+  <data name="&gt;&gt;logSplitter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Splitter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>850, 373</value>
@@ -636,8 +636,8 @@
   <data name="inputsTabControl.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
-  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
-    <value>toolStrip1</value>
+  <data name="&gt;&gt;statusStrip2.Parent" xml:space="preserve">
+    <value>statusStripPanel</value>
   </data>
   <data name="&gt;&gt;hilfeToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -653,6 +653,9 @@
   </data>
   <data name="&gt;&gt;contextMenuStripNotifyIcon.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -810,9 +813,6 @@
   <data name="logTextBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
     <value>Vertical</value>
   </data>
-  <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
-  </data>
   <data name="&gt;&gt;statusStrip2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -834,11 +834,8 @@
   <data name="donateToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="&gt;&gt;startToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
+  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Name" xml:space="preserve">
+    <value>dataGridViewTextBoxColumn4</value>
   </data>
   <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -849,14 +846,14 @@
   <data name="&gt;&gt;startToolStripMenuItem.Name" xml:space="preserve">
     <value>startToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;statusStrip2.Parent" xml:space="preserve">
-    <value>statusStripPanel</value>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
+    <value>toolStrip1</value>
   </data>
   <data name="&gt;&gt;dataTable1.Name" xml:space="preserve">
     <value>dataTable1</value>
-  </data>
-  <data name="&gt;&gt;logSplitter.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="&gt;&gt;fsuipcStatusToolStripStatusLabel.Name" xml:space="preserve">
     <value>fsuipcStatusToolStripStatusLabel</value>
@@ -912,6 +909,9 @@
   <data name="&gt;&gt;donateToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;ArcazeUSBTtoolStripStatusLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -936,6 +936,9 @@
   <data name="startToolStripMenuItem.Text" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 373</value>
+  </data>
   <data name="&gt;&gt;SimConnectStatusLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -948,17 +951,14 @@
   <data name="extrasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 20</value>
   </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn4.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn4</value>
-  </data>
   <data name="&gt;&gt;ArcazeUSBTtoolStripStatusLabel.Name" xml:space="preserve">
     <value>ArcazeUSBTtoolStripStatusLabel</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>
   </data>
-  <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
+  <data name="&gt;&gt;toolStripStatusLabel1.Name" xml:space="preserve">
+    <value>toolStripStatusLabel1</value>
   </data>
   <data name="startupPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -975,9 +975,6 @@
   <data name="InputTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="runTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 25</value>
   </data>
@@ -987,14 +984,11 @@
   <data name="runToolStripButton.Text" xml:space="preserve">
     <value>Run</value>
   </data>
-  <data name="&gt;&gt;checkForUpdateToolStripMenuItem.Name" xml:space="preserve">
-    <value>checkForUpdateToolStripMenuItem</value>
-  </data>
   <data name="saveToolStripButton.Text" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="inputsTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="toolStripMenuItem3.Text" xml:space="preserve">
     <value>New</value>
@@ -7192,8 +7186,8 @@
   <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 422</value>
   </data>
-  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+  <data name="inputsTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
   <data name="&gt;&gt;dataGridViewTextBoxColumn5.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -7210,11 +7204,14 @@
   <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
     <value>850, 373</value>
   </data>
+  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>842, 347</value>
+  </data>
   <data name="logSplitter.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="OutputTabPage.Text" xml:space="preserve">
+    <value>Output</value>
   </data>
   <data name="outputConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
@@ -7233,6 +7230,9 @@
   </data>
   <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 425</value>
+  </data>
+  <data name="&gt;&gt;notifyIcon.Name" xml:space="preserve">
+    <value>notifyIcon</value>
   </data>
   <data name="&gt;&gt;runTestToolStripButton.Name" xml:space="preserve">
     <value>runTestToolStripButton</value>
@@ -7261,9 +7261,6 @@
   <data name="dataGridViewTextBoxColumn3.HeaderText" xml:space="preserve">
     <value>guid</value>
   </data>
-  <data name="&gt;&gt;toolStripStatusLabel4.Name" xml:space="preserve">
-    <value>toolStripStatusLabel4</value>
-  </data>
   <data name="&gt;&gt;inputConfigPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -7275,6 +7272,9 @@
   </data>
   <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
     <value>toolStripMenuItem2</value>
+  </data>
+  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Restore MobiFlight</value>
   </data>
   <data name="OutputTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -7294,14 +7294,11 @@
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
     <value>203, 6</value>
   </data>
-  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
-    <value>guid</value>
-  </data>
-  <data name="&gt;&gt;dividerToolStripStatusLabel1.Name" xml:space="preserve">
-    <value>dividerToolStripStatusLabel1</value>
-  </data>
   <data name="toolStripStatusLabel1.Text" xml:space="preserve">
     <value>|</value>
+  </data>
+  <data name="InputTabPage.Text" xml:space="preserve">
+    <value>Inputs</value>
   </data>
   <data name="startupPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -7330,8 +7327,11 @@
   <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="runTestToolStripButton.ToolTipText" xml:space="preserve">
-    <value>Run test mode to check if all display settings are correct.</value>
+  <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="&gt;&gt;fsuipcStatusToolStripStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="dataGridViewTextBoxColumn5.HeaderText" xml:space="preserve">
     <value>guid</value>
@@ -7348,11 +7348,11 @@
   <data name="SimConnectStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 17</value>
   </data>
-  <data name="OutputTabPage.Text" xml:space="preserve">
-    <value>Output</value>
+  <data name="&gt;&gt;AfterFileActionsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Restore MobiFlight</value>
+  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
   <data name="extrasToolStripMenuItem.Text" xml:space="preserve">
     <value>Extras</value>
@@ -7366,8 +7366,8 @@
   <data name="&gt;&gt;panelMain.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 28</value>
+  <data name="überToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 22</value>
   </data>
   <data name="&gt;&gt;wiederherstellenToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -7396,20 +7396,17 @@
   <data name="recentDocumentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 22</value>
   </data>
-  <data name="&gt;&gt;exitToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon.Name" xml:space="preserve">
-    <value>notifyIcon</value>
+  <data name="&gt;&gt;stopTestToolStripButton.Name" xml:space="preserve">
+    <value>stopTestToolStripButton</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;inputConfigPanel.Name" xml:space="preserve">
-    <value>inputConfigPanel</value>
+  <data name="&gt;&gt;logSplitter.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="statusStripPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;checkForUpdateToolStripMenuItem.Name" xml:space="preserve">
+    <value>checkForUpdateToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;InputTabPage.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -7420,14 +7417,14 @@
   <data name="toolStripStatusLabel4.Text" xml:space="preserve">
     <value>|</value>
   </data>
-  <data name="InputTabPage.Text" xml:space="preserve">
-    <value>Inputs</value>
+  <data name="&gt;&gt;toolStripStatusLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;inputConfigPanel.Parent" xml:space="preserve">
     <value>InputTabPage</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
     <value>toolStripMenuItem1</value>
@@ -7438,8 +7435,8 @@
   <data name="recentDocsToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 6</value>
   </data>
-  <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>850, 373</value>
+  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;beendenToolStripMenuItem.Name" xml:space="preserve">
     <value>beendenToolStripMenuItem</value>
@@ -7462,11 +7459,11 @@
   <data name="stopToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>51, 25</value>
   </data>
-  <data name="&gt;&gt;fsuipcStatusToolStripStatusLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
   </data>
-  <data name="&gt;&gt;dataGridViewTextBoxColumn5.Name" xml:space="preserve">
-    <value>dataGridViewTextBoxColumn5</value>
+  <data name="&gt;&gt;logTextBox.Name" xml:space="preserve">
+    <value>logTextBox</value>
   </data>
   <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -7477,8 +7474,11 @@
   <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;orphanedSerialsFinderToolStripMenuItem.Name" xml:space="preserve">
-    <value>orphanedSerialsFinderToolStripMenuItem</value>
+  <data name="runTestToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Run test mode to check if all display settings are correct.</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabel4.Name" xml:space="preserve">
+    <value>toolStripStatusLabel4</value>
   </data>
   <data name="&gt;&gt;recentDocumentsToolStripMenuItem.Name" xml:space="preserve">
     <value>recentDocumentsToolStripMenuItem</value>
@@ -7489,20 +7489,17 @@
   <data name="checkForUpdateToolStripMenuItem.Text" xml:space="preserve">
     <value>Check for update</value>
   </data>
-  <data name="beendenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+  <data name="&gt;&gt;toolStripMenuItemDivider.Name" xml:space="preserve">
+    <value>toolStripMenuItemDivider</value>
   </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>146, 56</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="statusStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>251, 56</value>
+  </metadata>
   <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>de</value>
   </metadata>
   <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -7510,8 +7507,8 @@
   <metadata name="contextMenuStripNotifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>518, 17</value>
   </metadata>
-  <metadata name="statusStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>251, 56</value>
+  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>146, 56</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>233</value>

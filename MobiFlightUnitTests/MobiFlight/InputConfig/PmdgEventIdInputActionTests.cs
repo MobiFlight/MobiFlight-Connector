@@ -28,7 +28,7 @@ namespace MobiFlight.InputConfig.Tests
         {
             PmdgEventIdInputAction o = new PmdgEventIdInputAction();
             o.EventId = Int32.MaxValue;
-            o.Param = UInt32.MaxValue-1;
+            o.Param = (UInt32.MaxValue-1).ToString();
             o.AircraftType = PmdgEventIdInputAction.PmdgAircraftType.B747;
 
             return o;
@@ -48,7 +48,7 @@ namespace MobiFlight.InputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.EventId, Int32.MaxValue, "EventId not the same");
-            Assert.AreEqual(o.Param, UInt32.MaxValue-1, "Param not the same");
+            Assert.AreEqual(o.Param, (UInt32.MaxValue-1).ToString(), "Param not the same");
             Assert.AreEqual(o.AircraftType, PmdgEventIdInputAction.PmdgAircraftType.B777);
         }
         
@@ -81,9 +81,19 @@ namespace MobiFlight.InputConfig.Tests
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
 
-            o.execute(mock, simConnectMock, null);
-            Assert.AreEqual(mock.Writes.Count, 1, "The message count is not as expected");
-            Assert.AreEqual(mock.Writes[0].Value, "SetEventID", "The Write Value is wrong");
+            o.execute(mock, simConnectMock, null, new List<ConfigRefValue>());
+            Assert.AreEqual(1, mock.Writes.Count, "The message count is not as expected");
+            Assert.AreEqual("SetEventID>"+o.EventId+">-2", mock.Writes[0].Value, "The Write Value is wrong");
+
+            mock.Clear();
+            // validate config references work
+            o.Param = "1+#";
+            List<ConfigRefValue> configrefs = new List<ConfigRefValue>();
+            configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
+            o.execute(mock, simConnectMock, null, configrefs);
+
+            Assert.AreEqual(1, mock.Writes.Count, "The message count is not as expected");
+            Assert.AreEqual("SetEventID>" + o.EventId + ">" + 2, mock.Writes[0].Value, "The Write Value is wrong");
         }
     }
 }

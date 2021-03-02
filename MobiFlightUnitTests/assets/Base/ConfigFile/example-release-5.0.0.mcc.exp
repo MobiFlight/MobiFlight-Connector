@@ -52,6 +52,7 @@
           </onRelease>
         </button>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="45b73f9a-91b7-4791-9eb7-5f454cfc1349">
@@ -69,6 +70,7 @@
           <onRightFast />
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="b355e1c4-081c-42d1-a636-6485524bf993">
@@ -86,6 +88,7 @@
           <onRightFast />
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
     <config guid="96c2a630-fb9f-49de-ba1e-2e876e13c5c1">
@@ -107,6 +110,7 @@
           </onRightFast>
         </encoder>
         <preconditions />
+        <configrefs />
       </settings>
     </config>
   </inputs>

@@ -9,7 +9,7 @@ namespace MobiFlight.InputConfig
     class LuaMacroInputAction : InputAction
     {
         public String MacroName = "";
-        public Int32 MacroValue = 0;
+        public String MacroValue = "0";
         public new const String Label = "Lua Macro";
         public const String TYPE = "LuaMacroInputAction";
 
@@ -25,7 +25,7 @@ namespace MobiFlight.InputConfig
         {
 
             MacroName = reader["macroName"];
-            MacroValue = Int32.Parse(reader["value"]);
+            MacroValue = reader["value"];
         }
 
         public override void WriteXml(System.Xml.XmlWriter writer)
@@ -35,12 +35,23 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("value", MacroValue.ToString());
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
         {
             if (MacroName == "") return;
-            
+
+            String value = MacroValue;
+
+            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+            foreach (ConfigRefValue item in configRefs)
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
+                replacements.Add(replacement);
+            }
+
+            value = Replace(value, replacements);
+
             Log.Instance.log("LuaMacoInputAction:Execute : Calling macro " + MacroName, LogSeverity.Debug);
-            cache.executeMacro(MacroName, MacroValue);
+            cache.executeMacro(MacroName, int.Parse(value));
         }
     }
 }

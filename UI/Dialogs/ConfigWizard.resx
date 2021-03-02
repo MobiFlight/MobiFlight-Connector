@@ -118,47 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="noRefConfigsAvailableLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="noRefConfigsAvailableLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="noRefConfigsAvailableLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 309</value>
-  </data>
-  <data name="noRefConfigsAvailableLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 32</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="noRefConfigsAvailableLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="noRefConfigsAvailableLabel.Text" xml:space="preserve">
-    <value>There are no other configs available. First create some and then you can reference them.</value>
-  </data>
-  <data name="&gt;&gt;noRefConfigsAvailableLabel.Name" xml:space="preserve">
-    <value>noRefConfigsAvailableLabel</value>
-  </data>
-  <data name="&gt;&gt;noRefConfigsAvailableLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;noRefConfigsAvailableLabel.Parent" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="&gt;&gt;noRefConfigsAvailableLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="configRefPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="configRefPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>64, 16</value>
+    <value>3, 16</value>
+  </data>
+  <data name="configRefPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 0, 5, 0</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>300, 105</value>
+    <value>366, 160</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -166,7 +139,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=8.0.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>referencesGroupBox</value>
@@ -174,38 +147,14 @@
   <data name="&gt;&gt;configRefPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 105</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>referencesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="referencesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="referencesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 309</value>
+    <value>6, 285</value>
   </data>
   <data name="referencesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 124</value>
+    <value>372, 179</value>
   </data>
   <data name="referencesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -223,40 +172,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;referencesGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="textBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 285</value>
-  </data>
-  <data name="textBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="textBox1.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 24</value>
-  </data>
-  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>Define references that can be used in this config,</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
-    <value>textBox1</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="spacerPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -268,7 +184,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="spacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 10</value>
+    <value>372, 10</value>
   </data>
   <data name="spacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -283,7 +199,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;spacerPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="fsuipcConfigPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
@@ -295,7 +211,7 @@
     <value>6, 38</value>
   </data>
   <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 237</value>
+    <value>372, 237</value>
   </data>
   <data name="fsuipcConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -304,13 +220,13 @@
     <value>fsuipcConfigPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=8.0.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="fsuipcHintTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -325,7 +241,7 @@
     <value>True</value>
   </data>
   <data name="fsuipcHintTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 32</value>
+    <value>372, 32</value>
   </data>
   <data name="fsuipcHintTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -343,7 +259,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;fsuipcHintTextBox.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -352,7 +268,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 439</value>
+    <value>384, 470</value>
   </data>
   <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -415,7 +331,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=8.0.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -1952,57 +1868,53 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACY
-        CwAAAk1TRnQBSQFMAgEBAgEAAcgBAgHIAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACM
+        CgAAAk1TRnQBSQFMAgEBAgEAAWABBAFgAQQBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ARIB/wH7AbEBAAH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ARIBhAL/
-        AQABLAL/AQABJAL/AQABHgL/AQABIQL/AQABLgL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAASgB/wHwAakBAAH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
-        Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        AScBkAH9Af8BAQEmAf4B/wEAARwC/wEAARUC/wEAAREC/wEAARsC/wEAAScC/wEAAYIC/wEAAY8C/wEA
-        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQEgAf8B6wGiAQAB/wHqAZcBAAH/AeoBjAEA
-        Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqASABiwH+Af8BAAEhAf4B/wEAARcC/wEAAQ8C/wEAAQ0C/wEAARoC/wEA
-        ASUC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAEeAf8B5gGc
-        AQAB/wHlAZABAAH/AeQBhQEAAf8B5QEwAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBHgGJAfwB/wEAAR0C/wEAARIC/wEA
-        AQoC/wEAAQoC/wEAARcC/wEAASIC/wEAASwC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABHgH/AeEBlwEAAf8B3wGLAQAB/wHeATABAAH/Ad8BKgEAAf8B4QEsAQAB/wHkAS8BAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqAR4BiAH7
-        Af8BAAEbAf0B/wEAAQ8C/wEAAQYC/wEAAQUC/wEAAREC/wEAARsC/wEAASIC/wEAASoC/wEAAS8C/wEA
-        ATAC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgEiAf8B3QGUAQAB/wHbAYcBAAH/AdkBLAEAAf8B2AEk
-        AQAB/wHbASYBAAH/Ad4BKQEAAf8B4QEsAQAB/wHjAS4BAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBIgGIAfgB/wEAARsB+gH/AQABDQL/AQABAwL/AgAC/wEAAQgC/wEAARIC/wEA
-        ARoC/wEAAR4C/wEAASIC/wEAASIC/wEAASkC/wJVAVwB6ogAAVwCVQHqAeQBrQEnAf8B2gGUAQAB/wHX
-        AYYBAAH/AdUBKwEAAf8B0wEfAQAB/wHVASABAAH/AdgBIwEAAf8B2gElAQAB/wHdASgBAAH/AeABKwEA
-        Af8B4wEuAQAB/wHsAYYBAAH/AVwCVQHqCAACVQFcAeoBJwGMAfUB/wEAAR4B9QH/AQABDgH9Af8BAAEC
-        Av8CAAL/AgAC/wEAAQcC/wEAAQ8C/wEAARQC/wEAARcC/wEAARYC/wEAARwC/wJVAVwB6ogAAVwCVQHq
-        AeMBrwEwAf8B2AGVAQgB/wHUAYcBAAH/AdEBLAEAAf8BzwEhAQAB/wHPARkBAAH/AdEBHAEAAf8B1AEf
-        AQAB/wHXASIBAAH/AdoBJQEAAf8B3AEnAQAB/wHlATABAAH/AVwCVQHqCAACVQFcAeoBMAGSAfMB/wEI
-        ASIB8AH/AQABEgH3Af8BAAEEAf4B/wIAAv8CAAL/AgAC/wEAAQIC/wEAAQcC/wEAAQkC/wEAAQsC/wEA
-        AQ8C/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYARMB/wHSAYsBAAH/Ac8BLwEAAf8BzAEkAQAB/wHL
-        ARsBAAH/AcsBFwEAAf8BzgEZAQAB/wHRARwBAAH/AdMBHgEAAf8B1gEhAQAB/wHfASoBAAH/AVwCVQHq
-        CAACVQFcAeoBiwGaAfAB/wETASkB7AH/AQABGQHxAf8BAAELAfcB/wIAAv8CAAL/AgAC/wIAAv8CAAL/
-        AgAC/wIAAv8BAAECAv8CVQFcAeqIAAFcAlUB6gHiAbsBmAH/AdYBnQEhAf8B0gGQAQsB/wHOAYQBAAH/
-        AcsBKgEAAf8ByQEhAQAB/wHIARoBAAH/AcgBFAEAAf8BygEVAQAB/wHNARgBAAH/AdABGwEAAf8B2AEi
-        AQAB/wFcAlUB6ggAAlUBXAHqAZgBpQHvAf8BIQGBAegB/wELASIB6wH/AQABFAHwAf8BAAEHAfUB/wIA
-        Af0B/wIAAv8CAAH+Af8CAAL/AgAC/wIAAv8CAAL/AlUBXAHqiAABXAJVAeoB5QHCAakB/wHXAaUBgAH/
-        AdIBlwEbAf8BzgGLAQgB/wHLAYEBAAH/AckBKQEAAf8ByAEiAQAB/wHIAR0BAAH/AcgBGwEAAf8BygEb
-        AQAB/wHNAR0BAAH/AdUBKAEAAf8BXAJVAeoIAAJVAVwB6gGpAbEB7wH/AYABjAHmAf8BGwEtAecB/wEI
-        AR8B6gH/AQABEgHuAf8BAAEHAfIB/wIAAfYB/wIAAfoB/wIAAf4B/wIAAv8CAAL/AgAC/wJVAVwB6ogA
-        AWECWgHkAe8B2QHKAf8B4gG9AaMB/wHcAa0BjAH/AdYBoQEoAf8B0wGVARYB/wHPAYsBBQH/Ac4BhQEA
-        Af8BzQGAAQAB/wHOAS4BAAH/Ac8BLgEAAf8B0wGAAQAB/wHaAYkBAAH/AV8CWAHjCAACWgFhAeQBygHQ
-        AfUB/wGjAawB7AH/AYwBmAHrAf8BKAGKAe0B/wEWASwB7wH/AQUBIQHxAf8BAAEXAfUB/wEAAQ8B9wH/
-        AQABCwH6Af8BAAEHAfoB/wEAAQcB/AH/AQABEQL/AlgBXwHjiAADPAFmAWECWgHkAVwCVQHqAVwCVQHq
-        AVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAWECWgHkAzsBZAgA
-        AzwBZgJaAWEB5AJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJV
-        AVwB6gJVAVwB6gJaAWEB5AM7AWT/AIUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcA
-        A/8BAAT/BAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGA
-        AQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGA
-        AQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAT/BAAL
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8AQAB/wH7AbEBAAH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/AQABhAL/
+        AgAC/wIAAv8CAAL/AgAC/wIAAv8BAAGKAv8BAAGXAv8BAAGhAv8BAAGjAv8BAAGlAv8CXQFhAeKIAAJc
+        AVUB6gH2AcABAAH/AfABqQEAAf8B8AGfAQAB/wHwAZYBAAH/AfIBjgEAAf8B9AGOAQAB/wH3AZEBAAH/
+        AfoBlAEAAf8B/AGWAQAC/wGZAQAB/wH+AZgBAAL/AaABAAH/AlwBVQHqCAACVQFcAeoBAAGQAf0B/wIA
+        Af4B/wIAAv8CAAL/AgAC/wIAAv8CAAL/AQABggL/AQABjwL/AQABmwL/AQABmgL/AQABoAL/AlUBXAHq
+        iAACXAFVAeoB8gG5AQAB/wHrAaIBAAH/AeoBlwEAAf8B6gGMAQAB/wHrAYYBAAH/Ae4BiAEAAf8B8QGL
+        AQAB/wHzAY0BAAH/AfYBkAEAAf8B+QGTAQAB/wH9AZcBAAL/AaABAAH/AlwBVQHqCAACVQFcAeoBAAGL
+        Af4B/wIAAf4B/wIAAv8CAAL/AgAC/wIAAv8CAAL/AQABgQL/AQABjQL/AQABlgL/AQABmAL/AQABmgL/
+        AlUBXAHqiAACXAFVAeoB7gG0AQAB/wHmAZwBAAH/AeUBkAEAAf8B5AGFAQAB/wHlAgAB/wHoAYIBAAH/
+        AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFc
+        AeoBAAGJAfwB/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8BAAGDAv8BAAGJAv8BAAGLAv8BAAGR
+        Av8CVQFcAeqIAAJcAVUC6gGwAQAB/wHhAZcBAAH/Ad8BiwEAAf8B3gIAAf8B3wIAAf8B4QIAAf8B5AIA
+        Af8B5wGBAQAB/wHqAYQBAAH/Ae0BhwEAAf8B7wGJAQAB/wH4AZIBAAH/AlwBVQHqCAACVQFcAeoBAAGI
+        AfsB/wIAAf0B/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wEAAYUC/wJVAVwB6ogA
+        AVwCVQHqAeYBrgEAAf8B3QGUAQAB/wHbAYcBAAH/AdkCAAH/AdgCAAH/AdsCAAH/Ad4CAAH/AeECAAH/
+        AeMCAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/AlwBVQHqCAACVQFcAeoBAAGIAfgB/wIAAfoB/wIA
+        Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CVQFcAeqIAAFcAlUB6gHkAa0BAAH/
+        AdoBlAEAAf8B1wGGAQAB/wHVAgAB/wHTAgAB/wHVAgAB/wHYAgAB/wHaAgAB/wHdAgAB/wHgAgAB/wHj
+        AgAB/wHsAYYBAAH/AVwCVQHqCAACVQFcAeoBAAGMAfUB/wIAAfUB/wIAAf0B/wIAAv8CAAL/AgAC/wIA
+        Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wJVAVwB6ogAAVwCVQHqAeMBrwEAAf8B2AGVAQAB/wHUAYcBAAH/
+        AdECAAH/Ac8CAAH/Ac8CAAH/AdECAAH/AdQCAAH/AdcCAAH/AdoCAAH/AdwCAAH/AeUCAAH/AVwCVQHq
+        CAACVQFcAeoBAAGSAfMB/wIAAfAB/wIAAfcB/wIAAf4B/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
+        Av8CAAL/AlUBXAHqiAABXAJVAeoB4gGzAYsB/wHWAZgBAAH/AdIBiwEAAf8BzwIAAf8BzAIAAf8BywIA
+        Af8BywIAAf8BzgIAAf8B0QIAAf8B0wIAAf8B1gIAAf8B3wIAAf8BXAJVAeoIAAJVAVwB6gGLAZoB8AH/
+        AgAB7AH/AgAB8QH/AgAB9wH/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CVQFcAeqIAAFc
+        AlUB6gHiAbsBmAH/AdYBnQEAAf8B0gGQAQAB/wHOAYQBAAH/AcsCAAH/AckCAAH/AcgCAAH/AcgCAAH/
+        AcoCAAH/Ac0CAAH/AdACAAH/AdgCAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wEAAYEB6AH/AgAB6wH/
+        AgAB8AH/AgAB9QH/AgAB/QH/AgAC/wIAAf4B/wIAAv8CAAL/AgAC/wIAAv8CVQFcAeqIAAFcAlUB6gHl
+        AcIBqQH/AdcBpQGAAf8B0gGXAQAB/wHOAYsBAAH/AcsBgQEAAf8ByQIAAf8ByAIAAf8ByAIAAf8ByAIA
+        Af8BygIAAf8BzQIAAf8B1QIAAf8BXAJVAeoIAAJVAVwB6gGpAbEB7wH/AYABjAHmAf8CAAHnAf8CAAHq
+        Af8CAAHuAf8CAAHyAf8CAAH2Af8CAAH6Af8CAAH+Af8CAAL/AgAC/wIAAv8CVQFcAeqIAAFhAloB5AHv
+        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBAAH/AdMBlQEAAf8BzwGLAQAB/wHOAYUBAAH/Ac0BgAEA
+        Af8BzgIAAf8BzwIAAf8B0wGAAQAB/wHaAYkBAAH/AV8CWAHjCAACWgFhAeQBygHQAfUB/wGjAawB7AH/
+        AYwBmAHrAf8BAAGKAe0B/wIAAe8B/wIAAfEB/wIAAfUB/wIAAfcB/wIAAfoB/wIAAfoB/wIAAfwB/wIA
+        Av8CWAFfAeOIAAM8AWYBYQJaAeQBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJV
+        AeoBXAJVAeoBXAJVAeoBXAJVAeoBYQJaAeQDOwFkCAADPAFmAloBYQHkAlUBXAHqAlUBXAHqAlUBXAHq
+        AlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAloBYQHkAzsBZP8AhQABQgFN
+        AT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAGAAQEBgAEBBAABgAEBAYABAQQA
+        AYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQA
+        AYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQA
+        BP8EAAs=
 </value>
   </data>
   <data name="preconditionListTreeView.Location" type="System.Drawing.Point, System.Drawing">
@@ -2163,7 +2075,7 @@
     <value>0, 0</value>
   </data>
   <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>387, 465</value>
+    <value>392, 496</value>
   </data>
   <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -2187,7 +2099,7 @@
     <value>0, 0</value>
   </data>
   <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>387, 465</value>
+    <value>392, 496</value>
   </data>
   <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -2211,7 +2123,7 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 0</value>
+    <value>242, 0</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -2241,7 +2153,7 @@
     <value>NoControl</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>312, 0</value>
+    <value>317, 0</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -2268,10 +2180,10 @@
     <value>Bottom</value>
   </data>
   <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 465</value>
+    <value>0, 496</value>
   </data>
   <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>387, 28</value>
+    <value>392, 28</value>
   </data>
   <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -2301,7 +2213,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>387, 493</value>
+    <value>392, 524</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

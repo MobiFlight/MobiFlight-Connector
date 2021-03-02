@@ -33,11 +33,8 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
-            this.noRefConfigsAvailableLabel = new System.Windows.Forms.Label();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
             this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.spacerPanel = new System.Windows.Forms.Panel();
             this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
             this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
@@ -158,9 +155,7 @@
             // 
             // fsuipcTabPage
             // 
-            this.fsuipcTabPage.Controls.Add(this.noRefConfigsAvailableLabel);
             this.fsuipcTabPage.Controls.Add(this.referencesGroupBox);
-            this.fsuipcTabPage.Controls.Add(this.textBox1);
             this.fsuipcTabPage.Controls.Add(this.spacerPanel);
             this.fsuipcTabPage.Controls.Add(this.fsuipcConfigPanel);
             this.fsuipcTabPage.Controls.Add(this.fsuipcHintTextBox);
@@ -168,15 +163,9 @@
             this.fsuipcTabPage.Name = "fsuipcTabPage";
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
             // 
-            // noRefConfigsAvailableLabel
-            // 
-            resources.ApplyResources(this.noRefConfigsAvailableLabel, "noRefConfigsAvailableLabel");
-            this.noRefConfigsAvailableLabel.Name = "noRefConfigsAvailableLabel";
-            // 
             // referencesGroupBox
             // 
             this.referencesGroupBox.Controls.Add(this.configRefPanel);
-            this.referencesGroupBox.Controls.Add(this.panel1);
             resources.ApplyResources(this.referencesGroupBox, "referencesGroupBox");
             this.referencesGroupBox.Name = "referencesGroupBox";
             this.referencesGroupBox.TabStop = false;
@@ -185,21 +174,6 @@
             // 
             resources.ApplyResources(this.configRefPanel, "configRefPanel");
             this.configRefPanel.Name = "configRefPanel";
-            // 
-            // panel1
-            // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.TabStop = false;
             // 
             // spacerPanel
             // 
@@ -929,9 +903,6 @@
         private System.Windows.Forms.CheckBox overridePreconditionCheckBox;
         private System.Windows.Forms.GroupBox referencesGroupBox;
         private UI.Panels.Config.ConfigRefPanel configRefPanel;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label noRefConfigsAvailableLabel;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel spacerPanel;
     }
 }

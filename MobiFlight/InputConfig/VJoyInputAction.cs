@@ -31,8 +31,19 @@ namespace MobiFlight.InputConfig
             return clone;
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
         {
+            String value = sendValue;
+
+            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+            foreach (ConfigRefValue item in configRefs)
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
+                replacements.Add(replacement);
+            }
+
+            value = Replace(value, replacements);
+
             if (buttonNr > 0)
             {
                 if (VJoyHelper.sendButton(vJoyID,UInt16.Parse(buttonNr.ToString()),buttonComand))
@@ -50,11 +61,11 @@ namespace MobiFlight.InputConfig
             {
                 if (VJoyHelper.setAxisVal(vJoyID,axisString,UInt16.Parse(sendValue)))
                 {
-                    Log.Instance.log("set Axis:" + axisString + " ID:" + vJoyID + " to " + sendValue, LogSeverity.Debug);
+                    Log.Instance.log("set Axis:" + axisString + " ID:" + vJoyID + " to " + value, LogSeverity.Debug);
                 }
                 else
                 {
-                    Log.Instance.log("ERROR set Axis:" + axisString + " ID:" + vJoyID + " to " + sendValue, LogSeverity.Error);
+                    Log.Instance.log("ERROR set Axis:" + axisString + " ID:" + vJoyID + " to " + value, LogSeverity.Error);
                 }
                 return;
             }

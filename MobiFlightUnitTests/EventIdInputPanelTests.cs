@@ -22,7 +22,7 @@ namespace MobiFlightUnitTests
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
             Int32 EventId = 321430;
-            Int32 Param = 123456;
+            String Param = "123456";
 
             EventIdInputAction inputAction = new EventIdInputAction();
             inputAction.EventId = EventId;
@@ -58,7 +58,7 @@ namespace MobiFlightUnitTests
             xmlReader.ReadToDescendant("onPress");
             i.ReadXml(xmlReader);
             Assert.AreEqual(321430, i.EventId, "Value of EventId is wrong");
-            Assert.AreEqual(123456, i.Param, "Value of Param is wrong");
+            Assert.AreEqual("123456", i.Param, "Value of Param is wrong");
         }
     }
 }

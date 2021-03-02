@@ -157,17 +157,17 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, ButtonArgs e)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, ButtonArgs e, List<ConfigRefValue> configRefs)
         {
             if (e.Value == 0 && onPress != null)
             {
                 Log.Instance.log("Executing OnPress: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onPress.execute(fsuipcCache, simConnectCache, moduleCache);
+                onPress.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
             }
             else if (e.Value == 1 && onRelease != null)
             {
                 Log.Instance.log("Executing OnRelease: " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
-                onRelease.execute(fsuipcCache, simConnectCache, moduleCache);
+                onRelease.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
             }
 
         }

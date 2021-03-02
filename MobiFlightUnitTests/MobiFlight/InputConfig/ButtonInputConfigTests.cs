@@ -52,8 +52,8 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("button");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual((o.onPress as EventIdInputAction).EventId, 12345, "EventId not the same");
-            Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, 127, "EventId not the same");
+            Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
+            Assert.AreEqual(127, (o.onRelease as JeehellInputAction).EventId, "EventId not the same");
         }
 
         [TestMethod()]
@@ -75,7 +75,7 @@ namespace MobiFlight.InputConfig.Tests
 
             String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\WriteXmlTest.1.xml");
 
-            Assert.AreEqual(s, result, "The both strings are not equal");
+            Assert.AreEqual(result, s, "The both strings are not equal");
         }
     }
 }

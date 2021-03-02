@@ -48,6 +48,27 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Type, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
+            Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
+            Assert.AreEqual(o.ConfigRefs.Count, 2, "ConfigRefs.Count is not 2");
+
+            o = new InputConfigItem();
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputConfigItem\ReadXmlTest.2.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("settings");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
+            Assert.AreEqual(o.Name, "TestName", "Name not the same");
+            Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
+            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.IsNull(o.button.onPress, "button onpress not null");
+            Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
+            Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
+            Assert.AreEqual(o.ConfigRefs.Count, 0, "ConfigRefs.Count is not 2");
         }
 
         [TestMethod()]
@@ -102,6 +123,8 @@ namespace MobiFlight.Tests
             result.ModuleSerial = "TestSerial";
             result.Name = "TestName";
             result.Preconditions.Add(new Precondition() { PreconditionSerial = "PreConTestSerial" });
+            result.ConfigRefs.Add(new Base.ConfigRef() { Active = true, Placeholder = "@", Ref = "0b1c877f-baf3-4c69-99e6-6c31429fe3bd" });
+            result.ConfigRefs.Add(new Base.ConfigRef() { Active = false, Placeholder = "%", Ref = "7d1370d3-56e9-497a-8abb-63ecc169defe" });
 
             return result;
         }

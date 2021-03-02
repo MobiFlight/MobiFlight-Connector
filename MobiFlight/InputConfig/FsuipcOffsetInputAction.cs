@@ -128,26 +128,25 @@ namespace MobiFlight.InputConfig
             }
         }   
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
         {
             String value = Value;
-            // apply ncalc logic
+
+            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+            foreach (ConfigRefValue item in configRefs)
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
+                replacements.Add(replacement);
+            }
+
             if (value.Contains("$"))
             {
                 ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(this, cache as FSUIPC.FSUIPCCacheInterface);
-
-                String expression = Value.Replace("$", tmpValue.ToString());
-                var ce = new NCalc.Expression(expression);
-                try
-                {
-                    value = (ce.Evaluate()).ToString();
-                }
-                catch
-                {
-                    Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                    throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
-                }
+                Tuple<string, string> replacement = new Tuple<string, string>("$", tmpValue.ToString());
+                replacements.Add(replacement);
             }
+
+            value = Replace(value, replacements);
 
             if (FSUIPCSize == 1)
             {

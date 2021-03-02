@@ -19,6 +19,27 @@ namespace MobiFlight.InputConfig
         abstract public void ReadXml(System.Xml.XmlReader reader);
         abstract public void WriteXml(System.Xml.XmlWriter writer);
 
-        abstract public void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache);
+        abstract public void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs);
+
+        public string Replace(string expression, List<Tuple<string, string>> replacements) {
+            if (replacements.Count == 0) return expression;
+
+            foreach (Tuple<string, string> replacement in replacements)
+            {
+                expression = expression.Replace(replacement.Item1, replacement.Item2);
+            }
+
+            var ce = new NCalc.Expression(expression);
+            try
+            {
+                expression = (ce.Evaluate()).ToString();
+            }
+            catch
+            {
+                Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
+                throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
+            }
+            return expression; 
+        }
     }
 }

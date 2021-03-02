@@ -19,6 +19,7 @@ namespace MobiFlightUnitTests.mock.FSUIPC
 
         public void Clear()
         {
+            Writes.Clear();
             return;
         }
 
@@ -113,11 +114,11 @@ namespace MobiFlightUnitTests.mock.FSUIPC
              * a special function and there is not 
              * so much that we can test here
              */
-            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID" });
+            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID>" + eventID + ">" + param });
             return;
         }
 
-        public void setEventID(string param)
+        public void setEventID(string eventID)
         {
             /*
              * This is the old way of setting the eventID
@@ -126,7 +127,7 @@ namespace MobiFlightUnitTests.mock.FSUIPC
              * a special function and there is not 
              * so much that we can test here
              */
-            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID" });
+            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID>" + eventID });
             return;
         }
 

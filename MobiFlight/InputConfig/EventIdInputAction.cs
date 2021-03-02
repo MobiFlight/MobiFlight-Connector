@@ -13,7 +13,7 @@ namespace MobiFlight.InputConfig
 
         public const String TYPE = "EventIdInputAction";
         public Int32 EventId;
-        public Int32 Param;
+        public String Param = "0";
         
         override public object Clone()
         {
@@ -30,14 +30,14 @@ namespace MobiFlight.InputConfig
             String param = reader["param"];
 
             EventId = Int32.Parse(eventId);
-            Param = Int32.Parse(param);
+            Param = param;
         }
 
         public override void WriteXml(System.Xml.XmlWriter writer)
         {
             writer.WriteAttributeString("type", getType());
             writer.WriteAttributeString("eventId", EventId.ToString());
-            writer.WriteAttributeString("param", Param.ToString());
+            writer.WriteAttributeString("param", Param);
         }
 
         protected virtual String getType()
@@ -45,9 +45,20 @@ namespace MobiFlight.InputConfig
             return TYPE;
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
         {
-            fsuipcCache.setEventID(EventId, Param);
+            String value = Param;
+
+            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+            foreach (ConfigRefValue item in configRefs)
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
+                replacements.Add(replacement);
+            }
+
+            value = Replace(value, replacements);
+
+            fsuipcCache.setEventID(EventId, int.Parse(value));
         }
     }
 }

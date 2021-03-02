@@ -124,30 +124,26 @@ namespace MobiFlight.InputConfig
             return result;
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache)
+        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
         {
             String value = Param;
             IFsuipcConfigItem cfg = CreateFsuipcConfigItem();
 
+            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+            foreach (ConfigRefValue item in configRefs)
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
+                replacements.Add(replacement);
+            }
+
             if (value.Contains("$"))
             {
                 ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg, cache as FSUIPC.FSUIPCCacheInterface);
-                tmpValue = FSUIPC.FsuipcHelper.executeTransform(tmpValue, cfg);
-
-                Log.Instance.log("JeehellInputAction:Execute : Current value " + tmpValue.Int64.ToString(), LogSeverity.Debug);
-
-                String expression = value.Replace("$", tmpValue.Int64.ToString());
-                var ce = new NCalc.Expression(expression);
-                try
-                {
-                    value = (ce.Evaluate()).ToString();
-                }
-                catch
-                {
-                    Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                    throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
-                }
+                Tuple<string, string> replacement = new Tuple<string, string>("$", tmpValue.ToString());
+                replacements.Add(replacement);
             }
+
+            value = Replace(value, replacements);
 
             cfg.FSUIPCOffset = ParamOffset;
             cfg.FSUIPCSize = 2;
