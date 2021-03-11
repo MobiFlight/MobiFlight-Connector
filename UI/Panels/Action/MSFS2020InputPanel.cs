@@ -49,6 +49,8 @@ namespace MobiFlight.UI.Panels.Action
                         var cols = line.Split(':');
                         if (cols.Count() == 2) {
                             GroupKey = cols[0];
+                            if (data.ContainsKey(GroupKey)) continue;
+
                             data.Add(GroupKey, new List<String>());
                         }
                         else
@@ -74,6 +76,8 @@ namespace MobiFlight.UI.Panels.Action
                             if (cols.Count() == 2)
                             {
                                 GroupKey = "User: " + cols[0];
+                                if (data.ContainsKey(GroupKey)) continue;
+
                                 data.Add(GroupKey, new List<String>());
                             }
                             else
