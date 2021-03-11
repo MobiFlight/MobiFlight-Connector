@@ -366,6 +366,7 @@ namespace MobiFlight.UI.Panels
                 {
                     row["inputName"] = cfg.Name;
                     row["inputType"] = cfg.Type;
+                    if (cfg.ModuleSerial == null) continue;
                     row["moduleSerial"] = cfg.ModuleSerial.Split('/')[0];
                 }
             }
