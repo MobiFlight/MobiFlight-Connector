@@ -42,6 +42,7 @@ namespace MobiFlight
         public string       DisplaySerial               { get; set; }
         public string       DisplayPin                  { get; set; }
         public byte         DisplayPinBrightness        { get; set; }
+        public bool         DisplayPinPWM               { get; set; }
         // the display stuff
         public string       DisplayLedAddress           { get; set; }
         public byte         DisplayLedConnector         { get; set; }
@@ -98,6 +99,7 @@ namespace MobiFlight
 
             //DisplayPin = "A01"; // not initialized anymore
             DisplayPinBrightness = byte.MaxValue;
+            DisplayPinPWM = false; 
             DisplayLedConnector = 1;
             DisplayLedAddress = "0";
             DisplayLedPadding = false;
@@ -189,11 +191,15 @@ namespace MobiFlight
                 DisplaySerial = reader["serial"];
                 DisplayTrigger = reader["trigger"];
 
-                if (DisplayType == MobiFlightOutput.TYPE)
+                if (DisplayType == MobiFlightOutput.TYPE || DisplayType == "Pin")
                 {
                     if (reader["pinBrightness"] != null && reader["pinBrightness"] != "")
                     {
                         DisplayPinBrightness = byte.Parse(reader["pinBrightness"]);
+                    }
+                    if (reader["pinPwm"] != null && reader["pinPwm"] != "")
+                    {
+                        DisplayPinPWM = bool.Parse(reader["pinPwm"]);
                     }
                 }
                 else if (DisplayType == MobiFlightLedModule.TYPE) {
@@ -448,6 +454,9 @@ namespace MobiFlight
                     writer.WriteAttributeString("pin", DisplayPin);
                     writer.WriteAttributeString("pinBrightness", DisplayPinBrightness.ToString());
 
+                    // only write the info if enabled (not many pins can actually set this)
+                    if (DisplayPinPWM)
+                        writer.WriteAttributeString("pinPwm", DisplayPinPWM.ToString());
                 }
                                 
             writer.WriteEndElement(); // end of display
@@ -486,6 +495,7 @@ namespace MobiFlight
             clone.DisplayLedReverseDigits   = this.DisplayLedReverseDigits;
             clone.DisplayPin                = this.DisplayPin;
             clone.DisplayPinBrightness      = this.DisplayPinBrightness;
+            clone.DisplayPinPWM             = this.DisplayPinPWM;
             // the display stuff
             clone.DisplayLedAddress         = this.DisplayLedAddress;
             clone.DisplayLedConnector       = this.DisplayLedConnector;

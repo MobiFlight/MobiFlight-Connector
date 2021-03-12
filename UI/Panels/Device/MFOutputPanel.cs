@@ -18,6 +18,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private MobiFlight.Config.Output output;
         bool initialized = false;
+        String MobiFlightModuleType;
 
         public MFOutputPanel()
         {
@@ -25,9 +26,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFOutputPanel(MobiFlight.Config.Output output, List<byte> FreePins)
+        public MFOutputPanel(MobiFlight.Config.Output output, List<byte> FreePins, String MobiFlightModuleType)
             : this()
         {
+            this.MobiFlightModuleType = MobiFlightModuleType;
+
             List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(output.Pin)); Pin1Pins.Sort();
             foreach (byte pin in Pin1Pins) mfPinComboBox.Items.Add(pin);
 
@@ -55,8 +58,32 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 Changed(output, new EventArgs());
         }
 
+        private bool isPwmPin()
+        {
+            bool result = false;
+            byte bPin = byte.Parse(mfPinComboBox.Text);
+            
+            switch(MobiFlightModuleType)
+            {
+                case MobiFlightModuleInfo.TYPE_MEGA:
+                    result = MobiFlightModuleInfo.MEGA_PWM.Contains(bPin);
+                    break;
+
+                case MobiFlightModuleInfo.TYPE_MICRO:
+                    result = MobiFlightModuleInfo.MICRO_PWM.Contains(bPin);
+                    break;
+
+                case MobiFlightModuleInfo.TYPE_UNO:
+                    result = MobiFlightModuleInfo.UNO_PWM.Contains(bPin);
+                    break;
+
+            }
+            return result;
+        }
+
         private void setValues()
         {
+            mfPinLabel.Text = isPwmPin() ? "Pin (PWM)" : "Pin";
             output.Pin = mfPinComboBox.Text;
             output.Name = textBox1.Text;
         }

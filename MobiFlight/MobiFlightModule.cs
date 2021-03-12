@@ -802,6 +802,20 @@ namespace MobiFlight
             return result;
         }
 
+        public byte[] getPwmPins()
+        {
+            switch (this.Type)
+            {
+                case MobiFlightModuleInfo.TYPE_MICRO:
+                    return MobiFlightModuleInfo.MICRO_PWM;
+
+                case MobiFlightModuleInfo.TYPE_UNO:
+                    return MobiFlightModuleInfo.UNO_PWM;
+
+                default:
+                    return MobiFlightModuleInfo.MEGA_PWM;
+            }
+        }
 
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {

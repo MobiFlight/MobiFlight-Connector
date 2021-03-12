@@ -79,3 +79,5 @@
 /ReleaseMobiFlightSetup-7.10.0.19.exe
 /ReleaseMobiFlightConnector-7.10.0.19.exe
 /Build/WinRAR.exe
+/Build/utils/innosetup/*
+/Build/utils/wix/*

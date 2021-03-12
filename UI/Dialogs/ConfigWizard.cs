@@ -674,6 +674,7 @@ namespace MobiFlight.UI.Dialogs
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
+                    displayPinPanel.SetModule(module);
                     displayPinPanel.displayPinBrightnessPanel.Visible = true;
                     displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
 

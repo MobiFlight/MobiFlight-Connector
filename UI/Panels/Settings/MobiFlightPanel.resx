@@ -295,7 +295,7 @@
     <value>0</value>
   </data>
   <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>504, 539</value>
+    <value>536, 780</value>
   </data>
   <data name="mfModulesTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -322,7 +322,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 539</value>
+    <value>441, 780</value>
   </data>
   <data name="mfSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -349,19 +349,19 @@
     <value>Magenta</value>
   </data>
   <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 33</value>
+    <value>34, 52</value>
   </data>
   <data name="uploadToolStripButton.Text" xml:space="preserve">
     <value>Upload current config to module</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 38</value>
+    <value>6, 57</value>
   </data>
   <data name="openToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
   <data name="openToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 33</value>
+    <value>34, 52</value>
   </data>
   <data name="openToolStripButton.Text" xml:space="preserve">
     <value>Load config</value>
@@ -370,13 +370,13 @@
     <value>Magenta</value>
   </data>
   <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 33</value>
+    <value>34, 52</value>
   </data>
   <data name="saveToolStripButton.Text" xml:space="preserve">
     <value>Save current config to file</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 38</value>
+    <value>6, 57</value>
   </data>
   <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>237, 34</value>
@@ -433,7 +433,7 @@
     <value>Magenta</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 33</value>
+    <value>143, 52</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
     <value>Add device</value>
@@ -442,22 +442,22 @@
     <value>Magenta</value>
   </data>
   <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 33</value>
+    <value>159, 52</value>
   </data>
   <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
     <value>Remove device</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 38</value>
+    <value>6, 57</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 563</value>
+    <value>6, 845</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 3, 0</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>798, 38</value>
+    <value>1197, 57</value>
   </data>
   <data name="mobiflightSettingsToolStrip.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>

@@ -98,7 +98,8 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>false</Prefer32Bit>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -732,9 +733,7 @@
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </Compile>
     <None Include="Build\build-firmware.bat" />
-    <None Include="Build\Default.SFX" />
     <None Include="Build\release.bat" />
-    <None Include="Build\sfx-mobiflight.diz" />
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -796,7 +795,6 @@
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />
-    <Content Include="Build\Rar.exe" />
     <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />

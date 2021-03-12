@@ -40,29 +40,28 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.mfPinLabel);
             this.groupBox1.Controls.Add(this.mfPinComboBox);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // mfPinLabel
             // 
             resources.ApplyResources(this.mfPinLabel, "mfPinLabel");
-            this.mfPinLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPinLabel.Name = "mfPinLabel";
             // 
             // mfPinComboBox
             // 
-            resources.ApplyResources(this.mfPinComboBox, "mfPinComboBox");
             this.mfPinComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.mfPinComboBox, "mfPinComboBox");
             this.mfPinComboBox.Name = "mfPinComboBox";
             this.mfPinComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.textBox1);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 

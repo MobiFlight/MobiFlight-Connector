@@ -120,7 +120,7 @@ namespace MobiFlight.InputConfig.Tests
             configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
             o.execute(mock, simConnectMock, null, configrefs);
 
-            Assert.AreEqual(1, mock.Writes.Count, "The message count is not as expected");
+            Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
             Assert.AreEqual("2", mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
         }
     }

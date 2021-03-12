@@ -927,9 +927,18 @@ namespace MobiFlight
                         break;
 
                     default:
+                        string outputValue = value;
+
+                        // so in case the pin is not explicily treated as PWM pin and 
+                        // we have a value other than 0 (which is output OFF) 
+                        // we will set the full brightness.
+                        // This ensures backward compatibility.
+                        if (outputValue != "0" && !cfg.DisplayPinPWM) 
+                            outputValue = cfg.DisplayPinBrightness.ToString();
+                        
                         mobiFlightCache.setValue(serial,
                             cfg.DisplayPin,
-                            (value != "0" ? value : "0"));
+                            outputValue);
                         break;
                 }
             }

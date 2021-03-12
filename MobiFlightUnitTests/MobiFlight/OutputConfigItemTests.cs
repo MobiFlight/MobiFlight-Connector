@@ -124,6 +124,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.DisplayType, c.DisplayType, "clone: DisplayType not the same");
             Assert.AreEqual(o.DisplaySerial, c.DisplaySerial, "clone: DisplaySerial not the same");
             Assert.AreEqual(o.DisplayPinBrightness, c.DisplayPinBrightness, "clone: DisplayPinBrightness not the same");
+            Assert.AreEqual(o.DisplayPinPWM, c.DisplayPinPWM, "clone: DisplayPinPWM not the same");
+
             Assert.AreEqual(o.DisplayLedConnector, c.DisplayLedConnector, "clone: DisplayLedConnector not the same");
             Assert.AreEqual(o.DisplayLedAddress, c.DisplayLedAddress, "clone: DisplayLedAddress not the same");
             Assert.AreEqual(o.DisplayLedPadding, c.DisplayLedPadding, "clone: DisplayLedPadding not the same");
@@ -181,6 +183,7 @@ namespace MobiFlight.Tests
             o.DisplaySerial = "Ser123";
             o.DisplayPin = "A01";
             o.DisplayPinBrightness = byte.MinValue;
+            o.DisplayPinPWM = true;
             o.DisplayLedConnector = 2;
             o.DisplayLedAddress = "1";
             o.DisplayLedPadding = true;

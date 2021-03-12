@@ -12,6 +12,7 @@ namespace MobiFlight.UI.Panels
     public partial class DisplayPinPanel : UserControl
     {
         public bool WideStyle = false;
+        private MobiFlightModule Module;
 
         public DisplayPinPanel()
         {
@@ -95,6 +96,8 @@ namespace MobiFlight.UI.Panels
 
                 int range = displayPinBrightnessTrackBar.Maximum - displayPinBrightnessTrackBar.Minimum;
                 displayPinBrightnessTrackBar.Value = (int)((config.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
+
+                displayPwmCheckBox.Checked = config.DisplayPinPWM;
             }
         }
 
@@ -102,8 +105,27 @@ namespace MobiFlight.UI.Panels
         {
             config.DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text;
             config.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
+            config.DisplayPinPWM = displayPwmCheckBox.Checked;
 
             return config;
+        }
+
+        internal void SetModule(MobiFlightModule module)
+        {
+            Module = module;
+        }
+
+        private void displayPinComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Module != null)
+            {
+                String pin = (sender as ComboBox).SelectedItem.ToString();
+                foreach (var item in Module.GetConnectedDevices(pin))
+                {
+                    pwmPinPanel.Visible = Module.getPwmPins().Contains((byte)(item as MobiFlightOutput).Pin);
+                    return;
+                }
+            }
         }
     }
 }

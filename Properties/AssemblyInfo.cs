@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 [assembly: AssemblyTitle("MobiFlight Connector")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Open Source Flight Simulator Solution")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("MobiFlight")]
 [assembly: AssemblyProduct("MobiFlight Connector")]
-[assembly: AssemblyCopyright("Copyright © Sebastian Moebius 2014 - 2021")]
+[assembly: AssemblyCopyright("Copyright Sebastian Moebius 2014 - 2021")]
 [assembly: AssemblyTrademark("MobiFlight")]
 [assembly: AssemblyCulture("")]
 
@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern 
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("8.0.2.1")]
-[assembly: AssemblyFileVersion("8.0.2.1")]
+[assembly: AssemblyVersion("8.0.2.2")]
+[assembly: AssemblyFileVersion("8.0.2.2")]
 [assembly: NeutralResourcesLanguage("en")]
 
