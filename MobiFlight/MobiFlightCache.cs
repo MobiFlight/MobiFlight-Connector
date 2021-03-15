@@ -613,6 +613,50 @@ namespace MobiFlight
             }
         }
 
+        public void setShiftRegisterOutput(string serial, string shiftRegName, string outputPin, string value)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            if (outputPin == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_AddressNull");
+            }
+
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                MobiFlightModule module = Modules[serial];
+                module.setShiftRegisterOutput(shiftRegName, outputPin, value);
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WriteShiftRegisterOutput"), e);
+            }
+        }
+
+        internal void setShiftRegisterPWM(string serial, string shiftRegName, string refValue)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            }; 
+            
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                MobiFlightModule module = Modules[serial];
+                module.setShiftRegisterPWM(shiftRegName, refValue);
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WriteShiftRegisterPWM"), e);
+            }
+        }
 
         public void Flush()
         {
@@ -683,6 +727,6 @@ namespace MobiFlight
             if (Modules.ContainsKey(moduleInfo.Serial)) return Modules[moduleInfo.Serial];           
 
             throw new IndexOutOfRangeException();
-        }
+        }        
     }
 }

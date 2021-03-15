@@ -327,7 +327,9 @@
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
+    <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
@@ -387,6 +389,12 @@
     <Compile Include="UI\Panels\OutputConfigPanel.Designer.cs">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.Designer.cs">
+      <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Settings\ArcazePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -398,6 +406,12 @@
     </Compile>
     <Compile Include="UI\Panels\Settings\GeneralPanel.Designer.cs">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFShiftRegisterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFShiftRegisterPanel.Designer.cs">
+      <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Settings\MobiFlightPanel.cs">
       <SubType>UserControl</SubType>
@@ -827,11 +841,17 @@
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\DisplayShiftRegisterPanel.resx">
+      <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.resx">
+      <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.de.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
@@ -1056,6 +1076,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.resx">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>

@@ -37,7 +37,8 @@ namespace MobiFlight
         Servo,               // 6
         LcdDisplay,          // 7
         Encoder,             // 8,
-        Stepper              // 9
+        Stepper,             // 9
+        ShiftRegister
     }
 
     public class FirmwareFeature
@@ -151,6 +152,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightServo> servoModules = new Dictionary<string, MobiFlightServo>();
         Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string,MobiFlightOutput>();
         Dictionary<String, MobiFlightLcdDisplay> lcdDisplays = new Dictionary<string, MobiFlightLcdDisplay>();
+        Dictionary<String, MobiFlightShiftRegister> shiftRegisters = new Dictionary<string, MobiFlightShiftRegister>();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -204,7 +206,9 @@ namespace MobiFlight
             Retrigger,          // 23
             ResetBoard,         // 24
             SetLcdDisplayI2C,   // 25
-            SetModuleBrightness // 26    // 25
+            SetModuleBrightness,// 26
+            SetShiftRegisterPins, // 27
+            SetShiftRegisterPWM // 28
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -278,7 +282,8 @@ namespace MobiFlight
             stepperModules.Clear();
             servoModules.Clear();
             outputs.Clear();
-            lcdDisplays.Clear();
+            lcdDisplays.Clear(); 
+            shiftRegisters.Clear();
 
             foreach (Config.BaseDevice device in Config.Items)
             {
@@ -312,6 +317,15 @@ namespace MobiFlight
                     case DeviceType.LcdDisplay:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
+                        break;
+
+                    case DeviceType.ShiftRegister:
+                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        int.TryParse((device as Config.ShiftRegister).NumModules, out submodules);
+                        int pwmPin;
+                        int.TryParse((device as Config.ShiftRegister).PWMPin, out pwmPin);
+                        bool supportPWM = pwmPin <= 0 ?false:true;
+                        shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count, SupportPWM = supportPWM });
                         break;
                 }                
             }
@@ -616,6 +630,35 @@ namespace MobiFlight
             return stepperModules[stepper];
         }
 
+        internal bool setShiftRegisterOutput(string moduleID, string outputPin, string value)
+        {
+            String key = "ShiftReg_" + moduleID;
+            String cachedValue = value;
+
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+                lastValue[key] == cachedValue) return false;
+
+            lastValue[key] = cachedValue;
+
+            shiftRegisters[moduleID].Display(outputPin, value);
+            return true;
+        }
+
+        internal bool setShiftRegisterPWM(string moduleID, string value)
+        {
+            String key = "ShiftReg_PWM" + moduleID;
+            String cachedValue = value;
+
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+                lastValue[key] == cachedValue) return false;
+
+            lastValue[key] = cachedValue;
+
+            shiftRegisters[moduleID].SetPWM(value);
+            return true;
+        }
+
+
         public bool Retrigger ()
         {
             bool isOk = true;
@@ -762,6 +805,11 @@ namespace MobiFlight
                 result.Add(lcdDisplay);
             }
 
+            foreach (MobiFlightShiftRegister shiftRegister in shiftRegisters.Values)
+            {
+                result.Add(shiftRegister);
+            }
+
             return result;
         }
 
@@ -799,6 +847,12 @@ namespace MobiFlight
                     result.Add(lcdDisplay);
             }
 
+            foreach (MobiFlightShiftRegister shiftRegister in shiftRegisters.Values)
+            {
+                if (shiftRegister.Name == name)
+                    result.Add(shiftRegister);
+            }
+
             return result;
         }
 
@@ -825,6 +879,7 @@ namespace MobiFlight
             if (stepperModules.Count > 0) result.Add(DeviceType.Stepper);
             if (servoModules.Count > 0) result.Add(DeviceType.Servo);
             if (lcdDisplays.Count > 0) result.Add(DeviceType.LcdDisplay);
+            if (shiftRegisters.Count > 0) result.Add(DeviceType.ShiftRegister);
 
             return result;
         }
@@ -994,6 +1049,12 @@ namespace MobiFlight
 
                     case DeviceType.Output:
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Output).Pin));
+                        break;
+
+                    case DeviceType.ShiftRegister:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).ClockPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).LatchPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).DataPin));
                         break;
 
                     default:

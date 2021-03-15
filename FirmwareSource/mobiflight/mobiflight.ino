@@ -35,7 +35,7 @@ char foo;
 // 1.9.8 : Decreased EEPROM area again, changed order during reset/load
 // 1.9.9 : Changed MODULE_MAX_PINS and MAX_BUTTONS to 68 (69 is internally needed but it is confusing)
 //         Added PWM output
-const char version[8] = "1.9.9";
+const char version[8] = "1.9.10";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -45,6 +45,7 @@ const char version[8] = "1.9.9";
 #define MF_LCD_SUPPORT      1
 #define MF_STEPPER_SUPPORT  1
 #define MF_SERVO_SUPPORT    1
+#define MF_SHIFTER_SUPPORT  1
 // ALL 24780
 // No Segments 23040 (1740)
 // No Steppers 20208 (4572)
@@ -86,6 +87,7 @@ const char version[8] = "1.9.9";
 #define MAX_STEPPERS    2
 #define MAX_MFSERVOS    2
 #define MAX_MFLCD_I2C   2
+#define MAX_SHIFTERS    4
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -96,6 +98,7 @@ const char version[8] = "1.9.9";
 #define MAX_STEPPERS    2
 #define MAX_MFSERVOS    2
 #define MAX_MFLCD_I2C   2
+#define MAX_SHIFTERS    4
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
@@ -106,6 +109,7 @@ const char version[8] = "1.9.9";
 #define MAX_STEPPERS    10
 #define MAX_MFSERVOS    10
 #define MAX_MFLCD_I2C   2
+#define MAX_SHIFTERS    10
 #endif
 
 #include <EEPROMex.h>
@@ -138,6 +142,11 @@ const char version[8] = "1.9.9";
 #if MF_LCD_SUPPORT == 1
 #include <LiquidCrystal_I2C.h>
 #include <MFLCDDisplay.h>
+#endif
+
+
+#if MF_SHIFTER_SUPPORT == 1
+#include <MFShifter.h>
 #endif
 
 const uint8_t MEM_OFFSET_NAME   = 0;
@@ -211,6 +220,11 @@ MFLCDDisplay lcd_I2C[MAX_MFLCD_I2C];
 uint8_t lcd_12cRegistered = 0;
 #endif 
 
+#if MF_SHIFTER_SUPPORT == 1
+MFShifter shiftregisters[MAX_SHIFTERS];
+uint8_t shiftregisterRegistered = 0;
+#endif 
+
 enum
 {
   kTypeNotSet,              // 0 
@@ -222,7 +236,8 @@ enum
   kTypeServo,               // 6
   kTypeLcdDisplayI2C,       // 7
   kTypeEncoder,             // 8
-  kTypeStepper              // 9 (new stepper type with auto zero support if btnPin is > 0)
+  kTypeStepper,             // 9 (new stepper type with auto zero support if btnPin is > 0)
+  kShiftRegister            // 10 Shift register support (example: 74HC595, TLC592X)
 };  
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
@@ -258,7 +273,9 @@ enum
   kTrigger,            // 23
   kResetBoard,         // 24
   kSetLcdDisplayI2C,   // 25
-  kSetModuleBrightness // 26
+  kSetModuleBrightness,// 26
+  kSetShiftRegisterPins, // 27
+  kSetShiftRegisterPWM  // 28
 };
 
 // Callbacks define on which received commands we take action
@@ -303,6 +320,13 @@ void attachCommandCallbacks()
 #if MF_LCD_SUPPORT == 1
   cmdMessenger.attach(kSetLcdDisplayI2C, OnSetLcdDisplayI2C);  
 #endif 
+
+#if MF_SHIFTER_SUPPORT
+  cmdMessenger.attach(kSetShiftRegisterPins, OnSetShiftRegisterPins);
+  cmdMessenger.attach(kSetShiftRegisterPWM, OnSetShiftRegisterPWM);
+  
+#endif
+
 
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,F("Attached callbacks"));
@@ -662,7 +686,34 @@ void ClearLcdDisplays()
 #endif 
 }
 #endif
+
+#if MF_SHIFTER_SUPPORT == 1
+//// SHIFT REGISTER /////
+void AddShifter (uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t pwmPin, uint8_t modules, char const * name = "Shifter")
+{  
+  if (shiftregisterRegistered == MAX_SHIFTERS) return;
+  shiftregisters[shiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules, pwmPin);
+  shiftregisters[shiftregisterRegistered].clear();
+  shiftregisterRegistered++;
   
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,F("Added Shifter"));
+#endif
+}
+
+void ClearShifters()
+{
+  for (int i=0; i!=shiftregisterRegistered; i++) 
+  {
+    shiftregisters[shiftregisterRegistered].detach();
+  }  
+  
+  shiftregisterRegistered = 0;
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,F("Cleared Shifter"));
+#endif 
+}
+#endif  
 
 //// EVENT HANDLER /////
 void handlerOnRelease(uint8_t eventId, uint8_t pin, const char * name)
@@ -855,6 +906,17 @@ void readConfig(String cfg) {
         AddLcdDisplay(atoi(params[0]), atoi(params[1]), atoi(params[2]), params[3]);
 #endif
       break;
+
+      case kShiftRegister:
+        params[0] = strtok_r(NULL, ".", &p); // pin latch
+		    params[1] = strtok_r(NULL, ".", &p); // pin clock
+		    params[2] = strtok_r(NULL, ".", &p); // pin data
+        params[3] = strtok_r(NULL, ".", &p); // PWM pin if available. < 0 if not supported
+        params[4] = strtok_r(NULL, ".", &p); // number of daisy chained modules 
+        params[5] = strtok_r(NULL, ":", &p); // name
+#if MF_SHIFTER_SUPPORT == 1
+       AddShifter(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]), params[5]);
+#endif
         
       default:
         // read to the end of the current command which is
@@ -930,6 +992,37 @@ void OnSetModuleBrightness()
   ledSegments[module].setBrightness(subModule, brightness);      
   lastCommand = millis();
 }
+
+#endif
+
+#if MF_SHIFTER_SUPPORT == 1
+
+void OnInitShiftRegister()
+{
+  int module = cmdMessenger.readIntArg();  
+  shiftregisters[module].clear();  
+  lastCommand = millis();
+}
+
+void OnSetShiftRegisterPins()
+{
+
+  int module = cmdMessenger.readIntArg();
+  char *pins = cmdMessenger.readStringArg();
+  int value = cmdMessenger.readIntArg();  
+  shiftregisters[module].setPins(pins, value);  
+  lastCommand = millis();
+}
+
+
+void OnSetShiftRegisterPWM()
+{
+  int module = cmdMessenger.readIntArg();  
+  int value = cmdMessenger.readIntArg();  
+  shiftregisters[module].setPWM(value);  
+  lastCommand = millis();
+}
+
 #endif
 
 #if MF_STEPPER_SUPPORT == 1

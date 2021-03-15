@@ -75,13 +75,18 @@ namespace MobiFlight
 
         // the interpolation settings
         public Interpolation Interpolation              { get; set; }
-        
+
+        // the shift register stuff 
+        public string ShiftRegister                     { get; set; }
+        public string RegisterOutputPin                 { get; set; }
+        public string ShiftRegisterPWMReference         { get; internal set; }
+
         // deprecated?
         public string       DisplayTrigger              { get; set; }
                 
         public PreconditionList   Preconditions       { get; set; }
 
-        public List<ConfigRef>      ConfigRefs          { get; set; }
+        public List<ConfigRef>      ConfigRefs          { get; set; }        
 
         public OutputConfigItem()
         {            
@@ -312,6 +317,18 @@ namespace MobiFlight
                     // don't read to the end tag all the way
                     reader.Read();
                 }
+                else if (DisplayType == MobiFlightShiftRegister.TYPE)
+                {
+                    if (reader["registerOutputPin"] != null && reader["registerOutputPin"] != "")
+                    {
+                        RegisterOutputPin = reader["registerOutputPin"];
+                    }
+
+                    if (reader["shiftRegister"] != null && reader["shiftRegister"] != "")
+                    {
+                        ShiftRegister = reader["shiftRegister"];
+                    }
+                }
             }
 
             // Actually interpolation is in he wrong spot. :(
@@ -449,6 +466,11 @@ namespace MobiFlight
                     if (LcdDisplay == null) LcdDisplay = new LcdDisplay();
                     LcdDisplay.WriteXml(writer);
                 }
+                else if (DisplayType == MobiFlightShiftRegister.TYPE)
+                {
+                    writer.WriteAttributeString("shiftRegister", ShiftRegister);
+                    writer.WriteAttributeString("registerOutputPin", RegisterOutputPin);
+                }
                 else
                 {
                     writer.WriteAttributeString("pin", DisplayPin);
@@ -522,6 +544,9 @@ namespace MobiFlight
             clone.StepperCompassMode        = this.StepperCompassMode;
 
             clone.LcdDisplay                = this.LcdDisplay.Clone() as LcdDisplay;
+
+            clone.ShiftRegister = this.ShiftRegister;
+            clone.RegisterOutputPin = this.RegisterOutputPin;
 
             foreach (Precondition p in Preconditions)
             {

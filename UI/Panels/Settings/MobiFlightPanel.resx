@@ -122,115 +122,121 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ledOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="ledOutputToolStripMenuItem.Text" xml:space="preserve">
     <value>LED / Output</value>
   </data>
   <data name="ledSegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="ledSegmentToolStripMenuItem.Text" xml:space="preserve">
     <value>LED 7-Segment</value>
   </data>
   <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="servoToolStripMenuItem.Text" xml:space="preserve">
     <value>Servo</value>
   </data>
   <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
     <value>Stepper</value>
   </data>
   <data name="LcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="LcdDisplayToolStripMenuItem.Text" xml:space="preserve">
     <value>LCD Display</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 6</value>
+    <value>221, 6</value>
   </data>
   <data name="buttonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
     <value>Button</value>
   </data>
   <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="encoderToolStripMenuItem.Text" xml:space="preserve">
     <value>Encoder</value>
   </data>
+  <data name="ShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="ShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Shift Register</value>
+  </data>
   <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="addToolStripMenuItem.Text" xml:space="preserve">
     <value>Add device</value>
   </data>
   <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="removeToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove device</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 6</value>
+    <value>207, 6</value>
   </data>
   <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="uploadToolStripMenuItem.Text" xml:space="preserve">
     <value>Upload Config</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 6</value>
+    <value>207, 6</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Open</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
     <value>Save As...</value>
   </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 6</value>
+    <value>207, 6</value>
   </data>
   <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="updateFirmwareToolStripMenuItem.Text" xml:space="preserve">
     <value>Update Firmware</value>
   </data>
   <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="regenerateSerialToolStripMenuItem.Text" xml:space="preserve">
     <value>Regenerate Serial</value>
   </data>
   <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>219, 32</value>
+    <value>210, 24</value>
   </data>
   <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
     <value>Reload Config</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 310</value>
+    <value>211, 266</value>
   </data>
   <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Name" xml:space="preserve">
     <value>mfModuleSettingsContextMenuStrip</value>
@@ -253,10 +259,10 @@
     <value>16, 16</value>
   </data>
   <data name="mfModulesTreeView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 19</value>
   </data>
   <data name="mfModulesTreeView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -295,7 +301,7 @@
     <value>0</value>
   </data>
   <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>536, 780</value>
+    <value>316, 432</value>
   </data>
   <data name="mfModulesTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -316,13 +322,13 @@
     <value>Right</value>
   </data>
   <data name="mfSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>508, 24</value>
+    <value>320, 19</value>
   </data>
   <data name="mfSettingsPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>441, 780</value>
+    <value>392, 432</value>
   </data>
   <data name="mfSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -349,19 +355,19 @@
     <value>Magenta</value>
   </data>
   <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 52</value>
+    <value>29, 28</value>
   </data>
   <data name="uploadToolStripButton.Text" xml:space="preserve">
     <value>Upload current config to module</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 57</value>
+    <value>6, 31</value>
   </data>
   <data name="openToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
   <data name="openToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 52</value>
+    <value>29, 28</value>
   </data>
   <data name="openToolStripButton.Text" xml:space="preserve">
     <value>Load config</value>
@@ -370,31 +376,31 @@
     <value>Magenta</value>
   </data>
   <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>34, 52</value>
+    <value>29, 28</value>
   </data>
   <data name="saveToolStripButton.Text" xml:space="preserve">
     <value>Save current config to file</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 57</value>
+    <value>6, 31</value>
   </data>
   <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
     <value>Encoder</value>
   </data>
   <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
     <value>Button</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 6</value>
+    <value>221, 6</value>
   </data>
   <data name="addStepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="addStepperToolStripMenuItem.Text" xml:space="preserve">
     <value>Stepper</value>
@@ -403,7 +409,7 @@
     <value>False</value>
   </data>
   <data name="addServoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="addServoToolStripMenuItem.Text" xml:space="preserve">
     <value>Servo</value>
@@ -412,28 +418,34 @@
     <value>False</value>
   </data>
   <data name="addLedModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="addLedModuleToolStripMenuItem.Text" xml:space="preserve">
     <value>LED 7-Segment</value>
   </data>
   <data name="addOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="addOutputToolStripMenuItem.Text" xml:space="preserve">
     <value>LED / Output</value>
   </data>
   <data name="addLcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 34</value>
+    <value>224, 26</value>
   </data>
   <data name="addLcdDisplayToolStripMenuItem.Text" xml:space="preserve">
     <value>LCD Display</value>
+  </data>
+  <data name="addShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>224, 26</value>
+  </data>
+  <data name="addShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Shift Register</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 52</value>
+    <value>122, 28</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
     <value>Add device</value>
@@ -442,22 +454,22 @@
     <value>Magenta</value>
   </data>
   <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 52</value>
+    <value>138, 28</value>
   </data>
   <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
     <value>Remove device</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 57</value>
+    <value>6, 31</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 845</value>
+    <value>4, 451</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 3, 0</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1197, 57</value>
+    <value>708, 31</value>
   </data>
   <data name="mobiflightSettingsToolStrip.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -481,16 +493,16 @@
     <value>Fill</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 48</value>
+    <value>0, 38</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>806, 606</value>
+    <value>716, 486</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -526,7 +538,7 @@
     <value>4, 0, 4, 0</value>
   </data>
   <data name="mobiflightSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>806, 48</value>
+    <value>716, 38</value>
   </data>
   <data name="mobiflightSettingsLabel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -556,16 +568,16 @@
     <value>NoControl</value>
   </data>
   <data name="FwAutoUpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>4, 19</value>
   </data>
   <data name="FwAutoUpdateCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="FwAutoUpdateCheckBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>15, 0, 0, 0</value>
+    <value>13, 0, 0, 0</value>
   </data>
   <data name="FwAutoUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>798, 24</value>
+    <value>708, 21</value>
   </data>
   <data name="FwAutoUpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -589,16 +601,16 @@
     <value>Bottom</value>
   </data>
   <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 654</value>
+    <value>0, 524</value>
   </data>
   <data name="firmwareSettingsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="firmwareSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="firmwareSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>806, 98</value>
+    <value>716, 78</value>
   </data>
   <data name="firmwareSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -625,10 +637,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
+    <value>8, 16</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 2, 3, 2</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>806, 752</value>
+    <value>716, 602</value>
   </data>
   <data name="&gt;&gt;addToolStripMenuItem.Name" xml:space="preserve">
     <value>addToolStripMenuItem</value>
@@ -682,6 +697,12 @@
     <value>encoderToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;encoderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
+    <value>ShiftRegisterToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;removeToolStripMenuItem.Name" xml:space="preserve">
@@ -838,6 +859,12 @@
     <value>addLcdDisplayToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;addLcdDisplayToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
+    <value>addShiftRegisterToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
