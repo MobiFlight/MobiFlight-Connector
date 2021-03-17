@@ -79,7 +79,9 @@ namespace MobiFlight.UI.Panels
         /// </summary>        
         void configDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            if (e.Action == DataRowAction.Add) SettingsChanged?.Invoke(sender, null);
+            if (e.Action == DataRowAction.Add || 
+                e.Action == DataRowAction.Delete)
+                SettingsChanged?.Invoke(sender, null);
         } //configDataTable_RowChanged
 
         /// <summary>
@@ -305,6 +307,11 @@ namespace MobiFlight.UI.Panels
                         InputConfigItem cfg;
                         DataRow row = null;
                         bool create = false;
+
+                        if (inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem == null)
+                        {
+                            return;
+                        }
 
                         row = (inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row;
 
