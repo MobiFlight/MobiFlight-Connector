@@ -328,6 +328,7 @@
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">

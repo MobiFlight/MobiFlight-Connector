@@ -7,10 +7,11 @@ using System.Xml.Serialization;
 using MobiFlight;
 using MobiFlight.InputConfig;
 using MobiFlight.Base;
+using MobiFlight.Config;
 
 namespace MobiFlight
 {
-    public class InputConfigItem : IBaseConfigItem, IXmlSerializable, ICloneable
+    public class InputConfigItem : IBaseConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
