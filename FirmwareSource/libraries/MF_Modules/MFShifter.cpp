@@ -28,9 +28,15 @@ void MFShifter::setPins(char* pins, int value)
   char* pinTokens = strtok(pins, "|");
   while (pinTokens != 0) {
     int registerNum = atoi(pinTokens);
-    setPin(registerNum, value);
+
+    if (value > 0) {
+      bitSet(_output, registerNum);  
+    } else {
+      bitClear(_output, registerNum);
+    }    
     pinTokens = strtok(0, "|");
   }
+  updateShiftRegister();
 }
 
 void MFShifter::setPWM(int value)
@@ -68,6 +74,9 @@ void MFShifter::clear()
   // Set everything to 0
   _output = 0;
   updateShiftRegister();
+  
+  // Set default to brightness
+  setPWM(255);
 }
 
 void MFShifter::test() 

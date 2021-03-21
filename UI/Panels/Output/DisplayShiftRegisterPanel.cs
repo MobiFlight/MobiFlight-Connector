@@ -17,6 +17,7 @@ namespace MobiFlight.UI.Panels
         private string filterReferenceGuid;
         private int RegisterCount = 0;
         private HashSet<string> shiftRegisterPWMSupport;
+        //private int num8bitRegisters;
 
         private List<CheckBox> pinCheckboxes = new List<CheckBox>();
         public bool WideStyle = false;
@@ -60,7 +61,7 @@ namespace MobiFlight.UI.Panels
 
             if (config.RegisterOutputPin != null)
             {
-                // Select the checkboxes. : seperated list
+                // Select the checkboxes. "|" seperated list
                 string pins = config.RegisterOutputPin;
                 var splitPins = pins.Split(POSITION_SEPERATOR);
                 foreach(string pin in splitPins)
@@ -75,6 +76,7 @@ namespace MobiFlight.UI.Panels
                     }
                 }
 
+                // Only enable brightness control if the PWM pin is configured.
                 if (this.shiftRegisterPWMSupport.Contains(config.ShiftRegister))
                 {
                     List<ListItem> configRefs = new List<ListItem>();
@@ -113,9 +115,7 @@ namespace MobiFlight.UI.Panels
                 shiftRegistersComboBox.SelectedIndex = 0;
 
             shiftRegistersComboBox.Enabled = ports.Count > 0;
-
-            RegisterCount = ports != null ? ports.Count : 0;
-
+            //RegisterCount = ports != null ? ports.Count : 0;
         }
 
         internal OutputConfigItem SyncToConfig(OutputConfigItem config)
@@ -162,6 +162,11 @@ namespace MobiFlight.UI.Panels
             {
                 this.shiftRegisterPWMSupport = shiftRegisterPWMSupport;
             }            
+        }
+
+        internal void SetNumModules(int num8bitRegisters)
+        {
+            this.RegisterCount = num8bitRegisters;
         }
     }
 }

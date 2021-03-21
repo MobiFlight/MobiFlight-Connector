@@ -937,10 +937,10 @@ namespace MobiFlight
                                 {
                                     mobiFlightCache.setShiftRegisterPWM(
                                     serial,
-                                    cfg.DisplayLedAddress,
+                                    cfg.ShiftRegister,
                                     refValue
-                                    );
-                                }                                
+                                    );                                
+                                }
                             }
                             mobiFlightCache.setShiftRegisterOutput(
                                 serial,

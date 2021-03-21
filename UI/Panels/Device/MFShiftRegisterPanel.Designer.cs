@@ -30,6 +30,7 @@ namespace MobiFlight.UI.Panels.Settings
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFShiftRegisterPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mfPinPWMComboBox = new System.Windows.Forms.ComboBox();
             this.pwmLabel = new System.Windows.Forms.Label();
@@ -44,12 +45,14 @@ namespace MobiFlight.UI.Panels.Settings
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.mfPinPWMComboBox);
             this.groupBox1.Controls.Add(this.pwmLabel);
             this.groupBox1.Controls.Add(this.mfNumModulesComboBox);
@@ -65,7 +68,7 @@ namespace MobiFlight.UI.Panels.Settings
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(340, 149);
+            this.groupBox1.Size = new System.Drawing.Size(340, 220);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pin and number of modules";
@@ -110,7 +113,7 @@ namespace MobiFlight.UI.Panels.Settings
             this.numberOfModulesLabel.Name = "numberOfModulesLabel";
             this.numberOfModulesLabel.Size = new System.Drawing.Size(169, 17);
             this.numberOfModulesLabel.TabIndex = 19;
-            this.numberOfModulesLabel.Text = "Num of  8 bit registers";
+            this.numberOfModulesLabel.Text = "# of 8 bit registers";
             // 
             // mfPin1Label
             // 
@@ -179,7 +182,7 @@ namespace MobiFlight.UI.Panels.Settings
             // 
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 149);
+            this.groupBox2.Location = new System.Drawing.Point(0, 220);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -197,6 +200,16 @@ namespace MobiFlight.UI.Panels.Settings
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(8, 139);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(325, 74);
+            this.textBox2.TabIndex = 24;
+            this.textBox2.Text = resources.GetString("textBox2.Text");
+            // 
             // MFShiftRegisterPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -204,8 +217,9 @@ namespace MobiFlight.UI.Panels.Settings
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MFShiftRegisterPanel";
-            this.Size = new System.Drawing.Size(340, 222);
+            this.Size = new System.Drawing.Size(340, 280);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -228,5 +242,6 @@ namespace MobiFlight.UI.Panels.Settings
         private System.Windows.Forms.ComboBox mfPinPWMComboBox;
         private System.Windows.Forms.Label pwmLabel;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

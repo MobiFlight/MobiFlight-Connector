@@ -86,7 +86,7 @@ namespace MobiFlight.UI.Panels
             this.shiftRegistersComboBox.MaximumSize = new System.Drawing.Size(177, 0);
             this.shiftRegistersComboBox.MinimumSize = new System.Drawing.Size(45, 0);
             this.shiftRegistersComboBox.Name = "shiftRegistersComboBox";
-            this.shiftRegistersComboBox.Size = new System.Drawing.Size(175, 24);
+            this.shiftRegistersComboBox.Size = new System.Drawing.Size(177, 24);
             this.shiftRegistersComboBox.TabIndex = 66;
             // 
             // outputPanelLabel
@@ -111,10 +111,8 @@ namespace MobiFlight.UI.Panels
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel.Controls.Add(this.label12, 0, 4);
             this.tableLayoutPanel.Controls.Add(this.label9, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.label10, 0, 2);
-            this.tableLayoutPanel.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.label1, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.label2, 2, 0);
             this.tableLayoutPanel.Controls.Add(this.label3, 3, 0);
@@ -124,22 +122,25 @@ namespace MobiFlight.UI.Panels
             this.tableLayoutPanel.Controls.Add(this.label7, 7, 0);
             this.tableLayoutPanel.Controls.Add(this.label8, 8, 0);
             this.tableLayoutPanel.Controls.Add(this.label13, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.label11, 0, 3);
+            this.tableLayoutPanel.Controls.Add(this.label12, 0, 4);
             this.tableLayoutPanel.Location = new System.Drawing.Point(22, 64);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 5;
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(289, 163);
+            this.tableLayoutPanel.RowCount = 6;
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.Size = new System.Drawing.Size(289, 140);
             this.tableLayoutPanel.TabIndex = 70;
             // 
             // label12
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(24, 137);
+            this.label12.Location = new System.Drawing.Point(24, 117);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(16, 17);
             this.label12.TabIndex = 6;
@@ -149,7 +150,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(24, 39);
+            this.label9.Location = new System.Drawing.Point(24, 33);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(16, 17);
             this.label9.TabIndex = 3;
@@ -159,7 +160,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label10.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(24, 71);
+            this.label10.Location = new System.Drawing.Point(24, 61);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(16, 17);
             this.label10.TabIndex = 4;
@@ -169,7 +170,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(24, 103);
+            this.label11.Location = new System.Drawing.Point(24, 89);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(16, 17);
             this.label11.TabIndex = 5;
@@ -179,7 +180,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(71, 7);
+            this.label1.Location = new System.Drawing.Point(71, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(16, 17);
             this.label1.TabIndex = 1;
@@ -189,7 +190,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(99, 7);
+            this.label2.Location = new System.Drawing.Point(99, 5);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(16, 17);
             this.label2.TabIndex = 2;
@@ -199,7 +200,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(127, 7);
+            this.label3.Location = new System.Drawing.Point(127, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 17);
             this.label3.TabIndex = 2;
@@ -209,7 +210,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(155, 7);
+            this.label4.Location = new System.Drawing.Point(155, 5);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(16, 17);
             this.label4.TabIndex = 2;
@@ -219,7 +220,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(183, 7);
+            this.label5.Location = new System.Drawing.Point(183, 5);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(16, 17);
             this.label5.TabIndex = 2;
@@ -229,7 +230,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(211, 7);
+            this.label6.Location = new System.Drawing.Point(211, 5);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 17);
             this.label6.TabIndex = 2;
@@ -239,7 +240,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(239, 7);
+            this.label7.Location = new System.Drawing.Point(239, 5);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(16, 17);
             this.label7.TabIndex = 2;
@@ -249,7 +250,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(267, 7);
+            this.label8.Location = new System.Drawing.Point(267, 5);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(16, 17);
             this.label8.TabIndex = 7;
@@ -259,7 +260,7 @@ namespace MobiFlight.UI.Panels
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 7);
+            this.label13.Location = new System.Drawing.Point(3, 5);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(59, 17);
             this.label13.TabIndex = 8;
@@ -268,7 +269,7 @@ namespace MobiFlight.UI.Panels
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(19, 263);
+            this.label14.Location = new System.Drawing.Point(19, 217);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(96, 17);
             this.label14.TabIndex = 71;
@@ -278,9 +279,9 @@ namespace MobiFlight.UI.Panels
             // 
             this.brightnessDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.brightnessDropDown.FormattingEnabled = true;
-            this.brightnessDropDown.Location = new System.Drawing.Point(147, 260);
+            this.brightnessDropDown.Location = new System.Drawing.Point(124, 214);
             this.brightnessDropDown.Name = "brightnessDropDown";
-            this.brightnessDropDown.Size = new System.Drawing.Size(163, 24);
+            this.brightnessDropDown.Size = new System.Drawing.Size(172, 24);
             this.brightnessDropDown.TabIndex = 72;
             // 
             // DisplayShiftRegisterPanel
@@ -294,7 +295,7 @@ namespace MobiFlight.UI.Panels
             this.Controls.Add(this.shiftRegistersComboBox);
             this.Controls.Add(this.registerLabel);
             this.Name = "DisplayShiftRegisterPanel";
-            this.Size = new System.Drawing.Size(338, 310);
+            this.Size = new System.Drawing.Size(338, 260);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);

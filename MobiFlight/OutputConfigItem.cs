@@ -79,7 +79,7 @@ namespace MobiFlight
         // the shift register stuff 
         public string ShiftRegister                     { get; set; }
         public string RegisterOutputPin                 { get; set; }
-        public string ShiftRegisterPWMReference         { get; internal set; }
+        public string ShiftRegisterPWMReference         { get; set; }
 
         // deprecated?
         public string       DisplayTrigger              { get; set; }
@@ -328,6 +328,12 @@ namespace MobiFlight
                     {
                         ShiftRegister = reader["shiftRegister"];
                     }
+
+                    if (reader["shiftRegisterPWMReference"] != null && reader["shiftRegisterPWMReference"] != "")
+                    {
+                        ShiftRegisterPWMReference = reader["shiftRegisterPWMReference"];
+                    }
+                    
                 }
             }
 
@@ -470,6 +476,7 @@ namespace MobiFlight
                 {
                     writer.WriteAttributeString("shiftRegister", ShiftRegister);
                     writer.WriteAttributeString("registerOutputPin", RegisterOutputPin);
+                    writer.WriteAttributeString("shiftRegisterPWMReference", ShiftRegisterPWMReference);
                 }
                 else
                 {
@@ -543,10 +550,11 @@ namespace MobiFlight
             clone.StepperTestValue          = this.StepperTestValue;
             clone.StepperCompassMode        = this.StepperCompassMode;
 
-            clone.LcdDisplay                = this.LcdDisplay.Clone() as LcdDisplay;
-
             clone.ShiftRegister = this.ShiftRegister;
             clone.RegisterOutputPin = this.RegisterOutputPin;
+            clone.ShiftRegisterPWMReference = this.ShiftRegisterPWMReference;
+
+            clone.LcdDisplay                = this.LcdDisplay.Clone() as LcdDisplay;
 
             foreach (Precondition p in Preconditions)
             {

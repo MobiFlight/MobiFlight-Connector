@@ -32,7 +32,10 @@ namespace MobiFlight.UI.Panels.Settings
             List<byte> Pin1Pins = FreePins.ToList(); if (Int16.Parse(shiftRegister.LatchPin) > 0) Pin1Pins.Add(Byte.Parse(shiftRegister.LatchPin)); Pin1Pins.Sort();
             List<byte> Pin2Pins = FreePins.ToList(); if (Int16.Parse(shiftRegister.ClockPin) > 0) Pin2Pins.Add(Byte.Parse(shiftRegister.ClockPin)); Pin2Pins.Sort();
             List<byte> Pin3Pins = FreePins.ToList(); if (Int16.Parse(shiftRegister.DataPin) > 0) Pin3Pins.Add(Byte.Parse(shiftRegister.DataPin)); Pin3Pins.Sort();
-            List<byte> Pin4Pins = FreePins.ToList(); if (Int16.Parse(shiftRegister.PWMPin) > 0) Pin4Pins.Add(Byte.Parse(shiftRegister.DataPin)); Pin4Pins.Sort();            
+            
+            short pinInt;
+            Int16.TryParse(shiftRegister.PWMPin, out pinInt);
+            List<byte> Pin4Pins = FreePins.ToList(); if (pinInt > 0) Pin4Pins.Add(Byte.Parse(shiftRegister.PWMPin)); Pin4Pins.Sort();            
 
             foreach (byte pin in Pin1Pins) mfPin1ComboBox.Items.Add(pin);
             foreach (byte pin in Pin2Pins) mfPin2ComboBox.Items.Add(pin);
@@ -44,9 +47,10 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 mfPin1ComboBox.SelectedIndex = 0;
                 mfPin2ComboBox.SelectedIndex = 1;
-                mfPin3ComboBox.SelectedIndex = 2;
-                mfPinPWMComboBox.SelectedIndex = 0;
+                mfPin3ComboBox.SelectedIndex = 2;                
             }
+            // Default to N/A
+            mfPinPWMComboBox.SelectedIndex = 0;
 
             toolTip1.SetToolTip(pwmLabel, "Some Shift-Registers (LED Drivers) support setting the brightness using a PWM pin. Set to N/A if not used.");
 
@@ -84,9 +88,13 @@ namespace MobiFlight.UI.Panels.Settings
             shiftRegister.LatchPin = mfPin1ComboBox.Text;
             shiftRegister.ClockPin = mfPin2ComboBox.Text;
             shiftRegister.DataPin = mfPin3ComboBox.Text;
-            if (!mfPin3ComboBox.Text.Equals(NA_STRING))
+            if (!mfPinPWMComboBox.Text.Equals(NA_STRING))
             {
-                shiftRegister.PWMPin = mfPinPWMComboBox.Text;
+                int isIntValue;
+                if (int.TryParse(mfPinPWMComboBox.Text, out isIntValue))
+                {
+                    shiftRegister.PWMPin = mfPinPWMComboBox.Text;
+                }               
             } else
             {
                 shiftRegister.PWMPin = "-1";

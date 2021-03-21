@@ -837,19 +837,15 @@ namespace MobiFlight.UI.Dialogs
 
             List<ListItem> connectors = new List<ListItem>();
 
+
+            int numModules = 0;
             foreach (IConnectedDevice device in module.GetConnectedDevices())
             {
                 if (device.Type != DeviceType.ShiftRegister) continue;
                 if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
-                int numModules = (device as MobiFlightShiftRegister).NumberOfShifters;
-                int vPins = (numModules <= 0 ? 1 : numModules) * 8;
-                for (int i = 0; i < vPins; i++)
-                {
-                    connectors.Add(new ListItem() { Label = (i).ToString(), Value = (i).ToString() });
-                }
+                numModules = (device as MobiFlightShiftRegister).NumberOfShifters;
             }
-            //displayShiftRegisterPanel.SetVirtualPins(connectors);
-
+            displayShiftRegisterPanel.SetNumModules(numModules);
         }
 
         private void fsuipcOffsetTextBox_Validating(object sender, CancelEventArgs e)

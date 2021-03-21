@@ -14,9 +14,9 @@ namespace MobiFlight
 
         public int NumberOfShifters { get; set; }
         
-        public int ModuleNumber { get; internal set; }
+        public int ModuleNumber { get; set; }
 
-        public bool SupportPWM { get; internal set; }
+        public bool SupportPWM { get; set; }
 
         private String _name = "ShiftRegister";
         public String Name
