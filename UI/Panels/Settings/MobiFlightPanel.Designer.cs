@@ -134,10 +134,10 @@
             this.servoToolStripMenuItem,
             this.stepperToolStripMenuItem,
             this.LcdDisplayToolStripMenuItem,
+            this.ShiftRegisterToolStripMenuItem,
             this.toolStripMenuItem4,
             this.buttonToolStripMenuItem,
-            this.encoderToolStripMenuItem,
-            this.ShiftRegisterToolStripMenuItem});
+            this.encoderToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
             // 
@@ -171,6 +171,12 @@
             resources.ApplyResources(this.LcdDisplayToolStripMenuItem, "LcdDisplayToolStripMenuItem");
             this.LcdDisplayToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
+            // ShiftRegisterToolStripMenuItem
+            // 
+            this.ShiftRegisterToolStripMenuItem.Name = "ShiftRegisterToolStripMenuItem";
+            resources.ApplyResources(this.ShiftRegisterToolStripMenuItem, "ShiftRegisterToolStripMenuItem");
+            this.ShiftRegisterToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
@@ -186,13 +192,7 @@
             // 
             this.encoderToolStripMenuItem.Name = "encoderToolStripMenuItem";
             resources.ApplyResources(this.encoderToolStripMenuItem, "encoderToolStripMenuItem");
-            this.encoderToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
-            // ShiftRegisterToolStripMenuItem
-            // 
-            this.ShiftRegisterToolStripMenuItem.Name = "ShiftRegisterToolStripMenuItem";
-            resources.ApplyResources(this.ShiftRegisterToolStripMenuItem, "ShiftRegisterToolStripMenuItem");
-            this.ShiftRegisterToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            this.encoderToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);            
             // 
             // removeToolStripMenuItem
             // 
