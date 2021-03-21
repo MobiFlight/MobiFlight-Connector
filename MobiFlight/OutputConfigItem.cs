@@ -555,7 +555,7 @@ namespace MobiFlight
             clone.RegisterOutputPin = this.RegisterOutputPin;
             clone.ShiftRegisterPWMReference = this.ShiftRegisterPWMReference;
 
-            clone.LcdDisplay                = this.LcdDisplay.Clone() as LcdDisplay;
+            clone.LcdDisplay                = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
 
             foreach (Precondition p in Preconditions)
             {
