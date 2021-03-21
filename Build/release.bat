@@ -85,7 +85,6 @@ del %BUILD_TOOLS_DIR%\config-setup.txt /Q
 del %RELEASE_DIR%\MobiFlightSetup-%VERSION%.7z /Q
 del %BUILD_TOOLS_DIR%\config-updater.txt /Q
 del %RELEASE_DIR%\MobiFlightConnector-%VERSION%.7z /Q
-del %BUILD_TOOLS_DIR%VersionInfo.exe /q
 del %BUILD_TOOLS_DIR%MobiFlight-Updater.exe /q
 del %RELEASE_DIR%\MobiFlightSetup-%VERSION%.exe /q
 del %BUILD_TOOLS_DIR%temp.sfx /q

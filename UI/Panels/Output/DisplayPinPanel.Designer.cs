@@ -146,10 +146,9 @@
             // 
             this.displayPinBrightnessDimLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.displayPinBrightnessDimLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinBrightnessDimLabel.Location = new System.Drawing.Point(33, 56);
-            this.displayPinBrightnessDimLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.displayPinBrightnessDimLabel.Location = new System.Drawing.Point(27, 45);
             this.displayPinBrightnessDimLabel.Name = "displayPinBrightnessDimLabel";
-            this.displayPinBrightnessDimLabel.Size = new System.Drawing.Size(161, 1);
+            this.displayPinBrightnessDimLabel.Size = new System.Drawing.Size(117, 0);
             this.displayPinBrightnessDimLabel.TabIndex = 15;
             this.displayPinBrightnessDimLabel.Text = "Medium";
             this.displayPinBrightnessDimLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -159,8 +158,7 @@
             this.displayPinBrightnessMediumLabel.AutoSize = true;
             this.displayPinBrightnessMediumLabel.Dock = System.Windows.Forms.DockStyle.Right;
             this.displayPinBrightnessMediumLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinBrightnessMediumLabel.Location = new System.Drawing.Point(194, 56);
-            this.displayPinBrightnessMediumLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.displayPinBrightnessMediumLabel.Location = new System.Drawing.Point(144, 69);
             this.displayPinBrightnessMediumLabel.Name = "displayPinBrightnessMediumLabel";
             this.displayPinBrightnessMediumLabel.Size = new System.Drawing.Size(37, 17);
             this.displayPinBrightnessMediumLabel.TabIndex = 16;
@@ -172,8 +170,7 @@
             this.displayPinBrightnessBrightLabel.AutoSize = true;
             this.displayPinBrightnessBrightLabel.Dock = System.Windows.Forms.DockStyle.Left;
             this.displayPinBrightnessBrightLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinBrightnessBrightLabel.Location = new System.Drawing.Point(0, 56);
-            this.displayPinBrightnessBrightLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.displayPinBrightnessBrightLabel.Location = new System.Drawing.Point(0, 69);
             this.displayPinBrightnessBrightLabel.Name = "displayPinBrightnessBrightLabel";
             this.displayPinBrightnessBrightLabel.Size = new System.Drawing.Size(33, 17);
             this.displayPinBrightnessBrightLabel.TabIndex = 14;
@@ -189,7 +186,7 @@
             this.displayPinBrightnessTrackBar.Maximum = 9;
             this.displayPinBrightnessTrackBar.Minimum = 1;
             this.displayPinBrightnessTrackBar.Name = "displayPinBrightnessTrackBar";
-            this.displayPinBrightnessTrackBar.Size = new System.Drawing.Size(231, 56);
+            this.displayPinBrightnessTrackBar.Size = new System.Drawing.Size(173, 69);
             this.displayPinBrightnessTrackBar.TabIndex = 16;
             this.displayPinBrightnessTrackBar.Value = 9;
             // 

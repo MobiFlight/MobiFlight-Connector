@@ -343,6 +343,11 @@ namespace MobiFlight.UI.Panels
                         DataRow row = null;
                         bool create = false;
 
+                        if (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem == null)
+                        {
+                            return;
+                        }
+
                         row = (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row;
 
                         // the row had been saved but no config object has been created
@@ -410,7 +415,10 @@ namespace MobiFlight.UI.Panels
         /// </summary>        
         void ConfigDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            if (e.Action==DataRowAction.Add) SettingsChanged?.Invoke(sender, null);
+            if (e.Action==DataRowAction.Add ||
+                //e.Action == DataRowAction.Change ||
+                e.Action == DataRowAction.Delete) SettingsChanged?.Invoke(sender, null);
+
         } //configDataTable_RowChanged
 
         private void ConfigDataTable_TableNewRow(object sender, DataTableNewRowEventArgs e)

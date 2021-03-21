@@ -7,10 +7,11 @@ using System.Xml.Serialization;
 using MobiFlight;
 using MobiFlight.OutputConfig;
 using MobiFlight.Base;
+using MobiFlight.Config;
 
 namespace MobiFlight
 {
-    public class OutputConfigItem : IBaseConfigItem, IFsuipcConfigItem, IXmlSerializable, ICloneable
+    public class OutputConfigItem : IBaseConfigItem, IFsuipcConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
@@ -56,7 +57,7 @@ namespace MobiFlight
 
 
         // the lcd display stuff
-        public LcdDisplay   LcdDisplay                  { get; set; }
+        public OutputConfig.LcdDisplay LcdDisplay                  { get; set; }
 
         // the bcd driver stuff
         public List<string> BcdPins                     { get; set; }
@@ -115,7 +116,7 @@ namespace MobiFlight
             DisplayLedDigits = new List<string>();
             DisplayLedDecimalPoints = new List<string>();
 
-            LcdDisplay = new LcdDisplay();
+            LcdDisplay = new OutputConfig.LcdDisplay();
 
             StepperCompassMode = false;
                 
@@ -309,9 +310,9 @@ namespace MobiFlight
                         StepperCompassMode = bool.Parse(reader["stepperCompassMode"]);
                     }
                 }              
-                else if (DisplayType == LcdDisplay.Type)
+                else if (DisplayType == OutputConfig.LcdDisplay.Type)
                 {
-                    if (LcdDisplay == null) LcdDisplay = new LcdDisplay();
+                    if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                     LcdDisplay.ReadXml(reader);
                     
                     // don't read to the end tag all the way
@@ -467,9 +468,9 @@ namespace MobiFlight
                     writer.WriteAttributeString("stepperTestValue", StepperTestValue);
                     writer.WriteAttributeString("stepperCompassMode", StepperCompassMode.ToString());
                 }
-                else if (DisplayType == LcdDisplay.Type)
+                else if (DisplayType == OutputConfig.LcdDisplay.Type)
                 {
-                    if (LcdDisplay == null) LcdDisplay = new LcdDisplay();
+                    if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                     LcdDisplay.WriteXml(writer);
                 }
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
