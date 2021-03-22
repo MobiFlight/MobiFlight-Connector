@@ -75,6 +75,7 @@
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.analogDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
@@ -163,7 +164,8 @@
             this.LcdDisplayToolStripMenuItem,
             this.toolStripMenuItem4,
             this.buttonToolStripMenuItem,
-            this.encoderToolStripMenuItem});
+            this.encoderToolStripMenuItem,
+            this.analogDeviceToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
             // 
@@ -363,6 +365,11 @@
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Hint";
             // 
+            // analogDeviceToolStripMenuItem
+            // 
+            this.analogDeviceToolStripMenuItem.Name = "analogDeviceToolStripMenuItem";
+            resources.ApplyResources(this.analogDeviceToolStripMenuItem, "analogDeviceToolStripMenuItem");
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -434,5 +441,6 @@
         private Panels.Settings.ArcazePanel arcazePanel;
         private System.Windows.Forms.Label arcazeSettingsLabel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
+        private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
     }
 }

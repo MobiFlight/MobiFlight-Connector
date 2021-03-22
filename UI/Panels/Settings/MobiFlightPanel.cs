@@ -304,6 +304,11 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
+                        case DeviceType.Analog:
+                            panel = new MFAnalogPanel(dev as MobiFlight.Config.AnalogDevice, module.GetFreePins());
+                            (panel as MFAnalogPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+
                         case DeviceType.Button:
                             panel = new MFButtonPanel(dev as MobiFlight.Config.Button, module.GetFreePins());
                             (panel as MFButtonPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
@@ -324,6 +329,8 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
                             // output
+
+
                     }
                 }
 
@@ -378,6 +385,11 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.LedModule).DinPin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
                         (cfgItem as MobiFlight.Config.LedModule).ClkPin = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
                         (cfgItem as MobiFlight.Config.LedModule).ClsPin = getModuleFromTree().GetFreePins().ElementAt(2).ToString();
+                        break;                        
+                    case "analogDeviceToolStripMenuItem1":
+                    case "addAnalogDeviceToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.AnalogDevice();
+                        (cfgItem as MobiFlight.Config.AnalogDevice).Pin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
                         break;
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":

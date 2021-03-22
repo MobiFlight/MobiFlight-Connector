@@ -1296,11 +1296,11 @@ namespace MobiFlight
         }
 
 #if MOBIFLIGHT
-        void mobiFlightCache_OnButtonPressed(object sender, ButtonArgs e)
+        void mobiFlightCache_OnButtonPressed(object sender, InputDeviceArgs e)
         {
             if (!IsStarted()) return;
 
-            String inputKey = e.Serial+e.Type+e.ButtonId;
+            String inputKey = e.Serial+e.Type+e.DeviceId;
             
             if (!inputCache.ContainsKey(inputKey))
             {
@@ -1315,7 +1315,7 @@ namespace MobiFlight
                         if (gridViewRow.DataBoundItem == null) continue;
 
                         InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-                        if (cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.ButtonId)
+                        if (cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
                         {
                             inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow> (cfg, gridViewRow));
                         }
@@ -1332,11 +1332,11 @@ namespace MobiFlight
             if (inputCache[inputKey].Count == 0)
             {
        
-                Log.Instance.log("No config found for "+ e.Type +": " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
+                Log.Instance.log("No config found for "+ e.Type +": " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
 
-            Log.Instance.log("Config found for " + e.Type + ": " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
+            Log.Instance.log("Config found for " + e.Type + ": " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
 
             ConnectorValue currentValue = new ConnectorValue();
 
