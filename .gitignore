@@ -85,3 +85,5 @@
 /bin_
 /Build/MobiFlight-Installer.exe
 /Build/MobiFlightInstaller.exe
+/MobiFlight-Installer/MobiFlight-Installer/bin
+/MobiFlight-Installer/MobiFlight-Installer/obj
