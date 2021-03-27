@@ -289,9 +289,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
     </Reference>
-    <Reference Include="AutoUpdater.NET, Version=1.6.2.0, Culture=neutral, PublicKeyToken=501435c91b35f4bc, processorArchitecture=MSIL">
-      <HintPath>packages\Autoupdater.NET.Official.1.6.2\lib\net45\AutoUpdater.NET.dll</HintPath>
-    </Reference>
     <Reference Include="FSUIPCClient, Version=3.1.25.341, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
       <HintPath>packages\FSUIPCClientDLL.3.1.25\lib\net40\FSUIPCClient.dll</HintPath>
     </Reference>
