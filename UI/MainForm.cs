@@ -12,7 +12,6 @@ using System.Xml.Serialization;
 #if ARCAZE
 using SimpleSolutions.Usb;
 #endif
-using AutoUpdaterDotNET;
 using System.Runtime.InteropServices;
 using MobiFlight.FSUIPC;
 using System.Reflection;
@@ -37,15 +36,8 @@ namespace MobiFlight.UI
 
         private ExecutionManager execManager;
 
-        private bool _onClosing = false;
-        private readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector.xml";
-        private readonly string MobiFlightUpdateBetasUrl = "https://www.mobiflight.com/tl_files/download/releases/beta/mobiflightconnector.xml";
-        private readonly string MobiFlightUpdateDebugUrl = "https://www.mobiflight.com/tl_files/download/releases/debug/mobiflightconnector.xml";
-
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
-
-        private bool SilentUpdateCheck = true;
 
         private void InitializeUILanguage()
         {
@@ -175,10 +167,6 @@ namespace MobiFlight.UI
                 // change ui icon to english
                 donateToolStripButton.Image = Properties.Resources.btn_donate_uk_SM;
             }
-
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
-            AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
 
             startupPanel.UpdateStatusText("Start Connecting");
 #if ARCAZE
@@ -350,45 +338,10 @@ namespace MobiFlight.UI
                 Properties.Settings.Default.Save();
             }
         }
-        
-        private void AutoUpdater_AutoUpdaterFinishedEvent()
-        {
-            AutoUpdater.CheckForUpdateEvent -= AutoUpdater_CheckForUpdateEvent;
-            Close();
-        }
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CheckForUpdate(true);
-        }
-
-        void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
-        {
-            // TODO: Does this happen with no internet connection???
-            if (args != null)
-            {
-
-                if (!args.IsUpdateAvailable && !SilentUpdateCheck /* && !args.DoSilent */)
-                {
-                    this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(i18n._tr("uiMessageNoUpdateNecessary"), Version), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                if (!args.IsUpdateAvailable)
-                {
-                    Log.Instance.log("No updates necessary. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
-                } else
-                {
-                    Log.Instance.log("Updates available. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
-                    AutoUpdater.ShowUpdateForm(args);
-                    return;
-                }
-
-            } else
-            {
-                Log.Instance.log("Check for update went wrong. No internet connection?", LogSeverity.Info);
-            }
-
-            this.Invoke(new VoidDelegate(startAutoConnectThreadSafe));
         }
 
         private void startAutoConnectThreadSafe()
