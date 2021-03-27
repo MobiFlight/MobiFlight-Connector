@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionInfo", "VersionInfo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "CmdMessenger\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj", "{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlight-Updater", "MobiFlightUpdater\MobiFlight-Updater\MobiFlight-Updater.csproj", "{9891291C-16A1-48B7-BAEE-9FE876663E0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightInstaller", "MobiFlightUpdater\MobiFlight-Updater\MobiFlightInstaller.csproj", "{9891291C-16A1-48B7-BAEE-9FE876663E0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

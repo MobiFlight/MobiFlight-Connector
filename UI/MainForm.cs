@@ -401,6 +401,67 @@ namespace MobiFlight.UI
             return MessageBox.Show(this, msg, title, buttons);
         }
 
+        private void CheckForUpdate(bool force = false, bool silent = false)
+        {
+            String mobiFlightInstaller = "MobiFlight-Installer.exe";
+
+            if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
+            String trackingParams = Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
+
+            string CurVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string CommandToSend = "/check /version " + CurVersion + " /cacheId " + trackingParams;
+            
+            if (Properties.Settings.Default.BetaUpdates)
+            {
+                CommandToSend += " /beta";
+                Log.Instance.log("NEW Checking for BETA update...", LogSeverity.Info);
+            }
+            else
+            { 
+                Log.Instance.log("NEW Checking for RELEASE update...", LogSeverity.Info);
+            }
+
+            System.Diagnostics.Process p = System.Diagnostics.Process.Start(mobiFlightInstaller, CommandToSend);
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.Start();
+            string output = p.StandardOutput.ReadToEnd();
+            string error = p.StandardError.ReadToEnd();
+            p.WaitForExit();
+
+            Console.WriteLine(output + error);
+            if (output.Contains("##RESULT##|1"))
+            {
+                Log.Instance.log("NEW a new version is here", LogSeverity.Info);
+                string[] OutputArray = output.Split('|');
+                string newVersion = OutputArray[2];
+
+                DialogResult dialogResult = MessageBox.Show(
+                    String.Format(i18n._tr("uiMessageNewUpdateAvailablePleaseUpdate"), newVersion), 
+                    i18n._tr("uiMessageNewUpdateAvailable"),
+                    MessageBoxButtons.YesNo
+                );
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Process.Start(mobiFlightInstaller, "/install " + newVersion);
+                    Environment.Exit(0);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    //do something else
+                }
+            }
+            else
+            {
+                Log.Instance.log("NEW is up to date", LogSeverity.Info);
+            }
+
+        }
+
+        /*
         private void CheckForUpdate(bool force, bool silent = false)
         {
             AutoUpdater.Mandatory = force;
@@ -424,6 +485,7 @@ namespace MobiFlight.UI
             AutoUpdater.DownloadPath = Environment.CurrentDirectory;
             AutoUpdater.Start(updateUrl + trackingParams + "1");
         }
+        */
 
         void execManager_OnTestModeException(object sender, EventArgs e)
         {

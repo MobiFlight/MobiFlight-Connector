@@ -412,4 +412,10 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageTestModeModuleNotConnected" xml:space="preserve">
     <value>Error during Test-Mode: Module not connected.</value>
   </data>
+  <data name="uiMessageNewUpdateAvailable" xml:space="preserve">
+    <value>MobiFlight Update available!</value>
+  </data>
+  <data name="uiMessageNewUpdateAvailablePleaseUpdate" xml:space="preserve">
+    <value>YEAH! - New Version {0} is available! Please update now.</value>
+  </data>
 </root>

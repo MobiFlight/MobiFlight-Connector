@@ -662,6 +662,24 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MobiFlight Update available!.
+        /// </summary>
+        internal static string uiMessageNewUpdateAvailable {
+            get {
+                return ResourceManager.GetString("uiMessageNewUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YEAH! - New Version {0} is available! Please update now..
+        /// </summary>
+        internal static string uiMessageNewUpdateAvailablePleaseUpdate {
+            get {
+                return ResourceManager.GetString("uiMessageNewUpdateAvailablePleaseUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No module found..
         /// </summary>
         internal static string uiMessageNoArcazeModuleFound {
