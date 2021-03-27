@@ -16,7 +16,9 @@ namespace MobiFlight.UI.Panels
         DataView RefsDataView = null;
         private string filterReferenceGuid;
         private int RegisterCount = 0;
-        private HashSet<string> shiftRegisterPWMSupport;
+        private int MAX_8BIT_REGISTER_COUNT = 4;
+
+        //private HashSet<string> shiftRegisterPWMSupport;
         //private int num8bitRegisters;
 
         private List<CheckBox> pinCheckboxes = new List<CheckBox>();
@@ -47,8 +49,7 @@ namespace MobiFlight.UI.Panels
                 tableLayoutPanel.RowStyles[row].Height = 0;
             }
 
-            // Fill table with check boxes
-            for (int row = 1; row <= RegisterCount; row++)
+            for (int row = 1; row <= MAX_8BIT_REGISTER_COUNT; row++)
             {
                 for (int column = 1; column <= 8; column++)
                 {
@@ -56,15 +57,14 @@ namespace MobiFlight.UI.Panels
                     pinCheckboxes.Add(cb);
                     tableLayoutPanel.Controls.Add(cb, column, row);
                 }
-                tableLayoutPanel.RowStyles[row].Height = 20;
-            }            
-
+            }
+            
             if (config.RegisterOutputPin != null)
             {
                 // Select the checkboxes. "|" seperated list
                 string pins = config.RegisterOutputPin;
                 var splitPins = pins.Split(POSITION_SEPERATOR);
-                foreach(string pin in splitPins)
+                foreach (string pin in splitPins)
                 {
                     int pinValue;
                     if (int.TryParse(pin, out pinValue))
@@ -72,42 +72,56 @@ namespace MobiFlight.UI.Panels
                         if (pinCheckboxes.Count > pinValue)
                         {
                             pinCheckboxes[pinValue].Checked = true;
-                        }                        
-                    }
-                }
-
-                // Only enable brightness control if the PWM pin is configured.
-                if (this.shiftRegisterPWMSupport != null &&  this.shiftRegisterPWMSupport.Contains(config.ShiftRegister))
-                {
-                    List<ListItem> configRefs = new List<ListItem>();
-                    configRefs.Add(new ListItem { Value = string.Empty, Label = "<None>" });
-                    foreach (DataRow refRow in RefsDataView.Table.Rows)
-                    {
-
-                        if (!filterReferenceGuid.Equals(refRow["guid"].ToString()))
-                        {
-                            configRefs.Add(new ListItem { Value = ((Guid)refRow["guid"]).ToString(), Label = refRow["description"] as string });
                         }
                     }
-
-                    brightnessDropDown.Enabled = true;
-                    brightnessDropDown.DataSource = configRefs;
-                    brightnessDropDown.DisplayMember = "Label";
-                    brightnessDropDown.ValueMember = "Value";
-
-                    if (!string.IsNullOrEmpty(config.ShiftRegisterPWMReference))
-                    {
-                        brightnessDropDown.SelectedValue = config.ShiftRegisterPWMReference;
-                    }
-                } else
-                {
-                    brightnessDropDown.Enabled = false;
                 }
+            }
+
+            List<ListItem> configRefs = new List<ListItem>();
+            configRefs.Add(new ListItem { Value = string.Empty, Label = "<None>" });
+            foreach (DataRow refRow in RefsDataView.Table.Rows)
+            {
+
+                if (!filterReferenceGuid.Equals(refRow["guid"].ToString()))
+                {
+                    configRefs.Add(new ListItem { Value = ((Guid)refRow["guid"]).ToString(), Label = refRow["description"] as string });
+                }
+            }
+
+            brightnessDropDown.Enabled = true;
+            brightnessDropDown.DataSource = configRefs;
+            brightnessDropDown.DisplayMember = "Label";
+            brightnessDropDown.ValueMember = "Value";
+
+            if (!string.IsNullOrEmpty(config.ShiftRegisterPWMReference))
+            {
+                brightnessDropDown.SelectedValue = config.ShiftRegisterPWMReference;
+            }
+        }
+
+        private void UpdatePinTable()
+        {
+            // Fill table with check boxes
+            for (int row = 1; row <= RegisterCount; row++)
+            {
+                tableLayoutPanel.RowStyles[row].Height = 20;
+            }
+
+            // Clear checkboxes which are not visible and hide colums which are not used.
+            for (int row = RegisterCount + 1; row <= MAX_8BIT_REGISTER_COUNT; row++)
+            {
+                for (int col = 0; col < 8; col++) {
+                    if (pinCheckboxes.Count > row * col )
+                    {
+                        pinCheckboxes[row * col].Checked = true;
+                    }                        
+                }
+                tableLayoutPanel.RowStyles[row].Height = 0;                
             }
         }
 
         public void SetAddresses(List<ListItem> ports)
-        {            
+        {
             shiftRegistersComboBox.DataSource = new List<ListItem>(ports);
             shiftRegistersComboBox.DisplayMember = "Label";
             shiftRegistersComboBox.ValueMember = "Value";
@@ -115,7 +129,6 @@ namespace MobiFlight.UI.Panels
                 shiftRegistersComboBox.SelectedIndex = 0;
 
             shiftRegistersComboBox.Enabled = ports.Count > 0;
-            //RegisterCount = ports != null ? ports.Count : 0;
         }
 
         internal OutputConfigItem SyncToConfig(OutputConfigItem config)
@@ -124,7 +137,7 @@ namespace MobiFlight.UI.Panels
 
             StringBuilder sb = new StringBuilder();
             int pinNum = 0;
-            foreach(var pin in pinCheckboxes)
+            foreach (var pin in pinCheckboxes)
             {
                 if (pin.Checked)
                 {
@@ -136,7 +149,7 @@ namespace MobiFlight.UI.Panels
             config.RegisterOutputPin = sb.ToString();
 
 
-            if (brightnessDropDown.SelectedIndex <= 0)
+            if (brightnessDropDown.SelectedIndex <= 0 || brightnessDropDown.Enabled == false)
             {
                 config.ShiftRegisterPWMReference = string.Empty;
             }
@@ -144,29 +157,33 @@ namespace MobiFlight.UI.Panels
             {
                 config.ShiftRegisterPWMReference = brightnessDropDown.SelectedValue.ToString();
             }
-            
+
             return config;
         }
-        
+
         internal void SetConfigRefsDataView(DataView dv, string filterGuid)
         {
             this.filterReferenceGuid = filterGuid == null ? string.Empty : filterGuid;
             RefsDataView = dv;
         }
 
-        internal void SetPWMSupport(HashSet<string> shiftRegisterPWMSupport)
+        internal void UpdatePWMSupport(bool shiftRegisterPWMSupport)
         {
-            if (shiftRegisterPWMSupport ==null) {
-                this.shiftRegisterPWMSupport = new HashSet<string>();
-            } else
+
+            if (shiftRegisterPWMSupport)
             {
-                this.shiftRegisterPWMSupport = shiftRegisterPWMSupport;
-            }            
+                brightnessDropDown.Enabled = true;
+            }
+            else
+            {
+                brightnessDropDown.Enabled = false;
+            }
         }
 
         internal void SetNumModules(int num8bitRegisters)
         {
             this.RegisterCount = num8bitRegisters;
+            UpdatePinTable();
         }
     }
 }

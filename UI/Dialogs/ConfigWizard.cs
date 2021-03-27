@@ -698,7 +698,6 @@ namespace MobiFlight.UI.Dialogs
                     List<ListItem> stepper = new List<ListItem>();
                     List<ListItem> lcdDisplays = new List<ListItem>();
                     List<ListItem> shiftRegisters = new List<ListItem>();
-                    HashSet<string> shiftRegisterPWMSupport = new HashSet<string>();
 
 
                     foreach (IConnectedDevice device in module.GetConnectedDevices())
@@ -729,11 +728,7 @@ namespace MobiFlight.UI.Dialogs
                                 break;
                             
                             case DeviceType.ShiftRegister:
-                                shiftRegisters.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                                if ((device as MobiFlightShiftRegister).SupportPWM)
-                                {
-                                    shiftRegisterPWMSupport.Add(device.Name);
-                                }
+                                shiftRegisters.Add(new ListItem() { Value = device.Name, Label = device.Name });                                
                                 
                                 break;
                         }                        
@@ -753,8 +748,6 @@ namespace MobiFlight.UI.Dialogs
                     displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged -= shiftRegistersComboBox_selectedIndexChanged;
                     displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged += new EventHandler(shiftRegistersComboBox_selectedIndexChanged);
                     displayShiftRegisterPanel.SetAddresses(shiftRegisters);
-                    displayShiftRegisterPanel.SetPWMSupport(shiftRegisterPWMSupport);
-                    
 
                     displayLcdDisplayPanel.SetAddresses(lcdDisplays);
                 }
@@ -834,9 +827,7 @@ namespace MobiFlight.UI.Dialogs
             ComboBox cb = displayModuleNameComboBox;
             String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-
-            List<ListItem> connectors = new List<ListItem>();
-
+            bool pwmSupport = false;
 
             int numModules = 0;
             foreach (IConnectedDevice device in module.GetConnectedDevices())
@@ -844,8 +835,10 @@ namespace MobiFlight.UI.Dialogs
                 if (device.Type != DeviceType.ShiftRegister) continue;
                 if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
                 numModules = (device as MobiFlightShiftRegister).NumberOfShifters;
+                pwmSupport = (device as MobiFlightShiftRegister).SupportPWM;
             }
             displayShiftRegisterPanel.SetNumModules(numModules);
+            displayShiftRegisterPanel.UpdatePWMSupport(pwmSupport);
         }
 
         private void fsuipcOffsetTextBox_Validating(object sender, CancelEventArgs e)
