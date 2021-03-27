@@ -77,7 +77,7 @@ namespace MobiFlight.UI.Panels
                 }
 
                 // Only enable brightness control if the PWM pin is configured.
-                if (this.shiftRegisterPWMSupport.Contains(config.ShiftRegister))
+                if (this.shiftRegisterPWMSupport != null &&  this.shiftRegisterPWMSupport.Contains(config.ShiftRegister))
                 {
                     List<ListItem> configRefs = new List<ListItem>();
                     configRefs.Add(new ListItem { Value = string.Empty, Label = "<None>" });
