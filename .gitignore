@@ -81,3 +81,4 @@
 /Build/WinRAR.exe
 /Build/utils/innosetup/*
 /Build/utils/wix/*
+/packages/System.IO.Compression.ZipFile.4.3.0
