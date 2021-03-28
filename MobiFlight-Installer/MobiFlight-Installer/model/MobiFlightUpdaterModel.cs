@@ -314,20 +314,11 @@ namespace MobiFlightInstaller
 
         public static void CloseMobiFlightAndWait()
         {
-            int MaxTries = 3;
-
-            Process[] pname = Process.GetProcessesByName(ProcessName);
-            while (pname.Length != 0 && MaxTries > 0)
+            var Processes = Process.GetProcesses().Where(pr => pr.ProcessName == "MFConnector");
+            foreach (var Process in Processes)
             {
-                foreach (Process i in pname)
-                {
-                    i.CloseMainWindow();
-                    i.WaitForExit();
-                }
-                Thread.Sleep(2000);
-                pname = Process.GetProcessesByName(ProcessName);
-
-                MaxTries--;
+                Process.CloseMainWindow();
+                Process.WaitForExit();
             }
         }
 
