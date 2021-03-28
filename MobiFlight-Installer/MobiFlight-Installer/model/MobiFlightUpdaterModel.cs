@@ -20,7 +20,7 @@ namespace MobiFlightInstaller
     {
         public static readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector-updates.xml";
 
-        public static readonly string ProcessName = "MFConnector.exe";
+        public static readonly string ProcessName = "MFConnector";
         public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";
 
         public static string CacheId = null;
@@ -62,9 +62,9 @@ namespace MobiFlightInstaller
 
         public static string GetInstalledVersion()
         {
-            if (File.Exists(ProcessName))
+            if (File.Exists(ProcessName + ".exe"))
             {
-                return AssemblyName.GetAssemblyName(ProcessName).Version.ToString();
+                return AssemblyName.GetAssemblyName(ProcessName + ".exe").Version.ToString();
             }
             else
             {
@@ -154,8 +154,10 @@ namespace MobiFlightInstaller
             StartProcessAndClose(file.FullName);
         }
 
-        public static void StartProcessAndClose(string ProcessEXEName, string Args = "")
+        public static void StartProcessAndClose(string ProcessName, string Args = "")
         {
+            String ProcessEXEName = ProcessName + ".exe";
+
             if (File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessEXEName))
             {
                 if (Args == "")
@@ -311,10 +313,9 @@ namespace MobiFlightInstaller
             }
             return "";
         }
-
         public static void CloseMobiFlightAndWait()
         {
-            var Processes = Process.GetProcesses().Where(pr => pr.ProcessName == "MFConnector");
+            var Processes = Process.GetProcesses().Where(pr => pr.ProcessName == ProcessName);
             foreach (var Process in Processes)
             {
                 Process.CloseMainWindow();
