@@ -56,6 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="lang\i18n_Messages.fr.Designer.cs">
+      <DependentUpon>i18n_Messages.fr.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="lang\i18n_Messages.de.Designer.cs">
       <DependentUpon>i18n_Messages.de.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -77,6 +82,10 @@
     <Compile Include="model\MobiFlightUpdaterModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="lang\i18n_Messages.fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>i18n_Messages.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="lang\i18n_Messages.de.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>i18n_Messages.de.Designer.cs</LastGenOutput>
