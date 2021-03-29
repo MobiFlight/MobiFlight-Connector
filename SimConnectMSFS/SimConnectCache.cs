@@ -82,6 +82,8 @@ namespace MobiFlight.SimConnectMSFS
                 if (cols.Length > 1)
                 {
                     GroupKey = cols[0];
+                    if (Events.ContainsKey(GroupKey)) continue;
+
                     Events[GroupKey] = new List<Tuple<String, uint>>();
                     continue; // we found a group
                 }
@@ -101,6 +103,8 @@ namespace MobiFlight.SimConnectMSFS
                     if (cols.Length > 1)
                     {
                         GroupKey = cols[0];
+                        if (Events.ContainsKey(GroupKey)) continue;
+
                         Events[GroupKey] = new List<Tuple<String, uint>>();
                         continue; // we found a group
                     }
