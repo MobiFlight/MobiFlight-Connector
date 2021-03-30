@@ -72,6 +72,9 @@ namespace MobiFlight.UI.Panels
                         if (pinCheckboxes.Count > pinValue)
                         {
                             pinCheckboxes[pinValue].Checked = true;
+                        } else
+                        {
+                            pinCheckboxes[pinValue].Checked = false;
                         }
                     }
                 }
