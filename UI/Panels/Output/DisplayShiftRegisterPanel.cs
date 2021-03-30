@@ -97,6 +97,8 @@ namespace MobiFlight.UI.Panels
             {
                 brightnessDropDown.SelectedValue = config.ShiftRegisterPWMReference;
             }
+
+            UpdatePinTable();
         }
 
         private void UpdatePinTable()
