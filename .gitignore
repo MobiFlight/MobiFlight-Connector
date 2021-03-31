@@ -81,3 +81,9 @@
 /Build/WinRAR.exe
 /Build/utils/innosetup/*
 /Build/utils/wix/*
+/packages/System.IO.Compression.ZipFile.4.3.0
+/bin_
+/Build/MobiFlight-Installer.exe
+/Build/MobiFlightInstaller.exe
+/MobiFlight-Installer/MobiFlight-Installer/bin
+/MobiFlight-Installer/MobiFlight-Installer/obj

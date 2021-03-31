@@ -400,4 +400,11 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   <data name="uiMessageTestModeModuleNotConnected" xml:space="preserve">
     <value>Fehler im Test-Modus: Modul nicht angeschlossen.</value>
   </data>
+  <data name="uiMessageNewUpdateAvailable" xml:space="preserve">
+    <value>Neues Update verfügbar!</value>
+  </data>
+  <data name="uiMessageNewUpdateAvailablePleaseUpdate" xml:space="preserve">
+    <value>YEAH! - Neue Version {0} verfügbar. Bitte jetzt aktualisieren.</value>
+    <comment>"New Version {0} is available! Please update now."</comment>
+  </data>
 </root>

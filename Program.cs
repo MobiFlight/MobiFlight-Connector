@@ -17,10 +17,13 @@ namespace MobiFlight
         {
             if (mutex.WaitOne(TimeSpan.Zero, true))
             {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
-            mutex.ReleaseMutex();
+               // if (Environment.OSVersion.Version.Major >= 6)
+              //      SetProcessDPIAware();
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(true);
+                Application.Run(new MainForm());
+                mutex.ReleaseMutex();
             }
             else
             {
@@ -33,5 +36,8 @@ namespace MobiFlight
                     IntPtr.Zero);
             }
         }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
     }
 }
