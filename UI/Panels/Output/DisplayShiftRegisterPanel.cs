@@ -24,8 +24,6 @@ namespace MobiFlight.UI.Panels
         private List<CheckBox> pinCheckboxes = new List<CheckBox>();
         public bool WideStyle = false;
 
-
-
         public DisplayShiftRegisterPanel()
         {
             InitializeComponent();
@@ -58,7 +56,7 @@ namespace MobiFlight.UI.Panels
                     tableLayoutPanel.Controls.Add(cb, column, row);
                 }
             }
-            
+
             if (config.RegisterOutputPin != null)
             {
                 // Select the checkboxes. "|" seperated list
@@ -72,9 +70,6 @@ namespace MobiFlight.UI.Panels
                         if (pinCheckboxes.Count > pinValue)
                         {
                             pinCheckboxes[pinValue].Checked = true;
-                        } else
-                        {
-                            pinCheckboxes[pinValue].Checked = false;
                         }
                     }
                 }
@@ -113,15 +108,15 @@ namespace MobiFlight.UI.Panels
             }
 
             // Clear checkboxes which are not visible and hide colums which are not used.
-            for (int row = RegisterCount + 1; row <= MAX_8BIT_REGISTER_COUNT; row++)
+            for (int row = RegisterCount; row < MAX_8BIT_REGISTER_COUNT; row++)
             {
-                for (int col = 0; col < 8; col++) {
-                    if (pinCheckboxes.Count > row * col )
-                    {
-                        pinCheckboxes[row * col].Checked = true;
-                    }                        
+                for (int col = 0; col < 8; col++) {                    
+                    
+                    pinCheckboxes[row*8 + col].Checked = false;   
+                    
                 }
-                tableLayoutPanel.RowStyles[row].Height = 0;                
+                // First row is header
+                tableLayoutPanel.RowStyles[row+1].Height = 0;                
             }
         }
 
@@ -146,7 +141,7 @@ namespace MobiFlight.UI.Panels
             {
                 if (pin.Checked)
                 {
-                    sb.Append(pinNum + POSITION_SEPERATOR.ToString());
+                        sb.Append(pinNum + POSITION_SEPERATOR.ToString());
                 }
                 pinNum++;
             }
