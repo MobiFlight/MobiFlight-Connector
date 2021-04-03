@@ -21,6 +21,9 @@ namespace MobiFlightInstaller.UI
 
         public UpdaterMainForm()
         {
+            
+            Log.Instance.log("Installer start", LogSeverity.Info);
+
             CmdLineParams cmdParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
             var updateUrl = MobiFlightUpdaterModel.MobiFlightUpdateUrl;
@@ -45,6 +48,7 @@ namespace MobiFlightInstaller.UI
                 // expert mode, start interface to choose version
                 else if (cmdParams.ExpertMode)
                 {
+                    Log.Instance.log("EXPERT mode enable", LogSeverity.Info);
                     InitializeComponent();
                     if (InstallerUpdateUrl != "")
                         MobiFlightUpdaterModel.InstallerCheckForUpgrade(InstallerUpdateUrl);
@@ -77,17 +81,18 @@ namespace MobiFlightInstaller.UI
             }
             else
             {
+                Log.Instance.log("No args, SILENT mode enable", LogSeverity.Info);
                 MobiFlightUpdaterModel.DownloadVersionsList(updateUrl);
-
+                bool IsMfHaveBetaEnable = MobiFlightUpdaterModel.GetMfBetaOptionValue();
                 var CurVersion = new Version(MobiFlightUpdaterModel.GetInstalledVersion());
-                var TargetVersion = new Version(MobiFlightUpdaterModel.GetTheLastVersionNumberAvailable());
+                var TargetVersion = new Version(MobiFlightUpdaterModel.GetTheLastVersionNumberAvailable(IsMfHaveBetaEnable));
                 var result = CurVersion.CompareTo(TargetVersion);
                 if (result < 0) // direct install last release version if MF don't exist OR if a new version is available
                 {
                     if (MobiFlightUpdaterModel.VerifyCurrentFolderRight())
                     {
                         MobiFlightUpdaterModel.DownloadVersionsList(updateUrl);
-                        MobiFlightUpdaterModel.ManualUpgradeFromCommandLine(MobiFlightUpdaterModel.GetTheLastVersionNumberAvailable());
+                        MobiFlightUpdaterModel.ManualUpgradeFromCommandLine(MobiFlightUpdaterModel.GetTheLastVersionNumberAvailable(IsMfHaveBetaEnable));
                     }
                     else
                     {

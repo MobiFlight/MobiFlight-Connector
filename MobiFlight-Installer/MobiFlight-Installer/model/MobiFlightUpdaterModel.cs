@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MobiFlightInstaller
 {
@@ -22,8 +23,15 @@ namespace MobiFlightInstaller
 
         public static readonly string ProcessName = "MFConnector";
         public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";
-
+        public static readonly string OptionBetaEnableSearch = "/configuration/userSettings/MobiFlight.Properties.Settings/setting[@name='BetaUpdates']";
+        
         public static string CacheId = null;
+
+        static Char[] s_Base32Char = {
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+            'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+            'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+            'y', 'z', '0', '1', '2', '3', '4', '5'};
 
         static public Dictionary<string, Dictionary<string, string>> resultList = new Dictionary<string, Dictionary<string, string>>();
 
@@ -39,22 +47,15 @@ namespace MobiFlightInstaller
                 }
                 if (ShaOne == FileChecksum)
                 {
-                    Console.WriteLine("Checksum request : " + ShaOne);
-                    Console.WriteLine("Checksum actual : " + FileChecksum);
-                    Console.WriteLine("Checksum is equal file is good");
                     return true;
                 }
                 else
                 {
-                    Console.WriteLine("Checksum are not equal");
-                    Console.WriteLine("Checksum request : " + ShaOne);
-                    Console.WriteLine("Checksum actual : " + FileChecksum);
                     return false;
                 }
             }
             else
             {
-                Console.WriteLine("File is not here");
                 return false;
             }
 
@@ -306,12 +307,22 @@ namespace MobiFlightInstaller
         {
             foreach (KeyValuePair<string, Dictionary<string, string>> a in resultList)
             {
-                if ((a.Value["beta"] == "yes") & (IncludeBeta))
+                if (IncludeBeta)
+                {
+                    Log.Instance.log("GetTheLastVersionNumberAvailable -> " + a.Key, LogSeverity.Info);
                     return a.Key;
-                if ((a.Value["beta"] == "no") & (!IncludeBeta))
-                    return a.Key;
+                }
+                else
+                {
+                    if (a.Value["beta"] == "no")
+                    {
+                        Log.Instance.log("GetTheLastVersionNumberAvailable -> " + a.Key, LogSeverity.Info);
+                        return a.Key;
+                    }
+                }
             }
-            return "";
+            Log.Instance.log("GetTheLastVersionNumberAvailable -> Can't find any version", LogSeverity.Info);
+            return "0.0.0";
         }
         public static void CloseMobiFlightAndWait()
         {
@@ -338,6 +349,124 @@ namespace MobiFlightInstaller
                 Console.WriteLine("##RESULT##|0|");
             }
             Environment.Exit(0);
+        }
+
+        static public bool GetMfBetaOptionValue()
+        {
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessName))
+            {
+                string PatchConfigFile = GetExeLocalAppDataUserConfigPath(Directory.GetCurrentDirectory() + "\\" + ProcessName);
+                Log.Instance.log("Check BETA option in " + PatchConfigFile, LogSeverity.Info);
+                if (File.Exists(PatchConfigFile))
+                {
+                    bool result = ExtractConfigBetaValueFromXML(PatchConfigFile);
+                    if (result) Log.Instance.log("BETA enable", LogSeverity.Info);
+                    else Log.Instance.log("BETA disable", LogSeverity.Info);
+                    return result;
+                }
+                else
+                {
+                    Log.Instance.log("Impossible to read the file does not exist -> BETA disable", LogSeverity.Info);
+                    return false;
+                }
+            }
+            else
+            {
+                Log.Instance.log("MFConnector.exe not found, BETA disable", LogSeverity.Info);
+                return false;
+            }
+        }
+
+        static public bool ExtractConfigBetaValueFromXML(string PatchConfigFile)
+        {
+            string xmlFile = File.ReadAllText(@PatchConfigFile);
+            XmlDocument xmldoc = new XmlDocument();
+            xmldoc.LoadXml(xmlFile);
+            XmlNodeList nodeList = xmldoc.SelectNodes(OptionBetaEnableSearch);
+            string Result = string.Empty;
+            foreach (XmlNode node in nodeList)
+            {
+                Result = node.InnerText;
+            }
+            if (Result == "True") return true;
+            else return false;
+        }
+        static public string GetExeLocalAppDataUserConfigPath(string fullExePath)
+        {
+            var localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            var versionInfo = FileVersionInfo.GetVersionInfo(fullExePath);
+            var companyName = versionInfo.CompanyName;
+            var exeName = versionInfo.OriginalFilename;
+
+            var assemblyName = AssemblyName.GetAssemblyName(fullExePath);
+            var version = assemblyName.Version.ToString();
+
+            var uri = "file:///" + fullExePath; 
+            uri = uri.ToUpperInvariant();
+
+            var ms = new MemoryStream();
+            var bSer = new BinaryFormatter();
+            bSer.Serialize(ms, uri);
+            ms.Position = 0;
+            var sha1 = new SHA1CryptoServiceProvider();
+            var hash = sha1.ComputeHash(ms);
+            var hashstring = ToBase32StringSuitableForDirName(hash);
+
+            var userConfigLocalAppDataPath = Path.Combine(localAppDataPath, companyName, exeName + "_Url_" + hashstring, version, "user.config");
+
+            return userConfigLocalAppDataPath;
+        }
+        private static string ToBase32StringSuitableForDirName(byte[] buff)
+        {
+            StringBuilder sb = new StringBuilder();
+            byte b0, b1, b2, b3, b4;
+            int l, i;
+
+            l = buff.Length;
+            i = 0;
+
+            // Create l chars using the last 5 bits of each byte.  
+            // Consume 3 MSB bits 5 bytes at a time.
+
+            do
+            {
+                b0 = (i < l) ? buff[i++] : (byte)0;
+                b1 = (i < l) ? buff[i++] : (byte)0;
+                b2 = (i < l) ? buff[i++] : (byte)0;
+                b3 = (i < l) ? buff[i++] : (byte)0;
+                b4 = (i < l) ? buff[i++] : (byte)0;
+
+                // Consume the 5 Least significant bits of each byte
+                sb.Append(s_Base32Char[b0 & 0x1F]);
+                sb.Append(s_Base32Char[b1 & 0x1F]);
+                sb.Append(s_Base32Char[b2 & 0x1F]);
+                sb.Append(s_Base32Char[b3 & 0x1F]);
+                sb.Append(s_Base32Char[b4 & 0x1F]);
+
+                // Consume 3 MSB of b0, b1, MSB bits 6, 7 of b3, b4
+                sb.Append(s_Base32Char[(
+                    ((b0 & 0xE0) >> 5) |
+                    ((b3 & 0x60) >> 2))]);
+
+                sb.Append(s_Base32Char[(
+                    ((b1 & 0xE0) >> 5) |
+                    ((b4 & 0x60) >> 2))]);
+
+                // Consume 3 MSB bits of b2, 1 MSB bit of b3, b4
+
+                b2 >>= 5;
+
+                if ((b3 & 0x80) != 0)
+                    b2 |= 0x08;
+                if ((b4 & 0x80) != 0)
+                    b2 |= 0x10;
+
+                sb.Append(s_Base32Char[b2]);
+
+            } while (i < l);
+
+            return sb.ToString();
         }
     }
 }

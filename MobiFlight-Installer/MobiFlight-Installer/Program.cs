@@ -14,6 +14,9 @@ namespace MobiFlightInstaller
         [STAThread]
         static void Main()
         {
+            LogAppenderFile logAppenderFile = new LogAppenderFile(false);
+            Log.Instance.AddAppender(logAppenderFile);
+            Log.Instance.Enabled = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new UI.UpdaterMainForm());
