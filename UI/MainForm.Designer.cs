@@ -41,11 +41,11 @@
             this.recentDocsToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mSFS2020ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.installWASMModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orphanedSerialsFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mSFS2020ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.installWASMModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -189,6 +189,19 @@
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
             resources.ApplyResources(this.extrasToolStripMenuItem, "extrasToolStripMenuItem");
             // 
+            // mSFS2020ToolStripMenuItem
+            // 
+            this.mSFS2020ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.installWASMModuleToolStripMenuItem});
+            this.mSFS2020ToolStripMenuItem.Name = "mSFS2020ToolStripMenuItem";
+            resources.ApplyResources(this.mSFS2020ToolStripMenuItem, "mSFS2020ToolStripMenuItem");
+            // 
+            // installWASMModuleToolStripMenuItem
+            // 
+            this.installWASMModuleToolStripMenuItem.Name = "installWASMModuleToolStripMenuItem";
+            resources.ApplyResources(this.installWASMModuleToolStripMenuItem, "installWASMModuleToolStripMenuItem");
+            this.installWASMModuleToolStripMenuItem.Click += new System.EventHandler(this.installWasmModuleToolStripMenuItem_Click);
+            // 
             // orphanedSerialsFinderToolStripMenuItem
             // 
             this.orphanedSerialsFinderToolStripMenuItem.Name = "orphanedSerialsFinderToolStripMenuItem";
@@ -205,19 +218,6 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
-            // 
-            // mSFS2020ToolStripMenuItem
-            // 
-            this.mSFS2020ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.installWASMModuleToolStripMenuItem});
-            this.mSFS2020ToolStripMenuItem.Name = "mSFS2020ToolStripMenuItem";
-            resources.ApplyResources(this.mSFS2020ToolStripMenuItem, "mSFS2020ToolStripMenuItem");
-            // 
-            // installWASMModuleToolStripMenuItem
-            // 
-            this.installWASMModuleToolStripMenuItem.Name = "installWASMModuleToolStripMenuItem";
-            resources.ApplyResources(this.installWASMModuleToolStripMenuItem, "installWASMModuleToolStripMenuItem");
-            this.installWASMModuleToolStripMenuItem.Click += new System.EventHandler(this.installWasmModuleToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
@@ -299,7 +299,7 @@
             // 
             this.notifyIcon.ContextMenuStrip = this.contextMenuStripNotifyIcon;
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
-            this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // contextMenuStripNotifyIcon
             // 

@@ -328,7 +328,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="inputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>836, 364</value>
+    <value>836, 353</value>
   </data>
   <data name="inputConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -352,7 +352,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>842, 370</value>
+    <value>842, 359</value>
   </data>
   <data name="InputTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -7306,6 +7306,18 @@
   <data name="&gt;&gt;extrasToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;mSFS2020ToolStripMenuItem.Name" xml:space="preserve">
+    <value>mSFS2020ToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;mSFS2020ToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;installWASMModuleToolStripMenuItem.Name" xml:space="preserve">
+    <value>installWASMModuleToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;installWASMModuleToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;orphanedSerialsFinderToolStripMenuItem.Name" xml:space="preserve">
     <value>orphanedSerialsFinderToolStripMenuItem</value>
   </data>
@@ -7322,18 +7334,6 @@
     <value>settingsToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;settingsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mSFS2020ToolStripMenuItem.Name" xml:space="preserve">
-    <value>mSFS2020ToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;mSFS2020ToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;installWASMModuleToolStripMenuItem.Name" xml:space="preserve">
-    <value>installWASMModuleToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;installWASMModuleToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;hilfeToolStripMenuItem.Name" xml:space="preserve">

@@ -859,10 +859,11 @@ namespace MobiFlight.UI
         /// <summary>
         /// restores the current main form when user double clicks notify icon
         /// </summary>        
-        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right) return;
             minimizeMainForm(false);
-        } //notifyIcon_DoubleClick()
+        }
 
         /// <summary>
         /// exits when user selects according menu item in notify icon's context menu
@@ -1450,6 +1451,7 @@ namespace MobiFlight.UI
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 
     internal static class Helper
