@@ -81,5 +81,8 @@
     <Setting Name="PresetFileMSFS2020EventsUser" Type="System.String" Scope="User">
       <Value Profile="(Default)">Presets\msfs2020_eventids_user.cip</Value>
     </Setting>
+    <Setting Name="StartedTotal" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

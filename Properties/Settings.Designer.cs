@@ -335,5 +335,17 @@ namespace MobiFlight.Properties {
                 this["PresetFileMSFS2020EventsUser"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int StartedTotal {
+            get {
+                return ((int)(this["StartedTotal"]));
+            }
+            set {
+                this["StartedTotal"] = value;
+            }
+        }
     }
 }
