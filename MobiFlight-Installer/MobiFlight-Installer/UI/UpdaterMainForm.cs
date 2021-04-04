@@ -39,10 +39,12 @@ namespace MobiFlightInstaller.UI
                 // install specific version by command line
                 if (cmdParams.Install != null)
                 {
+                    Log.Instance.log("ManualUpgradeFromCommandLine START from args -> Check BETA " + cmdParams.Install, LogSeverity.Info);
                     MobiFlightUpdaterModel.ManualUpgradeFromCommandLine(cmdParams.Install);
                 }
                 else if (cmdParams.Check || cmdParams.CheckBeta)
                 {
+                    Log.Instance.log("ExternAskToCheckLastVersion START from args -> Check BETA " + cmdParams.CheckBeta, LogSeverity.Info);
                     MobiFlightUpdaterModel.ExternAskToCheckLastVersion(cmdParams.CheckBeta);
                 }
                 // expert mode, start interface to choose version

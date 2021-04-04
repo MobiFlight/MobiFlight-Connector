@@ -106,31 +106,57 @@ namespace MobiFlightInstaller
                             MessageBox.Show("Error installation failed -> " + e.Message);
                         }
                     }
+                    bool SkipThisFile = false;
                     if (file.Name != OldMobiFlightUpdaterName)
                     {
                         if (file.Name == "MobiFlight-Installer.exe")
                         {
+                            var InstallerCurVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.exe").Version.ToString();
+                            Log.Instance.log("Current Installer version : " + InstallerCurVersion, LogSeverity.Info);
+                            
                             System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                            if (File.Exists(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old"))) 
-                                System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old"));
-
-                            System.IO.File.Move(FileInstaller.FullName, FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old"));
+                            if (File.Exists(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new")))
+                                System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new"));
+                            file.ExtractToFile(FileInstaller.Name.Replace(FileInstaller.Extension, ".new"), true);
+                            var InstallerNewVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.new").Version.ToString();
+                            System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension,".new"));
+                            Log.Instance.log("New Installer version : " + InstallerNewVersion, LogSeverity.Info);
+                            
+                            var InstallerCompareVersion = InstallerCurVersion.CompareTo(InstallerNewVersion);
+                            if (InstallerCompareVersion < 0) // NewInstaller have greater version than current
+                            {
+                                if (File.Exists(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old")))
+                                    System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old"));
+                                System.IO.File.Move(FileInstaller.FullName, FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old"));
+                            }
+                            else
+                            {
+                                Log.Instance.log("Mobiflight-Installer no need to be upgrade, extracting file skipped", LogSeverity.Info);
+                                SkipThisFile = true;
+                            }
                         }
 
-                        try
+                        if (!SkipThisFile)
                         {
-                            file.ExtractToFile(completeFileName, true);
-                        }
-                        catch
-                        {
-                            Thread.Sleep(2000);
                             try
                             {
+                                Log.Instance.log("EXTRACTING : " + completeFileName, LogSeverity.Info);
                                 file.ExtractToFile(completeFileName, true);
                             }
-                            catch (Exception e)
+                            catch
                             {
-                                MessageBox.Show("Error installation failed -> " + e.Message);
+                                Log.Instance.log("Extracting failed ! : " + completeFileName + " -> Wait and try a second time ...", LogSeverity.Info);
+                                Thread.Sleep(2000);
+                                try
+                                {
+                                    Log.Instance.log("EXTRACTING (second try) : " + completeFileName, LogSeverity.Info);
+                                    file.ExtractToFile(completeFileName, true);
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.Instance.log("FAILED to extract the file, installation FAILED !", LogSeverity.Info);
+                                    MessageBox.Show("Error installation failed -> " + e.Message);
+                                }
                             }
                         }
                     }
@@ -353,9 +379,9 @@ namespace MobiFlightInstaller
 
         static public bool GetMfBetaOptionValue()
         {
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessName))
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessName + ".exe"))
             {
-                string PatchConfigFile = GetExeLocalAppDataUserConfigPath(Directory.GetCurrentDirectory() + "\\" + ProcessName);
+                string PatchConfigFile = GetExeLocalAppDataUserConfigPath(Directory.GetCurrentDirectory() + "\\" + ProcessName + ".exe");
                 Log.Instance.log("Check BETA option in " + PatchConfigFile, LogSeverity.Info);
                 if (File.Exists(PatchConfigFile))
                 {
