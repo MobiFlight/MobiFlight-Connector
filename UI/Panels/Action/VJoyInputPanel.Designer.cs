@@ -170,9 +170,9 @@
             // 
             this.hintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintLabel.Location = new System.Drawing.Point(0, 153);
+            this.hintLabel.Location = new System.Drawing.Point(9, 171);
             this.hintLabel.Name = "hintLabel";
-            this.hintLabel.Size = new System.Drawing.Size(205, 18);
+            this.hintLabel.Size = new System.Drawing.Size(196, 18);
             this.hintLabel.TabIndex = 18;
             this.hintLabel.Text = "label2";
             // 
