@@ -906,6 +906,51 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MobiFlight WASM Module is already installed and up-to-date..
+        /// </summary>
+        internal static string uiMessageWasmUpdateAlreadyInstalled {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdateAlreadyInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MSFS2020 Community Folder was not found. Can&apos;t install WASM Module automatically. Please copy the folder manually..
+        /// </summary>
+        internal static string uiMessageWasmUpdateCommunityFolderNotFound {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdateCommunityFolderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MobiFlight WASM Module was not installed successfully. Please check the Log for more information..
+        /// </summary>
+        internal static string uiMessageWasmUpdateInstallationError {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdateInstallationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MobiFlight WASM Module installed successfully..
+        /// </summary>
+        internal static string uiMessageWasmUpdateInstallationSuccessful {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdateInstallationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MobiFlight WASM Module Installation.
+        /// </summary>
+        internal static string uiMessageWasmUpdater {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom Param.
         /// </summary>
         internal static string uiPmdgEventIdInputPanelCustomParam {

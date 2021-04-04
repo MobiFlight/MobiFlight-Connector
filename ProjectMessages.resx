@@ -418,4 +418,19 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageNewUpdateAvailablePleaseUpdate" xml:space="preserve">
     <value>YEAH! - New Version {0} is available! Please update now.</value>
   </data>
+  <data name="uiMessageWasmUpdateAlreadyInstalled" xml:space="preserve">
+    <value>MobiFlight WASM Module is already installed and up-to-date.</value>
+  </data>
+  <data name="uiMessageWasmUpdateCommunityFolderNotFound" xml:space="preserve">
+    <value>MSFS2020 Community Folder was not found. Can't install WASM Module automatically. Please copy the folder manually.</value>
+  </data>
+  <data name="uiMessageWasmUpdateInstallationError" xml:space="preserve">
+    <value>MobiFlight WASM Module was not installed successfully. Please check the Log for more information.</value>
+  </data>
+  <data name="uiMessageWasmUpdateInstallationSuccessful" xml:space="preserve">
+    <value>MobiFlight WASM Module installed successfully.</value>
+  </data>
+  <data name="uiMessageWasmUpdater" xml:space="preserve">
+    <value>MobiFlight WASM Module Installation</value>
+  </data>
 </root>

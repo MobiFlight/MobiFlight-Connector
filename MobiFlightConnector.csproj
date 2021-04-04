@@ -328,6 +328,7 @@
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleUpdater.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,6 +348,12 @@
     <Compile Include="MobiFlight\Config\EncoderSingleDetent.cs" />
     <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
     <Compile Include="MobiFlight\FlightSimConnectionMethod.cs" />
+    <Compile Include="UI\Dialogs\Msfs2020StartupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialogs\Msfs2020StartupForm.Designer.cs">
+      <DependentUpon>Msfs2020StartupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\ArduinoIdePathForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -798,6 +805,9 @@
     <Content Include="Resources\button.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <EmbeddedResource Include="UI\Dialogs\Msfs2020StartupForm.resx">
+      <DependentUpon>Msfs2020StartupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\SettingsDialog.de-DE.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>

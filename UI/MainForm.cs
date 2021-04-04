@@ -101,12 +101,7 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.Started == 0)
             {
-                int i = Properties.Settings.Default.Started;
-                WelcomeDialog wd = new WelcomeDialog();
-                wd.StartPosition = FormStartPosition.CenterParent;
-                wd.Text = String.Format(wd.Text, Version);
-                wd.ShowDialog();
-                this.BringToFront();
+                OnFirstStart();
             }
 
             Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
@@ -177,6 +172,30 @@ namespace MobiFlight.UI
             execManager.AutoConnectStart();
         }
 
+        private void OnFirstStart()
+        {
+            int i = Properties.Settings.Default.Started;
+            WelcomeDialog wd = new WelcomeDialog();
+            wd.StartPosition = FormStartPosition.CenterParent;
+            wd.Text = String.Format(wd.Text, Version);
+            wd.ShowDialog();
+            this.BringToFront();
+
+            // MSFS2020
+            WasmModuleUpdater udpater = new WasmModuleUpdater();
+            if (udpater.AutoDetectCommunityFolder())
+            {
+                // MSFS2020 installed
+                Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
+                msfsForm.StartPosition = FormStartPosition.CenterParent;
+                if (msfsForm.ShowDialog()==DialogResult.OK)
+                {
+                    InstallWasmModule();
+                }
+                this.BringToFront();
+            }
+        }
+
         private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
@@ -224,6 +243,14 @@ namespace MobiFlight.UI
             menuStrip.Enabled = true;
 
             CheckForUpdate(false, true);
+
+            CheckForWasmModuleUpdate();
+        }
+
+        private void CheckForWasmModuleUpdate()
+        {
+            WasmModuleUpdater udpater = new WasmModuleUpdater();
+            
         }
 
         void CheckForFirmwareUpdates ()
@@ -335,6 +362,8 @@ namespace MobiFlight.UI
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.StartedTotal += Properties.Settings.Default.Started;
+                Properties.Settings.Default.Started = 0;
                 Properties.Settings.Default.Save();
             }
         }
@@ -1379,6 +1408,48 @@ namespace MobiFlight.UI
             minimizeMainForm(false);
         }
 
+        private void installWasmModuleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InstallWasmModule();
+        }
+
+        private static void InstallWasmModule()
+        {
+            WasmModuleUpdater updater = new WasmModuleUpdater();
+
+            if (!updater.AutoDetectCommunityFolder())
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!updater.WasmModulesAreDifferent())
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (updater.InstallWasmModule())
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmUpdateInstallationError"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 
     internal static class Helper

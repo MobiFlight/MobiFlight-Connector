@@ -407,4 +407,17 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
     <value>YEAH! - Neue Version {0} verfügbar. Bitte jetzt aktualisieren.</value>
     <comment>"New Version {0} is available! Please update now."</comment>
   </data>
+  <data name="uiMessageWasmUpdateAlreadyInstalled" xml:space="preserve">
+    <value>Du hast das aktuelle MobiFlight WASM Modul bereits installiert.</value>
+  </data>
+  <data name="uiMessageWasmUpdateCommunityFolderNotFound" xml:space="preserve">
+    <value>MSFS2020 Community Verzeichnis nicht gefunden. WASM Module kann nicht automatisch kopiert werden. Bitte kopiere das Verzeichnis manuell an die richtige Stelle.</value>
+    <comment>MSFS2020 Community Folder was not found. Can't install WASM Module automatically. Please copy the folder manually.</comment>
+  </data>
+  <data name="uiMessageWasmUpdateInstallationError" xml:space="preserve">
+    <value>MobiFlight WASM Module konnte nicht installiert werden. Bitte checke das Log für weiter Details.</value>
+  </data>
+  <data name="uiMessageWasmUpdater" xml:space="preserve">
+    <value>MobiFlight WASM Module Installation</value>
+  </data>
 </root>
