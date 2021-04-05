@@ -415,9 +415,17 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
     <comment>MSFS2020 Community Folder was not found. Can't install WASM Module automatically. Please copy the folder manually.</comment>
   </data>
   <data name="uiMessageWasmUpdateInstallationError" xml:space="preserve">
-    <value>MobiFlight WASM Module konnte nicht installiert werden. Bitte checke das Log für weiter Details.</value>
+    <value>MobiFlight WASM Module konnte nicht installiert werden. Bitte checke das Log für weitere Details.</value>
   </data>
   <data name="uiMessageWasmUpdater" xml:space="preserve">
     <value>MobiFlight WASM Module Installation</value>
+  </data>
+  <data name="uiMessageWasmEventsInstallationError" xml:space="preserve">
+    <value>Neueste WASM Events konnten nicht installiert werden. Bitte checke das Log für weitere Details.</value>
+    <comment>Latest WASM Events could not be installed. Please check Log for more information.</comment>
+  </data>
+  <data name="uiMessageWasmEventsInstallationSuccessful" xml:space="preserve">
+    <value>Neueste WASM Events wurden erfolgreich installiert.</value>
+    <comment>Latest WASM Events installed successfully.</comment>
   </data>
 </root>

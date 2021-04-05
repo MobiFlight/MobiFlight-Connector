@@ -171,10 +171,16 @@
     <value>File</value>
   </data>
   <data name="installWASMModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+    <value>199, 22</value>
   </data>
   <data name="installWASMModuleToolStripMenuItem.Text" xml:space="preserve">
     <value>Install WASM Module</value>
+  </data>
+  <data name="downloadLatestEventsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 22</value>
+  </data>
+  <data name="downloadLatestEventsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Download Latest Events</value>
   </data>
   <data name="mSFS2020ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 22</value>
@@ -283,7 +289,7 @@
     <value>outputConfigPanel</value>
   </data>
   <data name="&gt;&gt;outputConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.OutputConfigPanel, MFConnector, Version=8.0.2.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.OutputConfigPanel, MFConnector, Version=8.0.2.11, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;outputConfigPanel.Parent" xml:space="preserve">
     <value>OutputTabPage</value>
@@ -337,7 +343,7 @@
     <value>inputConfigPanel</value>
   </data>
   <data name="&gt;&gt;inputConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.InputConfigPanel, MFConnector, Version=8.0.2.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.InputConfigPanel, MFConnector, Version=8.0.2.11, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;inputConfigPanel.Parent" xml:space="preserve">
     <value>InputTabPage</value>
@@ -7073,7 +7079,7 @@
     <value>startupPanel</value>
   </data>
   <data name="&gt;&gt;startupPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.StartupPanel, MFConnector, Version=8.0.2.6, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.StartupPanel, MFConnector, Version=8.0.2.11, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;startupPanel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -7581,6 +7587,12 @@
   </data>
   <data name="&gt;&gt;dataGridViewTextBoxColumn4.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;downloadLatestEventsToolStripMenuItem.Name" xml:space="preserve">
+    <value>downloadLatestEventsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;downloadLatestEventsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

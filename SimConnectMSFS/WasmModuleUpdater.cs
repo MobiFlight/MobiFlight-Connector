@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,14 @@ namespace MobiFlight.SimConnectMSFS
 {
     public class WasmModuleUpdater
     {
-        public const String WasmModuleFolder = @".\MSFS2020-module\mobiflight-event-module\";
-
+        public const String WasmModuleFolder = @".\MSFS2020-module\mobiflight-event-module";
+        
+        public const String WasmEventsTxtUrl = @"https://bitbucket.org/mobiflight/mobiflightfc/raw/master/MSFS2020-module/mobiflight-event-module/modules/events.txt";
+        public const String WasmEventsCipUrl = @"https://bitbucket.org/mobiflight/mobiflightfc/src/master/Presets/msfs2020_eventids.cip";
+        public const String WasmEventsTxtFolder = @"\mobiflight-event-module\modules";
+        public const String WasmEventsTxtFile = "events.txt";
+        public const String WasmEventsCipFolder = @".\presets";
+        
         public String CommunityFolder { get; set; }
 
         private String ExtractCommunityFolderFromUserCfg(String UserCfg)
@@ -66,11 +73,13 @@ namespace MobiFlight.SimConnectMSFS
             if (!Directory.Exists(WasmModuleFolder))
             {
                 Log.Instance.log("WASM module cannot be installed. WASM Module Folder not found. " + WasmModuleFolder, LogSeverity.Error);
+                return false;
             }
 
             if (!Directory.Exists(CommunityFolder))
             {
                 Log.Instance.log("WASM module cannot be installed. Community Folder not found. " + CommunityFolder, LogSeverity.Error);
+                return false;
             }
 
             String destFolder = CommunityFolder + @"\mobiflight-event-module";
@@ -126,6 +135,61 @@ namespace MobiFlight.SimConnectMSFS
             mobiflightWASM = CalculateMD5(@".\MSFS2020-module\mobiflight-event-module\modules\StandaloneModule.wasm");
 
             return (installedWASM != mobiflightWASM);
+        }
+
+        public bool InstallWasmEvents()
+        {
+            if (!Directory.Exists(WasmModuleFolder))
+            {
+                Log.Instance.log("WASM events cannot be installed. WASM Module Folder not found. " + WasmModuleFolder, LogSeverity.Error);
+                return false;
+            }
+
+            if (!Directory.Exists(CommunityFolder))
+            {
+                Log.Instance.log("WASM events cannot be installed. Community Folder not found. " + CommunityFolder, LogSeverity.Error);
+                return false;
+            }
+
+            if (!DownloadWasmEvents())
+            {
+                Log.Instance.log("WASM events cannot be installed. Download was not successful. " + CommunityFolder, LogSeverity.Error);
+                return false;
+            }
+
+            String sourcePath = WasmModuleFolder + @"\modules\" + WasmEventsTxtFile;
+            String destPath = CommunityFolder + WasmEventsTxtFolder + @"\" + WasmEventsTxtFile;
+            System.IO.File.Delete(destPath + ".bak");
+            System.IO.File.Move(destPath, destPath + ".bak");
+            System.IO.File.Copy(sourcePath, destPath);
+
+            Log.Instance.log("WASM events have been installed successfully.", LogSeverity.Info);
+            return true;
+        }
+
+        public bool DownloadWasmEvents()
+        {
+            if(!DownloadSingleFile(new Uri(WasmEventsTxtUrl), WasmModuleFolder + @"\modules")) return false;
+            Log.Instance.log("WASM events.txt has been downloaded and installed successfully.", LogSeverity.Info);
+
+            if (!DownloadSingleFile(new Uri(WasmEventsCipUrl), WasmEventsCipFolder)) return false;
+            Log.Instance.log("WASM msfs2020_eventids.cip has been downloaded and installed successfully.", LogSeverity.Info);
+            
+            return true;
+        }
+
+        private bool DownloadSingleFile(Uri uri, String targetPath)
+        {
+            var filename = System.IO.Path.GetFileName(uri.LocalPath);
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            WebClient webClient = new WebClient();
+            string tmpFile = Directory.GetCurrentDirectory() + targetPath + @"\" + filename + ".tmp";
+            webClient.DownloadFile(uri, tmpFile);
+            webClient.Dispose();
+            System.IO.File.Delete(targetPath + @"\" + filename);
+            System.IO.File.Move(tmpFile, targetPath + @"\" + filename);
+
+            return true;
         }
     }
 }

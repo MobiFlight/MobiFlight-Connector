@@ -906,6 +906,24 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Latest WASM Events could not be installed. Please check Log for more information..
+        /// </summary>
+        internal static string uiMessageWasmEventsInstallationError {
+            get {
+                return ResourceManager.GetString("uiMessageWasmEventsInstallationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest WASM Events installed successfully..
+        /// </summary>
+        internal static string uiMessageWasmEventsInstallationSuccessful {
+            get {
+                return ResourceManager.GetString("uiMessageWasmEventsInstallationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MobiFlight WASM Module is already installed and up-to-date..
         /// </summary>
         internal static string uiMessageWasmUpdateAlreadyInstalled {

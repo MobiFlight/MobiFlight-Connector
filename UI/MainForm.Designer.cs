@@ -100,6 +100,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
+            this.downloadLatestEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -192,7 +193,8 @@
             // mSFS2020ToolStripMenuItem
             // 
             this.mSFS2020ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.installWASMModuleToolStripMenuItem});
+            this.installWASMModuleToolStripMenuItem,
+            this.downloadLatestEventsToolStripMenuItem});
             this.mSFS2020ToolStripMenuItem.Name = "mSFS2020ToolStripMenuItem";
             resources.ApplyResources(this.mSFS2020ToolStripMenuItem, "mSFS2020ToolStripMenuItem");
             // 
@@ -592,6 +594,12 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
             // 
+            // downloadLatestEventsToolStripMenuItem
+            // 
+            this.downloadLatestEventsToolStripMenuItem.Name = "downloadLatestEventsToolStripMenuItem";
+            resources.ApplyResources(this.downloadLatestEventsToolStripMenuItem, "downloadLatestEventsToolStripMenuItem");
+            this.downloadLatestEventsToolStripMenuItem.Click += new System.EventHandler(this.downloadLatestEventsToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -707,6 +715,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mSFS2020ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem installWASMModuleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadLatestEventsToolStripMenuItem;
     }
 }
 

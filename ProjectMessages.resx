@@ -433,4 +433,10 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageWasmUpdater" xml:space="preserve">
     <value>MobiFlight WASM Module Installation</value>
   </data>
+  <data name="uiMessageWasmEventsInstallationError" xml:space="preserve">
+    <value>Latest WASM Events could not be installed. Please check Log for more information.</value>
+  </data>
+  <data name="uiMessageWasmEventsInstallationSuccessful" xml:space="preserve">
+    <value>Latest WASM Events installed successfully.</value>
+  </data>
 </root>

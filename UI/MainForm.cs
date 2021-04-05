@@ -1452,6 +1452,34 @@ namespace MobiFlight.UI
             }
         }
 
+        private void downloadLatestEventsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WasmModuleUpdater updater = new WasmModuleUpdater();
+
+            if (!updater.AutoDetectCommunityFolder())
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (updater.InstallWasmEvents())
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmEventsInstallationError"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 
     internal static class Helper
