@@ -21,9 +21,9 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreNotSame(o, c, "Objects are the same");
             Assert.AreEqual((o.onLeft as FsuipcOffsetInputAction).FSUIPCOffset, (c.onLeft as FsuipcOffsetInputAction).FSUIPCOffset, "onLeft are not cloned correctly");
-            Assert.AreEqual((o.onLeftFast as FsuipcOffsetInputAction).FSUIPCOffset, (c.onLeftFast as FsuipcOffsetInputAction).FSUIPCOffset, "onLeftFast are not cloned correctly");
-            Assert.AreEqual((o.onRight as FsuipcOffsetInputAction).FSUIPCOffset, (c.onRight as FsuipcOffsetInputAction).FSUIPCOffset, "onRight are not cloned correctly");
-            Assert.AreEqual((o.onRightFast as FsuipcOffsetInputAction).FSUIPCOffset, (c.onRightFast as FsuipcOffsetInputAction).FSUIPCOffset, "onRightFast are not cloned correctly");
+            Assert.AreEqual((o.onLeftFast as KeyInputAction).Key, (c.onLeftFast as KeyInputAction).Key, "onLeftFast are not cloned correctly");
+            Assert.AreEqual((o.onRight as EventIdInputAction).EventId, (c.onRight as EventIdInputAction).EventId, "onRight are not cloned correctly");
+            Assert.AreEqual((o.onRightFast as VJoyInputAction).sendValue, (c.onRightFast as VJoyInputAction).sendValue, "onRightFast are not cloned correctly");
         }
 
         [TestMethod()]
@@ -71,16 +71,16 @@ namespace MobiFlight.InputConfig.Tests
 
             String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\EncoderInputConfig\WriteXmlTest.1.xml");
 
-            Assert.AreEqual(s, result, "The both strings are not equal");
+            Assert.AreEqual(result, s, "The both strings are not equal");
         }
 
         private EncoderInputConfig generateTestObject()
         {
             EncoderInputConfig result = new EncoderInputConfig();
             result.onLeft = new FsuipcOffsetInputAction() { FSUIPCOffset = 0x1234 };
-            result.onRight = new FsuipcOffsetInputAction() { FSUIPCOffset = 0x2345 };
-            result.onLeftFast = new FsuipcOffsetInputAction() { FSUIPCOffset = 0x3456 };
-            result.onRightFast = new FsuipcOffsetInputAction() { FSUIPCOffset = 0x4567 };
+            result.onLeftFast = new KeyInputAction() { Alt = true, Control = true, Key = System.Windows.Forms.Keys.A , Shift = true  };
+            result.onRight = new EventIdInputAction() { EventId = 123456, Param = "1" };
+            result.onRightFast = new VJoyInputAction() { axisString = "Z", buttonComand = true, buttonNr = 1, sendValue = "sendValue", vJoyID = 1  };
 
             return result;
         }

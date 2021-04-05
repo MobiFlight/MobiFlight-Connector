@@ -67,6 +67,10 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Type, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
+            Assert.IsNull(o.encoder.onLeft, "encoder onLeft not null");
+            Assert.IsNotNull(o.encoder.onLeftFast, "encoder onLeftFast is null");
+            Assert.IsNull(o.encoder.onRight, "encoder onRight not null");
+            Assert.IsNotNull(o.encoder.onRightFast, "encoder onRightFast is null");
             Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
             Assert.AreEqual(o.ConfigRefs.Count, 0, "ConfigRefs.Count is not 2");
         }

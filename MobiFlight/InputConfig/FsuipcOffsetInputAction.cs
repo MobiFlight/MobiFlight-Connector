@@ -126,6 +126,7 @@ namespace MobiFlight.InputConfig
                     Transform.ReadXml(reader);
                 }
             }
+            reader.Read();
         }   
 
         public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
