@@ -21,24 +21,16 @@ namespace MobiFlightInstaller
     {
         public static readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector-updates.xml";
 
-        public static readonly string ProcessName = "MFConnector";
-        public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";
-        public static readonly string OptionBetaEnableSearch = "/configuration/userSettings/MobiFlight.Properties.Settings/setting[@name='BetaUpdates']";
+        public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";        
         public static readonly string InstallerLogFilePath = Directory.GetCurrentDirectory() + "\\install.log.txt";
         
         public static string CacheId = null;
-
-        static Char[] s_Base32Char = {
-            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-            'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-            'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-            'y', 'z', '0', '1', '2', '3', '4', '5'};
 
         static public Dictionary<string, Dictionary<string, string>> resultList = new Dictionary<string, Dictionary<string, string>>();
 
         static public void DeleteLogFileIfIsTooBig()
         {
-            if (File.Exists(InstallerLogFilePath)
+            if (File.Exists(InstallerLogFilePath))
             {
                 long LogLength = new System.IO.FileInfo(InstallerLogFilePath).Length;
                 if (LogLength > 100000)
@@ -50,45 +42,42 @@ namespace MobiFlightInstaller
         static public bool CheckIfFileIsHere(string FileName, string ShaOne)
         {
             string FileChecksum = "";
-            if (File.Exists(FileName))
+
+            if (!File.Exists(FileName))
             {
-                using (FileStream fs = File.OpenRead(FileName))
-                {
-                    SHA1 sha = new SHA1Managed();
-                    FileChecksum = BitConverter.ToString(sha.ComputeHash(fs)).Replace("-", "");
-                }
-                if (ShaOne == FileChecksum)
-                {
-                    Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Is already downloaded, checksum are equals", LogSeverity.Info);
-                    return true;
-                }
-                else
-                {
-                    Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Checksum missmatch", LogSeverity.Info);
-                    return false;
-                }
-            }
-            else
-            {
-                Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Does not exist", LogSeverity.Info);
+                Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Does not exist", LogSeverity.Debug);
                 return false;
             }
 
+
+            using (FileStream fs = File.OpenRead(FileName))
+            {
+                SHA1 sha = new SHA1Managed();
+                FileChecksum = BitConverter.ToString(sha.ComputeHash(fs)).Replace("-", "");
+            }
+
+
+            if (ShaOne != FileChecksum)
+            {
+                Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Checksum missmatch", LogSeverity.Debug);
+                return false;
+            }
+            
+            Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Is already downloaded, checksum are equals", LogSeverity.Debug);
+            return true; 
         }
 
         public static string GetInstalledVersion()
         {
-            if (File.Exists(ProcessName + ".exe"))
+            if (!File.Exists(MobiFlightHelperMethods.ProcessName + ".exe"))
             {
-                string ReturnResult= AssemblyName.GetAssemblyName(ProcessName + ".exe").Version.ToString();
-                Log.Instance.log("GetInstalledVersion : detected -> " + ReturnResult, LogSeverity.Info);
-                return ReturnResult;
-            }
-            else
-            {
-                Log.Instance.log("GetInstalledVersion : MFConnector not exist ! return 0.0.0", LogSeverity.Info);
+                Log.Instance.log("GetInstalledVersion : MFConnector not exist ! return 0.0.0", LogSeverity.Debug);
                 return "0.0.0";
             }
+
+            string ReturnResult = AssemblyName.GetAssemblyName(MobiFlightHelperMethods.ProcessName + ".exe").Version.ToString();
+            Log.Instance.log("GetInstalledVersion : detected -> " + ReturnResult, LogSeverity.Debug);
+            return ReturnResult;
         }
 
         public static bool VerifyCurrentFolderRight()
@@ -103,7 +92,6 @@ namespace MobiFlightInstaller
                 return false;
             }
             return true;
-
         }
 
         public static void GoExtractToDirectory(string zipPath, string destinationDirectoryName)
@@ -124,64 +112,71 @@ namespace MobiFlightInstaller
                             MessageBox.Show("Error installation failed -> " + e.Message);
                         }
                     }
-                    bool SkipThisFile = false;
-                    if (file.Name != OldMobiFlightUpdaterName)
-                    {
-                        if (file.Name == "MobiFlight-Installer.exe")
-                        {
-                            var InstallerCurVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.exe").Version.ToString();
-                            Log.Instance.log("Current Installer version : " + InstallerCurVersion, LogSeverity.Info);
-                            
-                            System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                            if (File.Exists(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new")))
-                                System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new"));
-                            file.ExtractToFile(FileInstaller.Name.Replace(FileInstaller.Extension, ".new"), true);
-                            var InstallerNewVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.new").Version.ToString();
-                            System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension,".new"));
-                            Log.Instance.log("New Installer version : " + InstallerNewVersion, LogSeverity.Info);
-                            
-                            var InstallerCompareVersion = InstallerCurVersion.CompareTo(InstallerNewVersion);
-                            if (InstallerCompareVersion < 0) // NewInstaller have greater version than current
-                            {
-                                if (File.Exists(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old")))
-                                    System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old"));
-                                System.IO.File.Move(FileInstaller.FullName, FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old"));
-                            }
-                            else
-                            {
-                                Log.Instance.log("Mobiflight-Installer no need to be upgrade, extracting file skipped", LogSeverity.Info);
-                                SkipThisFile = true;
-                            }
-                        }
 
-                        if (!SkipThisFile)
+                    // ignore the old update file.
+                    if (file.Name == OldMobiFlightUpdaterName) continue;
+
+                    if (file.Name == "MobiFlight-Installer.exe")
+                    {
+                        if (InstallerIsNewer(file)) // NewInstaller have greater version than current
                         {
-                            try
-                            {
-                                Log.Instance.log("EXTRACTING : " + completeFileName, LogSeverity.Info);
-                                file.ExtractToFile(completeFileName, true);
-                            }
-                            catch
-                            {
-                                Log.Instance.log("Extracting failed ! : " + completeFileName + " -> Wait and try a second time ...", LogSeverity.Info);
-                                Thread.Sleep(2000);
-                                try
-                                {
-                                    Log.Instance.log("EXTRACTING (second try) : " + completeFileName, LogSeverity.Info);
-                                    file.ExtractToFile(completeFileName, true);
-                                }
-                                catch (Exception e)
-                                {
-                                    Log.Instance.log("FAILED to extract the file, installation FAILED !", LogSeverity.Info);
-                                    MessageBox.Show("Error installation failed -> " + e.Message);
-                                }
-                            }
+                            System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                            String backupFile = FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old");
+
+                            if (File.Exists(backupFile))
+                                System.IO.File.Delete(backupFile);
+                            System.IO.File.Move(FileInstaller.FullName, backupFile);
+                        }
+                        else
+                        {
+                            Log.Instance.log("Mobiflight-Installer no need to be upgrade, extracting file skipped", LogSeverity.Info);
+                            continue;
                         }
                     }
 
+                    try
+                    {
+                        Log.Instance.log("EXTRACTING : " + completeFileName, LogSeverity.Debug);
+                        file.ExtractToFile(completeFileName, true);
+                    }
+                    catch
+                    {
+                        Log.Instance.log("Extracting failed ! : " + completeFileName + " -> Wait and try a second time ...", LogSeverity.Debug);
+                        Thread.Sleep(2000);
+                        try
+                        {
+                            Log.Instance.log("EXTRACTING (second try) : " + completeFileName, LogSeverity.Debug);
+                            file.ExtractToFile(completeFileName, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log("FAILED to extract the file, installation FAILED !", LogSeverity.Debug);
+                            MessageBox.Show("Error installation failed -> " + e.Message);
+                        }
+                    }
                 }
                 archive.Dispose();
             }
+        }
+
+        private static bool InstallerIsNewer(ZipArchiveEntry file)
+        {
+            var InstallerCurVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.exe").Version.ToString();
+            Log.Instance.log("Current Installer version : " + InstallerCurVersion, LogSeverity.Info);
+
+            System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            if (File.Exists(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new")))
+                System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new"));
+            file.ExtractToFile(FileInstaller.Name.Replace(FileInstaller.Extension, ".new"), true);
+
+            var InstallerNewVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.new").Version.ToString();
+            System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new"));
+            Log.Instance.log("New Installer version : " + InstallerNewVersion, LogSeverity.Info);
+
+            var InstallerCompareVersion = InstallerCurVersion.CompareTo(InstallerNewVersion);
+
+            return (InstallerCompareVersion < 0);
         }
 
         public static string GetFileName(string url)
@@ -203,18 +198,12 @@ namespace MobiFlightInstaller
         {
             String ProcessEXEName = ProcessName + ".exe";
 
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessEXEName))
-            {
-                if (Args == "")
-                {
-                    Process.Start(Directory.GetCurrentDirectory() + "\\" + ProcessEXEName);
-                }
-                else
-                {
-                    Process.Start(Directory.GetCurrentDirectory() + "\\" + ProcessEXEName, Args);
-                }
-                Environment.Exit(0);
-            }
+            if (!File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessEXEName))
+                return;
+
+            Process.Start(Directory.GetCurrentDirectory() + "\\" + ProcessEXEName, Args);
+
+            Environment.Exit(0);
         }
 
         public static void DownloadVersionsList(string UrlXmlFile)
@@ -224,28 +213,29 @@ namespace MobiFlightInstaller
             WebResponse webResponse;
             webResponse = webRequest.GetResponse();
             Stream ContentStream = webResponse.GetResponseStream();
-            if (ContentStream != null)
-            {
-                var ReceivedContent = new XmlDocument();
-                ReceivedContent.Load(ContentStream);
-                XmlNode x = ReceivedContent.DocumentElement;
-                foreach (XmlNode a in x)
-                {
-                    if (a.HasChildNodes)
-                    {
-                        resultList[a.Attributes["version"].Value] = new Dictionary<string, string>();
-                        foreach (XmlNode b in a)
-                        {
-                            resultList[a.Attributes["version"].Value][b.Name] = b.InnerText;
-                        }
-
-                    }
-                }
-            }
-            else
+            
+            if (ContentStream == null )
             {
                 MessageBox.Show("Error download Mobiflight list failed");
+                return;
             }
+
+            var ReceivedContent = new XmlDocument();
+            ReceivedContent.Load(ContentStream);
+            XmlNode x = ReceivedContent.DocumentElement;
+
+            foreach (XmlNode a in x)
+            {
+                if (a.HasChildNodes)
+                {
+                    resultList[a.Attributes["version"].Value] = new Dictionary<string, string>();
+                    foreach (XmlNode b in a)
+                    {
+                        resultList[a.Attributes["version"].Value][b.Name] = b.InnerText;
+                    }
+
+                }
+            }            
         }
 
         public static void InstallerCheckForUpgrade(String InstallerUpdateUrl)
@@ -327,11 +317,11 @@ namespace MobiFlightInstaller
                     {
                         CloseMobiFlightAndWait();
                         MobiFlightUpdaterModel.GoExtractToDirectory(Directory.GetCurrentDirectory() + "\\" + CurrentFileName, Directory.GetCurrentDirectory());
-                        MobiFlightUpdaterModel.StartProcessAndClose(ProcessName);
+                        MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
                     }
                     else
                     {
-                        MobiFlightUpdaterModel.StartProcessAndClose(ProcessName);
+                        MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
                     }
                 }
                 else // if zip file already here, installed it
@@ -339,7 +329,7 @@ namespace MobiFlightInstaller
                     CloseMobiFlightAndWait();
                     MobiFlightUpdaterModel.GoExtractToDirectory(Directory.GetCurrentDirectory() + "\\" + CurrentFileName, Directory.GetCurrentDirectory());
                 }
-                MobiFlightUpdaterModel.StartProcessAndClose(ProcessName);
+                MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
             }
             else
             {
@@ -353,24 +343,24 @@ namespace MobiFlightInstaller
             {
                 if (IncludeBeta)
                 {
-                    Log.Instance.log("GetTheLastVersionNumberAvailable -> " + a.Key, LogSeverity.Info);
+                    Log.Instance.log("GetTheLastVersionNumberAvailable -> " + a.Key, LogSeverity.Debug);
                     return a.Key;
                 }
                 else
                 {
                     if (a.Value["beta"] == "no")
                     {
-                        Log.Instance.log("GetTheLastVersionNumberAvailable -> " + a.Key, LogSeverity.Info);
+                        Log.Instance.log("GetTheLastVersionNumberAvailable -> " + a.Key, LogSeverity.Debug);
                         return a.Key;
                     }
                 }
             }
-            Log.Instance.log("GetTheLastVersionNumberAvailable -> Can't find any version", LogSeverity.Info);
+            Log.Instance.log("GetTheLastVersionNumberAvailable -> Can't find any version", LogSeverity.Debug);
             return "0.0.0";
         }
         public static void CloseMobiFlightAndWait()
         {
-            var Processes = Process.GetProcesses().Where(pr => pr.ProcessName == ProcessName);
+            var Processes = Process.GetProcesses().Where(pr => pr.ProcessName == MobiFlightHelperMethods.ProcessName);
             foreach (var Process in Processes)
             {
                 Process.CloseMainWindow();
@@ -393,124 +383,6 @@ namespace MobiFlightInstaller
                 Console.WriteLine("##RESULT##|0|");
             }
             Environment.Exit(0);
-        }
-
-        static public bool GetMfBetaOptionValue()
-        {
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessName + ".exe"))
-            {
-                string PatchConfigFile = GetExeLocalAppDataUserConfigPath(Directory.GetCurrentDirectory() + "\\" + ProcessName + ".exe");
-                Log.Instance.log("Check BETA option in " + PatchConfigFile, LogSeverity.Info);
-                if (File.Exists(PatchConfigFile))
-                {
-                    bool result = ExtractConfigBetaValueFromXML(PatchConfigFile);
-                    if (result) Log.Instance.log("BETA enable", LogSeverity.Info);
-                    else Log.Instance.log("BETA disable", LogSeverity.Info);
-                    return result;
-                }
-                else
-                {
-                    Log.Instance.log("Impossible to read the file does not exist -> BETA disable", LogSeverity.Info);
-                    return false;
-                }
-            }
-            else
-            {
-                Log.Instance.log("MFConnector.exe not found, BETA disable", LogSeverity.Info);
-                return false;
-            }
-        }
-
-        static public bool ExtractConfigBetaValueFromXML(string PatchConfigFile)
-        {
-            string xmlFile = File.ReadAllText(@PatchConfigFile);
-            XmlDocument xmldoc = new XmlDocument();
-            xmldoc.LoadXml(xmlFile);
-            XmlNodeList nodeList = xmldoc.SelectNodes(OptionBetaEnableSearch);
-            string Result = string.Empty;
-            foreach (XmlNode node in nodeList)
-            {
-                Result = node.InnerText;
-            }
-            if (Result == "True") return true;
-            else return false;
-        }
-        static public string GetExeLocalAppDataUserConfigPath(string fullExePath)
-        {
-            var localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-            var versionInfo = FileVersionInfo.GetVersionInfo(fullExePath);
-            var companyName = versionInfo.CompanyName;
-            var exeName = versionInfo.OriginalFilename;
-
-            var assemblyName = AssemblyName.GetAssemblyName(fullExePath);
-            var version = assemblyName.Version.ToString();
-
-            var uri = "file:///" + fullExePath; 
-            uri = uri.ToUpperInvariant();
-
-            var ms = new MemoryStream();
-            var bSer = new BinaryFormatter();
-            bSer.Serialize(ms, uri);
-            ms.Position = 0;
-            var sha1 = new SHA1CryptoServiceProvider();
-            var hash = sha1.ComputeHash(ms);
-            var hashstring = ToBase32StringSuitableForDirName(hash);
-
-            var userConfigLocalAppDataPath = Path.Combine(localAppDataPath, companyName, exeName + "_Url_" + hashstring, version, "user.config");
-
-            return userConfigLocalAppDataPath;
-        }
-        private static string ToBase32StringSuitableForDirName(byte[] buff)
-        {
-            StringBuilder sb = new StringBuilder();
-            byte b0, b1, b2, b3, b4;
-            int l, i;
-
-            l = buff.Length;
-            i = 0;
-
-            // Create l chars using the last 5 bits of each byte.  
-            // Consume 3 MSB bits 5 bytes at a time.
-
-            do
-            {
-                b0 = (i < l) ? buff[i++] : (byte)0;
-                b1 = (i < l) ? buff[i++] : (byte)0;
-                b2 = (i < l) ? buff[i++] : (byte)0;
-                b3 = (i < l) ? buff[i++] : (byte)0;
-                b4 = (i < l) ? buff[i++] : (byte)0;
-
-                // Consume the 5 Least significant bits of each byte
-                sb.Append(s_Base32Char[b0 & 0x1F]);
-                sb.Append(s_Base32Char[b1 & 0x1F]);
-                sb.Append(s_Base32Char[b2 & 0x1F]);
-                sb.Append(s_Base32Char[b3 & 0x1F]);
-                sb.Append(s_Base32Char[b4 & 0x1F]);
-
-                // Consume 3 MSB of b0, b1, MSB bits 6, 7 of b3, b4
-                sb.Append(s_Base32Char[(
-                    ((b0 & 0xE0) >> 5) |
-                    ((b3 & 0x60) >> 2))]);
-
-                sb.Append(s_Base32Char[(
-                    ((b1 & 0xE0) >> 5) |
-                    ((b4 & 0x60) >> 2))]);
-
-                // Consume 3 MSB bits of b2, 1 MSB bit of b3, b4
-
-                b2 >>= 5;
-
-                if ((b3 & 0x80) != 0)
-                    b2 |= 0x08;
-                if ((b4 & 0x80) != 0)
-                    b2 |= 0x10;
-
-                sb.Append(s_Base32Char[b2]);
-
-            } while (i < l);
-
-            return sb.ToString();
         }
     }
 }

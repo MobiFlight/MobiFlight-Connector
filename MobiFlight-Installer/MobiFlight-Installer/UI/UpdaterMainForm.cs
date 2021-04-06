@@ -22,7 +22,7 @@ namespace MobiFlightInstaller.UI
         public UpdaterMainForm()
         {
             
-            Log.Instance.log("Installer start", LogSeverity.Info);
+            Log.Instance.log("Installer start", LogSeverity.Debug);
 
             CmdLineParams cmdParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
@@ -39,18 +39,18 @@ namespace MobiFlightInstaller.UI
                 // install specific version by command line
                 if (cmdParams.Install != null)
                 {
-                    Log.Instance.log("ManualUpgradeFromCommandLine START from args -> Check BETA " + cmdParams.Install, LogSeverity.Info);
+                    Log.Instance.log("ManualUpgradeFromCommandLine START from args -> Check BETA " + cmdParams.Install, LogSeverity.Debug);
                     MobiFlightUpdaterModel.ManualUpgradeFromCommandLine(cmdParams.Install);
                 }
                 else if (cmdParams.Check || cmdParams.CheckBeta)
                 {
-                    Log.Instance.log("ExternAskToCheckLastVersion START from args -> Check BETA " + cmdParams.CheckBeta, LogSeverity.Info);
+                    Log.Instance.log("ExternAskToCheckLastVersion START from args -> Check BETA " + cmdParams.CheckBeta, LogSeverity.Debug);
                     MobiFlightUpdaterModel.ExternAskToCheckLastVersion(cmdParams.CheckBeta);
                 }
                 // expert mode, start interface to choose version
                 else if (cmdParams.ExpertMode)
                 {
-                    Log.Instance.log("EXPERT mode enable", LogSeverity.Info);
+                    Log.Instance.log("EXPERT mode enable", LogSeverity.Debug);
                     InitializeComponent();
                     if (InstallerUpdateUrl != "")
                         MobiFlightUpdaterModel.InstallerCheckForUpgrade(InstallerUpdateUrl);
@@ -83,9 +83,9 @@ namespace MobiFlightInstaller.UI
             }
             else
             {
-                Log.Instance.log("No args, SILENT mode enable", LogSeverity.Info);
+                Log.Instance.log("No args, SILENT mode enable", LogSeverity.Debug);
                 MobiFlightUpdaterModel.DownloadVersionsList(updateUrl);
-                bool IsMfHaveBetaEnable = MobiFlightUpdaterModel.GetMfBetaOptionValue();
+                bool IsMfHaveBetaEnable = MobiFlightHelperMethods.GetMfBetaOptionValue();
                 var CurVersion = new Version(MobiFlightUpdaterModel.GetInstalledVersion());
                 var TargetVersion = new Version(MobiFlightUpdaterModel.GetTheLastVersionNumberAvailable(IsMfHaveBetaEnable));
                 var result = CurVersion.CompareTo(TargetVersion);
@@ -102,7 +102,7 @@ namespace MobiFlightInstaller.UI
                     }
                 } else
                 {
-                    MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightUpdaterModel.ProcessName);
+                    MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
                 }
                 Environment.Exit(0);
             }
@@ -234,7 +234,7 @@ namespace MobiFlightInstaller.UI
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightUpdaterModel.ProcessName);
+            MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
         }
     }   
 }

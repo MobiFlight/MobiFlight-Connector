@@ -74,6 +74,7 @@
       <DependentUpon>i18n_Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="model\Log.cs" />
+    <Compile Include="model\MobiFlightHelperMethods.cs" />
     <Compile Include="UI\UpdaterMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
