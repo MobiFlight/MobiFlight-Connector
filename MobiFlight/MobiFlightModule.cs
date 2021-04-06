@@ -256,7 +256,8 @@ namespace MobiFlight
             Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort + " of Type " + Type + " (DTR=>" + _transportLayer.CurrentSerialSettings.DtrEnable + ")", LogSeverity.Info);
             //this.Connected = status;
             this.connected = true;
-
+            
+            System.Threading.Thread.Sleep(1000);
             // workaround ahead!!!
             if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
                 System.Threading.Thread.Sleep(500);
