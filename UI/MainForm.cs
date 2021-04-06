@@ -177,7 +177,7 @@ namespace MobiFlight.UI
             int i = Properties.Settings.Default.Started;
             WelcomeDialog wd = new WelcomeDialog();
             wd.StartPosition = FormStartPosition.CenterParent;
-            wd.Text = String.Format(wd.Text, Version);
+            wd.Text = String.Format(wd.Text, DisplayVersion());
             wd.ShowDialog();
             this.BringToFront();
 
@@ -450,6 +450,11 @@ namespace MobiFlight.UI
             }
             else
             {
+                if (!silent)
+                    MessageBox.Show(
+                        String.Format(i18n._tr("uiMessageNoUpdateNecessary"), DisplayVersion()), 
+                        i18n._tr("Hint"), 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Log.Instance.log("CheckForUpdate : MobiFlight is up to date.", LogSeverity.Info);
             }
 
@@ -1094,6 +1099,16 @@ namespace MobiFlight.UI
             }
 
             Text = NewTitle;
+        }
+
+        public String DisplayVersion ()
+        {
+            if (VersionBeta.Split('.')[3] != "0")
+            {
+                return VersionBeta;
+            }
+
+            return Version;
         }
 
         private void _setFilenameInTitle(string fileName)
