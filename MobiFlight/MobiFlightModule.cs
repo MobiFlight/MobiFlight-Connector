@@ -257,7 +257,10 @@ namespace MobiFlight
             //this.Connected = status;
             this.connected = true;
             
+            // this sleep helps during initialization
+            // without this line modules did not connect properly
             System.Threading.Thread.Sleep(1000);
+
             // workaround ahead!!!
             if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
                 System.Threading.Thread.Sleep(500);
