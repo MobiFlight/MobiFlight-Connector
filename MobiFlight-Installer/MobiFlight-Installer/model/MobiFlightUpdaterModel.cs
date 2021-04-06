@@ -24,6 +24,7 @@ namespace MobiFlightInstaller
         public static readonly string ProcessName = "MFConnector";
         public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";
         public static readonly string OptionBetaEnableSearch = "/configuration/userSettings/MobiFlight.Properties.Settings/setting[@name='BetaUpdates']";
+        public static readonly string InstallerLogFilePath = Directory.GetCurrentDirectory() + "\\install.log.txt";
         
         public static string CacheId = null;
 
@@ -35,6 +36,17 @@ namespace MobiFlightInstaller
 
         static public Dictionary<string, Dictionary<string, string>> resultList = new Dictionary<string, Dictionary<string, string>>();
 
+        static public void DeleteLogFileIfIsTooBig()
+        {
+            if (File.Exists(InstallerLogFilePath)
+            {
+                long LogLength = new System.IO.FileInfo(InstallerLogFilePath).Length;
+                if (LogLength > 100000)
+                {
+                    System.IO.File.Delete(InstallerLogFilePath);
+                }
+            }
+        }
         static public bool CheckIfFileIsHere(string FileName, string ShaOne)
         {
             string FileChecksum = "";
@@ -47,15 +59,18 @@ namespace MobiFlightInstaller
                 }
                 if (ShaOne == FileChecksum)
                 {
+                    Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Is already downloaded, checksum are equals", LogSeverity.Info);
                     return true;
                 }
                 else
                 {
+                    Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Checksum missmatch", LogSeverity.Info);
                     return false;
                 }
             }
             else
             {
+                Log.Instance.log("CheckIfFileIsHere : " + FileName + " -> Does not exist", LogSeverity.Info);
                 return false;
             }
 
@@ -65,10 +80,13 @@ namespace MobiFlightInstaller
         {
             if (File.Exists(ProcessName + ".exe"))
             {
-                return AssemblyName.GetAssemblyName(ProcessName + ".exe").Version.ToString();
+                string ReturnResult= AssemblyName.GetAssemblyName(ProcessName + ".exe").Version.ToString();
+                Log.Instance.log("GetInstalledVersion : detected -> " + ReturnResult, LogSeverity.Info);
+                return ReturnResult;
             }
             else
             {
+                Log.Instance.log("GetInstalledVersion : MFConnector not exist ! return 0.0.0", LogSeverity.Info);
                 return "0.0.0";
             }
         }

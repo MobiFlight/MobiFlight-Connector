@@ -396,14 +396,16 @@ namespace MobiFlight.UI
             if (Properties.Settings.Default.BetaUpdates)
             {
                 CommandToSend += " /beta";
-                Log.Instance.log("NEW Checking for BETA update...", LogSeverity.Info);
+                Log.Instance.log("CheckForUpdate : Checking for BETA update...", LogSeverity.Info);
             }
             else
             { 
-                Log.Instance.log("NEW Checking for RELEASE update...", LogSeverity.Info);
+                Log.Instance.log("CheckForUpdate : Checking for RELEASE update...", LogSeverity.Info);
             }
 
-            System.Diagnostics.Process p = System.Diagnostics.Process.Start(mobiFlightInstaller, CommandToSend);
+            System.Diagnostics.Process p = new Process();
+            p.StartInfo.FileName = mobiFlightInstaller;
+            p.StartInfo.Arguments = CommandToSend;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.RedirectStandardOutput = true;
@@ -416,10 +418,20 @@ namespace MobiFlight.UI
             Console.WriteLine(output + error);
             if (output.Contains("##RESULT##|1"))
             {
-                Log.Instance.log("NEW a new version is here", LogSeverity.Info);
-                string[] OutputArray = output.Split('|');
+                string[] OutputArray = output.Split('|'); // Get the version number
                 string newVersion = OutputArray[2];
-
+                string[] VersionArray = newVersion.Split('.'); // Split the version number to get the last number
+                int VersionLastnumber = Int32.Parse(VersionArray[3]);
+                string BetaOrRelease;
+                if ((OutputArray.Length == 4) & (VersionLastnumber>0)) // If the last number is > 0 is a beta version
+                {
+                    BetaOrRelease = "BETA";
+                }
+                else
+                {
+                    BetaOrRelease = "RELEASE";
+                }
+                Log.Instance.log("CheckForUpdate : Installer respond a new version " + newVersion + " " + BetaOrRelease + " is available !", LogSeverity.Info);
                 DialogResult dialogResult = MessageBox.Show(
                     String.Format(i18n._tr("uiMessageNewUpdateAvailablePleaseUpdate"), newVersion), 
                     i18n._tr("uiMessageNewUpdateAvailable"),
@@ -438,7 +450,7 @@ namespace MobiFlight.UI
             }
             else
             {
-                Log.Instance.log("NEW is up to date", LogSeverity.Info);
+                Log.Instance.log("CheckForUpdate : MobiFlight is up to date.", LogSeverity.Info);
             }
 
         }

@@ -14,6 +14,7 @@ namespace MobiFlightInstaller
         [STAThread]
         static void Main()
         {
+            MobiFlightUpdaterModel.DeleteLogFileIfIsTooBig();
             LogAppenderFile logAppenderFile = new LogAppenderFile(false);
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.Enabled = true;
