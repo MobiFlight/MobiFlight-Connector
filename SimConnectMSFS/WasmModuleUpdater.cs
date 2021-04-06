@@ -181,6 +181,9 @@ namespace MobiFlight.SimConnectMSFS
         private bool DownloadSingleFile(Uri uri, String targetPath)
         {
             var filename = System.IO.Path.GetFileName(uri.LocalPath);
+
+            SecurityProtocolType oldType = System.Net.ServicePointManager.SecurityProtocol;
+
             System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             WebClient webClient = new WebClient();
             string tmpFile = Directory.GetCurrentDirectory() + targetPath + @"\" + filename + ".tmp";
@@ -189,6 +192,7 @@ namespace MobiFlight.SimConnectMSFS
             System.IO.File.Delete(targetPath + @"\" + filename);
             System.IO.File.Move(tmpFile, targetPath + @"\" + filename);
 
+            System.Net.ServicePointManager.SecurityProtocol = oldType;
             return true;
         }
     }
