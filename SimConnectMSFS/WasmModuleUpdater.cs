@@ -14,7 +14,7 @@ namespace MobiFlight.SimConnectMSFS
         public const String WasmModuleFolder = @".\MSFS2020-module\mobiflight-event-module";
         
         public const String WasmEventsTxtUrl = @"https://bitbucket.org/mobiflight/mobiflightfc/raw/master/MSFS2020-module/mobiflight-event-module/modules/events.txt";
-        public const String WasmEventsCipUrl = @"https://bitbucket.org/mobiflight/mobiflightfc/src/master/Presets/msfs2020_eventids.cip";
+        public const String WasmEventsCipUrl = @"https://bitbucket.org/mobiflight/mobiflightfc/raw/master/Presets/msfs2020_eventids.cip";
         public const String WasmEventsTxtFolder = @"\mobiflight-event-module\modules";
         public const String WasmEventsTxtFile = "events.txt";
         public const String WasmEventsCipFolder = @".\presets";
