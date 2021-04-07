@@ -128,7 +128,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\Build
+    <PostBuildEvent>mkdir $(SolutionDir)\Build
+mkdir $(SolutionDir)\bin\$(ConfigurationName)
+copy $(TargetPath) $(SolutionDir)\Build
 copy $(TargetPath) $(SolutionDir)\bin\$(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -20,7 +20,7 @@ namespace MobiFlightInstaller
     static class MobiFlightUpdaterModel
     {
         public static readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector-updates.xml";
-
+        
         public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";        
         public static readonly string InstallerLogFilePath = Directory.GetCurrentDirectory() + "\\install.log.txt";
         
