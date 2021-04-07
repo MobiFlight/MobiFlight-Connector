@@ -1445,38 +1445,45 @@ namespace MobiFlight.UI
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
 
-            if (!updater.AutoDetectCommunityFolder())
-            {
-                MessageBox.Show(
-                   i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+            try {
+
+                if (!updater.AutoDetectCommunityFolder())
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!updater.WasmModulesAreDifferent())
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (updater.InstallWasmModule())
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    return;
+                }
+
+            } catch (Exception e) {
+                Log.Instance.log(e.Message, LogSeverity.Error);
             }
 
-            if (!updater.WasmModulesAreDifferent())
-            {
-                MessageBox.Show(
-                   i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            if (updater.InstallWasmModule())
-            {
-                MessageBox.Show(
-                   i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show(
-                   i18n._tr("uiMessageWasmUpdateInstallationError"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // We only get here in case of an error.
+            MessageBox.Show(
+                i18n._tr("uiMessageWasmUpdateInstallationError"),
+                i18n._tr("uiMessageWasmUpdater"),
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void downloadLatestEventsToolStripMenuItem_Click(object sender, EventArgs e)
