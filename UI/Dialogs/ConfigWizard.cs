@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Dialogs
     public partial class ConfigWizard : Form
     {
         public event EventHandler PreconditionTreeNodeChanged;
+        public event EventHandler SettingsDialogRequested;
 
         static int lastTabActive = 0;
 
@@ -564,6 +565,26 @@ namespace MobiFlight.UI.Dialogs
                             case DeviceType.LcdDisplay:
                                 displayTypeComboBox.Items.Add(DeviceType.LcdDisplay.ToString("F"));
                                 break;
+                        }
+                    }
+
+                    if (displayTypeComboBox.Items.Count == 0)
+                    {
+                        if (MessageBox.Show(
+                                i18n._tr("uiMessageSelectedModuleDoesNotContainAnyOutputDevices"),
+                                i18n._tr("Hint"),
+                                MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes
+                            )
+                        {
+                            if (SettingsDialogRequested != null)
+                            {
+                                SettingsDialogRequested(this, new EventArgs());
+
+                                // trigger reload of Type ComboBox
+                                int CurrentIdx = displayModuleNameComboBox.SelectedIndex;
+                                displayModuleNameComboBox.SelectedIndex = 0;
+                                displayModuleNameComboBox.SelectedIndex = CurrentIdx;
+                            }
                         }
                     }
                 }

@@ -439,4 +439,7 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageWasmEventsInstallationSuccessful" xml:space="preserve">
     <value>Latest WASM Events installed successfully.</value>
   </data>
+  <data name="uiMessageSelectedModuleDoesNotContainAnyOutputDevices" xml:space="preserve">
+    <value>The selected module does not contain any output devices. Do you want to add such devices?</value>
+  </data>
 </root>

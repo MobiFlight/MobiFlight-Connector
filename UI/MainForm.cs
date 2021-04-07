@@ -151,10 +151,11 @@ namespace MobiFlight.UI
             // TODO: REFACTOR THIS DEPENDENCY
             outputConfigPanel.ExecutionManager = execManager;
             outputConfigPanel.SettingsChanged += OutputConfigPanel_SettingsChanged;
+            outputConfigPanel.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
 
             inputConfigPanel.ExecutionManager = execManager;
             inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
-            inputConfigPanel.SettingsDialogRequested += InputConfigPanel_SettingsDialogRequested;
+            inputConfigPanel.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
             inputConfigPanel.OutputDataSetConfig = outputConfigPanel.DataSetConfig;
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
@@ -201,7 +202,7 @@ namespace MobiFlight.UI
             saveToolStripButton.Enabled = true;
         }
 
-        private void InputConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
+        private void ConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
         {
             settingsToolStripMenuItem_Click(sender, null);
         }
@@ -1303,7 +1304,7 @@ namespace MobiFlight.UI
             // TODO: refactor dependency to module cache
             SettingsDialog dialog = new SettingsDialog(execManager);
             dialog.StartPosition = FormStartPosition.CenterParent;
-            if (sender is InputConfigWizard)
+            if (sender is InputConfigWizard || sender is ConfigWizard)
             {
                 // show the mobiflight tab page
                 dialog.tabControl1.SelectedTab = dialog.mobiFlightTabPage;

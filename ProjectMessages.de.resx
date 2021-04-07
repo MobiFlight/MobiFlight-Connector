@@ -428,4 +428,8 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
     <value>Neueste WASM Events wurden erfolgreich installiert.</value>
     <comment>Latest WASM Events installed successfully.</comment>
   </data>
+  <data name="uiMessageSelectedModuleDoesNotContainAnyOutputDevices" xml:space="preserve">
+    <value>Das ausgewählte Modul enthält keine Ausgabegeräte. Möchtest Du welche konfigurieren?</value>
+    <comment>uiMessageSelectedModuleDoesNotContainAnyOutputDevices</comment>
+  </data>
 </root>

@@ -788,6 +788,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The selected module does not contain any output devices. Do you want to add such devices?.
+        /// </summary>
+        internal static string uiMessageSelectedModuleDoesNotContainAnyOutputDevices {
+            get {
+                return ResourceManager.GetString("uiMessageSelectedModuleDoesNotContainAnyOutputDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the current firmware first..
         /// </summary>
         internal static string uiMessageSettingsDialogFirmwareVersionTooLowException {
