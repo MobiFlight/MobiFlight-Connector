@@ -121,137 +121,17 @@
     <value>17, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 34</value>
-  </data>
-  <data name="toolStripMenuItem3.Text" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>271, 6</value>
-  </data>
-  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 34</value>
-  </data>
-  <data name="openToolStripMenuItem.Text" xml:space="preserve">
-    <value>Open...</value>
-  </data>
-  <data name="mergeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 34</value>
-  </data>
-  <data name="mergeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Merge...</value>
-  </data>
-  <data name="konfigurationSpeichernToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 34</value>
-  </data>
-  <data name="konfigurationSpeichernToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save As...</value>
-  </data>
-  <data name="AfterFileActionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>271, 6</value>
-  </data>
-  <data name="recentDocumentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 34</value>
-  </data>
-  <data name="recentDocumentsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Recent Documents...</value>
-  </data>
-  <data name="recentDocsToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>271, 6</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="recentDocsToolStripSeparator.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="beendenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 34</value>
-  </data>
-  <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>54, 29</value>
-  </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="installWASMModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 34</value>
-  </data>
-  <data name="installWASMModuleToolStripMenuItem.Text" xml:space="preserve">
-    <value>Install WASM Module</value>
-  </data>
-  <data name="downloadLatestEventsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 34</value>
-  </data>
-  <data name="downloadLatestEventsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Download Latest Events</value>
-  </data>
-  <data name="mSFS2020ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 34</value>
-  </data>
-  <data name="mSFS2020ToolStripMenuItem.Text" xml:space="preserve">
-    <value>MSFS2020</value>
-  </data>
-  <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 34</value>
-  </data>
-  <data name="orphanedSerialsFinderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Manage orphaned serials</value>
-  </data>
-  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 6</value>
-  </data>
-  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 34</value>
-  </data>
-  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="extrasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 29</value>
-  </data>
-  <data name="extrasToolStripMenuItem.Text" xml:space="preserve">
-    <value>Extras</value>
-  </data>
-  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 34</value>
-  </data>
-  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
-    <value>Open help in web</value>
-  </data>
-  <data name="checkForUpdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 34</value>
-  </data>
-  <data name="checkForUpdateToolStripMenuItem.Text" xml:space="preserve">
-    <value>Check for update</value>
-  </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>251, 6</value>
-  </data>
-  <data name="überToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 34</value>
-  </data>
-  <data name="überToolStripMenuItem.Text" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="hilfeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 29</value>
-  </data>
-  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Help</value>
-  </data>
   <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 2, 0, 2</value>
+    <value>4, 1, 0, 1</value>
   </data>
   <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 33</value>
+    <value>850, 24</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -270,56 +150,167 @@
   <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 22</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="toolStripMenuItem3.Text" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 6</value>
+  </data>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="openToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open...</value>
+  </data>
+  <data name="mergeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="mergeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Merge...</value>
+  </data>
+  <data name="konfigurationSpeichernToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="konfigurationSpeichernToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
+  <data name="AfterFileActionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 6</value>
+  </data>
+  <data name="recentDocumentsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="recentDocumentsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Recent Documents...</value>
+  </data>
+  <data name="recentDocsToolStripSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 6</value>
+  </data>
+  <data name="recentDocsToolStripSeparator.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="beendenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
+  </data>
+  <data name="beendenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="extrasToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 22</value>
+  </data>
+  <data name="extrasToolStripMenuItem.Text" xml:space="preserve">
+    <value>Extras</value>
+  </data>
+  <data name="mSFS2020ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="mSFS2020ToolStripMenuItem.Text" xml:space="preserve">
+    <value>MSFS2020</value>
+  </data>
+  <data name="installWASMModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 22</value>
+  </data>
+  <data name="installWASMModuleToolStripMenuItem.Text" xml:space="preserve">
+    <value>Install WASM Module</value>
+  </data>
+  <data name="downloadLatestEventsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 22</value>
+  </data>
+  <data name="downloadLatestEventsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Download Latest Events</value>
+  </data>
+  <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="orphanedSerialsFinderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Manage orphaned serials</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 6</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 22</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="hilfeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 22</value>
+  </data>
+  <data name="hilfeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 22</value>
+  </data>
+  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open help in web</value>
+  </data>
+  <data name="checkForUpdateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 22</value>
+  </data>
+  <data name="checkForUpdateToolStripMenuItem.Text" xml:space="preserve">
+    <value>Check for update</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 6</value>
+  </data>
+  <data name="überToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>167, 22</value>
+  </data>
+  <data name="überToolStripMenuItem.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="panelMain.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="panelMain.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="outputConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="&gt;&gt;inputsTabControl.Name" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.Parent" xml:space="preserve">
+    <value>panelMain</value>
+  </data>
+  <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="panelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="outputConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 5</value>
+  <data name="panelMain.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 52</value>
   </data>
-  <data name="outputConfigPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
+  <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 385</value>
   </data>
-  <data name="outputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1259, 567</value>
+  <data name="panelMain.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="outputConfigPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;panelMain.Name" xml:space="preserve">
+    <value>panelMain</value>
   </data>
-  <data name="&gt;&gt;outputConfigPanel.Name" xml:space="preserve">
-    <value>outputConfigPanel</value>
+  <data name="&gt;&gt;panelMain.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;outputConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.OutputConfigPanel, MFConnector, Version=8.0.2.9, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;panelMain.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;outputConfigPanel.Parent" xml:space="preserve">
-    <value>OutputTabPage</value>
-  </data>
-  <data name="&gt;&gt;outputConfigPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="OutputTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="OutputTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="OutputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1267, 577</value>
-  </data>
-  <data name="OutputTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="OutputTabPage.Text" xml:space="preserve">
-    <value>Output</value>
+  <data name="&gt;&gt;panelMain.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;OutputTabPage.Name" xml:space="preserve">
     <value>OutputTabPage</value>
@@ -332,51 +323,6 @@
   </data>
   <data name="&gt;&gt;OutputTabPage.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="inputConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="inputConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 5</value>
-  </data>
-  <data name="inputConfigPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
-  </data>
-  <data name="inputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1259, 549</value>
-  </data>
-  <data name="inputConfigPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;inputConfigPanel.Name" xml:space="preserve">
-    <value>inputConfigPanel</value>
-  </data>
-  <data name="&gt;&gt;inputConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.InputConfigPanel, MFConnector, Version=8.0.2.9, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;inputConfigPanel.Parent" xml:space="preserve">
-    <value>InputTabPage</value>
-  </data>
-  <data name="&gt;&gt;inputConfigPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="InputTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="InputTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="InputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1267, 559</value>
-  </data>
-  <data name="InputTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="InputTabPage.Text" xml:space="preserve">
-    <value>Inputs</value>
   </data>
   <data name="&gt;&gt;InputTabPage.Name" xml:space="preserve">
     <value>InputTabPage</value>
@@ -399,11 +345,8 @@
   <data name="inputsTabControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="inputsTabControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="inputsTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 610</value>
+    <value>850, 385</value>
   </data>
   <data name="inputsTabControl.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -420,32 +363,137 @@
   <data name="&gt;&gt;inputsTabControl.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="panelMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="&gt;&gt;outputConfigPanel.Name" xml:space="preserve">
+    <value>outputConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;outputConfigPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.OutputConfigPanel, MFConnector, Version=8.0.2.9, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;outputConfigPanel.Parent" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;outputConfigPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="OutputTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="OutputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="OutputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>842, 359</value>
+  </data>
+  <data name="OutputTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="OutputTabPage.Text" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Name" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.Parent" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;OutputTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="outputConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="panelMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 67</value>
+  <data name="outputConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="panelMain.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="outputConfigPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 610</value>
+  <data name="outputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>836, 353</value>
   </data>
-  <data name="panelMain.TabIndex" type="System.Int32, mscorlib">
+  <data name="outputConfigPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;outputConfigPanel.Name" xml:space="preserve">
+    <value>outputConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;outputConfigPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.OutputConfigPanel, MFConnector, Version=8.0.2.9, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;outputConfigPanel.Parent" xml:space="preserve">
+    <value>OutputTabPage</value>
+  </data>
+  <data name="&gt;&gt;outputConfigPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;inputConfigPanel.Name" xml:space="preserve">
+    <value>inputConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;inputConfigPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.InputConfigPanel, MFConnector, Version=8.0.2.9, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;inputConfigPanel.Parent" xml:space="preserve">
+    <value>InputTabPage</value>
+  </data>
+  <data name="&gt;&gt;inputConfigPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="InputTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="InputTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="InputTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>842, 370</value>
+  </data>
+  <data name="InputTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;panelMain.Name" xml:space="preserve">
-    <value>panelMain</value>
+  <data name="InputTabPage.Text" xml:space="preserve">
+    <value>Inputs</value>
   </data>
-  <data name="&gt;&gt;panelMain.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;InputTabPage.Name" xml:space="preserve">
+    <value>InputTabPage</value>
   </data>
-  <data name="&gt;&gt;panelMain.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;InputTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panelMain.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;InputTabPage.Parent" xml:space="preserve">
+    <value>inputsTabControl</value>
+  </data>
+  <data name="&gt;&gt;InputTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="inputConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="inputConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="inputConfigPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="inputConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>836, 364</value>
+  </data>
+  <data name="inputConfigPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;inputConfigPanel.Name" xml:space="preserve">
+    <value>inputConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;inputConfigPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.InputConfigPanel, MFConnector, Version=8.0.2.9, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;inputConfigPanel.Parent" xml:space="preserve">
+    <value>InputTabPage</value>
+  </data>
+  <data name="&gt;&gt;inputConfigPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>248, 17</value>
@@ -453,35 +501,8 @@
   <metadata name="contextMenuStripNotifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>518, 17</value>
   </metadata>
-  <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 32</value>
-  </data>
-  <data name="startToolStripMenuItem.Text" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 32</value>
-  </data>
-  <data name="stopToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
-    <value>231, 6</value>
-  </data>
-  <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 32</value>
-  </data>
-  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
-    <value>Restore MobiFlight</value>
-  </data>
-  <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>234, 32</value>
-  </data>
-  <data name="exitToolStripMenuItem.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
   <data name="contextMenuStripNotifyIcon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 138</value>
+    <value>175, 98</value>
   </data>
   <data name="&gt;&gt;contextMenuStripNotifyIcon.Name" xml:space="preserve">
     <value>contextMenuStripNotifyIcon</value>
@@ -6664,122 +6685,44 @@
   <data name="notifyIcon.Text" xml:space="preserve">
     <value>MobiFlight Connector</value>
   </data>
+  <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="startToolStripMenuItem.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="stopToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
+    <value>171, 6</value>
+  </data>
+  <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
+    <value>Restore MobiFlight</value>
+  </data>
+  <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 22</value>
+  </data>
+  <data name="exitToolStripMenuItem.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>146, 56</value>
   </metadata>
-  <data name="saveToolStripButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 29</value>
-  </data>
-  <data name="saveToolStripButton.Text" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 34</value>
-  </data>
-  <data name="runToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="runToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>71, 29</value>
-  </data>
-  <data name="runToolStripButton.Text" xml:space="preserve">
-    <value>Run</value>
-  </data>
-  <data name="runTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 29</value>
-  </data>
-  <data name="runTestToolStripButton.Text" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="runTestToolStripButton.ToolTipText" xml:space="preserve">
-    <value>Run test mode to check if all display settings are correct.</value>
-  </data>
-  <data name="stopToolStripButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="stopToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="stopToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 29</value>
-  </data>
-  <data name="stopToolStripButton.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="stopTestToolStripButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="stopTestToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="stopTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 29</value>
-  </data>
-  <data name="stopTestToolStripButton.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="stopTestToolStripButton.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 34</value>
-  </data>
-  <data name="autoRunToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="autoRunToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 29</value>
-  </data>
-  <data name="autoRunToolStripButton.Text" xml:space="preserve">
-    <value>AutoRun</value>
-  </data>
-  <data name="autoRunToolStripButton.ToolTipText" xml:space="preserve">
-    <value>If activated the last loaded config will be run automatically on next start-up</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 34</value>
-  </data>
-  <data name="donateToolStripButton.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
-    <value>None</value>
-  </data>
-  <data name="donateToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="donateToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 29</value>
-  </data>
-  <data name="donateToolStripButton.Text" xml:space="preserve">
-    <value>donateToolStripButton</value>
-  </data>
-  <data name="donateToolStripButton.ToolTipText" xml:space="preserve">
-    <value>Say "Thank You" to Sebastian by donating via PayPal</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 34</value>
-  </data>
-  <data name="exitToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="exitToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>67, 29</value>
-  </data>
-  <data name="exitToolStripButton.Text" xml:space="preserve">
-    <value>Exit</value>
-  </data>
   <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 33</value>
+    <value>0, 24</value>
   </data>
   <data name="toolStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 3, 0</value>
+    <value>0, 0, 2, 0</value>
   </data>
   <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 34</value>
+    <value>850, 28</value>
   </data>
   <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -6799,8 +6742,155 @@
   <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="saveToolStripButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 25</value>
+  </data>
+  <data name="saveToolStripButton.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="runToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="runToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 25</value>
+  </data>
+  <data name="runToolStripButton.Text" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="runTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 25</value>
+  </data>
+  <data name="runTestToolStripButton.Text" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="runTestToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Run test mode to check if all display settings are correct.</value>
+  </data>
+  <data name="stopToolStripButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="stopToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="stopToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 25</value>
+  </data>
+  <data name="stopToolStripButton.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="stopTestToolStripButton.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="stopTestToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="stopTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 25</value>
+  </data>
+  <data name="stopTestToolStripButton.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="stopTestToolStripButton.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="autoRunToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="autoRunToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 25</value>
+  </data>
+  <data name="autoRunToolStripButton.Text" xml:space="preserve">
+    <value>AutoRun</value>
+  </data>
+  <data name="autoRunToolStripButton.ToolTipText" xml:space="preserve">
+    <value>If activated the last loaded config will be run automatically on next start-up</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="donateToolStripButton.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="donateToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="donateToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 25</value>
+  </data>
+  <data name="donateToolStripButton.Text" xml:space="preserve">
+    <value>donateToolStripButton</value>
+  </data>
+  <data name="donateToolStripButton.ToolTipText" xml:space="preserve">
+    <value>Say "Thank You" to Sebastian by donating via PayPal</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 28</value>
+  </data>
+  <data name="exitToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="exitToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 25</value>
+  </data>
+  <data name="exitToolStripButton.Text" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <metadata name="statusStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>251, 56</value>
+  </metadata>
   <data name="statusStripPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Name" xml:space="preserve">
+    <value>statusStrip2</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.Parent" xml:space="preserve">
+    <value>statusStripPanel</value>
+  </data>
+  <data name="&gt;&gt;statusStrip2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="statusStripPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 488</value>
+  </data>
+  <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>850, 22</value>
+  </data>
+  <data name="statusStripPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Name" xml:space="preserve">
+    <value>statusStripPanel</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;statusStripPanel.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <metadata name="statusStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>251, 56</value>
@@ -6808,101 +6898,11 @@
   <data name="statusStrip2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="ArcazeUSBTtoolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 25</value>
-  </data>
-  <data name="ArcazeUSBTtoolStripStatusLabel.Text" xml:space="preserve">
-    <value>Modules:</value>
-  </data>
-  <data name="arcazeUsbStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 25</value>
-  </data>
-  <data name="arcazeUsbStatusToolStripStatusLabel.Text" xml:space="preserve">
-    <value>Not Found</value>
-  </data>
-  <data name="arcazeUsbToolStripDropDownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
-        YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
-        0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
-        bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
-        VzOOpHI7Jr376Hi9ogHqFIANO0/MmmmbmSmm9a8ze+I4MrNWAdjtoJgWcx+PSzg166yZZ8xM8XvXDix9
-        c4jIqFYAjoriBV9AhEPv1mH/sonogha0afbZMMZz+yreTGyhpusHwtNNCsA5U1zS4BLxzJIfg299qO32
-        Ir7UJtZfftyATqeT+8o2D8JSjQrAJblrncYL7ZJ2+bfaFnC/1S1NjL3diRat7qrO7wLRP3HjWsojBeCo
-        mDEo5mNjuweFGvjWg2EBhCbpkW78htSHHwRyNdmgAFzPEee2iFkzayy2OLXzT4gr6UdUnlXrullsxxQ+
-        kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
-        TgDQASA1MVpwzwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="arcazeUsbToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="arcazeUsbToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>18, 29</value>
-  </data>
-  <data name="arcazeUsbToolStripDropDownButton.Text" xml:space="preserve">
-    <value>toolStripDropDownButton1</value>
-  </data>
-  <data name="dividerToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 25</value>
-  </data>
-  <data name="dividerToolStripStatusLabel1.Text" xml:space="preserve">
-    <value>|</value>
-  </data>
-  <data name="fsuipcToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 25</value>
-  </data>
-  <data name="fsuipcToolStripStatusLabel.Text" xml:space="preserve">
-    <value>Sim Status:</value>
-  </data>
-  <data name="fsuipcStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 25</value>
-  </data>
-  <data name="fsuipcStatusToolStripStatusLabel.Text" xml:space="preserve">
-    <value>Not Found</value>
-  </data>
-  <data name="toolStripStatusLabel4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 25</value>
-  </data>
-  <data name="toolStripStatusLabel4.Text" xml:space="preserve">
-    <value>|</value>
-  </data>
-  <data name="SimConnectLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 25</value>
-  </data>
-  <data name="SimConnectLabel.Text" xml:space="preserve">
-    <value>SimConnect Status:</value>
-  </data>
-  <data name="SimConnectStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 25</value>
-  </data>
-  <data name="SimConnectStatusLabel.Text" xml:space="preserve">
-    <value>Not Found</value>
-  </data>
-  <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 25</value>
-  </data>
-  <data name="toolStripStatusLabel1.Text" xml:space="preserve">
-    <value>|</value>
-  </data>
-  <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>802, 25</value>
-  </data>
-  <data name="toolStripStatusLabel.Text" xml:space="preserve">
-    <value>Status Info...</value>
-  </data>
-  <data name="toolStripStatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="statusStrip2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="statusStrip2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 21, 0</value>
-  </data>
   <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 32</value>
+    <value>850, 22</value>
   </data>
   <data name="statusStrip2.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -6922,44 +6922,101 @@
   <data name="&gt;&gt;statusStrip2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="statusStripPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
+  <data name="ArcazeUSBTtoolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 17</value>
   </data>
-  <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 753</value>
+  <data name="ArcazeUSBTtoolStripStatusLabel.Text" xml:space="preserve">
+    <value>Modules:</value>
   </data>
-  <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
+  <data name="arcazeUsbStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 17</value>
   </data>
-  <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 32</value>
+  <data name="arcazeUsbStatusToolStripStatusLabel.Text" xml:space="preserve">
+    <value>Not Found</value>
   </data>
-  <data name="statusStripPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="arcazeUsbToolStripDropDownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
+        YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
+        0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
+        bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
+        VzOOpHI7Jr376Hi9ogHqFIANO0/MmmmbmSmm9a8ze+I4MrNWAdjtoJgWcx+PSzg166yZZ8xM8XvXDix9
+        c4jIqFYAjoriBV9AhEPv1mH/sonogha0afbZMMZz+yreTGyhpusHwtNNCsA5U1zS4BLxzJIfg299qO32
+        Ir7UJtZfftyATqeT+8o2D8JSjQrAJblrncYL7ZJ2+bfaFnC/1S1NjL3diRat7qrO7wLRP3HjWsojBeCo
+        mDEo5mNjuweFGvjWg2EBhCbpkW78htSHHwRyNdmgAFzPEee2iFkzayy2OLXzT4gr6UdUnlXrullsxxQ+
+        kx0g8BTA3aZlButjSTyjODq/WcQcW/B/Je4OQhLvKQDnzN1mp0nnkvAhR8VuMzNrpm1mpjgkoVwB/v8D
+        TgDQASA1MVpwzwAAAABJRU5ErkJggg==
+</value>
   </data>
-  <data name="&gt;&gt;statusStripPanel.Name" xml:space="preserve">
-    <value>statusStripPanel</value>
+  <data name="arcazeUsbToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
   </data>
-  <data name="&gt;&gt;statusStripPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="arcazeUsbToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>13, 20</value>
   </data>
-  <data name="&gt;&gt;statusStripPanel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="arcazeUsbToolStripDropDownButton.Text" xml:space="preserve">
+    <value>toolStripDropDownButton1</value>
   </data>
-  <data name="&gt;&gt;statusStripPanel.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="dividerToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>4, 17</value>
+  </data>
+  <data name="dividerToolStripStatusLabel1.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="fsuipcToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 17</value>
+  </data>
+  <data name="fsuipcToolStripStatusLabel.Text" xml:space="preserve">
+    <value>Sim Status:</value>
+  </data>
+  <data name="fsuipcStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 17</value>
+  </data>
+  <data name="fsuipcStatusToolStripStatusLabel.Text" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="toolStripStatusLabel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>4, 17</value>
+  </data>
+  <data name="toolStripStatusLabel4.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="SimConnectLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 17</value>
+  </data>
+  <data name="SimConnectLabel.Text" xml:space="preserve">
+    <value>SimConnect Status:</value>
+  </data>
+  <data name="SimConnectStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 17</value>
+  </data>
+  <data name="SimConnectStatusLabel.Text" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>4, 17</value>
+  </data>
+  <data name="toolStripStatusLabel1.Text" xml:space="preserve">
+    <value>|</value>
+  </data>
+  <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>531, 17</value>
+  </data>
+  <data name="toolStripStatusLabel.Text" xml:space="preserve">
+    <value>Status Info...</value>
+  </data>
+  <data name="toolStripStatusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="logTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
   <data name="logTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 677</value>
-  </data>
-  <data name="logTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>0, 437</value>
   </data>
   <data name="logTextBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>4, 76</value>
+    <value>4, 51</value>
   </data>
   <data name="logTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -6968,7 +7025,7 @@
     <value>Vertical</value>
   </data>
   <data name="logTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 76</value>
+    <value>850, 51</value>
   </data>
   <data name="logTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -7061,16 +7118,13 @@
     <value>NoControl</value>
   </data>
   <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 672</value>
-  </data>
-  <data name="logSplitter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>0, 434</value>
   </data>
   <data name="logSplitter.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
   <data name="logSplitter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 5</value>
+    <value>850, 3</value>
   </data>
   <data name="logSplitter.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -7091,13 +7145,13 @@
     <value>Fill</value>
   </data>
   <data name="startupPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 67</value>
+    <value>0, 52</value>
   </data>
   <data name="startupPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="startupPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 610</value>
+    <value>850, 385</value>
   </data>
   <data name="startupPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -7121,10 +7175,10 @@
     <value>233</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1275, 785</value>
+    <value>850, 510</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -7270,11 +7324,8 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>820, 334</value>
+    <value>552, 231</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
@@ -7304,6 +7355,12 @@
     <value>openToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mergeToolStripMenuItem.Name" xml:space="preserve">
+    <value>mergeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;mergeToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;konfigurationSpeichernToolStripMenuItem.Name" xml:space="preserve">
@@ -7623,12 +7680,6 @@
   </data>
   <data name="&gt;&gt;dataGridViewTextBoxColumn4.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mergeToolStripMenuItem.Name" xml:space="preserve">
-    <value>mergeToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;mergeToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

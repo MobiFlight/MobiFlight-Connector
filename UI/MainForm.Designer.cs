@@ -35,6 +35,7 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.konfigurationSpeichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AfterFileActionsToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.recentDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -101,7 +102,6 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
-            this.mergeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -154,6 +154,12 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // mergeToolStripMenuItem
+            // 
+            this.mergeToolStripMenuItem.Name = "mergeToolStripMenuItem";
+            resources.ApplyResources(this.mergeToolStripMenuItem, "mergeToolStripMenuItem");
+            this.mergeToolStripMenuItem.Click += new System.EventHandler(this.mergeToolStripMenuItem_Click);
             // 
             // konfigurationSpeichernToolStripMenuItem
             // 
@@ -601,12 +607,6 @@
             this.startupPanel.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
-            // 
-            // mergeToolStripMenuItem
-            // 
-            this.mergeToolStripMenuItem.Name = "mergeToolStripMenuItem";
-            resources.ApplyResources(this.mergeToolStripMenuItem, "mergeToolStripMenuItem");
-            this.mergeToolStripMenuItem.Click += new System.EventHandler(this.mergeToolStripMenuItem_Click);
             // 
             // MainForm
             // 
