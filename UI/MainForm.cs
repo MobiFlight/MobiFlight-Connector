@@ -18,6 +18,7 @@ using System.Reflection;
 using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.SimConnectMSFS;
+using MobiFlight.UpdateChecker;
 
 namespace MobiFlight.UI
 {
@@ -243,7 +244,7 @@ namespace MobiFlight.UI
             startupPanel.Visible = false;
             menuStrip.Enabled = true;
 
-            CheckForUpdate(false, true);
+            AutoUpdateChecker.CheckForUpdate(false, true);
 
             CheckForWasmModuleUpdate();
         }
@@ -371,7 +372,7 @@ namespace MobiFlight.UI
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckForUpdate(true);
+            AutoUpdateChecker.CheckForUpdate(true);
         }
 
         private void startAutoConnectThreadSafe()
@@ -384,82 +385,7 @@ namespace MobiFlight.UI
             return MessageBox.Show(this, msg, title, buttons);
         }
 
-        private void CheckForUpdate(bool force = false, bool silent = false)
-        {
-            String mobiFlightInstaller = "MobiFlight-Installer.exe";
-
-            if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
-            String trackingParams = Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
-
-            string CurVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string CommandToSend = "/check /version " + CurVersion + " /cacheId " + trackingParams;
-            
-            if (Properties.Settings.Default.BetaUpdates)
-            {
-                CommandToSend += " /beta";
-                Log.Instance.log("CheckForUpdate : Checking for BETA update...", LogSeverity.Info);
-            }
-            else
-            { 
-                Log.Instance.log("CheckForUpdate : Checking for RELEASE update...", LogSeverity.Info);
-            }
-
-            System.Diagnostics.Process p = new Process();
-            p.StartInfo.FileName = mobiFlightInstaller;
-            p.StartInfo.Arguments = CommandToSend;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.Start();
-            string output = p.StandardOutput.ReadToEnd();
-            string error = p.StandardError.ReadToEnd();
-            p.WaitForExit();
-
-            Console.WriteLine(output + error);
-            if (output.Contains("##RESULT##|1"))
-            {
-                string[] OutputArray = output.Split('|'); // Get the version number
-                string newVersion = OutputArray[2];
-                string[] VersionArray = newVersion.Split('.'); // Split the version number to get the last number
-                int VersionLastnumber = Int32.Parse(VersionArray[3]);
-                string BetaOrRelease;
-                if ((OutputArray.Length == 4) & (VersionLastnumber>0)) // If the last number is > 0 is a beta version
-                {
-                    BetaOrRelease = "BETA";
-                }
-                else
-                {
-                    BetaOrRelease = "RELEASE";
-                }
-                Log.Instance.log("CheckForUpdate : Installer respond a new version " + newVersion + " " + BetaOrRelease + " is available !", LogSeverity.Info);
-                DialogResult dialogResult = MessageBox.Show(
-                    String.Format(i18n._tr("uiMessageNewUpdateAvailablePleaseUpdate"), newVersion), 
-                    i18n._tr("uiMessageNewUpdateAvailable"),
-                    MessageBoxButtons.YesNo
-                );
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    Process.Start(mobiFlightInstaller, "/install " + newVersion);
-                    Environment.Exit(0);
-                }
-                else if (dialogResult == DialogResult.No)
-                {
-                    //do something else
-                }
-            }
-            else
-            {
-                if (!silent)
-                    MessageBox.Show(
-                        String.Format(i18n._tr("uiMessageNoUpdateNecessary"), DisplayVersion()), 
-                        i18n._tr("Hint"), 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Log.Instance.log("CheckForUpdate : MobiFlight is up to date.", LogSeverity.Info);
-            }
-
-        }
+        
 
         /*
         private void CheckForUpdate(bool force, bool silent = false)
@@ -1119,7 +1045,7 @@ namespace MobiFlight.UI
             Text = NewTitle;
         }
 
-        public String DisplayVersion ()
+        public static String DisplayVersion ()
         {
             if (VersionBeta.Split('.')[3] != "0")
             {
