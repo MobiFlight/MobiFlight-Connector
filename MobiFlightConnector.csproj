@@ -662,8 +662,23 @@
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\JeehellInputPanel.de.resx">
+      <DependentUpon>JeehellInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\LuaMacroInputPanel.de.resx">
+      <DependentUpon>LuaMacroInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\MSFS2020InputPanel.de.resx">
+      <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\MSFS2020InputPanel.resx">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\RetriggerInputPanel.de.resx">
+      <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.de.resx">
+      <DependentUpon>VJoyInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
@@ -674,6 +689,9 @@
     <EmbeddedResource Include="UI\Panels\OutputConfigPanel.resx">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
+      <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>

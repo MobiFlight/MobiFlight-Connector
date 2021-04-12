@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PmdgEventIdInputPanel));
             this.fsuipcPresetComboBox = new System.Windows.Forms.ComboBox();
             this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
+            this.pmdg747radioButton = new System.Windows.Forms.RadioButton();
             this.pmdg777radioButton = new System.Windows.Forms.RadioButton();
             this.pmdg737radioButton = new System.Windows.Forms.RadioButton();
             this.fsuipcPresetUseButton = new System.Windows.Forms.Button();
@@ -41,7 +42,6 @@
             this.MouseEventComboBox = new System.Windows.Forms.ComboBox();
             this.EventIdLabel = new System.Windows.Forms.Label();
             this.paramLabel = new System.Windows.Forms.Label();
-            this.pmdg747radioButton = new System.Windows.Forms.RadioButton();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -56,14 +56,22 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg747radioButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg777radioButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg737radioButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetUseButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
+            // 
+            // pmdg747radioButton
+            // 
+            resources.ApplyResources(this.pmdg747radioButton, "pmdg747radioButton");
+            this.pmdg747radioButton.Name = "pmdg747radioButton";
+            this.pmdg747radioButton.TabStop = true;
+            this.pmdg747radioButton.UseVisualStyleBackColor = true;
+            this.pmdg747radioButton.CheckedChanged += new System.EventHandler(this.pmdg737radioButton_CheckedChanged);
             // 
             // pmdg777radioButton
             // 
@@ -96,13 +104,13 @@
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.customParamTextBox);
             this.groupBox1.Controls.Add(this.customParamLabel);
             this.groupBox1.Controls.Add(this.MouseEventComboBox);
             this.groupBox1.Controls.Add(this.eventIdTextBox);
             this.groupBox1.Controls.Add(this.EventIdLabel);
             this.groupBox1.Controls.Add(this.paramLabel);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -133,20 +141,12 @@
             resources.ApplyResources(this.paramLabel, "paramLabel");
             this.paramLabel.Name = "paramLabel";
             // 
-            // pmdg747radioButton
-            // 
-            resources.ApplyResources(this.pmdg747radioButton, "pmdg747radioButton");
-            this.pmdg747radioButton.Name = "pmdg747radioButton";
-            this.pmdg747radioButton.TabStop = true;
-            this.pmdg747radioButton.UseVisualStyleBackColor = true;
-            this.pmdg747radioButton.CheckedChanged += new System.EventHandler(this.pmdg737radioButton_CheckedChanged);
-            // 
             // PmdgEventIdInputPanel
             // 
+            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "PmdgEventIdInputPanel";
-            resources.ApplyResources(this, "$this");
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             this.fsuipcLoadPresetGroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);

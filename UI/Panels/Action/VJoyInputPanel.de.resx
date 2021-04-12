@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="button1.Text" xml:space="preserve">
-    <value>Löschen</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Klick mit der Maus ins Eingabefeld und drück dann die gewünschte Kombination an Tasten.</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Wert</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Hinweis: Für Kombinationen mit ALT, CTRL and SHIFT - drück zuerst die Taste mit dem Buchstaben und danach die Sondertasten.</value>
+    <value>Achse</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
+    <value>vJoy virtual Joystick Einstellungen</value>
   </data>
 </root>
