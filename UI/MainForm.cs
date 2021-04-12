@@ -905,6 +905,17 @@ namespace MobiFlight.UI
             }   
         }
 
+        private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+
+            if (DialogResult.OK == fd.ShowDialog())
+            {
+                _loadConfig(fd.FileName, true);
+            }
+        }
+
         /// <summary>
         /// stores the provided filename in the list of recently used files
         /// </summary>
@@ -955,7 +966,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// loads the according config given by filename
         /// </summary>        
-        private void _loadConfig(string fileName)
+        private void _loadConfig(string fileName, bool merge = false)
         {
             if (fileName.IndexOf(".aic") != -1)
             {
@@ -1001,8 +1012,11 @@ namespace MobiFlight.UI
             }
 
             execManager.Stop();
-            outputConfigPanel.DataSetConfig.Clear();
-            inputConfigPanel.InputDataSetConfig.Clear();
+
+            if (!merge) { 
+                outputConfigPanel.DataSetConfig.Clear();
+                inputConfigPanel.InputDataSetConfig.Clear();
+            }
 
             ConfigFile configFile = new ConfigFile(fileName);
             try
@@ -1031,11 +1045,14 @@ namespace MobiFlight.UI
             // we check if there are rows that need to
             // initialize our config item correctly
             _applyBackwardCompatibilityLoading();
-            _restoreValuesInGridView();            
+            _restoreValuesInGridView();
 
-            currentFileName = fileName;
-            _setFilenameInTitle(fileName);
-            _storeAsRecentFile(fileName);
+            if (!merge)
+            {
+                currentFileName = fileName;
+                _setFilenameInTitle(fileName);
+                _storeAsRecentFile(fileName);
+            }
 
             // set the button back to "disabled"
             // since due to initiliazing the dataSet

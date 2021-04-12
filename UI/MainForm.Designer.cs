@@ -43,6 +43,7 @@
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mSFS2020ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installWASMModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadLatestEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orphanedSerialsFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,7 +101,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
-            this.downloadLatestEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -128,6 +129,7 @@
             this.toolStripMenuItem3,
             this.toolStripMenuItem2,
             this.openToolStripMenuItem,
+            this.mergeToolStripMenuItem,
             this.konfigurationSpeichernToolStripMenuItem,
             this.AfterFileActionsToolStripMenuItem,
             this.recentDocumentsToolStripMenuItem,
@@ -203,6 +205,12 @@
             this.installWASMModuleToolStripMenuItem.Name = "installWASMModuleToolStripMenuItem";
             resources.ApplyResources(this.installWASMModuleToolStripMenuItem, "installWASMModuleToolStripMenuItem");
             this.installWASMModuleToolStripMenuItem.Click += new System.EventHandler(this.installWasmModuleToolStripMenuItem_Click);
+            // 
+            // downloadLatestEventsToolStripMenuItem
+            // 
+            this.downloadLatestEventsToolStripMenuItem.Name = "downloadLatestEventsToolStripMenuItem";
+            resources.ApplyResources(this.downloadLatestEventsToolStripMenuItem, "downloadLatestEventsToolStripMenuItem");
+            this.downloadLatestEventsToolStripMenuItem.Click += new System.EventHandler(this.downloadLatestEventsToolStripMenuItem_Click);
             // 
             // orphanedSerialsFinderToolStripMenuItem
             // 
@@ -594,11 +602,11 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
             // 
-            // downloadLatestEventsToolStripMenuItem
+            // mergeToolStripMenuItem
             // 
-            this.downloadLatestEventsToolStripMenuItem.Name = "downloadLatestEventsToolStripMenuItem";
-            resources.ApplyResources(this.downloadLatestEventsToolStripMenuItem, "downloadLatestEventsToolStripMenuItem");
-            this.downloadLatestEventsToolStripMenuItem.Click += new System.EventHandler(this.downloadLatestEventsToolStripMenuItem_Click);
+            this.mergeToolStripMenuItem.Name = "mergeToolStripMenuItem";
+            resources.ApplyResources(this.mergeToolStripMenuItem, "mergeToolStripMenuItem");
+            this.mergeToolStripMenuItem.Click += new System.EventHandler(this.mergeToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -716,6 +724,7 @@
         private System.Windows.Forms.ToolStripMenuItem mSFS2020ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem installWASMModuleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadLatestEventsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mergeToolStripMenuItem;
     }
 }
 
