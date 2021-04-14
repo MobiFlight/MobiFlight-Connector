@@ -6,19 +6,6 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig 
 {
-    public enum EncoderInputDirectionType
-    {
-        LEFT,
-        RIGHT
-    }
-
-    public enum EncoderInputEventType
-    {
-        NORMAL,
-        FAST,
-        FASTEST
-    }
-
     public class EncoderInputConfig : IXmlSerializable, ICloneable
     {
         public InputAction onLeft;

@@ -6,13 +6,6 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig
 {
-    public enum ButtonInputEventType
-    {
-        PRESS,
-        RELEASE,
-        REPEAT
-    }
-
     public class ButtonInputConfig : IXmlSerializable, ICloneable
     {
         public InputAction onPress;

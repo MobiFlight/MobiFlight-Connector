@@ -9,6 +9,7 @@ using MobiFlight;
 using MobiFlight.FSUIPC;
 using MobiFlight.Base;
 using MobiFlight.SimConnectMSFS;
+using MobiFlight.Config;
 
 namespace MobiFlight
 {
@@ -1298,10 +1299,16 @@ namespace MobiFlight
 #if MOBIFLIGHT
         void mobiFlightCache_OnButtonPressed(object sender, ButtonArgs e)
         {
-            if (!IsStarted()) return;
-
             String inputKey = e.Serial+e.Type+e.ButtonId;
-            
+            String eventAction = "n/a";
+
+            if (e.Type == DeviceType.Button)
+            {
+                eventAction = MobiFlightButton.InputEventIdToString(e.Value);
+            } else if (e.Type == DeviceType.Encoder) {
+                eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
+            }
+
             if (!inputCache.ContainsKey(inputKey))
             {
                 inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
@@ -1332,11 +1339,14 @@ namespace MobiFlight
             if (inputCache[inputKey].Count == 0)
             {
        
-                Log.Instance.log("No config found for "+ e.Type +": " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
+                Log.Instance.log("No config found for "+ e.Type +": " + e.ButtonId + " ("+ eventAction + ")" +  "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
 
-            Log.Instance.log("Config found for " + e.Type + ": " + e.ButtonId + "@" + e.Serial, LogSeverity.Debug);
+            Log.Instance.log("Config found for " + e.Type + ": " + e.ButtonId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
+
+            // Skip execution if not started
+            if (!IsStarted()) return;
 
             ConnectorValue currentValue = new ConnectorValue();
 
