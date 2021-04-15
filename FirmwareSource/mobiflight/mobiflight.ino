@@ -35,7 +35,8 @@ char foo;
 // 1.9.8 : Decreased EEPROM area again, changed order during reset/load
 // 1.9.9 : Changed MODULE_MAX_PINS and MAX_BUTTONS to 68 (69 is internally needed but it is confusing)
 //         Added PWM output
-const char version[8] = "1.9.9";
+// 1.9.10: Fixe encoder issue on fastLeft/fastRight
+const char version[8] = "1.9.10";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1

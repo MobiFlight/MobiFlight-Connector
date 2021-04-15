@@ -27,9 +27,11 @@ extern "C"
   typedef void (*encoderEvent) (uint8_t, uint8_t, const char *);
 };
 
-#define MF_ENC_MIN -32768
-#define MF_ENC_MAX 32767
-#define MF_ENC_FAST_LIMIT 512
+// this prevents the internal position overflow.
+#define MF_ENC_MAX 16000 
+
+// this defines the delta value limit for triggering onFast
+#define MF_ENC_FAST_LIMIT 50
 
 enum
 {
