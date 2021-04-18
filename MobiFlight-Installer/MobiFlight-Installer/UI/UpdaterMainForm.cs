@@ -40,7 +40,8 @@ namespace MobiFlightInstaller.UI
                 if (cmdParams.Install != null)
                 {
                     Log.Instance.log("ManualUpgradeFromCommandLine START from args -> Check BETA " + cmdParams.Install, LogSeverity.Debug);
-                    MobiFlightUpdaterModel.ManualUpgradeFromCommandLine(cmdParams.Install);
+                    if (MobiFlightUpdaterModel.VerifyCurrentFolderRight())
+                        MobiFlightUpdaterModel.ManualUpgradeFromCommandLine(cmdParams.Install);
                 }
                 else if (cmdParams.Check || cmdParams.CheckBeta)
                 {

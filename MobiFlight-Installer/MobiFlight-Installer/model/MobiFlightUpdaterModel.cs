@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Principal;
 
 namespace MobiFlightInstaller
 {
@@ -82,6 +83,10 @@ namespace MobiFlightInstaller
 
         public static bool VerifyCurrentFolderRight()
         {
+            if (InstallerHaveAdministratorRight())
+                Log.Instance.log("InstallerHaveAdministratorRight : True", LogSeverity.Debug);
+            else
+                Log.Instance.log("InstallerHaveAdministratorRight : False", LogSeverity.Debug);
             try
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\test");
@@ -89,9 +94,34 @@ namespace MobiFlightInstaller
             }
             catch
             {
+                Log.Instance.log("VerifyCurrentFolderRight : ERROR Create directory test FAILED !!!", LogSeverity.Debug);
                 return false;
             }
-            return true;
+            Log.Instance.log("VerifyCurrentFolderRight : OK", LogSeverity.Debug);
+            if (HaveWriteAccessToFolder())
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool HaveWriteAccessToFolder()
+        {
+            try
+            {
+                System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(Directory.GetCurrentDirectory());
+                Log.Instance.log("HaveWriteAccessToFolder : True", LogSeverity.Debug);
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Log.Instance.log("HaveWriteAccessToFolder : False", LogSeverity.Debug);
+                return false;
+            }
+        }
+        public static bool InstallerHaveAdministratorRight()
+        {
+            return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         public static void GoExtractToDirectory(string zipPath, string destinationDirectoryName)
