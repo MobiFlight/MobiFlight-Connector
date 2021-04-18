@@ -63,7 +63,8 @@ namespace MobiFlight
 
         public static readonly byte[] MEGA_PWM = {
                    2, 3, 4, 5, 6, 7, 8, 9,
-            10,11,12,13
+            10,11,12,13,
+            44,45,46
         };
 
         public static readonly byte[] MICRO_PWM = {
