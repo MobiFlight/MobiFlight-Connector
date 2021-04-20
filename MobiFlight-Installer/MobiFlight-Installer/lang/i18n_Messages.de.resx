@@ -130,7 +130,7 @@
     <value>Installiere Package...</value>
   </data>
   <data name="NotEnoughRightsForInstallation" xml:space="preserve">
-    <value>Du hast nicht die notwendige Berechtigung, um in diesen Ordner zu installieren. Please Change the folder security access or try to install MobiFlight somewhere else.</value>
+    <value>Du hast nicht die notwendige Berechtigung, um in diesen Ordner zu installieren. Passe die Sicherheitsrichtlinie an oder installiere MobiFlight in ein anderes Verzeichnis.</value>
     <comment>You don't have the required rights to install to this folder! Please Change the folder security access or try to install MobiFlight somewhere else.</comment>
   </data>
 </root>
