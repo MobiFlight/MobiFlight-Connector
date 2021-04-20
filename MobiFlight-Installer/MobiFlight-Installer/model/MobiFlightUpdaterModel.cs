@@ -72,7 +72,7 @@ namespace MobiFlightInstaller
         {
             if (!File.Exists(MobiFlightHelperMethods.ProcessName + ".exe"))
             {
-                Log.Instance.log("GetInstalledVersion : MFConnector not exist ! return 0.0.0", LogSeverity.Debug);
+                Log.Instance.log("GetInstalledVersion : MFConnector does not exist ! return 0.0.0", LogSeverity.Debug);
                 return "0.0.0";
             }
 
@@ -196,12 +196,14 @@ namespace MobiFlightInstaller
             Log.Instance.log("Current Installer version : " + InstallerCurVersion, LogSeverity.Info);
 
             System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            if (File.Exists(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new")))
-                System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new"));
+            String fileNew = FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new");
+
+            if (File.Exists(fileNew))
+                System.IO.File.Delete(fileNew);
             file.ExtractToFile(FileInstaller.Name.Replace(FileInstaller.Extension, ".new"), true);
 
             var InstallerNewVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.new").Version.ToString();
-            System.IO.File.Delete(FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".new"));
+            System.IO.File.Delete(fileNew);
             Log.Instance.log("New Installer version : " + InstallerNewVersion, LogSeverity.Info);
 
             var InstallerCompareVersion = InstallerCurVersion.CompareTo(InstallerNewVersion);
@@ -226,12 +228,12 @@ namespace MobiFlightInstaller
 
         public static void StartProcessAndClose(string ProcessName, string Args = "")
         {
-            String ProcessEXEName = ProcessName + ".exe";
+            String ProcessEXEName = Directory.GetCurrentDirectory() + "\\" + ProcessName + ".exe";
 
-            if (!File.Exists(Directory.GetCurrentDirectory() + "\\" + ProcessEXEName))
+            if (!File.Exists(ProcessEXEName))
                 return;
 
-            Process.Start(Directory.GetCurrentDirectory() + "\\" + ProcessEXEName, Args);
+            Process.Start(ProcessEXEName, Args);
 
             Environment.Exit(0);
         }
@@ -275,12 +277,16 @@ namespace MobiFlightInstaller
             WebResponse webResponse;
             webResponse = webRequest.GetResponse();
             Stream ContentStream = webResponse.GetResponseStream();
+
             string LastFindVersion = "";
             string VersionDownloadURL = "";
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.tmp"))
-                System.IO.File.Delete(Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.tmp");
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.old"))
-                System.IO.File.Delete(Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.old");
+
+            string fileTemp = Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.tmp";
+            string fileOld = Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.old";
+
+            SafeDelete(fileTemp);
+            SafeDelete(fileOld);
+            
             if (ContentStream != null)
             {
                 var ReceivedContent = new XmlDocument();
@@ -310,14 +316,13 @@ namespace MobiFlightInstaller
                     {
                         WebClient I_webClient = new WebClient();
                         var uri = new Uri(VersionDownloadURL);
-                        if (File.Exists(Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.tmp"))
-                            System.IO.File.Delete(Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.tmp");
-                        if (File.Exists(Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.old"))
-                            System.IO.File.Delete(Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.old");
-                        string I_tempPath = Directory.GetCurrentDirectory() + "\\MobiFlight-Installer.tmp";
-                        I_webClient.DownloadFile(uri, I_tempPath);
+                        SafeDelete(fileTemp);
+                        SafeDelete(fileOld);
+
+                        I_webClient.DownloadFile(uri, fileTemp);
                         I_webClient.Dispose();
-                        UpgradeMyselfAndRestart(I_tempPath);
+
+                        UpgradeMyselfAndRestart(fileTemp);
                     }
                 }
 
@@ -328,37 +333,35 @@ namespace MobiFlightInstaller
             }
         }
 
+        static public void SafeDelete(String fileName)
+        {
+            if (File.Exists(fileName))
+                System.IO.File.Delete(fileName);
+        }
+
         static public void ManualUpgradeFromCommandLine(string Version)
         {
             if (resultList[Version]["url"].Length > 5)
             {
                 String _downloadURL = resultList[Version]["url"];
                 String _downloadChecksum = resultList[Version]["checksum"];
-                WebClient _webClient = new WebClient();
-                var uri = new Uri(_downloadURL);
+                String CurrentFileName = Directory.GetCurrentDirectory() + "\\" + MobiFlightUpdaterModel.GetFileName(_downloadURL);
 
-                String CurrentFileName = MobiFlightUpdaterModel.GetFileName(_downloadURL);
-                String _tempPath = Directory.GetCurrentDirectory() + "\\" + CurrentFileName;
-                if (!MobiFlightUpdaterModel.CheckIfFileIsHere(Directory.GetCurrentDirectory() + "\\" + CurrentFileName, _downloadChecksum)) //compare checksum if download the file is needeed
+                if (!MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download the file is needeed
                 {
-                    _webClient.DownloadFile(uri, _tempPath); // Download the file and extract in current directory
+                    WebClient _webClient = new WebClient();
+                    var uri = new Uri(_downloadURL);
+                    _webClient.DownloadFile(uri, CurrentFileName); // Download the file and extract in current directory
                     _webClient.Dispose();
-                    if (MobiFlightUpdaterModel.CheckIfFileIsHere(Directory.GetCurrentDirectory() + "\\" + CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
-                    {
-                        CloseMobiFlightAndWait();
-                        MobiFlightUpdaterModel.GoExtractToDirectory(Directory.GetCurrentDirectory() + "\\" + CurrentFileName, Directory.GetCurrentDirectory());
-                        MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
-                    }
-                    else
-                    {
-                        MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
-                    }
                 }
-                else // if zip file already here, installed it
+
+                // check again
+                if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
                 {
                     CloseMobiFlightAndWait();
-                    MobiFlightUpdaterModel.GoExtractToDirectory(Directory.GetCurrentDirectory() + "\\" + CurrentFileName, Directory.GetCurrentDirectory());
+                    MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
                 }
+                
                 MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
             }
             else
