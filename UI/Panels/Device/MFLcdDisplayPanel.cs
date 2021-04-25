@@ -24,7 +24,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             InitializeComponent();
         }
 
-        public MFLcddDisplayPanel(MobiFlight.Config.LcdDisplay config, List<byte> FreePins)
+        public MFLcddDisplayPanel(MobiFlight.Config.LcdDisplay config, List<MobiFlightPin> Pins)
             : this()
         {
             // TODO: Complete member initialization

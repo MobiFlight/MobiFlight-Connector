@@ -44,5 +44,17 @@ namespace System
 
             return false;
         }
+
+        static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin)
+        {
+            List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
+            UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
+
+            comboBox.DataSource = UsablePins.FindAll(x => x.Used == false);
+            comboBox.DisplayMember = "Name";
+            comboBox.ValueMember = "Pin";
+
+            return false;
+        }
     }
 }

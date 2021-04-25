@@ -27,15 +27,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (Parent != null) mfIntensityTrackBar.BackColor = Parent.BackColor;
         }
 
-        public MFLedSegmentPanel(MobiFlight.Config.LedModule ledModule, List<byte> FreePins):this()
+        public MFLedSegmentPanel(MobiFlight.Config.LedModule ledModule, List<MobiFlightPin> Pins):this()
         {
-            List<byte> Pin1Pins = FreePins.ToList(); if (Int16.Parse(ledModule.DinPin) > 0) Pin1Pins.Add(Byte.Parse(ledModule.DinPin)); Pin1Pins.Sort();
-            List<byte> Pin2Pins = FreePins.ToList(); if (Int16.Parse(ledModule.ClsPin) > 0) Pin2Pins.Add(Byte.Parse(ledModule.ClsPin)); Pin2Pins.Sort();
-            List<byte> Pin3Pins = FreePins.ToList(); if (Int16.Parse(ledModule.ClkPin) > 0) Pin3Pins.Add(Byte.Parse(ledModule.ClkPin)); Pin3Pins.Sort();
-
-            foreach (byte pin in Pin1Pins) mfPin1ComboBox.Items.Add(pin);
-            foreach (byte pin in Pin2Pins) mfPin2ComboBox.Items.Add(pin);
-            foreach (byte pin in Pin3Pins) mfPin3ComboBox.Items.Add(pin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, ledModule.DinPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, ledModule.ClsPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, ledModule.ClkPin);
 
             if (mfPin1ComboBox.Items.Count > 2)
             {

@@ -806,21 +806,20 @@ namespace MobiFlight
             return result;
         }
 
-        public byte[] getPwmPins()
+        public List<MobiFlightPin> getPwmPins()
         {
             switch (this.Type)
             {
                 case MobiFlightModuleInfo.TYPE_MICRO:
-                    return MobiFlightModuleInfo.MICRO_PWM;
+                    return MobiFlightModuleInfo.MICRO_PINS.FindAll(x=>x.isPWM==true);
 
                 case MobiFlightModuleInfo.TYPE_UNO:
-                    return MobiFlightModuleInfo.UNO_PWM;
+                    return MobiFlightModuleInfo.UNO_PINS.FindAll(x => x.isPWM == true);
 
                 default:
-                    return MobiFlightModuleInfo.MEGA_PWM;
+                    return MobiFlightModuleInfo.MEGA_PINS.FindAll(x => x.isPWM == true); ;
             }
         }
-
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
             List<DeviceType> result = new List<DeviceType>();
@@ -941,9 +940,9 @@ namespace MobiFlight
             lastValue.Clear();
         }
 
-        public List<byte> GetFreePins()
+        public List<MobiFlightPin> GetPins(bool FreeOnly = false)
         {
-            byte[] Pins = MobiFlightModuleInfo.MEGA_PINS;
+            List<MobiFlightPin> Pins = MobiFlightModuleInfo.MEGA_PINS;
                  
             if (Type == MobiFlightModuleInfo.TYPE_MICRO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO)
             {
@@ -954,7 +953,6 @@ namespace MobiFlight
                 Pins = MobiFlightModuleInfo.UNO_PINS;
             }
 
-            List<byte> result = new List<byte>(Pins);
             List<byte> usedPins = new List<byte>();
 
             foreach (Config.BaseDevice device in Config.Items)
@@ -1007,10 +1005,13 @@ namespace MobiFlight
 
             foreach (byte i in usedPins)
             {
-                result.Remove(i);
+                Pins.Find(item => item.Pin==i).Used = true;
             }
 
-            return result;
+            if (FreeOnly)
+                Pins = Pins.FindAll(x => x.Used == false);
+
+            return Pins;
         }
     }
 }

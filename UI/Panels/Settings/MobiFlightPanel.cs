@@ -290,40 +290,39 @@ namespace MobiFlight.UI.Panels.Settings
                     switch (dev.Type)
                     {
                         case DeviceType.LedModule:
-                            panel = new MFLedSegmentPanel(dev as MobiFlight.Config.LedModule, module.GetFreePins());
+                            panel = new MFLedSegmentPanel(dev as MobiFlight.Config.LedModule, module.GetPins());
                             (panel as MFLedSegmentPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Stepper:
-                            panel = new MFStepperPanel(dev as MobiFlight.Config.Stepper, module.GetFreePins());
+                            panel = new MFStepperPanel(dev as MobiFlight.Config.Stepper, module.GetPins());
                             (panel as MFStepperPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
-
+                            
                         case DeviceType.Servo:
-                            panel = new MFServoPanel(dev as MobiFlight.Config.Servo, module.GetFreePins());
+                            panel = new MFServoPanel(dev as MobiFlight.Config.Servo, module.GetPins());
                             (panel as MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
-
+                            
                         case DeviceType.Button:
-                            panel = new MFButtonPanel(dev as MobiFlight.Config.Button, module.GetFreePins());
+                            panel = new MFButtonPanel(dev as MobiFlight.Config.Button, module.GetPins());
                             (panel as MFButtonPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
-
+                            
                         case DeviceType.Encoder:
-                            panel = new MFEncoderPanel(dev as MobiFlight.Config.Encoder, module.GetFreePins());
+                            panel = new MFEncoderPanel(dev as MobiFlight.Config.Encoder, module.GetPins());
                             (panel as MFEncoderPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.Output:
-                            panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetFreePins(), module.Type);
+                            panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetPins(), module.Type);
                             (panel as MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                         case DeviceType.LcdDisplay:
-                            panel = new MFLcddDisplayPanel(dev as MobiFlight.Config.LcdDisplay, module.GetFreePins());
+                            panel = new MFLcddDisplayPanel(dev as MobiFlight.Config.LcdDisplay, module.GetPins());
                             (panel as MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
-                            // output
                     }
                 }
 
@@ -356,39 +355,39 @@ namespace MobiFlight.UI.Panels.Settings
                     case "servoToolStripMenuItem":
                     case "addServoToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Servo();
-                        (cfgItem as MobiFlight.Config.Servo).DataPin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.Servo).DataPin = getModuleFromTree().GetPins(true).ElementAt(0).Pin.ToString();
                         break;
                     case "stepperToolStripMenuItem":
                     case "addStepperToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Stepper();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin1 = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin2 = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin3 = getModuleFromTree().GetFreePins().ElementAt(2).ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin4 = getModuleFromTree().GetFreePins().ElementAt(3).ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin1 = getModuleFromTree().GetPins(true).ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin2 = getModuleFromTree().GetPins(true).ElementAt(1).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin3 = getModuleFromTree().GetPins(true).ElementAt(2).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin4 = getModuleFromTree().GetPins(true).ElementAt(3).Pin.ToString();
                         //(cfgItem as MobiFlight.Config.Stepper).BtnPin = getModuleFromTree().GetFreePins().ElementAt(4).ToString();
                         break;
                     case "ledOutputToolStripMenuItem":
                     case "addOutputToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Output();
-                        (cfgItem as MobiFlight.Config.Output).Pin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.Output).Pin = getModuleFromTree().GetPins(true).ElementAt(0).Pin.ToString();
                         break;
                     case "ledSegmentToolStripMenuItem":
                     case "addLedModuleToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.LedModule();
-                        (cfgItem as MobiFlight.Config.LedModule).DinPin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
-                        (cfgItem as MobiFlight.Config.LedModule).ClkPin = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
-                        (cfgItem as MobiFlight.Config.LedModule).ClsPin = getModuleFromTree().GetFreePins().ElementAt(2).ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).DinPin = getModuleFromTree().GetPins(true).ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).ClkPin = getModuleFromTree().GetPins(true).ElementAt(1).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).ClsPin = getModuleFromTree().GetPins(true).ElementAt(2).Pin.ToString();
                         break;
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Button();
-                        (cfgItem as MobiFlight.Config.Button).Pin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.Button).Pin = getModuleFromTree().GetPins(true).ElementAt(0).Pin.ToString();
                         break;
                     case "encoderToolStripMenuItem":
                     case "addEncoderToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Encoder();
-                        (cfgItem as MobiFlight.Config.Encoder).PinLeft = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
-                        (cfgItem as MobiFlight.Config.Encoder).PinRight = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
+                        (cfgItem as MobiFlight.Config.Encoder).PinLeft = getModuleFromTree().GetPins(true).ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Encoder).PinRight = getModuleFromTree().GetPins(true).ElementAt(1).Pin.ToString();
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":

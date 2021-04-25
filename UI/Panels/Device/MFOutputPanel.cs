@@ -26,13 +26,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFOutputPanel(MobiFlight.Config.Output output, List<byte> FreePins, String MobiFlightModuleType)
+        public MFOutputPanel(MobiFlight.Config.Output output, List<MobiFlightPin> Pins, String MobiFlightModuleType)
             : this()
         {
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, output.Pin);
             this.MobiFlightModuleType = MobiFlightModuleType;
-
-            List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(output.Pin)); Pin1Pins.Sort();
-            foreach (byte pin in Pin1Pins) mfPinComboBox.Items.Add(pin);
 
             if (mfPinComboBox.Items.Count > 0)
             {
@@ -62,19 +60,23 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             bool result = false;
             byte bPin = byte.Parse(mfPinComboBox.Text);
-            
-            switch(MobiFlightModuleType)
+            MobiFlightPin pin;
+
+            switch (MobiFlightModuleType)
             {
                 case MobiFlightModuleInfo.TYPE_MEGA:
-                    result = MobiFlightModuleInfo.MEGA_PWM.Contains(bPin);
+                    pin = MobiFlightModuleInfo.MEGA_PINS.Find(x => (x.Pin == bPin));
+                    result = pin.isPWM;
                     break;
 
                 case MobiFlightModuleInfo.TYPE_MICRO:
-                    result = MobiFlightModuleInfo.MICRO_PWM.Contains(bPin);
+                    pin = MobiFlightModuleInfo.MICRO_PINS.Find(x => (x.Pin == bPin));
+                    result = pin.isPWM;
                     break;
 
                 case MobiFlightModuleInfo.TYPE_UNO:
-                    result = MobiFlightModuleInfo.UNO_PWM.Contains(bPin);
+                    pin = MobiFlightModuleInfo.UNO_PINS.Find(x => (x.Pin == bPin));
+                    result = pin.isPWM;
                     break;
 
             }

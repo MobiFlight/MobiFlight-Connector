@@ -24,16 +24,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFButtonPanel(MobiFlight.Config.Button button, List<byte> FreePins)
+        public MFButtonPanel(MobiFlight.Config.Button button, List<MobiFlightPin> Pins)
             : this()
         {
-            List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(button.Pin)); Pin1Pins.Sort();
-            foreach (byte pin in Pin1Pins) mfPinComboBox.Items.Add(pin);
-
-            if (mfPinComboBox.Items.Count > 0)
-            {
-                mfPinComboBox.SelectedIndex = 0;
-            }
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, button.Pin);
 
             // TODO: Complete member initialization
             this.button = button;

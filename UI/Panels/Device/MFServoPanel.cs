@@ -25,12 +25,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFServoPanel(MobiFlight.Config.Servo servo, List<byte> FreePins)
+        public MFServoPanel(MobiFlight.Config.Servo servo, List<MobiFlightPin> Pins)
             : this()
         {
-            List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(servo.DataPin)); Pin1Pins.Sort();
-            foreach (byte pin in Pin1Pins) mfPinComboBox.Items.Add(pin);
-            
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, servo.DataPin);
+
             if (mfPinComboBox.Items.Count > 0)
             {
                 mfPinComboBox.SelectedIndex = 0;
