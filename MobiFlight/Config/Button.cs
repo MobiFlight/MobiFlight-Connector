@@ -38,5 +38,23 @@ namespace MobiFlight.Config
 
             return true;
         }
+
+        public override bool Equals(object obj)
+        {
+            Button other = obj as Button;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.Pin == other.Pin
+                && this.Type == other.Type;
+        }
+
+        public override string ToString()
+        {
+            return Type + ":" + Name + " Pin:" + Pin;
+        }
     }
 }
