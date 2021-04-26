@@ -36,7 +36,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
             // TODO: Complete member initialization
             this.servo = servo;
-            ComboBoxHelper.SetSelectedItem(mfPinComboBox, servo.DataPin);
+            mfPinComboBox.SelectedValue = byte.Parse(servo.DataPin);
             textBox1.Text = servo.Name;
             setValues();
 
@@ -55,7 +55,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            servo.DataPin = mfPinComboBox.Text;
+            servo.DataPin = mfPinComboBox.SelectedItem.ToString();
             servo.Name = textBox1.Text;
         }
     }

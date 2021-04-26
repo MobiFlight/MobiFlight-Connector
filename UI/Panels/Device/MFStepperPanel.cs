@@ -49,12 +49,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             // TODO: Complete member initialization
             this.stepper = stepper;
-
-            ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, stepper.Pin1);
-            ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, stepper.Pin2);
-            ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, stepper.Pin3);
-            ComboBoxHelper.SetSelectedItem(mfPin4ComboBox, stepper.Pin4);
-            ComboBoxHelper.SetSelectedItem(mfPin4ComboBox, stepper.Pin4);
+            mfPin1ComboBox.SelectedValue = byte.Parse(stepper.Pin1);
+            mfPin2ComboBox.SelectedValue = byte.Parse(stepper.Pin2);
+            mfPin3ComboBox.SelectedValue = byte.Parse(stepper.Pin3);
+            mfPin4ComboBox.SelectedValue = byte.Parse(stepper.Pin4);
 
             mfNameTextBox.Text = stepper.Name;
 
@@ -79,11 +77,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            stepper.Pin1 = mfPin1ComboBox.Text;
-            stepper.Pin2 = mfPin2ComboBox.Text;
-            stepper.Pin3 = mfPin3ComboBox.Text;
-            stepper.Pin4 = mfPin4ComboBox.Text;
-            stepper.BtnPin = autoZeroCheckBox.Checked ? "0" : mfBtnPinComboBox.Text;
+            stepper.Pin1 = mfPin1ComboBox.SelectedItem.ToString();
+            stepper.Pin2 = mfPin2ComboBox.SelectedItem.ToString();
+            stepper.Pin3 = mfPin3ComboBox.SelectedItem.ToString();
+            stepper.Pin4 = mfPin4ComboBox.SelectedItem.ToString();
+            stepper.BtnPin = autoZeroCheckBox.Checked ? "0" : mfBtnPinComboBox.SelectedItem.ToString();
             stepper.Name = mfNameTextBox.Text;
         }
 

@@ -39,7 +39,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             // TODO: Complete member initialization
             this.output = output;
-            ComboBoxHelper.SetSelectedItem(mfPinComboBox, output.Pin);
+            mfPinComboBox.SelectedValue = byte.Parse(output.Pin);
             textBox1.Text = output.Name;
             setValues();
 
@@ -59,7 +59,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private bool isPwmPin()
         {
             bool result = false;
-            byte bPin = byte.Parse(mfPinComboBox.Text);
+            byte bPin = byte.Parse(mfPinComboBox.SelectedItem.ToString());
             MobiFlightPin pin;
 
             switch (MobiFlightModuleType)
@@ -86,7 +86,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void setValues()
         {
             mfPinLabel.Text = isPwmPin() ? "Pin (PWM)" : "Pin";
-            output.Pin = mfPinComboBox.Text;
+            output.Pin = mfPinComboBox.SelectedItem.ToString();
             output.Name = textBox1.Text;
         }
     }

@@ -43,9 +43,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
             // TODO: Complete member initialization
             this.ledModule = ledModule;
 
-            ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, ledModule.DinPin);
-            ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, ledModule.ClsPin);
-            ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, ledModule.ClkPin);
+            mfPin1ComboBox.SelectedValue = byte.Parse(ledModule.DinPin);
+            mfPin2ComboBox.SelectedValue = byte.Parse(ledModule.ClsPin);
+            mfPin3ComboBox.SelectedValue = byte.Parse(ledModule.ClkPin);
 
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, ledModule.NumModules);
 
@@ -68,9 +68,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            ledModule.DinPin = mfPin1ComboBox.Text;
-            ledModule.ClsPin = mfPin2ComboBox.Text;
-            ledModule.ClkPin = mfPin3ComboBox.Text;
+            ledModule.DinPin = mfPin1ComboBox.SelectedItem.ToString();
+            ledModule.ClsPin = mfPin2ComboBox.SelectedItem.ToString();
+            ledModule.ClkPin = mfPin3ComboBox.SelectedItem.ToString();
             ledModule.Name = textBox1.Text;
             ledModule.Brightness = (byte)(mfIntensityTrackBar.Value);
             ledModule.NumModules = mfNumModulesComboBox.Text;

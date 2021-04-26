@@ -40,8 +40,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
 
             this.encoder = encoder;
-            ComboBoxHelper.SetSelectedItem(mfLeftPinComboBox, encoder.PinLeft);
-            ComboBoxHelper.SetSelectedItem(mfRightPinComboBox, encoder.PinRight);
+            mfLeftPinComboBox.SelectedValue = byte.Parse(encoder.PinLeft);
+            mfRightPinComboBox.SelectedValue = byte.Parse(encoder.PinRight);
+
             ComboBoxHelper.SetSelectedItemByIndex(mfEncoderTypeComboBox, int.Parse(encoder.EncoderType));
 
             textBox1.Text = encoder.Name;
@@ -62,8 +63,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            encoder.PinLeft = mfLeftPinComboBox.Text;
-            encoder.PinRight = mfRightPinComboBox.Text;
+            encoder.PinLeft = mfLeftPinComboBox.SelectedItem.ToString();
+            encoder.PinRight = mfRightPinComboBox.SelectedItem.ToString();
             encoder.EncoderType = mfEncoderTypeComboBox.SelectedIndex.ToString();
             encoder.Name = textBox1.Text;
         }

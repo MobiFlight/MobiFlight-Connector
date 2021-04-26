@@ -31,7 +31,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             // TODO: Complete member initialization
             this.button = button;
-            ComboBoxHelper.SetSelectedItem(mfPinComboBox, button.Pin);
+            mfPinComboBox.SelectedValue = byte.Parse(button.Pin);
             textBox1.Text = button.Name;
             setValues();
 
@@ -50,7 +50,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            button.Pin = mfPinComboBox.Text;
+            button.Pin = mfPinComboBox.SelectedItem.ToString();
             button.Name = textBox1.Text;
         }
     }

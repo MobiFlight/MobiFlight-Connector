@@ -53,7 +53,6 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.mfNumModulesComboBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.numberOfModulesLabel);
@@ -63,12 +62,12 @@
             this.groupBox1.Controls.Add(this.mfPin3ComboBox);
             this.groupBox1.Controls.Add(this.mfPin2Label);
             this.groupBox1.Controls.Add(this.mfPin2ComboBox);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
             // mfNumModulesComboBox
             // 
-            resources.ApplyResources(this.mfNumModulesComboBox, "mfNumModulesComboBox");
             this.mfNumModulesComboBox.FormattingEnabled = true;
             this.mfNumModulesComboBox.Items.AddRange(new object[] {
             resources.GetString("mfNumModulesComboBox.Items"),
@@ -79,85 +78,79 @@
             resources.GetString("mfNumModulesComboBox.Items5"),
             resources.GetString("mfNumModulesComboBox.Items6"),
             resources.GetString("mfNumModulesComboBox.Items7")});
+            resources.ApplyResources(this.mfNumModulesComboBox, "mfNumModulesComboBox");
             this.mfNumModulesComboBox.Name = "mfNumModulesComboBox";
             this.mfNumModulesComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
-            this.label3.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.label3.Name = "label3";
             // 
             // numberOfModulesLabel
             // 
             resources.ApplyResources(this.numberOfModulesLabel, "numberOfModulesLabel");
-            this.numberOfModulesLabel.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.numberOfModulesLabel.Name = "numberOfModulesLabel";
             // 
             // mfPin1Label
             // 
             resources.ApplyResources(this.mfPin1Label, "mfPin1Label");
-            this.mfPin1Label.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPin1Label.Name = "mfPin1Label";
             // 
             // mfPin1ComboBox
             // 
-            resources.ApplyResources(this.mfPin1ComboBox, "mfPin1ComboBox");
             this.mfPin1ComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.mfPin1ComboBox, "mfPin1ComboBox");
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
             this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin3Label
             // 
             resources.ApplyResources(this.mfPin3Label, "mfPin3Label");
-            this.mfPin3Label.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPin3Label.Name = "mfPin3Label";
             // 
             // mfPin3ComboBox
             // 
-            resources.ApplyResources(this.mfPin3ComboBox, "mfPin3ComboBox");
             this.mfPin3ComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.mfPin3ComboBox, "mfPin3ComboBox");
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
             this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin2Label
             // 
             resources.ApplyResources(this.mfPin2Label, "mfPin2Label");
-            this.mfPin2Label.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.mfPin2Label.Name = "mfPin2Label";
             // 
             // mfPin2ComboBox
             // 
-            resources.ApplyResources(this.mfPin2ComboBox, "mfPin2ComboBox");
             this.mfPin2ComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.mfPin2ComboBox, "mfPin2ComboBox");
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";
             this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfIntensityGroupBox
             // 
-            resources.ApplyResources(this.mfIntensityGroupBox, "mfIntensityGroupBox");
             this.mfIntensityGroupBox.Controls.Add(this.label2);
             this.mfIntensityGroupBox.Controls.Add(this.label1);
             this.mfIntensityGroupBox.Controls.Add(this.mfIntensityTrackBar);
+            resources.ApplyResources(this.mfIntensityGroupBox, "mfIntensityGroupBox");
             this.mfIntensityGroupBox.Name = "mfIntensityGroupBox";
             this.mfIntensityGroupBox.TabStop = false;
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
-            this.label2.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.label2.Name = "label2";
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
-            this.label1.ImageKey = global::MobiFlight.ProjectMessages.conf;
             this.label1.Name = "label1";
             // 
             // mfIntensityTrackBar
             // 
-            resources.ApplyResources(this.mfIntensityTrackBar, "mfIntensityTrackBar");
             this.mfIntensityTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            resources.ApplyResources(this.mfIntensityTrackBar, "mfIntensityTrackBar");
             this.mfIntensityTrackBar.Maximum = 15;
             this.mfIntensityTrackBar.Minimum = 1;
             this.mfIntensityTrackBar.Name = "mfIntensityTrackBar";
@@ -166,8 +159,8 @@
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.textBox1);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
