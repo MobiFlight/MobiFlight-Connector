@@ -52,5 +52,27 @@ namespace MobiFlight.Config
 
             return true;
         }
+
+        public override bool Equals(object obj)
+        {
+            Stepper other = obj as Stepper;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.Pin1 == other.Pin1
+                && this.Pin2 == other.Pin2
+                && this.Pin3 == other.Pin3
+                && this.Pin4 == other.Pin4
+                && this.BtnPin == other.BtnPin
+                && this.Type == other.Type;
+        }
+
+        public override string ToString()
+        {
+            return Type + ":" + Name + " Pin1:" + Pin1 + " Pin2:" + Pin2 + " Pin3:" + Pin3 + " Pin4:" + Pin4 + " BtnPin:" + BtnPin;
+        }
     }
 }

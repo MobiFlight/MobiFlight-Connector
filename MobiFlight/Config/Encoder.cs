@@ -44,5 +44,24 @@ namespace MobiFlight.Config
 
             return true;
         }
+        public override bool Equals(object obj)
+        {
+            Encoder other = obj as Encoder;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.PinLeft == other.PinLeft
+                && this.PinRight == other.PinRight
+                && this.EncoderType == other.EncoderType
+                && this.Type == other.Type;
+        }
+
+        public override string ToString()
+        {
+            return Type + ":" + Name + " PinLeft:" + PinLeft + " PinRight:" + PinRight + " EncoderType:" + EncoderType;
+        }
     }
 }

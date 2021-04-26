@@ -65,6 +65,7 @@
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
     <Compile Include="InterpolationTests.cs" />
+    <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ButtonInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\EncoderInputConfigTests.cs" />
