@@ -917,6 +917,7 @@ void readConfig(String cfg) {
 #if MF_SHIFTER_SUPPORT == 1
        AddShifter(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]), params[5]);
 #endif
+       break;
         
       default:
         // read to the end of the current command which is
