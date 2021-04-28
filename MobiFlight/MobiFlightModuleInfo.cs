@@ -9,7 +9,7 @@ namespace MobiFlight
     {
         public byte Pin { get; set; }
         public bool isAnalog = false;
-        public bool isPWM = true;
+        public bool isPWM = false;
         public bool Used = false;
         private string name = null;
 
