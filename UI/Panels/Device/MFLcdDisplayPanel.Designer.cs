@@ -112,6 +112,7 @@
             this.AddressTextBox.Size = new System.Drawing.Size(35, 20);
             this.AddressTextBox.TabIndex = 1;
             this.AddressTextBox.TextChanged += new System.EventHandler(this.value_Changed);
+            this.AddressTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.AddressTextBox_Validating);
             // 
             // NameGroupBox
             // 
