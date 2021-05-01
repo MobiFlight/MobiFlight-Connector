@@ -161,7 +161,10 @@ namespace MobiFlight.SimConnectMSFS
             String sourcePath = WasmModuleFolder + @"\modules\" + WasmEventsTxtFile;
             String destPath = CommunityFolder + WasmEventsTxtFolder + @"\" + WasmEventsTxtFile;
             System.IO.File.Delete(destPath + ".bak");
-            System.IO.File.Move(destPath, destPath + ".bak");
+
+            if (System.IO.File.Exists(destPath))
+                System.IO.File.Move(destPath, destPath + ".bak");
+
             System.IO.File.Copy(sourcePath, destPath);
 
             Log.Instance.log("WASM events have been installed successfully.", LogSeverity.Info);
