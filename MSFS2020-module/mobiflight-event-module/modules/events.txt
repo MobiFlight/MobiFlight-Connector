@@ -777,7 +777,6 @@ AS1000_PFD_ENT_Push#(>H:AS1000_PFD_ENT_Push)
 AS1000_PFD_CLR_Long#(>H:AS1000_PFD_CLR_Long)
 AS1000_PFD_CLR#(>H:AS1000_PFD_CLR)
 AS1000_PFD_MENU_Push#(>H:AS1000_PFD_MENU_Push)
-AS1000_PFD_FPL_Push#(>H:AS1000_PFD_FPL_Push)
 AS1000_PFD_PROC_Push#(>H:AS1000_PFD_PROC_Push)
 AS1000_PFD_FMS_Upper_INC#(>H:AS1000_PFD_FMS_Upper_INC)
 AS1000_PFD_FMS_Upper_DEC#(>H:AS1000_PFD_FMS_Upper_DEC)
@@ -1030,23 +1029,6 @@ TransponderSTBY#(>H:TransponderSTBY)
 TransponderTST#(>H:TransponderTST)
 TransponderON#(>H:TransponderON)
 TransponderALT#(>H:TransponderALT)
-// AS3x G1000 PFD
-AS3X_1_SOFTKEYS_1#(>H:AS3X_1_SOFTKEYS_1)
-AS3X_1_SOFTKEYS_2#(>H:AS3X_1_SOFTKEYS_2)
-AS3X_1_SOFTKEYS_3#(>H:AS3X_1_SOFTKEYS_3)
-AS3X_1_SOFTKEYS_4#(>H:AS3X_1_SOFTKEYS_4)
-AS3X_1_SOFTKEYS_5#(>H:AS3X_1_SOFTKEYS_5)
-AS3X_1_ENT_Push#(>H:AS3X_1_ENT_Push)
-AS3X_1_FPL_Push#(>H:AS3X_1_FPL_Push)
-AS3X_1_CLR_Push#(>H:AS3X_1_CLR_Push)
-AS3X_1_MENU_Push#(>H:AS3X_1_MENU_Push)
-AS3X_1_DIRECTTO#(>H:AS3X_1_DIRECTTO)
-AS3X_1_NRST_Push#(>H:AS3X_1_NRST_Push)
-AS3X_1_RNG_Dezoom#(>H:AS3X_1_RNG_Dezoom)
-AS3X_1_RNG_Zoom#(>H:AS3X_1_RNG_Zoom)
-AS3X_1_JOYSTICK_PUSH#(>H:AS3X_1_JOYSTICK_PUSH)
-AS3X_1_TURN_DEC#(>H:AS3X_1_TURN_DEC)
-AS3X_1_TURN_INC#(>H:AS3X_1_TURN_INC)
 // A32X FBW - EFIS CPT
 A320_Neo_MFD_BTN_CSTR_1#(>H:A320_Neo_MFD_BTN_CSTR_1)
 A320_Neo_MFD_BTN_WPT_1#(>H:A320_Neo_MFD_BTN_WPT_1)
@@ -1097,8 +1079,8 @@ A320_Neo_FCU_HDG_DEC#(>H:A320_Neo_FCU_HDG_DEC)
 A320_Neo_FCU_SPEED_INC#(>H:A320_Neo_FCU_SPEED_INC)
 A320_Neo_FCU_SPEED_DEC#(>H:A320_Neo_FCU_SPEED_DEC)
 A320_Neo_FCU_VS_INC#(>H:A320_Neo_FCU_VS_INC)
-A320_Neo_FCU_VS_DEC#(>H:A320_Neo_FCU_VS_DEC)
 A320_Neo_FCU_VS_PULL#(>H:A320_Neo_FCU_VS_PULL)
+A320_Neo_FCU_VS_PUSH#(>H:A320_Neo_FCU_VS_PUSH)
 A320_Neo_FCU_VS_PUSH#(>H:A320_Neo_FCU_VS_PUSH)
 A320_Neo_FCU_ALT_PULL#(>H:A320_Neo_FCU_ALT_PULL)
 A320_Neo_FCU_ALT_PUSH#(>H:A320_Neo_FCU_ALT_PUSH)
@@ -1506,6 +1488,27 @@ EMER_EXIT_ARM#(L:XMLVAR_SWITCH_OVHD_INTLT_EMEREXIT_Positon) 1 == is{ 1 if{(>L:XM
 ANN_LT_TEST#(L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Positon) 2 == is{ 1 if{(>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 1 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) } } els} (L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 1 == if{ 1 if{ 0 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 0 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) } }
 ANN_LT_DIM#(L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Positon) 0 == is{ 1 if{(>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 1 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) } } els} (L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 1 == if{ 1 if{ 2 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 2 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) } } }
 ANN_LT_BRT#(L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Positon) 1 == is{ 1 if{(>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 1 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) } } els} (L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 1 == if{ 1 if{ 1 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) 1 (>L:XMLVAR_SWITCH_OVHD_INTLT_ANNLT_Position) } }
+LEFT_LANDING_LIGHTS_OFF# if{1 (>L:LANDING_1_Retracted)
+LEFT_LANDING_LIGHTS_RETRACTED#(>L:LANDING_1_Retracted) 1 == is{ 1 is(>L:LANDING_1_Retracted) 1 (>L:LANDING_1_Retracted) } } els} (>L:LANDING_1_Retracted) 1 == if{ 1 if {2 (>L:LANDING_1_Retracted) 1 (>L:LANDING_1_Retracted) } }
+RIGHT_LANDING_LIGHTS_OFF# if{1 (>L:LANDING_2_Retracted)
+RIGHT_LANDING_LIGHTS_RETRACTED#(>L:LANDING_2_Retracted) 1 == is{ 1 is(>L:LANDING_2_Retracted) 1 (>L:LANDING_2_Retracted) } } els} (>L:LANDING_2_Retracted) 1 == if{ 1 if {2 (>L:LANDING_2_Retracted) 1 (>L:LANDING_2_Retracted) } }
+// AS3x G1000 PFD
+AS3X_1_SOFTKEYS_1#(>H:AS3X_1_SOFTKEYS_1)
+AS3X_1_SOFTKEYS_2#(>H:AS3X_1_SOFTKEYS_2)
+AS3X_1_SOFTKEYS_3#(>H:AS3X_1_SOFTKEYS_3)
+AS3X_1_SOFTKEYS_4#(>H:AS3X_1_SOFTKEYS_4)
+AS3X_1_SOFTKEYS_5#(>H:AS3X_1_SOFTKEYS_5)
+AS3X_1_ENT_Push#(>H:AS3X_1_ENT_Push)
+AS3X_1_FPL_Push#(>H:AS3X_1_FPL_Push)
+AS3X_1_CLR_Push#(>H:AS3X_1_CLR_Push)
+AS3X_1_MENU_Push#(>H:AS3X_1_MENU_Push)
+AS3X_1_DIRECTTO#(>H:AS3X_1_DIRECTTO)
+AS3X_1_NRST_Push#(>H:AS3X_1_NRST_Push)
+AS3X_1_RNG_Dezoom#(>H:AS3X_1_RNG_Dezoom)
+AS3X_1_RNG_Zoom#(>H:AS3X_1_RNG_Zoom)
+AS3X_1_JOYSTICK_PUSH#(>H:AS3X_1_JOYSTICK_PUSH)
+AS3X_1_TURN_DEC#(>H:AS3X_1_TURN_DEC)
+AS3X_1_TURN_INC#(>H:AS3X_1_TURN_INC)
 // WT CJ4 AP
 WT_CJ4_AP_FD_PRESSED#(>H:WT_CJ4_AP_FD_TOGGLE)
 WT_CJ4_AP_CRS1_DEC#(L:WT_CJ4_LNAV_MODE, Number) 2 == if{ (>K:VOR2_OBI_DEC) } els{ (>K:VOR1_OBI_DEC) }
@@ -1698,6 +1701,16 @@ ASCRJ_FCP_ALT_CANCEL_PRESS#1 (>L:ASCRJ_FCP_ALT_CANCEL)
 ASCRJ_FCP_ALT_CANCEL_RELEASE#0 (>L:ASCRJ_FCP_ALT_CANCEL)
 ASCRJ_FCP_WHEEL_SEL_INC#(L:ASCRJ_FCP_WHEEL_CHANGE, 1) ++ (>L:ASCRJ_FCP_WHEEL_CHANGE)
 ASCRJ_FCP_WHEEL_SEL_DEC#(L:ASCRJ_FCP_WHEEL_CHANGE, 1) -- (>L:ASCRJ_FCP_WHEEL_CHANGE)
+ASCRJ_FCP_XFR_PRESS#1 (>L:ASCRJ_FCP_XFR)
+ASCRJ_FCP_XFR_RELEASE#0 (>L:ASCRJ_FCP_XFR)
+ASCRJ_FCP_CRS2_SEL_INC#(L:ASCRJ_FCP_CRS2_CHANGE, 1) ++ (>L:ASCRJ_FCP_CRS2_CHANGE)
+ASCRJ_FCP_CRS2_SEL_DEC#(L:ASCRJ_FCP_CRS2_CHANGE, 1) -- (>L:ASCRJ_FCP_CRS2_CHANGE)
+ASCRJ_FCP_CRS2_DIRECT_PRESS#1 (>L:ASCRJ_FCP_CRS2_DIRECT)
+ASCRJ_FCP_CRS2_DIRECT_RELEASE#0 (>L:ASCRJ_FCP_CRS2_DIRECT)
+ASCRJ_FCP_IAS_MACH_PRESS#1 (>L:ASCRJ_FCP_IAS_MACH)
+ASCRJ_FCP_IAS_MACH_RELEASE#0 (>L:ASCRJ_FCP_IAS_MACH)
+ASCRJ_FCP_FD2_PRESS#1 (>L:ASCRJ_FCP_FD2)
+ASCRJ_FCP_FD2_RELEASE#0 (>L:ASCRJ_FCP_FD2)
 // ASCRJ EICAS
 ASCRJ_ECAM_PRI_PRESS#1 (>L:ASCRJ_ECAM_PRI)
 ASCRJ_ECAM_STEP_PRESS#1 (>L:ASCRJ_ECAM_STEP)
@@ -1853,6 +1866,43 @@ B747_8_BTN_ARPT#(>H:B747_8_MFD_BTN_ARPT) (>H:B747_8_PFD_BTN_ARPT) and
 B747_8_BTN_DATA#(>H:B747_8_MFD_BTN_DATA) (>H:B747_8_PFD_BTN_DATA) and
 B747_8_BTN_POS#(>H:B747_8_MFD_BTN_POS) (>H:B747_8_PFD_BTN_POS) and
 B747_8_BTN_TERR#(>H:B747_8_MFD_BTN_TERR) (>H:B747_8_PFD_BTN_TERR) and
+// JF PA28
+KX175_COMM2_outer_knob_left#(L:KX175_COMM2_outer_knob, enum) ++ 100 % (>L:KX175_COMM2_outer_knob, enum)
+KX175_COMM2_outer_knob_right#(L:KX175_COMM2_outer_knob, enum) -- (>L:KX175_COMM2_outer_knob, enum) (L:KX175_COMM2_outer_knob, enum) 0 < if{ 99 (>L:KX175_COMM2_outer_knob, enum) }
+KX175_COMM2_inner_knob_left#(L:KX175_COMM2_inner_knob, enum) ++ 100 % (>L:KX175_COMM2_inner_knob, enum)
+KX175_COMM2_inner_knob_right#(L:KX175_COMM2_inner_knob, enum) -- (>L:KX175_COMM2_inner_knob, enum) (L:KX175_COMM2_inner_knob, enum) 0 < if{ 99 (>L:KX175_COMM2_inner_knob, enum) }
+KX175_NAV2_outer_knob_left#(L:KX175_NAV2_outer_knob, enum) ++ 100 % (>L:KX175_NAV2_outer_knob, enum)
+KX175_NAV2_outer_knob_right#(L:KX175_NAV2_outer_knob, enum) -- (>L:KX175_NAV2_outer_knob, enum) (L:KX175_NAV2_outer_knob, enum) 0 < if{ 99 (>L:KX175_NAV2_outer_knob, enum) }
+KX175_NAV2_inner_knob_left#(L:KX175_NAV2_inner_knob, enum) ++ 100 % (>L:KX175_NAV2_inner_knob, enum)
+KX175_NAV2_inner_knob_right#(L:KX175_NAV2_inner_knob, enum) -- (>L:KX175_NAV2_inner_knob, enum) (L:KX175_NAV2_inner_knob, enum) 0 < if{ 99 (>L:KX175_NAV2_inner_knob, enum) }
+KX170_COMM1_outer_knob_left#(L:KX170_COMM1_outer_knob, enum) ++ 100 % (>L:KX170_COMM1_outer_knob, enum)
+KX170_COMM1_outer_knob_right#(L:KX170_COMM1_outer_knob, enum) -- (>L:KX170_COMM1_outer_knob, enum) (L:KX170_COMM1_outer_knob, enum) 0 < if{ 99 (>L:KX170_COMM1_outer_knob, enum) }
+KX170_COMM1_inner_knob_left#(L:KX170_COMM1_inner_knob, enum) ++ 100 % (>L:KX170_COMM1_inner_knob, enum)
+KX170_COMM1_inner_knob_right#(L:KX170_COMM1_inner_knob, enum) -- (>L:KX170_COMM1_inner_knob, enum) (L:KX170_COMM1_inner_knob, enum) 0 < if{ 99 (>L:KX170_COMM1_inner_knob, enum) }
+KX170_NAV1_outer_knob_left#(L:KX170_NAV1_outer_knob, enum) ++ 100 % (>L:KX170_NAV1_outer_knob, enum)
+KX170_NAV1_outer_knob_right#(L:KX170_NAV1_outer_knob, enum) -- (>L:KX170_NAV1_outer_knob, enum) (L:KX170_NAV1_outer_knob, enum) 0 < if{ 99 (>L:KX170_NAV1_outer_knob, enum) }
+KX170_NAV1_inner_knob_left#(L:KX170_NAV1_inner_knob, enum) ++ 100 % (>L:KX170_NAV1_inner_knob, enum)
+KX170_NAV1_inner_knob_right#(L:KX170_NAV1_inner_knob, enum) -- (>L:KX170_NAV1_inner_knob, enum) (L:KX170_NAV1_inner_knob, enum) 0 < if{ 99 (>L:KX170_NAV1_inner_knob, enum) }
+ALT_baro_knob_left#(L:ALTIMETER_baro_knob, enum) ++ 100 min (>L:ALTIMETER_baro_knob, enum) (>K:KOHLSMAN_INC) (L:ALTIMETER_baro_knob, enum) 100 == if{ 0 (>L:ALTIMETER_baro_knob, enum) }
+ALT_baro_knob_right#(L:ALTIMETER_baro_knob, enum) -- 0 max (>L:ALTIMETER_baro_knob, enum) (>K:KOHLSMAN_DEC) (L:ALTIMETER_baro_knob, enum) 0 == if{ 100 (>L:ALTIMETER_baro_knob, enum) }
+CENTRE_LOWER_bat_ON_PRESS#1 (>L:CENTRE_LOWER_bat)
+CENTRE_LOWER_bat_ON_RELEASE#0 (>L:CENTRE_LOWER_bat)
+AUTOPILOT_alt_ON_PRESS#1 (>L:AUTOPILOT_alt)
+AUTOPILOT_navgps_ON_PRESS#1 (>L:AUTOPILOT_navgps)
+AUTOPILOT_hdg_ON_PRESS#1 (>L:AUTOPILOT_hdg)
+AUTOPILOT_hdg_OFF_PRESS#0 (>L:AUTOPILOT_hdg)
+AUTOPILOT_Nav_Mode_ON_PRESS#0 (>L:AUTOPILOT_mode)
+AUTOPILOT_Omni_Mode_ON_PRESS#1 (>L:AUTOPILOT_mode)
+AUTOPILOT_HDG_Mode_ON_PRESS#2 (>L:AUTOPILOT_mode)
+AUTOPILOT_LOC_NORM_Mode_ON_PRESS#3 (>L:AUTOPILOT_mode)
+AUTOPILOT_LOC_REV_Mode_ON_PRESS#4 (>L:AUTOPILOT_mode)
+THROTTLE_QUADRANT_mixture_lock_ON_PRESS#1 (>L:THROTTLE_QUADRANT_mixture_lock)
+THROTTLE_QUADRANT_mixture_lock_ON_RELEASE#0 (>L:THROTTLE_QUADRANT_mixture_lock)
+Emergency_gear_down#0 (>L:LOWER_emergency_gear)
+Emergency_gear_off#1 (>L:LOWER_emergency_gear)
+Emergency_gear_on#2 (>L:LOWER_emergency_gear)
+EGT_knob_left#(L:RIGHT_LOWER_egt_knob, enum) ++ 100 % (>L:RIGHT_LOWER_egt_knob, enum)
+EGT_knob_right#(L:RIGHT_LOWER_egt_knob, enum) -- (>L:RIGHT_LOWER_egt_knob, enum) (L:RIGHT_LOWER_egt_knob, enum) 0 < if{ 99 (>L:RIGHT_LOWER_egt_knob, enum) }
 // H135LeftMFDTopRow
 DISPLAY_LEFT_ON#(>:L:DISPLAY_LEFT_ON)
 MFDL_SoftKey_Top_1#(>:L:MFDL_SoftKey_Top_1, number) ! (>:L:MFDL_SoftKey_Top_1)
