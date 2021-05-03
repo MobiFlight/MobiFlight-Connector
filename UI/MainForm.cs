@@ -1049,7 +1049,7 @@ namespace MobiFlight.UI
         {
             if (VersionBeta.Split('.')[3] != "0")
             {
-                return VersionBeta;
+                return VersionBeta + " (BETA)";
             }
 
             return Version;

@@ -940,6 +940,11 @@ namespace MobiFlight
             lastValue.Clear();
         }
 
+        public List<MobiFlightPin> GetFreePins()
+        {
+            return GetPins(true);
+        }
+
         public List<MobiFlightPin> GetPins(bool FreeOnly = false)
         {
             List<MobiFlightPin> Pins = MobiFlightModuleInfo.MEGA_PINS;
