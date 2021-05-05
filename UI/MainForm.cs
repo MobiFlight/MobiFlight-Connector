@@ -1035,7 +1035,7 @@ namespace MobiFlight.UI
         {
             string NewTitle = "MobiFlight Connector ("+ Version +")";
             if (VersionBeta.Split('.')[3]!="0") {
-                NewTitle = "MobiFlight Connector BETA with Teensy support (" + VersionBeta + ")";
+                NewTitle = "MobiFlight Connector BETA (" + VersionBeta + ")";
             }
             if (title!=null && title!="")
             {
