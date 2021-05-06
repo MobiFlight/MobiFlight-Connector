@@ -211,13 +211,13 @@
     <value>Fill</value>
   </data>
   <data name="arcazePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 40</value>
+    <value>3, 3</value>
   </data>
   <data name="arcazePanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
   <data name="arcazePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>499, 426</value>
+    <value>499, 463</value>
   </data>
   <data name="arcazePanel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -226,40 +226,13 @@
     <value>arcazePanel</value>
   </data>
   <data name="&gt;&gt;arcazePanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.ArcazePanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.ArcazePanel, MFConnector, Version=8.1.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;arcazePanel.Parent" xml:space="preserve">
     <value>ArcazeTabPage</value>
   </data>
   <data name="&gt;&gt;arcazePanel.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="arcazeSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="arcazeSettingsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="arcazeSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="arcazeSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>499, 37</value>
-  </data>
-  <data name="arcazeSettingsLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;arcazeSettingsLabel.Name" xml:space="preserve">
-    <value>arcazeSettingsLabel</value>
-  </data>
-  <data name="&gt;&gt;arcazeSettingsLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeSettingsLabel.Parent" xml:space="preserve">
-    <value>ArcazeTabPage</value>
-  </data>
-  <data name="&gt;&gt;arcazeSettingsLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="ArcazeTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -433,7 +406,7 @@
     <value>generalPanel</value>
   </data>
   <data name="&gt;&gt;generalPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=8.1.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;generalPanel.Parent" xml:space="preserve">
     <value>generalTabPage</value>
@@ -487,7 +460,7 @@
     <value>mobiFlightPanel</value>
   </data>
   <data name="&gt;&gt;mobiFlightPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.MobiFlightPanel, MFConnector, Version=7.10.0.14, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.MobiFlightPanel, MFConnector, Version=8.1.3.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mobiFlightPanel.Parent" xml:space="preserve">
     <value>mobiFlightTabPage</value>

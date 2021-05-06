@@ -22,6 +22,7 @@ namespace MobiFlight.UI.Panels.Settings
         public ArcazePanel()
         {
             InitializeComponent();
+            ArcazePanelSettingsPanel.Visible = ArcazePanelSettingsPanel.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
         }
 
         public void Init (ArcazeCache arcazeCache)
@@ -212,6 +213,13 @@ namespace MobiFlight.UI.Panels.Settings
 
         public void SaveSettings()
         {
+            Properties.Settings.Default.ArcazeSupportEnabled = ArcazeSupportEnabledCheckBox.Checked;
+
+            if (!ArcazeSupportEnabledCheckBox.Checked)
+            {
+                return;
+            }
+
             try
             {
                 XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));                
@@ -233,6 +241,13 @@ namespace MobiFlight.UI.Panels.Settings
 
         public void LoadSettings()
         {
+            ArcazeSupportEnabledCheckBox.Checked = Properties.Settings.Default.ArcazeSupportEnabled;
+
+            if (!ArcazeSupportEnabledCheckBox.Checked)
+            {
+                return;
+            }
+
             arcazeModuleTypeComboBox.Items.Clear();
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.InternalIo.ToString());
             arcazeModuleTypeComboBox.Items.Add(ArcazeCommand.ExtModuleType.DisplayDriver.ToString());
@@ -257,6 +272,11 @@ namespace MobiFlight.UI.Panels.Settings
             }
 
             InitArcazeModuleTreeView(arcazeCache);
+        }
+
+        private void ArcazeSupportEnabledCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ArcazePanelSettingsPanel.Visible = ArcazePanelSettingsPanel.Enabled = (sender as CheckBox).Checked;
         }
     }
 

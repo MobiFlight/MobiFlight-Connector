@@ -371,5 +371,17 @@ namespace MobiFlight.Properties {
                 this["PresetFileMSFS2020SimVars"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ArcazeSupportEnabled {
+            get {
+                return ((bool)(this["ArcazeSupportEnabled"]));
+            }
+            set {
+                this["ArcazeSupportEnabled"] = value;
+            }
+        }
     }
 }

@@ -271,7 +271,8 @@ namespace MobiFlight
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
 #if ARCAZE
-            result.AddRange(arcazeCache.getModuleInfo());
+            if (Properties.Settings.Default.ArcazeSupportEnabled)
+                result.AddRange(arcazeCache.getModuleInfo());
 #endif
             result.AddRange(mobiFlightCache.getModuleInfo());
             return result;
@@ -1125,7 +1126,8 @@ namespace MobiFlight
             {
                 Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Modules", LogSeverity.Debug);
 #if ARCAZE
-                arcazeCache.connect(); //  _initializeArcaze();
+                if(Properties.Settings.Default.ArcazeSupportEnabled)
+                    arcazeCache.connect(); //  _initializeArcaze();
 #endif
 #if MOBIFLIGHT
                 await mobiFlightCache.connectAsync();

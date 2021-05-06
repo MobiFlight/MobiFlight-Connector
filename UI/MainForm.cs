@@ -482,6 +482,8 @@ namespace MobiFlight.UI
 #if ARCAZE
         private void _initializeArcazeModuleSettings()
         {
+            if (!Properties.Settings.Default.ArcazeSupportEnabled) return;
+
             Dictionary<string, ArcazeModuleSettings> settings = execManager.getModuleCache().GetArcazeModuleSettings();
             List<string> serials = new List<string>();
 
@@ -690,11 +692,13 @@ namespace MobiFlight.UI
             arcazeUsbToolStripDropDownButton.DropDownItems.Clear();
             arcazeUsbToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoArcazeModuleFound");
 #if ARCAZE
-            // TODO: refactor!!!
-            foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
-            {
-                arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
-                modulesFound = true;
+            if (Properties.Settings.Default.ArcazeSupportEnabled) {
+                // TODO: refactor!!!
+                foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
+                {
+                    arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+                    modulesFound = true;
+                }
             }
 #endif
 

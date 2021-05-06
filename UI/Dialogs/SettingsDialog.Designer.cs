@@ -35,7 +35,6 @@
             this.cancelButton = new System.Windows.Forms.Button();
             this.ArcazeTabPage = new System.Windows.Forms.TabPage();
             this.arcazePanel = new MobiFlight.UI.Panels.Settings.ArcazePanel();
-            this.arcazeSettingsLabel = new System.Windows.Forms.Label();
             this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.mfModuleSettingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,7 +110,6 @@
             // ArcazeTabPage
             // 
             this.ArcazeTabPage.Controls.Add(this.arcazePanel);
-            this.ArcazeTabPage.Controls.Add(this.arcazeSettingsLabel);
             resources.ApplyResources(this.ArcazeTabPage, "ArcazeTabPage");
             this.ArcazeTabPage.Name = "ArcazeTabPage";
             this.ArcazeTabPage.UseVisualStyleBackColor = true;
@@ -122,11 +120,6 @@
             resources.ApplyResources(this.arcazePanel, "arcazePanel");
             this.arcazePanel.ModuleConfigChanged = false;
             this.arcazePanel.Name = "arcazePanel";
-            // 
-            // arcazeSettingsLabel
-            // 
-            resources.ApplyResources(this.arcazeSettingsLabel, "arcazeSettingsLabel");
-            this.arcazeSettingsLabel.Name = "arcazeSettingsLabel";
             // 
             // mfTreeViewImageList
             // 
@@ -432,7 +425,6 @@
         private System.Windows.Forms.ToolStripMenuItem LcdDisplayToolStripMenuItem;
         private Panels.Settings.GeneralPanel generalPanel;
         private Panels.Settings.ArcazePanel arcazePanel;
-        private System.Windows.Forms.Label arcazeSettingsLabel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
     }
 }
