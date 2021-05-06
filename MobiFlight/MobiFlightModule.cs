@@ -958,6 +958,9 @@ namespace MobiFlight
                 Pins = MobiFlightModuleInfo.UNO_PINS;
             }
 
+            List<MobiFlightPin> ResultPins = new List<MobiFlightPin>();
+            ResultPins.AddRange(Pins.Select(x => new MobiFlightPin(x)));
+
             List<byte> usedPins = new List<byte>();
 
             foreach (Config.BaseDevice device in Config.Items)
@@ -1010,13 +1013,13 @@ namespace MobiFlight
 
             foreach (byte i in usedPins)
             {
-                Pins.Find(item => item.Pin==i).Used = true;
+                ResultPins.Find(item => item.Pin==i).Used = true;
             }
 
             if (FreeOnly)
-                Pins = Pins.FindAll(x => x.Used == false);
+                ResultPins = ResultPins.FindAll(x => x.Used == false);
 
-            return Pins;
+            return ResultPins;
         }
     }
 }
