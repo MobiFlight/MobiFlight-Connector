@@ -1459,9 +1459,9 @@ namespace MobiFlight.UI
             }
         }
 
-        private void startupPanel_Load(object sender, EventArgs e)
+        private void openDiscordServer_Click(object sender, EventArgs e)
         {
-
+            Process.Start("https://discord.gg/U28QeEJpBV");
         }
     }
 

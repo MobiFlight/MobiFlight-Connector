@@ -150,6 +150,8 @@ namespace MobiFlight
         };
 
         public static readonly List<MobiFlightPin> MICRO_PINS = new List<MobiFlightPin>() {
+            { new MobiFlightPin() { Pin =  0 } },
+            { new MobiFlightPin() { Pin =  1 } },
             { new MobiFlightPin() { Pin =  2 } },
             { new MobiFlightPin() { Pin =  3, isPWM = true } },
             { new MobiFlightPin() { Pin =  4, isAnalog = true } },
