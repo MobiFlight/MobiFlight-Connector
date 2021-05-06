@@ -1458,6 +1458,11 @@ namespace MobiFlight.UI
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void openDiscordServer_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.gg/U28QeEJpBV");
+        }
     }
 
     internal static class Helper
