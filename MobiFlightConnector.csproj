@@ -1036,7 +1036,8 @@
 xcopy /R /Y "$(ProjectDir)Lib\x86\SimConnect.dll" "$(TargetDir)"
 xcopy /R /E /Y /I "$(ProjectDir)MSFS2020-module" "$(TargetDir)MSFS2020-module"
 xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
-del "$(TargetDir)\log.txt"</PreBuildEvent>
+del "$(TargetDir)\log.txt"
+del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
