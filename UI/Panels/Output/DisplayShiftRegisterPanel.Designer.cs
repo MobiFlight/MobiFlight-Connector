@@ -31,7 +31,11 @@ namespace MobiFlight.UI.Panels
         {
             this.registerLabel = new System.Windows.Forms.Label();
             this.shiftRegistersComboBox = new System.Windows.Forms.ComboBox();
-            this.outputPanelLabel = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabSimple = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.displayPinComboBox = new System.Windows.Forms.ComboBox();
+            this.tabAdvanced = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -46,8 +50,10 @@ namespace MobiFlight.UI.Panels
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.brightnessDropDown = new System.Windows.Forms.ComboBox();
+            this.outputPanelLabel = new System.Windows.Forms.Label();
+            this.tabControl1.SuspendLayout();
+            this.tabSimple.SuspendLayout();
+            this.tabAdvanced.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,14 +95,64 @@ namespace MobiFlight.UI.Panels
             this.shiftRegistersComboBox.Size = new System.Drawing.Size(177, 24);
             this.shiftRegistersComboBox.TabIndex = 66;
             // 
-            // outputPanelLabel
+            // tabControl1
             // 
-            this.outputPanelLabel.AutoSize = true;
-            this.outputPanelLabel.Location = new System.Drawing.Point(19, 44);
-            this.outputPanelLabel.Name = "outputPanelLabel";
-            this.outputPanelLabel.Size = new System.Drawing.Size(139, 17);
-            this.outputPanelLabel.TabIndex = 67;
-            this.outputPanelLabel.Text = "Register Output Pins";
+            this.tabControl1.Controls.Add(this.tabSimple);
+            this.tabControl1.Controls.Add(this.tabAdvanced);
+            this.tabControl1.Location = new System.Drawing.Point(11, 38);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(340, 217);
+            this.tabControl1.TabIndex = 75;
+            // 
+            // tabSimple
+            // 
+            this.tabSimple.Controls.Add(this.label14);
+            this.tabSimple.Controls.Add(this.displayPinComboBox);
+            this.tabSimple.Location = new System.Drawing.Point(4, 25);
+            this.tabSimple.Name = "tabSimple";
+            this.tabSimple.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSimple.Size = new System.Drawing.Size(332, 188);
+            this.tabSimple.TabIndex = 0;
+            this.tabSimple.Text = "Simple";
+            this.tabSimple.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(22, 18);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 17);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "Output Pin";
+            // 
+            // displayPinComboBox
+            // 
+            this.displayPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayPinComboBox.FormattingEnabled = true;
+            this.displayPinComboBox.Items.AddRange(new object[] {
+            "Pin",
+            "7-Segment",
+            "3BCD-8Bit-with-Strobe"});
+            this.displayPinComboBox.Location = new System.Drawing.Point(105, 15);
+            this.displayPinComboBox.Margin = new System.Windows.Forms.Padding(4);
+            this.displayPinComboBox.MaximumSize = new System.Drawing.Size(161, 0);
+            this.displayPinComboBox.MinimumSize = new System.Drawing.Size(61, 0);
+            this.displayPinComboBox.Name = "displayPinComboBox";
+            this.displayPinComboBox.Size = new System.Drawing.Size(141, 24);
+            this.displayPinComboBox.TabIndex = 7;
+            // 
+            // tabAdvanced
+            // 
+            this.tabAdvanced.Controls.Add(this.tableLayoutPanel);
+            this.tabAdvanced.Controls.Add(this.outputPanelLabel);
+            this.tabAdvanced.Location = new System.Drawing.Point(4, 25);
+            this.tabAdvanced.Name = "tabAdvanced";
+            this.tabAdvanced.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAdvanced.Size = new System.Drawing.Size(332, 188);
+            this.tabAdvanced.TabIndex = 1;
+            this.tabAdvanced.Text = "Advanced";
+            this.tabAdvanced.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel
             // 
@@ -123,7 +179,7 @@ namespace MobiFlight.UI.Panels
             this.tableLayoutPanel.Controls.Add(this.label13, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.label11, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.label12, 0, 4);
-            this.tableLayoutPanel.Location = new System.Drawing.Point(22, 64);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(3, 33);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 6;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
@@ -133,7 +189,7 @@ namespace MobiFlight.UI.Panels
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel.Size = new System.Drawing.Size(289, 140);
-            this.tableLayoutPanel.TabIndex = 70;
+            this.tableLayoutPanel.TabIndex = 72;
             // 
             // label9
             // 
@@ -265,36 +321,29 @@ namespace MobiFlight.UI.Panels
             this.label12.TabIndex = 6;
             this.label12.Text = "4";
             // 
-            // label14
+            // outputPanelLabel
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(19, 217);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(96, 17);
-            this.label14.TabIndex = 71;
-            this.label14.Text = "Brightness ref";
-            // 
-            // brightnessDropDown
-            // 
-            this.brightnessDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.brightnessDropDown.FormattingEnabled = true;
-            this.brightnessDropDown.Location = new System.Drawing.Point(124, 214);
-            this.brightnessDropDown.Name = "brightnessDropDown";
-            this.brightnessDropDown.Size = new System.Drawing.Size(172, 24);
-            this.brightnessDropDown.TabIndex = 72;
+            this.outputPanelLabel.AutoSize = true;
+            this.outputPanelLabel.Location = new System.Drawing.Point(6, 13);
+            this.outputPanelLabel.Name = "outputPanelLabel";
+            this.outputPanelLabel.Size = new System.Drawing.Size(139, 17);
+            this.outputPanelLabel.TabIndex = 71;
+            this.outputPanelLabel.Text = "Register Output Pins";
             // 
             // DisplayShiftRegisterPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.brightnessDropDown);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.tableLayoutPanel);
-            this.Controls.Add(this.outputPanelLabel);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.shiftRegistersComboBox);
             this.Controls.Add(this.registerLabel);
             this.Name = "DisplayShiftRegisterPanel";
-            this.Size = new System.Drawing.Size(338, 260);
+            this.Size = new System.Drawing.Size(388, 265);
+            this.tabControl1.ResumeLayout(false);
+            this.tabSimple.ResumeLayout(false);
+            this.tabSimple.PerformLayout();
+            this.tabAdvanced.ResumeLayout(false);
+            this.tabAdvanced.PerformLayout();
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -306,22 +355,25 @@ namespace MobiFlight.UI.Panels
 
         private System.Windows.Forms.Label registerLabel;
         public System.Windows.Forms.ComboBox shiftRegistersComboBox;
-        private System.Windows.Forms.Label outputPanelLabel;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabSimple;
+        private System.Windows.Forms.TabPage tabAdvanced;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label outputPanelLabel;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox brightnessDropDown;
+        public System.Windows.Forms.ComboBox displayPinComboBox;
     }
 }

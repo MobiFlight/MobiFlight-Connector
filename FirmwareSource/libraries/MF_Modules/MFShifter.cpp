@@ -39,22 +39,13 @@ void MFShifter::setPins(char* pins, int value)
   updateShiftRegister();
 }
 
-void MFShifter::setPWM(int value)
-{
-  if (!_initialized) return;
-  if (_pwmPin <=0) return;
-
-  analogWrite(_pwmPin, ~(value));
-}
-
-void MFShifter::attach(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t pwmPin, uint8_t moduleCount)
+void MFShifter::attach(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t moduleCount)
 {
   _initialized = true;
   _latchPin = latchPin;
   _clockPin = clockPin;
   _dataPin = dataPin;
   _moduleCount = moduleCount;
-  _pwmPin = pwmPin;
 
   pinMode(_latchPin, OUTPUT);
   pinMode(_clockPin, OUTPUT);  
@@ -73,10 +64,7 @@ void MFShifter::clear()
 {
   // Set everything to 0
   _output = 0;
-  updateShiftRegister();
-  
-  // Set default to brightness
-  setPWM(255);
+  updateShiftRegister();  
 }
 
 void MFShifter::test() 

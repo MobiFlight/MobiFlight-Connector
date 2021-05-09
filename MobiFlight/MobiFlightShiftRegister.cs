@@ -16,8 +16,6 @@ namespace MobiFlight
         
         public int ModuleNumber { get; set; }
 
-        public bool SupportPWM { get; set; }
-
         private String _name = "ShiftRegister";
         public String Name
         {
@@ -61,31 +59,8 @@ namespace MobiFlight
                                                       this.ModuleNumber + "," +
                                                       outputPins + "," +
                                                       value + ";>", LogSeverity.Debug);
-
             // Send command
             CmdMessenger.SendCommand(command);
         }
-
-        public void SetPWM(String value)
-        {
-            if (!_initialized) Initialize();
-
-            var command = new SendCommand((int)MobiFlightModule.Command.SetShiftRegisterPWM);
-
-            // clamp and reverse the string
-            if (value.Length > 8) value = value.Substring(0, 8);
-
-            command.AddArgument(this.ModuleNumber);
-            command.AddArgument(value);
-
-            Log.Instance.log("Command: SetShiftRegisterPWM <" + (int)MobiFlightModule.Command.SetShiftRegisterPWM + "," +
-                                                      this.ModuleNumber + "," +
-                                                      value + ";>", LogSeverity.Debug);
-
-            // Send command
-            CmdMessenger.SendCommand(command);
-        }
-
-
     }
 }

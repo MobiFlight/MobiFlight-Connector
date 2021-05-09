@@ -39,10 +39,10 @@
             this.servoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stepperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LcdDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -192,7 +192,7 @@
             // 
             this.encoderToolStripMenuItem.Name = "encoderToolStripMenuItem";
             resources.ApplyResources(this.encoderToolStripMenuItem, "encoderToolStripMenuItem");
-            this.encoderToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);            
+            this.encoderToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 

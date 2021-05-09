@@ -31,9 +31,6 @@ namespace MobiFlight.UI.Panels.Settings
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.mfPinPWMComboBox = new System.Windows.Forms.ComboBox();
-            this.pwmLabel = new System.Windows.Forms.Label();
             this.mfNumModulesComboBox = new System.Windows.Forms.ComboBox();
             this.numberOfModulesLabel = new System.Windows.Forms.Label();
             this.mfPin1Label = new System.Windows.Forms.Label();
@@ -45,6 +42,7 @@ namespace MobiFlight.UI.Panels.Settings
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -52,8 +50,6 @@ namespace MobiFlight.UI.Panels.Settings
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.mfPinPWMComboBox);
-            this.groupBox1.Controls.Add(this.pwmLabel);
             this.groupBox1.Controls.Add(this.mfNumModulesComboBox);
             this.groupBox1.Controls.Add(this.numberOfModulesLabel);
             this.groupBox1.Controls.Add(this.mfPin1Label);
@@ -72,45 +68,13 @@ namespace MobiFlight.UI.Panels.Settings
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pin and number of modules";
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(8, 139);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(325, 74);
-            this.textBox2.TabIndex = 24;
-            this.textBox2.Text = "Supports shift register & LED drivers which support the SDI protocol. In case the" +
-    " LED driver supportes PWM, an optional PWM pin can be configured.";
-            // 
-            // mfPinPWMComboBox
-            // 
-            this.mfPinPWMComboBox.FormattingEnabled = true;
-            this.mfPinPWMComboBox.Location = new System.Drawing.Point(187, 47);
-            this.mfPinPWMComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.mfPinPWMComboBox.Name = "mfPinPWMComboBox";
-            this.mfPinPWMComboBox.Size = new System.Drawing.Size(66, 24);
-            this.mfPinPWMComboBox.TabIndex = 23;
-            this.mfPinPWMComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
-            this.mfPinPWMComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
-            // 
-            // pwmLabel
-            // 
-            this.pwmLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.pwmLabel.Location = new System.Drawing.Point(184, 26);
-            this.pwmLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.pwmLabel.Name = "pwmLabel";
-            this.pwmLabel.Size = new System.Drawing.Size(113, 17);
-            this.pwmLabel.TabIndex = 22;
-            this.pwmLabel.Text = "PWM (optional)";
-            // 
             // mfNumModulesComboBox
             // 
             this.mfNumModulesComboBox.FormattingEnabled = true;
-            this.mfNumModulesComboBox.Location = new System.Drawing.Point(12, 107);
+            this.mfNumModulesComboBox.Location = new System.Drawing.Point(189, 47);
             this.mfNumModulesComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.mfNumModulesComboBox.Name = "mfNumModulesComboBox";
-            this.mfNumModulesComboBox.Size = new System.Drawing.Size(110, 24);
+            this.mfNumModulesComboBox.Size = new System.Drawing.Size(118, 24);
             this.mfNumModulesComboBox.TabIndex = 21;
             this.mfNumModulesComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             this.mfNumModulesComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
@@ -118,10 +82,10 @@ namespace MobiFlight.UI.Panels.Settings
             // numberOfModulesLabel
             // 
             this.numberOfModulesLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.numberOfModulesLabel.Location = new System.Drawing.Point(9, 86);
+            this.numberOfModulesLabel.Location = new System.Drawing.Point(186, 23);
             this.numberOfModulesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.numberOfModulesLabel.Name = "numberOfModulesLabel";
-            this.numberOfModulesLabel.Size = new System.Drawing.Size(169, 17);
+            this.numberOfModulesLabel.Size = new System.Drawing.Size(137, 20);
             this.numberOfModulesLabel.TabIndex = 19;
             this.numberOfModulesLabel.Text = "# of 8 bit registers";
             // 
@@ -210,6 +174,17 @@ namespace MobiFlight.UI.Panels.Settings
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(7, 78);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(300, 74);
+            this.textBox2.TabIndex = 24;
+            this.textBox2.Text = "Supports shift register & LED drivers which support the SDI/SPI protocol. For 16b" +
+    "it registers just choose 2 8bit registers :-)";
+            // 
             // MFShiftRegisterPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -239,8 +214,6 @@ namespace MobiFlight.UI.Panels.Settings
         private System.Windows.Forms.ComboBox mfPin2ComboBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox mfPinPWMComboBox;
-        private System.Windows.Forms.Label pwmLabel;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox textBox2;
     }

@@ -207,8 +207,7 @@ namespace MobiFlight
             ResetBoard,         // 24
             SetLcdDisplayI2C,   // 25
             SetModuleBrightness,// 26
-            SetShiftRegisterPins, // 27
-            SetShiftRegisterPWM // 28
+            SetShiftRegisterPins // 27            
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -322,10 +321,7 @@ namespace MobiFlight
                     case DeviceType.ShiftRegister:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         int.TryParse((device as Config.ShiftRegister).NumModules, out submodules);
-                        int pwmPin;
-                        int.TryParse((device as Config.ShiftRegister).PWMPin, out pwmPin);
-                        bool supportPWM = pwmPin <= 0 ?false:true;
-                        shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count, SupportPWM = supportPWM });
+                        shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count});
                         break;
                 }                
             }
@@ -632,7 +628,7 @@ namespace MobiFlight
 
         internal bool setShiftRegisterOutput(string moduleID, string outputPin, string value)
         {
-            String key = "ShiftReg_" + moduleID;
+            String key = "ShiftReg_" + moduleID + outputPin;
             String cachedValue = value;
 
             if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
@@ -642,22 +638,7 @@ namespace MobiFlight
 
             shiftRegisters[moduleID].Display(outputPin, value);
             return true;
-        }
-
-        internal bool setShiftRegisterPWM(string moduleID, string value)
-        {
-            String key = "ShiftReg_PWM" + moduleID;
-            String cachedValue = value;
-
-            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
-                lastValue[key] == cachedValue) return false;
-
-            lastValue[key] = cachedValue;
-
-            shiftRegisters[moduleID].SetPWM(value);
-            return true;
-        }
-
+        }       
 
         public bool Retrigger ()
         {

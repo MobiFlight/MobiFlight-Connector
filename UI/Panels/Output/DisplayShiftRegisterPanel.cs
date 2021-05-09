@@ -13,13 +13,8 @@ namespace MobiFlight.UI.Panels
     public partial class DisplayShiftRegisterPanel : UserControl
     {
         const char POSITION_SEPERATOR = '|';
-        DataView RefsDataView = null;
-        private string filterReferenceGuid;
         private int RegisterCount = 0;
         private int MAX_8BIT_REGISTER_COUNT = 4;
-
-        //private HashSet<string> shiftRegisterPWMSupport;
-        //private int num8bitRegisters;
 
         private List<CheckBox> pinCheckboxes = new List<CheckBox>();
         public bool WideStyle = false;
@@ -31,7 +26,7 @@ namespace MobiFlight.UI.Panels
 
         internal void SyncFromConfig(OutputConfigItem config)
         {
-            // preselect display stuff
+            // pre-select display stuff
             if (config.ShiftRegister != null)
             {
                 if (!ComboBoxHelper.SetSelectedItem(shiftRegistersComboBox, config.ShiftRegister.ToString()))
@@ -47,55 +42,51 @@ namespace MobiFlight.UI.Panels
                 tableLayoutPanel.RowStyles[row].Height = 0;
             }
 
+            List<ListItem> pinList = new List<ListItem>();
             for (int row = 1; row <= MAX_8BIT_REGISTER_COUNT; row++)
             {
+                
                 for (int column = 1; column <= 8; column++)
                 {
+                    string itemNum = (8 * (row-1) + column - 1).ToString(); ;
+                    pinList.Add(new ListItem() { Label = itemNum, Value = itemNum });
+
                     CheckBox cb = new CheckBox() { Text = "", Checked = false };
                     pinCheckboxes.Add(cb);
                     tableLayoutPanel.Controls.Add(cb, column, row);
                 }
             }
 
+            // Simple list
+            SetPins(pinList);
+
             if (config.RegisterOutputPin != null)
             {
-                // Select the checkboxes. "|" seperated list
-                string pins = config.RegisterOutputPin;
-                var splitPins = pins.Split(POSITION_SEPERATOR);
-                foreach (string pin in splitPins)
+
+                if (config.RegisterOutputPin.Contains('|'))
                 {
-                    int pinValue;
-                    if (int.TryParse(pin, out pinValue))
+                    // Select the checkboxes. "|" seperated list
+                    string pins = config.RegisterOutputPin;
+                    var splitPins = pins.Split(POSITION_SEPERATOR);
+                    foreach (string pin in splitPins)
                     {
-                        if (pinCheckboxes.Count > pinValue)
+                        int pinValue;
+                        if (int.TryParse(pin, out pinValue))
                         {
-                            pinCheckboxes[pinValue].Checked = true;
+                            if (pinCheckboxes.Count > pinValue)
+                            {
+                                pinCheckboxes[pinValue].Checked = true;
+                            }
                         }
                     }
-                }
-            }
-
-            List<ListItem> configRefs = new List<ListItem>();
-            configRefs.Add(new ListItem { Value = string.Empty, Label = "<None>" });
-            foreach (DataRow refRow in RefsDataView.Table.Rows)
-            {
-
-                if (!filterReferenceGuid.Equals(refRow["guid"].ToString()))
+                    tabControl1.SelectedIndex = 1;
+                } else
                 {
-                    configRefs.Add(new ListItem { Value = ((Guid)refRow["guid"]).ToString(), Label = refRow["description"] as string });
+                    if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, config.RegisterOutputPin)) { /* TODO: provide error message */ }
+                    tabControl1.SelectedIndex = 0;
                 }
             }
-
-            brightnessDropDown.Enabled = true;
-            brightnessDropDown.DataSource = configRefs;
-            brightnessDropDown.DisplayMember = "Label";
-            brightnessDropDown.ValueMember = "Value";
-
-            if (!string.IsNullOrEmpty(config.ShiftRegisterPWMReference))
-            {
-                brightnessDropDown.SelectedValue = config.ShiftRegisterPWMReference;
-            }
-
+          
             UpdatePinTable();
         }
 
@@ -112,8 +103,10 @@ namespace MobiFlight.UI.Panels
             {
                 for (int col = 0; col < 8; col++) {                    
                     
-                    pinCheckboxes[row*8 + col].Checked = false;   
-                    
+                    if (pinCheckboxes.Count >= row * 8 + col)
+                    {
+                        pinCheckboxes[row * 8 + col].Checked = false;
+                    }
                 }
                 // First row is header
                 tableLayoutPanel.RowStyles[row+1].Height = 0;                
@@ -135,49 +128,40 @@ namespace MobiFlight.UI.Panels
         {
             config.ShiftRegister = shiftRegistersComboBox.SelectedValue as String;
 
-            StringBuilder sb = new StringBuilder();
-            int pinNum = 0;
-            foreach (var pin in pinCheckboxes)
+            if (tabControl1.SelectedIndex == 1) /* Advanced tab */
             {
-                if (pin.Checked)
+                StringBuilder sb = new StringBuilder();
+                int pinNum = 0;
+                foreach (var pin in pinCheckboxes)
                 {
+                    if (pin.Checked)
+                    {
                         sb.Append(pinNum + POSITION_SEPERATOR.ToString());
+                    }
+                    pinNum++;
                 }
-                pinNum++;
+
+                config.RegisterOutputPin = sb.ToString();
             }
-
-            config.RegisterOutputPin = sb.ToString();
-
-
-            if (brightnessDropDown.SelectedIndex <= 0 || brightnessDropDown.Enabled == false)
+            else /* Simpled tab */
             {
-                config.ShiftRegisterPWMReference = string.Empty;
-            }
-            else
-            {
-                config.ShiftRegisterPWMReference = brightnessDropDown.SelectedValue.ToString();
+                config.RegisterOutputPin = displayPinComboBox.SelectedItem.ToString();
             }
 
             return config;
         }
 
-        internal void SetConfigRefsDataView(DataView dv, string filterGuid)
+        public void SetPins(List<ListItem> pins)
         {
-            this.filterReferenceGuid = filterGuid == null ? string.Empty : filterGuid;
-            RefsDataView = dv;
-        }
+            displayPinComboBox.DataSource = new List<ListItem>(pins);
+            displayPinComboBox.DisplayMember = "Label";
+            displayPinComboBox.ValueMember = "Value";
 
-        internal void UpdatePWMSupport(bool shiftRegisterPWMSupport)
-        {
+            if (pins.Count > 0)
+                displayPinComboBox.SelectedIndex = 0;
 
-            if (shiftRegisterPWMSupport)
-            {
-                brightnessDropDown.Enabled = true;
-            }
-            else
-            {
-                brightnessDropDown.Enabled = false;
-            }
+            displayPinComboBox.Enabled = pins.Count > 0;
+            displayPinComboBox.Width = WideStyle ? displayPinComboBox.MaximumSize.Width : displayPinComboBox.MinimumSize.Width;
         }
 
         internal void SetNumModules(int num8bitRegisters)

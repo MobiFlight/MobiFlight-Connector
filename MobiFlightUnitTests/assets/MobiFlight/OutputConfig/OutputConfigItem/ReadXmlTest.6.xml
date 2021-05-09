@@ -2,6 +2,6 @@
 <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.3.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
   <source type="FSUIPC" offset="0x037C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
   <comparison active="False" value="" operand="" ifValue="" elseValue="" />
-  <display type="ShiftRegister" serial="MobiFlight Mega/ SN-230-609" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="4|7|9|11|" shiftRegisterPWMReference="00000000-E133-4638-A99E-FEF9B187C4DB"/>    
+  <display type="ShiftRegister" serial="MobiFlight Mega/ SN-230-609" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="4|7|9|11|"/>    
   <configRef />
 </settings>

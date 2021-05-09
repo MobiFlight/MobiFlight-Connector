@@ -274,8 +274,7 @@ enum
   kResetBoard,         // 24
   kSetLcdDisplayI2C,   // 25
   kSetModuleBrightness,// 26
-  kSetShiftRegisterPins, // 27
-  kSetShiftRegisterPWM  // 28
+  kSetShiftRegisterPins // 27
 };
 
 // Callbacks define on which received commands we take action
@@ -323,7 +322,6 @@ void attachCommandCallbacks()
 
 #if MF_SHIFTER_SUPPORT
   cmdMessenger.attach(kSetShiftRegisterPins, OnSetShiftRegisterPins);
-  cmdMessenger.attach(kSetShiftRegisterPWM, OnSetShiftRegisterPWM);
   
 #endif
 
@@ -689,10 +687,10 @@ void ClearLcdDisplays()
 
 #if MF_SHIFTER_SUPPORT == 1
 //// SHIFT REGISTER /////
-void AddShifter (uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t pwmPin, uint8_t modules, char const * name = "Shifter")
+void AddShifter (uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const * name = "Shifter")
 {  
   if (shiftregisterRegistered == MAX_SHIFTERS) return;
-  shiftregisters[shiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules, pwmPin);
+  shiftregisters[shiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules);
   shiftregisters[shiftregisterRegistered].clear();
   shiftregisterRegistered++;
   
@@ -909,13 +907,12 @@ void readConfig(String cfg) {
 
       case kShiftRegister:
         params[0] = strtok_r(NULL, ".", &p); // pin latch
-		    params[1] = strtok_r(NULL, ".", &p); // pin clock
-		    params[2] = strtok_r(NULL, ".", &p); // pin data
-        params[3] = strtok_r(NULL, ".", &p); // PWM pin if available. < 0 if not supported
-        params[4] = strtok_r(NULL, ".", &p); // number of daisy chained modules 
-        params[5] = strtok_r(NULL, ":", &p); // name
+		params[1] = strtok_r(NULL, ".", &p); // pin clock
+		params[2] = strtok_r(NULL, ".", &p); // pin data
+        params[3] = strtok_r(NULL, ".", &p); // number of daisy chained modules 
+        params[4] = strtok_r(NULL, ":", &p); // name
 #if MF_SHIFTER_SUPPORT == 1
-       AddShifter(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), atoi(params[4]), params[5]);
+       AddShifter(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), params[4]);
 #endif
        break;
         
@@ -1012,15 +1009,6 @@ void OnSetShiftRegisterPins()
   char *pins = cmdMessenger.readStringArg();
   int value = cmdMessenger.readIntArg();  
   shiftregisters[module].setPins(pins, value);  
-  lastCommand = millis();
-}
-
-
-void OnSetShiftRegisterPWM()
-{
-  int module = cmdMessenger.readIntArg();  
-  int value = cmdMessenger.readIntArg();  
-  shiftregisters[module].setPWM(value);  
   lastCommand = millis();
 }
 

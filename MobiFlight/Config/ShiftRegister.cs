@@ -6,16 +6,13 @@ namespace MobiFlight.Config
 {
     public class ShiftRegister : BaseDevice
     {
-        const ushort _paramCount = 6;
+        const ushort _paramCount = 5;
         [XmlAttribute]
         public String LatchPin = "-1";
         [XmlAttribute]
         public String ClockPin = "-2";
         [XmlAttribute]
         public String DataPin = "-3";
-        [XmlAttribute]
-        public String PWMPin = "-4";
-
         [XmlAttribute]
         public String NumModules = "1";
 
@@ -27,7 +24,6 @@ namespace MobiFlight.Config
                  + LatchPin + Separator   // latch
                  + ClockPin + Separator  // clock                          
                  + DataPin + Separator  // data
-                 + PWMPin + Separator // PWM
                  + NumModules + Separator
                  + Name + End;
         }
@@ -44,9 +40,8 @@ namespace MobiFlight.Config
             LatchPin = paramList[1];
             ClockPin = paramList[2];
             DataPin = paramList[3];
-            PWMPin = paramList[4];
-            NumModules = paramList[5];
-            Name = paramList[6];
+            NumModules = paramList[4];
+            Name = paramList[5];
 
             return true;
         }

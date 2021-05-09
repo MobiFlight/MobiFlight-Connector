@@ -151,7 +151,6 @@ namespace MobiFlight.Tests
             // Shift Register
             Assert.AreEqual(o.ShiftRegister, c.ShiftRegister, "clone: ShiftRegister not the same");
             Assert.AreEqual(o.RegisterOutputPin, c.RegisterOutputPin, "clone: RegisterOutputPin not the same");
-            Assert.AreEqual(o.ShiftRegisterPWMReference, c.ShiftRegisterPWMReference, "clone: ShiftRegisterPWMReference not the same");
 
             //o. = new Interpolation();
             Assert.AreEqual(o.Interpolation.Active, c.Interpolation.Active, "clone: Interpolation.Active is not the same.");
@@ -219,8 +218,6 @@ namespace MobiFlight.Tests
 
             o.ShiftRegister = "ShiftRegister";
             o.RegisterOutputPin = "99";
-            o.ShiftRegisterPWMReference = "00000000-E133-4638-A99E-FEF9B187C4DB";
-
 
             o.ConfigRefs.Add(new ConfigRef() { Active = true, Placeholder = "#", Ref = "123" });
             o.ConfigRefs.Add(new ConfigRef() { Active = false, Placeholder = "$", Ref = "321" });

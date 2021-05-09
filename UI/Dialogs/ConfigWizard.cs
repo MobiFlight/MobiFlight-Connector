@@ -248,7 +248,7 @@ namespace MobiFlight.UI.Dialogs
 
             configRefPanel.SetConfigRefsDataView(dv, filterGuid);
             displayLedDisplayPanel.SetConfigRefsDataView(dv, filterGuid);
-            displayShiftRegisterPanel.SetConfigRefsDataView(dv, filterGuid);
+            //displayShiftRegisterPanel.SetConfigRefsDataView(dv, filterGuid);
         }
 
 #if ARCAZE
@@ -835,10 +835,8 @@ namespace MobiFlight.UI.Dialogs
                 if (device.Type != DeviceType.ShiftRegister) continue;
                 if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
                 numModules = (device as MobiFlightShiftRegister).NumberOfShifters;
-                pwmSupport = (device as MobiFlightShiftRegister).SupportPWM;
             }
             displayShiftRegisterPanel.SetNumModules(numModules);
-            displayShiftRegisterPanel.UpdatePWMSupport(pwmSupport);
         }
 
         private void fsuipcOffsetTextBox_Validating(object sender, CancelEventArgs e)

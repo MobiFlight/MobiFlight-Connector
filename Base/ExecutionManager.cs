@@ -929,24 +929,16 @@ namespace MobiFlight
                     case MobiFlightShiftRegister.TYPE:
                         if (serial != null)
                         {
+                            string outputValueShiftRegister = value;
 
-                            if (!string.IsNullOrEmpty(cfg.ShiftRegisterPWMReference))
-                            {
-                                string refValue = FindValueForRef(cfg.ShiftRegisterPWMReference);
-                                if (refValue != null)
-                                {
-                                    mobiFlightCache.setShiftRegisterPWM(
-                                    serial,
-                                    cfg.ShiftRegister,
-                                    refValue
-                                    );                                
-                                }
-                            }
+                            if (outputValueShiftRegister != "0" && !cfg.DisplayPinPWM)
+                                outputValueShiftRegister = cfg.DisplayPinBrightness.ToString();
+                          
                             mobiFlightCache.setShiftRegisterOutput(
                                 serial,
                                 cfg.ShiftRegister,
                                 cfg.RegisterOutputPin,
-                                value);
+                                outputValueShiftRegister);
                         }
                         break;
 
@@ -957,8 +949,9 @@ namespace MobiFlight
                         // we have a value other than 0 (which is output OFF) 
                         // we will set the full brightness.
                         // This ensures backward compatibility.
-                        if (outputValue != "0" && !cfg.DisplayPinPWM) 
-                            outputValue = cfg.DisplayPinBrightness.ToString();
+                        //TODO: MNB
+                        //if (outputValue != "0" && !cfg.DisplayPinPWM) 
+                        //    outputValue = cfg.DisplayPinBrightness.ToString();
                         
                         mobiFlightCache.setValue(serial,
                             cfg.DisplayPin,
