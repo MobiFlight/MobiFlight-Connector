@@ -630,7 +630,6 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.BackColor = System.Drawing.SystemColors.Window;
             this.startupPanel.Name = "startupPanel";
-            this.startupPanel.Load += new System.EventHandler(this.startupPanel_Load);
             // 
             // MainForm
             // 
