@@ -12,16 +12,16 @@ namespace MobiFlight.FSUIPC
         {
             ConnectorValue result = new ConnectorValue();
 
-            if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.String)
+            if (cfg.OffsetType == FSUIPCOffsetType.String)
             {
                 result.type = FSUIPCOffsetType.String;
-                result.String = fsuipcCache.getStringValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
+                result.String = fsuipcCache.getStringValue(cfg.Offset, cfg.Size);
             }
-            else if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.Integer)
+            else if (cfg.OffsetType == FSUIPCOffsetType.Integer)
             {
                 result = _executeReadInt(cfg, fsuipcCache);
             }
-            else if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.Float)
+            else if (cfg.OffsetType == FSUIPCOffsetType.Float)
             {
                 result = _executeReadFloat(cfg, fsuipcCache);
             }
@@ -31,14 +31,14 @@ namespace MobiFlight.FSUIPC
         private static ConnectorValue _executeReadInt(IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {
             ConnectorValue result = new ConnectorValue();
-            switch (cfg.FSUIPCSize)
+            switch (cfg.Size)
             {
                 case 1:
-                    Byte value8 = (Byte)(cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                    Byte value8 = (Byte)(cfg.Mask & fsuipcCache.getValue(
+                                                cfg.Offset,
+                                                cfg.Size
                                               ));
-                    if (cfg.FSUIPCBcdMode)
+                    if (cfg.BcdMode)
                     {
                         FsuipcBCD val = new FsuipcBCD() { Value = value8 };
                         value8 = (Byte)val.asBCD;
@@ -48,11 +48,11 @@ namespace MobiFlight.FSUIPC
                     result.Int64 = value8;
                     break;
                 case 2:
-                    Int16 value16 = (Int16)(cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                    Int16 value16 = (Int16)(cfg.Mask & fsuipcCache.getValue(
+                                                cfg.Offset,
+                                                cfg.Size
                                               ));
-                    if (cfg.FSUIPCBcdMode)
+                    if (cfg.BcdMode)
                     {
                         FsuipcBCD val = new FsuipcBCD() { Value = value16 };
                         value16 = (Int16)val.asBCD;
@@ -62,9 +62,9 @@ namespace MobiFlight.FSUIPC
                     result.Int64 = value16;
                     break;
                 case 4:
-                    Int64 value32 = ((int)cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                    Int64 value32 = ((int)cfg.Mask & fsuipcCache.getValue(
+                                                cfg.Offset,
+                                                cfg.Size
                                               ));
 
                     // no bcd support anymore for 4 byte
@@ -74,8 +74,8 @@ namespace MobiFlight.FSUIPC
                     break;
                 case 8:
                     Double value64 = (Double)fsuipcCache.getDoubleValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                                                cfg.Offset,
+                                                cfg.Size
                                                 );
 
                     result.type = FSUIPCOffsetType.Float;
@@ -90,20 +90,20 @@ namespace MobiFlight.FSUIPC
         {
             ConnectorValue result = new ConnectorValue();
             result.type = FSUIPCOffsetType.Float;
-            switch (cfg.FSUIPCSize)
+            switch (cfg.Size)
             {
                 case 4:
                     Double value32 = fsuipcCache.getFloatValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                                                cfg.Offset,
+                                                cfg.Size
                                               );
 
                     result.Float64 = value32;
                     break;
                 case 8:
                     Double value64 = (Double)fsuipcCache.getDoubleValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                                                cfg.Offset,
+                                                cfg.Size
                                                 );
 
                     result.Float64 = (int)(Math.Round(value64, 0));
@@ -240,68 +240,68 @@ namespace MobiFlight.FSUIPC
 
         public static void executeWrite(String value, IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {
-            if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.String)
+            if (cfg.OffsetType == FSUIPCOffsetType.String)
             {
-                fsuipcCache.setOffset(cfg.FSUIPCOffset, value);
+                fsuipcCache.setOffset(cfg.Offset, value);
                 return;
             }
 
-            if (cfg.FSUIPCSize == 1)
+            if (cfg.Size == 1)
             {
                 System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
-                if (cfg.FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                if (cfg.BcdMode) format = System.Globalization.NumberStyles.HexNumber;
                 byte bValue = Byte.Parse(value, format);
-                if (cfg.FSUIPCMask != 0xFF)
+                if (cfg.Mask != 0xFF)
                 {
-                    byte cByte = (byte)fsuipcCache.getValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
+                    byte cByte = (byte)fsuipcCache.getValue(cfg.Offset, cfg.Size);
                     if (bValue == 1)
                     {
-                        bValue = (byte)(cByte | cfg.FSUIPCMask);
+                        bValue = (byte)(cByte | cfg.Mask);
                     }
                     else
                     {
-                        bValue = (byte)(cByte & ~cfg.FSUIPCMask);
+                        bValue = (byte)(cByte & ~cfg.Mask);
                     }
                 }
-                fsuipcCache.setOffset(cfg.FSUIPCOffset, bValue);
+                fsuipcCache.setOffset(cfg.Offset, bValue);
             }
-            else if (cfg.FSUIPCSize == 2)
+            else if (cfg.Size == 2)
             {
                 System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
-                if (cfg.FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                if (cfg.BcdMode) format = System.Globalization.NumberStyles.HexNumber;
                 Int16 sValue = Int16.Parse(value, format);
-                if (cfg.FSUIPCMask != 0xFFFF)
+                if (cfg.Mask != 0xFFFF)
                 {
-                    Int16 cByte = (Int16)fsuipcCache.getValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
+                    Int16 cByte = (Int16)fsuipcCache.getValue(cfg.Offset, cfg.Size);
                     if (sValue == 1)
                     {
-                        sValue = (Int16)(cByte | cfg.FSUIPCMask);
+                        sValue = (Int16)(cByte | cfg.Mask);
                     }
                     else
                     {
-                        sValue = (Int16)(cByte & ~cfg.FSUIPCMask);
+                        sValue = (Int16)(cByte & ~cfg.Mask);
                     }
                 }
 
-                fsuipcCache.setOffset(cfg.FSUIPCOffset, sValue);
+                fsuipcCache.setOffset(cfg.Offset, sValue);
             }
-            else if (cfg.FSUIPCSize == 4)
+            else if (cfg.Size == 4)
             {
                 Int32 iValue = Int32.Parse(value);
-                if (cfg.FSUIPCMask != 0xFFFFFFFF)
+                if (cfg.Mask != 0xFFFFFFFF)
                 {
-                    Int32 cByte = (Int32)fsuipcCache.getValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
+                    Int32 cByte = (Int32)fsuipcCache.getValue(cfg.Offset, cfg.Size);
                     if (iValue == 1)
                     {
-                        iValue = (Int32)(cByte | cfg.FSUIPCMask);
+                        iValue = (Int32)(cByte | cfg.Mask);
                     }
                     else
                     {
-                        iValue = (Int32)(cByte & ~cfg.FSUIPCMask);
+                        iValue = (Int32)(cByte & ~cfg.Mask);
                     }
                 }
 
-                fsuipcCache.setOffset(cfg.FSUIPCOffset, iValue);
+                fsuipcCache.setOffset(cfg.Offset, iValue);
             }
         }
 

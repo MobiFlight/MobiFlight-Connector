@@ -11,15 +11,15 @@ namespace MobiFlight.InputConfig
     {
         public const int FSUIPCOffsetNull = 0;
         [XmlAttribute]
-        public int FSUIPCOffset { get; set; }
+        public int Offset { get; set; }
         [XmlAttribute]
-        public byte FSUIPCSize { get; set; }
+        public byte Size { get; set; }
         [XmlAttribute]
-        public FSUIPCOffsetType FSUIPCOffsetType { get; set; }
+        public FSUIPCOffsetType OffsetType { get; set; }
         [XmlAttribute]
-        public long FSUIPCMask { get; set; }
+        public long Mask { get; set; }
         [XmlAttribute]
-        public bool FSUIPCBcdMode { get; set; }
+        public bool BcdMode { get; set; }
         [XmlAttribute]
         public String Value { get; set; }
         [XmlAttribute]
@@ -29,11 +29,11 @@ namespace MobiFlight.InputConfig
 
         public FsuipcOffsetInputAction()
         {
-            FSUIPCOffset = FSUIPCOffsetNull;
-            FSUIPCMask = 0xFF;
-            FSUIPCOffsetType = FSUIPCOffsetType.Integer;
-            FSUIPCSize = 1;
-            FSUIPCBcdMode = false;
+            Offset = FSUIPCOffsetNull;
+            Mask = 0xFF;
+            OffsetType = FSUIPCOffsetType.Integer;
+            Size = 1;
+            BcdMode = false;
             Value = "";
             Transform = new Transformation();
         }
@@ -41,11 +41,11 @@ namespace MobiFlight.InputConfig
         override public object Clone()
         {
             FsuipcOffsetInputAction clone = new FsuipcOffsetInputAction();
-            clone.FSUIPCOffset = this.FSUIPCOffset;
-            clone.FSUIPCOffsetType = this.FSUIPCOffsetType;
-            clone.FSUIPCSize = this.FSUIPCSize;
-            clone.FSUIPCMask = this.FSUIPCMask;
-            clone.FSUIPCBcdMode = this.FSUIPCBcdMode;
+            clone.Offset = this.Offset;
+            clone.OffsetType = this.OffsetType;
+            clone.Size = this.Size;
+            clone.Mask = this.Mask;
+            clone.BcdMode = this.BcdMode;
             clone.Value = this.Value;
             clone.Transform = (Transformation) this.Transform.Clone();
             return clone;
@@ -56,11 +56,11 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("type", TYPE);
             writer.WriteStartElement("source");
                 writer.WriteAttributeString("type", "FSUIPC");
-                writer.WriteAttributeString("offset", "0x" + FSUIPCOffset.ToString("X4"));
-                writer.WriteAttributeString("offsetType", FSUIPCOffsetType.ToString());
-                writer.WriteAttributeString("size", FSUIPCSize.ToString());
-                writer.WriteAttributeString("mask", "0x" + FSUIPCMask.ToString("X4"));
-                writer.WriteAttributeString("bcdMode", FSUIPCBcdMode.ToString());
+                writer.WriteAttributeString("offset", "0x" + Offset.ToString("X4"));
+                writer.WriteAttributeString("offsetType", OffsetType.ToString());
+                writer.WriteAttributeString("size", Size.ToString());
+                writer.WriteAttributeString("mask", "0x" + Mask.ToString("X4"));
+                writer.WriteAttributeString("bcdMode", BcdMode.ToString());
                 writer.WriteAttributeString("inputValue", Value);
             writer.WriteEndElement();
             // TODO: write and read the transform
@@ -72,17 +72,17 @@ namespace MobiFlight.InputConfig
 
             if (reader.LocalName == "source")
             {
-                FSUIPCOffset = Int32.Parse(reader["offset"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
-                FSUIPCSize = Byte.Parse(reader["size"]);
+                Offset = Int32.Parse(reader["offset"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
+                Size = Byte.Parse(reader["size"]);
                 if (reader["offsetType"] != null && reader["offsetType"] != "")
                 {
                     try
                     {
-                        FSUIPCOffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), reader["offsetType"]);
+                        OffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), reader["offsetType"]);
                     }
                     catch (Exception e)
                     {
-                        FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Integer;
+                        OffsetType = MobiFlight.FSUIPCOffsetType.Integer;
                     }
                 }
                 else
@@ -91,9 +91,9 @@ namespace MobiFlight.InputConfig
                     // byte 1,2,4 -> int, this already is default
                     // exception
                     // byte 8 -> float
-                    if (FSUIPCSize == 8) FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Float;
+                    if (Size == 8) OffsetType = MobiFlight.FSUIPCOffsetType.Float;
                 }
-                FSUIPCMask = Int64.Parse(reader["mask"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
+                Mask = Int64.Parse(reader["mask"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
 
                 // backward compatibility
                 if (reader["multiplier"] != null)
@@ -112,7 +112,7 @@ namespace MobiFlight.InputConfig
 
                 if (reader["bcdMode"] != null && reader["bcdMode"] != "")
                 {
-                    FSUIPCBcdMode = Boolean.Parse(reader["bcdMode"]);
+                    BcdMode = Boolean.Parse(reader["bcdMode"]);
                 }
 
                 if (reader["inputValue"] != null && reader["inputValue"] != "")
@@ -149,79 +149,79 @@ namespace MobiFlight.InputConfig
 
             value = Replace(value, replacements);
 
-            if (FSUIPCSize == 1)
+            if (Size == 1)
             {
                 System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
-                if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                if (BcdMode) format = System.Globalization.NumberStyles.HexNumber;
                 byte bValue = Byte.Parse(value, format);
-                if (FSUIPCMask != 0xFF)
+                if (Mask != 0xFF)
                 {
-                    byte cByte = (byte)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                    byte cByte = (byte)cache.getValue(Offset, Size);
                     if (bValue == 1)
                     {
-                        bValue = (byte)(cByte | FSUIPCMask);
+                        bValue = (byte)(cByte | Mask);
                     }
                     else
                     {
-                        bValue = (byte)(cByte & ~FSUIPCMask);
+                        bValue = (byte)(cByte & ~Mask);
                     }
                 }
-                cache.setOffset(FSUIPCOffset, bValue);
+                cache.setOffset(Offset, bValue);
             }
-            else if (FSUIPCSize == 2)
+            else if (Size == 2)
             {
                 System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
-                if (FSUIPCBcdMode) format = System.Globalization.NumberStyles.HexNumber;
+                if (BcdMode) format = System.Globalization.NumberStyles.HexNumber;
                 Int16 sValue = Int16.Parse(value, format);
-                if (FSUIPCMask != 0xFFFF)
+                if (Mask != 0xFFFF)
                 {
-                    Int16 cByte = (Int16)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                    Int16 cByte = (Int16)cache.getValue(Offset, Size);
                     if (sValue == 1)
                     {
-                        sValue = (Int16)(cByte | FSUIPCMask);
+                        sValue = (Int16)(cByte | Mask);
                     }
                     else
                     {
-                        sValue = (Int16)(cByte & ~FSUIPCMask);
+                        sValue = (Int16)(cByte & ~Mask);
                     }
                 }
 
-                cache.setOffset(FSUIPCOffset, sValue);
+                cache.setOffset(Offset, sValue);
             }
-            else if (FSUIPCSize == 4)
+            else if (Size == 4)
             {
-                if (FSUIPCOffsetType == FSUIPCOffsetType.Integer)
+                if (OffsetType == FSUIPCOffsetType.Integer)
                 {
                     Int32 iValue = Int32.Parse(value);
-                    if (FSUIPCMask != 0xFFFFFFFF)
+                    if (Mask != 0xFFFFFFFF)
                     {
-                        Int32 cByte = (Int32)cache.getValue(FSUIPCOffset, FSUIPCSize);
+                        Int32 cByte = (Int32)cache.getValue(Offset, Size);
                         if (iValue == 1)
                         {
-                            iValue = (Int32)(cByte | FSUIPCMask);
+                            iValue = (Int32)(cByte | Mask);
                         }
                         else
                         {
-                            iValue = (Int32)(cByte & ~FSUIPCMask);
+                            iValue = (Int32)(cByte & ~Mask);
                         }
                     }
 
-                    cache.setOffset(FSUIPCOffset, iValue);
+                    cache.setOffset(Offset, iValue);
                 }
-                else if (FSUIPCOffsetType == FSUIPCOffsetType.Float)
+                else if (OffsetType == FSUIPCOffsetType.Float)
                 {
                     float fValue = float.Parse(value);
-                    if (FSUIPCMask != 0xFFFFFFFF)
+                    if (Mask != 0xFFFFFFFF)
                     {
                         new Exception("Float Inputs don't accept masked values.");
                     }
 
-                    cache.setOffset(FSUIPCOffset, fValue);
+                    cache.setOffset(Offset, fValue);
                 }
             }
-            else if (FSUIPCSize == 8)
+            else if (Size == 8)
             {
-                if (FSUIPCOffsetType == FSUIPCOffsetType.Float)
+                if (OffsetType == FSUIPCOffsetType.Float)
                 {
                     double fValue = double.Parse(value);
                     //if (FSUIPCMask != 0xFFFFFFFF)
@@ -229,12 +229,12 @@ namespace MobiFlight.InputConfig
                     //    new Exception("Float Inputs don't accept masked values.");
                     //}
 
-                    cache.setOffset(FSUIPCOffset, fValue);
+                    cache.setOffset(Offset, fValue);
                 }
             }
-            else if (FSUIPCSize == 255)
+            else if (Size == 255)
             {
-                cache.setOffset(FSUIPCOffset, Value);
+                cache.setOffset(Offset, Value);
             }
 
             cache.Write();

@@ -11,13 +11,13 @@ namespace MobiFlight.FSUIPC
         {
             Transform = new Transformation();
         }
-        public bool FSUIPCBcdMode
+        public bool BcdMode
         {
             get;
             set;
         }
 
-        public long FSUIPCMask
+        public long Mask
         {
             get;
             set;
@@ -29,19 +29,19 @@ namespace MobiFlight.FSUIPC
             set;
         }
 
-        public int FSUIPCOffset
+        public int Offset
         {
             get;
             set;
         }
 
-        public FSUIPCOffsetType FSUIPCOffsetType
+        public FSUIPCOffsetType OffsetType
         {
             get;
             set;
         }
 
-        public byte FSUIPCSize
+        public byte Size
         {
             get;
             set;

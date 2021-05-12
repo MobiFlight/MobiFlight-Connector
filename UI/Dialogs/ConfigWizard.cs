@@ -66,7 +66,7 @@ namespace MobiFlight.UI.Dialogs
             
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
-            if (cfg.FSUIPCOffset == OutputConfigItem.FSUIPCOffsetNull)
+            if (cfg.FsuipcOffset.Offset == OutputConfig.FsuipcOffset.OffsetNull)
             {
                 lastTabActive = 0;
             }

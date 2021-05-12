@@ -111,6 +111,11 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
+            this.OffsetTypePanel = new System.Windows.Forms.Panel();
+            this.OffsetTypeFsuipRadioButton = new System.Windows.Forms.RadioButton();
+            this.OffsetTypeSimConnectRadioButton = new System.Windows.Forms.RadioButton();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.FsuipcSettingsPanel = new System.Windows.Forms.Panel();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
@@ -134,6 +139,8 @@
             this.ButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
+            this.OffsetTypePanel.SuspendLayout();
+            this.FsuipcSettingsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -157,8 +164,8 @@
             // 
             this.fsuipcTabPage.Controls.Add(this.referencesGroupBox);
             this.fsuipcTabPage.Controls.Add(this.spacerPanel);
-            this.fsuipcTabPage.Controls.Add(this.fsuipcConfigPanel);
-            this.fsuipcTabPage.Controls.Add(this.fsuipcHintTextBox);
+            this.fsuipcTabPage.Controls.Add(this.FsuipcSettingsPanel);
+            this.fsuipcTabPage.Controls.Add(this.OffsetTypePanel);
             resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Name = "fsuipcTabPage";
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
@@ -769,6 +776,45 @@
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
             // 
+            // OffsetTypePanel
+            // 
+            this.OffsetTypePanel.Controls.Add(this.textBox1);
+            this.OffsetTypePanel.Controls.Add(this.OffsetTypeSimConnectRadioButton);
+            this.OffsetTypePanel.Controls.Add(this.OffsetTypeFsuipRadioButton);
+            resources.ApplyResources(this.OffsetTypePanel, "OffsetTypePanel");
+            this.OffsetTypePanel.Name = "OffsetTypePanel";
+            // 
+            // OffsetTypeFsuipRadioButton
+            // 
+            resources.ApplyResources(this.OffsetTypeFsuipRadioButton, "OffsetTypeFsuipRadioButton");
+            this.OffsetTypeFsuipRadioButton.Name = "OffsetTypeFsuipRadioButton";
+            this.OffsetTypeFsuipRadioButton.TabStop = true;
+            this.OffsetTypeFsuipRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // OffsetTypeSimConnectRadioButton
+            // 
+            resources.ApplyResources(this.OffsetTypeSimConnectRadioButton, "OffsetTypeSimConnectRadioButton");
+            this.OffsetTypeSimConnectRadioButton.Name = "OffsetTypeSimConnectRadioButton";
+            this.OffsetTypeSimConnectRadioButton.TabStop = true;
+            this.OffsetTypeSimConnectRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.TabStop = false;
+            // 
+            // FsuipcSettingsPanel
+            // 
+            this.FsuipcSettingsPanel.Controls.Add(this.fsuipcConfigPanel);
+            this.FsuipcSettingsPanel.Controls.Add(this.fsuipcHintTextBox);
+            resources.ApplyResources(this.FsuipcSettingsPanel, "FsuipcSettingsPanel");
+            this.FsuipcSettingsPanel.Name = "FsuipcSettingsPanel";
+            // 
             // ConfigWizard
             // 
             resources.ApplyResources(this, "$this");
@@ -784,7 +830,6 @@
             this.MainPanel.ResumeLayout(false);
             this.tabControlFsuipc.ResumeLayout(false);
             this.fsuipcTabPage.ResumeLayout(false);
-            this.fsuipcTabPage.PerformLayout();
             this.referencesGroupBox.ResumeLayout(false);
             this.compareTabPage.ResumeLayout(false);
             this.compareTabPage.PerformLayout();
@@ -816,6 +861,10 @@
             this.ButtonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
+            this.OffsetTypePanel.ResumeLayout(false);
+            this.OffsetTypePanel.PerformLayout();
+            this.FsuipcSettingsPanel.ResumeLayout(false);
+            this.FsuipcSettingsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -904,5 +953,10 @@
         private System.Windows.Forms.GroupBox referencesGroupBox;
         private UI.Panels.Config.ConfigRefPanel configRefPanel;
         private System.Windows.Forms.Panel spacerPanel;
+        private System.Windows.Forms.Panel FsuipcSettingsPanel;
+        private System.Windows.Forms.Panel OffsetTypePanel;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RadioButton OffsetTypeSimConnectRadioButton;
+        private System.Windows.Forms.RadioButton OffsetTypeFsuipRadioButton;
     }
 }
