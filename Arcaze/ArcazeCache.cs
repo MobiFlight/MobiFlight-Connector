@@ -10,6 +10,7 @@ namespace MobiFlight
 {
     public class ArcazeCache : ModuleCacheInterface
     {
+        public bool Enabled { get; set; }
         /// <summary>
         /// Gets raised whenever connection is close
         /// </summary>
@@ -61,6 +62,9 @@ namespace MobiFlight
         public bool isConnected()
         {
             bool result = (Modules.Count > 0);
+
+            if (!Enabled) return result;
+
             foreach (ArcazeModule module in Modules.Values)
             {
                 result = result & module.Connected;
@@ -83,6 +87,8 @@ namespace MobiFlight
         /// <returns>returns true if arcaze modules were connected successfully otherwise returns false</returns>
         public bool connect(bool force=false)
         {
+            if (!Enabled) return false;
+
             if (isConnected() && force)
             {
                 disconnect();
@@ -134,6 +140,8 @@ namespace MobiFlight
         /// <returns>returns true if all modules were disconnected properly</returns>    
         public bool disconnect()
         {
+            if (!Enabled) return true;
+
             if (isConnected())
             {
                 foreach (DeviceInfoAndCache dev in attachedArcaze)
@@ -148,7 +156,9 @@ namespace MobiFlight
         }
 
         public void Clear()
-        {            
+        {
+            if (!Enabled) return;
+
             foreach (ArcazeModule module in Modules.Values)
             {
                 module.ClearCache();
@@ -182,6 +192,10 @@ namespace MobiFlight
         public IEnumerable<IModuleInfo> getModuleInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
+
+            if (!Enabled) return result;
+
+
             if (!_initialized && Modules.Count == 0) _lookupArcazeModules();
             foreach (ArcazeModule module in Modules.Values)
             {
@@ -310,7 +324,8 @@ namespace MobiFlight
             List<ArcazeModuleSettings> moduleSettings = new List<ArcazeModuleSettings>();
             Dictionary<string, ArcazeModuleSettings> result = new Dictionary<string, ArcazeModuleSettings>();
 
-            if ("" == Properties.Settings.Default.ModuleSettings) return result;
+            if (!Enabled || "" == Properties.Settings.Default.ModuleSettings) 
+                return result;
 
             try
             {

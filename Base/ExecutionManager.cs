@@ -101,6 +101,7 @@ namespace MobiFlight
             arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
             arcazeCache.Closed += new EventHandler(ArcazeCache_Closed);
             arcazeCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
+            arcazeCache.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
 #endif
 
             mobiFlightCache.Connected += new EventHandler(ArcazeCache_Connected);
@@ -271,8 +272,7 @@ namespace MobiFlight
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
 #if ARCAZE
-            if (Properties.Settings.Default.ArcazeSupportEnabled)
-                result.AddRange(arcazeCache.getModuleInfo());
+            result.AddRange(arcazeCache.getModuleInfo());
 #endif
             result.AddRange(mobiFlightCache.getModuleInfo());
             return result;
