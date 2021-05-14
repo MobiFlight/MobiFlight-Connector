@@ -39,12 +39,12 @@ namespace MobiFlight.Tests
 
             System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
-            Assert.AreEqual (oci.FSUIPCOffsetType, FSUIPCOffsetType.Integer);
-            Assert.AreEqual(oci.FSUIPCOffset, 0x034E);
-            Assert.AreEqual(oci.FSUIPCSize, 2);
+            Assert.AreEqual(oci.FSUIPC.OffsetType, FSUIPCOffsetType.Integer);
+            Assert.AreEqual(oci.FSUIPC.Offset, 0x034E);
+            Assert.AreEqual(oci.FSUIPC.Size, 2);
+            Assert.AreEqual(oci.FSUIPC.Mask, 0xFFFF);
+            Assert.AreEqual(oci.FSUIPC.BcdMode, true);
             Assert.AreEqual(oci.Transform.Expression, "$+123");
-            Assert.AreEqual(oci.FSUIPCMask, 0xFFFF);
-            Assert.AreEqual(oci.FSUIPCBcdMode, true);
 
             // read backward compatible
             s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.2.xml");
@@ -108,12 +108,12 @@ namespace MobiFlight.Tests
             OutputConfigItem o = _generateConfigItem();
             
             OutputConfigItem c = (OutputConfigItem)o.Clone();
-            Assert.AreEqual(o.FSUIPCOffset, c.FSUIPCOffset, "clone: FSUIPCOffset not the same");
-            Assert.AreEqual(o.FSUIPCMask, c.FSUIPCMask, " clone: FSUIPCMask not the same");
+            Assert.AreEqual(o.FSUIPC.Offset, c.FSUIPC.Offset, "clone: FSUIPCOffset not the same");
+            Assert.AreEqual(o.FSUIPC.Mask, c.FSUIPC.Mask, " clone: FSUIPCMask not the same");
             Assert.AreEqual(o.Transform.Expression, c.Transform.Expression, "clone: FSUIPCOffsetType not the same");
-            Assert.AreEqual(o.FSUIPCOffsetType, c.FSUIPCOffsetType, "clone: FSUIPCOffsetType not the same");
-            Assert.AreEqual(o.FSUIPCSize, c.FSUIPCSize, "clone: FSUIPCSize not the same");
-            Assert.AreEqual(o.FSUIPCBcdMode, c.FSUIPCBcdMode, "clone: FSUIPCBcdMode not the same");
+            Assert.AreEqual(o.FSUIPC.OffsetType, c.FSUIPC.OffsetType, "clone: FSUIPCOffsetType not the same");
+            Assert.AreEqual(o.FSUIPC.Size, c.FSUIPC.Size, "clone: FSUIPCSize not the same");
+            Assert.AreEqual(o.FSUIPC.BcdMode, c.FSUIPC.BcdMode, "clone: FSUIPCBcdMode not the same");
             Assert.AreEqual(o.ComparisonActive, c.ComparisonActive, "clone: ComparisonActive not the same");
             Assert.AreEqual(o.ComparisonOperand, c.ComparisonOperand, "clone: ComparisonOperand not the same");
             Assert.AreEqual(o.ComparisonValue, c.ComparisonValue, "clone: ComparisonValue not the same");
@@ -162,17 +162,17 @@ namespace MobiFlight.Tests
         {
             OutputConfigItem o = new OutputConfigItem();
             
-            o.FSUIPCOffset = 0x1234;
-            o.FSUIPCMask = 0xFFFF;
+            o.FSUIPC.Offset = 0x1234;
+            o.FSUIPC.Mask = 0xFFFF;
             o.Transform = new Transformation();
             o.Transform.Active = true;
             o.Transform.Expression = "$+123";
             o.Transform.SubStrEnd = 11;
             o.Transform.SubStrStart = 9;
 
-            o.FSUIPCOffsetType = FSUIPCOffsetType.Float;
-            o.FSUIPCSize = 2;
-            o.FSUIPCBcdMode = true;
+            o.FSUIPC.OffsetType = FSUIPCOffsetType.Float;
+            o.FSUIPC.Size = 2;
+            o.FSUIPC.BcdMode = true;
             o.ComparisonActive = true;
             o.ComparisonOperand = ">";
             o.ComparisonValue = "1";

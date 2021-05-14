@@ -16,5 +16,15 @@ namespace MobiFlight.UI.Panels.Config
         {
             InitializeComponent();
         }
+
+        internal void syncToConfig(OutputConfigItem config)
+        {
+            config.SimConnectValue.LVar = textBox1.Text;
+        }
+
+        internal void syncFromConfig(OutputConfigItem config)
+        {
+            textBox1.Text = config.SimConnectValue.LVar;
+        }
     }
 }

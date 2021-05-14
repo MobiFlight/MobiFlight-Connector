@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.InputConfig;
+using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,11 +18,11 @@ namespace MobiFlight.InputConfig.Tests
         public void FsuipcOffsetInputActionTest()
         {
             FsuipcOffsetInputAction o = new FsuipcOffsetInputAction();
-            Assert.AreEqual(o.Offset, FsuipcOffsetInputAction.FSUIPCOffsetNull, "FSUIPCOffset is not FSUIPCOffsetNull");
-            Assert.AreEqual(o.Mask,0xFF,"FSUIPCMask is not 0xFF");
-            Assert.AreEqual(o.OffsetType,FSUIPCOffsetType.Integer,"FSUIPCOffsetType not correct");
-            Assert.AreEqual(o.Size,1,"FSUIPCSize not correct");
-            Assert.AreEqual(o.BcdMode,false,"Not correct");
+            Assert.AreEqual(o.FSUIPC.Offset, FsuipcOffset.OffsetNull, "FSUIPCOffset is not FSUIPCOffsetNull");
+            Assert.AreEqual(o.FSUIPC.Mask,0xFF,"FSUIPCMask is not 0xFF");
+            Assert.AreEqual(o.FSUIPC.OffsetType,FSUIPCOffsetType.Integer,"FSUIPCOffsetType not correct");
+            Assert.AreEqual(o.FSUIPC.Size,1,"FSUIPCSize not correct");
+            Assert.AreEqual(o.FSUIPC.BcdMode,false,"Not correct");
             Assert.AreEqual(o.Value,"","Value not correct");
             Assert.IsNotNull(o.Transform, "Transform not initialized");
         }
@@ -33,11 +34,11 @@ namespace MobiFlight.InputConfig.Tests
             FsuipcOffsetInputAction c = (FsuipcOffsetInputAction) o.Clone();
 
             Assert.AreNotSame(o, c, "Objects are the same");
-            Assert.AreEqual(o.BcdMode, c.BcdMode, "FSUIPCBcdMode are not the same");
-            Assert.AreEqual(o.Mask, c.Mask, "FSUIPCMask are not the same");
-            Assert.AreEqual(o.Offset, c.Offset, "FSUIPCOffset are not the same");
-            Assert.AreEqual(o.OffsetType, c.OffsetType, "FSUIPCOffsetType are not the same");
-            Assert.AreEqual(o.Size, c.Size, "FSUIPCSize are not the same");
+            Assert.AreEqual(o.FSUIPC.BcdMode, c.FSUIPC.BcdMode, "FSUIPCBcdMode are not the same");
+            Assert.AreEqual(o.FSUIPC.Mask, c.FSUIPC.Mask, "FSUIPCMask are not the same");
+            Assert.AreEqual(o.FSUIPC.Offset, c.FSUIPC.Offset, "FSUIPCOffset are not the same");
+            Assert.AreEqual(o.FSUIPC.OffsetType, c.FSUIPC.OffsetType, "FSUIPCOffsetType are not the same");
+            Assert.AreEqual(o.FSUIPC.Size, c.FSUIPC.Size, "FSUIPCSize are not the same");
             Assert.AreEqual(o.Value, c.Value, "Value are not the same");
             Assert.AreEqual(o.Transform.Expression, c.Transform.Expression, "Value are not the same");
         }
@@ -45,11 +46,11 @@ namespace MobiFlight.InputConfig.Tests
         private FsuipcOffsetInputAction generateTestObject()
         {
             FsuipcOffsetInputAction o = new FsuipcOffsetInputAction();
-            o.BcdMode = true;
-            o.Mask = 0xFFFF;
-            o.Offset = 0x1234;
-            o.OffsetType = FSUIPCOffsetType.Float;
-            o.Size = 2;
+            o.FSUIPC.BcdMode = true;
+            o.FSUIPC.Mask = 0xFFFF;
+            o.FSUIPC.Offset = 0x1234;
+            o.FSUIPC.OffsetType = FSUIPCOffsetType.Float;
+            o.FSUIPC.Size = 2;
             o.Value = "$+1";
             o.Transform.Expression = "$*1";
             return o;
@@ -90,11 +91,11 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.BcdMode, true, "FSUIPCBcdMode are not the same");
-            Assert.AreEqual(o.Mask, 0xFFFFFFFF, "FSUIPCMask are not the same");
-            Assert.AreEqual(o.Offset, 0x1234, "FSUIPCOffset are not the same");
-            Assert.AreEqual(o.OffsetType, FSUIPCOffsetType.Float, "FSUIPCOffsetType are not the same");
-            Assert.AreEqual(o.Size, 4, "FSUIPCSize are not the same");
+            Assert.AreEqual(o.FSUIPC.BcdMode, true, "FSUIPCBcdMode are not the same");
+            Assert.AreEqual(o.FSUIPC.Mask, 0xFFFFFFFF, "FSUIPCMask are not the same");
+            Assert.AreEqual(o.FSUIPC.Offset, 0x1234, "FSUIPCOffset are not the same");
+            Assert.AreEqual(o.FSUIPC.OffsetType, FSUIPCOffsetType.Float, "FSUIPCOffsetType are not the same");
+            Assert.AreEqual(o.FSUIPC.Size, 4, "FSUIPCSize are not the same");
             Assert.AreEqual(o.Value, "$-1", "Value are not the same");
         }
 
@@ -105,8 +106,8 @@ namespace MobiFlight.InputConfig.Tests
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
 
-            o.OffsetType = FSUIPCOffsetType.Integer;
-            o.BcdMode = false;
+            o.FSUIPC.OffsetType = FSUIPCOffsetType.Integer;
+            o.FSUIPC.BcdMode = false;
             o.Value = "12";
             o.execute(mock, simConnectMock, null, new List<ConfigRefValue>());
             Assert.AreEqual(mock.Writes.Count, 2, "The message count is not as expected"); // there is one write in the mock for setting the offset and one write for writing to the cache.

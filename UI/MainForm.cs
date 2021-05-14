@@ -1072,13 +1072,13 @@ namespace MobiFlight.UI
                     OutputConfigItem cfgItem = new OutputConfigItem();
 
                     if (row["fsuipcOffset"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPCOffset = Int32.Parse(row["fsuipcOffset"].ToString().Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
+                        cfgItem.FSUIPC.Offset = Int32.Parse(row["fsuipcOffset"].ToString().Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
 
                     if (row["fsuipcSize"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPCSize = Byte.Parse(row["fsuipcSize"].ToString());
+                        cfgItem.FSUIPC.Size = Byte.Parse(row["fsuipcSize"].ToString());
 
                     if (row["mask"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPCMask = (row["mask"].ToString() != "") ? Int32.Parse(row["mask"].ToString()) : Int32.MaxValue;
+                        cfgItem.FSUIPC.Mask = (row["mask"].ToString() != "") ? Int32.Parse(row["mask"].ToString()) : Int32.MaxValue;
 
                     // comparison
                     if (row["comparison"].GetType() != typeof(System.DBNull))

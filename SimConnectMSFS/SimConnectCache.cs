@@ -14,19 +14,9 @@ namespace MobiFlight.SimConnectMSFS
         public event EventHandler Closed;
         public event EventHandler Connected;
         public event EventHandler ConnectionLost;
-        public enum SIMCONNECT_NOTIFICATION_GROUP_ID
-        {
-            SIMCONNECT_GROUP_PRIORITY_DEFAULT,
-            SIMCONNECT_GROUP_PRIORITY_HIGHEST
-        }
-        public enum MOBIFLIGHT_EVENTS
-        {
-            DUMMY
-        };
 
+        
         private const string STANDARD_EVENT_GROUP = "STANDARD";
-
-        private bool _connected = false;
 
         /// User-defined win32 event
         public const int WM_USER_SIMCONNECT = 0x0402;
@@ -37,10 +27,14 @@ namespace MobiFlight.SimConnectMSFS
         /// SimConnect object
         private SimConnect m_oSimConnect = null;
 
+        private bool _connected = false;
+
         public Dictionary<String, List<Tuple<String, uint>>> Events { get; private set; }
 
         public String PresetFile = null;
         public String PresetFileUser = null;
+
+        private List<LVar> LVars = new List<LVar>();
 
         /* public void Clear()
          {
@@ -152,7 +146,61 @@ namespace MobiFlight.SimConnectMSFS
                 }
             }
 
+            
+
             Connected?.Invoke(this, null);
+        }
+
+        private void InitializeClientDataAreas(SimConnect sender)
+        {
+            // register Client Data (for LVars)
+            (sender).MapClientDataNameToID("MobiFlight.LVars", SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_LVARS);
+
+            // register Client Data (for Commands)
+            var ClientDataStringSize = (uint)Marshal.SizeOf(typeof(ClientDataString));
+            (sender).MapClientDataNameToID("MobiFlight.Command", SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_CMD);
+            (sender).CreateClientData(SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_CMD, 256, SIMCONNECT_CREATE_CLIENT_DATA_FLAG.DEFAULT);
+
+            (sender).MapClientDataNameToID("MobiFlight.Response", SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_RESPONSE);
+            (sender).CreateClientData(SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_RESPONSE, 256, SIMCONNECT_CREATE_CLIENT_DATA_FLAG.DEFAULT);
+
+            (sender).AddToClientDataDefinition((SIMCONNECT_DEFINE_ID)0, 0, ClientDataStringSize, 0, 0);
+            (sender).RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, ClientDataString>((SIMCONNECT_DEFINE_ID)0);
+            (sender).RequestClientData(
+                SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_RESPONSE,
+                (SIMCONNECT_REQUEST_ID)0,
+                (SIMCONNECT_DEFINE_ID)0,
+                SIMCONNECT_CLIENT_DATA_PERIOD.ON_SET,
+                SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.CHANGED,
+                0,
+                0,
+                0
+            );
+
+            (sender).OnRecvClientData += SimConnectCache_OnRecvClientData; ;
+        }
+
+        private void DeInitializeClientDataAreas(SimConnect sender)
+        {
+            (sender)?.ClearClientDataDefinition((SIMCONNECT_DEFINE_ID) 0);
+        }
+
+        internal void Start()
+        {
+            InitializeClientDataAreas(m_oSimConnect);
+        }
+
+        private void SimConnectCache_OnRecvClientData(SimConnect sender, SIMCONNECT_RECV_CLIENT_DATA data)
+        {
+            ClientDataValue simData = (ClientDataValue)(data.dwData[0]);
+            LVars[(int)(data.dwRequestID - 1)].Data = simData.data;
+        }
+
+        internal void Stop()
+        {
+            ClearLVars();
+            WasmModuleClient.Stop(m_oSimConnect);
+            DeInitializeClientDataAreas(m_oSimConnect);
         }
 
         /// The case where the user closes game
@@ -168,6 +216,8 @@ namespace MobiFlight.SimConnectMSFS
 
         public bool Disconnect()
         {
+            Stop();
+
             if (m_oSimConnect != null)
             {
                 // Dispose serves the same purpose as SimConnect_Close()
@@ -203,7 +253,7 @@ namespace MobiFlight.SimConnectMSFS
                 Log.Instance.log("SimConnectCache::setEventID: Unknown event ID: " + eventID, LogSeverity.Error);
                 return;
             }
-            m_oSimConnect.TransmitClientEvent(
+            m_oSimConnect?.TransmitClientEvent(
                     0,
                     (MOBIFLIGHT_EVENTS)eventItem.Item2,
                     1,
@@ -256,6 +306,55 @@ namespace MobiFlight.SimConnectMSFS
         public void setEventID(int eventID, int param)
         {
             throw new NotImplementedException();
+        }
+
+        public float GetLVar(String LVarName)
+        {
+            float result = 0;
+            if (!LVars.Exists(lvar => lvar.Name==LVarName))
+            {
+                RegisterLVar(LVarName);
+                WasmModuleClient.SendWasmCmd(m_oSimConnect, "MF.LVars.Add." + LVarName);
+            }
+
+            result = LVars.Find(lvar => lvar.Name == LVarName).Data;
+
+            return result;
+        }
+
+        private void RegisterLVar(string lVarName)
+        {
+            LVars.Add(new LVar() { Name = lVarName });
+
+            m_oSimConnect?.AddToClientDataDefinition(
+                (SIMCONNECT_DEFINE_ID)LVars.Count,
+                (uint)((LVars.Count - 1) * sizeof(float)),
+                sizeof(float),
+                0,
+                0);
+
+            m_oSimConnect?.RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, ClientDataValue>((SIMCONNECT_DEFINE_ID)LVars.Count);
+
+            m_oSimConnect?.RequestClientData(
+                SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_LVARS,
+                (SIMCONNECT_REQUEST_ID)LVars.Count,
+                (SIMCONNECT_DEFINE_ID)LVars.Count,
+                SIMCONNECT_CLIENT_DATA_PERIOD.ON_SET,
+                SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.CHANGED,
+                0,
+                0,
+                0
+            );
+        }
+
+        private void ClearLVars()
+        {
+            int lVarIdx = 1;
+            foreach (var lvar in LVars)
+            {
+                m_oSimConnect?.ClearClientDataDefinition((SIMCONNECT_DEFINE_ID)lVarIdx);
+            }
+            LVars.Clear();
         }
     }
 }

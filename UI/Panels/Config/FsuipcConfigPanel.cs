@@ -230,12 +230,12 @@ namespace MobiFlight.UI.Panels.Config
                 return;
             }
             // first tab                        
-            fsuipcOffsetTextBox.Text = "0x" + config.FsuipcOffset.Offset.ToString("X4");
+            fsuipcOffsetTextBox.Text = "0x" + config.FSUIPC.Offset.ToString("X4");
 
             // preselect fsuipc offset type
             try
             {
-                fsuipcOffsetTypeComboBox.SelectedValue = config.FsuipcOffset.OffsetType.ToString();
+                fsuipcOffsetTypeComboBox.SelectedValue = config.FSUIPC.OffsetType.ToString();
             }
             catch (Exception exc)
             {
@@ -243,7 +243,7 @@ namespace MobiFlight.UI.Panels.Config
                 Log.Instance.log("FsuipcConfigPanel::syncFromConfig : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FsuipcOffset.Size.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPC.Size.ToString()))
             {
                 // TODO: provide error message
                 Log.Instance.log("FsuipcConfigPanel::syncFromConfig : Exception on selecting item in ComboBox", LogSeverity.Debug);
@@ -251,11 +251,11 @@ namespace MobiFlight.UI.Panels.Config
 
             // mask
             fsuipcMaskTextBox.Text = "0xFF";
-            if (config.FsuipcOffset.OffsetType != FSUIPCOffsetType.String)
-                fsuipcMaskTextBox.Text = "0x" + config.FsuipcOffset.Mask.ToString("X" + config.FsuipcOffset.Size.ToString());
+            if (config.FSUIPC.OffsetType != FSUIPCOffsetType.String)
+                fsuipcMaskTextBox.Text = "0x" + config.FSUIPC.Mask.ToString("X" + config.FSUIPC.Size.ToString());
 
             // multiplier
-            if (config.FsuipcOffset.OffsetType != FSUIPCOffsetType.String) {
+            if (config.FSUIPC.OffsetType != FSUIPCOffsetType.String) {
                 TransformationCheckBox.Checked = config.Transform.Active;
                 SubstringTransformationCheckBox.Checked = false;
             } else {
@@ -263,7 +263,7 @@ namespace MobiFlight.UI.Panels.Config
                 SubstringTransformationCheckBox.Checked = config.Transform.Active;
             }
             fsuipcMultiplyTextBox.Text = config.Transform.Expression;
-            fsuipcBcdModeCheckBox.Checked = config.FsuipcOffset.BcdMode;
+            fsuipcBcdModeCheckBox.Checked = config.FSUIPC.BcdMode;
             fsuipcValueTextBox.Text = config.Value;
 
             // substring panel
@@ -272,11 +272,11 @@ namespace MobiFlight.UI.Panels.Config
 
             foreach (DataRow row in presetDataTable.Rows)
             {
-                if ((row["settings"] as IFsuipcConfigItem).FsuipcOffset.Offset == config.FsuipcOffset.Offset &&
-                    (row["settings"] as IFsuipcConfigItem).FsuipcOffset.OffsetType == config.FsuipcOffset.OffsetType &&
-                    (row["settings"] as IFsuipcConfigItem).FsuipcOffset.Size == config.FsuipcOffset.Size &&
-                    (row["settings"] as IFsuipcConfigItem).FsuipcOffset.Mask == config.FsuipcOffset.Mask &&
-                    (row["settings"] as IFsuipcConfigItem).FsuipcOffset.BcdMode == config.FsuipcOffset.BcdMode
+                if ((row["settings"] as IFsuipcConfigItem).FSUIPC.Offset == config.FSUIPC.Offset &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPC.OffsetType == config.FSUIPC.OffsetType &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPC.Size == config.FSUIPC.Size &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPC.Mask == config.FSUIPC.Mask &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPC.BcdMode == config.FSUIPC.BcdMode
                     ) {
                     fsuipcPresetComboBox.Text = row["description"].ToString();
                     break;
@@ -286,20 +286,20 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncToConfig(IFsuipcConfigItem config)
         {
-            config.FsuipcOffset.Offset = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
-            config.FsuipcOffset.OffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
-            if (config.FsuipcOffset.OffsetType != FSUIPCOffsetType.String)
+            config.FSUIPC.Offset = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
+            config.FSUIPC.OffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
+            if (config.FSUIPC.OffsetType != FSUIPCOffsetType.String)
             {
                 // the mask has only meaning for values other than strings
-                config.FsuipcOffset.Mask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
-                config.FsuipcOffset.Size = Byte.Parse(fsuipcSizeComboBox.Text);
+                config.FSUIPC.Mask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
+                config.FSUIPC.Size = Byte.Parse(fsuipcSizeComboBox.Text);
                 config.Transform.Active = TransformationCheckBox.Checked;
             }
             else
             {
                 // by default we set the string length to 255
                 // because we don't offer an option for the string length yet
-                config.FsuipcOffset.Size = 255;
+                config.FSUIPC.Size = 255;
                 config.Transform.Active = SubstringTransformationCheckBox.Checked;
             }
 
@@ -310,7 +310,7 @@ namespace MobiFlight.UI.Panels.Config
                 config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
             if (SubStringToTextBox.Text != "")
                 config.Transform.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
-            config.FsuipcOffset.BcdMode = fsuipcBcdModeCheckBox.Checked;
+            config.FSUIPC.BcdMode = fsuipcBcdModeCheckBox.Checked;
             config.Value = fsuipcValueTextBox.Text;
         }
 

@@ -34,14 +34,15 @@
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
-            this.spacerPanel = new System.Windows.Forms.Panel();
-            this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
+            this.FsuipcSettingsPanel = new System.Windows.Forms.Panel();
             this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
+            this.OffsetTypePanel = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.OffsetTypeSimConnectRadioButton = new System.Windows.Forms.RadioButton();
+            this.OffsetTypeFsuipRadioButton = new System.Windows.Forms.RadioButton();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
             this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
-            this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
             this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
@@ -110,16 +111,17 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
+            this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
+            this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
+            this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
             this.settingsColumn = new System.Data.DataColumn();
-            this.OffsetTypePanel = new System.Windows.Forms.Panel();
-            this.OffsetTypeFsuipRadioButton = new System.Windows.Forms.RadioButton();
-            this.OffsetTypeSimConnectRadioButton = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.FsuipcSettingsPanel = new System.Windows.Forms.Panel();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
             this.referencesGroupBox.SuspendLayout();
+            this.FsuipcSettingsPanel.SuspendLayout();
+            this.OffsetTypePanel.SuspendLayout();
             this.compareTabPage.SuspendLayout();
             this.interpolationGroupBox.SuspendLayout();
             this.comparisonSettingsGroupBox.SuspendLayout();
@@ -139,8 +141,6 @@
             this.ButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
-            this.OffsetTypePanel.SuspendLayout();
-            this.FsuipcSettingsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainPanel
@@ -163,7 +163,7 @@
             // fsuipcTabPage
             // 
             this.fsuipcTabPage.Controls.Add(this.referencesGroupBox);
-            this.fsuipcTabPage.Controls.Add(this.spacerPanel);
+            this.fsuipcTabPage.Controls.Add(this.simConnectPanel1);
             this.fsuipcTabPage.Controls.Add(this.FsuipcSettingsPanel);
             this.fsuipcTabPage.Controls.Add(this.OffsetTypePanel);
             resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
@@ -177,21 +177,12 @@
             this.referencesGroupBox.Name = "referencesGroupBox";
             this.referencesGroupBox.TabStop = false;
             // 
-            // configRefPanel
+            // FsuipcSettingsPanel
             // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
-            // 
-            // spacerPanel
-            // 
-            resources.ApplyResources(this.spacerPanel, "spacerPanel");
-            this.spacerPanel.Name = "spacerPanel";
-            // 
-            // fsuipcConfigPanel
-            // 
-            resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
-            this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
-            this.fsuipcConfigPanel.PresetFile = "";
+            this.FsuipcSettingsPanel.Controls.Add(this.fsuipcConfigPanel);
+            this.FsuipcSettingsPanel.Controls.Add(this.fsuipcHintTextBox);
+            resources.ApplyResources(this.FsuipcSettingsPanel, "FsuipcSettingsPanel");
+            this.FsuipcSettingsPanel.Name = "FsuipcSettingsPanel";
             // 
             // fsuipcHintTextBox
             // 
@@ -202,6 +193,40 @@
             this.fsuipcHintTextBox.Name = "fsuipcHintTextBox";
             this.fsuipcHintTextBox.ReadOnly = true;
             this.fsuipcHintTextBox.TabStop = false;
+            // 
+            // OffsetTypePanel
+            // 
+            this.OffsetTypePanel.Controls.Add(this.textBox1);
+            this.OffsetTypePanel.Controls.Add(this.OffsetTypeSimConnectRadioButton);
+            this.OffsetTypePanel.Controls.Add(this.OffsetTypeFsuipRadioButton);
+            resources.ApplyResources(this.OffsetTypePanel, "OffsetTypePanel");
+            this.OffsetTypePanel.Name = "OffsetTypePanel";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.textBox1, "textBox1");
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.TabStop = false;
+            // 
+            // OffsetTypeSimConnectRadioButton
+            // 
+            resources.ApplyResources(this.OffsetTypeSimConnectRadioButton, "OffsetTypeSimConnectRadioButton");
+            this.OffsetTypeSimConnectRadioButton.Name = "OffsetTypeSimConnectRadioButton";
+            this.OffsetTypeSimConnectRadioButton.TabStop = true;
+            this.OffsetTypeSimConnectRadioButton.UseVisualStyleBackColor = true;
+            this.OffsetTypeSimConnectRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
+            // 
+            // OffsetTypeFsuipRadioButton
+            // 
+            resources.ApplyResources(this.OffsetTypeFsuipRadioButton, "OffsetTypeFsuipRadioButton");
+            this.OffsetTypeFsuipRadioButton.Name = "OffsetTypeFsuipRadioButton";
+            this.OffsetTypeFsuipRadioButton.TabStop = true;
+            this.OffsetTypeFsuipRadioButton.UseVisualStyleBackColor = true;
+            this.OffsetTypeFsuipRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
             // 
             // compareTabPage
             // 
@@ -225,12 +250,6 @@
             resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
             this.interpolationGroupBox.Name = "interpolationGroupBox";
             this.interpolationGroupBox.TabStop = false;
-            // 
-            // interpolationPanel1
-            // 
-            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
-            this.interpolationPanel1.Name = "interpolationPanel1";
-            this.interpolationPanel1.Save = false;
             // 
             // interpolationCheckBox
             // 
@@ -770,50 +789,33 @@
             // 
             this.description.ColumnName = "description";
             // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
+            // 
+            // simConnectPanel1
+            // 
+            resources.ApplyResources(this.simConnectPanel1, "simConnectPanel1");
+            this.simConnectPanel1.Name = "simConnectPanel1";
+            // 
+            // fsuipcConfigPanel
+            // 
+            resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
+            this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
+            this.fsuipcConfigPanel.PresetFile = "";
+            // 
+            // interpolationPanel1
+            // 
+            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
+            this.interpolationPanel1.Name = "interpolationPanel1";
+            this.interpolationPanel1.Save = false;
+            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
-            // 
-            // OffsetTypePanel
-            // 
-            this.OffsetTypePanel.Controls.Add(this.textBox1);
-            this.OffsetTypePanel.Controls.Add(this.OffsetTypeSimConnectRadioButton);
-            this.OffsetTypePanel.Controls.Add(this.OffsetTypeFsuipRadioButton);
-            resources.ApplyResources(this.OffsetTypePanel, "OffsetTypePanel");
-            this.OffsetTypePanel.Name = "OffsetTypePanel";
-            // 
-            // OffsetTypeFsuipRadioButton
-            // 
-            resources.ApplyResources(this.OffsetTypeFsuipRadioButton, "OffsetTypeFsuipRadioButton");
-            this.OffsetTypeFsuipRadioButton.Name = "OffsetTypeFsuipRadioButton";
-            this.OffsetTypeFsuipRadioButton.TabStop = true;
-            this.OffsetTypeFsuipRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // OffsetTypeSimConnectRadioButton
-            // 
-            resources.ApplyResources(this.OffsetTypeSimConnectRadioButton, "OffsetTypeSimConnectRadioButton");
-            this.OffsetTypeSimConnectRadioButton.Name = "OffsetTypeSimConnectRadioButton";
-            this.OffsetTypeSimConnectRadioButton.TabStop = true;
-            this.OffsetTypeSimConnectRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.TabStop = false;
-            // 
-            // FsuipcSettingsPanel
-            // 
-            this.FsuipcSettingsPanel.Controls.Add(this.fsuipcConfigPanel);
-            this.FsuipcSettingsPanel.Controls.Add(this.fsuipcHintTextBox);
-            resources.ApplyResources(this.FsuipcSettingsPanel, "FsuipcSettingsPanel");
-            this.FsuipcSettingsPanel.Name = "FsuipcSettingsPanel";
             // 
             // ConfigWizard
             // 
@@ -831,6 +833,10 @@
             this.tabControlFsuipc.ResumeLayout(false);
             this.fsuipcTabPage.ResumeLayout(false);
             this.referencesGroupBox.ResumeLayout(false);
+            this.FsuipcSettingsPanel.ResumeLayout(false);
+            this.FsuipcSettingsPanel.PerformLayout();
+            this.OffsetTypePanel.ResumeLayout(false);
+            this.OffsetTypePanel.PerformLayout();
             this.compareTabPage.ResumeLayout(false);
             this.compareTabPage.PerformLayout();
             this.interpolationGroupBox.ResumeLayout(false);
@@ -861,10 +867,6 @@
             this.ButtonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
-            this.OffsetTypePanel.ResumeLayout(false);
-            this.OffsetTypePanel.PerformLayout();
-            this.FsuipcSettingsPanel.ResumeLayout(false);
-            this.FsuipcSettingsPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -952,11 +954,11 @@
         private System.Windows.Forms.CheckBox overridePreconditionCheckBox;
         private System.Windows.Forms.GroupBox referencesGroupBox;
         private UI.Panels.Config.ConfigRefPanel configRefPanel;
-        private System.Windows.Forms.Panel spacerPanel;
         private System.Windows.Forms.Panel FsuipcSettingsPanel;
         private System.Windows.Forms.Panel OffsetTypePanel;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.RadioButton OffsetTypeSimConnectRadioButton;
         private System.Windows.Forms.RadioButton OffsetTypeFsuipRadioButton;
+        private Panels.Config.SimConnectPanel simConnectPanel1;
     }
 }

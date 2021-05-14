@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.OutputConfig;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,39 +10,10 @@ namespace MobiFlight.FSUIPC
     {
         public FSUIPCConfigItem()
         {
+            FSUIPC = new FsuipcOffset();
             Transform = new Transformation();
         }
-        public bool BcdMode
-        {
-            get;
-            set;
-        }
-
-        public long Mask
-        {
-            get;
-            set;
-        }
-
-        public double FSUIPCMultiplier
-        {
-            get;
-            set;
-        }
-
-        public int Offset
-        {
-            get;
-            set;
-        }
-
-        public FSUIPCOffsetType OffsetType
-        {
-            get;
-            set;
-        }
-
-        public byte Size
+        public FsuipcOffset FSUIPC
         {
             get;
             set;

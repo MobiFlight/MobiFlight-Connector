@@ -9,7 +9,7 @@ namespace MobiFlight
 {
     public interface IFsuipcConfigItem
     {
-        FsuipcOffset FsuipcOffset { get; set; }
+        FsuipcOffset FSUIPC { get; set; }
         string Value { get; set; }
         Transformation Transform { get; set; }
     }

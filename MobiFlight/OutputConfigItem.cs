@@ -21,8 +21,8 @@ namespace MobiFlight
         
         // this implements the FSUIPC Config Item Interface
         // It would be nicer to have an aggregation of FSUIPC.FSUIPCConfigItem instead
-        public string       SourceType                  { get; set; }
-        public FsuipcOffset FsuipcOffset                { get; set; }
+        public SourceType   SourceType                  { get; set; }
+        public FsuipcOffset FSUIPC                      { get; set; }
 
         public SimConnectValue
                             SimConnectValue              { get; set; }
@@ -54,7 +54,7 @@ namespace MobiFlight
 
 
         // the lcd display stuff
-        public OutputConfig.LcdDisplay LcdDisplay                  { get; set; }
+        public OutputConfig.LcdDisplay LcdDisplay       { get; set; }
 
         // the bcd driver stuff
         public List<string> BcdPins                     { get; set; }
@@ -83,8 +83,8 @@ namespace MobiFlight
 
         public OutputConfigItem()
         {
-            SourceType = "FSUIPC";
-            FsuipcOffset = new FsuipcOffset();
+            SourceType = SourceType.FSUIPC;
+            FSUIPC = new FsuipcOffset();
             SimConnectValue = new SimConnectValue();
 
             Transform = new Transformation();
@@ -131,8 +131,15 @@ namespace MobiFlight
             if (reader.ReadToDescendant("source"))
             {
                 // try to read it as FSUIPC Offset
-                this.FsuipcOffset.ReadXml(reader);
-                this.SimConnectValue.ReadXml(reader);
+                if (reader["type"]=="SimConnect") {
+                    SourceType = SourceType.SIMCONNECT;
+                    this.SimConnectValue.ReadXml(reader);
+                }
+                else
+                {
+                    SourceType = SourceType.FSUIPC;
+                    this.FSUIPC.ReadXml(reader);
+                }
 
                 // backward compatibility
                 if (reader["multiplier"] != null)
@@ -353,8 +360,8 @@ namespace MobiFlight
         public virtual void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("source");
-                if(SourceType=="FSUIPC")
-                    this.FsuipcOffset.WriteXml(writer);
+                if(SourceType==SourceType.FSUIPC)
+                    this.FSUIPC.WriteXml(writer);
                 else
                     this.SimConnectValue.WriteXml(writer);
             writer.WriteEndElement();
@@ -450,7 +457,8 @@ namespace MobiFlight
         public object Clone()
         {
             OutputConfigItem clone = new OutputConfigItem();
-            clone.FsuipcOffset              = this.FsuipcOffset.Clone() as FsuipcOffset;
+            clone.SourceType                = this.SourceType;
+            clone.FSUIPC                    = this.FSUIPC.Clone() as FsuipcOffset;
             clone.SimConnectValue           = this.SimConnectValue.Clone() as SimConnectValue;
 
             clone.Transform                 = this.Transform.Clone() as Transformation;
@@ -506,5 +514,11 @@ namespace MobiFlight
 
             return clone;
         }
+    }
+
+    public enum SourceType
+    {
+        FSUIPC,
+        SIMCONNECT
     }
 }

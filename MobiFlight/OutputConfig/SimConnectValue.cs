@@ -13,7 +13,7 @@ namespace MobiFlight.OutputConfig
 
         internal void ReadXml(XmlReader reader)
         {
-            if (reader["lVar"] != null && reader["lVar"] != "")
+            if (reader["LVar"] != null && reader["LVar"] != "")
             {
                 LVar = reader["LVar"];
             }
