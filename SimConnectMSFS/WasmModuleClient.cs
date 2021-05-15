@@ -12,7 +12,7 @@ namespace MobiFlight.SimConnectMSFS
     {
         public static void Stop(SimConnect simConnect)
         {
-            SendWasmCmd(simConnect, "MF.LVars.Clear");
+            SendWasmCmd(simConnect, "MF.SimVars.Clear");
         }
         public static void SendWasmCmd(SimConnect simConnect, String command)
         {

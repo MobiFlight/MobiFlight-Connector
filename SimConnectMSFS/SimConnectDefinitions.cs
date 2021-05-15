@@ -28,7 +28,7 @@ namespace MobiFlight.SimConnectMSFS
         }
     }
 
-    public class LVar
+    public class SimVar
     {
         public String Name { get; set; }
         public float Data { get; set; }

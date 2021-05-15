@@ -9,25 +9,38 @@ namespace MobiFlight.OutputConfig
 {
     public class SimConnectValue
     {
-        public string LVar { get; set; }
+        public string Value { get; set; }
+        public SimConnectVarType VarType { get; set; }
 
         internal void ReadXml(XmlReader reader)
         {
-            if (reader["LVar"] != null && reader["LVar"] != "")
+            if (reader["Value"] != null && reader["Value"] != "")
             {
-                LVar = reader["LVar"];
+                Value = reader["Value"];
+                VarType = (SimConnectVarType) Enum.Parse(typeof(SimConnectVarType), reader["VarType"]);
             }
         }
 
         internal void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("type", "SimConnect");
-            writer.WriteAttributeString("LVar", LVar);
+            writer.WriteAttributeString("VarType", VarType.ToString());
+            writer.WriteAttributeString("Value", Value);
         }
 
         internal object Clone()
         {
-            return new SimConnectValue() { LVar = this.LVar };
+            return new SimConnectValue() { 
+                Value = this.Value,
+                VarType = this.VarType
+            };
         }
+    }
+
+    public enum SimConnectVarType
+    {
+        LVAR,
+        AVAR,
+        CODE
     }
 }
