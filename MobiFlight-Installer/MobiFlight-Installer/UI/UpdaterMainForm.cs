@@ -41,11 +41,11 @@ namespace MobiFlightInstaller.UI
 
         private void OnDownloadComplete(object sender, AsyncCompletedEventArgs e)
         {
-            Log.Instance.log("DOWNLOAD FINISH", LogSeverity.Debug);
-            UpdaterCurrentTask.Text = "DOWNLOAD finish";
+            Log.Instance.log("Download finished.", LogSeverity.Debug);
+            UpdaterCurrentTask.Text = "Download finished.";
             if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
             {
-                UpdaterCurrentTask.Text = "EXTRACTING files";
+                UpdaterCurrentTask.Text = "Extracting files...";
                 Log.Instance.log("DOWNLOAD is OK, start extracting ...", LogSeverity.Debug);
                 MobiFlightUpdaterModel.CloseMobiFlightAndWait();
                 MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
@@ -55,7 +55,7 @@ namespace MobiFlightInstaller.UI
             else
             {
                 Log.Instance.log("DOWNLOAD is incorrect, installation aborted", LogSeverity.Debug);
-                MessageBox.Show("Download failed, installation aborted !");
+                MessageBox.Show("Download failed, installation aborted! Please run installer again or unzip manually.");
             }
             _webClient.Dispose();
         }
@@ -72,8 +72,8 @@ namespace MobiFlightInstaller.UI
                 {
 
                     UpdaterProgressBar.Value = 0;
-                    UpdaterCurrentTask.Text = "DOWNLOADING";
-                    Log.Instance.log("DOWNLOADING " + CurrentFileName, LogSeverity.Debug); 
+                    UpdaterCurrentTask.Text = "Downloading...";
+                    Log.Instance.log("Downloading " + CurrentFileName, LogSeverity.Debug); 
                     _webClient = new WebClient();
                     var uri = new Uri(_downloadURL);
                     _webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(OnDownloadProgressChanged);
@@ -84,7 +84,7 @@ namespace MobiFlightInstaller.UI
             else
             {
                 Log.Instance.log("URL is incorrect, installation aborted", LogSeverity.Debug);
-                MessageBox.Show("URL is incorrect, impossible to download the file, installation aborted !");
+                MessageBox.Show("URL is incorrect, impossible to download the file, installation aborted!");
             }
         }
 

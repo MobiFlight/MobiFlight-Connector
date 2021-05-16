@@ -15,6 +15,12 @@ namespace MobiFlightInstaller
 
         static void Main()
         {
+            if (Environment.OSVersion.Version.Major >= 6)
+                SetProcessDPIAware();
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(true);
+
             if (MobiFlightUpdaterModel.VerifyCurrentFolderRight())
             {
                 MobiFlightUpdaterModel.DeleteLogFileIfIsTooBig();
@@ -71,5 +77,8 @@ namespace MobiFlightInstaller
                 Environment.Exit(0);
             }
         }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
     }
 }
