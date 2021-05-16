@@ -21,9 +21,11 @@ namespace MobiFlightInstaller
     static class MobiFlightUpdaterModel
     {
         public static readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector-updates.xml";
-        
-        public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";        
+        public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";
         public static readonly string InstallerLogFilePath = Directory.GetCurrentDirectory() + "\\install.log.txt";
+
+        public static string InstallerUpdateUrl = ""; // URL to check for installer upgrade, Set to empty to avoid installer autoUpgrade
+        public static string InstallerActualVersion = "0.0.0";
         
         public static string CacheId = null;
 
@@ -163,6 +165,11 @@ namespace MobiFlightInstaller
                             Log.Instance.log("Mobiflight-Installer no need to be upgrade, extracting file skipped", LogSeverity.Info);
                             continue;
                         }
+                    }
+
+                    if (file.Name == "install.log.txt")
+                    {
+                        continue;
                     }
 
                     try
