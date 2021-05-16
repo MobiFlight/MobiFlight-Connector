@@ -707,6 +707,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No active SimConnect Connection.
+        /// </summary>
+        internal static string uiMessageNoSimConnectConnection {
+            get {
+                return ResourceManager.GetString("uiMessageNoSimConnectConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not enough pins.
         /// </summary>
         internal static string uiMessageNotEnoughPinsHint {

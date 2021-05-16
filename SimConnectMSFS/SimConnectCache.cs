@@ -15,7 +15,9 @@ namespace MobiFlight.SimConnectMSFS
         public event EventHandler Connected;
         public event EventHandler ConnectionLost;
 
-        
+        private uint MaxClientDataDefinition = 0;
+
+
         private const string STANDARD_EVENT_GROUP = "STANDARD";
 
         /// User-defined win32 event
@@ -34,6 +36,7 @@ namespace MobiFlight.SimConnectMSFS
         public String PresetFile = null;
         public String PresetFileUser = null;
 
+        private UInt64 SimVarIdCounter = 1;
         private List<SimVar> SimVars = new List<SimVar>();
 
         /* public void Clear()
@@ -183,8 +186,7 @@ namespace MobiFlight.SimConnectMSFS
         }
 
         internal void Start()
-        {
-            // nothing to do here at the moment
+        {   
         }
 
         private void SimConnectCache_OnRecvClientData(SimConnect sender, SIMCONNECT_RECV_CLIENT_DATA data)
@@ -195,8 +197,8 @@ namespace MobiFlight.SimConnectMSFS
 
         internal void Stop()
         {
-           // ClearSimVars();
-           // WasmModuleClient.Stop(m_oSimConnect);
+            WasmModuleClient.Stop(m_oSimConnect);
+            ClearSimVars();
         }
 
         // The case where the user closes game
@@ -208,6 +210,7 @@ namespace MobiFlight.SimConnectMSFS
         private void SimConnect_OnRecvException(SimConnect sender, SIMCONNECT_RECV_EXCEPTION data)
         {
             SIMCONNECT_EXCEPTION eException = (SIMCONNECT_EXCEPTION)data.dwException;
+            Log.Instance.log("SimConnectCache::Exception " + eException.ToString(), LogSeverity.Error);
         }
 
         public bool Disconnect()
@@ -274,21 +277,29 @@ namespace MobiFlight.SimConnectMSFS
 
         private void RegisterSimVar(string SimVarName)
         {
-            SimVars.Add(new SimVar() { Name = SimVarName });
+            SimVar NewSimVar = new SimVar() { Name = SimVarName, ID = (uint) SimVars.Count+1 };
+            SimVars.Add(NewSimVar);
+
+            if (MaxClientDataDefinition >= NewSimVar.ID)
+            {
+                return;
+            }
+
+            MaxClientDataDefinition = NewSimVar.ID;
 
             m_oSimConnect?.AddToClientDataDefinition(
-                (SIMCONNECT_DEFINE_ID)SimVars.Count,
+                (SIMCONNECT_DEFINE_ID) NewSimVar.ID,
                 (uint)((SimVars.Count - 1) * sizeof(float)),
                 sizeof(float),
                 0,
                 0);
 
-            m_oSimConnect?.RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, ClientDataValue>((SIMCONNECT_DEFINE_ID)SimVars.Count);
+            m_oSimConnect?.RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, ClientDataValue>((SIMCONNECT_DEFINE_ID)NewSimVar.ID);
 
             m_oSimConnect?.RequestClientData(
                 SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_LVARS,
-                (SIMCONNECT_REQUEST_ID)SimVars.Count,
-                (SIMCONNECT_DEFINE_ID)SimVars.Count,
+                (SIMCONNECT_REQUEST_ID)NewSimVar.ID,
+                (SIMCONNECT_DEFINE_ID)NewSimVar.ID,
                 SIMCONNECT_CLIENT_DATA_PERIOD.ON_SET,
                 SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.CHANGED,
                 0,
@@ -299,13 +310,16 @@ namespace MobiFlight.SimConnectMSFS
 
         private void ClearSimVars()
         {
-            int lVarIdx = 1;
-            foreach (var lvar in SimVars)
+            /*
+            foreach (var simVar in SimVars)
             {
-                m_oSimConnect?.ClearClientDataDefinition((SIMCONNECT_DEFINE_ID)lVarIdx);
-                lVarIdx++;
+                m_oSimConnect?.ClearClientDataDefinition((SIMCONNECT_DEFINE_ID)simVar.ID);
+                Log.Instance.log("SimConnectCache::ClearSimVars > Clearing Data Definition: " + simVar.ID, LogSeverity.Debug);
             }
+            */
+            
             SimVars.Clear();
+            Log.Instance.log("SimConnectCache::ClearSimVars . SimVars Cleared", LogSeverity.Debug);
         }
 
         #region Not Implemented Yet

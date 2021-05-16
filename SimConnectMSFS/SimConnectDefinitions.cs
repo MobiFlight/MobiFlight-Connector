@@ -30,6 +30,7 @@ namespace MobiFlight.SimConnectMSFS
 
     public class SimVar
     {
+        public UInt32 ID { get; set; }
         public String Name { get; set; }
         public float Data { get; set; }
 

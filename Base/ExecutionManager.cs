@@ -336,17 +336,6 @@ namespace MobiFlight
                 // and the ones that are not checked active
                 if (row.IsNewRow || !(bool)row.Cells["active"].Value) continue;
 
-                // If not connected to FSUIPC show an error message
-                if (!fsuipcCache.isConnected()
-#if SIMCONNECT
-                //&& !simConnectCache.isConnected()
-#endif
-                )
-                {
-                    row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                    continue;
-                }
-
                 // initialisiere den adapter
                 //// nimm type von col.type
                 //// nimm config von col.config                
@@ -354,6 +343,20 @@ namespace MobiFlight
                 //// if !all valid continue                
                 OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
 
+                // If not connected to FSUIPC show an error message
+                if (cfg.SourceType==SourceType.FSUIPC && !fsuipcCache.isConnected())
+                {
+                    row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
+                    continue;
+                }
+#if SIMCONNECT
+                // If not connected to SimConnect show an error message
+                if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
+                {
+                    row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                    continue;
+                }
+#endif
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
                 ConnectorValue value = ExecuteRead(cfg);
