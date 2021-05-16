@@ -351,22 +351,47 @@ namespace MobiFlightInstaller
                 {
                     WebClient _webClient = new WebClient();
                     var uri = new Uri(_downloadURL);
-                    _webClient.DownloadFile(uri, CurrentFileName); // Download the file and extract in current directory
+                    _webClient.DownloadFile(uri, CurrentFileName); // Download the file
                     _webClient.Dispose();
                 }
 
-                // check again
+                // check if the file is downloaded
                 if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
                 {
                     CloseMobiFlightAndWait();
                     MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
+                    MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
                 }
-                
-                MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
+                else //download has failed try a second url if exist
+                {
+                    if (resultList[Version]["url2"].Length > 5)
+                    {
+                        _downloadURL = resultList[Version]["url2"];
+                        WebClient _webClient = new WebClient();
+                        var uri = new Uri(_downloadURL);
+                        _webClient.DownloadFile(uri, CurrentFileName); // Download the file second URL
+                        _webClient.Dispose();
+                        if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
+                        {
+                            CloseMobiFlightAndWait();
+                            MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
+                            MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
+                        }
+                        else // if failed twice
+                        {
+                            MessageBox.Show("Download FAILED, Please retry later.");
+                        }
+                    }
+                    else // if failed first time and no second URL
+                    {
+                        MessageBox.Show("Download FAILED, Please retry later.");
+                    }
+                    
+                }
             }
             else
             {
-                MessageBox.Show("Impossible to find this version, install canceled...");
+                MessageBox.Show("Impossible to find this version, URL is wrong, install canceled...");
             }
         }
 
