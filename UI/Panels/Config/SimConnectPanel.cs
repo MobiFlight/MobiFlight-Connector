@@ -17,6 +17,8 @@ namespace MobiFlight.UI.Panels.Config
         public SimConnectPanel()
         {
             InitializeComponent();
+            transformOptionsGroup1.setMode(true);
+            transformOptionsGroup1.ShowSubStringPanel(false);
         }
 
         internal void syncToConfig(OutputConfigItem config)
@@ -29,11 +31,13 @@ namespace MobiFlight.UI.Panels.Config
                     break;
             }
             config.SimConnectValue.Value = SimVarNameTextBox.Text;
+            transformOptionsGroup1.syncToConfig(config);
         }
 
         internal void syncFromConfig(OutputConfigItem config)
         {
             SimVarNameTextBox.Text = config.SimConnectValue.Value;
+            transformOptionsGroup1.syncFromConfig(config);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

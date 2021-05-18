@@ -129,7 +129,7 @@
     <value>5, 0, 5, 0</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>466, 57</value>
+    <value>466, 0</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
@@ -139,7 +139,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=8.1.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=8.1.4.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>referencesGroupBox</value>
@@ -151,10 +151,10 @@
     <value>Fill</value>
   </data>
   <data name="referencesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 453</value>
+    <value>6, 526</value>
   </data>
   <data name="referencesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 76</value>
+    <value>472, 3</value>
   </data>
   <data name="referencesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -181,7 +181,7 @@
     <value>6, 291</value>
   </data>
   <data name="simConnectPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 162</value>
+    <value>472, 235</value>
   </data>
   <data name="simConnectPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -190,7 +190,7 @@
     <value>simConnectPanel1</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=8.1.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=8.1.4.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -217,7 +217,7 @@
     <value>fsuipcConfigPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=8.1.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=8.1.4.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>FsuipcSettingsPanel</value>
@@ -469,7 +469,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=8.1.4.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=8.1.4.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -968,7 +968,7 @@
     <value>Top</value>
   </data>
   <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 133</value>
+    <value>6, 119</value>
   </data>
   <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>472, 40</value>
@@ -1001,7 +1001,7 @@
     <value>6, 114</value>
   </data>
   <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>472, 19</value>
+    <value>472, 5</value>
   </data>
   <data name="groupBoxDisplaySettings.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -2007,7 +2007,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACM
-        CgAAAk1TRnQBSQFMAgEBAgEAAZABBAGQAQQBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CgAAAk1TRnQBSQFMAgEBAgEAAZgBBAGYAQQBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
@@ -2496,9 +2496,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

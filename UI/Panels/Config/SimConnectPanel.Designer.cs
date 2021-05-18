@@ -33,10 +33,11 @@ namespace MobiFlight.UI.Panels.Config
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +72,7 @@ namespace MobiFlight.UI.Panels.Config
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.transformOptionsGroup1);
             this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -79,42 +81,10 @@ namespace MobiFlight.UI.Panels.Config
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(390, 165);
+            this.groupBox1.Size = new System.Drawing.Size(390, 257);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MSFS2020 (WASM)";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.SimVarNameTextBox);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 42);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(384, 51);
-            this.panel1.TabIndex = 3;
-            // 
-            // label3
-            // 
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 93);
-            this.label3.Name = "label3";
-            this.label3.Padding = new System.Windows.Forms.Padding(3);
-            this.label3.Size = new System.Drawing.Size(384, 24);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Examples:";
-            // 
-            // label4
-            // 
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Location = new System.Drawing.Point(3, 117);
-            this.label4.Name = "label4";
-            this.label4.Padding = new System.Windows.Forms.Padding(3);
-            this.label4.Size = new System.Drawing.Size(384, 61);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Local Variables (L-Vars) - (L:YourLvarName)\r\nAircraft Variables (A-Vars) - (A:COM" +
-    " ACTIVE:1,Number)";
             // 
             // linkLabel1
             // 
@@ -128,13 +98,53 @@ namespace MobiFlight.UI.Panels.Config
             this.linkLabel1.Text = "see Docs";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // label4
+            // 
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(3, 117);
+            this.label4.Name = "label4";
+            this.label4.Padding = new System.Windows.Forms.Padding(3);
+            this.label4.Size = new System.Drawing.Size(384, 45);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Local Variables (L-Vars) - (L:YourLvarName)\r\nAircraft Variables (A-Vars) - (A:COM" +
+    " ACTIVE:1,Number)";
+            // 
+            // label3
+            // 
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 93);
+            this.label3.Name = "label3";
+            this.label3.Padding = new System.Windows.Forms.Padding(3);
+            this.label3.Size = new System.Drawing.Size(384, 24);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Examples:";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.SimVarNameTextBox);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 42);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(384, 51);
+            this.panel1.TabIndex = 3;
+            // 
+            // transformOptionsGroup1
+            // 
+            this.transformOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.transformOptionsGroup1.Location = new System.Drawing.Point(3, 162);
+            this.transformOptionsGroup1.Name = "transformOptionsGroup1";
+            this.transformOptionsGroup1.Size = new System.Drawing.Size(384, 94);
+            this.transformOptionsGroup1.TabIndex = 7;
+            // 
             // SimConnectPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "SimConnectPanel";
-            this.Size = new System.Drawing.Size(390, 165);
+            this.Size = new System.Drawing.Size(390, 257);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -153,5 +163,6 @@ namespace MobiFlight.UI.Panels.Config
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private TransformOptionsGroup transformOptionsGroup1;
     }
 }

@@ -370,8 +370,7 @@ namespace MobiFlight
                 // only none string values get transformed
                 String strValue = "";
                 try { 
-                    if(cfg.SourceType==SourceType.FSUIPC)
-                        processedValue = ExecuteTransform(value, cfg);
+                    processedValue = ExecuteTransform(value, cfg);
 
                     strValue = ExecuteComparison(processedValue, cfg);
                 } catch (Exception e)

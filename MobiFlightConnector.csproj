@@ -233,6 +233,12 @@
     <Compile Include="UI\Panels\Config\SimConnectPanel.Designer.cs">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\TransformOptionsGroup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\TransformOptionsGroup.Designer.cs">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -705,6 +711,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.de.resx">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.resx">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
