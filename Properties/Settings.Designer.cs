@@ -347,5 +347,29 @@ namespace MobiFlight.Properties {
                 this["StartedTotal"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_simvars_user.cip")]
+        public string PresetFileMSFS2020SimVarsUser {
+            get {
+                return ((string)(this["PresetFileMSFS2020SimVarsUser"]));
+            }
+            set {
+                this["PresetFileMSFS2020SimVarsUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_simvars.cip")]
+        public string PresetFileMSFS2020SimVars {
+            get {
+                return ((string)(this["PresetFileMSFS2020SimVars"]));
+            }
+            set {
+                this["PresetFileMSFS2020SimVars"] = value;
+            }
+        }
     }
 }

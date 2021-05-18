@@ -146,11 +146,8 @@
   <data name="DeviceLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MSFS2020InputPanel</value>
-  </data>
-  <data name="EventIdComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>71, 48</value>
+  <data name="&gt;&gt;DeviceLabel.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="GroupComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>171, 21</value>
@@ -167,6 +164,9 @@
   </data>
   <data name="GroupComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>71, 19</value>
+  </data>
+  <data name="&gt;&gt;EventLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="DeviceLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -186,14 +186,14 @@
   <data name="EventLabel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;DeviceLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="EventLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 48</value>
   </data>
   <data name="&gt;&gt;EventIdComboBox.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MSFS2020InputPanel</value>
   </data>
   <data name="&gt;&gt;GroupComboBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -222,8 +222,8 @@
   <data name="&gt;&gt;EventIdComboBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;EventLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="EventIdComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>71, 48</value>
   </data>
   <data name="DeviceLabel.Text" xml:space="preserve">
     <value>Group</value>
@@ -236,8 +236,5 @@
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>de</value>
   </metadata>
 </root>
