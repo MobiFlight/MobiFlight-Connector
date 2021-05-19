@@ -996,6 +996,24 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose a Preset.
+        /// </summary>
+        internal static string uiSimConnectPanelComboBoxPresetSelect {
+            get {
+                return ResourceManager.GetString("uiSimConnectPanelComboBoxPresetSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a Preset Group....
+        /// </summary>
+        internal static string uiSimConnectPanelComboBoxPresetSelectGroup {
+            get {
+                return ResourceManager.GetString("uiSimConnectPanelComboBoxPresetSelectGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://www.mobiflight.com/en/documentation/software.html.
         /// </summary>
         internal static string WebsiteUrlHelp {

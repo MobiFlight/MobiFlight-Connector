@@ -221,6 +221,12 @@
     <Compile Include="UI\Forms\ConfigUploadProgress.Designer.cs">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.Designer.cs">
+      <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -693,6 +699,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.de.resx">
+      <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.resx">
+      <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\JeehellInputPanel.de.resx">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>

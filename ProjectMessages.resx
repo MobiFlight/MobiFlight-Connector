@@ -445,4 +445,10 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageNoSimConnectConnection" xml:space="preserve">
     <value>No active SimConnect Connection</value>
   </data>
+  <data name="uiSimConnectPanelComboBoxPresetSelect" xml:space="preserve">
+    <value>Choose a Preset</value>
+  </data>
+  <data name="uiSimConnectPanelComboBoxPresetSelectGroup" xml:space="preserve">
+    <value>Choose a Preset Group...</value>
+  </data>
 </root>

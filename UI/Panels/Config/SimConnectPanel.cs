@@ -1,4 +1,5 @@
 ﻿using MobiFlight.OutputConfig;
+using MobiFlight.UI.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +31,35 @@ namespace MobiFlight.UI.Panels.Config
             transformOptionsGroup1.setMode(true);
             transformOptionsGroup1.ShowSubStringPanel(false);
 
+            PresetComboBox.Enabled = false;
+
             _loadPresets();
+        }
+
+        private void _loadPresetData(String file, String DefaultGroupKey, String Prefix)
+        {
+            string[] lines = System.IO.File.ReadAllLines(PresetFile);
+            String GroupKey = DefaultGroupKey;
+            data.Add(DefaultGroupKey, new List<SimVarPreset>());
+
+            foreach (string line in lines)
+            {
+                if (line.StartsWith("//")) continue;
+                var cols = line.Split('#');
+                if (cols.Count() == 2 && "GROUP" == cols[1])
+                {
+                    GroupKey = Prefix + cols[0];
+                    if (data.ContainsKey(GroupKey)) continue;
+
+                    data.Add(GroupKey, new List<SimVarPreset>());
+                }
+                else if (cols.Count() == 3)
+                {
+                    data[GroupKey].Add(new SimVarPreset() { Label = cols[0], Code = cols[1], Description = cols[2] });
+                }
+            }
+
+            if (data[DefaultGroupKey].Count == 0) data.Remove(DefaultGroupKey);
         }
 
         private void _loadPresets()
@@ -47,56 +76,14 @@ namespace MobiFlight.UI.Panels.Config
 
                 try
                 {
-                    string[] lines = System.IO.File.ReadAllLines(PresetFile);
-                    string GroupKey = "Default";
-                    data.Add(GroupKey, new List<SimVarPreset>());
-
-                    foreach (string line in lines)
-                    {
-                        if (line.StartsWith("//")) continue;
-                        var cols = line.Split('#');
-                        if (cols.Count() == 2 && "GROUP" == cols[1])
-                        {
-                            GroupKey = cols[0];
-                            if (data.ContainsKey(GroupKey)) continue;
-
-                            data.Add(GroupKey, new List<SimVarPreset>());
-                        }
-                        else if (cols.Count() == 3)
-                        {
-                            data[GroupKey].Add(new SimVarPreset() { Label = cols[0], Code = cols[1], Description = cols[2] });
-                        }
-                    }
-
-                    if (data["Default"].Count == 0) data.Remove("Default");
+                    
+                    _loadPresetData(PresetFile, "Default", "");
 
 
                     if (System.IO.File.Exists(PresetFileUser))
                     {
                         Log.Instance.log("SimConnectPanel.cs: User events found.", LogSeverity.Debug);
-                        lines = System.IO.File.ReadAllLines(PresetFileUser);
-                        GroupKey = "User";
-                        data.Add(GroupKey, new List<SimVarPreset>());
-
-
-                        foreach (string line in lines)
-                        {
-                            if (line.StartsWith("//")) continue;
-                            var cols = line.Split('#');
-                            if (cols.Count() == 2 && "GROUP" == cols[1])
-                            {
-                                GroupKey = "User: " + cols[0];
-                                if (data.ContainsKey(GroupKey)) continue;
-
-                                data.Add(GroupKey, new List<SimVarPreset>());
-                            }
-                            else if (cols.Count() == 3)
-                            {
-                                data[GroupKey].Add(new SimVarPreset() { Label = cols[0], Code = cols[1], Description = cols[2] });
-                            }
-                        }
-
-                        if (data["User"].Count == 0) data.Remove("User");
+                        _loadPresetData(PresetFileUser, "User", "User: ");
                     }
                     else
                     {
@@ -104,7 +91,12 @@ namespace MobiFlight.UI.Panels.Config
                     }
 
                     GroupComboBox.Items.Clear();
-                    EventIdComboBox.Items.Clear();
+                    PresetComboBox.Items.Clear();
+                    GroupComboBox.Items.Add(i18n._tr("uiSimConnectPanelComboBoxPresetSelectGroup"));
+                    GroupComboBox.SelectedIndex = 0;
+
+                    PresetComboBox.Items.Add(i18n._tr("uiSimConnectPanelComboBoxPresetSelect"));
+                    PresetComboBox.SelectedIndex = 0;
 
                     foreach (String key in data.Keys)
                     {
@@ -117,9 +109,7 @@ namespace MobiFlight.UI.Panels.Config
                     MessageBox.Show(i18n._tr("uiMessageConfigWizard_ErrorLoadingPresets"), i18n._tr("Hint"));
                 }
             }
-
             GroupComboBox.Enabled = isLoaded;
-
         }
 
         internal void syncToConfig(OutputConfigItem config)
@@ -139,6 +129,21 @@ namespace MobiFlight.UI.Panels.Config
         {
             SimVarNameTextBox.Text = config.SimConnectValue.Value;
             transformOptionsGroup1.syncFromConfig(config);
+
+            // try to find the "command"
+            foreach (String key in data.Keys)
+            {
+                if (!data[key].Exists(x=>x.Code==config.SimConnectValue.Value)) continue;
+
+                GroupComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
+                GroupComboBox.Text = key;
+
+                PresetComboBox.DataSource = data[key];
+                PresetComboBox.ValueMember = "Code";
+                PresetComboBox.DisplayMember = "Label";
+
+                GroupComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
+            }
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -146,21 +151,42 @@ namespace MobiFlight.UI.Panels.Config
             Process.Start("https://docs.flightsimulator.com/html/Programming_Tools/SimVars/Aircraft_Simulation_Variables.htm");
         }
 
-        private void DeviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void GroupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             String selectedDevice = (sender as ComboBox).SelectedItem as String;
             if (!data.ContainsKey(selectedDevice)) return;
 
-            EventIdComboBox.DataSource = data[selectedDevice];
-            EventIdComboBox.ValueMember = "Code";
-            EventIdComboBox.DisplayMember = "Label";
+            // this happens on first select
+            if (GroupComboBox.Items[0] as String == i18n._tr("uiSimConnectPanelComboBoxPresetSelectGroup"))
+            {
+                GroupComboBox.Items.RemoveAt(0);
+            }
 
-            EventIdComboBox.SelectedIndex = 0;
+            PresetComboBox.DataSource = data[selectedDevice];
+            PresetComboBox.ValueMember = "Code";
+            PresetComboBox.DisplayMember = "Label";
+
+            PresetComboBox.Enabled = true;
         }
 
-        private void EventIdComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void PresetComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if ((sender as ComboBox).SelectedValue == null) return;
+
             SimVarNameTextBox.Text = (sender as ComboBox).SelectedValue.ToString();
+        }
+
+        private void SimVarNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if ((sender as TextBox).Text.Contains(":index"))
+            {
+                SimConnectPanelIndexSelectForm form = new SimConnectPanelIndexSelectForm();
+                form.StartPosition = FormStartPosition.CenterParent;
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    (sender as TextBox).Text = (sender as TextBox).Text.Replace(":index", ":" + form.IndexValue);
+                }
+            }
         }
     }
 

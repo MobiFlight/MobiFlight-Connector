@@ -38,7 +38,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.EventIdComboBox = new System.Windows.Forms.ComboBox();
+            this.PresetComboBox = new System.Windows.Forms.ComboBox();
             this.EventLabel = new System.Windows.Forms.Label();
             this.GroupComboBox = new System.Windows.Forms.ComboBox();
             this.DeviceLabel = new System.Windows.Forms.Label();
@@ -54,6 +54,7 @@ namespace MobiFlight.UI.Panels.Config
             this.SimVarNameTextBox.Name = "SimVarNameTextBox";
             this.SimVarNameTextBox.Size = new System.Drawing.Size(306, 20);
             this.SimVarNameTextBox.TabIndex = 0;
+            this.SimVarNameTextBox.TextChanged += new System.EventHandler(this.SimVarNameTextBox_TextChanged);
             // 
             // label1
             // 
@@ -134,7 +135,7 @@ namespace MobiFlight.UI.Panels.Config
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.EventIdComboBox);
+            this.panel1.Controls.Add(this.PresetComboBox);
             this.panel1.Controls.Add(this.EventLabel);
             this.panel1.Controls.Add(this.GroupComboBox);
             this.panel1.Controls.Add(this.DeviceLabel);
@@ -146,17 +147,17 @@ namespace MobiFlight.UI.Panels.Config
             this.panel1.Size = new System.Drawing.Size(384, 84);
             this.panel1.TabIndex = 3;
             // 
-            // EventIdComboBox
+            // PresetComboBox
             // 
-            this.EventIdComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.PresetComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.EventIdComboBox.DropDownWidth = 300;
-            this.EventIdComboBox.FormattingEnabled = true;
-            this.EventIdComboBox.Location = new System.Drawing.Point(68, 33);
-            this.EventIdComboBox.Name = "EventIdComboBox";
-            this.EventIdComboBox.Size = new System.Drawing.Size(306, 21);
-            this.EventIdComboBox.TabIndex = 7;
-            this.EventIdComboBox.SelectedIndexChanged += new System.EventHandler(this.EventIdComboBox_SelectedIndexChanged);
+            this.PresetComboBox.DropDownWidth = 300;
+            this.PresetComboBox.FormattingEnabled = true;
+            this.PresetComboBox.Location = new System.Drawing.Point(68, 33);
+            this.PresetComboBox.Name = "PresetComboBox";
+            this.PresetComboBox.Size = new System.Drawing.Size(306, 21);
+            this.PresetComboBox.TabIndex = 7;
+            this.PresetComboBox.SelectedIndexChanged += new System.EventHandler(this.PresetComboBox_SelectedIndexChanged);
             // 
             // EventLabel
             // 
@@ -165,7 +166,7 @@ namespace MobiFlight.UI.Panels.Config
             this.EventLabel.Name = "EventLabel";
             this.EventLabel.Size = new System.Drawing.Size(51, 18);
             this.EventLabel.TabIndex = 6;
-            this.EventLabel.Text = "Event";
+            this.EventLabel.Text = "Preset";
             this.EventLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // GroupComboBox
@@ -177,7 +178,7 @@ namespace MobiFlight.UI.Panels.Config
             this.GroupComboBox.Name = "GroupComboBox";
             this.GroupComboBox.Size = new System.Drawing.Size(306, 21);
             this.GroupComboBox.TabIndex = 5;
-            this.GroupComboBox.SelectedIndexChanged += new System.EventHandler(this.DeviceComboBox_SelectedIndexChanged);
+            this.GroupComboBox.SelectedIndexChanged += new System.EventHandler(this.GroupComboBox_SelectedIndexChanged);
             // 
             // DeviceLabel
             // 
@@ -215,7 +216,7 @@ namespace MobiFlight.UI.Panels.Config
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private TransformOptionsGroup transformOptionsGroup1;
-        private System.Windows.Forms.ComboBox EventIdComboBox;
+        private System.Windows.Forms.ComboBox PresetComboBox;
         private System.Windows.Forms.Label EventLabel;
         private System.Windows.Forms.ComboBox GroupComboBox;
         private System.Windows.Forms.Label DeviceLabel;
