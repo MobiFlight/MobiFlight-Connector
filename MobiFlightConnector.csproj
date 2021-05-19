@@ -169,7 +169,11 @@
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
+    <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
+    <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleUpdater.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
@@ -222,6 +226,18 @@
     </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Config\SimConnectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\SimConnectPanel.Designer.cs">
+      <DependentUpon>SimConnectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Config\TransformOptionsGroup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\TransformOptionsGroup.Designer.cs">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -627,6 +643,9 @@
     <None Include="firmware\mobiflight_uno_1_9_9.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Presets\msfs2020_simvars.cip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\msfs2020_eventids.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -692,6 +711,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.de.resx">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
+      <DependentUpon>SimConnectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.de.resx">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.resx">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>

@@ -21,9 +21,11 @@ namespace MobiFlightInstaller
     static class MobiFlightUpdaterModel
     {
         public static readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector-updates.xml";
-        
-        public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";        
+        public static readonly string OldMobiFlightUpdaterName = "MobiFlight-Updater.exe";
         public static readonly string InstallerLogFilePath = Directory.GetCurrentDirectory() + "\\install.log.txt";
+
+        public static string InstallerUpdateUrl = ""; // URL to check for installer upgrade, Set to empty to avoid installer autoUpgrade
+        public static string InstallerActualVersion = "0.0.0";
         
         public static string CacheId = null;
 
@@ -163,6 +165,11 @@ namespace MobiFlightInstaller
                             Log.Instance.log("Mobiflight-Installer no need to be upgrade, extracting file skipped", LogSeverity.Info);
                             continue;
                         }
+                    }
+
+                    if (file.Name == "install.log.txt")
+                    {
+                        continue;
                     }
 
                     try
@@ -351,22 +358,47 @@ namespace MobiFlightInstaller
                 {
                     WebClient _webClient = new WebClient();
                     var uri = new Uri(_downloadURL);
-                    _webClient.DownloadFile(uri, CurrentFileName); // Download the file and extract in current directory
+                    _webClient.DownloadFile(uri, CurrentFileName); // Download the file
                     _webClient.Dispose();
                 }
 
-                // check again
+                // check if the file is downloaded
                 if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
                 {
                     CloseMobiFlightAndWait();
                     MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
+                    MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
                 }
-                
-                MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
+                else //download has failed try a second url if exist
+                {
+                    if (resultList[Version]["url2"].Length > 5)
+                    {
+                        _downloadURL = resultList[Version]["url2"];
+                        WebClient _webClient = new WebClient();
+                        var uri = new Uri(_downloadURL);
+                        _webClient.DownloadFile(uri, CurrentFileName); // Download the file second URL
+                        _webClient.Dispose();
+                        if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
+                        {
+                            CloseMobiFlightAndWait();
+                            MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
+                            MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
+                        }
+                        else // if failed twice
+                        {
+                            MessageBox.Show("Download FAILED, Please retry later.");
+                        }
+                    }
+                    else // if failed first time and no second URL
+                    {
+                        MessageBox.Show("Download FAILED, Please retry later.");
+                    }
+                    
+                }
             }
             else
             {
-                MessageBox.Show("Impossible to find this version, install canceled...");
+                MessageBox.Show("Impossible to find this version, URL is wrong, install canceled...");
             }
         }
 

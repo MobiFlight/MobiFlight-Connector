@@ -84,5 +84,11 @@
     <Setting Name="StartedTotal" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="PresetFileMSFS2020SimVarsUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Presets\msfs2020_simvars_user.cip</Value>
+    </Setting>
+    <Setting Name="PresetFileMSFS2020SimVars" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Presets\msfs2020_simvars.cip</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight;
+using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -115,10 +116,12 @@ namespace MobiFlight.Tests
             InputConfigItem result = new InputConfigItem();
             result.button = new InputConfig.ButtonInputConfig();
             result.button.onRelease = new InputConfig.FsuipcOffsetInputAction() {
-                FSUIPCBcdMode = true,
-                FSUIPCMask = 0xFFFF,
-                FSUIPCOffset = 0x1234,
-                FSUIPCSize = 2,
+                FSUIPC = new FsuipcOffset() {
+                    BcdMode = true,
+                    Mask = 0xFFFF,
+                    Offset = 0x1234,
+                    Size = 2
+                },
                 Value = "1"
             };
             result.Type = InputConfigItem.TYPE_BUTTON;

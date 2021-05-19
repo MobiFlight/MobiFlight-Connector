@@ -457,7 +457,7 @@ namespace MobiFlight.UI.Panels
                 OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
                 if (cfgItem != null)
                 {
-                    row["fsuipcOffset"] = "0x" + cfgItem.FSUIPCOffset.ToString("X4");
+                    row["fsuipcOffset"] = "0x" + cfgItem.FSUIPC.Offset.ToString("X4");
                     if (cfgItem.DisplaySerial != null)
                     {
                         row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];

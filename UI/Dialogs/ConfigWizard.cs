@@ -66,7 +66,7 @@ namespace MobiFlight.UI.Dialogs
             
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
-            if (cfg.FSUIPCOffset == OutputConfigItem.FSUIPCOffsetNull)
+            if (cfg.FSUIPC.Offset == OutputConfig.FsuipcOffset.OffsetNull)
             {
                 lastTabActive = 0;
             }
@@ -408,7 +408,11 @@ namespace MobiFlight.UI.Dialogs
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
         {
+            OffsetTypeFsuipRadioButton.Checked = (config.SourceType == SourceType.FSUIPC);
+            OffsetTypeSimConnectRadioButton.Checked = (config.SourceType == SourceType.SIMCONNECT);
+
             fsuipcConfigPanel.syncFromConfig(config);
+            simConnectPanel1.syncFromConfig(config);
             configRefPanel.syncFromConfig(config);
         }
 
@@ -431,7 +435,10 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
+            config.SourceType = OffsetTypeFsuipRadioButton.Checked ? SourceType.FSUIPC : SourceType.SIMCONNECT;
+
             fsuipcConfigPanel.syncToConfig(config);
+            simConnectPanel1.syncToConfig(config);
             configRefPanel.syncToConfig(config);
 
             // refactor!!!
@@ -1282,6 +1289,12 @@ namespace MobiFlight.UI.Dialogs
             interpolationPanel1.Enabled = (sender as CheckBox).Checked;
             if ((sender as CheckBox).Checked)
                 interpolationPanel1.Save = true;
+        }
+
+        private void OffsetTypeFsuipRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            FsuipcSettingsPanel.Visible = (sender as RadioButton) == OffsetTypeFsuipRadioButton;
+            simConnectPanel1.Visible = (sender as RadioButton) == OffsetTypeSimConnectRadioButton;
         }
     }
 }

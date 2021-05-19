@@ -117,45 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="active.HeaderText" xml:space="preserve">
-    <value>Aktiv</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Setze Wert</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="active.Width" type="System.Int32, mscorlib">
-    <value>37</value>
+  <data name="SubstringTransformationCheckBox.Text" xml:space="preserve">
+    <value>Substring von</value>
   </data>
-  <data name="Description.HeaderText" xml:space="preserve">
-    <value>Beschreibung</value>
+  <data name="SubStringToLabel.Text" xml:space="preserve">
+    <value>bis</value>
   </data>
-  <data name="moduleSerial.HeaderText" xml:space="preserve">
-    <value>Modul</value>
-  </data>
-  <data name="OutputType.HeaderText" xml:space="preserve">
-    <value>Typ</value>
-  </data>
-  <data name="fsuipcValueColumn.HeaderText" xml:space="preserve">
-    <value>Flight Sim Wert</value>
-  </data>
-  <data name="arcazeValueColumn.HeaderText" xml:space="preserve">
-    <value>Output Wert</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
-  </data>
-  <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
-  </data>
-  <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Zeile duplizieren</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete row</value>
-  </data>
-  <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
-    <value>Delete the current selected row</value>
+  <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
+    <value>Weitere Optionen</value>
   </data>
 </root>

@@ -432,4 +432,7 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
     <value>Das ausgewählte Modul enthält keine Ausgabegeräte. Möchtest Du welche konfigurieren?</value>
     <comment>uiMessageSelectedModuleDoesNotContainAnyOutputDevices</comment>
   </data>
+  <data name="uiMessageNoSimConnectConnection" xml:space="preserve">
+    <value>Keine aktive SimConnect Verbindung.</value>
+  </data>
 </root>
