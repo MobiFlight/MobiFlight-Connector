@@ -28,11 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.displayPortComboBox = new System.Windows.Forms.ComboBox();
-            this.displayPinComboBox = new System.Windows.Forms.ComboBox();
-            this.displayPinComoBoxLabel = new System.Windows.Forms.Label();
             this.displayPinBrightnessPanel = new System.Windows.Forms.Panel();
             this.displayPinBrightnessLabelPanel = new System.Windows.Forms.Panel();
             this.displayPinBrightnessDimLabel = new System.Windows.Forms.Label();
@@ -44,35 +40,15 @@
             this.pwmPinPanel = new System.Windows.Forms.Panel();
             this.displayPwmCheckBox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.pinSelectPanel = new MobiFlight.UI.Panels.PinSelectPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.displayPinBrightnessPanel.SuspendLayout();
             this.displayPinBrightnessLabelPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.displayPinBrightnessTrackBar)).BeginInit();
             this.panel2.SuspendLayout();
             this.pwmPinPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.flowLayoutPanel1);
-            this.panel1.Controls.Add(this.displayPinComoBoxLabel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(351, 37);
-            this.panel1.TabIndex = 5;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.displayPortComboBox);
-            this.flowLayoutPanel1.Controls.Add(this.displayPinComboBox);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(120, 0);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(223, 32);
-            this.flowLayoutPanel1.TabIndex = 7;
             // 
             // displayPortComboBox
             // 
@@ -82,7 +58,7 @@
             "Pin",
             "7-Segment",
             "3BCD-8Bit-with-Strobe"});
-            this.displayPortComboBox.Location = new System.Drawing.Point(4, 4);
+            this.displayPortComboBox.Location = new System.Drawing.Point(24, 32);
             this.displayPortComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.displayPortComboBox.MaximumSize = new System.Drawing.Size(161, 0);
             this.displayPortComboBox.MinimumSize = new System.Drawing.Size(61, 0);
@@ -90,43 +66,15 @@
             this.displayPortComboBox.Size = new System.Drawing.Size(61, 24);
             this.displayPortComboBox.TabIndex = 5;
             // 
-            // displayPinComboBox
-            // 
-            this.displayPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displayPinComboBox.FormattingEnabled = true;
-            this.displayPinComboBox.Items.AddRange(new object[] {
-            "Pin",
-            "7-Segment",
-            "3BCD-8Bit-with-Strobe"});
-            this.displayPinComboBox.Location = new System.Drawing.Point(73, 4);
-            this.displayPinComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.displayPinComboBox.MaximumSize = new System.Drawing.Size(161, 0);
-            this.displayPinComboBox.MinimumSize = new System.Drawing.Size(61, 0);
-            this.displayPinComboBox.Name = "displayPinComboBox";
-            this.displayPinComboBox.Size = new System.Drawing.Size(61, 24);
-            this.displayPinComboBox.TabIndex = 6;
-            this.displayPinComboBox.SelectedIndexChanged += new System.EventHandler(this.displayPinComboBox_SelectedIndexChanged);
-            // 
-            // displayPinComoBoxLabel
-            // 
-            this.displayPinComoBoxLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinComoBoxLabel.Location = new System.Drawing.Point(4, 9);
-            this.displayPinComoBoxLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.displayPinComoBoxLabel.Name = "displayPinComoBoxLabel";
-            this.displayPinComoBoxLabel.Size = new System.Drawing.Size(109, 16);
-            this.displayPinComoBoxLabel.TabIndex = 0;
-            this.displayPinComoBoxLabel.Text = "Pin";
-            this.displayPinComoBoxLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // displayPinBrightnessPanel
             // 
             this.displayPinBrightnessPanel.Controls.Add(this.displayPinBrightnessLabelPanel);
             this.displayPinBrightnessPanel.Controls.Add(this.panel2);
             this.displayPinBrightnessPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.displayPinBrightnessPanel.Location = new System.Drawing.Point(0, 65);
+            this.displayPinBrightnessPanel.Location = new System.Drawing.Point(0, 243);
             this.displayPinBrightnessPanel.Margin = new System.Windows.Forms.Padding(4);
             this.displayPinBrightnessPanel.Name = "displayPinBrightnessPanel";
-            this.displayPinBrightnessPanel.Size = new System.Drawing.Size(351, 57);
+            this.displayPinBrightnessPanel.Size = new System.Drawing.Size(351, 79);
             this.displayPinBrightnessPanel.TabIndex = 15;
             // 
             // displayPinBrightnessLabelPanel
@@ -139,7 +87,7 @@
             this.displayPinBrightnessLabelPanel.Location = new System.Drawing.Point(120, 0);
             this.displayPinBrightnessLabelPanel.Margin = new System.Windows.Forms.Padding(4);
             this.displayPinBrightnessLabelPanel.Name = "displayPinBrightnessLabelPanel";
-            this.displayPinBrightnessLabelPanel.Size = new System.Drawing.Size(231, 57);
+            this.displayPinBrightnessLabelPanel.Size = new System.Drawing.Size(231, 79);
             this.displayPinBrightnessLabelPanel.TabIndex = 17;
             // 
             // displayPinBrightnessDimLabel
@@ -148,7 +96,7 @@
             this.displayPinBrightnessDimLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.displayPinBrightnessDimLabel.Location = new System.Drawing.Point(33, 56);
             this.displayPinBrightnessDimLabel.Name = "displayPinBrightnessDimLabel";
-            this.displayPinBrightnessDimLabel.Size = new System.Drawing.Size(161, 1);
+            this.displayPinBrightnessDimLabel.Size = new System.Drawing.Size(161, 23);
             this.displayPinBrightnessDimLabel.TabIndex = 15;
             this.displayPinBrightnessDimLabel.Text = "Medium";
             this.displayPinBrightnessDimLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -192,12 +140,13 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.displayPortComboBox);
             this.panel2.Controls.Add(this.displayPinBrightnessLabel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(120, 57);
+            this.panel2.Size = new System.Drawing.Size(120, 79);
             this.panel2.TabIndex = 7;
             // 
             // displayPinBrightnessLabel
@@ -216,10 +165,11 @@
             this.pwmPinPanel.Controls.Add(this.displayPwmCheckBox);
             this.pwmPinPanel.Controls.Add(this.label1);
             this.pwmPinPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pwmPinPanel.Location = new System.Drawing.Point(0, 37);
+            this.pwmPinPanel.Location = new System.Drawing.Point(0, 203);
             this.pwmPinPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pwmPinPanel.MinimumSize = new System.Drawing.Size(0, 40);
             this.pwmPinPanel.Name = "pwmPinPanel";
-            this.pwmPinPanel.Size = new System.Drawing.Size(351, 28);
+            this.pwmPinPanel.Size = new System.Drawing.Size(351, 40);
             this.pwmPinPanel.TabIndex = 16;
             // 
             // displayPwmCheckBox
@@ -243,6 +193,29 @@
             this.label1.Text = "PWM Mode";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // pinSelectPanel
+            // 
+            this.pinSelectPanel.AutoScroll = true;
+            this.pinSelectPanel.AutoSize = true;
+            this.pinSelectPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pinSelectPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pinSelectPanel.Location = new System.Drawing.Point(0, 0);
+            this.pinSelectPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.pinSelectPanel.Name = "pinSelectPanel";
+            this.pinSelectPanel.Size = new System.Drawing.Size(351, 203);
+            this.pinSelectPanel.TabIndex = 7;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.pinSelectPanel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(351, 203);
+            this.panel1.TabIndex = 5;
+            // 
             // DisplayPinPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -253,36 +226,34 @@
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DisplayPinPanel";
-            this.Size = new System.Drawing.Size(351, 122);
-            this.panel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(351, 322);
             this.displayPinBrightnessPanel.ResumeLayout(false);
             this.displayPinBrightnessLabelPanel.ResumeLayout(false);
             this.displayPinBrightnessLabelPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.displayPinBrightnessTrackBar)).EndInit();
             this.panel2.ResumeLayout(false);
             this.pwmPinPanel.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.ComboBox displayPinComboBox;
         public System.Windows.Forms.ComboBox displayPortComboBox;
-        private System.Windows.Forms.Label displayPinComoBoxLabel;
         public System.Windows.Forms.Panel displayPinBrightnessPanel;
-        public System.Windows.Forms.TrackBar displayPinBrightnessTrackBar;
+        private System.Windows.Forms.Label displayPinBrightnessLabel;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pwmPinPanel;
+        private System.Windows.Forms.CheckBox displayPwmCheckBox;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel displayPinBrightnessLabelPanel;
         private System.Windows.Forms.Label displayPinBrightnessDimLabel;
         private System.Windows.Forms.Label displayPinBrightnessMediumLabel;
         private System.Windows.Forms.Label displayPinBrightnessBrightLabel;
-        private System.Windows.Forms.Label displayPinBrightnessLabel;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Panel pwmPinPanel;
-        private System.Windows.Forms.CheckBox displayPwmCheckBox;
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TrackBar displayPinBrightnessTrackBar;
+        private PinSelectPanel pinSelectPanel;
+        private System.Windows.Forms.Panel panel1;
     }
 }

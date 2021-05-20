@@ -409,7 +409,21 @@ namespace MobiFlight
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = GetModuleBySerial(serial);
-                module.SetPin("base", name, Int16.Parse(value));
+
+                if (name != null && name.Contains("|")) {
+                    var pins = name.Split('|');
+                    foreach(string pin in pins) {
+                        if (!string.IsNullOrEmpty(pin.Trim()))
+                        {
+                             module.SetPin("base", pin, Int16.Parse(value));
+                        }
+                    };
+                } else
+                {
+                    module.SetPin("base", name, Int16.Parse(value));
+                }
+
+                
             }
             catch (ConfigErrorException e)
             {

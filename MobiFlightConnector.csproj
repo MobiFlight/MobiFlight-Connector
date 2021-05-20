@@ -388,6 +388,12 @@
     <Compile Include="UI\Panels\OutputConfigPanel.Designer.cs">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Output\PinSelectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\PinSelectPanel.Designer.cs">
+      <DependentUpon>PinSelectPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -839,6 +845,9 @@
     <EmbeddedResource Include="UI\Panels\OutputConfigPanel.resx">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\PinSelectPanel.resx">
+      <DependentUpon>PinSelectPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayShiftRegisterPanel.resx">
       <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
