@@ -37,7 +37,7 @@ namespace MobiFlight.Config
             {
                 String current = item.ToInternal();
                 
-                if ((message.Length + current.Length) > MaxMessageLength) {
+                if ((message.Length + current.Length) > MaxMessageLength && message.Length > 0) {
                     result.Add(message);
                     message = "";
                 }
@@ -130,8 +130,10 @@ namespace MobiFlight.Config
 
                     }
 
-                    Items.Add(currentItem);
-
+                    if (currentItem != null)
+                    {
+                        Items.Add(currentItem);
+                    }
                 }
                 catch (ArgumentException ex)
                 {

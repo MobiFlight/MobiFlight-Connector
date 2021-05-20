@@ -707,6 +707,15 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No active SimConnect Connection.
+        /// </summary>
+        internal static string uiMessageNoSimConnectConnection {
+            get {
+                return ResourceManager.GetString("uiMessageNoSimConnectConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not enough pins.
         /// </summary>
         internal static string uiMessageNotEnoughPinsHint {
@@ -784,6 +793,15 @@ namespace MobiFlight {
         internal static string uiMessageSelectedModuleDoesNotContainAnyInputDevices {
             get {
                 return ResourceManager.GetString("uiMessageSelectedModuleDoesNotContainAnyInputDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The selected module does not contain any output devices. Do you want to add such devices?.
+        /// </summary>
+        internal static string uiMessageSelectedModuleDoesNotContainAnyOutputDevices {
+            get {
+                return ResourceManager.GetString("uiMessageSelectedModuleDoesNotContainAnyOutputDevices", resourceCulture);
             }
         }
         
@@ -906,11 +924,92 @@ namespace MobiFlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Latest WASM Events could not be installed. Please check Log for more information..
+        /// </summary>
+        internal static string uiMessageWasmEventsInstallationError {
+            get {
+                return ResourceManager.GetString("uiMessageWasmEventsInstallationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest WASM Events installed successfully..
+        /// </summary>
+        internal static string uiMessageWasmEventsInstallationSuccessful {
+            get {
+                return ResourceManager.GetString("uiMessageWasmEventsInstallationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MobiFlight WASM Module is already installed and up-to-date..
+        /// </summary>
+        internal static string uiMessageWasmUpdateAlreadyInstalled {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdateAlreadyInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MSFS2020 Community Folder was not found. Can&apos;t install WASM Module automatically. Please copy the folder manually..
+        /// </summary>
+        internal static string uiMessageWasmUpdateCommunityFolderNotFound {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdateCommunityFolderNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MobiFlight WASM Module was not installed successfully. Please check the Log for more information..
+        /// </summary>
+        internal static string uiMessageWasmUpdateInstallationError {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdateInstallationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MobiFlight WASM Module installed successfully..
+        /// </summary>
+        internal static string uiMessageWasmUpdateInstallationSuccessful {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdateInstallationSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MobiFlight WASM Module Installation.
+        /// </summary>
+        internal static string uiMessageWasmUpdater {
+            get {
+                return ResourceManager.GetString("uiMessageWasmUpdater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom Param.
         /// </summary>
         internal static string uiPmdgEventIdInputPanelCustomParam {
             get {
                 return ResourceManager.GetString("uiPmdgEventIdInputPanelCustomParam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a Preset.
+        /// </summary>
+        internal static string uiSimConnectPanelComboBoxPresetSelect {
+            get {
+                return ResourceManager.GetString("uiSimConnectPanelComboBoxPresetSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose a Preset Group....
+        /// </summary>
+        internal static string uiSimConnectPanelComboBoxPresetSelectGroup {
+            get {
+                return ResourceManager.GetString("uiSimConnectPanelComboBoxPresetSelectGroup", resourceCulture);
             }
         }
         

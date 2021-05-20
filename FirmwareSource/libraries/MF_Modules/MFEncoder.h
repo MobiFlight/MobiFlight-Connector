@@ -27,9 +27,13 @@ extern "C"
   typedef void (*encoderEvent) (uint8_t, uint8_t, const char *);
 };
 
-#define MF_ENC_MIN -32768
-#define MF_ENC_MAX 32767
-#define MF_ENC_FAST_LIMIT 512
+// this prevents the internal position overflow.
+// no need to change this
+#define MF_ENC_MAX 8000 
+
+// this defines the delta value limit for triggering onFast
+// this should work well for all encoder types
+#define MF_ENC_FAST_LIMIT 40
 
 enum
 {
@@ -53,7 +57,7 @@ private:
     uint8_t                   _pin1;              
     uint8_t                   _pin2;
     bool                      _initialized;
-    RotaryEncoder  		        _encoder;
+    RotaryEncoder             _encoder;
     const char *              _name;
     long                      _pos;
     encoderEvent              _handlerList[4];

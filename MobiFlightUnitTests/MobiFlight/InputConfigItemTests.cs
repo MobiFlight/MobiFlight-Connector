@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight;
+using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,6 +68,10 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Type, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
+            Assert.IsNull(o.encoder.onLeft, "encoder onLeft not null");
+            Assert.IsNotNull(o.encoder.onLeftFast, "encoder onLeftFast is null");
+            Assert.IsNull(o.encoder.onRight, "encoder onRight not null");
+            Assert.IsNotNull(o.encoder.onRightFast, "encoder onRightFast is null");
             Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
             Assert.AreEqual(o.ConfigRefs.Count, 0, "ConfigRefs.Count is not 2");
         }
@@ -111,10 +116,12 @@ namespace MobiFlight.Tests
             InputConfigItem result = new InputConfigItem();
             result.button = new InputConfig.ButtonInputConfig();
             result.button.onRelease = new InputConfig.FsuipcOffsetInputAction() {
-                FSUIPCBcdMode = true,
-                FSUIPCMask = 0xFFFF,
-                FSUIPCOffset = 0x1234,
-                FSUIPCSize = 2,
+                FSUIPC = new FsuipcOffset() {
+                    BcdMode = true,
+                    Mask = 0xFFFF,
+                    Offset = 0x1234,
+                    Size = 2
+                },
                 Value = "1"
             };
             result.Type = InputConfigItem.TYPE_BUTTON;

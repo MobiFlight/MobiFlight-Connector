@@ -87,6 +87,18 @@ namespace MobiFlight.UI.Panels
             Module = module;
         }
 
+        private void displayPinComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Module != null)
+            {
+                String pin = (sender as ComboBox).SelectedItem.ToString();
+                foreach (var item in Module.GetConnectedDevices(pin))
+                {
+                    pwmPinPanel.Visible = Module.getPwmPins()
+                                                .Find(x=>x.Pin==(byte)(item as MobiFlightOutput).Pin) != null;
+                    return;
+                }
+            }
         internal void SetPins(List<ListItem> pins)
         {
             pinSelectPanel?.SetPins(pins);            

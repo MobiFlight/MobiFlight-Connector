@@ -9,6 +9,11 @@ SET VERSION=
 for /f "delims=" %%A in ('%BUILD_TOOLS_DIR%VersionInfo.exe %TARGET_DIR%MFConnector.exe') do set "VERSION=%%A"
 
 echo -----------------------------------------------------------
+echo CLEAN install log file
+echo -----------------------------------------------------------
+del %TARGET_DIR%\install.log.txt /Q
+
+echo -----------------------------------------------------------
 echo CLEAN Release Directory
 echo -----------------------------------------------------------
 del %RELEASE_DIR%\MobiFlightConnector-%VERSION%.* /Q

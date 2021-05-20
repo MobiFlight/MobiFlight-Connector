@@ -53,5 +53,24 @@ namespace MobiFlight.Config
 
             return true;
         }
+
+        public override bool Equals(object obj)
+        {
+            LedModule other = obj as LedModule;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.DinPin == other.DinPin
+                && this.ClsPin == other.ClsPin
+                && this.ClkPin == other.ClkPin;
+        }
+
+        public override string ToString()
+        {
+            return Type + ":" + Name + " DinPin:" + DinPin + " ClsPin:" + ClsPin + " ClkPin:" + ClkPin;
+        }
     }
 }

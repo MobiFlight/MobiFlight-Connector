@@ -222,7 +222,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.displayPinBrightnessPanel);
             this.Controls.Add(this.pwmPinPanel);
             this.Controls.Add(this.panel1);

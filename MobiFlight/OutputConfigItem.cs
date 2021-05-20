@@ -21,15 +21,12 @@ namespace MobiFlight
         
         // this implements the FSUIPC Config Item Interface
         // It would be nicer to have an aggregation of FSUIPC.FSUIPCConfigItem instead
-        public const int    FSUIPCOffsetNull = 0;        
-        public int          FSUIPCOffset                { get; set; }
-        public byte         FSUIPCSize                  { get; set; }
-        public FSUIPCOffsetType   
-                            FSUIPCOffsetType            { get; set; }
-        public long         FSUIPCMask                  { get; set; }
-        //[Obsolete]
-        //public double       FSUIPCMultiplier            { get; set; }
-        public bool         FSUIPCBcdMode               { get; set; }
+        public SourceType   SourceType                  { get; set; }
+        public FsuipcOffset FSUIPC                      { get; set; }
+
+        public SimConnectValue
+                            SimConnectValue              { get; set; }
+
         public Transformation
                             Transform                   { get; set; }
         public string       Value                       { get; set; }
@@ -57,7 +54,7 @@ namespace MobiFlight
 
 
         // the lcd display stuff
-        public OutputConfig.LcdDisplay LcdDisplay                  { get; set; }
+        public OutputConfig.LcdDisplay LcdDisplay       { get; set; }
 
         // the bcd driver stuff
         public List<string> BcdPins                     { get; set; }
@@ -89,13 +86,13 @@ namespace MobiFlight
         public List<ConfigRef>      ConfigRefs          { get; set; }        
 
         public OutputConfigItem()
-        {            
-            FSUIPCOffset = FSUIPCOffsetNull;
-            FSUIPCMask = 0xFF;
-            Transform = new Transformation();            
-            FSUIPCOffsetType = FSUIPCOffsetType.Integer;
-            FSUIPCSize = 1;
-            FSUIPCBcdMode = false;
+        {
+            SourceType = SourceType.FSUIPC;
+            FSUIPC = new FsuipcOffset();
+            SimConnectValue = new SimConnectValue();
+
+            Transform = new Transformation();
+
             ComparisonActive = false;
             ComparisonOperand = "";
             ComparisonValue = "";
@@ -137,43 +134,27 @@ namespace MobiFlight
         {  
             if (reader.ReadToDescendant("source"))
             {
-                FSUIPCOffset = Int32.Parse(reader["offset"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);                
-                FSUIPCSize = Byte.Parse(reader["size"]);
-                if (reader["offsetType"] != null && reader["offsetType"] != "")
-                {
-                    try
-                    {
-                        FSUIPCOffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), reader["offsetType"]);
-                    }
-                    catch (Exception e)
-                    {
-                        FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Integer;
-                    }
+                // try to read it as FSUIPC Offset
+                if (reader["type"]=="SimConnect") {
+                    SourceType = SourceType.SIMCONNECT;
+                    this.SimConnectValue.ReadXml(reader);
                 }
                 else
                 {
-                    // Backward compatibility
-                    // byte 1,2,4 -> int, this already is default
-                    // exception
-                    // byte 8 -> float
-                    if (FSUIPCSize == 8) FSUIPCOffsetType = MobiFlight.FSUIPCOffsetType.Float;
+                    SourceType = SourceType.FSUIPC;
+                    this.FSUIPC.ReadXml(reader);
                 }
-                FSUIPCMask = Int64.Parse(reader["mask"].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
-                
+
                 // backward compatibility
-                if (reader["multiplier"] != null) {
+                if (reader["multiplier"] != null)
+                {
                     double multiplier = Double.Parse(reader["multiplier"], serializationCulture);
                     if (multiplier != 1.0)
                     {
                         Transform.Active = true;
                         // we have to replace the decimal in case "," is used (german style)
-                        Transform.Expression = "$*" + multiplier.ToString().Replace(',','.');
+                        Transform.Expression = "$*" + multiplier.ToString().Replace(',', '.');
                     }
-                }
-                
-                if (reader["bcdMode"] != null && reader["bcdMode"] != "")
-                {
-                    FSUIPCBcdMode = Boolean.Parse(reader["bcdMode"]);
                 }
             }
 
@@ -395,13 +376,10 @@ namespace MobiFlight
         public virtual void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("source");
-                writer.WriteAttributeString("type", "FSUIPC");
-                writer.WriteAttributeString("offset", "0x" + FSUIPCOffset.ToString("X4"));
-                writer.WriteAttributeString("offsetType", FSUIPCOffsetType.ToString());
-                writer.WriteAttributeString("size", FSUIPCSize.ToString());
-                writer.WriteAttributeString("mask", "0x" + FSUIPCMask.ToString("X4"));
-                //writer.WriteAttributeString("multiplier", FSUIPCMultiplier.ToString(serializationCulture));
-                writer.WriteAttributeString("bcdMode", FSUIPCBcdMode.ToString());
+                if(SourceType==SourceType.FSUIPC)
+                    this.FSUIPC.WriteXml(writer);
+                else
+                    this.SimConnectValue.WriteXml(writer);
             writer.WriteEndElement();
 
             writer.WriteStartElement("comparison");
@@ -500,13 +478,11 @@ namespace MobiFlight
         public object Clone()
         {
             OutputConfigItem clone = new OutputConfigItem();
-            clone.FSUIPCOffset              = this.FSUIPCOffset;
-            clone.FSUIPCOffsetType          = this.FSUIPCOffsetType;
-            clone.FSUIPCSize                = this.FSUIPCSize;
-            clone.FSUIPCMask                = this.FSUIPCMask;
-            //clone.FSUIPCMultiplier          = this.FSUIPCMultiplier;
+            clone.SourceType                = this.SourceType;
+            clone.FSUIPC                    = this.FSUIPC.Clone() as FsuipcOffset;
+            clone.SimConnectValue           = this.SimConnectValue.Clone() as SimConnectValue;
+
             clone.Transform                 = this.Transform.Clone() as Transformation;
-            clone.FSUIPCBcdMode             = this.FSUIPCBcdMode;
             clone.ComparisonActive          = this.ComparisonActive;
             clone.ComparisonOperand         = this.ComparisonOperand;
             clone.ComparisonValue           = this.ComparisonValue;
@@ -562,5 +538,11 @@ namespace MobiFlight
 
             return clone;
         }
+    }
+
+    public enum SourceType
+    {
+        FSUIPC,
+        SIMCONNECT
     }
 }

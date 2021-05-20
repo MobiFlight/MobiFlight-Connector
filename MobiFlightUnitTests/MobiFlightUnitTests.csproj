@@ -36,24 +36,6 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight Offline|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Mobiflight Offline\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight %28EN%29|AnyCPU'">
-    <OutputPath>bin\Release-Mobiflight %28EN%29\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -83,6 +65,7 @@
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
     <Compile Include="InterpolationTests.cs" />
+    <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ButtonInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\EncoderInputConfigTests.cs" />

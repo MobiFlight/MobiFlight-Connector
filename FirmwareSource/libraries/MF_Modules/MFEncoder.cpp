@@ -17,7 +17,7 @@ void MFEncoder::attach(uint8_t pin1, uint8_t pin2, uint8_t encoderType, const ch
   _encoderType = encoderType;
   
   _encoder.initialize(_pin1, _pin2, _encoderType);
-  _encoder.setMinMax(MF_ENC_MIN,MF_ENC_MAX);
+  _encoder.setMinMax(-1000,1000);
   _encoder.setPosition(_pos);
   
   _initialized = true;
@@ -58,8 +58,8 @@ void MFEncoder::update()
     }
   }
   
-  // clamp values
-  if ( (dir > 0 && (pos + delta*2) > MF_ENC_MAX) || (dir < 0 && (pos - delta*2) < MF_ENC_MIN)) 
+  // protect from overflow
+  if ( (dir > 0 && (pos + delta*2) > MF_ENC_MAX) || (dir < 0 && (pos - delta*2) < -MF_ENC_MAX)) 
   { 
     _encoder.setPosition(0); 
     pos = 0; 

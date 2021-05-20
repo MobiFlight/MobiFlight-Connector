@@ -57,13 +57,14 @@ namespace MobiFlight
                 button = new ButtonInputConfig();
                 button.ReadXml(reader);
                 if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
-                reader.Read();
+                reader.Read(); // advance to the next node
             }
 
             if (reader.LocalName == "encoder") {
                 encoder = new EncoderInputConfig();
                 encoder.ReadXml(reader);
                 if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
+                reader.Read(); // advance to the next node
             }
 
             // this is fallback, because type was not set in the past
@@ -75,10 +76,12 @@ namespace MobiFlight
                     Type = TYPE_ENCODER;
             }
             
+            /*
             if (reader.LocalName != "preconditions")            
                 reader.Read(); // this should be the preconditions tag
             if (reader.LocalName != "preconditions")
                 reader.Read(); // this should be the preconditions tag
+            */
             if (reader.LocalName == "preconditions")
             {
                 bool atPosition = false;
@@ -91,7 +94,7 @@ namespace MobiFlight
                         Precondition tmp = new Precondition();
                         tmp.ReadXml(reader);
                         Preconditions.Add(tmp);
-                        reader.ReadStartElement();
+                        reader.Read();
                     } while (reader.LocalName == "precondition");
                 }
                 if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
@@ -109,16 +112,11 @@ namespace MobiFlight
                         ConfigRef tmp = new ConfigRef();
                         tmp.ReadXml(reader);
                         ConfigRefs.Add(tmp);
-                        reader.ReadStartElement();
+                        reader.Read();
                     } while (reader.LocalName == "configref");
+                }
 
-                    // read to the end of configref-node
-                    reader.ReadEndElement();
-                }
-                else
-                {
-                    reader.ReadStartElement();
-                }
+                reader.Read(); // advance to the next
             }
         }
 

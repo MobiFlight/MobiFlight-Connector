@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Panels
     public partial class OutputConfigPanel : UserControl
     {
         public event EventHandler SettingsChanged;
+        public event EventHandler SettingsDialogRequested;
 
         private int lastClickedRow = -1;
         //private DataTable configDataTable;
@@ -389,18 +390,19 @@ namespace MobiFlight.UI.Panels
         private void EditConfigWithWizard(DataRow dataRow, OutputConfigItem cfg, bool create)
         {
             // refactor!!! dependency to arcaze cache etc not nice
-            Form wizard = new ConfigWizard(ExecutionManager,
+            ConfigWizard wizard = new ConfigWizard(ExecutionManager,
                                             cfg,
 #if ARCAZE
                                             ExecutionManager.getModuleCache(),
-                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(), 
+                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
                                             dataSetConfig,
                                             dataRow["guid"].ToString()
-                                          )
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
+                                          );
+
+            wizard.StartPosition = FormStartPosition.CenterParent;
+            wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
+
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (dataRow == null) return;
@@ -408,6 +410,13 @@ namespace MobiFlight.UI.Panels
                 SettingsChanged?.Invoke(cfg, null);
                 RestoreValuesInGridView();
             };
+        }
+
+        void wizard_SettingsDialogRequested(object sender, EventArgs e)
+        {
+            //(sender as InputConfigWizard).Close();
+            SettingsDialogRequested?.Invoke(sender, null);
+
         }
 
         /// <summary>
@@ -448,7 +457,7 @@ namespace MobiFlight.UI.Panels
                 OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
                 if (cfgItem != null)
                 {
-                    row["fsuipcOffset"] = "0x" + cfgItem.FSUIPCOffset.ToString("X4");
+                    row["fsuipcOffset"] = "0x" + cfgItem.FSUIPC.Offset.ToString("X4");
                     if (cfgItem.DisplaySerial != null)
                     {
                         row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];

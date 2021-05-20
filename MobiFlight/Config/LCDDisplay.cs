@@ -43,5 +43,25 @@ namespace MobiFlight.Config
 
             return true;
         }
+
+        public override bool Equals(object obj)
+        {
+            LcdDisplay other = obj as LcdDisplay;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.Cols == other.Cols
+                && this.Lines == other.Lines
+                && this.Address == other.Address
+                && this.Type == other.Type;
+        }
+
+        public override string ToString()
+        {
+            return Type + ":" + Name + " Cols:" + Cols + " Lines:" + Lines + " Address:" + Address;
+        }
     }
 }

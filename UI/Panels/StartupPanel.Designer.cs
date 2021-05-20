@@ -39,9 +39,9 @@
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(51, 128);
+            this.progressBar.Location = new System.Drawing.Point(51, 245);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(287, 27);
+            this.progressBar.Size = new System.Drawing.Size(329, 27);
             this.progressBar.TabIndex = 0;
             // 
             // StatusText
@@ -49,21 +49,22 @@
             this.StatusText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StatusText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.StatusText.Location = new System.Drawing.Point(52, 96);
+            this.StatusText.Location = new System.Drawing.Point(52, 213);
             this.StatusText.Name = "StatusText";
-            this.StatusText.Size = new System.Drawing.Size(286, 19);
+            this.StatusText.Size = new System.Drawing.Size(328, 19);
             this.StatusText.TabIndex = 1;
-            this.StatusText.Text = "label1";
+            this.StatusText.Text = "Starting up...";
             this.StatusText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(152, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 90);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(80, 80);
+            this.pictureBox1.Size = new System.Drawing.Size(423, 83);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -78,7 +79,7 @@
             this.Controls.Add(this.StatusText);
             this.Controls.Add(this.progressBar);
             this.Name = "StartupPanel";
-            this.Size = new System.Drawing.Size(387, 192);
+            this.Size = new System.Drawing.Size(429, 309);
             this.Load += new System.EventHandler(this.StartupPanel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

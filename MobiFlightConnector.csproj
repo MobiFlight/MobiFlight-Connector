@@ -40,28 +40,6 @@
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>2</WarningLevel>
-    <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>2</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
@@ -73,11 +51,11 @@
     <ApplicationIcon>mobiflight.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight|x86'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Mobiflight\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG SIMCONNECT ARCAZE</DefineConstants>
-    <DocumentationFile>bin\Debug-Mobiflight\MFConnector.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
     <WarningLevel>2</WarningLevel>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -86,8 +64,8 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight|x86'">
-    <OutputPath>bin\Release-Mobiflight\</OutputPath>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;CODE_ANALYSIS;MOBIFLIGHT RELEASE SIMCONNECT ARCAZE</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>2</WarningLevel>
@@ -109,87 +87,7 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight Offline|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Mobiflight Offline\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG FSUIPC_OFFLINE_MODE</DefineConstants>
-    <DocumentationFile>bin\Debug-Mobiflight Offline\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight %28EN%29|x86'">
-    <OutputPath>bin\Release-Mobiflight %28EN%29\</OutputPath>
-    <DefineConstants>TRACE;MOBIFLIGHT RELEASE MF_FORCE_EN</DefineConstants>
-    <Optimize>true</Optimize>
-    <WarningLevel>2</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight %28EN%29|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug-Mobiflight %28EN%29\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_EN</DefineConstants>
-    <DocumentationFile>bin\Debug-Mobiflight %28EN%29\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight %28DE%29|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug-Mobiflight %28DE%29\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_DE</DefineConstants>
-    <DocumentationFile>bin\Debug-Mobiflight %28EN%29\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight|x64'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug-Mobiflight\</OutputPath>
     <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG SIMCONNECT</DefineConstants>
@@ -204,72 +102,13 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight|x64'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\x64\Release-Mobiflight\</OutputPath>
     <DefineConstants>TRACE;MOBIFLIGHT RELEASE SIMCONNECT</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>2</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight Offline|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug-Mobiflight Offline\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG FSUIPC_OFFLINE_MODE</DefineConstants>
-    <DocumentationFile>bin\Debug-Mobiflight Offline\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release-Mobiflight %28EN%29|x64'">
-    <OutputPath>bin\x64\Release-Mobiflight %28EN%29\</OutputPath>
-    <DefineConstants>TRACE;MOBIFLIGHT RELEASE MF_FORCE_EN SIMCONNECT</DefineConstants>
-    <Optimize>true</Optimize>
-    <WarningLevel>2</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight %28EN%29|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug-Mobiflight %28EN%29\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_EN SIMCONNECT</DefineConstants>
-    <DocumentationFile>bin\Debug-Mobiflight %28EN%29\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Mobiflight %28DE%29|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug-Mobiflight %28DE%29\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG MF_FORCE_DE SIMCONNECT</DefineConstants>
-    <DocumentationFile>bin\Debug-Mobiflight %28EN%29\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -319,6 +158,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\ConfigRef.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
@@ -329,7 +169,14 @@
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
+    <Compile Include="MobiFlight\MobiFlightButton.cs" />
+    <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
+    <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
+    <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleUpdater.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -349,6 +196,12 @@
     <Compile Include="MobiFlight\Config\EncoderSingleDetent.cs" />
     <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
     <Compile Include="MobiFlight\FlightSimConnectionMethod.cs" />
+    <Compile Include="UI\Dialogs\Msfs2020StartupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialogs\Msfs2020StartupForm.Designer.cs">
+      <DependentUpon>Msfs2020StartupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\ArduinoIdePathForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -370,11 +223,29 @@
     <Compile Include="UI\Forms\ConfigUploadProgress.Designer.cs">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.Designer.cs">
+      <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Config\SimConnectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\SimConnectPanel.Designer.cs">
+      <DependentUpon>SimConnectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Config\TransformOptionsGroup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\TransformOptionsGroup.Designer.cs">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -771,10 +642,16 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_mega_1_9_10.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_mega_1_9_8.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_mega_1_9_9.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_micro_1_9_10.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_micro_1_9_8.hex">
@@ -783,11 +660,17 @@
     <None Include="firmware\mobiflight_micro_1_9_9.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_uno_1_9_10.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_uno_1_9_8.hex">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_uno_1_9_9.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\msfs2020_simvars.cip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Presets\msfs2020_eventids.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -816,8 +699,12 @@
     <None Include="Resources\arcaze-changed.png" />
     <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
+    <Content Include="Resources\discord_icon.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <EmbeddedResource Include="UI\Dialogs\Msfs2020StartupForm.resx">
+      <DependentUpon>Msfs2020StartupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\SettingsDialog.de-DE.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -833,8 +720,38 @@
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.de.resx">
+      <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.resx">
+      <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\JeehellInputPanel.de.resx">
+      <DependentUpon>JeehellInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\LuaMacroInputPanel.de.resx">
+      <DependentUpon>LuaMacroInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\MSFS2020InputPanel.de.resx">
+      <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\MSFS2020InputPanel.resx">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\RetriggerInputPanel.de.resx">
+      <DependentUpon>RetriggerInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.de.resx">
+      <DependentUpon>VJoyInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
+      <DependentUpon>SimConnectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.de.resx">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.resx">
+      <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
@@ -851,6 +768,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayShiftRegisterPanel.resx">
       <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
+      <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>
@@ -1179,14 +1099,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if "$(ConfigurationName)" == "Release-Mobiflight" ($(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4)</PostBuildEvent>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" ($(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>xcopy /R /Y "$(ProjectDir)Lib\vJoyInterface.dll" "$(TargetDir)"
 xcopy /R /Y "$(ProjectDir)Lib\x86\SimConnect.dll" "$(TargetDir)"
 xcopy /R /E /Y /I "$(ProjectDir)MSFS2020-module" "$(TargetDir)MSFS2020-module"
 xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
-del "$(TargetDir)\log.txt"</PreBuildEvent>
+del "$(TargetDir)\log.txt"
+del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

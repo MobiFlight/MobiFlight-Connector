@@ -330,7 +330,6 @@
             this.offsetPanel.ResumeLayout(false);
             this.offsetPanel.PerformLayout();
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
-            this.fsuipcLoadPresetGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
             this.ResumeLayout(false);

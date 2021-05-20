@@ -304,9 +304,10 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            // display panel
             config.ModuleSerial = inputModuleNameComboBox.Text;
             config.Name = inputTypeComboBox.Text;
+
+            configRefPanel.syncToConfig(config);
 
             if (config.ModuleSerial == "-") return true;
 
@@ -328,9 +329,6 @@ namespace MobiFlight.UI.Dialogs
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
                     break;
             }
-            // depending on the current type, choose the appropriate
-            // input config object
-            configRefPanel.syncToConfig(config);
 
             return true;
         }

@@ -14,7 +14,7 @@ namespace MobiFlight.UI.Dialogs
         public AboutForm()
         {
             InitializeComponent();
-            label1.Text = label1.Text.Replace("{VERSION}", MainForm.Version)
+            label1.Text = label1.Text.Replace("{VERSION}", MainForm.DisplayVersion())
                                      .Replace("{BUILD}", MainForm.Build);
         }
 

@@ -195,12 +195,13 @@ namespace MobiFlight.UI.Panels.Action
             try
             {
                 Int32.Parse(tb.Text);
-            } catch (FormatException fEx)
+            }/* catch (FormatException fEx)
             {
                 e.Cancel = true;
                 errorMessage = fEx.Message;
 
-            } catch (OverflowException oEx)
+            } */
+            catch (OverflowException oEx)
             {
                 errorMessage = oEx.Message;
                 e.Cancel = true;

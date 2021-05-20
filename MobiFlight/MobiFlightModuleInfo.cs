@@ -5,6 +5,39 @@ using System.Text;
 
 namespace MobiFlight
 {
+    public class MobiFlightPin
+    {
+        public byte Pin { get; set; }
+        public bool isAnalog = false;
+        public bool isPWM = false;
+        public bool Used = false;
+        private string name = null;
+
+        public string Name
+        {
+            get { return name!=null ? name : Pin.ToString(); }
+            set { name = value; }
+        }
+
+        public MobiFlightPin() {
+        }
+
+        public MobiFlightPin(MobiFlightPin pin)
+        {
+            Pin = pin.Pin;
+            isAnalog = pin.isAnalog;
+            isPWM = pin.isPWM;
+            Used = pin.Used;
+            Name = pin.Name;
+        }
+
+        public override String ToString()
+        {
+            return Pin.ToString();
+        }
+
+    }
+
     public class MobiFlightModuleInfo : IModuleInfo
     {
         public const String TYPE_UNKNOWN = "unknown";
@@ -39,55 +72,127 @@ namespace MobiFlight
 
         // this is not yet used
         // available pins
-        public static readonly byte[] MEGA_PINS = {
-                   2, 3, 4, 5, 6, 7, 8, 9,
-            10,11,12,13,14,15,16,17,18,19,
-            20,21,22,23,24,25,26,27,28,29,
-            30,31,32,33,34,35,36,37,38,39,
-            40,41,42,43,44,45,46,47,48,49,
-            50,51,52,53,
-            // Analog Pins
-                        54,55,56,57,58,59,
-            60,61,62,63,64,65,66,67,68,69
+        public static readonly List<MobiFlightPin> MEGA_PINS = new List<MobiFlightPin>() {
+            { new MobiFlightPin() { Pin =  2, isPWM = true } },
+            { new MobiFlightPin() { Pin =  3, isPWM = true } },
+            { new MobiFlightPin() { Pin =  4, isPWM = true } },
+            { new MobiFlightPin() { Pin =  5, isPWM = true } },
+            { new MobiFlightPin() { Pin =  6, isPWM = true } },
+            { new MobiFlightPin() { Pin =  7, isPWM = true } },
+            { new MobiFlightPin() { Pin =  8, isPWM = true } },
+            { new MobiFlightPin() { Pin =  9, isPWM = true } },
+            // 10-19
+            { new MobiFlightPin() { Pin = 10, isPWM = true } },
+            { new MobiFlightPin() { Pin = 11, isPWM = true } },
+            { new MobiFlightPin() { Pin = 12, isPWM = true } },
+            { new MobiFlightPin() { Pin = 13, isPWM = true } },
+            { new MobiFlightPin() { Pin = 14 } },
+            { new MobiFlightPin() { Pin = 15 } },
+            { new MobiFlightPin() { Pin = 16 } },
+            { new MobiFlightPin() { Pin = 17 } },
+            { new MobiFlightPin() { Pin = 18 } },
+            { new MobiFlightPin() { Pin = 19 } },
+            // 20-29
+            { new MobiFlightPin() { Pin = 20 } },
+            { new MobiFlightPin() { Pin = 21 } },
+            { new MobiFlightPin() { Pin = 22 } },
+            { new MobiFlightPin() { Pin = 23 } },
+            { new MobiFlightPin() { Pin = 24 } },
+            { new MobiFlightPin() { Pin = 25 } },
+            { new MobiFlightPin() { Pin = 26 } },
+            { new MobiFlightPin() { Pin = 27 } },
+            { new MobiFlightPin() { Pin = 28 } },
+            { new MobiFlightPin() { Pin = 29 } },
+            // 30-39
+            { new MobiFlightPin() { Pin = 30 } },
+            { new MobiFlightPin() { Pin = 31 } },
+            { new MobiFlightPin() { Pin = 32 } },
+            { new MobiFlightPin() { Pin = 33 } },
+            { new MobiFlightPin() { Pin = 34 } },
+            { new MobiFlightPin() { Pin = 35 } },
+            { new MobiFlightPin() { Pin = 36 } },
+            { new MobiFlightPin() { Pin = 37 } },
+            { new MobiFlightPin() { Pin = 38 } },
+            { new MobiFlightPin() { Pin = 39 } },
+            // 40-49
+            { new MobiFlightPin() { Pin = 40 } },
+            { new MobiFlightPin() { Pin = 41 } },
+            { new MobiFlightPin() { Pin = 42 } },
+            { new MobiFlightPin() { Pin = 43 } },
+            { new MobiFlightPin() { Pin = 44, isPWM = true } },
+            { new MobiFlightPin() { Pin = 45, isPWM = true } },
+            { new MobiFlightPin() { Pin = 46, isPWM = true } },
+            { new MobiFlightPin() { Pin = 47 } },
+            { new MobiFlightPin() { Pin = 48 } },
+            { new MobiFlightPin() { Pin = 49 } },
+            // 50-59
+            { new MobiFlightPin() { Pin = 50 } },
+            { new MobiFlightPin() { Pin = 51 } },
+            { new MobiFlightPin() { Pin = 52 } },
+            { new MobiFlightPin() { Pin = 53 } },
+            { new MobiFlightPin() { Pin = 54, isAnalog = true, Name = "A0" } },
+            { new MobiFlightPin() { Pin = 55, isAnalog = true, Name = "A1" } },
+            { new MobiFlightPin() { Pin = 56, isAnalog = true, Name = "A2" } },
+            { new MobiFlightPin() { Pin = 57, isAnalog = true, Name = "A3" } },
+            { new MobiFlightPin() { Pin = 58, isAnalog = true, Name = "A4" } },
+            { new MobiFlightPin() { Pin = 59, isAnalog = true, Name = "A5" } },
+            // 60-69
+            { new MobiFlightPin() { Pin = 60, isAnalog = true, Name = "A6" } },
+            { new MobiFlightPin() { Pin = 61, isAnalog = true, Name = "A7" } },
+            { new MobiFlightPin() { Pin = 62, isAnalog = true, Name = "A8" } },
+            { new MobiFlightPin() { Pin = 63, isAnalog = true, Name = "A9" } },
+            { new MobiFlightPin() { Pin = 64, isAnalog = true, Name = "A10" } },
+            { new MobiFlightPin() { Pin = 65, isAnalog = true, Name = "A11" } },
+            { new MobiFlightPin() { Pin = 66, isAnalog = true, Name = "A12" } },
+            { new MobiFlightPin() { Pin = 67, isAnalog = true, Name = "A13" } },
+            { new MobiFlightPin() { Pin = 68, isAnalog = true, Name = "A14" } },
+            { new MobiFlightPin() { Pin = 69, isAnalog = true, Name = "A15" } }
         };
 
-        public static readonly byte[] MICRO_PINS = {
-                   2, 3, 4, 5, 6, 7, 8, 9,
-            10,11,12,13,14,15,16
+        public static readonly List<MobiFlightPin> MICRO_PINS = new List<MobiFlightPin>() {
+            { new MobiFlightPin() { Pin =  0 } },
+            { new MobiFlightPin() { Pin =  1 } },
+            { new MobiFlightPin() { Pin =  2 } },
+            { new MobiFlightPin() { Pin =  3, isPWM = true } },
+            { new MobiFlightPin() { Pin =  4, isAnalog = true } },
+            { new MobiFlightPin() { Pin =  5, isPWM = true } },
+            { new MobiFlightPin() { Pin =  6, isPWM = true, isAnalog = true } },
+            { new MobiFlightPin() { Pin =  7 } },
+            { new MobiFlightPin() { Pin =  8, isAnalog = true } },
+            { new MobiFlightPin() { Pin =  9, isPWM = true, isAnalog = true } },
+            // 10-19
+            { new MobiFlightPin() { Pin = 10, isPWM = true } },
+            { new MobiFlightPin() { Pin = 14 } },
+            { new MobiFlightPin() { Pin = 15 } },
+            { new MobiFlightPin() { Pin = 16 } },
+            { new MobiFlightPin() { Pin = 17 } },
+            { new MobiFlightPin() { Pin = 18, isAnalog = true, Name = "A0" } },
+            { new MobiFlightPin() { Pin = 19, isAnalog = true, Name = "A1" } },
+            // 20-21
+            { new MobiFlightPin() { Pin = 20, isAnalog = true, Name = "A2" } },
+            { new MobiFlightPin() { Pin = 21, isAnalog = true, Name = "A3" } }
         };
 
-        public static readonly byte[] UNO_PINS = {
-                   2, 3, 4, 5, 6, 7, 8, 9,
-            10,11,12,13
-        };
-
-        public static readonly byte[] MEGA_PWM = {
-                   2, 3, 4, 5, 6, 7, 8, 9,
-            10,11,12,13
-        };
-
-        public static readonly byte[] MICRO_PWM = {
-                   2, 3, 4, 5, 6, 7, 8, 9,
-            10
-        };
-
-        public static readonly byte[] UNO_PWM = {
-                   2, 3, 4, 5, 6, 7, 8, 9,
-            10,11,12,13
-        };
-
-        public static readonly byte[] MEGA_PINS_ANALOG = {
-                        54,55,56,57,58,59,
-            60,61,62,63,64,65,66,67,68,69
-        };
-
-        public static readonly byte[] MICRO_PINS_ANALOG = {
-                        18,19,20,21,
-            4,6,8,9,10
-        };
-
-        public static readonly byte[] UNO_PINS_ANALOG = {
-                        14,15,16,7,18,19
+        public static readonly List<MobiFlightPin> UNO_PINS = new List<MobiFlightPin>() {
+            { new MobiFlightPin() { Pin =  2 } },
+            { new MobiFlightPin() { Pin =  3, isPWM = true } },
+            { new MobiFlightPin() { Pin =  4 } },
+            { new MobiFlightPin() { Pin =  5, isPWM = true } },
+            { new MobiFlightPin() { Pin =  6, isPWM = true } },
+            { new MobiFlightPin() { Pin =  7 } },
+            { new MobiFlightPin() { Pin =  8 } },
+            { new MobiFlightPin() { Pin =  9, isPWM = true } },
+            // 10-19
+            { new MobiFlightPin() { Pin = 10, isPWM = true } },
+            { new MobiFlightPin() { Pin = 11, isPWM = true } },
+            { new MobiFlightPin() { Pin = 12 } },
+            { new MobiFlightPin() { Pin = 13 } },
+            { new MobiFlightPin() { Pin = 14, isAnalog = true, Name = "A0" } },
+            { new MobiFlightPin() { Pin = 15, isAnalog = true, Name = "A1" } },
+            { new MobiFlightPin() { Pin = 16, isAnalog = true, Name = "A2" } },
+            { new MobiFlightPin() { Pin = 17, isAnalog = true, Name = "A3" } },
+            { new MobiFlightPin() { Pin = 18, isAnalog = true, Name = "A4" } },
+            { new MobiFlightPin() { Pin = 19, isAnalog = true, Name = "A5" } },
         };
 
         // different vendor and product ids for 
