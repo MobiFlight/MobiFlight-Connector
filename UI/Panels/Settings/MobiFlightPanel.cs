@@ -325,7 +325,7 @@ namespace MobiFlight.UI.Panels.Settings
                             break;
                         
                         case DeviceType.ShiftRegister:
-                            panel = new MFShiftRegisterPanel(dev as MobiFlight.Config.ShiftRegister, module.GetFreePins());
+                            panel = new MFShiftRegisterPanel(dev as MobiFlight.Config.ShiftRegister, module.GetPins());
                             (panel as MFShiftRegisterPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
                             // output

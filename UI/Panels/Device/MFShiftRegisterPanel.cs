@@ -27,15 +27,11 @@ namespace MobiFlight.UI.Panels.Settings
             mfPin3ComboBox.Items.Clear();
         }
 
-        public MFShiftRegisterPanel(ShiftRegister shiftRegister, List<byte> FreePins) : this()
+        public MFShiftRegisterPanel(ShiftRegister shiftRegister, List<MobiFlightPin> Pins) : this()
         {
-            List<byte> Pin1Pins = FreePins.ToList(); if (Int16.Parse(shiftRegister.LatchPin) > 0) Pin1Pins.Add(Byte.Parse(shiftRegister.LatchPin)); Pin1Pins.Sort();
-            List<byte> Pin2Pins = FreePins.ToList(); if (Int16.Parse(shiftRegister.ClockPin) > 0) Pin2Pins.Add(Byte.Parse(shiftRegister.ClockPin)); Pin2Pins.Sort();
-            List<byte> Pin3Pins = FreePins.ToList(); if (Int16.Parse(shiftRegister.DataPin) > 0) Pin3Pins.Add(Byte.Parse(shiftRegister.DataPin)); Pin3Pins.Sort();
-            
-            foreach (byte pin in Pin1Pins) mfPin1ComboBox.Items.Add(pin);
-            foreach (byte pin in Pin2Pins) mfPin2ComboBox.Items.Add(pin);
-            foreach (byte pin in Pin3Pins) mfPin3ComboBox.Items.Add(pin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, shiftRegister.LatchPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, shiftRegister.ClockPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, shiftRegister.DataPin);
 
             if (mfPin1ComboBox.Items.Count > 2)
             {
@@ -79,6 +75,19 @@ namespace MobiFlight.UI.Panels.Settings
             shiftRegister.DataPin = mfPin3ComboBox.Text;           
             shiftRegister.Name = textBox1.Text;
             shiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text)?"1": mfNumModulesComboBox.Text;
+        }
+
+        static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin)
+        {
+            List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
+            if (UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin)))
+                UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
+
+            comboBox.DataSource = UsablePins.FindAll(x => x.Used == false);
+            comboBox.DisplayMember = "Name";
+            comboBox.ValueMember = "Pin";
+
+            return false;
         }
 
     }

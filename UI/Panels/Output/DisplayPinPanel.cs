@@ -95,10 +95,12 @@ namespace MobiFlight.UI.Panels
                 foreach (var item in Module.GetConnectedDevices(pin))
                 {
                     pwmPinPanel.Visible = Module.getPwmPins()
-                                                .Find(x=>x.Pin==(byte)(item as MobiFlightOutput).Pin) != null;
+                                                .Find(x => x.Pin == (byte)(item as MobiFlightOutput).Pin) != null;
                     return;
                 }
             }
+        }
+
         internal void SetPins(List<ListItem> pins)
         {
             pinSelectPanel?.SetPins(pins);            
