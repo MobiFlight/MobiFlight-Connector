@@ -71,10 +71,10 @@
             this.displayPinBrightnessPanel.Controls.Add(this.displayPinBrightnessLabelPanel);
             this.displayPinBrightnessPanel.Controls.Add(this.panel2);
             this.displayPinBrightnessPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.displayPinBrightnessPanel.Location = new System.Drawing.Point(0, 243);
+            this.displayPinBrightnessPanel.Location = new System.Drawing.Point(0, 240);
             this.displayPinBrightnessPanel.Margin = new System.Windows.Forms.Padding(4);
             this.displayPinBrightnessPanel.Name = "displayPinBrightnessPanel";
-            this.displayPinBrightnessPanel.Size = new System.Drawing.Size(351, 79);
+            this.displayPinBrightnessPanel.Size = new System.Drawing.Size(351, 82);
             this.displayPinBrightnessPanel.TabIndex = 15;
             // 
             // displayPinBrightnessLabelPanel
@@ -87,7 +87,7 @@
             this.displayPinBrightnessLabelPanel.Location = new System.Drawing.Point(120, 0);
             this.displayPinBrightnessLabelPanel.Margin = new System.Windows.Forms.Padding(4);
             this.displayPinBrightnessLabelPanel.Name = "displayPinBrightnessLabelPanel";
-            this.displayPinBrightnessLabelPanel.Size = new System.Drawing.Size(231, 79);
+            this.displayPinBrightnessLabelPanel.Size = new System.Drawing.Size(231, 82);
             this.displayPinBrightnessLabelPanel.TabIndex = 17;
             // 
             // displayPinBrightnessDimLabel
@@ -96,7 +96,7 @@
             this.displayPinBrightnessDimLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.displayPinBrightnessDimLabel.Location = new System.Drawing.Point(33, 56);
             this.displayPinBrightnessDimLabel.Name = "displayPinBrightnessDimLabel";
-            this.displayPinBrightnessDimLabel.Size = new System.Drawing.Size(161, 23);
+            this.displayPinBrightnessDimLabel.Size = new System.Drawing.Size(161, 26);
             this.displayPinBrightnessDimLabel.TabIndex = 15;
             this.displayPinBrightnessDimLabel.Text = "Medium";
             this.displayPinBrightnessDimLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -146,7 +146,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(120, 79);
+            this.panel2.Size = new System.Drawing.Size(120, 82);
             this.panel2.TabIndex = 7;
             // 
             // displayPinBrightnessLabel
@@ -165,7 +165,7 @@
             this.pwmPinPanel.Controls.Add(this.displayPwmCheckBox);
             this.pwmPinPanel.Controls.Add(this.label1);
             this.pwmPinPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pwmPinPanel.Location = new System.Drawing.Point(0, 203);
+            this.pwmPinPanel.Location = new System.Drawing.Point(0, 200);
             this.pwmPinPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pwmPinPanel.MinimumSize = new System.Drawing.Size(0, 40);
             this.pwmPinPanel.Name = "pwmPinPanel";
@@ -177,7 +177,7 @@
             this.displayPwmCheckBox.Location = new System.Drawing.Point(124, 2);
             this.displayPwmCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.displayPwmCheckBox.Name = "displayPwmCheckBox";
-            this.displayPwmCheckBox.Size = new System.Drawing.Size(188, 27);
+            this.displayPwmCheckBox.Size = new System.Drawing.Size(223, 27);
             this.displayPwmCheckBox.TabIndex = 9;
             this.displayPwmCheckBox.Text = "Enabled (Values 0-255)";
             this.displayPwmCheckBox.UseVisualStyleBackColor = true;
@@ -198,11 +198,13 @@
             this.pinSelectPanel.AutoScroll = true;
             this.pinSelectPanel.AutoSize = true;
             this.pinSelectPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pinSelectPanel.BackColor = System.Drawing.SystemColors.Control;
             this.pinSelectPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pinSelectPanel.Location = new System.Drawing.Point(0, 0);
             this.pinSelectPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.pinSelectPanel.MinimumSize = new System.Drawing.Size(300, 200);
             this.pinSelectPanel.Name = "pinSelectPanel";
-            this.pinSelectPanel.Size = new System.Drawing.Size(351, 203);
+            this.pinSelectPanel.Size = new System.Drawing.Size(351, 200);
             this.pinSelectPanel.TabIndex = 7;
             // 
             // panel1
@@ -213,7 +215,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(351, 203);
+            this.panel1.Size = new System.Drawing.Size(351, 200);
             this.panel1.TabIndex = 5;
             // 
             // DisplayPinPanel
