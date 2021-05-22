@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -133,16 +134,23 @@ namespace MobiFlight.UI.Panels.Config
             // try to find the "command"
             foreach (String key in data.Keys)
             {
-                if (!data[key].Exists(x=>x.Code==config.SimConnectValue.Value)) continue;
+                String OriginalCode = config.SimConnectValue.Value;
+                OriginalCode = Regex.Replace(OriginalCode, @":\d+", ":index");
+                if (!data[key].Exists(x=>x.Code==OriginalCode)) continue;
 
                 GroupComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
+                PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
                 GroupComboBox.Text = key;
 
                 PresetComboBox.DataSource = data[key];
                 PresetComboBox.ValueMember = "Code";
                 PresetComboBox.DisplayMember = "Label";
+                PresetComboBox.SelectedValue = OriginalCode;
+                PresetComboBox.Enabled = true;
 
                 GroupComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
+                PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
+                break;
             }
         }
 
@@ -156,6 +164,7 @@ namespace MobiFlight.UI.Panels.Config
             String selectedDevice = (sender as ComboBox).SelectedItem as String;
             if (!data.ContainsKey(selectedDevice)) return;
 
+            PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             // this happens on first select
             if (GroupComboBox.Items[0] as String == i18n._tr("uiSimConnectPanelComboBoxPresetSelectGroup"))
             {
@@ -165,7 +174,9 @@ namespace MobiFlight.UI.Panels.Config
             PresetComboBox.DataSource = data[selectedDevice];
             PresetComboBox.ValueMember = "Code";
             PresetComboBox.DisplayMember = "Label";
+            PresetComboBox.SelectedIndex = 0;
 
+            PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
             PresetComboBox.Enabled = true;
         }
 
