@@ -198,6 +198,7 @@ namespace MobiFlight
             isExecuting = false;
             mobiFlightCache.Stop();
             simConnectCache.Stop();
+            ClearErrorMessages();
         }
 
         public void AutoConnectStart()
@@ -1307,6 +1308,20 @@ namespace MobiFlight
                 default:
                     ExecuteDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "255", cfg);
                     break;
+            }
+        }
+
+
+        private void ClearErrorMessages()
+        {
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                row.ErrorText = "";
+            }
+
+            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            {
+                row.ErrorText = "";
             }
         }
 
