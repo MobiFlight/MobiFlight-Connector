@@ -186,6 +186,8 @@
             // 
             resources.ApplyResources(this.simConnectPanel1, "simConnectPanel1");
             this.simConnectPanel1.Name = "simConnectPanel1";
+            this.simConnectPanel1.PresetFile = "Presets\\msfs2020_simvars.cip";
+            this.simConnectPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
             // 
             // FsuipcSettingsPanel
             // 

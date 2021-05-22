@@ -131,10 +131,12 @@ namespace MobiFlight.UI.Panels.Config
             SimVarNameTextBox.Text = config.SimConnectValue.Value;
             transformOptionsGroup1.syncFromConfig(config);
 
+            String OriginalCode = config.SimConnectValue.Value;
+            if (OriginalCode == null) return;
             // try to find the "command"
             foreach (String key in data.Keys)
             {
-                String OriginalCode = config.SimConnectValue.Value;
+                
                 OriginalCode = Regex.Replace(OriginalCode, @":\d+", ":index");
                 if (!data[key].Exists(x=>x.Code==OriginalCode)) continue;
 
