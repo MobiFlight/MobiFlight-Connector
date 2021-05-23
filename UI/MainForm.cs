@@ -787,7 +787,8 @@ namespace MobiFlight.UI
             {
                 notifyIcon.Visible = false;                
                 this.Show();
-                this.WindowState = FormWindowState.Normal;
+                if (this.WindowState!=FormWindowState.Normal)
+                    this.WindowState = FormWindowState.Normal;
                 this.BringToFront();
             }
         } //minimizeMainForm()
