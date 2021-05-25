@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Arcaze_1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Arcaze_2");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArcazePanel));
             this.arcazeModuleSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.numModulesLabel = new System.Windows.Forms.Label();
             this.numModulesNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -39,41 +38,41 @@
             this.arcazeModuleTypeLabel = new System.Windows.Forms.Label();
             this.arcazeModulesGroupBox = new System.Windows.Forms.GroupBox();
             this.ArcazeModuleTreeView = new System.Windows.Forms.TreeView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ArcazeSupportEnabledCheckBox = new System.Windows.Forms.CheckBox();
+            this.ArcazePanelSettingsPanel = new System.Windows.Forms.Panel();
+            this.ArcazeNoModulesFoundPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.arcazeModuleSettingsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numModulesNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.globalBrightnessTrackBar)).BeginInit();
             this.arcazeModulesGroupBox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.ArcazePanelSettingsPanel.SuspendLayout();
+            this.ArcazeNoModulesFoundPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // arcazeModuleSettingsGroupBox
             // 
+            resources.ApplyResources(this.arcazeModuleSettingsGroupBox, "arcazeModuleSettingsGroupBox");
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.numModulesLabel);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.numModulesNumericUpDown);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.arcazeModuleTypeComboBox);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.globalBrightnessLabel);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.globalBrightnessTrackBar);
             this.arcazeModuleSettingsGroupBox.Controls.Add(this.arcazeModuleTypeLabel);
-            this.arcazeModuleSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.arcazeModuleSettingsGroupBox.Location = new System.Drawing.Point(179, 0);
             this.arcazeModuleSettingsGroupBox.Name = "arcazeModuleSettingsGroupBox";
-            this.arcazeModuleSettingsGroupBox.Size = new System.Drawing.Size(379, 524);
-            this.arcazeModuleSettingsGroupBox.TabIndex = 6;
             this.arcazeModuleSettingsGroupBox.TabStop = false;
-            this.arcazeModuleSettingsGroupBox.Text = "Module Settings";
             // 
             // numModulesLabel
             // 
-            this.numModulesLabel.AutoSize = true;
-            this.numModulesLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.numModulesLabel.Location = new System.Drawing.Point(47, 55);
+            resources.ApplyResources(this.numModulesLabel, "numModulesLabel");
             this.numModulesLabel.Name = "numModulesLabel";
-            this.numModulesLabel.Size = new System.Drawing.Size(35, 13);
-            this.numModulesLabel.TabIndex = 13;
-            this.numModulesLabel.Text = "Count";
             // 
             // numModulesNumericUpDown
             // 
-            this.numModulesNumericUpDown.Location = new System.Drawing.Point(88, 53);
+            resources.ApplyResources(this.numModulesNumericUpDown, "numModulesNumericUpDown");
             this.numModulesNumericUpDown.Maximum = new decimal(new int[] {
             16,
             0,
@@ -85,8 +84,6 @@
             0,
             0});
             this.numModulesNumericUpDown.Name = "numModulesNumericUpDown";
-            this.numModulesNumericUpDown.Size = new System.Drawing.Size(38, 20);
-            this.numModulesNumericUpDown.TabIndex = 12;
             this.numModulesNumericUpDown.Value = new decimal(new int[] {
             1,
             0,
@@ -96,89 +93,106 @@
             // 
             // arcazeModuleTypeComboBox
             // 
+            resources.ApplyResources(this.arcazeModuleTypeComboBox, "arcazeModuleTypeComboBox");
             this.arcazeModuleTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.arcazeModuleTypeComboBox.FormattingEnabled = true;
             this.arcazeModuleTypeComboBox.Items.AddRange(new object[] {
-            "Modul A"});
-            this.arcazeModuleTypeComboBox.Location = new System.Drawing.Point(88, 19);
+            resources.GetString("arcazeModuleTypeComboBox.Items")});
             this.arcazeModuleTypeComboBox.Name = "arcazeModuleTypeComboBox";
-            this.arcazeModuleTypeComboBox.Size = new System.Drawing.Size(104, 21);
-            this.arcazeModuleTypeComboBox.TabIndex = 11;
             this.arcazeModuleTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.arcazeModuleTypeComboBox_SelectedIndexChanged);
             // 
             // globalBrightnessLabel
             // 
-            this.globalBrightnessLabel.AutoSize = true;
-            this.globalBrightnessLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.globalBrightnessLabel.Location = new System.Drawing.Point(37, 86);
+            resources.ApplyResources(this.globalBrightnessLabel, "globalBrightnessLabel");
             this.globalBrightnessLabel.Name = "globalBrightnessLabel";
-            this.globalBrightnessLabel.Size = new System.Drawing.Size(45, 26);
-            this.globalBrightnessLabel.TabIndex = 10;
-            this.globalBrightnessLabel.Text = "Global \r\nintensity";
-            this.globalBrightnessLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // globalBrightnessTrackBar
             // 
+            resources.ApplyResources(this.globalBrightnessTrackBar, "globalBrightnessTrackBar");
             this.globalBrightnessTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.globalBrightnessTrackBar.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.globalBrightnessTrackBar.Location = new System.Drawing.Point(80, 84);
             this.globalBrightnessTrackBar.Maximum = 9;
             this.globalBrightnessTrackBar.Minimum = 1;
             this.globalBrightnessTrackBar.Name = "globalBrightnessTrackBar";
-            this.globalBrightnessTrackBar.Size = new System.Drawing.Size(122, 45);
-            this.globalBrightnessTrackBar.TabIndex = 9;
             this.globalBrightnessTrackBar.Value = 9;
             // 
             // arcazeModuleTypeLabel
             // 
-            this.arcazeModuleTypeLabel.AutoSize = true;
-            this.arcazeModuleTypeLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.arcazeModuleTypeLabel.Location = new System.Drawing.Point(5, 22);
+            resources.ApplyResources(this.arcazeModuleTypeLabel, "arcazeModuleTypeLabel");
             this.arcazeModuleTypeLabel.Name = "arcazeModuleTypeLabel";
-            this.arcazeModuleTypeLabel.Size = new System.Drawing.Size(80, 13);
-            this.arcazeModuleTypeLabel.TabIndex = 8;
-            this.arcazeModuleTypeLabel.Text = "Extension Type";
             // 
             // arcazeModulesGroupBox
             // 
+            resources.ApplyResources(this.arcazeModulesGroupBox, "arcazeModulesGroupBox");
             this.arcazeModulesGroupBox.Controls.Add(this.ArcazeModuleTreeView);
-            this.arcazeModulesGroupBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.arcazeModulesGroupBox.Location = new System.Drawing.Point(0, 0);
             this.arcazeModulesGroupBox.Name = "arcazeModulesGroupBox";
-            this.arcazeModulesGroupBox.Size = new System.Drawing.Size(179, 524);
-            this.arcazeModulesGroupBox.TabIndex = 14;
             this.arcazeModulesGroupBox.TabStop = false;
-            this.arcazeModulesGroupBox.Text = "Available Arcaze Modules";
             // 
             // ArcazeModuleTreeView
             // 
-            this.ArcazeModuleTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ArcazeModuleTreeView.Location = new System.Drawing.Point(3, 16);
+            resources.ApplyResources(this.ArcazeModuleTreeView, "ArcazeModuleTreeView");
             this.ArcazeModuleTreeView.Name = "ArcazeModuleTreeView";
-            treeNode1.Name = "Module_0";
-            treeNode1.Text = "Arcaze_1";
-            treeNode2.Name = "MF_MICRO_COM5";
-            treeNode2.Text = "Arcaze_2";
             this.ArcazeModuleTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            this.ArcazeModuleTreeView.Size = new System.Drawing.Size(173, 505);
-            this.ArcazeModuleTreeView.TabIndex = 3;
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("ArcazeModuleTreeView.Nodes"))),
+            ((System.Windows.Forms.TreeNode)(resources.GetObject("ArcazeModuleTreeView.Nodes1")))});
             this.ArcazeModuleTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ArcazeModuleTreeView_AfterSelect);
+            // 
+            // groupBox1
+            // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.ArcazeSupportEnabledCheckBox);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // ArcazeSupportEnabledCheckBox
+            // 
+            resources.ApplyResources(this.ArcazeSupportEnabledCheckBox, "ArcazeSupportEnabledCheckBox");
+            this.ArcazeSupportEnabledCheckBox.Name = "ArcazeSupportEnabledCheckBox";
+            this.ArcazeSupportEnabledCheckBox.UseVisualStyleBackColor = true;
+            this.ArcazeSupportEnabledCheckBox.CheckedChanged += new System.EventHandler(this.ArcazeSupportEnabledCheckBox_CheckedChanged);
+            // 
+            // ArcazePanelSettingsPanel
+            // 
+            resources.ApplyResources(this.ArcazePanelSettingsPanel, "ArcazePanelSettingsPanel");
+            this.ArcazePanelSettingsPanel.Controls.Add(this.arcazeModuleSettingsGroupBox);
+            this.ArcazePanelSettingsPanel.Controls.Add(this.arcazeModulesGroupBox);
+            this.ArcazePanelSettingsPanel.Name = "ArcazePanelSettingsPanel";
+            // 
+            // ArcazeNoModulesFoundPanel
+            // 
+            resources.ApplyResources(this.ArcazeNoModulesFoundPanel, "ArcazeNoModulesFoundPanel");
+            this.ArcazeNoModulesFoundPanel.Controls.Add(this.button1);
+            this.ArcazeNoModulesFoundPanel.Controls.Add(this.label1);
+            this.ArcazeNoModulesFoundPanel.Name = "ArcazeNoModulesFoundPanel";
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // ArcazePanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.arcazeModuleSettingsGroupBox);
-            this.Controls.Add(this.arcazeModulesGroupBox);
+            this.Controls.Add(this.ArcazeNoModulesFoundPanel);
+            this.Controls.Add(this.ArcazePanelSettingsPanel);
+            this.Controls.Add(this.groupBox1);
             this.Name = "ArcazePanel";
-            this.Size = new System.Drawing.Size(558, 524);
             this.arcazeModuleSettingsGroupBox.ResumeLayout(false);
             this.arcazeModuleSettingsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numModulesNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.globalBrightnessTrackBar)).EndInit();
             this.arcazeModulesGroupBox.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.ArcazePanelSettingsPanel.ResumeLayout(false);
+            this.ArcazeNoModulesFoundPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -194,5 +208,11 @@
         private System.Windows.Forms.Label arcazeModuleTypeLabel;
         private System.Windows.Forms.GroupBox arcazeModulesGroupBox;
         private System.Windows.Forms.TreeView ArcazeModuleTreeView;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox ArcazeSupportEnabledCheckBox;
+        private System.Windows.Forms.Panel ArcazePanelSettingsPanel;
+        private System.Windows.Forms.Panel ArcazeNoModulesFoundPanel;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }

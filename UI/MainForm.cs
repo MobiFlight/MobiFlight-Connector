@@ -482,6 +482,8 @@ namespace MobiFlight.UI
 #if ARCAZE
         private void _initializeArcazeModuleSettings()
         {
+            if (!Properties.Settings.Default.ArcazeSupportEnabled) return;
+
             Dictionary<string, ArcazeModuleSettings> settings = execManager.getModuleCache().GetArcazeModuleSettings();
             List<string> serials = new List<string>();
 
@@ -787,7 +789,8 @@ namespace MobiFlight.UI
             {
                 notifyIcon.Visible = false;                
                 this.Show();
-                this.WindowState = FormWindowState.Normal;
+                if (this.WindowState!=FormWindowState.Normal)
+                    this.WindowState = FormWindowState.Normal;
                 this.BringToFront();
             }
         } //minimizeMainForm()

@@ -746,6 +746,9 @@
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.de.resx">
+      <DependentUpon>ArcazePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>
     </EmbeddedResource>

@@ -101,6 +101,7 @@ namespace MobiFlight
             arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
             arcazeCache.Closed += new EventHandler(ArcazeCache_Closed);
             arcazeCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
+            arcazeCache.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
 #endif
 
             mobiFlightCache.Connected += new EventHandler(ArcazeCache_Connected);
@@ -198,6 +199,7 @@ namespace MobiFlight
             isExecuting = false;
             mobiFlightCache.Stop();
             simConnectCache.Stop();
+            ClearErrorMessages();
         }
 
         public void AutoConnectStart()
@@ -1124,7 +1126,8 @@ namespace MobiFlight
             {
                 Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Modules", LogSeverity.Debug);
 #if ARCAZE
-                arcazeCache.connect(); //  _initializeArcaze();
+                if(Properties.Settings.Default.ArcazeSupportEnabled)
+                    arcazeCache.connect(); //  _initializeArcaze();
 #endif
 #if MOBIFLIGHT
                 await mobiFlightCache.connectAsync();
@@ -1307,6 +1310,20 @@ namespace MobiFlight
                 default:
                     ExecuteDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "255", cfg);
                     break;
+            }
+        }
+
+
+        private void ClearErrorMessages()
+        {
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                row.ErrorText = "";
+            }
+
+            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            {
+                row.ErrorText = "";
             }
         }
 

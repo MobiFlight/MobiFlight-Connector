@@ -125,6 +125,8 @@ namespace MobiFlight.SimConnectMSFS
 
             string installedWASM;
             string mobiflightWASM;
+            string installedEvents;
+            string mobiflightEvents;
 
             if (CommunityFolder == null) return true;
 
@@ -135,7 +137,10 @@ namespace MobiFlight.SimConnectMSFS
             installedWASM = CalculateMD5(CommunityFolder + @"\mobiflight-event-module\modules\StandaloneModule.wasm");
             mobiflightWASM = CalculateMD5(@".\MSFS2020-module\mobiflight-event-module\modules\StandaloneModule.wasm");
 
-            return (installedWASM != mobiflightWASM);
+            installedEvents = CalculateMD5(CommunityFolder + @"\mobiflight-event-module\modules\events.txt");
+            mobiflightEvents = CalculateMD5(@".\MSFS2020-module\mobiflight-event-module\modules\events.txt");
+
+            return (installedWASM != mobiflightWASM || installedEvents != mobiflightEvents);
         }
 
         public bool InstallWasmEvents()
