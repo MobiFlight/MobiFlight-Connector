@@ -694,6 +694,7 @@
             // 
             // preconditionTreeContextMenuStrip
             // 
+            this.preconditionTreeContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.preconditionTreeContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addPreconditionToolStripMenuItem,
             this.removePreconditionToolStripMenuItem,

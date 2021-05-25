@@ -22,7 +22,8 @@ namespace MobiFlight.UI.Panels.Settings
         public ArcazePanel()
         {
             InitializeComponent();
-            ArcazePanelSettingsPanel.Visible = ArcazePanelSettingsPanel.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
+            ArcazePanelSettingsPanel.Visible = Properties.Settings.Default.ArcazeSupportEnabled;
+            ArcazeNoModulesFoundPanel.Visible = false;
         }
 
         public void Init (ArcazeCache arcazeCache)
@@ -51,15 +52,8 @@ namespace MobiFlight.UI.Panels.Settings
                 ArcazeModuleTreeView.Nodes.Add(NewNode);
             }
 
-            if (ArcazeModuleTreeView.Nodes.Count == 0)
-            {
-                TreeNode NewNode = new TreeNode();
-                NewNode.Text = i18n._tr("none");
-                NewNode.SelectedImageKey = NewNode.ImageKey = "module-arcaze";
-                ArcazeModuleTreeView.Nodes.Add(NewNode);
-                ArcazeModuleTreeView.Enabled = false;
-                arcazeModuleSettingsGroupBox.Enabled = false;
-            }
+            ArcazeNoModulesFoundPanel.Visible = (ArcazeModuleTreeView.Nodes.Count == 0);
+            ArcazePanelSettingsPanel.Visible = (ArcazeModuleTreeView.Nodes.Count > 0);
         }
 
         private void numModulesNumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -241,10 +235,12 @@ namespace MobiFlight.UI.Panels.Settings
 
         public void LoadSettings()
         {
+            ArcazeSupportEnabledCheckBox.CheckedChanged -= ArcazeSupportEnabledCheckBox_CheckedChanged;
             ArcazeSupportEnabledCheckBox.Checked = Properties.Settings.Default.ArcazeSupportEnabled;
+            ArcazeSupportEnabledCheckBox.CheckedChanged += ArcazeSupportEnabledCheckBox_CheckedChanged;
 
             if (!ArcazeSupportEnabledCheckBox.Checked)
-            {
+            {   
                 return;
             }
 
@@ -276,7 +272,22 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void ArcazeSupportEnabledCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            ArcazePanelSettingsPanel.Visible = ArcazePanelSettingsPanel.Enabled = (sender as CheckBox).Checked;
+            if ((sender as CheckBox).Checked)
+            {
+                InitArcazeModuleTreeView(arcazeCache);
+            } else
+            {
+                ArcazePanelSettingsPanel.Visible = false;
+                ArcazeNoModulesFoundPanel.Visible = false;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
+            Application.Restart();
+            // Not sure if we need this next line
+            Environment.Exit(0);
         }
     }
 
