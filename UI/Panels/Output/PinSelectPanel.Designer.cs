@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.checkedListBox = new System.Windows.Forms.CheckedListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // checkedListBox
             // 
+            this.checkedListBox.CheckOnClick = true;
             this.checkedListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkedListBox.FormattingEnabled = true;
             this.checkedListBox.Items.AddRange(new object[] {
@@ -52,28 +54,40 @@
             "Test 14",
             "Test 15",
             "Test 16"});
-            this.checkedListBox.Location = new System.Drawing.Point(0, 0);
+            this.checkedListBox.Location = new System.Drawing.Point(95, 0);
+            this.checkedListBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(356, 225);
+            this.checkedListBox.Size = new System.Drawing.Size(211, 183);
             this.checkedListBox.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(0, 3, 5, 3);
+            this.label1.Size = new System.Drawing.Size(95, 183);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Select one or multiple pins from the list:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // PinSelectPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.checkedListBox);
-            this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(300, 200);
+            this.Controls.Add(this.label1);
+            this.MinimumSize = new System.Drawing.Size(225, 162);
             this.Name = "PinSelectPanel";
-            this.Size = new System.Drawing.Size(356, 225);
+            this.Size = new System.Drawing.Size(306, 183);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckedListBox checkedListBox;
     }
 }

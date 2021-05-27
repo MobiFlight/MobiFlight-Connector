@@ -72,11 +72,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.displayLedDecimalPointFlowLayoutPanel.SuspendLayout();
             this.displayLedDigitFlowLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.displayLedGroupFlowLayoutPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayLedDigit7CheckBox
@@ -399,14 +401,21 @@
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.flowLayoutPanel1);
+            this.panel1.Controls.Add(this.ledDisplayComboBoxLabel);
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
+            // 
             // DisplayLedDisplayPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.displayLedGroupFlowLayoutPanel);
-            this.Controls.Add(this.ledDisplayComboBoxLabel);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "DisplayLedDisplayPanel";
             this.displayLedDecimalPointFlowLayoutPanel.ResumeLayout(false);
             this.displayLedDecimalPointFlowLayoutPanel.PerformLayout();
@@ -417,8 +426,9 @@
             this.displayLedGroupFlowLayoutPanel.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -467,5 +477,6 @@
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

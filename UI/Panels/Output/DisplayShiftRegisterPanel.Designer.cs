@@ -38,12 +38,12 @@ namespace MobiFlight.UI.Panels
             // 
             // registerLabel
             // 
-            this.registerLabel.AutoSize = true;
-            this.registerLabel.Location = new System.Drawing.Point(20, 11);
+            this.registerLabel.Location = new System.Drawing.Point(0, 10);
             this.registerLabel.Name = "registerLabel";
-            this.registerLabel.Size = new System.Drawing.Size(93, 17);
+            this.registerLabel.Size = new System.Drawing.Size(138, 28);
             this.registerLabel.TabIndex = 0;
             this.registerLabel.Text = "Shift Register";
+            this.registerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // shiftRegistersComboBox
             // 
@@ -66,50 +66,48 @@ namespace MobiFlight.UI.Panels
             "D",
             "E",
             "F"});
-            this.shiftRegistersComboBox.Location = new System.Drawing.Point(120, 8);
-            this.shiftRegistersComboBox.Margin = new System.Windows.Forms.Padding(4);
-            this.shiftRegistersComboBox.MaximumSize = new System.Drawing.Size(177, 0);
-            this.shiftRegistersComboBox.MinimumSize = new System.Drawing.Size(45, 0);
+            this.shiftRegistersComboBox.Location = new System.Drawing.Point(143, 11);
+            this.shiftRegistersComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.shiftRegistersComboBox.MaximumSize = new System.Drawing.Size(199, 0);
+            this.shiftRegistersComboBox.MinimumSize = new System.Drawing.Size(50, 0);
             this.shiftRegistersComboBox.Name = "shiftRegistersComboBox";
-            this.shiftRegistersComboBox.Size = new System.Drawing.Size(177, 24);
+            this.shiftRegistersComboBox.Size = new System.Drawing.Size(199, 28);
             this.shiftRegistersComboBox.TabIndex = 66;
             // 
             // pinSelectPanel
             // 
             this.pinSelectPanel.AutoScroll = true;
             this.pinSelectPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pinSelectPanel.BackColor = System.Drawing.SystemColors.Control;
-            this.pinSelectPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pinSelectPanel.Location = new System.Drawing.Point(0, 51);
-            this.pinSelectPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.pinSelectPanel.MinimumSize = new System.Drawing.Size(300, 200);
+            this.pinSelectPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pinSelectPanel.Location = new System.Drawing.Point(0, 55);
+            this.pinSelectPanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pinSelectPanel.MinimumSize = new System.Drawing.Size(338, 250);
             this.pinSelectPanel.Name = "pinSelectPanel";
-            this.pinSelectPanel.Size = new System.Drawing.Size(453, 237);
+            this.pinSelectPanel.Size = new System.Drawing.Size(510, 305);
             this.pinSelectPanel.TabIndex = 67;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.shiftRegistersComboBox);
             this.panel1.Controls.Add(this.registerLabel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(453, 44);
+            this.panel1.Size = new System.Drawing.Size(510, 55);
             this.panel1.TabIndex = 68;
             // 
             // DisplayShiftRegisterPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pinSelectPanel);
+            this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "DisplayShiftRegisterPanel";
-            this.Size = new System.Drawing.Size(453, 288);
+            this.Size = new System.Drawing.Size(510, 360);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
