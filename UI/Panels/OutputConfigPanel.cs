@@ -142,7 +142,7 @@ namespace MobiFlight.UI.Panels
 
                     dataGridViewConfig.EndEdit();
                     break;
-                case "Active":
+                case "active":
                     // always end editing to store changes
                     dataGridViewConfig.EndEdit();
                     break;
@@ -306,11 +306,11 @@ namespace MobiFlight.UI.Panels
                         (dgv.EditingControl as TextBox).Select(1, 0);
                     }
                 }
-                return;
             }
             // un/check all rows if key is a space
             else if (e.KeyCode == Keys.Space)
             {
+                e.Handled = true;
                 e.SuppressKeyPress = true;
 
                 bool isChecked = false;
@@ -324,6 +324,7 @@ namespace MobiFlight.UI.Panels
                     row.Cells[0].Value = !isChecked;
                 }
 
+                SettingsChanged?.Invoke(sender, null);
                 dgv.RefreshEdit();
             }
             else if (e.KeyCode == Keys.Return)
@@ -517,6 +518,18 @@ namespace MobiFlight.UI.Panels
             if (e.KeyCode == Keys.Return)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void dataGridViewConfig_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow gridrow = dataGridViewConfig.Rows[e.RowIndex];
+            DataRowView rowview = (DataRowView)gridrow.DataBoundItem;
+            DataRow row = rowview.Row;
+            if (row.RowState != DataRowState.Unchanged || dataGridViewConfig.IsCurrentRowDirty)
+            {
+                // do something special
+                SettingsChanged?.Invoke(sender, null);
             }
         }
     }

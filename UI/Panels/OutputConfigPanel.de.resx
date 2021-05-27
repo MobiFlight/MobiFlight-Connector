@@ -140,9 +140,6 @@
     <value>Output Wert</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
-  </data>
   <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>160, 22</value>
   </data>
@@ -157,5 +154,8 @@
   </data>
   <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Delete the current selected row</value>
+  </data>
+  <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 48</value>
   </data>
 </root>
