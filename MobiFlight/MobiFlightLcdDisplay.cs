@@ -69,7 +69,7 @@ namespace MobiFlight
             Log.Instance.log("Command: SetLcdDisplayI2C <" + (int)MobiFlightModule.Command.SetLcdDisplayI2C + "," +
                                                       this.Address + "," +
                                                       value +
-                                                      ";>", LogSeverity.Info);
+                                                      ";>", LogSeverity.Debug);
 
             // Send command
             CmdMessenger.SendCommand(command);
