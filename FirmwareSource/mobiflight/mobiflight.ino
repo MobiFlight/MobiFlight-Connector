@@ -36,7 +36,7 @@ char foo;
 // 1.9.9 : Changed MODULE_MAX_PINS and MAX_BUTTONS to 68 (69 is internally needed but it is confusing)
 //         Added PWM output
 // 1.9.10: Fix encoder issue on fastLeft/fastRight, fixed the MODULE_MAX_PINS (one more time) for "pin69"
-// 1.10.0: Fix LCD pin usage (SDA, SCL)
+// 1.10.0: Fix LCD pin usage (SDA, SCL), removed LCD sendCmd
 const char version[8] = "1.10.0";
 
 //#define DEBUG 1
@@ -998,7 +998,6 @@ void OnSetLcdDisplayI2C()
   int address  = cmdMessenger.readIntArg();
   char *output   = cmdMessenger.readStringArg();
   lcd_I2C[address].display(output);
-  cmdMessenger.sendCmd(kStatus, output);
   lastCommand = millis();
 }
 #endif
