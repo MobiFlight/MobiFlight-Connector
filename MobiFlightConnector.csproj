@@ -221,6 +221,12 @@
     <Compile Include="UI\Forms\ConfigUploadProgress.Designer.cs">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\SimConnectLvarsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\SimConnectLvarsListForm.Designer.cs">
+      <DependentUpon>SimConnectLvarsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -708,6 +714,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SimConnectLvarsListForm.de.resx">
+      <DependentUpon>SimConnectLvarsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SimConnectLvarsListForm.resx">
+      <DependentUpon>SimConnectLvarsListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.de.resx">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>

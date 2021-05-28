@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.Base;
+using MobiFlight.UI.Forms;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -76,8 +77,24 @@ namespace MobiFlight.UI.Dialogs
             _initPreconditionPanel();
             fsuipcConfigPanel.setMode(true);
             fsuipcConfigPanel.syncFromConfig(cfg);
-            
+
             // displayLedDisplayComboBox.Items.Clear(); 
+            simConnectPanel1.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
+        }
+
+        private void SimConnectPanel1_OnGetLVarListRequested(object sender, EventArgs e)
+        {
+            if(_execManager.GetSimConnectCache().IsConnected())
+            {
+                _execManager.GetSimConnectCache().LVarListUpdated -= ConfigWizard_LVarListUpdated;
+                _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
+                _execManager.GetSimConnectCache().RefreshLVarsList();
+            }
+        }
+
+        private void ConfigWizard_LVarListUpdated(object sender, EventArgs e)
+        {
+            simConnectPanel1.LVars = (sender as List<String>);
         }
 
         private void _initPreconditionPanel()

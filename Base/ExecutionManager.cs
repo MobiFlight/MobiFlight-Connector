@@ -1414,7 +1414,12 @@ namespace MobiFlight
             //fsuipcCache.ForceUpdate();
         }
 #endif
-            }
+
+        public SimConnectCache GetSimConnectCache()
+        {
+            return simConnectCache;
+        }
+    }
 
     public class ConfigRefValue
     {

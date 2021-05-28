@@ -16,6 +16,22 @@ namespace MobiFlight.SimConnectMSFS
                
             SendWasmCmd(simConnect, "MF.SimVars.Clear");
         }
+
+        public static void GetLVarList(SimConnect simConnect)
+        {
+            if (simConnect == null) return;
+
+            SendWasmCmd(simConnect, "MF.LVars.List");
+            DummyCommand(simConnect);
+        }
+
+        public static void DummyCommand(SimConnect simConnect)
+        {
+            if (simConnect == null) return;
+
+            SendWasmCmd(simConnect, "MF.DummyCmd");
+        }
+
         public static void SendWasmCmd(SimConnect simConnect, String command)
         {
             if (simConnect == null) return;

@@ -1,4 +1,5 @@
 ﻿using MobiFlight.OutputConfig;
+using MobiFlight.SimConnectMSFS;
 using MobiFlight.UI.Forms;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,26 @@ namespace MobiFlight.UI.Panels.Config
 
     public partial class SimConnectPanel : UserControl
     {
+        public event EventHandler OnGetLVarListRequested;
+        private event EventHandler OnLVarsSet;
+
         public String PresetFile { get; set; }
         public String PresetFileUser { get; set; }
         Dictionary<String, List<SimVarPreset>> data = new Dictionary<string, List<SimVarPreset>>();
+
+        protected List<String> lVars = new List<string>();
+
+        SimConnectLvarsListForm LVarsListForm = new SimConnectLvarsListForm();
+
+        public List<String> LVars
+        {
+            get { return lVars; }
+            set
+            {
+                lVars = value;
+                OnLVarsSet?.Invoke(lVars, new EventArgs());
+            }
+        }
 
         public SimConnectPanel()
         {
@@ -35,6 +53,21 @@ namespace MobiFlight.UI.Panels.Config
             PresetComboBox.Enabled = false;
 
             _loadPresets();
+            OnLVarsSet += SimConnectPanel_OnLVarsSet;
+        }
+
+        private void SimConnectPanel_OnLVarsSet(object sender, EventArgs e)
+        {
+            LVarListButton.Enabled = true;
+            if (LVarsListForm.Visible) return;
+
+            LVarsListForm.SetLVarsList(LVars);
+            LVarsListForm.StartPosition = FormStartPosition.CenterParent;
+            LVarsListForm.BringToFront();
+            if (LVarsListForm.ShowDialog() == DialogResult.OK)
+            {
+                SimVarNameTextBox.Text = "(L:"+LVarsListForm.SelectedVariable+")";
+            }
         }
 
         private void _loadPresetData(String file, String DefaultGroupKey, String Prefix)
@@ -200,6 +233,14 @@ namespace MobiFlight.UI.Panels.Config
                     (sender as TextBox).Text = (sender as TextBox).Text.Replace(":index", ":" + form.IndexValue);
                 }
             }
+        }
+
+        private void GetLVarsListButton_Click(object sender, EventArgs e)
+        {
+            if (LVarsListForm.Visible) return;
+
+            OnGetLVarListRequested?.Invoke(sender, e);
+            LVarListButton.Enabled = false;
         }
     }
 
