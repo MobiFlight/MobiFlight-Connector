@@ -33,7 +33,12 @@ namespace MobiFlight.UI.Panels.Config
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
+            this.AVarExamplePanel = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.LVarExamplePanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -41,15 +46,10 @@ namespace MobiFlight.UI.Panels.Config
             this.EventLabel = new System.Windows.Forms.Label();
             this.GroupComboBox = new System.Windows.Forms.ComboBox();
             this.DeviceLabel = new System.Windows.Forms.Label();
-            this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
-            this.label5 = new System.Windows.Forms.Label();
-            this.LVarExamplePanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.AVarExamplePanel = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.LVarExamplePanel.SuspendLayout();
             this.AVarExamplePanel.SuspendLayout();
+            this.LVarExamplePanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SimVarNameTextBox
@@ -97,6 +97,25 @@ namespace MobiFlight.UI.Panels.Config
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MSFS2020 (WASM)";
             // 
+            // transformOptionsGroup1
+            // 
+            this.transformOptionsGroup1.AutoSize = true;
+            this.transformOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.transformOptionsGroup1.Location = new System.Drawing.Point(3, 206);
+            this.transformOptionsGroup1.Name = "transformOptionsGroup1";
+            this.transformOptionsGroup1.Size = new System.Drawing.Size(385, 93);
+            this.transformOptionsGroup1.TabIndex = 7;
+            // 
+            // AVarExamplePanel
+            // 
+            this.AVarExamplePanel.Controls.Add(this.linkLabel1);
+            this.AVarExamplePanel.Controls.Add(this.label5);
+            this.AVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.AVarExamplePanel.Location = new System.Drawing.Point(3, 178);
+            this.AVarExamplePanel.Name = "AVarExamplePanel";
+            this.AVarExamplePanel.Size = new System.Drawing.Size(385, 28);
+            this.AVarExamplePanel.TabIndex = 10;
+            // 
             // linkLabel1
             // 
             this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Right;
@@ -109,6 +128,38 @@ namespace MobiFlight.UI.Panels.Config
             this.linkLabel1.Text = "see Docs";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label5
+            // 
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Padding = new System.Windows.Forms.Padding(3);
+            this.label5.Size = new System.Drawing.Size(385, 28);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Aircraft Variables (A-Vars) - (A:COM ACTIVE FREQUENCY:1, Number)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // LVarExamplePanel
+            // 
+            this.LVarExamplePanel.Controls.Add(this.button1);
+            this.LVarExamplePanel.Controls.Add(this.label4);
+            this.LVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LVarExamplePanel.Location = new System.Drawing.Point(3, 150);
+            this.LVarExamplePanel.Name = "LVarExamplePanel";
+            this.LVarExamplePanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.LVarExamplePanel.Size = new System.Drawing.Size(385, 28);
+            this.LVarExamplePanel.TabIndex = 9;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button1.Location = new System.Drawing.Point(272, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 28);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Get List from Sim";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -189,57 +240,6 @@ namespace MobiFlight.UI.Panels.Config
             this.DeviceLabel.Text = "Group";
             this.DeviceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // transformOptionsGroup1
-            // 
-            this.transformOptionsGroup1.AutoSize = true;
-            this.transformOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.transformOptionsGroup1.Location = new System.Drawing.Point(3, 206);
-            this.transformOptionsGroup1.Name = "transformOptionsGroup1";
-            this.transformOptionsGroup1.Size = new System.Drawing.Size(385, 93);
-            this.transformOptionsGroup1.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(0, 0);
-            this.label5.Name = "label5";
-            this.label5.Padding = new System.Windows.Forms.Padding(3);
-            this.label5.Size = new System.Drawing.Size(385, 28);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Aircraft Variables (A-Vars) - (A:COM ACTIVE:1,Number)";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // LVarExamplePanel
-            // 
-            this.LVarExamplePanel.Controls.Add(this.button1);
-            this.LVarExamplePanel.Controls.Add(this.label4);
-            this.LVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LVarExamplePanel.Location = new System.Drawing.Point(3, 150);
-            this.LVarExamplePanel.Name = "LVarExamplePanel";
-            this.LVarExamplePanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.LVarExamplePanel.Size = new System.Drawing.Size(385, 28);
-            this.LVarExamplePanel.TabIndex = 9;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button1.Location = new System.Drawing.Point(272, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 28);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Get List from Sim";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // AVarExamplePanel
-            // 
-            this.AVarExamplePanel.Controls.Add(this.linkLabel1);
-            this.AVarExamplePanel.Controls.Add(this.label5);
-            this.AVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AVarExamplePanel.Location = new System.Drawing.Point(3, 178);
-            this.AVarExamplePanel.Name = "AVarExamplePanel";
-            this.AVarExamplePanel.Size = new System.Drawing.Size(385, 28);
-            this.AVarExamplePanel.TabIndex = 10;
-            // 
             // SimConnectPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,10 +249,10 @@ namespace MobiFlight.UI.Panels.Config
             this.Size = new System.Drawing.Size(391, 358);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.AVarExamplePanel.ResumeLayout(false);
+            this.LVarExamplePanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.LVarExamplePanel.ResumeLayout(false);
-            this.AVarExamplePanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
