@@ -28,6 +28,12 @@ namespace MobiFlight.SimConnectMSFS
         }
     }
 
+    public struct ResponseString
+    {
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+        public String Data;
+    }
+
     public class SimVar
     {
         public UInt32 ID { get; set; }
