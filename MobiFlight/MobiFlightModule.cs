@@ -999,7 +999,13 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.LcdDisplay:
-                        // Nothing to do
+                        // Statically add correct I2C pins
+                        foreach (MobiFlightPin pin in Pins.FindAll(x=>x.isI2C==true))
+                        {
+                            if (usedPins.Contains(Convert.ToByte(pin.Pin))) continue;
+                            
+                            usedPins.Add(Convert.ToByte(pin.Pin));
+                        }
                         break;
 
                     case DeviceType.Output:
