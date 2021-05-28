@@ -525,6 +525,11 @@ namespace MobiFlight.UI.Panels
         {
             DataGridViewRow gridrow = dataGridViewConfig.Rows[e.RowIndex];
             DataRowView rowview = (DataRowView)gridrow.DataBoundItem;
+
+
+            // can be null on creating a new config (last line)
+            if (rowview == null) return;
+
             DataRow row = rowview.Row;
             if (row.RowState != DataRowState.Unchanged || dataGridViewConfig.IsCurrentRowDirty)
             {
