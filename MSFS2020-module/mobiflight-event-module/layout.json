@@ -1,6 +1,11 @@
 {
   "content": [
     {
+      "path": "ContentInfo/mobiflight-event-module/Thumbnail.jpg",
+      "size": 50630,
+      "date": 132667556844982099
+    },
+    {
       "path": "modules/events.txt",
       "size": 130271,
       "date": 132667446137592978
