@@ -35,8 +35,9 @@ char foo;
 // 1.9.8 : Decreased EEPROM area again, changed order during reset/load
 // 1.9.9 : Changed MODULE_MAX_PINS and MAX_BUTTONS to 68 (69 is internally needed but it is confusing)
 //         Added PWM output
-// 1.9.10: Fixe encoder issue on fastLeft/fastRight, fixed the MODULE_MAX_PINS (one more time) for "pin69"
-const char version[8] = "1.9.10";
+// 1.9.10: Fix encoder issue on fastLeft/fastRight, fixed the MODULE_MAX_PINS (one more time) for "pin69"
+// 1.10.0: Fix LCD pin usage (SDA, SCL), removed LCD sendCmd
+const char version[8] = "1.10.0";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -643,6 +644,9 @@ void ClearServos()
 void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2, char const * name = "LCD")
 {  
   if (lcd_12cRegistered == MAX_MFLCD_I2C) return;
+  registerPin(SDA, kTypeLcdDisplayI2C);
+  registerPin(SCL, kTypeLcdDisplayI2C);
+
   lcd_I2C[lcd_12cRegistered].attach(address, cols, lines);
   lcd_12cRegistered++;
 #ifdef DEBUG  
@@ -656,7 +660,7 @@ void ClearLcdDisplays()
   {
     lcd_I2C[lcd_12cRegistered].detach();
   }  
-  
+  clearRegisteredPins(kTypeLcdDisplayI2C);
   lcd_12cRegistered = 0;
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,F("Cleared lcdDisplays"));
@@ -994,7 +998,6 @@ void OnSetLcdDisplayI2C()
   int address  = cmdMessenger.readIntArg();
   char *output   = cmdMessenger.readStringArg();
   lcd_I2C[address].display(output);
-  cmdMessenger.sendCmd(kStatus, output);
   lastCommand = millis();
 }
 #endif

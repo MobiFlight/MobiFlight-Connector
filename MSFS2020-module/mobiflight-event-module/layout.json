@@ -1,19 +1,19 @@
 {
   "content": [
     {
-      "path": "modules/events.code.txt",
-      "size": 259,
-      "date": 132578948261408850
+      "path": "ContentInfo/mobiflight-event-module/Thumbnail.jpg",
+      "size": 50630,
+      "date": 132667556844982099
     },
     {
       "path": "modules/events.txt",
-      "size": 86238,
-      "date": 132621057343026307
+      "size": 130271,
+      "date": 132667446137592978
     },
     {
       "path": "modules/StandaloneModule.wasm",
-      "size": 806473,
-      "date": 132656668116541014
+      "size": 807096,
+      "date": 132667545905396774
     }
   ]
 }

@@ -10,6 +10,7 @@ namespace MobiFlight
         public byte Pin { get; set; }
         public bool isAnalog = false;
         public bool isPWM = false;
+        public bool isI2C = false;
         public bool Used = false;
         private string name = null;
 
@@ -27,6 +28,7 @@ namespace MobiFlight
             Pin = pin.Pin;
             isAnalog = pin.isAnalog;
             isPWM = pin.isPWM;
+            isI2C = pin.isI2C;
             Used = pin.Used;
             Name = pin.Name;
         }
@@ -42,9 +44,9 @@ namespace MobiFlight
     {
         public const String TYPE_UNKNOWN = "unknown";
 
-        public const String LatestFirmwareMega = "1.9.10";
-        public const String LatestFirmwareMicro = "1.9.10";
-        public const String LatestFirmwareUno = "1.9.10";
+        public const String LatestFirmwareMega = "1.10.0";
+        public const String LatestFirmwareMicro = "1.10.0";
+        public const String LatestFirmwareUno = "1.10.0";
 
         // these types are used for standard stock arduino boards
         public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
@@ -93,8 +95,8 @@ namespace MobiFlight
             { new MobiFlightPin() { Pin = 18 } },
             { new MobiFlightPin() { Pin = 19 } },
             // 20-29
-            { new MobiFlightPin() { Pin = 20 } },
-            { new MobiFlightPin() { Pin = 21 } },
+            { new MobiFlightPin() { Pin = 20, isI2C = true } },
+            { new MobiFlightPin() { Pin = 21, isI2C = true } },
             { new MobiFlightPin() { Pin = 22 } },
             { new MobiFlightPin() { Pin = 23 } },
             { new MobiFlightPin() { Pin = 24 } },
@@ -152,8 +154,8 @@ namespace MobiFlight
         public static readonly List<MobiFlightPin> MICRO_PINS = new List<MobiFlightPin>() {
             { new MobiFlightPin() { Pin =  0 } },
             { new MobiFlightPin() { Pin =  1 } },
-            { new MobiFlightPin() { Pin =  2 } },
-            { new MobiFlightPin() { Pin =  3, isPWM = true } },
+            { new MobiFlightPin() { Pin =  2, isI2C = true } },
+            { new MobiFlightPin() { Pin =  3, isPWM = true, isI2C = true} },
             { new MobiFlightPin() { Pin =  4, isAnalog = true } },
             { new MobiFlightPin() { Pin =  5, isPWM = true } },
             { new MobiFlightPin() { Pin =  6, isPWM = true, isAnalog = true } },
@@ -191,8 +193,8 @@ namespace MobiFlight
             { new MobiFlightPin() { Pin = 15, isAnalog = true, Name = "A1" } },
             { new MobiFlightPin() { Pin = 16, isAnalog = true, Name = "A2" } },
             { new MobiFlightPin() { Pin = 17, isAnalog = true, Name = "A3" } },
-            { new MobiFlightPin() { Pin = 18, isAnalog = true, Name = "A4" } },
-            { new MobiFlightPin() { Pin = 19, isAnalog = true, Name = "A5" } },
+            { new MobiFlightPin() { Pin = 18, isAnalog = true, Name = "A4", isI2C = true } },
+            { new MobiFlightPin() { Pin = 19, isAnalog = true, Name = "A5", isI2C = true } },
         };
 
         // different vendor and product ids for 

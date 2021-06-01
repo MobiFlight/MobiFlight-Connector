@@ -124,7 +124,9 @@ namespace MobiFlight.UI.Dialogs
         }
 
         private void connectedModulesAssignButton_Click(object sender, EventArgs e)
-        {            
+        {
+            if (orphanedSerialsListBox.SelectedItem == null || connectedModulesComboBox.SelectedItem == null) return;
+
             replaceSerialBySerial(orphanedSerialsListBox.SelectedItem.ToString(), 
                                   connectedModulesComboBox.SelectedItem.ToString());
             changed = true;
