@@ -330,7 +330,7 @@
     <Compile Include="Base\EventTimer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Base\ExecutionManager.cs" />
+    <Compile Include="MobiFlight\ExecutionManager.cs" />
     <Compile Include="FSUIPC\Fsuipc2Cache.cs" />
     <Compile Include="FSUIPC\fsuipcBCD.cs" />
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
