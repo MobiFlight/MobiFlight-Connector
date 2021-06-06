@@ -10,7 +10,7 @@ namespace MobiFlight
 {
     public class MobiFlightLcdDisplay : IConnectedDevice
     {
-        public const string TYPE = "Lcd Display";
+        public const string TYPE = "LcdDisplay";
 
         public CmdMessenger CmdMessenger { get; set; }
         public int Address  { get; set; }
