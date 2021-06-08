@@ -462,26 +462,27 @@ namespace MobiFlight.UI.Panels
                     if (cfgItem.DisplaySerial != null)
                     {
                         row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];
-                    }
-                    row["OutputType"] = cfgItem.DisplayType;
-                    switch(cfgItem.DisplayType)
-                    {
-                        case MobiFlightLedModule.TYPE:
-                            row["OutputName"] = cfgItem.DisplayLedAddress;
-                            break;
-                        case "Pin":
-                        case MobiFlightOutput.TYPE:
-                            row["OutputName"] = cfgItem.DisplayPin;
-                            break;
-                        case MobiFlightLcdDisplay.TYPE:
-                            row["OutputName"] = cfgItem.LcdDisplay.Address;
-                            break;
-                        case MobiFlightServo.TYPE:
-                            row["OutputName"] = cfgItem.ServoAddress;
-                            break;
-                        case MobiFlightStepper.TYPE:
-                            row["OutputName"] = cfgItem.StepperAddress;
-                            break;
+                    
+                        row["OutputType"] = cfgItem.DisplayType;
+                        switch(cfgItem.DisplayType)
+                        {
+                            case MobiFlightLedModule.TYPE:
+                                row["OutputName"] = cfgItem.DisplayLedAddress;
+                                break;
+                            case "Pin":
+                            case MobiFlightOutput.TYPE:
+                                row["OutputName"] = cfgItem.DisplayPin;
+                                break;
+                            case MobiFlightLcdDisplay.TYPE:
+                                row["OutputName"] = cfgItem.LcdDisplay.Address;
+                                break;
+                            case MobiFlightServo.TYPE:
+                                row["OutputName"] = cfgItem.ServoAddress;
+                                break;
+                            case MobiFlightStepper.TYPE:
+                                row["OutputName"] = cfgItem.StepperAddress;
+                                break;
+                        }
                     }
                 }
             }

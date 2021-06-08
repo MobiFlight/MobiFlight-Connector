@@ -454,8 +454,11 @@ namespace MobiFlight.UI.Dialogs
         {
             config.SourceType = OffsetTypeFsuipRadioButton.Checked ? SourceType.FSUIPC : SourceType.SIMCONNECT;
 
-            fsuipcConfigPanel.syncToConfig(config);
-            simConnectPanel1.syncToConfig(config);
+            if(config.SourceType==SourceType.FSUIPC)
+                fsuipcConfigPanel.syncToConfig(config);
+            else
+                simConnectPanel1.syncToConfig(config);
+
             configRefPanel.syncToConfig(config);
 
             // refactor!!!
