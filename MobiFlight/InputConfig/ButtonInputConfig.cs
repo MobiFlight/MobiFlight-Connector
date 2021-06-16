@@ -6,13 +6,6 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig
 {
-    public enum ButtonInputEventType
-    {
-        PRESS,
-        RELEASE,
-        REPEAT
-    }
-
     public class ButtonInputConfig : IXmlSerializable, ICloneable
     {
         public InputAction onPress;
@@ -44,7 +37,6 @@ namespace MobiFlight.InputConfig
                     case FsuipcOffsetInputAction.TYPE:
                         onPress = new FsuipcOffsetInputAction();
                         onPress.ReadXml(reader);
-                        reader.Read(); // this should be the closing tag "onPress"
                         break;
 
                     case KeyInputAction.TYPE:
@@ -87,9 +79,9 @@ namespace MobiFlight.InputConfig
                         onPress.ReadXml(reader);
                         break;
                 }
+                reader.Read(); // Closing onPress
             }
 
-            reader.Read();
             if (reader.LocalName == "") reader.Read();
             if (reader.LocalName == "onRelease")
             {
@@ -98,25 +90,21 @@ namespace MobiFlight.InputConfig
                     case FsuipcOffsetInputAction.TYPE:
                         onRelease = new FsuipcOffsetInputAction();
                         onRelease.ReadXml(reader);
-                        reader.ReadStartElement();
                         break;
 
                     case KeyInputAction.TYPE:
                         onRelease = new KeyInputAction();
                         onRelease.ReadXml(reader);
-                        reader.ReadStartElement();
                         break;
 
                     case EventIdInputAction.TYPE:
                         onRelease = new EventIdInputAction();
                         onRelease.ReadXml(reader);
-                        reader.ReadStartElement();
                         break;
 
                     case PmdgEventIdInputAction.TYPE:
                         onRelease = new PmdgEventIdInputAction();
                         onRelease.ReadXml(reader);
-                        reader.ReadStartElement();
                         break;
 
                     case JeehellInputAction.TYPE:
@@ -143,6 +131,8 @@ namespace MobiFlight.InputConfig
                         onRelease.ReadXml(reader);
                         break;
                 }
+
+                reader.Read(); // closing onRelease
             }
         }
 

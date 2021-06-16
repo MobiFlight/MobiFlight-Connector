@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MSFS2020InputPanel));
             this.DeviceLabel = new System.Windows.Forms.Label();
             this.GroupComboBox = new System.Windows.Forms.ComboBox();
             this.EventIdComboBox = new System.Windows.Forms.ComboBox();
@@ -36,54 +37,37 @@
             // 
             // DeviceLabel
             // 
-            this.DeviceLabel.Location = new System.Drawing.Point(14, 19);
+            resources.ApplyResources(this.DeviceLabel, "DeviceLabel");
             this.DeviceLabel.Name = "DeviceLabel";
-            this.DeviceLabel.Size = new System.Drawing.Size(51, 18);
-            this.DeviceLabel.TabIndex = 0;
-            this.DeviceLabel.Text = "Group";
-            this.DeviceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // GroupComboBox
             // 
-            this.GroupComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.GroupComboBox, "GroupComboBox");
             this.GroupComboBox.FormattingEnabled = true;
-            this.GroupComboBox.Location = new System.Drawing.Point(71, 19);
             this.GroupComboBox.Name = "GroupComboBox";
-            this.GroupComboBox.Size = new System.Drawing.Size(171, 21);
-            this.GroupComboBox.TabIndex = 1;
             this.GroupComboBox.SelectedIndexChanged += new System.EventHandler(this.DeviceComboBox_SelectedIndexChanged);
             // 
             // EventIdComboBox
             // 
-            this.EventIdComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.EventIdComboBox, "EventIdComboBox");
             this.EventIdComboBox.DropDownWidth = 300;
             this.EventIdComboBox.FormattingEnabled = true;
-            this.EventIdComboBox.Location = new System.Drawing.Point(71, 48);
             this.EventIdComboBox.Name = "EventIdComboBox";
-            this.EventIdComboBox.Size = new System.Drawing.Size(171, 21);
-            this.EventIdComboBox.TabIndex = 3;
             // 
             // EventLabel
             // 
-            this.EventLabel.Location = new System.Drawing.Point(14, 48);
+            resources.ApplyResources(this.EventLabel, "EventLabel");
             this.EventLabel.Name = "EventLabel";
-            this.EventLabel.Size = new System.Drawing.Size(51, 18);
-            this.EventLabel.TabIndex = 2;
-            this.EventLabel.Text = "Event";
-            this.EventLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MSFS2020InputPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.EventIdComboBox);
             this.Controls.Add(this.EventLabel);
             this.Controls.Add(this.GroupComboBox);
             this.Controls.Add(this.DeviceLabel);
             this.Name = "MSFS2020InputPanel";
-            this.Size = new System.Drawing.Size(265, 96);
             this.ResumeLayout(false);
 
         }

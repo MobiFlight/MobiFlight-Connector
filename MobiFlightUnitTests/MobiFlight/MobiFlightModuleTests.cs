@@ -199,13 +199,17 @@ namespace MobiFlight.Tests
             o.Config.Items.Add(new Config.Button() { Name = "Test", Pin = "5" });
 
             Assert.AreEqual(MobiFlightModuleInfo.MEGA_PINS.Count() - o.Config.Items.Count, o.GetFreePins().Count, "Number of free pins is wrong");
-            Assert.AreEqual(false, o.GetFreePins().Contains(2), "Used pin still available");
-            Assert.AreEqual(false, o.GetFreePins().Contains(5), "Used pin still available");
-            Assert.AreEqual(true, o.GetFreePins().Contains(52), "Free pin not available");
+            Assert.AreEqual(false, o.GetFreePins().Exists(x=>x.Pin==2), "Used pin still available");
+            Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 5), "Used pin still available");
+            Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 52), "Free pin not available");
+
+            (o.Config.Items[0] as Config.Button).Pin = "3";
+            Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 3), "Used pin still available");
+            Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 2), "Free pin not available");
 
             o.Type = MobiFlightModuleInfo.TYPE_UNO;
-            Assert.AreEqual(true, o.GetFreePins().Contains(13), "Free pin not available");
-            Assert.AreEqual(false, o.GetFreePins().Contains(52), "Invalid pin available");
+            Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 13), "Free pin not available");
+            Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 52), "Invalid pin available");
         }
     }
 }

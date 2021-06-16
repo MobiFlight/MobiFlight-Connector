@@ -25,19 +25,18 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFServoPanel(MobiFlight.Config.Servo servo, List<byte> FreePins)
+        public MFServoPanel(MobiFlight.Config.Servo servo, List<MobiFlightPin> Pins)
             : this()
         {
-            List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(servo.DataPin)); Pin1Pins.Sort();
-            foreach (byte pin in Pin1Pins) mfPinComboBox.Items.Add(pin);
-            
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, servo.DataPin);
+
             if (mfPinComboBox.Items.Count > 0)
             {
                 mfPinComboBox.SelectedIndex = 0;
             }
             // TODO: Complete member initialization
             this.servo = servo;
-            ComboBoxHelper.SetSelectedItem(mfPinComboBox, servo.DataPin);
+            mfPinComboBox.SelectedValue = byte.Parse(servo.DataPin);
             textBox1.Text = servo.Name;
             setValues();
 
@@ -56,7 +55,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            servo.DataPin = mfPinComboBox.Text;
+            servo.DataPin = mfPinComboBox.SelectedItem.ToString();
             servo.Name = textBox1.Text;
         }
     }

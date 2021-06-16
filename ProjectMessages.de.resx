@@ -400,4 +400,45 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   <data name="uiMessageTestModeModuleNotConnected" xml:space="preserve">
     <value>Fehler im Test-Modus: Modul nicht angeschlossen.</value>
   </data>
+  <data name="uiMessageNewUpdateAvailable" xml:space="preserve">
+    <value>Neues Update verfügbar!</value>
+  </data>
+  <data name="uiMessageNewUpdateAvailablePleaseUpdate" xml:space="preserve">
+    <value>YEAH! - Neue Version {0} verfügbar. Bitte jetzt aktualisieren.</value>
+    <comment>"New Version {0} is available! Please update now."</comment>
+  </data>
+  <data name="uiMessageWasmUpdateAlreadyInstalled" xml:space="preserve">
+    <value>Du hast das aktuelle MobiFlight WASM Modul bereits installiert.</value>
+  </data>
+  <data name="uiMessageWasmUpdateCommunityFolderNotFound" xml:space="preserve">
+    <value>MSFS2020 Community Verzeichnis nicht gefunden. WASM Module kann nicht automatisch kopiert werden. Bitte kopiere das Verzeichnis manuell an die richtige Stelle.</value>
+    <comment>MSFS2020 Community Folder was not found. Can't install WASM Module automatically. Please copy the folder manually.</comment>
+  </data>
+  <data name="uiMessageWasmUpdateInstallationError" xml:space="preserve">
+    <value>MobiFlight WASM Module konnte nicht installiert werden. Bitte checke das Log für weitere Details.</value>
+  </data>
+  <data name="uiMessageWasmUpdater" xml:space="preserve">
+    <value>MobiFlight WASM Module Installation</value>
+  </data>
+  <data name="uiMessageWasmEventsInstallationError" xml:space="preserve">
+    <value>Neueste WASM Events konnten nicht installiert werden. Bitte checke das Log für weitere Details.</value>
+    <comment>Latest WASM Events could not be installed. Please check Log for more information.</comment>
+  </data>
+  <data name="uiMessageWasmEventsInstallationSuccessful" xml:space="preserve">
+    <value>Neueste WASM Events wurden erfolgreich installiert.</value>
+    <comment>Latest WASM Events installed successfully.</comment>
+  </data>
+  <data name="uiMessageSelectedModuleDoesNotContainAnyOutputDevices" xml:space="preserve">
+    <value>Das ausgewählte Modul enthält keine Ausgabegeräte. Möchtest Du welche konfigurieren?</value>
+    <comment>uiMessageSelectedModuleDoesNotContainAnyOutputDevices</comment>
+  </data>
+  <data name="uiMessageNoSimConnectConnection" xml:space="preserve">
+    <value>Keine aktive SimConnect Verbindung.</value>
+  </data>
+  <data name="uiSimConnectPanelComboBoxPresetSelect" xml:space="preserve">
+    <value>Preset auswählen</value>
+  </data>
+  <data name="uiSimConnectPanelComboBoxPresetSelectGroup" xml:space="preserve">
+    <value>Preset Gruppe auswählen</value>
+  </data>
 </root>

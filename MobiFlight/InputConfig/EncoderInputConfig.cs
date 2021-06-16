@@ -6,19 +6,6 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig 
 {
-    public enum EncoderInputDirectionType
-    {
-        LEFT,
-        RIGHT
-    }
-
-    public enum EncoderInputEventType
-    {
-        NORMAL,
-        FAST,
-        FASTEST
-    }
-
     public class EncoderInputConfig : IXmlSerializable, ICloneable
     {
         public InputAction onLeft;
@@ -43,7 +30,7 @@ namespace MobiFlight.InputConfig
 
         public void ReadXml(System.Xml.XmlReader reader)
         {
-            reader.Read(); // this should be the opening tag "onPress"
+            reader.Read(); // this should be the opening tag "onLeft"
             if (reader.LocalName == "onLeft")
             {
                 switch (reader["type"])
@@ -51,7 +38,6 @@ namespace MobiFlight.InputConfig
                     case FsuipcOffsetInputAction.TYPE:
                         onLeft = new FsuipcOffsetInputAction();
                         onLeft.ReadXml(reader);
-                        reader.ReadStartElement(); // this should be the closing tag "onPress"
                         break;
 
                     case KeyInputAction.TYPE:
@@ -83,9 +69,10 @@ namespace MobiFlight.InputConfig
                         onLeft.ReadXml(reader);
                         break;
                 }
+
+                reader.Read(); // advance to the next
             }
 
-            reader.Read(); // this should be the opening tag "onPress"
             if (reader.LocalName == "onLeftFast")
             {
                 switch (reader["type"])
@@ -93,7 +80,6 @@ namespace MobiFlight.InputConfig
                     case FsuipcOffsetInputAction.TYPE:
                         onLeftFast = new FsuipcOffsetInputAction();
                         onLeftFast.ReadXml(reader);
-                        reader.ReadStartElement(); // this should be the closing tag "onPress"
                         break;
 
                     case KeyInputAction.TYPE:
@@ -126,9 +112,10 @@ namespace MobiFlight.InputConfig
                         onLeftFast.ReadXml(reader);
                         break;
                 }
+
+                reader.Read(); // advance to the next
             }
 
-            reader.Read();
             if (reader.LocalName == "onRight")
             {
                 switch (reader["type"])
@@ -136,7 +123,6 @@ namespace MobiFlight.InputConfig
                     case FsuipcOffsetInputAction.TYPE:
                         onRight = new FsuipcOffsetInputAction();
                         onRight.ReadXml(reader);
-                        reader.ReadStartElement();
                         break;
 
                     case KeyInputAction.TYPE:
@@ -169,9 +155,10 @@ namespace MobiFlight.InputConfig
                         onRight.ReadXml(reader);
                         break;
                 }
+
+                reader.Read(); // advance to the next
             }
 
-            reader.Read();
             if (reader.LocalName == "onRightFast")
             {
                 switch (reader["type"])
@@ -179,7 +166,6 @@ namespace MobiFlight.InputConfig
                     case FsuipcOffsetInputAction.TYPE:
                         onRightFast = new FsuipcOffsetInputAction();
                         onRightFast.ReadXml(reader);
-                        reader.ReadStartElement();
                         break;
 
                     case KeyInputAction.TYPE:
@@ -212,6 +198,8 @@ namespace MobiFlight.InputConfig
                         onRightFast.ReadXml(reader);
                         break;
                 }
+
+                reader.Read(); // advance to the next
             }
         }
 

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LuaMacroInputPanel));
             this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.MacroValueTextBox = new System.Windows.Forms.TextBox();
@@ -38,61 +39,40 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label2);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.MacroValueTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.MacroNameTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label1);
-            this.fsuipcLoadPresetGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fsuipcLoadPresetGroupBox.Location = new System.Drawing.Point(0, 0);
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
-            this.fsuipcLoadPresetGroupBox.Size = new System.Drawing.Size(211, 104);
-            this.fsuipcLoadPresetGroupBox.TabIndex = 24;
             this.fsuipcLoadPresetGroupBox.TabStop = false;
-            this.fsuipcLoadPresetGroupBox.Text = "FSUIPC Lua Macro Settings";
             // 
             // label2
             // 
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(5, 54);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Value";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MacroValueTextBox
             // 
-            this.MacroValueTextBox.Location = new System.Drawing.Point(81, 51);
+            resources.ApplyResources(this.MacroValueTextBox, "MacroValueTextBox");
             this.MacroValueTextBox.Name = "MacroValueTextBox";
-            this.MacroValueTextBox.Size = new System.Drawing.Size(124, 20);
-            this.MacroValueTextBox.TabIndex = 18;
             // 
             // MacroNameTextBox
             // 
-            this.MacroNameTextBox.Location = new System.Drawing.Point(81, 25);
+            resources.ApplyResources(this.MacroNameTextBox, "MacroNameTextBox");
             this.MacroNameTextBox.Name = "MacroNameTextBox";
-            this.MacroNameTextBox.Size = new System.Drawing.Size(124, 20);
-            this.MacroNameTextBox.TabIndex = 17;
             // 
             // label1
             // 
-            this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(5, 28);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Macro Name";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LuaMacroInputPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "LuaMacroInputPanel";
-            this.Size = new System.Drawing.Size(211, 104);
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             this.fsuipcLoadPresetGroupBox.PerformLayout();
             this.ResumeLayout(false);

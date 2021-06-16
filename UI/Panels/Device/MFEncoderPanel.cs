@@ -26,17 +26,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfRightPinComboBox.Items.Clear();
         }
 
-        public MFEncoderPanel(MobiFlight.Config.Encoder encoder, List<byte> FreePins)
+        public MFEncoderPanel(MobiFlight.Config.Encoder encoder, List<MobiFlightPin> Pins)
             : this()
         {
-            // TODO: Complete member initialization
-            List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(encoder.PinLeft)); Pin1Pins.Sort();
-            List<byte> Pin2Pins = FreePins.ToList(); Pin2Pins.Add(Convert.ToByte(encoder.PinRight)); Pin2Pins.Sort();
-
-            foreach (byte pin in Pin1Pins) mfLeftPinComboBox.Items.Add(pin);
-            foreach (byte pin in Pin2Pins) mfRightPinComboBox.Items.Add(pin);
-
-
+            ComboBoxHelper.BindMobiFlightFreePins(mfLeftPinComboBox, Pins, encoder.PinLeft);
+            ComboBoxHelper.BindMobiFlightFreePins(mfRightPinComboBox, Pins, encoder.PinRight);
+            
             // Default standard selected values, next pins available
             if (mfLeftPinComboBox.Items.Count > 1)
             {
@@ -45,8 +40,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
 
             this.encoder = encoder;
-            ComboBoxHelper.SetSelectedItem(mfLeftPinComboBox, encoder.PinLeft);
-            ComboBoxHelper.SetSelectedItem(mfRightPinComboBox, encoder.PinRight);
+            mfLeftPinComboBox.SelectedValue = byte.Parse(encoder.PinLeft);
+            mfRightPinComboBox.SelectedValue = byte.Parse(encoder.PinRight);
+
             ComboBoxHelper.SetSelectedItemByIndex(mfEncoderTypeComboBox, int.Parse(encoder.EncoderType));
 
             textBox1.Text = encoder.Name;
@@ -67,8 +63,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            encoder.PinLeft = mfLeftPinComboBox.Text;
-            encoder.PinRight = mfRightPinComboBox.Text;
+            encoder.PinLeft = mfLeftPinComboBox.SelectedItem.ToString();
+            encoder.PinRight = mfRightPinComboBox.SelectedItem.ToString();
             encoder.EncoderType = mfEncoderTypeComboBox.SelectedIndex.ToString();
             encoder.Name = textBox1.Text;
         }

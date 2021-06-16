@@ -117,533 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cancelButton.Error" xml:space="preserve">
+  <data name="okButton.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="cancelButton.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="cancelButton.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="cancelButton.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label9.Error" xml:space="preserve">
+  <data name="panel1.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="label9.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label9.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>335, 13</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>MobiFlight muss neu gestartet werden, wenn Du die Sprache änderst.</value>
-  </data>
-  <data name="label9.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="languageComboBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="languageComboBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="languageComboBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="languageComboBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="languageLabel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="languageLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="languageLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="languageLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 13</value>
-  </data>
-  <data name="languageLabel.Text" xml:space="preserve">
-    <value>Passe die Sprache vom UI an:</value>
-  </data>
-  <data name="languageLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="languageGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="languageGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="languageGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="languageGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 253</value>
-  </data>
-  <data name="languageGroupBox.Text" xml:space="preserve">
-    <value>Sprache</value>
-  </data>
-  <data name="languageGroupBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label7.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label7.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label7.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>275, 57</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>Wenn aktiviert, dann werden die Configs auch ohne Verbindung zum Flight Sim ausgeführt. Das ist sinnvoll für Keyboard Commands und Flight Sims die nicht speziell von MobiFlight unterstützt werden.</value>
-  </data>
-  <data name="label7.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="offlineModeCheckBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="offlineModeCheckBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="offlineModeCheckBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="offlineModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 17</value>
-  </data>
-  <data name="offlineModeCheckBox.Text" xml:space="preserve">
-    <value>aktiviert</value>
-  </data>
-  <data name="offlineModeCheckBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="offlineModeGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="offlineModeGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="offlineModeGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="offlineModeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 80</value>
-  </data>
-  <data name="offlineModeGroupBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="logLevelComboBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="logLevelComboBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="logLevelComboBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="logLevelComboBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="logLevelLabel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="logLevelLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="logLevelLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="logLevelLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="logLevelCheckBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="logLevelCheckBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="logLevelCheckBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 17</value>
-  </data>
-  <data name="logLevelCheckBox.Text" xml:space="preserve">
-    <value>aktiviert</value>
-  </data>
-  <data name="logLevelCheckBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="debugGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="debugGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="debugGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="debugGroupBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="label8.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label8.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label8.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>262, 48</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 13</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Sehr schnell</value>
-  </data>
-  <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="label8.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label6.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label6.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label6.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 13</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Langsam</value>
-  </data>
-  <data name="label6.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="testModeSpeedTrackBar.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="testModeSpeedTrackBar.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="testModeSpeedTrackBar.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="testModeSpeedTrackBar.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="testModeSpeedGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="testModeSpeedGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="testModeSpeedGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
-    <value>Geschwindigkeit Test-Modus</value>
-  </data>
-  <data name="testModeSpeedGroupBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 19</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Anzahl der Einträge von Dateien in Liste</value>
-  </data>
-  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="recentFilesNumericUpDown.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="recentFilesNumericUpDown.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="recentFilesNumericUpDown.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="recentFilesNumericUpDown.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="recentFilesGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="recentFilesGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="recentFilesGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="recentFilesGroupBox.Text" xml:space="preserve">
-    <value>Zuletzt geöffnet</value>
-  </data>
-  <data name="recentFilesGroupBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="generalTabPage.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="generalTabPage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="generalTabPage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="generalTabPage.Text" xml:space="preserve">
-    <value>Allgemein</value>
-  </data>
-  <data name="generalTabPage.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numModulesLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="numModulesLabel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numModulesLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numModulesLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="numModulesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 55</value>
-  </data>
-  <data name="numModulesLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 13</value>
-  </data>
-  <data name="numModulesLabel.Text" xml:space="preserve">
-    <value>Anzahl</value>
-  </data>
-  <data name="numModulesLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numModulesLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numModulesNumericUpDown.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="numModulesNumericUpDown.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="numModulesNumericUpDown.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="arcazeModuleTypeComboBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="arcazeModuleTypeComboBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="globalBrightnessLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="globalBrightnessLabel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="globalBrightnessLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="globalBrightnessLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="globalBrightnessLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 86</value>
-  </data>
-  <data name="globalBrightnessLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>81, 26</value>
-  </data>
-  <data name="globalBrightnessLabel.Text" xml:space="preserve">
-    <value>Globale 
-Helligkeit</value>
-  </data>
-  <data name="globalBrightnessLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="globalBrightnessTrackBar.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="globalBrightnessTrackBar.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="globalBrightnessTrackBar.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="arcazeModuleTypeLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 22</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.Text" xml:space="preserve">
-    <value>Extension Typ</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="arcazeModuleTypeLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 34</value>
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 336</value>
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.Text" xml:space="preserve">
-    <value>Einstellungen Extension-Modul</value>
-  </data>
-  <data name="arcazeModuleSettingsGroupBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ArcazeModuleTreeView.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ArcazeModuleTreeView.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="ArcazeModuleTreeView.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8xBgQAAAAABgUAAAAITW9kdWxlXzAA
-        /////wkEAAAA/////wkEAAAAAAAAAAs=
-</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAACEFyY2F6ZV8yBgQAAAAABgUAAAANTUZfTUlDUk9f
-        Q09NNQD/////CQQAAAD/////CQQAAAAAAAAACw==
-</value>
-  </data>
-  <data name="ArcazeModuleTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 317</value>
-  </data>
-  <data name="ArcazeModuleTreeView.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="arcazeModulesGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="arcazeModulesGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="arcazeModulesGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="arcazeModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="arcazePanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 34</value>
   </data>
-  <data name="arcazeModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>179, 336</value>
+  <data name="arcazePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>499, 432</value>
   </data>
-  <data name="arcazeModulesGroupBox.Text" xml:space="preserve">
-    <value>Verfügbare Arcaze Module</value>
-  </data>
-  <data name="arcazeModulesGroupBox.ToolTip" xml:space="preserve">
+  <data name="arcazePanel.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="arcazeSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="arcazeSettingsLabel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="arcazeSettingsLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="arcazeSettingsLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="arcazeSettingsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="arcazeSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>378, 31</value>
+    <value>499, 31</value>
   </data>
   <data name="arcazeSettingsLabel.Text" xml:space="preserve">
     <value>Konfiguriere die angeschlossenen Arcaze Module und angeschlossene Extension-Module.</value>
@@ -651,32 +145,8 @@ Helligkeit</value>
   <data name="arcazeSettingsLabel.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="ledDisplaysTabPage.Error" xml:space="preserve">
+  <data name="ArcazeTabPage.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="ledDisplaysTabPage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="ledDisplaysTabPage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="ledDisplaysTabPage.Text" xml:space="preserve">
-    <value>Arcaze Module</value>
-  </data>
-  <data name="ledDisplaysTabPage.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ledDisplaysTabPage.ToolTipText" xml:space="preserve">
-    <value>Einstellungen zu den Erweiterungs-Modulen</value>
-  </data>
-  <data name="mfModuleSettingsContextMenuStrip.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mfModuleSettingsContextMenuStrip.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="mfModuleSettingsContextMenuStrip.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="ledOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 22</value>
@@ -693,6 +163,7 @@ Helligkeit</value>
   <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 22</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="servoToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -774,222 +245,23 @@ Helligkeit</value>
   <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>169, 22</value>
   </data>
-  <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
-    <value>Reload Config</value>
-  </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>170, 220</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="mfModulesTreeView.Error" xml:space="preserve">
+  <data name="generalPanel.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="mfModulesTreeView.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
+  <data name="generalTabPage.Text" xml:space="preserve">
+    <value>Allgemein</value>
   </data>
-  <data name="mfModulesTreeView.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQwAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQJY2hpbGRyZW4wCWNoaWxkcmVuMQljaGlsZHJlbjIBAQEAAAEAAQAEBAQBCAgIHVN5c3Rl
-        bS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlAgAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQIA
-        AAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYDAAAADk1GX01FR0EgKENPTTMp
-        BgQAAAAABgUAAAAITW9kdWxlXzAA/////wkEAAAA/////wkEAAAAAwAAAAkHAAAACQgAAAAJCQAAAAUH
-        AAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCQAAAARUZXh0C1Rvb2xUaXBUZXh0BE5hbWUJ
-        SXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUluZGV4EFNlbGVjdGVkSW1h
-        Z2VLZXkKQ2hpbGRDb3VudAEBAQAAAQABAAEICAgCAAAABgoAAAAOTEVEIFNlZ21lbnQgIzEJBAAAAAYM
-        AAAABUxFRDAxAP////8JBAAAAP////8JBAAAAAAAAAAFCAAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5U
-        cmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdl
-        S2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQAB
-        CAgIAgAAAAYOAAAACFNlcnZvICMxCQQAAAAGEAAAAAdTRVJWTzAxAP////8JBAAAAP////8JBAAAAAAA
-        AAAFCQAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dARO
-        YW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3Rl
-        ZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYSAAAACFNlcnZvICMyCQQAAAAGFAAA
-        AAhTRVJWT18wMgD/////CQQAAAD/////CQQAAAAAAAAACw==
-</value>
-  </data>
-  <data name="mfModulesTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAAD01GIE1pY3JvIChDT001KQYEAAAAAAYFAAAADU1G
-        X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
-</value>
-  </data>
-  <data name="mfModulesTreeView.ToolTip" xml:space="preserve">
+  <data name="generalTabPage.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="mfSettingsPanel.Error" xml:space="preserve">
+  <data name="mobiFlightPanel.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="mfSettingsPanel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="mfSettingsPanel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="mfSettingsPanel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mobiflightSettingsToolStrip.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mobiflightSettingsToolStrip.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="uploadToolStripButton.Text" xml:space="preserve">
-    <value>Aktuelle Konfiguration in Modul speichern</value>
-  </data>
-  <data name="openToolStripButton.Text" xml:space="preserve">
-    <value>Konfiguration laden</value>
-  </data>
-  <data name="saveToolStripButton.Text" xml:space="preserve">
-    <value>Aktuelle Konfiguration in Datei speichern</value>
-  </data>
-  <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
-    <value>Schalter</value>
-  </data>
-  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 22</value>
-  </data>
-  <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
-    <value>Neues Device</value>
-  </data>
-  <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>109, 22</value>
-  </data>
-  <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
-    <value>Entferne Device</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mfConfiguredModulesGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
-    <value>Angeschlossene Module</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="FwAutoUpdateCheckBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="FwAutoUpdateCheckBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>170, 17</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.Text" xml:space="preserve">
-    <value>Firmware Auto Upload aktiviert</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.ToolTip" xml:space="preserve">
-    <value>MobiFlight prüft bei jedem Start alle angeschlossenen Arduino boards.
-Falls aktiviert, wirst Du gefragt ob du die MobiFlight Firmware hochladen möchtest.</value>
-  </data>
-  <data name="firmwareArduinoIdeButton.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="firmwareArduinoIdeButton.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="firmwareArduinoIdeButton.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="firmwareArduinoIdeButton.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="firmwareArduinoIdePathTextBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="firmwareArduinoIdePathTextBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="firmwareArduinoIdePathTextBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="firmwareArduinoIdePathTextBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="firmwareArduinoIdeLabel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="firmwareArduinoIdeLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="firmwareArduinoIdeLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="firmwareArduinoIdeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 13</value>
-  </data>
-  <data name="firmwareArduinoIdeLabel.Text" xml:space="preserve">
-    <value>Pfad zu Arduino IDE</value>
-  </data>
-  <data name="firmwareArduinoIdeLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="firmwareSettingsGroupBox.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="firmwareSettingsGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
-    <value>Firmware Flash Einstellungen</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mobiflightSettingsLabel.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mobiflightSettingsLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="mobiflightSettingsLabel.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="mobiflightSettingsLabel.Text" xml:space="preserve">
-    <value>Konfiguriere angeschlossene MobiFlight Module. Du kannst Konfigurationen laden und speichern und sie auf Dein Modul hochladen.</value>
-  </data>
-  <data name="mobiflightSettingsLabel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mobiFlightTabPage.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="mobiFlightTabPage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="mobiFlightTabPage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="mobiFlightTabPage.Text" xml:space="preserve">
     <value>MobiFlight Module</value>
@@ -997,53 +269,17 @@ Falls aktiviert, wirst Du gefragt ob du die MobiFlight Firmware hochladen möcht
   <data name="mobiFlightTabPage.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label4.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label4.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label4.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>176, 53</value>
   </data>
   <data name="label4.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label3.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label3.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label3.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="label3.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label2.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label2.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label2.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="label2.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="label5.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="label5.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label5.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>Passt die Häufigkeit an mit der Daten bei FSUIPC abgefragt werden. Je kleiner der Wert, desto häufiger ein Update.  Ein zu kleiner Wert kann vielleicht Auswirkungen auf die Performance haben.</value>
@@ -1051,26 +287,8 @@ Falls aktiviert, wirst Du gefragt ob du die MobiFlight Firmware hochladen möcht
   <data name="label5.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="fsuipcPollIntervalTrackBar.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="fsuipcPollIntervalTrackBar.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="groupBox1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="groupBox1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="groupBox1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>FSUIPC Aktualisierungs-Intervall</value>
@@ -1078,26 +296,8 @@ Falls aktiviert, wirst Du gefragt ob du die MobiFlight Firmware hochladen möcht
   <data name="groupBox1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="fsuipcTabPage.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="fsuipcTabPage.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="fsuipcTabPage.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="fsuipcTabPage.ToolTip" xml:space="preserve">
     <value />
-  </data>
-  <data name="tabControl1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tabControl1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="tabControl1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
   </data>
   <data name="tabControl1.ToolTip" xml:space="preserve">
     <value />
@@ -1250,30 +450,6 @@ Falls aktiviert, wirst Du gefragt ob du die MobiFlight Firmware hochladen möcht
     <value>Einstellungen</value>
   </data>
   <data name="$this.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="okButton.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="okButton.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="okButton.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="okButton.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panel1.Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panel1.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
-    <value>MiddleRight</value>
-  </data>
-  <data name="panel1.IconPadding" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="panel1.ToolTip" xml:space="preserve">
     <value />
   </data>
 </root>

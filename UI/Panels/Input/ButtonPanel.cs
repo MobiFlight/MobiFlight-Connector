@@ -123,6 +123,7 @@ namespace MobiFlight.UI.Panels.Input
             {
                 panel.Padding = new Padding(0, 0, 0, 0);
                 panel.Width = owner.Width;
+                panel.Dock = DockStyle.Fill;
                 owner.Controls.Add(panel);
                 panel.Height = owner.Height - 3;
             }

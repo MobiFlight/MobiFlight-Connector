@@ -50,11 +50,11 @@ namespace MobiFlight.InputConfig
         private IFsuipcConfigItem CreateJeehellBaseOffsetConfigItem()
         {
             FSUIPC.FSUIPCConfigItem result = new FSUIPC.FSUIPCConfigItem();
-            result.FSUIPCOffset = BaseOffset;
-            result.FSUIPCOffsetType = FSUIPCOffsetType.Integer;
-            result.FSUIPCSize = 1;
-            result.FSUIPCMask = 0xFF;
-            result.FSUIPCBcdMode = false;
+            result.FSUIPC.Offset = BaseOffset;
+            result.FSUIPC.OffsetType = FSUIPCOffsetType.Integer;
+            result.FSUIPC.Size = 1;
+            result.FSUIPC.Mask = 0xFF;
+            result.FSUIPC.BcdMode = false;
             
             return result;
         }
@@ -62,36 +62,36 @@ namespace MobiFlight.InputConfig
         private IFsuipcConfigItem CreateFsuipcConfigItem ()
         {
             FSUIPC.FSUIPCConfigItem result = new FSUIPC.FSUIPCConfigItem();
-            result.FSUIPCOffsetType = FSUIPCOffsetType.Integer;
-            result.FSUIPCSize = 2;
-            result.FSUIPCMask = 0xFFFF;
-            result.FSUIPCBcdMode = false;
+            result.FSUIPC.OffsetType = FSUIPCOffsetType.Integer;
+            result.FSUIPC.Size = 2;
+            result.FSUIPC.Mask = 0xFFFF;
+            result.FSUIPC.BcdMode = false;
 
             switch (EventId)
             {
                 case 1:
-                    result.FSUIPCOffset = Offset_SPD;
+                    result.FSUIPC.Offset = Offset_SPD;
                     break;
 
                 case 2:
-                    result.FSUIPCOffset = Offset_HDG;
+                    result.FSUIPC.Offset = Offset_HDG;
                     break;
 
                 case 3:
-                    result.FSUIPCOffset = Offset_ALT;
+                    result.FSUIPC.Offset = Offset_ALT;
                     //result.FSUIPCMultiplier = 100;
                     break;
                 case 4:
-                    result.FSUIPCOffset = Offset_VS;
-                    result.FSUIPCSize = 1;
-                    result.FSUIPCMask = 0xFF;
+                    result.FSUIPC.Offset = Offset_VS;
+                    result.FSUIPC.Size = 1;
+                    result.FSUIPC.Mask = 0xFF;
                     //result.FSUIPCMultiplier = 100;
                     break;
                 case 5:
-                    result.FSUIPCOffset = Offset_CPT_QNH;
+                    result.FSUIPC.Offset = Offset_CPT_QNH;
                     break;
                 case 6:
-                    result.FSUIPCOffset = Offset_FO_QNH;
+                    result.FSUIPC.Offset = Offset_FO_QNH;
                     break;
 
                 case 7:
@@ -145,9 +145,9 @@ namespace MobiFlight.InputConfig
 
             value = Replace(value, replacements);
 
-            cfg.FSUIPCOffset = ParamOffset;
-            cfg.FSUIPCSize = 2;
-            cfg.FSUIPCMask = 0xFFFF;
+            cfg.FSUIPC.Offset = ParamOffset;
+            cfg.FSUIPC.Size = 2;
+            cfg.FSUIPC.Mask = 0xFFFF;
 
             Log.Instance.log("JeehellInputAction:Execute : Setting value " + value + " for EventID: " + EventId, LogSeverity.Debug);
             FSUIPC.FsuipcHelper.executeWrite(value, cfg, cache as FSUIPC.FSUIPCCacheInterface);

@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Panels
     public partial class OutputConfigPanel : UserControl
     {
         public event EventHandler SettingsChanged;
+        public event EventHandler SettingsDialogRequested;
 
         private int lastClickedRow = -1;
         //private DataTable configDataTable;
@@ -343,6 +344,11 @@ namespace MobiFlight.UI.Panels
                         DataRow row = null;
                         bool create = false;
 
+                        if (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem == null)
+                        {
+                            return;
+                        }
+
                         row = (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row;
 
                         // the row had been saved but no config object has been created
@@ -384,18 +390,19 @@ namespace MobiFlight.UI.Panels
         private void EditConfigWithWizard(DataRow dataRow, OutputConfigItem cfg, bool create)
         {
             // refactor!!! dependency to arcaze cache etc not nice
-            Form wizard = new ConfigWizard(ExecutionManager,
+            ConfigWizard wizard = new ConfigWizard(ExecutionManager,
                                             cfg,
 #if ARCAZE
                                             ExecutionManager.getModuleCache(),
-                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(), 
+                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
                                             dataSetConfig,
                                             dataRow["guid"].ToString()
-                                          )
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
+                                          );
+
+            wizard.StartPosition = FormStartPosition.CenterParent;
+            wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
+
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (dataRow == null) return;
@@ -405,12 +412,22 @@ namespace MobiFlight.UI.Panels
             };
         }
 
+        void wizard_SettingsDialogRequested(object sender, EventArgs e)
+        {
+            //(sender as InputConfigWizard).Close();
+            SettingsDialogRequested?.Invoke(sender, null);
+
+        }
+
         /// <summary>
         /// enables the save button in toolbar after the user has changed config data
         /// </summary>        
         void ConfigDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            if (e.Action==DataRowAction.Add) SettingsChanged?.Invoke(sender, null);
+            if (e.Action==DataRowAction.Add ||
+                //e.Action == DataRowAction.Change ||
+                e.Action == DataRowAction.Delete) SettingsChanged?.Invoke(sender, null);
+
         } //configDataTable_RowChanged
 
         private void ConfigDataTable_TableNewRow(object sender, DataTableNewRowEventArgs e)
@@ -440,7 +457,7 @@ namespace MobiFlight.UI.Panels
                 OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
                 if (cfgItem != null)
                 {
-                    row["fsuipcOffset"] = "0x" + cfgItem.FSUIPCOffset.ToString("X4");
+                    row["fsuipcOffset"] = "0x" + cfgItem.FSUIPC.Offset.ToString("X4");
                     if (cfgItem.DisplaySerial != null)
                     {
                         row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];

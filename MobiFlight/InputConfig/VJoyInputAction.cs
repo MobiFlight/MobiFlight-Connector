@@ -8,7 +8,7 @@ using MobiFlight.VJoy;
 
 namespace MobiFlight.InputConfig
 {
-    class VJoyInputAction : InputAction
+    public class VJoyInputAction : InputAction
     {
 
         public const String TYPE = "vJoyInputAction";

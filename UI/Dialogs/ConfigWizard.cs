@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Dialogs
     public partial class ConfigWizard : Form
     {
         public event EventHandler PreconditionTreeNodeChanged;
+        public event EventHandler SettingsDialogRequested;
 
         static int lastTabActive = 0;
 
@@ -65,7 +66,7 @@ namespace MobiFlight.UI.Dialogs
             
             // if one opens the dialog for a new config
             // ensure that always the first tab is shown
-            if (cfg.FSUIPCOffset == OutputConfigItem.FSUIPCOffsetNull)
+            if (cfg.FSUIPC.Offset == OutputConfig.FsuipcOffset.OffsetNull)
             {
                 lastTabActive = 0;
             }
@@ -407,7 +408,11 @@ namespace MobiFlight.UI.Dialogs
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
         {
+            OffsetTypeFsuipRadioButton.Checked = (config.SourceType == SourceType.FSUIPC);
+            OffsetTypeSimConnectRadioButton.Checked = (config.SourceType == SourceType.SIMCONNECT);
+
             fsuipcConfigPanel.syncFromConfig(config);
+            simConnectPanel1.syncFromConfig(config);
             configRefPanel.syncFromConfig(config);
         }
 
@@ -430,7 +435,10 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
+            config.SourceType = OffsetTypeFsuipRadioButton.Checked ? SourceType.FSUIPC : SourceType.SIMCONNECT;
+
             fsuipcConfigPanel.syncToConfig(config);
+            simConnectPanel1.syncToConfig(config);
             configRefPanel.syncToConfig(config);
 
             // refactor!!!
@@ -564,6 +572,26 @@ namespace MobiFlight.UI.Dialogs
                             case DeviceType.LcdDisplay:
                                 displayTypeComboBox.Items.Add(DeviceType.LcdDisplay.ToString("F"));
                                 break;
+                        }
+                    }
+
+                    if (displayTypeComboBox.Items.Count == 0)
+                    {
+                        if (MessageBox.Show(
+                                i18n._tr("uiMessageSelectedModuleDoesNotContainAnyOutputDevices"),
+                                i18n._tr("Hint"),
+                                MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes
+                            )
+                        {
+                            if (SettingsDialogRequested != null)
+                            {
+                                SettingsDialogRequested(this, new EventArgs());
+
+                                // trigger reload of Type ComboBox
+                                int CurrentIdx = displayModuleNameComboBox.SelectedIndex;
+                                displayModuleNameComboBox.SelectedIndex = 0;
+                                displayModuleNameComboBox.SelectedIndex = CurrentIdx;
+                            }
                         }
                     }
                 }
@@ -1261,6 +1289,12 @@ namespace MobiFlight.UI.Dialogs
             interpolationPanel1.Enabled = (sender as CheckBox).Checked;
             if ((sender as CheckBox).Checked)
                 interpolationPanel1.Save = true;
+        }
+
+        private void OffsetTypeFsuipRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            FsuipcSettingsPanel.Visible = (sender as RadioButton) == OffsetTypeFsuipRadioButton;
+            simConnectPanel1.Visible = (sender as RadioButton) == OffsetTypeSimConnectRadioButton;
         }
     }
 }

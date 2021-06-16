@@ -40,5 +40,10 @@ namespace MobiFlight.Config
 
             return true;
         }
+
+        public override string ToString()
+        {
+            return Type + ":" + Name + " PinLeft:" + PinLeft + " PinRight:" + PinRight;
+        }
     }
 }

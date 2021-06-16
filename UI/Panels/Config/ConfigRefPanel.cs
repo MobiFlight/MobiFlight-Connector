@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight.Base;
+using MobiFlight.Config;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -14,7 +15,7 @@ namespace MobiFlight.UI.Panels.Config
     {
         DataView dv;
         static byte MAX_CONFIG_REFS = 6;
-        static string[] CONFIG_REFS_PLACEHOLDER = { "#", "§", "?", "@", "A", "B", "C" };
+        static string[] CONFIG_REFS_PLACEHOLDER = { "#", "!", "?", "@", "A", "B", "C" };
 
         public ConfigRefPanel()
         {
@@ -34,12 +35,16 @@ namespace MobiFlight.UI.Panels.Config
             noConfigRefsPanel.Visible = (dv.Count == 0);
         }
 
-        internal void syncFromConfig(OutputConfigItem config)
+        internal void syncFromConfig(IConfigRefConfigItem config)
         {
             configRefItemPanel.Controls.Clear();
+            DataView defaultView = dv.Table.DefaultView;
 
             foreach (ConfigRef configRef in config.ConfigRefs)
             {
+                defaultView.RowFilter = "guid = '" + configRef.Ref + "'";
+                if (defaultView.Count == 0) continue;
+
                 ConfigRefPanelItem p = new ConfigRefPanelItem();
                 p.SetDataView(dv);
                 p.syncFromConfig(configRef);
@@ -66,54 +71,7 @@ namespace MobiFlight.UI.Panels.Config
             }
         }
 
-        internal void syncFromConfig(InputConfigItem config)
-        {
-            configRefItemPanel.Controls.Clear();
-
-            foreach (ConfigRef configRef in config.ConfigRefs)
-            {
-                ConfigRefPanelItem p = new ConfigRefPanelItem();
-                p.SetDataView(dv);
-                p.syncFromConfig(configRef);
-
-                p.Dock = DockStyle.Top;
-                configRefItemPanel.Controls.Add(p);
-            }
-
-            while (configRefItemPanel.Controls.Count < dv.Count &&
-                   configRefItemPanel.Controls.Count < MAX_CONFIG_REFS)
-            {
-                ConfigRefPanelItem p = new ConfigRefPanelItem();
-                int SelectedIndex = 0;
-                SelectedIndex = (dv.Count > MAX_CONFIG_REFS) ?
-                                (MAX_CONFIG_REFS - configRefItemPanel.Controls.Count) - 1 :
-                                (dv.Count - configRefItemPanel.Controls.Count) - 1;
-
-                p.SetDataView(dv);
-                p.SetPlaceholder(CONFIG_REFS_PLACEHOLDER[SelectedIndex]);
-                p.configRefComboBox.SelectedIndex = SelectedIndex;
-
-                p.Dock = DockStyle.Top;
-                configRefItemPanel.Controls.Add(p);
-            }
-        }
-
-        internal OutputConfigItem syncToConfig(OutputConfigItem config)
-        {
-            config.ConfigRefs.Clear();
-
-            // sync the config ref settings back to the config
-            foreach (ConfigRefPanelItem p in configRefItemPanel.Controls.OfType<ConfigRefPanelItem>())
-            {
-                ConfigRef configRef = new ConfigRef();
-                p.syncToConfig(configRef);
-                config.ConfigRefs.Add(configRef);
-            }
-
-            return config;
-        }
-
-        internal InputConfigItem syncToConfig(InputConfigItem config)
+        internal IConfigRefConfigItem syncToConfig(IConfigRefConfigItem config)
         {
             config.ConfigRefs.Clear();
 

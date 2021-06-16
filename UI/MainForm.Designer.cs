@@ -35,18 +35,23 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mergeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.konfigurationSpeichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AfterFileActionsToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.recentDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recentDocsToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mSFS2020ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.installWASMModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadLatestEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orphanedSerialsFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openDiscordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain = new System.Windows.Forms.Panel();
@@ -73,6 +78,8 @@
             this.autoRunToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.donateToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStripPanel = new System.Windows.Forms.Panel();
@@ -126,6 +133,7 @@
             this.toolStripMenuItem3,
             this.toolStripMenuItem2,
             this.openToolStripMenuItem,
+            this.mergeToolStripMenuItem,
             this.konfigurationSpeichernToolStripMenuItem,
             this.AfterFileActionsToolStripMenuItem,
             this.recentDocumentsToolStripMenuItem,
@@ -149,6 +157,12 @@
             resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // mergeToolStripMenuItem
+            // 
+            resources.ApplyResources(this.mergeToolStripMenuItem, "mergeToolStripMenuItem");
+            this.mergeToolStripMenuItem.Name = "mergeToolStripMenuItem";
+            this.mergeToolStripMenuItem.Click += new System.EventHandler(this.mergeToolStripMenuItem_Click);
             // 
             // konfigurationSpeichernToolStripMenuItem
             // 
@@ -181,10 +195,31 @@
             // 
             resources.ApplyResources(this.extrasToolStripMenuItem, "extrasToolStripMenuItem");
             this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mSFS2020ToolStripMenuItem,
             this.orphanedSerialsFinderToolStripMenuItem,
             this.toolStripMenuItem4,
             this.settingsToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
+            // 
+            // mSFS2020ToolStripMenuItem
+            // 
+            resources.ApplyResources(this.mSFS2020ToolStripMenuItem, "mSFS2020ToolStripMenuItem");
+            this.mSFS2020ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.installWASMModuleToolStripMenuItem,
+            this.downloadLatestEventsToolStripMenuItem});
+            this.mSFS2020ToolStripMenuItem.Name = "mSFS2020ToolStripMenuItem";
+            // 
+            // installWASMModuleToolStripMenuItem
+            // 
+            resources.ApplyResources(this.installWASMModuleToolStripMenuItem, "installWASMModuleToolStripMenuItem");
+            this.installWASMModuleToolStripMenuItem.Name = "installWASMModuleToolStripMenuItem";
+            this.installWASMModuleToolStripMenuItem.Click += new System.EventHandler(this.installWasmModuleToolStripMenuItem_Click);
+            // 
+            // downloadLatestEventsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.downloadLatestEventsToolStripMenuItem, "downloadLatestEventsToolStripMenuItem");
+            this.downloadLatestEventsToolStripMenuItem.Name = "downloadLatestEventsToolStripMenuItem";
+            this.downloadLatestEventsToolStripMenuItem.Click += new System.EventHandler(this.downloadLatestEventsToolStripMenuItem_Click);
             // 
             // orphanedSerialsFinderToolStripMenuItem
             // 
@@ -209,6 +244,7 @@
             this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem,
             this.checkForUpdateToolStripMenuItem,
+            this.openDiscordServerToolStripMenuItem,
             this.toolStripMenuItem1,
             this.überToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
@@ -224,6 +260,12 @@
             resources.ApplyResources(this.checkForUpdateToolStripMenuItem, "checkForUpdateToolStripMenuItem");
             this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
             this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // openDiscordServerToolStripMenuItem
+            // 
+            resources.ApplyResources(this.openDiscordServerToolStripMenuItem, "openDiscordServerToolStripMenuItem");
+            this.openDiscordServerToolStripMenuItem.Name = "openDiscordServerToolStripMenuItem";
+            this.openDiscordServerToolStripMenuItem.Click += new System.EventHandler(this.openDiscordServer_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -283,11 +325,12 @@
             // 
             resources.ApplyResources(this.notifyIcon, "notifyIcon");
             this.notifyIcon.ContextMenuStrip = this.contextMenuStripNotifyIcon;
-            this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // contextMenuStripNotifyIcon
             // 
             resources.ApplyResources(this.contextMenuStripNotifyIcon, "contextMenuStripNotifyIcon");
+            this.contextMenuStripNotifyIcon.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStripNotifyIcon.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.startToolStripMenuItem,
             this.stopToolStripMenuItem,
@@ -339,6 +382,8 @@
             this.autoRunToolStripButton,
             this.toolStripSeparator3,
             this.donateToolStripButton,
+            this.toolStripSeparator5,
+            this.toolStripButton1,
             this.toolStripSeparator4,
             this.exitToolStripButton});
             this.toolStrip1.Name = "toolStrip1";
@@ -407,6 +452,17 @@
             this.donateToolStripButton.Image = global::MobiFlight.Properties.Resources.btn_donate_SM;
             this.donateToolStripButton.Name = "donateToolStripButton";
             this.donateToolStripButton.Click += new System.EventHandler(this.donateToolStripButton_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            // 
+            // toolStripButton1
+            // 
+            resources.ApplyResources(this.toolStripButton1, "toolStripButton1");
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.openDiscordServer_Click);
             // 
             // toolStripSeparator4
             // 
@@ -580,8 +636,8 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.logSplitter);
-            this.Controls.Add(this.panelMain);
             this.Controls.Add(this.startupPanel);
+            this.Controls.Add(this.panelMain);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.statusStripPanel);
             this.Controls.Add(this.toolStrip1);
@@ -688,6 +744,13 @@
         private Panels.OutputConfigPanel outputConfigPanel;
         private Panels.InputConfigPanel inputConfigPanel;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mSFS2020ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem installWASMModuleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadLatestEventsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mergeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripMenuItem openDiscordServerToolStripMenuItem;
     }
 }
 

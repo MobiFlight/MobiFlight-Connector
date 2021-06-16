@@ -12,13 +12,13 @@ using System.Xml.Serialization;
 #if ARCAZE
 using SimpleSolutions.Usb;
 #endif
-using AutoUpdaterDotNET;
 using System.Runtime.InteropServices;
 using MobiFlight.FSUIPC;
 using System.Reflection;
 using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.SimConnectMSFS;
+using MobiFlight.UpdateChecker;
 
 namespace MobiFlight.UI
 {
@@ -37,15 +37,8 @@ namespace MobiFlight.UI
 
         private ExecutionManager execManager;
 
-        private bool _onClosing = false;
-        private readonly string MobiFlightUpdateUrl = "https://www.mobiflight.com/tl_files/download/releases/mobiflightconnector.xml";
-        private readonly string MobiFlightUpdateBetasUrl = "https://www.mobiflight.com/tl_files/download/releases/beta/mobiflightconnector.xml";
-        private readonly string MobiFlightUpdateDebugUrl = "https://www.mobiflight.com/tl_files/download/releases/debug/mobiflightconnector.xml";
-
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
-
-        private bool SilentUpdateCheck = true;
 
         private void InitializeUILanguage()
         {
@@ -109,12 +102,7 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.Started == 0)
             {
-                int i = Properties.Settings.Default.Started;
-                WelcomeDialog wd = new WelcomeDialog();
-                wd.StartPosition = FormStartPosition.CenterParent;
-                wd.Text = String.Format(wd.Text, Version);
-                wd.ShowDialog();
-                this.BringToFront();
+                OnFirstStart();
             }
 
             Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
@@ -164,10 +152,11 @@ namespace MobiFlight.UI
             // TODO: REFACTOR THIS DEPENDENCY
             outputConfigPanel.ExecutionManager = execManager;
             outputConfigPanel.SettingsChanged += OutputConfigPanel_SettingsChanged;
+            outputConfigPanel.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
 
             inputConfigPanel.ExecutionManager = execManager;
             inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
-            inputConfigPanel.SettingsDialogRequested += InputConfigPanel_SettingsDialogRequested;
+            inputConfigPanel.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
             inputConfigPanel.OutputDataSetConfig = outputConfigPanel.DataSetConfig;
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
@@ -175,10 +164,6 @@ namespace MobiFlight.UI
                 // change ui icon to english
                 donateToolStripButton.Image = Properties.Resources.btn_donate_uk_SM;
             }
-
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            AutoUpdater.CheckForUpdateEvent += new AutoUpdater.CheckForUpdateEventHandler(AutoUpdater_CheckForUpdateEvent);
-            AutoUpdater.ApplicationExitEvent += AutoUpdater_AutoUpdaterFinishedEvent;
 
             startupPanel.UpdateStatusText("Start Connecting");
 #if ARCAZE
@@ -189,12 +174,36 @@ namespace MobiFlight.UI
             execManager.AutoConnectStart();
         }
 
+        private void OnFirstStart()
+        {
+            int i = Properties.Settings.Default.Started;
+            WelcomeDialog wd = new WelcomeDialog();
+            wd.StartPosition = FormStartPosition.CenterParent;
+            wd.Text = String.Format(wd.Text, DisplayVersion());
+            wd.ShowDialog();
+            this.BringToFront();
+
+            // MSFS2020
+            WasmModuleUpdater udpater = new WasmModuleUpdater();
+            if (udpater.AutoDetectCommunityFolder())
+            {
+                // MSFS2020 installed
+                Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
+                msfsForm.StartPosition = FormStartPosition.CenterParent;
+                if (msfsForm.ShowDialog()==DialogResult.OK)
+                {
+                    InstallWasmModule();
+                }
+                this.BringToFront();
+            }
+        }
+
         private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
         }
 
-        private void InputConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
+        private void ConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
         {
             settingsToolStripMenuItem_Click(sender, null);
         }
@@ -235,7 +244,15 @@ namespace MobiFlight.UI
             startupPanel.Visible = false;
             menuStrip.Enabled = true;
 
-            CheckForUpdate(false, true);
+            AutoUpdateChecker.CheckForUpdate(false, true);
+
+            CheckForWasmModuleUpdate();
+        }
+
+        private void CheckForWasmModuleUpdate()
+        {
+            WasmModuleUpdater udpater = new WasmModuleUpdater();
+            
         }
 
         void CheckForFirmwareUpdates ()
@@ -347,48 +364,15 @@ namespace MobiFlight.UI
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.StartedTotal += Properties.Settings.Default.Started;
+                Properties.Settings.Default.Started = 0;
                 Properties.Settings.Default.Save();
             }
-        }
-        
-        private void AutoUpdater_AutoUpdaterFinishedEvent()
-        {
-            AutoUpdater.CheckForUpdateEvent -= AutoUpdater_CheckForUpdateEvent;
-            Close();
         }
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckForUpdate(true);
-        }
-
-        void AutoUpdater_CheckForUpdateEvent(UpdateInfoEventArgs args)
-        {
-            // TODO: Does this happen with no internet connection???
-            if (args != null)
-            {
-
-                if (!args.IsUpdateAvailable && !SilentUpdateCheck /* && !args.DoSilent */)
-                {
-                    this.Invoke(new MessageBoxDelegate(ShowMessageThreadSafe), String.Format(i18n._tr("uiMessageNoUpdateNecessary"), Version), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                if (!args.IsUpdateAvailable)
-                {
-                    Log.Instance.log("No updates necessary. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
-                } else
-                {
-                    Log.Instance.log("Updates available. Your version: " + args.InstalledVersion + ", Latest version: " + args.CurrentVersion, LogSeverity.Info);
-                    AutoUpdater.ShowUpdateForm(args);
-                    return;
-                }
-
-            } else
-            {
-                Log.Instance.log("Check for update went wrong. No internet connection?", LogSeverity.Info);
-            }
-
-            this.Invoke(new VoidDelegate(startAutoConnectThreadSafe));
+            AutoUpdateChecker.CheckForUpdate(true);
         }
 
         private void startAutoConnectThreadSafe()
@@ -401,6 +385,9 @@ namespace MobiFlight.UI
             return MessageBox.Show(this, msg, title, buttons);
         }
 
+        
+
+        /*
         private void CheckForUpdate(bool force, bool silent = false)
         {
             AutoUpdater.Mandatory = force;
@@ -424,6 +411,7 @@ namespace MobiFlight.UI
             AutoUpdater.DownloadPath = Environment.CurrentDirectory;
             AutoUpdater.Start(updateUrl + trackingParams + "1");
         }
+        */
 
         void execManager_OnTestModeException(object sender, EventArgs e)
         {
@@ -494,6 +482,8 @@ namespace MobiFlight.UI
 #if ARCAZE
         private void _initializeArcazeModuleSettings()
         {
+            if (!Properties.Settings.Default.ArcazeSupportEnabled) return;
+
             Dictionary<string, ArcazeModuleSettings> settings = execManager.getModuleCache().GetArcazeModuleSettings();
             List<string> serials = new List<string>();
 
@@ -799,7 +789,8 @@ namespace MobiFlight.UI
             {
                 notifyIcon.Visible = false;                
                 this.Show();
-                this.WindowState = FormWindowState.Normal;
+                if (this.WindowState!=FormWindowState.Normal)
+                    this.WindowState = FormWindowState.Normal;
                 this.BringToFront();
             }
         } //minimizeMainForm()
@@ -815,10 +806,11 @@ namespace MobiFlight.UI
         /// <summary>
         /// restores the current main form when user double clicks notify icon
         /// </summary>        
-        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right) return;
             minimizeMainForm(false);
-        } //notifyIcon_DoubleClick()
+        }
 
         /// <summary>
         /// exits when user selects according menu item in notify icon's context menu
@@ -840,6 +832,17 @@ namespace MobiFlight.UI
             {
                 _loadConfig(fd.FileName);
             }   
+        }
+
+        private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+
+            if (DialogResult.OK == fd.ShowDialog())
+            {
+                _loadConfig(fd.FileName, true);
+            }
         }
 
         /// <summary>
@@ -892,7 +895,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// loads the according config given by filename
         /// </summary>        
-        private void _loadConfig(string fileName)
+        private void _loadConfig(string fileName, bool merge = false)
         {
             if (fileName.IndexOf(".aic") != -1)
             {
@@ -938,8 +941,11 @@ namespace MobiFlight.UI
             }
 
             execManager.Stop();
-            outputConfigPanel.DataSetConfig.Clear();
-            inputConfigPanel.InputDataSetConfig.Clear();
+
+            if (!merge) { 
+                outputConfigPanel.DataSetConfig.Clear();
+                inputConfigPanel.InputDataSetConfig.Clear();
+            }
 
             ConfigFile configFile = new ConfigFile(fileName);
             try
@@ -968,11 +974,14 @@ namespace MobiFlight.UI
             // we check if there are rows that need to
             // initialize our config item correctly
             _applyBackwardCompatibilityLoading();
-            _restoreValuesInGridView();            
+            _restoreValuesInGridView();
 
-            currentFileName = fileName;
-            _setFilenameInTitle(fileName);
-            _storeAsRecentFile(fileName);
+            if (!merge)
+            {
+                currentFileName = fileName;
+                _setFilenameInTitle(fileName);
+                _storeAsRecentFile(fileName);
+            }
 
             // set the button back to "disabled"
             // since due to initiliazing the dataSet
@@ -1039,6 +1048,16 @@ namespace MobiFlight.UI
             Text = NewTitle;
         }
 
+        public static String DisplayVersion ()
+        {
+            if (VersionBeta.Split('.')[3] != "0")
+            {
+                return VersionBeta + " (BETA)";
+            }
+
+            return Version;
+        }
+
         private void _setFilenameInTitle(string fileName)
         {
             SetTitle(fileName.Substring(fileName.LastIndexOf('\\')+1));
@@ -1056,13 +1075,13 @@ namespace MobiFlight.UI
                     OutputConfigItem cfgItem = new OutputConfigItem();
 
                     if (row["fsuipcOffset"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPCOffset = Int32.Parse(row["fsuipcOffset"].ToString().Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
+                        cfgItem.FSUIPC.Offset = Int32.Parse(row["fsuipcOffset"].ToString().Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
 
                     if (row["fsuipcSize"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPCSize = Byte.Parse(row["fsuipcSize"].ToString());
+                        cfgItem.FSUIPC.Size = Byte.Parse(row["fsuipcSize"].ToString());
 
                     if (row["mask"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPCMask = (row["mask"].ToString() != "") ? Int32.Parse(row["mask"].ToString()) : Int32.MaxValue;
+                        cfgItem.FSUIPC.Mask = (row["mask"].ToString() != "") ? Int32.Parse(row["mask"].ToString()) : Int32.MaxValue;
 
                     // comparison
                     if (row["comparison"].GetType() != typeof(System.DBNull))
@@ -1231,7 +1250,7 @@ namespace MobiFlight.UI
             // TODO: refactor dependency to module cache
             SettingsDialog dialog = new SettingsDialog(execManager);
             dialog.StartPosition = FormStartPosition.CenterParent;
-            if (sender is InputConfigWizard)
+            if (sender is InputConfigWizard || sender is ConfigWizard)
             {
                 // show the mobiflight tab page
                 dialog.tabControl1.SelectedTab = dialog.mobiFlightTabPage;
@@ -1364,6 +1383,89 @@ namespace MobiFlight.UI
             minimizeMainForm(false);
         }
 
+        private void installWasmModuleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InstallWasmModule();
+        }
+
+        private static void InstallWasmModule()
+        {
+            WasmModuleUpdater updater = new WasmModuleUpdater();
+
+            try {
+
+                if (!updater.AutoDetectCommunityFolder())
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!updater.WasmModulesAreDifferent())
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (updater.InstallWasmModule())
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    return;
+                }
+
+            } catch (Exception e) {
+                Log.Instance.log(e.Message, LogSeverity.Error);
+            }
+
+            // We only get here in case of an error.
+            MessageBox.Show(
+                i18n._tr("uiMessageWasmUpdateInstallationError"),
+                i18n._tr("uiMessageWasmUpdater"),
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void downloadLatestEventsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WasmModuleUpdater updater = new WasmModuleUpdater();
+
+            if (!updater.AutoDetectCommunityFolder())
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (updater.InstallWasmEvents())
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(
+                   i18n._tr("uiMessageWasmEventsInstallationError"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void openDiscordServer_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.gg/U28QeEJpBV");
+        }
     }
 
     internal static class Helper

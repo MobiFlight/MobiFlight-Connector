@@ -258,6 +258,10 @@ namespace MobiFlight
             Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort + " of Type " + Type + " (DTR=>" + _transportLayer.CurrentSerialSettings.DtrEnable + ")", LogSeverity.Info);
             //this.Connected = status;
             this.connected = true;
+            
+            // this sleep helps during initialization
+            // without this line modules did not connect properly
+            System.Threading.Thread.Sleep(1250);
 
             // workaround ahead!!!
             if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
@@ -816,21 +820,20 @@ namespace MobiFlight
             return result;
         }
 
-        public byte[] getPwmPins()
+        public List<MobiFlightPin> getPwmPins()
         {
             switch (this.Type)
             {
                 case MobiFlightModuleInfo.TYPE_MICRO:
-                    return MobiFlightModuleInfo.MICRO_PWM;
+                    return MobiFlightModuleInfo.MICRO_PINS.FindAll(x=>x.isPWM==true);
 
                 case MobiFlightModuleInfo.TYPE_UNO:
-                    return MobiFlightModuleInfo.UNO_PWM;
+                    return MobiFlightModuleInfo.UNO_PINS.FindAll(x => x.isPWM == true);
 
                 default:
-                    return MobiFlightModuleInfo.MEGA_PWM;
+                    return MobiFlightModuleInfo.MEGA_PINS.FindAll(x => x.isPWM == true); ;
             }
         }
-
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
             List<DeviceType> result = new List<DeviceType>();
@@ -951,9 +954,14 @@ namespace MobiFlight
             lastValue.Clear();
         }
 
-        public List<byte> GetFreePins()
+        public List<MobiFlightPin> GetFreePins()
         {
-            byte[] Pins = MobiFlightModuleInfo.MEGA_PINS;
+            return GetPins(true);
+        }
+
+        public List<MobiFlightPin> GetPins(bool FreeOnly = false)
+        {
+            List<MobiFlightPin> Pins = MobiFlightModuleInfo.MEGA_PINS;
                  
             if (Type == MobiFlightModuleInfo.TYPE_MICRO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO)
             {
@@ -964,7 +972,9 @@ namespace MobiFlight
                 Pins = MobiFlightModuleInfo.UNO_PINS;
             }
 
-            List<byte> result = new List<byte>(Pins);
+            List<MobiFlightPin> ResultPins = new List<MobiFlightPin>();
+            ResultPins.AddRange(Pins.Select(x => new MobiFlightPin(x)));
+
             List<byte> usedPins = new List<byte>();
 
             foreach (Config.BaseDevice device in Config.Items)
@@ -1017,10 +1027,13 @@ namespace MobiFlight
 
             foreach (byte i in usedPins)
             {
-                result.Remove(i);
+                ResultPins.Find(item => item.Pin==i).Used = true;
             }
 
-            return result;
+            if (FreeOnly)
+                ResultPins = ResultPins.FindAll(x => x.Used == false);
+
+            return ResultPins;
         }
     }
 }

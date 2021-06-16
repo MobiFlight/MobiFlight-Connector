@@ -9,6 +9,8 @@ using MobiFlight;
 using MobiFlight.FSUIPC;
 using MobiFlight.Base;
 using MobiFlight.SimConnectMSFS;
+using MobiFlight.Config;
+using MobiFlight.OutputConfig;
 
 namespace MobiFlight
 {
@@ -99,6 +101,7 @@ namespace MobiFlight
             arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
             arcazeCache.Closed += new EventHandler(ArcazeCache_Closed);
             arcazeCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
+            arcazeCache.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
 #endif
 
             mobiFlightCache.Connected += new EventHandler(ArcazeCache_Connected);
@@ -186,6 +189,7 @@ namespace MobiFlight
 
         public void Start()
         {
+            simConnectCache.Start();
             timer.Enabled = true;
         }
 
@@ -194,6 +198,8 @@ namespace MobiFlight
             timer.Enabled = false;
             isExecuting = false;
             mobiFlightCache.Stop();
+            simConnectCache.Stop();
+            ClearErrorMessages();
         }
 
         public void AutoConnectStart()
@@ -332,17 +338,6 @@ namespace MobiFlight
                 // and the ones that are not checked active
                 if (row.IsNewRow || !(bool)row.Cells["active"].Value) continue;
 
-                // If not connected to FSUIPC show an error message
-                if (!fsuipcCache.isConnected()
-#if SIMCONNECT
-                //&& !simConnectCache.isConnected()
-#endif
-                )
-                {
-                    row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                    continue;
-                }
-
                 // initialisiere den adapter
                 //// nimm type von col.type
                 //// nimm config von col.config                
@@ -350,6 +345,20 @@ namespace MobiFlight
                 //// if !all valid continue                
                 OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
 
+                // If not connected to FSUIPC show an error message
+                if (cfg.SourceType==SourceType.FSUIPC && !fsuipcCache.isConnected())
+                {
+                    row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
+                    continue;
+                }
+#if SIMCONNECT
+                // If not connected to SimConnect show an error message
+                if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
+                {
+                    row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                    continue;
+                }
+#endif
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
                 ConnectorValue value = ExecuteRead(cfg);
@@ -364,8 +373,8 @@ namespace MobiFlight
                 String strValue = "";
                 try { 
                     processedValue = ExecuteTransform(value, cfg);
-                    strValue = ExecuteComparison(processedValue, cfg);
 
+                    strValue = ExecuteComparison(processedValue, cfg);
                 } catch (Exception e)
                 {
                     Log.Instance.log("Problem with transform. " + e.Message, LogSeverity.Error);
@@ -569,33 +578,41 @@ namespace MobiFlight
         {
             ConnectorValue result = new ConnectorValue();
 
-            if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.String)
+            if (cfg.SourceType==SourceType.FSUIPC) { 
+                if (cfg.FSUIPC.OffsetType == FSUIPCOffsetType.String)
+                {
+                    result.type = FSUIPCOffsetType.String;
+                    result.String = fsuipcCache.getStringValue(cfg.FSUIPC.Offset, cfg.FSUIPC.Size);
+                }
+                else if (cfg.FSUIPC.OffsetType == FSUIPCOffsetType.Integer)
+                {
+                    result = ExecuteReadInt(cfg);
+                }
+                else if (cfg.FSUIPC.OffsetType == FSUIPCOffsetType.Float)
+                {
+                    result = ExecuteReadFloat(cfg);
+                }
+            } else
             {
-                result.type = FSUIPCOffsetType.String;
-                result.String = fsuipcCache.getStringValue(cfg.FSUIPCOffset, cfg.FSUIPCSize);
+                result.type = FSUIPCOffsetType.Float;
+                result.Float64 = simConnectCache.GetSimVar(cfg.SimConnectValue.Value);
             }
-            else if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.Integer)
-            {
-                result = ExecuteReadInt(cfg);
-            }
-            else if (cfg.FSUIPCOffsetType == FSUIPCOffsetType.Float)
-            {
-                result = ExecuteReadFloat(cfg);
-            }
+
+
             return result;
         }
 
         private ConnectorValue ExecuteReadInt(OutputConfigItem cfg)
         {
             ConnectorValue result = new ConnectorValue();
-            switch (cfg.FSUIPCSize)
+            switch (cfg.FSUIPC.Size)
             {
                 case 1:
-                    Byte value8 = (Byte)(cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                    Byte value8 = (Byte)(cfg.FSUIPC.Mask & fsuipcCache.getValue(
+                                                cfg.FSUIPC.Offset,
+                                                cfg.FSUIPC.Size
                                               ));
-                    if (cfg.FSUIPCBcdMode)
+                    if (cfg.FSUIPC.BcdMode)
                     {
                         FsuipcBCD val = new FsuipcBCD() { Value = value8 };
                         value8 = (Byte)val.asBCD;
@@ -605,11 +622,11 @@ namespace MobiFlight
                     result.Int64 = value8;
                     break;
                 case 2:
-                    Int16 value16 = (Int16)(cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                    Int16 value16 = (Int16)(cfg.FSUIPC.Mask & fsuipcCache.getValue(
+                                                cfg.FSUIPC.Offset,
+                                                cfg.FSUIPC.Size
                                               ));
-                    if (cfg.FSUIPCBcdMode)
+                    if (cfg.FSUIPC.BcdMode)
                     {
                         FsuipcBCD val = new FsuipcBCD() { Value = value16 };
                         value16 = (Int16)val.asBCD;
@@ -619,9 +636,9 @@ namespace MobiFlight
                     result.Int64 = value16;
                     break;
                 case 4:
-                    Int64 value32 = ((int)cfg.FSUIPCMask & fsuipcCache.getValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                    Int64 value32 = ((int)cfg.FSUIPC.Mask & fsuipcCache.getValue(
+                                                cfg.FSUIPC.Offset,
+                                                cfg.FSUIPC.Size
                                               ));
 
                     // no bcd support anymore for 4 byte
@@ -631,8 +648,8 @@ namespace MobiFlight
                     break;
                 case 8:
                     Double value64 = (Double)fsuipcCache.getDoubleValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                                                cfg.FSUIPC.Offset,
+                                                cfg.FSUIPC.Size
                                                 );
 
                     result.type = FSUIPCOffsetType.Float;
@@ -647,20 +664,20 @@ namespace MobiFlight
         {
             ConnectorValue result = new ConnectorValue();
             result.type = FSUIPCOffsetType.Float;
-            switch (cfg.FSUIPCSize)
+            switch (cfg.FSUIPC.Size)
             {
                 case 4:
                     Double value32 = fsuipcCache.getFloatValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                                                cfg.FSUIPC.Offset,
+                                                cfg.FSUIPC.Size
                                               );
 
                     result.Float64 = value32;
                     break;
                 case 8:
                     Double value64 = (Double)fsuipcCache.getDoubleValue(
-                                                cfg.FSUIPCOffset,
-                                                cfg.FSUIPCSize
+                                                cfg.FSUIPC.Offset,
+                                                cfg.FSUIPC.Size
                                                 );
 
                     result.Float64 = value64;
@@ -1109,7 +1126,8 @@ namespace MobiFlight
             {
                 Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Modules", LogSeverity.Debug);
 #if ARCAZE
-                arcazeCache.connect(); //  _initializeArcaze();
+                if(Properties.Settings.Default.ArcazeSupportEnabled)
+                    arcazeCache.connect(); //  _initializeArcaze();
 #endif
 #if MOBIFLIGHT
                 await mobiFlightCache.connectAsync();
@@ -1170,7 +1188,7 @@ namespace MobiFlight
 
             if (
                  cfg != null &&
-                (cfg.FSUIPCOffset != OutputConfigItem.FSUIPCOffsetNull) &&
+                (cfg.FSUIPC.Offset != FsuipcOffset.OffsetNull) &&
                 ((bool)lastRow.Cells["active"].Value) &&
                 (cfg.DisplaySerial.Contains("/"))
             )
@@ -1223,7 +1241,7 @@ namespace MobiFlight
 
             if (cfg != null && // this happens sometimes when a new line is added and still hasn't been configured
                 (dataGridViewConfig.RowCount > 1 && row != lastRow) &&
-                 cfg.FSUIPCOffset != OutputConfigItem.FSUIPCOffsetNull &&
+                 cfg.FSUIPC.Offset != FsuipcOffset.OffsetNull &&
                  cfg.DisplaySerial.Contains("/"))
             {
                 serial = cfg.DisplaySerial.Split('/')[1].Trim();
@@ -1295,13 +1313,33 @@ namespace MobiFlight
             }
         }
 
+
+        private void ClearErrorMessages()
+        {
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                row.ErrorText = "";
+            }
+
+            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            {
+                row.ErrorText = "";
+            }
+        }
+
 #if MOBIFLIGHT
         void mobiFlightCache_OnButtonPressed(object sender, InputDeviceArgs e)
         {
-            if (!IsStarted()) return;
+            String inputKey = e.Serial+e.Type+e.ButtonId;
+            String eventAction = "n/a";
 
-            String inputKey = e.Serial+e.Type+e.DeviceId;
-            
+            if (e.Type == DeviceType.Button)
+            {
+                eventAction = MobiFlightButton.InputEventIdToString(e.Value);
+            } else if (e.Type == DeviceType.Encoder) {
+                eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
+            }
+
             if (!inputCache.ContainsKey(inputKey))
             {
                 inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
@@ -1332,11 +1370,14 @@ namespace MobiFlight
             if (inputCache[inputKey].Count == 0)
             {
        
-                Log.Instance.log("No config found for "+ e.Type +": " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
+                Log.Instance.log("No config found for "+ e.Type +": " + e.ButtonId + " ("+ eventAction + ")" +  "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
 
-            Log.Instance.log("Config found for " + e.Type + ": " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
+            Log.Instance.log("Config found for " + e.Type + ": " + e.ButtonId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
+
+            // Skip execution if not started
+            if (!IsStarted()) return;
 
             ConnectorValue currentValue = new ConnectorValue();
 
