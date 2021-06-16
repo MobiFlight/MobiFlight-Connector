@@ -166,7 +166,7 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
-    <Compile Include="MobiFlight\Config\AnalogDevice.cs" />
+    <Compile Include="MobiFlight\Config\Analog.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />

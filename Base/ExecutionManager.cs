@@ -1330,7 +1330,7 @@ namespace MobiFlight
 #if MOBIFLIGHT
         void mobiFlightCache_OnButtonPressed(object sender, InputDeviceArgs e)
         {
-            String inputKey = e.Serial+e.Type+e.ButtonId;
+            String inputKey = e.Serial+e.Type+e.DeviceId;
             String eventAction = "n/a";
 
             if (e.Type == DeviceType.Button)
@@ -1370,11 +1370,11 @@ namespace MobiFlight
             if (inputCache[inputKey].Count == 0)
             {
        
-                Log.Instance.log("No config found for "+ e.Type +": " + e.ButtonId + " ("+ eventAction + ")" +  "@" + e.Serial, LogSeverity.Debug);
+                Log.Instance.log("No config found for "+ e.Type +": " + e.DeviceId + " ("+ eventAction + ")" +  "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
 
-            Log.Instance.log("Config found for " + e.Type + ": " + e.ButtonId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
+            Log.Instance.log("Config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
 
             // Skip execution if not started
             if (!IsStarted()) return;

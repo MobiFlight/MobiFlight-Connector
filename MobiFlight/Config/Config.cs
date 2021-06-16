@@ -18,6 +18,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(Servo))]
         [XmlElement(typeof(Stepper))]
         [XmlElement(typeof(LcdDisplay))]
+        [XmlElement(typeof(Analog))]        
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }

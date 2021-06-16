@@ -305,7 +305,7 @@ namespace MobiFlight.UI.Panels.Settings
                             break;
 
                         case DeviceType.Analog:
-                            panel = new MFAnalogPanel(dev as MobiFlight.Config.AnalogDevice, module.GetFreePins());
+                            panel = new MFAnalogPanel(dev as MobiFlight.Config.Analog, module.GetPins());
                             (panel as MFAnalogPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
@@ -384,9 +384,9 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.LedModule).ClsPin = getModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
                         break;
                     case "analogDeviceToolStripMenuItem1":
-                    case "addAnalogDeviceToolStripMenuItem":
-                        cfgItem = new MobiFlight.Config.AnalogDevice();
-                        (cfgItem as MobiFlight.Config.AnalogDevice).Pin = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                    case "analogDeviceToolStripMenuItem":                    
+                        cfgItem = new MobiFlight.Config.Analog();
+                        (cfgItem as MobiFlight.Config.Analog).Pin = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         break;                        
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":

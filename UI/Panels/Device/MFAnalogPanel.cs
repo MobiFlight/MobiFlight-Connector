@@ -23,7 +23,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         /// Gets raised whenever config object has changed
         /// </summary>
         public event EventHandler Changed;
-        private MobiFlight.Config.AnalogDevice analog;
+        private MobiFlight.Config.Analog analog;
         bool initialized = false;        
 
         public MFAnalogPanel()
@@ -32,11 +32,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFAnalogPanel(MobiFlight.Config.AnalogDevice analogDevice, List<byte> FreePins)
+        public MFAnalogPanel(MobiFlight.Config.Analog analogDevice, List<MobiFlightPin> FreePins)
             : this()
         {
-            List<byte> Pin1Pins = FreePins.ToList(); Pin1Pins.Add(Convert.ToByte(analogDevice.Pin)); Pin1Pins.Sort();
-            foreach (byte pin in Pin1Pins) mfPinComboBox.Items.Add(pin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, FreePins, analogDevice.Pin);
 
             if (mfPinComboBox.Items.Count > 0)
             {

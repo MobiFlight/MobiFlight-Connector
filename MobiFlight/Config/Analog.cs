@@ -6,17 +6,17 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
-    public class AnalogDevice : BaseDevice
+    public class Analog : BaseDevice
     {
         [XmlAttribute]
         public String Pin = "1";
 
         [XmlAttribute]
-        public String Sensitivity = "1";
+        public String Sensitivity = "21";
 
         const ushort _paramCount = 3;
 
-        public AnalogDevice() { Name = "AnalogDevice"; _type  = DeviceType.Analog; }
+        public Analog() { Name = "Analog"; _type  = DeviceType.Analog; }
 
         override public String ToInternal()
         {
@@ -42,6 +42,23 @@ namespace MobiFlight.Config
             Name = paramList[3];
 
             return true;
+        }
+        public override bool Equals(object obj)
+        {
+            Analog other = obj as Analog;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.Pin == other.Pin
+                && this.Sensitivity == other.Sensitivity;
+        }
+
+        public override string ToString()
+        {
+            return Type + ":" + Name + " Pin:" + Pin + " Sensitivity:" + Sensitivity;
         }
     }
 }

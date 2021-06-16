@@ -881,6 +881,7 @@ namespace MobiFlight
                 {
                     case DeviceType.Button:
                     case DeviceType.Encoder:
+                    case DeviceType.Analog:
                         result.Add(dev);
                         break;
                 }
@@ -1018,6 +1019,10 @@ namespace MobiFlight
 
                     case DeviceType.Output:
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Output).Pin));
+                        break;
+            
+                    case DeviceType.Analog:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Analog).Pin));
                         break;
 
                     default:
