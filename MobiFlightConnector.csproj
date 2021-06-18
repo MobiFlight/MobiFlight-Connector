@@ -48,7 +48,8 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>mobiflight.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -567,12 +568,12 @@
       <DependentUpon>ServoPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="ProjectMessages.de.Designer.cs">
+    <Compile Include="ProjectMessages\ProjectMessages.de.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectMessages.de.resx</DependentUpon>
     </Compile>
-    <Compile Include="ProjectMessages.Designer.cs">
+    <Compile Include="ProjectMessages\ProjectMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectMessages.resx</DependentUpon>
@@ -692,7 +693,6 @@
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />
-    <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
     <Content Include="Resources\discord_icon.png" />
     <Content Include="Resources\encoder.png" />
@@ -973,12 +973,12 @@
     <EmbeddedResource Include="UI\Panels\Output\ServoPanel.resx">
       <DependentUpon>ServoPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProjectMessages.de.resx">
+    <EmbeddedResource Include="ProjectMessages\ProjectMessages.de.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectMessages.de.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProjectMessages.resx">
+    <EmbeddedResource Include="ProjectMessages\ProjectMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ProjectMessages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
