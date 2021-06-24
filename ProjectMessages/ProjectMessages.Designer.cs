@@ -824,6 +824,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The connection to SimConnect got lost..
+        /// </summary>
+        internal static string uiMessageSimConnectConnectionLost {
+            get {
+                return ResourceManager.GetString("uiMessageSimConnectConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error during Test-Mode: Module not connected..
         /// </summary>
         internal static string uiMessageTestModeModuleNotConnected {

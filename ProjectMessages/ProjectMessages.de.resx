@@ -441,4 +441,7 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   <data name="uiSimConnectPanelComboBoxPresetSelectGroup" xml:space="preserve">
     <value>Preset Gruppe auswählen</value>
   </data>
+  <data name="uiMessageSimConnectConnectionLost" xml:space="preserve">
+    <value>Die Verbindung zu SimConnect wurde unterbrochen.</value>
+  </data>
 </root>

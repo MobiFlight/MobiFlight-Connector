@@ -159,7 +159,7 @@ namespace MobiFlight.FSUIPC
                 _connected = true;
                 this.Connected(this, new EventArgs());     
                 // Opened OK 
-            } catch (Exception ex) {            
+            } catch (FSUIPCException ex) {            
                 // Badness occurred - 
                 // show the error message 
                 if (ex.Message == "FSUIPC Error #1: FSUIPC_ERR_OPEN. The connection to FSUIPC is already open.")
@@ -167,11 +167,19 @@ namespace MobiFlight.FSUIPC
                     _connected = true;
                     this.Connected(this, new EventArgs());
                 }
-                else
+                else if (ex.FSUIPCErrorCode == FSUIPCError.FSUIPC_ERR_NOFS)
                 {
-                    this.Closed(this, new EventArgs());
+                    Log.Instance.log("Fsuipc2Cache::connect() - No FSUIPC found.", LogSeverity.Debug);
                     _connected = false;
                 }
+                else
+                {
+                    Log.Instance.log("Fsuipc2Cache::connect() - FSUIPC Exception " + ex.Message, LogSeverity.Debug);
+                    _connected = false;
+                }
+            } catch (Exception ex)
+            {
+                Log.Instance.log("Fsuipc2Cache::connect() - Exception " + ex.Message, LogSeverity.Error);
             }
             return _connected;
         }

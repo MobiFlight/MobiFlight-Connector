@@ -451,4 +451,7 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiSimConnectPanelComboBoxPresetSelectGroup" xml:space="preserve">
     <value>Choose a Preset Group...</value>
   </data>
+  <data name="uiMessageSimConnectConnectionLost" xml:space="preserve">
+    <value>The connection to SimConnect got lost.</value>
+  </data>
 </root>
