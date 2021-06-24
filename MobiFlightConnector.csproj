@@ -223,6 +223,12 @@
     <Compile Include="UI\Forms\ConfigUploadProgress.Designer.cs">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\SimConnectLvarsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\SimConnectLvarsListForm.Designer.cs">
+      <DependentUpon>SimConnectLvarsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -338,7 +344,7 @@
     <Compile Include="Base\EventTimer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Base\ExecutionManager.cs" />
+    <Compile Include="MobiFlight\ExecutionManager.cs" />
     <Compile Include="FSUIPC\Fsuipc2Cache.cs" />
     <Compile Include="FSUIPC\fsuipcBCD.cs" />
     <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
@@ -636,6 +642,9 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_mega_1_10_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_mega_1_9_10.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -645,6 +654,9 @@
     <None Include="firmware\mobiflight_mega_1_9_9.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_micro_1_10_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_micro_1_9_10.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -652,6 +664,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_micro_1_9_9.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_uno_1_10_0.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_uno_1_9_10.hex">
@@ -713,6 +728,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SimConnectLvarsListForm.de.resx">
+      <DependentUpon>SimConnectLvarsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\SimConnectLvarsListForm.resx">
+      <DependentUpon>SimConnectLvarsListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.de.resx">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>

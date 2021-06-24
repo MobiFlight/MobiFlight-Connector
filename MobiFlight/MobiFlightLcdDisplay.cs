@@ -10,7 +10,7 @@ namespace MobiFlight
 {
     public class MobiFlightLcdDisplay : IConnectedDevice
     {
-        public const string TYPE = "Lcd Display";
+        public const string TYPE = "LcdDisplay";
 
         public CmdMessenger CmdMessenger { get; set; }
         public int Address  { get; set; }
@@ -69,7 +69,7 @@ namespace MobiFlight
             Log.Instance.log("Command: SetLcdDisplayI2C <" + (int)MobiFlightModule.Command.SetLcdDisplayI2C + "," +
                                                       this.Address + "," +
                                                       value +
-                                                      ";>", LogSeverity.Info);
+                                                      ";>", LogSeverity.Debug);
 
             // Send command
             CmdMessenger.SendCommand(command);

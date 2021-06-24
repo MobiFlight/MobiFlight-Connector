@@ -64,7 +64,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            analog.Pin = mfPinComboBox.Text;
+            analog.Pin = mfPinComboBox.SelectedValue as string;
             analog.Name = textBox1.Text;            
 
             int sensitivityValue;

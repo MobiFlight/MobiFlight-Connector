@@ -289,6 +289,7 @@ namespace MobiFlight.UI.Panels
                 }
 
                 dgv.RefreshEdit();
+                SettingsChanged?.Invoke(sender, null);
             }
             else if (e.KeyCode == Keys.Return)
             {
@@ -378,5 +379,17 @@ namespace MobiFlight.UI.Panels
                 }
             }
         } //_restoreValuesInGridView()
+
+        private void inputsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {           
+            DataGridViewRow gridrow = inputsDataGridView.Rows[e.RowIndex];
+            DataRowView rowview = (DataRowView)gridrow.DataBoundItem;
+            DataRow row = rowview.Row;
+            if (row.RowState != DataRowState.Unchanged || inputsDataGridView.IsCurrentRowDirty)
+            {
+                // do something special
+                SettingsChanged?.Invoke(sender, null);
+            }
+        }
     }
 }
