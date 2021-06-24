@@ -9,10 +9,10 @@ namespace MobiFlight.Config
     public class Analog : BaseDevice
     {
         [XmlAttribute]
-        public String Pin = "1";
+        public String Pin = "54";
 
         [XmlAttribute]
-        public String Sensitivity = "21";
+        public String Sensitivity = "5";
 
         const ushort _paramCount = 3;
 

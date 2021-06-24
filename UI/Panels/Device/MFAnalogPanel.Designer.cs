@@ -33,12 +33,13 @@
             this.mfPinLabel = new System.Windows.Forms.Label();
             this.mfPinComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxSensitivity = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxSensitivity = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textBoxSensitivity)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,22 +65,37 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.textBoxSensitivity);
+            this.groupBox2.Controls.Add(this.label1);
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
+            // 
+            // textBoxSensitivity
+            // 
+            resources.ApplyResources(this.textBoxSensitivity, "textBoxSensitivity");
+            this.textBoxSensitivity.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.textBoxSensitivity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.textBoxSensitivity.Name = "textBoxSensitivity";
+            this.textBoxSensitivity.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.textBoxSensitivity.ValueChanged += new System.EventHandler(this.value_Changed);
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            // 
-            // textBoxSensitivity
-            // 
-            resources.ApplyResources(this.textBoxSensitivity, "textBoxSensitivity");
-            this.textBoxSensitivity.Name = "textBoxSensitivity";
-            this.textBoxSensitivity.TextChanged += new System.EventHandler(this.value_Changed);
             // 
             // groupBox3
             // 
@@ -105,6 +121,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textBoxSensitivity)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
@@ -117,9 +134,9 @@
         private System.Windows.Forms.Label mfPinLabel;
         private System.Windows.Forms.ComboBox mfPinComboBox;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBoxSensitivity;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown textBoxSensitivity;
     }
 }

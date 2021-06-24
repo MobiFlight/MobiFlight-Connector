@@ -13,9 +13,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
     {
         // Means that the analog value must be > then the sensitivity value provided.
         // As higher the value, as less sensitive the analog device will be.
-        static int DEFAULT_SENSITIVITY = 2;
-        static int MIN_SENSITIVITY = 2;
-        static int MAX_SENSITIVITY = 50;
+        static int DEFAULT_SENSITIVITY = 5;
+        static int MIN_SENSITIVITY = 1;
+        static int MAX_SENSITIVITY = 20;
         static String DEFAULT_SENSITIVITY_STRING = DEFAULT_SENSITIVITY.ToString();
 
 
@@ -35,14 +35,14 @@ namespace MobiFlight.UI.Panels.Settings.Device
         public MFAnalogPanel(MobiFlight.Config.Analog analogDevice, List<MobiFlightPin> FreePins)
             : this()
         {
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, FreePins, analogDevice.Pin);
+            //var list = FreePins.Where(s => s.isAnalog == true);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, FreePins, analogDevice.Pin, true);
 
             if (mfPinComboBox.Items.Count > 0)
             {
                 mfPinComboBox.SelectedIndex = 0;
             }
 
-            // TODO: Complete member initialization
             this.analog = analogDevice;
             ComboBoxHelper.SetSelectedItem(mfPinComboBox, analog.Pin);
             textBoxSensitivity.Text = analog.Sensitivity;
@@ -64,30 +64,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {
-            analog.Pin = mfPinComboBox.SelectedValue as string;
-            analog.Name = textBox1.Text;            
+            analog.Pin = mfPinComboBox.SelectedValue.ToString();
+            analog.Name = textBox1.Text;
 
-            int sensitivityValue;
-            
-            if (IsValidSensitivity(textBoxSensitivity.Text))
+            int tmpValue = Convert.ToInt32(textBoxSensitivity.Value);
+
+            if (tmpValue <= MAX_SENSITIVITY && tmpValue >= MIN_SENSITIVITY)
             {
-                analog.Sensitivity = textBoxSensitivity.Text;
+                analog.Sensitivity = tmpValue.ToString();
             } else
             {
-                analog.Sensitivity = DEFAULT_SENSITIVITY_STRING;
+                textBoxSensitivity.Value = Convert.ToDecimal(analog.Sensitivity);
             }
-        }
 
-        private bool IsValidSensitivity(string strValue )
-        {
-            if (Int32.TryParse(strValue, out int parsedValue))
-            {
-                if (parsedValue >= MIN_SENSITIVITY && parsedValue <= MAX_SENSITIVITY)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

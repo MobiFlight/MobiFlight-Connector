@@ -38,7 +38,7 @@ char foo;
 // 1.9.10: Fix encoder issue on fastLeft/fastRight, fixed the MODULE_MAX_PINS (one more time) for "pin69"
 // 1.10.0: Fix LCD pin usage (SDA, SCL), removed LCD sendCmd
 // 1.10.1: Added Analog support
-const char version[8] = "1.10.0";
+const char version[8] = "1.10.1";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1

@@ -123,6 +123,11 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        case DeviceType.Analog:
+                            currentItem = new MobiFlight.Config.Analog();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
                     }
 
                     if (currentItem != null)

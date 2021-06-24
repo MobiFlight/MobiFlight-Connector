@@ -836,6 +836,7 @@ namespace MobiFlight
                     return MobiFlightModuleInfo.MEGA_PINS.FindAll(x => x.isPWM == true); ;
             }
         }
+        
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
             List<DeviceType> result = new List<DeviceType>();
@@ -852,6 +853,7 @@ namespace MobiFlight
         {
             bool _hasButtons = false;
             bool _hasEncoder = false;
+            bool _hasAnalog = false;
 
             List<DeviceType> result = new List<DeviceType>();
             
@@ -865,11 +867,17 @@ namespace MobiFlight
                     case DeviceType.Encoder:
                         _hasEncoder = true;
                         break;
+
+                    case DeviceType.Analog:
+                        _hasAnalog = true;
+                        break;
+
                 }
             }            
             if (_hasButtons) result.Add(DeviceType.Button);
             if (_hasEncoder) result.Add(DeviceType.Encoder);
-            
+            if (_hasAnalog) result.Add(DeviceType.Analog);
+
             return result;
         }
 
@@ -1040,7 +1048,10 @@ namespace MobiFlight
 
             foreach (byte i in usedPins)
             {
-                ResultPins.Find(item => item.Pin==i).Used = true;
+                if (i != 0)
+                {
+                    ResultPins.Find(item => item.Pin == i).Used = true;
+                }                
             }
 
             if (FreeOnly)

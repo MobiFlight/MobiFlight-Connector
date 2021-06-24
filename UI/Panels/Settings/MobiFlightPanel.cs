@@ -386,7 +386,8 @@ namespace MobiFlight.UI.Panels.Settings
                     case "analogDeviceToolStripMenuItem1":
                     case "analogDeviceToolStripMenuItem":                    
                         cfgItem = new MobiFlight.Config.Analog();
-                        (cfgItem as MobiFlight.Config.Analog).Pin = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        // TODO: This line, like any other getModuleFromTree().GetFreePins() in this file could return null if all pins are used. Should this be checked?
+                        (cfgItem as MobiFlight.Config.Analog).Pin = getModuleFromTree().GetFreePins().FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
                         break;                        
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
