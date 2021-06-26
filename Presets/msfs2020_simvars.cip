@@ -895,6 +895,14 @@ TURB ENG TANK SELECTOR:index#(A:TURB ENG TANK SELECTOR:index,Enum)#Fuel tank sel
 TURB ENG THROTTLE COMMANDED N1#(A:TURB ENG THROTTLE COMMANDED N1,Percent)#Turbine engine commanded N1 for current throttle position
 TURB ENG VIBRATION:index#(A:TURB ENG VIBRATION:index,Number)#Engine vibration value
 FBW A320#GROUP
+(L:XMLVAR_Autopilot_1_Status)
+(L:XMLVAR_Autopilot_2_Status)
+(A:EXTERNAL POWER AVAILABLE:1, bool) (A:EXTERNAL POWER ON:1,bool) ! and if{ 1 } els{ 0 }
+(A:EXTERNAL POWER ON:1, Bool)
+(L:XMLVAR_Momentary_PUSH_OVHD_MASTERSW_Pressed)
+(L:XMLVAR_Momentary_PUSH_OVHD_ELEC_APUGEN_Pressed)
+(L:A32NX_OVHD_APU_START_PB_IS_ON)
+(L:A32NX_OVHD_APU_START_PB_IS_ON)
 (L:A32NX_OVHD_PNEU_APU_BLEED_IS_ON, Bool)#State of APU Bleed
 (L:XMLVAR_Momentary_PUSH_OVHD_AIRCOND_ENG1BLEED_Pressed)#State of AC Eng1 Bleed
 (L:XMLVAR_Momentary_PUSH_OVHD_AIRCOND_ENG2BLEED_Pressed)#State of AC Eng2 Bleed
