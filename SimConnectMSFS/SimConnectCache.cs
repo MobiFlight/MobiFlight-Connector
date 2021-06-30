@@ -245,6 +245,7 @@ namespace MobiFlight.SimConnectMSFS
         // The case where the user closes game
         private void SimConnect_OnRecvQuit(SimConnect sender, SIMCONNECT_RECV data)
         {
+            ConnectionLost?.Invoke(this, null);
             Disconnect();
         }
 
@@ -256,7 +257,7 @@ namespace MobiFlight.SimConnectMSFS
 
         public bool Disconnect()
         {
-            Stop();
+            ClearSimVars();
             MaxClientDataDefinition = 0;
 
             if (m_oSimConnect != null)

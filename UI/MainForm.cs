@@ -117,6 +117,7 @@ namespace MobiFlight.UI
             execManager.OnStopped += new EventHandler(timer_Stopped);
             execManager.OnStarted += new EventHandler(timer_Started);
 
+            execManager.OnSimAvailable += ExecManager_OnSimAvailable;
             execManager.OnSimCacheConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
             execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
@@ -562,13 +563,31 @@ namespace MobiFlight.UI
                 {
                     SimConnectLabel.Text = "SimConnect:";
                     SimConnectStatusLabel.Image = Properties.Resources.warning;
-                } else
-                {
-                    fsuipcToolStripStatusLabel.Text = "Sim Status:";
-                    fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.warning;
-                }
+                } 
+
+                fsuipcToolStripStatusLabel.Text = "Sim Status:";
+                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.warning;
                 runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
             }
+        }
+
+
+        private void ExecManager_OnSimAvailable(object sender, EventArgs e)
+        {
+            FlightSim flightSim = (FlightSim) sender;
+
+            switch (flightSim)
+            {
+                case FlightSim.MSFS2020:
+                    fsuipcToolStripStatusLabel.Text = "MSFS2020 Status:";
+                    fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                    break;
+
+                default:
+                    fsuipcToolStripStatusLabel.Text = "Sim Status:";
+                    break;
+            }
+            fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
         }
 
         /// <summary>
@@ -579,8 +598,10 @@ namespace MobiFlight.UI
 
             if (sender.GetType() == typeof(SimConnectCache))
             {
+                fsuipcToolStripStatusLabel.Text = "MSFS2020 Status:";
                 SimConnectLabel.Text = "SimConnect (MSFS2020):";
                 SimConnectStatusLabel.Image = Properties.Resources.check;
+                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
             }
 
             else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
@@ -641,7 +662,13 @@ namespace MobiFlight.UI
             {
                 _showError(i18n._tr("uiMessageFsHasBeenStopped"));
             } else {
-                _showError(i18n._tr("uiMessageFsuipcConnectionLost"));                
+                if (sender.GetType() == typeof(SimConnectCache))
+                {
+                    _showError(i18n._tr("uiMessageSimConnectConnectionLost"));
+                } else
+                {
+                    _showError(i18n._tr("uiMessageFsuipcConnectionLost"));
+                }
             } //if
             execManager.Stop();
         }

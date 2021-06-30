@@ -1138,6 +1138,8 @@ namespace MobiFlight
 
             if (SimAvailable())
             {
+                OnSimAvailable?.Invoke(fsuipcCache.FlightSim, null);
+
                 Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
 
                 if (!fsuipcCache.isConnected())

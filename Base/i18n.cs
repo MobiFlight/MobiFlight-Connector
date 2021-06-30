@@ -23,7 +23,7 @@ namespace MobiFlight
         {
             if (null == resourceManager)
             {
-                resourceManager = new ResourceManager("MobiFlight.ProjectMessages", typeof(UI.MainForm).Assembly);
+                resourceManager = new ResourceManager("MobiFlight.ProjectMessages.ProjectMessages", typeof(UI.MainForm).Assembly);
             }
             String result = resourceManager.GetString(s);
             if(result == null) {
