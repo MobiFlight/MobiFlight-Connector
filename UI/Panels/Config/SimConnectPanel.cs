@@ -35,6 +35,8 @@ namespace MobiFlight.UI.Panels.Config
             get { return lVars; }
             set
             {
+                if (lVars.Count == 0 && value.Count == 0) return;
+
                 lVars = value;
                 OnLVarsSet?.Invoke(lVars, new EventArgs());
             }
