@@ -40,7 +40,7 @@
             // 
             resources.ApplyResources(this.webBrowser1, "webBrowser1");
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Url = new System.Uri("https://www.mobiflight.com/en/download.html#Release_Notes", System.UriKind.Absolute);
+            this.webBrowser1.Url = new System.Uri("https://www.mobiflight.com/en/release-notes.html", System.UriKind.Absolute);
             // 
             // button1
             // 
