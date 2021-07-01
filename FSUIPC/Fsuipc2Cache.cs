@@ -38,7 +38,7 @@ namespace MobiFlight.FSUIPC
         long lastProcessedMs = 0;
 
         public MobiFlight.FlightSimConnectionMethod FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.NONE;
-        public MobiFlight.FlightSim FlightSim = FlightSim.NONE;
+        public MobiFlight.FlightSimType FlightSim = FlightSimType.NONE;
         
         bool _offsetsRegistered = false;
         bool _connected = false;
@@ -63,86 +63,6 @@ namespace MobiFlight.FSUIPC
         public void Clear()
         {
             __isProcessed = false;
-        }
-
-        public bool IsAvailable()
-        {
-            string proc = "fs9";
-            // check for fs2004 / fs9
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
-                FlightSim = FlightSim.FS9;
-                return true;
-            }
-            proc = "fsx";
-            // check for fsx
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
-                FlightSim = FlightSim.FSX;
-                return true;
-            }
-
-            proc = "flightsimulator";
-            // check for msfs2020
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
-                FlightSim = FlightSim.MSFS2020;
-                return true;
-            }
-
-            proc = "wideclient";
-            // check for FSUIPC wide client
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                //fsuipcToolStripStatusLabel.Text = i18n._tr("fsuipcStatus") + ":";
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.WIDECLIENT;
-                FlightSim = FlightSim.UNKNOWN;
-                return true;
-            }
-            // check for prepar3d
-            proc = "prepar3d";
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.FSUIPC;
-                FlightSim = FlightSim.P3D;
-                return true;
-            }
-            // check for x-plane and xpuipc
-            proc = "x-plane";
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
-                FlightSim = FlightSim.XPLANE;
-                return true;
-            }
-
-            proc = "x-plane-32bit";
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.XPUIPC;
-                FlightSim = FlightSim.XPLANE;
-                return true;
-            }
-
-            proc = "xpwideclient";
-            if (Process.GetProcessesByName(proc).Length > 0)
-            {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.WIDECLIENT;
-                FlightSim = FlightSim.XPLANE;
-                return true;
-            }
-
-            if (OfflineMode)
-            {
-                FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.OFFLINE;
-                FlightSim = FlightSim.UNKNOWN;
-                return true;
-            }
-
-            return false;
         }
 
         public bool isConnected()

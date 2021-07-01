@@ -533,7 +533,7 @@ namespace MobiFlight.UI
         /// </summary>
         void ArcazeCache_Closed(object sender, EventArgs e)
         {
-            arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+            ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
         }
 
         /// <summary>
@@ -541,7 +541,7 @@ namespace MobiFlight.UI
         /// </summary>
         void ArcazeCache_Connected(object sender, EventArgs e)
         {
-            arcazeUsbStatusToolStripStatusLabel.Image = Properties.Resources.check;
+            ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
             runTestToolStripButton.Enabled = execManager.ModulesConnected();
         }
@@ -554,19 +554,16 @@ namespace MobiFlight.UI
         {
             if (execManager.OfflineMode)
             {
-                fsuipcToolStripStatusLabel.Text = "Offline Mode:";
-                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.check;
             }
             else
             {
                 if (sender.GetType() == typeof(SimConnectCache))
                 {
-                    SimConnectLabel.Text = "SimConnect:";
-                    SimConnectStatusLabel.Image = Properties.Resources.warning;
+                    simConnectToolStripMenuItem.Image = Properties.Resources.warning;
                 } 
 
-                fsuipcToolStripStatusLabel.Text = "Sim Status:";
-                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
                 runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
             }
         }
@@ -574,20 +571,45 @@ namespace MobiFlight.UI
 
         private void ExecManager_OnSimAvailable(object sender, EventArgs e)
         {
-            FlightSim flightSim = (FlightSim) sender;
+            FlightSimType flightSim = (FlightSimType) sender;
 
             switch (flightSim)
             {
-                case FlightSim.MSFS2020:
-                    fsuipcToolStripStatusLabel.Text = "MSFS2020 Status:";
-                    fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                case FlightSimType.MSFS2020:
+                    noSimRunningToolStripMenuItem.Text = "MSFS2020 Detected";
+                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    break;
+
+                case FlightSimType.FS9:
+                    noSimRunningToolStripMenuItem.Text = "FS2004 Detected";
+                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    break;
+
+                case FlightSimType.FSX:
+                    noSimRunningToolStripMenuItem.Text = "FSX Detected";
+                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    break;
+
+                case FlightSimType.P3D:
+                    noSimRunningToolStripMenuItem.Text = "P3D Detected";
+                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    break;
+
+                case FlightSimType.XPLANE:
+                    noSimRunningToolStripMenuItem.Text = "X-Plane Detected";
+                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    break;
+
+                case FlightSimType.UNKNOWN:
+                    noSimRunningToolStripMenuItem.Text = "Unkown Detected";
+                    noSimRunningToolStripMenuItem.Image = Properties.Resources.module_unknown;
                     break;
 
                 default:
-                    fsuipcToolStripStatusLabel.Text = "Sim Status:";
+                    noSimRunningToolStripMenuItem.Text = "Undefined";
                     break;
             }
-            fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+            noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
         }
 
         /// <summary>
@@ -598,10 +620,10 @@ namespace MobiFlight.UI
 
             if (sender.GetType() == typeof(SimConnectCache))
             {
-                fsuipcToolStripStatusLabel.Text = "MSFS2020 Status:";
-                SimConnectLabel.Text = "SimConnect (MSFS2020):";
-                SimConnectStatusLabel.Image = Properties.Resources.check;
-                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                noSimRunningToolStripMenuItem.Text = "MSFS2020 Detected";
+                simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
+                simConnectToolStripMenuItem.Image = Properties.Resources.check;
+                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
             }
 
             else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
@@ -609,33 +631,24 @@ namespace MobiFlight.UI
                 Fsuipc2Cache c = sender as Fsuipc2Cache;
                 switch (c.FlightSimConnectionMethod)
                 {
-                    case FlightSimConnectionMethod.OFFLINE:
-                        fsuipcToolStripStatusLabel.Text = "Offline Mode:";
-                        break;
-
                     case FlightSimConnectionMethod.FSUIPC:
-                        fsuipcToolStripStatusLabel.Text = i18n._tr("fsuipcStatus") + " ("+ c.FlightSim.ToString() +"):";
+                        FsuipcToolStripMenuItem.Text = i18n._tr("fsuipcStatus") + " ("+ c.FlightSim.ToString() +")";
                         break;
 
                     case FlightSimConnectionMethod.XPUIPC:
-                        fsuipcToolStripStatusLabel.Text = "XPUIPC Status:";
+                        FsuipcToolStripMenuItem.Text = "XPUIPC Status";
                         break;
 
                     case FlightSimConnectionMethod.WIDECLIENT:
-                        fsuipcToolStripStatusLabel.Text = "WideClient Status:";
-                        break;
-
-                    default:
-                        fsuipcToolStripStatusLabel.Text = "Sim Status:";
+                        FsuipcToolStripMenuItem.Text = "WideClient Status";
                         break;
                 }
-                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                FsuipcToolStripMenuItem.Image = Properties.Resources.check;
             }
 
             if (execManager.OfflineMode)
             {
-                fsuipcToolStripStatusLabel.Text = "Offline Mode:";
-                fsuipcStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.check;
             }
                
             runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();

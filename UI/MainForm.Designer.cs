@@ -84,16 +84,20 @@
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStripPanel = new System.Windows.Forms.Panel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
-            this.ArcazeUSBTtoolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.arcazeUsbStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ModulesStatusToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ModuleStatusIconToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.arcazeUsbToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.dividerToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.fsuipcToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.fsuipcStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SimStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.SimConnectionIconStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.FsuipcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.simConnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.SimConnectLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.SimConnectStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.OfflineModeToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.OfflineModeIconToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.logTextBox = new System.Windows.Forms.TextBox();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -105,6 +109,8 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.noSimRunningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -486,31 +492,34 @@
             // 
             resources.ApplyResources(this.statusStrip2, "statusStrip2");
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ArcazeUSBTtoolStripStatusLabel,
-            this.arcazeUsbStatusToolStripStatusLabel,
+            this.ModulesStatusToolStripLabel,
+            this.ModuleStatusIconToolStripLabel,
             this.arcazeUsbToolStripDropDownButton,
             this.dividerToolStripStatusLabel1,
-            this.fsuipcToolStripStatusLabel,
-            this.fsuipcStatusToolStripStatusLabel,
+            this.SimStatusToolStripStatusLabel,
+            this.toolStripStatusLabel3,
+            this.SimConnectionIconStatusToolStripStatusLabel,
+            this.toolStripDropDownButton1,
             this.toolStripStatusLabel4,
-            this.SimConnectLabel,
-            this.SimConnectStatusLabel,
-            this.toolStripStatusLabel1,
+            this.OfflineModeToolStripStatusLabel,
+            this.OfflineModeIconToolStripStatusLabel,
+            this.toolStripStatusLabel6,
             this.toolStripStatusLabel});
             this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.ShowItemToolTips = true;
             this.statusStrip2.SizingGrip = false;
             // 
-            // ArcazeUSBTtoolStripStatusLabel
+            // ModulesStatusToolStripLabel
             // 
-            this.ArcazeUSBTtoolStripStatusLabel.Name = "ArcazeUSBTtoolStripStatusLabel";
-            resources.ApplyResources(this.ArcazeUSBTtoolStripStatusLabel, "ArcazeUSBTtoolStripStatusLabel");
+            this.ModulesStatusToolStripLabel.Name = "ModulesStatusToolStripLabel";
+            resources.ApplyResources(this.ModulesStatusToolStripLabel, "ModulesStatusToolStripLabel");
             // 
-            // arcazeUsbStatusToolStripStatusLabel
+            // ModuleStatusIconToolStripLabel
             // 
-            this.arcazeUsbStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.arcazeUsbStatusToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
-            this.arcazeUsbStatusToolStripStatusLabel.Name = "arcazeUsbStatusToolStripStatusLabel";
-            resources.ApplyResources(this.arcazeUsbStatusToolStripStatusLabel, "arcazeUsbStatusToolStripStatusLabel");
+            this.ModuleStatusIconToolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ModuleStatusIconToolStripLabel.Image = global::MobiFlight.Properties.Resources.warning;
+            this.ModuleStatusIconToolStripLabel.Name = "ModuleStatusIconToolStripLabel";
+            resources.ApplyResources(this.ModuleStatusIconToolStripLabel, "ModuleStatusIconToolStripLabel");
             // 
             // arcazeUsbToolStripDropDownButton
             // 
@@ -525,17 +534,43 @@
             this.dividerToolStripStatusLabel1.Name = "dividerToolStripStatusLabel1";
             resources.ApplyResources(this.dividerToolStripStatusLabel1, "dividerToolStripStatusLabel1");
             // 
-            // fsuipcToolStripStatusLabel
+            // SimStatusToolStripStatusLabel
             // 
-            this.fsuipcToolStripStatusLabel.Name = "fsuipcToolStripStatusLabel";
-            resources.ApplyResources(this.fsuipcToolStripStatusLabel, "fsuipcToolStripStatusLabel");
+            this.SimStatusToolStripStatusLabel.Name = "SimStatusToolStripStatusLabel";
+            resources.ApplyResources(this.SimStatusToolStripStatusLabel, "SimStatusToolStripStatusLabel");
             // 
-            // fsuipcStatusToolStripStatusLabel
+            // toolStripStatusLabel3
             // 
-            this.fsuipcStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fsuipcStatusToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
-            this.fsuipcStatusToolStripStatusLabel.Name = "fsuipcStatusToolStripStatusLabel";
-            resources.ApplyResources(this.fsuipcStatusToolStripStatusLabel, "fsuipcStatusToolStripStatusLabel");
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            resources.ApplyResources(this.toolStripStatusLabel3, "toolStripStatusLabel3");
+            // 
+            // SimConnectionIconStatusToolStripStatusLabel
+            // 
+            this.SimConnectionIconStatusToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.SimConnectionIconStatusToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
+            this.SimConnectionIconStatusToolStripStatusLabel.Name = "SimConnectionIconStatusToolStripStatusLabel";
+            resources.ApplyResources(this.SimConnectionIconStatusToolStripStatusLabel, "SimConnectionIconStatusToolStripStatusLabel");
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noSimRunningToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.FsuipcToolStripMenuItem,
+            this.simConnectToolStripMenuItem});
+            resources.ApplyResources(this.toolStripDropDownButton1, "toolStripDropDownButton1");
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            // 
+            // FsuipcToolStripMenuItem
+            // 
+            this.FsuipcToolStripMenuItem.Name = "FsuipcToolStripMenuItem";
+            resources.ApplyResources(this.FsuipcToolStripMenuItem, "FsuipcToolStripMenuItem");
+            // 
+            // simConnectToolStripMenuItem
+            // 
+            this.simConnectToolStripMenuItem.Name = "simConnectToolStripMenuItem";
+            resources.ApplyResources(this.simConnectToolStripMenuItem, "simConnectToolStripMenuItem");
             // 
             // toolStripStatusLabel4
             // 
@@ -544,24 +579,24 @@
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
             resources.ApplyResources(this.toolStripStatusLabel4, "toolStripStatusLabel4");
             // 
-            // SimConnectLabel
+            // OfflineModeToolStripStatusLabel
             // 
-            this.SimConnectLabel.Name = "SimConnectLabel";
-            resources.ApplyResources(this.SimConnectLabel, "SimConnectLabel");
+            this.OfflineModeToolStripStatusLabel.Name = "OfflineModeToolStripStatusLabel";
+            resources.ApplyResources(this.OfflineModeToolStripStatusLabel, "OfflineModeToolStripStatusLabel");
             // 
-            // SimConnectStatusLabel
+            // OfflineModeIconToolStripStatusLabel
             // 
-            this.SimConnectStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.SimConnectStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
-            this.SimConnectStatusLabel.Name = "SimConnectStatusLabel";
-            resources.ApplyResources(this.SimConnectStatusLabel, "SimConnectStatusLabel");
+            this.OfflineModeIconToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.OfflineModeIconToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
+            this.OfflineModeIconToolStripStatusLabel.Name = "OfflineModeIconToolStripStatusLabel";
+            resources.ApplyResources(this.OfflineModeIconToolStripStatusLabel, "OfflineModeIconToolStripStatusLabel");
             // 
-            // toolStripStatusLabel1
+            // toolStripStatusLabel6
             // 
-            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
+            this.toolStripStatusLabel6.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            resources.ApplyResources(this.toolStripStatusLabel6, "toolStripStatusLabel6");
             // 
             // toolStripStatusLabel
             // 
@@ -631,6 +666,16 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
             // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
+            // 
+            // noSimRunningToolStripMenuItem
+            // 
+            this.noSimRunningToolStripMenuItem.Name = "noSimRunningToolStripMenuItem";
+            resources.ApplyResources(this.noSimRunningToolStripMenuItem, "noSimRunningToolStripMenuItem");
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -693,11 +738,10 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel statusStripPanel;
         private System.Windows.Forms.StatusStrip statusStrip2;
-        private System.Windows.Forms.ToolStripStatusLabel fsuipcToolStripStatusLabel;
-        private System.Windows.Forms.ToolStripStatusLabel fsuipcStatusToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel SimConnectionIconStatusToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel dividerToolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel ArcazeUSBTtoolStripStatusLabel;
-        private System.Windows.Forms.ToolStripStatusLabel arcazeUsbStatusToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel ModulesStatusToolStripLabel;
+        private System.Windows.Forms.ToolStripStatusLabel ModuleStatusIconToolStripLabel;
         private System.Windows.Forms.ToolStripDropDownButton arcazeUsbToolStripDropDownButton;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
@@ -705,7 +749,6 @@
         private System.Windows.Forms.ToolStripButton stopToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton exitToolStripButton;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripSeparator recentDocsToolStripSeparator;
         private System.Windows.Forms.ToolStripMenuItem recentDocumentsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton runToolStripButton;
@@ -738,8 +781,6 @@
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
         private UI.Panels.StartupPanel startupPanel;
         private System.Windows.Forms.Splitter logSplitter;
-        private System.Windows.Forms.ToolStripStatusLabel SimConnectLabel;
-        private System.Windows.Forms.ToolStripStatusLabel SimConnectStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private Panels.OutputConfigPanel outputConfigPanel;
         private Panels.InputConfigPanel inputConfigPanel;
@@ -751,6 +792,16 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem openDiscordServerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel SimStatusToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem FsuipcToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem simConnectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel OfflineModeToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel OfflineModeIconToolStripStatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+        private System.Windows.Forms.ToolStripMenuItem noSimRunningToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
     }
 }
 
