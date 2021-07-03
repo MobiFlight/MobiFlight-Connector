@@ -444,4 +444,7 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   <data name="uiMessageSimConnectConnectionLost" xml:space="preserve">
     <value>Die Verbindung zu SimConnect wurde unterbrochen.</value>
   </data>
+  <data name="uiMessageMaxNumberOfDevicesReached" xml:space="preserve">
+    <value>Du kannst kein weiteres {0} hinzufügen. Die maximale Anzahl sind {1} bei einem {2}.</value>
+  </data>
 </root>

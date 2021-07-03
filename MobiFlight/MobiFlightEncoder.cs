@@ -8,6 +8,7 @@ namespace MobiFlight
 {
     class MobiFlightEncoder : IConnectedDevice
     {
+        public const string TYPE = "Encoder";
         public enum InputEvent
         {
             LEFT,

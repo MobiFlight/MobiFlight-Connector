@@ -454,4 +454,7 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageSimConnectConnectionLost" xml:space="preserve">
     <value>The connection to SimConnect got lost.</value>
   </data>
+  <data name="uiMessageMaxNumberOfDevicesReached" xml:space="preserve">
+    <value>You cannot add another {1}. The maximum is {0} on a {2}.</value>
+  </data>
 </root>

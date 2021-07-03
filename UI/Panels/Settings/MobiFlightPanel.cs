@@ -347,18 +347,34 @@ namespace MobiFlight.UI.Panels.Settings
         /// <param name="e"></param>
         private void addDeviceTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MobiFlight.Config.BaseDevice cfgItem = null;
+            MobiFlightModule tempModule = null;
             try
             {
-                MobiFlight.Config.BaseDevice cfgItem = null;
+                cfgItem = null;
+                tempModule = getVirtualModuleFromTree();
+                tempModule.LoadConfig();
+                Dictionary<String, int> statistics = tempModule.GetConnectedDevicesStatistics();
+
                 switch ((sender as ToolStripMenuItem).Name)
                 {
                     case "servoToolStripMenuItem":
                     case "addServoToolStripMenuItem":
+                        if (statistics[MobiFlightServo.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxServos)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightServo.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxServos);
+                        }
+
                         cfgItem = new MobiFlight.Config.Servo();
                         (cfgItem as MobiFlight.Config.Servo).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         break;
                     case "stepperToolStripMenuItem":
                     case "addStepperToolStripMenuItem":
+                        if (statistics[MobiFlightStepper.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxSteppers)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightStepper.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxSteppers);
+                        }
+
                         cfgItem = new MobiFlight.Config.Stepper();
                         (cfgItem as MobiFlight.Config.Stepper).Pin1 = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         (cfgItem as MobiFlight.Config.Stepper).Pin2 = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
@@ -368,11 +384,21 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "ledOutputToolStripMenuItem":
                     case "addOutputToolStripMenuItem":
+                        if (statistics[MobiFlightOutput.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxOutputs)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightOutput.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxOutputs);
+                        }
+
                         cfgItem = new MobiFlight.Config.Output();
                         (cfgItem as MobiFlight.Config.Output).Pin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         break;
                     case "ledSegmentToolStripMenuItem":
                     case "addLedModuleToolStripMenuItem":
+                        if (statistics[MobiFlightLedModule.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLedSegments)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLedModule.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLedSegments);
+                        }
+
                         cfgItem = new MobiFlight.Config.LedModule();
                         (cfgItem as MobiFlight.Config.LedModule).DinPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         (cfgItem as MobiFlight.Config.LedModule).ClkPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
@@ -380,17 +406,32 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
+                        if (statistics[MobiFlightButton.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxButtons)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightButton.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxButtons);
+                        }
+
                         cfgItem = new MobiFlight.Config.Button();
                         (cfgItem as MobiFlight.Config.Button).Pin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         break;
                     case "encoderToolStripMenuItem":
                     case "addEncoderToolStripMenuItem":
+                        if (statistics[MobiFlightEncoder.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxEncoders)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightEncoder.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxEncoders);
+                        }
+
                         cfgItem = new MobiFlight.Config.Encoder();
                         (cfgItem as MobiFlight.Config.Encoder).PinLeft = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         (cfgItem as MobiFlight.Config.Encoder).PinRight = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":
+                        if (statistics[MobiFlightLcdDisplay.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLcdI2C)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLcdI2C);
+                        }
+
                         cfgItem = new MobiFlight.Config.LcdDisplay();
                         // does not deal yet with these kind of pins because we use I2C
                         break;
@@ -421,6 +462,12 @@ namespace MobiFlight.UI.Panels.Settings
 
                 mfModulesTreeView.SelectedNode = newNode;
                 syncPanelWithSelectedDevice(newNode);
+            }
+            catch (MaximumDeviceNumberReachedMobiFlightException ex)
+            {
+                MessageBox.Show(String.Format(i18n._tr("uiMessageMaxNumberOfDevicesReached"), ex.MaxNumber, ex.DeviceType, tempModule.Type),
+                                i18n._tr("uiMessageNotEnoughPinsHint"),
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ArgumentOutOfRangeException ex)
             {
