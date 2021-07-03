@@ -1,16 +1,16 @@
-﻿using System;
+﻿using MobiFlight.UI.Forms;
+using MobiFlight.UI.Panels.Settings.Device;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 using System.Xml.Serialization;
-using MobiFlight.UI.Forms;
-using MobiFlight.UI.Panels.Settings.Device;
 
 namespace MobiFlight.UI.Panels.Settings
 {
@@ -284,7 +284,7 @@ namespace MobiFlight.UI.Panels.Settings
                     TreeNode parentNode = mfModulesTreeView.SelectedNode;
                     if (parentNode == null) return;
                     while (parentNode.Level > 0) parentNode = parentNode.Parent;
-                    MobiFlightModule module = getModuleFromTree();
+                    MobiFlightModule module = getVirtualModuleFromTree();
 
                     MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
                     switch (dev.Type)
@@ -355,39 +355,39 @@ namespace MobiFlight.UI.Panels.Settings
                     case "servoToolStripMenuItem":
                     case "addServoToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Servo();
-                        (cfgItem as MobiFlight.Config.Servo).DataPin = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Servo).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         break;
                     case "stepperToolStripMenuItem":
                     case "addStepperToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Stepper();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin1 = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin2 = getModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin3 = getModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin4 = getModuleFromTree().GetFreePins().ElementAt(3).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin1 = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin2 = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin3 = getVirtualModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin4 = getVirtualModuleFromTree().GetFreePins().ElementAt(3).Pin.ToString();
                         //(cfgItem as MobiFlight.Config.Stepper).BtnPin = getModuleFromTree().GetFreePins().ElementAt(4).ToString();
                         break;
                     case "ledOutputToolStripMenuItem":
                     case "addOutputToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Output();
-                        (cfgItem as MobiFlight.Config.Output).Pin = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Output).Pin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         break;
                     case "ledSegmentToolStripMenuItem":
                     case "addLedModuleToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.LedModule();
-                        (cfgItem as MobiFlight.Config.LedModule).DinPin = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.LedModule).ClkPin = getModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.LedModule).ClsPin = getModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).DinPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).ClkPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).ClsPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
                         break;
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Button();
-                        (cfgItem as MobiFlight.Config.Button).Pin = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Button).Pin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         break;
                     case "encoderToolStripMenuItem":
                     case "addEncoderToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.Encoder();
-                        (cfgItem as MobiFlight.Config.Encoder).PinLeft = getModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Encoder).PinRight = getModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Encoder).PinLeft = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Encoder).PinRight = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":
@@ -693,22 +693,29 @@ namespace MobiFlight.UI.Panels.Settings
             return moduleNode;
         }
 
-        private MobiFlightModule getModuleFromTree()
+        private MobiFlightModule getVirtualModuleFromTree()
         {
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
             if (parentNode == null) return null;
 
             parentNode = getModuleNode(parentNode);
 
-            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            MobiFlightModule module = new MobiFlightModule(
+                new MobiFlightModuleConfig()
+                {
+                    ComPort = (parentNode.Tag as MobiFlightModule).Port,
+                    Type = (parentNode.Tag as MobiFlightModule).Type
+                }
+            );
+            
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
-
             foreach (TreeNode node in parentNode.Nodes)
             {
                 newConfig.Items.Add(node.Tag as MobiFlight.Config.BaseDevice);
             }
 
             module.Config = newConfig;
+
 
             return module;
         }
