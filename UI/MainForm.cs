@@ -134,6 +134,7 @@ namespace MobiFlight.UI
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
             execManager.OfflineMode = Properties.Settings.Default.OfflineMode;
+            if (execManager.OfflineMode) OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb_on;
 
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
@@ -437,6 +438,8 @@ namespace MobiFlight.UI
             {
                 execManager.OfflineMode = (bool)e.NewValue;
                 execManager.ReconnectSim();
+                if (execManager.OfflineMode) OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb_on;
+                else OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb;
             }
         }
 
@@ -551,21 +554,17 @@ namespace MobiFlight.UI
         /// updates the UI with appropriate icon states
         /// </summary>
         void fsuipcCache_Closed(object sender, EventArgs e)
-        {
-            if (execManager.OfflineMode)
+        {            
+            if (sender.GetType() == typeof(SimConnectCache))
             {
-                OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.check;
+                simConnectToolStripMenuItem.Image = Properties.Resources.warning;
+            } else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
+                FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             }
-            else
-            {
-                if (sender.GetType() == typeof(SimConnectCache))
-                {
-                    simConnectToolStripMenuItem.Image = Properties.Resources.warning;
-                } 
 
-                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
-                runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
-            }
+            SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+            
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
         }
 
 
@@ -645,13 +644,7 @@ namespace MobiFlight.UI
                 }
                 FsuipcToolStripMenuItem.Image = Properties.Resources.check;
             }
-
-            if (execManager.OfflineMode)
-            {
-                OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.check;
-            }
-               
-            runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
         }
 
         /// <summary>
@@ -702,7 +695,7 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
-            runToolStripButton.Enabled = true && execManager.SimConnected() && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
             runTestToolStripButton.Enabled = execManager.ModulesConnected() && !execManager.TestModeIsStarted();
             stopToolStripButton.Enabled = false;
             updateNotifyContextMenu(execManager.IsStarted());
@@ -1282,7 +1275,7 @@ namespace MobiFlight.UI
             stopTestToolStripButton.Visible = false;
             stopTestToolStripButton.Enabled = false;
             runTestToolStripButton.Enabled = true;
-            runToolStripButton.Enabled = true && execManager.ModulesConnected() && execManager.SimConnected() && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
