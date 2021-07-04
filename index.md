@@ -1,19 +1,18 @@
-## Welcome to GitHub Pages
+## MobiFlight Connector Documentation
 
-You can use the [editor on GitHub](https://github.com/Mobiflight/MobiFlight-Connector/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+### Main Window
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+####Menubar
+The menu bar contains the following items
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
+- File - allows to load & save configurations and additionally allows quick access to the last five configs loaded by the user.
+- Extras - the following menu items exist
+- Orphaned modules - Opens dialog to manage orphaned serials of arcaze modules in current config
+- Settings - Opens Settings-Dialog.
+- Help -
+-- Open help in web - brings you to the current website
+-- Check for update - checks on the internet if updates are available
+-- Information about current software version
 
 - Bulleted
 - List
