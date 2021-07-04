@@ -151,6 +151,8 @@ namespace MobiFlight
         Dictionary<String, MobiFlightServo> servoModules = new Dictionary<string, MobiFlightServo>();
         Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string,MobiFlightOutput>();
         Dictionary<String, MobiFlightLcdDisplay> lcdDisplays = new Dictionary<string, MobiFlightLcdDisplay>();
+        Dictionary<String, MobiFlightButton> buttons = new Dictionary<string, MobiFlightButton>();
+        Dictionary<String, MobiFlightEncoder> encoders = new Dictionary<string, MobiFlightEncoder>();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -285,6 +287,8 @@ namespace MobiFlight
             servoModules.Clear();
             outputs.Clear();
             lcdDisplays.Clear();
+            buttons.Clear();
+            encoders.Clear();
 
             foreach (Config.BaseDevice device in Config.Items)
             {
@@ -318,6 +322,14 @@ namespace MobiFlight
                     case DeviceType.LcdDisplay:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
+                        break;
+                    case DeviceType.Button:
+                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        buttons.Add(device.Name, new MobiFlightButton() { Name = device.Name });
+                        break;
+                    case DeviceType.Encoder:
+                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        encoders.Add(device.Name, new MobiFlightEncoder() { Name = device.Name });
                         break;
                 }                
             }
@@ -767,6 +779,20 @@ namespace MobiFlight
             {
                 result.Add(lcdDisplay);
             }
+
+            return result;
+        }
+
+        public Dictionary<String, int> GetConnectedDevicesStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+            result[MobiFlightOutput.TYPE] = outputs.Count;
+            result[MobiFlightLedModule.TYPE] = ledModules.Count;
+            result[MobiFlightStepper.TYPE] = stepperModules.Count;
+            result[MobiFlightServo.TYPE] = servoModules.Count;
+            result[MobiFlightLcdDisplay.TYPE] = lcdDisplays.Count;
+            result[MobiFlightButton.TYPE] = buttons.Count;
+            result[MobiFlightEncoder.TYPE] = encoders.Count;
 
             return result;
         }

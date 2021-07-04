@@ -34,10 +34,7 @@
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
-            this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
             this.FsuipcSettingsPanel = new System.Windows.Forms.Panel();
-            this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
             this.fsuipcHintTextBox = new System.Windows.Forms.TextBox();
             this.OffsetTypePanel = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -46,7 +43,6 @@
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
             this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
-            this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
             this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
             this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
@@ -115,6 +111,10 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
+            this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
+            this.fsuipcConfigPanel = new MobiFlight.UI.Panels.Config.FsuipcConfigPanel();
+            this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
@@ -177,30 +177,12 @@
             this.referencesGroupBox.Name = "referencesGroupBox";
             this.referencesGroupBox.TabStop = false;
             // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
-            // 
-            // simConnectPanel1
-            // 
-            resources.ApplyResources(this.simConnectPanel1, "simConnectPanel1");
-            this.simConnectPanel1.Name = "simConnectPanel1";
-            this.simConnectPanel1.PresetFile = "Presets\\msfs2020_simvars.cip";
-            this.simConnectPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
-            // 
             // FsuipcSettingsPanel
             // 
             this.FsuipcSettingsPanel.Controls.Add(this.fsuipcConfigPanel);
             this.FsuipcSettingsPanel.Controls.Add(this.fsuipcHintTextBox);
             resources.ApplyResources(this.FsuipcSettingsPanel, "FsuipcSettingsPanel");
             this.FsuipcSettingsPanel.Name = "FsuipcSettingsPanel";
-            // 
-            // fsuipcConfigPanel
-            // 
-            resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
-            this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
-            this.fsuipcConfigPanel.PresetFile = "";
             // 
             // fsuipcHintTextBox
             // 
@@ -268,12 +250,6 @@
             resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
             this.interpolationGroupBox.Name = "interpolationGroupBox";
             this.interpolationGroupBox.TabStop = false;
-            // 
-            // interpolationPanel1
-            // 
-            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
-            this.interpolationPanel1.Name = "interpolationPanel1";
-            this.interpolationPanel1.Save = false;
             // 
             // interpolationCheckBox
             // 
@@ -814,6 +790,31 @@
             // 
             this.description.ColumnName = "description";
             // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
+            // 
+            // simConnectPanel1
+            // 
+            resources.ApplyResources(this.simConnectPanel1, "simConnectPanel1");
+            this.simConnectPanel1.LVars = ((System.Collections.Generic.List<string>)(resources.GetObject("simConnectPanel1.LVars")));
+            this.simConnectPanel1.Name = "simConnectPanel1";
+            this.simConnectPanel1.PresetFile = "Presets\\msfs2020_simvars.cip";
+            this.simConnectPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
+            // 
+            // fsuipcConfigPanel
+            // 
+            resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
+            this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
+            this.fsuipcConfigPanel.PresetFile = "";
+            // 
+            // interpolationPanel1
+            // 
+            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
+            this.interpolationPanel1.Name = "interpolationPanel1";
+            this.interpolationPanel1.Save = false;
+            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
@@ -831,6 +832,7 @@
             this.MaximizeBox = false;
             this.Name = "ConfigWizard";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfigWizard_FormClosing);
             this.Load += new System.EventHandler(this.ConfigWizard_Load);
             this.MainPanel.ResumeLayout(false);
             this.tabControlFsuipc.ResumeLayout(false);

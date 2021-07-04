@@ -5,6 +5,59 @@ using System.Text;
 
 namespace MobiFlight
 {
+    public abstract class MobiFlightCapabilities
+    {
+        public int MaxOutputs = 0;
+        public int MaxButtons = 0;
+        public int MaxLedSegments = 0;
+        public int MaxEncoders = 0;
+        public int MaxSteppers = 0;
+        public int MaxServos = 0;
+        public int MaxLcdI2C = 0;
+    }
+
+    public class MegaCapabilities : MobiFlightCapabilities
+    {
+        public MegaCapabilities()
+        {
+            MaxOutputs = 40;
+            MaxButtons = 68;
+            MaxLedSegments = 4;
+            MaxEncoders = 20;
+            MaxSteppers = 10;
+            MaxServos = 10;
+            MaxLcdI2C = 2;
+        }
+    }
+
+    public class MicroCapabilities : MobiFlightCapabilities
+    {
+        public MicroCapabilities()
+        {
+            MaxOutputs = 10;
+            MaxButtons = 16;
+            MaxLedSegments = 1;
+            MaxEncoders = 4;
+            MaxSteppers = 2;
+            MaxServos = 2;
+            MaxLcdI2C = 2;
+        }
+    }
+
+    public class UnoCapabilities : MobiFlightCapabilities
+    {
+        public UnoCapabilities()
+        {
+            MaxOutputs = 8;
+            MaxButtons = 8;
+            MaxLedSegments =1;
+            MaxEncoders = 2;
+            MaxSteppers = 2;
+            MaxServos = 2;
+            MaxLcdI2C = 2;
+        }
+    }
+
     public class MobiFlightPin
     {
         public byte Pin { get; set; }
@@ -283,6 +336,28 @@ namespace MobiFlight
                 Name = TYPE_ARDUINO_UNO;
                 Type = TYPE_ARDUINO_UNO;
             }
+        }
+
+        public MobiFlightCapabilities GetCapabilities()
+        {
+            MobiFlightCapabilities result = null;
+
+            switch(Type)
+            {
+                case TYPE_MEGA:
+                    result = new MegaCapabilities();
+                    break;
+
+                case TYPE_MICRO:
+                    result = new MicroCapabilities();
+                    break;
+
+                case TYPE_UNO:
+                    result = new UnoCapabilities();
+                    break;
+            }
+
+            return result;
         }
     }
 }

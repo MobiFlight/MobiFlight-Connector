@@ -80,14 +80,13 @@ namespace MobiFlight.UI.Dialogs
 
             // displayLedDisplayComboBox.Items.Clear(); 
             simConnectPanel1.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
+            _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
         }
 
         private void SimConnectPanel1_OnGetLVarListRequested(object sender, EventArgs e)
         {
             if(_execManager.GetSimConnectCache().IsConnected())
             {
-                _execManager.GetSimConnectCache().LVarListUpdated -= ConfigWizard_LVarListUpdated;
-                _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
                 _execManager.GetSimConnectCache().RefreshLVarsList();
             }
         }
@@ -1315,6 +1314,11 @@ namespace MobiFlight.UI.Dialogs
         {
             FsuipcSettingsPanel.Visible = (sender as RadioButton) == OffsetTypeFsuipRadioButton;
             simConnectPanel1.Visible = (sender as RadioButton) == OffsetTypeSimConnectRadioButton;
+        }
+
+        private void ConfigWizard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _execManager.GetSimConnectCache().LVarListUpdated -= ConfigWizard_LVarListUpdated;
         }
     }
 }

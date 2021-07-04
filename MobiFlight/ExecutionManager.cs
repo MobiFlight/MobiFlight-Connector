@@ -1138,7 +1138,7 @@ namespace MobiFlight
 
             if (SimAvailable())
             {
-                OnSimAvailable?.Invoke(fsuipcCache.FlightSim, null);
+                OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
 
                 Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
 
@@ -1166,7 +1166,7 @@ namespace MobiFlight
 
         public bool SimAvailable()
         {
-            return fsuipcCache.IsAvailable();
+            return FlightSim.IsAvailable();
         }
 
         /// <summary>

@@ -624,6 +624,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot add another {1}. The maximum is {0} on a {2}..
+        /// </summary>
+        internal static string uiMessageMaxNumberOfDevicesReached {
+            get {
+                return ResourceManager.GetString("uiMessageMaxNumberOfDevicesReached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MFConnector still active.
         /// </summary>
         internal static string uiMessageMFConnectorInterfaceActive {

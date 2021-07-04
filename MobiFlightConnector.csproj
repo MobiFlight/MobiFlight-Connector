@@ -167,6 +167,7 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
+    <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
@@ -194,7 +195,7 @@
     <Compile Include="MobiFlight\Config\Encoder.cs" />
     <Compile Include="MobiFlight\Config\EncoderSingleDetent.cs" />
     <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
-    <Compile Include="MobiFlight\FlightSimConnectionMethod.cs" />
+    <Compile Include="MobiFlight\FlightSim.cs" />
     <Compile Include="UI\Dialogs\Msfs2020StartupForm.cs">
       <SubType>Form</SubType>
     </Compile>
