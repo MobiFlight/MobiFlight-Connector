@@ -167,6 +167,8 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
+    <Compile Include="MobiFlight\Config\Analog.cs" />
+    <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
@@ -241,6 +243,12 @@
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Device\MFAnalogPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFAnalogPanel.Designer.cs">
+      <DependentUpon>MFAnalogPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Config\SimConnectPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -258,6 +266,12 @@
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.Designer.cs">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Input\AnalogPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Input\AnalogPanel.Designer.cs">
+      <DependentUpon>AnalogPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\OutputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -756,8 +770,17 @@
     <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.resx">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.de.resx">
+      <DependentUpon>MFAnalogPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.resx">
+      <DependentUpon>MFAnalogPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Input\AnalogPanel.resx">
+      <DependentUpon>AnalogPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\OutputConfigPanel.de.resx">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>

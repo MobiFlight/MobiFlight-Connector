@@ -185,7 +185,7 @@ namespace MobiFlight
             FSUIPC.Fsuipc2Cache fsuipcCache, 
             SimConnectMSFS.SimConnectCache simConnectCache, 
             MobiFlightCache moduleCache,
-            ButtonArgs e,
+            InputDeviceArgs e,
             List<ConfigRefValue> configRefs)
         {
             switch (Type)

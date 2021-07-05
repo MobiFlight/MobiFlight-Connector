@@ -303,7 +303,12 @@ namespace MobiFlight.UI.Panels.Settings
                             panel = new MFServoPanel(dev as MobiFlight.Config.Servo, module.GetPins());
                             (panel as MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
-                            
+
+                        case DeviceType.Analog:
+                            panel = new MFAnalogPanel(dev as MobiFlight.Config.Analog, module.GetPins());
+                            (panel as MFAnalogPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+
                         case DeviceType.Button:
                             panel = new MFButtonPanel(dev as MobiFlight.Config.Button, module.GetPins());
                             (panel as MFButtonPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
@@ -404,6 +409,12 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.LedModule).ClkPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
                         (cfgItem as MobiFlight.Config.LedModule).ClsPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
                         break;
+                    case "analogDeviceToolStripMenuItem1":
+                    case "analogDeviceToolStripMenuItem":                    
+                        cfgItem = new MobiFlight.Config.Analog();
+                        // TODO: This line, like any other getModuleFromTree().GetFreePins() in this file could return null if all pins are used. Should this be checked?
+                        (cfgItem as MobiFlight.Config.Analog).Pin = getModuleFromTree().GetFreePins().FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
+                        break;                        
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
                         if (statistics[MobiFlightButton.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxButtons)

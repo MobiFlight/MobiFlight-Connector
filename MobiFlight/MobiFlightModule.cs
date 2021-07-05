@@ -16,10 +16,10 @@ using System.Threading;
 
 namespace MobiFlight
 {
-    public class ButtonArgs : EventArgs    
+    public class InputDeviceArgs : EventArgs    
     {
         public string Serial { get; set; }
-        public string ButtonId { get; set; }
+        public string DeviceId { get; set; }
         public DeviceType Type { get; set; }
         public int Value { get; set; }
     }
@@ -37,7 +37,8 @@ namespace MobiFlight
         Servo,               // 6
         LcdDisplay,          // 7
         Encoder,             // 8,
-        Stepper              // 9
+        Stepper,             // 9
+        Analog               // 10
     }
 
     public class FirmwareFeature
@@ -48,11 +49,11 @@ namespace MobiFlight
 
     public class MobiFlightModule : IModule, IOutputModule
     {
-        public delegate void ButtonEventHandler(object sender, ButtonArgs e);
+        public delegate void InputDeviceEventHandler(object sender, InputDeviceArgs e);
         /// <summary>
         /// Gets raised whenever a button is pressed
         /// </summary>
-        public event ButtonEventHandler OnButtonPressed;
+        public event InputDeviceEventHandler OnInputDeviceAction;
 
         delegate void AddLogCallback(string text);
         SerialPort _serialPort;
@@ -206,7 +207,8 @@ namespace MobiFlight
             Retrigger,          // 23
             ResetBoard,         // 24
             SetLcdDisplayI2C,   // 25
-            SetModuleBrightness // 26    // 25
+            SetModuleBrightness, // 26,
+            AnalogChange    // 27
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -445,6 +447,8 @@ namespace MobiFlight
             _cmdMessenger.Attach((int)Command.Info, OnInfo);
             _cmdMessenger.Attach((int)Command.EncoderChange, OnEncoderChange);
             _cmdMessenger.Attach((int)Command.ButtonChange, OnButtonChange);
+            _cmdMessenger.Attach((int)Command.AnalogChange, OnAnalogChange);
+
         }
 
         /// Executes when an unknown command has been received.
@@ -480,8 +484,8 @@ namespace MobiFlight
             int value;
             if (!int.TryParse(pos, out value)) return;
             
-            if (OnButtonPressed != null)
-                OnButtonPressed(this, new ButtonArgs() { Serial = this.Serial, ButtonId = enc, Type = DeviceType.Encoder, Value = value});
+            if (OnInputDeviceAction != null)
+                OnInputDeviceAction(this, new InputDeviceArgs() { Serial = this.Serial, DeviceId = enc, Type = DeviceType.Encoder, Value = value});
             //addLog("Enc: " + enc + ":" + pos);
         }
 
@@ -491,18 +495,28 @@ namespace MobiFlight
             String button = arguments.ReadStringArg();
             String state = arguments.ReadStringArg();
             //addLog("Button: " + button + ":" + state);
-            if (OnButtonPressed != null)
-                OnButtonPressed(this, new ButtonArgs() { Serial = this.Serial, ButtonId = button, Type = DeviceType.Button, Value = int.Parse(state) });
+            if (OnInputDeviceAction != null)
+                OnInputDeviceAction(this, new InputDeviceArgs() { Serial = this.Serial, DeviceId = button, Type = DeviceType.Button, Value = int.Parse(state) });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="port">the virtual port on the board or extension</param>
-        /// <param name="pin"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public bool SetPin(string port, string pin, int value)
+         // Callback function that prints the Arduino status to the console
+        void OnAnalogChange(ReceivedCommand arguments)
+        {
+            String name = arguments.ReadStringArg();
+            String value = arguments.ReadStringArg();
+            //addLog("Button: " + button + ":" + state);
+            if (OnInputDeviceAction != null)
+                OnInputDeviceAction(this, new InputDeviceArgs() { Serial = this.Serial, DeviceId = name, Type = DeviceType.Analog, Value = int.Parse(value) });
+         }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="port">the virtual port on the board or extension</param>
+    /// <param name="pin"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public bool SetPin(string port, string pin, int value)
         {
             // if value has not changed since the last time, then we continue to next item to prevent 
             // unnecessary communication with Arcaze USB
@@ -848,6 +862,7 @@ namespace MobiFlight
                     return MobiFlightModuleInfo.MEGA_PINS.FindAll(x => x.isPWM == true); ;
             }
         }
+        
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
             List<DeviceType> result = new List<DeviceType>();
@@ -864,6 +879,7 @@ namespace MobiFlight
         {
             bool _hasButtons = false;
             bool _hasEncoder = false;
+            bool _hasAnalog = false;
 
             List<DeviceType> result = new List<DeviceType>();
             
@@ -877,11 +893,17 @@ namespace MobiFlight
                     case DeviceType.Encoder:
                         _hasEncoder = true;
                         break;
+
+                    case DeviceType.Analog:
+                        _hasAnalog = true;
+                        break;
+
                 }
             }            
             if (_hasButtons) result.Add(DeviceType.Button);
             if (_hasEncoder) result.Add(DeviceType.Encoder);
-            
+            if (_hasAnalog) result.Add(DeviceType.Analog);
+
             return result;
         }
 
@@ -895,6 +917,7 @@ namespace MobiFlight
                 {
                     case DeviceType.Button:
                     case DeviceType.Encoder:
+                    case DeviceType.Analog:
                         result.Add(dev);
                         break;
                 }
@@ -1039,6 +1062,10 @@ namespace MobiFlight
                     case DeviceType.Output:
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Output).Pin));
                         break;
+            
+                    case DeviceType.Analog:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Analog).Pin));
+                        break;
 
                     default:
                         throw new NotImplementedException();
@@ -1047,7 +1074,10 @@ namespace MobiFlight
 
             foreach (byte i in usedPins)
             {
-                ResultPins.Find(item => item.Pin==i).Used = true;
+                if (i != 0)
+                {
+                    ResultPins.Find(item => item.Pin == i).Used = true;
+                }                
             }
 
             if (FreeOnly)

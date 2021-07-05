@@ -37,7 +37,8 @@ char foo;
 //         Added PWM output
 // 1.9.10: Fix encoder issue on fastLeft/fastRight, fixed the MODULE_MAX_PINS (one more time) for "pin69"
 // 1.10.0: Fix LCD pin usage (SDA, SCL), removed LCD sendCmd
-const char version[8] = "1.10.0";
+// 1.10.1: Added Analog support
+const char version[8] = "1.10.1";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
@@ -47,6 +48,8 @@ const char version[8] = "1.10.0";
 #define MF_LCD_SUPPORT      1
 #define MF_STEPPER_SUPPORT  1
 #define MF_SERVO_SUPPORT    1
+#define MF_ANALOG_SUPPORT 1
+
 // ALL 24780
 // No Segments 23040 (1740)
 // No Steppers 20208 (4572)
@@ -88,6 +91,7 @@ const char version[8] = "1.10.0";
 #define MAX_STEPPERS    2
 #define MAX_MFSERVOS    2
 #define MAX_MFLCD_I2C   2
+#define MAX_ANALOG      2
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -98,6 +102,7 @@ const char version[8] = "1.10.0";
 #define MAX_STEPPERS    2
 #define MAX_MFSERVOS    2
 #define MAX_MFLCD_I2C   2
+#define MAX_ANALOG      2
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
@@ -108,6 +113,7 @@ const char version[8] = "1.10.0";
 #define MAX_STEPPERS    10
 #define MAX_MFSERVOS    10
 #define MAX_MFLCD_I2C   2
+#define MAX_ANALOG      5
 #endif
 
 #include <EEPROMex.h>
@@ -141,6 +147,11 @@ const char version[8] = "1.10.0";
 #include <LiquidCrystal_I2C.h>
 #include <MFLCDDisplay.h>
 #endif
+
+#if MF_ANALOG_SUPPORT == 1
+#include <MFAnalog.h>
+#endif
+
 
 const uint8_t MEM_OFFSET_NAME   = 0;
 const uint8_t MEM_LEN_NAME      = 48;
@@ -213,6 +224,11 @@ MFLCDDisplay lcd_I2C[MAX_MFLCD_I2C];
 uint8_t lcd_12cRegistered = 0;
 #endif 
 
+#if MF_ANALOG_SUPPORT == 1
+MFAnalog analog[MAX_ANALOG];
+uint8_t analogRegistered = 0;
+#endif
+
 enum
 {
   kTypeNotSet,              // 0 
@@ -224,7 +240,8 @@ enum
   kTypeServo,               // 6
   kTypeLcdDisplayI2C,       // 7
   kTypeEncoder,             // 8
-  kTypeStepper              // 9 (new stepper type with auto zero support if btnPin is > 0)
+  kTypeStepper,             // 9 (new stepper type with auto zero support if btnPin is > 0)
+  kAnalogDevice             // 11 Analog Device with 1 pin
 };  
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
@@ -260,7 +277,8 @@ enum
   kTrigger,            // 23
   kResetBoard,         // 24
   kSetLcdDisplayI2C,   // 25
-  kSetModuleBrightness // 26
+  kSetModuleBrightness,// 26
+  kAnalogChange        // 28
 };
 
 // Callbacks define on which received commands we take action
@@ -408,6 +426,7 @@ void loop()
   
   readButtons();
   readEncoder();
+  readAnalog();
 
   // segments do not need update
 #if MF_STEPPER_SUPPORT == 1
@@ -441,6 +460,36 @@ void clearRegisteredPins() {
   for(int i=0; i!=MODULE_MAX_PINS+1;++i)
     pinsRegistered[i] = kTypeNotSet;
 }
+
+
+
+#if MF_ANALOG_SUPPORT == 1
+
+void AddAnalog(uint8_t pin = 1, char const * name = "AnalogDevice", uint8_t sensitivity = 3)
+{  
+  if (analogRegistered == MAX_BUTTONS) return;
+  
+  if (isPinRegistered(pin)) return;
+  
+  analog[analogRegistered] = MFAnalog(pin, handlerOnAnalogChange, name, sensitivity);
+  registerPin(pin, kAnalogDevice);
+  analogRegistered++;
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus, F("Added analog device "));
+#endif
+}
+
+void ClearAnalog() 
+{
+  clearRegisteredPins(kAnalogDevice);
+  analogRegistered = 0;
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,F("Cleared analog devices"));
+#endif  
+}
+
+#endif
+
 
 //// OUTPUT /////
 void AddOutput(uint8_t pin = 1, char const * name = "Output")
@@ -687,6 +736,15 @@ void handlerOnEncoder(uint8_t eventId, uint8_t pin, const char * name)
   cmdMessenger.sendCmdEnd();
 };
 
+//// EVENT HANDLER /////
+void handlerOnAnalogChange(int value, uint8_t pin, const char * name)
+{
+  cmdMessenger.sendCmdStart(kAnalogChange);
+  cmdMessenger.sendCmdArg(name);
+  cmdMessenger.sendCmdArg(value);
+  cmdMessenger.sendCmdEnd();
+};
+
 /**
  ** config stuff
  **/
@@ -716,7 +774,9 @@ void resetConfig()
 {
   ClearButtons();
   ClearEncoders();
+  ClearAnalog();
   ClearOutputs();
+
 
 #if MF_SEGMENT_SUPPORT == 1
   ClearLedSegments();
@@ -778,6 +838,13 @@ void readConfig(String cfg) {
         params[1] = strtok_r(NULL, ":", &p); // name
         AddButton(atoi(params[0]), params[1]);
         break; 
+
+      case kAnalogDevice:
+        params[0] = strtok_r(NULL, ".", &p); // pin
+        params[1] = strtok_r(NULL, ".", &p); // sensitivity
+        params[2] = strtok_r(NULL, ":", &p); // name
+        AddAnalog(atoi(params[0]), params[2], atoi(params[1]));
+        break;
 
       case kTypeOutput:
         params[0] = strtok_r(NULL, ".", &p); // pin
@@ -1013,6 +1080,13 @@ void readEncoder()
 {
   for(int i=0; i!=encodersRegistered; i++) {
     encoders[i].update();
+  }
+}
+
+void readAnalog() 
+{
+  for(int i=0; i!=analogRegistered; i++) {
+    analog[i].update();
   }
 }
 

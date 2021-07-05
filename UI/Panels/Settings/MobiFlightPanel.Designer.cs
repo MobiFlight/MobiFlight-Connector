@@ -42,6 +42,7 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analogDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +78,7 @@
             this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.FwAutoUpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.analogDeviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mfConfiguredModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.mobiflightSettingsToolStrip.SuspendLayout();
@@ -134,7 +136,8 @@
             this.LcdDisplayToolStripMenuItem,
             this.toolStripMenuItem4,
             this.buttonToolStripMenuItem,
-            this.encoderToolStripMenuItem});
+            this.encoderToolStripMenuItem,
+            this.analogDeviceToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
             // 
@@ -184,6 +187,12 @@
             this.encoderToolStripMenuItem.Name = "encoderToolStripMenuItem";
             resources.ApplyResources(this.encoderToolStripMenuItem, "encoderToolStripMenuItem");
             this.encoderToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // analogDeviceToolStripMenuItem
+            // 
+            this.analogDeviceToolStripMenuItem.Name = "analogDeviceToolStripMenuItem";
+            resources.ApplyResources(this.analogDeviceToolStripMenuItem, "analogDeviceToolStripMenuItem");
+            this.analogDeviceToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
@@ -312,6 +321,7 @@
             this.addDeviceToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addEncoderToolStripMenuItem,
             this.addButtonToolStripMenuItem,
+            this.analogDeviceToolStripMenuItem1,
             this.toolStripSeparator3,
             this.addStepperToolStripMenuItem,
             this.addServoToolStripMenuItem,
@@ -403,6 +413,12 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // analogDeviceToolStripMenuItem1
+            // 
+            this.analogDeviceToolStripMenuItem1.Name = "analogDeviceToolStripMenuItem1";
+            resources.ApplyResources(this.analogDeviceToolStripMenuItem1, "analogDeviceToolStripMenuItem1");
+            this.analogDeviceToolStripMenuItem1.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
             // MobiFlightPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -473,5 +489,7 @@
         private System.Windows.Forms.GroupBox firmwareSettingsGroupBox;
         private System.Windows.Forms.CheckBox FwAutoUpdateCheckBox;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem1;
     }
 }

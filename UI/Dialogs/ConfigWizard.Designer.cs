@@ -177,6 +177,18 @@
             this.referencesGroupBox.Name = "referencesGroupBox";
             this.referencesGroupBox.TabStop = false;
             // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
+            // 
+            // simConnectPanel1
+            // 
+            resources.ApplyResources(this.simConnectPanel1, "simConnectPanel1");
+            this.simConnectPanel1.Name = "simConnectPanel1";
+            this.simConnectPanel1.PresetFile = "Presets\\msfs2020_simvars.cip";
+            this.simConnectPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
+            // 
             // FsuipcSettingsPanel
             // 
             this.FsuipcSettingsPanel.Controls.Add(this.fsuipcConfigPanel);

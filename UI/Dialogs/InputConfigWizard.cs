@@ -372,9 +372,7 @@ namespace MobiFlight.UI.Dialogs
                     switch (device.Type)
                     {
                         case DeviceType.Button:
-                            inputTypeComboBox.Items.Add(device.Name);
-                            break;
-
+                        case DeviceType.Analog:
                         case DeviceType.Encoder:
                             inputTypeComboBox.Items.Add(device.Name);
                             break;

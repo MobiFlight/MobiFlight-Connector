@@ -45,11 +45,16 @@ namespace System
             return false;
         }
 
-        static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin)
+        static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin, bool analogOnly = false)
         {
             List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
             if (UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin)))
                 UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
+
+            if (analogOnly == true)
+            {
+                UsablePins = UsablePins.FindAll(x => x.isAnalog == true);
+            }
 
             comboBox.DataSource = UsablePins.FindAll(x => x.Used == false);
             comboBox.DisplayMember = "Name";
