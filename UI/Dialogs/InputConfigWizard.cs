@@ -328,6 +328,13 @@ namespace MobiFlight.UI.Dialogs
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
                     break;
+
+                case DeviceType.AnalogInput:
+                    config.Type = InputConfigItem.TYPE_ANALOG;
+                    if (config.analog == null) config.analog = new InputConfig.AnalogInputConfig();
+                    if (groupBoxInputSettings.Controls[0] != null)
+                        (groupBoxInputSettings.Controls[0] as AnalogPanel).ToConfig(config.analog);
+                    break;
             }
 
             return true;
@@ -372,7 +379,7 @@ namespace MobiFlight.UI.Dialogs
                     switch (device.Type)
                     {
                         case DeviceType.Button:
-                        case DeviceType.Analog:
+                        case DeviceType.AnalogInput:
                         case DeviceType.Encoder:
                             inputTypeComboBox.Items.Add(device.Name);
                             break;
@@ -458,6 +465,11 @@ namespace MobiFlight.UI.Dialogs
                     case DeviceType.Encoder:
                         panel = new Panels.Input.EncoderPanel();
                         (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
+                        break;
+
+                    case DeviceType.AnalogInput:
+                        panel = new Panels.Input.AnalogPanel();
+                        (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
                         break;
                 }
 

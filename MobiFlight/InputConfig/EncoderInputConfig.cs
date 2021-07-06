@@ -222,7 +222,7 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputDeviceArgs e, List<ConfigRefValue> configRefs)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs e, List<ConfigRefValue> configRefs)
         {
             if ((e.Value == 0 && onLeft != null) || (e.Value == 1 && onLeftFast == null))
             {

@@ -23,7 +23,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         /// Gets raised whenever config object has changed
         /// </summary>
         public event EventHandler Changed;
-        private MobiFlight.Config.Analog analog;
+        private MobiFlight.Config.AnalogInput analog;
         bool initialized = false;        
 
         public MFAnalogPanel()
@@ -32,7 +32,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFAnalogPanel(MobiFlight.Config.Analog analogDevice, List<MobiFlightPin> FreePins)
+        public MFAnalogPanel(MobiFlight.Config.AnalogInput analogDevice, List<MobiFlightPin> FreePins)
             : this()
         {
             //var list = FreePins.Where(s => s.isAnalog == true);

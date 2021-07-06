@@ -680,8 +680,8 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.logSplitter);
             this.Controls.Add(this.startupPanel);
+            this.Controls.Add(this.logSplitter);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.logTextBox);
             this.Controls.Add(this.statusStripPanel);

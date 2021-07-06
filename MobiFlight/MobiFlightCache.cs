@@ -12,7 +12,7 @@ namespace MobiFlight
 {
     public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
     {
-        public delegate void ButtonEventHandler(object sender, InputDeviceArgs e);
+        public delegate void ButtonEventHandler(object sender, InputEventArgs e);
         public delegate void ModuleConnectEventHandler(object sender, String status, int progress);
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace MobiFlight
             Modules.Add(devInfo.Serial, m);
         }
 
-        public void module_OnButtonPressed(object sender, InputDeviceArgs e)
+        public void module_OnButtonPressed(object sender, InputEventArgs e)
         {
             if (OnButtonPressed != null)
                 OnButtonPressed(sender, e);

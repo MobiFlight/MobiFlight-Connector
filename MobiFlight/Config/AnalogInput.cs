@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
-    public class Analog : BaseDevice
+    public class AnalogInput : BaseDevice
     {
         [XmlAttribute]
         public String Pin = "54";
@@ -16,7 +16,7 @@ namespace MobiFlight.Config
 
         const ushort _paramCount = 3;
 
-        public Analog() { Name = "Analog"; _type  = DeviceType.Analog; }
+        public AnalogInput() { Name = "Analog Input"; _type  = DeviceType.AnalogInput; }
 
         override public String ToInternal()
         {
@@ -45,7 +45,7 @@ namespace MobiFlight.Config
         }
         public override bool Equals(object obj)
         {
-            Analog other = obj as Analog;
+            AnalogInput other = obj as AnalogInput;
             if (other == null)
             {
                 return false;

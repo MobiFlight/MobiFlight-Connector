@@ -167,10 +167,11 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
-    <Compile Include="MobiFlight\Config\Analog.cs" />
+    <Compile Include="MobiFlight\Config\AnalogInput.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
+    <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
@@ -647,6 +648,9 @@
     <None Include="firmware\mobiflight_mega_1_10_0.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_mega_1_11_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_mega_1_9_10.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -659,6 +663,9 @@
     <None Include="firmware\mobiflight_micro_1_10_0.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_micro_1_11_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_micro_1_9_10.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -670,6 +677,9 @@
     </None>
     <None Include="firmware\mobiflight_uno_1_10_0.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_uno_1_11_0.hex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_uno_1_9_10.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

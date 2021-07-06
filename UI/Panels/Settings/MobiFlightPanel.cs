@@ -304,8 +304,8 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
-                        case DeviceType.Analog:
-                            panel = new MFAnalogPanel(dev as MobiFlight.Config.Analog, module.GetPins());
+                        case DeviceType.AnalogInput:
+                            panel = new MFAnalogPanel(dev as MobiFlight.Config.AnalogInput, module.GetPins());
                             (panel as MFAnalogPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
@@ -410,10 +410,13 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.LedModule).ClsPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
                         break;
                     case "analogDeviceToolStripMenuItem1":
-                    case "analogDeviceToolStripMenuItem":                    
-                        cfgItem = new MobiFlight.Config.Analog();
-                        // TODO: This line, like any other getModuleFromTree().GetFreePins() in this file could return null if all pins are used. Should this be checked?
-                        (cfgItem as MobiFlight.Config.Analog).Pin = getModuleFromTree().GetFreePins().FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
+                    case "analogDeviceToolStripMenuItem":
+                        if (statistics[MobiFlightAnalogInput.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxAnalogInputs)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightAnalogInput.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxAnalogInputs);
+                        }
+                        cfgItem = new MobiFlight.Config.AnalogInput();
+                        (cfgItem as MobiFlight.Config.AnalogInput).Pin = getVirtualModuleFromTree().GetFreePins().FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
                         break;                        
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
@@ -468,8 +471,6 @@ namespace MobiFlight.UI.Panels.Settings
                 parentNode.Nodes.Add(newNode);
                 parentNode.ImageKey = "Changed";
                 parentNode.SelectedImageKey = "Changed";
-
-                //(parentNode.Tag as MobiFlightModule).Config.AddItem(cfgItem);
 
                 mfModulesTreeView.SelectedNode = newNode;
                 syncPanelWithSelectedDevice(newNode);

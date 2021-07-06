@@ -21,13 +21,17 @@ namespace MobiFlight
         public const String TYPE_NOTSET = "";
         public const String TYPE_BUTTON = "Button";
         public const String TYPE_ENCODER = "Encoder";
+        public const String TYPE_ANALOG = "Analog";
+
 
         public string ModuleSerial { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public ButtonInputConfig button  { get; set; }
+        public ButtonInputConfig button { get; set; }
         public EncoderInputConfig encoder { get; set; }
-        public PreconditionList Preconditions             { get; set; }
+        public AnalogInputConfig analog { get; set; }
+
+        public PreconditionList Preconditions { get; set; }
         public List<ConfigRef> ConfigRefs { get; set; }
 
         public InputConfigItem()
@@ -47,7 +51,8 @@ namespace MobiFlight
         {
             ModuleSerial = reader["serial"];
             Name = reader["name"];
-            if (reader["type"] != null && reader["type"] != "") { 
+            if (reader["type"] != null && reader["type"] != "")
+            {
                 Type = reader["type"];
             }
 
@@ -60,9 +65,18 @@ namespace MobiFlight
                 reader.Read(); // advance to the next node
             }
 
-            if (reader.LocalName == "encoder") {
+            if (reader.LocalName == "encoder")
+            {
                 encoder = new EncoderInputConfig();
                 encoder.ReadXml(reader);
+                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
+                reader.Read(); // advance to the next node
+            }
+
+            if (reader.LocalName == "analog")
+            {
+                analog = new AnalogInputConfig();
+                analog.ReadXml(reader);
                 if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
                 reader.Read(); // advance to the next node
             }
@@ -75,7 +89,7 @@ namespace MobiFlight
                 if (encoder != null)
                     Type = TYPE_ENCODER;
             }
-            
+
             /*
             if (reader.LocalName != "preconditions")            
                 reader.Read(); // this should be the preconditions tag
@@ -140,6 +154,13 @@ namespace MobiFlight
                 writer.WriteEndElement();
             }
 
+            if (analog != null)
+            {
+                writer.WriteStartElement("analog");
+                analog.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+
             writer.WriteStartElement("preconditions");
             foreach (Precondition p in Preconditions)
             {
@@ -154,7 +175,7 @@ namespace MobiFlight
             }
             writer.WriteEndElement();
         }
-        
+
         public object Clone()
         {
             InputConfigItem clone = new InputConfigItem();
@@ -163,11 +184,14 @@ namespace MobiFlight
             clone.Type = Type;
 
             if (button != null)
-            clone.button = (ButtonInputConfig) this.button.Clone();
+                clone.button = (ButtonInputConfig)this.button.Clone();
 
             if (encoder != null)
-            clone.encoder = (EncoderInputConfig) this.encoder.Clone();
-            
+                clone.encoder = (EncoderInputConfig)this.encoder.Clone();
+
+            if (analog != null)
+                clone.analog = (AnalogInputConfig)this.analog.Clone();
+
             foreach (Precondition p in Preconditions)
             {
                 clone.Preconditions.Add(p.Clone() as Precondition);
@@ -182,22 +206,26 @@ namespace MobiFlight
         }
 
         internal void execute(
-            FSUIPC.Fsuipc2Cache fsuipcCache, 
-            SimConnectMSFS.SimConnectCache simConnectCache, 
+            FSUIPC.Fsuipc2Cache fsuipcCache,
+            SimConnectMSFS.SimConnectCache simConnectCache,
             MobiFlightCache moduleCache,
-            InputDeviceArgs e,
+            InputEventArgs e,
             List<ConfigRefValue> configRefs)
         {
             switch (Type)
             {
                 case TYPE_BUTTON:
-                    if (button!=null)
+                    if (button != null)
                         button.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
 
                 case TYPE_ENCODER:
-                    if (encoder!=null)
+                    if (encoder != null)
                         encoder.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                    break;
+                case TYPE_ANALOG:
+                    if (analog != null)
+                        analog.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
             }
         }
