@@ -92,6 +92,8 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SimConnectionIconStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.noSimRunningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.FsuipcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simConnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -109,8 +111,6 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.noSimRunningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -562,6 +562,16 @@
             resources.ApplyResources(this.toolStripDropDownButton1, "toolStripDropDownButton1");
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             // 
+            // noSimRunningToolStripMenuItem
+            // 
+            this.noSimRunningToolStripMenuItem.Name = "noSimRunningToolStripMenuItem";
+            resources.ApplyResources(this.noSimRunningToolStripMenuItem, "noSimRunningToolStripMenuItem");
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
+            // 
             // FsuipcToolStripMenuItem
             // 
             this.FsuipcToolStripMenuItem.Name = "FsuipcToolStripMenuItem";
@@ -587,7 +597,7 @@
             // OfflineModeIconToolStripStatusLabel
             // 
             this.OfflineModeIconToolStripStatusLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.OfflineModeIconToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.warning;
+            this.OfflineModeIconToolStripStatusLabel.Image = global::MobiFlight.Properties.Resources.lightbulb;
             this.OfflineModeIconToolStripStatusLabel.Name = "OfflineModeIconToolStripStatusLabel";
             resources.ApplyResources(this.OfflineModeIconToolStripStatusLabel, "OfflineModeIconToolStripStatusLabel");
             // 
@@ -665,16 +675,6 @@
             this.startupPanel.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
-            // 
-            // noSimRunningToolStripMenuItem
-            // 
-            this.noSimRunningToolStripMenuItem.Name = "noSimRunningToolStripMenuItem";
-            resources.ApplyResources(this.noSimRunningToolStripMenuItem, "noSimRunningToolStripMenuItem");
             // 
             // MainForm
             // 
