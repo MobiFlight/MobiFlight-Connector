@@ -303,7 +303,12 @@ namespace MobiFlight.UI.Panels.Settings
                             panel = new MFServoPanel(dev as MobiFlight.Config.Servo, module.GetPins());
                             (panel as MFServoPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
-                            
+
+                        case DeviceType.AnalogInput:
+                            panel = new MFAnalogPanel(dev as MobiFlight.Config.AnalogInput, module.GetPins());
+                            (panel as MFAnalogPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+
                         case DeviceType.Button:
                             panel = new MFButtonPanel(dev as MobiFlight.Config.Button, module.GetPins());
                             (panel as MFButtonPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
@@ -404,6 +409,15 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.LedModule).ClkPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
                         (cfgItem as MobiFlight.Config.LedModule).ClsPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
                         break;
+                    case "analogDeviceToolStripMenuItem1":
+                    case "analogDeviceToolStripMenuItem":
+                        if (statistics[MobiFlightAnalogInput.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxAnalogInputs)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightAnalogInput.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxAnalogInputs);
+                        }
+                        cfgItem = new MobiFlight.Config.AnalogInput();
+                        (cfgItem as MobiFlight.Config.AnalogInput).Pin = getVirtualModuleFromTree().GetFreePins().FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
+                        break;                        
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
                         if (statistics[MobiFlightButton.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxButtons)
@@ -457,8 +471,6 @@ namespace MobiFlight.UI.Panels.Settings
                 parentNode.Nodes.Add(newNode);
                 parentNode.ImageKey = "Changed";
                 parentNode.SelectedImageKey = "Changed";
-
-                //(parentNode.Tag as MobiFlightModule).Config.AddItem(cfgItem);
 
                 mfModulesTreeView.SelectedNode = newNode;
                 syncPanelWithSelectedDevice(newNode);

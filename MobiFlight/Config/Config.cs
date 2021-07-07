@@ -18,6 +18,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(Servo))]
         [XmlElement(typeof(Stepper))]
         [XmlElement(typeof(LcdDisplay))]
+        [XmlElement(typeof(AnalogInput))]        
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }
@@ -119,6 +120,11 @@ namespace MobiFlight.Config
 
                         case DeviceType.Encoder:
                             currentItem = new MobiFlight.Config.Encoder();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
+                        case DeviceType.AnalogInput:
+                            currentItem = new MobiFlight.Config.AnalogInput();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 

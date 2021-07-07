@@ -14,6 +14,7 @@ namespace MobiFlight
         public int MaxSteppers = 0;
         public int MaxServos = 0;
         public int MaxLcdI2C = 0;
+        public int MaxAnalogInputs = 0;
     }
 
     public class MegaCapabilities : MobiFlightCapabilities
@@ -27,6 +28,7 @@ namespace MobiFlight
             MaxSteppers = 10;
             MaxServos = 10;
             MaxLcdI2C = 2;
+            MaxAnalogInputs = 5;
         }
     }
 
@@ -41,6 +43,7 @@ namespace MobiFlight
             MaxSteppers = 2;
             MaxServos = 2;
             MaxLcdI2C = 2;
+            MaxAnalogInputs = 2;
         }
     }
 
@@ -55,6 +58,7 @@ namespace MobiFlight
             MaxSteppers = 2;
             MaxServos = 2;
             MaxLcdI2C = 2;
+            MaxAnalogInputs = 2;
         }
     }
 
@@ -97,9 +101,9 @@ namespace MobiFlight
     {
         public const String TYPE_UNKNOWN = "unknown";
 
-        public const String LatestFirmwareMega = "1.10.0";
-        public const String LatestFirmwareMicro = "1.10.0";
-        public const String LatestFirmwareUno = "1.10.0";
+        public const String LatestFirmwareMega = "1.11.0";
+        public const String LatestFirmwareMicro = "1.11.0";
+        public const String LatestFirmwareUno = "1.11.0";
 
         // these types are used for standard stock arduino boards
         public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
