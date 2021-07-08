@@ -151,6 +151,12 @@
   <data name="LcdDisplayToolStripMenuItem.Text" xml:space="preserve">
     <value>LCD Display</value>
   </data>
+  <data name="ShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 26</value>
+  </data>
+  <data name="ShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Shift Register</value>
+  </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
     <value>192, 6</value>
   </data>
@@ -441,6 +447,12 @@
   <data name="addLcdDisplayToolStripMenuItem.Text" xml:space="preserve">
     <value>LCD Display</value>
   </data>
+  <data name="addShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 26</value>
+  </data>
+  <data name="addShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Shift Register</value>
+  </data>
   <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
@@ -681,6 +693,12 @@
   <data name="&gt;&gt;LcdDisplayToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;ShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
+    <value>ShiftRegisterToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;ShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
     <value>toolStripMenuItem4</value>
   </data>
@@ -859,6 +877,12 @@
     <value>addLcdDisplayToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;addLcdDisplayToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
+    <value>addShiftRegisterToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">

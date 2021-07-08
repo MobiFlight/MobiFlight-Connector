@@ -38,7 +38,8 @@ namespace MobiFlight
         LcdDisplay,          // 7
         Encoder,             // 8
         Stepper,             // 9
-        AnalogInput          // 10
+        ShiftRegister,       // 10
+        AnalogInput          // 11
     }
 
     public class FirmwareFeature
@@ -155,6 +156,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightButton> buttons = new Dictionary<string, MobiFlightButton>();
         Dictionary<String, MobiFlightEncoder> encoders = new Dictionary<string, MobiFlightEncoder>();
         Dictionary<String, MobiFlightAnalogInput> analogInputs = new Dictionary<string, MobiFlightAnalogInput>();
+        Dictionary<String, MobiFlightShiftRegister> shiftRegisters = new Dictionary<string, MobiFlightShiftRegister>();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -210,6 +212,7 @@ namespace MobiFlight
             SetLcdDisplayI2C,   // 25
             SetModuleBrightness, // 26,
             AnalogChange    // 27
+            SetShiftRegisterPins // 28           
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)
@@ -293,6 +296,7 @@ namespace MobiFlight
             buttons.Clear();
             encoders.Clear();
             analogInputs.Clear();
+            shiftRegisters.Clear();
 
             foreach (Config.BaseDevice device in Config.Items)
             {
@@ -338,6 +342,12 @@ namespace MobiFlight
                     case DeviceType.AnalogInput:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         analogInputs.Add(device.Name, new MobiFlightAnalogInput() { Name = device.Name });
+                        break;
+
+                    case DeviceType.ShiftRegister:
+                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        int.TryParse((device as Config.ShiftRegister).NumModules, out submodules);
+                        shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count});
                         break;
                 }                
             }
@@ -654,6 +664,20 @@ namespace MobiFlight
             return stepperModules[stepper];
         }
 
+        internal bool setShiftRegisterOutput(string moduleID, string outputPin, string value)
+        {
+            String key = "ShiftReg_" + moduleID + outputPin;
+            String cachedValue = value;
+
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+                lastValue[key] == cachedValue) return false;
+
+            lastValue[key] = cachedValue;
+
+            shiftRegisters[moduleID].Display(outputPin, value);
+            return true;
+        }       
+
         public bool Retrigger ()
         {
             bool isOk = true;
@@ -800,6 +824,11 @@ namespace MobiFlight
                 result.Add(lcdDisplay);
             }
 
+            foreach (MobiFlightShiftRegister shiftRegister in shiftRegisters.Values)
+            {
+                result.Add(shiftRegister);
+            }
+
             return result;
         }
 
@@ -852,6 +881,12 @@ namespace MobiFlight
                     result.Add(lcdDisplay);
             }
 
+            foreach (MobiFlightShiftRegister shiftRegister in shiftRegisters.Values)
+            {
+                if (shiftRegister.Name == name)
+                    result.Add(shiftRegister);
+            }
+
             return result;
         }
 
@@ -878,6 +913,7 @@ namespace MobiFlight
             if (stepperModules.Count > 0) result.Add(DeviceType.Stepper);
             if (servoModules.Count > 0) result.Add(DeviceType.Servo);
             if (lcdDisplays.Count > 0) result.Add(DeviceType.LcdDisplay);
+            if (shiftRegisters.Count > 0) result.Add(DeviceType.ShiftRegister);
 
             return result;
         }
@@ -1072,6 +1108,13 @@ namespace MobiFlight
             
                     case DeviceType.AnalogInput:
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.AnalogInput).Pin));
+                        break;
+
+
+                    case DeviceType.ShiftRegister:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).ClockPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).LatchPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).DataPin));
                         break;
 
                     default:

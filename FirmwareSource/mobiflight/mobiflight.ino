@@ -49,6 +49,7 @@ const char version[8] = "1.11.0";
 #define MF_STEPPER_SUPPORT  1
 #define MF_SERVO_SUPPORT    1
 #define MF_ANALOG_SUPPORT   1
+#define MF_SHIFTER_SUPPORT  1
 
 // ALL 24780
 // No Segments 23040 (1740)
@@ -92,6 +93,7 @@ const char version[8] = "1.11.0";
 #define MAX_MFSERVOS      2
 #define MAX_MFLCD_I2C     2
 #define MAX_ANALOG_INPUTS 2
+#define MAX_SHIFTERS      4
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -103,6 +105,7 @@ const char version[8] = "1.11.0";
 #define MAX_MFSERVOS      2
 #define MAX_MFLCD_I2C     2
 #define MAX_ANALOG_INPUTS 2
+#define MAX_SHIFTERS      4
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
@@ -114,6 +117,7 @@ const char version[8] = "1.11.0";
 #define MAX_MFSERVOS      10
 #define MAX_MFLCD_I2C     2
 #define MAX_ANALOG_INPUTS 5
+#define MAX_SHIFTERS    10
 #endif
 
 #include <EEPROMex.h>
@@ -152,6 +156,9 @@ const char version[8] = "1.11.0";
 #include <MFAnalog.h>
 #endif
 
+#if MF_SHIFTER_SUPPORT == 1
+#include <MFShifter.h>
+#endif
 
 const uint8_t MEM_OFFSET_NAME   = 0;
 const uint8_t MEM_LEN_NAME      = 48;
@@ -229,6 +236,11 @@ MFAnalog analog[MAX_ANALOG_INPUTS];
 uint8_t analogRegistered = 0;
 #endif
 
+#if MF_SHIFTER_SUPPORT == 1
+MFShifter shiftregisters[MAX_SHIFTERS];
+uint8_t shiftregisterRegistered = 0;
+#endif 
+
 enum
 {
   kTypeNotSet,              // 0 
@@ -241,6 +253,7 @@ enum
   kTypeLcdDisplayI2C,       // 7
   kTypeEncoder,             // 8
   kTypeStepper,             // 9 (new stepper type with auto zero support if btnPin is > 0)
+  kShiftRegister,           // 10 Shift register support (example: 74HC595, TLC592X)
   kTypeAnalogInput          // 11 Analog Device with 1 pin
 };  
 
@@ -251,34 +264,35 @@ enum
 // in CmdMessenger.h is set apropriately
 enum
 {
-  kInitModule,         // 0
-  kSetModule,          // 1
-  kSetPin,             // 2
-  kSetStepper,         // 3
-  kSetServo,           // 4
-  kStatus,             // 5, Command to report status
-  kEncoderChange,      // 6  
-  kButtonChange,       // 7
-  kStepperChange,      // 8
-  kGetInfo,            // 9
-  kInfo,               // 10
-  kSetConfig,          // 11
-  kGetConfig,          // 12
-  kResetConfig,        // 13
-  kSaveConfig,         // 14
-  kConfigSaved,        // 15
-  kActivateConfig,     // 16
-  kConfigActivated,    // 17
-  kSetPowerSavingMode, // 18  
-  kSetName,            // 19
-  kGenNewSerial,       // 20
-  kResetStepper,       // 21
-  kSetZeroStepper,     // 22
-  kTrigger,            // 23
-  kResetBoard,         // 24
-  kSetLcdDisplayI2C,   // 25
-  kSetModuleBrightness,// 26
-  kAnalogChange        // 28
+  kInitModule,              // 0
+  kSetModule,               // 1
+  kSetPin,                  // 2
+  kSetStepper,              // 3
+  kSetServo,                // 4
+  kStatus,                  // 5, Command to report status
+  kEncoderChange,           // 6  
+  kButtonChange,            // 7
+  kStepperChange,           // 8
+  kGetInfo,                 // 9
+  kInfo,                    // 10
+  kSetConfig,               // 11
+  kGetConfig,               // 12
+  kResetConfig,             // 13
+  kSaveConfig,              // 14
+  kConfigSaved,             // 15
+  kActivateConfig,          // 16
+  kConfigActivated,         // 17
+  kSetPowerSavingMode,      // 18  
+  kSetName,                 // 19
+  kGenNewSerial,            // 20
+  kResetStepper,            // 21
+  kSetZeroStepper,          // 22
+  kTrigger,                 // 23
+  kResetBoard,              // 24
+  kSetLcdDisplayI2C,        // 25
+  kSetModuleBrightness,     // 26
+  kSetShiftRegisterPins,    // 27
+  kAnalogChange             // 28
 };
 
 // Callbacks define on which received commands we take action
@@ -323,6 +337,11 @@ void attachCommandCallbacks()
 #if MF_LCD_SUPPORT == 1
   cmdMessenger.attach(kSetLcdDisplayI2C, OnSetLcdDisplayI2C);  
 #endif 
+
+#if MF_SHIFTER_SUPPORT
+  cmdMessenger.attach(kSetShiftRegisterPins, OnSetShiftRegisterPins);
+#endif
+
 
 #ifdef DEBUG  
   cmdMessenger.sendCmd(kStatus,F("Attached callbacks"));
@@ -716,7 +735,34 @@ void ClearLcdDisplays()
 #endif 
 }
 #endif
+
+#if MF_SHIFTER_SUPPORT == 1
+//// SHIFT REGISTER /////
+void AddShifter (uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const * name = "Shifter")
+{  
+  if (shiftregisterRegistered == MAX_SHIFTERS) return;
+  shiftregisters[shiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules);
+  shiftregisters[shiftregisterRegistered].clear();
+  shiftregisterRegistered++;
   
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,F("Added Shifter"));
+#endif
+}
+
+void ClearShifters()
+{
+  for (int i=0; i!=shiftregisterRegistered; i++) 
+  {
+    shiftregisters[shiftregisterRegistered].detach();
+  }  
+  
+  shiftregisterRegistered = 0;
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,F("Cleared Shifter"));
+#endif 
+}
+#endif  
 
 //// EVENT HANDLER /////
 void handlerOnRelease(uint8_t eventId, uint8_t pin, const char * name)
@@ -927,6 +973,17 @@ void readConfig(String cfg) {
         AddLcdDisplay(atoi(params[0]), atoi(params[1]), atoi(params[2]), params[3]);
 #endif
       break;
+
+      case kShiftRegister:
+        params[0] = strtok_r(NULL, ".", &p); // pin latch
+		params[1] = strtok_r(NULL, ".", &p); // pin clock
+		params[2] = strtok_r(NULL, ".", &p); // pin data
+        params[3] = strtok_r(NULL, ".", &p); // number of daisy chained modules 
+        params[4] = strtok_r(NULL, ":", &p); // name
+#if MF_SHIFTER_SUPPORT == 1
+       AddShifter(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), params[4]);
+#endif
+       break;
         
       default:
         // read to the end of the current command which is
@@ -1002,6 +1059,28 @@ void OnSetModuleBrightness()
   ledSegments[module].setBrightness(subModule, brightness);      
   lastCommand = millis();
 }
+
+#endif
+
+#if MF_SHIFTER_SUPPORT == 1
+
+void OnInitShiftRegister()
+{
+  int module = cmdMessenger.readIntArg();  
+  shiftregisters[module].clear();  
+  lastCommand = millis();
+}
+
+void OnSetShiftRegisterPins()
+{
+
+  int module = cmdMessenger.readIntArg();
+  char *pins = cmdMessenger.readStringArg();
+  int value = cmdMessenger.readIntArg();  
+  shiftregisters[module].setPins(pins, value);  
+  lastCommand = millis();
+}
+
 #endif
 
 #if MF_STEPPER_SUPPORT == 1

@@ -38,6 +38,7 @@ namespace MobiFlight.UI.Dialogs
         Panels.LCDDisplayPanel              displayLcdDisplayPanel      = new Panels.LCDDisplayPanel();
         Panels.ServoPanel                   servoPanel                  = new Panels.ServoPanel();
         Panels.StepperPanel                 stepperPanel                = new Panels.StepperPanel();
+        Panels.DisplayShiftRegisterPanel    displayShiftRegisterPanel   = new Panels.DisplayShiftRegisterPanel();
 
         public ConfigWizard( ExecutionManager mainForm, 
                              OutputConfigItem cfg,
@@ -141,6 +142,8 @@ namespace MobiFlight.UI.Dialogs
             servoPanel.Dock = DockStyle.Top;
             groupBoxDisplaySettings.Controls.Add(stepperPanel);
             stepperPanel.Dock = DockStyle.Top;
+            groupBoxDisplaySettings.Controls.Add(displayShiftRegisterPanel);
+            displayShiftRegisterPanel.Dock = DockStyle.Top;
             stepperPanel.OnManualCalibrationTriggered += new EventHandler<Panels.ManualCalibrationTriggeredEventArgs>(stepperPanel_OnManualCalibrationTriggered);
             stepperPanel.OnSetZeroTriggered += new EventHandler(stepperPanel_OnSetZeroTriggered);
             stepperPanel.OnStepperSelected +=  StepperPanel_OnStepperSelected;
@@ -160,6 +163,7 @@ namespace MobiFlight.UI.Dialogs
             displayPanels.Add(servoPanel);
             displayPanels.Add(stepperPanel);
             displayPanels.Add(displayLcdDisplayPanel);
+            displayPanels.Add(displayShiftRegisterPanel);
 
             foreach (UserControl p in displayPanels)
             {
@@ -261,6 +265,7 @@ namespace MobiFlight.UI.Dialogs
 
             configRefPanel.SetConfigRefsDataView(dv, filterGuid);
             displayLedDisplayPanel.SetConfigRefsDataView(dv, filterGuid);
+            //displayShiftRegisterPanel.SetConfigRefsDataView(dv, filterGuid);
         }
 
 #if ARCAZE
@@ -372,7 +377,9 @@ namespace MobiFlight.UI.Dialogs
             stepperPanel.syncFromConfig(config);
 
             displayLcdDisplayPanel.syncFromConfig(config);
-            
+
+            displayShiftRegisterPanel.SyncFromConfig(config);
+
             preconditionListTreeView.Nodes.Clear();
 
             foreach (Precondition p in config.Preconditions)
@@ -486,6 +493,8 @@ namespace MobiFlight.UI.Dialogs
 
             displayLcdDisplayPanel.syncToConfig(config);
 
+            displayShiftRegisterPanel.SyncToConfig(config);
+
             return true;
         }
 
@@ -558,6 +567,7 @@ namespace MobiFlight.UI.Dialogs
                     displayTypeComboBox.Items.Clear();
                     displayTypeComboBox.Items.Add("Pin");
                     displayTypeComboBox.Items.Add(ArcazeLedDigit.TYPE);
+                    displayTypeComboBox.Items.Add(MobiFlightShiftRegister.TYPE);
                     //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
                 }
                 else
@@ -590,6 +600,10 @@ namespace MobiFlight.UI.Dialogs
 
                             case DeviceType.LcdDisplay:
                                 displayTypeComboBox.Items.Add(DeviceType.LcdDisplay.ToString("F"));
+                                break;
+
+                            case DeviceType.ShiftRegister:
+                                displayTypeComboBox.Items.Add(MobiFlightShiftRegister.TYPE);
                                 break;
                         }
                     }
@@ -730,6 +744,8 @@ namespace MobiFlight.UI.Dialogs
                     List<ListItem> servos = new List<ListItem>();
                     List<ListItem> stepper = new List<ListItem>();
                     List<ListItem> lcdDisplays = new List<ListItem>();
+                    List<ListItem> shiftRegisters = new List<ListItem>();
+
 
                     foreach (IConnectedDevice device in module.GetConnectedDevices())
                     {
@@ -757,6 +773,11 @@ namespace MobiFlight.UI.Dialogs
                                 int Lines= (device as MobiFlightLcdDisplay).Lines;
                                 lcdDisplays.Add(new ListItem() { Value = device.Name+","+ Cols+","+Lines, Label = device.Name });
                                 break;
+                            
+                            case DeviceType.ShiftRegister:
+                                shiftRegisters.Add(new ListItem() { Value = device.Name, Label = device.Name });                                
+                                
+                                break;
                         }                        
                     }
                     displayPinPanel.WideStyle = true;
@@ -770,6 +791,10 @@ namespace MobiFlight.UI.Dialogs
                     servoPanel.SetAdresses(servos);
 
                     stepperPanel.SetAdresses(stepper);
+
+                    displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged -= shiftRegistersComboBox_selectedIndexChanged;
+                    displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged += new EventHandler(shiftRegistersComboBox_selectedIndexChanged);
+                    displayShiftRegisterPanel.SetAddresses(shiftRegisters);
 
                     displayLcdDisplayPanel.SetAddresses(lcdDisplays);
                 }
@@ -808,6 +833,12 @@ namespace MobiFlight.UI.Dialogs
                     displayLcdDisplayPanel.AutoSize = true;
                     displayLcdDisplayPanel.Height = displayPanelHeight;
                 }
+
+                if ((sender as ComboBox).Text == DeviceType.ShiftRegister.ToString("F"))
+                {
+                    displayShiftRegisterPanel.Enabled = panelEnabled;
+                    displayShiftRegisterPanel.Height = displayPanelHeight;
+                }
             }
             catch (Exception exc)
             {
@@ -836,6 +867,23 @@ namespace MobiFlight.UI.Dialogs
                 }
             }
             displayLedDisplayPanel.SetConnectors(connectors);
+        }
+
+        private void shiftRegistersComboBox_selectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = displayModuleNameComboBox;
+            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
+            MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
+            bool pwmSupport = false;
+
+            int numModules = 0;
+            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            {
+                if (device.Type != DeviceType.ShiftRegister) continue;
+                if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
+                numModules = (device as MobiFlightShiftRegister).NumberOfShifters;
+            }
+            displayShiftRegisterPanel.SetNumModules(numModules);
         }
 
         private void fsuipcOffsetTextBox_Validating(object sender, CancelEventArgs e)

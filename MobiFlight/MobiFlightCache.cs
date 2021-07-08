@@ -409,7 +409,21 @@ namespace MobiFlight
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = GetModuleBySerial(serial);
-                module.SetPin("base", name, Int16.Parse(value));
+
+                if (name != null && name.Contains("|")) {
+                    var pins = name.Split('|');
+                    foreach(string pin in pins) {
+                        if (!string.IsNullOrEmpty(pin.Trim()))
+                        {
+                             module.SetPin("base", pin, Int16.Parse(value));
+                        }
+                    };
+                } else
+                {
+                    module.SetPin("base", name, Int16.Parse(value));
+                }
+
+                
             }
             catch (ConfigErrorException e)
             {
@@ -613,7 +627,31 @@ namespace MobiFlight
             }
         }
 
+        public void setShiftRegisterOutput(string serial, string shiftRegName, string outputPin, string value)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
 
+            if (outputPin == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_AddressNull");
+            }
+
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                MobiFlightModule module = Modules[serial];
+                module.setShiftRegisterOutput(shiftRegName, outputPin, value);
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WriteShiftRegisterOutput"), e);
+            }
+        }
+      
         public void Flush()
         {
             // not implemented, don't throw exception either
@@ -683,6 +721,6 @@ namespace MobiFlight
             if (Modules.ContainsKey(moduleInfo.Serial)) return Modules[moduleInfo.Serial];           
 
             throw new IndexOutOfRangeException();
-        }
+        }        
     }
 }
