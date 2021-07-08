@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.checkedListBox = new System.Windows.Forms.CheckedListBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // checkedListBox
@@ -54,23 +53,11 @@
             "Test 14",
             "Test 15",
             "Test 16"});
-            this.checkedListBox.Location = new System.Drawing.Point(95, 0);
+            this.checkedListBox.Location = new System.Drawing.Point(0, 0);
             this.checkedListBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(211, 183);
+            this.checkedListBox.Size = new System.Drawing.Size(385, 269);
             this.checkedListBox.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(0, 3, 5, 3);
-            this.label1.Size = new System.Drawing.Size(95, 183);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Select one or multiple pins from the list:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // PinSelectPanel
             // 
@@ -78,16 +65,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.checkedListBox);
-            this.Controls.Add(this.label1);
             this.MinimumSize = new System.Drawing.Size(225, 162);
             this.Name = "PinSelectPanel";
-            this.Size = new System.Drawing.Size(306, 183);
+            this.Size = new System.Drawing.Size(385, 269);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckedListBox checkedListBox;
     }
 }

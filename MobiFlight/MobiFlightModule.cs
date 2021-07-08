@@ -210,9 +210,9 @@ namespace MobiFlight
             Retrigger,          // 23
             ResetBoard,         // 24
             SetLcdDisplayI2C,   // 25
-            SetModuleBrightness, // 26,
-            AnalogChange    // 27
-            SetShiftRegisterPins // 28           
+            SetModuleBrightness,// 26,
+            AnalogChange,       // 27
+            SetShiftRegisterPins// 28           
         };
         
         public MobiFlightModule(MobiFlightModuleConfig config)

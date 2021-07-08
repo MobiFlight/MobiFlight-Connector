@@ -41,14 +41,17 @@
             this.pwmPinPanel = new System.Windows.Forms.Panel();
             this.displayPwmCheckBox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.SinglePinPanel = new System.Windows.Forms.Panel();
+            this.displayPinComboBox = new System.Windows.Forms.ComboBox();
+            this.MultiPinPanel = new System.Windows.Forms.Panel();
             this.pinSelectPanel = new MobiFlight.UI.Panels.PinSelectPanel();
             this.displayPinBrightnessPanel.SuspendLayout();
             this.displayPinBrightnessLabelPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.displayPinBrightnessTrackBar)).BeginInit();
             this.panel2.SuspendLayout();
             this.pwmPinPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.SinglePinPanel.SuspendLayout();
+            this.MultiPinPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayPortComboBox
@@ -104,7 +107,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.displayPortComboBox);
             this.panel2.Controls.Add(this.displayPinBrightnessLabel);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
@@ -132,11 +134,29 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // panel1
+            // SinglePinPanel
             // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.pinSelectPanel);
-            this.panel1.Name = "panel1";
+            this.SinglePinPanel.Controls.Add(this.displayPinComboBox);
+            this.SinglePinPanel.Controls.Add(this.displayPortComboBox);
+            resources.ApplyResources(this.SinglePinPanel, "SinglePinPanel");
+            this.SinglePinPanel.Name = "SinglePinPanel";
+            // 
+            // displayPinComboBox
+            // 
+            this.displayPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayPinComboBox.FormattingEnabled = true;
+            this.displayPinComboBox.Items.AddRange(new object[] {
+            resources.GetString("displayPinComboBox.Items"),
+            resources.GetString("displayPinComboBox.Items1"),
+            resources.GetString("displayPinComboBox.Items2")});
+            resources.ApplyResources(this.displayPinComboBox, "displayPinComboBox");
+            this.displayPinComboBox.Name = "displayPinComboBox";
+            // 
+            // MultiPinPanel
+            // 
+            this.MultiPinPanel.Controls.Add(this.pinSelectPanel);
+            resources.ApplyResources(this.MultiPinPanel, "MultiPinPanel");
+            this.MultiPinPanel.Name = "MultiPinPanel";
             // 
             // pinSelectPanel
             // 
@@ -149,7 +169,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.displayPinBrightnessPanel);
             this.Controls.Add(this.pwmPinPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.SinglePinPanel);
+            this.Controls.Add(this.MultiPinPanel);
             this.Name = "DisplayPinPanel";
             this.displayPinBrightnessPanel.ResumeLayout(false);
             this.displayPinBrightnessLabelPanel.ResumeLayout(false);
@@ -157,10 +178,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.displayPinBrightnessTrackBar)).EndInit();
             this.panel2.ResumeLayout(false);
             this.pwmPinPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.SinglePinPanel.ResumeLayout(false);
+            this.MultiPinPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -177,7 +197,9 @@
         private System.Windows.Forms.Label displayPinBrightnessMediumLabel;
         private System.Windows.Forms.Label displayPinBrightnessBrightLabel;
         public System.Windows.Forms.TrackBar displayPinBrightnessTrackBar;
+        private System.Windows.Forms.Panel SinglePinPanel;
+        public System.Windows.Forms.ComboBox displayPinComboBox;
+        private System.Windows.Forms.Panel MultiPinPanel;
         private PinSelectPanel pinSelectPanel;
-        private System.Windows.Forms.Panel panel1;
     }
 }

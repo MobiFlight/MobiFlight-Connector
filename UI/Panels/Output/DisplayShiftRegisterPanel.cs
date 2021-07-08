@@ -32,8 +32,8 @@ namespace MobiFlight.UI.Panels
             }
 
             UpdatePinList();
-            pinSelectPanel?.SetSelectgedPinsFromString(config.RegisterOutputPin, config.DisplaySerial);
-
+            if (config.RegisterOutputPin != null)
+                pinSelectPanel?.SetSelectedPinsFromString(config.RegisterOutputPin, config.DisplaySerial);
         }
 
         private void UpdatePinList()

@@ -459,9 +459,9 @@ namespace MobiFlight.UI.Panels.Settings
                     case "ShiftRegisterToolStripMenuItem":
                     case "addShiftRegisterToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.ShiftRegister();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).DataPin = getModuleFromTree().GetFreePins().ElementAt(0).ToString();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).ClockPin = getModuleFromTree().GetFreePins().ElementAt(1).ToString();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).LatchPin = getModuleFromTree().GetFreePins().ElementAt(2).ToString();                        
+                        (cfgItem as MobiFlight.Config.ShiftRegister).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.ShiftRegister).ClockPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).ToString();
+                        (cfgItem as MobiFlight.Config.ShiftRegister).LatchPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).ToString();                        
                         break;
 
                     default:

@@ -11,7 +11,7 @@ namespace MobiFlight.UI.Panels
 {
     public partial class PinSelectPanel : UserControl
     {
-        const char POSITION_SEPERATOR = '|';
+        public const char POSITION_SEPERATOR = '|';
         public bool WideStyle = false;
 
         public PinSelectPanel()
@@ -44,14 +44,8 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        internal string SetSelectgedPinsFromString(string pins, string serial)
+        internal void SetSelectedPinsFromString(string pins, string serial)
         {
-            if (string.IsNullOrEmpty(pins))
-            {
-                return string.Empty;
-            }
-            string port = string.Empty;
-
             if (serial != null && serial.Contains('/'))
             {
                 serial = serial.Split('/')[1].Trim();
@@ -61,17 +55,8 @@ namespace MobiFlight.UI.Panels
             foreach (string pin in splitPins)
             {
                 var pinValue = pin;
-                if (serial != null && serial.IndexOf("SN") != 0)
-                {
-                    pinValue = pin.Substring(1);
-
-                    // TODO: Only last port is used. I don't know how ports work here. 
-                    // Letr it to Sebastian to fix.
-                    port = pin.Substring(0, 1);
-                }
                 SetSelectedPin(pinValue, true);
             }
-            return port;
         }
 
         internal string GetSelectedPinString()
