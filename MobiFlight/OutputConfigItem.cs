@@ -424,14 +424,14 @@ namespace MobiFlight
                 {
                     writer.WriteAttributeString("bcdPins", String.Join(",",BcdPins));
                 }
-                else if (DisplayType == MobiFlight.DeviceType.Servo.ToString("F"))
+                else if (DisplayType == DeviceType.Servo.ToString("F"))
                 {
                     writer.WriteAttributeString("servoAddress", ServoAddress);
                     writer.WriteAttributeString("servoMin", ServoMin);
                     writer.WriteAttributeString("servoMax", ServoMax);
                     writer.WriteAttributeString("servoMaxRotationPercent", ServoMaxRotationPercent);
                 }
-                else if (DisplayType == MobiFlight.DeviceType.Stepper.ToString("F"))
+                else if (DisplayType == DeviceType.Stepper.ToString("F"))
                 {
                     writer.WriteAttributeString("stepperAddress", StepperAddress);
                     writer.WriteAttributeString("stepperInputRev", StepperInputRev);

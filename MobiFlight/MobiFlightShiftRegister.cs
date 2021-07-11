@@ -9,6 +9,7 @@ namespace MobiFlight
     public class MobiFlightShiftRegister : IConnectedDevice
     {
         public const string TYPE = "ShiftRegister";
+        public const string LABEL_PREFIX = "Output";
 
         public CmdMessenger CmdMessenger { get; set; }
 
@@ -17,6 +18,7 @@ namespace MobiFlight
         public int ModuleNumber { get; set; }
 
         private String _name = "ShiftRegister";
+
         public String Name
         {
             get { return _name; }
@@ -30,6 +32,7 @@ namespace MobiFlight
         }
 
         private DeviceType _type = DeviceType.ShiftRegister;
+
         public DeviceType Type
         {
             get { return _type; }
@@ -48,11 +51,14 @@ namespace MobiFlight
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetShiftRegisterPins);
 
+            // Let's strip the static label
+            String pinsOnly = outputPins.Replace(LABEL_PREFIX + " ", "");
+
             // clamp and reverse the string
             if (value.Length > 8) value = value.Substring(0, 8);
 
             command.AddArgument(this.ModuleNumber);
-            command.AddArgument(outputPins);
+            command.AddArgument(pinsOnly);
             command.AddArgument(value);
 
             Log.Instance.log("Command: SetShiftRegisterPin <" + (int)MobiFlightModule.Command.SetShiftRegisterPins + "," +

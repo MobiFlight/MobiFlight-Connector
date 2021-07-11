@@ -24,6 +24,12 @@ namespace MobiFlight
         public int Value { get; set; }
     }
 
+    public class FirmwareFeature
+    {
+        public const string GenerateSerial = "1.3.0";
+        public const string SetName        = "1.6.0";
+    }
+
     // This is the list of recognized commands. These can be commands that can either be sent or received. 
     // In order to receive, attach a callback function to these events
     public enum DeviceType
@@ -42,14 +48,41 @@ namespace MobiFlight
         AnalogInput          // 11
     }
 
-    public class FirmwareFeature
-    {
-        public const string GenerateSerial = "1.3.0";
-        public const string SetName        = "1.6.0";
-    }
-
     public class MobiFlightModule : IModule, IOutputModule
     {
+        public enum Command
+        {
+            InitModule,             // 0
+            SetModule,              // 1
+            SetPin,                 // 2
+            SetStepper,             // 3
+            SetServo,               // 4
+            Status,                 // 5
+            EncoderChange,          // 6
+            ButtonChange,           // 7
+            StepperChange,          // 8
+            GetInfo,                // 9
+            Info,                   // 10
+            SetConfig,              // 11
+            GetConfig,              // 12
+            ResetConfig,            // 13
+            SaveConfig,             // 14
+            ConfigSaved,            // 15
+            ActivateConfig,         // 16
+            ConfigActivated,        // 17
+            SetPowerSavingMode,     // 18
+            SetName,                // 19
+            GenNewSerial,           // 20
+            ResetStepper,           // 21
+            SetZeroStepper,         // 22
+            Retrigger,              // 23
+            ResetBoard,             // 24
+            SetLcdDisplayI2C,       // 25
+            SetModuleBrightness,    // 26,
+            SetShiftRegisterPins,   // 27
+            AnalogChange            // 28           
+        };
+
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
         /// <summary>
         /// Gets raised whenever a button is pressed
@@ -182,38 +215,7 @@ namespace MobiFlight
 
         
 
-        public enum Command
-        {            
-            InitModule,         // 0
-            SetModule,          // 1
-            SetPin,             // 2
-            SetStepper,         // 3
-            SetServo,           // 4
-            Status,             // 5
-            EncoderChange,      // 6
-            ButtonChange,       // 7
-            StepperChange,      // 8
-            GetInfo,            // 9
-            Info,               // 10
-            SetConfig,          // 11
-            GetConfig,          // 12
-            ResetConfig,        // 13
-            SaveConfig,         // 14
-            ConfigSaved,        // 15
-            ActivateConfig,     // 16
-            ConfigActivated,    // 17
-            SetPowerSavingMode, // 18
-            SetName,            // 19
-			GenNewSerial,       // 20
-            ResetStepper,       // 21
-            SetZeroStepper,     // 22
-            Retrigger,          // 23
-            ResetBoard,         // 24
-            SetLcdDisplayI2C,   // 25
-            SetModuleBrightness,// 26,
-            AnalogChange,       // 27
-            SetShiftRegisterPins// 28           
-        };
+        
         
         public MobiFlightModule(MobiFlightModuleConfig config)
         {

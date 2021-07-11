@@ -16,6 +16,10 @@ namespace MobiFlight.UI.Panels
         {
             InitializeComponent();
             displayPortComboBox.SelectedIndexChanged += displayPortComboBox_SelectedIndexChanged;
+
+            MultiPinSelectPanel.Visible = false;
+            singlePinSelectFlowLayoutPanel.Visible = true;
+            PinSelectContainer.Height = singlePinSelectFlowLayoutPanel.Height;
         }
 
         public void SetSelectedPort(string value)
@@ -43,6 +47,9 @@ namespace MobiFlight.UI.Panels
             if (ports.Count>0)
                 displayPortComboBox.SelectedIndex = 0;
 
+            // disable all the arcaze specific stuff
+            // when there are no ports, because then
+            // we are in the context of MobiFlight
             displayPinBrightnessPanel.Visible = displayPinBrightnessPanel.Enabled = displayPortComboBox.Visible = displayPortComboBox.Enabled = ports.Count > 0;
             
         }
@@ -59,7 +66,7 @@ namespace MobiFlight.UI.Panels
             displayPinComboBox.Width = WideStyle ? displayPinComboBox.MaximumSize.Width : displayPinComboBox.MinimumSize.Width;
 
 
-            pinSelectPanel?.SetPins(pins);
+            MultiPinSelectPanel?.SetPins(pins);
         }
         private void displayPortComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -106,10 +113,12 @@ namespace MobiFlight.UI.Panels
                     _MultiSelectOptions(true);
 
                     // initialize multi-select panel
-                    pinSelectPanel?.SetSelectedPinsFromString(config.DisplayPin, config.DisplaySerial);
+                    MultiPinSelectPanel?.SetSelectedPinsFromString(config.DisplayPin, config.DisplaySerial);
 
                     // get the first from the multi select
-                    pin = pin.Split('|')[0];
+                    pin = config.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
+
+                    selectMultiplePinsCheckBox.Checked = config.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
                 }
 
                 // preselect normal pin drop downs
@@ -126,15 +135,15 @@ namespace MobiFlight.UI.Panels
         private void _MultiSelectOptions(bool state)
         {
             MultiSelectSupport = state;
-            MultiPinPanel.Visible = state;
+            selectMultiplePinsCheckBox.Visible = state;
         }
 
         virtual internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             config.DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text;
 
-            if (pinSelectPanel.Visible)
-                config.DisplayPin = pinSelectPanel?.GetSelectedPinString();                       
+            if (MultiPinSelectPanel.Visible)
+                config.DisplayPin = MultiPinSelectPanel?.GetSelectedPinString();                       
 
             config.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
 
@@ -162,6 +171,20 @@ namespace MobiFlight.UI.Panels
             }
         }
 
+        private void selectMultiplePinsCheckBox_CheckedChanged(object sender, EventArgs e)
+        { 
+            if ((sender as CheckBox).Checked)
+            {
+                MultiPinSelectPanel.Visible = true;
+                singlePinSelectFlowLayoutPanel.Visible = false;
+                PinSelectContainer.Height = MultiPinSelectPanel.Height;
+            } else
+            {
+                MultiPinSelectPanel.Visible = false;
+                singlePinSelectFlowLayoutPanel.Visible = true;
+                PinSelectContainer.Height = singlePinSelectFlowLayoutPanel.Height;
+            }
 
+        }
     }
 }

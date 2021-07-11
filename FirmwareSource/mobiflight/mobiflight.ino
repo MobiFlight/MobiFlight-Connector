@@ -37,7 +37,7 @@ char foo;
 //         Added PWM output
 // 1.9.10: Fix encoder issue on fastLeft/fastRight, fixed the MODULE_MAX_PINS (one more time) for "pin69"
 // 1.10.0: Fix LCD pin usage (SDA, SCL), removed LCD sendCmd
-// 1.11.0: Added Analog support
+// 1.11.0: Added Analog support, ShiftRegister Support (kudos to @manfredberry)
 const char version[8] = "1.11.0";
 
 //#define DEBUG 1
@@ -117,7 +117,7 @@ const char version[8] = "1.11.0";
 #define MAX_MFSERVOS      10
 #define MAX_MFLCD_I2C     2
 #define MAX_ANALOG_INPUTS 5
-#define MAX_SHIFTERS    10
+#define MAX_SHIFTERS      10
 #endif
 
 #include <EEPROMex.h>

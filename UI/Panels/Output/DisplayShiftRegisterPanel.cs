@@ -18,6 +18,9 @@ namespace MobiFlight.UI.Panels
         public DisplayShiftRegisterPanel()
         {
             InitializeComponent();
+
+            displayPinPanel.SetPorts(new List<ListItem>());
+            displayPinPanel.WideStyle = true;
         }
 
         internal void SyncFromConfig(OutputConfigItem config)
@@ -32,8 +35,12 @@ namespace MobiFlight.UI.Panels
             }
 
             UpdatePinList();
-            if (config.RegisterOutputPin != null)
-                pinSelectPanel?.SetSelectedPinsFromString(config.RegisterOutputPin, config.DisplaySerial);
+
+            if (config.RegisterOutputPin != null) {
+                OutputConfigItem cfg = config.Clone() as OutputConfigItem;
+                cfg.DisplayPin = config.RegisterOutputPin;
+                displayPinPanel.syncFromConfig(cfg);
+            }
         }
 
         private void UpdatePinList()
@@ -46,10 +53,15 @@ namespace MobiFlight.UI.Panels
                 for (int column = 1; column <= 8; column++)
                 {
                     string itemNum = (8 * (row - 1) + column - 1).ToString();
-                    pinList.Add(new ListItem() { Label = "Output  " + itemNum, Value = itemNum });
+                    pinList.Add(new ListItem() { Label = 
+                        MobiFlightShiftRegister.LABEL_PREFIX + " " + itemNum, 
+                        Value = MobiFlightShiftRegister.LABEL_PREFIX + " " + itemNum 
+                    });
                 }
             }
-            pinSelectPanel.SetPins(pinList);
+
+            
+            displayPinPanel.SetPins(pinList);
         }
 
         public void SetAddresses(List<ListItem> ports)
@@ -66,7 +78,11 @@ namespace MobiFlight.UI.Panels
         internal OutputConfigItem SyncToConfig(OutputConfigItem config)
         {
             config.ShiftRegister = shiftRegistersComboBox.SelectedValue as String;
-            config.RegisterOutputPin = pinSelectPanel.GetSelectedPinString();
+
+            OutputConfigItem cfg = config.Clone() as OutputConfigItem;
+            cfg = displayPinPanel.syncToConfig(cfg);
+
+            config.RegisterOutputPin = cfg.DisplayPin;
             return config;
         }
         internal void SetNumModules(int num8bitRegisters)
