@@ -261,6 +261,21 @@ YOKE X POSITION WITH AP#(A:YOKE X POSITION WITH AP,Position)#Percent control def
 YOKE Y POSITION#(A:YOKE Y POSITION,Position)#Percent control deflection fore/aft (for animation)
 YOKE Y POSITION WITH AP#(A:YOKE Y POSITION WITH AP,Position)#Percent control deflection fore/aft (for animation). Also includes AP's inputs.
 Aircraft - Environment Data#GROUP
+ZULU TIME#(E:ZULU TIME,second)#Coordinated Universal Time UTC. Elapsed seconds since start of day
+ZULU DAY OF WEEK#(E:ZULU DAY OF WEEK,number)#UTC Day of the Week
+ZULU DAY OF MONTH#(E:ZULU DAY OF MONTH,number)#UTC Day of the Month
+ZULU DAY OF YEAR#(E:ZULU DAY OF YEAR,number)#UTC Day of the Year
+ZULU MONTH OF YEAR#(E:ZULU MONTH OF YEAR,number)#UTC Month of the Year
+ZULU YEAR#(E:ZULU YEAR,number)#UTC Year
+LOCAL TIME#(E:LOCAL TIME,second)#Local time in seconds elapsed since start of day
+LOCAL DAY OF WEEK#(E:LOCAL DAY OF WEEK,number)#Local day of the week
+LOCAL DAY OF MONTH#(E:LOCAL DAY OF MONTH,number)#Local day of the month
+LOCAL DAY OF YEAR#(E:LOCAL DAY OF YEAR,number)#Local day of the year
+LOCAL MONTH OF YEAR#(E:LOCAL MONTH OF YEAR,number)#Local month of the year
+LOCAL YEAR#(E:LOCAL YEAR,number)#Local year
+TIME ZONE OFFSET#(E:TIME ZONE OFFSET,second)#Difference between UTC and local time
+TIME OF DAY#(E:TIME OF DAY,enum)#General time of day
+SIMULATION TIME#(E:SIMULATION TIME,second)#Elapsed time since start of simulation
 AIRCRAFT WIND X#(A:AIRCRAFT WIND X,Knots)#Wind component in aircraft lateral axis
 AIRCRAFT WIND Y#(A:AIRCRAFT WIND Y,Knots)#Wind component in aircraft vertical axis
 AIRCRAFT WIND Z#(A:AIRCRAFT WIND Z,Knots)#Wind component in aircraft longitudinal axis
@@ -1028,5 +1043,16 @@ WT CJ4#GROUP
 (L:XMLVAR_Pitot_1, Bool)
 (L:XMLVAR_Pitot_2, Bool)
 (A:LIGHT WING:0, Bool)
-(A:GENERAL ENG STARTER:1, bool)
-(A:GENERAL ENG STARTER:2, bool)
+(A:GENERAL ENGINE STARTER:1, bool)
+(A:GENERAL ENGINE STARTER:2, bool)
+(A:COM TRANSMIT:1, bool)
+(A:COM TRANSMIT:2, bool)
+(A:GENERAL ENG FUEL PUMP SWITCH:1, bool)
+(A:GENERAL ENG FUEL PUMP SWITCH:2, bool)
+(A:PRESSURIZATION DUMP SWITCH, bool)
+(A:TURB ENG IGNITION SWITCH EX1:1, enum) 2 ==
+(A:TURB ENG IGNITION SWITCH EX1:2, enum) 2 ==
+(A:GENERAL ENG MIXTURE LEVER POSITION:1, Percent) 0 >
+(A:GENERAL ENG MIXTURE LEVER POSITION:2, Percent) 0 >
+(A:GENERAL ENG MIXTURE LEVER POSITION:1, percent) 0 == (A:GENERAL ENG STARTER:1, bool) (A:GENERAL ENG STARTER:2, bool)  or ! and
+(A:GENERAL ENG MIXTURE LEVER POSITION:2, percent) 0 == (A:GENERAL ENG STARTER:1, bool) (A:GENERAL ENG STARTER:2, bool)  or ! and
