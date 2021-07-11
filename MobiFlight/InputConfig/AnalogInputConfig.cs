@@ -93,7 +93,7 @@ namespace MobiFlight.InputConfig
         {
             if (onChange != null)
             {
-                Log.Instance.log("Executing OnChnage: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
+                Log.Instance.log("Executing Change: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
                 onChange.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
             }
         }
