@@ -77,7 +77,7 @@ namespace MobiFlight.Tests
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
             Assert.AreEqual(true, oci.Interpolation.Active, "Interpolation is supposed to be active");
-            Assert.AreEqual(5, oci.Interpolation.Count);
+            Assert.AreEqual(5, oci.Interpolation.Count);           
         }
 
         [TestMethod()]
@@ -148,6 +148,10 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual(o.BcdPins[0], c.BcdPins[0], "clone: BcdPins not the same");
 
+            // Shift Register
+            Assert.AreEqual(o.ShiftRegister, c.ShiftRegister, "clone: ShiftRegister not the same");
+            Assert.AreEqual(o.RegisterOutputPin, c.RegisterOutputPin, "clone: RegisterOutputPin not the same");
+
             //o. = new Interpolation();
             Assert.AreEqual(o.Interpolation.Active, c.Interpolation.Active, "clone: Interpolation.Active is not the same.");
             Assert.AreEqual(o.Interpolation.Count, c.Interpolation.Count, "clone: Interpolation.Count not the same");
@@ -211,6 +215,9 @@ namespace MobiFlight.Tests
             o.StepperOutputRev = "3212";
             o.StepperTestValue = "212";
             o.StepperCompassMode = true;
+
+            o.ShiftRegister = "ShiftRegister";
+            o.RegisterOutputPin = "99";
 
             o.ConfigRefs.Add(new ConfigRef() { Active = true, Placeholder = "#", Ref = "123" });
             o.ConfigRefs.Add(new ConfigRef() { Active = false, Placeholder = "$", Ref = "321" });

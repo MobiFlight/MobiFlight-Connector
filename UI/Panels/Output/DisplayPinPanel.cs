@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -12,12 +9,17 @@ namespace MobiFlight.UI.Panels
     public partial class DisplayPinPanel : UserControl
     {
         public bool WideStyle = false;
+        public bool MultiSelectSupport = false;
         private MobiFlightModule Module;
 
         public DisplayPinPanel()
         {
             InitializeComponent();
             displayPortComboBox.SelectedIndexChanged += displayPortComboBox_SelectedIndexChanged;
+
+            MultiPinSelectPanel.Visible = false;
+            singlePinSelectFlowLayoutPanel.Visible = true;
+            PinSelectContainer.Height = singlePinSelectFlowLayoutPanel.Height;
         }
 
         public void SetSelectedPort(string value)
@@ -30,6 +32,13 @@ namespace MobiFlight.UI.Panels
             displayPinComboBox.SelectedValue = value;
         }
 
+
+        internal void EnablePWMSelect(bool enable)
+        {
+            //pwmPinPanel.Visible = Module.getPwmPins().Contains((byte)(item as MobiFlightOutput).Pin);
+            pwmPinPanel.Visible = enable;
+        }
+
         public void SetPorts(List<ListItem> ports)
         {
             displayPortComboBox.DataSource = new List<ListItem>(ports);
@@ -38,23 +47,27 @@ namespace MobiFlight.UI.Panels
             if (ports.Count>0)
                 displayPortComboBox.SelectedIndex = 0;
 
+            // disable all the arcaze specific stuff
+            // when there are no ports, because then
+            // we are in the context of MobiFlight
             displayPinBrightnessPanel.Visible = displayPinBrightnessPanel.Enabled = displayPortComboBox.Visible = displayPortComboBox.Enabled = ports.Count > 0;
             
         }
-
-        public void SetPins(List<ListItem> pins)
+        internal void SetPins(List<ListItem> pins)
         {
             displayPinComboBox.DataSource = new List<ListItem>(pins);
             displayPinComboBox.DisplayMember = "Label";
             displayPinComboBox.ValueMember = "Value";
 
-            if (pins.Count>0)
+            if (pins.Count > 0)
                 displayPinComboBox.SelectedIndex = 0;
 
             displayPinComboBox.Enabled = pins.Count > 0;
             displayPinComboBox.Width = WideStyle ? displayPinComboBox.MaximumSize.Width : displayPinComboBox.MinimumSize.Width;
-        }
 
+
+            MultiPinSelectPanel?.SetPins(pins);
+        }
         private void displayPortComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = (sender as ComboBox);
@@ -73,6 +86,7 @@ namespace MobiFlight.UI.Panels
 
         internal void syncFromConfig(OutputConfigItem config)
         {
+
             String serial = config.DisplaySerial;
             if (serial != null && serial.Contains('/'))
             {
@@ -86,8 +100,25 @@ namespace MobiFlight.UI.Panels
 
                 if (serial != null && serial.IndexOf("SN") != 0)
                 {
+                    // these are Arcaze Boards.
+                    // Arcaze Boards only have "single output"
                     port = config.DisplayPin.Substring(0, 1);
                     pin = config.DisplayPin.Substring(1);
+
+                    // disable multi-select option
+                    _MultiSelectOptions(false);
+                } else {
+
+                    // this is MobiFlight Outputs
+                    _MultiSelectOptions(true);
+
+                    // initialize multi-select panel
+                    MultiPinSelectPanel?.SetSelectedPinsFromString(config.DisplayPin, config.DisplaySerial);
+
+                    // get the first from the multi select
+                    pin = config.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
+
+                    selectMultiplePinsCheckBox.Checked = config.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
                 }
 
                 // preselect normal pin drop downs
@@ -101,11 +132,22 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        internal OutputConfigItem syncToConfig(OutputConfigItem config)
+        private void _MultiSelectOptions(bool state)
+        {
+            MultiSelectSupport = state;
+            selectMultiplePinsCheckBox.Visible = state;
+        }
+
+        virtual internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             config.DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text;
+
+            if (MultiPinSelectPanel.Visible)
+                config.DisplayPin = MultiPinSelectPanel?.GetSelectedPinString();                       
+
             config.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
-            config.DisplayPinPWM = displayPwmCheckBox.Checked;
+
+            config.DisplayPinPWM = pwmPinPanel.Visible && displayPwmCheckBox.Checked;
 
             return config;
         }
@@ -123,10 +165,26 @@ namespace MobiFlight.UI.Panels
                 foreach (var item in Module.GetConnectedDevices(pin))
                 {
                     pwmPinPanel.Visible = Module.getPwmPins()
-                                                .Find(x=>x.Pin==(byte)(item as MobiFlightOutput).Pin) != null;
+                                                .Find(x => x.Pin == (byte)(item as MobiFlightOutput).Pin) != null;
                     return;
                 }
             }
+        }
+
+        private void selectMultiplePinsCheckBox_CheckedChanged(object sender, EventArgs e)
+        { 
+            if ((sender as CheckBox).Checked)
+            {
+                MultiPinSelectPanel.Visible = true;
+                singlePinSelectFlowLayoutPanel.Visible = false;
+                PinSelectContainer.Height = MultiPinSelectPanel.Height;
+            } else
+            {
+                MultiPinSelectPanel.Visible = false;
+                singlePinSelectFlowLayoutPanel.Visible = true;
+                PinSelectContainer.Height = singlePinSelectFlowLayoutPanel.Height;
+            }
+
         }
     }
 }

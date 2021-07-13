@@ -29,11 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayPinPanel));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.displayPortComboBox = new System.Windows.Forms.ComboBox();
-            this.displayPinComboBox = new System.Windows.Forms.ComboBox();
-            this.displayPinComoBoxLabel = new System.Windows.Forms.Label();
             this.displayPinBrightnessPanel = new System.Windows.Forms.Panel();
             this.displayPinBrightnessLabelPanel = new System.Windows.Forms.Panel();
             this.displayPinBrightnessDimLabel = new System.Windows.Forms.Label();
@@ -45,28 +41,26 @@
             this.pwmPinPanel = new System.Windows.Forms.Panel();
             this.displayPwmCheckBox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.displayPinComboBox = new System.Windows.Forms.ComboBox();
+            this.singlePinSelectFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.selectMultiplePinsCheckBox = new System.Windows.Forms.CheckBox();
+            this.PinSelectContainer = new System.Windows.Forms.Panel();
+            this.MultiSelectPinSelectContainer = new System.Windows.Forms.Panel();
+            this.PinSelectPanel = new System.Windows.Forms.Panel();
+            this.LabelPinSelectContainer = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.MultiPinSelectPanel = new MobiFlight.UI.Panels.PinSelectPanel();
             this.displayPinBrightnessPanel.SuspendLayout();
             this.displayPinBrightnessLabelPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.displayPinBrightnessTrackBar)).BeginInit();
             this.panel2.SuspendLayout();
             this.pwmPinPanel.SuspendLayout();
+            this.singlePinSelectFlowLayoutPanel.SuspendLayout();
+            this.PinSelectContainer.SuspendLayout();
+            this.MultiSelectPinSelectContainer.SuspendLayout();
+            this.PinSelectPanel.SuspendLayout();
+            this.LabelPinSelectContainer.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.flowLayoutPanel1);
-            this.panel1.Controls.Add(this.displayPinComoBoxLabel);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.displayPortComboBox);
-            this.flowLayoutPanel1.Controls.Add(this.displayPinComboBox);
-            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // displayPortComboBox
             // 
@@ -78,23 +72,6 @@
             resources.GetString("displayPortComboBox.Items2")});
             resources.ApplyResources(this.displayPortComboBox, "displayPortComboBox");
             this.displayPortComboBox.Name = "displayPortComboBox";
-            // 
-            // displayPinComboBox
-            // 
-            this.displayPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displayPinComboBox.FormattingEnabled = true;
-            this.displayPinComboBox.Items.AddRange(new object[] {
-            resources.GetString("displayPinComboBox.Items"),
-            resources.GetString("displayPinComboBox.Items1"),
-            resources.GetString("displayPinComboBox.Items2")});
-            resources.ApplyResources(this.displayPinComboBox, "displayPinComboBox");
-            this.displayPinComboBox.Name = "displayPinComboBox";
-            this.displayPinComboBox.SelectedIndexChanged += new System.EventHandler(this.displayPinComboBox_SelectedIndexChanged);
-            // 
-            // displayPinComoBoxLabel
-            // 
-            resources.ApplyResources(this.displayPinComoBoxLabel, "displayPinComoBoxLabel");
-            this.displayPinComoBoxLabel.Name = "displayPinComoBoxLabel";
             // 
             // displayPinBrightnessPanel
             // 
@@ -165,43 +142,115 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // displayPinComboBox
+            // 
+            this.displayPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayPinComboBox.FormattingEnabled = true;
+            this.displayPinComboBox.Items.AddRange(new object[] {
+            resources.GetString("displayPinComboBox.Items"),
+            resources.GetString("displayPinComboBox.Items1"),
+            resources.GetString("displayPinComboBox.Items2")});
+            resources.ApplyResources(this.displayPinComboBox, "displayPinComboBox");
+            this.displayPinComboBox.Name = "displayPinComboBox";
+            // 
+            // singlePinSelectFlowLayoutPanel
+            // 
+            this.singlePinSelectFlowLayoutPanel.Controls.Add(this.displayPortComboBox);
+            this.singlePinSelectFlowLayoutPanel.Controls.Add(this.displayPinComboBox);
+            resources.ApplyResources(this.singlePinSelectFlowLayoutPanel, "singlePinSelectFlowLayoutPanel");
+            this.singlePinSelectFlowLayoutPanel.Name = "singlePinSelectFlowLayoutPanel";
+            // 
+            // selectMultiplePinsCheckBox
+            // 
+            resources.ApplyResources(this.selectMultiplePinsCheckBox, "selectMultiplePinsCheckBox");
+            this.selectMultiplePinsCheckBox.Name = "selectMultiplePinsCheckBox";
+            this.selectMultiplePinsCheckBox.UseVisualStyleBackColor = true;
+            this.selectMultiplePinsCheckBox.CheckedChanged += new System.EventHandler(this.selectMultiplePinsCheckBox_CheckedChanged);
+            // 
+            // PinSelectContainer
+            // 
+            resources.ApplyResources(this.PinSelectContainer, "PinSelectContainer");
+            this.PinSelectContainer.Controls.Add(this.MultiSelectPinSelectContainer);
+            this.PinSelectContainer.Controls.Add(this.PinSelectPanel);
+            this.PinSelectContainer.Controls.Add(this.LabelPinSelectContainer);
+            this.PinSelectContainer.Name = "PinSelectContainer";
+            // 
+            // MultiSelectPinSelectContainer
+            // 
+            resources.ApplyResources(this.MultiSelectPinSelectContainer, "MultiSelectPinSelectContainer");
+            this.MultiSelectPinSelectContainer.Controls.Add(this.selectMultiplePinsCheckBox);
+            this.MultiSelectPinSelectContainer.Name = "MultiSelectPinSelectContainer";
+            // 
+            // PinSelectPanel
+            // 
+            this.PinSelectPanel.Controls.Add(this.MultiPinSelectPanel);
+            this.PinSelectPanel.Controls.Add(this.singlePinSelectFlowLayoutPanel);
+            resources.ApplyResources(this.PinSelectPanel, "PinSelectPanel");
+            this.PinSelectPanel.Name = "PinSelectPanel";
+            // 
+            // LabelPinSelectContainer
+            // 
+            this.LabelPinSelectContainer.Controls.Add(this.label3);
+            resources.ApplyResources(this.LabelPinSelectContainer, "LabelPinSelectContainer");
+            this.LabelPinSelectContainer.Name = "LabelPinSelectContainer";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // MultiPinSelectPanel
+            // 
+            resources.ApplyResources(this.MultiPinSelectPanel, "MultiPinSelectPanel");
+            this.MultiPinSelectPanel.Name = "MultiPinSelectPanel";
+            // 
             // DisplayPinPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.displayPinBrightnessPanel);
             this.Controls.Add(this.pwmPinPanel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.PinSelectContainer);
+            this.DoubleBuffered = true;
             this.Name = "DisplayPinPanel";
-            this.panel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.displayPinBrightnessPanel.ResumeLayout(false);
             this.displayPinBrightnessLabelPanel.ResumeLayout(false);
             this.displayPinBrightnessLabelPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.displayPinBrightnessTrackBar)).EndInit();
             this.panel2.ResumeLayout(false);
             this.pwmPinPanel.ResumeLayout(false);
+            this.singlePinSelectFlowLayoutPanel.ResumeLayout(false);
+            this.PinSelectContainer.ResumeLayout(false);
+            this.PinSelectContainer.PerformLayout();
+            this.MultiSelectPinSelectContainer.ResumeLayout(false);
+            this.MultiSelectPinSelectContainer.PerformLayout();
+            this.PinSelectPanel.ResumeLayout(false);
+            this.LabelPinSelectContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.ComboBox displayPinComboBox;
         public System.Windows.Forms.ComboBox displayPortComboBox;
-        private System.Windows.Forms.Label displayPinComoBoxLabel;
         public System.Windows.Forms.Panel displayPinBrightnessPanel;
-        public System.Windows.Forms.TrackBar displayPinBrightnessTrackBar;
+        private System.Windows.Forms.Label displayPinBrightnessLabel;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pwmPinPanel;
+        private System.Windows.Forms.CheckBox displayPwmCheckBox;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel displayPinBrightnessLabelPanel;
         private System.Windows.Forms.Label displayPinBrightnessDimLabel;
         private System.Windows.Forms.Label displayPinBrightnessMediumLabel;
         private System.Windows.Forms.Label displayPinBrightnessBrightLabel;
-        private System.Windows.Forms.Label displayPinBrightnessLabel;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Panel pwmPinPanel;
-        private System.Windows.Forms.CheckBox displayPwmCheckBox;
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TrackBar displayPinBrightnessTrackBar;
+        public System.Windows.Forms.ComboBox displayPinComboBox;
+        private PinSelectPanel MultiPinSelectPanel;
+        private System.Windows.Forms.FlowLayoutPanel singlePinSelectFlowLayoutPanel;
+        private System.Windows.Forms.CheckBox selectMultiplePinsCheckBox;
+        private System.Windows.Forms.Panel PinSelectContainer;
+        private System.Windows.Forms.Panel MultiSelectPinSelectContainer;
+        private System.Windows.Forms.Panel LabelPinSelectContainer;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel PinSelectPanel;
     }
 }

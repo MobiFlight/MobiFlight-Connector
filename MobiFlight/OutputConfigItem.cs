@@ -73,13 +73,17 @@ namespace MobiFlight
 
         // the interpolation settings
         public Interpolation Interpolation              { get; set; }
-        
+
+        // the shift register stuff 
+        public string       ShiftRegister               { get; set; }
+        public string       RegisterOutputPin           { get; set; }
+
         // deprecated?
         public string       DisplayTrigger              { get; set; }
                 
         public PreconditionList   Preconditions       { get; set; }
 
-        public List<ConfigRef>      ConfigRefs          { get; set; }
+        public List<ConfigRef>      ConfigRefs          { get; set; }        
 
         public OutputConfigItem()
         {
@@ -294,6 +298,18 @@ namespace MobiFlight
                     // don't read to the end tag all the way
                     reader.Read();
                 }
+                else if (DisplayType == MobiFlightShiftRegister.TYPE)
+                {
+                    if (reader["registerOutputPin"] != null && reader["registerOutputPin"] != "")
+                    {
+                        RegisterOutputPin = reader["registerOutputPin"];
+                    }
+
+                    if (reader["shiftRegister"] != null && reader["shiftRegister"] != "")
+                    {
+                        ShiftRegister = reader["shiftRegister"];
+                    }
+                }
             }
 
             // Actually interpolation is in he wrong spot. :(
@@ -408,14 +424,14 @@ namespace MobiFlight
                 {
                     writer.WriteAttributeString("bcdPins", String.Join(",",BcdPins));
                 }
-                else if (DisplayType == MobiFlight.DeviceType.Servo.ToString("F"))
+                else if (DisplayType == DeviceType.Servo.ToString("F"))
                 {
                     writer.WriteAttributeString("servoAddress", ServoAddress);
                     writer.WriteAttributeString("servoMin", ServoMin);
                     writer.WriteAttributeString("servoMax", ServoMax);
                     writer.WriteAttributeString("servoMaxRotationPercent", ServoMaxRotationPercent);
                 }
-                else if (DisplayType == MobiFlight.DeviceType.Stepper.ToString("F"))
+                else if (DisplayType == DeviceType.Stepper.ToString("F"))
                 {
                     writer.WriteAttributeString("stepperAddress", StepperAddress);
                     writer.WriteAttributeString("stepperInputRev", StepperInputRev);
@@ -427,6 +443,11 @@ namespace MobiFlight
                 {
                     if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                     LcdDisplay.WriteXml(writer);
+                }
+                else if (DisplayType == MobiFlightShiftRegister.TYPE)
+                {
+                    writer.WriteAttributeString("shiftRegister", ShiftRegister);
+                    writer.WriteAttributeString("registerOutputPin", RegisterOutputPin);
                 }
                 else
                 {
@@ -497,6 +518,9 @@ namespace MobiFlight
             clone.StepperOutputRev          = this.StepperOutputRev;
             clone.StepperTestValue          = this.StepperTestValue;
             clone.StepperCompassMode        = this.StepperCompassMode;
+
+            clone.ShiftRegister = this.ShiftRegister;
+            clone.RegisterOutputPin = this.RegisterOutputPin;
 
             clone.LcdDisplay                = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
 

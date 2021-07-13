@@ -88,12 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MobiFlightConnector.csproj">
-      <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
-      <Name>MobiFlightConnector</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="assets\Base\BooleanConverterConfig\GetPins.xml" />
     <Content Include="assets\Base\ConfigFile\OpenFileBrokenTest.xml">
       <SubType>Designer</SubType>
@@ -202,6 +196,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.6.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.5.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -280,7 +278,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MobiFlightConnector.csproj">
+      <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
+      <Name>MobiFlightConnector</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

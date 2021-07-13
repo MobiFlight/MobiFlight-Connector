@@ -166,12 +166,14 @@
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
+    <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
@@ -280,6 +282,18 @@
     <Compile Include="UI\Panels\OutputConfigPanel.Designer.cs">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Output\PinSelectPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\PinSelectPanel.Designer.cs">
+      <DependentUpon>PinSelectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.Designer.cs">
+      <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Settings\ArcazePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -291,6 +305,12 @@
     </Compile>
     <Compile Include="UI\Panels\Settings\GeneralPanel.Designer.cs">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFShiftRegisterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFShiftRegisterPanel.Designer.cs">
+      <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Settings\MobiFlightPanel.cs">
       <SubType>UserControl</SubType>
@@ -799,6 +819,12 @@
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\PinSelectPanel.resx">
+      <DependentUpon>PinSelectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\DisplayShiftRegisterPanel.resx">
+      <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -810,6 +836,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.resx">
+      <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.de.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
@@ -1034,6 +1063,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.resx">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>

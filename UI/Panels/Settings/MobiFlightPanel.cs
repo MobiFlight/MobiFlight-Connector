@@ -328,6 +328,12 @@ namespace MobiFlight.UI.Panels.Settings
                             panel = new MFLcddDisplayPanel(dev as MobiFlight.Config.LcdDisplay, module.GetPins());
                             (panel as MFLcddDisplayPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
+                        
+                        case DeviceType.ShiftRegister:
+                            panel = new MFShiftRegisterPanel(dev as MobiFlight.Config.ShiftRegister, module.GetPins());
+                            (panel as MFShiftRegisterPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+                            // output
                     }
                 }
 
@@ -449,6 +455,15 @@ namespace MobiFlight.UI.Panels.Settings
                         cfgItem = new MobiFlight.Config.LcdDisplay();
                         // does not deal yet with these kind of pins because we use I2C
                         break;
+
+                    case "ShiftRegisterToolStripMenuItem":
+                    case "addShiftRegisterToolStripMenuItem":
+                        cfgItem = new MobiFlight.Config.ShiftRegister();
+                        (cfgItem as MobiFlight.Config.ShiftRegister).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.ShiftRegister).ClockPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).ToString();
+                        (cfgItem as MobiFlight.Config.ShiftRegister).LatchPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).ToString();                        
+                        break;
+
                     default:
                         // do nothing
                         return;

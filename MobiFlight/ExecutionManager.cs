@@ -950,6 +950,22 @@ namespace MobiFlight
                             );
                         break;
 
+                    case MobiFlightShiftRegister.TYPE:
+                        if (serial != null)
+                        {
+                            string outputValueShiftRegister = value;
+
+                            if (outputValueShiftRegister != "0" && !cfg.DisplayPinPWM)
+                                outputValueShiftRegister = cfg.DisplayPinBrightness.ToString();
+                          
+                            mobiFlightCache.setShiftRegisterOutput(
+                                serial,
+                                cfg.ShiftRegister,
+                                cfg.RegisterOutputPin,
+                                outputValueShiftRegister);
+                        }
+                        break;
+
                     default:
                         string outputValue = value;
 
@@ -1295,6 +1311,11 @@ namespace MobiFlight
                     ExecuteDisplay(new string(' ', 20 * 4), offCfg);
                     break;
 
+                case MobiFlightShiftRegister.TYPE:
+                    // Needs to be called as othewise the default catches it which does not make sense. May be there should not be a default :-)
+                    ExecuteDisplay("0", offCfg);
+                    break;
+
                 default:
                     offCfg.DisplayLedDecimalPoints = new List<string>();
                     ExecuteDisplay(offCfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
@@ -1316,6 +1337,10 @@ namespace MobiFlight
 
                 case OutputConfig.LcdDisplay.Type:
                     ExecuteDisplay("1234567890", cfg);
+                    break;
+                
+                case MobiFlightShiftRegister.TYPE:
+                    ExecuteDisplay("1", cfg);
                     break;
 
                 default:
