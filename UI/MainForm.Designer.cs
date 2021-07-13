@@ -74,6 +74,8 @@
             this.runTestToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.stopToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.stopTestToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.autoRunToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -383,6 +385,8 @@
             this.runTestToolStripButton,
             this.stopToolStripButton,
             this.stopTestToolStripButton,
+            this.toolStripSeparator6,
+            this.settingsToolStripButton,
             this.toolStripSeparator2,
             this.autoRunToolStripButton,
             this.toolStripSeparator3,
@@ -433,6 +437,18 @@
             this.stopTestToolStripButton.Image = global::MobiFlight.Properties.Resources.media_stop;
             this.stopTestToolStripButton.Name = "stopTestToolStripButton";
             this.stopTestToolStripButton.Click += new System.EventHandler(this.stopTestToolStripButton_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
+            // 
+            // settingsToolStripButton
+            // 
+            this.settingsToolStripButton.Image = global::MobiFlight.Properties.Resources.module_mobiflight;
+            resources.ApplyResources(this.settingsToolStripButton, "settingsToolStripButton");
+            this.settingsToolStripButton.Name = "settingsToolStripButton";
+            this.settingsToolStripButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripSeparator2
             // 
@@ -802,6 +818,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
         private System.Windows.Forms.ToolStripMenuItem noSimRunningToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton settingsToolStripButton;
     }
 }
 
