@@ -38,7 +38,8 @@ char foo;
 // 1.9.10: Fix encoder issue on fastLeft/fastRight, fixed the MODULE_MAX_PINS (one more time) for "pin69"
 // 1.10.0: Fix LCD pin usage (SDA, SCL), removed LCD sendCmd
 // 1.11.0: Added Analog support, ShiftRegister Support (kudos to @manfredberry)
-const char version[8] = "1.11.0";
+// 1.11.1: minor bugfixes for BETA release
+const char version[8] = "1.11.1";
 
 //#define DEBUG 1
 #define MTYPE_MEGA 1
