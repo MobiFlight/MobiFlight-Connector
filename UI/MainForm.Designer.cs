@@ -113,6 +113,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
+            this.YouTubeToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -393,6 +394,7 @@
             this.donateToolStripButton,
             this.toolStripSeparator5,
             this.toolStripButton1,
+            this.YouTubeToolStripButton,
             this.toolStripSeparator4,
             this.exitToolStripButton});
             resources.ApplyResources(this.toolStrip1, "toolStrip1");
@@ -692,6 +694,12 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
             // 
+            // YouTubeToolStripButton
+            // 
+            resources.ApplyResources(this.YouTubeToolStripButton, "YouTubeToolStripButton");
+            this.YouTubeToolStripButton.Name = "YouTubeToolStripButton";
+            this.YouTubeToolStripButton.Click += new System.EventHandler(this.YouTubeToolStripButton_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -820,6 +828,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton settingsToolStripButton;
+        private System.Windows.Forms.ToolStripButton YouTubeToolStripButton;
     }
 }
 

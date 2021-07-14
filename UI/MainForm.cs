@@ -1509,6 +1509,11 @@ namespace MobiFlight.UI
             {
             }
         }
+
+        private void YouTubeToolStripButton_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
+        }
     }
 
     internal static class Helper
