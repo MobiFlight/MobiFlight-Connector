@@ -19,6 +19,7 @@ namespace MobiFlight.UI.Panels
             InitializeComponent();
             checkedListBox.DisplayMember = "Label";
             checkedListBox.ValueMember = "Value";
+            checkedListBox.Items.Clear();
         }
 
         public void SetSelectedPin(string value, bool isChecked)

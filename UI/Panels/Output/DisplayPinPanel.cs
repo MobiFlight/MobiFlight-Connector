@@ -147,7 +147,7 @@ namespace MobiFlight.UI.Panels
 
             config.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
 
-            config.DisplayPinPWM = pwmPinPanel.Visible && displayPwmCheckBox.Checked;
+            config.DisplayPinPWM = pwmPinPanel.Enabled && displayPwmCheckBox.Checked;
 
             return config;
         }
@@ -164,7 +164,7 @@ namespace MobiFlight.UI.Panels
                 String pin = (sender as ComboBox).SelectedItem.ToString();
                 foreach (var item in Module.GetConnectedDevices(pin))
                 {
-                    pwmPinPanel.Visible = Module.getPwmPins()
+                    pwmPinPanel.Enabled = pwmPinPanel.Visible = Module.getPwmPins()
                                                 .Find(x => x.Pin == (byte)(item as MobiFlightOutput).Pin) != null;
                     return;
                 }
