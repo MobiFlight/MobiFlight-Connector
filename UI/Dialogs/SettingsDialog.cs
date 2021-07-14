@@ -163,10 +163,16 @@ namespace MobiFlight.UI.Dialogs
         /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            if (mobiFlightPanel.MFModuleConfigChanged) {
-                if (MessageBox.Show("You have unsaved changes in one of your module's settings. \n Do you want to cancel and loose your changes?", "Unsaved changes", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            if (mobiFlightPanel.MFModuleConfigChanged)
+            {
+                if (MessageBox.Show(i18n._tr("MFModuleConfigChanged"),
+                                    i18n._tr("Hint"),
+                                    MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
                 {
-                }                
+                    DialogResult = DialogResult.None;
+                    tabControl1.SelectedTab = mobiFlightTabPage;
+                    return;
+                }
             }
 
             DialogResult = DialogResult.Cancel;
