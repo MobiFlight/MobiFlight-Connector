@@ -44,12 +44,6 @@ const char version[8] = "1.11.0";
 #define MTYPE_MEGA 1
 #define MTYPE_MICRO 2
 #define MTYPE_UNO 3
-#define MF_SEGMENT_SUPPORT  1
-#define MF_LCD_SUPPORT      1
-#define MF_STEPPER_SUPPORT  1
-#define MF_SERVO_SUPPORT    1
-#define MF_ANALOG_SUPPORT   1
-#define MF_SHIFTER_SUPPORT  1
 
 // ALL 24780
 // No Segments 23040 (1740)
@@ -70,14 +64,32 @@ const char version[8] = "1.11.0";
 
 #if MODULETYPE == MTYPE_MEGA
 #define MODULE_MAX_PINS 69
+#define MF_SEGMENT_SUPPORT  1
+#define MF_LCD_SUPPORT      1
+#define MF_STEPPER_SUPPORT  1
+#define MF_SERVO_SUPPORT    1
+#define MF_ANALOG_SUPPORT   1
+#define MF_SHIFTER_SUPPORT  1
 #endif
 
 #if MODULETYPE == MTYPE_UNO
 #define MODULE_MAX_PINS 13
+#define MF_SEGMENT_SUPPORT  1
+#define MF_LCD_SUPPORT      1
+#define MF_STEPPER_SUPPORT  1
+#define MF_SERVO_SUPPORT    1
+#define MF_ANALOG_SUPPORT   0
+#define MF_SHIFTER_SUPPORT  0
 #endif
 
 #if MODULETYPE == MTYPE_MICRO
 #define MODULE_MAX_PINS 21
+#define MF_SEGMENT_SUPPORT  1
+#define MF_LCD_SUPPORT      1
+#define MF_STEPPER_SUPPORT  1
+#define MF_SERVO_SUPPORT    1
+#define MF_ANALOG_SUPPORT   1
+#define MF_SHIFTER_SUPPORT  1
 #endif
 
 #define STEPS 64
@@ -104,8 +116,8 @@ const char version[8] = "1.11.0";
 #define MAX_STEPPERS      2
 #define MAX_MFSERVOS      2
 #define MAX_MFLCD_I2C     2
-#define MAX_ANALOG_INPUTS 2
-#define MAX_SHIFTERS      4
+#define MAX_ANALOG_INPUTS 0
+#define MAX_SHIFTERS      0
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
@@ -445,7 +457,9 @@ void loop()
   
   readButtons();
   readEncoder();
+#if MF_ANALOG_SUPPORT == 1  
   readAnalog();
+#endif  
 
   // segments do not need update
 #if MF_STEPPER_SUPPORT == 1
@@ -479,36 +493,6 @@ void clearRegisteredPins() {
   for(int i=0; i!=MODULE_MAX_PINS+1;++i)
     pinsRegistered[i] = kTypeNotSet;
 }
-
-
-
-#if MF_ANALOG_SUPPORT == 1
-
-void AddAnalog(uint8_t pin = 1, char const * name = "AnalogInput", uint8_t sensitivity = 3)
-{  
-  if (analogRegistered == MAX_ANALOG_INPUTS) return;
-  
-  if (isPinRegistered(pin)) return;
-  
-  analog[analogRegistered] = MFAnalog(pin, handlerOnAnalogChange, name, sensitivity);
-  registerPin(pin, kTypeAnalogInput);
-  analogRegistered++;
-#ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus, F("Added analog device "));
-#endif
-}
-
-void ClearAnalog() 
-{
-  clearRegisteredPins(kTypeAnalogInput);
-  analogRegistered = 0;
-#ifdef DEBUG  
-  cmdMessenger.sendCmd(kStatus,F("Cleared analog devices"));
-#endif  
-}
-
-#endif
-
 
 //// OUTPUT /////
 void AddOutput(uint8_t pin = 1, char const * name = "Output")
@@ -736,6 +720,33 @@ void ClearLcdDisplays()
 }
 #endif
 
+#if MF_ANALOG_SUPPORT == 1
+
+void AddAnalog(uint8_t pin = 1, char const * name = "AnalogInput", uint8_t sensitivity = 3)
+{  
+  if (analogRegistered == MAX_ANALOG_INPUTS) return;
+  
+  if (isPinRegistered(pin)) return;
+  
+  analog[analogRegistered] = MFAnalog(pin, handlerOnAnalogChange, name, sensitivity);
+  registerPin(pin, kTypeAnalogInput);
+  analogRegistered++;
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus, F("Added analog device "));
+#endif
+}
+
+void ClearAnalog() 
+{
+  clearRegisteredPins(kTypeAnalogInput);
+  analogRegistered = 0;
+#ifdef DEBUG  
+  cmdMessenger.sendCmd(kStatus,F("Cleared analog devices"));
+#endif  
+}
+
+#endif
+
 #if MF_SHIFTER_SUPPORT == 1
 //// SHIFT REGISTER /////
 void AddShifter (uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const * name = "Shifter")
@@ -820,7 +831,6 @@ void resetConfig()
 {
   ClearButtons();
   ClearEncoders();
-  ClearAnalog();
   ClearOutputs();
 
 
@@ -838,6 +848,14 @@ void resetConfig()
 
 #if MF_LCD_SUPPORT == 1
   ClearLcdDisplays();
+#endif
+
+#if MF_ANALOG_SUPPORT == 1
+  ClearAnalog();
+#endif
+
+#if MF_SHIFTER_SUPPORT == 1
+  ClearShifters();
 #endif
 
   configLength = 0;
@@ -883,13 +901,6 @@ void readConfig(String cfg) {
         params[0] = strtok_r(NULL, ".", &p); // pin
         params[1] = strtok_r(NULL, ":", &p); // name
         AddButton(atoi(params[0]), params[1]);
-        break; 
-
-      case kTypeAnalogInput:
-        params[0] = strtok_r(NULL, ".", &p); // pin
-        params[1] = strtok_r(NULL, ".", &p); // sensitivity
-        params[2] = strtok_r(NULL, ":", &p); // name
-        AddAnalog(atoi(params[0]), params[2], atoi(params[1]));
         break;
 
       case kTypeOutput:
@@ -973,6 +984,15 @@ void readConfig(String cfg) {
         AddLcdDisplay(atoi(params[0]), atoi(params[1]), atoi(params[2]), params[3]);
 #endif
       break;
+
+      case kTypeAnalogInput:
+        params[0] = strtok_r(NULL, ".", &p); // pin
+        params[1] = strtok_r(NULL, ".", &p); // sensitivity
+        params[2] = strtok_r(NULL, ":", &p); // name
+#if MF_ANALOG_SUPPORT == 1        
+        AddAnalog(atoi(params[0]), params[2], atoi(params[1]));
+#endif
+        break;
 
       case kShiftRegister:
         params[0] = strtok_r(NULL, ".", &p); // pin latch
@@ -1162,12 +1182,14 @@ void readEncoder()
   }
 }
 
+#if MF_ANALOG_SUPPORT == 1
 void readAnalog() 
 {
   for(int i=0; i!=analogRegistered; i++) {
     analog[i].update();
   }
 }
+#endif
 
 void OnGenNewSerial() 
 {
