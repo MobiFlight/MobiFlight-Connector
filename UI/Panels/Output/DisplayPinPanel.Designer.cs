@@ -47,9 +47,9 @@
             this.PinSelectContainer = new System.Windows.Forms.Panel();
             this.MultiSelectPinSelectContainer = new System.Windows.Forms.Panel();
             this.PinSelectPanel = new System.Windows.Forms.Panel();
+            this.MultiPinSelectPanel = new MobiFlight.UI.Panels.PinSelectPanel();
             this.LabelPinSelectContainer = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.MultiPinSelectPanel = new MobiFlight.UI.Panels.PinSelectPanel();
             this.displayPinBrightnessPanel.SuspendLayout();
             this.displayPinBrightnessLabelPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.displayPinBrightnessTrackBar)).BeginInit();
@@ -188,6 +188,11 @@
             resources.ApplyResources(this.PinSelectPanel, "PinSelectPanel");
             this.PinSelectPanel.Name = "PinSelectPanel";
             // 
+            // MultiPinSelectPanel
+            // 
+            resources.ApplyResources(this.MultiPinSelectPanel, "MultiPinSelectPanel");
+            this.MultiPinSelectPanel.Name = "MultiPinSelectPanel";
+            // 
             // LabelPinSelectContainer
             // 
             this.LabelPinSelectContainer.Controls.Add(this.label3);
@@ -198,11 +203,6 @@
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            // 
-            // MultiPinSelectPanel
-            // 
-            resources.ApplyResources(this.MultiPinSelectPanel, "MultiPinSelectPanel");
-            this.MultiPinSelectPanel.Name = "MultiPinSelectPanel";
             // 
             // DisplayPinPanel
             // 

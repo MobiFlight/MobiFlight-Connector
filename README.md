@@ -38,7 +38,6 @@ Compile with RELEASE option for release - this will also execute the release bui
 #### Dependencies ####
 All Dependecies are currently contained in the repository and not referenced dynamically from their repository
 
-* AutoUpdater.NET - The auto update functionality - some minor local modifications
 * CommandMessenger - Library for communication back and forth between PC and Arduino
 * MobiflightConnector - The PC application for configuration and communication between Flightsim and Arduino
 * MobiFlightUnitTests - The test suite for the MobiFlight Connector
@@ -58,7 +57,7 @@ To be defined...
 * Other guidelines
 
 ### Get more information ###
-Look at the wiki to [check for further information ](https://bitbucket.org/mobiflight/mobiflightfc/wiki/)
+Look at the wiki to [check for further information ](https://github.com/Mobiflight/MobiFlight-Connector/wiki)
 
 ### Who do I talk to? ###
 Sebastian

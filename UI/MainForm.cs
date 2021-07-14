@@ -1499,6 +1499,16 @@ namespace MobiFlight.UI
         {
             Process.Start("https://discord.gg/U28QeEJpBV");
         }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            SettingsDialog dlg = new SettingsDialog(execManager);
+            dlg.StartPosition = FormStartPosition.CenterParent;
+            (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage");
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+            }
+        }
     }
 
     internal static class Helper
