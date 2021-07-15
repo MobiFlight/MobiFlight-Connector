@@ -376,15 +376,6 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arcaze module found..
-        /// </summary>
-        internal static string uiMessageArcazeModuleFound {
-            get {
-                return ResourceManager.GetString("uiMessageArcazeModuleFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The config file passed as parameter does not exist..
         /// </summary>
         internal static string uiMessageCmdParamConfigFileDoesNotExist {
@@ -651,6 +642,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show detected modules.
+        /// </summary>
+        internal static string uiMessageModuleFound {
+            get {
+                return ResourceManager.GetString("uiMessageModuleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It seems that your arcaze modules are not configured. This is a new feature to better support &quot;Extension Modules&quot;.
         ///
         ///You should configure them now..
@@ -680,20 +680,20 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No module found..
-        /// </summary>
-        internal static string uiMessageNoArcazeModuleFound {
-            get {
-                return ResourceManager.GetString("uiMessageNoArcazeModuleFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No active FSUIPC connection..
         /// </summary>
         internal static string uiMessageNoFSUIPCConnection {
             get {
                 return ResourceManager.GetString("uiMessageNoFSUIPCConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No modules found.
+        /// </summary>
+        internal static string uiMessageNoModuleFound {
+            get {
+                return ResourceManager.GetString("uiMessageNoModuleFound", resourceCulture);
             }
         }
         

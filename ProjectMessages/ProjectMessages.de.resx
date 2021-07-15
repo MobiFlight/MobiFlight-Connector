@@ -139,8 +139,8 @@
   <data name="uiMessageAraceUSBHasBeenRemoved" xml:space="preserve">
     <value>Ein Arcaze Modul wurde entfernt.</value>
   </data>
-  <data name="uiMessageNoArcazeModuleFound" xml:space="preserve">
-    <value>Kein Modul gefunden</value>
+  <data name="uiMessageNoModuleFound" xml:space="preserve">
+    <value>Keine Module gefunden</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
@@ -163,8 +163,8 @@
   <data name="uiMessageFsuipcConnectionLost" xml:space="preserve">
     <value>Die Verbindung zu FSUIPC wurde unterbrochen.</value>
   </data>
-  <data name="uiMessageArcazeModuleFound" xml:space="preserve">
-    <value>Arcaze Modul gefunden</value>
+  <data name="uiMessageModuleFound" xml:space="preserve">
+    <value>Gefundene Module anzeigen</value>
   </data>
   <data name="uiMessageApplicationIsRunningInBackgroundMode" xml:space="preserve">
     <value>Die Anwendung läuft jetzt im Hintergrund.</value>
