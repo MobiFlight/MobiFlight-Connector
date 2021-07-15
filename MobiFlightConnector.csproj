@@ -770,6 +770,9 @@
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.de.resx">
+      <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -984,6 +987,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Input\ButtonPanel.resx">
       <DependentUpon>ButtonPanel.cs</DependentUpon>

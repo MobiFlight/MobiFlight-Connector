@@ -378,7 +378,7 @@ You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</v
   <data name="uiMessageSettingsDlgOldFirmware" xml:space="preserve">
     <value>Old firmware, update now!</value>
   </data>
-  <data name="uiMessageConfigWizard_ValidNumberInRange" xml:space="preserve">
+  <data name="uiMessageValidNumberInRange" xml:space="preserve">
     <value>Value must be a number between {0} and {1}.</value>
   </data>
   <data name="uiMessageConfigWizardInterpolationOnlyNumbersPlease" xml:space="preserve">

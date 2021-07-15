@@ -467,15 +467,6 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value must be a number between {0} and {1}..
-        /// </summary>
-        internal static string uiMessageConfigWizard_ValidNumberInRange {
-            get {
-                return ResourceManager.GetString("uiMessageConfigWizard_ValidNumberInRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Only numbers allowed. Please check your input..
         /// </summary>
         internal static string uiMessageConfigWizardInterpolationOnlyNumbersPlease {
@@ -938,6 +929,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageUploadConfigurationTooLong {
             get {
                 return ResourceManager.GetString("uiMessageUploadConfigurationTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value must be a number between {0} and {1}..
+        /// </summary>
+        internal static string uiMessageValidNumberInRange {
+            get {
+                return ResourceManager.GetString("uiMessageValidNumberInRange", resourceCulture);
             }
         }
         

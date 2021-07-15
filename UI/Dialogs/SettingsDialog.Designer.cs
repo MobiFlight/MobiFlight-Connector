@@ -34,6 +34,7 @@
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.ArcazeTabPage = new System.Windows.Forms.TabPage();
+            this.arcazePanel = new MobiFlight.UI.Panels.Settings.ArcazePanel();
             this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.mfModuleSettingsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,8 +59,10 @@
             this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generalTabPage = new System.Windows.Forms.TabPage();
+            this.generalPanel = new MobiFlight.UI.Panels.Settings.GeneralPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
+            this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -72,9 +75,6 @@
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.generalPanel = new MobiFlight.UI.Panels.Settings.GeneralPanel();
-            this.arcazePanel = new MobiFlight.UI.Panels.Settings.ArcazePanel();
-            this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
             this.panel1.SuspendLayout();
             this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
@@ -102,6 +102,8 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             resources.ApplyResources(this.cancelButton, "cancelButton");
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -114,6 +116,12 @@
             this.ArcazeTabPage.Name = "ArcazeTabPage";
             this.ArcazeTabPage.UseVisualStyleBackColor = true;
             this.ArcazeTabPage.Validating += new System.ComponentModel.CancelEventHandler(this.ledDisplaysTabPage_Validating);
+            // 
+            // arcazePanel
+            // 
+            resources.ApplyResources(this.arcazePanel, "arcazePanel");
+            this.arcazePanel.ModuleConfigChanged = false;
+            this.arcazePanel.Name = "arcazePanel";
             // 
             // mfTreeViewImageList
             // 
@@ -262,6 +270,11 @@
             resources.ApplyResources(this.generalTabPage, "generalTabPage");
             this.generalTabPage.Name = "generalTabPage";
             // 
+            // generalPanel
+            // 
+            resources.ApplyResources(this.generalPanel, "generalPanel");
+            this.generalPanel.Name = "generalPanel";
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.generalTabPage);
@@ -278,6 +291,11 @@
             resources.ApplyResources(this.mobiFlightTabPage, "mobiFlightTabPage");
             this.mobiFlightTabPage.Name = "mobiFlightTabPage";
             this.mobiFlightTabPage.UseVisualStyleBackColor = true;
+            // 
+            // mobiFlightPanel
+            // 
+            resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
+            this.mobiFlightPanel.Name = "mobiFlightPanel";
             // 
             // fsuipcTabPage
             // 
@@ -345,22 +363,6 @@
             // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Hint";
-            // 
-            // generalPanel
-            // 
-            resources.ApplyResources(this.generalPanel, "generalPanel");
-            this.generalPanel.Name = "generalPanel";
-            // 
-            // arcazePanel
-            // 
-            resources.ApplyResources(this.arcazePanel, "arcazePanel");
-            this.arcazePanel.ModuleConfigChanged = false;
-            this.arcazePanel.Name = "arcazePanel";
-            // 
-            // mobiFlightPanel
-            // 
-            resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
-            this.mobiFlightPanel.Name = "mobiFlightPanel";
             // 
             // SettingsDialog
             // 

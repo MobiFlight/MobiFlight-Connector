@@ -30,7 +30,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             // TODO: Complete member initialization
             this.config = config;
             NameTextBox.Text = config.Name;
-            AddressTextBox.Text = "0x" + config.Address.ToString("X2");
+            AddressComboBox.SelectedItem = "0x" + config.Address.ToString("X2");
             ColTextBox.Text = config.Cols.ToString();
             LinesTextBox.Text = config.Lines.ToString();
 
@@ -53,13 +53,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             config.Name     = NameTextBox.Text;
 
-            try { 
-                if (AddressTextBox.Text.Replace("0x", "").Length > 0)
-                    config.Address  = Byte.Parse(AddressTextBox.Text.Replace("0x",""), System.Globalization.NumberStyles.HexNumber);
-            } catch (Exception e)
-            {
-
-            }
+            config.Address  = Byte.Parse(AddressComboBox.Text.Replace("0x",""), System.Globalization.NumberStyles.HexNumber);
 
             byte Cols;
             if (Byte.TryParse(ColTextBox.Text, out Cols))
@@ -73,16 +67,48 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
         }
 
-        private void AddressTextBox_Validating(object sender, CancelEventArgs e)
+        private void ColTextBox_Validating(object sender, CancelEventArgs e)
         {
             try
             {
-                string tmp = (sender as TextBox).Text.Replace("0x", "").ToUpper();
-                (sender as TextBox).Text = "0x" + Int16.Parse(tmp, System.Globalization.NumberStyles.HexNumber).ToString("X2");
-            }catch(Exception ex)
-            {
+                byte value = byte.Parse((sender as TextBox).Text);
+            } catch (Exception ex)
+            {                
                 e.Cancel = true;
+                displayError(
+                    sender as Control,
+                    String.Format(
+                        i18n._tr("uiMessageValidNumberInRange"),
+                        byte.MinValue.ToString(),
+                        byte.MaxValue.ToString()
+                    )
+                );
+                return;
             }
+
+            removeError(sender as Control);
+
+            value_Changed(sender, e);
+        }
+
+        private void displayError(Control control, String message)
+        {
+            errorProvider.SetIconAlignment(control, ErrorIconAlignment.TopRight);
+            errorProvider.SetError(
+                    control,
+                    message);
+            MessageBox.Show(message, i18n._tr("Hint"));
+        }
+        private void removeError(Control control)
+        {
+            errorProvider.SetError(
+                    control,
+                    "");
+        }
+
+        private void AddressComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            value_Changed(sender, e);
         }
     }
 }

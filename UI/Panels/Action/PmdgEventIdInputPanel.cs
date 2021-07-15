@@ -213,7 +213,7 @@ namespace MobiFlight.UI.Panels.Action
                 displayError(
                     sender as Control, 
                     String.Format(
-                        i18n._tr("uiMessageConfigWizard_ValidNumberInRange"),
+                        i18n._tr("uiMessageValidNumberInRange"),
                         Int32.MinValue.ToString(), 
                         Int32.MaxValue.ToString()
                     )
