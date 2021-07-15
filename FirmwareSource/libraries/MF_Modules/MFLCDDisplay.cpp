@@ -9,7 +9,7 @@ MFLCDDisplay::MFLCDDisplay()
   _initialized = false;
 }
 
-void MFLCDDisplay::display(char *string)
+void MFLCDDisplay::display(const char *string)
 {
   if (!_initialized) return;
   char readBuffer[21] = "";
@@ -49,22 +49,28 @@ void MFLCDDisplay::powerSavingMode(bool state)
 
 void MFLCDDisplay::test() {
   if (!_initialized) return;
+  uint8_t preLines = 0;
+  _lcdDisplay->clear();
+
+  if (_lines>2) {
+    preLines = floor(_lines/2)-1;
+  }
+
+  _printCentered("MobiFlight", preLines++);
+  if (_lines>1) {
+    _printCentered("Rocks!", preLines++);
+  }
   
-  _lcdDisplay->setCursor(0, (_lines/2)-1);
-  for(byte c=0;c!=((_cols-10)/2);c++) {
-    _lcdDisplay->print(" ");
-  }
-  _lcdDisplay->print(F("Mobiflight"));
-  for(byte c=0;c!=((_cols-10)/2);c++) {
-    _lcdDisplay->print(F(" "));
-  }
-  _lcdDisplay->setCursor(0, (_lines/2));
-  for(byte c=0;c!=((_cols-6)/2);c++) {
-    _lcdDisplay->print(F(" "));
-  }
-  _lcdDisplay->print(F("Rocks!"));
-  for(byte c=0;c!=((_cols-6)/2);c++) {
-    _lcdDisplay->print(F(" "));
-  }
   _lcdDisplay->setCursor(0, 0);
+}
+
+void MFLCDDisplay::_printCentered(const char * str, uint8_t line) {
+  _lcdDisplay->setCursor(0, line);
+  for(byte c=0;c!=((_cols-strlen(str))/2);c++) {
+      _lcdDisplay->print(F(" "));
+  }
+  _lcdDisplay->print(str);
+  for(byte c=0;c!=((_cols-strlen(str))/2);c++) {
+    _lcdDisplay->print(F(" "));
+  }
 }

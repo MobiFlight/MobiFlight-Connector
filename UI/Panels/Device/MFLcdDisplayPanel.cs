@@ -53,17 +53,36 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             config.Name     = NameTextBox.Text;
 
-            if (AddressTextBox.Text.Replace("0x", "").Length > 0)
-                config.Address  = Byte.Parse(AddressTextBox.Text.Replace("0x",""), System.Globalization.NumberStyles.HexNumber);
+            try { 
+                if (AddressTextBox.Text.Replace("0x", "").Length > 0)
+                    config.Address  = Byte.Parse(AddressTextBox.Text.Replace("0x",""), System.Globalization.NumberStyles.HexNumber);
+            } catch (Exception e)
+            {
 
-            config.Cols     = Byte.Parse(ColTextBox.Text);
-            config.Lines    = Byte.Parse(LinesTextBox.Text);
+            }
+
+            byte Cols;
+            if (Byte.TryParse(ColTextBox.Text, out Cols))
+            {
+                config.Cols = Cols;
+            }
+
+            byte Lines;
+            if (Byte.TryParse(LinesTextBox.Text, out Lines)) { 
+                config.Lines = Lines;
+            }
         }
 
         private void AddressTextBox_Validating(object sender, CancelEventArgs e)
         {
-            string tmp = (sender as TextBox).Text.Replace("0x", "").ToUpper();
-            (sender as TextBox).Text = "0x" + Int16.Parse(tmp, System.Globalization.NumberStyles.HexNumber).ToString("X2");
+            try
+            {
+                string tmp = (sender as TextBox).Text.Replace("0x", "").ToUpper();
+                (sender as TextBox).Text = "0x" + Int16.Parse(tmp, System.Globalization.NumberStyles.HexNumber).ToString("X2");
+            }catch(Exception ex)
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
