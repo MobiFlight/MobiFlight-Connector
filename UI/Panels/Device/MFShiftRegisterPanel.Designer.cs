@@ -30,7 +30,9 @@ namespace MobiFlight.UI.Panels.Settings
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFShiftRegisterPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.mfNumModulesComboBox = new System.Windows.Forms.ComboBox();
             this.numberOfModulesLabel = new System.Windows.Forms.Label();
             this.mfPin1Label = new System.Windows.Forms.Label();
@@ -42,14 +44,14 @@ namespace MobiFlight.UI.Panels.Settings
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox2);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.mfNumModulesComboBox);
             this.groupBox1.Controls.Add(this.numberOfModulesLabel);
             this.groupBox1.Controls.Add(this.mfPin1Label);
@@ -58,143 +60,104 @@ namespace MobiFlight.UI.Panels.Settings
             this.groupBox1.Controls.Add(this.mfPin3ComboBox);
             this.groupBox1.Controls.Add(this.mfPin2Label);
             this.groupBox1.Controls.Add(this.mfPin2ComboBox);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(340, 220);
-            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Pin and number of modules";
+            this.toolTip1.SetToolTip(this.groupBox1, resources.GetString("groupBox1.ToolTip"));
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // mfNumModulesComboBox
             // 
+            resources.ApplyResources(this.mfNumModulesComboBox, "mfNumModulesComboBox");
+            this.mfNumModulesComboBox.BackColor = System.Drawing.SystemColors.Window;
             this.mfNumModulesComboBox.FormattingEnabled = true;
-            this.mfNumModulesComboBox.Location = new System.Drawing.Point(189, 47);
-            this.mfNumModulesComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.mfNumModulesComboBox.Name = "mfNumModulesComboBox";
-            this.mfNumModulesComboBox.Size = new System.Drawing.Size(118, 24);
-            this.mfNumModulesComboBox.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.mfNumModulesComboBox, resources.GetString("mfNumModulesComboBox.ToolTip"));
             this.mfNumModulesComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             this.mfNumModulesComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
             // 
             // numberOfModulesLabel
             // 
-            this.numberOfModulesLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.numberOfModulesLabel.Location = new System.Drawing.Point(186, 23);
-            this.numberOfModulesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            resources.ApplyResources(this.numberOfModulesLabel, "numberOfModulesLabel");
             this.numberOfModulesLabel.Name = "numberOfModulesLabel";
-            this.numberOfModulesLabel.Size = new System.Drawing.Size(137, 20);
-            this.numberOfModulesLabel.TabIndex = 19;
-            this.numberOfModulesLabel.Text = "# of 8 bit registers";
+            this.toolTip1.SetToolTip(this.numberOfModulesLabel, resources.GetString("numberOfModulesLabel.ToolTip"));
             // 
             // mfPin1Label
             // 
-            this.mfPin1Label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.mfPin1Label.Location = new System.Drawing.Point(8, 26);
-            this.mfPin1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            resources.ApplyResources(this.mfPin1Label, "mfPin1Label");
             this.mfPin1Label.Name = "mfPin1Label";
-            this.mfPin1Label.Size = new System.Drawing.Size(53, 17);
-            this.mfPin1Label.TabIndex = 16;
-            this.mfPin1Label.Text = "Latch";
+            this.toolTip1.SetToolTip(this.mfPin1Label, resources.GetString("mfPin1Label.ToolTip"));
             // 
             // mfPin1ComboBox
             // 
+            resources.ApplyResources(this.mfPin1ComboBox, "mfPin1ComboBox");
+            this.mfPin1ComboBox.BackColor = System.Drawing.SystemColors.Window;
             this.mfPin1ComboBox.FormattingEnabled = true;
-            this.mfPin1ComboBox.Location = new System.Drawing.Point(12, 47);
-            this.mfPin1ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
-            this.mfPin1ComboBox.Size = new System.Drawing.Size(49, 24);
-            this.mfPin1ComboBox.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.mfPin1ComboBox, resources.GetString("mfPin1ComboBox.ToolTip"));
             this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             this.mfPin1ComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin3Label
             // 
-            this.mfPin3Label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.mfPin3Label.Location = new System.Drawing.Point(125, 26);
-            this.mfPin3Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            resources.ApplyResources(this.mfPin3Label, "mfPin3Label");
             this.mfPin3Label.Name = "mfPin3Label";
-            this.mfPin3Label.Size = new System.Drawing.Size(53, 14);
-            this.mfPin3Label.TabIndex = 18;
-            this.mfPin3Label.Text = "Data";
+            this.toolTip1.SetToolTip(this.mfPin3Label, resources.GetString("mfPin3Label.ToolTip"));
             // 
             // mfPin3ComboBox
             // 
+            resources.ApplyResources(this.mfPin3ComboBox, "mfPin3ComboBox");
+            this.mfPin3ComboBox.BackColor = System.Drawing.SystemColors.Window;
             this.mfPin3ComboBox.FormattingEnabled = true;
-            this.mfPin3ComboBox.Location = new System.Drawing.Point(129, 47);
-            this.mfPin3ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
-            this.mfPin3ComboBox.Size = new System.Drawing.Size(49, 24);
-            this.mfPin3ComboBox.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.mfPin3ComboBox, resources.GetString("mfPin3ComboBox.ToolTip"));
             this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             this.mfPin3ComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin2Label
             // 
-            this.mfPin2Label.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.mfPin2Label.Location = new System.Drawing.Point(67, 26);
-            this.mfPin2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            resources.ApplyResources(this.mfPin2Label, "mfPin2Label");
             this.mfPin2Label.Name = "mfPin2Label";
-            this.mfPin2Label.Size = new System.Drawing.Size(55, 14);
-            this.mfPin2Label.TabIndex = 16;
-            this.mfPin2Label.Text = "Clock";
+            this.toolTip1.SetToolTip(this.mfPin2Label, resources.GetString("mfPin2Label.ToolTip"));
             // 
             // mfPin2ComboBox
             // 
+            resources.ApplyResources(this.mfPin2ComboBox, "mfPin2ComboBox");
+            this.mfPin2ComboBox.BackColor = System.Drawing.SystemColors.Window;
             this.mfPin2ComboBox.FormattingEnabled = true;
-            this.mfPin2ComboBox.Location = new System.Drawing.Point(71, 47);
-            this.mfPin2ComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";
-            this.mfPin2ComboBox.Size = new System.Drawing.Size(49, 24);
-            this.mfPin2ComboBox.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.mfPin2ComboBox, resources.GetString("mfPin2ComboBox.ToolTip"));
             this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             this.mfPin2ComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
             // 
             // groupBox2
             // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 220);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(340, 59);
-            this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Name";
+            this.toolTip1.SetToolTip(this.groupBox2, resources.GetString("groupBox2.ToolTip"));
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 29);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(241, 22);
-            this.textBox1.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.textBox1, resources.GetString("textBox1.ToolTip"));
             this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(7, 78);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(300, 74);
-            this.textBox2.TabIndex = 24;
-            this.textBox2.Text = "Supports shift register & LED drivers which support the SDI/SPI protocol. For 16b" +
-    "it registers just choose 2 8bit registers :-)";
             // 
             // MFShiftRegisterPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MFShiftRegisterPanel";
-            this.Size = new System.Drawing.Size(340, 280);
+            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -215,6 +178,6 @@ namespace MobiFlight.UI.Panels.Settings
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label1;
     }
 }
