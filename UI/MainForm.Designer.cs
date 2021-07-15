@@ -57,9 +57,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.inputsTabControl = new System.Windows.Forms.TabControl();
             this.OutputTabPage = new System.Windows.Forms.TabPage();
-            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
             this.InputTabPage = new System.Windows.Forms.TabPage();
-            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,6 +80,7 @@
             this.donateToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.YouTubeToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStripPanel = new System.Windows.Forms.Panel();
@@ -113,7 +112,10 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
-            this.YouTubeToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
+            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.openYoutubeChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -252,7 +254,9 @@
             this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.helpToolStripMenuItem,
             this.checkForUpdateToolStripMenuItem,
+            this.toolStripSeparator7,
             this.openDiscordServerToolStripMenuItem,
+            this.openYoutubeChannelToolStripMenuItem,
             this.toolStripMenuItem1,
             this.überToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
@@ -310,25 +314,12 @@
             this.OutputTabPage.Name = "OutputTabPage";
             this.OutputTabPage.UseVisualStyleBackColor = true;
             // 
-            // outputConfigPanel
-            // 
-            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
-            this.outputConfigPanel.ExecutionManager = null;
-            this.outputConfigPanel.Name = "outputConfigPanel";
-            // 
             // InputTabPage
             // 
             this.InputTabPage.Controls.Add(this.inputConfigPanel);
             resources.ApplyResources(this.InputTabPage, "InputTabPage");
             this.InputTabPage.Name = "InputTabPage";
             this.InputTabPage.UseVisualStyleBackColor = true;
-            // 
-            // inputConfigPanel
-            // 
-            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
-            this.inputConfigPanel.ExecutionManager = null;
-            this.inputConfigPanel.Name = "inputConfigPanel";
-            this.inputConfigPanel.OutputDataSetConfig = null;
             // 
             // notifyIcon
             // 
@@ -487,6 +478,12 @@
             resources.ApplyResources(this.toolStripButton1, "toolStripButton1");
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.openDiscordServer_Click);
+            // 
+            // YouTubeToolStripButton
+            // 
+            resources.ApplyResources(this.YouTubeToolStripButton, "YouTubeToolStripButton");
+            this.YouTubeToolStripButton.Name = "YouTubeToolStripButton";
+            this.YouTubeToolStripButton.Click += new System.EventHandler(this.YouTubeToolStripButton_Click);
             // 
             // toolStripSeparator4
             // 
@@ -694,11 +691,29 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
             // 
-            // YouTubeToolStripButton
+            // outputConfigPanel
             // 
-            resources.ApplyResources(this.YouTubeToolStripButton, "YouTubeToolStripButton");
-            this.YouTubeToolStripButton.Name = "YouTubeToolStripButton";
-            this.YouTubeToolStripButton.Click += new System.EventHandler(this.YouTubeToolStripButton_Click);
+            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
+            this.outputConfigPanel.ExecutionManager = null;
+            this.outputConfigPanel.Name = "outputConfigPanel";
+            // 
+            // inputConfigPanel
+            // 
+            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
+            this.inputConfigPanel.ExecutionManager = null;
+            this.inputConfigPanel.Name = "inputConfigPanel";
+            this.inputConfigPanel.OutputDataSetConfig = null;
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
+            // 
+            // openYoutubeChannelToolStripMenuItem
+            // 
+            this.openYoutubeChannelToolStripMenuItem.Name = "openYoutubeChannelToolStripMenuItem";
+            resources.ApplyResources(this.openYoutubeChannelToolStripMenuItem, "openYoutubeChannelToolStripMenuItem");
+            this.openYoutubeChannelToolStripMenuItem.Click += new System.EventHandler(this.YouTubeToolStripButton_Click);
             // 
             // MainForm
             // 
@@ -829,6 +844,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton settingsToolStripButton;
         private System.Windows.Forms.ToolStripButton YouTubeToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem openYoutubeChannelToolStripMenuItem;
     }
 }
 
