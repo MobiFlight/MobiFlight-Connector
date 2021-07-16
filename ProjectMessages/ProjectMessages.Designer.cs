@@ -543,7 +543,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The firmware was successful!.
+        ///   Looks up a localized string similar to The firmware update was successful!.
         /// </summary>
         internal static string uiMessageFirmwareUploadSuccessful {
             get {
