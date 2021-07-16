@@ -35,7 +35,12 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("value", MacroValue.ToString());
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
+        public override void execute(
+            FSUIPC.FSUIPCCacheInterface fsuipcCache,
+            SimConnectMSFS.SimConnectCacheInterface simConnectCache,
+            MobiFlightCacheInterface moduleCache,
+            InputEventArgs args,
+            List<ConfigRefValue> configRefs)
         {
             if (MacroName == "") return;
 
@@ -51,7 +56,7 @@ namespace MobiFlight.InputConfig
             value = Replace(value, replacements);
 
             Log.Instance.log("LuaMacoInputAction:Execute : Calling macro " + MacroName, LogSeverity.Debug);
-            cache.executeMacro(MacroName, int.Parse(value));
+            fsuipcCache.executeMacro(MacroName, int.Parse(value));
         }
     }
 }

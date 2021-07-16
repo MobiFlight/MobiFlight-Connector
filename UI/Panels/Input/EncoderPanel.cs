@@ -141,6 +141,18 @@ namespace MobiFlight.UI.Panels.Input
                     else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
                         (panel as MSFS2020InputPanel).syncFromConfig(_config.onRightFast as MSFS2020EventIdInputAction);
                     break;
+
+                case VariableInputAction.Label:
+                    panel = new VariableInputPanel();
+                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
+                        (panel as VariableInputPanel).syncFromConfig(_config.onLeft as VariableInputAction);
+                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
+                        (panel as VariableInputPanel).syncFromConfig(_config.onLeftFast as VariableInputAction);
+                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
+                        (panel as VariableInputPanel).syncFromConfig(_config.onRight as VariableInputAction);
+                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
+                        (panel as VariableInputPanel).syncFromConfig(_config.onRightFast as VariableInputAction);
+                    break;
             }
 
             if (panel != null)
@@ -210,6 +222,9 @@ namespace MobiFlight.UI.Panels.Input
                     case MSFS2020EventIdInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as MSFS2020InputPanel).ToConfig();
                         break;
+                    case VariableInputAction.Label:
+                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeft = null;
                         break;
@@ -246,6 +261,11 @@ namespace MobiFlight.UI.Panels.Input
                     case MSFS2020EventIdInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as MSFS2020InputPanel).ToConfig();
                         break;
+
+                    case VariableInputAction.Label:
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onLeftFast = null;
                         break;
@@ -280,6 +300,9 @@ namespace MobiFlight.UI.Panels.Input
                     case MSFS2020EventIdInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as MSFS2020InputPanel).ToConfig();
                         break;
+                    case VariableInputAction.Label:
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
+                        break;
                     default:
                         config.onRight = null;
                         break;
@@ -313,6 +336,9 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                     case MSFS2020EventIdInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as MSFS2020InputPanel).ToConfig();
+                        break;
+                    case VariableInputAction.Label:
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
                         break;
                     default:
                         config.onRightFast = null;

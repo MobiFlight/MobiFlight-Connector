@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace MobiFlightUnitTests.mock.MobiFlight
 {
+
     class MobiFlightCacheMock : MobiFlightCacheInterface
     {
+        Dictionary<string, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
+
         public async Task<IEnumerable<MobiFlightModule>> GetModulesAsync()
         {
             return await Task.Run(() => {
@@ -28,6 +31,21 @@ namespace MobiFlightUnitTests.mock.MobiFlight
             return new List<MobiFlightModule>() {
                 new MobiFlightModule(new MobiFlightModuleConfig())
             };
+        }
+
+        public void SetMobiFlightVariable(MobiFlightVariable value)
+        {
+            variables[value.Name] = value;
+        }
+
+        public MobiFlightVariable GetMobiFlightVariable(String name)
+        {
+            if (!variables.Keys.Contains(name))
+            {
+                variables[name] = new MobiFlightVariable();
+            }
+
+            return variables[name];
         }
     }
 }

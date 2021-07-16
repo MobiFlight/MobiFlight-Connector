@@ -147,17 +147,17 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs e, List<ConfigRefValue> configRefs)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs args, List<ConfigRefValue> configRefs)
         {
-            if (e.Value == 0 && onPress != null)
+            if (args.Value == 0 && onPress != null)
             {
-                Log.Instance.log("Executing OnPress: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
-                onPress.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
+                Log.Instance.log("Executing OnPress: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
+                onPress.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
-            else if (e.Value == 1 && onRelease != null)
+            else if (args.Value == 1 && onRelease != null)
             {
-                Log.Instance.log("Executing OnRelease: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
-                onRelease.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
+                Log.Instance.log("Executing OnRelease: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
+                onRelease.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
 
         }
