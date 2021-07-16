@@ -29,7 +29,15 @@ namespace MobiFlight.UI.Panels.Settings.Device
         public MFAnalogPanel()
         {
             InitializeComponent();
-            mfPinComboBox.Items.Clear();
+            mfPinComboBox.Items.Clear();            
+            SensitivityTrackBar.ValueChanged += SensitivityTrackBar_ValueChanged;
+            SensitivityTrackBar.Value = DEFAULT_SENSITIVITY;
+        }
+
+        private void SensitivityTrackBar_ValueChanged(object sender, EventArgs e)
+        {
+            SensitivityValueLabel.Text = (sender as TrackBar).Value.ToString();
+            value_Changed(sender, e);
         }
 
         public MFAnalogPanel(MobiFlight.Config.AnalogInput analogDevice, List<MobiFlightPin> FreePins)
@@ -44,8 +52,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
 
             this.analog = analogDevice;
-            ComboBoxHelper.SetSelectedItem(mfPinComboBox, analog.Pin);
-            textBoxSensitivity.Text = analog.Sensitivity;
+            mfPinComboBox.SelectedValue = byte.Parse(analog.Pin);
+            SensitivityTrackBar.Value = byte.Parse(analog.Sensitivity);
+
             textBox1.Text = analog.Name;
             setValues();
 
@@ -67,16 +76,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             analog.Pin = mfPinComboBox.SelectedValue.ToString();
             analog.Name = textBox1.Text;
 
-            int tmpValue = Convert.ToInt32(textBoxSensitivity.Value);
-
-            if (tmpValue <= MAX_SENSITIVITY && tmpValue >= MIN_SENSITIVITY)
-            {
-                analog.Sensitivity = tmpValue.ToString();
-            } else
-            {
-                textBoxSensitivity.Value = Convert.ToDecimal(analog.Sensitivity);
-            }
-
+            analog.Sensitivity = SensitivityTrackBar.Value.ToString();
         }
     }
 }

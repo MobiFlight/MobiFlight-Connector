@@ -665,14 +665,14 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_1_11_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="firmware\mobiflight_mega_1_11_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_1_11_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="firmware\mobiflight_micro_1_11_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_1_11_0.hex">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Include="firmware\mobiflight_uno_1_11_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\msfs2020_simvars.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -769,6 +769,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.de.resx">
+      <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.de.resx">
+      <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
@@ -984,6 +990,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Input\ButtonPanel.resx">
       <DependentUpon>ButtonPanel.cs</DependentUpon>

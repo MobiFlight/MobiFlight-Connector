@@ -376,15 +376,6 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arcaze module found..
-        /// </summary>
-        internal static string uiMessageArcazeModuleFound {
-            get {
-                return ResourceManager.GetString("uiMessageArcazeModuleFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The config file passed as parameter does not exist..
         /// </summary>
         internal static string uiMessageCmdParamConfigFileDoesNotExist {
@@ -463,15 +454,6 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageConfigWizard_ValidHexFormat {
             get {
                 return ResourceManager.GetString("uiMessageConfigWizard_ValidHexFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value must be a number between {0} and {1}..
-        /// </summary>
-        internal static string uiMessageConfigWizard_ValidNumberInRange {
-            get {
-                return ResourceManager.GetString("uiMessageConfigWizard_ValidNumberInRange", resourceCulture);
             }
         }
         
@@ -660,6 +642,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show detected modules.
+        /// </summary>
+        internal static string uiMessageModuleFound {
+            get {
+                return ResourceManager.GetString("uiMessageModuleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It seems that your arcaze modules are not configured. This is a new feature to better support &quot;Extension Modules&quot;.
         ///
         ///You should configure them now..
@@ -689,20 +680,20 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No module found..
-        /// </summary>
-        internal static string uiMessageNoArcazeModuleFound {
-            get {
-                return ResourceManager.GetString("uiMessageNoArcazeModuleFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No active FSUIPC connection..
         /// </summary>
         internal static string uiMessageNoFSUIPCConnection {
             get {
                 return ResourceManager.GetString("uiMessageNoFSUIPCConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No modules found.
+        /// </summary>
+        internal static string uiMessageNoModuleFound {
+            get {
+                return ResourceManager.GetString("uiMessageNoModuleFound", resourceCulture);
             }
         }
         
@@ -938,6 +929,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageUploadConfigurationTooLong {
             get {
                 return ResourceManager.GetString("uiMessageUploadConfigurationTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value must be a number between {0} and {1}..
+        /// </summary>
+        internal static string uiMessageValidNumberInRange {
+            get {
+                return ResourceManager.GetString("uiMessageValidNumberInRange", resourceCulture);
             }
         }
         

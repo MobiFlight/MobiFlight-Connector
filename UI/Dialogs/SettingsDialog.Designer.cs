@@ -46,6 +46,7 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analogDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,7 +75,6 @@
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.analogDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
@@ -102,6 +102,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             resources.ApplyResources(this.cancelButton, "cancelButton");
             this.cancelButton.Name = "cancelButton";
@@ -201,6 +202,11 @@
             // 
             this.encoderToolStripMenuItem.Name = "encoderToolStripMenuItem";
             resources.ApplyResources(this.encoderToolStripMenuItem, "encoderToolStripMenuItem");
+            // 
+            // analogDeviceToolStripMenuItem
+            // 
+            this.analogDeviceToolStripMenuItem.Name = "analogDeviceToolStripMenuItem";
+            resources.ApplyResources(this.analogDeviceToolStripMenuItem, "analogDeviceToolStripMenuItem");
             // 
             // removeToolStripMenuItem
             // 
@@ -357,11 +363,6 @@
             // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Hint";
-            // 
-            // analogDeviceToolStripMenuItem
-            // 
-            this.analogDeviceToolStripMenuItem.Name = "analogDeviceToolStripMenuItem";
-            resources.ApplyResources(this.analogDeviceToolStripMenuItem, "analogDeviceToolStripMenuItem");
             // 
             // SettingsDialog
             // 

@@ -174,6 +174,9 @@ namespace MobiFlight.UI
             Update();
             Refresh();
             execManager.AutoConnectStart();
+
+            moduleToolStripDropDownButton.DropDownItems.Clear();
+            moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
 
         private void OnFirstStart()
@@ -722,13 +725,13 @@ namespace MobiFlight.UI
             // remove the items from all comboboxes
             // and set default items
             bool modulesFound = false;
-            arcazeUsbToolStripDropDownButton.DropDownItems.Clear();
-            arcazeUsbToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoArcazeModuleFound");
+            moduleToolStripDropDownButton.DropDownItems.Clear();
+            moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
 #if ARCAZE
             // TODO: refactor!!!
             foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
             {
-                arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+                moduleToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
                 modulesFound = true;
             }
 #endif
@@ -736,13 +739,13 @@ namespace MobiFlight.UI
 #if MOBIFLIGHT
             foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                arcazeUsbToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+                moduleToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
                 modulesFound = true;
             }
 #endif
             if (modulesFound)
             {
-                arcazeUsbToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageArcazeModuleFound");
+                moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageModuleFound");
             }
             // only enable button if modules are available            
             return (modulesFound);
@@ -1508,6 +1511,11 @@ namespace MobiFlight.UI
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
             }
+        }
+
+        private void YouTubeToolStripButton_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
         }
     }
 

@@ -878,7 +878,7 @@ namespace MobiFlight
 
 
                         var val = value.PadRight(cfg.DisplayLedDigits.Count, cfg.DisplayLedPaddingChar[0]);
-                        var decimalPoints = cfg.DisplayLedDecimalPoints;
+                        var decimalPoints = new List<string>(cfg.DisplayLedDecimalPoints);
 
                         if (cfg.DisplayLedPadding) val = value.PadLeft(cfg.DisplayLedPadding ? cfg.DisplayLedDigits.Count : 0, cfg.DisplayLedPaddingChar[0]);
 
@@ -899,7 +899,7 @@ namespace MobiFlight
                             val = new string(val.ToCharArray().Reverse().ToArray());
                             for (int i = 0; i != decimalPoints.Count; i++)
                             {
-                                decimalPoints[i] = (7 - int.Parse(decimalPoints[i])).ToString();
+                                decimalPoints[i] = (cfg.DisplayLedDigits.Count - int.Parse(decimalPoints[i]) - 1).ToString();
                             };
                         }
 
