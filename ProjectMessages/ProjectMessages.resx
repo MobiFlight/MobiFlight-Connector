@@ -370,7 +370,7 @@ You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</v
     <value>Some Mobiflight Boards have an old firmware - update them now</value>
   </data>
   <data name="uiMessageFirmwareUploadSuccessful" xml:space="preserve">
-    <value>The firmware was successful!</value>
+    <value>The firmware update was successful!</value>
   </data>
   <data name="uiMessageInvalidArduinoIdePath" xml:space="preserve">
     <value>Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found.</value>
