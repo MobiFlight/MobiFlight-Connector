@@ -35,17 +35,17 @@ namespace MobiFlight.UI.Panels.Config
 
         public void ShowMultiplyPanel(bool visible)
         {
-            MultiplyPanel.Visible = false && PanelMode;
+            MultiplyPanel.Visible = visible;
         }
 
         public void ShowSubStringPanel(bool visible)
         {
-            SubstringPanel.Visible = false && PanelMode;
+            SubstringPanel.Visible = visible;
         }
 
         public void ShowValuePanel(bool visible)
         {
-            ValuePanel.Visible = false && PanelMode;
+            ValuePanel.Visible = visible;
         }
 
         internal void syncFromConfig(OutputConfigItem config)
@@ -57,15 +57,19 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             // multiplier
-            if (config.FSUIPC.OffsetType != FSUIPCOffsetType.String)
-            {
-                TransformationCheckBox.Checked = config.Transform.Active;
-                SubstringTransformationCheckBox.Checked = false;
-            }
-            else
+            if ((config.SourceType == SourceType.FSUIPC && config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
+             || (config.SourceType == SourceType.VARIABLE && config.MobiFlightVariable.TYPE == "string")
+                
+                )
             {
                 TransformationCheckBox.Checked = false;
                 SubstringTransformationCheckBox.Checked = config.Transform.Active;
+            }
+            else
+            {
+                TransformationCheckBox.Checked = config.Transform.Active;
+                SubstringTransformationCheckBox.Checked = false;
+                
             }
 
             fsuipcMultiplyTextBox.Text = config.Transform.Expression;
@@ -78,13 +82,16 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncToConfig(OutputConfigItem config)
         {
-            if (config.FSUIPC.OffsetType != FSUIPCOffsetType.String)
+            if ((config.SourceType == SourceType.FSUIPC && config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
+             || (config.SourceType == SourceType.VARIABLE && config.MobiFlightVariable.TYPE == "string")
+
+                )
             {
-                config.Transform.Active = TransformationCheckBox.Checked;
+                config.Transform.Active = SubstringTransformationCheckBox.Checked;
             }
             else
             {
-                config.Transform.Active = SubstringTransformationCheckBox.Checked;
+                config.Transform.Active = TransformationCheckBox.Checked;
             }
 
             // TODO: refactor this conditional stuff.

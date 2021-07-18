@@ -785,6 +785,9 @@
     <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.resx">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\VariablePanel.de.resx">
+      <DependentUpon>VariablePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\VariablePanel.resx">
       <DependentUpon>VariablePanel.cs</DependentUpon>
     </EmbeddedResource>

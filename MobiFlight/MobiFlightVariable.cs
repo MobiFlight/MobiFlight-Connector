@@ -5,7 +5,10 @@ namespace MobiFlight
 {
     public class MobiFlightVariable
     {
-        public string TYPE = "number";
+        public const string TYPE_NUMBER = "number";
+        public const string TYPE_STRING = "string";
+
+        public string TYPE = TYPE_NUMBER;
         public string Name = "MyVar";
         public double Number;
         public string Text = "";

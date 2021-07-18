@@ -64,8 +64,14 @@ namespace MobiFlight.InputConfig
                         onLeft = new LuaMacroInputAction();
                         onLeft.ReadXml(reader);
                         break;
+
                     case MSFS2020EventIdInputAction.TYPE:
                         onLeft = new MSFS2020EventIdInputAction();
+                        onLeft.ReadXml(reader);
+                        break;
+
+                    case VariableInputAction.TYPE:
+                        onLeft = new VariableInputAction();
                         onLeft.ReadXml(reader);
                         break;
                 }
@@ -111,6 +117,11 @@ namespace MobiFlight.InputConfig
                         onLeftFast = new MSFS2020EventIdInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
+
+                    case VariableInputAction.TYPE:
+                        onLeftFast = new VariableInputAction();
+                        onLeftFast.ReadXml(reader);
+                        break;
                 }
 
                 reader.Read(); // advance to the next
@@ -154,6 +165,11 @@ namespace MobiFlight.InputConfig
                         onRight = new MSFS2020EventIdInputAction();
                         onRight.ReadXml(reader);
                         break;
+
+                    case VariableInputAction.TYPE:
+                        onRight = new VariableInputAction();
+                        onRight.ReadXml(reader);
+                        break;
                 }
 
                 reader.Read(); // advance to the next
@@ -195,6 +211,11 @@ namespace MobiFlight.InputConfig
 
                     case MSFS2020EventIdInputAction.TYPE:
                         onRightFast = new MSFS2020EventIdInputAction();
+                        onRightFast.ReadXml(reader);
+                        break;
+
+                    case VariableInputAction.TYPE:
+                        onRightFast = new VariableInputAction();
                         onRightFast.ReadXml(reader);
                         break;
                 }

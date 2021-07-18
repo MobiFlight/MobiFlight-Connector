@@ -50,7 +50,7 @@
             this.offsetPanel = new System.Windows.Forms.Panel();
             this.fsuipcTypeLabel = new System.Windows.Forms.Label();
             this.fsuipcOffsetTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.fsuipcSizeLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.fsuipcSizeComboBox = new System.Windows.Forms.ComboBox();
             this.fsuipcOffsetTextBox = new System.Windows.Forms.TextBox();
@@ -113,9 +113,9 @@
             // 
             // SubstringTransformationCheckBox
             // 
-            resources.ApplyResources(this.SubstringTransformationCheckBox, "SubstringTransformationCheckBox");
             this.SubstringTransformationCheckBox.Checked = true;
             this.SubstringTransformationCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            resources.ApplyResources(this.SubstringTransformationCheckBox, "SubstringTransformationCheckBox");
             this.SubstringTransformationCheckBox.Name = "SubstringTransformationCheckBox";
             this.SubstringTransformationCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -143,9 +143,9 @@
             // 
             // TransformationCheckBox
             // 
-            resources.ApplyResources(this.TransformationCheckBox, "TransformationCheckBox");
             this.TransformationCheckBox.Checked = true;
             this.TransformationCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            resources.ApplyResources(this.TransformationCheckBox, "TransformationCheckBox");
             this.TransformationCheckBox.Name = "TransformationCheckBox";
             this.TransformationCheckBox.UseVisualStyleBackColor = true;
             this.TransformationCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -202,7 +202,7 @@
             resources.ApplyResources(this.offsetPanel, "offsetPanel");
             this.offsetPanel.Controls.Add(this.fsuipcTypeLabel);
             this.offsetPanel.Controls.Add(this.fsuipcOffsetTypeComboBox);
-            this.offsetPanel.Controls.Add(this.label2);
+            this.offsetPanel.Controls.Add(this.fsuipcSizeLabel);
             this.offsetPanel.Controls.Add(this.label1);
             this.offsetPanel.Controls.Add(this.fsuipcSizeComboBox);
             this.offsetPanel.Controls.Add(this.fsuipcOffsetTextBox);
@@ -215,20 +215,20 @@
             // 
             // fsuipcOffsetTypeComboBox
             // 
-            resources.ApplyResources(this.fsuipcOffsetTypeComboBox, "fsuipcOffsetTypeComboBox");
             this.fsuipcOffsetTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fsuipcOffsetTypeComboBox.FormattingEnabled = true;
             this.fsuipcOffsetTypeComboBox.Items.AddRange(new object[] {
             resources.GetString("fsuipcOffsetTypeComboBox.Items"),
             resources.GetString("fsuipcOffsetTypeComboBox.Items1"),
             resources.GetString("fsuipcOffsetTypeComboBox.Items2")});
+            resources.ApplyResources(this.fsuipcOffsetTypeComboBox, "fsuipcOffsetTypeComboBox");
             this.fsuipcOffsetTypeComboBox.Name = "fsuipcOffsetTypeComboBox";
             this.fsuipcOffsetTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.fsuipcOffsetTypeComboBox_SelectedIndexChanged);
             // 
-            // label2
+            // fsuipcSizeLabel
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.fsuipcSizeLabel, "fsuipcSizeLabel");
+            this.fsuipcSizeLabel.Name = "fsuipcSizeLabel";
             // 
             // label1
             // 
@@ -237,7 +237,6 @@
             // 
             // fsuipcSizeComboBox
             // 
-            resources.ApplyResources(this.fsuipcSizeComboBox, "fsuipcSizeComboBox");
             this.fsuipcSizeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.fsuipcSizeComboBox.FormattingEnabled = true;
             this.fsuipcSizeComboBox.Items.AddRange(new object[] {
@@ -245,6 +244,7 @@
             resources.GetString("fsuipcSizeComboBox.Items1"),
             resources.GetString("fsuipcSizeComboBox.Items2"),
             resources.GetString("fsuipcSizeComboBox.Items3")});
+            resources.ApplyResources(this.fsuipcSizeComboBox, "fsuipcSizeComboBox");
             this.fsuipcSizeComboBox.Name = "fsuipcSizeComboBox";
             this.fsuipcSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.fsuipcSizeComboBox_SelectedIndexChanged);
             // 
@@ -256,10 +256,10 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetUseButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.labelFsuipcPreset);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 
@@ -355,7 +355,7 @@
         private System.Windows.Forms.Panel offsetPanel;
         private System.Windows.Forms.Label fsuipcTypeLabel;
         private System.Windows.Forms.ComboBox fsuipcOffsetTypeComboBox;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label fsuipcSizeLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox fsuipcSizeComboBox;
         private System.Windows.Forms.TextBox fsuipcOffsetTextBox;

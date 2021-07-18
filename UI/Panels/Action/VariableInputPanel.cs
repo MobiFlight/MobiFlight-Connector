@@ -17,11 +17,27 @@ namespace MobiFlight.UI.Panels.Action
         {
             InitializeComponent();
             InitWithVariable(new MobiFlightVariable());
+
+            List<ListItem> options = new List<ListItem>();
+            options.Add(new ListItem() { Value = MobiFlightVariable.TYPE_NUMBER, Label = "Number" });
+            options.Add(new ListItem() { Value = MobiFlightVariable.TYPE_STRING, Label = "String" });
+
+            TypeComboBox.DisplayMember = "Label";
+            TypeComboBox.ValueMember = "Value";
+            TypeComboBox.DataSource = options;
+            TypeComboBox.SelectedIndex = 0;
         }
 
         private void InitWithVariable(MobiFlightVariable Variable)
         {
-            ComboBoxHelper.SetSelectedItem(TypeComboBox, Variable.TYPE);
+            try
+            {
+                TypeComboBox.SelectedValue = Variable.TYPE;
+            }
+            catch (Exception)
+            {
+                TypeComboBox.SelectedValue = MobiFlightVariable.TYPE_NUMBER;
+            }
             NameTextBox.Text = Variable.Name;
             ValueTextBox.Text = Variable.Expression;
         }
@@ -30,7 +46,14 @@ namespace MobiFlight.UI.Panels.Action
         {
             if (inputAction == null) inputAction = new InputConfig.VariableInputAction();
 
-            ComboBoxHelper.SetSelectedItem(TypeComboBox, inputAction.Variable.TYPE);
+            try
+            {
+                TypeComboBox.SelectedValue = inputAction.Variable.TYPE;
+            }
+            catch (Exception)
+            {
+                TypeComboBox.SelectedValue = MobiFlightVariable.TYPE_NUMBER;
+            }
             NameTextBox.Text = inputAction.Variable.Name;
             ValueTextBox.Text = inputAction.Variable.Expression;
         }
@@ -38,7 +61,7 @@ namespace MobiFlight.UI.Panels.Action
         internal InputConfig.InputAction ToConfig()
         {
             MobiFlight.InputConfig.VariableInputAction result = new InputConfig.VariableInputAction();
-            result.Variable.TYPE = TypeComboBox.Text;
+            result.Variable.TYPE = TypeComboBox.SelectedValue.ToString();
             result.Variable.Name = NameTextBox.Text;
             result.Variable.Expression = ValueTextBox.Text;
             return result;

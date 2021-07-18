@@ -601,8 +601,14 @@ namespace MobiFlight
             }
             else if (cfg.SourceType == SourceType.VARIABLE)
             {
-                result.type = FSUIPCOffsetType.Float;
-                result.Float64 = mobiFlightCache.GetMobiFlightVariable(cfg.MobiFlightVariable.Name).Number;
+                if (cfg.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_NUMBER) { 
+                    result.type = FSUIPCOffsetType.Float;
+                    result.Float64 = mobiFlightCache.GetMobiFlightVariable(cfg.MobiFlightVariable.Name).Number;
+                } else if (cfg.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_STRING)
+                {
+                    result.type = FSUIPCOffsetType.String;
+                    result.String = mobiFlightCache.GetMobiFlightVariable(cfg.MobiFlightVariable.Name).Text;
+                }
             }
             else
             {

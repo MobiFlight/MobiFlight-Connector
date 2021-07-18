@@ -117,674 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;SubStringFromTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="labelFsuipcPreset.Text" xml:space="preserve">
-    <value>Use preset</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 16</value>
-  </data>
-  <data name="&gt;&gt;maskAndBcdPanel.Name" xml:space="preserve">
-    <value>maskAndBcdPanel</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;SubstringPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="fsuipcValueTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="fsuipcMaskTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="maskAndBcdPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 67</value>
-  </data>
-  <data name="&gt;&gt;maskAndBcdPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Name" xml:space="preserve">
-    <value>fsuipcPresetUseButton</value>
-  </data>
-  <data name="fsuipcPresetComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 21</value>
-  </data>
-  <data name="&gt;&gt;valuePanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 49</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>FsuipcConfigPanel</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="fsuipcPresetComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubStringToTextBox.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="multiplyPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
-    <value>settingsColumn</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.Text" xml:space="preserve">
-    <value>Substring from</value>
-  </data>
-  <data name="&gt;&gt;maskEditorButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fsuipcMultiplyTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 1</value>
-  </data>
-  <data name="offsetPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 20</value>
-  </data>
-  <data name="TransformationCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="valuePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 65</value>
-  </data>
-  <data name="maskEditorButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>24, 23</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Name" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="fsuipcTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 18</value>
-  </data>
-  <data name="fsuipcValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromTextBox.Name" xml:space="preserve">
-    <value>SubStringFromTextBox</value>
-  </data>
-  <data name="SubStringFromTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 20</value>
-  </data>
-  <data name="label5.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="maskEditorButton.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.Text" xml:space="preserve">
-    <value>BCD Mode</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Text" xml:space="preserve">
-    <value>use</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Name" xml:space="preserve">
-    <value>labelFsuipcPreset</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromTextBox.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TransformationCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fsuipcOffsetTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="SubStringFromTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="TransformationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 3</value>
-  </data>
-  <data name="&gt;&gt;SubStringToLabel.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="&gt;&gt;SubStringToLabel.Name" xml:space="preserve">
-    <value>SubStringToLabel</value>
-  </data>
-  <data name="maskAndBcdPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="SubStringToLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 17</value>
-  </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;fsuipcValueTextBox.Name" xml:space="preserve">
-    <value>fsuipcValueTextBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Mask value with</value>
-  </data>
   <data name="fsuipcMoreOptionsGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Set Value</value>
-  </data>
-  <data name="maskEditorButton.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>257, 3</value>
-  </data>
-  <data name="TransformationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 18</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.Name" xml:space="preserve">
-    <value>fsuipcMultiplyTextBox</value>
-  </data>
-  <data name="&gt;&gt;TransformationCheckBox.Parent" xml:space="preserve">
-    <value>multiplyPanel</value>
-  </data>
-  <data name="SubStringToLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 5</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.Name" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubstringTransformationCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>valuePanel</value>
-  </data>
-  <data name="multiplyPanel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="valuePanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 250</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label5.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
-  <data name="maskEditorButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 3</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Items" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;SubStringToTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="offsetPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 51</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMultiplyTextBox.Parent" xml:space="preserve">
-    <value>multiplyPanel</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="SubStringToTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="SubstringPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 25</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Items2" xml:space="preserve">
-    <value>String</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Items1" xml:space="preserve">
-    <value>Float</value>
-  </data>
-  <data name="labelFsuipcPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;description.Name" xml:space="preserve">
-    <value>description</value>
-  </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Parent" xml:space="preserve">
-    <value>maskAndBcdPanel</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 4</value>
-  </data>
-  <data name="&gt;&gt;SubstringPanel.Name" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="labelFsuipcPreset.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 144</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.Items" xml:space="preserve">
-    <value>Int</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Name" xml:space="preserve">
-    <value>fsuipcBcdModeCheckBox</value>
-  </data>
-  <data name="fsuipcTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>281, 27</value>
-  </data>
-  <data name="maskAndBcdPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="&gt;&gt;SubStringToLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="offsetPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="multiplyPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 24</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="fsuipcTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 28</value>
-  </data>
-  <data name="fsuipcTypeLabel.Text" xml:space="preserve">
-    <value>Value Type</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Name" xml:space="preserve">
-    <value>fsuipcTypeLabel</value>
-  </data>
-  <data name="fsuipcPresetComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>113, 21</value>
-  </data>
-  <data name="&gt;&gt;maskAndBcdPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
-    <value>presetsDataSet</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 17</value>
-  </data>
-  <data name="SubStringToLabel.Text" xml:space="preserve">
-    <value>to</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
-    <value>Base settings</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Name" xml:space="preserve">
-    <value>fsuipcOffsetTypeComboBox</value>
-  </data>
-  <data name="SubStringToLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="multiplyPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 5</value>
   </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 17</value>
   </data>
-  <data name="SubstringPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
   </data>
-  <data name="multiplyPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Set Value</value>
   </data>
-  <data name="&gt;&gt;valuePanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcValueTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Name" xml:space="preserve">
-    <value>fsuipcOffsetTextBox</value>
-  </data>
-  <data name="&gt;&gt;SubstringPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="fsuipcMaskTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 1</value>
-  </data>
-  <data name="&gt;&gt;maskEditorButton.Name" xml:space="preserve">
-    <value>maskEditorButton</value>
-  </data>
-  <data name="&gt;&gt;maskEditorButton.Parent" xml:space="preserve">
-    <value>maskAndBcdPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="SubStringToTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 2</value>
-  </data>
-  <data name="&gt;&gt;presetDataTable.Name" xml:space="preserve">
-    <value>presetDataTable</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 18</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMaskTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fsuipcTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcOffsetTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 20</value>
-  </data>
-  <data name="SubstringPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMaskTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="offsetPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fsuipcPresetComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="SubStringToLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 13</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="fsuipcSizeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
-    <value>More Options</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Name" xml:space="preserve">
-    <value>fsuipcPresetComboBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Name" xml:space="preserve">
-    <value>fsuipcSizeComboBox</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>36, 23</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="maskAndBcdPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 25</value>
-  </data>
-  <data name="&gt;&gt;TransformationCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="labelFsuipcPreset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;maskAndBcdPanel.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="&gt;&gt;SubStringToTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="TransformationCheckBox.Text" xml:space="preserve">
-    <value>Transform</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="SubStringToLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;SubStringToTextBox.Name" xml:space="preserve">
-    <value>SubStringToTextBox</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;TransformationCheckBox.Name" xml:space="preserve">
-    <value>TransformationCheckBox</value>
-  </data>
-  <data name="SubstringPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 40</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubStringToLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>maskAndBcdPanel</value>
-  </data>
-  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="offsetPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
   </data>
-  <data name="fsuipcMoreOptionsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 93</value>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="fsuipcBaseSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 95</value>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>valuePanel</value>
   </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
-    <value>Load preset</value>
-  </data>
-  <data name="&gt;&gt;multiplyPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMaskTextBox.Parent" xml:space="preserve">
-    <value>maskAndBcdPanel</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="SubStringFromTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 2</value>
-  </data>
-  <data name="SubStringToTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 20</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Size in Bytes</value>
-  </data>
-  <data name="&gt;&gt;multiplyPanel.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Name" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="maskAndBcdPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBcdModeCheckBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fsuipcTypeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="TransformationCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 49</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 21</value>
-  </data>
-  <data name="maskAndBcdPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;SubstringTransformationCheckBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="fsuipcValueTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="fsuipcValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>110, 2</value>
@@ -792,208 +168,826 @@
   <data name="fsuipcValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>221, 20</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="fsuipcValueTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
   </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;fsuipcValueTextBox.Name" xml:space="preserve">
+    <value>fsuipcValueTextBox</value>
   </data>
-  <data name="fsuipcOffsetTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 4</value>
+  <data name="&gt;&gt;fsuipcValueTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="maskEditorButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>214, -1</value>
+  <data name="&gt;&gt;fsuipcValueTextBox.Parent" xml:space="preserve">
+    <value>valuePanel</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 20</value>
+  <data name="&gt;&gt;fsuipcValueTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="SubStringToLabel.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
+  <data name="valuePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="&gt;&gt;multiplyPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="valuePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 65</value>
   </data>
-  <data name="&gt;&gt;SubstringPanel.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="multiplyPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="fsuipcBcdModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 17</value>
+  <data name="valuePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>337, 25</value>
   </data>
   <data name="valuePanel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
+  <data name="&gt;&gt;valuePanel.Name" xml:space="preserve">
+    <value>valuePanel</value>
+  </data>
+  <data name="&gt;&gt;valuePanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;valuePanel.Parent" xml:space="preserve">
+    <value>fsuipcMoreOptionsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;valuePanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="SubstringPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="SubstringTransformationCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SubstringTransformationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 3</value>
+  </data>
+  <data name="SubstringTransformationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 18</value>
+  </data>
+  <data name="SubstringTransformationCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="SubstringTransformationCheckBox.Text" xml:space="preserve">
+    <value>Substring from</value>
+  </data>
+  <data name="SubstringTransformationCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;SubstringTransformationCheckBox.Name" xml:space="preserve">
+    <value>SubstringTransformationCheckBox</value>
+  </data>
+  <data name="&gt;&gt;SubstringTransformationCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubstringTransformationCheckBox.Parent" xml:space="preserve">
+    <value>SubstringPanel</value>
+  </data>
+  <data name="&gt;&gt;SubstringTransformationCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="SubStringToTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>189, 2</value>
+  </data>
+  <data name="SubStringToTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 20</value>
+  </data>
+  <data name="SubStringToTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;SubStringToTextBox.Name" xml:space="preserve">
+    <value>SubStringToTextBox</value>
+  </data>
+  <data name="&gt;&gt;SubStringToTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubStringToTextBox.Parent" xml:space="preserve">
+    <value>SubstringPanel</value>
+  </data>
+  <data name="&gt;&gt;SubStringToTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="SubStringToLabel.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="SubStringToLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="SubStringToLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>162, 5</value>
+  </data>
+  <data name="SubStringToLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 13</value>
+  </data>
+  <data name="SubStringToLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="SubStringToLabel.Text" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="SubStringToLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;SubStringToLabel.Name" xml:space="preserve">
+    <value>SubStringToLabel</value>
+  </data>
+  <data name="&gt;&gt;SubStringToLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubStringToLabel.Parent" xml:space="preserve">
+    <value>SubstringPanel</value>
+  </data>
+  <data name="&gt;&gt;SubStringToLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="SubStringFromTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 2</value>
+  </data>
+  <data name="SubStringFromTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>49, 20</value>
+  </data>
+  <data name="SubStringFromTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;SubStringFromTextBox.Name" xml:space="preserve">
+    <value>SubStringFromTextBox</value>
+  </data>
+  <data name="&gt;&gt;SubStringFromTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubStringFromTextBox.Parent" xml:space="preserve">
+    <value>SubstringPanel</value>
+  </data>
+  <data name="&gt;&gt;SubStringFromTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="SubstringPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="SubstringPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 40</value>
+  </data>
+  <data name="SubstringPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>337, 25</value>
+  </data>
+  <data name="SubstringPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;SubstringPanel.Name" xml:space="preserve">
+    <value>SubstringPanel</value>
+  </data>
+  <data name="&gt;&gt;SubstringPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SubstringPanel.Parent" xml:space="preserve">
+    <value>fsuipcMoreOptionsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SubstringPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="multiplyPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="multiplyPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="TransformationCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="TransformationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 3</value>
+  </data>
+  <data name="TransformationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 18</value>
+  </data>
+  <data name="TransformationCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="TransformationCheckBox.Text" xml:space="preserve">
+    <value>Transform</value>
+  </data>
+  <data name="TransformationCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;TransformationCheckBox.Name" xml:space="preserve">
+    <value>TransformationCheckBox</value>
+  </data>
+  <data name="&gt;&gt;TransformationCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TransformationCheckBox.Parent" xml:space="preserve">
+    <value>multiplyPanel</value>
+  </data>
+  <data name="&gt;&gt;TransformationCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="fsuipcMultiplyTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="fsuipcMultiplyTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 1</value>
+  </data>
+  <data name="fsuipcMultiplyTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 20</value>
+  </data>
+  <data name="fsuipcMultiplyTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;fsuipcMultiplyTextBox.Name" xml:space="preserve">
+    <value>fsuipcMultiplyTextBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcMultiplyTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcMultiplyTextBox.Parent" xml:space="preserve">
+    <value>multiplyPanel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcMultiplyTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="multiplyPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="multiplyPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="multiplyPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>337, 24</value>
+  </data>
+  <data name="multiplyPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;multiplyPanel.Name" xml:space="preserve">
+    <value>multiplyPanel</value>
+  </data>
+  <data name="&gt;&gt;multiplyPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;multiplyPanel.Parent" xml:space="preserve">
+    <value>fsuipcMoreOptionsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;multiplyPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="fsuipcMoreOptionsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="fsuipcMoreOptionsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 144</value>
+  </data>
+  <data name="fsuipcMoreOptionsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>343, 93</value>
+  </data>
+  <data name="fsuipcMoreOptionsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
+    <value>More Options</value>
+  </data>
+  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Name" xml:space="preserve">
+    <value>fsuipcMoreOptionsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="maskAndBcdPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="maskAndBcdPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="maskEditorButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="maskEditorButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="maskEditorButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>214, -1</value>
+  </data>
+  <data name="maskEditorButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 23</value>
+  </data>
+  <data name="maskEditorButton.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="maskEditorButton.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="&gt;&gt;maskEditorButton.Name" xml:space="preserve">
+    <value>maskEditorButton</value>
+  </data>
+  <data name="&gt;&gt;maskEditorButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;maskEditorButton.Parent" xml:space="preserve">
+    <value>maskAndBcdPanel</value>
+  </data>
+  <data name="&gt;&gt;maskEditorButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="fsuipcBcdModeCheckBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="fsuipcBcdModeCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="fsuipcBcdModeCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="fsuipcBcdModeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>257, 3</value>
   </data>
-  <data name="fsuipcPresetUseButton.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="fsuipcBcdModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 17</value>
   </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="fsuipcBcdModeCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
   </data>
-  <data name="fsuipcMultiplyTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="fsuipcBcdModeCheckBox.Text" xml:space="preserve">
+    <value>BCD Mode</value>
   </data>
-  <data name="&gt;&gt;presetsDataSet.Type" xml:space="preserve">
-    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Name" xml:space="preserve">
+    <value>fsuipcBcdModeCheckBox</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="fsuipcOffsetTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 21</value>
+  <data name="&gt;&gt;fsuipcBcdModeCheckBox.Parent" xml:space="preserve">
+    <value>maskAndBcdPanel</value>
   </data>
-  <data name="&gt;&gt;maskEditorButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="fsuipcPresetUseButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;SubstringTransformationCheckBox.Name" xml:space="preserve">
-    <value>SubstringTransformationCheckBox</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Items2" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>199, 29</value>
-  </data>
-  <data name="fsuipcMultiplyTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 20</value>
-  </data>
-  <data name="fsuipcMaskTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="maskEditorButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcMultiplyTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="fsuipcOffsetTextBox.Text" xml:space="preserve">
-    <value>0xAAAA</value>
-  </data>
-  <data name="&gt;&gt;multiplyPanel.Name" xml:space="preserve">
-    <value>multiplyPanel</value>
-  </data>
-  <data name="labelFsuipcPreset.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcValueTextBox.Parent" xml:space="preserve">
-    <value>valuePanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;fsuipcBcdModeCheckBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Offset</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="valuePanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="fsuipcOffsetTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="valuePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 25</value>
-  </data>
-  <data name="TransformationCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;description.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
   </data>
-  <data name="labelFsuipcPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 21</value>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 16</value>
   </data>
-  <data name="&gt;&gt;fsuipcValueTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
   </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Mask value with</value>
   </data>
   <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>maskAndBcdPanel</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="fsuipcMaskTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="fsuipcMaskTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 1</value>
+  </data>
   <data name="fsuipcMaskTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 20</value>
   </data>
-  <data name="fsuipcOffsetTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 27</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Items3" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="valuePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="fsuipcSizeComboBox.Items1" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;fsuipcMoreOptionsGroupBox.Name" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;valuePanel.Name" xml:space="preserve">
-    <value>valuePanel</value>
+  <data name="fsuipcMaskTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
   <data name="&gt;&gt;fsuipcMaskTextBox.Name" xml:space="preserve">
     <value>fsuipcMaskTextBox</value>
   </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
+  <data name="&gt;&gt;fsuipcMaskTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SubstringTransformationCheckBox.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
+  <data name="&gt;&gt;fsuipcMaskTextBox.Parent" xml:space="preserve">
+    <value>maskAndBcdPanel</value>
   </data>
-  <data name="&gt;&gt;valuePanel.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
+  <data name="&gt;&gt;fsuipcMaskTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;labelFsuipcPreset.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="maskAndBcdPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="&gt;&gt;presetDataTable.Type" xml:space="preserve">
-    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="maskAndBcdPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 67</value>
+  </data>
+  <data name="maskAndBcdPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="maskAndBcdPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>337, 25</value>
   </data>
   <data name="maskAndBcdPanel.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <data name="&gt;&gt;maskAndBcdPanel.Name" xml:space="preserve">
+    <value>maskAndBcdPanel</value>
+  </data>
+  <data name="&gt;&gt;maskAndBcdPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;maskAndBcdPanel.Parent" xml:space="preserve">
+    <value>fsuipcBaseSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;maskAndBcdPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </metadata>
+  </data>
+  <data name="offsetPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="fsuipcTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="fsuipcTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, 28</value>
+  </data>
+  <data name="fsuipcTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 18</value>
+  </data>
+  <data name="fsuipcTypeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="fsuipcTypeLabel.Text" xml:space="preserve">
+    <value>Value Type</value>
+  </data>
+  <data name="fsuipcTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTypeLabel.Name" xml:space="preserve">
+    <value>fsuipcTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTypeLabel.Parent" xml:space="preserve">
+    <value>offsetPanel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTypeLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="fsuipcOffsetTypeComboBox.Items" xml:space="preserve">
+    <value>Int</value>
+  </data>
+  <data name="fsuipcOffsetTypeComboBox.Items1" xml:space="preserve">
+    <value>Float</value>
+  </data>
+  <data name="fsuipcOffsetTypeComboBox.Items2" xml:space="preserve">
+    <value>String</value>
+  </data>
+  <data name="fsuipcOffsetTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 27</value>
+  </data>
+  <data name="fsuipcOffsetTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 21</value>
+  </data>
+  <data name="fsuipcOffsetTypeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Name" xml:space="preserve">
+    <value>fsuipcOffsetTypeComboBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Parent" xml:space="preserve">
+    <value>offsetPanel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="fsuipcSizeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="fsuipcSizeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>199, 29</value>
+  </data>
+  <data name="fsuipcSizeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 17</value>
+  </data>
+  <data name="fsuipcSizeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="fsuipcSizeLabel.Text" xml:space="preserve">
+    <value>Size in Bytes</value>
+  </data>
+  <data name="fsuipcSizeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeLabel.Name" xml:space="preserve">
+    <value>fsuipcSizeLabel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeLabel.Parent" xml:space="preserve">
+    <value>offsetPanel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 4</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 20</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Offset</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>offsetPanel</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="fsuipcSizeComboBox.Items" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="fsuipcSizeComboBox.Items1" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="fsuipcSizeComboBox.Items2" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="fsuipcSizeComboBox.Items3" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="fsuipcSizeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>281, 27</value>
+  </data>
+  <data name="fsuipcSizeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 21</value>
+  </data>
+  <data name="fsuipcSizeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeComboBox.Name" xml:space="preserve">
+    <value>fsuipcSizeComboBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeComboBox.Parent" xml:space="preserve">
+    <value>offsetPanel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcSizeComboBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="fsuipcOffsetTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 4</value>
+  </data>
+  <data name="fsuipcOffsetTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 20</value>
+  </data>
+  <data name="fsuipcOffsetTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="fsuipcOffsetTextBox.Text" xml:space="preserve">
+    <value>0xAAAA</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTextBox.Name" xml:space="preserve">
+    <value>fsuipcOffsetTextBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTextBox.Parent" xml:space="preserve">
+    <value>offsetPanel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcOffsetTextBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="offsetPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="offsetPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="offsetPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>337, 51</value>
+  </data>
+  <data name="offsetPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;offsetPanel.Name" xml:space="preserve">
+    <value>offsetPanel</value>
+  </data>
+  <data name="&gt;&gt;offsetPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;offsetPanel.Parent" xml:space="preserve">
+    <value>fsuipcBaseSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;offsetPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 49</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>343, 95</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
+    <value>Base settings</value>
+  </data>
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Name" xml:space="preserve">
+    <value>fsuipcBaseSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="fsuipcPresetUseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="fsuipcPresetUseButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="fsuipcPresetUseButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>302, 20</value>
+  </data>
+  <data name="fsuipcPresetUseButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 23</value>
+  </data>
+  <data name="fsuipcPresetUseButton.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="fsuipcPresetUseButton.Text" xml:space="preserve">
+    <value>use</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetUseButton.Name" xml:space="preserve">
+    <value>fsuipcPresetUseButton</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetUseButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetUseButton.Parent" xml:space="preserve">
+    <value>fsuipcLoadPresetGroupBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetUseButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelFsuipcPreset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelFsuipcPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 21</value>
+  </data>
+  <data name="labelFsuipcPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 22</value>
+  </data>
+  <data name="labelFsuipcPreset.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="labelFsuipcPreset.Text" xml:space="preserve">
+    <value>Use preset</value>
+  </data>
+  <data name="labelFsuipcPreset.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;labelFsuipcPreset.Name" xml:space="preserve">
+    <value>labelFsuipcPreset</value>
+  </data>
+  <data name="&gt;&gt;labelFsuipcPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelFsuipcPreset.Parent" xml:space="preserve">
+    <value>fsuipcLoadPresetGroupBox</value>
+  </data>
+  <data name="&gt;&gt;labelFsuipcPreset.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="fsuipcPresetComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="fsuipcPresetComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>113, 21</value>
+  </data>
+  <data name="fsuipcPresetComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>187, 21</value>
+  </data>
+  <data name="fsuipcPresetComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetComboBox.Name" xml:space="preserve">
+    <value>fsuipcPresetComboBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetComboBox.Parent" xml:space="preserve">
+    <value>fsuipcLoadPresetGroupBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPresetComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>343, 49</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
+    <value>Load preset</value>
+  </data>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Name" xml:space="preserve">
+    <value>fsuipcLoadPresetGroupBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <metadata name="presetsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>343, 335</value>
+  </data>
+  <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
+    <value>presetsDataSet</value>
+  </data>
+  <data name="&gt;&gt;presetsDataSet.Type" xml:space="preserve">
+    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;presetDataTable.Name" xml:space="preserve">
+    <value>presetDataTable</value>
+  </data>
+  <data name="&gt;&gt;presetDataTable.Type" xml:space="preserve">
+    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;description.Name" xml:space="preserve">
+    <value>description</value>
+  </data>
+  <data name="&gt;&gt;description.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
+    <value>settingsColumn</value>
+  </data>
+  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FsuipcConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

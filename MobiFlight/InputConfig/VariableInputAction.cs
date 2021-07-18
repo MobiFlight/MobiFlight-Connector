@@ -58,7 +58,7 @@ namespace MobiFlight.InputConfig
             if (result.Contains("$"))
             {
                 MobiFlightVariable variable = moduleCache.GetMobiFlightVariable(Variable.Name);
-                Tuple<string, string> replacement = new Tuple<string, string>("$", variable.TYPE == "number" ? variable.Number.ToString() : variable.Text);
+                Tuple<string, string> replacement = new Tuple<string, string>("$", variable.TYPE == MobiFlightVariable.TYPE_NUMBER ? variable.Number.ToString() : variable.Text);
                 replacements.Add(replacement);
             }
 
@@ -70,7 +70,20 @@ namespace MobiFlight.InputConfig
             }
 
             result = Replace(result, replacements);
-            Variable.Number = double.Parse(result);
+
+            if (Variable.TYPE == MobiFlightVariable.TYPE_NUMBER)
+            {
+                try
+                {
+                    Variable.Number = double.Parse(result);
+                }
+                catch (Exception)
+                {
+
+
+                }
+            }
+
             Variable.Text = result;
             moduleCache.SetMobiFlightVariable(Variable);
         }

@@ -29,13 +29,14 @@ namespace MobiFlight.UI.Panels.Config
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VariablePanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.TypeComboBox = new System.Windows.Forms.ComboBox();
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.TypeLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
             this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,84 +47,53 @@ namespace MobiFlight.UI.Panels.Config
             this.groupBox1.Controls.Add(this.NameTextBox);
             this.groupBox1.Controls.Add(this.TypeLabel);
             this.groupBox1.Controls.Add(this.NameLabel);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(310, 101);
-            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Variable Settings";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // TypeComboBox
             // 
             this.TypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TypeComboBox.FormattingEnabled = true;
             this.TypeComboBox.Items.AddRange(new object[] {
-            "Number",
-            "String"});
-            this.TypeComboBox.Location = new System.Drawing.Point(63, 37);
+            resources.GetString("TypeComboBox.Items"),
+            resources.GetString("TypeComboBox.Items1")});
+            resources.ApplyResources(this.TypeComboBox, "TypeComboBox");
             this.TypeComboBox.Name = "TypeComboBox";
-            this.TypeComboBox.Size = new System.Drawing.Size(89, 21);
-            this.TypeComboBox.TabIndex = 22;
+            this.TypeComboBox.SelectedIndexChanged += new System.EventHandler(this.TypeComboBox_SelectedIndexChanged);
             // 
             // NameTextBox
             // 
-            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameTextBox.Location = new System.Drawing.Point(63, 61);
-            this.NameTextBox.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.NameTextBox, "NameTextBox");
             this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(235, 20);
-            this.NameTextBox.TabIndex = 21;
             // 
             // TypeLabel
             // 
-            this.TypeLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.TypeLabel.Location = new System.Drawing.Point(10, 40);
-            this.TypeLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.TypeLabel, "TypeLabel");
             this.TypeLabel.Name = "TypeLabel";
-            this.TypeLabel.Size = new System.Drawing.Size(47, 13);
-            this.TypeLabel.TabIndex = 20;
-            this.TypeLabel.Text = "Type";
-            this.TypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // NameLabel
             // 
-            this.NameLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.NameLabel.Location = new System.Drawing.Point(13, 64);
-            this.NameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            resources.ApplyResources(this.NameLabel, "NameLabel");
             this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(44, 13);
-            this.NameLabel.TabIndex = 19;
-            this.NameLabel.Text = "Name";
-            this.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // transformOptionsGroup1
             // 
-            this.transformOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.transformOptionsGroup1.Location = new System.Drawing.Point(0, 101);
+            resources.ApplyResources(this.transformOptionsGroup1, "transformOptionsGroup1");
             this.transformOptionsGroup1.Name = "transformOptionsGroup1";
-            this.transformOptionsGroup1.Size = new System.Drawing.Size(310, 94);
-            this.transformOptionsGroup1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(3, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(304, 19);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "Access a local variable by type and name.";
             // 
             // VariablePanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.Controls.Add(this.transformOptionsGroup1);
             this.Controls.Add(this.groupBox1);
             this.Name = "VariablePanel";
-            this.Size = new System.Drawing.Size(310, 195);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
