@@ -11,7 +11,12 @@ namespace MobiFlight.OutputConfig
     {
         public MobiFlightVariable Variable { get; set; }
 
-        internal void ReadXml(XmlReader reader)
+        public VariableOutput()
+        {
+            Variable = new MobiFlightVariable();
+        }
+
+        public void ReadXml(XmlReader reader)
         {
             if (reader["varType"] != null && reader["varType"] != "" &&
                 reader["varName"] != null && reader["varName"] != "")
@@ -21,14 +26,14 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        internal void WriteXml(XmlWriter writer)
+        public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("type", "VariableOutput");
             writer.WriteAttributeString("varType", Variable.TYPE);
             writer.WriteAttributeString("varName", Variable.Name);
         }
 
-        internal object Clone()
+        public object Clone()
         {
             MobiFlightVariable clone = Variable.Clone() as MobiFlightVariable;
 

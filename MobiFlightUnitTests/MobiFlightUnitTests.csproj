@@ -80,6 +80,7 @@
     <Compile Include="MobiFlight\MobiFlightLcdDisplayTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\VariableOutputTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\LcdDisplayTests.cs" />
     <Compile Include="MobiFlight\TransformationTests.cs" />
     <Compile Include="mock\Base\KeyboardInputMock.cs" />
@@ -211,6 +212,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\MobiFlight\InputConfig\InputConfigItem\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\VariableOutput\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\VariableOutput\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
