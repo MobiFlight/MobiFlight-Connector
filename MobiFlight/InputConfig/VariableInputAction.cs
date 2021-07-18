@@ -50,13 +50,20 @@ namespace MobiFlight.InputConfig
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
 
-            if (result.Contains("$"))
+            if (result.Contains("@"))
             {
-                Tuple<string, string> replacement = new Tuple<string, string>("$", args.Value.ToString());
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
                 replacements.Add(replacement);
             }
 
-            
+            if (result.Contains("$"))
+            {
+                MobiFlightVariable variable = moduleCache.GetMobiFlightVariable(Variable.Name);
+                Tuple<string, string> replacement = new Tuple<string, string>("$", variable.TYPE == "number" ? variable.Number.ToString() : variable.Text);
+                replacements.Add(replacement);
+            }
+
+
             foreach (ConfigRefValue item in configRefs)
             {
                 Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);

@@ -255,6 +255,12 @@
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\VariablePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\VariablePanel.Designer.cs">
+      <DependentUpon>VariablePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Device\MFAnalogPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -778,6 +784,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.resx">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\VariablePanel.resx">
+      <DependentUpon>VariablePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.de.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>

@@ -599,6 +599,11 @@ namespace MobiFlight
                     result = ExecuteReadFloat(cfg);
                 }
             }
+            else if (cfg.SourceType == SourceType.VARIABLE)
+            {
+                result.type = FSUIPCOffsetType.Float;
+                result.Float64 = mobiFlightCache.GetMobiFlightVariable(cfg.MobiFlightVariable.Name).Number;
+            }
             else
             {
                 result.type = FSUIPCOffsetType.Float;
@@ -1425,6 +1430,12 @@ namespace MobiFlight
 
             foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
             {
+                if ((tuple.Item2.DataBoundItem as DataRowView) == null)
+                {
+                    Log.Instance.log("mobiFlightCache_OnButtonPressed: tuple.Item2.DataBoundItem is NULL", LogSeverity.Debug);
+                    continue;
+                }
+
                 DataRow row = (tuple.Item2.DataBoundItem as DataRowView).Row;
 
                 if (!(bool)row["active"]) continue;

@@ -738,5 +738,10 @@ namespace MobiFlight
 
             return variables[name];
         }
+
+        public List<String> GetMobiFlightVariableNames()
+        {
+            return variables.Keys.ToList();
+        }
     }
 }

@@ -16,6 +16,14 @@ namespace MobiFlight.UI.Panels.Action
         public VariableInputPanel()
         {
             InitializeComponent();
+            InitWithVariable(new MobiFlightVariable());
+        }
+
+        private void InitWithVariable(MobiFlightVariable Variable)
+        {
+            ComboBoxHelper.SetSelectedItem(TypeComboBox, Variable.TYPE);
+            NameTextBox.Text = Variable.Name;
+            ValueTextBox.Text = Variable.Expression;
         }
 
         internal void syncFromConfig(InputConfig.VariableInputAction inputAction)

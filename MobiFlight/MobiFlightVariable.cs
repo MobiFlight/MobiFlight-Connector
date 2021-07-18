@@ -1,4 +1,7 @@
-﻿namespace MobiFlight
+﻿using System;
+using System.Xml;
+
+namespace MobiFlight
 {
     public class MobiFlightVariable
     {
@@ -18,6 +21,22 @@
             clone.Expression = Expression;
 
             return clone;
+        }
+
+
+        public void ReadXml(System.Xml.XmlReader reader)
+        {
+            TYPE = reader["varType"];
+            Name =  reader["varName"];
+            Expression = reader["varExpression"];
+        }
+
+        public void WriteXml(System.Xml.XmlWriter writer)
+        {
+            writer.WriteAttributeString("type", "Variable");
+            writer.WriteAttributeString("varType", TYPE);
+            writer.WriteAttributeString("varName", Name);
+            writer.WriteAttributeString("varExpression", Expression);
         }
     }
 }
