@@ -53,6 +53,7 @@ namespace MobiFlight
         /// </summary>
         Dictionary<string, MobiFlightModule> Modules = new Dictionary<string, MobiFlightModule>();
         Dictionary<string, MobiFlightModuleConfig> configs;
+        Dictionary<string, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
 
         /// <summary>
         /// indicates the status of the fsuipc connection
@@ -721,6 +722,26 @@ namespace MobiFlight
             if (Modules.ContainsKey(moduleInfo.Serial)) return Modules[moduleInfo.Serial];           
 
             throw new IndexOutOfRangeException();
-        }        
+        }
+
+        public void SetMobiFlightVariable(MobiFlightVariable value)
+        {
+            variables[value.Name] = value;
+        }
+
+        public MobiFlightVariable GetMobiFlightVariable(String name)
+        {
+            if (!variables.Keys.Contains(name))
+            {
+                variables[name] = new MobiFlightVariable();
+            }
+
+            return variables[name];
+        }
+
+        public List<String> GetMobiFlightVariableNames()
+        {
+            return variables.Keys.ToList();
+        }
     }
 }

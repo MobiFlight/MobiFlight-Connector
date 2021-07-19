@@ -10,5 +10,9 @@ namespace MobiFlight
     {
         Task<IEnumerable<MobiFlightModule>> GetModulesAsync();
         IEnumerable<MobiFlightModule> GetModules();
+
+        void SetMobiFlightVariable(MobiFlightVariable value);
+
+        MobiFlightVariable GetMobiFlightVariable(String name);
     }
 }

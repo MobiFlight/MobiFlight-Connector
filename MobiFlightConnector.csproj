@@ -170,13 +170,16 @@
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
+    <Compile Include="MobiFlight\MobiFlightVariable.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
@@ -240,11 +243,23 @@
     <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.Designer.cs">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Action\VariableInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Action\VariableInputPanel.Designer.cs">
+      <DependentUpon>VariableInputPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Config\VariablePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\VariablePanel.Designer.cs">
+      <DependentUpon>VariablePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Device\MFAnalogPanel.cs">
       <SubType>UserControl</SubType>
@@ -737,6 +752,12 @@
     <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.resx">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\VariableInputPanel.de.resx">
+      <DependentUpon>VariableInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\VariableInputPanel.resx">
+      <DependentUpon>VariableInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\JeehellInputPanel.de.resx">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -763,6 +784,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.resx">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\VariablePanel.de.resx">
+      <DependentUpon>VariablePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\VariablePanel.resx">
+      <DependentUpon>VariablePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.de.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>

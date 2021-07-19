@@ -109,7 +109,7 @@ namespace MobiFlight.InputConfig.Tests
             o.FSUIPC.OffsetType = FSUIPCOffsetType.Integer;
             o.FSUIPC.BcdMode = false;
             o.Value = "12";
-            o.execute(mock, simConnectMock, null, new List<ConfigRefValue>());
+            o.execute(mock, simConnectMock, null, null, new List<ConfigRefValue>());
             Assert.AreEqual(mock.Writes.Count, 2, "The message count is not as expected"); // there is one write in the mock for setting the offset and one write for writing to the cache.
             Assert.AreEqual(mock.Writes[0].Offset, 0x1234, "The Offset is wrong");
             Assert.AreEqual(mock.Writes[0].Value, "12", "The Param Value is wrong");
@@ -119,7 +119,7 @@ namespace MobiFlight.InputConfig.Tests
             o.Value = "1+#";
             List<ConfigRefValue> configrefs = new List<ConfigRefValue>();
             configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
-            o.execute(mock, simConnectMock, null, configrefs);
+            o.execute(mock, simConnectMock, null, null, configrefs);
 
             Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
             Assert.AreEqual("2", mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");

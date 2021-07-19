@@ -433,9 +433,12 @@ namespace MobiFlight.UI.Dialogs
         {
             OffsetTypeFsuipRadioButton.Checked = (config.SourceType == SourceType.FSUIPC);
             OffsetTypeSimConnectRadioButton.Checked = (config.SourceType == SourceType.SIMCONNECT);
+            OffsetTypeVariableRadioButton.Checked = (config.SourceType == SourceType.VARIABLE);
 
             fsuipcConfigPanel.syncFromConfig(config);
+
             simConnectPanel1.syncFromConfig(config);
+            variablePanel1.syncFromConfig(config);
             configRefPanel.syncFromConfig(config);
         }
 
@@ -458,12 +461,16 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            config.SourceType = OffsetTypeFsuipRadioButton.Checked ? SourceType.FSUIPC : SourceType.SIMCONNECT;
+            config.SourceType = SourceType.FSUIPC;
+            if (OffsetTypeSimConnectRadioButton.Checked) config.SourceType = SourceType.SIMCONNECT;
+            if (OffsetTypeVariableRadioButton.Checked) config.SourceType = SourceType.VARIABLE;
 
-            if(config.SourceType==SourceType.FSUIPC)
+            if (config.SourceType == SourceType.FSUIPC)
                 fsuipcConfigPanel.syncToConfig(config);
-            else
+            else if (config.SourceType == SourceType.SIMCONNECT)
                 simConnectPanel1.syncToConfig(config);
+            else if (config.SourceType == SourceType.VARIABLE)
+                variablePanel1.syncToConfig(config);
 
             configRefPanel.syncToConfig(config);
 
@@ -1362,6 +1369,7 @@ namespace MobiFlight.UI.Dialogs
         {
             FsuipcSettingsPanel.Visible = (sender as RadioButton) == OffsetTypeFsuipRadioButton;
             simConnectPanel1.Visible = (sender as RadioButton) == OffsetTypeSimConnectRadioButton;
+            variablePanel1.Visible = (sender as RadioButton) == OffsetTypeVariableRadioButton;
         }
 
         private void ConfigWizard_FormClosing(object sender, FormClosingEventArgs e)

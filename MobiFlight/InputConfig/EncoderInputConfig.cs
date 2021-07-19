@@ -64,8 +64,14 @@ namespace MobiFlight.InputConfig
                         onLeft = new LuaMacroInputAction();
                         onLeft.ReadXml(reader);
                         break;
+
                     case MSFS2020EventIdInputAction.TYPE:
                         onLeft = new MSFS2020EventIdInputAction();
+                        onLeft.ReadXml(reader);
+                        break;
+
+                    case VariableInputAction.TYPE:
+                        onLeft = new VariableInputAction();
                         onLeft.ReadXml(reader);
                         break;
                 }
@@ -111,6 +117,11 @@ namespace MobiFlight.InputConfig
                         onLeftFast = new MSFS2020EventIdInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
+
+                    case VariableInputAction.TYPE:
+                        onLeftFast = new VariableInputAction();
+                        onLeftFast.ReadXml(reader);
+                        break;
                 }
 
                 reader.Read(); // advance to the next
@@ -152,6 +163,11 @@ namespace MobiFlight.InputConfig
 
                     case MSFS2020EventIdInputAction.TYPE:
                         onRight = new MSFS2020EventIdInputAction();
+                        onRight.ReadXml(reader);
+                        break;
+
+                    case VariableInputAction.TYPE:
+                        onRight = new VariableInputAction();
                         onRight.ReadXml(reader);
                         break;
                 }
@@ -197,6 +213,11 @@ namespace MobiFlight.InputConfig
                         onRightFast = new MSFS2020EventIdInputAction();
                         onRightFast.ReadXml(reader);
                         break;
+
+                    case VariableInputAction.TYPE:
+                        onRightFast = new VariableInputAction();
+                        onRightFast.ReadXml(reader);
+                        break;
                 }
 
                 reader.Read(); // advance to the next
@@ -222,27 +243,27 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs e, List<ConfigRefValue> configRefs)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs args, List<ConfigRefValue> configRefs)
         {
-            if ((e.Value == 0 && onLeft != null) || (e.Value == 1 && onLeftFast == null))
+            if ((args.Value == 0 && onLeft != null) || (args.Value == 1 && onLeftFast == null))
             {
-                Log.Instance.log("Executing OnLeft: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
-                onLeft.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
+                Log.Instance.log("Executing OnLeft: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
+                onLeft.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
-            else if (e.Value == 1 && onLeftFast != null)
+            else if (args.Value == 1 && onLeftFast != null)
             {
-                Log.Instance.log("Executing OnLeftFast: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
-                onLeftFast.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
+                Log.Instance.log("Executing OnLeftFast: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
+                onLeftFast.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
-            else if ((e.Value == 2 && onRight != null) || (e.Value == 3 && onRightFast == null))
+            else if ((args.Value == 2 && onRight != null) || (args.Value == 3 && onRightFast == null))
             {
-                Log.Instance.log("Executing OnRight: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
-                onRight.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
+                Log.Instance.log("Executing OnRight: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
+                onRight.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
-            else if (e.Value == 3 && onRightFast != null)
+            else if (args.Value == 3 && onRightFast != null)
             {
-                Log.Instance.log("Executing OnRightFast: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
-                onRightFast.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
+                Log.Instance.log("Executing OnRightFast: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
+                onRightFast.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
 
         }

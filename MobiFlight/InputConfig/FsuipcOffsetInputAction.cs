@@ -64,7 +64,12 @@ namespace MobiFlight.InputConfig
             reader.Read();
         }   
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs)
+        public override void execute(
+            FSUIPC.FSUIPCCacheInterface cache, 
+            SimConnectMSFS.SimConnectCacheInterface simConnectCache, 
+            MobiFlightCacheInterface moduleCache, 
+            InputEventArgs args,
+            List<ConfigRefValue> configRefs)
         {
             String value = Value;
 
