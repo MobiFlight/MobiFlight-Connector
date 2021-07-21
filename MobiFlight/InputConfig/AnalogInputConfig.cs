@@ -78,6 +78,11 @@ namespace MobiFlight.InputConfig
                         onChange = new MSFS2020EventIdInputAction();
                         onChange.ReadXml(reader);
                         break;
+
+                    case VariableInputAction.TYPE:
+                        onChange = new VariableInputAction();
+                        onChange.ReadXml(reader);
+                        break;
                 }
             }         
         }
@@ -89,12 +94,16 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs e, List<ConfigRefValue> configRefs)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, 
+                                SimConnectMSFS.SimConnectCache simConnectCache, 
+                                MobiFlightCache moduleCache, 
+                                InputEventArgs args, 
+                                List<ConfigRefValue> configRefs)
         {
             if (onChange != null)
             {
-                Log.Instance.log("Executing Change: " + e.DeviceId + "@" + e.Serial, LogSeverity.Debug);
-                onChange.execute(fsuipcCache, simConnectCache, moduleCache, configRefs);
+                Log.Instance.log("Executing Change: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
+                onChange.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
         }
     }

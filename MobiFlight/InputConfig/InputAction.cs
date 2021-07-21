@@ -19,7 +19,12 @@ namespace MobiFlight.InputConfig
         abstract public void ReadXml(System.Xml.XmlReader reader);
         abstract public void WriteXml(System.Xml.XmlWriter writer);
 
-        abstract public void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache, List<ConfigRefValue> configRefs);
+        abstract public void execute(
+            FSUIPC.FSUIPCCacheInterface fsuipcCache, 
+            SimConnectMSFS.SimConnectCacheInterface simConnectCache, 
+            MobiFlightCacheInterface moduleCache, 
+            InputEventArgs e,
+            List<ConfigRefValue> configRefs);
 
         public string Replace(string expression, List<Tuple<string, string>> replacements) {
             if (replacements.Count == 0) return expression;

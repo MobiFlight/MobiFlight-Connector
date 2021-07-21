@@ -169,6 +169,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             string selectedText = fsuipcSizeComboBox.Text;
             fsuipcSizeComboBox.Items.Clear();
+            fsuipcSizeLabel.Visible = true;
             fsuipcSizeComboBox.Enabled = true;
             fsuipcSizeComboBox.Visible = true;
             maskAndBcdPanel.Visible = true;
@@ -208,6 +209,7 @@ namespace MobiFlight.UI.Panels.Config
                 // by the zero-termination 
                 // this makes it easier for the user
                 // because s/he doesn't have to care about it.
+                fsuipcSizeLabel.Visible = false;
                 fsuipcSizeComboBox.Enabled = false;
                 fsuipcSizeComboBox.Visible = false;
 

@@ -27,6 +27,9 @@ namespace MobiFlight
         public SimConnectValue
                             SimConnectValue              { get; set; }
 
+        public MobiFlightVariable
+                            MobiFlightVariable          { get; set; }
+
         public Transformation
                             Transform                   { get; set; }
         public string       Value                       { get; set; }
@@ -90,6 +93,7 @@ namespace MobiFlight
             SourceType = SourceType.FSUIPC;
             FSUIPC = new FsuipcOffset();
             SimConnectValue = new SimConnectValue();
+            MobiFlightVariable = new MobiFlightVariable();
 
             Transform = new Transformation();
 
@@ -138,6 +142,10 @@ namespace MobiFlight
                 if (reader["type"]=="SimConnect") {
                     SourceType = SourceType.SIMCONNECT;
                     this.SimConnectValue.ReadXml(reader);
+                } else if (reader["type"] == "Variable")
+                {
+                    SourceType = SourceType.VARIABLE;
+                    this.MobiFlightVariable.ReadXml(reader);
                 }
                 else
                 {
@@ -378,6 +386,8 @@ namespace MobiFlight
             writer.WriteStartElement("source");
                 if(SourceType==SourceType.FSUIPC)
                     this.FSUIPC.WriteXml(writer);
+                else if (SourceType == SourceType.VARIABLE)
+                    this.MobiFlightVariable.WriteXml(writer);
                 else
                     this.SimConnectValue.WriteXml(writer);
             writer.WriteEndElement();
@@ -481,6 +491,7 @@ namespace MobiFlight
             clone.SourceType                = this.SourceType;
             clone.FSUIPC                    = this.FSUIPC.Clone() as FsuipcOffset;
             clone.SimConnectValue           = this.SimConnectValue.Clone() as SimConnectValue;
+            clone.MobiFlightVariable        = this.MobiFlightVariable.Clone() as MobiFlightVariable;
 
             clone.Transform                 = this.Transform.Clone() as Transformation;
             clone.ComparisonActive          = this.ComparisonActive;
@@ -543,6 +554,7 @@ namespace MobiFlight
     public enum SourceType
     {
         FSUIPC,
-        SIMCONNECT
+        SIMCONNECT,
+        VARIABLE
     }
 }
