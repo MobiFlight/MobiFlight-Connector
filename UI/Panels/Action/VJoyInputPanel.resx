@@ -118,10 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>81, 154</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>195, 37</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Supports input value (@) and placeholders ($,#, etc.)
+</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>fsuipcLoadPresetGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 105</value>
   </data>
@@ -131,7 +163,6 @@
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 15</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
   </data>
@@ -151,13 +182,16 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="textBoxValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="textBoxValue.Location" type="System.Drawing.Point, System.Drawing">
     <value>81, 130</value>
   </data>
   <data name="textBoxValue.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 20</value>
+    <value>196, 20</value>
   </data>
   <data name="textBoxValue.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -175,7 +209,7 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;textBoxValue.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -208,13 +242,13 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="radioButtonOff.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="radioButtonOff.Location" type="System.Drawing.Point, System.Drawing">
-    <value>168, 103</value>
+    <value>124, 104</value>
   </data>
   <data name="radioButtonOff.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 17</value>
@@ -235,13 +269,13 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;radioButtonOff.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="radioButtonOn.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="radioButtonOn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 103</value>
+    <value>81, 104</value>
   </data>
   <data name="radioButtonOn.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 17</value>
@@ -262,7 +296,7 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;radioButtonOn.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -295,7 +329,7 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="comboBoxAxis.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -304,7 +338,7 @@
     <value>81, 76</value>
   </data>
   <data name="comboBoxAxis.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 21</value>
+    <value>196, 21</value>
   </data>
   <data name="comboBoxAxis.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -319,7 +353,7 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;comboBoxAxis.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -352,7 +386,7 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="comboBoxButtonNr.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -361,7 +395,7 @@
     <value>81, 49</value>
   </data>
   <data name="comboBoxButtonNr.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 21</value>
+    <value>196, 21</value>
   </data>
   <data name="comboBoxButtonNr.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -376,16 +410,16 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;comboBoxButtonNr.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="hintLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
   <data name="hintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 171</value>
+    <value>8, 192</value>
   </data>
   <data name="hintLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>196, 18</value>
+    <value>268, 18</value>
   </data>
   <data name="hintLabel.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -406,7 +440,7 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;hintLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="EventIdLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -439,7 +473,7 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;EventIdLabel.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="ComboBoxID.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -448,7 +482,7 @@
     <value>81, 22</value>
   </data>
   <data name="ComboBoxID.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 21</value>
+    <value>196, 21</value>
   </data>
   <data name="ComboBoxID.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -463,7 +497,7 @@
     <value>fsuipcLoadPresetGroupBox</value>
   </data>
   <data name="&gt;&gt;ComboBoxID.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="fsuipcLoadPresetGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -472,7 +506,7 @@
     <value>0, 0</value>
   </data>
   <data name="fsuipcLoadPresetGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 212</value>
+    <value>282, 258</value>
   </data>
   <data name="fsuipcLoadPresetGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -499,7 +533,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 212</value>
+    <value>282, 258</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>VJoyInputPanel</value>

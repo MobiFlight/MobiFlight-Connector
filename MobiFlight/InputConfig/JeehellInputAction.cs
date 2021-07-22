@@ -137,6 +137,13 @@ namespace MobiFlight.InputConfig
                 replacements.Add(replacement);
             }
 
+            if (value.Contains("@"))
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
+                replacements.Add(replacement);
+            }
+
+
             if (value.Contains("$"))
             {
                 ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg, cache as FSUIPC.FSUIPCCacheInterface);

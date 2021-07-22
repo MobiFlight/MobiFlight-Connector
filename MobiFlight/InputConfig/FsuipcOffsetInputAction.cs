@@ -80,6 +80,12 @@ namespace MobiFlight.InputConfig
                 replacements.Add(replacement);
             }
 
+            if (value.Contains("@"))
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
+                replacements.Add(replacement);
+            }
+
             if (value.Contains("$"))
             {
                 ConnectorValue tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeRead(this, cache as FSUIPC.FSUIPCCacheInterface);

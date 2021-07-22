@@ -47,6 +47,12 @@ namespace MobiFlight.InputConfig
             String value = MacroValue;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+            if (value.Contains("@"))
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
+                replacements.Add(replacement);
+            }
+
             foreach (ConfigRefValue item in configRefs)
             {
                 Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
