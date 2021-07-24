@@ -83,6 +83,11 @@ namespace MobiFlight.InputConfig
                         onPress = new VariableInputAction();
                         onPress.ReadXml(reader);
                         break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onPress = new MSFS2020CustomInputAction();
+                        onPress.ReadXml(reader);
+                        break;
                 }
                 reader.Read(); // Closing onPress
             }
@@ -138,6 +143,11 @@ namespace MobiFlight.InputConfig
 
                     case VariableInputAction.TYPE:
                         onRelease = new VariableInputAction();
+                        onRelease.ReadXml(reader);
+                        break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onRelease = new MSFS2020CustomInputAction();
                         onRelease.ReadXml(reader);
                         break;
                 }

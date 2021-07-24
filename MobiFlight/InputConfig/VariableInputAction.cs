@@ -8,7 +8,7 @@ namespace MobiFlight.InputConfig
 {
     public class VariableInputAction : InputAction, ICloneable
     {
-        new public const String Label = "MobiFlight Variable";
+        new public const String Label = "MobiFlight - Variable";
         public const String TYPE = "VariableInputAction";
         public MobiFlightVariable Variable = new MobiFlightVariable();
         

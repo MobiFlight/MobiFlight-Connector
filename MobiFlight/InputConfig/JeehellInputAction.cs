@@ -17,6 +17,7 @@ namespace MobiFlight.InputConfig
         const Int16 Offset_CPT_QNH = 0x73C8;
         const Int16 Offset_FO_QNH = 0x73CA;
 
+        public new const String Label = "FSUIPC - Jeehell - Events";
         public const String TYPE = "JeehellInputAction";
 
         public Byte EventId;

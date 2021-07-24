@@ -170,6 +170,7 @@
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
@@ -242,6 +243,12 @@
     </Compile>
     <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.Designer.cs">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Action\MSFS2020CustomInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Action\MSFS2020CustomInputPanel.Designer.cs">
+      <DependentUpon>MSFS2020CustomInputPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Action\VariableInputPanel.cs">
       <SubType>UserControl</SubType>
@@ -751,6 +758,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.resx">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\MSFS2020CustomInputPanel.de.resx">
+      <DependentUpon>MSFS2020CustomInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\MSFS2020CustomInputPanel.resx">
+      <DependentUpon>MSFS2020CustomInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\VariableInputPanel.de.resx">
       <DependentUpon>VariableInputPanel.cs</DependentUpon>

@@ -74,6 +74,11 @@ namespace MobiFlight.InputConfig
                         onLeft = new VariableInputAction();
                         onLeft.ReadXml(reader);
                         break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onLeft = new MSFS2020CustomInputAction();
+                        onLeft.ReadXml(reader);
+                        break;
                 }
 
                 reader.Read(); // advance to the next
@@ -120,6 +125,11 @@ namespace MobiFlight.InputConfig
 
                     case VariableInputAction.TYPE:
                         onLeftFast = new VariableInputAction();
+                        onLeftFast.ReadXml(reader);
+                        break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onLeftFast = new MSFS2020CustomInputAction();
                         onLeftFast.ReadXml(reader);
                         break;
                 }
@@ -170,6 +180,11 @@ namespace MobiFlight.InputConfig
                         onRight = new VariableInputAction();
                         onRight.ReadXml(reader);
                         break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onRight = new MSFS2020CustomInputAction();
+                        onRight.ReadXml(reader);
+                        break;
                 }
 
                 reader.Read(); // advance to the next
@@ -216,6 +231,11 @@ namespace MobiFlight.InputConfig
 
                     case VariableInputAction.TYPE:
                         onRightFast = new VariableInputAction();
+                        onRightFast.ReadXml(reader);
+                        break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onRightFast = new MSFS2020CustomInputAction();
                         onRightFast.ReadXml(reader);
                         break;
                 }

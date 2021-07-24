@@ -10,7 +10,7 @@ namespace MobiFlight.InputConfig
     {
         public String MacroName = "";
         public String MacroValue = "0";
-        public new const String Label = "Lua Macro";
+        public new const String Label = "FSUIPC - Lua Macro";
         public const String TYPE = "LuaMacroInputAction";
 
         public override object Clone()

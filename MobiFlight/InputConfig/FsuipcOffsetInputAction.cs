@@ -10,6 +10,7 @@ namespace MobiFlight.InputConfig
 {
     public class FsuipcOffsetInputAction : InputAction, IFsuipcConfigItem, ICloneable
     {
+        new public const String Label = "FSUIPC - Offset";
         public FsuipcOffset FSUIPC { get; set; }
         public String Value { get; set; }
         public Transformation Transform { get; set; }

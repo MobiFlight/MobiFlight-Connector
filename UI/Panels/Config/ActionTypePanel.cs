@@ -20,18 +20,26 @@ namespace MobiFlight.UI.Panels.Config
             InitializeComponent();
             ActionTypeComboBox.Items.Clear();
             ActionTypeComboBox.Items.Add(i18n._tr("none"));
-            ActionTypeComboBox.Items.Add("FSUIPC Offset");
-            ActionTypeComboBox.SelectedIndex = 0;
-            ActionTypeComboBox.Items.Add("Event ID");
-            ActionTypeComboBox.Items.Add("Key");
-            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.PmdgEventIdInputAction.Label);
-            ActionTypeComboBox.Items.Add("Jeehell DataPipe");
-            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.LuaMacroInputAction.Label);
-            ActionTypeComboBox.Items.Add("vJoy virtual Joystick");
-            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.RetriggerInputAction.Label);
-            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label);
-            ActionTypeComboBox.Items.Add(MobiFlight.InputConfig.VariableInputAction.Label);
+            // --MSFS 2020 
+            ActionTypeComboBox.Items.Add(InputConfig.MSFS2020EventIdInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.MSFS2020CustomInputAction.Label);
 
+            // --MobiFlight
+            ActionTypeComboBox.Items.Add(InputConfig.VariableInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.RetriggerInputAction.Label);
+
+            // --FSUIPC
+            ActionTypeComboBox.Items.Add(InputConfig.FsuipcOffsetInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.EventIdInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.PmdgEventIdInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.JeehellInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.LuaMacroInputAction.Label);
+
+            // -- Misc
+            ActionTypeComboBox.Items.Add(InputConfig.KeyInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.VJoyInputAction.Label);
+
+            ActionTypeComboBox.SelectedIndex = 0;
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 
@@ -45,15 +53,15 @@ namespace MobiFlight.UI.Panels.Config
         {
             switch (inputAction.GetType().ToString()) {
                 case "MobiFlight.InputConfig.FsuipcOffsetInputAction":
-                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox,"FSUIPC Offset");
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.FsuipcOffsetInputAction.Label);
                     break;
 
                 case "MobiFlight.InputConfig.KeyInputAction":
-                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Key");
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Key Press");
                     break;
 
                 case "MobiFlight.InputConfig.EventIdInputAction":
-                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Event ID");
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.EventIdInputAction.Label);
                     break;
 
                 case "MobiFlight.InputConfig.PmdgEventIdInputAction":
@@ -61,11 +69,11 @@ namespace MobiFlight.UI.Panels.Config
                     break;
 
                 case "MobiFlight.InputConfig.JeehellInputAction":
-                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Jeehell DataPipe");
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, InputConfig.JeehellInputAction.Label);
                     break;
 
                 case "MobiFlight.InputConfig.VJoyInputAction":
-                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "vJoy virtual Joystick");
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, InputConfig.VJoyInputAction.Label);
                     break;
 
                 case "MobiFlight.InputConfig.LuaMacroInputAction":
@@ -77,6 +85,9 @@ namespace MobiFlight.UI.Panels.Config
                     break;
                 case "MobiFlight.InputConfig.MSFS2020EventIdInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label);
+                    break;
+                case "MobiFlight.InputConfig.MSFS2020CustomInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.MSFS2020CustomInputAction.Label);
                     break;
                 case "MobiFlight.InputConfig.VariableInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.VariableInputAction.Label);
