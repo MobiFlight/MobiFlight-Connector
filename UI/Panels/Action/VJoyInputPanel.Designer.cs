@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VJoyInputPanel));
             this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxValue = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,6 +48,7 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.label5);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label4);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.textBoxValue);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label3);
@@ -62,6 +64,11 @@
             resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // label4
             // 
@@ -166,5 +173,6 @@
         private System.Windows.Forms.RadioButton radioButtonOff;
         private System.Windows.Forms.RadioButton radioButtonOn;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

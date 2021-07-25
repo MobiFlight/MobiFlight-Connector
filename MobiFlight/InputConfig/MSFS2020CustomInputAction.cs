@@ -5,48 +5,40 @@ using System.Text;
 
 namespace MobiFlight.InputConfig
 {
-    public class PmdgEventIdInputAction : EventIdInputAction
+    public class MSFS2020CustomInputAction : InputAction, ICloneable
     {
-        public new const String TYPE = "PmdgEventIdInputAction";
-        public new const String Label = "FSUIPC - PMDG - Event ID";
-        public new String Param;
-        public enum PmdgAircraftType { B737, B777, B747 };
-        public PmdgAircraftType AircraftType = PmdgAircraftType.B737;
+        const Int16 BaseOffset = 0x3110;
+        const Int16 ParamOffset = 0x3114;
 
+        public new const String Label = "MSFS2020 - Custom Input";
+        public new const String CacheType = "SimConnect";
+        public const String TYPE = "MSFS2020CustomInputAction";
+        public String Command;
+        
         override public object Clone()
         {
-            PmdgEventIdInputAction clone = new PmdgEventIdInputAction();
-            clone.EventId = EventId;
-            clone.Param = Param;
-            clone.AircraftType = AircraftType;
+            MSFS2020CustomInputAction clone = new MSFS2020CustomInputAction();
+            clone.Command = Command;
 
             return clone;
         }
 
-        protected override String getType()
-        {
-            return TYPE;
-        }
-
         public override void ReadXml(System.Xml.XmlReader reader)
         {
+            String command = reader["command"];
 
-            String eventId = reader["eventId"];
-            String param = reader["param"];
-            String aircraftType = reader["aircraft"];
-            
-            EventId = Int32.Parse(eventId);
-            Param = param;
-            if (aircraftType!=null)
-                AircraftType = (PmdgAircraftType)Enum.Parse(typeof(PmdgAircraftType), aircraftType);
+            Command = command;
         }
 
         public override void WriteXml(System.Xml.XmlWriter writer)
         {
             writer.WriteAttributeString("type", getType());
-            writer.WriteAttributeString("eventId", EventId.ToString());
-            writer.WriteAttributeString("param", Param.ToString());
-            writer.WriteAttributeString("aircraft", AircraftType.ToString());
+            writer.WriteAttributeString("command", Command.ToString());
+        }
+
+        protected virtual String getType()
+        {
+            return TYPE;
         }
 
         public override void execute(
@@ -56,10 +48,9 @@ namespace MobiFlight.InputConfig
             InputEventArgs args,
             List<ConfigRefValue> configRefs)
         {
-            String value = Param;
+            String value = Command;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
-            
             if (value.Contains("@"))
             {
                 Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
@@ -74,7 +65,7 @@ namespace MobiFlight.InputConfig
 
             value = Replace(value, replacements);
 
-            fsuipcCache.setEventID(EventId, (int) UInt32.Parse(value));
+            simConnectCache.SetSimVar(value);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MobiFlight.InputConfig
     {
         public String MacroName = "";
         public String MacroValue = "0";
-        public new const String Label = "Lua Macro";
+        public new const String Label = "FSUIPC - Lua Macro";
         public const String TYPE = "LuaMacroInputAction";
 
         public override object Clone()
@@ -47,6 +47,12 @@ namespace MobiFlight.InputConfig
             String value = MacroValue;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+            if (value.Contains("@"))
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
+                replacements.Add(replacement);
+            }
+
             foreach (ConfigRefValue item in configRefs)
             {
                 Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);

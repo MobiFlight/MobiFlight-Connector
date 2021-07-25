@@ -15,8 +15,8 @@ namespace MobiFlight.InputConfig
         public object Clone()
         {
             ButtonInputConfig clone = new ButtonInputConfig();
-            if (onPress != null) clone.onPress = (InputAction) onPress.Clone();
-            if (onRelease != null) clone.onRelease = (InputAction) onRelease.Clone();
+            if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
+            if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();
             return clone;
         }
 
@@ -83,6 +83,11 @@ namespace MobiFlight.InputConfig
                         onPress = new VariableInputAction();
                         onPress.ReadXml(reader);
                         break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onPress = new MSFS2020CustomInputAction();
+                        onPress.ReadXml(reader);
+                        break;
                 }
                 reader.Read(); // Closing onPress
             }
@@ -140,6 +145,11 @@ namespace MobiFlight.InputConfig
                         onRelease = new VariableInputAction();
                         onRelease.ReadXml(reader);
                         break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onRelease = new MSFS2020CustomInputAction();
+                        onRelease.ReadXml(reader);
+                        break;
                 }
 
                 reader.Read(); // closing onRelease
@@ -171,6 +181,26 @@ namespace MobiFlight.InputConfig
             }
 
         }
-    }
 
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+
+            result["Input.Button"] = 1;
+
+            if (onPress != null)
+            {
+                result["Input.OnPress"] = 1;
+                result["Input." + onPress.GetType().Name] = 1;
+            }
+
+            if (onRelease != null)
+            {
+                result["Input.OnPress"] = 1;
+                result["Input." + onRelease.GetType().Name] = 1;
+            }
+
+            return result;
+        }
+    }
 }

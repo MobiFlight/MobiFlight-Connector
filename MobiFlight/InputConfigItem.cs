@@ -229,5 +229,17 @@ namespace MobiFlight
                     break;
             }
         }
+
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+
+            if (Type == TYPE_BUTTON)
+            {
+                result = button.GetStatistics();
+            }
+            
+            return result;
+        }
     }
 }

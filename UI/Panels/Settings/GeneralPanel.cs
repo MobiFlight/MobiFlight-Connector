@@ -57,6 +57,9 @@ namespace MobiFlight.UI.Panels.Settings
 
             // Beta Versions
             BetaUpdateCheckBox.Checked = Properties.Settings.Default.BetaUpdates;
+
+            // Community Feedback Program
+            CommunityFeedbackCheckBox.Checked = Properties.Settings.Default.CommunityFeedback;
         }
 
         public void saveSettings()
@@ -84,6 +87,9 @@ namespace MobiFlight.UI.Panels.Settings
 
             // Beta Versions
             Properties.Settings.Default.BetaUpdates = BetaUpdateCheckBox.Checked;
+
+            // Community Feedback Program
+            Properties.Settings.Default.CommunityFeedback = CommunityFeedbackCheckBox.Checked;
         }
     }
 }

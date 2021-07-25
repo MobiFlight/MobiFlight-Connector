@@ -83,6 +83,11 @@ namespace MobiFlight.InputConfig
                         onChange = new VariableInputAction();
                         onChange.ReadXml(reader);
                         break;
+
+                    case MSFS2020CustomInputAction.TYPE:
+                        onChange = new MSFS2020CustomInputAction();
+                        onChange.ReadXml(reader);
+                        break;
                 }
             }         
         }

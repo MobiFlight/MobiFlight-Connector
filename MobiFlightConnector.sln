@@ -11,6 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "Mobi
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightUnitTests", "MobiFlightUnitTests\MobiFlightUnitTests.csproj", "{89216209-3FEA-4722-B8F3-C7AFC9C0DC77}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B} = {FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionInfo", "VersionInfo\VersionInfo.csproj", "{657624C9-3CA3-4DB3-8107-2CC0356A5026}"
 EndProject

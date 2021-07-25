@@ -47,7 +47,7 @@
             this.onPressActionConfigPanel.Location = new System.Drawing.Point(0, 31);
             this.onPressActionConfigPanel.Margin = new System.Windows.Forms.Padding(0);
             this.onPressActionConfigPanel.Name = "onPressActionConfigPanel";
-            this.onPressActionConfigPanel.Size = new System.Drawing.Size(332, 190);
+            this.onPressActionConfigPanel.Size = new System.Drawing.Size(332, 220);
             this.onPressActionConfigPanel.TabIndex = 19;
             // 
             // tabControl1
@@ -58,7 +58,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(340, 250);
+            this.tabControl1.Size = new System.Drawing.Size(340, 280);
             this.tabControl1.TabIndex = 20;
             // 
             // tabPage2
@@ -69,7 +69,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.tabPage2.Size = new System.Drawing.Size(332, 224);
+            this.tabPage2.Size = new System.Drawing.Size(332, 254);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "On Press";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -120,7 +120,7 @@
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "ButtonPanel";
-            this.Size = new System.Drawing.Size(340, 250);
+            this.Size = new System.Drawing.Size(340, 280);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

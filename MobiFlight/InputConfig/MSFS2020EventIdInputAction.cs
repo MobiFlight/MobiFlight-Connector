@@ -10,7 +10,7 @@ namespace MobiFlight.InputConfig
         const Int16 BaseOffset = 0x3110;
         const Int16 ParamOffset = 0x3114;
 
-        public new const String Label = "MSFS2020 Events";
+        public new const String Label = "MSFS2020 - Events";
         public new const String CacheType = "SimConnect";
         public const String TYPE = "MSFS2020EventIdInputAction";
         public String EventId;

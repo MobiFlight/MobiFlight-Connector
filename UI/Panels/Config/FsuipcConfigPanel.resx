@@ -124,11 +124,41 @@
   <data name="valuePanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ValuePlaceholderLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="ValuePlaceholderLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ValuePlaceholderLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>110, 24</value>
+  </data>
+  <data name="ValuePlaceholderLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 37</value>
+  </data>
+  <data name="ValuePlaceholderLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="ValuePlaceholderLabel.Text" xml:space="preserve">
+    <value>Supports variable value ($), input value (@) and placeholders (?,#, etc.)</value>
+  </data>
+  <data name="&gt;&gt;ValuePlaceholderLabel.Name" xml:space="preserve">
+    <value>ValuePlaceholderLabel</value>
+  </data>
+  <data name="&gt;&gt;ValuePlaceholderLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ValuePlaceholderLabel.Parent" xml:space="preserve">
+    <value>valuePanel</value>
+  </data>
+  <data name="&gt;&gt;ValuePlaceholderLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label5.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -157,7 +187,7 @@
     <value>valuePanel</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="fsuipcValueTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -166,7 +196,7 @@
     <value>110, 2</value>
   </data>
   <data name="fsuipcValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 20</value>
+    <value>205, 20</value>
   </data>
   <data name="fsuipcValueTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -181,7 +211,7 @@
     <value>valuePanel</value>
   </data>
   <data name="&gt;&gt;fsuipcValueTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="valuePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -190,7 +220,7 @@
     <value>3, 65</value>
   </data>
   <data name="valuePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 25</value>
+    <value>337, 61</value>
   </data>
   <data name="valuePanel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -382,7 +412,7 @@
     <value>110, 1</value>
   </data>
   <data name="fsuipcMultiplyTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 20</value>
+    <value>205, 20</value>
   </data>
   <data name="fsuipcMultiplyTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -430,7 +460,7 @@
     <value>0, 144</value>
   </data>
   <data name="fsuipcMoreOptionsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 93</value>
+    <value>343, 129</value>
   </data>
   <data name="fsuipcMoreOptionsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -958,7 +988,7 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 335</value>
+    <value>343, 342</value>
   </data>
   <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
     <value>presetsDataSet</value>

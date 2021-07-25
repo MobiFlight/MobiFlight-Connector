@@ -10,7 +10,7 @@ namespace MobiFlight.InputConfig
 {
     public class VJoyInputAction : InputAction
     {
-
+        new public const string Label = "vJoy - Virtual Joystick";
         public const String TYPE = "vJoyInputAction";
 
         public uint vJoyID;
@@ -41,6 +41,13 @@ namespace MobiFlight.InputConfig
             String value = sendValue;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+
+            if (value.Contains("@"))
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
+                replacements.Add(replacement);
+            }
+
             foreach (ConfigRefValue item in configRefs)
             {
                 Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);

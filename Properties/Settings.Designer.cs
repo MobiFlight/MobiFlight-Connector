@@ -350,6 +350,18 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ArcazeSupportEnabled {
+            get {
+                return ((bool)(this["ArcazeSupportEnabled"]));
+            }
+            set {
+                this["ArcazeSupportEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_simvars_user.cip")]
         public string PresetFileMSFS2020SimVarsUser {
             get {
@@ -375,12 +387,12 @@ namespace MobiFlight.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ArcazeSupportEnabled {
+        public bool CommunityFeedback {
             get {
-                return ((bool)(this["ArcazeSupportEnabled"]));
+                return ((bool)(this["CommunityFeedback"]));
             }
             set {
-                this["ArcazeSupportEnabled"] = value;
+                this["CommunityFeedback"] = value;
             }
         }
     }

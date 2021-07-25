@@ -48,6 +48,8 @@
             this.recentFilesGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.recentFilesNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CommunityFeedbackCheckBox = new System.Windows.Forms.CheckBox();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.offlineModeGroupBox.SuspendLayout();
@@ -56,15 +58,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.testModeSpeedTrackBar)).BeginInit();
             this.recentFilesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.recentFilesNumericUpDown)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BetaUpdatesGroupBox
             // 
             this.BetaUpdatesGroupBox.Controls.Add(this.BetaUpdateCheckBox);
-            this.BetaUpdatesGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BetaUpdatesGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.BetaUpdatesGroupBox.Location = new System.Drawing.Point(0, 335);
             this.BetaUpdatesGroupBox.Name = "BetaUpdatesGroupBox";
-            this.BetaUpdatesGroupBox.Size = new System.Drawing.Size(485, 136);
+            this.BetaUpdatesGroupBox.Size = new System.Drawing.Size(485, 40);
             this.BetaUpdatesGroupBox.TabIndex = 15;
             this.BetaUpdatesGroupBox.TabStop = false;
             this.BetaUpdatesGroupBox.Text = "Beta Versions";
@@ -75,9 +78,9 @@
             this.BetaUpdateCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.BetaUpdateCheckBox.Location = new System.Drawing.Point(12, 17);
             this.BetaUpdateCheckBox.Name = "BetaUpdateCheckBox";
-            this.BetaUpdateCheckBox.Size = new System.Drawing.Size(234, 17);
+            this.BetaUpdateCheckBox.Size = new System.Drawing.Size(258, 17);
             this.BetaUpdateCheckBox.TabIndex = 0;
-            this.BetaUpdateCheckBox.Text = "I would like to receive beta version updates.";
+            this.BetaUpdateCheckBox.Text = "Yes, I would like to receive beta version updates.";
             this.BetaUpdateCheckBox.UseVisualStyleBackColor = true;
             // 
             // languageGroupBox
@@ -281,10 +284,33 @@
             this.recentFilesNumericUpDown.Size = new System.Drawing.Size(38, 20);
             this.recentFilesNumericUpDown.TabIndex = 2;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.CommunityFeedbackCheckBox);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 375);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(485, 96);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Community Feedback Program";
+            // 
+            // CommunityFeedbackCheckBox
+            // 
+            this.CommunityFeedbackCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.CommunityFeedbackCheckBox.Location = new System.Drawing.Point(12, 19);
+            this.CommunityFeedbackCheckBox.Name = "CommunityFeedbackCheckBox";
+            this.CommunityFeedbackCheckBox.Size = new System.Drawing.Size(467, 26);
+            this.CommunityFeedbackCheckBox.TabIndex = 2;
+            this.CommunityFeedbackCheckBox.Text = "Yes, I want to participate in Community Feedback Program and help to improve Mobi" +
+    "Flight.\r\n";
+            this.CommunityFeedbackCheckBox.UseVisualStyleBackColor = true;
+            // 
             // GeneralPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BetaUpdatesGroupBox);
             this.Controls.Add(this.languageGroupBox);
             this.Controls.Add(this.offlineModeGroupBox);
@@ -306,6 +332,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.testModeSpeedTrackBar)).EndInit();
             this.recentFilesGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.recentFilesNumericUpDown)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -332,5 +359,7 @@
         private System.Windows.Forms.GroupBox recentFilesGroupBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown recentFilesNumericUpDown;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox CommunityFeedbackCheckBox;
     }
 }

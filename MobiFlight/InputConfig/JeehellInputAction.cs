@@ -17,6 +17,7 @@ namespace MobiFlight.InputConfig
         const Int16 Offset_CPT_QNH = 0x73C8;
         const Int16 Offset_FO_QNH = 0x73CA;
 
+        public new const String Label = "FSUIPC - Jeehell - Events";
         public const String TYPE = "JeehellInputAction";
 
         public Byte EventId;
@@ -136,6 +137,13 @@ namespace MobiFlight.InputConfig
                 Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
                 replacements.Add(replacement);
             }
+
+            if (value.Contains("@"))
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
+                replacements.Add(replacement);
+            }
+
 
             if (value.Contains("$"))
             {

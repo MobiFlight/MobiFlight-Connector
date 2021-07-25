@@ -395,6 +395,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration file not found. Please check path to config file..
+        /// </summary>
+        internal static string uiMessageConfigNotFound {
+            get {
+                return ResourceManager.GetString("uiMessageConfigNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error on loading presets. Presets are not available for selection..
         /// </summary>
         internal static string uiMessageConfigWizard_ErrorLoadingPresets {

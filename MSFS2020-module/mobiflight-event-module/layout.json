@@ -7,13 +7,13 @@
     },
     {
       "path": "modules/events.txt",
-      "size": 130271,
-      "date": 132667446137592978
+      "size": 86238,
+      "date": 132621057343026307
     },
     {
       "path": "modules/StandaloneModule.wasm",
-      "size": 807096,
-      "date": 132667545905396774
+      "size": 807282,
+      "date": 132714636014380340
     }
   ]
 }

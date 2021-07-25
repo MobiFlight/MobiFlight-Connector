@@ -34,16 +34,18 @@
             this.MacroValueTextBox = new System.Windows.Forms.TextBox();
             this.MacroNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // fsuipcLoadPresetGroupBox
             // 
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.label5);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label2);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.MacroValueTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.MacroNameTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label1);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 
@@ -67,6 +69,11 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
             // LuaMacroInputPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -86,5 +93,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox MacroValueTextBox;
+        private System.Windows.Forms.Label label5;
     }
 }

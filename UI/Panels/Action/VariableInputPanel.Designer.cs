@@ -30,19 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VariableInputPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.ValueTextBox = new System.Windows.Forms.TextBox();
             this.ValueLabel = new System.Windows.Forms.Label();
             this.TypeComboBox = new System.Windows.Forms.ComboBox();
             this.NameTextBox = new System.Windows.Forms.TextBox();
             this.TypeLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.ValueTextBox);
             this.groupBox1.Controls.Add(this.ValueLabel);
             this.groupBox1.Controls.Add(this.TypeComboBox);
@@ -52,6 +52,11 @@
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // ValueTextBox
             // 
@@ -88,11 +93,6 @@
             resources.ApplyResources(this.NameLabel, "NameLabel");
             this.NameLabel.Name = "NameLabel";
             // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
             // VariableInputPanel
             // 
             this.Controls.Add(this.groupBox1);
@@ -112,6 +112,6 @@
         private System.Windows.Forms.ComboBox TypeComboBox;
         private System.Windows.Forms.TextBox ValueTextBox;
         private System.Windows.Forms.Label ValueLabel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -743,5 +743,27 @@ namespace MobiFlight
         {
             return variables.Keys.ToList();
         }
+
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+
+            result["Modules.Count"] = Modules.Values.Count();
+
+            foreach(MobiFlightModule module in Modules.Values)
+            {
+                String key = "Modules." + module.Type;
+                if (!result.ContainsKey(key)) result[key] = 0;
+                result[key] += 1;
+
+                foreach (String statKey in module.GetConnectedDevicesStatistics().Keys)
+                {
+                    if (!result.ContainsKey(statKey)) result[statKey] = 0;
+                    result[statKey] += module.GetConnectedDevicesStatistics()[statKey];
+                }
+            }
+
+            return result;
+        }
     }
 }

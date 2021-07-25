@@ -1179,7 +1179,7 @@ namespace MobiFlight
                 if (!fsuipcCache.isConnected())
                     fsuipcCache.connect();
 #if SIMCONNECT
-                if (!simConnectCache.IsConnected())
+                if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
                     simConnectCache.Connect();
 #endif
                 // we return here to prevent the disabling of the timer
@@ -1474,6 +1474,19 @@ namespace MobiFlight
             //fsuipcCache.ForceUpdate();
         }
 #endif
+
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = mobiFlightCache.GetStatistics();
+            result["arcazeCache.Enabled"] = 0;
+            if(arcazeCache.Enabled)
+            {
+                result["arcazeCache.Enabled"] = 1;
+                result["arcazeCache.Count"] = arcazeCache.getModuleInfo().Count();
+            }
+
+            return result;
+        }
 
         public SimConnectCache GetSimConnectCache()
         {
