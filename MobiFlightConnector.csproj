@@ -760,6 +760,9 @@
     <Content Include="Resources\discord_icon.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <EmbeddedResource Include="UI\Dialogs\CommunityFeedbackStartupForm.de.resx">
+      <DependentUpon>CommunityFeedbackStartupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\CommunityFeedbackStartupForm.resx">
       <DependentUpon>CommunityFeedbackStartupForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -877,6 +880,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.de.resx">
+      <DependentUpon>GeneralPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
