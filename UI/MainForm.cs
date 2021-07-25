@@ -211,6 +211,17 @@ namespace MobiFlight.UI
                 }
                 this.BringToFront();
             }
+
+            // if the user is not participating yet, ask for permission
+            if (!Properties.Settings.Default.CommunityFeedback) { 
+                CommunityFeedbackStartupForm cfpForm = new CommunityFeedbackStartupForm();
+                cfpForm.StartPosition = FormStartPosition.CenterParent;
+                if (cfpForm.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.CommunityFeedback = true;
+                }
+                this.BringToFront();
+            }
         }
 
         private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)

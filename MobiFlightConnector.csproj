@@ -229,6 +229,12 @@
     <Compile Include="MobiFlight\Config\EncoderSingleDetent.cs" />
     <Compile Include="MobiFlight\Config\LCDDisplay.cs" />
     <Compile Include="MobiFlight\FlightSim.cs" />
+    <Compile Include="UI\Dialogs\CommunityFeedbackStartupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialogs\CommunityFeedbackStartupForm.Designer.cs">
+      <DependentUpon>CommunityFeedbackStartupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\Msfs2020StartupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -754,6 +760,9 @@
     <Content Include="Resources\discord_icon.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
+    <EmbeddedResource Include="UI\Dialogs\CommunityFeedbackStartupForm.resx">
+      <DependentUpon>CommunityFeedbackStartupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\Msfs2020StartupForm.resx">
       <DependentUpon>Msfs2020StartupForm.cs</DependentUpon>
     </EmbeddedResource>
