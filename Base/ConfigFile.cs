@@ -67,6 +67,41 @@ namespace MobiFlight
             return xReader;
         }
 
+        public List<OutputConfigItem> GetOutputConfigItems()
+        {
+            List<OutputConfigItem> result = new List<OutputConfigItem>();
+
+            XmlNodeList outputs = xmlConfig.DocumentElement.SelectNodes("outputs/config/settings");
+            foreach(XmlNode item in outputs)
+            {
+                OutputConfigItem config = new OutputConfigItem();
+                System.IO.StringReader reader = new System.IO.StringReader(item.OuterXml);
+                System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
+                config.ReadXml(xReader);
+                result.Add(config);
+            }
+
+            return result;
+        }
+
+        internal List<InputConfigItem> GetInputConfigItems()
+        {
+            List<InputConfigItem> result = new List<InputConfigItem>();
+
+            XmlNodeList inputs = xmlConfig.DocumentElement.SelectNodes("inputs/config/settings");
+            foreach (XmlNode item in inputs)
+            {
+                InputConfigItem config = new InputConfigItem();
+                System.IO.StringReader reader = new System.IO.StringReader(item.OuterXml);
+                System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
+                xReader.Read();
+                config.ReadXml(xReader);
+                result.Add(config);
+            }
+
+            return result;
+        }
+
         public XmlReader getInputConfig()
         {
             XmlReader result = null;

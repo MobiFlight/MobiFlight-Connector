@@ -61,6 +61,7 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.ValuePlaceholderLabel = new System.Windows.Forms.Label();
             this.settingsColumn = new System.Data.DataColumn();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
             this.valuePanel.SuspendLayout();
@@ -86,6 +87,7 @@
             // valuePanel
             // 
             resources.ApplyResources(this.valuePanel, "valuePanel");
+            this.valuePanel.Controls.Add(this.ValuePlaceholderLabel);
             this.valuePanel.Controls.Add(this.label5);
             this.valuePanel.Controls.Add(this.fsuipcValueTextBox);
             this.valuePanel.Name = "valuePanel";
@@ -301,6 +303,11 @@
             // 
             this.description.ColumnName = "description";
             // 
+            // ValuePlaceholderLabel
+            // 
+            resources.ApplyResources(this.ValuePlaceholderLabel, "ValuePlaceholderLabel");
+            this.ValuePlaceholderLabel.Name = "ValuePlaceholderLabel";
+            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
@@ -372,5 +379,6 @@
         private System.Windows.Forms.TextBox SubStringFromTextBox;
         private System.Windows.Forms.CheckBox TransformationCheckBox;
         private System.Windows.Forms.CheckBox SubstringTransformationCheckBox;
+        private System.Windows.Forms.Label ValuePlaceholderLabel;
     }
 }

@@ -35,17 +35,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.EventIdLabel = new System.Windows.Forms.Label();
             this.fsuipcPresetComboBox = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // fsuipcLoadPresetGroupBox
             // 
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
+            this.fsuipcLoadPresetGroupBox.Controls.Add(this.label5);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.hintLabel);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.ValueTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label1);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.EventIdLabel);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 
@@ -78,6 +80,11 @@
             this.fsuipcPresetComboBox.Name = "fsuipcPresetComboBox";
             this.fsuipcPresetComboBox.SelectedIndexChanged += new System.EventHandler(this.fsuipcPresetComboBox_SelectedIndexChanged);
             // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
             // JeehellInputPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -99,5 +106,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label EventIdLabel;
         private System.Windows.Forms.Label hintLabel;
+        private System.Windows.Forms.Label label5;
     }
 }

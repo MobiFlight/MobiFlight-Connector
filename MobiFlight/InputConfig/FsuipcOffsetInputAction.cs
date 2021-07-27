@@ -10,6 +10,7 @@ namespace MobiFlight.InputConfig
 {
     public class FsuipcOffsetInputAction : InputAction, IFsuipcConfigItem, ICloneable
     {
+        new public const String Label = "FSUIPC - Offset";
         public FsuipcOffset FSUIPC { get; set; }
         public String Value { get; set; }
         public Transformation Transform { get; set; }
@@ -77,6 +78,12 @@ namespace MobiFlight.InputConfig
             foreach (ConfigRefValue item in configRefs)
             {
                 Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);
+                replacements.Add(replacement);
+            }
+
+            if (value.Contains("@"))
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
                 replacements.Add(replacement);
             }
 

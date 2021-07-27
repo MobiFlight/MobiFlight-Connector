@@ -93,5 +93,8 @@
     <Setting Name="PresetFileMSFS2020SimVars" Type="System.String" Scope="User">
       <Value Profile="(Default)">Presets\msfs2020_simvars.cip</Value>
     </Setting>
+    <Setting Name="CommunityFeedback" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

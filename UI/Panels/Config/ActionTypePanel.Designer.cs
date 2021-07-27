@@ -42,7 +42,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(275, 33);
+            this.panel1.Size = new System.Drawing.Size(339, 33);
             this.panel1.TabIndex = 17;
             // 
             // label2
@@ -65,10 +65,10 @@
             "FSUIPC Macro",
             "Key"});
             this.ActionTypeComboBox.Location = new System.Drawing.Point(105, 2);
-            this.ActionTypeComboBox.MaximumSize = new System.Drawing.Size(122, 0);
+            this.ActionTypeComboBox.MaximumSize = new System.Drawing.Size(250, 0);
             this.ActionTypeComboBox.MinimumSize = new System.Drawing.Size(47, 0);
             this.ActionTypeComboBox.Name = "ActionTypeComboBox";
-            this.ActionTypeComboBox.Size = new System.Drawing.Size(122, 21);
+            this.ActionTypeComboBox.Size = new System.Drawing.Size(196, 21);
             this.ActionTypeComboBox.TabIndex = 17;
             // 
             // ActionTypePanel
@@ -77,7 +77,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "ActionTypePanel";
-            this.Size = new System.Drawing.Size(275, 36);
+            this.Size = new System.Drawing.Size(339, 36);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

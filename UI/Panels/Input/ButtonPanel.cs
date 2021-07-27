@@ -34,7 +34,7 @@ namespace MobiFlight.UI.Panels.Input
             owner.Controls.Clear();
             switch (value)
             {
-                case "FSUIPC Offset":
+                case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                     panel = new Panels.Config.FsuipcConfigPanel();
                     (panel as Panels.Config.FsuipcConfigPanel).setMode(false);
 
@@ -46,7 +46,7 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
-                case "Key":
+                case InputConfig.KeyInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.KeyboardInputPanel();
                     if (isOnPress && _config != null && _config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.KeyboardInputPanel).syncFromConfig(_config.onPress as KeyInputAction);
@@ -55,7 +55,7 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
-                case "Event ID":
+                case MobiFlight.InputConfig.EventIdInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.EventIdInputPanel();
                     if (isOnPress && _config != null && _config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.EventIdInputPanel).syncFromConfig(_config.onPress as EventIdInputAction);
@@ -74,7 +74,7 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
-                case "Jeehell DataPipe":
+                case InputConfig.JeehellInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.JeehellInputPanel();
                     if (isOnPress && _config != null && _config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.JeehellInputPanel).syncFromConfig(_config.onPress as JeehellInputAction);
@@ -83,7 +83,7 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
-                case "vJoy virtual Joystick":
+                case InputConfig.VJoyInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.VJoyInputPanel();
                     if (isOnPress && _config != null && _config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.VJoyInputPanel).syncFromConfig(_config.onPress as VJoyInputAction);
@@ -126,6 +126,15 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).syncFromConfig(_config.onRelease as VariableInputAction);
 
                     break;
+
+                case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
+                    panel = new MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel();
+                    if (isOnPress && _config != null && _config.onPress != null)
+                        (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onPress as MSFS2020CustomInputAction);
+                    else if (!isOnPress && _config != null && _config.onRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onRelease as MSFS2020CustomInputAction);
+
+                    break;
             }
 
             if (panel != null)
@@ -162,15 +171,15 @@ namespace MobiFlight.UI.Panels.Input
             {
                 switch (onPressActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
                 {
-                    case "FSUIPC Offset":
+                    case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Config.FsuipcConfigPanel).ToConfig();
                         break;
 
-                    case "Key":
+                    case InputConfig.KeyInputAction.Label:
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.KeyboardInputPanel).ToConfig();
                         break;
 
-                    case "Event ID":
+                    case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.EventIdInputPanel).ToConfig();
                         break;
 
@@ -178,11 +187,11 @@ namespace MobiFlight.UI.Panels.Input
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.PmdgEventIdInputPanel).ToConfig();
                         break;
 
-                    case "Jeehell DataPipe":
+                    case InputConfig.JeehellInputAction.Label:
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.JeehellInputPanel).ToConfig();
                         break;
 
-                    case "vJoy virtual Joystick":
+                    case InputConfig.VJoyInputAction.Label:
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.VJoyInputPanel).ToConfig();
                         break;
 
@@ -196,6 +205,10 @@ namespace MobiFlight.UI.Panels.Input
 
                     case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).ToConfig();
                         break;
 
                     case MobiFlight.InputConfig.VariableInputAction.Label:
@@ -212,15 +225,15 @@ namespace MobiFlight.UI.Panels.Input
             {
                 switch (onReleaseActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
                 {
-                    case "FSUIPC Offset":
+                    case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Config.FsuipcConfigPanel).ToConfig();
                         break;
 
-                    case "Key":
+                    case InputConfig.KeyInputAction.Label:
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.KeyboardInputPanel).ToConfig();
                         break;
 
-                    case "Event ID":
+                    case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.EventIdInputPanel).ToConfig();
                         break;
 
@@ -228,11 +241,11 @@ namespace MobiFlight.UI.Panels.Input
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.PmdgEventIdInputPanel).ToConfig();
                         break;
 
-                    case "Jeehell DataPipe":
+                    case InputConfig.JeehellInputAction.Label:
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.JeehellInputPanel).ToConfig();
                         break;
 
-                    case "vJoy virtual Joystick":
+                    case InputConfig.VJoyInputAction.Label:
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.VJoyInputPanel).ToConfig();
                         break;
 
@@ -246,6 +259,10 @@ namespace MobiFlight.UI.Panels.Input
 
                     case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).ToConfig();
                         break;
 
                     case MobiFlight.InputConfig.VariableInputAction.Label:

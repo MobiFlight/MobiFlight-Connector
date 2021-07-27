@@ -19,6 +19,8 @@ using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.UpdateChecker;
+using MobiFlight.Base;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace MobiFlight.UI
 {
@@ -89,6 +91,14 @@ namespace MobiFlight.UI
 
             // finally set up logging (based on settings)
             InitializeLogging();
+
+            // configure tracking correctly
+            InitializeTracking();
+        }
+
+        private void InitializeTracking()
+        {
+            AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -201,6 +211,17 @@ namespace MobiFlight.UI
                 }
                 this.BringToFront();
             }
+
+            // if the user is not participating yet, ask for permission
+            if (!Properties.Settings.Default.CommunityFeedback) { 
+                CommunityFeedbackStartupForm cfpForm = new CommunityFeedbackStartupForm();
+                cfpForm.StartPosition = FormStartPosition.CenterParent;
+                if (cfpForm.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.CommunityFeedback = true;
+                }
+                this.BringToFront();
+            }
         }
 
         private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)
@@ -230,6 +251,7 @@ namespace MobiFlight.UI
         /// </summary>
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            AppTelemetry.Instance.TrackShutdown();
             execManager.Shutdown();
             Properties.Settings.Default.Save();
         } //Form1_FormClosed
@@ -252,6 +274,9 @@ namespace MobiFlight.UI
             AutoUpdateChecker.CheckForUpdate(false, true);
 
             CheckForWasmModuleUpdate();
+
+            // Track config loaded event
+            AppTelemetry.Instance.TrackStart(); 
         }
 
         private void CheckForWasmModuleUpdate()
@@ -444,6 +469,11 @@ namespace MobiFlight.UI
                 if (execManager.OfflineMode) OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb_on;
                 else OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb;
             }
+
+            if (e.SettingName == "CommunityFeedback")
+            {
+                AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
+            }
         }
 
         private void _autoloadConfig()
@@ -619,22 +649,21 @@ namespace MobiFlight.UI
         /// </summary>        
         void fsuipcCache_Connected(object sender, EventArgs e)
         {
-
-            if (sender.GetType() == typeof(SimConnectCache))
+            if (sender.GetType() == typeof(SimConnectCache) && FlightSim.FlightSimType == FlightSimType.MSFS2020)
             {
                 noSimRunningToolStripMenuItem.Text = "MSFS2020 Detected";
                 simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
                 simConnectToolStripMenuItem.Image = Properties.Resources.check;
-                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), "SimConnect");
             }
 
             else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
 
                 Fsuipc2Cache c = sender as Fsuipc2Cache;
-                switch (c.FlightSimConnectionMethod)
+                switch (FlightSim.FlightSimConnectionMethod)
                 {
                     case FlightSimConnectionMethod.FSUIPC:
-                        FsuipcToolStripMenuItem.Text = i18n._tr("fsuipcStatus") + " ("+ c.FlightSim.ToString() +")";
+                        FsuipcToolStripMenuItem.Text = i18n._tr("fsuipcStatus") + " ("+ FlightSim.FlightSimType.ToString() +")";
                         break;
 
                     case FlightSimConnectionMethod.XPUIPC:
@@ -646,7 +675,14 @@ namespace MobiFlight.UI
                         break;
                 }
                 FsuipcToolStripMenuItem.Image = Properties.Resources.check;
+                AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), c.FlightSimConnectionMethod.ToString());
             }
+
+            if (execManager.SimConnected())
+            {
+                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
+            }
+
             runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
         }
 
@@ -933,6 +969,12 @@ namespace MobiFlight.UI
         /// </summary>        
         private void _loadConfig(string fileName, bool merge = false)
         {
+            if (!System.IO.File.Exists(fileName))
+            {
+                MessageBox.Show(i18n._tr("uiMessageConfigNotFound"), i18n._tr("Hint"));
+                return;
+            }
+
             if (fileName.IndexOf(".aic") != -1)
             {
                 if (MessageBox.Show(i18n._tr("uiMessageMigrateConfigFileYesNo"), i18n._tr("Hint"), MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
@@ -1028,6 +1070,11 @@ namespace MobiFlight.UI
             // savetoolstripbutton may be set to "enabled"
             // if user has changed something
             _checkForOrphanedSerials( false );
+
+            // Track config loaded event
+            AppTelemetry.Instance.ConfigLoaded(configFile);
+            AppTelemetry.Instance.TrackBoardStatistics(execManager);
+            AppTelemetry.Instance.TrackSettings();
         }
 
         private void _restoreValuesInGridView()

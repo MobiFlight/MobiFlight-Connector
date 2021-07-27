@@ -318,6 +318,12 @@ namespace MobiFlight.SimConnectMSFS
             return result;
         }
 
+        public void SetSimVar(String SimVarCode)
+        {
+            WasmModuleClient.SendWasmCmd(m_oSimConnect, "MF.SimVars.Set." + SimVarCode);
+            WasmModuleClient.DummyCommand(m_oSimConnect);
+        }
+
         private void RegisterSimVar(string SimVarName)
         {
             SimVar NewSimVar = new SimVar() { Name = SimVarName, ID = (uint) SimVars.Count+1 };

@@ -48,6 +48,14 @@ namespace MobiFlight
             appenderList.Add(appender);
         }
 
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+            result["Log.Level"] = (int)Severity;
+            result["Log.Enabled"] = Enabled ? 1 : 0;
+            return result;
+        }
+
         public bool Enabled { get; set; }
     }
 

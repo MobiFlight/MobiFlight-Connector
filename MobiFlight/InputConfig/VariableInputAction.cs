@@ -8,7 +8,7 @@ namespace MobiFlight.InputConfig
 {
     public class VariableInputAction : InputAction, ICloneable
     {
-        new public const String Label = "MobiFlight Variable";
+        new public const String Label = "MobiFlight - Variable";
         public const String TYPE = "VariableInputAction";
         public MobiFlightVariable Variable = new MobiFlightVariable();
         
@@ -45,17 +45,17 @@ namespace MobiFlight.InputConfig
                                      InputEventArgs args,
                                      List<ConfigRefValue> configRefs)
         {
-            String result = Variable.Expression;
+            String value = Variable.Expression;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
 
-            if (result.Contains("@"))
+            if (value.Contains("@"))
             {
                 Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
                 replacements.Add(replacement);
             }
 
-            if (result.Contains("$"))
+            if (value.Contains("$"))
             {
                 MobiFlightVariable variable = moduleCache.GetMobiFlightVariable(Variable.Name);
                 Tuple<string, string> replacement = new Tuple<string, string>("$", variable.TYPE == MobiFlightVariable.TYPE_NUMBER ? variable.Number.ToString() : variable.Text);
@@ -69,13 +69,13 @@ namespace MobiFlight.InputConfig
                 replacements.Add(replacement);
             }
 
-            result = Replace(result, replacements);
+            value = Replace(value, replacements);
 
             if (Variable.TYPE == MobiFlightVariable.TYPE_NUMBER)
             {
                 try
                 {
-                    Variable.Number = double.Parse(result);
+                    Variable.Number = double.Parse(value);
                 }
                 catch (Exception)
                 {
@@ -84,7 +84,7 @@ namespace MobiFlight.InputConfig
                 }
             }
 
-            Variable.Text = result;
+            Variable.Text = value;
             moduleCache.SetMobiFlightVariable(Variable);
         }
     }

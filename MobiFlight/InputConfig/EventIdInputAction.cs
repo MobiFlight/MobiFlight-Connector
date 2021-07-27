@@ -10,7 +10,7 @@ namespace MobiFlight.InputConfig
     {
         const Int16 BaseOffset = 0x3110;
         const Int16 ParamOffset = 0x3114;
-
+        public new const String Label = "FSUIPC - EventID";
         public const String TYPE = "EventIdInputAction";
         public Int32 EventId;
         public String Param = "0";
@@ -55,6 +55,13 @@ namespace MobiFlight.InputConfig
             String value = Param;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
+
+            if (value.Contains("@"))
+            {
+                Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
+                replacements.Add(replacement);
+            }
+
             foreach (ConfigRefValue item in configRefs)
             {
                 Tuple<string, string> replacement = new Tuple<string, string>(item.ConfigRef.Placeholder, item.Value);

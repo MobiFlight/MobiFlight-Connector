@@ -457,4 +457,7 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageMaxNumberOfDevicesReached" xml:space="preserve">
     <value>You cannot add another {1}. The maximum is {0} on a {2}.</value>
   </data>
+  <data name="uiMessageConfigNotFound" xml:space="preserve">
+    <value>Configuration file not found. Please check path to config file.</value>
+  </data>
 </root>

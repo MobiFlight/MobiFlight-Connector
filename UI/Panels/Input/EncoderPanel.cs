@@ -44,7 +44,7 @@ namespace MobiFlight.UI.Panels.Input
             owner.Controls.Clear();
             switch (value)
             {
-                case "FSUIPC Offset":
+                case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                     panel = new Panels.Config.FsuipcConfigPanel();
                     (panel as Panels.Config.FsuipcConfigPanel).setMode(false);
 
@@ -58,7 +58,7 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(_config.onRightFast as FsuipcOffsetInputAction);
                     break;
 
-                case "Key":
+                case InputConfig.KeyInputAction.Label:
                     panel = new KeyboardInputPanel();
                     if (isLeft && !isFast && _config != null && _config.onLeft != null)
                         (panel as KeyboardInputPanel).syncFromConfig(_config.onLeft as KeyInputAction);
@@ -70,7 +70,7 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as KeyboardInputPanel).syncFromConfig(_config.onRightFast as KeyInputAction);
                     break;
 
-                case "Event ID":
+                case MobiFlight.InputConfig.EventIdInputAction.Label:
                     panel = new EventIdInputPanel();
                     if (isLeft && !isFast && _config != null && _config.onLeft != null)
                         (panel as EventIdInputPanel).syncFromConfig(_config.onLeft as EventIdInputAction);
@@ -94,7 +94,7 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as PmdgEventIdInputPanel).syncFromConfig(_config.onRightFast as PmdgEventIdInputAction);
                     break;
 
-                case "Jeehell DataPipe":
+                case InputConfig.JeehellInputAction.Label:
                     panel = new JeehellInputPanel();
                     if (isLeft && !isFast && _config != null && _config.onLeft != null)
                         (panel as JeehellInputPanel).syncFromConfig(_config.onLeft as JeehellInputAction);
@@ -153,6 +153,18 @@ namespace MobiFlight.UI.Panels.Input
                     else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
                         (panel as VariableInputPanel).syncFromConfig(_config.onRightFast as VariableInputAction);
                     break;
+
+                case MSFS2020CustomInputAction.Label:
+                    panel = new MSFS2020CustomInputPanel();
+                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
+                        (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeft as MSFS2020CustomInputAction);
+                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
+                        (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeftFast as MSFS2020CustomInputAction);
+                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
+                        (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRight as MSFS2020CustomInputAction);
+                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
+                        (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRightFast as MSFS2020CustomInputAction);
+                    break;
             }
 
             if (panel != null)
@@ -198,19 +210,19 @@ namespace MobiFlight.UI.Panels.Input
             {
                 switch (onLeftActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
                 {
-                    case "FSUIPC Offset":
+                    case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
-                    case "Key":
+                    case InputConfig.KeyInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
-                    case "Event ID":
+                    case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
                     case PmdgEventIdInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
                         break;
-                    case "Jeehell DataPipe":
+                    case InputConfig.JeehellInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
                     case LuaMacroInputAction.Label:
@@ -221,6 +233,9 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                     case MSFS2020EventIdInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as MSFS2020InputPanel).ToConfig();
+                        break;
+                    case MSFS2020CustomInputAction.Label:
+                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as MSFS2020CustomInputPanel).ToConfig();
                         break;
                     case VariableInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
@@ -236,19 +251,19 @@ namespace MobiFlight.UI.Panels.Input
             {
                 switch (onLeftFastActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
                 {
-                    case "FSUIPC Offset":
+                    case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
-                    case "Key":
+                    case InputConfig.KeyInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
-                    case "Event ID":
+                    case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
                     case PmdgEventIdInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
                         break;
-                    case "Jeehell DataPipe":
+                    case InputConfig.JeehellInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
                     case LuaMacroInputAction.Label:
@@ -260,6 +275,10 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                     case MSFS2020EventIdInputAction.Label:
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as MSFS2020InputPanel).ToConfig();
+                        break;
+
+                    case MSFS2020CustomInputAction.Label:
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as MSFS2020CustomInputPanel).ToConfig();
                         break;
 
                     case VariableInputAction.Label:
@@ -276,19 +295,19 @@ namespace MobiFlight.UI.Panels.Input
             {
                 switch (onRightActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
                 {
-                    case "FSUIPC Offset":
+                    case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
-                    case "Key":
+                    case InputConfig.KeyInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
-                    case "Event ID":
+                    case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
                     case PmdgEventIdInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
                         break;
-                    case "Jeehell DataPipe":
+                    case InputConfig.JeehellInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
                     case LuaMacroInputAction.Label:
@@ -299,6 +318,9 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                     case MSFS2020EventIdInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as MSFS2020InputPanel).ToConfig();
+                        break;
+                    case MSFS2020CustomInputAction.Label:
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as MSFS2020CustomInputPanel).ToConfig();
                         break;
                     case VariableInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
@@ -313,19 +335,19 @@ namespace MobiFlight.UI.Panels.Input
             {
                 switch (onRightFastActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
                 {
-                    case "FSUIPC Offset":
+                    case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as FsuipcConfigPanel).ToConfig();
                         break;
-                    case "Key":
+                    case InputConfig.KeyInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as KeyboardInputPanel).ToConfig();
                         break;
-                    case "Event ID":
+                    case MobiFlight.InputConfig.EventIdInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as EventIdInputPanel).ToConfig();
                         break;
                     case PmdgEventIdInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as PmdgEventIdInputPanel).ToConfig();
                         break;
-                    case "Jeehell DataPipe":
+                    case InputConfig.JeehellInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as JeehellInputPanel).ToConfig();
                         break;
                     case LuaMacroInputAction.Label:
@@ -336,6 +358,9 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                     case MSFS2020EventIdInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as MSFS2020InputPanel).ToConfig();
+                        break;
+                    case MSFS2020CustomInputAction.Label:
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as MSFS2020CustomInputPanel).ToConfig();
                         break;
                     case VariableInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();

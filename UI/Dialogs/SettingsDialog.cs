@@ -13,6 +13,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Settings;
+using MobiFlight.Base;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -176,6 +178,11 @@ namespace MobiFlight.UI.Dialogs
             }
 
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void SettingsDialog_Shown(object sender, EventArgs e)
+        {
+            TabPage current = tabControl1.SelectedTab;
         }
     }
 }
