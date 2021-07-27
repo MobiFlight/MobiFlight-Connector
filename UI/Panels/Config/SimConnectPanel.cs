@@ -74,7 +74,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void _loadPresetData(String file, String DefaultGroupKey, String Prefix)
         {
-            string[] lines = System.IO.File.ReadAllLines(PresetFile);
+            string[] lines = System.IO.File.ReadAllLines(file);
             String GroupKey = DefaultGroupKey;
             data.Add(DefaultGroupKey, new List<SimVarPreset>());
 
