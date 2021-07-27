@@ -460,4 +460,7 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageConfigNotFound" xml:space="preserve">
     <value>Configuration file not found. Please check path to config file.</value>
   </data>
+  <data name="uiMessageFirmwareUploadError" xml:space="preserve">
+    <value>There was an error on uploading the firmware!\nEnable Debug Logging for more details.</value>
+  </data>
 </root>

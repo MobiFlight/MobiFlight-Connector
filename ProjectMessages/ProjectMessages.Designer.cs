@@ -552,6 +552,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error on uploading the firmware!\nEnable Debug Logging for more details..
+        /// </summary>
+        internal static string uiMessageFirmwareUploadError {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareUploadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The firmware update was successful!.
         /// </summary>
         internal static string uiMessageFirmwareUploadSuccessful {
