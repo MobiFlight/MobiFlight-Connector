@@ -115,6 +115,11 @@ namespace MobiFlight.UI
                 OnFirstStart();
             }
 
+            if (Properties.Settings.Default.Started % 30 == 0)
+            {
+                OnRepeatedStart();
+            }
+
             Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
 
             // this is everything that used to be directly in the constructor
@@ -187,6 +192,17 @@ namespace MobiFlight.UI
 
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
+        }
+
+        private void OnRepeatedStart()
+        {
+            DonateDialog cfpForm = new DonateDialog();
+            cfpForm.StartPosition = FormStartPosition.CenterParent;
+            if (cfpForm.ShowDialog() == DialogResult.OK)
+            {
+                // we can track the click.
+            }
+            this.BringToFront();
         }
 
         private void OnFirstStart()
