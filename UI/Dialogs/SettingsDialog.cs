@@ -183,10 +183,6 @@ namespace MobiFlight.UI.Dialogs
         private void SettingsDialog_Shown(object sender, EventArgs e)
         {
             TabPage current = tabControl1.SelectedTab;
-            PageViewTelemetry telemetry = new PageViewTelemetry();
-            telemetry.Name = "SettingsDialog";
-            telemetry.Properties.Add("tab", current.Name);
-            AppTelemetry.Instance.GetClient().TrackPageView(telemetry);
         }
     }
 }

@@ -450,4 +450,8 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   <data name="uiMessageConfigNotFound" xml:space="preserve">
     <value>Konfiguration konnte nicht geladen werden. Check den Pfad zur Datei.</value>
   </data>
+  <data name="uiMessageFirmwareUploadError" xml:space="preserve">
+    <value>Es gab einen Fehler beim Firmware Upload. Aktiviere Logging für mehr Informationen.</value>
+    <comment>There was an error on uploading the firmware!\nEnable Debug Logging for more details.</comment>
+  </data>
 </root>

@@ -877,8 +877,11 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (e.Error != null)
             {
-                MessageBox.Show("There was an error on uploading the firmware!\nEnable Debug Logging for more details.",
-                                i18n._tr("Hint"), MessageBoxButtons.OK);
+                MessageBox.Show(
+                    i18n._tr("uiMessageFirmwareUploadError"),
+                    i18n._tr("Hint"), 
+                    MessageBoxButtons.OK
+                );
                 return;
             }
 
