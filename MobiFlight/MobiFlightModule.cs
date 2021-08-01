@@ -842,6 +842,7 @@ namespace MobiFlight
             result[MobiFlightStepper.TYPE] = stepperModules.Count;
             result[MobiFlightServo.TYPE] = servoModules.Count;
             result[MobiFlightLcdDisplay.TYPE] = lcdDisplays.Count;
+            result[MobiFlightShiftRegister.TYPE] = shiftRegisters.Count;
             result[MobiFlightButton.TYPE] = buttons.Count;
             result[MobiFlightEncoder.TYPE] = encoders.Count;
             result[MobiFlightAnalogInput.TYPE] = analogInputs.Count;
