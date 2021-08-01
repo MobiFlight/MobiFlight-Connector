@@ -12,8 +12,9 @@ namespace MobiFlight.UpdateChecker
         static string mobiFlightInstaller = "MobiFlight-Installer.exe";
         public static void CheckForUpdate(bool force = false, bool silent = false)
         {
+            String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
-            String trackingParams = Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
+            String trackingParams = hash + "-" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
 
             string CurVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string CommandToSend = "/check /version " + CurVersion + " /cacheId " + trackingParams;
