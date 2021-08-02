@@ -115,7 +115,7 @@ namespace MobiFlight.UI
                 OnFirstStart();
             }
 
-            if (Properties.Settings.Default.Started % 30 == 0)
+            if (Properties.Settings.Default.Started > 0 && (Properties.Settings.Default.Started % 30 == 0))
             {
                 OnRepeatedStart();
             }
