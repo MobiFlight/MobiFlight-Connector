@@ -11,6 +11,7 @@ MFButton	  KEYWORD1
 MFStepper	  KEYWORD1
 MFSegments	KEYWORD1
 MFEncoder	  KEYWORD1
+MFSPIOutput   KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)

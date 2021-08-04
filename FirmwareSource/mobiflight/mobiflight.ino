@@ -40,6 +40,7 @@ char foo;
 // 1.11.0: Added Analog support, ShiftRegister Support (kudos to @manfredberry)
 // 1.11.1: minor bugfixes for BETA release
 // 1.11.2: fixed issue with one line LCD freeze
+// 1.11.2.1: Added SPI Output device using #include <SPI.h>
 const char version[8] = "1.11.2";
 
 //#define DEBUG 1
@@ -61,7 +62,7 @@ const char version[8] = "1.11.2";
 #elif defined(ARDUINO_AVR_UNO)
 #define MODULETYPE MTYPE_UNO
 #else
-  #error
+#define MODULETYPE MTYPE_MEGA // was:  #error
 #endif
 
 #if MODULETYPE == MTYPE_MEGA
@@ -72,6 +73,7 @@ const char version[8] = "1.11.2";
 #define MF_SERVO_SUPPORT    1
 #define MF_ANALOG_SUPPORT   1
 #define MF_SHIFTER_SUPPORT  1
+#define MF_SPI_OUTPUT_SUPPORT       1  //can't say if other moduletypes can handle that ATM. Number is prob only limited by free SlaveSelectPins!
 #endif
 
 #if MODULETYPE == MTYPE_UNO
@@ -132,6 +134,7 @@ const char version[8] = "1.11.2";
 #define MAX_MFLCD_I2C     2
 #define MAX_ANALOG_INPUTS 5
 #define MAX_SHIFTERS      10
+#define MAX_SPI_OUTPUT     1  //can't say if other moduletypes can handle that ATM. Number is prob only limited by free SlaveSelectPins!
 #endif
 
 #include <EEPROMex.h>
@@ -157,6 +160,11 @@ const char version[8] = "1.11.2";
 #if MF_SERVO_SUPPORT == 1
 #include <Servo.h>
 #include <MFServo.h>
+#endif
+
+#if MF_SPI_OUTPUT_SUPPORT == 1
+#include<SPI.h>
+#include<MFSPI.h>
 #endif
 
 #include <MFOutput.h>
@@ -240,6 +248,11 @@ MFServo servos[MAX_MFSERVOS];
 uint8_t servosRegistered = 0;
 #endif
 
+#if MF_SPI_OUTPUT_SUPPORT == 1
+MFSPI spi_outputs[MAX_SPI_OUTPUT];
+uint8_t spi_outputsRegistered = 0;
+#endif
+
 #if MF_LCD_SUPPORT == 1
 MFLCDDisplay lcd_I2C[MAX_MFLCD_I2C];
 uint8_t lcd_12cRegistered = 0;
@@ -268,7 +281,8 @@ enum
   kTypeEncoder,             // 8
   kTypeStepper,             // 9 (new stepper type with auto zero support if btnPin is > 0)
   kShiftRegister,           // 10 Shift register support (example: 74HC595, TLC592X)
-  kTypeAnalogInput          // 11 Analog Device with 1 pin
+  kTypeAnalogInput,         // 11 Analog Device with 1 pin
+  kTypeSPIOutput            // 12 SPI Output Device, like a digital Potentiometer
 };  
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
@@ -306,7 +320,8 @@ enum
   kSetLcdDisplayI2C,        // 25
   kSetModuleBrightness,     // 26
   kSetShiftRegisterPins,    // 27
-  kAnalogChange             // 28
+  kAnalogChange,             // 28
+  kSetSPIOutput             // 29
 };
 
 // Callbacks define on which received commands we take action
@@ -329,6 +344,10 @@ void attachCommandCallbacks()
 
 #if MF_SERVO_SUPPORT == 1
   cmdMessenger.attach(kSetServo, OnSetServo);
+#endif
+
+#if MF_SPI_OUTPUT_SUPPORT == 1
+  cmdMessenger.attach(kSetSPIOutput, OnSetSPIOutput);
 #endif
 
   cmdMessenger.attach(kGetInfo, OnGetInfo);
@@ -380,6 +399,10 @@ void OnResetBoard() {
 void setup() 
 {
   Serial.begin(115200);
+  // initialize SPI:
+#ifdef MF_SPI_OUTPUT_SUPPORT
+  SPI.begin();
+#endif // MF_SPI_OUTPUT_SUPPORT
   attachCommandCallbacks();
   cmdMessenger.printLfCr();
   OnResetBoard();
@@ -693,6 +716,32 @@ void ClearServos()
 }
 #endif
 
+#if MF_SPI_OUTPUT_SUPPORT == 1
+//// SPI Output /////
+void AddSPIOutput(int pin)
+{
+    if (spi_outputsRegistered == MAX_SPI_OUTPUT) return;
+    if (isPinRegistered(pin)) return;
+
+    spi_outputs[spi_outputsRegistered].attach(pin, true);
+    registerPin(pin, kTypeSPIOutput);
+    spi_outputsRegistered++;
+}
+
+void ClearSPIOutputs()
+{
+    for (int i = 0; i != spi_outputsRegistered; i++)
+    {
+        spi_outputs[spi_outputsRegistered].detach();
+    }
+    clearRegisteredPins(kTypeSPIOutput);
+    spi_outputsRegistered = 0;
+#ifdef DEBUG  
+    cmdMessenger.sendCmd(kStatus, F("Cleared spioutputs"));
+#endif 
+}
+#endif
+
 #if MF_LCD_SUPPORT == 1
 //// LCD Display /////
 void AddLcdDisplay (uint8_t address = 0x24, uint8_t cols = 16, uint8_t lines = 2, char const * name = "LCD")
@@ -844,6 +893,10 @@ void resetConfig()
   ClearServos();
 #endif 
 
+#if MF_SPI_OUTPUT_SUPPORT == 1
+  ClearSPIOutputs();
+#endif
+
 #if MF_STEPPER_SUPPORT == 1
   ClearSteppers();
 #endif 
@@ -958,7 +1011,16 @@ void readConfig(String cfg) {
         AddServo(atoi(params[0]));
 #endif
       break;
-      
+
+      case kTypeSPIOutput:
+          // AddSPIOutput(int pin) This will be the SlaveSelectPin!!
+          params[0] = strtok_r(NULL, ".", &p); // 
+          params[1] = strtok_r(NULL, ":", &p); // Name
+#if MF_SPI_OUTPUT_SUPPORT == 1
+          AddSPIOutput(atoi(params[0]));
+#endif
+          break;
+
 	  case kTypeEncoderSingleDetent:
 		  // AddEncoder(uint8_t pin1 = 1, uint8_t pin2 = 2, uint8_t encoder_type = 0, String name = "Encoder")
 		  params[0] = strtok_r(NULL, ".", &p); // pin1
@@ -1159,6 +1221,25 @@ void updateServos()
   }
 }
 #endif
+
+#if MF_SPI_OUTPUT_SUPPORT == 1
+void OnSetSPIOutput()
+{
+    int spioutput = cmdMessenger.readIntArg();
+    int newValue = cmdMessenger.readIntArg();
+    if (spioutput >= spi_outputsRegistered) return;
+    spi_outputs[spioutput].moveTo(B00010001, newValue);
+    lastCommand = millis();
+}
+
+void updateSPIOutputs()
+{
+    for (int i = 0; i != spi_outputsRegistered; i++) {
+        spi_outputs[i].update();
+    }
+}
+#endif
+
 
 #if MF_LCD_SUPPORT == 1
 void OnSetLcdDisplayI2C()

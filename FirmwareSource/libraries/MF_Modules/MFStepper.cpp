@@ -16,7 +16,7 @@
 #elif defined(ARDUINO_AVR_UNO)
 #define MODULETYPE MTYPE_UNO
 #else
-  #error
+#define MODULETYPE MTYPE_MEGA // was #error
 #endif
 
 #if MODULETYPE == MTYPE_MICRO

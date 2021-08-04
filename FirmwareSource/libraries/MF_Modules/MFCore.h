@@ -18,7 +18,13 @@ enum
   kTypeLedSegment,  // 4
   kTypeStepper,     // 5
   kTypeServo,       // 6
-};  
+  kTypeLcdDisplayI2C,       // 7
+  kTypeEncoder,             // 8
+  kTypeStepper,             // 9 (new stepper type with auto zero support if btnPin is > 0)
+  kShiftRegister,           // 10 Shift register support (example: 74HC595, TLC592X)
+  kTypeAnalogInput,         // 11 Analog Device with 1 pin
+  kTypeSPIOutput            // 12 SPI Output Device, like a digital Potentiometer
+};
 
 // This is the list of recognized commands. These can be commands that can either be sent or received. 
 // In order to receive, attach a callback function to these events
@@ -47,7 +53,13 @@ enum
   kGenNewSerial,       // 20
   kResetStepper,       // 21
   kSetZeroStepper,     // 22
-  kTrigger             // 23
+  kTrigger,             // 23
+  kResetBoard,              // 24
+  kSetLcdDisplayI2C,        // 25
+  kSetModuleBrightness,     // 26
+  kSetShiftRegisterPins,    // 27
+  kAnalogChange,             // 28
+  kSetSPIOutput             // 29
 };
 
 
