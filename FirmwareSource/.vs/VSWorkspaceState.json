@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\libraries",
+    "\\libraries\\MF_Modules",
+    "\\mobiflight"
   ],
+  "SelectedNode": "\\libraries\\MF_Modules\\MFStepper.cpp",
   "PreviewInSolutionExplorer": false
 }
