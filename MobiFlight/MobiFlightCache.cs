@@ -665,6 +665,8 @@ namespace MobiFlight
             {
                 module.Stop();   
             }
+
+            variables.Clear();
         }
         
         public IEnumerable<IModuleInfo> getModuleInfo()
