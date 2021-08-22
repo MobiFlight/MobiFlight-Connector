@@ -123,6 +123,15 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
             Assert.AreEqual("2", mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
+
+            // test https://github.com/Mobiflight/MobiFlight-Connector/issues/438
+            mock.Clear();
+            o.Value = "Round(@*359/1023,0)";
+            configrefs = new List<ConfigRefValue>();
+            o.execute(mock, simConnectMock, null, new InputEventArgs() { Value = 359 }, configrefs);
+
+            Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
+            Assert.AreEqual(Math.Round((359*359 / 1023f), 0).ToString(), mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
         }
     }
 }
