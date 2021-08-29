@@ -1,7 +1,0 @@
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\bin\Debug\SendAndReceiveBinaryArguments.exe
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\bin\Debug\SendAndReceiveBinaryArguments.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\bin\Debug\CommandMessenger.dll
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\bin\Debug\CommandMessenger.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\obj\x86\Debug\SendAndReceiveBinaryArguments.exe
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\obj\x86\Debug\SendAndReceiveBinaryArguments.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\obj\x86\Debug\4-SendAndReceiveBinaryArguments.csprojResolveAssemblyReference.cache

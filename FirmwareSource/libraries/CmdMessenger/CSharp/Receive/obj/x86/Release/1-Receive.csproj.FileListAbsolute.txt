@@ -1,7 +1,0 @@
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\Receive\bin\Release\Receive.exe
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\Receive\bin\Release\Receive.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\Receive\bin\Release\CommandMessenger.dll
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\Receive\bin\Release\CommandMessenger.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\Receive\obj\x86\Release\Receive.exe
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\Receive\obj\x86\Release\Receive.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\Receive\obj\x86\Release\1-Receive.csprojResolveAssemblyReference.cache
