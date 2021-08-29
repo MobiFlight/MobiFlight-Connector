@@ -16,9 +16,7 @@
 #include <wiring.h>
 #endif
 
-//#include "../NewliquidCrystal/LiquidCrystal_I2C.h"
-#include "../LiquidCrystal-I2C/LiquidCrystal_I2C.h"
-
+#include <LiquidCrystal_I2C.h>
 
 /////////////////////////////////////////////////////////////////////
 /// \class MFLCDDisplay MFLCDDisplay.h <MFLCDDisplay.h>
@@ -26,19 +24,19 @@ class MFLCDDisplay
 {
 public:
     MFLCDDisplay();
-    void display(const char * string);
+    void display(const char *string);
     void attach(byte address, byte cols, byte lines);
     void detach();
     void test();
     void powerSavingMode(bool state);
 
 private:
-    LiquidCrystal_I2C  *_lcdDisplay;
-    bool        _initialized;
-    byte        _address;
-	byte		_cols;
-	byte		_lines;
+    LiquidCrystal_I2C *_lcdDisplay;
+    bool _initialized;
+    byte _address;
+    byte _cols;
+    byte _lines;
 
-    void _printCentered(const char * str, uint8_t line);
+    void _printCentered(const char *str, uint8_t line);
 };
-#endif 
+#endif
