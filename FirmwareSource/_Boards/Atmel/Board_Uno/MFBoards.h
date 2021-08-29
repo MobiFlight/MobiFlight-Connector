@@ -26,20 +26,10 @@
 #define MAX_MFLCD_I2C 2
 #define MAX_ANALOG_INPUTS 0
 #define MAX_SHIFTERS 0
-#define MAX_MCP_EXPANDER 1
 
 #define STEPS 64
 #define STEPPER_SPEED 400 // 300 already worked, 467, too?
 #define STEPPER_ACCEL 800
-
-#define NATIVE_MAX_PINS 19 // max Pins from module, w/o Port Expander
-#define MCP_PIN_BASE 100   // first Pin number from Port Expander
-#define MODULE_MAX_PINS NATIVE_MAX_PINS + ((MAX_MCP_EXPANDER * 16) * MF_MCP_SUPPORT)
-
-#if MF_MCP_SUPPORT == 1
-#include <MFMCP23017.h>
-extern MFMCP23017 mcp_expander[];
-#endif
 
 #define MOBIFLIGHT_TYPE "MobiFlight Uno"
 #define MOBIFLIGHT_SERIAL "0987654321"
