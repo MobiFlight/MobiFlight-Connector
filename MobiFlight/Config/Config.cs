@@ -134,6 +134,11 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        case DeviceType.InputShiftRegister:
+                            currentItem = new MobiFlight.Config.InputShiftRegister();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
                     }
 
                     if (currentItem != null)

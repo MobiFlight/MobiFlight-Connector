@@ -190,6 +190,7 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\AppTelemetry.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
+    <Compile Include="MobiFlight\MobiFlightInputShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
@@ -321,6 +323,12 @@
     </Compile>
     <Compile Include="UI\Panels\Config\TransformOptionsGroup.Designer.cs">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFInputShiftRegisterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFInputShiftRegisterPanel.Designer.cs">
+      <DependentUpon>MFInputShiftRegisterPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -862,6 +870,12 @@
     <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.de.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFInputShiftRegisterPanel.de.resx">
+      <DependentUpon>MFInputShiftRegisterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFInputShiftRegisterPanel.resx">
+      <DependentUpon>MFInputShiftRegisterPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.de.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -907,6 +921,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\StartupPanel.resx">
       <DependentUpon>StartupPanel.cs</DependentUpon>
