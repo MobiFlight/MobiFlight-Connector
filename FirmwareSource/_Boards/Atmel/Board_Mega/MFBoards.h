@@ -5,8 +5,6 @@
 #define MF_LCD_SUPPORT 1
 #define MF_STEPPER_SUPPORT 1
 #define MF_SERVO_SUPPORT 1
-#define MF_MCP_SUPPORT 1
-#define MF_JOYSTICK_SUPPORT 0
 #define MF_ANALOG_SUPPORT 1
 #define MF_SHIFTER_SUPPORT 1
 // ALL          26544 (10.5%) / 4247 (51.8%)
