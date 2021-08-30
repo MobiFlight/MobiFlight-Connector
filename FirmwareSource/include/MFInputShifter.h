@@ -19,6 +19,7 @@ public:
     void attach(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t moduleCount);
     void detach();
     void test();
+    void clear();
 
 private:
     uint8_t _latchPin;    // Latch pin
