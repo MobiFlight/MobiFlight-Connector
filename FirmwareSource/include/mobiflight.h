@@ -17,7 +17,8 @@ enum
   kTypeEncoder,             // 8
   kTypeStepper,             // 9 (new stepper type with auto zero support if btnPin is > 0)
   kShiftRegister,           // 10 Shift register support (example: 74HC595, TLC592X)
-  kTypeAnalogInput          // 11 Analog Device with 1 pin
+  kTypeAnalogInput,         // 11 Analog Device with 1 pin
+  kTypeInputShifter         // 12 Input shift register support (example: 74HC165)
 };
 
 // This is the list of recognized commands. These can be commands that can either be sent or received.
@@ -27,35 +28,36 @@ enum
 // in CmdMessenger.h is set apropriately
 enum
 {
-  kInitModule,           // 0
-  kSetModule,            // 1
-  kSetPin,               // 2
-  kSetStepper,           // 3
-  kSetServo,             // 4
-  kStatus,               // 5, Command to report status
-  kEncoderChange,        // 6
-  kButtonChange,         // 7
-  kStepperChange,        // 8
-  kGetInfo,              // 9
-  kInfo,                 // 10
-  kSetConfig,            // 11
-  kGetConfig,            // 12
-  kResetConfig,          // 13
-  kSaveConfig,           // 14
-  kConfigSaved,          // 15
-  kActivateConfig,       // 16
-  kConfigActivated,      // 17
-  kSetPowerSavingMode,   // 18
-  kSetName,              // 19
-  kGenNewSerial,         // 20
-  kResetStepper,         // 21
-  kSetZeroStepper,       // 22
-  kTrigger,              // 23
-  kResetBoard,           // 24
-  kSetLcdDisplayI2C,     // 25
-  kSetModuleBrightness,  // 26
-  kSetShiftRegisterPins, // 27
-  kAnalogChange          // 28
+  kInitModule,               // 0
+  kSetModule,                // 1
+  kSetPin,                   // 2
+  kSetStepper,               // 3
+  kSetServo,                 // 4
+  kStatus,                   // 5, Command to report status
+  kEncoderChange,            // 6
+  kButtonChange,             // 7
+  kStepperChange,            // 8
+  kGetInfo,                  // 9
+  kInfo,                     // 10
+  kSetConfig,                // 11
+  kGetConfig,                // 12
+  kResetConfig,              // 13
+  kSaveConfig,               // 14
+  kConfigSaved,              // 15
+  kActivateConfig,           // 16
+  kConfigActivated,          // 17
+  kSetPowerSavingMode,       // 18
+  kSetName,                  // 19
+  kGenNewSerial,             // 20
+  kResetStepper,             // 21
+  kSetZeroStepper,           // 22
+  kTrigger,                  // 23
+  kResetBoard,               // 24
+  kSetLcdDisplayI2C,         // 25
+  kSetModuleBrightness,      // 26
+  kSetShiftRegisterPins,     // 27
+  kAnalogChange,             // 28
+  kSetInputShiftRegisterPins // 29
 };
 
 void attachCommandCallbacks();
@@ -122,6 +124,7 @@ void handlerOnAnalogChange(int value, uint8_t pin, const char *name);
 void OnInitShiftRegister();
 void OnSetShiftRegisterPins();
 void AddShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const *name);
+void AddInputShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const *name);
 
 // RK added
 extern uint8_t encodersRegistered;
