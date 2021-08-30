@@ -7,6 +7,7 @@
 #define MF_SERVO_SUPPORT 1
 #define MF_ANALOG_SUPPORT 1
 #define MF_SHIFTER_SUPPORT 1
+#define MF_INPUT_SHIFTER_SUPPORT 1
 // ALL          26544 (10.5%) / 4247 (51.8%)
 // No Segments  24784 (9.8%) / 4102 (50.1%)
 // No LCDs      25030 (9.9%) / 4212 (51.4%)
