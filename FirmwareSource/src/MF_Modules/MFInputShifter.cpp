@@ -29,6 +29,10 @@ void MFInputShifter::detach()
   _initialized = false;
 }
 
+void MFInputShifter::clear()
+{
+}
+
 void MFInputShifter::test()
 {
 }

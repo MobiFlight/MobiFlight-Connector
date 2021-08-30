@@ -98,6 +98,10 @@ const char version[8] = "1.11.2";
 #include <MFShifter.h>
 #endif
 
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+#include <MFInputShifter.h>
+#endif
+
 const uint8_t MEM_OFFSET_NAME = 0;
 const uint8_t MEM_LEN_NAME = 48;
 const uint8_t MEM_OFFSET_SERIAL = MEM_OFFSET_NAME + MEM_LEN_NAME;
@@ -158,6 +162,11 @@ uint8_t analogRegistered = 0;
 #if MF_SHIFTER_SUPPORT == 1
 MFShifter shiftregisters[MAX_SHIFTERS];
 uint8_t shiftregisterRegistered = 0;
+#endif
+
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+MFInputShifter inputshiftregisters[MAX_INPUT_SHIFTERS];
+uint8_t inputShiftregisterRegistered = 0;
 #endif
 
 // Callbacks define on which received commands we take action
@@ -663,6 +672,35 @@ void ClearShifters()
 }
 #endif
 
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+//// INPUT SHIFT REGISTER /////
+void AddInputShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const *name = "Shifter")
+{
+  if (inputShiftregisterRegistered == MAX_SHIFTERS)
+    return;
+  inputshiftregisters[inputShiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules);
+  inputshiftregisters[inputShiftregisterRegistered].clear();
+  inputShiftregisterRegistered++;
+
+#ifdef DEBUG
+  cmdMessenger.sendCmd(kStatus, F("Added input shifter"));
+#endif
+}
+
+void ClearInputShifters()
+{
+  for (int i = 0; i != inputShiftregisterRegistered; i++)
+  {
+    inputshiftregisters[inputShiftregisterRegistered].detach();
+  }
+
+  inputShiftregisterRegistered = 0;
+#ifdef DEBUG
+  cmdMessenger.sendCmd(kStatus, F("Cleared input shifter"));
+#endif
+}
+#endif
+
 //// EVENT HANDLER /////
 void handlerOnRelease(uint8_t eventId, uint8_t pin, const char *name)
 {
@@ -745,6 +783,10 @@ void resetConfig()
 
 #if MF_SHIFTER_SUPPORT == 1
   ClearShifters();
+#endif
+
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+  ClearInputShifters();
 #endif
 
   configLength = 0;
@@ -899,6 +941,17 @@ void readConfig(String cfg)
 #endif
       break;
 
+    case kInputShifter:
+      params[0] = strtok_r(NULL, ".", &p); // pin latch
+      params[1] = strtok_r(NULL, ".", &p); // pin clock
+      params[2] = strtok_r(NULL, ".", &p); // pin data
+      params[3] = strtok_r(NULL, ".", &p); // number of daisy chained modules
+      params[4] = strtok_r(NULL, ":", &p); // name
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+      AddInputShifter(atoi(params[0]), atoi(params[1]), atoi(params[2]), atoi(params[3]), params[4]);
+#endif
+      break;
+
     default:
       // read to the end of the current command which is
       // apparently not understood
@@ -978,7 +1031,6 @@ void OnSetModuleBrightness()
 #endif
 
 #if MF_SHIFTER_SUPPORT == 1
-
 void OnInitShiftRegister()
 {
   int module = cmdMessenger.readIntArg();
@@ -995,7 +1047,15 @@ void OnSetShiftRegisterPins()
   shiftregisters[module].setPins(pins, value);
   lastCommand = millis();
 }
+#endif
 
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+void OnInitInputShiftRegister()
+{
+  int module = cmdMessenger.readIntArg();
+  inputshiftregisters[module].clear();
+  lastCommand = millis();
+}
 #endif
 
 #if MF_STEPPER_SUPPORT == 1
