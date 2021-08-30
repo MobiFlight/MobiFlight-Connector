@@ -45,7 +45,8 @@ namespace MobiFlight
         Encoder,             // 8
         Stepper,             // 9
         ShiftRegister,       // 10
-        AnalogInput          // 11
+        AnalogInput,         // 11
+        InputShiftRegister   // 12
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -1118,6 +1119,12 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).ClockPin));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).LatchPin));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).DataPin));
+                        break;
+
+                    case DeviceType.InputShiftRegister:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).ClockPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).LatchPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).DataPin));
                         break;
 
                     default:
