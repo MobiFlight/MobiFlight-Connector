@@ -2261,21 +2261,71 @@ AS3000_TSC_Vertical_TopKnob_Large_DEC#(>H:AS3000_TSC_Vertical_TopKnob_Large_DEC)
 AS3000_TSC_Vertical_TopKnob_Large_INC#(>H:AS3000_TSC_Vertical_TopKnob_Large_INC)
 AS3000_TSC_Vertical_TopKnob_Small_DEC#(>H:AS3000_TSC_Vertical_TopKnob_Small_DEC)
 AS3000_TSC_Vertical_TopKnob_Small_INC#(>H:AS3000_TSC_Vertical_TopKnob_Small_INC)
+//PMDG/DC-6/AntiIce
+PMDGDC6_AIRFOIL_HEAT_TOGGLE#21601 (>K:ROTOR_BRAKE)
+PMDGDC6_CABIN_HEAT_TOGGLE#21401 (>K:ROTOR_BRAKE)
+PMDGDC6_CARB_1_TOGGLE#21801 (>K:ROTOR_BRAKE)
+PMDGDC6_CARB_2_TOGGLE#21901 (>K:ROTOR_BRAKE)
+PMDGDC6_CARB_3_TOGGLE#22001 (>K:ROTOR_BRAKE)
+PMDGDC6_CARB_4_TOGGLE#22101 (>K:ROTOR_BRAKE)
+PMDGDC6_PITOT_TOGGLE#09601 (>K:ROTOR_BRAKE)
+PMDGDC6_PROP_DEICE_TOGGLE#21701 (>K:ROTOR_BRAKE)
+PMDGDC6_WINDSHIELD_DEC#17308 (>K:ROTOR_BRAKE)
+PMDGDC6_WINDSHIELD_INC#17307 (>K:ROTOR_BRAKE)
+//PMDG/DC-6/CowlFlaps
+PMDGDC6_ENG_1_COWL_DEC#12408 (>K:ROTOR_BRAKE)
+PMDGDC6_ENG_1_COWL_INC#12407 (>K:ROTOR_BRAKE)
+PMDGDC6_ENG_2_COWL_DEC#12508 (>K:ROTOR_BRAKE)
+PMDGDC6_ENG_2_COWL_INC#12507 (>K:ROTOR_BRAKE)
+PMDGDC6_ENG_3_COWL_DEC#12608 (>K:ROTOR_BRAKE)
+PMDGDC6_ENG_3_COWL_INC#12607 (>K:ROTOR_BRAKE)
+PMDGDC6_ENG_4_COWL_DEC#12708 (>K:ROTOR_BRAKE)
+PMDGDC6_ENG_4_COWL_INC#12707 (>K:ROTOR_BRAKE)
+//PMDG/DC-6/SuperCharger
+PMDGDC6_SUPERCHARGER_1_TOGGLE#128101 (>K:ROTOR_BRAKE)
+PMDGDC6_SUPERCHARGER_2_TOGGLE#128201 (>K:ROTOR_BRAKE)
+PMDGDC6_SUPERCHARGER_3_TOGGLE#128301 (>K:ROTOR_BRAKE)
+PMDGDC6_SUPERCHARGER_4_TOGGLE#128401 (>K:ROTOR_BRAKE)
+//PMDG/DC-6/Tablet
+PMDGDC6_TABLET_BEFORE_START#0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeBeforeStart, bool) ! (>L:AfeBeforeStart, bool) (L:AfeBeforeStart, bool) if{ 7 (>K:ROTOR_BRAKE) } els{ 8 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_AFTER_START#0 (>L:AfeBeforeStart, number) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeAfterStart, bool) ! (>L:AfeAfterStart, bool) (L:AfeAfterStart, bool) if{ 9 (>K:ROTOR_BRAKE) } els{ 10 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_BEFORE_TAKEOFF#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeBeforeTakeoff, bool) ! (>L:AfeBeforeTakeoff, bool) (L:AfeBeforeTakeoff, bool) if{ 11 (>K:ROTOR_BRAKE) } els{ 12 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_DESCENT#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeDescent, bool) ! (>L:AfeDescent, bool) (L:AfeDescent, bool) if{ 19 (>K:ROTOR_BRAKE) } els{ 20 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_CRUISE#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeCruise, bool) ! (>L:AfeCruise, bool) (L:AfeCruise, bool) if{ 17 (>K:ROTOR_BRAKE) } els{ 18 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_IN_RANGE#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeInRange, bool) ! (>L:AfeInRange, bool) (L:AfeInRange, bool) if{ 21 (>K:ROTOR_BRAKE) } els{ 22 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_BEFORE_LANDING#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeBeforeLanding, bool) ! (>L:AfeBeforeLanding, bool) (L:AfeBeforeLanding, bool) if{ 23 (>K:ROTOR_BRAKE) } els{ 24 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_AFTER_LANDING#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeParking, bool) (L:AfeAfterLanding, bool) ! (>L:AfeAfterLanding, bool) (L:AfeAfterLanding, bool) if{ 25 (>K:ROTOR_BRAKE) } els{ 26 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_PARKING#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) (L:AfeParking, bool) ! (>L:AfeParking, bool) (L:AfeParking, bool) if{ 27 (>K:ROTOR_BRAKE) } els{ 28 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_ABORT#>0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) 29 (>K:ROTOR_BRAKE)
+PMDGDC6_TABLET_TAKEOFF_DRY#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffWet, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeTakeoffDry, bool) ! (>L:AfeTakeoffDry, bool) (L:AfeTakeoffDry, bool) if{ 13 (>K:ROTOR_BRAKE) } els{ 14 (>K:ROTOR_BRAKE) }
+PMDGDC6_TABLET_TAKEOFF_WET#0 (>L:AfeBeforeStart, number) 0 (>L:AfeAfterStart, bool) 0 (>L:AfeBeforeTakeoff, bool) 0 (>L:AfeTakeoffDry, bool) 0 (>L:AfeCruise, bool) 0 (>L:AfeDescent, bool) 0 (>L:AfeInRange, bool) 0 (>L:AfeBeforeLanding, bool) 0 (>L:AfeAfterLanding, bool) 0 (>L:AfeParking, bool) (L:AfeTakeoffWet, bool) ! (>L:AfeTakeoffWet, bool) (L:AfeTakeoffWet, bool) if{ 15 (>K:ROTOR_BRAKE) } els{ 16 (>K:ROTOR_BRAKE) }
 //PMDG/DC-6/Autopilot
-PMDGDC6_AP_ALT_HOLD_TOGGLE#43601 (>K:ROTOR_BRAKE)
+PMDGDC6_AP_ALT_HOLD_TOGGLE#43607 (>K:ROTOR_BRAKE)
 PMDGDC6_AP_HDG_DOWN#44208 (>K:ROTOR_BRAKE)
 PMDGDC6_AP_HDG_UP#44207 (>K:ROTOR_BRAKE)
 PMDGDC6_AP_NAV_OFF#(L:dc6_445_obj, enum) 1 == if{ 44508 (>K:ROTOR_BRAKE) } 
 PMDGDC6_AP_NAV_ON#(L:dc6_445_obj, enum) 0 == if{ 44507 (>K:ROTOR_BRAKE) } els{ (L:dc6_445_obj, enum) 2 == if{ 44508 (>K:ROTOR_BRAKE) } }
 PMDGDC6_AP_PITCH_DOWN#44007 (>K:ROTOR_BRAKE)
 PMDGDC6_AP_PITCH_UP#44008 (>K:ROTOR_BRAKE)
-PMDGDC6_AUTOPILOT_LEVER_TOGGLE#40401 (>K:ROTOR_BRAKE)
-PMDGDC6_AUTOPILOT_TOGGLE#43401 (>K:ROTOR_BRAKE)
+PMDGDC6_AP_MODE_DEC#44508 (>K:ROTOR_BRAKE)
+PMDGDC6_AP_MODE_INC#44507 (>K:ROTOR_BRAKE)
+PMDGDC6_AP_LEVER_TOGGLE#40401 (>K:ROTOR_BRAKE)
+PMDGDC6_AP_TOGGLE#43407 (>K:ROTOR_BRAKE)
+PMDGDC6_AP_RESET_TURN#20 (>L:dc6_442_obj,enum)
+PMDGDC6_AP_MODE_TOGGLE# (L:dc6_445_dir) s1 (L:dc6_445_obj, enum) 2 == if{ 44508 s1 } (L:dc6_445_obj, enum) 0 == if{ 44507 s1 } (L:dc6_445_obj, enum) 1 == (L:dc6_445_dir) 0 == and if{ 44507 s1 } l1 (>K:ROTOR_BRAKE) l1 (>L:dc6_445_dir)
+PMDGDC6_AP_GYROPILOT# (L:dc6_445_obj, enum) 1 == if{ 44508 (>K:ROTOR_BRAKE) } 
+PMDGDC6_AP_LOC#44508 (>K:ROTOR_BRAKE) (SLEEP:100) 44508 (>K:ROTOR_BRAKE) (SLEEP:100) 44507 (>K:ROTOR_BRAKE)
+PMDGDC6_AP_APPR#44508 (>K:ROTOR_BRAKE) (SLEEP:100) 44508 (>K:ROTOR_BRAKE) (SLEEP:100) 44507 (>K:ROTOR_BRAKE) (SLEEP:100) 44507 
 //PMDG/DC-6/Gear
 PMDGDC6_GEAR_DOWN#40507 (>K:ROTOR_BRAKE)
 PMDGDC6_GEAR_UP#40508 (>K:ROTOR_BRAKE)
 PMDGDC6_GUST_LOCK_OFF#0 (>L:dc6_398_obj, bool)
 PMDGDC6_GUST_LOCK_ON#1 (>L:dc6_398_obj, bool)
+//PMDG/DC-6/Fuel
+PMDGDC6_ALT_FUEL_BOOST_1_TOGGLE#(L:dc6_073_dir) s1 (L:dc6_073_obj, enum) 2 == if{ 07308 s1 } (L:dc6_073_obj, enum) 0 == if{ 07307 s1 } (L:dc6_073_obj, enum) 1 == (L:dc6_073_dir) 0 == and if{ 07307 s1 } l1 (>K:ROTOR_BRAKE) l1 (>L:dc6_073_dir)
+PMDGDC6_ALT_FUEL_BOOST_2_TOGGLE#(L:dc6_074_dir) s1 (L:dc6_074_obj, enum) 2 == if{ 07408 s1 } (L:dc6_074_obj, enum) 0 == if{ 07407 s1 } (L:dc6_074_obj, enum) 1 == (L:dc6_074_dir) 0 == and if{ 07407 s1 } l1 (>K:ROTOR_BRAKE) l1 (>L:dc6_074_dir)
+PMDGDC6_ALT_FUEL_BOOST_3_TOGGLE#(L:dc6_075_dir) s1 (L:dc6_075_obj, enum) 2 == if{ 07508 s1 } (L:dc6_075_obj, enum) 0 == if{ 07507 s1 } (L:dc6_075_obj, enum) 1 == (L:dc6_075_dir) 0 == and if{ 07507 s1 } l1 (>K:ROTOR_BRAKE) l1 (>L:dc6_075_dir)
+PMDGDC6_ALT_FUEL_BOOST_4_TOGGLE#(L:dc6_076_dir) s1 (L:dc6_076_obj, enum) 2 == if{ 07608 s1 } (L:dc6_076_obj, enum) 0 == if{ 07607 s1 } (L:dc6_076_obj, enum) 1 == (L:dc6_076_dir) 0 == and if{ 07607 s1 } l1 (>K:ROTOR_BRAKE) l1 (>L:dc6_076_dir)
 //Working Title/CJ4/Air Condition / Pressurization
 WT_CJ4_CABIN_TEMP_DEC#(L:PASSENGER_KNOB_HEAT_2) 4 - 0 max (>L:PASSENGER_KNOB_HEAT_2)
 WT_CJ4_CABIN_TEMP_INC#(L:PASSENGER_KNOB_HEAT_2) 4 + 100 min (>L:PASSENGER_KNOB_HEAT_2)
