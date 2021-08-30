@@ -12,7 +12,6 @@
 // No LCDs      23072 (71.5%) / 1516 (74.0%)
 // NO Steppers  19586 (60.7%) / 1513 (73.9%)
 // No Servos    23014 (71.3%) / 1458 (71.2%)
-// No MCP23017  22792 (70.7%) / 1544 (75.4%)
 
 #define MODULE_MAX_PINS 13
 #define MAX_OUTPUTS 8
