@@ -110,6 +110,7 @@ void OnSetServo();
 void updateServos();
 void OnSetLcdDisplayI2C();
 void readButtons();
+void readInputShifters();
 void readEncoder();
 void OnGenNewSerial();
 void OnSetName();
