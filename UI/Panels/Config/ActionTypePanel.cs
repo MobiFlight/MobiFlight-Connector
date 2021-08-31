@@ -57,7 +57,7 @@ namespace MobiFlight.UI.Panels.Config
                     break;
 
                 case "MobiFlight.InputConfig.KeyInputAction":
-                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, "Key Press");
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.KeyInputAction.Label);
                     break;
 
                 case "MobiFlight.InputConfig.EventIdInputAction":
