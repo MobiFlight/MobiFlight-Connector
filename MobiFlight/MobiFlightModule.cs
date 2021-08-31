@@ -965,6 +965,7 @@ namespace MobiFlight
                     case DeviceType.Button:
                     case DeviceType.Encoder:
                     case DeviceType.AnalogInput:
+                    case DeviceType.InputShiftRegister:
                         result.Add(dev);
                         break;
                 }
