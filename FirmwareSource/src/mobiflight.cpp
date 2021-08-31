@@ -326,6 +326,11 @@ void loop()
 
   readButtons();
   readEncoder();
+
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+  readInputShifters();
+#endif
+
 #if MF_ANALOG_SUPPORT == 1
   readAnalog();
 #endif
@@ -1144,6 +1149,16 @@ void readEncoder()
     encoders[i].update();
   }
 }
+
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+void readInputShifters()
+{
+  for (int i = 0; i != inputShiftregisterRegistered; i++)
+  {
+    inputshiftregisters[i].update();
+  }
+}
+#endif
 
 #if MF_ANALOG_SUPPORT == 1
 void readAnalog()
