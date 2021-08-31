@@ -10,6 +10,8 @@
 #include <wiring.h>
 #endif
 
+#define MAX_CHAINED_INPUT_SHIFTERS 4
+
 extern "C"
 {
     typedef void (*inputShifterEvent)(byte, uint8_t, const char *);
@@ -42,10 +44,11 @@ private:
     uint8_t _moduleCount; // Number of 8 bit modules in series. For a shift register with 16 bit one needs to select 2 modules a 8......
     bool _initialized = false;
     uint32_t _last;
-    uint8_t _lastState; // Max 1 modules for now = 8 bits
+    uint8_t _lastState[MAX_CHAINED_INPUT_SHIFTERS]; // Max 4 chained modules for now = 32 bits
 
-    void detectChanges(uint8_t lastState, uint8_t currentState);
+    void detectChanges(uint8_t lastState, uint8_t currentState, uint8_t module);
     void trigger(uint8_t pin, bool state);
+    void clearLastState();
     inputShifterEvent _handlerList[2];
 };
 #endif
