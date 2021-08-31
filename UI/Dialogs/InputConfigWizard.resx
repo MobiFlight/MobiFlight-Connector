@@ -125,10 +125,14 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="preconditionPinValueComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 70</value>
+    <value>154, 108</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="preconditionPinValueComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPinValueComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 21</value>
+    <value>68, 28</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="preconditionPinValueComboBox.TabIndex" type="System.Int32, mscorlib">
@@ -149,15 +153,17 @@
   <data name="preconditionPinValueLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="preconditionPinValueLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="preconditionPinValueLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 73</value>
+    <value>4, 112</value>
+  </data>
+  <data name="preconditionPinValueLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="preconditionPinValueLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>85, 13</value>
+    <value>128, 20</value>
   </data>
   <data name="preconditionPinValueLabel.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -196,10 +202,13 @@
     <value>!=</value>
   </data>
   <data name="preconditionPinComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>153, 43</value>
+    <value>230, 66</value>
+  </data>
+  <data name="preconditionPinComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPinComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 21</value>
+    <value>68, 28</value>
   </data>
   <data name="preconditionPinComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -235,10 +244,13 @@
     <value>!=</value>
   </data>
   <data name="preconditionPortComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 43</value>
+    <value>154, 66</value>
+  </data>
+  <data name="preconditionPortComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPortComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 21</value>
+    <value>68, 28</value>
   </data>
   <data name="preconditionPortComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -262,10 +274,13 @@
     <value>NoControl</value>
   </data>
   <data name="preconditonPinLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>69, 46</value>
+    <value>104, 71</value>
+  </data>
+  <data name="preconditonPinLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="preconditonPinLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>22, 13</value>
+    <value>31, 20</value>
   </data>
   <data name="preconditonPinLabel.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -292,10 +307,13 @@
     <value>Arcaze Pin</value>
   </data>
   <data name="preconditionPinSerialComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 16</value>
+    <value>154, 25</value>
+  </data>
+  <data name="preconditionPinSerialComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPinSerialComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 21</value>
+    <value>306, 28</value>
   </data>
   <data name="preconditionPinSerialComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -319,10 +337,13 @@
     <value>NoControl</value>
   </data>
   <data name="preconditionPinSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 19</value>
+    <value>20, 29</value>
+  </data>
+  <data name="preconditionPinSerialLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="preconditionPinSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
+    <value>115, 20</value>
   </data>
   <data name="preconditionPinSerialLabel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -346,10 +367,13 @@
     <value>Fill</value>
   </data>
   <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+    <value>4, 24</value>
+  </data>
+  <data name="preconditionPinPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 111</value>
+    <value>621, 171</value>
   </data>
   <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -367,10 +391,13 @@
     <value>0</value>
   </data>
   <data name="preconditionRefValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>148, 43</value>
+    <value>222, 66</value>
+  </data>
+  <data name="preconditionRefValueTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionRefValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 20</value>
+    <value>92, 26</value>
   </data>
   <data name="preconditionRefValueTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -406,10 +433,13 @@
     <value>!=</value>
   </data>
   <data name="preconditionRefOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 43</value>
+    <value>154, 66</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionRefOperandComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 21</value>
+    <value>56, 28</value>
   </data>
   <data name="preconditionRefOperandComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -433,10 +463,13 @@
     <value>NoControl</value>
   </data>
   <data name="preconditionConfigRefOperandLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 46</value>
+    <value>14, 71</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="preconditionConfigRefOperandLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
+    <value>129, 20</value>
   </data>
   <data name="preconditionConfigRefOperandLabel.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -463,10 +496,13 @@
     <value>Arcaze Pin</value>
   </data>
   <data name="preconditionConfigComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 16</value>
+    <value>154, 25</value>
+  </data>
+  <data name="preconditionConfigComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionConfigComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 21</value>
+    <value>306, 28</value>
   </data>
   <data name="preconditionConfigComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -490,10 +526,13 @@
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 19</value>
+    <value>33, 29</value>
+  </data>
+  <data name="label11.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 13</value>
+    <value>111, 20</value>
   </data>
   <data name="label11.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -517,10 +556,13 @@
     <value>Fill</value>
   </data>
   <data name="preconditionRuleConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+    <value>4, 24</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 111</value>
+    <value>621, 171</value>
   </data>
   <data name="preconditionRuleConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -544,13 +586,19 @@
     <value>Top</value>
   </data>
   <data name="preconditionSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 47</value>
+    <value>0, 72</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionSettingsGroupBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 130</value>
+    <value>0, 200</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 130</value>
+    <value>629, 200</value>
   </data>
   <data name="preconditionSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -580,10 +628,13 @@
     <value>NoControl</value>
   </data>
   <data name="preconditionApplyButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>117, 177</value>
+    <value>176, 272</value>
+  </data>
+  <data name="preconditionApplyButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionApplyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 23</value>
+    <value>271, 35</value>
   </data>
   <data name="preconditionApplyButton.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -613,10 +664,13 @@
     <value>Arcaze Pin</value>
   </data>
   <data name="preConditionTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>106, 20</value>
+    <value>159, 31</value>
+  </data>
+  <data name="preConditionTypeComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preConditionTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
+    <value>180, 28</value>
   </data>
   <data name="preConditionTypeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -640,10 +694,13 @@
     <value>NoControl</value>
   </data>
   <data name="preconditionTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>39, 23</value>
+    <value>58, 35</value>
+  </data>
+  <data name="preconditionTypeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="preconditionTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 13</value>
+    <value>90, 20</value>
   </data>
   <data name="preconditionTypeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -669,8 +726,14 @@
   <data name="preconditionSelectGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="preconditionSelectGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 47</value>
+    <value>629, 72</value>
   </data>
   <data name="preconditionSelectGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -694,10 +757,13 @@
     <value>Top</value>
   </data>
   <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 135</value>
+    <value>4, 208</value>
+  </data>
+  <data name="preconditionSettingsPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 206</value>
+    <value>629, 317</value>
   </data>
   <data name="preconditionSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -718,25 +784,25 @@
     <value>150, 17</value>
   </metadata>
   <data name="addPreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+    <value>253, 32</value>
   </data>
   <data name="addPreconditionToolStripMenuItem.Text" xml:space="preserve">
     <value>Add Precondition</value>
   </data>
   <data name="removePreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+    <value>253, 32</value>
   </data>
   <data name="removePreconditionToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove Precondition</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
+    <value>250, 6</value>
   </data>
   <data name="toolStripSeparator1.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="addGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+    <value>253, 32</value>
   </data>
   <data name="addGroupToolStripMenuItem.Text" xml:space="preserve">
     <value>Add group</value>
@@ -745,7 +811,7 @@
     <value>False</value>
   </data>
   <data name="removeGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+    <value>253, 32</value>
   </data>
   <data name="removeGroupToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove group</value>
@@ -754,28 +820,28 @@
     <value>False</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
+    <value>250, 6</value>
   </data>
   <data name="aNDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 22</value>
+    <value>152, 34</value>
   </data>
   <data name="aNDToolStripMenuItem.Text" xml:space="preserve">
     <value>AND</value>
   </data>
   <data name="oRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 22</value>
+    <value>152, 34</value>
   </data>
   <data name="oRToolStripMenuItem.Text" xml:space="preserve">
     <value>OR</value>
   </data>
   <data name="logicSelectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+    <value>253, 32</value>
   </data>
   <data name="logicSelectToolStripMenuItem.Text" xml:space="preserve">
     <value>Logic operator</value>
   </data>
   <data name="preconditionTreeContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>189, 126</value>
+    <value>254, 176</value>
   </data>
   <data name="&gt;&gt;preconditionTreeContextMenuStrip.Name" xml:space="preserve">
     <value>preconditionTreeContextMenuStrip</value>
@@ -797,51 +863,51 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADM
-        CwAAAk1TRnQBSQFMAgEBAgEAARABAgEQAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CwAAAk1TRnQBSQFMAgEBAgEAARgBAgEYAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8AScB/wH7AbEBCwH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/AScBhAL/
-        ARMBQQL/AQABOQL/AQABMwL/AQABNgL/AQABQwL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAAT0B/wHwAakBFAH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ASYB/wH7AbEBCgH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ASYBhAL/
+        ARIBQAL/AQABOAL/AQABMgL/AQABNQL/AQABQgL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
+        Al0BYQHiiAACXAFVAeoB9gHAATwB/wHwAakBEwH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
         Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        ATwBkAH9Af8BFgE7Af4B/wEBATEC/wEAASoC/wEAASYC/wEAATAC/wEAATwC/wEAAYIC/wEAAY8C/wEA
-        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQE1Af8B6wGiAQ4B/wHqAZcBAAH/AeoBjAEA
+        ATsBkAH9Af8BFQE6Af4B/wEAATAC/wEAASkC/wEAASUC/wEAAS8C/wEAATsC/wEAAYIC/wEAAY8C/wEA
+        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQE0Af8B6wGiAQ0B/wHqAZcBAAH/AeoBjAEA
         Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqATUBiwH+Af8BEAE2Af4B/wEAASwC/wEAASQC/wEAASIC/wEAAS8C/wEA
-        AToC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAEzAf8B5gGc
-        AQsB/wHlAZABAAH/AeQBhQEAAf8B5QFFAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBMwGJAfwB/wEMATIC/wEAAScC/wEA
-        AR8C/wEAAR8C/wEAASwC/wEAATcC/wEAAUEC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABMwH/AeEBlwELAf8B3wGLAQAB/wHeAUUBAAH/Ad8BPwEAAf8B4QFBAQAB/wHkAUQBAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATMBiAH7
-        Af8BDAEwAf0B/wEAASQC/wEAARsC/wEAARoC/wEAASYC/wEAATAC/wEAATcC/wEAAT8C/wEAAUQC/wEA
-        AUUC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE3Af8B3QGUAQ4B/wHbAYcBAAH/AdkBQQEAAf8B2AE5
-        AQAB/wHbATsBAAH/Ad4BPgEAAf8B4QFBAQAB/wHjAUMBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBNwGIAfgB/wEOATAB+gH/AQABIgL/AQABGAL/AQABEwL/AQABHQL/AQABJwL/
-        AQABLwL/AQABMwL/AQABNwL/AQABNwL/AQABPgL/AlUBXAHqiAABXAJVAeoB5AGtATwB/wHaAZQBFAH/
-        AdcBhgEAAf8B1QFAAQAB/wHTATQBAAH/AdUBNQEAAf8B2AE4AQAB/wHaAToBAAH/Ad0BPQEAAf8B4AFA
-        AQAB/wHjAUMBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gE8AYwB9QH/ARQBMwH1Af8BAAEjAf0B/wEA
-        ARcC/wEAAQ4C/wEAARQC/wEAARwC/wEAASQC/wEAASkC/wEAASwC/wEAASsC/wEAATEC/wJVAVwB6ogA
-        AVwCVQHqAeMBrwFFAf8B2AGVAR0B/wHUAYcBBQH/AdEBQQEAAf8BzwE2AQAB/wHPAS4BAAH/AdEBMQEA
-        Af8B1AE0AQAB/wHXATcBAAH/AdoBOgEAAf8B3AE8AQAB/wHlAUUBAAH/AVwCVQHqCAACVQFcAeoBRQGS
-        AfMB/wEdATcB8AH/AQUBJwH3Af8BAAEZAf4B/wEAAQ8C/wEAAQoC/wEAARIC/wEAARcC/wEAARwC/wEA
-        AR4C/wEAASAC/wEAASQC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYASgB/wHSAYsBEQH/Ac8BRAEA
-        Af8BzAE5AQAB/wHLATABAAH/AcsBLAEAAf8BzgEuAQAB/wHRATEBAAH/AdMBMwEAAf8B1gE2AQAB/wHf
-        AT8BAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEoAT4B7AH/AREBLgHxAf8BAAEgAfcB/wEAARMC/wEA
-        AQkC/wEAAQgC/wEAAQwC/wEAARAC/wEAARIC/wEAARIC/wEAARcC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
-        Af8B1gGdATYB/wHSAZABIAH/Ac4BhAELAf8BywE/AQAB/wHJATYBAAH/AcgBLwEAAf8ByAEpAQAB/wHK
-        ASoBAAH/Ac0BLQEAAf8B0AEwAQAB/wHYATcBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE2AYEB6AH/
-        ASABNwHrAf8BCwEpAfAB/wEAARwB9QH/AQABEQH9Af8BAAEHAv8BAAECAf4B/wEAAQMC/wEAAQUC/wEA
-        AQQC/wEAAQkC/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBMAH/Ac4BiwEdAf8BywGB
-        AQsB/wHJAT4BAAH/AcgBNwEAAf8ByAEyAQAB/wHIATABAAH/AcoBMAEAAf8BzQEyAQAB/wHVAT0BAAH/
-        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/ATABQgHnAf8BHQE0AeoB/wELAScB7gH/AQABHAHy
-        Af8BAAETAfYB/wEAAQwB+gH/AQABBgH+Af8BAAEEAv8BAAEEAv8BAAEMAv8CVQFcAeqIAAFhAloB5AHv
-        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBPQH/AdMBlQErAf8BzwGLARoB/wHOAYUBDQH/Ac0BgAED
-        Af8BzgFDAQAB/wHPAUMBAAH/AdMBgAEAAf8B2gGJAQAB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
-        AewB/wGMAZgB6wH/AT0BigHtAf8BKwFBAe8B/wEaATYB8QH/AQ0BLAH1Af8BAwEkAfcB/wEAASAB+gH/
-        AQABHAH6Af8BAAEcAfwB/wEAASYC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
+        AQAB/wJcAVUB6ggAAlUBXAHqATQBiwH+Af8BDwE1Af4B/wEAASsC/wEAASMC/wEAASEC/wEAAS4C/wEA
+        ATkC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAEyAf8B5gGc
+        AQoB/wHlAZABAAH/AeQBhQEAAf8B5QFEAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
+        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBMgGJAfwB/wELATEC/wEAASYC/wEA
+        AR4C/wEAAR4C/wEAASsC/wEAATYC/wEAAUAC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
+        AlwBVQLqAbABMgH/AeEBlwEKAf8B3wGLAQAB/wHeAUQBAAH/Ad8BPgEAAf8B4QFAAQAB/wHkAUMBAAH/
+        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATIBiAH7
+        Af8BCwEvAf0B/wEAASMC/wEAARoC/wEAARkC/wEAASUC/wEAAS8C/wEAATYC/wEAAT4C/wEAAUMC/wEA
+        AUQC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE2Af8B3QGUAQ0B/wHbAYcBAAH/AdkBQAEAAf8B2AE4
+        AQAB/wHbAToBAAH/Ad4BPQEAAf8B4QFAAQAB/wHjAUIBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
+        AlwBVQHqCAACVQFcAeoBNgGIAfgB/wENAS8B+gH/AQABIQL/AQABFwL/AQABEgL/AQABHAL/AQABJgL/
+        AQABLgL/AQABMgL/AQABNgL/AQABNgL/AQABPQL/AlUBXAHqiAABXAJVAeoB5AGtATsB/wHaAZQBEwH/
+        AdcBhgEAAf8B1QE/AQAB/wHTATMBAAH/AdUBNAEAAf8B2AE3AQAB/wHaATkBAAH/Ad0BPAEAAf8B4AE/
+        AQAB/wHjAUIBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gE7AYwB9QH/ARMBMgH1Af8BAAEiAf0B/wEA
+        ARYC/wEAAQ0C/wEAARMC/wEAARsC/wEAASMC/wEAASgC/wEAASsC/wEAASoC/wEAATAC/wJVAVwB6ogA
+        AVwCVQHqAeMBrwFEAf8B2AGVARwB/wHUAYcBBAH/AdEBQAEAAf8BzwE1AQAB/wHPAS0BAAH/AdEBMAEA
+        Af8B1AEzAQAB/wHXATYBAAH/AdoBOQEAAf8B3AE7AQAB/wHlAUQBAAH/AVwCVQHqCAACVQFcAeoBRAGS
+        AfMB/wEcATYB8AH/AQQBJgH3Af8BAAEYAf4B/wEAAQ4C/wEAAQkC/wEAAREC/wEAARYC/wEAARsC/wEA
+        AR0C/wEAAR8C/wEAASMC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYAScB/wHSAYsBEAH/Ac8BQwEA
+        Af8BzAE4AQAB/wHLAS8BAAH/AcsBKwEAAf8BzgEtAQAB/wHRATABAAH/AdMBMgEAAf8B1gE1AQAB/wHf
+        AT4BAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEnAT0B7AH/ARABLQHxAf8BAAEfAfcB/wEAARIC/wEA
+        AQgC/wEAAQcC/wEAAQsC/wEAAQ8C/wEAAREC/wEAAREC/wEAARYC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
+        Af8B1gGdATUB/wHSAZABHwH/Ac4BhAEKAf8BywE+AQAB/wHJATUBAAH/AcgBLgEAAf8ByAEoAQAB/wHK
+        ASkBAAH/Ac0BLAEAAf8B0AEvAQAB/wHYATYBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE1AYEB6AH/
+        AR8BNgHrAf8BCgEoAfAB/wEAARsB9QH/AQABEAH9Af8BAAEGAv8BAAEBAf4B/wEAAQIC/wEAAQQC/wEA
+        AQMC/wEAAQgC/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBLwH/Ac4BiwEcAf8BywGB
+        AQoB/wHJAT0BAAH/AcgBNgEAAf8ByAExAQAB/wHIAS8BAAH/AcoBLwEAAf8BzQExAQAB/wHVATwBAAH/
+        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/AS8BQQHnAf8BHAEzAeoB/wEKASYB7gH/AQABGwHy
+        Af8BAAESAfYB/wEAAQsB+gH/AQABBQH+Af8BAAEDAv8BAAEDAv8BAAELAv8CVQFcAeqIAAFhAloB5AHv
+        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBPAH/AdMBlQEqAf8BzwGLARkB/wHOAYUBDAH/Ac0BgAEC
+        Af8BzgFCAQAB/wHPAUIBAAH/AdMBgAEAAf8B2gGJAQAB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
+        AewB/wGMAZgB6wH/ATwBigHtAf8BKgFAAe8B/wEZATUB8QH/AQwBKwH1Af8BAgEjAfcB/wEAAR8B+gH/
+        AQABGwH6Af8BAAEbAfwB/wEAASUC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
         AlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFhAloB5AM7AWQIAAM8AWYCWgFh
         AeQCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFc
         AeoCWgFhAeQDOwFk/wCFAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQA
@@ -851,7 +917,10 @@
 </value>
   </data>
   <data name="preconditionListTreeView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+    <value>4, 24</value>
+  </data>
+  <data name="preconditionListTreeView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionListTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -897,7 +966,7 @@
     <value>0</value>
   </data>
   <data name="preconditionListTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 81</value>
+    <value>621, 125</value>
   </data>
   <data name="preconditionListTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -918,10 +987,16 @@
     <value>Top</value>
   </data>
   <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 35</value>
+    <value>4, 54</value>
+  </data>
+  <data name="preconditionListgroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="preconditionListgroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionListgroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 100</value>
+    <value>629, 154</value>
   </data>
   <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -945,10 +1020,13 @@
     <value>Fill</value>
   </data>
   <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 35</value>
+    <value>4, 54</value>
+  </data>
+  <data name="preconditionSpacerPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 417</value>
+    <value>629, 648</value>
   </data>
   <data name="preconditionSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -969,16 +1047,16 @@
     <value>Top</value>
   </data>
   <data name="preconditionTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>4, 5</value>
   </data>
   <data name="preconditionTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>12, 12, 12, 12</value>
+    <value>18, 18, 18, 18</value>
   </data>
   <data name="preconditionTabTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 32</value>
+    <value>629, 49</value>
   </data>
   <data name="preconditionTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -999,13 +1077,16 @@
     <value>3</value>
   </data>
   <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 29</value>
+  </data>
+  <data name="preconditionTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>422, 455</value>
+    <value>637, 707</value>
   </data>
   <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1031,11 +1112,14 @@
   <data name="configRefPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="configRefPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 8, 6, 8</value>
+  </data>
   <data name="configRefPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+    <value>8, 8, 8, 8</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 385</value>
+    <value>637, 707</value>
   </data>
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1044,7 +1128,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=8.2.0.5, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>configRefTabPage</value>
@@ -1053,10 +1137,13 @@
     <value>0</value>
   </data>
   <data name="configRefTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 29</value>
+  </data>
+  <data name="configRefTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="configRefTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 385</value>
+    <value>637, 707</value>
   </data>
   <data name="configRefTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -1086,10 +1173,16 @@
     <value>Fill</value>
   </data>
   <data name="groupBoxInputSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 111</value>
+    <value>4, 171</value>
+  </data>
+  <data name="groupBoxInputSettings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="groupBoxInputSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="groupBoxInputSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 271</value>
+    <value>629, 531</value>
   </data>
   <data name="groupBoxInputSettings.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1109,14 +1202,53 @@
   <data name="&gt;&gt;groupBoxInputSettings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="inputPinDropDown.Items" xml:space="preserve">
+    <value>Pin</value>
+  </data>
+  <data name="inputPinDropDown.Items1" xml:space="preserve">
+    <value>Display Module</value>
+  </data>
+  <data name="inputPinDropDown.Items2" xml:space="preserve">
+    <value>BCD4056</value>
+  </data>
+  <data name="inputPinDropDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>335, 69</value>
+  </data>
+  <data name="inputPinDropDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="inputPinDropDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 28</value>
+  </data>
+  <data name="inputPinDropDown.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="inputPinDropDown.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.Name" xml:space="preserve">
+    <value>inputPinDropDown</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 23</value>
+    <value>75, 35</value>
+  </data>
+  <data name="arcazeSerialLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 13</value>
+    <value>63, 20</value>
   </data>
   <data name="arcazeSerialLabel.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -1137,7 +1269,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="inputModuleNameComboBox.Items" xml:space="preserve">
     <value>Modul A</value>
@@ -1146,10 +1278,13 @@
     <value>Modul B</value>
   </data>
   <data name="inputModuleNameComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 20</value>
+    <value>147, 31</value>
+  </data>
+  <data name="inputModuleNameComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="inputModuleNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
+    <value>180, 28</value>
   </data>
   <data name="inputModuleNameComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1164,16 +1299,19 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputModuleNameComboBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="inputTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="inputTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 48</value>
+    <value>46, 74</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="inputTypeComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 13</value>
+    <value>92, 20</value>
   </data>
   <data name="inputTypeComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1194,7 +1332,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputTypeComboBoxLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="inputTypeComboBox.Items" xml:space="preserve">
     <value>Pin</value>
@@ -1206,10 +1344,13 @@
     <value>BCD4056</value>
   </data>
   <data name="inputTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 45</value>
+    <value>147, 69</value>
+  </data>
+  <data name="inputTypeComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="inputTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
+    <value>180, 28</value>
   </data>
   <data name="inputTypeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1224,16 +1365,22 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputTypeComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 36</value>
+    <value>4, 56</value>
+  </data>
+  <data name="displayTypeGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayTypeGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 75</value>
+    <value>629, 115</value>
   </data>
   <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1257,16 +1404,16 @@
     <value>Top</value>
   </data>
   <data name="displayTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+    <value>4, 5</value>
   </data>
   <data name="displayTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>12, 12, 12, 12</value>
+    <value>18, 18, 18, 18</value>
   </data>
   <data name="displayTabTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 33</value>
+    <value>629, 51</value>
   </data>
   <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1287,13 +1434,16 @@
     <value>2</value>
   </data>
   <data name="displayTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+    <value>4, 29</value>
+  </data>
+  <data name="displayTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 385</value>
+    <value>637, 707</value>
   </data>
   <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1319,8 +1469,11 @@
   <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="tabControlFsuipc.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>430, 481</value>
+    <value>645, 740</value>
   </data>
   <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1343,8 +1496,11 @@
   <data name="MainPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="MainPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>430, 481</value>
+    <value>645, 740</value>
   </data>
   <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1368,10 +1524,13 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>280, 0</value>
+    <value>421, 0</value>
+  </data>
+  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 28</value>
+    <value>112, 43</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -1398,10 +1557,13 @@
     <value>NoControl</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>355, 0</value>
+    <value>533, 0</value>
+  </data>
+  <data name="cancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 28</value>
+    <value>112, 43</value>
   </data>
   <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -1425,10 +1587,13 @@
     <value>Bottom</value>
   </data>
   <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 481</value>
+    <value>0, 740</value>
+  </data>
+  <data name="ButtonPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>430, 28</value>
+    <value>645, 43</value>
   </data>
   <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1452,10 +1617,10 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>9, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>430, 509</value>
+    <value>645, 783</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1600,6 +1765,9 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

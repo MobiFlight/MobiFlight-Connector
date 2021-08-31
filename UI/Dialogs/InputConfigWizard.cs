@@ -298,6 +298,24 @@ namespace MobiFlight.UI.Dialogs
             preconditionListTreeView.Nodes.Add(tmpNode);
         }
 
+        private void PopulateInputPinDropdown()
+        {
+            inputPinDropDown.Items.Clear();
+            for (int i = 0; i < 8; i++)
+            {
+                inputPinDropDown.Items.Add(i);
+            }
+
+            if (config.inputShiftRegister != null)
+            {
+                inputPinDropDown.SelectedItem = config.inputShiftRegister.pin;
+            }
+            else
+            {
+                inputPinDropDown.SelectedItem = 0;
+            }
+        }
+
         /// <summary>
         /// sync current status of form values to config
         /// </summary>
@@ -325,6 +343,7 @@ namespace MobiFlight.UI.Dialogs
                 case DeviceType.InputShiftRegister:
                     config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
                     if (config.inputShiftRegister == null) config.inputShiftRegister= new InputConfig.InputShiftRegisterConfig();
+                    config.inputShiftRegister.pin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
                     break;
@@ -450,6 +469,7 @@ namespace MobiFlight.UI.Dialogs
         {
             Control panel = null;
             groupBoxInputSettings.Controls.Clear();
+            inputPinDropDown.Visible = false;
 
             try
             {
@@ -483,6 +503,8 @@ namespace MobiFlight.UI.Dialogs
                     case DeviceType.InputShiftRegister:
                         panel = new Panels.Input.InputShiftRegisterPanel();
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
+                        PopulateInputPinDropdown();
+                        inputPinDropDown.Visible = true;
                         break;
                 }
 
