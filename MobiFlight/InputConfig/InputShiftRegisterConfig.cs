@@ -10,13 +10,14 @@ namespace MobiFlight.InputConfig
     {
         public InputAction onPress;
         public InputAction onRelease;
-
+        public int pin;
 
         public object Clone()
         {
             InputShiftRegisterConfig clone = new InputShiftRegisterConfig();
             if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
             if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();
+            clone.pin = pin;
             return clone;
         }
 
@@ -28,7 +29,10 @@ namespace MobiFlight.InputConfig
         public void ReadXml(System.Xml.XmlReader reader)
         {
 
+            pin = Convert.ToInt32(reader.GetAttribute(pin));
+
             reader.Read(); // this should be the opening tag "onPress"
+
             if (reader.LocalName == "") reader.Read();
             if (reader.LocalName == "onPress")
             {
@@ -158,6 +162,8 @@ namespace MobiFlight.InputConfig
 
         public void WriteXml(System.Xml.XmlWriter writer)
         {
+            writer.WriteAttributeString("pin", pin.ToString());
+
             writer.WriteStartElement("onPress");
             if (onPress != null) onPress.WriteXml(writer);
             writer.WriteEndElement();
