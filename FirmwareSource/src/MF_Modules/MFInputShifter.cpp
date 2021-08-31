@@ -17,7 +17,7 @@ void printBinary(unsigned long val)
 MFInputShifter::MFInputShifter(const char *name)
 {
   _initialized = false;
-  _lastState = 0;
+  clearLastState();
   _last = millis();
   _name = name;
 }
@@ -47,17 +47,23 @@ void MFInputShifter::update()
   if (now - _last <= 10)
     return;
 
-  uint8_t currentState;
-
-  digitalWrite(_clockPin, HIGH);                         // preset clock to retrieve first bit
-  digitalWrite(_latchPin, HIGH);                         // disable input latching and enable shifting
-  currentState = shiftIn(_dataPin, _clockPin, MSBFIRST); // capture input values
-  digitalWrite(_latchPin, LOW);                          // disable shifting and enable input latching
-
-  if (currentState != _lastState)
+  // Multiple chained modules are handled individually, one at a time.
+  // As shiftIn() keeps getting called it will pull in the data from each
+  // chained module.
+  for (int i = 0; i < _moduleCount; i++)
   {
-    detectChanges(_lastState, currentState);
-    _lastState = currentState;
+    uint8_t currentState;
+
+    digitalWrite(_clockPin, HIGH);                         // preset clock to retrieve first bit
+    digitalWrite(_latchPin, HIGH);                         // disable input latching and enable shifting
+    currentState = shiftIn(_dataPin, _clockPin, MSBFIRST); // capture input values
+    digitalWrite(_latchPin, LOW);                          // disable shifting and enable input latching
+
+    if (currentState != _lastState[i])
+    {
+      detectChanges(_lastState[i], currentState, i);
+      _lastState[i] = currentState;
+    }
   }
 
   _last = now;
@@ -65,7 +71,7 @@ void MFInputShifter::update()
 
 // Detects changes between the current state and the previously saved state
 // of the shifter inputs.
-void MFInputShifter::detectChanges(uint8_t lastState, uint8_t currentState)
+void MFInputShifter::detectChanges(uint8_t lastState, uint8_t currentState, uint8_t module)
 {
   // TODO: Expand this so it handles the number of attached shifters
   for (int i = 0; i < 8; i++)
@@ -74,7 +80,9 @@ void MFInputShifter::detectChanges(uint8_t lastState, uint8_t currentState)
     // then the input changed and the handler for the bit needs to fire
     if ((lastState & 1) ^ (currentState & 1))
     {
-      trigger(i, currentState & 1);
+      // When triggering the pin is the actual pin on the chip plus the module it's on.
+      // This means pin 7 on chip 2 is really pin 15 as far as MobiFlight is concerned.
+      trigger(i + (module * 8), currentState & 1);
     }
 
     lastState = lastState >> 1;
@@ -110,10 +118,18 @@ void MFInputShifter::detach()
 
 void MFInputShifter::clear()
 {
-  _lastState = 0;
+  clearLastState();
   _last = 0;
 }
 
 void MFInputShifter::test()
 {
+}
+
+void MFInputShifter::clearLastState()
+{
+  for (int i = 0; i < MAX_CHAINED_INPUT_SHIFTERS; i++)
+  {
+    _lastState[i] = 0;
+  }
 }
