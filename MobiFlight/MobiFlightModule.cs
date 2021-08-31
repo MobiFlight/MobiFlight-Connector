@@ -21,7 +21,7 @@ namespace MobiFlight
         public string Serial { get; set; }
         public string DeviceId { get; set; }
         public DeviceType Type { get; set; }
-        public int Pin { get; set; }
+        public int? Pin { get; set; }
         public int Value { get; set; }
     }
 
