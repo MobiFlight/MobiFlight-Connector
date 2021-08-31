@@ -21,6 +21,7 @@ namespace MobiFlight
         public string Serial { get; set; }
         public string DeviceId { get; set; }
         public DeviceType Type { get; set; }
+        public int Pin { get; set; }
         public int Value { get; set; }
     }
 
@@ -79,9 +80,10 @@ namespace MobiFlight
             Retrigger,              // 23
             ResetBoard,             // 24
             SetLcdDisplayI2C,       // 25
-            SetModuleBrightness,    // 26,
+            SetModuleBrightness,    // 26
             SetShiftRegisterPins,   // 27
-            AnalogChange            // 28           
+            AnalogChange,            // 28
+            InputShiftRegisterChange, // 29
         };
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
@@ -188,6 +190,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string,MobiFlightOutput>();
         Dictionary<String, MobiFlightLcdDisplay> lcdDisplays = new Dictionary<string, MobiFlightLcdDisplay>();
         Dictionary<String, MobiFlightButton> buttons = new Dictionary<string, MobiFlightButton>();
+        Dictionary<String, MobiFlightInputShiftRegister> inputShiftRegisters = new Dictionary<string, MobiFlightInputShiftRegister>();
         Dictionary<String, MobiFlightEncoder> encoders = new Dictionary<string, MobiFlightEncoder>();
         Dictionary<String, MobiFlightAnalogInput> analogInputs = new Dictionary<string, MobiFlightAnalogInput>();
         Dictionary<String, MobiFlightShiftRegister> shiftRegisters = new Dictionary<string, MobiFlightShiftRegister>();
@@ -297,6 +300,7 @@ namespace MobiFlight
             outputs.Clear();
             lcdDisplays.Clear();
             buttons.Clear();
+            inputShiftRegisters.Clear();
             encoders.Clear();
             analogInputs.Clear();
             shiftRegisters.Clear();
@@ -334,9 +338,14 @@ namespace MobiFlight
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
                         break;
+
                     case DeviceType.Button:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         buttons.Add(device.Name, new MobiFlightButton() { Name = device.Name });
+                        break;
+                    case DeviceType.InputShiftRegister:
+                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        inputShiftRegisters.Add(device.Name, new MobiFlightInputShiftRegister() { Name = device.Name });
                         break;
                     case DeviceType.Encoder:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
@@ -466,6 +475,7 @@ namespace MobiFlight
             _cmdMessenger.Attach((int)Command.Info, OnInfo);
             _cmdMessenger.Attach((int)Command.EncoderChange, OnEncoderChange);
             _cmdMessenger.Attach((int)Command.ButtonChange, OnButtonChange);
+            _cmdMessenger.Attach((int)Command.InputShiftRegisterChange, OnInputShiftRegisterChange);
             _cmdMessenger.Attach((int)Command.AnalogChange, OnAnalogChange);
 
         }
@@ -518,7 +528,17 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = button, Type = DeviceType.Button, Value = int.Parse(state) });
         }
 
-         // Callback function that prints the Arduino status to the console
+        // Callback function that prints the Arduino status to the console
+        void OnInputShiftRegisterChange(ReceivedCommand arguments)
+        {
+            String deviceId = arguments.ReadStringArg();
+            String pin = arguments.ReadStringArg();
+            String state = arguments.ReadStringArg();
+            if (OnInputDeviceAction != null)
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, Pin = int.Parse(pin), Value = int.Parse(state) });
+        }
+
+        // Callback function that prints the Arduino status to the console
         void OnAnalogChange(ReceivedCommand arguments)
         {
             String name = arguments.ReadStringArg();
@@ -845,6 +865,7 @@ namespace MobiFlight
             result[MobiFlightLcdDisplay.TYPE] = lcdDisplays.Count;
             result[MobiFlightShiftRegister.TYPE] = shiftRegisters.Count;
             result[MobiFlightButton.TYPE] = buttons.Count;
+            result[MobiFlightInputShiftRegister.TYPE] = inputShiftRegisters.Count;
             result[MobiFlightEncoder.TYPE] = encoders.Count;
             result[MobiFlightAnalogInput.TYPE] = analogInputs.Count;
 
@@ -927,6 +948,7 @@ namespace MobiFlight
             bool _hasButtons = false;
             bool _hasEncoder = false;
             bool _hasAnalog = false;
+            bool _hasInputShiftRegisters = false;
 
             List<DeviceType> result = new List<DeviceType>();
             
@@ -940,7 +962,9 @@ namespace MobiFlight
                     case DeviceType.Encoder:
                         _hasEncoder = true;
                         break;
-
+                    case DeviceType.InputShiftRegister:
+                        _hasInputShiftRegisters = true;
+                        break;
                     case DeviceType.AnalogInput:
                         _hasAnalog = true;
                         break;
@@ -950,6 +974,7 @@ namespace MobiFlight
             if (_hasButtons) result.Add(DeviceType.Button);
             if (_hasEncoder) result.Add(DeviceType.Encoder);
             if (_hasAnalog) result.Add(DeviceType.AnalogInput);
+            if (_hasInputShiftRegisters) result.Add(DeviceType.InputShiftRegister);
 
             return result;
         }
@@ -1092,6 +1117,12 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Button).Pin));
                         break;
 
+                    case DeviceType.InputShiftRegister:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).ClockPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).DataPin));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).LatchPin));
+                        break;
+
                     case DeviceType.Encoder:
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Encoder).PinLeft));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Encoder).PinRight));
@@ -1120,12 +1151,6 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).ClockPin));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).LatchPin));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).DataPin));
-                        break;
-
-                    case DeviceType.InputShiftRegister:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).ClockPin));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).LatchPin));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).DataPin));
                         break;
 
                     default:

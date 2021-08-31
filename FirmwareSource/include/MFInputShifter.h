@@ -32,7 +32,7 @@ public:
     void test();
     void clear();
     void update();
-    void attachHandler(uint8_t pin, byte eventId, inputShifterEvent newHandler);
+    void attachHandler(byte eventId, inputShifterEvent newHandler);
 
 private:
     const char *_name;
@@ -46,6 +46,6 @@ private:
 
     void detectChanges(uint8_t lastState, uint8_t currentState);
     void trigger(uint8_t pin, bool state);
-    inputShifterEvent _handlerList[8][2];
+    inputShifterEvent _handlerList[2];
 };
 #endif

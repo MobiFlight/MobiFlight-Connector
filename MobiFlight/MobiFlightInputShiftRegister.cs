@@ -8,6 +8,12 @@ namespace MobiFlight
 {
     public class MobiFlightInputShiftRegister : IConnectedDevice
     {
+        public enum InputEvent
+        {
+            PRESS,
+            RELEASE,
+        }
+
         public const string TYPE = "InputShiftRegister";
         public const string LABEL_PREFIX = "Input";
 
@@ -32,6 +38,23 @@ namespace MobiFlight
         }
 
         private DeviceType _type = DeviceType.InputShiftRegister;
+
+        public static string InputEventIdToString(int enumId)
+        {
+            string eventAction = "n/a";
+            switch (enumId)
+            {
+                case (int)InputEvent.PRESS:
+                    eventAction = InputEvent.PRESS.ToString();
+                    break;
+
+                case (int)InputEvent.RELEASE:
+                    eventAction = InputEvent.RELEASE.ToString();
+                    break;
+            }
+
+            return eventAction;
+        }
 
         public DeviceType Type
         {

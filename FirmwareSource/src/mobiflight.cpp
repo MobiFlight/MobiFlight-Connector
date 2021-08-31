@@ -459,6 +459,43 @@ void ClearEncoders()
 #endif
 }
 
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+//// INPUT SHIFT REGISTER /////
+void AddInputShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const *name = "Shifter")
+{
+  if (inputShiftregisterRegistered == MAX_SHIFTERS)
+    return;
+  inputshiftregisters[inputShiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules);
+  inputshiftregisters[inputShiftregisterRegistered].clear();
+  registerPin(latchPin, kInputShifter);
+  registerPin(clockPin, kInputShifter);
+  registerPin(dataPin, kInputShifter);
+
+  inputshiftregisters[inputShiftregisterRegistered].attachHandler(shifterOnRelease, handlerInputShifterOnRelease);
+  inputshiftregisters[inputShiftregisterRegistered].attachHandler(shifterOnPress, handlerInputShifterOnRelease);
+
+  inputShiftregisterRegistered++;
+
+#ifdef DEBUG
+  cmdMessenger.sendCmd(kStatus, F("Added input shifter"));
+#endif
+}
+
+void ClearInputShifters()
+{
+  for (int i = 0; i != inputShiftregisterRegistered; i++)
+  {
+    inputshiftregisters[inputShiftregisterRegistered].detach();
+  }
+
+  clearRegisteredPins(kInputShifter);
+  inputShiftregisterRegistered = 0;
+#ifdef DEBUG
+  cmdMessenger.sendCmd(kStatus, F("Cleared input shifter"));
+#endif
+}
+#endif
+
 //// OUTPUTS /////
 
 #if MF_SEGMENT_SUPPORT == 1
@@ -677,35 +714,6 @@ void ClearShifters()
 }
 #endif
 
-#if MF_INPUT_SHIFTER_SUPPORT == 1
-//// INPUT SHIFT REGISTER /////
-void AddInputShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const *name = "Shifter")
-{
-  if (inputShiftregisterRegistered == MAX_SHIFTERS)
-    return;
-  inputshiftregisters[inputShiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules);
-  inputshiftregisters[inputShiftregisterRegistered].clear();
-  inputShiftregisterRegistered++;
-
-#ifdef DEBUG
-  cmdMessenger.sendCmd(kStatus, F("Added input shifter"));
-#endif
-}
-
-void ClearInputShifters()
-{
-  for (int i = 0; i != inputShiftregisterRegistered; i++)
-  {
-    inputshiftregisters[inputShiftregisterRegistered].detach();
-  }
-
-  inputShiftregisterRegistered = 0;
-#ifdef DEBUG
-  cmdMessenger.sendCmd(kStatus, F("Cleared input shifter"));
-#endif
-}
-#endif
-
 //// EVENT HANDLER /////
 void handlerOnRelease(uint8_t eventId, uint8_t pin, const char *name)
 {
@@ -732,6 +740,18 @@ void handlerOnAnalogChange(int value, uint8_t pin, const char *name)
   cmdMessenger.sendCmdArg(value);
   cmdMessenger.sendCmdEnd();
 };
+
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+//// EVENT HANDLER /////
+void handlerInputShifterOnRelease(uint8_t eventId, uint8_t pin, const char *name)
+{
+  cmdMessenger.sendCmdStart(kInputShifterChange);
+  cmdMessenger.sendCmdArg(name);
+  cmdMessenger.sendCmdArg(pin);
+  cmdMessenger.sendCmdArg(eventId);
+  cmdMessenger.sendCmdEnd();
+};
+#endif
 
 /**
  ** config stuff

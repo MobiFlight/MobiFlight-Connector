@@ -56,7 +56,8 @@ enum
   kSetLcdDisplayI2C,     // 25
   kSetModuleBrightness,  // 26
   kSetShiftRegisterPins, // 27
-  kAnalogChange          // 28
+  kAnalogChange,         // 28
+  kInputShifterChange    // 29
 };
 
 void attachCommandCallbacks();
@@ -87,6 +88,7 @@ void ClearServos();
 void AddLcdDisplay(uint8_t address, uint8_t cols, uint8_t lines, char const *name);
 void ClearLcdDisplays();
 void handlerOnRelease(uint8_t eventId, uint8_t pin, const char *name);
+void handlerInputShifterOnRelease(uint8_t eventId, uint8_t pin, const char *name);
 void handlerOnEncoder(uint8_t eventId, uint8_t pin, const char *name);
 void OnSetConfig();
 void resetConfig();
