@@ -1391,6 +1391,13 @@ namespace MobiFlight
             {
                 eventAction = MobiFlightButton.InputEventIdToString(e.Value);
             }
+            if (e.Type == DeviceType.InputShiftRegister)
+            {
+                eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
+                // The inputKey gets the shifter pin added to it if the input came from a shift register
+                // This ensures caching works correctly when there are multiple pins on the same physical device
+                inputKey = inputKey + e.Pin;
+            }
             else if (e.Type == DeviceType.Encoder)
             {
                 eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
@@ -1415,6 +1422,13 @@ namespace MobiFlight
                         InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
                         if (cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
                         {
+                            // Input shift registers have an additional check to see if the pin that changed matches the pin
+                            // assigned to the row. If not just skip this row
+                            if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.pin != e.Pin)
+                            {
+                                continue;
+                            }
+
                             inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
                         }
                     }

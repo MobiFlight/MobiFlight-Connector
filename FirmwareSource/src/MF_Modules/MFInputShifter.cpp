@@ -56,11 +56,6 @@ void MFInputShifter::update()
 
   if (currentState != _lastState)
   {
-    Serial.print("Last state: ");
-    printBinary(_lastState);
-    Serial.print(" Current state: ");
-    printBinary(currentState);
-    Serial.println("");
     detectChanges(_lastState, currentState);
     _lastState = currentState;
   }
@@ -80,8 +75,6 @@ void MFInputShifter::detectChanges(uint8_t lastState, uint8_t currentState)
     if ((lastState & 1) ^ (currentState & 1))
     {
       trigger(i, currentState & 1);
-      Serial.print("Bit changed: ");
-      Serial.println(i);
     }
 
     lastState = lastState >> 1;
@@ -93,22 +86,19 @@ void MFInputShifter::detectChanges(uint8_t lastState, uint8_t currentState)
 // if a handler is registered.
 void MFInputShifter::trigger(uint8_t pin, bool state)
 {
-  if (state == LOW && _handlerList[pin][shifterOnPress] != NULL)
+  if (state == LOW && _handlerList[shifterOnPress] != NULL)
   {
-    (*_handlerList[pin][shifterOnPress])(shifterOnPress, pin, _name);
+    (*_handlerList[shifterOnPress])(shifterOnPress, pin, _name);
   }
-  else if (_handlerList[pin][shifterOnRelease] != NULL)
+  else if (_handlerList[shifterOnRelease] != NULL)
   {
-    (*_handlerList[pin][shifterOnRelease])(shifterOnRelease, pin, _name);
+    (*_handlerList[shifterOnRelease])(shifterOnRelease, pin, _name);
   }
 }
 
-// Attaches a new event handler for the specified pin. This is based on the
-// method from MFButton.cpp but handles multiple pins on a single input shift register.
-void MFInputShifter::attachHandler(uint8_t pin, byte eventId, inputShifterEvent newHandler)
+void MFInputShifter::attachHandler(byte eventId, inputShifterEvent newHandler)
 {
-  // TODO: Add bounds checking of the pin
-  _handlerList[pin][eventId] = newHandler;
+  _handlerList[eventId] = newHandler;
 }
 
 void MFInputShifter::detach()
