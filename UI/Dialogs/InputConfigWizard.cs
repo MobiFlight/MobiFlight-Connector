@@ -380,6 +380,7 @@ namespace MobiFlight.UI.Dialogs
                         case DeviceType.Button:
                         case DeviceType.AnalogInput:
                         case DeviceType.Encoder:
+                        case DeviceType.InputShiftRegister:
                             inputTypeComboBox.Items.Add(device.Name);
                             break;
                     }
