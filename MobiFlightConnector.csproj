@@ -196,6 +196,7 @@
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\InputShiftRegisterConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
@@ -346,6 +347,12 @@
     </Compile>
     <Compile Include="UI\Panels\Input\AnalogPanel.Designer.cs">
       <DependentUpon>AnalogPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Input\InputShiftRegisterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Input\InputShiftRegisterPanel.Designer.cs">
+      <DependentUpon>InputShiftRegisterPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\OutputConfigPanel.cs">
       <SubType>UserControl</SubType>
