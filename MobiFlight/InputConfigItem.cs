@@ -22,6 +22,7 @@ namespace MobiFlight
         public const String TYPE_BUTTON = "Button";
         public const String TYPE_ENCODER = "Encoder";
         public const String TYPE_ANALOG = "Analog";
+        public const String TYPE_INPUT_SHIFT_REGISTER = "InputShiftRegister";
 
 
         public string ModuleSerial { get; set; }
@@ -30,6 +31,7 @@ namespace MobiFlight
         public ButtonInputConfig button { get; set; }
         public EncoderInputConfig encoder { get; set; }
         public AnalogInputConfig analog { get; set; }
+        public InputShiftRegisterConfig inputShiftRegister { get; set; }
 
         public PreconditionList Preconditions { get; set; }
         public List<ConfigRef> ConfigRefs { get; set; }
@@ -77,6 +79,14 @@ namespace MobiFlight
             {
                 analog = new AnalogInputConfig();
                 analog.ReadXml(reader);
+                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
+                reader.Read(); // advance to the next node
+            }
+
+            if (reader.LocalName == "inputShiftRegister")
+            {
+                inputShiftRegister = new InputShiftRegisterConfig();
+                inputShiftRegister.ReadXml(reader);
                 if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
                 reader.Read(); // advance to the next node
             }
@@ -161,6 +171,13 @@ namespace MobiFlight
                 writer.WriteEndElement();
             }
 
+            if (inputShiftRegister != null)
+            {
+                writer.WriteStartElement("inputShiftRegister");
+                inputShiftRegister.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+
             writer.WriteStartElement("preconditions");
             foreach (Precondition p in Preconditions)
             {
@@ -218,7 +235,10 @@ namespace MobiFlight
                     if (button != null)
                         button.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
-
+                case TYPE_INPUT_SHIFT_REGISTER:
+                    if (inputShiftRegister != null)
+                        analog.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                    break;
                 case TYPE_ENCODER:
                     if (encoder != null)
                         encoder.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
@@ -238,7 +258,11 @@ namespace MobiFlight
             {
                 result = button.GetStatistics();
             }
-            
+            if (Type == TYPE_INPUT_SHIFT_REGISTER)
+            {
+                result = inputShiftRegister.GetStatistics();
+            }
+
             return result;
         }
     }

@@ -322,6 +322,13 @@ namespace MobiFlight.UI.Dialogs
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
                     break;
 
+                case DeviceType.InputShiftRegister:
+                    config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
+                    if (config.inputShiftRegister == null) config.inputShiftRegister= new InputConfig.InputShiftRegisterConfig();
+                    if (groupBoxInputSettings.Controls[0] != null)
+                        (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
+                    break;
+
                 case DeviceType.Encoder:
                     config.Type = InputConfigItem.TYPE_ENCODER;
                     if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
@@ -471,6 +478,11 @@ namespace MobiFlight.UI.Dialogs
                     case DeviceType.AnalogInput:
                         panel = new Panels.Input.AnalogPanel();
                         (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
+                        break;
+
+                    case DeviceType.InputShiftRegister:
+                        panel = new Panels.Input.InputShiftRegisterPanel();
+                        (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
                         break;
                 }
 
