@@ -300,8 +300,14 @@ namespace MobiFlight.UI.Dialogs
 
         private void PopulateInputPinDropdown()
         {
+            // The selected input in the dropdown is the shift register details, which includes the
+            // number of connected modules. That gets multiplied by 8 pins per module to get the total
+            // number of available pins to populate.
+            Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
+            int totalPins = Convert.ToInt32(selectedInputShifter.NumModules) * 8;
+
             inputPinDropDown.Items.Clear();
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < totalPins; i++)
             {
                 inputPinDropDown.Items.Add(i);
             }
@@ -408,7 +414,7 @@ namespace MobiFlight.UI.Dialogs
                         case DeviceType.AnalogInput:
                         case DeviceType.Encoder:
                         case DeviceType.InputShiftRegister:
-                            inputTypeComboBox.Items.Add(device.Name);
+                            inputTypeComboBox.Items.Add(device);
                             break;
                     }
                 }
@@ -456,7 +462,7 @@ namespace MobiFlight.UI.Dialogs
             // find the correct input type based on the name
             foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
             {
-                if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
+                if (device.Name != (inputTypeComboBox.SelectedItem as Config.BaseDevice).Name) continue;
 
                 currentInputType = device.Type;
                 break;

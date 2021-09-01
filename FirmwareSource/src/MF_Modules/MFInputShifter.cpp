@@ -47,6 +47,9 @@ void MFInputShifter::update()
   if (now - _last <= 10)
     return;
 
+  digitalWrite(_clockPin, HIGH); // preset clock to retrieve first bit
+  digitalWrite(_latchPin, HIGH); // disable input latching and enable shifting
+
   // Multiple chained modules are handled individually, one at a time.
   // As shiftIn() keeps getting called it will pull in the data from each
   // chained module.
@@ -54,10 +57,7 @@ void MFInputShifter::update()
   {
     uint8_t currentState;
 
-    digitalWrite(_clockPin, HIGH);                         // preset clock to retrieve first bit
-    digitalWrite(_latchPin, HIGH);                         // disable input latching and enable shifting
     currentState = shiftIn(_dataPin, _clockPin, MSBFIRST); // capture input values
-    digitalWrite(_latchPin, LOW);                          // disable shifting and enable input latching
 
     if (currentState != _lastState[i])
     {
@@ -65,6 +65,7 @@ void MFInputShifter::update()
       _lastState[i] = currentState;
     }
   }
+  digitalWrite(_latchPin, LOW); // disable shifting and enable input latching
 
   _last = now;
 }
