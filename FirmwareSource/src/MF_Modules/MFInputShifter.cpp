@@ -74,7 +74,6 @@ void MFInputShifter::update()
 // of the shifter inputs.
 void MFInputShifter::detectChanges(uint8_t lastState, uint8_t currentState, uint8_t module)
 {
-  // TODO: Expand this so it handles the number of attached shifters
   for (int i = 0; i < 8; i++)
   {
     // If last and current input state for the bit are different
