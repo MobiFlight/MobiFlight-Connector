@@ -1384,16 +1384,16 @@ namespace MobiFlight
             {
                 eventAction = MobiFlightButton.InputEventIdToString(e.Value);
             }
+            else if (e.Type == DeviceType.Encoder)
+            {
+                eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
+            }
             if (e.Type == DeviceType.InputShiftRegister)
             {
                 eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
                 // The inputKey gets the shifter pin added to it if the input came from a shift register
                 // This ensures caching works correctly when there are multiple pins on the same physical device
                 inputKey = inputKey + e.Pin;
-            }
-            else if (e.Type == DeviceType.Encoder)
-            {
-                eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
             }
             else if (e.Type == DeviceType.AnalogInput)
             {
