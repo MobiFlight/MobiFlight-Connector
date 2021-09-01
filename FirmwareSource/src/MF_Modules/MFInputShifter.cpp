@@ -89,13 +89,13 @@ void MFInputShifter::detectChanges(uint8_t lastState, uint8_t currentState, uint
 // if a handler is registered.
 void MFInputShifter::trigger(uint8_t pin, bool state)
 {
-  if (state == LOW && _handlerList[shifterOnPress] != NULL)
+  if (state == LOW && _handlerList[inputShifterOnPress] != NULL)
   {
-    (*_handlerList[shifterOnPress])(shifterOnPress, pin, _name);
+    (*_handlerList[inputShifterOnPress])(inputShifterOnPress, pin, _name);
   }
-  else if (_handlerList[shifterOnRelease] != NULL)
+  else if (_handlerList[inputShifterOnRelease] != NULL)
   {
-    (*_handlerList[shifterOnRelease])(shifterOnRelease, pin, _name);
+    (*_handlerList[inputShifterOnRelease])(inputShifterOnRelease, pin, _name);
   }
 }
 

@@ -43,16 +43,11 @@ char foo;
 // 1.11.0: Added Analog support, ShiftRegister Support (kudos to @manfredberry)
 // 1.11.1: minor bugfixes for BETA release
 // 1.11.2: fixed issue with one line LCD freeze
+// Unreleased: Add input shifter support
+
 const char version[8] = "1.11.2";
 
 //#define DEBUG 1
-
-// ALL 24780
-// No Segments 23040 (1740)
-// No Steppers 20208 (4572)
-// NO Servos   23302 (1478)
-// No LCDs     22850 (1930)
-//
 
 #define STEPS 64
 #define STEPPER_SPEED 400 // 300 already worked, 467, too?
@@ -72,6 +67,10 @@ const char version[8] = "1.11.2";
 
 #include <MFButton.h>
 #include <MFEncoder.h>
+
+#if MF_INPUT_SHIFTER_SUPPORT == 1
+#include <MFInputShifter.h>
+#endif
 
 #if MF_STEPPER_SUPPORT == 1
 #include <AccelStepper.h>
@@ -96,10 +95,6 @@ const char version[8] = "1.11.2";
 
 #if MF_SHIFTER_SUPPORT == 1
 #include <MFShifter.h>
-#endif
-
-#if MF_INPUT_SHIFTER_SUPPORT == 1
-#include <MFInputShifter.h>
 #endif
 
 const uint8_t MEM_OFFSET_NAME = 0;
@@ -165,8 +160,8 @@ uint8_t shiftregisterRegistered = 0;
 #endif
 
 #if MF_INPUT_SHIFTER_SUPPORT == 1
-MFInputShifter inputshiftregisters[MAX_INPUT_SHIFTERS];
-uint8_t inputShiftregisterRegistered = 0;
+MFInputShifter inputShifters[MAX_INPUT_SHIFTERS];
+uint8_t inputShiftersRegistered = 0;
 #endif
 
 // Callbacks define on which received commands we take action
@@ -463,18 +458,18 @@ void ClearEncoders()
 //// INPUT SHIFT REGISTER /////
 void AddInputShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const *name = "Shifter")
 {
-  if (inputShiftregisterRegistered == MAX_SHIFTERS)
+  if (inputShiftersRegistered == MAX_INPUT_SHIFTERS)
     return;
-  inputshiftregisters[inputShiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules);
-  inputshiftregisters[inputShiftregisterRegistered].clear();
+  inputShifters[inputShiftersRegistered].attach(latchPin, clockPin, dataPin, modules);
+  inputShifters[inputShiftersRegistered].clear();
   registerPin(latchPin, kTypeInputShifter);
   registerPin(clockPin, kTypeInputShifter);
   registerPin(dataPin, kTypeInputShifter);
 
-  inputshiftregisters[inputShiftregisterRegistered].attachHandler(shifterOnRelease, handlerInputShifterOnRelease);
-  inputshiftregisters[inputShiftregisterRegistered].attachHandler(shifterOnPress, handlerInputShifterOnRelease);
+  inputShifters[inputShiftersRegistered].attachHandler(inputShifterOnRelease, handlerInputShifterOnRelease);
+  inputShifters[inputShiftersRegistered].attachHandler(inputShifterOnPress, handlerInputShifterOnRelease);
 
-  inputShiftregisterRegistered++;
+  inputShiftersRegistered++;
 
 #ifdef DEBUG
   cmdMessenger.sendCmd(kStatus, F("Added input shifter"));
@@ -483,13 +478,13 @@ void AddInputShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_
 
 void ClearInputShifters()
 {
-  for (int i = 0; i != inputShiftregisterRegistered; i++)
+  for (int i = 0; i < inputShiftersRegistered; i++)
   {
-    inputshiftregisters[inputShiftregisterRegistered].detach();
+    inputShifters[inputShiftersRegistered].detach();
   }
 
   clearRegisteredPins(kTypeInputShifter);
-  inputShiftregisterRegistered = 0;
+  inputShiftersRegistered = 0;
 #ifdef DEBUG
   cmdMessenger.sendCmd(kStatus, F("Cleared input shifter"));
 #endif
@@ -1078,7 +1073,7 @@ void OnSetShiftRegisterPins()
 void OnInitInputShiftRegister()
 {
   int module = cmdMessenger.readIntArg();
-  inputshiftregisters[module].clear();
+  inputShifters[module].clear();
   lastCommand = millis();
 }
 #endif
@@ -1173,9 +1168,9 @@ void readEncoder()
 #if MF_INPUT_SHIFTER_SUPPORT == 1
 void readInputShifters()
 {
-  for (int i = 0; i != inputShiftregisterRegistered; i++)
+  for (int i = 0; i != inputShiftersRegistered; i++)
   {
-    inputshiftregisters[i].update();
+    inputShifters[i].update();
   }
 }
 #endif
