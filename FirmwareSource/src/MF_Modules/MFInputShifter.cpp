@@ -122,10 +122,6 @@ void MFInputShifter::clear()
   _last = 0;
 }
 
-void MFInputShifter::test()
-{
-}
-
 void MFInputShifter::clearLastState()
 {
   for (int i = 0; i < MAX_CHAINED_INPUT_SHIFTERS; i++)
