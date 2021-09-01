@@ -209,6 +209,9 @@ namespace MobiFlight
             if (analog != null)
                 clone.analog = (AnalogInputConfig)this.analog.Clone();
 
+            if (inputShiftRegister != null)
+                clone.inputShiftRegister = (InputShiftRegisterConfig)this.inputShiftRegister.Clone();
+
             foreach (Precondition p in Preconditions)
             {
                 clone.Preconditions.Add(p.Clone() as Precondition);
@@ -260,6 +263,7 @@ namespace MobiFlight
             }
             if (Type == TYPE_INPUT_SHIFT_REGISTER)
             {
+                // TODO: Sometimes this crashes with a null reference execption. Figure out why.
                 result = inputShiftRegister.GetStatistics();
             }
 
