@@ -7,6 +7,7 @@
 #define MF_SERVO_SUPPORT 0
 #define MF_ANALOG_SUPPORT 1
 #define MF_SHIFTER_SUPPORT 0
+#define MF_INPUT_SHIFTER_SUPPORT 1
 
 // ALL          26892 (93.8%) / 1713 (66.9%)
 // No Segments  25148 (87.7%) / 1580 (61.7%)
@@ -30,9 +31,9 @@
 #define STEPPER_SPEED 400 // 300 already worked, 467, too?
 #define STEPPER_ACCEL 800
 
-#define MOBIFLIGHT_TYPE "MobiFlight Pro Micro"
+#define MOBIFLIGHT_TYPE "MobiFlight Micro"
 #define MOBIFLIGHT_SERIAL "0987654321"
-#define MEMLEN_NAME "MobiFlight Pro Micro"
+#define MEMLEN_NAME "MobiFlight Micro"
 #define EEPROM_SIZE 1024 // EEPROMSizeMicro
 #define MEMLEN_CONFIG 256
 
