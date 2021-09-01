@@ -23,7 +23,7 @@ namespace MobiFlight
         
         public int ModuleNumber { get; set; }
 
-        private String _name = "InputShiftRegister";
+        private String _name = "InputShifter";
 
         public String Name
         {
