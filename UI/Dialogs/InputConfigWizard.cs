@@ -453,7 +453,7 @@ namespace MobiFlight.UI.Dialogs
             // find the correct input type based on the name
             foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
             {
-                if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
+                if (device.Name != (inputTypeComboBox.SelectedItem as Config.BaseDevice).Name) continue;
 
                 currentInputType = device.Type;
                 break;
