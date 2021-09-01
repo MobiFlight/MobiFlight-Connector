@@ -20,6 +20,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(LcdDisplay))]
         [XmlElement(typeof(AnalogInput))]
         [XmlElement(typeof(ShiftRegister))]
+        [XmlElement(typeof(InputShiftRegister))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }
