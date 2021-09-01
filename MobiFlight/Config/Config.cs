@@ -13,6 +13,7 @@ namespace MobiFlight.Config
 
         [XmlElement(typeof(Button))]
         [XmlElement(typeof(Encoder))]
+        [XmlElement(typeof(InputShiftRegister))]
         [XmlElement(typeof(LedModule))]
         [XmlElement(typeof(Output))]
         [XmlElement(typeof(Servo))]
@@ -20,7 +21,6 @@ namespace MobiFlight.Config
         [XmlElement(typeof(LcdDisplay))]
         [XmlElement(typeof(AnalogInput))]
         [XmlElement(typeof(ShiftRegister))]
-        [XmlElement(typeof(InputShiftRegister))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }
@@ -125,6 +125,11 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        case DeviceType.InputShiftRegister:
+                            currentItem = new MobiFlight.Config.InputShiftRegister();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
                         case DeviceType.AnalogInput:
                             currentItem = new MobiFlight.Config.AnalogInput();
                             currentItem.FromInternal(item + BaseDevice.End);
@@ -134,12 +139,6 @@ namespace MobiFlight.Config
                             currentItem = new MobiFlight.Config.ShiftRegister();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
-
-                        case DeviceType.InputShiftRegister:
-                            currentItem = new MobiFlight.Config.InputShiftRegister();
-                            currentItem.FromInternal(item + BaseDevice.End);
-                            break;
-
                     }
 
                     if (currentItem != null)
