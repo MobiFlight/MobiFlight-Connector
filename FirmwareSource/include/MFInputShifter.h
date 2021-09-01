@@ -10,6 +10,9 @@
 #include <wiring.h>
 #endif
 
+// Maximum number of shifters allowed on an individual chain. While this is currently set to 4
+// there is no technical limit in the code for how many can be chained. It is constrained only
+// by available memory (one byte required per chip) and the time it takes to read all the bits in.
 #define MAX_CHAINED_INPUT_SHIFTERS 4
 
 extern "C"
@@ -37,13 +40,13 @@ public:
 
 private:
     const char *_name;
-    uint8_t _latchPin;    // Latch pin
-    uint8_t _clockPin;    // Clock pin
-    uint8_t _dataPin;     // Data/SI pin
-    uint8_t _moduleCount; // Number of 8 bit modules in series. For a shift register with 16 bit one needs to select 2 modules a 8......
+    uint8_t _latchPin;    // SH/~LD (latch) pin
+    uint8_t _clockPin;    // CLK (clock) pin
+    uint8_t _dataPin;     // SDO (data) pin
+    uint8_t _moduleCount; // Number of 8 bit modules in series.
     bool _initialized = false;
     uint32_t _last;
-    uint8_t _lastState[MAX_CHAINED_INPUT_SHIFTERS]; // Max 4 chained modules for now = 32 bits
+    uint8_t _lastState[MAX_CHAINED_INPUT_SHIFTERS];
 
     void detectChanges(uint8_t lastState, uint8_t currentState, uint8_t module);
     void trigger(uint8_t pin, bool state);
