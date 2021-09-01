@@ -467,9 +467,9 @@ void AddInputShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_
     return;
   inputshiftregisters[inputShiftregisterRegistered].attach(latchPin, clockPin, dataPin, modules);
   inputshiftregisters[inputShiftregisterRegistered].clear();
-  registerPin(latchPin, kInputShifter);
-  registerPin(clockPin, kInputShifter);
-  registerPin(dataPin, kInputShifter);
+  registerPin(latchPin, kTypeInputShifter);
+  registerPin(clockPin, kTypeInputShifter);
+  registerPin(dataPin, kTypeInputShifter);
 
   inputshiftregisters[inputShiftregisterRegistered].attachHandler(shifterOnRelease, handlerInputShifterOnRelease);
   inputshiftregisters[inputShiftregisterRegistered].attachHandler(shifterOnPress, handlerInputShifterOnRelease);
@@ -488,7 +488,7 @@ void ClearInputShifters()
     inputshiftregisters[inputShiftregisterRegistered].detach();
   }
 
-  clearRegisteredPins(kInputShifter);
+  clearRegisteredPins(kTypeInputShifter);
   inputShiftregisterRegistered = 0;
 #ifdef DEBUG
   cmdMessenger.sendCmd(kStatus, F("Cleared input shifter"));
@@ -966,7 +966,7 @@ void readConfig(String cfg)
 #endif
       break;
 
-    case kInputShifter:
+    case kTypeInputShifter:
       params[0] = strtok_r(NULL, ".", &p); // pin latch
       params[1] = strtok_r(NULL, ".", &p); // pin clock
       params[2] = strtok_r(NULL, ".", &p); // pin data

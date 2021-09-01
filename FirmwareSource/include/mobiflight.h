@@ -18,7 +18,7 @@ enum
   kTypeStepper,             // 9 (new stepper type with auto zero support if btnPin is > 0)
   kShiftRegister,           // 10 Shift register support (example: 74HC595, TLC592X)
   kTypeAnalogInput,         // 11 Analog Device with 1 pin
-  kInputShifter             // 12 Input shift register support (example: 74HC165)
+  kTypeInputShifter         // 12 Input shift register support (example: 74HC165)
 };
 
 // This is the list of recognized commands. These can be commands that can either be sent or received.
