@@ -378,6 +378,7 @@ namespace MobiFlight.UI.Panels
                 InputConfigItem cfg = row["settings"] as InputConfigItem;
                 if (cfg != null)
                 {
+                    // Input shift registers show their name in the grid as the shifter name + configured pin for clarity.
                     if (cfg.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
                     {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.pin}";
