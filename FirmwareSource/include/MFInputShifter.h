@@ -22,8 +22,8 @@ extern "C"
 
 enum
 {
-    shifterOnPress,
-    shifterOnRelease,
+    inputShifterOnPress,
+    inputShifterOnRelease,
 };
 
 /////////////////////////////////////////////////////////////////////

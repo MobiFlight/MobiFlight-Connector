@@ -127,6 +127,7 @@ void OnInitShiftRegister();
 void OnSetShiftRegisterPins();
 void AddShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const *name);
 void AddInputShifter(uint8_t latchPin, uint8_t clockPin, uint8_t dataPin, uint8_t modules, char const *name);
+void ClearInputShifters();
 
 // RK added
 extern uint8_t encodersRegistered;
