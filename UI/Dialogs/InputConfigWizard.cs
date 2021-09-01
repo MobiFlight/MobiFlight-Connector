@@ -492,17 +492,17 @@ namespace MobiFlight.UI.Dialogs
                         (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
                         break;
 
-                    case DeviceType.AnalogInput:
-                        panel = new Panels.Input.AnalogPanel();
-                        (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
-                        break;
-
                     case DeviceType.InputShiftRegister:
                         Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel();
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
                         PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.pin);
                         inputPinDropDown.Visible = true;
+                        break;
+
+                    case DeviceType.AnalogInput:
+                        panel = new Panels.Input.AnalogPanel();
+                        (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
                         break;
                 }
 
