@@ -13,7 +13,7 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class MFInputShiftRegisterPanel : UserControl
     {
-        private InputShiftRegister shiftRegister;
+        private InputShiftRegister inputShiftRegister;
         private bool initialized;
         public event EventHandler Changed;
         private int MAX_MODULES = 4;
@@ -27,11 +27,11 @@ namespace MobiFlight.UI.Panels.Settings
             mfPin3ComboBox.Items.Clear();
         }
 
-        public MFInputShiftRegisterPanel(InputShiftRegister shiftRegister, List<MobiFlightPin> Pins) : this()
+        public MFInputShiftRegisterPanel(InputShiftRegister inputShiftRegister, List<MobiFlightPin> Pins) : this()
         {
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, shiftRegister.LatchPin);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, shiftRegister.ClockPin);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, shiftRegister.DataPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, inputShiftRegister.LatchPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, inputShiftRegister.ClockPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, inputShiftRegister.DataPin);
 
             if (mfPin1ComboBox.Items.Count > 2)
             {
@@ -45,15 +45,14 @@ namespace MobiFlight.UI.Panels.Settings
                 mfNumModulesComboBox.Items.Add(i);
             }
 
-            // TODO: Complete member initialization
-            this.shiftRegister = shiftRegister;
+            this.inputShiftRegister = inputShiftRegister;
 
-            ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, shiftRegister.LatchPin);
-            ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, shiftRegister.ClockPin);
-            ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, shiftRegister.DataPin);
-            ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, shiftRegister.NumModules);
+            ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, inputShiftRegister.LatchPin);
+            ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, inputShiftRegister.ClockPin);
+            ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, inputShiftRegister.DataPin);
+            ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, inputShiftRegister.NumModules);
             
-            textBox1.Text = shiftRegister.Name;
+            textBox1.Text = inputShiftRegister.Name;
 
             initialized = true;
         }
@@ -65,16 +64,16 @@ namespace MobiFlight.UI.Panels.Settings
             setValues();
 
             if (Changed != null)
-                Changed(shiftRegister, new EventArgs());
+                Changed(inputShiftRegister, new EventArgs());
         }
 
         private void setValues()
         {
-            shiftRegister.LatchPin = mfPin1ComboBox.Text;
-            shiftRegister.ClockPin = mfPin2ComboBox.Text;
-            shiftRegister.DataPin = mfPin3ComboBox.Text;           
-            shiftRegister.Name = textBox1.Text;
-            shiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text)?"1": mfNumModulesComboBox.Text;
+            inputShiftRegister.LatchPin = mfPin1ComboBox.Text;
+            inputShiftRegister.ClockPin = mfPin2ComboBox.Text;
+            inputShiftRegister.DataPin = mfPin3ComboBox.Text;
+            inputShiftRegister.Name = textBox1.Text;
+            inputShiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text)?"1": mfNumModulesComboBox.Text;
         }
 
         static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin)
@@ -88,11 +87,6 @@ namespace MobiFlight.UI.Panels.Settings
             comboBox.ValueMember = "Pin";
 
             return false;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
