@@ -23,7 +23,7 @@ namespace MobiFlight.UI.Dialogs
         ExecutionManager _execManager = null;
         int displayPanelHeight = -1;
         List<UserControl> displayPanels = new List<UserControl>();
-        
+
         InputConfigItem config = null;
         InputConfigItem originalConfig = null;
 
@@ -40,13 +40,13 @@ namespace MobiFlight.UI.Dialogs
         UI.Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new UI.Panels.DisplayNothingSelectedPanel();
         UI.Panels.ServoPanel servoPanel = new UI.Panels.ServoPanel();
 
-        public InputConfigWizard(ExecutionManager mainForm, 
+        public InputConfigWizard(ExecutionManager mainForm,
                              InputConfigItem cfg,
 #if ARCAZE
                              ArcazeCache arcazeCache, 
                              Dictionary<string, ArcazeModuleSettings> moduleSettings, 
 #endif
-                             DataSet dataSetConfig, 
+                             DataSet dataSetConfig,
                              String filterGuid)
         {
             Init(mainForm, cfg);
@@ -74,7 +74,7 @@ namespace MobiFlight.UI.Dialogs
         protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
         {
             this._execManager = mainForm;
-            
+
             config = cfg;
             // Same workaround for removed _addEmptyNodeToTreeView
             // simply add an empty precondition to the cfg
@@ -116,7 +116,7 @@ namespace MobiFlight.UI.Dialogs
             // init the pin-type config panel
             List<ListItem> preconPinValues = new List<ListItem>() {
                 new ListItem() { Value = "0", Label = "Off" },
-                new ListItem() { Value = "1", Label = "On" },                
+                new ListItem() { Value = "1", Label = "On" },
             };
 
             preconditionPinValueComboBox.DataSource = preconPinValues;
@@ -135,7 +135,7 @@ namespace MobiFlight.UI.Dialogs
             if (!System.IO.File.Exists(Properties.Settings.Default.PresetFileOutputs))
             {
                 isLoaded = false;
-                MessageBox.Show(i18n._tr("uiMessageConfigWizard_PresetsNotFound"), i18n._tr("Hint"));             
+                MessageBox.Show(i18n._tr("uiMessageConfigWizard_PresetsNotFound"), i18n._tr("Hint"));
             }
             else
             {
@@ -149,7 +149,7 @@ namespace MobiFlight.UI.Dialogs
                 catch (Exception e)
                 {
                     isLoaded = false;
-                    MessageBox.Show(i18n._tr("uiMessageConfigWizard_ErrorLoadingPresets"), i18n._tr("Hint"));                    
+                    MessageBox.Show(i18n._tr("uiMessageConfigWizard_ErrorLoadingPresets"), i18n._tr("Hint"));
                 }
             }
         }
@@ -157,10 +157,10 @@ namespace MobiFlight.UI.Dialogs
         private void preparePreconditionPanel(DataSet dataSetConfig, String filterGuid)
         {
             _dataSetConfig = dataSetConfig;
-            DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid +"'");         
-   
+            DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid + "'");
+
             // this filters the current config
-            DataView dv = new DataView (dataSetConfig.Tables["config"]);
+            DataView dv = new DataView(dataSetConfig.Tables["config"]);
             dv.RowFilter = "guid <> '" + filterGuid + "'";
             preconditionConfigComboBox.DataSource = dv;
             preconditionConfigComboBox.ValueMember = "guid";
@@ -264,7 +264,7 @@ namespace MobiFlight.UI.Dialogs
                 {
                     // TODO: provide error message
                 }
-            }    
+            }
 
             // second tab
             if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
@@ -272,7 +272,7 @@ namespace MobiFlight.UI.Dialogs
                 // TODO: provide error message
                 Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
             }
-                        
+
             preconditionListTreeView.Nodes.Clear();
             foreach (Precondition p in config.Preconditions)
             {
@@ -289,7 +289,7 @@ namespace MobiFlight.UI.Dialogs
                 {
                     Log.Instance.log("An orphaned precondition has been found", LogSeverity.Error);
                     continue;
-                }                
+                }
             }
 
             configRefPanel.syncFromConfig(config);
@@ -302,8 +302,7 @@ namespace MobiFlight.UI.Dialogs
             // The selected input in the dropdown is the shift register details, which includes the
             // number of connected modules. That gets multiplied by 8 pins per module to get the total
             // number of available pins to populate.
-            Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
-            int totalPins = Convert.ToInt32(selectedInputShifter.NumModules) * 8;
+            int totalPins = numModules * 8;
 
             inputPinDropDown.Items.Clear();
             for (int i = 0; i < totalPins; i++)
@@ -311,14 +310,7 @@ namespace MobiFlight.UI.Dialogs
                 inputPinDropDown.Items.Add(i);
             }
 
-            if (config.inputShiftRegister != null)
-            {
-                inputPinDropDown.SelectedItem = config.inputShiftRegister.pin;
-            }
-            else
-            {
-                inputPinDropDown.SelectedItem = 0;
-            }
+            inputPinDropDown.SelectedItem = selectedPin ?? 0;
         }
 
         /// <summary>
@@ -347,7 +339,7 @@ namespace MobiFlight.UI.Dialogs
 
                 case DeviceType.InputShiftRegister:
                     config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
-                    if (config.inputShiftRegister == null) config.inputShiftRegister= new InputConfig.InputShiftRegisterConfig();
+                    if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
                     config.inputShiftRegister.pin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
@@ -374,7 +366,7 @@ namespace MobiFlight.UI.Dialogs
         private void okButton_Click(object sender, EventArgs e)
         {
             if (!ValidateChildren())
-            {              
+            {
                 return;
             }
             _syncFormToConfig();
@@ -402,7 +394,7 @@ namespace MobiFlight.UI.Dialogs
 
                 // update the available types depending on the 
                 // type of module
-                
+
                 inputTypeComboBox.Items.Clear();
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
                 foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
@@ -437,7 +429,7 @@ namespace MobiFlight.UI.Dialogs
                         }
                     }
                 }
-                
+
                 // third tab
                 if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
                 {
@@ -480,7 +472,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 bool panelEnabled = true;
                 // get the deviceinfo for the current arcaze
-                ComboBox cb = inputModuleNameComboBox;                
+                ComboBox cb = inputModuleNameComboBox;
                 String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
 
                 // we remove the callback method to ensure, that it is not added more than once
@@ -506,9 +498,10 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.InputShiftRegister:
+                        Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel();
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
-                        PopulateInputPinDropdown();
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.pin);
                         inputPinDropDown.Visible = true;
                         break;
                 }
@@ -523,16 +516,16 @@ namespace MobiFlight.UI.Dialogs
             catch (Exception exc)
             {
                 Log.Instance.log("InputConfigWizard.inputTypeComboBox_SelectedIndexChanged: EXC " + exc.Message, LogSeverity.Debug);
-                MessageBox.Show(i18n._tr("uiMessageNotImplementedYet"), 
-                                i18n._tr("Hint"), 
-                                MessageBoxButtons.OK, 
+                MessageBox.Show(i18n._tr("uiMessageNotImplementedYet"),
+                                i18n._tr("Hint"),
+                                MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
             }
         }
 
         void displayLedAddressComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox cb = inputModuleNameComboBox;                
+            ComboBox cb = inputModuleNameComboBox;
             String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
@@ -542,7 +535,8 @@ namespace MobiFlight.UI.Dialogs
             {
                 if (device.Type != DeviceType.LedModule) continue;
                 if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
-                for (int i = 0; i< (device as MobiFlightLedModule).SubModules; i++) {
+                for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++)
+                {
                     connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
                 }
             }
@@ -603,8 +597,8 @@ namespace MobiFlight.UI.Dialogs
 
         private void displayLedDisplayComboBox_Validating(object sender, CancelEventArgs e)
         {
-            if (inputTypeComboBox.Text == ArcazeLedDigit.TYPE)                
-            {                
+            if (inputTypeComboBox.Text == ArcazeLedDigit.TYPE)
+            {
                 try
                 {
                     int.Parse(displayLedDisplayPanel.displayLedAddressComboBox.Text);
@@ -617,7 +611,7 @@ namespace MobiFlight.UI.Dialogs
                     tabControlFsuipc.SelectedTab = displayTabPage;
                     displayLedDisplayPanel.displayLedAddressComboBox.Focus();
                     displayError(displayLedDisplayPanel.displayLedAddressComboBox, i18n._tr("uiMessageConfigWizard_ProvideLedDisplayAddress"));
-                }                
+                }
             }
         }
 
@@ -649,9 +643,9 @@ namespace MobiFlight.UI.Dialogs
         }
 
         private void preconditionRuleConfigPanel_Validating(object sender, CancelEventArgs e)
-        {            
+        {
         }
-        
+
         private void preconditionRefValueTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (!(preconditionRuleConfigPanel).Visible)
@@ -714,7 +708,8 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        private void preconditionPortComboBox_Validating(object sender, CancelEventArgs e) {
+        private void preconditionPortComboBox_Validating(object sender, CancelEventArgs e)
+        {
             if (!(preconditionPinPanel).Visible)
             {
                 removeError(preconditionPortComboBox);
@@ -733,7 +728,7 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-                
+
         private void tabControlFsuipc_SelectedIndexChanged(object sender, EventArgs e)
         {
             // check if running in test mode
@@ -743,7 +738,7 @@ namespace MobiFlight.UI.Dialogs
         private void preconditionListTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             preconditionListTreeView.SelectedNode = e.Node;
-            
+
 
             Precondition config = (e.Node.Tag as Precondition);
             preConditionTypeComboBox.SelectedValue = config.PreconditionType;
@@ -752,7 +747,7 @@ namespace MobiFlight.UI.Dialogs
             config.PreconditionActive = e.Node.Checked;
 
             aNDToolStripMenuItem.Checked = config.PreconditionLogic == "and";
-            oRToolStripMenuItem.Checked = config.PreconditionLogic == "or";            
+            oRToolStripMenuItem.Checked = config.PreconditionLogic == "or";
 
             // if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
 
@@ -760,7 +755,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 case "config":
                     try
-                    {                        
+                    {
                         preconditionConfigComboBox.SelectedValue = config.PreconditionRef;
                     }
                     catch (Exception exc)
@@ -774,7 +769,7 @@ namespace MobiFlight.UI.Dialogs
                     break;
 
                 case "pin":
-                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);                    
+                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
                     ComboBoxHelper.SetSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
                     preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;
                     preconditionPortComboBox.SelectedIndex = io.Port;
@@ -788,7 +783,7 @@ namespace MobiFlight.UI.Dialogs
             // sync the selected node with the current settings from the panels
             TreeNode selectedNode = preconditionListTreeView.SelectedNode;
             Precondition c = selectedNode.Tag as Precondition;
-            
+
             c.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
             switch (c.PreconditionType)
             {
@@ -798,19 +793,19 @@ namespace MobiFlight.UI.Dialogs
                     c.PreconditionValue = preconditionRefValueTextBox.Text;
                     c.PreconditionActive = true;
                     break;
-                
-                case "pin":                    
+
+                case "pin":
                     c.PreconditionSerial = preconditionPinSerialComboBox.Text;
                     c.PreconditionValue = preconditionPinValueComboBox.SelectedValue.ToString();
                     c.PreconditionPin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
                     c.PreconditionActive = true;
-                    break;                    
+                    break;
             }
 
             _updateNodeWithPrecondition(selectedNode, c);
-        }    
-    
-        private void _updateNodeWithPrecondition (TreeNode node, Precondition p) 
+        }
+
+        private void _updateNodeWithPrecondition(TreeNode node, Precondition p)
         {
             String label = p.PreconditionLabel;
             if (p.PreconditionType == "config")
@@ -822,13 +817,13 @@ namespace MobiFlight.UI.Dialogs
                     if (rows.Count() == 0) throw new IndexOutOfRangeException(); // an orphaned entry has been found
                     replaceString = rows[0]["description"] as String;
                 }
-                label = label.Replace("<Ref:" + p.PreconditionRef  + ">", replaceString);
+                label = label.Replace("<Ref:" + p.PreconditionRef + ">", replaceString);
             }
             else if (p.PreconditionType == "pin")
             {
                 label = label.Replace("<Serial:" + p.PreconditionSerial + ">", p.PreconditionSerial.Split('/')[0]);
             }
-            
+
             label = label.Replace("<Logic:and>", " (AND)").Replace("<Logic:or>", " (OR)");
             node.Checked = p.PreconditionActive;
             node.Tag = p;
@@ -856,7 +851,7 @@ namespace MobiFlight.UI.Dialogs
             else
                 p.PreconditionLogic = "or";
 
-            _updateNodeWithPrecondition(selectedNode, p);            
+            _updateNodeWithPrecondition(selectedNode, p);
         }
 
         private void removePreconditionToolStripMenuItem_Click(object sender, EventArgs e)
