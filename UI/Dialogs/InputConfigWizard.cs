@@ -338,19 +338,19 @@ namespace MobiFlight.UI.Dialogs
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
                     break;
 
-                case DeviceType.InputShiftRegister:
-                    config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
-                    if (config.inputShiftRegister == null) config.inputShiftRegister= new InputConfig.InputShiftRegisterConfig();
-                    config.inputShiftRegister.pin = (int)inputPinDropDown.SelectedItem;
-                    if (groupBoxInputSettings.Controls[0] != null)
-                        (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
-                    break;
-
                 case DeviceType.Encoder:
                     config.Type = InputConfigItem.TYPE_ENCODER;
                     if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
+                    break;
+
+                case DeviceType.InputShiftRegister:
+                    config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
+                    if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
+                    config.inputShiftRegister.pin = (int)inputPinDropDown.SelectedItem;
+                    if (groupBoxInputSettings.Controls[0] != null)
+                        (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
                     break;
 
                 case DeviceType.AnalogInput:
@@ -454,7 +454,7 @@ namespace MobiFlight.UI.Dialogs
             // find the correct input type based on the name
             foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
             {
-                if (device.Name != (inputTypeComboBox.SelectedItem as Config.BaseDevice).Name) continue;
+                if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
 
                 currentInputType = device.Type;
                 break;
