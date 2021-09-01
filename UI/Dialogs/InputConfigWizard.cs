@@ -298,13 +298,12 @@ namespace MobiFlight.UI.Dialogs
             preconditionListTreeView.Nodes.Add(tmpNode);
         }
 
-        private void PopulateInputPinDropdown()
+        private void PopulateInputPinDropdown(int numModules, int? selectedPin)
         {
             // The selected input in the dropdown is the shift register details, which includes the
             // number of connected modules. That gets multiplied by 8 pins per module to get the total
             // number of available pins to populate.
-            Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
-            int totalPins = Convert.ToInt32(selectedInputShifter.NumModules) * 8;
+            int totalPins = numModules * 8;
 
             inputPinDropDown.Items.Clear();
             for (int i = 0; i < totalPins; i++)
@@ -312,14 +311,7 @@ namespace MobiFlight.UI.Dialogs
                 inputPinDropDown.Items.Add(i);
             }
 
-            if (config.inputShiftRegister != null)
-            {
-                inputPinDropDown.SelectedItem = config.inputShiftRegister.pin;
-            }
-            else
-            {
-                inputPinDropDown.SelectedItem = 0;
-            }
+            inputPinDropDown.SelectedItem = selectedPin ?? 0;
         }
 
         /// <summary>
@@ -507,9 +499,10 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.InputShiftRegister:
+                        Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel();
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
-                        PopulateInputPinDropdown();
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.pin);
                         inputPinDropDown.Visible = true;
                         break;
                 }
