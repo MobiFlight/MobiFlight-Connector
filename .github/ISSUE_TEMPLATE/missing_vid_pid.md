@@ -1,7 +1,7 @@
 ---
 name: Missing VID/PID
 about: Submit new VID/PID for undetected Arduino board
-title: ''
+title: 'Add missing VID/PID'
 labels: ''
 assignees: ''
 
@@ -18,6 +18,6 @@ or entire ID:
 VID....&PID.....
 
 **Provide type of board**
-Arduino Mega 2560
-Arduino Pro Micro
-Arduino Uno
+- [ ] Arduino Mega 2560
+- [ ] Arduino Pro Micro
+- [ ] Arduino Uno
