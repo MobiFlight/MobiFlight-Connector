@@ -1,3 +1,12 @@
+---
+name: Missing VID/PID
+about: Submit new VID/PID for undetected Arduino board
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 I have a board that is not detected, please add it to MobiFlight with this information
 
 **Provide the VID / PID combination**
