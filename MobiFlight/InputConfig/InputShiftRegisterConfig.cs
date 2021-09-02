@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig
 {
+    // Since input shift registers are really just a bunch of buttons, deriving from ButtonInputConfig
+    // saves copying over a ton of code for reading/writing XML and executing actions and ensures its
+    // fundamental capabilities stay in sync with buttons.
     public class InputShiftRegisterConfig : ButtonInputConfig
     {
         public int pin;
@@ -29,6 +32,27 @@ namespace MobiFlight.InputConfig
         {
             writer.WriteAttributeString("pin", pin.ToString());
             base.WriteXml(writer);
+        }
+
+        public new Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+
+            result["Input.InputShiftRegister"] = 1;
+
+            if (onPress != null)
+            {
+                result["Input.OnPress"] = 1;
+                result["Input." + onPress.GetType().Name] = 1;
+            }
+
+            if (onRelease != null)
+            {
+                result["Input.OnPress"] = 1;
+                result["Input." + onRelease.GetType().Name] = 1;
+            }
+
+            return result;
         }
     }
 }
