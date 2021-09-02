@@ -146,6 +146,10 @@ namespace MobiFlight.UI.Panels.Action
                 errorMessage = oEx.Message;
                 e.Cancel = true;
             }
+            catch (Exception)
+            {
+                // Issue 467: Do nothing in this situation since the text box also allows variable replacement
+            }
 
             if (e.Cancel)
             {
