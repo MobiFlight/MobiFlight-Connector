@@ -50,7 +50,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             mfPin1ComboBox.SelectedValue = byte.Parse(shiftRegister.LatchPin);
             mfPin2ComboBox.SelectedValue = byte.Parse(shiftRegister.ClockPin);
-            mfPin3ComboBox.SelectedIndex = byte.Parse(shiftRegister.DataPin);
+            mfPin3ComboBox.SelectedValue = byte.Parse(shiftRegister.DataPin);
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, shiftRegister.NumModules);
             
             textBox1.Text = shiftRegister.Name;
