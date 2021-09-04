@@ -1185,21 +1185,21 @@ namespace MobiFlight.UI
                     // comparison
                     if (row["comparison"].GetType() != typeof(System.DBNull))
                     {
-                        cfgItem.ComparisonActive = true;
-                        cfgItem.ComparisonOperand = row["comparison"].ToString();
+                        cfgItem.Comparison.Active = true;
+                        cfgItem.Comparison.Operand = row["comparison"].ToString();
                     }
 
                     if (row["comparisonValue"].GetType() != typeof(System.DBNull))
                     {
-                        cfgItem.ComparisonValue = row["comparisonValue"].ToString();
+                        cfgItem.Comparison.Value = row["comparisonValue"].ToString();
                     }
 
                     if (row["converter"].GetType() != typeof(System.DBNull))
                     {
                         if (row["converter"].ToString() == "Boolean")
                         {
-                            cfgItem.ComparisonIfValue = "1";
-                            cfgItem.ComparisonElseValue = "0";
+                            cfgItem.Comparison.IfValue = "1";
+                            cfgItem.Comparison.ElseValue = "0";
                         }
                     }
 
@@ -1211,7 +1211,7 @@ namespace MobiFlight.UI
                     if (row["usbArcazePin"].GetType() != typeof(System.DBNull))
                     {
                         cfgItem.DisplayType = "Pin";
-                        cfgItem.DisplayPin = row["usbArcazePin"].ToString();
+                        cfgItem.Pin.DisplayPin = row["usbArcazePin"].ToString();
                     }
 
                     if (row["arcazeSerial"].GetType() != typeof(System.DBNull))

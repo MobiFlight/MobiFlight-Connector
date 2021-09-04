@@ -62,8 +62,12 @@ namespace MobiFlight.UI.Panels
                 // Show used Button
                 // Show Type of Output
                 // Show last set value
-                SettingsChanged?.Invoke(cfg, null);
-                RestoreValuesInGridView();
+                // do something special
+                if (wizard.ConfigHasChanged())
+                {
+                    SettingsChanged?.Invoke(cfg, null);
+                    RestoreValuesInGridView();
+                }
             };
         }
 
@@ -388,7 +392,7 @@ namespace MobiFlight.UI.Panels
             if (row.RowState != DataRowState.Unchanged || inputsDataGridView.IsCurrentRowDirty)
             {
                 // do something special
-                SettingsChanged?.Invoke(sender, null);
+                // SettingsChanged?.Invoke(sender, null);
             }
         }
     }

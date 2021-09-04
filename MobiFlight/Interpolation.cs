@@ -18,8 +18,8 @@ namespace MobiFlight
         public double Max { get { return max; } }
         public double Min { get { return min; } }
         public bool Active { get; set; }
-        protected double max;
-        protected double min;
+        protected double max = double.MinValue;
+        protected double min = double.MaxValue;
 
         public Interpolation()
         {
@@ -142,6 +142,25 @@ namespace MobiFlight
             if (x1 == x2) return y1;
             // this can not throw a division by zero exception
             return y1 + ((y2 - y1) / (x2 - x1)) * (value - x1);
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool entriesAreSame = (Values.Count == (obj as Interpolation).Count);
+            if (entriesAreSame)
+            {
+                foreach (double x in Values.Keys)
+                {
+                    entriesAreSame = entriesAreSame && ((obj as Interpolation).Values.ContainsKey(x) && Values[x] == (obj as Interpolation).Values[x]);
+                }
+            }
+
+            return
+                obj != null && obj is Interpolation && 
+                Max == (obj as Interpolation).Max &&
+                Min == (obj as Interpolation).Min &&
+                Count == (obj as Interpolation).Count &&
+                entriesAreSame;
         }
     }
 

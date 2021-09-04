@@ -10,6 +10,66 @@ namespace MobiFlightUnitTests
     [TestClass]
     public class InterpolationTests
     {
+
+        [TestMethod]
+        public void CloneTest()
+        {
+            Interpolation o = new Interpolation();
+            Interpolation clone = o.Clone() as Interpolation;
+
+            Assert.AreEqual(o.Max, clone.Max);
+            Assert.AreEqual(o.Min, clone.Min);
+            Assert.AreEqual(o.Active, clone.Active);
+            Assert.AreEqual(o.Count, clone.Count);
+
+            float x1 = 0.1f; float y1 = 0.1f;
+            float x3 = 0.5f; float y3 = 2.0f;
+            float x2 = 1.0f; float y2 = 1.0f;
+
+            o.Active = true;
+            o.Add(x1, y1);
+            o.Add(x2, y2);
+            o.Add(x3, y3);
+
+            Assert.AreNotEqual(o.Max, clone.Max);
+            Assert.AreNotEqual(o.Min, clone.Min);
+            Assert.AreNotEqual(o.Active, clone.Active);
+            Assert.AreNotEqual(o.Count, clone.Count);
+
+            clone = o.Clone() as Interpolation;
+
+            Assert.AreEqual(o.Max, clone.Max);
+            Assert.AreEqual(o.Min, clone.Min);
+            Assert.AreEqual(o.Active, clone.Active);
+            Assert.AreEqual(o.Count, clone.Count);
+        }
+
+        [TestMethod]
+        public void EqualsTest()
+        {
+            Interpolation o1 = new Interpolation();
+            Interpolation o2 = new Interpolation();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            float x1 = 0.1f; float y1 = 0.1f;
+            float x3 = 0.5f; float y3 = 2.0f;
+            float x2 = 1.0f; float y2 = 1.0f;
+            o1.Active = true;
+            o1.Add(x1, y1);
+            o1.Add(x2, y2);
+            o1.Add(x3, y3);
+
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2.Active = true;
+            o2.Add(x1, y1);
+            o2.Add(x2, y2);
+            o2.Add(x3, y3);
+            Assert.IsTrue(o1.Equals(o2));
+
+        }
+
         [TestMethod]
         public void InterpolationIsDoneCorrectly()
         {

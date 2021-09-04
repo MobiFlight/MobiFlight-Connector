@@ -87,5 +87,24 @@ namespace MobiFlight.OutputConfig.Tests
 
             Assert.AreEqual(s, result, "The both strings are not equal");
         }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            LcdDisplay o1 = new LcdDisplay();
+            LcdDisplay o2 = new LcdDisplay();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1.Address = "123";
+            o1.Lines.Add("Line1");
+
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2.Address = "123";
+            o2.Lines.Add("Line1");
+
+            Assert.IsTrue(o1.Equals(o2));
+        }
     }
 }

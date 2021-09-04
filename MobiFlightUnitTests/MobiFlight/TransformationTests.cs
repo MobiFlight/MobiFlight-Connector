@@ -115,5 +115,19 @@ namespace MobiFlight.Tests
             t.SubStrEnd = 5;
             return t;
         }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            Transformation o1 = new Transformation();
+            Transformation o2 = new Transformation();
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+            Assert.IsTrue(o1.Equals(o2));
+        }
     }
 }

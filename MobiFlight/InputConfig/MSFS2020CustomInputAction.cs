@@ -67,5 +67,11 @@ namespace MobiFlight.InputConfig
 
             simConnectCache.SetSimVar(value);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is MSFS2020CustomInputAction &&
+                Command == (obj as MSFS2020CustomInputAction).Command;
+        }
     }
 }

@@ -130,6 +130,22 @@ namespace MobiFlight
             return clone;
         }
 
+        public override bool Equals(object obj)
+        {
+            return 
+                obj != null && obj is Precondition &&
+                PreconditionType ==  (obj as Precondition).PreconditionType &&
+                PreconditionActive == (obj as Precondition).PreconditionActive &&
+                PreconditionRef == (obj as Precondition).PreconditionRef &&
+                PreconditionSerial == (obj as Precondition).PreconditionSerial &&
+                PreconditionPin == (obj as Precondition).PreconditionPin &&
+                PreconditionOperand == (obj as Precondition).PreconditionOperand &&
+                PreconditionValue == (obj as Precondition).PreconditionValue &&
+                PreconditionLogic == (obj as Precondition).PreconditionLogic &&
+                preconditionLabel == (obj as Precondition).preconditionLabel
+            ;
+        }
+
         override public string ToString()
         {
             return this.PreconditionLabel;

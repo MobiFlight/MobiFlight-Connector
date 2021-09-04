@@ -40,10 +40,10 @@ namespace MobiFlight
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("transformation");
-            writer.WriteAttributeString("active", Active.ToString());
-            writer.WriteAttributeString("expression", Expression);
-            writer.WriteAttributeString("substrStart", SubStrStart.ToString());
-            writer.WriteAttributeString("substrEnd", SubStrEnd.ToString());
+                writer.WriteAttributeString("active", Active.ToString());
+                writer.WriteAttributeString("expression", Expression);
+                writer.WriteAttributeString("substrStart", SubStrStart.ToString());
+                writer.WriteAttributeString("substrEnd", SubStrEnd.ToString());
             writer.WriteEndElement();
         }
 
@@ -55,6 +55,16 @@ namespace MobiFlight
             Clone.SubStrStart = SubStrStart;
             Clone.SubStrEnd = SubStrEnd;
             return Clone;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return
+                obj != null && obj is Transformation &&
+                this.Active == (obj as Transformation).Active &&
+                this.Expression == (obj as Transformation).Expression &&
+                this.SubStrStart == (obj as Transformation).SubStrStart &&
+                this.SubStrEnd == (obj as Transformation).SubStrEnd;
         }
 
         public double Apply(double value, List<ConfigRefValue> configRefs)

@@ -9,6 +9,6 @@ namespace MobiFlight.Config
 {
     interface IConfigRefConfigItem
     {
-        List<ConfigRef> ConfigRefs { get; set; }
+        ConfigRefList ConfigRefs { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace MobiFlight.InputConfig.Tests
         public void CloneTest()
         {
             EventIdInputAction o = generateTestObject();
-            EventIdInputAction c = (EventIdInputAction) o.Clone();
+            EventIdInputAction c = (EventIdInputAction)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
             Assert.AreEqual(o.EventId, c.EventId, "EventId not the same");
             Assert.AreEqual(o.Param, c.Param, "Param not the same");
@@ -45,9 +45,9 @@ namespace MobiFlight.InputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.EventId, Int32.MaxValue, "EventId not the same");
-            Assert.AreEqual(o.Param, (Int32.MaxValue-1).ToString(), "Param not the same");
+            Assert.AreEqual(o.Param, (Int32.MaxValue - 1).ToString(), "Param not the same");
         }
-        
+
         [TestMethod()]
         public void WriteXmlTest()
         {
@@ -90,6 +90,22 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreEqual(1, mock.Writes.Count, "The message count is not as expected");
             Assert.AreEqual("SetEventID>" + o.EventId + ">" + 2, mock.Writes[0].Value, "The Write Value is wrong");
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            EventIdInputAction o1 = new EventIdInputAction();
+            EventIdInputAction o2 = new EventIdInputAction();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

@@ -19,6 +19,22 @@ namespace MobiFlight.OutputConfig
             Lines = new List<string>();
         }
 
+        public override bool Equals(object obj)
+        {
+            bool linesAreEqual = true && Lines.Count == (obj as LcdDisplay).Lines.Count;
+            if (linesAreEqual)
+            for(int i=0; i!=Lines.Count; i++)
+            {
+                 linesAreEqual = linesAreEqual && (Lines[i] == (obj as LcdDisplay).Lines[i]);
+            }
+            
+            return (
+                obj != null && obj is LcdDisplay &&
+                this.Address == (obj as LcdDisplay).Address &&
+                linesAreEqual
+            );
+        }
+
         public object Clone()
         {
             LcdDisplay clone = new LcdDisplay();

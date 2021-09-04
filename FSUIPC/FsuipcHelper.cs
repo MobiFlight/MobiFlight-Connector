@@ -153,21 +153,21 @@ namespace MobiFlight.FSUIPC
             /*if (connectorValue.type == FSUIPCOffsetType.UnsignedInt) value = connectorValue.Uint64;*/
             if (connectorValue.type == FSUIPCOffsetType.Float) value = connectorValue.Float64;
 
-            if (!cfg.ComparisonActive)
+            if (!cfg.Comparison.Active)
             {
                 return value.ToString();
             }
 
-            if (cfg.ComparisonValue == "")
+            if (cfg.Comparison.Value == "")
             {
                 return value.ToString();
             }
 
-            Double comparisonValue = Double.Parse(cfg.ComparisonValue);
-            string comparisonIfValue = cfg.ComparisonIfValue != "" ? cfg.ComparisonIfValue : value.ToString();
-            string comparisonElseValue = cfg.ComparisonElseValue != "" ? cfg.ComparisonElseValue : value.ToString();
+            Double comparisonValue = Double.Parse(cfg.Comparison.Value);
+            string comparisonIfValue = cfg.Comparison.IfValue != "" ? cfg.Comparison.IfValue : value.ToString();
+            string comparisonElseValue = cfg.Comparison.ElseValue != "" ? cfg.Comparison.ElseValue : value.ToString();
 
-            switch (cfg.ComparisonOperand)
+            switch (cfg.Comparison.Operand)
             {
                 case "!=":
                     result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
@@ -216,16 +216,16 @@ namespace MobiFlight.FSUIPC
             string result = connectorValue.String;
             string value = connectorValue.String;
 
-            if (!cfg.ComparisonActive)
+            if (!cfg.Comparison.Active)
             {
                 return connectorValue.String;
             }
 
-            string comparisonValue = cfg.ComparisonValue;
-            string comparisonIfValue = cfg.ComparisonIfValue;
-            string comparisonElseValue = cfg.ComparisonElseValue;
+            string comparisonValue = cfg.Comparison.Value;
+            string comparisonIfValue = cfg.Comparison.IfValue;
+            string comparisonElseValue = cfg.Comparison.ElseValue;
 
-            switch (cfg.ComparisonOperand)
+            switch (cfg.Comparison.Operand)
             {
                 case "!=":
                     result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;

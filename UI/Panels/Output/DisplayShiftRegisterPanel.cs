@@ -38,7 +38,7 @@ namespace MobiFlight.UI.Panels
 
             if (config.RegisterOutputPin != null) {
                 OutputConfigItem cfg = config.Clone() as OutputConfigItem;
-                cfg.DisplayPin = config.RegisterOutputPin;
+                cfg.Pin.DisplayPin = config.RegisterOutputPin;
                 displayPinPanel.syncFromConfig(cfg);
             }
         }
@@ -82,7 +82,7 @@ namespace MobiFlight.UI.Panels
             OutputConfigItem cfg = config.Clone() as OutputConfigItem;
             cfg = displayPinPanel.syncToConfig(cfg);
 
-            config.RegisterOutputPin = cfg.DisplayPin;
+            config.RegisterOutputPin = cfg.Pin.DisplayPin;
             return config;
         }
         internal void SetNumModules(int num8bitRegisters)

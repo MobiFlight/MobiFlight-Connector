@@ -38,27 +38,27 @@ namespace MobiFlight.UI.Panels
         internal void syncFromConfig(OutputConfigItem config)
         {
             // stepper initialization
-            if (!ComboBoxHelper.SetSelectedItem(stepperAddressesComboBox, config.StepperAddress))
+            if (!ComboBoxHelper.SetSelectedItem(stepperAddressesComboBox, config.Stepper.Address))
             {
                 // TODO: provide error message
                 Log.Instance.log("_syncConfigToForm : Exception on selecting item in Stepper Address ComboBox", LogSeverity.Debug);
             }
 
-            if (config.StepperInputRev != null) inputRevTextBox.Text = config.StepperInputRev;
-            if (config.StepperOutputRev != null) outputRevTextBox.Text = config.StepperOutputRev;
-            if (config.StepperTestValue != null) stepperTestValueTextBox.Text = config.StepperTestValue;
-            CompassModeCheckBox.Checked = config.StepperCompassMode;
+            if (config.Stepper.InputRev != null) inputRevTextBox.Text = config.Stepper.InputRev;
+            if (config.Stepper.OutputRev != null) outputRevTextBox.Text = config.Stepper.OutputRev;
+            if (config.Stepper.TestValue != null) stepperTestValueTextBox.Text = config.Stepper.TestValue;
+            CompassModeCheckBox.Checked = config.Stepper.CompassMode;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             if (stepperAddressesComboBox.SelectedValue != null)
             {
-                config.StepperAddress = stepperAddressesComboBox.SelectedValue.ToString();
-                config.StepperInputRev = inputRevTextBox.Text;
-                config.StepperOutputRev = outputRevTextBox.Text;
-                config.StepperTestValue = stepperTestValueTextBox.Text;
-                config.StepperCompassMode = CompassModeCheckBox.Checked;
+                config.Stepper.Address = stepperAddressesComboBox.SelectedValue.ToString();
+                config.Stepper.InputRev = inputRevTextBox.Text;
+                config.Stepper.OutputRev = outputRevTextBox.Text;
+                config.Stepper.TestValue = stepperTestValueTextBox.Text;
+                config.Stepper.CompassMode = CompassModeCheckBox.Checked;
             }
             return config;
         }

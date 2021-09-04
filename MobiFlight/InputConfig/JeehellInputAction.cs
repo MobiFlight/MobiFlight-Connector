@@ -163,5 +163,12 @@ namespace MobiFlight.InputConfig
             FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), cache as FSUIPC.FSUIPCCacheInterface);
             cache.Write();
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is JeehellInputAction &&
+                EventId == (obj as JeehellInputAction).EventId &&
+                Param == (obj as JeehellInputAction).Param;
+        }
     }
 }

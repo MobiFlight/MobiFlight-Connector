@@ -50,5 +50,11 @@ namespace MobiFlight.InputConfig
         {
             simConnectCache.setEventID(EventId);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is MSFS2020EventIdInputAction &&
+                EventId == (obj as MSFS2020EventIdInputAction).EventId;
+        }
     }
 }

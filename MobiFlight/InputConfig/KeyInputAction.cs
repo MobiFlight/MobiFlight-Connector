@@ -61,5 +61,14 @@ namespace MobiFlight.InputConfig
             else
                 KeyboardInput.SendKeyAsInput(Key, Control, Alt, Shift);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is KeyInputAction &&
+                Key == (obj as KeyInputAction).Key &&
+                Alt == (obj as KeyInputAction).Alt &&
+                Shift == (obj as KeyInputAction).Shift &&
+                Control == (obj as KeyInputAction).Control;
+        }
     }
 }

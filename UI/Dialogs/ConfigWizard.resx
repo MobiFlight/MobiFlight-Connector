@@ -142,7 +142,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=8.2.0.5, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>referencesGroupBox</value>
@@ -199,7 +199,7 @@
     <value>variablePanel1</value>
   </data>
   <data name="&gt;&gt;variablePanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=8.2.0.5, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;variablePanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -235,7 +235,7 @@
     <value>simConnectPanel1</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=8.2.0.5, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -265,7 +265,7 @@
     <value>fsuipcConfigPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=8.2.0.5, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>FsuipcSettingsPanel</value>
@@ -547,7 +547,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=8.2.0.5, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -1871,7 +1871,7 @@
     <value>117, 177</value>
   </data>
   <data name="preconditionApplyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>293, 23</value>
+    <value>294, 23</value>
   </data>
   <data name="preconditionApplyButton.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -2085,7 +2085,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACM
-        CgAAAk1TRnQBSQFMAgEBAgEAASABBQEgAQUBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CgAAAk1TRnQBSQFMAgEBAgEAAUgBBQFIAQUBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6

@@ -107,5 +107,15 @@ namespace MobiFlight.InputConfig
             writer.WriteAttributeString("Axis",axisString);
             writer.WriteAttributeString("axisVal", sendValue);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is VJoyInputAction &&
+                axisString == (obj as VJoyInputAction).axisString &&
+                 buttonNr == (obj as VJoyInputAction).buttonNr &&
+                 vJoyID == (obj as VJoyInputAction).vJoyID &&
+                 buttonComand == (obj as VJoyInputAction).buttonComand &&
+                 sendValue == (obj as VJoyInputAction).sendValue;
+        }
     }
 }

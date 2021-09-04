@@ -17,7 +17,7 @@ namespace MobiFlight.InputConfig.Tests
         public void CloneTest()
         {
             EncoderInputConfig o = generateTestObject();
-            EncoderInputConfig c = (EncoderInputConfig) o.Clone();
+            EncoderInputConfig c = (EncoderInputConfig)o.Clone();
 
             Assert.AreNotSame(o, c, "Objects are the same");
             Assert.AreEqual((o.onLeft as FsuipcOffsetInputAction).FSUIPC.Offset, (c.onLeft as FsuipcOffsetInputAction).FSUIPC.Offset, "onLeft are not cloned correctly");
@@ -32,7 +32,7 @@ namespace MobiFlight.InputConfig.Tests
             EncoderInputConfig o = generateTestObject();
             Assert.IsNull(o.GetSchema());
         }
-        
+
         [TestMethod()]
         public void ReadXmlTest()
         {
@@ -78,11 +78,27 @@ namespace MobiFlight.InputConfig.Tests
         {
             EncoderInputConfig result = new EncoderInputConfig();
             result.onLeft = new FsuipcOffsetInputAction() { FSUIPC = new OutputConfig.FsuipcOffset() { Offset = 0x1234 } };
-            result.onLeftFast = new KeyInputAction() { Alt = true, Control = true, Key = System.Windows.Forms.Keys.A , Shift = true  };
+            result.onLeftFast = new KeyInputAction() { Alt = true, Control = true, Key = System.Windows.Forms.Keys.A, Shift = true };
             result.onRight = new EventIdInputAction() { EventId = 123456, Param = "1" };
-            result.onRightFast = new VJoyInputAction() { axisString = "Z", buttonComand = true, buttonNr = 1, sendValue = "sendValue", vJoyID = 1  };
+            result.onRightFast = new VJoyInputAction() { axisString = "Z", buttonComand = true, buttonNr = 1, sendValue = "sendValue", vJoyID = 1 };
 
             return result;
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            EncoderInputConfig o1 = new EncoderInputConfig();
+            EncoderInputConfig o2 = new EncoderInputConfig();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

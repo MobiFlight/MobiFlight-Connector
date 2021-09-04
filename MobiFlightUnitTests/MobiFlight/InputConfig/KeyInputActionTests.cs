@@ -92,5 +92,21 @@ namespace MobiFlight.InputConfig.Tests
             o.Key = Keys.A;
             return o;
         }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            KeyInputAction o1 = new KeyInputAction();
+            KeyInputAction o2 = new KeyInputAction();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
+        }
     }
 }
