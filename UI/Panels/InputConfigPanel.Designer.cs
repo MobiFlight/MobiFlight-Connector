@@ -164,6 +164,7 @@
             this.inputsDataGridView.RowTemplate.Height = 26;
             this.inputsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.inputsDataGridView.ShowEditingIcon = false;
+            this.inputsDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.inputsDataGridView_CellBeginEdit);
             this.inputsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellContentClick);
             this.inputsDataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellContentDoubleClick);
             this.inputsDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellEndEdit);

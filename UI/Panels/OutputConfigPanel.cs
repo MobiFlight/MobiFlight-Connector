@@ -539,9 +539,9 @@ namespace MobiFlight.UI.Panels
             DataRow row = rowview.Row;
             if (EditedItem != null &&
                 (   // this is the checkbox
-                    row.ItemArray[0]!= EditedItem[0] || 
+                    (bool)row.ItemArray[0]!= (bool)EditedItem[0] || 
                     // this is the description text
-                    row.ItemArray[9] != EditedItem[9])
+                    row.ItemArray[9] as string != EditedItem[9] as string)
             )
             {
                 SettingsChanged?.Invoke(sender, null);
