@@ -34,7 +34,7 @@ private:
     uint8_t _latchPin;	    // Latch pin
     uint8_t _clockPin;	    // Clock pin
     uint8_t _dataPin;	    // Data/SI pin
-    uint8_t _moduleCount;   // Number of 9 bit modules in series. For a shift register with 16 bit one needs to select 2 modules a 8......
+    uint8_t _moduleCount;   // Number of 8 bit modules in series. For a shift register with 16 bit one needs to select 2 modules a 8......
     unsigned long _output;  // Max 4 modules for now = 32 bit
     bool _initialized = false;
 };
