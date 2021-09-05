@@ -21,7 +21,7 @@ namespace MobiFlight.InputConfig
         public const String TYPE = "JeehellInputAction";
 
         public Byte EventId;
-        public String Param;
+        public String Param = "";
         
         override public object Clone()
         {

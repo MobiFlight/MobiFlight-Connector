@@ -131,16 +131,16 @@ namespace MobiFlight.UI.Panels.Action
 
             try
             {
-                Int32.Parse(tb.Text);
-            }
-            // we removed this format exception because we allow formulae now
-            /* catch (FormatException fEx)
-            {
+                if ((sender as TextBox) == eventIdTextBox)
+                    Int32.Parse(tb.Text);
 
+                // we removed this format exception because we allow formulae now
+            }
+            catch (FormatException fEx)
+            {              
                 e.Cancel = true;
                 errorMessage = fEx.Message;
-
-            } */
+            }
             catch (OverflowException oEx)
             {
                 errorMessage = oEx.Message;
