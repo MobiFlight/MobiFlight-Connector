@@ -74,7 +74,7 @@ namespace MobiFlight.InputConfig.Tests
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
             o.execute(mock, simConnectMock, null, null, null);
             Assert.AreEqual(simConnectMock.Writes.Count, 1, "The message count is not as expected");
-            Assert.AreEqual(simConnectMock.Writes[0].Value, "SetEventID>MyEventId", "The Write Value is wrong");
+            Assert.AreEqual(simConnectMock.Writes[0], "SetEventID>MyEventId", "The Write Value is wrong");
         }
 
         [TestMethod()]

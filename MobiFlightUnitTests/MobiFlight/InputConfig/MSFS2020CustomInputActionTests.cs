@@ -33,5 +33,24 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        [TestMethod()]
+        public void executeTest()
+        {
+            MSFS2020CustomInputAction o = generateTestObject();
+            o.Command = "@ (>K:THROTTLE_SET)";
+
+            List<ConfigRefValue> configrefs = new List<ConfigRefValue>();
+            configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
+
+
+            MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
+            MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
+            
+            o.execute(mock, simConnectMock, null, new InputEventArgs() { Value = 359 }, configrefs);
+            
+            Assert.AreEqual(simConnectMock.Writes.Count, 1, "The message count is not as expected");
+            Assert.AreEqual(simConnectMock.Writes[0], "359 (>K:THROTTLE_SET)", "The Write Value is wrong");
+        }
     }
 }

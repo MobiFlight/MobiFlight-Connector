@@ -68,6 +68,18 @@ namespace MobiFlight.InputConfig
             simConnectCache.SetSimVar(value);
         }
 
+        public override string Replace(string expression, List<Tuple<string, string>> replacements)
+        {
+            if (replacements.Count == 0) return expression;
+
+            foreach (Tuple<string, string> replacement in replacements)
+            {
+                expression = expression.Replace(replacement.Item1, replacement.Item2);
+            }
+
+            return expression;
+        }
+
         public override bool Equals(object obj)
         {
             return obj != null && obj is MSFS2020CustomInputAction &&
