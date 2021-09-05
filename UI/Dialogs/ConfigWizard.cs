@@ -73,7 +73,8 @@ namespace MobiFlight.UI.Dialogs
             // Until with have the preconditions completely refactored,
             // add an empty precondition in case the current cfg doesn't have one
             // we removed addEmptyNode but add an empty Precondition here
-            if (cfg.Preconditions.Count == 0) cfg.Preconditions.Add(new Precondition());
+            if (cfg.Preconditions.Count == 0) 
+                cfg.Preconditions.Add(new Precondition());
 
             originalConfig = cfg.Clone() as OutputConfigItem;
             InitializeComponent();

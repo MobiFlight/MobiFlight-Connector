@@ -78,7 +78,8 @@ namespace MobiFlight.UI.Dialogs
             config = cfg;
             // Same workaround for removed _addEmptyNodeToTreeView
             // simply add an empty precondition to the cfg
-            config.Preconditions.Add(new Precondition());
+            if (config.Preconditions.Count == 0)
+                config.Preconditions.Add(new Precondition());
 
 
             originalConfig = config.Clone() as InputConfigItem;
