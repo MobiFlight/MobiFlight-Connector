@@ -141,6 +141,21 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
             Assert.AreEqual(Math.Floor((359 * 359 / 1023f)).ToString(), mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
+
+            // test https://github.com/Mobiflight/MobiFlight-Connector/issues/340
+            mock.Clear();
+            o.Value = "Potatosalad1*2+$/126";
+            configrefs = new List<ConfigRefValue>();
+
+            try
+            {
+                o.execute(mock, simConnectMock, null, new InputEventArgs() { Value = 359 }, configrefs);
+                Assert.Fail();
+            }
+            catch (FormatException ex)
+            {
+                Assert.AreEqual(0, mock.Writes.Count, "The message count is not as expected");
+            }
         }
 
         [TestMethod()]
