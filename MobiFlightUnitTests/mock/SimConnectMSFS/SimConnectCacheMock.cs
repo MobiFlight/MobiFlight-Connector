@@ -9,8 +9,8 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
 {
     class SimConnectCacheMock : SimConnectCacheInterface
     {
-        public List<FSUIPCMockOffset> Writes = new List<FSUIPCMockOffset>();
-        public List<FSUIPCMockOffset> Reads = new List<FSUIPCMockOffset>();
+        public List<String> Writes = new List<String>();
+        public List<String> Reads = new List<String>();
         public void Clear()
         {
             return;
@@ -58,37 +58,37 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
 
         public void setOffset(int offset, byte value)
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = offset, Value = value.ToString() });
+           
             return;
         }
 
         public void setOffset(int offset, short value)
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = offset, Value = value.ToString() });
+           
             return;
         }
 
         public void setOffset(int offset, int value, bool writeOnly)
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = offset, Value = value.ToString() });
+           
             return;
         }
 
         public void setOffset(int offset, float value)
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = offset, Value = value.ToString() });
+            Writes.Add(value.ToString());
             return;
         }
 
         public void setOffset(int offset, double value)
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = offset, Value = value.ToString() });
+            Writes.Add(value.ToString());
             return;
         }
 
         public void setOffset(int offset, string value)
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = offset, Value = value.ToString() });
+            Writes.Add(value.ToString());
             return;
         }
 
@@ -100,24 +100,25 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
 
         public void setEventID(int eventID, int param)
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID>" + eventID + ">" + param });
+            Writes.Add("SetEventID>" + eventID + ">" + param);
             return;
         }
 
         public void setEventID(string eventID)
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "SetEventID>" + eventID });
+            Writes.Add("SetEventID>" + eventID);
             return;
         }
 
         public void Write()
         {
-            Writes.Add(new FSUIPCMockOffset() { Offset = 0x0, Value = "Write" });
+            Writes.Add("Write");
             return;
         }
 
         public void SetSimVar(string SimVarCode)
         {
+            Writes.Add(SimVarCode);
             return;
         }
     }

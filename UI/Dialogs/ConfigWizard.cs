@@ -23,6 +23,7 @@ namespace MobiFlight.UI.Dialogs
         int displayPanelHeight = -1;
         List<UserControl> displayPanels = new List<UserControl>();
         OutputConfigItem config = null;
+        OutputConfigItem originalConfig = null;
         ErrorProvider errorProvider = new ErrorProvider();
         DataSet _dataSetConfig = null;
 
@@ -59,10 +60,23 @@ namespace MobiFlight.UI.Dialogs
             preparePreconditionPanel(dataSetConfig, filterGuid);            
         }
 
+        public bool ConfigHasChanged()
+        {
+            return !originalConfig.Equals(config);
+        }
+
         protected void Init(ExecutionManager mainForm, OutputConfigItem cfg)
         {
             this._execManager = mainForm;
             config = cfg;
+
+            // Until with have the preconditions completely refactored,
+            // add an empty precondition in case the current cfg doesn't have one
+            // we removed addEmptyNode but add an empty Precondition here
+            if (cfg.Preconditions.Count == 0) 
+                cfg.Preconditions.Add(new Precondition());
+
+            originalConfig = cfg.Clone() as OutputConfigItem;
             InitializeComponent();
             comparisonSettingsPanel.Enabled = false;
             
@@ -205,7 +219,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 serial = serial.Split('/')[1].Trim();
             }
-            _execManager.getMobiFlightModuleCache().resetStepper(serial, config.StepperAddress);
+            _execManager.getMobiFlightModuleCache().resetStepper(serial, config.Stepper.Address);
         }
 
         void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
@@ -223,18 +237,18 @@ namespace MobiFlight.UI.Dialogs
 
             MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
                                                     .GetModuleBySerial(serial)
-                                                    .GetStepper(config.StepperAddress);
+                                                    .GetStepper(config.Stepper.Address);
 
             int CurrentValue = stepper.Position();
             int NextValue = (CurrentValue + e.Steps);
 
             _execManager.getMobiFlightModuleCache().setStepper(
                 serial,
-                config.StepperAddress,
+                config.Stepper.Address,
                 (NextValue).ToString(),
-                Int16.Parse(config.StepperOutputRev),
-                Int16.Parse(config.StepperOutputRev),
-                config.StepperCompassMode
+                Int16.Parse(config.Stepper.OutputRev),
+                Int16.Parse(config.Stepper.OutputRev),
+                config.Stepper.CompassMode
             );
             
         }        
@@ -403,27 +417,22 @@ namespace MobiFlight.UI.Dialogs
             overridePreconditionCheckBox.Checked = config.Preconditions.ExecuteOnFalse;
             overridePreconditionTextBox.Text = config.Preconditions.FalseCaseValue;
 
-            if (preconditionListTreeView.Nodes.Count == 0)
-            {
-                _addEmptyNodeToTreeView();
-            }
-
             return true;
         }
 
         private void _syncComparisonTabFromConfig(OutputConfigItem config)
         {
             // second tab
-            comparisonActiveCheckBox.Checked = config.ComparisonActive;
-            comparisonValueTextBox.Text = config.ComparisonValue;
+            comparisonActiveCheckBox.Checked = config.Comparison.Active;
+            comparisonValueTextBox.Text = config.Comparison.Value;
 
-            if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.ComparisonOperand))
+            if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.Comparison.Operand))
             {
                 // TODO: provide error message
                 Log.Instance.log("_syncConfigToForm : Exception on selecting item in Comparison ComboBox", LogSeverity.Debug);
             }
-            comparisonIfValueTextBox.Text = config.ComparisonIfValue;
-            comparisonElseValueTextBox.Text = config.ComparisonElseValue;
+            comparisonIfValueTextBox.Text = config.Comparison.IfValue;
+            comparisonElseValueTextBox.Text = config.Comparison.ElseValue;
 
             interpolationCheckBox.Checked = config.Interpolation.Active;
             interpolationPanel1.syncFromConfig(config.Interpolation);
@@ -440,19 +449,6 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.syncFromConfig(config);
             variablePanel1.syncFromConfig(config);
             configRefPanel.syncFromConfig(config);
-        }
-
-        private void _addEmptyNodeToTreeView()
-        {
-            TreeNode tmpNode = new TreeNode();
-            Precondition p = new Precondition();
-
-            tmpNode.Text = p.ToString();
-            tmpNode.Tag = p;
-            tmpNode.Checked = p.PreconditionActive;            
-            _updateNodeWithPrecondition(tmpNode, p);
-            config.Preconditions.Add(p);
-            preconditionListTreeView.Nodes.Add(tmpNode);
         }
         
         /// <summary>
@@ -486,6 +482,7 @@ namespace MobiFlight.UI.Dialogs
 
             config.Preconditions.ExecuteOnFalse = overridePreconditionCheckBox.Checked;
             config.Preconditions.FalseCaseValue = overridePreconditionTextBox.Text;
+            
 
             // sync panels
             displayPinPanel.syncToConfig(config);
@@ -508,11 +505,11 @@ namespace MobiFlight.UI.Dialogs
         private void comparisonPanel_syncToConfig()
         {
             // comparison panel
-            config.ComparisonActive = comparisonActiveCheckBox.Checked;
-            config.ComparisonValue = comparisonValueTextBox.Text;
-            config.ComparisonOperand = comparisonOperandComboBox.Text;
-            config.ComparisonIfValue = comparisonIfValueTextBox.Text;
-            config.ComparisonElseValue = comparisonElseValueTextBox.Text;
+            config.Comparison.Active = comparisonActiveCheckBox.Checked;
+            config.Comparison.Value = comparisonValueTextBox.Text;
+            config.Comparison.Operand = comparisonOperandComboBox.Text;
+            config.Comparison.IfValue = comparisonIfValueTextBox.Text;
+            config.Comparison.ElseValue = comparisonElseValueTextBox.Text;
         }
 
         private void display_syncToConfig()

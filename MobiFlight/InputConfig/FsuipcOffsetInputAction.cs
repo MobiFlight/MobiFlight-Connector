@@ -186,5 +186,12 @@ namespace MobiFlight.InputConfig
 
             cache.Write();
         }
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is FsuipcOffsetInputAction &&
+                FSUIPC.Equals((obj as FsuipcOffsetInputAction).FSUIPC) &&
+                Value == (obj as FsuipcOffsetInputAction).Value &&
+                Transform.Equals((obj as FsuipcOffsetInputAction).Transform);
+        }
     }
 }

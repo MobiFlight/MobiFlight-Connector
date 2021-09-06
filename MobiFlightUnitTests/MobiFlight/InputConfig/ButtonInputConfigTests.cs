@@ -17,7 +17,7 @@ namespace MobiFlight.InputConfig.Tests
         public void CloneTest()
         {
             ButtonInputConfig o = generateTestObject();
-            ButtonInputConfig c = (ButtonInputConfig) o.Clone();
+            ButtonInputConfig c = (ButtonInputConfig)o.Clone();
 
             Assert.AreNotSame(o, c, "Cloned object is the same");
             Assert.AreEqual((o.onPress as EventIdInputAction).EventId, (c.onPress as EventIdInputAction).EventId, "OnPress is not correct");
@@ -76,6 +76,22 @@ namespace MobiFlight.InputConfig.Tests
             String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\WriteXmlTest.1.xml");
 
             Assert.AreEqual(result, s, "The both strings are not equal");
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            ButtonInputConfig o1 = new ButtonInputConfig();
+            ButtonInputConfig o2 = new ButtonInputConfig();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

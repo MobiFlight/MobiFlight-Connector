@@ -45,5 +45,14 @@ namespace MobiFlight.Base
             clone.Placeholder = Placeholder;
             return clone;
         }
+
+        public override bool Equals(object obj)
+        {
+            return
+                obj != null && obj is ConfigRef &&
+                Active == (obj as ConfigRef).Active &&
+                Ref == (obj as ConfigRef).Ref &&
+                Placeholder == (obj as ConfigRef).Placeholder;
+        }
     }
 }

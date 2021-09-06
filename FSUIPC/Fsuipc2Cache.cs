@@ -72,13 +72,16 @@ namespace MobiFlight.FSUIPC
 
         public bool connect()
         {
-            try { 
+            try {
                 // Attempt to open a connection to FSUIPC 
                 // (running on any version of Flight Sim)                 
-                if (!OfflineMode) FSUIPCConnection.Open();
-                _connected = true;
-                this.Connected(this, new EventArgs());     
-                // Opened OK 
+                if (!OfflineMode)
+                {
+                    FSUIPCConnection.Open();
+                    _connected = true;
+                    this.Connected(this, new EventArgs());
+                    // Opened OK 
+                }
             } catch (FSUIPCException ex) {            
                 // Badness occurred - 
                 // show the error message 
@@ -493,7 +496,7 @@ namespace MobiFlight.FSUIPC
                 // the FSUIPC connection will 
                 // throw an exception in case that
                 // we have no offset registered
-                if (_offsetsRegistered)
+                if (_offsetsRegistered && _connected)
                 {
                     FSUIPCConnection.Process();
                     long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;

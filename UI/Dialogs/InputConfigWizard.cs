@@ -23,7 +23,10 @@ namespace MobiFlight.UI.Dialogs
         ExecutionManager _execManager = null;
         int displayPanelHeight = -1;
         List<UserControl> displayPanels = new List<UserControl>();
+        
         InputConfigItem config = null;
+        InputConfigItem originalConfig = null;
+
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
         DataSet _dataSetConfig = null;
@@ -63,10 +66,24 @@ namespace MobiFlight.UI.Dialogs
             _syncConfigToForm(config);
         }
 
+        public bool ConfigHasChanged()
+        {
+            return !originalConfig.Equals(config);
+        }
+
         protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
         {
             this._execManager = mainForm;
+            
             config = cfg;
+            // Same workaround for removed _addEmptyNodeToTreeView
+            // simply add an empty precondition to the cfg
+            if (config.Preconditions.Count == 0)
+                config.Preconditions.Add(new Precondition());
+
+
+            originalConfig = config.Clone() as InputConfigItem;
+
             InitializeComponent();
 
             // if one opens the dialog for a new config
@@ -275,27 +292,9 @@ namespace MobiFlight.UI.Dialogs
                 }                
             }
 
-            if (preconditionListTreeView.Nodes.Count == 0)
-            {
-                _addEmptyNodeToTreeView();
-            }
-
             configRefPanel.syncFromConfig(config);
 
             return true;
-        }
-
-        private void _addEmptyNodeToTreeView()
-        {
-            TreeNode tmpNode = new TreeNode();
-            Precondition p = new Precondition();
-
-            tmpNode.Text = p.ToString();
-            tmpNode.Tag = p;
-            tmpNode.Checked = p.PreconditionActive;            
-            _updateNodeWithPrecondition(tmpNode, p);
-            config.Preconditions.Add(p);
-            preconditionListTreeView.Nodes.Add(tmpNode);
         }
 
         /// <summary>

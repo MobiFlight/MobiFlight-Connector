@@ -72,5 +72,12 @@ namespace MobiFlight.InputConfig
 
             fsuipcCache.setEventID(EventId, int.Parse(value));
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is EventIdInputAction &&
+                EventId == (obj as EventIdInputAction).EventId &&
+                Param == (obj as EventIdInputAction).Param;
+        }
     }
 }

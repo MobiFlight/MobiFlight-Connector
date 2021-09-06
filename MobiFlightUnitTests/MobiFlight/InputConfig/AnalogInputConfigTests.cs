@@ -17,7 +17,7 @@ namespace MobiFlight.InputConfig.Tests
         public void CloneTest()
         {
             AnalogInputConfig o = generateTestObject();
-            AnalogInputConfig c = (AnalogInputConfig) o.Clone();
+            AnalogInputConfig c = (AnalogInputConfig)o.Clone();
 
             Assert.AreNotSame(o, c, "Cloned object is the same");
             Assert.AreEqual((o.onChange as VariableInputAction).Variable.Name, (c.onChange as VariableInputAction).Variable.Name, "onChange is not correct");
@@ -52,7 +52,7 @@ namespace MobiFlight.InputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual("AnalogInputConfigReadXML", (o.onChange as VariableInputAction).Variable.Name, "Variable.Name are not Equal");
-            
+
         }
 
         [TestMethod()]
@@ -75,6 +75,22 @@ namespace MobiFlight.InputConfig.Tests
             String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\AnalogInputConfig\WriteXmlTest.1.xml");
 
             Assert.AreEqual(result, s, "The both strings are not equal");
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            AnalogInputConfig o1 = new AnalogInputConfig();
+            AnalogInputConfig o2 = new AnalogInputConfig();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

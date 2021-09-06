@@ -41,5 +41,15 @@ namespace MobiFlight
             writer.WriteAttributeString("varName", Name);
             writer.WriteAttributeString("varExpression", Expression);
         }
+
+        public override bool Equals(object obj)
+        {
+            return
+                this.TYPE == (obj as MobiFlightVariable).TYPE &&
+                this.Name == (obj as MobiFlightVariable).Name &&
+                this.Number == (obj as MobiFlightVariable).Number &&
+                this.Text == (obj as MobiFlightVariable).Text &&
+                this.Expression == (obj as MobiFlightVariable).Expression;
+        }
     }
 }

@@ -45,25 +45,25 @@ namespace MobiFlight.UI.Panels
 
         public void syncFromConfig(OutputConfigItem config)
         {
-            if (!ComboBoxHelper.SetSelectedItem(servoAddressesComboBox, config.ServoAddress))
+            if (!ComboBoxHelper.SetSelectedItem(servoAddressesComboBox, config.Servo.Address))
             {
                 // TODO: provide error message
                 Log.Instance.log("_syncConfigToForm : Exception on selecting item in Servo Address ComboBox", LogSeverity.Debug);
             }
 
-            if (config.ServoMin != null) minValueTextBox.Text = config.ServoMin;
-            if (config.ServoMax != null) maxValueTextBox.Text = config.ServoMax;
-            if (config.ServoMaxRotationPercent != null) maxRotationPercentNumericUpDown.Text = config.ServoMaxRotationPercent;
+            if (config.Servo.Min != null) minValueTextBox.Text = config.Servo.Min;
+            if (config.Servo.Max != null) maxValueTextBox.Text = config.Servo.Max;
+            if (config.Servo.MaxRotationPercent != null) maxRotationPercentNumericUpDown.Text = config.Servo.MaxRotationPercent;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             if (servoAddressesComboBox.SelectedValue != null)
             {
-                config.ServoAddress = servoAddressesComboBox.SelectedValue.ToString();
-                config.ServoMin = minValueTextBox.Text;
-                config.ServoMax = maxValueTextBox.Text;
-                config.ServoMaxRotationPercent = maxRotationPercentNumericUpDown.Text;
+                config.Servo.Address = servoAddressesComboBox.SelectedValue.ToString();
+                config.Servo.Min = minValueTextBox.Text;
+                config.Servo.Max = maxValueTextBox.Text;
+                config.Servo.MaxRotationPercent = maxRotationPercentNumericUpDown.Text;
             }
 
             return config;

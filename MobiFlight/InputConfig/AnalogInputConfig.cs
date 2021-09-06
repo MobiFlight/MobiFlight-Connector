@@ -111,6 +111,15 @@ namespace MobiFlight.InputConfig
                 onChange.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is AnalogInputConfig &&
+                (
+                    (onChange == null && ((obj as AnalogInputConfig).onChange == null)) ||
+                    (onChange != null && onChange.Equals((obj as AnalogInputConfig).onChange))
+                );
+        }
     }
 
 }

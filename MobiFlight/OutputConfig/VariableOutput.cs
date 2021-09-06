@@ -41,5 +41,11 @@ namespace MobiFlight.OutputConfig
                 Variable = clone
             };
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is VariableOutput && 
+                this.Variable.Equals((obj as VariableOutput).Variable);
+        }
     }
 }

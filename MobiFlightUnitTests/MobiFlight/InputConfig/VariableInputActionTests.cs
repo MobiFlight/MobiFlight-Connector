@@ -17,7 +17,7 @@ namespace MobiFlight.InputConfig.Tests
         public void CloneTest()
         {
             VariableInputAction o = generateTestObject();
-            VariableInputAction c = (VariableInputAction) o.Clone();
+            VariableInputAction c = (VariableInputAction)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
             Assert.AreEqual(o.Variable.TYPE, c.Variable.TYPE, "EventId not the same");
             Assert.AreEqual(o.Variable.Name, c.Variable.Name, "EventId not the same");
@@ -50,7 +50,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(o.Variable.TYPE, "string", "Variable.TYPE are not the same");
             Assert.AreEqual(o.Variable.Name, "VariableInputActionReadXMLTests", "Param not the same");
         }
-        
+
         [TestMethod()]
         public void WriteXmlTest()
         {
@@ -86,6 +86,22 @@ namespace MobiFlight.InputConfig.Tests
 
             o.execute(mock, simConnectMock, mobiflightCacheMock, null, new List<ConfigRefValue>());
             Assert.AreEqual(mobiflightCacheMock.GetMobiFlightVariable("VariableInputActionTests").Number, 1, "The number is not correct.");
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            VariableInputAction o1 = new VariableInputAction();
+            VariableInputAction o2 = new VariableInputAction();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

@@ -102,7 +102,7 @@ namespace MobiFlight.Tests
         public void CloneTest()
         {
             InputConfigItem o = generateTestObject();
-            InputConfigItem c = (InputConfigItem) o.Clone();
+            InputConfigItem c = (InputConfigItem)o.Clone();
 
             Assert.IsNotNull(c.button, "Button is null");
             Assert.IsNull(c.encoder, "Encoder is not null");
@@ -115,8 +115,10 @@ namespace MobiFlight.Tests
         {
             InputConfigItem result = new InputConfigItem();
             result.button = new InputConfig.ButtonInputConfig();
-            result.button.onRelease = new InputConfig.FsuipcOffsetInputAction() {
-                FSUIPC = new FsuipcOffset() {
+            result.button.onRelease = new InputConfig.FsuipcOffsetInputAction()
+            {
+                FSUIPC = new FsuipcOffset()
+                {
                     BcdMode = true,
                     Mask = 0xFFFF,
                     Offset = 0x1234,
@@ -134,6 +136,22 @@ namespace MobiFlight.Tests
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = false, Placeholder = "%", Ref = "7d1370d3-56e9-497a-8abb-63ecc169defe" });
 
             return result;
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            InputConfigItem o1 = new InputConfigItem();
+            InputConfigItem o2 = new InputConfigItem();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiFlight.InputConfig
 {
-    class RetriggerInputAction : InputAction
+    public class RetriggerInputAction : InputAction
     {
         public new const String Label = "MobiFlight - Retrigger Switches";
         public const String TYPE = "RetriggerInputAction";
@@ -44,6 +44,11 @@ namespace MobiFlight.InputConfig
             }
 
             lastExecution = DateTime.Now;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is RetriggerInputAction;
         }
     }
 }

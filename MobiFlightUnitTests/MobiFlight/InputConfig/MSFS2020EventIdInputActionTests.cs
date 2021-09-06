@@ -4,7 +4,7 @@ using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.InputConfig;
 
-namespace MobiFlightUnitTests.MobiFlight.InputConfig
+namespace MobiFlight.InputConfig.Tests
 {
     [TestClass]
     public class MSFS2020EventIdInputActionTests
@@ -74,7 +74,23 @@ namespace MobiFlightUnitTests.MobiFlight.InputConfig
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
             o.execute(mock, simConnectMock, null, null, null);
             Assert.AreEqual(simConnectMock.Writes.Count, 1, "The message count is not as expected");
-            Assert.AreEqual(simConnectMock.Writes[0].Value, "SetEventID>MyEventId", "The Write Value is wrong");
+            Assert.AreEqual(simConnectMock.Writes[0], "SetEventID>MyEventId", "The Write Value is wrong");
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            MSFS2020EventIdInputAction o1 = new MSFS2020EventIdInputAction();
+            MSFS2020EventIdInputAction o2 = new MSFS2020EventIdInputAction();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

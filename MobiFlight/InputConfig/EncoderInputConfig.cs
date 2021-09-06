@@ -287,5 +287,26 @@ namespace MobiFlight.InputConfig
             }
 
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is EncoderInputConfig &&
+                (
+                    (onLeft == null && ((obj as EncoderInputConfig).onLeft == null)) ||
+                    (onLeft != null && onLeft.Equals((obj as EncoderInputConfig).onLeft))
+                ) &&
+                (
+                    (onLeftFast == null && ((obj as EncoderInputConfig).onLeftFast == null)) ||
+                    (onLeftFast != null && onLeftFast.Equals((obj as EncoderInputConfig).onLeftFast))
+                ) &&
+                (
+                    (onRight == null && ((obj as EncoderInputConfig).onRight == null)) ||
+                    (onRight != null && onRight.Equals((obj as EncoderInputConfig).onRight))
+                ) &&
+                (
+                    (onRightFast == null && ((obj as EncoderInputConfig).onRightFast == null)) ||
+                    (onRightFast != null && onRightFast.Equals((obj as EncoderInputConfig).onRightFast))
+                );
+        }
     }
 }

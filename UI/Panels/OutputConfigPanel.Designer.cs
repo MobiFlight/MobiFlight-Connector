@@ -142,6 +142,7 @@
             this.dataGridViewConfig.RowTemplate.Height = 26;
             this.dataGridViewConfig.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewConfig.ShowEditingIcon = false;
+            this.dataGridViewConfig.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridViewConfig_CellBeginEdit);
             this.dataGridViewConfig.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewConfig_CellContentClick);
             this.dataGridViewConfig.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewConfig_CellContentDoubleClick);
             this.dataGridViewConfig.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewConfig_CellDoubleClick);

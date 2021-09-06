@@ -149,7 +149,10 @@ namespace MobiFlight.UI
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
             execManager.OfflineMode = Properties.Settings.Default.OfflineMode;
+
             if (execManager.OfflineMode) OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb_on;
+            FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
+            simConnectToolStripMenuItem.Image = Properties.Resources.warning;
 
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
@@ -613,7 +616,7 @@ namespace MobiFlight.UI
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
             
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || execManager.SimConnected()) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
         }
 
 
@@ -699,7 +702,7 @@ namespace MobiFlight.UI
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
             }
 
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
         }
 
         /// <summary>
@@ -750,7 +753,7 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
             runTestToolStripButton.Enabled = execManager.ModulesConnected() && !execManager.TestModeIsStarted();
             stopToolStripButton.Enabled = false;
             updateNotifyContextMenu(execManager.IsStarted());
@@ -1185,21 +1188,21 @@ namespace MobiFlight.UI
                     // comparison
                     if (row["comparison"].GetType() != typeof(System.DBNull))
                     {
-                        cfgItem.ComparisonActive = true;
-                        cfgItem.ComparisonOperand = row["comparison"].ToString();
+                        cfgItem.Comparison.Active = true;
+                        cfgItem.Comparison.Operand = row["comparison"].ToString();
                     }
 
                     if (row["comparisonValue"].GetType() != typeof(System.DBNull))
                     {
-                        cfgItem.ComparisonValue = row["comparisonValue"].ToString();
+                        cfgItem.Comparison.Value = row["comparisonValue"].ToString();
                     }
 
                     if (row["converter"].GetType() != typeof(System.DBNull))
                     {
                         if (row["converter"].ToString() == "Boolean")
                         {
-                            cfgItem.ComparisonIfValue = "1";
-                            cfgItem.ComparisonElseValue = "0";
+                            cfgItem.Comparison.IfValue = "1";
+                            cfgItem.Comparison.ElseValue = "0";
                         }
                     }
 
@@ -1211,7 +1214,7 @@ namespace MobiFlight.UI
                     if (row["usbArcazePin"].GetType() != typeof(System.DBNull))
                     {
                         cfgItem.DisplayType = "Pin";
-                        cfgItem.DisplayPin = row["usbArcazePin"].ToString();
+                        cfgItem.Pin.DisplayPin = row["usbArcazePin"].ToString();
                     }
 
                     if (row["arcazeSerial"].GetType() != typeof(System.DBNull))
@@ -1341,7 +1344,7 @@ namespace MobiFlight.UI
             stopTestToolStripButton.Visible = false;
             stopTestToolStripButton.Enabled = false;
             runTestToolStripButton.Enabled = true;
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected() && execManager.ModulesConnected())) && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)

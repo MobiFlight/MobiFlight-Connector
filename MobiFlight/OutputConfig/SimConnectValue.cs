@@ -12,7 +12,7 @@ namespace MobiFlight.OutputConfig
         public string Value { get; set; }
         public SimConnectVarType VarType { get; set; }
 
-        internal void ReadXml(XmlReader reader)
+        public void ReadXml(XmlReader reader)
         {
             if (reader["Value"] != null && reader["Value"] != "")
             {
@@ -21,14 +21,21 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        internal void WriteXml(XmlWriter writer)
+        public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("type", "SimConnect");
             writer.WriteAttributeString("VarType", VarType.ToString());
             writer.WriteAttributeString("Value", Value);
         }
 
-        internal object Clone()
+        public override bool Equals(object obj)
+        {
+            return (obj != null) && (obj is SimConnectValue) &&
+                this.Value == (obj as SimConnectValue).Value &&
+                this.VarType == (obj as SimConnectValue).VarType;
+        }
+
+        public object Clone()
         {
             return new SimConnectValue() { 
                 Value = this.Value,

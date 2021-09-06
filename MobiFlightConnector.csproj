@@ -184,6 +184,7 @@
   <ItemGroup>
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\ConfigRef.cs" />
+    <Compile Include="Base\ConfigRefList.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\PreconditionList.cs" />
@@ -203,7 +204,11 @@
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
     <Compile Include="MobiFlight\MobiFlightVariable.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Comparison.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
