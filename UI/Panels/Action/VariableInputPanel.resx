@@ -161,10 +161,10 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="ValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 20</value>
+    <value>187, 26</value>
   </data>
   <data name="ValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;ValueTextBox.Name" xml:space="preserve">
     <value>ValueTextBox</value>
@@ -221,10 +221,10 @@
     <value>61, 19</value>
   </data>
   <data name="TypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 21</value>
+    <value>89, 28</value>
   </data>
   <data name="TypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;TypeComboBox.Name" xml:space="preserve">
     <value>TypeComboBox</value>
@@ -248,10 +248,10 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="NameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 20</value>
+    <value>187, 26</value>
   </data>
   <data name="NameTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;NameTextBox.Name" xml:space="preserve">
     <value>NameTextBox</value>
