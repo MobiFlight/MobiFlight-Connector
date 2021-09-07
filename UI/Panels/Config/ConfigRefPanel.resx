@@ -117,253 +117,253 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="configRefItemPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="configRefPanelItem4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="configRefPanelItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 26</value>
-  </data>
-  <data name="configRefPanelItem4.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem4.Name" xml:space="preserve">
-    <value>configRefPanelItem4</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem4.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanelItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem4.Parent" xml:space="preserve">
-    <value>configRefItemPanel</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem4.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="configRefPanelItem3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="configRefPanelItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 26</value>
-  </data>
-  <data name="configRefPanelItem3.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem3.Name" xml:space="preserve">
-    <value>configRefPanelItem3</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem3.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanelItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem3.Parent" xml:space="preserve">
-    <value>configRefItemPanel</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="configRefPanelItem2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="configRefPanelItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 26</value>
-  </data>
-  <data name="configRefPanelItem2.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem2.Name" xml:space="preserve">
-    <value>configRefPanelItem2</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem2.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanelItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem2.Parent" xml:space="preserve">
-    <value>configRefItemPanel</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="configRefPanelItem1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="configRefPanelItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 26</value>
-  </data>
-  <data name="configRefPanelItem1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
   <data name="&gt;&gt;configRefPanelItem1.Name" xml:space="preserve">
     <value>configRefPanelItem1</value>
   </data>
-  <data name="&gt;&gt;configRefPanelItem1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanelItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem1.Parent" xml:space="preserve">
-    <value>configRefItemPanel</value>
-  </data>
-  <data name="&gt;&gt;configRefPanelItem1.ZOrder" xml:space="preserve">
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="configRefPanelItem1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
+  </data>
+  <data name="&gt;&gt;configRefItemPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>Define references that can be used in this config,</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="configRefItemPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="configRefItemPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 53</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ConfigRefPanel</value>
   </data>
-  <data name="configRefItemPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>331, 97</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem4.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="configRefItemPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;configRefItemPanel.Name" xml:space="preserve">
-    <value>configRefItemPanel</value>
-  </data>
-  <data name="&gt;&gt;configRefItemPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;configRefItemPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;configRefItemPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panel1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="configRefPanelItem3.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
-  </data>
-  <data name="textBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="textBox1.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>331, 23</value>
-  </data>
-  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>Define references that can be used in this config,</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
-    <value>textBox1</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>331, 23</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="noConfigRefsPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBox2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="textBox2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="textBox2.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="textBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>331, 30</value>
-  </data>
-  <data name="textBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="textBox2.Text" xml:space="preserve">
-    <value>There are no other configs available. First create some and then you can reference them.</value>
-  </data>
-  <data name="&gt;&gt;textBox2.Name" xml:space="preserve">
-    <value>textBox2</value>
-  </data>
-  <data name="&gt;&gt;textBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox2.Parent" xml:space="preserve">
-    <value>noConfigRefsPanel</value>
-  </data>
-  <data name="&gt;&gt;textBox2.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="noConfigRefsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="noConfigRefsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 23</value>
-  </data>
-  <data name="noConfigRefsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>331, 30</value>
-  </data>
-  <data name="noConfigRefsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;noConfigRefsPanel.Name" xml:space="preserve">
-    <value>noConfigRefsPanel</value>
   </data>
   <data name="&gt;&gt;noConfigRefsPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;noConfigRefsPanel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;textBox2.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;noConfigRefsPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;configRefPanelItem4.Name" xml:space="preserve">
+    <value>configRefPanelItem4</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>331, 150</value>
+  <data name="configRefPanelItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 26</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ConfigRefPanel</value>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>331, 23</value>
+  </data>
+  <data name="textBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem2.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanelItem, MFConnector, Version=9.0.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;noConfigRefsPanel.Name" xml:space="preserve">
+    <value>noConfigRefsPanel</value>
+  </data>
+  <data name="configRefPanelItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 26</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="configRefPanelItem4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="configRefItemPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem3.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanelItem, MFConnector, Version=9.0.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="configRefItemPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 53</value>
+  </data>
+  <data name="&gt;&gt;configRefItemPanel.Name" xml:space="preserve">
+    <value>configRefItemPanel</value>
+  </data>
+  <data name="&gt;&gt;configRefItemPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="textBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="textBox1.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="configRefPanelItem1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="configRefPanelItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 26</value>
+  </data>
+  <data name="textBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem2.Parent" xml:space="preserve">
+    <value>configRefItemPanel</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;textBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem3.Parent" xml:space="preserve">
+    <value>configRefItemPanel</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem2.Name" xml:space="preserve">
+    <value>configRefPanelItem2</value>
+  </data>
+  <data name="textBox2.Text" xml:space="preserve">
+    <value>There are no other configs available. First create some and then you can reference them.</value>
+  </data>
+  <data name="noConfigRefsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="configRefPanelItem2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="textBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="textBox2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem3.Name" xml:space="preserve">
+    <value>configRefPanelItem3</value>
+  </data>
+  <data name="noConfigRefsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>331, 30</value>
+  </data>
+  <data name="&gt;&gt;textBox2.Parent" xml:space="preserve">
+    <value>noConfigRefsPanel</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="panel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="configRefPanelItem4.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;configRefPanelItem1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanelItem, MFConnector, Version=9.0.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="configRefPanelItem2.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>331, 150</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem1.Parent" xml:space="preserve">
+    <value>configRefItemPanel</value>
+  </data>
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>331, 23</value>
+  </data>
+  <data name="&gt;&gt;textBox2.Name" xml:space="preserve">
+    <value>textBox2</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem2.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;configRefItemPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="textBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>331, 30</value>
+  </data>
+  <data name="configRefPanelItem3.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="noConfigRefsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 23</value>
+  </data>
+  <data name="noConfigRefsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="noConfigRefsPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem4.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanelItem, MFConnector, Version=9.0.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="configRefPanelItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>256, 26</value>
+  </data>
+  <data name="configRefItemPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>331, 97</value>
+  </data>
+  <data name="&gt;&gt;noConfigRefsPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="textBox2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;noConfigRefsPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="textBox2.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;configRefPanelItem4.Parent" xml:space="preserve">
+    <value>configRefItemPanel</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

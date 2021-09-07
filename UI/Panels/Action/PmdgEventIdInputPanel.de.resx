@@ -117,33 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="fsuipcPresetComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 42</value>
-  </data>
-  <data name="fsuipcPresetUseButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 41</value>
-  </data>
   <data name="fsuipcPresetUseButton.Text" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
     <value>Preset laden</value>
   </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Unterstützt Eingabe-Wert (@) und Platzhalter (?,#, etc.)</value>
+  </data>
   <data name="paramLabel.Text" xml:space="preserve">
     <value>Maus Param</value>
   </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>308, 98</value>
-  </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Einstellungen anpassen</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>308, 167</value>
   </data>
 </root>

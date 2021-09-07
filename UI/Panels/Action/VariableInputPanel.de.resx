@@ -117,11 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="fsuipcPresetUseButton.Text" xml:space="preserve">
-    <value>OK</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 40</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
-    <value>Preset laden</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Unterstützt Variablen-Wert ($), Eingabe-Wert (@) und Platzhalter (?,#, etc.)
+</value>
+  </data>
+  <data name="ValueLabel.Text" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="TypeLabel.Text" xml:space="preserve">
+    <value>Typ</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Einstellungen anpassen</value>
