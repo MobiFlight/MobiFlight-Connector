@@ -616,7 +616,14 @@ namespace MobiFlight.UI
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
             
-            runToolStripButton.Enabled = (execManager.OfflineMode || execManager.SimConnected()) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            if (execManager.IsStarted())
+            {
+                runToolStripButton.Enabled = false;
+            }
+            else
+            { 
+                runToolStripButton.Enabled = (execManager.OfflineMode || execManager.SimConnected()) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            }
         }
 
 
@@ -702,7 +709,14 @@ namespace MobiFlight.UI
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
             }
 
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            if (execManager.IsStarted())
+            {
+                runToolStripButton.Enabled = false;
+            }
+            else
+            { 
+                runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            }
         }
 
         /// <summary>
