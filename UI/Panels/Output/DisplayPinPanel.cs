@@ -141,8 +141,8 @@ namespace MobiFlight.UI.Panels
         virtual internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             config.Pin.DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text;
-
-            if (MultiPinSelectPanel.Visible)
+            
+            if (selectMultiplePinsCheckBox.Checked)
                 config.Pin.DisplayPin = MultiPinSelectPanel?.GetSelectedPinString();                       
 
             config.Pin.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
