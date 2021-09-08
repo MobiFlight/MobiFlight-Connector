@@ -70,7 +70,7 @@ namespace MobiFlight
 #if ARCAZE
         readonly ArcazeCache arcazeCache = new ArcazeCache();
 #endif
-        public bool OfflineMode { get { return fsuipcCache.OfflineMode; } set { fsuipcCache.OfflineMode = value; } }
+        public bool OfflineMode { get; set; }
 
 #if MOBIFLIGHT
         readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
@@ -1167,29 +1167,31 @@ namespace MobiFlight
                 await mobiFlightCache.connectAsync();
 #endif
             }
-            //if (!arcazeCache.isConnected()) arcazeCache.connect();
-            //if (!mobiFlightCache.isConnected()) mobiFlightCache.connect();
 
-            if (SimAvailable())
-            {
-                OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
+            // Check only for available sims if not in Offline mode.
+            if (!OfflineMode) { 
 
-                Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
+                if (SimAvailable())
+                {
+                    OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
 
-                if (!fsuipcCache.isConnected())
-                    fsuipcCache.connect();
+                    Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
+
+                    if (!fsuipcCache.isConnected())
+                        fsuipcCache.connect();
 #if SIMCONNECT
-                if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
-                    simConnectCache.Connect();
+                    if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
+                        simConnectCache.Connect();
 #endif
-                // we return here to prevent the disabling of the timer
-                // so that autostart-feature can work properly
-                _autoConnectTimerRunning = false;
-                return;
-            }
-            else
-            {
-                Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
+                    // we return here to prevent the disabling of the timer
+                    // so that autostart-feature can work properly
+                    _autoConnectTimerRunning = false;
+                    return;
+                }
+                else
+                {
+                    Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
+                }
             }
 
             // this line here provokes a timer stop event each time
