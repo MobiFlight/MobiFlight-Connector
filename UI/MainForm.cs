@@ -606,34 +606,7 @@ namespace MobiFlight.UI
         /// </summary>
         private bool RunIsAvailable()
         {
-            // If execution is already running then disable the run button.
-            if (execManager.IsStarted())
-            {
-                return false;
-            }
-            // If test mode is running then disable the run button.
-            else if (execManager.TestModeIsStarted())
-            {
-                return false;
-            }
-            // If there are no modules connected then running doesn't make any sense so disable the run button.
-            else if (!execManager.ModulesConnected())
-            {
-                return false;
-            }
-            // Connected sim? Enable the run button.
-            else if (execManager.SimConnected())
-            {
-                return true;
-            }
-            // If offline mode is enabled then light up the button.
-            else if (execManager.OfflineMode)
-            {
-                return true;
-            }
-
-            // None of the checks to enable the button passed so default to turning it off.
-            return false;
+            return (execManager.OfflineMode || execManager.SimConnected()) && execManager.ModulesConnected() && !execManager.IsStarted() && !execManager.TestModeIsStarted();
         }
 
         /// <summary>
