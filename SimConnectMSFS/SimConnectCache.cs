@@ -24,6 +24,10 @@ namespace MobiFlight.SimConnectMSFS
         private const string MOBIFLIGHT_CLIENT_DATA_NAME_COMMAND = "MobiFlight.Command";
         private const string MOBIFLIGHT_CLIENT_DATA_NAME_RESPONSE = "MobiFlight.Response";
 
+        /// The message size for commands and responses
+        /// This has to be changed also in SimConnectDefintions
+        private const int MOBIFLIGHT_MESSAGE_SIZE = 1024;
+
         /// User-defined win32 event
         public const int WM_USER_SIMCONNECT = 0x0402;
 
@@ -177,13 +181,13 @@ namespace MobiFlight.SimConnectMSFS
             // register Client Data (for WASM Module Commands)
             var ClientDataStringSize = (uint)Marshal.SizeOf(typeof(ClientDataString));
             (sender).MapClientDataNameToID(MOBIFLIGHT_CLIENT_DATA_NAME_COMMAND, SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_CMD);
-            (sender).CreateClientData(SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_CMD, 256, SIMCONNECT_CREATE_CLIENT_DATA_FLAG.DEFAULT);
+            (sender).CreateClientData(SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_CMD, MOBIFLIGHT_MESSAGE_SIZE, SIMCONNECT_CREATE_CLIENT_DATA_FLAG.DEFAULT);
 
             // register Client Data (for WASM Module Responses)
             (sender).MapClientDataNameToID(MOBIFLIGHT_CLIENT_DATA_NAME_RESPONSE, SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_RESPONSE);
-            (sender).CreateClientData(SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_RESPONSE, 256, SIMCONNECT_CREATE_CLIENT_DATA_FLAG.DEFAULT);
+            (sender).CreateClientData(SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_RESPONSE, MOBIFLIGHT_MESSAGE_SIZE, SIMCONNECT_CREATE_CLIENT_DATA_FLAG.DEFAULT);
 
-            (sender).AddToClientDataDefinition((SIMCONNECT_DEFINE_ID)0, 0, 256, 0, 0);
+            (sender).AddToClientDataDefinition((SIMCONNECT_DEFINE_ID)0, 0, MOBIFLIGHT_MESSAGE_SIZE, 0, 0);
             (sender).RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, ResponseString>((SIMCONNECT_DEFINE_ID)0);
             (sender).RequestClientData(
                 SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_RESPONSE,
