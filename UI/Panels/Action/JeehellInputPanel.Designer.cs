@@ -30,26 +30,31 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JeehellInputPanel));
             this.fsuipcLoadPresetGroupBox = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.hintLabel = new System.Windows.Forms.Label();
             this.ValueTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.EventIdLabel = new System.Windows.Forms.Label();
             this.fsuipcPresetComboBox = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // fsuipcLoadPresetGroupBox
             // 
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label5);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.hintLabel);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.ValueTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label1);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.EventIdLabel);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // hintLabel
             // 
@@ -79,11 +84,6 @@
             this.fsuipcPresetComboBox.FormattingEnabled = true;
             this.fsuipcPresetComboBox.Name = "fsuipcPresetComboBox";
             this.fsuipcPresetComboBox.SelectedIndexChanged += new System.EventHandler(this.fsuipcPresetComboBox_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
             // 
             // JeehellInputPanel
             // 

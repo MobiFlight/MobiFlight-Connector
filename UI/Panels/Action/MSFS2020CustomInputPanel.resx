@@ -117,56 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CommandTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
   <data name="CommandTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 38</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CommandTextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="DescriptionLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="CommandTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 131</value>
-  </data>
-  <data name="CommandTextBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;HintLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;CommandTextBox.Name" xml:space="preserve">
-    <value>CommandTextBox</value>
-  </data>
-  <data name="&gt;&gt;CommandTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CommandTextBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;CommandTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="DescriptionLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="DescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 9</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="DescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 26</value>
   </data>
-  <data name="DescriptionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MSFS2020CustomInputPanel</value>
   </data>
-  <data name="DescriptionLabel.Text" xml:space="preserve">
-    <value>Your Custom Code that will be executed in MSFS2020</value>
+  <data name="DescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 9</value>
   </data>
-  <data name="&gt;&gt;DescriptionLabel.Name" xml:space="preserve">
-    <value>DescriptionLabel</value>
-  </data>
-  <data name="&gt;&gt;DescriptionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;HintLabel.Name" xml:space="preserve">
+    <value>HintLabel</value>
   </data>
   <data name="&gt;&gt;DescriptionLabel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -174,14 +152,39 @@
   <data name="&gt;&gt;DescriptionLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="HintLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="HintLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="HintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 172</value>
+  <data name="&gt;&gt;DescriptionLabel.Name" xml:space="preserve">
+    <value>DescriptionLabel</value>
+  </data>
+  <data name="&gt;&gt;CommandTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DescriptionLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;HintLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DescriptionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="HintLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="CommandTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CommandTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>320, 131</value>
+  </data>
+  <data name="&gt;&gt;CommandTextBox.Name" xml:space="preserve">
+    <value>CommandTextBox</value>
+  </data>
+  <data name="DescriptionLabel.Text" xml:space="preserve">
+    <value>Your Custom Code that will be executed in MSFS2020</value>
   </data>
   <data name="HintLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 25</value>
@@ -189,35 +192,32 @@
   <data name="HintLabel.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
   </data>
+  <data name="&gt;&gt;CommandTextBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="CommandTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;CommandTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="HintLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 172</value>
+  </data>
+  <data name="CommandTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="HintLabel.Text" xml:space="preserve">
     <value>Supports input value (@) and placeholders ($,#, etc.)
 </value>
   </data>
-  <data name="&gt;&gt;HintLabel.Name" xml:space="preserve">
-    <value>HintLabel</value>
-  </data>
-  <data name="&gt;&gt;HintLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>344, 203</value>
   </data>
   <data name="&gt;&gt;HintLabel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;HintLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 203</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MSFS2020CustomInputPanel</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

@@ -117,263 +117,263 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="&gt;&gt;TypeLabel.Name" xml:space="preserve">
+    <value>TypeLabel</value>
   </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;TypeLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 88</value>
-  </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 38</value>
   </data>
+  <data name="NameLabel.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 21</value>
+  </data>
+  <data name="&gt;&gt;NameLabel.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ValueTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>VariableInputPanel</value>
+  </data>
+  <data name="ValueLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 69</value>
+  </data>
+  <data name="TypeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ValueLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="&gt;&gt;ValueTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;NameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TypeComboBox.Items1" xml:space="preserve">
+    <value>String</value>
+  </data>
+  <data name="NameTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>187, 20</value>
+  </data>
+  <data name="NameLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;NameTextBox.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="NameLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="NameLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 46</value>
+  </data>
+  <data name="&gt;&gt;ValueLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TypeLabel.Text" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Variable Settings</value>
+  </data>
+  <data name="ValueTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ValueTextBox.Name" xml:space="preserve">
+    <value>ValueTextBox</value>
+  </data>
+  <data name="ValueLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="TypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ValueLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;NameTextBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="ValueTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 88</value>
+  </data>
+  <data name="TypeComboBox.Items" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="ValueLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TypeLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 13</value>
+  </data>
+  <data name="&gt;&gt;ValueTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ValueLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 13</value>
+  </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
+  </data>
+  <data name="&gt;&gt;TypeComboBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;ValueTextBox.Parent" xml:space="preserve">
+    <value>groupBox1</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>Supports variable value ($), input value (@) and placeholders (?,#, etc.)
 </value>
   </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="ValueTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="ValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 66</value>
-  </data>
-  <data name="ValueTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="ValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 20</value>
-  </data>
-  <data name="ValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;ValueTextBox.Name" xml:space="preserve">
-    <value>ValueTextBox</value>
-  </data>
-  <data name="&gt;&gt;ValueTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ValueTextBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;ValueTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ValueLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="ValueLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 69</value>
-  </data>
-  <data name="ValueLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="ValueLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 13</value>
-  </data>
-  <data name="ValueLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="ValueLabel.Text" xml:space="preserve">
-    <value>Value</value>
-  </data>
-  <data name="ValueLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;ValueLabel.Name" xml:space="preserve">
-    <value>ValueLabel</value>
-  </data>
-  <data name="&gt;&gt;ValueLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ValueLabel.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;ValueLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="TypeComboBox.Items" xml:space="preserve">
-    <value>Number</value>
-  </data>
-  <data name="TypeComboBox.Items1" xml:space="preserve">
-    <value>String</value>
-  </data>
-  <data name="TypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 19</value>
-  </data>
-  <data name="TypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 21</value>
-  </data>
-  <data name="TypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="&gt;&gt;TypeComboBox.Name" xml:space="preserve">
-    <value>TypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;TypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TypeComboBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;TypeComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="NameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="NameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 43</value>
-  </data>
-  <data name="NameTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="NameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 20</value>
-  </data>
-  <data name="NameTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;NameTextBox.Name" xml:space="preserve">
-    <value>NameTextBox</value>
-  </data>
-  <data name="&gt;&gt;NameTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NameTextBox.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;NameTextBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="TypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="TypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 22</value>
-  </data>
-  <data name="TypeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="TypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 13</value>
-  </data>
-  <data name="TypeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="TypeLabel.Text" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="TypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;TypeLabel.Name" xml:space="preserve">
-    <value>TypeLabel</value>
-  </data>
-  <data name="&gt;&gt;TypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TypeLabel.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;TypeLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="NameLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="NameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 46</value>
-  </data>
-  <data name="NameLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
   <data name="NameLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 13</value>
-  </data>
-  <data name="NameLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="NameLabel.Text" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="NameLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;NameLabel.Name" xml:space="preserve">
-    <value>NameLabel</value>
-  </data>
-  <data name="&gt;&gt;NameLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;NameLabel.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;NameLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 128</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Variable Settings</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="TypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>277, 128</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="NameTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="TypeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 22</value>
+  </data>
+  <data name="&gt;&gt;NameLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="NameLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 19</value>
+  </data>
+  <data name="&gt;&gt;TypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NameLabel.Name" xml:space="preserve">
+    <value>NameLabel</value>
+  </data>
+  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="&gt;&gt;ValueLabel.Name" xml:space="preserve">
+    <value>ValueLabel</value>
+  </data>
+  <data name="NameTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 43</value>
+  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>277, 128</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>VariableInputPanel</value>
+  <data name="NameTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;NameTextBox.Name" xml:space="preserve">
+    <value>NameTextBox</value>
+  </data>
+  <data name="ValueLabel.Text" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="&gt;&gt;ValueLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;NameLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="NameTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="ValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>187, 20</value>
+  </data>
+  <data name="&gt;&gt;TypeComboBox.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="TypeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="NameLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TypeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;ValueLabel.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;TypeComboBox.Name" xml:space="preserve">
+    <value>TypeComboBox</value>
+  </data>
+  <data name="ValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>61, 66</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
