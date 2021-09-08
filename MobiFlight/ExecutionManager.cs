@@ -345,6 +345,12 @@ namespace MobiFlight
                 //// if !all valid continue                
                 OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
 
+                if (cfg == null)
+                {
+                    // this can happen if a user activates (checkbox) a newly created config
+                    continue;
+                }
+
                 // If not connected to FSUIPC show an error message
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.isConnected())
                 {
