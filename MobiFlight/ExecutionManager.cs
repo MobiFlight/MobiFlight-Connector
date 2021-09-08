@@ -794,26 +794,21 @@ namespace MobiFlight
                     break;
             }
 
-            // apply ncalc logic
-            if (result.Contains("$"))
+            result = result.Replace("$", value.ToString());
+
+            foreach (ConfigRefValue configRef in configRefs)
             {
-                result = result.Replace("$", value.ToString());
-
-                foreach (ConfigRefValue configRef in configRefs)
-                {
-                    result = result.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
-                }
-
+                result = result.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
+            }
+                
+            try
+            {
                 var ce = new NCalc.Expression(result);
-                try
-                {
-                    result = (ce.Evaluate()).ToString();
-                }
-                catch
-                {
-                    Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                    throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
-                }
+                result = (ce.Evaluate()).ToString();
+            }
+            catch
+            {
+                Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
             }
 
             return result;
