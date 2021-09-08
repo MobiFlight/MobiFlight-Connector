@@ -355,14 +355,14 @@ namespace MobiFlight
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.isConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                    continue;
+                    if (!OfflineMode) continue;
                 }
 #if SIMCONNECT
                 // If not connected to SimConnect show an error message
                 if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
-                    continue;
+                    if (!OfflineMode) continue;
                 }
 #endif
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
@@ -413,7 +413,11 @@ namespace MobiFlight
                 }
                 else
                 {
-                    row.ErrorText = "";
+                    // the error text is coming from
+                    // the missing connection to FSUIPC/SimConnect
+                    // so if we are in Offline Mode then we want to keep it.
+                    if(!OfflineMode)
+                        row.ErrorText = "";
                 }
 
                 try
