@@ -297,7 +297,7 @@ namespace MobiFlight.UI.Dialogs
             return true;
         }
 
-        private void PopulateInputPinDropdown()
+        private void PopulateInputPinDropdown(int numModules, int? selectedPin)
         {
             // The selected input in the dropdown is the shift register details, which includes the
             // number of connected modules. That gets multiplied by 8 pins per module to get the total
