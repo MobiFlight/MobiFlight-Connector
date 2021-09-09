@@ -313,22 +313,6 @@ namespace MobiFlight.UI.Dialogs
             inputPinDropDown.SelectedItem = selectedPin ?? 0;
         }
 
-        private void PopulateInputPinDropdown(int numModules, int? selectedPin)
-        {
-            // The selected input in the dropdown is the shift register details, which includes the
-            // number of connected modules. That gets multiplied by 8 pins per module to get the total
-            // number of available pins to populate.
-            int totalPins = numModules * 8;
-
-            inputPinDropDown.Items.Clear();
-            for (int i = 0; i < totalPins; i++)
-            {
-                inputPinDropDown.Items.Add(i);
-            }
-
-            inputPinDropDown.SelectedItem = selectedPin ?? 0;
-        }
-
         /// <summary>
         /// sync current status of form values to config
         /// </summary>
