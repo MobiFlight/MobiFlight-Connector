@@ -57,6 +57,7 @@ namespace MobiFlight.UI.Panels.Config
             this.SimVarNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SimVarNameTextBox.Location = new System.Drawing.Point(68, 60);
+            this.SimVarNameTextBox.MaxLength = 1024;
             this.SimVarNameTextBox.Name = "SimVarNameTextBox";
             this.SimVarNameTextBox.Size = new System.Drawing.Size(307, 20);
             this.SimVarNameTextBox.TabIndex = 0;
@@ -76,7 +77,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Location = new System.Drawing.Point(3, 16);
             this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.label2.Padding = new System.Windows.Forms.Padding(3);
             this.label2.Size = new System.Drawing.Size(385, 26);
             this.label2.TabIndex = 2;
             this.label2.Text = "Define the sim variable name that you would like to read from MSFS2020.";
@@ -135,7 +136,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
-            this.label5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.label5.Padding = new System.Windows.Forms.Padding(3);
             this.label5.Size = new System.Drawing.Size(385, 28);
             this.label5.TabIndex = 8;
             this.label5.Text = "Aircraft Variables (A-Vars) - (A:COM ACTIVE FREQUENCY:1, Number)";
@@ -168,7 +169,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.label4.Padding = new System.Windows.Forms.Padding(3);
             this.label4.Size = new System.Drawing.Size(375, 28);
             this.label4.TabIndex = 5;
             this.label4.Text = "Local Variables (L-Vars) - (L:YourLvarName)";
@@ -180,7 +181,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(3, 126);
             this.label3.Name = "label3";
-            this.label3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.label3.Padding = new System.Windows.Forms.Padding(3);
             this.label3.Size = new System.Drawing.Size(385, 24);
             this.label3.TabIndex = 4;
             this.label3.Text = "Examples:";

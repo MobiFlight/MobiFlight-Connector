@@ -601,24 +601,32 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = execManager.ModulesConnected();
         }
 
+        /// <summary>
+        /// Returns true if the run button should be enabled based on various MobiFlight states.
+        /// </summary>
+        private bool RunIsAvailable()
+        {
+            return (execManager.OfflineMode || execManager.SimConnected()) && execManager.ModulesConnected() && !execManager.IsStarted() && !execManager.TestModeIsStarted();
+        }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
         void fsuipcCache_Closed(object sender, EventArgs e)
-        {            
+        {
             if (sender.GetType() == typeof(SimConnectCache))
             {
                 simConnectToolStripMenuItem.Image = Properties.Resources.warning;
-            } else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
+            }
+            else if (sender.GetType() == typeof(Fsuipc2Cache))
+            {
                 FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             }
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
-            
-            runToolStripButton.Enabled = (execManager.OfflineMode || execManager.SimConnected()) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
-        }
 
+            runToolStripButton.Enabled = RunIsAvailable();
+        }
 
         private void ExecManager_OnSimAvailable(object sender, EventArgs e)
         {
@@ -702,7 +710,7 @@ namespace MobiFlight.UI
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
             }
 
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = RunIsAvailable();
         }
 
         /// <summary>

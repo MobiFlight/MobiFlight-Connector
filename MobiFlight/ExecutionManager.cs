@@ -70,7 +70,7 @@ namespace MobiFlight
 #if ARCAZE
         readonly ArcazeCache arcazeCache = new ArcazeCache();
 #endif
-        public bool OfflineMode { get { return fsuipcCache.OfflineMode; } set { fsuipcCache.OfflineMode = value; } }
+        public bool OfflineMode { get; set; }
 
 #if MOBIFLIGHT
         readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
@@ -345,18 +345,24 @@ namespace MobiFlight
                 //// if !all valid continue                
                 OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
 
+                if (cfg == null)
+                {
+                    // this can happen if a user activates (checkbox) a newly created config
+                    continue;
+                }
+
                 // If not connected to FSUIPC show an error message
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.isConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                    continue;
+                    if (!OfflineMode) continue;
                 }
 #if SIMCONNECT
                 // If not connected to SimConnect show an error message
                 if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
-                    continue;
+                    if (!OfflineMode) continue;
                 }
 #endif
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
@@ -407,7 +413,11 @@ namespace MobiFlight
                 }
                 else
                 {
-                    row.ErrorText = "";
+                    // the error text is coming from
+                    // the missing connection to FSUIPC/SimConnect
+                    // so if we are in Offline Mode then we want to keep it.
+                    if(!OfflineMode)
+                        row.ErrorText = "";
                 }
 
                 try
@@ -788,26 +798,21 @@ namespace MobiFlight
                     break;
             }
 
-            // apply ncalc logic
-            if (result.Contains("$"))
+            result = result.Replace("$", value.ToString());
+
+            foreach (ConfigRefValue configRef in configRefs)
             {
-                result = result.Replace("$", value.ToString());
-
-                foreach (ConfigRefValue configRef in configRefs)
-                {
-                    result = result.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
-                }
-
+                result = result.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
+            }
+                
+            try
+            {
                 var ce = new NCalc.Expression(result);
-                try
-                {
-                    result = (ce.Evaluate()).ToString();
-                }
-                catch
-                {
-                    Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                    throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
-                }
+                result = (ce.Evaluate()).ToString();
+            }
+            catch
+            {
+                Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
             }
 
             return result;
@@ -1167,29 +1172,31 @@ namespace MobiFlight
                 await mobiFlightCache.connectAsync();
 #endif
             }
-            //if (!arcazeCache.isConnected()) arcazeCache.connect();
-            //if (!mobiFlightCache.isConnected()) mobiFlightCache.connect();
 
-            if (SimAvailable())
-            {
-                OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
+            // Check only for available sims if not in Offline mode.
+            if (!OfflineMode) { 
 
-                Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
+                if (SimAvailable())
+                {
+                    OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
 
-                if (!fsuipcCache.isConnected())
-                    fsuipcCache.connect();
+                    Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
+
+                    if (!fsuipcCache.isConnected())
+                        fsuipcCache.connect();
 #if SIMCONNECT
-                if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
-                    simConnectCache.Connect();
+                    if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
+                        simConnectCache.Connect();
 #endif
-                // we return here to prevent the disabling of the timer
-                // so that autostart-feature can work properly
-                _autoConnectTimerRunning = false;
-                return;
-            }
-            else
-            {
-                Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
+                    // we return here to prevent the disabling of the timer
+                    // so that autostart-feature can work properly
+                    _autoConnectTimerRunning = false;
+                    return;
+                }
+                else
+                {
+                    Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
+                }
             }
 
             // this line here provokes a timer stop event each time
