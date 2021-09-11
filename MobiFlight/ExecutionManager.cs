@@ -75,6 +75,7 @@ namespace MobiFlight
 #if MOBIFLIGHT
         readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
 #endif
+        readonly JoystickManager joystickManager = new JoystickManager();
         DataGridView dataGridViewConfig = null;
         DataGridView inputsDataGridView = null;
         Dictionary<String, List<Tuple<InputConfigItem, DataGridViewRow>>> inputCache = new Dictionary<string, List<Tuple<InputConfigItem, DataGridViewRow>>>();
@@ -121,8 +122,11 @@ namespace MobiFlight
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
 
 #if MOBIFLIGHT
-            mobiFlightCache.OnButtonPressed += new MobiFlightCache.ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
+            joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            joystickManager.Connect(handle);
+            joystickManager.Start();
         }
 
         public void HandleWndProc(ref Message m)
@@ -267,6 +271,11 @@ namespace MobiFlight
             return arcazeCache;
         }
 #endif
+
+        public JoystickManager GetJoystickManager()
+        {
+            return joystickManager;
+        }
 
         public List<IModuleInfo> GetAllConnectedModulesInfo()
         {

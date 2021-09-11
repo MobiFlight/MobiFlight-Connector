@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
-    {
-        public delegate void ButtonEventHandler(object sender, InputEventArgs e);
-        public delegate void ModuleConnectEventHandler(object sender, String status, int progress);
+    public delegate void ButtonEventHandler(object sender, InputEventArgs e);
+    public delegate void ModuleConnectEventHandler(object sender, String status, int progress);
 
+    public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
+    {    
         /// <summary>
         /// Gets raised whenever a button is pressed
         /// </summary>
