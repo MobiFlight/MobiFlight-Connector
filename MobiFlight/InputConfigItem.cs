@@ -21,14 +21,16 @@ namespace MobiFlight
         public const String TYPE_NOTSET = "";
         public const String TYPE_BUTTON = "Button";
         public const String TYPE_ENCODER = "Encoder";
+        public const String TYPE_INPUT_SHIFT_REGISTER = "InputShiftRegister";
         public const String TYPE_ANALOG = "Analog";
-
 
         public string ModuleSerial { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public ButtonInputConfig button { get; set; }
         public EncoderInputConfig encoder { get; set; }
+        public InputShiftRegisterConfig inputShiftRegister { get; set; }
+
         public AnalogInputConfig analog { get; set; }
 
         public PreconditionList Preconditions { get; set; }
@@ -69,6 +71,14 @@ namespace MobiFlight
             {
                 encoder = new EncoderInputConfig();
                 encoder.ReadXml(reader);
+                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
+                reader.Read(); // advance to the next node
+            }
+
+            if (reader.LocalName == "inputShiftRegister")
+            {
+                inputShiftRegister = new InputShiftRegisterConfig();
+                inputShiftRegister.ReadXml(reader);
                 if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
                 reader.Read(); // advance to the next node
             }
@@ -154,6 +164,13 @@ namespace MobiFlight
                 writer.WriteEndElement();
             }
 
+            if (inputShiftRegister != null)
+            {
+                writer.WriteStartElement("inputShiftRegister");
+                inputShiftRegister.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+
             if (analog != null)
             {
                 writer.WriteStartElement("analog");
@@ -189,6 +206,9 @@ namespace MobiFlight
             if (encoder != null)
                 clone.encoder = (EncoderInputConfig)this.encoder.Clone();
 
+            if (inputShiftRegister != null)
+                clone.inputShiftRegister = (InputShiftRegisterConfig)this.inputShiftRegister.Clone();
+
             if (analog != null)
                 clone.analog = (AnalogInputConfig)this.analog.Clone();
 
@@ -218,10 +238,13 @@ namespace MobiFlight
                     if (button != null)
                         button.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
-
                 case TYPE_ENCODER:
                     if (encoder != null)
                         encoder.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                    break;
+                case TYPE_INPUT_SHIFT_REGISTER:
+                    if (inputShiftRegister != null)
+                        inputShiftRegister.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
                 case TYPE_ANALOG:
                     if (analog != null)

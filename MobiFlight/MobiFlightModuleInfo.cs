@@ -15,6 +15,7 @@ namespace MobiFlight
         public int MaxServos = 0;
         public int MaxLcdI2C = 0;
         public int MaxAnalogInputs = 0;
+        public int MaxInputShifters = 0;
     }
 
     public class MegaCapabilities : MobiFlightCapabilities
@@ -29,6 +30,7 @@ namespace MobiFlight
             MaxServos = 10;
             MaxLcdI2C = 2;
             MaxAnalogInputs = 5;
+            MaxInputShifters = 4;
         }
     }
 
@@ -44,6 +46,7 @@ namespace MobiFlight
             MaxServos = 2;
             MaxLcdI2C = 2;
             MaxAnalogInputs = 2;
+            MaxInputShifters = 4;
         }
     }
 
@@ -59,6 +62,7 @@ namespace MobiFlight
             MaxServos = 2;
             MaxLcdI2C = 2;
             MaxAnalogInputs = 2;
+            MaxInputShifters = 4;
         }
     }
 
