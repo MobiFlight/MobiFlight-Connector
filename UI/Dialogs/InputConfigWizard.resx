@@ -199,7 +199,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.0.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.0.0.4, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>configRefTabPage</value>
@@ -264,6 +264,27 @@
   <data name="&gt;&gt;groupBoxInputSettings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="inputPinDropDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>334, 45</value>
+  </data>
+  <data name="inputPinDropDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 21</value>
+  </data>
+  <data name="inputPinDropDown.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.Name" xml:space="preserve">
+    <value>inputPinDropDown</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -292,7 +313,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="inputModuleNameComboBox.Items" xml:space="preserve">
     <value>Modul A</value>
@@ -319,7 +340,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputModuleNameComboBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="inputTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -349,7 +370,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputTypeComboBoxLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="inputTypeComboBox.Items" xml:space="preserve">
     <value>Pin</value>
@@ -379,7 +400,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputTypeComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -1402,58 +1423,58 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADK
-        CwAAAk1TRnQBSQFMAgEBAgEAASABAgEgAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADI
+        CwAAAk1TRnQBSQFMAgEBAgEAASgBAgEoAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ASUB/wH7AbEBCQH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ASUBhAL/
-        AREBPwL/AQABNwL/AQABMQL/AQABNAL/AQABQQL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAATsB/wHwAakBEgH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ASQB/wH7AbEBCAH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ASQBhAL/
+        ARABPgL/AQABNgL/AQABMAL/AQABMwL/AQABQAL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
+        Al0BYQHiiAACXAFVAeoB9gHAAToB/wHwAakBEQH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
         Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        AToBkAH9Af8BFAE5Af4B/wEAAS8C/wEAASgC/wEAASQC/wEAAS4C/wEAAToC/wEAAYIC/wEAAY8C/wEA
-        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQEzAf8B6wGiAQwB/wHqAZcBAAH/AeoBjAEA
+        ATkBkAH9Af8BEwE4Af4B/wEAAS4C/wEAAScC/wEAASMC/wEAAS0C/wEAATkC/wEAAYIC/wEAAY8C/wEA
+        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQEyAf8B6wGiAQsB/wHqAZcBAAH/AeoBjAEA
         Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqATMBiwH+Af8BDgE0Af4B/wEAASoC/wEAASIC/wEAASAC/wEAAS0C/wEA
-        ATgC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAExAf8B5gGc
-        AQkB/wHlAZABAAH/AeQBhQEAAf8B5QFDAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBMQGJAfwB/wEKATAC/wEAASUC/wEA
-        AR0C/wEAAR0C/wEAASoC/wEAATUC/wEAAT8C/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABMQH/AeEBlwEJAf8B3wGLAQAB/wHeAUMBAAH/Ad8BPQEAAf8B4QE/AQAB/wHkAUIBAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATEBiAH7
-        Af8BCgEuAf0B/wEAASIC/wEAARkC/wEAARgC/wEAASQC/wEAAS4C/wEAATUC/wEAAT0C/wEAAUIC/wEA
-        AUMC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE1Af8B3QGUAQwB/wHbAYcBAAH/AdkBPwEAAf8B2AE3
-        AQAB/wHbATkBAAH/Ad4BPAEAAf8B4QE/AQAB/wHjAUEBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBNQGIAfgB/wEMAS4B+gH/AQABIAL/AQABFgL/AQABEQL/AQABGwL/AQABJQL/
-        AQABLQL/AQABMQL/AQABNQL/AQABNQL/AQABPAL/AlUBXAHqiAABXAJVAeoB5AGtAToB/wHaAZQBEgH/
-        AdcBhgEAAf8B1QE+AQAB/wHTATIBAAH/AdUBMwEAAf8B2AE2AQAB/wHaATgBAAH/Ad0BOwEAAf8B4AE+
-        AQAB/wHjAUEBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gE6AYwB9QH/ARIBMQH1Af8BAAEhAf0B/wEA
-        ARUC/wEAAQwC/wEAARIC/wEAARoC/wEAASIC/wEAAScC/wEAASoC/wEAASkC/wEAAS8C/wJVAVwB6ogA
-        AVwCVQHqAeMBrwFDAf8B2AGVARsB/wHUAYcBAwH/AdEBPwEAAf8BzwE0AQAB/wHPASwBAAH/AdEBLwEA
-        Af8B1AEyAQAB/wHXATUBAAH/AdoBOAEAAf8B3AE6AQAB/wHlAUMBAAH/AVwCVQHqCAACVQFcAeoBQwGS
-        AfMB/wEbATUB8AH/AQMBJQH3Af8BAAEXAf4B/wEAAQ0C/wEAAQgC/wEAARAC/wEAARUC/wEAARoC/wEA
-        ARwC/wEAAR4C/wEAASIC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYASYB/wHSAYsBDwH/Ac8BQgEA
-        Af8BzAE3AQAB/wHLAS4BAAH/AcsBKgEAAf8BzgEsAQAB/wHRAS8BAAH/AdMBMQEAAf8B1gE0AQAB/wHf
-        AT0BAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEmATwB7AH/AQ8BLAHxAf8BAAEeAfcB/wEAAREC/wEA
-        AQcC/wEAAQYC/wEAAQoC/wEAAQ4C/wEAARAC/wEAARAC/wEAARUC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
-        Af8B1gGdATQB/wHSAZABHgH/Ac4BhAEJAf8BywE9AQAB/wHJATQBAAH/AcgBLQEAAf8ByAEnAQAB/wHK
-        ASgBAAH/Ac0BKwEAAf8B0AEuAQAB/wHYATUBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE0AYEB6AH/
-        AR4BNQHrAf8BCQEnAfAB/wEAARoB9QH/AQABDwH9Af8BAAEFAv8CAAH+Af8BAAEBAv8BAAEDAv8BAAEC
-        Av8BAAEHAv8CVQFcAeqIAAFcAlUB6gHlAcIBqQH/AdcBpQGAAf8B0gGXAS4B/wHOAYsBGwH/AcsBgQEJ
-        Af8ByQE8AQAB/wHIATUBAAH/AcgBMAEAAf8ByAEuAQAB/wHKAS4BAAH/Ac0BMAEAAf8B1QE7AQAB/wFc
-        AlUB6ggAAlUBXAHqAakBsQHvAf8BgAGMAeYB/wEuAUAB5wH/ARsBMgHqAf8BCQElAe4B/wEAARoB8gH/
-        AQABEQH2Af8BAAEKAfoB/wEAAQQB/gH/AQABAgL/AQABAgL/AQABCgL/AlUBXAHqiAABYQJaAeQB7wHZ
-        AcoB/wHiAb0BowH/AdwBrQGMAf8B1gGhATsB/wHTAZUBKQH/Ac8BiwEYAf8BzgGFAQsB/wHNAYABAQH/
-        Ac4BQQEAAf8BzwFBAQAB/wHTAYABAAH/AdoBiQEAAf8BXwJYAeMIAAJaAWEB5AHKAdAB9QH/AaMBrAHs
-        Af8BjAGYAesB/wE7AYoB7QH/ASkBPwHvAf8BGAE0AfEB/wELASoB9QH/AQEBIgH3Af8BAAEeAfoB/wEA
-        ARoB+gH/AQABGgH8Af8BAAEkAv8CWAFfAeOIAAM8AWYBYQJaAeQBXAJVAeoBXAJVAeoBXAJVAeoBXAJV
-        AeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBYQJaAeQDOwFkCAADPAFmAloBYQHk
-        AlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHq
-        AloBYQHkAzsBZP8AhQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAGA
-        AQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGA
-        AQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGA
-        AQEBgAEBBAABgAEBAYABAQQABP8EAAs=
+        AQAB/wJcAVUB6ggAAlUBXAHqATIBiwH+Af8BDQEzAf4B/wEAASkC/wEAASEC/wEAAR8C/wEAASwC/wEA
+        ATcC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAEwAf8B5gGc
+        AQgB/wHlAZABAAH/AeQBhQEAAf8B5QFCAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
+        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBMAGJAfwB/wEJAS8C/wEAASQC/wEA
+        ARwC/wEAARwC/wEAASkC/wEAATQC/wEAAT4C/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
+        AlwBVQLqAbABMAH/AeEBlwEIAf8B3wGLAQAB/wHeAUIBAAH/Ad8BPAEAAf8B4QE+AQAB/wHkAUEBAAH/
+        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATABiAH7
+        Af8BCQEtAf0B/wEAASEC/wEAARgC/wEAARcC/wEAASMC/wEAAS0C/wEAATQC/wEAATwC/wEAAUEC/wEA
+        AUIC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE0Af8B3QGUAQsB/wHbAYcBAAH/AdkBPgEAAf8B2AE2
+        AQAB/wHbATgBAAH/Ad4BOwEAAf8B4QE+AQAB/wHjAUABAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
+        AlwBVQHqCAACVQFcAeoBNAGIAfgB/wELAS0B+gH/AQABHwL/AQABFQL/AQABEAL/AQABGgL/AQABJAL/
+        AQABLAL/AQABMAL/AQABNAL/AQABNAL/AQABOwL/AlUBXAHqiAABXAJVAeoB5AGtATkB/wHaAZQBEQH/
+        AdcBhgEAAf8B1QE9AQAB/wHTATEBAAH/AdUBMgEAAf8B2AE1AQAB/wHaATcBAAH/Ad0BOgEAAf8B4AE9
+        AQAB/wHjAUABAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gE5AYwB9QH/AREBMAH1Af8BAAEgAf0B/wEA
+        ARQC/wEAAQsC/wEAAREC/wEAARkC/wEAASEC/wEAASYC/wEAASkC/wEAASgC/wEAAS4C/wJVAVwB6ogA
+        AVwCVQHqAeMBrwFCAf8B2AGVARoB/wHUAYcBAgH/AdEBPgEAAf8BzwEzAQAB/wHPASsBAAH/AdEBLgEA
+        Af8B1AExAQAB/wHXATQBAAH/AdoBNwEAAf8B3AE5AQAB/wHlAUIBAAH/AVwCVQHqCAACVQFcAeoBQgGS
+        AfMB/wEaATQB8AH/AQIBJAH3Af8BAAEWAf4B/wEAAQwC/wEAAQcC/wEAAQ8C/wEAARQC/wEAARkC/wEA
+        ARsC/wEAAR0C/wEAASEC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYASUB/wHSAYsBDgH/Ac8BQQEA
+        Af8BzAE2AQAB/wHLAS0BAAH/AcsBKQEAAf8BzgErAQAB/wHRAS4BAAH/AdMBMAEAAf8B1gEzAQAB/wHf
+        ATwBAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wElATsB7AH/AQ4BKwHxAf8BAAEdAfcB/wEAARAC/wEA
+        AQYC/wEAAQUC/wEAAQkC/wEAAQ0C/wEAAQ8C/wEAAQ8C/wEAARQC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
+        Af8B1gGdATMB/wHSAZABHQH/Ac4BhAEIAf8BywE8AQAB/wHJATMBAAH/AcgBLAEAAf8ByAEmAQAB/wHK
+        AScBAAH/Ac0BKgEAAf8B0AEtAQAB/wHYATQBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wEzAYEB6AH/
+        AR0BNAHrAf8BCAEmAfAB/wEAARkB9QH/AQABDgH9Af8BAAEEAv8CAAH+Af8CAAL/AQABAgL/AQABAQL/
+        AQABBgL/AlUBXAHqiAABXAJVAeoB5QHCAakB/wHXAaUBgAH/AdIBlwEtAf8BzgGLARoB/wHLAYEBCAH/
+        AckBOwEAAf8ByAE0AQAB/wHIAS8BAAH/AcgBLQEAAf8BygEtAQAB/wHNAS8BAAH/AdUBOgEAAf8BXAJV
+        AeoIAAJVAVwB6gGpAbEB7wH/AYABjAHmAf8BLQE/AecB/wEaATEB6gH/AQgBJAHuAf8BAAEZAfIB/wEA
+        ARAB9gH/AQABCQH6Af8BAAEDAf4B/wEAAQEC/wEAAQEC/wEAAQkC/wJVAVwB6ogAAWECWgHkAe8B2QHK
+        Af8B4gG9AaMB/wHcAa0BjAH/AdYBoQE6Af8B0wGVASgB/wHPAYsBFwH/Ac4BhQEKAf8BzQGAAQAB/wHO
+        AUABAAH/Ac8BQAEAAf8B0wGAAQAB/wHaAYkBAAH/AV8CWAHjCAACWgFhAeQBygHQAfUB/wGjAawB7AH/
+        AYwBmAHrAf8BOgGKAe0B/wEoAT4B7wH/ARcBMwHxAf8BCgEpAfUB/wEAASEB9wH/AQABHQH6Af8BAAEZ
+        AfoB/wEAARkB/AH/AQABIwL/AlgBXwHjiAADPAFmAWECWgHkAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHq
+        AVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAVwCVQHqAWECWgHkAzsBZAgAAzwBZgJaAWEB5AJV
+        AVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJVAVwB6gJa
+        AWEB5AM7AWT/AIUAAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEBBQABgBcAA/8BAAT/BAABgAEB
+        AYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEB
+        AYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEB
+        AYABAQQAAYABAQGAAQEEAAT/BAAL
 </value>
   </data>
   <data name="preconditionListTreeView.Location" type="System.Drawing.Point, System.Drawing">
@@ -1653,7 +1674,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.0.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.0.0.4, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>configRefTabPage</value>
