@@ -86,6 +86,7 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
+            this.inputPinDropDown = new System.Windows.Forms.ComboBox();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.preconditionTabPage.SuspendLayout();
@@ -493,6 +494,7 @@
             resources.GetString("inputTypeComboBox.Items2")});
             resources.ApplyResources(this.inputTypeComboBox, "inputTypeComboBox");
             this.inputTypeComboBox.Name = "inputTypeComboBox";
+            this.inputTypeComboBox.DisplayMember = "Name";
             this.inputTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.inputTypeComboBox_SelectedIndexChanged);
             // 
             // displayTabTextBox
@@ -549,6 +551,17 @@
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
+            // 
+            // inputPinDropDown
+            // 
+            this.inputPinDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.inputPinDropDown.FormattingEnabled = true;
+            this.inputPinDropDown.Items.AddRange(new object[] {
+            resources.GetString("inputPinDropDown.Items"),
+            resources.GetString("inputPinDropDown.Items1"),
+            resources.GetString("inputPinDropDown.Items2")});
+            resources.ApplyResources(this.inputPinDropDown, "inputPinDropDown");
+            this.inputPinDropDown.Name = "inputPinDropDown";
             // 
             // InputConfigWizard
             // 

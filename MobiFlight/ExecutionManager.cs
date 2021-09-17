@@ -1431,10 +1431,9 @@ namespace MobiFlight
                         if (gridViewRow.DataBoundItem == null) continue;
 
                         InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-
                         // item currently created and not saved yet.
                         if (cfg == null) continue;
-
+                        
                         if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
                         {
                             // Input shift registers have an additional check to see if the pin that changed matches the pin
