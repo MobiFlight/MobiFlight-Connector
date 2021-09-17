@@ -477,6 +477,7 @@
             // 
             // inputTypeComboBox
             // 
+            this.inputTypeComboBox.DisplayMember = "Name";
             this.inputTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.inputTypeComboBox.FormattingEnabled = true;
             this.inputTypeComboBox.Items.AddRange(new object[] {
@@ -485,7 +486,6 @@
             resources.GetString("inputTypeComboBox.Items2")});
             resources.ApplyResources(this.inputTypeComboBox, "inputTypeComboBox");
             this.inputTypeComboBox.Name = "inputTypeComboBox";
-            this.inputTypeComboBox.DisplayMember = "Name";
             this.inputTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.inputTypeComboBox_SelectedIndexChanged);
             // 
             // displayTabTextBox
