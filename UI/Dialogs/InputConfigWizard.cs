@@ -308,6 +308,22 @@ namespace MobiFlight.UI.Dialogs
             return true;
         }
 
+        private void PopulateInputPinDropdown(int numModules, int? selectedPin)
+        {
+            // The selected input in the dropdown is the shift register details, which includes the
+            // number of connected modules. That gets multiplied by 8 pins per module to get the total
+            // number of available pins to populate.
+            int totalPins = numModules * 8;
+
+            inputPinDropDown.Items.Clear();
+            for (int i = 0; i < totalPins; i++)
+            {
+                inputPinDropDown.Items.Add(i);
+            }
+
+            inputPinDropDown.SelectedItem = selectedPin ?? 0;
+        }
+
         /// <summary>
         /// sync current status of form values to config
         /// </summary>
@@ -337,6 +353,14 @@ namespace MobiFlight.UI.Dialogs
                     if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
+                    break;
+
+                case DeviceType.InputShiftRegister:
+                    config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
+                    if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
+                    config.inputShiftRegister.pin = (int)inputPinDropDown.SelectedItem;
+                    if (groupBoxInputSettings.Controls[0] != null)
+                        (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
                     break;
 
                 case DeviceType.AnalogInput:
@@ -383,8 +407,6 @@ namespace MobiFlight.UI.Dialogs
                 // type of module
                 
                 inputTypeComboBox.Items.Clear();
-                inputTypeComboBox.ValueMember = "Value";
-                inputTypeComboBox.DisplayMember = "Label";
 
                 if (!Joystick.IsJoystickSerial(serial))
                 {
@@ -397,7 +419,8 @@ namespace MobiFlight.UI.Dialogs
                             case DeviceType.Button:
                             case DeviceType.AnalogInput:
                             case DeviceType.Encoder:
-                                inputTypeComboBox.Items.Add(new ListItem() { Label = device.Name, Value = device.Name });
+                            case DeviceType.InputShiftRegister:
+                                inputTypeComboBox.Items.Add(device);
                                 break;
                         }
                     }
@@ -453,7 +476,7 @@ namespace MobiFlight.UI.Dialogs
                 // find the correct input type based on the name
                 foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
                 {
-                    if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
+                    if (device.Name != (inputTypeComboBox.SelectedItem as Config.BaseDevice).Name) continue;
 
                     currentInputType = device.Type;
                     break;
@@ -473,6 +496,7 @@ namespace MobiFlight.UI.Dialogs
         {
             Control panel = null;
             groupBoxInputSettings.Controls.Clear();
+            inputPinDropDown.Visible = false;
 
             try
             {
@@ -496,6 +520,15 @@ namespace MobiFlight.UI.Dialogs
                     case DeviceType.Encoder:
                         panel = new Panels.Input.EncoderPanel();
                         (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
+                        break;
+
+
+                    case DeviceType.InputShiftRegister:
+                        Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
+                        panel = new Panels.Input.InputShiftRegisterPanel();
+                        (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.pin);
+                        inputPinDropDown.Visible = true;
                         break;
 
                     case DeviceType.AnalogInput:
