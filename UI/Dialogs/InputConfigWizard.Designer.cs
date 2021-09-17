@@ -73,6 +73,7 @@
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.groupBoxInputSettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.inputPinDropDown = new System.Windows.Forms.ComboBox();
             this.arcazeSerialLabel = new System.Windows.Forms.Label();
             this.inputModuleNameComboBox = new System.Windows.Forms.ComboBox();
             this.inputTypeComboBoxLabel = new System.Windows.Forms.Label();
@@ -85,7 +86,6 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
-            this.inputPinDropDown = new System.Windows.Forms.ComboBox();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.preconditionTabPage.SuspendLayout();
@@ -452,6 +452,13 @@
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
             // 
+            // inputPinDropDown
+            // 
+            this.inputPinDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.inputPinDropDown.FormattingEnabled = true;
+            resources.ApplyResources(this.inputPinDropDown, "inputPinDropDown");
+            this.inputPinDropDown.Name = "inputPinDropDown";
+            // 
             // arcazeSerialLabel
             // 
             resources.ApplyResources(this.arcazeSerialLabel, "arcazeSerialLabel");
@@ -542,13 +549,6 @@
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
-            // 
-            // inputPinDropDown
-            // 
-            this.inputPinDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.inputPinDropDown.FormattingEnabled = true;
-            resources.ApplyResources(this.inputPinDropDown, "inputPinDropDown");
-            this.inputPinDropDown.Name = "inputPinDropDown";
             // 
             // InputConfigWizard
             // 
