@@ -64,16 +64,16 @@
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addDeviceToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.addOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addLedModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addServoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addStepperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addLcdDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.addEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addButtonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.analogDeviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.addStepperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addServoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addLedModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addLcdDisplayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDeviceToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
@@ -81,6 +81,7 @@
             this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.FwAutoUpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.addInputShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mfConfiguredModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.mobiflightSettingsToolStrip.SuspendLayout();
@@ -335,10 +336,52 @@
             this.toolStripSeparator3,
             this.addEncoderToolStripMenuItem,
             this.addButtonToolStripMenuItem,
-            this.analogDeviceToolStripMenuItem1});
+            this.analogDeviceToolStripMenuItem1,
+            this.addInputShiftRegisterToolStripMenuItem});
             this.addDeviceToolStripDropDownButton.Image = global::MobiFlight.Properties.Resources.star_yellow_add;
             resources.ApplyResources(this.addDeviceToolStripDropDownButton, "addDeviceToolStripDropDownButton");
             this.addDeviceToolStripDropDownButton.Name = "addDeviceToolStripDropDownButton";
+            // 
+            // addOutputToolStripMenuItem
+            // 
+            this.addOutputToolStripMenuItem.Name = "addOutputToolStripMenuItem";
+            resources.ApplyResources(this.addOutputToolStripMenuItem, "addOutputToolStripMenuItem");
+            this.addOutputToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // addLedModuleToolStripMenuItem
+            // 
+            this.addLedModuleToolStripMenuItem.Name = "addLedModuleToolStripMenuItem";
+            resources.ApplyResources(this.addLedModuleToolStripMenuItem, "addLedModuleToolStripMenuItem");
+            this.addLedModuleToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // addServoToolStripMenuItem
+            // 
+            this.addServoToolStripMenuItem.Name = "addServoToolStripMenuItem";
+            resources.ApplyResources(this.addServoToolStripMenuItem, "addServoToolStripMenuItem");
+            this.addServoToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // addStepperToolStripMenuItem
+            // 
+            this.addStepperToolStripMenuItem.Name = "addStepperToolStripMenuItem";
+            resources.ApplyResources(this.addStepperToolStripMenuItem, "addStepperToolStripMenuItem");
+            this.addStepperToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // addLcdDisplayToolStripMenuItem
+            // 
+            this.addLcdDisplayToolStripMenuItem.Name = "addLcdDisplayToolStripMenuItem";
+            resources.ApplyResources(this.addLcdDisplayToolStripMenuItem, "addLcdDisplayToolStripMenuItem");
+            this.addLcdDisplayToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // addShiftRegisterToolStripMenuItem
+            // 
+            this.addShiftRegisterToolStripMenuItem.Name = "addShiftRegisterToolStripMenuItem";
+            resources.ApplyResources(this.addShiftRegisterToolStripMenuItem, "addShiftRegisterToolStripMenuItem");
+            this.addShiftRegisterToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // addEncoderToolStripMenuItem
             // 
@@ -357,47 +400,6 @@
             this.analogDeviceToolStripMenuItem1.Name = "analogDeviceToolStripMenuItem1";
             resources.ApplyResources(this.analogDeviceToolStripMenuItem1, "analogDeviceToolStripMenuItem1");
             this.analogDeviceToolStripMenuItem1.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
-            // 
-            // addStepperToolStripMenuItem
-            // 
-            this.addStepperToolStripMenuItem.Name = "addStepperToolStripMenuItem";
-            resources.ApplyResources(this.addStepperToolStripMenuItem, "addStepperToolStripMenuItem");
-            this.addStepperToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
-            // addServoToolStripMenuItem
-            // 
-            this.addServoToolStripMenuItem.Name = "addServoToolStripMenuItem";
-            resources.ApplyResources(this.addServoToolStripMenuItem, "addServoToolStripMenuItem");
-            this.addServoToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
-            // addLedModuleToolStripMenuItem
-            // 
-            this.addLedModuleToolStripMenuItem.Name = "addLedModuleToolStripMenuItem";
-            resources.ApplyResources(this.addLedModuleToolStripMenuItem, "addLedModuleToolStripMenuItem");
-            this.addLedModuleToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
-            // addOutputToolStripMenuItem
-            // 
-            this.addOutputToolStripMenuItem.Name = "addOutputToolStripMenuItem";
-            resources.ApplyResources(this.addOutputToolStripMenuItem, "addOutputToolStripMenuItem");
-            this.addOutputToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
-            // addLcdDisplayToolStripMenuItem
-            // 
-            this.addLcdDisplayToolStripMenuItem.Name = "addLcdDisplayToolStripMenuItem";
-            resources.ApplyResources(this.addLcdDisplayToolStripMenuItem, "addLcdDisplayToolStripMenuItem");
-            this.addLcdDisplayToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
-            // addShiftRegisterToolStripMenuItem
-            // 
-            this.addShiftRegisterToolStripMenuItem.Name = "addShiftRegisterToolStripMenuItem";
-            resources.ApplyResources(this.addShiftRegisterToolStripMenuItem, "addShiftRegisterToolStripMenuItem");
-            this.addShiftRegisterToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // removeDeviceToolStripButton
             // 
@@ -432,6 +434,12 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // addInputShiftRegisterToolStripMenuItem
+            // 
+            this.addInputShiftRegisterToolStripMenuItem.Name = "addInputShiftRegisterToolStripMenuItem";
+            resources.ApplyResources(this.addInputShiftRegisterToolStripMenuItem, "addInputShiftRegisterToolStripMenuItem");
+            this.addInputShiftRegisterToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // MobiFlightPanel
             // 
@@ -507,5 +515,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addInputShiftRegisterToolStripMenuItem;
     }
 }
