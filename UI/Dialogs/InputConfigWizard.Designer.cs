@@ -86,7 +86,6 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
-            this.inputPinDropDown = new System.Windows.Forms.ComboBox();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.preconditionTabPage.SuspendLayout();
@@ -550,13 +549,6 @@
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
-            // 
-            // inputPinDropDown
-            // 
-            this.inputPinDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.inputPinDropDown.FormattingEnabled = true;
-            resources.ApplyResources(this.inputPinDropDown, "inputPinDropDown");
-            this.inputPinDropDown.Name = "inputPinDropDown";
             // 
             // InputConfigWizard
             // 
