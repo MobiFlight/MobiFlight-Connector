@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
+using System.Net.Http;
 
 namespace MobiFlightInstaller.UI
 {
@@ -24,6 +25,9 @@ namespace MobiFlightInstaller.UI
         {
             InitializeComponent();
             SelectedPath.Text = Directory.GetCurrentDirectory();
+            AsyncCheckGithub();
+            BoxTargetDirectory.Checked = MobiFlightUpdaterModel.VerifyCurrentFolderRight();
+            IfReadyForTakeOFF();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,6 +36,8 @@ namespace MobiFlightInstaller.UI
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 SelectedPath.Text = folderBrowserDialog1.SelectedPath;
+                BoxTargetDirectory.Checked = MobiFlightUpdaterModel.VerifyCurrentFolderRight();
+                IfReadyForTakeOFF();
             }
         }
 
@@ -96,6 +102,42 @@ namespace MobiFlightInstaller.UI
             {
                 Log.Instance.log("URL is incorrect, installation aborted", LogSeverity.Debug);
                 MessageBox.Show("URL is incorrect, impossible to download the file, installation aborted!");
+            }
+        }
+
+        private async void AsyncCheckGithub()
+        {
+            await CheckGithub();
+        }
+        private async Task CheckGithub()
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    await client.GetAsync("https://github.com");
+                    BoxGithub.Checked = true;
+                    IfReadyForTakeOFF();
+                }
+            }
+            catch
+            {
+                BoxGithub.Checked = false;
+                IfReadyForTakeOFF();
+            }
+        }
+
+        private void IfReadyForTakeOFF()
+        {
+            if (BoxGithub.Checked & BoxTargetDirectory.Checked)
+            {
+                SetupTitle.Text = "Clear to take off MF9";
+                SetupTitle.ForeColor = System.Drawing.Color.White;
+            }
+            else
+            {
+                SetupTitle.Text = "Take OFF aborted, something wrong with the setup !";
+                SetupTitle.ForeColor = System.Drawing.Color.Red;
             }
         }
 

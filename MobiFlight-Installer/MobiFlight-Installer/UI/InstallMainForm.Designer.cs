@@ -38,18 +38,20 @@ namespace MobiFlightInstaller.UI
             this.UpdaterCurrentTask = new System.Windows.Forms.Label();
             this.SetupTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.BoxGithub = new System.Windows.Forms.CheckBox();
+            this.BoxTargetDirectory = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // SelectedPath
             // 
-            this.SelectedPath.Location = new System.Drawing.Point(47, 191);
+            this.SelectedPath.Location = new System.Drawing.Point(47, 270);
             this.SelectedPath.Name = "SelectedPath";
             this.SelectedPath.Size = new System.Drawing.Size(581, 20);
             this.SelectedPath.TabIndex = 0;
             // 
             // buttonChooseFolder
             // 
-            this.buttonChooseFolder.Location = new System.Drawing.Point(634, 188);
+            this.buttonChooseFolder.Location = new System.Drawing.Point(634, 267);
             this.buttonChooseFolder.Name = "buttonChooseFolder";
             this.buttonChooseFolder.Size = new System.Drawing.Size(118, 23);
             this.buttonChooseFolder.TabIndex = 1;
@@ -60,7 +62,7 @@ namespace MobiFlightInstaller.UI
             // buttonStartInstall
             // 
             this.buttonStartInstall.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonStartInstall.Location = new System.Drawing.Point(252, 256);
+            this.buttonStartInstall.Location = new System.Drawing.Point(256, 308);
             this.buttonStartInstall.Name = "buttonStartInstall";
             this.buttonStartInstall.Size = new System.Drawing.Size(299, 43);
             this.buttonStartInstall.TabIndex = 2;
@@ -70,7 +72,7 @@ namespace MobiFlightInstaller.UI
             // 
             // SetupProgressBar
             // 
-            this.SetupProgressBar.Location = new System.Drawing.Point(47, 346);
+            this.SetupProgressBar.Location = new System.Drawing.Point(47, 371);
             this.SetupProgressBar.Name = "SetupProgressBar";
             this.SetupProgressBar.Size = new System.Drawing.Size(705, 30);
             this.SetupProgressBar.TabIndex = 3;
@@ -78,7 +80,7 @@ namespace MobiFlightInstaller.UI
             // UpdaterCurrentTask
             // 
             this.UpdaterCurrentTask.AutoSize = true;
-            this.UpdaterCurrentTask.Location = new System.Drawing.Point(44, 394);
+            this.UpdaterCurrentTask.Location = new System.Drawing.Point(44, 419);
             this.UpdaterCurrentTask.Name = "UpdaterCurrentTask";
             this.UpdaterCurrentTask.Size = new System.Drawing.Size(0, 13);
             this.UpdaterCurrentTask.TabIndex = 4;
@@ -90,7 +92,7 @@ namespace MobiFlightInstaller.UI
             this.SetupTitle.BackColor = System.Drawing.Color.Transparent;
             this.SetupTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetupTitle.ForeColor = System.Drawing.Color.White;
-            this.SetupTitle.Location = new System.Drawing.Point(213, 33);
+            this.SetupTitle.Location = new System.Drawing.Point(210, 128);
             this.SetupTitle.Name = "SetupTitle";
             this.SetupTitle.Size = new System.Drawing.Size(386, 42);
             this.SetupTitle.TabIndex = 5;
@@ -103,11 +105,37 @@ namespace MobiFlightInstaller.UI
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(44, 159);
+            this.label1.Location = new System.Drawing.Point(43, 247);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(307, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "Choose a folder where to install MobiFlight";
+            // 
+            // BoxGithub
+            // 
+            this.BoxGithub.AutoSize = true;
+            this.BoxGithub.BackColor = System.Drawing.Color.Transparent;
+            this.BoxGithub.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BoxGithub.ForeColor = System.Drawing.Color.White;
+            this.BoxGithub.Location = new System.Drawing.Point(134, 18);
+            this.BoxGithub.Name = "BoxGithub";
+            this.BoxGithub.Size = new System.Drawing.Size(193, 24);
+            this.BoxGithub.TabIndex = 8;
+            this.BoxGithub.Text = "Github Check Online";
+            this.BoxGithub.UseVisualStyleBackColor = false;
+            // 
+            // BoxTargetDirectory
+            // 
+            this.BoxTargetDirectory.AutoSize = true;
+            this.BoxTargetDirectory.BackColor = System.Drawing.Color.Transparent;
+            this.BoxTargetDirectory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BoxTargetDirectory.ForeColor = System.Drawing.Color.White;
+            this.BoxTargetDirectory.Location = new System.Drawing.Point(479, 18);
+            this.BoxTargetDirectory.Name = "BoxTargetDirectory";
+            this.BoxTargetDirectory.Size = new System.Drawing.Size(214, 24);
+            this.BoxTargetDirectory.TabIndex = 9;
+            this.BoxTargetDirectory.Text = "Target Directory Rights";
+            this.BoxTargetDirectory.UseVisualStyleBackColor = false;
             // 
             // InstallMainForm
             // 
@@ -115,6 +143,8 @@ namespace MobiFlightInstaller.UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::MobiFlightInstaller.Properties.Resources.SetupBackground;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BoxTargetDirectory);
+            this.Controls.Add(this.BoxGithub);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SetupTitle);
             this.Controls.Add(this.UpdaterCurrentTask);
@@ -144,5 +174,7 @@ namespace MobiFlightInstaller.UI
         private System.Windows.Forms.Label UpdaterCurrentTask;
         private System.Windows.Forms.Label SetupTitle;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox BoxGithub;
+        private System.Windows.Forms.CheckBox BoxTargetDirectory;
     }
 }
