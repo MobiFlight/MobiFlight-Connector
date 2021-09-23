@@ -36,9 +36,11 @@ namespace MobiFlightInstaller.UI
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 SelectedPath.Text = folderBrowserDialog1.SelectedPath;
-                BoxTargetDirectory.Checked = MobiFlightUpdaterModel.VerifyCurrentFolderRight();
-                IfReadyForTakeOFF();
+                PathToInstall = SelectedPath.Text;
+                MobiFlightUpdaterModel.SetInstallPath(PathToInstall);
             }
+            BoxTargetDirectory.Checked = MobiFlightUpdaterModel.VerifyCurrentFolderRight();
+            IfReadyForTakeOFF();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -136,7 +138,7 @@ namespace MobiFlightInstaller.UI
             }
             else
             {
-                SetupTitle.Text = "Take OFF aborted, something wrong with the setup !";
+                SetupTitle.Text = "Take OFF aborted, something wrong";
                 SetupTitle.ForeColor = System.Drawing.Color.Red;
             }
         }

@@ -88,15 +88,15 @@ namespace MobiFlightInstaller.UI
             // 
             // SetupTitle
             // 
-            this.SetupTitle.AutoSize = true;
             this.SetupTitle.BackColor = System.Drawing.Color.Transparent;
             this.SetupTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetupTitle.ForeColor = System.Drawing.Color.White;
-            this.SetupTitle.Location = new System.Drawing.Point(210, 128);
+            this.SetupTitle.Location = new System.Drawing.Point(12, 134);
             this.SetupTitle.Name = "SetupTitle";
-            this.SetupTitle.Size = new System.Drawing.Size(386, 42);
+            this.SetupTitle.Size = new System.Drawing.Size(776, 42);
             this.SetupTitle.TabIndex = 5;
             this.SetupTitle.Text = "Clear to take off MF9";
+            this.SetupTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.SetupTitle.Click += new System.EventHandler(this.SetupTitle_Click);
             // 
             // label1
