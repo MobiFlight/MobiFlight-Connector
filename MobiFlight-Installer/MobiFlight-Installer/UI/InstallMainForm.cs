@@ -103,5 +103,10 @@ namespace MobiFlightInstaller.UI
         {
 
         }
+
+        private void SetupTitle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
