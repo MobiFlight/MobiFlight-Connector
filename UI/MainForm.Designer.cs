@@ -77,9 +77,9 @@
             this.stopToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.stopTestToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.autoRunToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.donateToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -460,24 +460,24 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
             // 
-            // settingsToolStripButton
-            // 
-            this.settingsToolStripButton.Image = global::MobiFlight.Properties.Resources.module_mobiflight;
-            resources.ApplyResources(this.settingsToolStripButton, "settingsToolStripButton");
-            this.settingsToolStripButton.Name = "settingsToolStripButton";
-            this.settingsToolStripButton.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
-            // 
             // autoRunToolStripButton
             // 
             this.autoRunToolStripButton.Image = global::MobiFlight.Properties.Resources.lightbulb;
             resources.ApplyResources(this.autoRunToolStripButton, "autoRunToolStripButton");
             this.autoRunToolStripButton.Name = "autoRunToolStripButton";
             this.autoRunToolStripButton.Click += new System.EventHandler(this.AutoRunToolStripButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
+            // settingsToolStripButton
+            // 
+            this.settingsToolStripButton.Image = global::MobiFlight.Properties.Resources.module_mobiflight;
+            resources.ApplyResources(this.settingsToolStripButton, "settingsToolStripButton");
+            this.settingsToolStripButton.Name = "settingsToolStripButton";
+            this.settingsToolStripButton.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripSeparator3
             // 

@@ -123,6 +123,9 @@
   <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
     <value>Preset laden</value>
   </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Unterstützt Eingabe-Wert (@) und Platzhalter (?,#, etc.)</value>
+  </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Einstellungen anpassen</value>
   </data>

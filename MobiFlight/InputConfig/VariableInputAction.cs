@@ -87,5 +87,11 @@ namespace MobiFlight.InputConfig
             Variable.Text = value;
             moduleCache.SetMobiFlightVariable(Variable);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is VariableInputAction &&
+                Variable.Equals((obj as VariableInputAction).Variable);
+        }
     }
 }

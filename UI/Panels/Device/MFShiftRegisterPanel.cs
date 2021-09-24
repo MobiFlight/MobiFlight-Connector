@@ -48,9 +48,9 @@ namespace MobiFlight.UI.Panels.Settings
             // TODO: Complete member initialization
             this.shiftRegister = shiftRegister;
 
-            ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, shiftRegister.LatchPin);
-            ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, shiftRegister.ClockPin);
-            ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, shiftRegister.DataPin);
+            mfPin1ComboBox.SelectedValue = byte.Parse(shiftRegister.LatchPin);
+            mfPin2ComboBox.SelectedValue = byte.Parse(shiftRegister.ClockPin);
+            mfPin3ComboBox.SelectedValue = byte.Parse(shiftRegister.DataPin);
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, shiftRegister.NumModules);
             
             textBox1.Text = shiftRegister.Name;
@@ -70,9 +70,9 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void setValues()
         {
-            shiftRegister.LatchPin = mfPin1ComboBox.Text;
-            shiftRegister.ClockPin = mfPin2ComboBox.Text;
-            shiftRegister.DataPin = mfPin3ComboBox.Text;           
+            shiftRegister.LatchPin = mfPin1ComboBox.SelectedItem.ToString();
+            shiftRegister.ClockPin = mfPin2ComboBox.SelectedItem.ToString();
+            shiftRegister.DataPin = mfPin3ComboBox.SelectedItem.ToString();           
             shiftRegister.Name = textBox1.Text;
             shiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text)?"1": mfNumModulesComboBox.Text;
         }

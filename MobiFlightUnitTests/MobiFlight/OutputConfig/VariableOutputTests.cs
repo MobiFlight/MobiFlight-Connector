@@ -81,5 +81,20 @@ namespace MobiFlight.OutputConfig.Tests
 
             Assert.AreEqual(s, result, "The both strings are not equal");
         }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            VariableOutput o1 = new VariableOutput();
+            VariableOutput o2 = new VariableOutput();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1.Variable = new MobiFlightVariable() { Expression = "1+2" };
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2.Variable = new MobiFlightVariable() { Expression = "1+2" };
+            Assert.IsTrue(o1.Equals(o2));
+        }
     }
 }

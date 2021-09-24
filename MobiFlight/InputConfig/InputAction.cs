@@ -26,7 +26,7 @@ namespace MobiFlight.InputConfig
             InputEventArgs e,
             List<ConfigRefValue> configRefs);
 
-        public string Replace(string expression, List<Tuple<string, string>> replacements) {
+        public virtual string Replace(string expression, List<Tuple<string, string>> replacements) {
             if (replacements.Count == 0) return expression;
 
             foreach (Tuple<string, string> replacement in replacements)

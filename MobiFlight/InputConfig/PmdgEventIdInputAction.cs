@@ -76,5 +76,13 @@ namespace MobiFlight.InputConfig
 
             fsuipcCache.setEventID(EventId, (int) UInt32.Parse(value));
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is PmdgEventIdInputAction &&
+                EventId == (obj as PmdgEventIdInputAction).EventId &&
+                 Param == (obj as PmdgEventIdInputAction).Param &&
+                 AircraftType == (obj as PmdgEventIdInputAction).AircraftType;
+        }
     }
 }

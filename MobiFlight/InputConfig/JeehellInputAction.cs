@@ -21,7 +21,7 @@ namespace MobiFlight.InputConfig
         public const String TYPE = "JeehellInputAction";
 
         public Byte EventId;
-        public String Param;
+        public String Param = "";
         
         override public object Clone()
         {
@@ -162,6 +162,13 @@ namespace MobiFlight.InputConfig
             FSUIPC.FsuipcHelper.executeWrite(value, cfg, cache as FSUIPC.FSUIPCCacheInterface);
             FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), cache as FSUIPC.FSUIPCCacheInterface);
             cache.Write();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is JeehellInputAction &&
+                EventId == (obj as JeehellInputAction).EventId &&
+                Param == (obj as JeehellInputAction).Param;
         }
     }
 }

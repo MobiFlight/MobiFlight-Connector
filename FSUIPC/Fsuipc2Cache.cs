@@ -41,20 +41,7 @@ namespace MobiFlight.FSUIPC
         public MobiFlight.FlightSimType FlightSim = FlightSimType.NONE;
         
         bool _offsetsRegistered = false;
-        bool _connected = false;
         bool __isProcessed = false;
-        bool _offlineMode = false;
-        public bool OfflineMode {
-            get {
-#if FSUIPC_OFFLINE_MODE
-            return true;
-#else
-            return _offlineMode;
-#endif
-            }
-
-            set { _offlineMode = value;  }
-        }
 
         public Fsuipc2Cache()
         {
@@ -67,62 +54,63 @@ namespace MobiFlight.FSUIPC
 
         public bool isConnected()
         {
-            return _connected;
+            return FSUIPCConnection.IsOpen;
         }
 
         public bool connect()
         {
-            try { 
+            try {
                 // Attempt to open a connection to FSUIPC 
-                // (running on any version of Flight Sim)                 
-                if (!OfflineMode) FSUIPCConnection.Open();
-                _connected = true;
-                this.Connected(this, new EventArgs());     
-                // Opened OK 
+                // (running on any version of Flight Sim)     
+                if (!isConnected())
+                {
+                    FSUIPCConnection.Open();
+                    this.Connected(this, new EventArgs());
+                    // Opened OK 
+                }
             } catch (FSUIPCException ex) {            
                 // Badness occurred - 
                 // show the error message 
                 if (ex.Message == "FSUIPC Error #1: FSUIPC_ERR_OPEN. The connection to FSUIPC is already open.")
                 {
-                    _connected = true;
                     this.Connected(this, new EventArgs());
                 }
                 else if (ex.FSUIPCErrorCode == FSUIPCError.FSUIPC_ERR_NOFS)
                 {
                     Log.Instance.log("Fsuipc2Cache::connect() - No FSUIPC found.", LogSeverity.Debug);
-                    _connected = false;
                 }
                 else
                 {
                     Log.Instance.log("Fsuipc2Cache::connect() - FSUIPC Exception " + ex.Message, LogSeverity.Debug);
-                    _connected = false;
                 }
             } catch (Exception ex)
             {
                 Log.Instance.log("Fsuipc2Cache::connect() - Exception " + ex.Message, LogSeverity.Error);
             }
-            return _connected;
+            return isConnected();
         }
 
         public bool disconnect()
         {
             try
             {
-                if (!OfflineMode) FSUIPCConnection.Close();
-                _connected = false;
-                this.Closed(this, new EventArgs());     
+                if (isConnected())
+                {
+                    FSUIPCConnection.Close();
+                    this.Closed(this, new EventArgs());
+                }
             }
             catch (Exception e)
             {
                 return false;
             }
 
-            return !_connected;
+            return !isConnected();
         }
 
         protected void _process() {
             // test the cache and gather data from fsuipc if necessary
-            if (_offsetsRegistered && !__isProcessed) {
+            if (isConnected() && _offsetsRegistered && !__isProcessed) {
                 try
                 {
                     FSUIPCConnection.Process();
@@ -139,7 +127,7 @@ namespace MobiFlight.FSUIPC
         public long getValue(int offset, byte size)
         {
             long result = 0;
-            if (OfflineMode) return result;
+            if (!isConnected()) return result;
 
             _process();
 
@@ -288,7 +276,7 @@ namespace MobiFlight.FSUIPC
         public long getLongValue(int offset, byte size)
         {
             long result = 0;
-            if (OfflineMode) return result;
+            if (!isConnected()) return result;
 
             _process();
 
@@ -314,7 +302,7 @@ namespace MobiFlight.FSUIPC
         public double getFloatValue(int offset, byte size)
         {
             double result = 0.0;
-            if (OfflineMode) return result;
+            if (!isConnected()) return result;
 
             _process();
             if (!__cacheFloat.ContainsKey(offset))
@@ -339,7 +327,7 @@ namespace MobiFlight.FSUIPC
         public double getDoubleValue(int offset, byte size)
         {
             double result = 0.0;
-            if (OfflineMode) return result;
+            if (!isConnected()) return result;
 
             _process();
             if (!__cacheDouble.ContainsKey(offset))
@@ -364,7 +352,7 @@ namespace MobiFlight.FSUIPC
         public string getStringValue(int offset, byte size)
         {
             String result = "";
-            if (OfflineMode) return result;
+            if (!isConnected()) return result;
 
             _process();
 
@@ -493,7 +481,7 @@ namespace MobiFlight.FSUIPC
                 // the FSUIPC connection will 
                 // throw an exception in case that
                 // we have no offset registered
-                if (_offsetsRegistered)
+                if (_offsetsRegistered && isConnected())
                 {
                     FSUIPCConnection.Process();
                     long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;

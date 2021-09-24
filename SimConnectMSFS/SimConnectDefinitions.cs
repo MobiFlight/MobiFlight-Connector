@@ -16,13 +16,13 @@ namespace MobiFlight.SimConnectMSFS
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ClientDataString
     {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1024)]
         public byte[] data;
 
         public ClientDataString(string strData)
         {
             byte[] txtBytes = Encoding.ASCII.GetBytes(strData);
-            var ret = new byte[256];
+            var ret = new byte[1024];
             Array.Copy(txtBytes, ret, txtBytes.Length);
             data = ret;
         }
@@ -30,7 +30,7 @@ namespace MobiFlight.SimConnectMSFS
 
     public struct ResponseString
     {
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 1024)]
         public String Data;
     }
 

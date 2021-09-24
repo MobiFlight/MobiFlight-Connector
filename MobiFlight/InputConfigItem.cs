@@ -32,14 +32,14 @@ namespace MobiFlight
         public AnalogInputConfig analog { get; set; }
 
         public PreconditionList Preconditions { get; set; }
-        public List<ConfigRef> ConfigRefs { get; set; }
+        public ConfigRefList ConfigRefs { get; set; }
 
         public InputConfigItem()
         {
             Preconditions = new PreconditionList();
             Type = TYPE_NOTSET;
 
-            ConfigRefs = new List<ConfigRef>();
+            ConfigRefs = new ConfigRefList();
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -238,8 +238,28 @@ namespace MobiFlight
             {
                 result = button.GetStatistics();
             }
-            
+
             return result;
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool areSame = (obj != null && obj is InputConfigItem) &&
+                            ModuleSerial == (obj as InputConfigItem).ModuleSerial &&
+                            Name == (obj as InputConfigItem).Name &&
+                            Type == (obj as InputConfigItem).Type;
+
+            if (areSame) {
+                areSame = areSame && ((button == null && (obj as InputConfigItem).button == null) || (button != null && button.Equals((obj as InputConfigItem).button)));
+                areSame = areSame && ((encoder == null && (obj as InputConfigItem).encoder == null) || (encoder != null && encoder.Equals((obj as InputConfigItem).encoder)));
+                areSame = areSame && ((analog == null && (obj as InputConfigItem).analog == null) || (analog != null && analog.Equals((obj as InputConfigItem).analog)));
+
+                areSame = areSame && 
+                            Preconditions.Equals((obj as InputConfigItem).Preconditions) &&
+                            ConfigRefs.Equals((obj as InputConfigItem).ConfigRefs);
+            }
+
+            return areSame;
         }
     }
 }

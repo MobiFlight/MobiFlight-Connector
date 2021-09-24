@@ -126,6 +126,9 @@
     <value>12, 38</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CommandTextBox.MaxLength" type="System.Int32, mscorlib">
+    <value>1024</value>
+  </data>
   <data name="CommandTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>

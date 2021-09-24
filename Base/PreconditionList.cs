@@ -23,6 +23,8 @@ namespace MobiFlight.Base
             {
                 c.Preconditions.Add(p.Clone() as Precondition);
             }
+            c.ExecuteOnFalse = ExecuteOnFalse;
+            c.FalseCaseValue = FalseCaseValue;
             return c;
         }
 
@@ -61,6 +63,18 @@ namespace MobiFlight.Base
             if (reader.LocalName == "preconditions")
             {
                 bool atPosition = false;
+                if (null != reader.GetAttribute("executeOnFalse"))
+                {
+                    bool tmp;
+                    if (bool.TryParse(reader["executeOnFalse"], out tmp))
+                        ExecuteOnFalse = tmp;
+                }
+
+                if (null != reader.GetAttribute("falseCaseValue"))
+                {
+                    FalseCaseValue = reader["falseCaseValue"];
+                }
+
                 // read precondition settings if present
                 if (reader.ReadToDescendant("precondition"))
                 {
@@ -86,11 +100,35 @@ namespace MobiFlight.Base
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("preconditions");
+
+            if (ExecuteOnFalse) writer.WriteAttributeString("executeOnFalse", ExecuteOnFalse.ToString());
+            if (FalseCaseValue!="") writer.WriteAttributeString("falseCaseValue", FalseCaseValue);
+
             foreach (Precondition p in Preconditions)
             {
                 p.WriteXml(writer);
             }
             writer.WriteEndElement();
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool areEqual = 
+                obj != null && 
+                obj is PreconditionList && 
+                (Count == (obj as PreconditionList).Count) &&
+                ExecuteOnFalse == (obj as PreconditionList).ExecuteOnFalse &&
+                FalseCaseValue == (obj as PreconditionList).FalseCaseValue
+                ;
+            if (areEqual)
+            {
+                for (int i=0; i!=Count; i++)
+                {
+                    areEqual = areEqual && (Preconditions[i].Equals((obj as PreconditionList).Preconditions[i]));
+                }
+            }
+
+            return areEqual;
         }
     }
 }

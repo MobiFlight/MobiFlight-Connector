@@ -23,7 +23,10 @@ namespace MobiFlight.UI.Dialogs
         ExecutionManager _execManager = null;
         int displayPanelHeight = -1;
         List<UserControl> displayPanels = new List<UserControl>();
+        
         InputConfigItem config = null;
+        InputConfigItem originalConfig = null;
+
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
         DataSet _dataSetConfig = null;
@@ -55,7 +58,6 @@ namespace MobiFlight.UI.Dialogs
 #endif
             preparePreconditionPanel(dataSetConfig, filterGuid);
             _loadPresets();
-            // displayLedDisplayComboBox.Items.Clear(); 
         }
 
         private void ConfigWizard_Load(object sender, EventArgs e)
@@ -63,10 +65,24 @@ namespace MobiFlight.UI.Dialogs
             _syncConfigToForm(config);
         }
 
+        public bool ConfigHasChanged()
+        {
+            return !originalConfig.Equals(config);
+        }
+
         protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
         {
             this._execManager = mainForm;
+            
             config = cfg;
+            // Same workaround for removed _addEmptyNodeToTreeView
+            // simply add an empty precondition to the cfg
+            if (config.Preconditions.Count == 0)
+                config.Preconditions.Add(new Precondition());
+
+
+            originalConfig = config.Clone() as InputConfigItem;
+
             InitializeComponent();
 
             // if one opens the dialog for a new config
@@ -170,7 +186,6 @@ namespace MobiFlight.UI.Dialogs
         /// <param name="arcazeCache"></param>
         public void initWithArcazeCache (ArcazeCache arcazeCache)
         {
-            
             // update the display box with
             // modules
             inputModuleNameComboBox.Items.Clear();
@@ -188,11 +203,17 @@ namespace MobiFlight.UI.Dialogs
                 inputModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
                 preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
+
+            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            {
+                inputModuleNameComboBox.Items.Add(joystick.Name + " / " + joystick.Serial);
+            }
+
             inputModuleNameComboBox.SelectedIndex = 0;
             preconditionPinSerialComboBox.SelectedIndex = 0;            
         }
 #endif
-
+        
         public void initWithoutArcazeCache()
         {
 
@@ -208,6 +229,12 @@ namespace MobiFlight.UI.Dialogs
                 inputModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
                 preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
+
+            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            {
+                inputModuleNameComboBox.Items.Add(joystick.Name + " / " + joystick.Serial);
+            }
+
             inputModuleNameComboBox.SelectedIndex = 0;
             preconditionPinSerialComboBox.SelectedIndex = 0;
         }
@@ -275,27 +302,9 @@ namespace MobiFlight.UI.Dialogs
                 }                
             }
 
-            if (preconditionListTreeView.Nodes.Count == 0)
-            {
-                _addEmptyNodeToTreeView();
-            }
-
             configRefPanel.syncFromConfig(config);
 
             return true;
-        }
-
-        private void _addEmptyNodeToTreeView()
-        {
-            TreeNode tmpNode = new TreeNode();
-            Precondition p = new Precondition();
-
-            tmpNode.Text = p.ToString();
-            tmpNode.Tag = p;
-            tmpNode.Checked = p.PreconditionActive;            
-            _updateNodeWithPrecondition(tmpNode, p);
-            config.Preconditions.Add(p);
-            preconditionListTreeView.Nodes.Add(tmpNode);
         }
 
         /// <summary>
@@ -373,18 +382,29 @@ namespace MobiFlight.UI.Dialogs
                 // type of module
                 
                 inputTypeComboBox.Items.Clear();
-                MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-                foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+
+                if (!Joystick.IsJoystickSerial(serial))
                 {
-                    switch (device.Type)
+                    MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
+
+                    foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
                     {
-                        case DeviceType.Button:
-                        case DeviceType.AnalogInput:
-                        case DeviceType.Encoder:
-                            inputTypeComboBox.Items.Add(device.Name);
-                            break;
+                        switch (device.Type)
+                        {
+                            case DeviceType.Button:
+                            case DeviceType.AnalogInput:
+                            case DeviceType.Encoder:
+                                inputTypeComboBox.Items.Add(device.Name);
+                                break;
+                        }
                     }
                 }
+                // Add all Joysticks
+                else { 
+                    Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+                    inputTypeComboBox.Items.AddRange(joystick.GetAvailableDevices().ToArray());
+                }
+                /// ---- 
 
                 if (inputTypeComboBox.Items.Count == 0)
                 {
@@ -424,15 +444,23 @@ namespace MobiFlight.UI.Dialogs
         {
             DeviceType currentInputType = DeviceType.Button;
 
-            MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
+            if (!Joystick.IsJoystickSerial(serial)) { 
+                MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
-            // find the correct input type based on the name
-            foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                // find the correct input type based on the name
+                foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                {
+                    if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
+
+                    currentInputType = device.Type;
+                    break;
+                }
+            } else
             {
-                if (device.Name != inputTypeComboBox.SelectedItem.ToString()) continue;
-
-                currentInputType = device.Type;
-                break;
+                // We have a joystick 
+                // which right now is only buttons
+                if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.AxisPrefix))
+                    currentInputType = DeviceType.AnalogInput;
             }
 
             return currentInputType;

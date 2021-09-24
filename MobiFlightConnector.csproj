@@ -146,6 +146,12 @@
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll</HintPath>
@@ -184,6 +190,7 @@
   <ItemGroup>
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\ConfigRef.cs" />
+    <Compile Include="Base\ConfigRefList.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\PreconditionList.cs" />
@@ -196,6 +203,8 @@
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
+    <Compile Include="MobiFlight\Joystick.cs" />
+    <Compile Include="MobiFlight\JoystickManager.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
@@ -203,7 +212,11 @@
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
     <Compile Include="MobiFlight\MobiFlightVariable.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Comparison.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
@@ -838,6 +851,9 @@
     <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.de.resx">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\ConfigRefPanel.de.resx">
+      <DependentUpon>ConfigRefPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -877,6 +893,9 @@
     <EmbeddedResource Include="UI\Panels\OutputConfigPanel.resx">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\DisplayLedDisplayPanel.de.resx">
+      <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\PinSelectPanel.resx">
       <DependentUpon>PinSelectPanel.cs</DependentUpon>

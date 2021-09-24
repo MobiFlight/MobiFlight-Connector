@@ -553,7 +553,7 @@
     <value>7</value>
   </data>
   <data name="displayLedDecimalPointFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 75</value>
+    <value>104, 78</value>
   </data>
   <data name="displayLedDecimalPointFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>200, 22</value>
@@ -687,9 +687,6 @@
   <data name="&gt;&gt;displayLedModuleSizeComboBox.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="NumberOfDigitsLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="NumberOfDigitsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -697,13 +694,16 @@
     <value>5, 24</value>
   </data>
   <data name="NumberOfDigitsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 13</value>
+    <value>94, 13</value>
   </data>
   <data name="NumberOfDigitsLabel.TabIndex" type="System.Int32, mscorlib">
     <value>66</value>
   </data>
   <data name="NumberOfDigitsLabel.Text" xml:space="preserve">
     <value>Number of digits</value>
+  </data>
+  <data name="NumberOfDigitsLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;NumberOfDigitsLabel.Name" xml:space="preserve">
     <value>NumberOfDigitsLabel</value>
@@ -984,23 +984,23 @@
   <data name="&gt;&gt;displayLedDisplayLabel7.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="displayLedDecimalPointLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="displayLedDecimalPointLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="displayLedDecimalPointLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 78</value>
+    <value>5, 79</value>
   </data>
   <data name="displayLedDecimalPointLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 13</value>
+    <value>94, 13</value>
   </data>
   <data name="displayLedDecimalPointLabel.TabIndex" type="System.Int32, mscorlib">
     <value>55</value>
   </data>
   <data name="displayLedDecimalPointLabel.Text" xml:space="preserve">
     <value>set decimal point</value>
+  </data>
+  <data name="displayLedDecimalPointLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;displayLedDecimalPointLabel.Name" xml:space="preserve">
     <value>displayLedDecimalPointLabel</value>
@@ -1014,9 +1014,6 @@
   <data name="&gt;&gt;displayLedDecimalPointLabel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1024,13 +1021,16 @@
     <value>5, 48</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 13</value>
+    <value>94, 13</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>54</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>use display</value>
+  </data>
+  <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
@@ -1326,23 +1326,23 @@
   <data name="&gt;&gt;brightnessDropDown.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 46</value>
+    <value>4, 43</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 13</value>
+    <value>95, 21</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>72</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Brightness ref.</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -1356,23 +1356,23 @@
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 18</value>
+    <value>6, 17</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 13</value>
+    <value>93, 14</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>74</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Reverse digits</value>
+  </data>
+  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>

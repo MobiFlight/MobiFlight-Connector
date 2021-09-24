@@ -202,5 +202,18 @@ namespace MobiFlight.InputConfig
 
             return result;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is ButtonInputConfig && 
+                (
+                    (onPress == null && ((obj as ButtonInputConfig).onPress == null)) || 
+                    (onPress != null && onPress.Equals((obj as ButtonInputConfig).onPress))
+                ) &&
+                (
+                    (onRelease == null && ((obj as ButtonInputConfig).onRelease == null)) ||
+                    (onRelease != null && onRelease.Equals((obj as ButtonInputConfig).onRelease))
+                );
+        }
     }
 }

@@ -131,20 +131,24 @@ namespace MobiFlight.UI.Panels.Action
 
             try
             {
-                Int32.Parse(tb.Text);
-            }
-            // we removed this format exception because we allow formulae now
-            /* catch (FormatException fEx)
-            {
+                if ((sender as TextBox) == eventIdTextBox)
+                    Int32.Parse(tb.Text);
 
+                // we removed this format exception because we allow formulae now
+            }
+            catch (FormatException fEx)
+            {              
                 e.Cancel = true;
                 errorMessage = fEx.Message;
-
-            } */
+            }
             catch (OverflowException oEx)
             {
                 errorMessage = oEx.Message;
                 e.Cancel = true;
+            }
+            catch (Exception)
+            {
+                // Issue 467: Do nothing in this situation since the text box also allows variable replacement
             }
 
             if (e.Cancel)

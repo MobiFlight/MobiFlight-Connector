@@ -19,11 +19,11 @@ namespace MobiFlight.InputConfig.Tests
         {
             FsuipcOffsetInputAction o = new FsuipcOffsetInputAction();
             Assert.AreEqual(o.FSUIPC.Offset, FsuipcOffset.OffsetNull, "FSUIPCOffset is not FSUIPCOffsetNull");
-            Assert.AreEqual(o.FSUIPC.Mask,0xFF,"FSUIPCMask is not 0xFF");
-            Assert.AreEqual(o.FSUIPC.OffsetType,FSUIPCOffsetType.Integer,"FSUIPCOffsetType not correct");
-            Assert.AreEqual(o.FSUIPC.Size,1,"FSUIPCSize not correct");
-            Assert.AreEqual(o.FSUIPC.BcdMode,false,"Not correct");
-            Assert.AreEqual(o.Value,"","Value not correct");
+            Assert.AreEqual(o.FSUIPC.Mask, 0xFF, "FSUIPCMask is not 0xFF");
+            Assert.AreEqual(o.FSUIPC.OffsetType, FSUIPCOffsetType.Integer, "FSUIPCOffsetType not correct");
+            Assert.AreEqual(o.FSUIPC.Size, 1, "FSUIPCSize not correct");
+            Assert.AreEqual(o.FSUIPC.BcdMode, false, "Not correct");
+            Assert.AreEqual(o.Value, "", "Value not correct");
             Assert.IsNotNull(o.Transform, "Transform not initialized");
         }
 
@@ -31,7 +31,7 @@ namespace MobiFlight.InputConfig.Tests
         public void CloneTest()
         {
             FsuipcOffsetInputAction o = generateTestObject();
-            FsuipcOffsetInputAction c = (FsuipcOffsetInputAction) o.Clone();
+            FsuipcOffsetInputAction c = (FsuipcOffsetInputAction)o.Clone();
 
             Assert.AreNotSame(o, c, "Objects are the same");
             Assert.AreEqual(o.FSUIPC.BcdMode, c.FSUIPC.BcdMode, "FSUIPCBcdMode are not the same");
@@ -123,6 +123,55 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
             Assert.AreEqual("2", mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
+
+            // test https://github.com/Mobiflight/MobiFlight-Connector/issues/438
+            mock.Clear();
+            o.Value = "Round(@*359/1023,0)";
+            configrefs = new List<ConfigRefValue>();
+            o.execute(mock, simConnectMock, null, new InputEventArgs() { Value = 359 }, configrefs);
+
+            Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
+            Assert.AreEqual(Math.Round((359 * 359 / 1023f), 0).ToString(), mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
+
+            // test https://github.com/Mobiflight/MobiFlight-Connector/issues/438
+            mock.Clear();
+            o.Value = "@*359/1023";
+            configrefs = new List<ConfigRefValue>();
+            o.execute(mock, simConnectMock, null, new InputEventArgs() { Value = 359 }, configrefs);
+
+            Assert.AreEqual(2, mock.Writes.Count, "The message count is not as expected");
+            Assert.AreEqual(Math.Floor((359 * 359 / 1023f)).ToString(), mock.Writes[0].Value, mock.Writes[0].Value, "The Write Value is wrong");
+
+            // test https://github.com/Mobiflight/MobiFlight-Connector/issues/340
+            mock.Clear();
+            o.Value = "Potatosalad1*2+$/126";
+            configrefs = new List<ConfigRefValue>();
+
+            try
+            {
+                o.execute(mock, simConnectMock, null, new InputEventArgs() { Value = 359 }, configrefs);
+                Assert.Fail();
+            }
+            catch (FormatException ex)
+            {
+                Assert.AreEqual(0, mock.Writes.Count, "The message count is not as expected");
+            }
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            FsuipcOffsetInputAction o1 = new FsuipcOffsetInputAction();
+            FsuipcOffsetInputAction o2 = new FsuipcOffsetInputAction();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

@@ -59,17 +59,22 @@
     <Compile Include="Base\CmdLineParamsTests.cs" />
     <Compile Include="Base\ComboBoxHelperTests.cs" />
     <Compile Include="Base\ConfigFileTests.cs" />
+    <Compile Include="Base\ConfigRefListTests.cs" />
     <Compile Include="Base\ConfigRefTests.cs" />
     <Compile Include="Base\ConnectorValueTests.cs" />
+    <Compile Include="Base\PreconditionListTests.cs" />
     <Compile Include="Base\PreconditionTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
     <Compile Include="InterpolationTests.cs" />
     <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
-    <Compile Include="MobiFlight\InputConfig\AnalogInputConfigTest.cs" />
+    <Compile Include="MobiFlight\InputConfig\AnalogInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ButtonInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\EncoderInputConfigTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\LuaMacroInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\RetriggerInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\PmdgEventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\EventIdInputActionTests.cs" />
@@ -77,9 +82,17 @@
     <Compile Include="MobiFlight\InputConfig\JeehellInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\KeyInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\VJoyInputActionTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLcdDisplayTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\ComparisonTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\FsuipcOffsetTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\LedModuleTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\PinTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\ServoTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\SimConnectValueTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\StepperTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutputTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\LcdDisplayTests.cs" />
     <Compile Include="MobiFlight\TransformationTests.cs" />
@@ -113,6 +126,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\Base\ConfigRef\ReadXmlTest.1.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\PreconditionList\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\PreconditionList\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\Base\Precondition\ReadXmlTest.1.xml">
@@ -212,6 +233,46 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\MobiFlight\InputConfig\InputConfigItem\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\Comparison\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\Comparison\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\SimConnectValue\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\SimConnectValue\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\Stepper\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\Stepper\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\Servo\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\Servo\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\Pin\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\Pin\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

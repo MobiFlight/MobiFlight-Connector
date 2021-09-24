@@ -24,40 +24,40 @@ namespace MobiFlight.UI.Panels
         internal void syncFromConfig(OutputConfigItem config)
         {
             // preselect display stuff
-            if (config.DisplayLedAddress != null)
+            if (config.LedModule.DisplayLedAddress != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.DisplayLedAddress.ToString()))
+                if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.LedModule.DisplayLedAddress.ToString()))
                 {
                     // TODO: provide error message
                     Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
                 }
             }
 
-            if (config.DisplayLedAddress != null)
+            if (config.LedModule.DisplayLedAddress != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.DisplayLedConnector.ToString()))
+                if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.LedModule.DisplayLedConnector.ToString()))
                 {
                     // TODO: provide error message
                     Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
                 }
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.DisplayLedModuleSize.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.LedModule.DisplayLedModuleSize.ToString()))
             {
                 // TODO: provide error message
                 Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Module Size ComboBox", LogSeverity.Debug);
             }
 
-            displayLedPaddingCheckBox.Checked = config.DisplayLedPadding;
-            displayLedReverseDigitsCheckBox.Checked = config.DisplayLedReverseDigits;
-            SetPaddingChar(config.DisplayLedPaddingChar);
+            displayLedPaddingCheckBox.Checked = config.LedModule.DisplayLedPadding;
+            displayLedReverseDigitsCheckBox.Checked = config.LedModule.DisplayLedReverseDigits;
+            SetPaddingChar(config.LedModule.DisplayLedPaddingChar);
 
-            foreach (string digit in config.DisplayLedDigits)
+            foreach (string digit in config.LedModule.DisplayLedDigits)
             {
                 (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
 
-            foreach (string digit in config.DisplayLedDecimalPoints)
+            foreach (string digit in config.LedModule.DisplayLedDecimalPoints)
             {
                 (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
@@ -77,9 +77,9 @@ namespace MobiFlight.UI.Panels
             brightnessDropDown.DisplayMember = "Label";
             brightnessDropDown.ValueMember = "Value";
 
-            if (!string.IsNullOrEmpty(config.DisplayLedBrightnessReference))
+            if (!string.IsNullOrEmpty(config.LedModule.DisplayLedBrightnessReference))
             {
-                brightnessDropDown.SelectedValue = config.DisplayLedBrightnessReference;
+                brightnessDropDown.SelectedValue = config.LedModule.DisplayLedBrightnessReference;
             }
         }
 
@@ -147,43 +147,45 @@ namespace MobiFlight.UI.Panels
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
-            config.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
-            config.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
+            if (displayLedAddressComboBox.SelectedValue as String != null)
+                config.LedModule.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
 
-            config.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
-            config.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
-            config.DisplayLedPaddingChar = GetPaddingChar();
+            config.LedModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
+
+            config.LedModule.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
+            config.LedModule.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
+            config.LedModule.DisplayLedPaddingChar = GetPaddingChar();
             try
             {
-                config.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
-                config.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
+                config.LedModule.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
+                config.LedModule.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
             }
             catch (FormatException e)
             {
                 Log.Instance.log("_syncFormToConfig : Parsing values", LogSeverity.Debug);
             }
-            config.DisplayLedDigits.Clear();
-            config.DisplayLedDecimalPoints.Clear();
+            config.LedModule.DisplayLedDigits.Clear();
+            config.LedModule.DisplayLedDecimalPoints.Clear();
             for (int i = 0; i < 8; i++)
             {
                 CheckBox cb = (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
                 if (cb.Checked)
                 {
-                    config.DisplayLedDigits.Add(i.ToString());
+                    config.LedModule.DisplayLedDigits.Add(i.ToString());
                 } //if
 
                 cb = (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
                 if (cb.Checked)
                 {
-                    config.DisplayLedDecimalPoints.Add(i.ToString());
+                    config.LedModule.DisplayLedDecimalPoints.Add(i.ToString());
                 } //if
             }
             if (brightnessDropDown.SelectedIndex <= 0)
             {
-                config.DisplayLedBrightnessReference = string.Empty;
+                config.LedModule.DisplayLedBrightnessReference = string.Empty;
             } else
             {
-                config.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
+                config.LedModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
             }
             return config;
         }

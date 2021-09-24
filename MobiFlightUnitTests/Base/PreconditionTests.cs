@@ -122,14 +122,30 @@ namespace MobiFlight.Tests
             o.PreconditionActive = true;
             o.PreconditionLabel = "TestPreCon";
             o.PreconditionLogic = Precondition.LOGIC_OR;
-            o.PreconditionOperand = "<"; 
+            o.PreconditionOperand = "<";
             o.PreconditionPin = "TestPin";
             o.PreconditionRef = "TestRef";
             o.PreconditionSerial = "TestSerial";
             o.PreconditionType = "config";
             o.PreconditionValue = "TestValue";
-            
+
             return o;
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            Precondition o1 = new Precondition();
+            Precondition o2 = new Precondition();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = _generateTestObject();
+
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = _generateTestObject();
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

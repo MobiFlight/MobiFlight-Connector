@@ -17,15 +17,35 @@ namespace MobiFlight.OutputConfig
         public String OutputRev { get; set; }
         public bool CompassMode { get; set; }
 
+        public Stepper()
+        {
+            Address = "";
+            InputRev = "1000";
+            OutputRev = "2040";
+            TestValue = "500";
+            CompassMode = false;
+        }
+
         public object Clone()
         {
             Stepper clone = new Stepper();
             clone.Address       = (String) Address.Clone();
-            clone.InputRev      = (String)InputRev.Clone();
-            clone.OutputRev     = (String)OutputRev.Clone();
-            clone.TestValue     = (String)TestValue.Clone();
+            clone.InputRev      = (String) InputRev.Clone();
+            clone.OutputRev     = (String) OutputRev.Clone();
+            clone.TestValue     = (String) TestValue.Clone();
             clone.CompassMode   = CompassMode;
             return clone;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is Stepper &&
+                this.Address == (obj as Stepper).Address &&
+                this.InputRev == (obj as Stepper).InputRev &&
+                this.TestValue == (obj as Stepper).TestValue &&
+                this.OutputRev == (obj as Stepper).OutputRev &&
+                this.CompassMode == (obj as Stepper).CompassMode
+                ;
         }
 
         public XmlSchema GetSchema()
@@ -62,7 +82,11 @@ namespace MobiFlight.OutputConfig
 
         public void WriteXml(XmlWriter writer)
         {
-            //
+            writer.WriteAttributeString("stepperAddress", Address);
+            writer.WriteAttributeString("stepperInputRev", InputRev);
+            writer.WriteAttributeString("stepperOutputRev", OutputRev);
+            writer.WriteAttributeString("stepperTestValue", TestValue);
+            writer.WriteAttributeString("stepperCompassMode", CompassMode.ToString());
         }
     }
 }

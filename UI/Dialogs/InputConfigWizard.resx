@@ -117,20 +117,639 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;preconditionSettingsPanel.Name" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.Parent" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionListgroupBox.Name" xml:space="preserve">
+    <value>preconditionListgroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionListgroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionListgroupBox.Parent" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;preconditionListgroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;preconditionSpacerPanel.Name" xml:space="preserve">
+    <value>preconditionSpacerPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSpacerPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSpacerPanel.Parent" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;preconditionSpacerPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabTextBox.Name" xml:space="preserve">
+    <value>preconditionTabTextBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabTextBox.Parent" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="preconditionTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>536, 467</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="preconditionTabPage.Text" xml:space="preserve">
+    <value>Precondition</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.Name" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;configRefPanel.Name" xml:space="preserve">
+    <value>configRefPanel</value>
+  </data>
+  <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.0.0.3, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
+    <value>configRefTabPage</value>
+  </data>
+  <data name="&gt;&gt;configRefPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="configRefTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="configRefTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>536, 467</value>
+  </data>
+  <data name="configRefTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="configRefTabPage.Text" xml:space="preserve">
+    <value>Config References</value>
+  </data>
+  <data name="&gt;&gt;configRefTabPage.Name" xml:space="preserve">
+    <value>configRefTabPage</value>
+  </data>
+  <data name="&gt;&gt;configRefTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;configRefTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;configRefTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBoxInputSettings.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="groupBoxInputSettings.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="groupBoxInputSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="groupBoxInputSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 111</value>
+  </data>
+  <data name="groupBoxInputSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>530, 353</value>
+  </data>
+  <data name="groupBoxInputSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="groupBoxInputSettings.Text" xml:space="preserve">
+    <value>Input settings</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInputSettings.Name" xml:space="preserve">
+    <value>groupBoxInputSettings</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInputSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInputSettings.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInputSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 23</value>
+  </data>
+  <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 13</value>
+  </data>
+  <data name="arcazeSerialLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="arcazeSerialLabel.Text" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="arcazeSerialLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.Name" xml:space="preserve">
+    <value>arcazeSerialLabel</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="inputModuleNameComboBox.Items" xml:space="preserve">
+    <value>Modul A</value>
+  </data>
+  <data name="inputModuleNameComboBox.Items1" xml:space="preserve">
+    <value>Modul B</value>
+  </data>
+  <data name="inputModuleNameComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 20</value>
+  </data>
+  <data name="inputModuleNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 21</value>
+  </data>
+  <data name="inputModuleNameComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;inputModuleNameComboBox.Name" xml:space="preserve">
+    <value>inputModuleNameComboBox</value>
+  </data>
+  <data name="&gt;&gt;inputModuleNameComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputModuleNameComboBox.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;inputModuleNameComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 48</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 13</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.Text" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBoxLabel.Name" xml:space="preserve">
+    <value>inputTypeComboBoxLabel</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBoxLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBoxLabel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBoxLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="inputTypeComboBox.Items" xml:space="preserve">
+    <value>Pin</value>
+  </data>
+  <data name="inputTypeComboBox.Items1" xml:space="preserve">
+    <value>Display Module</value>
+  </data>
+  <data name="inputTypeComboBox.Items2" xml:space="preserve">
+    <value>BCD4056</value>
+  </data>
+  <data name="inputTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 45</value>
+  </data>
+  <data name="inputTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 21</value>
+  </data>
+  <data name="inputTypeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBox.Name" xml:space="preserve">
+    <value>inputTypeComboBox</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBox.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 36</value>
+  </data>
+  <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>530, 75</value>
+  </data>
+  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="displayTypeGroupBox.Text" xml:space="preserve">
+    <value>Choose input</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="displayTabTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="displayTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="displayTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>12, 12, 12, 12</value>
+  </data>
+  <data name="displayTabTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>530, 33</value>
+  </data>
+  <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="displayTabTextBox.Text" xml:space="preserve">
+    <value>Choose your input from the list below.</value>
+  </data>
+  <data name="&gt;&gt;displayTabTextBox.Name" xml:space="preserve">
+    <value>displayTabTextBox</value>
+  </data>
+  <data name="&gt;&gt;displayTabTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTabTextBox.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="&gt;&gt;displayTabTextBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="displayTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>536, 467</value>
+  </data>
+  <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="displayTabPage.Text" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.Name" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabControlFsuipc.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 493</value>
+  </data>
+  <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Name" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Parent" xml:space="preserve">
+    <value>MainPanel</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="MainPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="MainPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 493</value>
+  </data>
+  <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Name" xml:space="preserve">
+    <value>MainPanel</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Name" xml:space="preserve">
+    <value>preconditionSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Parent" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionApplyButton.Name" xml:space="preserve">
+    <value>preconditionApplyButton</value>
+  </data>
+  <data name="&gt;&gt;preconditionApplyButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionApplyButton.Parent" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionApplyButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Name" xml:space="preserve">
+    <value>preconditionSelectGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Parent" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="preconditionSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 135</value>
+  </data>
+  <data name="preconditionSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>530, 206</value>
+  </data>
+  <data name="preconditionSettingsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.Name" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.Parent" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Name" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Parent" xml:space="preserve">
+    <value>preconditionSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Name" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Parent" xml:space="preserve">
+    <value>preconditionSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 47</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 130</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>530, 130</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
+    <value>Precondition settings</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Name" xml:space="preserve">
+    <value>preconditionSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Parent" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinValueComboBox.Name" xml:space="preserve">
+    <value>preconditionPinValueComboBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinValueComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinValueComboBox.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinValueComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinValueLabel.Name" xml:space="preserve">
+    <value>preconditionPinValueLabel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinValueLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinValueLabel.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinValueLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinComboBox.Name" xml:space="preserve">
+    <value>preconditionPinComboBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinComboBox.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;preconditionPortComboBox.Name" xml:space="preserve">
+    <value>preconditionPortComboBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionPortComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPortComboBox.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPortComboBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;preconditonPinLabel.Name" xml:space="preserve">
+    <value>preconditonPinLabel</value>
+  </data>
+  <data name="&gt;&gt;preconditonPinLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditonPinLabel.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditonPinLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialComboBox.Name" xml:space="preserve">
+    <value>preconditionPinSerialComboBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialComboBox.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialComboBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialLabel.Name" xml:space="preserve">
+    <value>preconditionPinSerialLabel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialLabel.Parent" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinSerialLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="preconditionPinPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>524, 111</value>
+  </data>
+  <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Name" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Parent" xml:space="preserve">
+    <value>preconditionSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="preconditionPinValueComboBox.Items" xml:space="preserve">
     <value>On</value>
   </data>
   <data name="preconditionPinValueComboBox.Items1" xml:space="preserve">
     <value>Off</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="preconditionPinValueComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>103, 70</value>
   </data>
   <data name="preconditionPinValueComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 21</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="preconditionPinValueComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
@@ -149,7 +768,6 @@
   <data name="preconditionPinValueLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="preconditionPinValueLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -342,29 +960,92 @@
   <data name="&gt;&gt;preconditionPinSerialLabel.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="preconditionPinPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;preconditionRefValueTextBox.Name" xml:space="preserve">
+    <value>preconditionRefValueTextBox</value>
   </data>
-  <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+  <data name="&gt;&gt;preconditionRefValueTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 111</value>
+  <data name="&gt;&gt;preconditionRefValueTextBox.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
   </data>
-  <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;preconditionRefValueTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefOperandComboBox.Name" xml:space="preserve">
+    <value>preconditionRefOperandComboBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefOperandComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefOperandComboBox.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefOperandComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Name" xml:space="preserve">
+    <value>preconditionConfigRefOperandLabel</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigRefOperandLabel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;preconditionPinPanel.Name" xml:space="preserve">
-    <value>preconditionPinPanel</value>
+  <data name="&gt;&gt;preconditionConfigComboBox.Name" xml:space="preserve">
+    <value>preconditionConfigComboBox</value>
   </data>
-  <data name="&gt;&gt;preconditionPinPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;preconditionConfigComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigComboBox.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigComboBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>524, 111</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Name" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;preconditionPinPanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Parent" xml:space="preserve">
     <value>preconditionSettingsGroupBox</value>
   </data>
-  <data name="&gt;&gt;preconditionPinPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="preconditionRefValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>148, 43</value>
@@ -513,63 +1194,6 @@
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="preconditionRuleConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 111</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.Name" xml:space="preserve">
-    <value>preconditionRuleConfigPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.Parent" xml:space="preserve">
-    <value>preconditionSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 47</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 130</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 130</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
-    <value>Precondition settings</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.Name" xml:space="preserve">
-    <value>preconditionSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.Parent" xml:space="preserve">
-    <value>preconditionSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="preconditionApplyButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
@@ -583,7 +1207,7 @@
     <value>117, 177</value>
   </data>
   <data name="preconditionApplyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 23</value>
+    <value>291, 23</value>
   </data>
   <data name="preconditionApplyButton.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -602,6 +1226,57 @@
   </data>
   <data name="&gt;&gt;preconditionApplyButton.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="&gt;&gt;preConditionTypeComboBox.Name" xml:space="preserve">
+    <value>preConditionTypeComboBox</value>
+  </data>
+  <data name="&gt;&gt;preConditionTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preConditionTypeComboBox.Parent" xml:space="preserve">
+    <value>preconditionSelectGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preConditionTypeComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionTypeLabel.Name" xml:space="preserve">
+    <value>preconditionTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;preconditionTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionTypeLabel.Parent" xml:space="preserve">
+    <value>preconditionSelectGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionTypeLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>530, 47</value>
+  </data>
+  <data name="preconditionSelectGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
+    <value>Precondition type</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Name" xml:space="preserve">
+    <value>preconditionSelectGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Parent" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="preConditionTypeComboBox.Items" xml:space="preserve">
     <value>None</value>
@@ -663,117 +1338,48 @@
   <data name="&gt;&gt;preconditionTypeLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="preconditionSelectGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="&gt;&gt;preconditionListTreeView.Name" xml:space="preserve">
+    <value>preconditionListTreeView</value>
+  </data>
+  <data name="&gt;&gt;preconditionListTreeView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionListTreeView.Parent" xml:space="preserve">
+    <value>preconditionListgroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionListTreeView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="preconditionListgroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="preconditionSelectGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 35</value>
   </data>
-  <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 47</value>
+  <data name="preconditionListgroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>530, 100</value>
   </data>
-  <data name="preconditionSelectGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
-    <value>Precondition type</value>
-  </data>
-  <data name="&gt;&gt;preconditionSelectGroupBox.Name" xml:space="preserve">
-    <value>preconditionSelectGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionSelectGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionSelectGroupBox.Parent" xml:space="preserve">
-    <value>preconditionSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionSelectGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="preconditionSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 135</value>
-  </data>
-  <data name="preconditionSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 206</value>
-  </data>
-  <data name="preconditionSettingsPanel.TabIndex" type="System.Int32, mscorlib">
+  <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.Name" xml:space="preserve">
-    <value>preconditionSettingsPanel</value>
+  <data name="preconditionListgroupBox.Text" xml:space="preserve">
+    <value>Precondition list</value>
   </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;preconditionListgroupBox.Name" xml:space="preserve">
+    <value>preconditionListgroupBox</value>
   </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;preconditionListgroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionListgroupBox.Parent" xml:space="preserve">
     <value>preconditionTabPage</value>
   </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;preconditionListgroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <metadata name="preconditionTreeContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>150, 17</value>
   </metadata>
-  <data name="addPreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="addPreconditionToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add Precondition</value>
-  </data>
-  <data name="removePreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="removePreconditionToolStripMenuItem.Text" xml:space="preserve">
-    <value>Remove Precondition</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="toolStripSeparator1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="addGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="addGroupToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add group</value>
-  </data>
-  <data name="addGroupToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="removeGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="removeGroupToolStripMenuItem.Text" xml:space="preserve">
-    <value>Remove group</value>
-  </data>
-  <data name="removeGroupToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="aNDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 22</value>
-  </data>
-  <data name="aNDToolStripMenuItem.Text" xml:space="preserve">
-    <value>AND</value>
-  </data>
-  <data name="oRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 22</value>
-  </data>
-  <data name="oRToolStripMenuItem.Text" xml:space="preserve">
-    <value>OR</value>
-  </data>
-  <data name="logicSelectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="logicSelectToolStripMenuItem.Text" xml:space="preserve">
-    <value>Logic operator</value>
-  </data>
   <data name="preconditionTreeContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 126</value>
   </data>
@@ -796,58 +1402,58 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADM
-        CwAAAk1TRnQBSQFMAgEBAgEAARABAgEQAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADK
+        CwAAAk1TRnQBSQFMAgEBAgEAASABAgEgAQIBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkAmEBWwHhAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHn
         AmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmQBXAHnAmEBWwHhAzoBYggAAzsBZAJbAWEB4QJcAWQB5wJc
         AWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJcAWQB5wJbAWEB4QM6
-        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8AScB/wH7AbEBCwH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
-        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/AScBhAL/
-        ARMBQQL/AQABOQL/AQABMwL/AQABNgL/AQABQwL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
-        Al0BYQHiiAACXAFVAeoB9gHAAT0B/wHwAakBFAH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
+        AWKIAAFhAWABWgHkAf8B0wGJAf8B+gG8ASUB/wH7AbEBCQH/AfwBqQEAAf8B/gGfAQAC/wGbAQAC/wGe
+        AQAC/wGeAQAC/wGgAQAC/wGfAQAC/wGfAQAC/wGkAQAB/wJhAV0B4ggAAloBYQHkAYkBoQL/ASUBhAL/
+        AREBPwL/AQABNwL/AQABMQL/AQABNAL/AQABQQL/AQABigL/AQABlwL/AQABoQL/AQABowL/AQABpQL/
+        Al0BYQHiiAACXAFVAeoB9gHAATsB/wHwAakBEgH/AfABnwEAAf8B8AGWAQAB/wHyAY4BAAH/AfQBjgEA
         Af8B9wGRAQAB/wH6AZQBAAH/AfwBlgEAAv8BmQEAAf8B/gGYAQAC/wGgAQAB/wJcAVUB6ggAAlUBXAHq
-        ATwBkAH9Af8BFgE7Af4B/wEBATEC/wEAASoC/wEAASYC/wEAATAC/wEAATwC/wEAAYIC/wEAAY8C/wEA
-        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQE1Af8B6wGiAQ4B/wHqAZcBAAH/AeoBjAEA
+        AToBkAH9Af8BFAE5Af4B/wEAAS8C/wEAASgC/wEAASQC/wEAAS4C/wEAAToC/wEAAYIC/wEAAY8C/wEA
+        AZsC/wEAAZoC/wEAAaAC/wJVAVwB6ogAAlwBVQHqAfIBuQEzAf8B6wGiAQwB/wHqAZcBAAH/AeoBjAEA
         Af8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/AfkBkwEAAf8B/QGXAQAC/wGg
-        AQAB/wJcAVUB6ggAAlUBXAHqATUBiwH+Af8BEAE2Af4B/wEAASwC/wEAASQC/wEAASIC/wEAAS8C/wEA
-        AToC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAEzAf8B5gGc
-        AQsB/wHlAZABAAH/AeQBhQEAAf8B5QFFAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
-        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBMwGJAfwB/wEMATIC/wEAAScC/wEA
-        AR8C/wEAAR8C/wEAASwC/wEAATcC/wEAAUEC/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
-        AlwBVQLqAbABMwH/AeEBlwELAf8B3wGLAQAB/wHeAUUBAAH/Ad8BPwEAAf8B4QFBAQAB/wHkAUQBAAH/
-        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATMBiAH7
-        Af8BDAEwAf0B/wEAASQC/wEAARsC/wEAARoC/wEAASYC/wEAATAC/wEAATcC/wEAAT8C/wEAAUQC/wEA
-        AUUC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE3Af8B3QGUAQ4B/wHbAYcBAAH/AdkBQQEAAf8B2AE5
-        AQAB/wHbATsBAAH/Ad4BPgEAAf8B4QFBAQAB/wHjAUMBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
-        AlwBVQHqCAACVQFcAeoBNwGIAfgB/wEOATAB+gH/AQABIgL/AQABGAL/AQABEwL/AQABHQL/AQABJwL/
-        AQABLwL/AQABMwL/AQABNwL/AQABNwL/AQABPgL/AlUBXAHqiAABXAJVAeoB5AGtATwB/wHaAZQBFAH/
-        AdcBhgEAAf8B1QFAAQAB/wHTATQBAAH/AdUBNQEAAf8B2AE4AQAB/wHaAToBAAH/Ad0BPQEAAf8B4AFA
-        AQAB/wHjAUMBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gE8AYwB9QH/ARQBMwH1Af8BAAEjAf0B/wEA
-        ARcC/wEAAQ4C/wEAARQC/wEAARwC/wEAASQC/wEAASkC/wEAASwC/wEAASsC/wEAATEC/wJVAVwB6ogA
-        AVwCVQHqAeMBrwFFAf8B2AGVAR0B/wHUAYcBBQH/AdEBQQEAAf8BzwE2AQAB/wHPAS4BAAH/AdEBMQEA
-        Af8B1AE0AQAB/wHXATcBAAH/AdoBOgEAAf8B3AE8AQAB/wHlAUUBAAH/AVwCVQHqCAACVQFcAeoBRQGS
-        AfMB/wEdATcB8AH/AQUBJwH3Af8BAAEZAf4B/wEAAQ8C/wEAAQoC/wEAARIC/wEAARcC/wEAARwC/wEA
-        AR4C/wEAASAC/wEAASQC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYASgB/wHSAYsBEQH/Ac8BRAEA
-        Af8BzAE5AQAB/wHLATABAAH/AcsBLAEAAf8BzgEuAQAB/wHRATEBAAH/AdMBMwEAAf8B1gE2AQAB/wHf
-        AT8BAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEoAT4B7AH/AREBLgHxAf8BAAEgAfcB/wEAARMC/wEA
-        AQkC/wEAAQgC/wEAAQwC/wEAARAC/wEAARIC/wEAARIC/wEAARcC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
-        Af8B1gGdATYB/wHSAZABIAH/Ac4BhAELAf8BywE/AQAB/wHJATYBAAH/AcgBLwEAAf8ByAEpAQAB/wHK
-        ASoBAAH/Ac0BLQEAAf8B0AEwAQAB/wHYATcBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE2AYEB6AH/
-        ASABNwHrAf8BCwEpAfAB/wEAARwB9QH/AQABEQH9Af8BAAEHAv8BAAECAf4B/wEAAQMC/wEAAQUC/wEA
-        AQQC/wEAAQkC/wJVAVwB6ogAAVwCVQHqAeUBwgGpAf8B1wGlAYAB/wHSAZcBMAH/Ac4BiwEdAf8BywGB
-        AQsB/wHJAT4BAAH/AcgBNwEAAf8ByAEyAQAB/wHIATABAAH/AcoBMAEAAf8BzQEyAQAB/wHVAT0BAAH/
-        AVwCVQHqCAACVQFcAeoBqQGxAe8B/wGAAYwB5gH/ATABQgHnAf8BHQE0AeoB/wELAScB7gH/AQABHAHy
-        Af8BAAETAfYB/wEAAQwB+gH/AQABBgH+Af8BAAEEAv8BAAEEAv8BAAEMAv8CVQFcAeqIAAFhAloB5AHv
-        AdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBPQH/AdMBlQErAf8BzwGLARoB/wHOAYUBDQH/Ac0BgAED
-        Af8BzgFDAQAB/wHPAUMBAAH/AdMBgAEAAf8B2gGJAQAB/wFfAlgB4wgAAloBYQHkAcoB0AH1Af8BowGs
-        AewB/wGMAZgB6wH/AT0BigHtAf8BKwFBAe8B/wEaATYB8QH/AQ0BLAH1Af8BAwEkAfcB/wEAASAB+gH/
-        AQABHAH6Af8BAAEcAfwB/wEAASYC/wJYAV8B44gAAzwBZgFhAloB5AFcAlUB6gFcAlUB6gFcAlUB6gFc
-        AlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFcAlUB6gFhAloB5AM7AWQIAAM8AWYCWgFh
-        AeQCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFcAeoCVQFc
-        AeoCWgFhAeQDOwFk/wCFAAFCAU0BPgcAAT4DAAEoAwABQAMAARADAAEBAQABAQUAAYAXAAP/AQAE/wQA
-        AYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQA
-        AYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQA
-        AYABAQGAAQEEAAGAAQEBgAEBBAAE/wQACw==
+        AQAB/wJcAVUB6ggAAlUBXAHqATMBiwH+Af8BDgE0Af4B/wEAASoC/wEAASIC/wEAASAC/wEAAS0C/wEA
+        ATgC/wEAAYEC/wEAAY0C/wEAAZYC/wEAAZgC/wEAAZoC/wJVAVwB6ogAAlwBVQHqAe4BtAExAf8B5gGc
+        AQkB/wHlAZABAAH/AeQBhQEAAf8B5QFDAQAB/wHoAYIBAAH/AeoBhAEAAf8B7QGHAQAB/wHwAYoBAAH/
+        AfMBjQEAAf8B9gGQAQAB/wH+AZgBAAH/AlwBVQHqCAACVQFcAeoBMQGJAfwB/wEKATAC/wEAASUC/wEA
+        AR0C/wEAAR0C/wEAASoC/wEAATUC/wEAAT8C/wEAAYMC/wEAAYkC/wEAAYsC/wEAAZEC/wJVAVwB6ogA
+        AlwBVQLqAbABMQH/AeEBlwEJAf8B3wGLAQAB/wHeAUMBAAH/Ad8BPQEAAf8B4QE/AQAB/wHkAUIBAAH/
+        AecBgQEAAf8B6gGEAQAB/wHtAYcBAAH/Ae8BiQEAAf8B+AGSAQAB/wJcAVUB6ggAAlUBXAHqATEBiAH7
+        Af8BCgEuAf0B/wEAASIC/wEAARkC/wEAARgC/wEAASQC/wEAAS4C/wEAATUC/wEAAT0C/wEAAUIC/wEA
+        AUMC/wEAAYUC/wJVAVwB6ogAAVwCVQHqAeYBrgE1Af8B3QGUAQwB/wHbAYcBAAH/AdkBPwEAAf8B2AE3
+        AQAB/wHbATkBAAH/Ad4BPAEAAf8B4QE/AQAB/wHjAUEBAAH/AeYBgAEAAf8B6QGDAQAB/wHyAYwBAAH/
+        AlwBVQHqCAACVQFcAeoBNQGIAfgB/wEMAS4B+gH/AQABIAL/AQABFgL/AQABEQL/AQABGwL/AQABJQL/
+        AQABLQL/AQABMQL/AQABNQL/AQABNQL/AQABPAL/AlUBXAHqiAABXAJVAeoB5AGtAToB/wHaAZQBEgH/
+        AdcBhgEAAf8B1QE+AQAB/wHTATIBAAH/AdUBMwEAAf8B2AE2AQAB/wHaATgBAAH/Ad0BOwEAAf8B4AE+
+        AQAB/wHjAUEBAAH/AewBhgEAAf8BXAJVAeoIAAJVAVwB6gE6AYwB9QH/ARIBMQH1Af8BAAEhAf0B/wEA
+        ARUC/wEAAQwC/wEAARIC/wEAARoC/wEAASIC/wEAAScC/wEAASoC/wEAASkC/wEAAS8C/wJVAVwB6ogA
+        AVwCVQHqAeMBrwFDAf8B2AGVARsB/wHUAYcBAwH/AdEBPwEAAf8BzwE0AQAB/wHPASwBAAH/AdEBLwEA
+        Af8B1AEyAQAB/wHXATUBAAH/AdoBOAEAAf8B3AE6AQAB/wHlAUMBAAH/AVwCVQHqCAACVQFcAeoBQwGS
+        AfMB/wEbATUB8AH/AQMBJQH3Af8BAAEXAf4B/wEAAQ0C/wEAAQgC/wEAARAC/wEAARUC/wEAARoC/wEA
+        ARwC/wEAAR4C/wEAASIC/wJVAVwB6ogAAVwCVQHqAeIBswGLAf8B1gGYASYB/wHSAYsBDwH/Ac8BQgEA
+        Af8BzAE3AQAB/wHLAS4BAAH/AcsBKgEAAf8BzgEsAQAB/wHRAS8BAAH/AdMBMQEAAf8B1gE0AQAB/wHf
+        AT0BAAH/AVwCVQHqCAACVQFcAeoBiwGaAfAB/wEmATwB7AH/AQ8BLAHxAf8BAAEeAfcB/wEAAREC/wEA
+        AQcC/wEAAQYC/wEAAQoC/wEAAQ4C/wEAARAC/wEAARAC/wEAARUC/wJVAVwB6ogAAVwCVQHqAeIBuwGY
+        Af8B1gGdATQB/wHSAZABHgH/Ac4BhAEJAf8BywE9AQAB/wHJATQBAAH/AcgBLQEAAf8ByAEnAQAB/wHK
+        ASgBAAH/Ac0BKwEAAf8B0AEuAQAB/wHYATUBAAH/AVwCVQHqCAACVQFcAeoBmAGlAe8B/wE0AYEB6AH/
+        AR4BNQHrAf8BCQEnAfAB/wEAARoB9QH/AQABDwH9Af8BAAEFAv8CAAH+Af8BAAEBAv8BAAEDAv8BAAEC
+        Av8BAAEHAv8CVQFcAeqIAAFcAlUB6gHlAcIBqQH/AdcBpQGAAf8B0gGXAS4B/wHOAYsBGwH/AcsBgQEJ
+        Af8ByQE8AQAB/wHIATUBAAH/AcgBMAEAAf8ByAEuAQAB/wHKAS4BAAH/Ac0BMAEAAf8B1QE7AQAB/wFc
+        AlUB6ggAAlUBXAHqAakBsQHvAf8BgAGMAeYB/wEuAUAB5wH/ARsBMgHqAf8BCQElAe4B/wEAARoB8gH/
+        AQABEQH2Af8BAAEKAfoB/wEAAQQB/gH/AQABAgL/AQABAgL/AQABCgL/AlUBXAHqiAABYQJaAeQB7wHZ
+        AcoB/wHiAb0BowH/AdwBrQGMAf8B1gGhATsB/wHTAZUBKQH/Ac8BiwEYAf8BzgGFAQsB/wHNAYABAQH/
+        Ac4BQQEAAf8BzwFBAQAB/wHTAYABAAH/AdoBiQEAAf8BXwJYAeMIAAJaAWEB5AHKAdAB9QH/AaMBrAHs
+        Af8BjAGYAesB/wE7AYoB7QH/ASkBPwHvAf8BGAE0AfEB/wELASoB9QH/AQEBIgH3Af8BAAEeAfoB/wEA
+        ARoB+gH/AQABGgH8Af8BAAEkAv8CWAFfAeOIAAM8AWYBYQJaAeQBXAJVAeoBXAJVAeoBXAJVAeoBXAJV
+        AeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBXAJVAeoBYQJaAeQDOwFkCAADPAFmAloBYQHk
+        AlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHqAlUBXAHq
+        AloBYQHkAzsBZP8AhQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEABP8EAAGA
+        AQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGA
+        AQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGA
+        AQEBgAEBBAABgAEBAYABAQQABP8EAAs=
 </value>
   </data>
   <data name="preconditionListTreeView.Location" type="System.Drawing.Point, System.Drawing">
@@ -897,7 +1503,7 @@
     <value>0</value>
   </data>
   <data name="preconditionListTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>410, 81</value>
+    <value>524, 81</value>
   </data>
   <data name="preconditionListTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -914,32 +1520,62 @@
   <data name="&gt;&gt;preconditionListTreeView.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="preconditionListgroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+  <data name="addPreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
   </data>
-  <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 35</value>
+  <data name="addPreconditionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add Precondition</value>
   </data>
-  <data name="preconditionListgroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 100</value>
+  <data name="removePreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
   </data>
-  <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+  <data name="removePreconditionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove Precondition</value>
   </data>
-  <data name="preconditionListgroupBox.Text" xml:space="preserve">
-    <value>Precondition list</value>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 6</value>
   </data>
-  <data name="&gt;&gt;preconditionListgroupBox.Name" xml:space="preserve">
-    <value>preconditionListgroupBox</value>
+  <data name="toolStripSeparator1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="&gt;&gt;preconditionListgroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="addGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
   </data>
-  <data name="&gt;&gt;preconditionListgroupBox.Parent" xml:space="preserve">
-    <value>preconditionTabPage</value>
+  <data name="addGroupToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add group</value>
   </data>
-  <data name="&gt;&gt;preconditionListgroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="addGroupToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="removeGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="removeGroupToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove group</value>
+  </data>
+  <data name="removeGroupToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 6</value>
+  </data>
+  <data name="logicSelectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="logicSelectToolStripMenuItem.Text" xml:space="preserve">
+    <value>Logic operator</value>
+  </data>
+  <data name="aNDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 22</value>
+  </data>
+  <data name="aNDToolStripMenuItem.Text" xml:space="preserve">
+    <value>AND</value>
+  </data>
+  <data name="oRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 22</value>
+  </data>
+  <data name="oRToolStripMenuItem.Text" xml:space="preserve">
+    <value>OR</value>
   </data>
   <data name="preconditionSpacerPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -948,7 +1584,7 @@
     <value>3, 35</value>
   </data>
   <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 417</value>
+    <value>530, 429</value>
   </data>
   <data name="preconditionSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -978,7 +1614,7 @@
     <value>True</value>
   </data>
   <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 32</value>
+    <value>530, 32</value>
   </data>
   <data name="preconditionTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -998,33 +1634,6 @@
   <data name="&gt;&gt;preconditionTabTextBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="preconditionTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>422, 455</value>
-  </data>
-  <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="preconditionTabPage.Text" xml:space="preserve">
-    <value>Precondition</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.Name" xml:space="preserve">
-    <value>preconditionTabPage</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="configRefPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -1035,7 +1644,7 @@
     <value>5, 5, 5, 5</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 385</value>
+    <value>536, 467</value>
   </data>
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1044,7 +1653,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=8.2.0.5, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.0.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>configRefTabPage</value>
@@ -1052,314 +1661,53 @@
   <data name="&gt;&gt;configRefPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="configRefTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
   </data>
-  <data name="configRefTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 385</value>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="configRefTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>ButtonPanel</value>
   </data>
-  <data name="configRefTabPage.Text" xml:space="preserve">
-    <value>Config References</value>
-  </data>
-  <data name="&gt;&gt;configRefTabPage.Name" xml:space="preserve">
-    <value>configRefTabPage</value>
-  </data>
-  <data name="&gt;&gt;configRefTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;configRefTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;configRefTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBoxInputSettings.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="groupBoxInputSettings.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="groupBoxInputSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="groupBoxInputSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 111</value>
-  </data>
-  <data name="groupBoxInputSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 271</value>
-  </data>
-  <data name="groupBoxInputSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="groupBoxInputSettings.Text" xml:space="preserve">
-    <value>Input settings</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInputSettings.Name" xml:space="preserve">
-    <value>groupBoxInputSettings</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInputSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInputSettings.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInputSettings.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
+    <value>cancelButton</value>
   </data>
-  <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>50, 23</value>
+  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 13</value>
+  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
+    <value>ButtonPanel</value>
   </data>
-  <data name="arcazeSerialLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="arcazeSerialLabel.Text" xml:space="preserve">
-    <value>Module</value>
-  </data>
-  <data name="arcazeSerialLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Name" xml:space="preserve">
-    <value>arcazeSerialLabel</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="inputModuleNameComboBox.Items" xml:space="preserve">
-    <value>Modul A</value>
-  </data>
-  <data name="inputModuleNameComboBox.Items1" xml:space="preserve">
-    <value>Modul B</value>
-  </data>
-  <data name="inputModuleNameComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 20</value>
-  </data>
-  <data name="inputModuleNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
-  </data>
-  <data name="inputModuleNameComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;inputModuleNameComboBox.Name" xml:space="preserve">
-    <value>inputModuleNameComboBox</value>
-  </data>
-  <data name="&gt;&gt;inputModuleNameComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputModuleNameComboBox.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;inputModuleNameComboBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="inputTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="ButtonPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
-  <data name="inputTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 48</value>
+  <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 493</value>
   </data>
-  <data name="inputTypeComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 13</value>
+  <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 28</value>
   </data>
-  <data name="inputTypeComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.Text" xml:space="preserve">
-    <value>Device</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBoxLabel.Name" xml:space="preserve">
-    <value>inputTypeComboBoxLabel</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBoxLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBoxLabel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBoxLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="inputTypeComboBox.Items" xml:space="preserve">
-    <value>Pin</value>
-  </data>
-  <data name="inputTypeComboBox.Items1" xml:space="preserve">
-    <value>Display Module</value>
-  </data>
-  <data name="inputTypeComboBox.Items2" xml:space="preserve">
-    <value>BCD4056</value>
-  </data>
-  <data name="inputTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 45</value>
-  </data>
-  <data name="inputTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 21</value>
-  </data>
-  <data name="inputTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBox.Name" xml:space="preserve">
-    <value>inputTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBox.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 36</value>
-  </data>
-  <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 75</value>
-  </data>
-  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
+  <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="displayTypeGroupBox.Text" xml:space="preserve">
-    <value>Choose input</value>
+  <data name="&gt;&gt;ButtonPanel.Name" xml:space="preserve">
+    <value>ButtonPanel</value>
   </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="displayTabTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="displayTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="displayTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>12, 12, 12, 12</value>
-  </data>
-  <data name="displayTabTextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>366, 33</value>
-  </data>
-  <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="displayTabTextBox.Text" xml:space="preserve">
-    <value>Choose your input from the list below.</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Name" xml:space="preserve">
-    <value>displayTabTextBox</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="displayTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>372, 385</value>
-  </data>
-  <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="displayTabPage.Text" xml:space="preserve">
-    <value>Input</value>
-  </data>
-  <data name="&gt;&gt;displayTabPage.Name" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="&gt;&gt;displayTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;displayTabPage.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabControlFsuipc.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>430, 481</value>
-  </data>
-  <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Name" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Parent" xml:space="preserve">
-    <value>MainPanel</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="MainPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="MainPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>430, 481</value>
-  </data>
-  <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.Name" xml:space="preserve">
-    <value>MainPanel</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;ButtonPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;MainPanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;ButtonPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;MainPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;ButtonPanel.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="button1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Right</value>
@@ -1368,7 +1716,7 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>280, 0</value>
+    <value>394, 0</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -1398,7 +1746,7 @@
     <value>NoControl</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>355, 0</value>
+    <value>469, 0</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -1421,30 +1769,6 @@
   <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="ButtonPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 481</value>
-  </data>
-  <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>430, 28</value>
-  </data>
-  <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.Name" xml:space="preserve">
-    <value>ButtonPanel</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <metadata name="presetsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -1455,7 +1779,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>430, 509</value>
+    <value>544, 521</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

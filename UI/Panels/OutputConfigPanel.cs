@@ -15,6 +15,7 @@ namespace MobiFlight.UI.Panels
     {
         public event EventHandler SettingsChanged;
         public event EventHandler SettingsDialogRequested;
+        private object[] EditedItem = null;
 
         private int lastClickedRow = -1;
         //private DataTable configDataTable;
@@ -407,9 +408,12 @@ namespace MobiFlight.UI.Panels
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (dataRow == null) return;
+
                 // do something special
-                SettingsChanged?.Invoke(cfg, null);
-                RestoreValuesInGridView();
+                if (wizard.ConfigHasChanged()) {
+                    SettingsChanged?.Invoke(cfg, null);
+                    RestoreValuesInGridView();
+                }
             };
         }
 
@@ -427,7 +431,8 @@ namespace MobiFlight.UI.Panels
         {
             if (e.Action==DataRowAction.Add ||
                 //e.Action == DataRowAction.Change ||
-                e.Action == DataRowAction.Delete) SettingsChanged?.Invoke(sender, null);
+                e.Action == DataRowAction.Delete) 
+                    SettingsChanged?.Invoke(sender, null);
 
         } //configDataTable_RowChanged
 
@@ -467,20 +472,20 @@ namespace MobiFlight.UI.Panels
                         switch(cfgItem.DisplayType)
                         {
                             case MobiFlightLedModule.TYPE:
-                                row["OutputName"] = cfgItem.DisplayLedAddress;
+                                row["OutputName"] = cfgItem.LedModule.DisplayLedAddress;
                                 break;
                             case "Pin":
                             case MobiFlightOutput.TYPE:
-                                row["OutputName"] = cfgItem.DisplayPin;
+                                row["OutputName"] = cfgItem.Pin.DisplayPin;
                                 break;
                             case MobiFlightLcdDisplay.TYPE:
                                 row["OutputName"] = cfgItem.LcdDisplay.Address;
                                 break;
                             case MobiFlightServo.TYPE:
-                                row["OutputName"] = cfgItem.ServoAddress;
+                                row["OutputName"] = cfgItem.Servo.Address;
                                 break;
                             case MobiFlightStepper.TYPE:
-                                row["OutputName"] = cfgItem.StepperAddress;
+                                row["OutputName"] = cfgItem.Stepper.Address;
                                 break;
                         }
                     }
@@ -532,11 +537,27 @@ namespace MobiFlight.UI.Panels
             if (rowview == null) return;
 
             DataRow row = rowview.Row;
-            if (row.RowState != DataRowState.Unchanged || dataGridViewConfig.IsCurrentRowDirty)
+            if (EditedItem != null &&
+                (   // this is the checkbox
+                    (bool)row.ItemArray[0]!= (bool)EditedItem[0] || 
+                    // this is the description text
+                    row.ItemArray[9] as string != EditedItem[9] as string)
+            )
             {
-                // do something special
                 SettingsChanged?.Invoke(sender, null);
             }
+        }
+
+        private void dataGridViewConfig_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            DataGridViewRow gridrow = dataGridViewConfig.Rows[e.RowIndex];
+            DataRowView rowview = (DataRowView)gridrow.DataBoundItem;
+
+            // can be null on creating a new config (last line)
+            if (rowview == null) return;
+
+            if (rowview.Row.ItemArray != null)
+                EditedItem = rowview.Row.ItemArray;
         }
     }
 }

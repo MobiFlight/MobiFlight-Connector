@@ -101,5 +101,23 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(o.Ref, c.Ref, "Ref not the same");
             Assert.AreEqual(o.Placeholder, c.Placeholder, "Placeholder not the same");
         }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            ConfigRef o1 = new ConfigRef();
+            ConfigRef o2 = new ConfigRef();
+            
+            Assert.IsTrue(o1.Equals(o2));
+            o1.Placeholder = "#";
+            o1.Ref = "Ref123";
+            o1.Active = true;
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2.Placeholder = "#";
+            o2.Ref = "Ref123";
+            o2.Active = true;
+            Assert.IsTrue(o1.Equals(o2));
+        }
     }
 }

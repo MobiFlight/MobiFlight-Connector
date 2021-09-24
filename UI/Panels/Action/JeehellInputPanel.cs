@@ -70,6 +70,8 @@ namespace MobiFlight.UI.Panels.Action
                     {
                         fsuipcPresetComboBox.Items.Add(row["Label"]);
                     }
+
+                    fsuipcPresetComboBox.SelectedIndex = 0;
                 }
                 catch (Exception e)
                 {
@@ -107,7 +109,9 @@ namespace MobiFlight.UI.Panels.Action
             if (rows.Length > 0)
             {
                 ComboBoxHelper.SetSelectedItem(fsuipcPresetComboBox, rows[0]["Label"].ToString());
-                ValueTextBox.Text = jeehellInputAction.Param.ToString();
+
+                if (jeehellInputAction!=null)
+                ValueTextBox.Text = jeehellInputAction.Param;
             }
         }
 

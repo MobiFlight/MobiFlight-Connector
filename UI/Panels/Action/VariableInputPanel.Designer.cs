@@ -42,6 +42,7 @@
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.ValueTextBox);
             this.groupBox1.Controls.Add(this.ValueLabel);
@@ -49,7 +50,6 @@
             this.groupBox1.Controls.Add(this.NameTextBox);
             this.groupBox1.Controls.Add(this.TypeLabel);
             this.groupBox1.Controls.Add(this.NameLabel);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -70,12 +70,12 @@
             // 
             // TypeComboBox
             // 
+            resources.ApplyResources(this.TypeComboBox, "TypeComboBox");
             this.TypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TypeComboBox.FormattingEnabled = true;
             this.TypeComboBox.Items.AddRange(new object[] {
             resources.GetString("TypeComboBox.Items"),
             resources.GetString("TypeComboBox.Items1")});
-            resources.ApplyResources(this.TypeComboBox, "TypeComboBox");
             this.TypeComboBox.Name = "TypeComboBox";
             // 
             // NameTextBox
@@ -95,9 +95,9 @@
             // 
             // VariableInputPanel
             // 
+            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.groupBox1);
             this.Name = "VariableInputPanel";
-            resources.ApplyResources(this, "$this");
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

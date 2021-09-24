@@ -16,8 +16,8 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void CloneTest()
         {
-            JeehellInputAction o = _generateTestObject();
-            JeehellInputAction c = (JeehellInputAction) o.Clone();
+            JeehellInputAction o = generateTestObject();
+            JeehellInputAction c = (JeehellInputAction)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
             Assert.AreEqual(o.EventId, c.EventId, "EventId not the same");
             Assert.AreEqual(o.Param, c.Param, "Param not the same");
@@ -50,7 +50,7 @@ namespace MobiFlight.InputConfig.Tests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
-            JeehellInputAction o = _generateTestObject();
+            JeehellInputAction o = generateTestObject();
             xmlWriter.WriteStartElement("onPress");
             o.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement();
@@ -65,7 +65,7 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void executeTest()
         {
-            JeehellInputAction o = _generateTestObject();
+            JeehellInputAction o = generateTestObject();
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
 
@@ -78,12 +78,28 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(mock.Writes[2].Value, "Write", "The Write Value is wrong");
         }
 
-        JeehellInputAction _generateTestObject()
+        JeehellInputAction generateTestObject()
         {
             JeehellInputAction o = new JeehellInputAction();
             o.EventId = 13;
             o.Param = Int16.MaxValue.ToString();
             return o;
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            JeehellInputAction o1 = new JeehellInputAction();
+            JeehellInputAction o2 = new JeehellInputAction();
+
+            Assert.IsTrue(o1.Equals(o2));
+
+            o1 = generateTestObject();
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = generateTestObject();
+
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

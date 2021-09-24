@@ -117,6 +117,7 @@ namespace MobiFlight.UI.Panels.Input
                 panel.Width = owner.Width;
                 owner.Controls.Add(panel);
                 panel.Height = owner.Height - 3;
+                panel.Dock = DockStyle.Fill;
             }
         }
 

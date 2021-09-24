@@ -6,7 +6,7 @@ using MobiFlight.FSUIPC;
 
 namespace MobiFlight.InputConfig
 {
-    class LuaMacroInputAction : InputAction
+    public class LuaMacroInputAction : InputAction
     {
         public String MacroName = "";
         public String MacroValue = "0";
@@ -63,6 +63,13 @@ namespace MobiFlight.InputConfig
 
             Log.Instance.log("LuaMacoInputAction:Execute : Calling macro " + MacroName, LogSeverity.Debug);
             fsuipcCache.executeMacro(MacroName, int.Parse(value));
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj != null && obj is LuaMacroInputAction &&
+                MacroName == (obj as LuaMacroInputAction).MacroName &&
+                MacroValue == (obj as LuaMacroInputAction).MacroValue;
         }
     }
 }

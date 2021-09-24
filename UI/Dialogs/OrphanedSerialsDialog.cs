@@ -59,6 +59,7 @@ namespace MobiFlight.UI.Dialogs
                 InputConfigItem cfg = row["settings"] as InputConfigItem;
                 if (cfg.ModuleSerial != "" &&
                     cfg.ModuleSerial != "-" &&
+                    !Joystick.IsJoystickSerial(cfg.ModuleSerial) &&
                     !configSerials.Contains(cfg.ModuleSerial) &&
                     !moduleSerials.Contains(cfg.ModuleSerial))
                 {

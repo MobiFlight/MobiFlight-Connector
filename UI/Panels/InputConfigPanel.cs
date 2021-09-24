@@ -15,6 +15,8 @@ namespace MobiFlight.UI.Panels
     {
         public event EventHandler SettingsChanged;
         public event EventHandler SettingsDialogRequested;
+
+        private object[] EditedItem = null;
         public ExecutionManager ExecutionManager { get; set; }
         public DataSet OutputDataSetConfig { get; set; }
         public DataSet InputDataSetConfig { get { return dataSetInputs; } }
@@ -62,8 +64,12 @@ namespace MobiFlight.UI.Panels
                 // Show used Button
                 // Show Type of Output
                 // Show last set value
-                SettingsChanged?.Invoke(cfg, null);
-                RestoreValuesInGridView();
+                // do something special
+                if (wizard.ConfigHasChanged())
+                {
+                    SettingsChanged?.Invoke(cfg, null);
+                    RestoreValuesInGridView();
+                }
             };
         }
 
@@ -384,12 +390,33 @@ namespace MobiFlight.UI.Panels
         {           
             DataGridViewRow gridrow = inputsDataGridView.Rows[e.RowIndex];
             DataRowView rowview = (DataRowView)gridrow.DataBoundItem;
+
+            // can be null on creating a new config (last line)
+            if (rowview == null) return;
+
             DataRow row = rowview.Row;
-            if (row.RowState != DataRowState.Unchanged || inputsDataGridView.IsCurrentRowDirty)
+            if (EditedItem != null &&
+                (   // this is the checkbox
+                    (bool)row.ItemArray[0] != (bool)EditedItem[0] ||
+                    // this is the description text
+                    row.ItemArray[1] as string != EditedItem[1] as string                    
+                )
+            )
             {
-                // do something special
                 SettingsChanged?.Invoke(sender, null);
             }
+        }
+
+        private void inputsDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            DataGridViewRow gridrow = inputsDataGridView.Rows[e.RowIndex];
+            DataRowView rowview = (DataRowView)gridrow.DataBoundItem;
+
+            // can be null on creating a new config (last line)
+            if (rowview == null) return;
+
+            if (rowview.Row.ItemArray != null)
+                EditedItem = rowview.Row.ItemArray;
         }
     }
 }

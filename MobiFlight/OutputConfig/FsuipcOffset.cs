@@ -71,6 +71,18 @@ namespace MobiFlight.OutputConfig
             writer.WriteAttributeString("bcdMode", BcdMode.ToString());
         }
 
+        public override bool Equals(object obj)
+        {
+            return (
+                obj != null && obj is FsuipcOffset &&
+                this.Offset == (obj as FsuipcOffset).Offset &&
+                this.Size == (obj as FsuipcOffset).Size &&
+                this.OffsetType == (obj as FsuipcOffset).OffsetType &&
+                this.Mask == (obj as FsuipcOffset).Mask &&
+                this.BcdMode == (obj as FsuipcOffset).BcdMode
+            );
+        }
+
         public object Clone()
         {
             return new FsuipcOffset()
