@@ -27,6 +27,7 @@ namespace MobiFlight.UI.Panels.Config
             configRefComboBox.DataSource = dv;
             configRefComboBox.ValueMember = "guid";
             configRefComboBox.DisplayMember = "description";
+            configRefComboBox.Width = 395;
         }
 
         public void SetPlaceholder (String placeholder)
