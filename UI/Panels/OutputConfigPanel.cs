@@ -537,6 +537,9 @@ namespace MobiFlight.UI.Panels
             if (rowview == null) return;
 
             DataRow row = rowview.Row;
+            if (row.RowState == DataRowState.Detached)
+                row.Table.Rows.Add(row);
+
             if (EditedItem != null &&
                 (   // this is the checkbox
                     (bool)row.ItemArray[0]!= (bool)EditedItem[0] || 
