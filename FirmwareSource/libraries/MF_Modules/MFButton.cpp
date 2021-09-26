@@ -35,6 +35,20 @@ void MFButton::trigger()
         (*_handlerList[btnOnRelease])(btnOnRelease, _pin, _name);
 }
 
+void MFButton::triggerOnPress()
+{
+      if (_state==LOW && _handlerList[btnOnPress]!= NULL) {
+        (*_handlerList[btnOnPress])(btnOnPress, _pin, _name);
+      }
+}
+
+void MFButton::triggerOnRelease()
+{
+      if (_handlerList[btnOnRelease] != NULL) {
+        (*_handlerList[btnOnRelease])(btnOnRelease, _pin, _name);
+      }
+}
+
 void MFButton::attachHandler(byte eventId, buttonEvent newHandler)
 {
   _handlerList[eventId] = newHandler;
