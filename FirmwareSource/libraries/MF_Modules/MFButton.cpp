@@ -44,7 +44,7 @@ void MFButton::triggerOnPress()
 
 void MFButton::triggerOnRelease()
 {
-      if (_handlerList[btnOnRelease] != NULL) {
+      if (_state==HIGH && _handlerList[btnOnRelease] != NULL) {
         (*_handlerList[btnOnRelease])(btnOnRelease, _pin, _name);
       }
 }

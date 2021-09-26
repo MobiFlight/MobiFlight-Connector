@@ -1232,8 +1232,6 @@ void OnTrigger()
     buttons[i].triggerOnRelease();
   }
   
-  // Introduce a small delay (this ensures the events occur in order)
-  delay(10);
 
   // ... then trigger all the press events
   for(int i=0; i!=buttonsRegistered; i++) {
