@@ -1495,11 +1495,13 @@ namespace MobiFlight
         {
             Dictionary<String, int> result = mobiFlightCache.GetStatistics();
             result["arcazeCache.Enabled"] = 0;
+#if ARCAZE
             if(arcazeCache.Enabled)
             {
                 result["arcazeCache.Enabled"] = 1;
                 result["arcazeCache.Count"] = arcazeCache.getModuleInfo().Count();
             }
+#endif
 
             return result;
         }
