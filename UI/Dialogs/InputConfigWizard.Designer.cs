@@ -458,6 +458,7 @@
             // inputModuleNameComboBox
             // 
             this.inputModuleNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.inputModuleNameComboBox.DropDownWidth = 300;
             this.inputModuleNameComboBox.FormattingEnabled = true;
             this.inputModuleNameComboBox.Items.AddRange(new object[] {
             resources.GetString("inputModuleNameComboBox.Items"),

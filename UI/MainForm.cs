@@ -162,6 +162,7 @@ namespace MobiFlight.UI
 
             runToolStripButton.Enabled = false;
             runTestToolStripButton.Enabled = false;
+            settingsToolStripButton.Enabled = false;
             updateNotifyContextMenu(false);
 
             // Reset the Title of the Main Window so that it displays the Version too.
@@ -289,6 +290,7 @@ namespace MobiFlight.UI
             panelMain.Visible = true;
             startupPanel.Visible = false;
             menuStrip.Enabled = true;
+            settingsToolStripButton.Enabled = true;
 
             AutoUpdateChecker.CheckForUpdate(false, true);
 
