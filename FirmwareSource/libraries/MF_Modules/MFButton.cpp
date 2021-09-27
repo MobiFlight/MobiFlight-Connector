@@ -28,11 +28,8 @@ void MFButton::update()
 
 void MFButton::trigger()
 {
-      if (_state==LOW && _handlerList[btnOnPress]!= NULL) {
-        (*_handlerList[btnOnPress])(btnOnPress, _pin, _name);
-      }
-      else if (_handlerList[btnOnRelease] != NULL)
-        (*_handlerList[btnOnRelease])(btnOnRelease, _pin, _name);
+      triggerOnRelease();
+      triggerOnPress();
 }
 
 void MFButton::triggerOnPress()
