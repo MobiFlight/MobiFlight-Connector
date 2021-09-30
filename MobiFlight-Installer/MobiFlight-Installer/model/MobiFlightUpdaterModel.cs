@@ -207,6 +207,80 @@ namespace MobiFlightInstaller
             }
         }
 
+        public static void GoExtractToDirectoryFromStream(Stream zipPath, string destinationDirectoryName)
+        {
+            using (ZipArchive archive = new ZipArchive(zipPath, ZipArchiveMode.Read))
+            {
+                foreach (ZipArchiveEntry file in archive.Entries)
+                {
+                    string completeFileName = Path.Combine(destinationDirectoryName, file.FullName);
+                    if (!System.IO.Directory.Exists(Path.GetDirectoryName(completeFileName)))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(Path.GetDirectoryName(completeFileName));
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show("Error installation failed -> " + e.Message);
+                        }
+                    }
+
+                    // ignore the old update file.
+                    if (file.Name == OldMobiFlightUpdaterName) continue;
+
+                    if (file.Name == "MobiFlight-Installer.exe")
+                    {
+                        if ((!File.Exists(InstallPath + "//" + file.Name)) || InstallerIsNewer(file))  // NewInstaller have greater version than current or installer not exist
+                        {
+                            if (File.Exists(InstallPath + "//" + file.Name))
+                            {
+                                System.IO.FileInfo FileInstaller = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                                String backupFile = FileInstaller.DirectoryName + "\\" + FileInstaller.Name.Replace(FileInstaller.Extension, ".old");
+
+                                if (File.Exists(backupFile))
+                                    System.IO.File.Delete(backupFile);
+                                System.IO.File.Move(FileInstaller.FullName, backupFile);
+                            }
+                        }
+                        else
+                        {
+                            Log.Instance.log("Mobiflight-Installer no need to be upgrade, extracting file skipped", LogSeverity.Info);
+                            continue;
+                        }
+                    }
+
+                    if (file.Name == "install.log.txt")
+                    {
+                        continue;
+                    }
+
+                    try
+                    {
+                        Log.Instance.log("EXTRACTING : " + completeFileName, LogSeverity.Debug);
+                        file.ExtractToFile(completeFileName, true);
+                    }
+                    catch
+                    {
+                        Log.Instance.log("Extracting failed ! : " + completeFileName + " -> Wait and try a second time ...", LogSeverity.Debug);
+                        Thread.Sleep(2000);
+                        try
+                        {
+                            Log.Instance.log("EXTRACTING (second try) : " + completeFileName, LogSeverity.Debug);
+                            file.ExtractToFile(completeFileName, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log("FAILED to extract the file, installation FAILED !", LogSeverity.Debug);
+                            MessageBox.Show("Error installation failed -> " + e.Message);
+                        }
+                    }
+                }
+                archive.Dispose();
+            }
+        }
+
         private static bool InstallerIsNewer(ZipArchiveEntry file)
         {
             var InstallerCurVersion = AssemblyName.GetAssemblyName("MobiFlight-Installer.exe").Version.ToString();

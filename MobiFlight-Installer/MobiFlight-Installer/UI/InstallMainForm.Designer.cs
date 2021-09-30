@@ -40,6 +40,8 @@ namespace MobiFlightInstaller.UI
             this.label1 = new System.Windows.Forms.Label();
             this.BoxGithub = new System.Windows.Forms.CheckBox();
             this.BoxTargetDirectory = new System.Windows.Forms.CheckBox();
+            this.BoxInstallFromInternet = new System.Windows.Forms.CheckBox();
+            this.BoxInstallOffline = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // SelectedPath
@@ -84,30 +86,28 @@ namespace MobiFlightInstaller.UI
             this.UpdaterCurrentTask.Name = "UpdaterCurrentTask";
             this.UpdaterCurrentTask.Size = new System.Drawing.Size(0, 13);
             this.UpdaterCurrentTask.TabIndex = 4;
-            this.UpdaterCurrentTask.Click += new System.EventHandler(this.label1_Click);
             // 
             // SetupTitle
             // 
             this.SetupTitle.BackColor = System.Drawing.Color.Transparent;
             this.SetupTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SetupTitle.ForeColor = System.Drawing.Color.White;
-            this.SetupTitle.Location = new System.Drawing.Point(12, 134);
+            this.SetupTitle.Location = new System.Drawing.Point(12, 93);
             this.SetupTitle.Name = "SetupTitle";
             this.SetupTitle.Size = new System.Drawing.Size(776, 42);
             this.SetupTitle.TabIndex = 5;
             this.SetupTitle.Text = "Clear to take off MF9";
             this.SetupTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.SetupTitle.Click += new System.EventHandler(this.SetupTitle_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(43, 247);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(307, 20);
+            this.label1.Size = new System.Drawing.Size(350, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "Choose a folder where to install MobiFlight";
             // 
@@ -122,6 +122,7 @@ namespace MobiFlightInstaller.UI
             this.BoxGithub.Size = new System.Drawing.Size(193, 24);
             this.BoxGithub.TabIndex = 8;
             this.BoxGithub.Text = "Github Check Online";
+            this.BoxGithub.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.BoxGithub.UseVisualStyleBackColor = false;
             // 
             // BoxTargetDirectory
@@ -137,6 +138,36 @@ namespace MobiFlightInstaller.UI
             this.BoxTargetDirectory.Text = "Target Directory Rights";
             this.BoxTargetDirectory.UseVisualStyleBackColor = false;
             // 
+            // BoxInstallFromInternet
+            // 
+            this.BoxInstallFromInternet.AutoSize = true;
+            this.BoxInstallFromInternet.BackColor = System.Drawing.Color.Transparent;
+            this.BoxInstallFromInternet.Checked = true;
+            this.BoxInstallFromInternet.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.BoxInstallFromInternet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BoxInstallFromInternet.ForeColor = System.Drawing.Color.White;
+            this.BoxInstallFromInternet.Location = new System.Drawing.Point(47, 180);
+            this.BoxInstallFromInternet.Name = "BoxInstallFromInternet";
+            this.BoxInstallFromInternet.Size = new System.Drawing.Size(283, 24);
+            this.BoxInstallFromInternet.TabIndex = 10;
+            this.BoxInstallFromInternet.Text = "Install last release from internet";
+            this.BoxInstallFromInternet.UseVisualStyleBackColor = false;
+            this.BoxInstallFromInternet.CheckedChanged += new System.EventHandler(this.BoxInstallFromInternet_CheckedChanged);
+            // 
+            // BoxInstallOffline
+            // 
+            this.BoxInstallOffline.AutoSize = true;
+            this.BoxInstallOffline.BackColor = System.Drawing.Color.Transparent;
+            this.BoxInstallOffline.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BoxInstallOffline.ForeColor = System.Drawing.Color.White;
+            this.BoxInstallOffline.Location = new System.Drawing.Point(577, 180);
+            this.BoxInstallOffline.Name = "BoxInstallOffline";
+            this.BoxInstallOffline.Size = new System.Drawing.Size(175, 24);
+            this.BoxInstallOffline.TabIndex = 11;
+            this.BoxInstallOffline.Text = "Offline Installation";
+            this.BoxInstallOffline.UseVisualStyleBackColor = false;
+            this.BoxInstallOffline.CheckedChanged += new System.EventHandler(this.BoxInstallOffline_CheckedChanged);
+            // 
             // InstallMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,6 +175,8 @@ namespace MobiFlightInstaller.UI
             this.BackgroundImage = global::MobiFlightInstaller.Properties.Resources.SetupBackground;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BoxInstallOffline);
+            this.Controls.Add(this.BoxInstallFromInternet);
             this.Controls.Add(this.BoxTargetDirectory);
             this.Controls.Add(this.BoxGithub);
             this.Controls.Add(this.label1);
@@ -177,5 +210,7 @@ namespace MobiFlightInstaller.UI
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox BoxGithub;
         private System.Windows.Forms.CheckBox BoxTargetDirectory;
+        private System.Windows.Forms.CheckBox BoxInstallFromInternet;
+        private System.Windows.Forms.CheckBox BoxInstallOffline;
     }
 }
