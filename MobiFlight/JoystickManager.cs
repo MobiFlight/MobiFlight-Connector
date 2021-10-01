@@ -22,7 +22,7 @@ namespace MobiFlight
         {
             foreach (MobiFlight.Joystick js in joysticks)
             {
-                js.Update();
+                js?.Update();
             }
         }
 
@@ -46,19 +46,43 @@ namespace MobiFlight
             SharpDX.DirectInput.DirectInput di = new SharpDX.DirectInput.DirectInput();
             joysticks?.Clear();
 
-            List<SharpDX.DirectInput.DeviceInstance> devices = di.GetDevices(SharpDX.DirectInput.DeviceType.Joystick, DeviceEnumerationFlags.AttachedOnly).ToList();
-            devices.AddRange(di.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly));
+            List<SharpDX.DirectInput.DeviceInstance> devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
+            //List<SharpDX.DirectInput.DeviceInstance> devices = di.GetDevices(SharpDX.DirectInput.DeviceType.Joystick, DeviceEnumerationFlags.AttachedOnly).ToList();
+            //devices.AddRange(di.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly));
+            //devices.AddRange(di.GetDevices(SharpDX.DirectInput.DeviceType.Flight, DeviceEnumerationFlags.AttachedOnly));
             foreach (DeviceInstance d in devices)
             {
+                Log.Instance.log("Found attached DirectInput Device: " + d.InstanceName + ", Type: " + d.Type.ToString() + ", SubType: " + d.Subtype, LogSeverity.Debug);
+
+                if (!IsSupportedDeviceType(d)) continue;
+
                 MobiFlight.Joystick js = new MobiFlight.Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
                 
-                if (js.Capabilities.AxeCount == 0 && js.Capabilities.ButtonCount == 0) continue;
+                if (!HasAxisOrButtons(js)) continue;
 
+                Log.Instance.log("Adding attached Joystick Device: " + d.InstanceName + " Buttons " + js.Capabilities.ButtonCount + ", Axis: " + js.Capabilities.AxeCount, LogSeverity.Debug);
                 js.Connect(Handle); 
                 joysticks.Add(js);
                 js.OnButtonPressed += Js_OnButtonPressed;
                 js.OnAxisChanged += Js_OnAxisChanged;
             }
+        }
+
+        private bool HasAxisOrButtons(Joystick js)
+        {
+            return
+                js.Capabilities.AxeCount > 0 ||
+                js.Capabilities.ButtonCount > 0;
+        }
+
+        private bool IsSupportedDeviceType(DeviceInstance d)
+        {
+            return
+                d.Type == SharpDX.DirectInput.DeviceType.Joystick ||
+                d.Type == SharpDX.DirectInput.DeviceType.Gamepad ||
+                d.Type == SharpDX.DirectInput.DeviceType.Flight ||
+                d.Type == SharpDX.DirectInput.DeviceType.Supplemental ||
+                d.Type == SharpDX.DirectInput.DeviceType.FirstPerson;
         }
 
         private void Js_OnAxisChanged(object sender, InputEventArgs e)
