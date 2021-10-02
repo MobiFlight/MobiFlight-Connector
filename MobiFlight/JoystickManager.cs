@@ -20,9 +20,15 @@ namespace MobiFlight
         }
         private void PollTimer_Tick(object sender, EventArgs e)
         {
-            foreach (MobiFlight.Joystick js in joysticks)
+            try
             {
-                js?.Update();
+                foreach (MobiFlight.Joystick js in joysticks)
+                {
+                    js?.Update();
+                }
+            } catch (InvalidOperationException ex)
+            {
+                // this exception is thrown when a joystick is disconnected and removed from the list of joysticks
             }
         }
 
@@ -47,9 +53,7 @@ namespace MobiFlight
             joysticks?.Clear();
 
             List<SharpDX.DirectInput.DeviceInstance> devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
-            //List<SharpDX.DirectInput.DeviceInstance> devices = di.GetDevices(SharpDX.DirectInput.DeviceType.Joystick, DeviceEnumerationFlags.AttachedOnly).ToList();
-            //devices.AddRange(di.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly));
-            //devices.AddRange(di.GetDevices(SharpDX.DirectInput.DeviceType.Flight, DeviceEnumerationFlags.AttachedOnly));
+
             foreach (DeviceInstance d in devices)
             {
                 Log.Instance.log("Found attached DirectInput Device: " + d.InstanceName + ", Type: " + d.Type.ToString() + ", SubType: " + d.Subtype, LogSeverity.Debug);
@@ -65,7 +69,16 @@ namespace MobiFlight
                 joysticks.Add(js);
                 js.OnButtonPressed += Js_OnButtonPressed;
                 js.OnAxisChanged += Js_OnAxisChanged;
+                js.OnDisconnected += Js_OnDisconnected;
             }
+        }
+
+        private void Js_OnDisconnected(object sender, EventArgs e)
+        {
+            Joystick js = sender as Joystick;
+            Log.Instance.log("Joystick Disconnected: " + js.Name, LogSeverity.Debug);
+            lock (joysticks)
+                joysticks.Remove(js);            
         }
 
         private bool HasAxisOrButtons(Joystick js)

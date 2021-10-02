@@ -643,7 +643,7 @@
     <value>MultiPinSelectPanel</value>
   </data>
   <data name="&gt;&gt;MultiPinSelectPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.PinSelectPanel, MFConnector, Version=9.0.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.PinSelectPanel, MFConnector, Version=9.0.0.5, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MultiPinSelectPanel.Parent" xml:space="preserve">
     <value>PinSelectPanel</value>

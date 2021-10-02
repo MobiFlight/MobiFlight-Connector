@@ -34,6 +34,7 @@ namespace MobiFlight
         public static string SerialPrefix = "JS-";
         public event ButtonEventHandler OnButtonPressed;
         public event ButtonEventHandler OnAxisChanged;
+        public event EventHandler OnDisconnected;
         private SharpDX.DirectInput.Joystick joystick;
         JoystickState state = null;
         List<JoystickDevice> Buttons = new List<JoystickDevice>();
@@ -149,15 +150,26 @@ namespace MobiFlight
         public void Update()
         {           
             if (joystick == null) return;
-            joystick.Poll();
-            JoystickState newState = joystick.GetCurrentState();
 
-            UpdateButtons(newState);
-            UpdateAxis(newState);
-            UpdatePOV(newState);
+            try
+            {
+                joystick.Poll();
+                JoystickState newState = joystick.GetCurrentState();
+                UpdateButtons(newState);
+                UpdateAxis(newState);
+                UpdatePOV(newState);
 
-            // at the very end update our state
-            state = newState;
+                // at the very end update our state
+                state = newState;
+            }
+            catch(SharpDX.SharpDXException ex)
+            {
+                if (ex.Descriptor.ApiCode=="InputLost")
+                {
+                    joystick.Unacquire();
+                    OnDisconnected?.Invoke(this, null);
+                }
+            }
         }
 
         private void UpdatePOV(JoystickState newState)
