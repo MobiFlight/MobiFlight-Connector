@@ -1089,12 +1089,17 @@ namespace MobiFlight.UI
                 currentFileName = fileName;
                 _setFilenameInTitle(fileName);
                 _storeAsRecentFile(fileName);
-            }
 
-            // set the button back to "disabled"
-            // since due to initiliazing the dataSet
-            // it will automatically gets enabled
-            saveToolStripButton.Enabled = false;
+                // set the button back to "disabled"
+                // since due to initiliazing the dataSet
+                // it will automatically gets enabled
+                saveToolStripButton.Enabled = false;
+            } else
+            {
+                // indicate that the merge changed
+                // the current config and that the user
+                saveToolStripButton.Enabled = true;
+            }
 
             // always put this after "normal" initialization
             // savetoolstripbutton may be set to "enabled"
