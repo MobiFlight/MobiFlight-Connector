@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace MobiFlight
 {
@@ -79,17 +80,17 @@ namespace MobiFlight
         public void log(string message, LogSeverity severity)
         {
             if (textBox == null) return;
-            
+
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
             // If these threads are different, it returns true.
             if (textBox.InvokeRequired)
             {
-                textBox.Invoke(new logCallback(log), new object[] { message, severity });
+                textBox.BeginInvoke(new logCallback(log), new object[] { message, severity });
             }
             else
             {
-                textBox.Text = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message + Environment.NewLine + textBox.Text;
+                    textBox.Text = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message + Environment.NewLine + textBox.Text;
             }
         }
     }
@@ -110,25 +111,28 @@ namespace MobiFlight
                 File.Delete(FileName);
         }
 
-        public void log(string message, LogSeverity severity)
+        public async void log(string message, LogSeverity severity)
         {
-            // Set Status to Locked
-            _readWriteLock.EnterWriteLock();
-            try
+            await Task.Run(() =>
             {
-                String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
-                // Append text to the file
-                using (StreamWriter sw = File.AppendText(FileName))
+                // Set Status to Locked
+                _readWriteLock.EnterWriteLock();
+                try
                 {
-                    sw.WriteLine(msg);
-                    sw.Close();
+                    String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
+                    // Append text to the file
+                    using (StreamWriter sw = File.AppendText(FileName))
+                    {
+                        sw.WriteLine(msg);
+                        sw.Close();
+                    }
                 }
-            }
-            finally
-            {
-                // Release lock
-                _readWriteLock.ExitWriteLock();
-            }
+                finally
+                {
+                    // Release lock
+                    _readWriteLock.ExitWriteLock();
+                }
+            });
         }
     }
 }
