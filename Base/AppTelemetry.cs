@@ -82,6 +82,10 @@ namespace MobiFlight.Base
             foreach (InputConfigItem item in inputConfigs)
             {
                 String key = "input." + item.Type;
+                if (item.ModuleSerial.Contains(Joystick.SerialPrefix))
+                {
+                    key = key + ".joystick";
+                }
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
 

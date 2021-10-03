@@ -223,6 +223,7 @@ namespace MobiFlight
                     if (encoder != null)
                         encoder.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
+
                 case TYPE_ANALOG:
                     if (analog != null)
                         analog.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
@@ -237,6 +238,13 @@ namespace MobiFlight
             if (Type == TYPE_BUTTON)
             {
                 result = button.GetStatistics();
+            } else if (Type == TYPE_ENCODER)
+            {
+                result = encoder.GetStatistics();
+            }
+            else if (Type == TYPE_ANALOG)
+            {
+                result = analog.GetStatistics();
             }
 
             return result;

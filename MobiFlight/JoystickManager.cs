@@ -116,5 +116,22 @@ namespace MobiFlight
 
             return result;
         }
+
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+
+            result["Joysticks.Count"] = joysticks.Count();
+            
+            foreach (Joystick joystick in joysticks)
+            {
+                string key = "Joysticks.Model." + joystick.Name;
+
+                if (!result.ContainsKey(key)) result[key] = 0;
+                result[key] += 1;
+            }
+
+            return result;
+        }
     }
 }

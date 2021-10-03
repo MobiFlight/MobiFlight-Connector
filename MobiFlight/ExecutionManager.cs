@@ -1495,6 +1495,13 @@ namespace MobiFlight
         public Dictionary<String, int> GetStatistics()
         {
             Dictionary<String, int> result = mobiFlightCache.GetStatistics();
+            Dictionary<String, int> resultJoysticks = joystickManager.GetStatistics();
+
+            foreach(String key in resultJoysticks.Keys)
+            {
+                result[key] = resultJoysticks[key];
+            }
+
             result["arcazeCache.Enabled"] = 0;
 #if ARCAZE
             if(arcazeCache.Enabled)

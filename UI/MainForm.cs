@@ -34,6 +34,7 @@ namespace MobiFlight.UI
         /// the currently used filename of the loaded config file
         /// </summary>
         private string currentFileName = null;
+        private ConfigFile configFile = null;
 
         private CmdLineParams cmdLineParams;
 
@@ -1054,7 +1055,7 @@ namespace MobiFlight.UI
                 inputConfigPanel.InputDataSetConfig.Clear();
             }
 
-            ConfigFile configFile = new ConfigFile(fileName);
+            configFile = new ConfigFile(fileName);
             try
             {
                 // refactor!!!
@@ -1099,11 +1100,69 @@ namespace MobiFlight.UI
             // savetoolstripbutton may be set to "enabled"
             // if user has changed something
             _checkForOrphanedSerials( false );
+            _checkForOrphanedJoysticks( false );
 
             // Track config loaded event
             AppTelemetry.Instance.ConfigLoaded(configFile);
             AppTelemetry.Instance.TrackBoardStatistics(execManager);
             AppTelemetry.Instance.TrackSettings();
+        }
+
+        private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
+        {
+            List<string> serials = new List<string>();
+            List<string> NotConnectedJoysticks = new List<string>();
+
+            foreach (Joystick j in execManager.GetJoystickManager().GetJoysticks())
+            {
+                serials.Add(j.Name + " / " + j.Serial);
+            }
+
+            if (serials.Count == 0) return;
+            if (configFile == null) return;
+
+            foreach (InputConfigItem item in configFile.GetInputConfigItems())
+            {
+                if (!serials.Contains(item.ModuleSerial) && 
+                    !NotConnectedJoysticks.Contains(item.ModuleSerial)) { 
+                    NotConnectedJoysticks.Add(item.ModuleSerial);
+                }
+            }
+
+            if (NotConnectedJoysticks.Count>0)
+            {
+                MessageBox.Show(string.Format(
+                                    i18n._tr("uiMessageNotConnectedJoysticksInConfigFound"),
+                                    string.Join("\n", NotConnectedJoysticks)
+                                    ), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (showNotNecessaryMessage)
+            {
+                MessageBox.Show(i18n._tr("uiMessageNoNotConnectedJoysticksInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            /*try
+            {
+                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, outputConfigPanel.ConfigDataTable, inputConfigPanel.ConfigDataTable);
+                opd.StartPosition = FormStartPosition.CenterParent;
+                if (opd.HasOrphanedSerials())
+                {
+                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        _restoreValuesInGridView();
+                        saveToolStripButton.Enabled = opd.HasChanged();
+                    }
+                }
+                else if (showNotNecessaryMessage)
+                {
+                    MessageBox.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception e)
+            {
+                // do nothing
+                Log.Instance.log("Orphaned Serials Exception. " + e.Message, LogSeverity.Error);
+            }*/
         }
 
         private void _restoreValuesInGridView()

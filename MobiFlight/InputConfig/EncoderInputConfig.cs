@@ -244,6 +244,39 @@ namespace MobiFlight.InputConfig
             }
         }
 
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+
+            result["Input.Encoder"] = 1;
+
+            if (onLeft != null)
+            {
+                result["Input.OnLeft"] = 1;
+                result["Input." + onLeft.GetType().Name] = 1;
+            }
+
+            if (onLeftFast != null)
+            {
+                result["Input.OnLeftFast"] = 1;
+                result["Input." + onLeftFast.GetType().Name] = 1;
+            }
+
+            if (onRight != null)
+            {
+                result["Input.OnRight"] = 1;
+                result["Input." + onRight.GetType().Name] = 1;
+            }
+
+            if (onRightFast != null)
+            {
+                result["Input.OnRightFast"] = 1;
+                result["Input." + onRightFast.GetType().Name] = 1;
+            }
+
+            return result;
+        }
+
         public void WriteXml(System.Xml.XmlWriter writer)
         {
             writer.WriteStartElement("onLeft");
