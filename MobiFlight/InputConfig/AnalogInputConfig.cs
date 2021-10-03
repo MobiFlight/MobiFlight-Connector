@@ -120,6 +120,21 @@ namespace MobiFlight.InputConfig
                     (onChange != null && onChange.Equals((obj as AnalogInputConfig).onChange))
                 );
         }
+
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+
+            result["Input.Analog"] = 1;
+
+            if (onChange != null)
+            {
+                result["Input.OnChange"] = 1;
+                result["Input." + onChange.GetType().Name] = 1;
+            }
+
+            return result;
+        }
     }
 
 }

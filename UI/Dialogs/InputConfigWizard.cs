@@ -206,7 +206,8 @@ namespace MobiFlight.UI.Dialogs
 
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
-                inputModuleNameComboBox.Items.Add(joystick.Name + " / " + joystick.Serial);
+                if (joystick.GetAvailableDevices().Count > 0)
+                    inputModuleNameComboBox.Items.Add(joystick.Name + " / " + joystick.Serial);
             }
 
             inputModuleNameComboBox.SelectedIndex = 0;
@@ -382,6 +383,8 @@ namespace MobiFlight.UI.Dialogs
                 // type of module
                 
                 inputTypeComboBox.Items.Clear();
+                inputTypeComboBox.ValueMember = "Value";
+                inputTypeComboBox.DisplayMember = "Label";
 
                 if (!Joystick.IsJoystickSerial(serial))
                 {
@@ -394,7 +397,7 @@ namespace MobiFlight.UI.Dialogs
                             case DeviceType.Button:
                             case DeviceType.AnalogInput:
                             case DeviceType.Encoder:
-                                inputTypeComboBox.Items.Add(device.Name);
+                                inputTypeComboBox.Items.Add(new ListItem() { Label = device.Name, Value = device.Name });
                                 break;
                         }
                     }

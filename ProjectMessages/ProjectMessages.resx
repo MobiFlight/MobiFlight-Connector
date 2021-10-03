@@ -463,4 +463,14 @@ You can always enable it later again in the settings menu.</value>
   <data name="uiMessageFirmwareUploadError" xml:space="preserve">
     <value>There was an error on uploading the firmware!\nEnable Debug Logging for more details.</value>
   </data>
+  <data name="uiMessageNoNotConnectedJoysticksInConfigFound" xml:space="preserve">
+    <value>There are no missing joysticks found.</value>
+  </data>
+  <data name="uiMessageNotConnectedJoysticksInConfigFound" xml:space="preserve">
+    <value>The following joysticks are currently not connected but referenced in the config:
+
+{0}
+
+Respective input actions won't work until they are connected and you have restarted MobiFlight.</value>
+  </data>
 </root>

@@ -716,6 +716,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no missing joysticks found..
+        /// </summary>
+        internal static string uiMessageNoNotConnectedJoysticksInConfigFound {
+            get {
+                return ResourceManager.GetString("uiMessageNoNotConnectedJoysticksInConfigFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no orphaned serials in the current config..
         /// </summary>
         internal static string uiMessageNoOrphanedSerialsFound {
@@ -730,6 +739,19 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageNoSimConnectConnection {
             get {
                 return ResourceManager.GetString("uiMessageNoSimConnectConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following joysticks are currently not connected but referenced in the config:
+        ///
+        ///{0}
+        ///
+        ///Respective input actions won&apos;t work until they are connected and you have restarted MobiFlight..
+        /// </summary>
+        internal static string uiMessageNotConnectedJoysticksInConfigFound {
+            get {
+                return ResourceManager.GetString("uiMessageNotConnectedJoysticksInConfigFound", resourceCulture);
             }
         }
         

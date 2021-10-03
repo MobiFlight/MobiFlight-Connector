@@ -454,4 +454,20 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
     <value>Es gab einen Fehler beim Firmware Upload. Aktiviere Logging für mehr Informationen.</value>
     <comment>There was an error on uploading the firmware!\nEnable Debug Logging for more details.</comment>
   </data>
+  <data name="uiMessageNoNotConnectedJoysticksInConfigFound" xml:space="preserve">
+    <value>Keine fehlenden Joysticks gefunden.</value>
+    <comment>There are no missing joysticks found.</comment>
+  </data>
+  <data name="uiMessageNotConnectedJoysticksInConfigFound" xml:space="preserve">
+    <value>Die folgenden Joysticks sind aktuell nicht angeschlossen, werden aber in der Config verwendet:
+
+%s
+
+Die entsprechenden Input Actions funktionieren nicht bis der Joystick wieder angeschlossen und MobiFlight neu gestartet ist.</value>
+    <comment>The following joysticks are currently not connected but referenced in the config:
+
+{0}
+
+Respective input actions won't work until they are connected and you have restarted MobiFlight.</comment>
+  </data>
 </root>

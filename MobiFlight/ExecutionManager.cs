@@ -126,7 +126,6 @@ namespace MobiFlight
 #endif
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             joystickManager.Connect(handle);
-            joystickManager.Start();
         }
 
         public void HandleWndProc(ref Message m)
@@ -194,6 +193,7 @@ namespace MobiFlight
         public void Start()
         {
             simConnectCache.Start();
+            joystickManager.Start();
             timer.Enabled = true;
         }
 
@@ -203,6 +203,7 @@ namespace MobiFlight
             isExecuting = false;
             mobiFlightCache.Stop();
             simConnectCache.Stop();
+            joystickManager.Stop();
             ClearErrorMessages();
         }
 
@@ -821,7 +822,7 @@ namespace MobiFlight
             }
             catch
             {
-                Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
+                Log.Instance.log("ExecuteComparison : Exception on NCalc evaluate - " + result, LogSeverity.Warn);
             }
 
             return result;
@@ -1422,7 +1423,7 @@ namespace MobiFlight
                         if (gridViewRow.DataBoundItem == null) continue;
 
                         InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-                        if (cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
+                        if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
                         {
                             inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
                         }
@@ -1494,6 +1495,13 @@ namespace MobiFlight
         public Dictionary<String, int> GetStatistics()
         {
             Dictionary<String, int> result = mobiFlightCache.GetStatistics();
+            Dictionary<String, int> resultJoysticks = joystickManager.GetStatistics();
+
+            foreach(String key in resultJoysticks.Keys)
+            {
+                result[key] = resultJoysticks[key];
+            }
+
             result["arcazeCache.Enabled"] = 0;
 #if ARCAZE
             if(arcazeCache.Enabled)

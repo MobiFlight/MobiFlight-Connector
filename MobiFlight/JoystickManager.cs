@@ -20,9 +20,15 @@ namespace MobiFlight
         }
         private void PollTimer_Tick(object sender, EventArgs e)
         {
-            foreach (MobiFlight.Joystick js in joysticks)
+            try
             {
-                js.Update();
+                foreach (MobiFlight.Joystick js in joysticks)
+                {
+                    js?.Update();
+                }
+            } catch (InvalidOperationException ex)
+            {
+                // this exception is thrown when a joystick is disconnected and removed from the list of joysticks
             }
         }
 
@@ -46,19 +52,50 @@ namespace MobiFlight
             SharpDX.DirectInput.DirectInput di = new SharpDX.DirectInput.DirectInput();
             joysticks?.Clear();
 
-            List<SharpDX.DirectInput.DeviceInstance> devices = di.GetDevices(SharpDX.DirectInput.DeviceType.Joystick, DeviceEnumerationFlags.AttachedOnly).ToList();
-            devices.AddRange(di.GetDevices(SharpDX.DirectInput.DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly));
+            List<SharpDX.DirectInput.DeviceInstance> devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
+
             foreach (DeviceInstance d in devices)
             {
+                Log.Instance.log("Found attached DirectInput Device: " + d.InstanceName + ", Type: " + d.Type.ToString() + ", SubType: " + d.Subtype, LogSeverity.Debug);
+
+                if (!IsSupportedDeviceType(d)) continue;
+
                 MobiFlight.Joystick js = new MobiFlight.Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
                 
-                if (js.Capabilities.AxeCount == 0 && js.Capabilities.ButtonCount == 0) continue;
+                if (!HasAxisOrButtons(js)) continue;
 
+                Log.Instance.log("Adding attached Joystick Device: " + d.InstanceName + " Buttons " + js.Capabilities.ButtonCount + ", Axis: " + js.Capabilities.AxeCount, LogSeverity.Debug);
                 js.Connect(Handle); 
                 joysticks.Add(js);
                 js.OnButtonPressed += Js_OnButtonPressed;
                 js.OnAxisChanged += Js_OnAxisChanged;
+                js.OnDisconnected += Js_OnDisconnected;
             }
+        }
+
+        private void Js_OnDisconnected(object sender, EventArgs e)
+        {
+            Joystick js = sender as Joystick;
+            Log.Instance.log("Joystick Disconnected: " + js.Name, LogSeverity.Debug);
+            lock (joysticks)
+                joysticks.Remove(js);            
+        }
+
+        private bool HasAxisOrButtons(Joystick js)
+        {
+            return
+                js.Capabilities.AxeCount > 0 ||
+                js.Capabilities.ButtonCount > 0;
+        }
+
+        private bool IsSupportedDeviceType(DeviceInstance d)
+        {
+            return
+                d.Type == SharpDX.DirectInput.DeviceType.Joystick ||
+                d.Type == SharpDX.DirectInput.DeviceType.Gamepad ||
+                d.Type == SharpDX.DirectInput.DeviceType.Flight ||
+                d.Type == SharpDX.DirectInput.DeviceType.Supplemental ||
+                d.Type == SharpDX.DirectInput.DeviceType.FirstPerson;
         }
 
         private void Js_OnAxisChanged(object sender, InputEventArgs e)
@@ -76,6 +113,23 @@ namespace MobiFlight
             Joystick result = null;
 
             result = joysticks.Find((Joystick js) => { return (js.Serial == serial); });
+
+            return result;
+        }
+
+        public Dictionary<String, int> GetStatistics()
+        {
+            Dictionary<String, int> result = new Dictionary<string, int>();
+
+            result["Joysticks.Count"] = joysticks.Count();
+            
+            foreach (Joystick joystick in joysticks)
+            {
+                string key = "Joysticks.Model." + joystick.Name;
+
+                if (!result.ContainsKey(key)) result[key] = 0;
+                result[key] += 1;
+            }
 
             return result;
         }
