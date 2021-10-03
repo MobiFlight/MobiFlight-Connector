@@ -92,8 +92,15 @@ namespace MobiFlight
 
                 if (IsAxis && Axes.Count < joystick.Capabilities.AxeCount)
                 {
-                    String OffsetAxisName = GetAxisNameForUsage(usage);
-
+                    String OffsetAxisName = "Unknown";
+                    try
+                    {
+                        OffsetAxisName = GetAxisNameForUsage(usage);
+                    } catch (ArgumentOutOfRangeException ex)
+                    {
+                        Log.Instance.log("EnumerateDevices: Axis can't be mapped:" + joystick.Information.InstanceName + ": Aspect : " + aspect.ToString() + ":Offset:" + offset + ":Usage:" + usage + ":" + "Axis: " + name, LogSeverity.Error);
+                        continue;
+                    }
                     Axes.Add(new JoystickDevice() { Name = AxisPrefix + OffsetAxisName, Label = name, Type = JoystickDeviceType.Axis });
                     Log.Instance.log("EnumerateDevices: " + joystick.Information.InstanceName + ": Aspect : " + aspect.ToString() + ":Offset:" + offset + ":Usage:" + usage + ":" + "Axis: " + name, LogSeverity.Debug);
 
