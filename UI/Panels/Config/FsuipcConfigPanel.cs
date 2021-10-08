@@ -306,7 +306,7 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             // TODO: refactor this conditional stuff.
-            if (fsuipcMultiplyTextBox.Visible)
+            if (config.Transform.Active)
                 config.Transform.Expression = fsuipcMultiplyTextBox.Text;
             if (SubStringFromTextBox.Text!="")
                 config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
