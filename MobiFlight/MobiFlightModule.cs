@@ -1125,13 +1125,8 @@ namespace MobiFlight
                 }
             }
 
-            foreach (byte i in usedPins)
-            {
-                if (i != 0)
-                {
-                    ResultPins.Find(item => item.Pin == i).Used = true;
-                }                
-            }
+            // Mark all the used pins as used in the result list.
+            usedPins.ForEach(pin => ResultPins.Find(resultPin => resultPin.Pin == pin).Used = true);
 
             if (FreeOnly)
                 ResultPins = ResultPins.FindAll(x => x.Used == false);
