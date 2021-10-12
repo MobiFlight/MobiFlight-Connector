@@ -10,6 +10,7 @@ namespace MobiFlight.InputConfig
     {
         public const String Label = "InputAction";
         public const String CacheType = "FSUIPC";
+        public char[] ExpressionIndicator = { '=', '+', '-', '/', '%', '(', ')' };
 
         protected System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
         abstract public object Clone();
@@ -41,10 +42,15 @@ namespace MobiFlight.InputConfig
             }
             catch
             {
-                Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
-                //throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
+                if(LooksLikeExpression(expression))
+                    Log.Instance.log("InputAction.Replace : Exception on NCalc evaluate => " + expression , LogSeverity.Warn);
             }
             return expression; 
+        }
+
+        private bool LooksLikeExpression(String expression)
+        {
+            return expression.IndexOfAny(ExpressionIndicator) != -1;
         }
     }
 }
