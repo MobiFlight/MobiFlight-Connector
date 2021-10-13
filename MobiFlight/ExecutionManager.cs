@@ -822,7 +822,8 @@ namespace MobiFlight
             }
             catch
             {
-                Log.Instance.log("ExecuteComparison : Exception on NCalc evaluate - " + result, LogSeverity.Warn);
+                if (Log.LooksLikeExpression(result))
+                    Log.Instance.log("ExecuteComparison : Exception on NCalc evaluate => " + result, LogSeverity.Warn);
             }
 
             return result;
