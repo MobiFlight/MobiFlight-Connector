@@ -58,6 +58,7 @@ namespace MobiFlight.UI
 
             Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
+            Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
             logTextBox.Visible = Log.Instance.Enabled;
             logSplitter.Visible = Log.Instance.Enabled;

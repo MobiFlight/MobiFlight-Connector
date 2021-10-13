@@ -1440,7 +1440,8 @@ namespace MobiFlight
             if (inputCache[inputKey].Count == 0)
             {
 
-                Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
+                if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
+                    Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
 
@@ -1489,6 +1490,12 @@ namespace MobiFlight
             }
 
             //fsuipcCache.ForceUpdate();
+        }
+
+        private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
+        {
+            return !Joystick.IsJoystickSerial(Serial) ||
+                    (Joystick.IsJoystickSerial(Serial) && type == DeviceType.AnalogInput && Log.Instance.LogJoystickAxis);
         }
 #endif
 

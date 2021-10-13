@@ -48,6 +48,7 @@ namespace MobiFlight.UI.Panels.Settings
             // Debug Mode
             logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
             ComboBoxHelper.SetSelectedItem(logLevelComboBox, Properties.Settings.Default.LogLevel);
+            LogJoystickAxisCheckBox.Checked = Properties.Settings.Default.LogJoystickAxis;
 
             // Offline Mode
             offlineModeCheckBox.Checked = Properties.Settings.Default.OfflineMode;
@@ -78,6 +79,9 @@ namespace MobiFlight.UI.Panels.Settings
             Properties.Settings.Default.LogLevel = logLevelComboBox.SelectedItem as String;
             Log.Instance.Enabled = logLevelCheckBox.Checked;
             Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel);
+
+            Properties.Settings.Default.LogJoystickAxis = LogJoystickAxisCheckBox.Checked;
+            Log.Instance.LogJoystickAxis = LogJoystickAxisCheckBox.Checked;
 
             // Offline Mode
             Properties.Settings.Default.OfflineMode = offlineModeCheckBox.Checked;

@@ -58,6 +58,7 @@ namespace MobiFlight
         }
 
         public bool Enabled { get; set; }
+        public bool LogJoystickAxis { get; set; }
     }
 
     public interface ILogAppender 
