@@ -1,4 +1,4 @@
-param ($version = "latest", $outDir = "./")
+param ($version = "latest", $outDir = "../firmware")
 
 # Create the output folder if it doesn't exist
 if (!(Test-Path $outDir)) {
