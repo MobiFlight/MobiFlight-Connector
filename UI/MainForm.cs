@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -602,7 +602,7 @@ namespace MobiFlight.UI
         {
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
-            runTestToolStripButton.Enabled = execManager.ModulesConnected();
+            runTestToolStripButton.Enabled = true;
         }
 
         /// <summary>
@@ -610,7 +610,7 @@ namespace MobiFlight.UI
         /// </summary>
         private bool RunIsAvailable()
         {
-            return (execManager.OfflineMode || execManager.SimConnected()) && execManager.ModulesConnected() && !execManager.IsStarted() && !execManager.TestModeIsStarted();
+            return (execManager.OfflineMode || execManager.SimConnected()) && !execManager.IsStarted() && !execManager.TestModeIsStarted();
         }
 
         /// <summary>
@@ -765,8 +765,8 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
-            runTestToolStripButton.Enabled = execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && !execManager.TestModeIsStarted();
+            runTestToolStripButton.Enabled = !execManager.TestModeIsStarted();
             stopToolStripButton.Enabled = false;
             updateNotifyContextMenu(execManager.IsStarted());
         } //timer_Stopped
@@ -1420,7 +1420,7 @@ namespace MobiFlight.UI
             stopTestToolStripButton.Visible = false;
             stopTestToolStripButton.Enabled = false;
             runTestToolStripButton.Enabled = true;
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && !execManager.TestModeIsStarted();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
