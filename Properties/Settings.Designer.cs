@@ -395,5 +395,17 @@ namespace MobiFlight.Properties {
                 this["CommunityFeedback"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LogJoystickAxis {
+            get {
+                return ((bool)(this["LogJoystickAxis"]));
+            }
+            set {
+                this["LogJoystickAxis"] = value;
+            }
+        }
     }
 }

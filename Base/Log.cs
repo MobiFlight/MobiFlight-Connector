@@ -20,6 +20,7 @@ namespace MobiFlight
     public sealed class Log
     {
         private static readonly Log instance = new Log();
+        public static char[] ExpressionIndicator = { '=', '+', '-', '/', '%', '(', ')' };
         private List<ILogAppender> appenderList;
         private Log() { appenderList = new List<ILogAppender>(); }
 
@@ -49,6 +50,11 @@ namespace MobiFlight
             appenderList.Add(appender);
         }
 
+        public static bool LooksLikeExpression(String expression)
+        {
+            return expression.IndexOfAny(ExpressionIndicator) != -1;
+        }
+
         public Dictionary<String, int> GetStatistics()
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
@@ -58,6 +64,7 @@ namespace MobiFlight
         }
 
         public bool Enabled { get; set; }
+        public bool LogJoystickAxis { get; set; }
     }
 
     public interface ILogAppender 
