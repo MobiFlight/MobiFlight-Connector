@@ -39,6 +39,7 @@
             this.OfflineModeLabel = new System.Windows.Forms.Label();
             this.offlineModeCheckBox = new System.Windows.Forms.CheckBox();
             this.debugGroupBox = new System.Windows.Forms.GroupBox();
+            this.LogJoystickAxisCheckBox = new System.Windows.Forms.CheckBox();
             this.logLevelComboBox = new System.Windows.Forms.ComboBox();
             this.logLevelLabel = new System.Windows.Forms.Label();
             this.logLevelCheckBox = new System.Windows.Forms.CheckBox();
@@ -51,7 +52,6 @@
             this.recentFilesNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.CommunityFeedbackCheckBox = new System.Windows.Forms.CheckBox();
-            this.LogJoystickAxisCheckBox = new System.Windows.Forms.CheckBox();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.offlineModeGroupBox.SuspendLayout();
@@ -65,8 +65,8 @@
             // 
             // BetaUpdatesGroupBox
             // 
-            this.BetaUpdatesGroupBox.Controls.Add(this.BetaUpdateCheckBox);
             resources.ApplyResources(this.BetaUpdatesGroupBox, "BetaUpdatesGroupBox");
+            this.BetaUpdatesGroupBox.Controls.Add(this.BetaUpdateCheckBox);
             this.BetaUpdatesGroupBox.Name = "BetaUpdatesGroupBox";
             this.BetaUpdatesGroupBox.TabStop = false;
             // 
@@ -78,10 +78,10 @@
             // 
             // languageGroupBox
             // 
+            resources.ApplyResources(this.languageGroupBox, "languageGroupBox");
             this.languageGroupBox.Controls.Add(this.label9);
             this.languageGroupBox.Controls.Add(this.languageComboBox);
             this.languageGroupBox.Controls.Add(this.languageLabel);
-            resources.ApplyResources(this.languageGroupBox, "languageGroupBox");
             this.languageGroupBox.Name = "languageGroupBox";
             this.languageGroupBox.TabStop = false;
             // 
@@ -92,12 +92,12 @@
             // 
             // languageComboBox
             // 
+            resources.ApplyResources(this.languageComboBox, "languageComboBox");
             this.languageComboBox.FormattingEnabled = true;
             this.languageComboBox.Items.AddRange(new object[] {
             resources.GetString("languageComboBox.Items"),
             resources.GetString("languageComboBox.Items1"),
             resources.GetString("languageComboBox.Items2")});
-            resources.ApplyResources(this.languageComboBox, "languageComboBox");
             this.languageComboBox.Name = "languageComboBox";
             // 
             // languageLabel
@@ -107,9 +107,9 @@
             // 
             // offlineModeGroupBox
             // 
+            resources.ApplyResources(this.offlineModeGroupBox, "offlineModeGroupBox");
             this.offlineModeGroupBox.Controls.Add(this.OfflineModeLabel);
             this.offlineModeGroupBox.Controls.Add(this.offlineModeCheckBox);
-            resources.ApplyResources(this.offlineModeGroupBox, "offlineModeGroupBox");
             this.offlineModeGroupBox.Name = "offlineModeGroupBox";
             this.offlineModeGroupBox.TabStop = false;
             // 
@@ -126,16 +126,23 @@
             // 
             // debugGroupBox
             // 
+            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
             this.debugGroupBox.Controls.Add(this.LogJoystickAxisCheckBox);
             this.debugGroupBox.Controls.Add(this.logLevelComboBox);
             this.debugGroupBox.Controls.Add(this.logLevelLabel);
             this.debugGroupBox.Controls.Add(this.logLevelCheckBox);
-            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
             this.debugGroupBox.Name = "debugGroupBox";
             this.debugGroupBox.TabStop = false;
             // 
+            // LogJoystickAxisCheckBox
+            // 
+            resources.ApplyResources(this.LogJoystickAxisCheckBox, "LogJoystickAxisCheckBox");
+            this.LogJoystickAxisCheckBox.Name = "LogJoystickAxisCheckBox";
+            this.LogJoystickAxisCheckBox.UseVisualStyleBackColor = true;
+            // 
             // logLevelComboBox
             // 
+            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
             this.logLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.logLevelComboBox.FormattingEnabled = true;
             this.logLevelComboBox.Items.AddRange(new object[] {
@@ -143,7 +150,6 @@
             resources.GetString("logLevelComboBox.Items1"),
             resources.GetString("logLevelComboBox.Items2"),
             resources.GetString("logLevelComboBox.Items3")});
-            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
             this.logLevelComboBox.Name = "logLevelComboBox";
             // 
             // logLevelLabel
@@ -159,10 +165,10 @@
             // 
             // testModeSpeedGroupBox
             // 
+            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Controls.Add(this.label8);
             this.testModeSpeedGroupBox.Controls.Add(this.label6);
             this.testModeSpeedGroupBox.Controls.Add(this.testModeSpeedTrackBar);
-            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Name = "testModeSpeedGroupBox";
             this.testModeSpeedGroupBox.TabStop = false;
             // 
@@ -184,16 +190,16 @@
             // 
             // recentFilesGroupBox
             // 
+            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
             this.recentFilesGroupBox.Controls.Add(this.label1);
             this.recentFilesGroupBox.Controls.Add(this.recentFilesNumericUpDown);
-            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
             this.recentFilesGroupBox.Name = "recentFilesGroupBox";
             this.recentFilesGroupBox.TabStop = false;
             // 
             // label1
             // 
-            this.label1.AutoEllipsis = true;
             resources.ApplyResources(this.label1, "label1");
+            this.label1.AutoEllipsis = true;
             this.label1.Name = "label1";
             // 
             // recentFilesNumericUpDown
@@ -203,8 +209,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.CommunityFeedbackCheckBox);
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.CommunityFeedbackCheckBox);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -213,12 +219,6 @@
             resources.ApplyResources(this.CommunityFeedbackCheckBox, "CommunityFeedbackCheckBox");
             this.CommunityFeedbackCheckBox.Name = "CommunityFeedbackCheckBox";
             this.CommunityFeedbackCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // LogJoystickAxisCheckBox
-            // 
-            resources.ApplyResources(this.LogJoystickAxisCheckBox, "LogJoystickAxisCheckBox");
-            this.LogJoystickAxisCheckBox.Name = "LogJoystickAxisCheckBox";
-            this.LogJoystickAxisCheckBox.UseVisualStyleBackColor = true;
             // 
             // GeneralPanel
             // 
