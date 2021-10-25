@@ -461,7 +461,7 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   <data name="uiMessageNotConnectedJoysticksInConfigFound" xml:space="preserve">
     <value>Die folgenden Joysticks sind aktuell nicht angeschlossen, werden aber in der Config verwendet:
 
-%s
+{0}
 
 Die entsprechenden Input Actions funktionieren nicht bis der Joystick wieder angeschlossen und MobiFlight neu gestartet ist.</value>
     <comment>The following joysticks are currently not connected but referenced in the config:

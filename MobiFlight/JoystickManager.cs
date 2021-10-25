@@ -18,6 +18,11 @@ namespace MobiFlight
             PollTimer.Interval = 50;
             PollTimer.Tick += PollTimer_Tick;
         }
+
+        public bool JoysticksConnected()
+        {
+            return joysticks.Count > 0;
+        }
         private void PollTimer_Tick(object sender, EventArgs e)
         {
             try

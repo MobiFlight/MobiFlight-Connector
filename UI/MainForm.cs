@@ -162,8 +162,8 @@ namespace MobiFlight.UI
             // on the program
             setAutoRunValue(Properties.Settings.Default.AutoRun);
 
-            runToolStripButton.Enabled = false;
-            runTestToolStripButton.Enabled = false;
+            runToolStripButton.Enabled = RunIsAvailable();
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
             settingsToolStripButton.Enabled = false;
             updateNotifyContextMenu(false);
 
@@ -602,7 +602,7 @@ namespace MobiFlight.UI
         {
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
-            runTestToolStripButton.Enabled = execManager.ModulesConnected();
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
         }
 
         /// <summary>
@@ -610,7 +610,13 @@ namespace MobiFlight.UI
         /// </summary>
         private bool RunIsAvailable()
         {
-            return (execManager.OfflineMode || execManager.SimConnected()) && execManager.ModulesConnected() && !execManager.IsStarted() && !execManager.TestModeIsStarted();
+            return 
+                   // Offline Mode Or Sim available
+                   (execManager.OfflineMode || execManager.SimConnected()) &&
+                   // Hardware available
+                   (execManager.ModulesConnected() || execManager.GetJoystickManager().JoysticksConnected()) && 
+                   // We are not already running
+                   !execManager.IsStarted() && !execManager.TestModeIsStarted();
         }
 
         /// <summary>
@@ -754,8 +760,8 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Started(object sender, EventArgs e)
         {
-            runToolStripButton.Enabled  = false;
-            runTestToolStripButton.Enabled = false;
+            runToolStripButton.Enabled  = RunIsAvailable();
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = true;
             updateNotifyContextMenu(execManager.IsStarted());
         } //timer_Started()
@@ -765,11 +771,16 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
-            runTestToolStripButton.Enabled = execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            runToolStripButton.Enabled = RunIsAvailable();
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = false;
             updateNotifyContextMenu(execManager.IsStarted());
         } //timer_Stopped
+
+        private bool TestRunIsAvailable()
+        {
+            return execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+        }
 
         /// <summary>
         /// Timer eventhandler
@@ -1395,8 +1406,8 @@ namespace MobiFlight.UI
             stopToolStripButton.Visible = false;
             stopTestToolStripButton.Visible = true;
             stopTestToolStripButton.Enabled = true;
-            runTestToolStripButton.Enabled = false;
-            runToolStripButton.Enabled = false;
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
+            runToolStripButton.Enabled = RunIsAvailable();
         }
 
         /// <summary>
@@ -1419,8 +1430,8 @@ namespace MobiFlight.UI
             stopToolStripButton.Visible = true;
             stopTestToolStripButton.Visible = false;
             stopTestToolStripButton.Enabled = false;
-            runTestToolStripButton.Enabled = true;
-            runToolStripButton.Enabled = (execManager.OfflineMode || (execManager.SimConnected())) && execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
+            runToolStripButton.Enabled = RunIsAvailable();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
