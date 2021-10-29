@@ -1453,7 +1453,8 @@ namespace MobiFlight
             // no config for this button found
             if (inputCache[inputKey].Count == 0)
             {
-                Log.Instance.log($"No config found for {e.Type}: {e.DeviceId}{(e.Pin.HasValue ? $":{e.Pin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+                if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
+                    Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
 
