@@ -153,9 +153,15 @@ namespace MobiFlight.SimConnectMSFS
                 return false;
             }
 
+            if (!Directory.Exists(WasmModuleFolder))
+            {
+                Log.Instance.log("WASM events cannot be installed. WASM module folder not found. " + WasmModuleFolder, LogSeverity.Error);
+                return false;
+            }
+
             if (!Directory.Exists(CommunityFolder))
             {
-                Log.Instance.log("WASM events cannot be installed. Community Folder not found. " + CommunityFolder, LogSeverity.Error);
+                Log.Instance.log("WASM events cannot be installed. Community folder not found. " + CommunityFolder, LogSeverity.Error);
                 return false;
             }
 
