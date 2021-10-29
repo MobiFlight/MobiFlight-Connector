@@ -34,6 +34,13 @@ namespace MobiFlight.InputConfig
             base.WriteXml(writer);
         }
 
+        public override bool Equals(object obj)
+        {
+            // Input shift registers configurations are equal when their pin values are the same and all of
+            // the button configuration from the base class matches.
+            return (obj is InputShiftRegisterConfig) && ((obj as InputShiftRegisterConfig).pin == pin) && base.Equals(obj);
+        }
+
         public new Dictionary<String, int> GetStatistics()
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
