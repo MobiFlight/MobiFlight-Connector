@@ -391,6 +391,11 @@ namespace MobiFlight.UI.Dialogs
 
         private void ModuleSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Hide the input shifter pin dropdown whenever the module changes. It will
+            // be made visible again in inputTypeComboBox_SelectedIndexChanged() when
+            // the user selects an input type.
+            inputPinDropDown.Visible = false;
+
             // check which extension type is available to current serial
             ComboBox cb = (sender as ComboBox);
             try
