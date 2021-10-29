@@ -242,7 +242,6 @@ namespace MobiFlight
                     if (encoder != null)
                         encoder.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
-
                 case TYPE_INPUT_SHIFT_REGISTER:
                     if (inputShiftRegister != null)
                         inputShiftRegister.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
