@@ -30,7 +30,7 @@ namespace MobiFlightInstaller.UI
             IfReadyForTakeOFF();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonChooseFolder_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.SelectedPath = SelectedPath.Text;
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
@@ -43,7 +43,7 @@ namespace MobiFlightInstaller.UI
             IfReadyForTakeOFF();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonStartInstall_Click(object sender, EventArgs e)
         {
             Log.Instance.log("SETUP : Start new installation to " + SelectedPath.Text, LogSeverity.Debug);
 
@@ -141,16 +141,6 @@ namespace MobiFlightInstaller.UI
                 SetupTitle.Text = "Take OFF aborted, something wrong";
                 SetupTitle.ForeColor = System.Drawing.Color.Red;
             }
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SetupTitle_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -57,7 +57,7 @@ namespace MobiFlightInstaller.UI
             this.buttonChooseFolder.TabIndex = 1;
             this.buttonChooseFolder.Text = "Choose a new folder";
             this.buttonChooseFolder.UseVisualStyleBackColor = true;
-            this.buttonChooseFolder.Click += new System.EventHandler(this.button1_Click);
+            this.buttonChooseFolder.Click += new System.EventHandler(this.buttonChooseFolder_Click);
             // 
             // buttonStartInstall
             // 
@@ -68,7 +68,7 @@ namespace MobiFlightInstaller.UI
             this.buttonStartInstall.TabIndex = 2;
             this.buttonStartInstall.Text = "Take OFF";
             this.buttonStartInstall.UseVisualStyleBackColor = true;
-            this.buttonStartInstall.Click += new System.EventHandler(this.button2_Click);
+            this.buttonStartInstall.Click += new System.EventHandler(this.buttonStartInstall_Click);
             // 
             // SetupProgressBar
             // 
@@ -84,7 +84,6 @@ namespace MobiFlightInstaller.UI
             this.UpdaterCurrentTask.Name = "UpdaterCurrentTask";
             this.UpdaterCurrentTask.Size = new System.Drawing.Size(0, 13);
             this.UpdaterCurrentTask.TabIndex = 4;
-            this.UpdaterCurrentTask.Click += new System.EventHandler(this.label1_Click);
             // 
             // SetupTitle
             // 
@@ -97,7 +96,6 @@ namespace MobiFlightInstaller.UI
             this.SetupTitle.TabIndex = 5;
             this.SetupTitle.Text = "Clear to take off MF9";
             this.SetupTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.SetupTitle.Click += new System.EventHandler(this.SetupTitle_Click);
             // 
             // label1
             // 
