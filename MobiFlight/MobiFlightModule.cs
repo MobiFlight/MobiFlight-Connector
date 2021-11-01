@@ -704,6 +704,12 @@ namespace MobiFlight
 
             if (InfoCommand.Ok)
             {
+                // Workaround
+                // the following two lines shall get removed
+                // but at the moment something with the timing during startup is wrong.
+                command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
+                InfoCommand = _cmdMessenger.SendCommand(command);
+
                 devInfo.Type = InfoCommand.ReadStringArg();
                 devInfo.Name = InfoCommand.ReadStringArg();                
                 devInfo.Serial = InfoCommand.ReadStringArg();
