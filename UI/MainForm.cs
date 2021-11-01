@@ -415,7 +415,17 @@ namespace MobiFlight.UI
         {
             if (Properties.Settings.Default.UpgradeRequired)
             {
-                Properties.Settings.Default.Upgrade();
+                try
+                {
+                    Properties.Settings.Default.Upgrade();
+                }
+                catch
+                {
+                    // If the properties file is corrupted for some reason catch the exception and
+                    // reset back to a default version.
+
+                    Properties.Settings.Default.Reset();
+                }
                 Properties.Settings.Default.UpgradeRequired = false;
                 Properties.Settings.Default.StartedTotal += Properties.Settings.Default.Started;
                 Properties.Settings.Default.Started = 0;
