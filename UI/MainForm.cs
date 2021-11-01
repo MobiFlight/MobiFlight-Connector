@@ -779,7 +779,7 @@ namespace MobiFlight.UI
 
         private bool TestRunIsAvailable()
         {
-            return execManager.ModulesConnected() && !execManager.TestModeIsStarted();
+            return execManager.ModulesConnected() && !execManager.TestModeIsStarted() && !execManager.IsStarted();
         }
 
         /// <summary>
