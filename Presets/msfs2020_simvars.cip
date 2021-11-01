@@ -65,6 +65,8 @@ Asobo/Baron G58/Controls#GROUP
 G58 FLAPS BLUE INDICATOR#(A:TRAILING EDGE FLAPS LEFT ANGLE, degrees) 10 - abs 0.1 <#Asobo.Baron G58.Controls.G58 FLAPS BLUE INDICATOR
 G58 FLAPS RED INDICATOR#(A:CIRCUIT FLAP MOTOR ON, bool)#Asobo.Baron G58.Controls.G58 FLAPS RED INDICATOR
 G58 FLAPS YELLOW INDICATOR#(A:TRAILING EDGE FLAPS LEFT ANGLE, degrees) 30 - abs 0.1 <#Asobo.Baron G58.Controls.G58 FLAPS YELLOW INDICATOR
+Asobo/Baron G58/Safety#GROUP
+G58 ELT LED ON#(A:ELT ACTIVATED, Bool)#Asobo.Baron G58.Safety.G58 ELT LED ON
 Asobo/Cessna 172/Autopilot#GROUP
 C_172_AP_Heading#(A:AUTOPILOT HEADING LOCK DIR, degrees)#Asobo.Cessna 172.Autopilot.C_172_AP_Heading
 Asobo/Cessna 172/Warning System#GROUP
@@ -97,8 +99,22 @@ Asobo/TBM 930/Gear#GROUP
 TBM930_GEAR_DOWN_LEDS#1·0·(A:GEAR·LEFT·POSITION,·Percent)·100·==·?#Asobo.TBM 930.Gear.TBM930_GEAR_DOWN_LEDS
 Asobo/TBM 930/Lights#GROUP
 TBM930_PANEL_BRIGHTNESS#(A:LIGHT POTENTIOMETER:4, Percent)#Asobo.TBM 930.Lights.TBM930_PANEL_BRIGHTNESS
+Asobo/TBM 930/Safety#GROUP
+TBM930_ELT_LED#(A:ELT ACTIVATED, Bool) (E:SIMULATION TIME, second) 3 * 2 % and (L:XMLVAR_ELT_STATE) 3 ==#Asobo.TBM 930.Safety.TBM930_ELT_LED
 Asobo/TBM 930/Warning System#GROUP
-TBM930_ELT_LED#(A:ELT ACTIVATED, Bool) (E:SIMULATION TIME, second) 6 * 2 % and (L:XMLVAR_ELT_STATE) 3 == or#ELT LED is on#Asobo.TBM 930.Warning System.TBM930_ELT_LED
+TBM930_ELT_LED#(A:ELT ACTIVATED, Bool) (E:SIMULATION TIME, second) 3 * 2 % and (L:XMLVAR_ELT_STATE) 3 == or#Asobo.TBM 930.Warning System.TBM930_ELT_LED
+Fly By Wire/A320-Dev/Air Condition / Pressurization#GROUP
+APU Bleed Fault#(L:A32NX_OVHD_PNEU_APU_BLEED_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Air Condition / Pressurization.APU Bleed Fault
+APU Bleed On#(L:A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Air Condition / Pressurization.APU Bleed On
+Crew Oxygen Off#(L:PUSH_OVHD_OXYGEN_CREW, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Air Condition / Pressurization.Crew Oxygen Off
+Fly By Wire/A320-Dev/Anti-Ice#GROUP
+Engine 1 Ice Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Engine 1 Ice Fault
+Engine 1 Ice On#(A:ENG ANTI ICE:1, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Engine 1 Ice On
+Engine 2 Ice Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Engine 2 Ice Fault
+Engine 2 Ice On#(A:ENG ANTI ICE:2, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Engine 2 Ice On
+Probe Window Heat#(L:A32NX_MAN_PITOT_HEAT) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Probe Window Heat
+Wing Ice Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and ((L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Wing Ice Fault
+Wing Ice On#(A:STRUCTURAL DEICE SWITCH, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Wing Ice On
 Fly By Wire/A320-Dev/Autopilot#GROUP
 A32NX AUTOPILOT AIRSPEED HOLD VAR#(A:AUTOPILOT AIRSPEED HOLD VAR)#Fly By Wire.A320-Dev.Autopilot.A32NX AUTOPILOT AIRSPEED HOLD VAR
 A32NX AUTOPILOT ALTITUDE LOCK VAR:3#(A:AUTOPILOT ALTITUDE LOCK VAR:3)#Fly By Wire.A320-Dev.Autopilot.A32NX AUTOPILOT ALTITUDE LOCK VAR:3
@@ -119,6 +135,62 @@ A32NX_FCU_SPD_MANAGED_DOT#(L:A32NX_FCU_SPD_MANAGED_DOT)#Fly By Wire.A320-Dev.Aut
 A32NX_FCU_VS_MANAGED#(L:A32NX_FCU_VS_MANAGED)#Fly By Wire.A320-Dev.Autopilot.A32NX_FCU_VS_MANAGED
 A32NX_FMA_EXPEDITE_MODE#(L:A32NX_FMA_EXPEDITE_MODE)#Fly By Wire.A320-Dev.Autopilot.A32NX_FMA_EXPEDITE_MODE
 A32NX_TRK_FPA_MODE_ACTIVE#(L:A32NX_TRK_FPA_MODE_ACTIVE)#Fly By Wire.A320-Dev.Autopilot.A32NX_TRK_FPA_MODE_ACTIVE
+Approach Mode Active#(L:A32NX_FCU_APPR_MODE_ACTIVE, bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Approach Mode Active
+Auto Thrust Active#(L:A32NX_AUTOTHRUST_STATUS, enum) 0 > (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Auto Thrust Active
+Autopilot 1 Active#(L:A32NX_AUTOPILOT_1_ACTIVE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Autopilot 1 Active
+Autopilot 2 Active#(L:A32NX_AUTOPILOT_2_ACTIVE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Autopilot 2 Active
+Expedite Mode Active#(L:A32NX_FMA_EXPEDITE_MODE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Expedite Mode Active
+Localizer Mode Active#(L:A32NX_FCU_LOC_MODE_ACTIVE, bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Localizer Mode Active
+Fly By Wire/A320-Dev/EFIS#GROUP
+APRT 1 Active#(L:BTN_ARPT_1_FILTER_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.APRT 1 Active
+BTN_LS_1#(L:BTN_LS_1_FILTER_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.BTN_LS_1
+CSTR 1 Active#(L:BTN_CSTR_1_FILTER_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.CSTR 1 Active
+Flight Director CPT Active#(A:AUTOPILOT FLIGHT DIRECTOR ACTIVE:1, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * 0 + (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.Flight Director CPT Active
+NDB 1 Active#(L:BTN_NDB_1_FILTER_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.NDB 1 Active
+VOR D 1 Active#(L:BTN_VORD_1_FILTER_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.VOR D 1 Active
+WPT 1 Active#(L:BTN_WPT_1_FILTER_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.WPT 1 Active
+Fly By Wire/A320-Dev/Electrical#GROUP
+APU Master Fault#(L:A32NX_OVHD_APU_MASTER_SW_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.APU Master Fault
+APU Master On#(L:A32NX_OVHD_APU_MASTER_SW_PB_IS_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.APU Master On
+APU Start Avail#(L:A32NX_OVHD_APU_START_PB_IS_AVAILABLE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.APU Start Avail
+APU Start On#(L:A32NX_OVHD_APU_START_PB_IS_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.APU Start On
+Battery 1 Fault#(L:A32NX_OVHD_ELEC_BAT_1_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Fly By Wire.A320-Dev.Electrical.Battery 1 Fault
+Battery 1 Off#(L:A32NX_OVHD_ELEC_BAT_1_PB_IS_AUTO, Bool) ! (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_DC_BAT_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.Battery 1 Off
+Battery 2 Fault#(L:A32NX_OVHD_ELEC_BAT_2_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_DC_BAT_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.Battery 2 Fault
+Battery 2 Off#(L:A32NX_OVHD_ELEC_BAT_2_PB_IS_AUTO, Bool) ! (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_DC_BAT_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.Battery 2 Off
+External Power Avail#(A:EXTERNAL POWER AVAILABLE:1, Bool) (A:EXTERNAL POWER ON:1, Bool) ! and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.External Power Avail
+External Power On#(A:EXTERNAL POWER AVAILABLE:1, Bool) (A:EXTERNAL POWER ON:1, Bool) and (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_DC_BAT_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.External Power On
+Fly By Wire/A320-Dev/Fuel#GROUP
+L TK Pump 1 Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.L TK Pump 1 Fault
+L TK Pump 1 Off#(A:FUELSYSTEM PUMP SWITCH:2, Enum) 0 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.L TK Pump 1 Off
+L TK Pump 2 Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Fly By Wire.A320-Dev.Fuel.L TK Pump 2 Fault
+L TK Pump 2 Off#(A:FUELSYSTEM PUMP SWITCH:5, Enum) 0 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.L TK Pump 2 Off
+Pump 1 Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.Pump 1 Fault
+Pump 1 Off#(A:FUELSYSTEM PUMP SWITCH:1, Enum) 0 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.Pump 1 Off
+Pump 2 Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.Pump 2 Fault
+Pump 2 Off#(A:FUELSYSTEM PUMP SWITCH:4, Enum) 0 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.Pump 2 Off
+R TK Pump 1 Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.R TK Pump 1 Fault
+R TK Pump 1 Off#(A:FUELSYSTEM PUMP SWITCH:3, Enum) 0 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.R TK Pump 1 Off
+R TK Pump 2 Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.R TK Pump 2 Fault
+R TK Pump 2 Off#(A:FUELSYSTEM PUMP SWITCH:6, Enum) 0 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.R TK Pump 2 Off
+Fly By Wire/A320-Dev/Gear#GROUP
+Autobrakes Low Decel#(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 1 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Gear.Autobrakes Low Decel
+Autobrakes Low On#(L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 1 == (L:A32NX_OVHD_INTLT_ANN) O == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Gear.Autobrakes Low On
+Autobrakes Max Decel#(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 3 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Fly By Wire.A320-Dev.Gear.Autobrakes Max Decel
+Autobrakes Max On#(L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 3 == (L:A32NX_OVHD_INTLT_ANN) O == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Gear.Autobrakes Max On
+Autobrakes Med Decel#(L:A32NX_AUTOBRAKES_DECEL_LIGHT, Bool) (L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 2 == and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Gear.Autobrakes Med Decel
+Autobrakes Med On#(L:A32NX_AUTOBRAKES_ARMED_MODE, Number) 2 == (L:A32NX_OVHD_INTLT_ANN) O == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Gear.Autobrakes Med On
+Brake Fan Hot#(L:A32NX_BRAKES_HOT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Gear.Brake Fan Hot
+Brakes Fan On#(L:A32NX_BRAKE_FAN, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Gear.Brakes Fan On
+Fly By Wire/A320-Dev/Lights#GROUP
+Main panel and pedestal backlight#(A:LIGHT POTENTIOMETER:85, Percent)#Fly By Wire.A320-Dev.Lights.Main panel and pedestal backlight
+Pedestal Light#(A:LIGHT POTENTIOMETER:76, Percent)#Fly By Wire.A320-Dev.Lights.Pedestal Light
+Fly By Wire/A320-Dev/Miscellaneous#GROUP
+RCDR (GND CTL)#(L:A32NX_RCDR_GROUND_CONTROL_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Miscellaneous.RCDR (GND CTL)
+Fly By Wire/A320-Dev/Warning System#GROUP
+Master Caution Active#(L:Generic_Master_Caution_Active) (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) or and (I:SAFETY_Push_Warning_ButtonAnimVar_IsDown) or (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * max 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Fly By Wire.A320-Dev.Warning System.Master Caution Active
+Master Warning Active#(L:Generic_Master_Warning_Active) (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) or and (I:SAFETY_Push_Warning_ButtonAnimVar_IsDown) or (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * max 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Fly By Wire.A320-Dev.Warning System.Master Warning Active
+Terr On ND Active#(L:BTN_TERRONND_1_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Warning System.Terr On ND Active
 Fly By Wire/A320/Air Condition / Pressurization#GROUP
 (L:A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON, Bool)#(L:A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON, Bool)#Fly By Wire.A320.Air Condition / Pressurization.(L:A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON, Bool)
 (L:XMLVAR_Momentary_PUSH_OVHD_AIRCOND_ENG1BLEED_Pressed)#(L:XMLVAR_Momentary_PUSH_OVHD_AIRCOND_ENG1BLEED_Pressed)#Fly By Wire.A320.Air Condition / Pressurization.(L:XMLVAR_Momentary_PUSH_OVHD_AIRCOND_ENG1BLEED_Pressed)
@@ -146,6 +218,8 @@ Fly By Wire/A320/Autopilot#GROUP
 (L:XMLVAR_Autopilot_2_Status)#(L:XMLVAR_Autopilot_2_Status)#Fly By Wire.A320.Autopilot.(L:XMLVAR_Autopilot_2_Status)
 AUTOPILOT SPEED SELECTED#(L:A32NX_AUTOPILOT_SPEED_SELECTED, Number)#Fly By Wire.A320.Autopilot.AUTOPILOT SPEED SELECTED
 FCU MACH Value Selected & Pre-Selected Modes#(L:A32NX_AUTOPILOT_SPEED_SELECTED, Number) 100 * near#Fly By Wire.A320.Autopilot.FCU MACH Value Selected & Pre-Selected Modes
+Fly By Wire/A320/ECAM#GROUP
+A32NX_ECAM_Current_Page_Index#(L:A32NX_ECAM_SD_CURRENT_PAGE_INDEX)#Fly By Wire.A320.ECAM.A32NX_ECAM_Current_Page_Index
 Fly By Wire/A320/EFIS#GROUP
 (A:AUTOPILOT FLIGHT DIRECTOR ACTIVE)#(A:AUTOPILOT FLIGHT DIRECTOR ACTIVE)#Fly By Wire.A320.EFIS.(A:AUTOPILOT FLIGHT DIRECTOR ACTIVE)
 (A:AUTOPILOT FLIGHT DIRECTOR ACTIVE:1, Bool)#(A:AUTOPILOT FLIGHT DIRECTOR ACTIVE:1, Bool)#Fly By Wire.A320.EFIS.(A:AUTOPILOT FLIGHT DIRECTOR ACTIVE:1, Bool)
@@ -179,6 +253,43 @@ Autobrake_Level#(L:A32NX_AUTOBRAKES_ARMED_MODE, number)#Fly By Wire.A320.Gear.Au
 Fly By Wire/A320/Radio#GROUP
 (A:COM ACTIVE FREQUENCY:1, KHz) near#(A:COM ACTIVE FREQUENCY:1, KHz) near#Fly By Wire.A320.Radio.(A:COM ACTIVE FREQUENCY:1, KHz) near
 (A:COM STANDBY FREQUENCY:1, KHz) near#(A:COM STANDBY FREQUENCY:1, KHz) near#Fly By Wire.A320.Radio.(A:COM STANDBY FREQUENCY:1, KHz) near
+FlyInside/Bell 47 G/Electrical#GROUP
+BATTERY_VOLTAGE_DISPLAY#(A:ELECTRICAL BATTERY VOLTAGE, Volts)#FlyInside.Bell 47 G.Electrical.BATTERY_VOLTAGE_DISPLAY
+INSTRUMENTS_POWER_LED_ON_OFF#(L:Aircraft.Systems.Instruments.Enabled)#FlyInside.Bell 47 G.Electrical.INSTRUMENTS_POWER_LED_ON_OFF
+STARTER_COLLECTIVE_SWITCH_LED_ON_OFF#(L:Aircraft.Systems.Starter.Switch)#FlyInside.Bell 47 G.Electrical.STARTER_COLLECTIVE_SWITCH_LED_ON_OFF
+FlyInside/Bell 47 G/Engines#GROUP
+CYLINDERS_TEMPERATURE_DEGREES_DISPLAY#(L:Aircraft.Gauges.CylTemp)#FlyInside.Bell 47 G.Engines.CYLINDERS_TEMPERATURE_DEGREES_DISPLAY
+FlyInside/Bell 47 G/Environment#GROUP
+LOCAL_AIR_PRESSURE_DISPLAY#(L:Aircraft.Instruments.Altimeter.Kohlsman.HG) 100 *#FlyInside.Bell 47 G.Environment.LOCAL_AIR_PRESSURE_DISPLAY
+FlyInside/Bell 47 G/Flight Instrumentation#GROUP
+AIRSPEED_INDICATED_MPH_DISPLAY#(L:Aircraft.Position.Airspeed.Indicated, Mph)#FlyInside.Bell 47 G.Flight Instrumentation.AIRSPEED_INDICATED_MPH_DISPLAY
+ALTITUDE_INDICATED_FEET_DISPLAY#(L:Aircraft.Position.Altitude.Indicated)#FlyInside.Bell 47 G.Flight Instrumentation.ALTITUDE_INDICATED_FEET_DISPLAY
+HEADING_MAGNETIC_DEGREES_DISPLAY#(L:Aircraft.Position.Heading.Magnetic.Value) 57.2957795131 * flr#FlyInside.Bell 47 G.Flight Instrumentation.HEADING_MAGNETIC_DEGREES_DISPLAY
+VERTICAL_SPEED_FEET_MINUTE_DISPLAY#(L:Aircraft.Position.VerticalSpeed.value, Feet/Minute) 100 /#FlyInside.Bell 47 G.Flight Instrumentation.VERTICAL_SPEED_FEET_MINUTE_DISPLAY
+FlyInside/Bell 47 G/Fuel#GROUP
+FUEL_TOTAL_QUANTITY_DISPLAY#(L:Aircraft.Fuel.Total.Quantity) 10 *#FlyInside.Bell 47 G.Fuel.FUEL_TOTAL_QUANTITY_DISPLAY
+FlyInside/Bell 47 G/Lights#GROUP
+LANDING_LIGHT_LED_ON_OFF#(L:Aircraft.Lights.Landing.On)#FlyInside.Bell 47 G.Lights.LANDING_LIGHT_LED_ON_OFF
+NAVIGATION_LIGHTS_LED_ON_OFF#(L:Aircraft.Lights.Nav.On)#FlyInside.Bell 47 G.Lights.NAVIGATION_LIGHTS_LED_ON_OFF
+STROBE_LIGHT_LED_ON_OFF#(L:Aircraft.Lights.Strobe.On)#FlyInside.Bell 47 G.Lights.STROBE_LIGHT_LED_ON_OFF
+TAIL_BEACON_LIGHT_LED_ON_OFF#(L:Aircraft.Lights.Beacon.On)#FlyInside.Bell 47 G.Lights.TAIL_BEACON_LIGHT_LED_ON_OFF
+FlyInside/Bell 47 G/Radio#GROUP
+COM_RADIO_ACTIVE_FREQUENCY#(A:COM ACTIVE FREQUENCY:1,KHz)#FlyInside.Bell 47 G.Radio.COM_RADIO_ACTIVE_FREQUENCY
+COM_RADIO_STBY_FREQUENCY#(A:COM STANDBY FREQUENCY:1,KHz)#FlyInside.Bell 47 G.Radio.COM_RADIO_STBY_FREQUENCY
+TRANSPONDER_CODE#(L:Aircraft.Radios.Transpoder.1.Code)#FlyInside.Bell 47 G.Radio.TRANSPONDER_CODE
+TRANSPONDER_IDENT_LED_ON_OFF#(L:Aircraft.Transponder.Flash)#FlyInside.Bell 47 G.Radio.TRANSPONDER_IDENT_LED_ON_OFF
+TRANSPONDER_MODE_DISPLAY#(L:Aircraft.Radios.Transponder.State)#FlyInside.Bell 47 G.Radio.TRANSPONDER_MODE_DISPLAY
+JustFlight/Piper Arrow III/Electrical#GROUP
+Alternator amps#(L:LEFT_LOWER_alt_amp, number)#JustFlight.Piper Arrow III.Electrical.Alternator amps
+JustFlight/Piper Arrow III/Engines#GROUP
+Eng Oil Temp#(A:GENERAL ENG OIL TEMPERATURE:1,Rankine)#JustFlight.Piper Arrow III.Engines.Eng Oil Temp
+Eng Oil psi#(A:GENERAL ENG OIL PRESSURE:1,Psi)#JustFlight.Piper Arrow III.Engines.Eng Oil psi
+Manifold pressure#(L:LEFT_LOWER_manifold, number)#JustFlight.Piper Arrow III.Engines.Manifold pressure
+JustFlight/Piper Arrow III/Fuel#GROUP
+Fuel Pressure#(L:LEFT_LOWER_fuel_press, number)#JustFlight.Piper Arrow III.Fuel.Fuel Pressure
+Fuel flow#(L:LEFT_LOWER_fuelflow, number)#JustFlight.Piper Arrow III.Fuel.Fuel flow
+Fuel quantity left tank#(L:LEFT_LOWER_fuel_left, number)#JustFlight.Piper Arrow III.Fuel.Fuel quantity left tank
+Fuel quantity right tank#(L:LEFT_LOWER_fuel_right, number)#JustFlight.Piper Arrow III.Fuel.Fuel quantity right tank
 Microsoft/Generic/Autopilot#GROUP
 AUTOPILOT AIRSPEED HOLD#(A:AUTOPILOT AIRSPEED HOLD,Bool)#Microsoft.Generic.Autopilot.AUTOPILOT AIRSPEED HOLD
 AUTOPILOT AIRSPEED HOLD VAR#(A:AUTOPILOT AIRSPEED HOLD VAR,Knots)#Microsoft.Generic.Autopilot.AUTOPILOT AIRSPEED HOLD VAR
@@ -1090,10 +1201,10 @@ WING FLEX PCT:index#(A:WING FLEX PCT:index,Percent over 100)#Microsoft.Generic.P
 Working Title/CJ4/Air Condition / Pressurization#GROUP
 Pressurization Dump Switch ON#(A:PRESSURIZATION DUMP SWITCH, bool)#Working Title.CJ4.Air Condition / Pressurization.Pressurization Dump Switch ON
 Working Title/CJ4/Anti-Ice#GROUP
-(A:ENG ANTI ICE:1,Bool)#(A:ENG ANTI ICE:1,Bool)#Working Title.CJ4.Anti-Ice.(A:ENG ANTI ICE:1,Bool)
-(A:ENG ANTI ICE:2,Bool)#(A:ENG ANTI ICE:2,Bool)#Working Title.CJ4.Anti-Ice.(A:ENG ANTI ICE:2,Bool)
 WT CJ4 Pitot Heat 1 is ON#(L:DEICE_Pitot_1, Bool)#Working Title.CJ4.Anti-Ice.WT CJ4 Pitot Heat 1 is ON
 WT CJ4 Pitot Heat 2 is ON#(L:DEICE_Pitot_2, Bool)#Working Title.CJ4.Anti-Ice.WT CJ4 Pitot Heat 2 is ON
+WT_CJ4_ANTIICE_ENG_LEFT_LED#(A:ENG ANTI ICE:1,Bool)#Working Title.CJ4.Anti-Ice.WT_CJ4_ANTIICE_ENG_LEFT_LED
+WT_CJ4_ANTIICE_ENG_RIGHT_LED#(A:ENG ANTI ICE:2,Bool)#Working Title.CJ4.Anti-Ice.WT_CJ4_ANTIICE_ENG_RIGHT_LED
 WT_CJ4_DEICE_AIRFRAME_1#(L:DEICE_Airframe_1, bool)#Working Title.CJ4.Anti-Ice.WT_CJ4_DEICE_AIRFRAME_1
 WT_CJ4_DEICE_AIRFRAME_2#(L:DEICE_Airframe_2, Bool)#Working Title.CJ4.Anti-Ice.WT_CJ4_DEICE_AIRFRAME_2
 WT_CJ4_WING_LIGHT_ON#(A:LIGHT WING:0, Bool)#Working Title.CJ4.Anti-Ice.WT_CJ4_WING_LIGHT_ON
@@ -1112,10 +1223,10 @@ Working Title/CJ4/Engines#GROUP
 Eng L Man Ignition Switch ON#(A:TURB ENG IGNITION SWITCH EX1:1, enum) 2 ==#Working Title.CJ4.Engines.Eng L Man Ignition Switch ON
 Eng R Man Ignition ON#(A:TURB ENG IGNITION SWITCH EX1:2, enum) 2 ==#Working Title.CJ4.Engines.Eng R Man Ignition ON
 Engine L Run ON#(A:GENERAL ENG MIXTURE LEVER POSITION:1, Percent) 0 >#Working Title.CJ4.Engines.Engine L Run ON
-Engine L Starter ON#(A:GENERAL ENGINE STARTER:1, bool)#Working Title.CJ4.Engines.Engine L Starter ON
+Engine L Starter ON#(A:GENERAL ENG STARTER:1, bool)#Working Title.CJ4.Engines.Engine L Starter ON
 Engine L Stop ON#(A:GENERAL ENG MIXTURE LEVER POSITION:1, percent) 0 == (A:GENERAL ENG STARTER:1, bool) (A:GENERAL ENG STARTER:2, bool) or ! and#Working Title.CJ4.Engines.Engine L Stop ON
 Engine R Run ON#(A:GENERAL ENG MIXTURE LEVER POSITION:2, Percent) 0 >#Working Title.CJ4.Engines.Engine R Run ON
-Engine R Starter ON#(A:GENERAL ENGINE STARTER:2, bool)#Working Title.CJ4.Engines.Engine R Starter ON
+Engine R Starter ON#(A:GENERAL ENG STARTER:2, bool)#Working Title.CJ4.Engines.Engine R Starter ON
 Engine R Stop ON#(A:GENERAL ENG MIXTURE LEVER POSITION:2, percent) 0 == (A:GENERAL ENG STARTER:1, bool) (A:GENERAL ENG STARTER:2, bool) or ! and#Working Title.CJ4.Engines.Engine R Stop ON
 Working Title/CJ4/Fuel#GROUP
 (A:GENERAL ENG FUEL PUMP SWITCH:1, bool)#(A:GENERAL ENG FUEL PUMP SWITCH:1, bool)#Working Title.CJ4.Fuel.(A:GENERAL ENG FUEL PUMP SWITCH:1, bool)
@@ -1129,6 +1240,10 @@ Working Title/CJ4/Lights#GROUP
 WT CJ4 Beacon Lights ON#(L:LIGHTING_STROBE_1)#Working Title.CJ4.Lights.WT CJ4 Beacon Lights ON
 WT CJ4 Landing Lights ON#(A:LIGHT LANDING, Bool)#Working Title.CJ4.Lights.WT CJ4 Landing Lights ON
 WT CJ4 Strobe Lights ON#(L:LIGHTING_STROBE_1)#Working Title.CJ4.Lights.WT CJ4 Strobe Lights ON
+WT CJ4 Taxi Lights ON#(A:LIGHT TAXI, Bool)#Working Title.CJ4.Lights.WT CJ4 Taxi Lights ON
 Working Title/CJ4/Radio#GROUP
 (A:COM TRANSMIT:1, bool)#(A:COM TRANSMIT:1, bool)#Working Title.CJ4.Radio.(A:COM TRANSMIT:1, bool)
 (A:COM TRANSMIT:2, bool)#(A:COM TRANSMIT:2, bool)#Working Title.CJ4.Radio.(A:COM TRANSMIT:2, bool)
+Working Title/CJ4/Warning System#GROUP
+WT_CJ4_MASTER_CAUTION_ON#(L:Generic_Master_Caution_Active) (L:MF_Master_Caution_Test) or#Working Title.CJ4.Warning System.WT_CJ4_MASTER_CAUTION_ON
+WT_CJ4_MASTER_WARNING_ON#(L:Generic_Master_Warning_Active) (L:MF_Master_Warning_Test) or#Working Title.CJ4.Warning System.WT_CJ4_MASTER_WARNING_ON
