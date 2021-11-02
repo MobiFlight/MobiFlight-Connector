@@ -117,78 +117,128 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FwAutoUpdateCheckBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="FwAutoUpdateCheckBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="FwAutoUpdateCheckBox.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="FwAutoUpdateCheckBox.Text" xml:space="preserve">
     <value>Firmware Auto Upload aktiviert</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="firmwareSettingsGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
     <value>Firmware Flash Einstellungen</value>
   </data>
+  <data name="mobiflightSettingsLabel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mobiflightSettingsLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="mobiflightSettingsLabel.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="mobiflightSettingsLabel.Text" xml:space="preserve">
     <value>Konfiguriere angeschlossene MobiFlight Module. Du kannst Konfigurationen Laden, Bearbeiten und Speichern und auf Dein Modul hochladen.</value>
+  </data>
+  <data name="$this.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="$this.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="$this.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
     <value>Schalter</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+    <value>245, 32</value>
   </data>
   <data name="addToolStripMenuItem.Text" xml:space="preserve">
     <value>Neues Device</value>
   </data>
   <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+    <value>245, 32</value>
   </data>
   <data name="removeToolStripMenuItem.Text" xml:space="preserve">
     <value>Entferne Device</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 6</value>
+    <value>242, 6</value>
   </data>
   <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+    <value>245, 32</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 6</value>
+    <value>242, 6</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+    <value>245, 32</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Öffnen</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+    <value>245, 32</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
-    <value>Speichern</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Speicher als...</value>
+    <value>Speichern unter...</value>
   </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 6</value>
+    <value>242, 6</value>
   </data>
   <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+    <value>245, 32</value>
   </data>
   <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+    <value>245, 32</value>
   </data>
   <data name="regenerateSerialToolStripMenuItem.Text" xml:space="preserve">
     <value>Neue Seriennummer</value>
   </data>
   <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>183, 22</value>
+    <value>245, 32</value>
   </data>
   <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
     <value>Config neu laden</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 220</value>
+    <value>246, 278</value>
+  </data>
+  <data name="mfModulesTreeView.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfModulesTreeView.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="mfModulesTreeView.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -223,6 +273,24 @@
         X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
 </value>
   </data>
+  <data name="mfSettingsPanel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfSettingsPanel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="mfSettingsPanel.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mobiflightSettingsToolStrip.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="uploadToolStripButton.ToolTipText" xml:space="preserve">
     <value>Aktuelle Konfiguration hochladen</value>
   </data>
@@ -236,16 +304,25 @@
     <value>Schalter</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 28</value>
+    <value>160, 29</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
     <value>Neues Device</value>
   </data>
   <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 28</value>
+    <value>162, 29</value>
   </data>
   <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
     <value>Entferne Device</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfConfiguredModulesGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
     <value>Angeschlossene Module</value>

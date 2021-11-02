@@ -117,155 +117,789 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="mfModuleSettingsContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>627, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="ledOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="ledOutputToolStripMenuItem.Text" xml:space="preserve">
-    <value>LED / Output</value>
-  </data>
-  <data name="ledSegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="ledSegmentToolStripMenuItem.Text" xml:space="preserve">
-    <value>LED 7-Segment</value>
-  </data>
-  <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="servoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Servo</value>
-  </data>
-  <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stepper</value>
-  </data>
-  <data name="LcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="LcdDisplayToolStripMenuItem.Text" xml:space="preserve">
-    <value>LCD Display</value>
-  </data>
-  <data name="ShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="ShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
-    <value>Shift Register</value>
-  </data>
-  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
-  </data>
-  <data name="buttonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
-    <value>Button</value>
-  </data>
-  <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="encoderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Encoder</value>
-  </data>
-  <data name="analogDeviceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="analogDeviceToolStripMenuItem.Text" xml:space="preserve">
-    <value>Analog Input</value>
-  </data>
-  <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="addToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add device</value>
-  </data>
-  <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="removeToolStripMenuItem.Text" xml:space="preserve">
-    <value>Remove device</value>
-  </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 6</value>
-  </data>
-  <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="uploadToolStripMenuItem.Text" xml:space="preserve">
-    <value>Upload Config</value>
-  </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 6</value>
-  </data>
-  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="openToolStripMenuItem.Text" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Save As...</value>
-  </data>
-  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 6</value>
-  </data>
-  <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="updateFirmwareToolStripMenuItem.Text" xml:space="preserve">
-    <value>Update Firmware</value>
-  </data>
-  <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="regenerateSerialToolStripMenuItem.Text" xml:space="preserve">
-    <value>Regenerate Serial</value>
-  </data>
-  <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
-  </data>
-  <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
-    <value>Reload Config</value>
-  </data>
-  <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 220</value>
-  </data>
-  <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Name" xml:space="preserve">
-    <value>mfModuleSettingsContextMenuStrip</value>
+  <data name="&gt;&gt;addOutputToolStripMenuItem.Name" xml:space="preserve">
+    <value>addOutputToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mfModulesTreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 6</value>
+  </data>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Name" xml:space="preserve">
+    <value>addStepperToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Name" xml:space="preserve">
+    <value>addDeviceToolStripDropDownButton</value>
+  </data>
+  <data name="&gt;&gt;addLcdDisplayToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="addStepperToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stepper</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="mfModulesTreeView.ImageIndex" type="System.Int32, mscorlib">
+  <data name="mfModulesTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <metadata name="mfTreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>459, 17</value>
-  </metadata>
+  <data name="&gt;&gt;mfModulesTreeView.Name" xml:space="preserve">
+    <value>mfModulesTreeView</value>
+  </data>
+  <data name="analogDeviceToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Analog Input</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>806, 48</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="mobiflightSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;addButtonToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 655</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 32</value>
+  </data>
+  <data name="mfSettingsPanel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 278</value>
+  </data>
+  <data name="&gt;&gt;addServoToolStripMenuItem.Name" xml:space="preserve">
+    <value>addServoToolStripMenuItem</value>
+  </data>
+  <data name="mfModulesTreeView.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
+  </data>
+  <data name="addServoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Servo</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
+    <value>errorProvider1</value>
+  </data>
+  <data name="&gt;&gt;addShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addLcdDisplayToolStripMenuItem.Name" xml:space="preserve">
+    <value>addLcdDisplayToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;encoderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Name" xml:space="preserve">
+    <value>mfModuleSettingsContextMenuStrip</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="mfSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>361, 24</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mfSettingsPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="uploadToolStripButton.Text" xml:space="preserve">
+    <value>Upload current config to module</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 29</value>
+  </data>
+  <data name="openToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="ledOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mfSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="servoToolStripMenuItem.Text" xml:space="preserve">
+    <value>Servo</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 32</value>
+  </data>
+  <data name="&gt;&gt;ShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
+    <value>ShiftRegisterToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;servoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Name" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 3, 0</value>
+  </data>
+  <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
+    <value>Reload Config</value>
+  </data>
+  <data name="&gt;&gt;stepperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="addOutputToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED / Output</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 34</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="mfModulesTreeView.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="addShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Shift Register</value>
+  </data>
+  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 32</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Name" xml:space="preserve">
+    <value>mfSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Name" xml:space="preserve">
+    <value>FwAutoUpdateCheckBox</value>
+  </data>
+  <data name="mobiflightSettingsLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="ledOutputToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED / Output</value>
+  </data>
+  <data name="mfSettingsPanel.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 6</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
+    <value>Add device</value>
+  </data>
+  <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripButton.Name" xml:space="preserve">
+    <value>uploadToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Parent" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="LcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="&gt;&gt;regenerateSerialToolStripMenuItem.Name" xml:space="preserve">
+    <value>regenerateSerialToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;servoToolStripMenuItem.Name" xml:space="preserve">
+    <value>servoToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;LcdDisplayToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="openToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 29</value>
+  </data>
+  <data name="addOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="mfModulesTreeView.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfSettingsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripMenuItem.Name" xml:space="preserve">
+    <value>uploadToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;mfTreeViewImageList.Name" xml:space="preserve">
+    <value>mfTreeViewImageList</value>
+  </data>
+  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 32</value>
+  </data>
+  <data name="ShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
+    <value>Stepper</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;removeDeviceToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonToolStripMenuItem.Name" xml:space="preserve">
+    <value>buttonToolStripMenuItem</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 6</value>
+  </data>
+  <data name="&gt;&gt;ledSegmentToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>806, 607</value>
+  </data>
+  <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
+    <value>openToolStripMenuItem</value>
+  </data>
+  <data name="regenerateSerialToolStripMenuItem.Text" xml:space="preserve">
+    <value>Regenerate Serial</value>
+  </data>
+  <data name="&gt;&gt;addOutputToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;analogDeviceToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfSettingsPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="mfSettingsPanel.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="updateFirmwareToolStripMenuItem.Text" xml:space="preserve">
+    <value>Update Firmware</value>
+  </data>
+  <data name="mfModulesTreeView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="uploadToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="addLedModuleToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED 7-Segment</value>
+  </data>
+  <data name="&gt;&gt;addShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
+    <value>addShiftRegisterToolStripMenuItem</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="addServoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Text" xml:space="preserve">
+    <value>Firmware Auto Upload enabled</value>
+  </data>
+  <data name="&gt;&gt;errorProvider1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="analogDeviceToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Encoder</value>
+  </data>
+  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Name" xml:space="preserve">
+    <value>mobiflightSettingsToolStrip</value>
+  </data>
+  <data name="&gt;&gt;removeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;reloadConfigToolStripMenuItem.Name" xml:space="preserve">
+    <value>reloadConfigToolStripMenuItem</value>
+  </data>
+  <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ledOutputToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="&gt;&gt;reloadConfigToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;stepperToolStripMenuItem.Name" xml:space="preserve">
+    <value>stepperToolStripMenuItem</value>
+  </data>
+  <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>357, 544</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>806, 97</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>806, 752</value>
+  </data>
+  <data name="&gt;&gt;addButtonToolStripMenuItem.Name" xml:space="preserve">
+    <value>addButtonToolStripMenuItem</value>
+  </data>
+  <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 32</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;regenerateSerialToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
+    <value>toolStripMenuItem3</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>15, 0, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;updateFirmwareToolStripMenuItem.Name" xml:space="preserve">
+    <value>updateFirmwareToolStripMenuItem</value>
+  </data>
+  <data name="mobiflightSettingsLabel.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="addStepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="LcdDisplayToolStripMenuItem.Text" xml:space="preserve">
+    <value>LCD Display</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>441, 544</value>
+  </data>
+  <data name="$this.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="addStepperToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="addLedModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="addServoToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="&gt;&gt;mfTreeViewImageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addLedModuleToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
+    <value>removeDeviceToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="saveToolStripButton.Text" xml:space="preserve">
+    <value>Save current config to file</value>
+  </data>
+  <data name="&gt;&gt;LcdDisplayToolStripMenuItem.Name" xml:space="preserve">
+    <value>LcdDisplayToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;updateFirmwareToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 6</value>
+  </data>
+  <data name="$this.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mfModulesTreeView.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
+    <value>Firmware Flash Settings</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ledSegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="analogDeviceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="ledSegmentToolStripMenuItem.Text" xml:space="preserve">
+    <value>LED 7-Segment</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="mfTreeViewImageList.ImageSize" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
   </data>
-  <data name="mfModulesTreeView.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+  <data name="&gt;&gt;addEncoderToolStripMenuItem.Name" xml:space="preserve">
+    <value>addEncoderToolStripMenuItem</value>
+  </data>
+  <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="&gt;&gt;analogDeviceToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 34</value>
+  </data>
+  <data name="removeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove device</value>
+  </data>
+  <data name="removeDeviceToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="&gt;&gt;addLedModuleToolStripMenuItem.Name" xml:space="preserve">
+    <value>addLedModuleToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
+    <value>Remove device</value>
+  </data>
+  <data name="uploadToolStripMenuItem.Text" xml:space="preserve">
+    <value>Upload Config</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
+    <value>toolStripMenuItem2</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="ShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Shift Register</value>
+  </data>
+  <data name="&gt;&gt;mfModulesTreeView.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;ledOutputToolStripMenuItem.Name" xml:space="preserve">
+    <value>ledOutputToolStripMenuItem</value>
+  </data>
+  <data name="mfModulesTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAAD01GIE1pY3JvIChDT001KQYEAAAAAAYFAAAADU1G
+        X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
+</value>
+  </data>
+  <data name="&gt;&gt;addServoToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addEncoderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="mfModulesTreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="&gt;&gt;FwAutoUpdateCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Name" xml:space="preserve">
+    <value>mobiflightSettingsLabel</value>
+  </data>
+  <data name="$this.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>143, 29</value>
+  </data>
+  <data name="openToolStripButton.Text" xml:space="preserve">
+    <value>Load config</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Text" xml:space="preserve">
+    <value>Configure connected MobiFlight modules. You can save and load configurations and upload them to your modules.</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>9, 20</value>
+  </data>
+  <data name="mobiflightSettingsLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="mfModuleSettingsContextMenuStrip.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="openToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
+    <value>Configured modules</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 34</value>
+  </data>
+  <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Name" xml:space="preserve">
+    <value>firmwareUpdateBackgroundWorker</value>
+  </data>
+  <data name="&gt;&gt;analogDeviceToolStripMenuItem1.Name" xml:space="preserve">
+    <value>analogDeviceToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ledSegmentToolStripMenuItem.Name" xml:space="preserve">
+    <value>ledSegmentToolStripMenuItem</value>
+  </data>
+  <data name="addLcdDisplayToolStripMenuItem.Text" xml:space="preserve">
+    <value>LCD Display</value>
+  </data>
+  <data name="&gt;&gt;ShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;removeToolStripMenuItem.Name" xml:space="preserve">
+    <value>removeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
+    <value>saveToolStripButton</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 29</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 568</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="&gt;&gt;saveToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveToolStripMenuItem</value>
+  </data>
+  <data name="mobiflightSettingsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="analogDeviceToolStripMenuItem.Text" xml:space="preserve">
+    <value>Analog Input</value>
+  </data>
+  <data name="mfModulesTreeView.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="encoderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Encoder</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Name" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="FwAutoUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>798, 24</value>
+  </data>
+  <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 32</value>
+  </data>
+  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>34, 29</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>234, 6</value>
+  </data>
+  <data name="addLcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -290,611 +924,67 @@
         AAhTRVJWT18wMgD/////CQQAAAD/////CQQAAAAAAAAACw==
 </value>
   </data>
-  <data name="mfModulesTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
-        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
-        aWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYDAAAAD01GIE1pY3JvIChDT001KQYEAAAAAAYFAAAADU1G
-        X01JQ1JPX0NPTTUA/////wkEAAAA/////wkEAAAAAAAAAAs=
-</value>
-  </data>
-  <data name="mfModulesTreeView.SelectedImageIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="mfModulesTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>237, 345</value>
-  </data>
-  <data name="mfModulesTreeView.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;mfModulesTreeView.Name" xml:space="preserve">
-    <value>mfModulesTreeView</value>
-  </data>
-  <data name="&gt;&gt;mfModulesTreeView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mfModulesTreeView.Parent" xml:space="preserve">
-    <value>mfConfiguredModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;mfModulesTreeView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="mfSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="mfSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 16</value>
-  </data>
-  <data name="mfSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 345</value>
-  </data>
-  <data name="mfSettingsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;mfSettingsPanel.Name" xml:space="preserve">
-    <value>mfSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;mfSettingsPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mfSettingsPanel.Parent" xml:space="preserve">
-    <value>mfConfiguredModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;mfSettingsPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="mobiflightSettingsToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="mobiflightSettingsToolStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="uploadToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="uploadToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 28</value>
-  </data>
-  <data name="uploadToolStripButton.Text" xml:space="preserve">
-    <value>Upload current config to module</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 31</value>
-  </data>
-  <data name="openToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="openToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 28</value>
-  </data>
-  <data name="openToolStripButton.Text" xml:space="preserve">
-    <value>Load config</value>
-  </data>
-  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>28, 28</value>
-  </data>
-  <data name="saveToolStripButton.Text" xml:space="preserve">
-    <value>Save current config to file</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 31</value>
-  </data>
-  <data name="addOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="addOutputToolStripMenuItem.Text" xml:space="preserve">
-    <value>LED / Output</value>
-  </data>
-  <data name="addLedModuleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="addLedModuleToolStripMenuItem.Text" xml:space="preserve">
-    <value>LED 7-Segment</value>
-  </data>
-  <data name="addServoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="addServoToolStripMenuItem.Text" xml:space="preserve">
-    <value>Servo</value>
-  </data>
-  <data name="addServoToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="addStepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="addStepperToolStripMenuItem.Text" xml:space="preserve">
-    <value>Stepper</value>
-  </data>
-  <data name="addStepperToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="addLcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="addLcdDisplayToolStripMenuItem.Text" xml:space="preserve">
-    <value>LCD Display</value>
-  </data>
-  <data name="addShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="addShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
-    <value>Shift Register</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
-  </data>
-  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Encoder</value>
-  </data>
-  <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
-    <value>Button</value>
-  </data>
-  <data name="analogDeviceToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="analogDeviceToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Analog Input</value>
-  </data>
-  <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 28</value>
-  </data>
-  <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
-    <value>Add device</value>
-  </data>
-  <data name="removeDeviceToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 28</value>
-  </data>
-  <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
-    <value>Remove device</value>
-  </data>
-  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 31</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 361</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 2, 0</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>531, 31</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Text" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsToolStrip.Name" xml:space="preserve">
-    <value>mobiflightSettingsToolStrip</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsToolStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsToolStrip.Parent" xml:space="preserve">
-    <value>mfConfiguredModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsToolStrip.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 31</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>537, 395</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
-    <value>Configured modules</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Name" xml:space="preserve">
-    <value>mfConfiguredModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="firmwareUpdateBackgroundWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>214, 17</value>
-  </metadata>
-  <data name="mobiflightSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="mobiflightSettingsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="mobiflightSettingsLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="mobiflightSettingsLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>537, 31</value>
-  </data>
-  <data name="mobiflightSettingsLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="mobiflightSettingsLabel.Text" xml:space="preserve">
-    <value>Configure connected MobiFlight modules. You can save and load configurations and upload them to your modules.</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsLabel.Name" xml:space="preserve">
-    <value>mobiflightSettingsLabel</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 0, 0, 0</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>531, 17</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="FwAutoUpdateCheckBox.Text" xml:space="preserve">
-    <value>Firmware Auto Upload enabled</value>
-  </data>
-  <data name="&gt;&gt;FwAutoUpdateCheckBox.Name" xml:space="preserve">
-    <value>FwAutoUpdateCheckBox</value>
-  </data>
-  <data name="&gt;&gt;FwAutoUpdateCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FwAutoUpdateCheckBox.Parent" xml:space="preserve">
-    <value>firmwareSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;FwAutoUpdateCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 426</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>537, 63</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
-    <value>Firmware Flash Settings</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.Name" xml:space="preserve">
-    <value>firmwareSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>878, 17</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>537, 489</value>
-  </data>
-  <data name="&gt;&gt;addToolStripMenuItem.Name" xml:space="preserve">
-    <value>addToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ledOutputToolStripMenuItem.Name" xml:space="preserve">
-    <value>ledOutputToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ledOutputToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ledSegmentToolStripMenuItem.Name" xml:space="preserve">
-    <value>ledSegmentToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ledSegmentToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;servoToolStripMenuItem.Name" xml:space="preserve">
-    <value>servoToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;servoToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stepperToolStripMenuItem.Name" xml:space="preserve">
-    <value>stepperToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;stepperToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LcdDisplayToolStripMenuItem.Name" xml:space="preserve">
-    <value>LcdDisplayToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;LcdDisplayToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
-    <value>ShiftRegisterToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;ShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
-    <value>toolStripMenuItem4</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonToolStripMenuItem.Name" xml:space="preserve">
-    <value>buttonToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;buttonToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;encoderToolStripMenuItem.Name" xml:space="preserve">
     <value>encoderToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;encoderToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;analogDeviceToolStripMenuItem.Name" xml:space="preserve">
-    <value>analogDeviceToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;analogDeviceToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;removeToolStripMenuItem.Name" xml:space="preserve">
-    <value>removeToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;removeToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;uploadToolStripMenuItem.Name" xml:space="preserve">
-    <value>uploadToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;uploadToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
-    <value>toolStripMenuItem2</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openToolStripMenuItem.Name" xml:space="preserve">
-    <value>openToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripMenuItem.Name" xml:space="preserve">
-    <value>saveToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveAsToolStripMenuItem.Name" xml:space="preserve">
-    <value>saveAsToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;saveAsToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
-    <value>toolStripMenuItem3</value>
-  </data>
-  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;updateFirmwareToolStripMenuItem.Name" xml:space="preserve">
-    <value>updateFirmwareToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;updateFirmwareToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;regenerateSerialToolStripMenuItem.Name" xml:space="preserve">
-    <value>regenerateSerialToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;regenerateSerialToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;reloadConfigToolStripMenuItem.Name" xml:space="preserve">
-    <value>reloadConfigToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;reloadConfigToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mfTreeViewImageList.Name" xml:space="preserve">
-    <value>mfTreeViewImageList</value>
-  </data>
-  <data name="&gt;&gt;mfTreeViewImageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;uploadToolStripButton.Name" xml:space="preserve">
-    <value>uploadToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;uploadToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;openToolStripButton.Name" xml:space="preserve">
     <value>openToolStripButton</value>
   </data>
-  <data name="&gt;&gt;openToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
-    <value>saveToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Name" xml:space="preserve">
-    <value>addDeviceToolStripDropDownButton</value>
-  </data>
-  <data name="&gt;&gt;addDeviceToolStripDropDownButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addEncoderToolStripMenuItem.Name" xml:space="preserve">
-    <value>addEncoderToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addEncoderToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addButtonToolStripMenuItem.Name" xml:space="preserve">
-    <value>addButtonToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addButtonToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;analogDeviceToolStripMenuItem1.Name" xml:space="preserve">
-    <value>analogDeviceToolStripMenuItem1</value>
-  </data>
-  <data name="&gt;&gt;analogDeviceToolStripMenuItem1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addStepperToolStripMenuItem.Name" xml:space="preserve">
-    <value>addStepperToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addStepperToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addServoToolStripMenuItem.Name" xml:space="preserve">
-    <value>addServoToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addServoToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addLedModuleToolStripMenuItem.Name" xml:space="preserve">
-    <value>addLedModuleToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addLedModuleToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addOutputToolStripMenuItem.Name" xml:space="preserve">
-    <value>addOutputToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addOutputToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addLcdDisplayToolStripMenuItem.Name" xml:space="preserve">
-    <value>addLcdDisplayToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addLcdDisplayToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;addShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
-    <value>addShiftRegisterToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
-    <value>removeDeviceToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;removeDeviceToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Name" xml:space="preserve">
-    <value>firmwareUpdateBackgroundWorker</value>
-  </data>
-  <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Type" xml:space="preserve">
-    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
-    <value>errorProvider1</value>
-  </data>
-  <data name="&gt;&gt;errorProvider1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MobiFlightPanel</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="mfModulesTreeView.ImageIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
+  <data name="mfConfiguredModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 48</value>
+  </data>
+  <data name="addToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add device</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>798, 34</value>
+  </data>
+  <data name="mobiflightSettingsLabel.IconAlignment" type="System.Windows.Forms.ErrorIconAlignment, System.Windows.Forms">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;analogDeviceToolStripMenuItem.Name" xml:space="preserve">
+    <value>analogDeviceToolStripMenuItem</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.IconPadding" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addToolStripMenuItem.Name" xml:space="preserve">
+    <value>addToolStripMenuItem</value>
+  </data>
+  <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 32</value>
+  </data>
+  <data name="addShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>237, 34</value>
+  </data>
+  <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>240, 32</value>
+  </data>
+  <metadata name="mobiflightSettingsToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>878, 17</value>
+  </metadata>
+  <metadata name="mfTreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>459, 17</value>
+  </metadata>
+  <metadata name="firmwareUpdateBackgroundWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>214, 17</value>
+  </metadata>
+  <metadata name="mfModuleSettingsContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>627, 17</value>
+  </metadata>
 </root>
