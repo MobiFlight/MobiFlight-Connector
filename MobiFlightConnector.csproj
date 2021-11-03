@@ -197,6 +197,8 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\AppTelemetry.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="MobiFlight\Board.cs" />
+    <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
@@ -208,6 +210,7 @@
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
+    <Compile Include="MobiFlight\MobiFlightPin.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
@@ -774,6 +777,15 @@
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />
+    <Content Include="Boards\arduino_mega.board.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Boards\arduino_micro.board.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Boards\arduino_uno.board.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
     <Content Include="Resources\discord_icon.png" />
