@@ -18,7 +18,14 @@ namespace MobiFlight
         public int MaxAnalogInputs = 0;
 
         public String LatestFirmwareVersion;
-        public String Name;
+        /// <summary>
+        /// The USB name for the board as specified by the board manufacturer.
+        /// </summary>
+        public String ManufacturerName;
+        /// <summary>
+        /// The name for board as provided by the MobiFlight firmware.
+        /// </summary>
+        public String MobiFlightName;
         public List<String> HardwareIds;
 
         public int MessageSize;
