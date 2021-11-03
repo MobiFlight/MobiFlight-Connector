@@ -9,7 +9,8 @@
   <MaxLcdI2C>2</MaxLcdI2C>
   <MaxAnalogInputs>5</MaxAnalogInputs>
   <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
-  <Name>MobiFlight Mega</Name>
+  <ManufacturerName>Arduino Mega 2560</ManufacturerName>
+  <MobiFlightName>MobiFlight Mega</MobiFlightName>
   <HardwareIds>
     <string>VID_2341&amp;PID_0010</string>
     <string>VID_2341&amp;PID_0042</string>

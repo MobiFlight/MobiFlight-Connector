@@ -88,14 +88,14 @@ namespace MobiFlight.UI
             // then initialize components
             InitializeComponent();
 
-            // Initialize the board configurations
-            BoardDefinitions.Load();
-
             // then restore settings
             InitializeSettings();
 
             // finally set up logging (based on settings)
             InitializeLogging();
+
+            // Initialize the board configurations
+            BoardDefinitions.Load();
 
             // configure tracking correctly
             InitializeTracking();

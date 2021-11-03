@@ -9,7 +9,8 @@
   <MaxLcdI2C>2</MaxLcdI2C>
   <MaxAnalogInputs>2</MaxAnalogInputs>
   <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
-  <Name>MobiFlight Uno</Name>
+  <ManufacturerName>Arduino Uno</ManufacturerName>
+  <MobiFlightName>MobiFlight Uno</MobiFlightName>
   <HardwareIds>
     <string>VID_2341&amp;PID_0043</string>
     <string>VID_2A03&amp;PID_0043</string>
