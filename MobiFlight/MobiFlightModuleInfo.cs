@@ -62,41 +62,6 @@ namespace MobiFlight
         }
     }
 
-    public class MobiFlightPin
-    {
-        public byte Pin { get; set; }
-        public bool isAnalog = false;
-        public bool isPWM = false;
-        public bool isI2C = false;
-        public bool Used = false;
-        private string name = null;
-
-        public string Name
-        {
-            get { return name!=null ? name : Pin.ToString(); }
-            set { name = value; }
-        }
-
-        public MobiFlightPin() {
-        }
-
-        public MobiFlightPin(MobiFlightPin pin)
-        {
-            Pin = pin.Pin;
-            isAnalog = pin.isAnalog;
-            isPWM = pin.isPWM;
-            isI2C = pin.isI2C;
-            Used = pin.Used;
-            Name = pin.Name;
-        }
-
-        public override String ToString()
-        {
-            return Pin.ToString();
-        }
-
-    }
-
     public class MobiFlightModuleInfo : IModuleInfo
     {
         public const String TYPE_UNKNOWN = "unknown";
