@@ -220,8 +220,6 @@ namespace MobiFlight
             Name = "Default";
             Version = null; // this is simply unknown, in case of an unflashed Arduino
             Serial = null; // this is simply unknown, in case of an unflashed Arduino
-            this.MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MICRO;
-            this.EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MICRO;
             UpdateConfig(config);
         }
 
@@ -235,7 +233,7 @@ namespace MobiFlight
         {
             if (this.Connected)
             {
-                Log.Instance.log("MobiflightModule.connect: Already connected to " + this.Name + " at " + _comPort + " of Type " + Type, LogSeverity.Warn);
+                Log.Instance.log($"MobiflightModule.connect: Already connected to {Name} at {_comPort} of type {Board}", LogSeverity.Warn);
                 return;
             }
 
