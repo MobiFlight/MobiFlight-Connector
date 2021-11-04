@@ -64,7 +64,7 @@ namespace MobiFlight
         }
         public override string ToString()
         {
-            return $"{FriendlyName} ({MobiFlightType})";
+            return $"{FriendlyName}";
         }
     }
 }

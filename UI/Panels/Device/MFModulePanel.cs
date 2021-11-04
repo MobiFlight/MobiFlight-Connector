@@ -32,7 +32,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             moduleNameTextBox.Text = module.Name;
             FirmwareValueLabel.Text = module.Version;
             SerialValueLabel.Text = module.Serial;
-            TypeValueLabel.Text = module.Type.ToString();
+            TypeValueLabel.Text = module.Board.ToString();
             PortValueLabel.Text = module.Port;
 
             initialized = true;

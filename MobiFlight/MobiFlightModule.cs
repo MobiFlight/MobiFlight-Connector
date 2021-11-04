@@ -715,17 +715,17 @@ namespace MobiFlight
                 {
                     devInfo.Version = "1.0.0";
                 }
+                // Get the board specifics based on the MobiFlight type returned by the firmware.
+                devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type);
 
                 Type = devInfo.Type;
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
+                Board = devInfo.Board;
 
-                // Get the board specifics based on the MobiFlight type returned by the firmware.
-                Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type);
-
-                MaxMessageSize = Board.EEPROMSize;
-                EepromSize = Board.MessageSize;
+                MaxMessageSize = devInfo.Board.EEPROMSize;
+                EepromSize = devInfo.Board.MessageSize;
             }
             Log.Instance.log("MobiFlightModule.GetInfo: " + Type + ", " + Name + "," + Version + ", " + Serial, LogSeverity.Debug);
             return devInfo;
