@@ -30,9 +30,9 @@ namespace MobiFlight
         /// </summary>
         public String FriendlyName;
         /// <summary>
-        /// The name for board as provided by the MobiFlight firmware.
+        /// The type of the board as provided by the MobiFlight firmware.
         /// </summary>
-        public String MobiFlightName;
+        public String MobiFlightType;
         public List<String> HardwareIds;
 
         public int MessageSize;
@@ -42,7 +42,7 @@ namespace MobiFlight
 
         public override string ToString()
         {
-            return FriendlyName;
+            return $"{FriendlyName} ({MobiFlightType})";
         }
     }
 }

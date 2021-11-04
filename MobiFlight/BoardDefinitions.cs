@@ -28,6 +28,15 @@ namespace MobiFlight
             return boards.Find(board => board.FriendlyName.ToLower() == friendlyName.ToLower());
         }
 
+        /// <summary>
+        /// Finds a board definition by matching against the MobiFlight firmware name for the board.
+        /// </summary>
+        /// <param name="mobiflightType">The name to search for</param>
+        /// <returns>The first board definition matching the name, or null if none found</returns>
+        public static Board GetBoardByMobiFlightType(String mobiflightType)
+        {
+            return boards.Find(board => board.MobiFlightType.ToLower() == mobiflightType?.ToLower());
+        }
         public static void Load()
         {
             var serializer = new XmlSerializer(typeof(Board));

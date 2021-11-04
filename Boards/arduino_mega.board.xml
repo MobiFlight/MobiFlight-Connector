@@ -10,7 +10,7 @@
   <MaxAnalogInputs>5</MaxAnalogInputs>
   <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
   <FriendlyName>Arduino Mega 2560</FriendlyName>
-  <MobiFlightName>MobiFlight Mega</MobiFlightName>
+  <MobiFlightType>MobiFlight Mega</MobiFlightType>
   <HardwareIds>
     <string>VID_2341&amp;PID_0010</string>
     <string>VID_2341&amp;PID_0042</string>
