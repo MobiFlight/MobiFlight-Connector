@@ -214,16 +214,6 @@ namespace MobiFlight
         /// the look up table with the last set values
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
-        public int MaxMessageSize
-        {
-            get;
-            set;
-        }
-        public int EepromSize
-        {
-            get;
-            set;
-        }
 
         public Board Board { get; set; }
 
@@ -730,9 +720,6 @@ namespace MobiFlight
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
                 Board = devInfo.Board;
-
-                MaxMessageSize = devInfo.Board.EEPROMSize;
-                EepromSize = devInfo.Board.MessageSize;
             }
             Log.Instance.log($"MobiFlightModule.GetInfo: {Type}, {Name}, {Version}, {Serial}", LogSeverity.Debug);
             return devInfo;
@@ -757,7 +744,7 @@ namespace MobiFlight
             Log.Instance.log("Reset config: " + (int)MobiFlightModule.Command.ResetConfig, LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
-            foreach (string MessagePart in this.Config.ToInternal(this.MaxMessageSize))
+            foreach (string MessagePart in this.Config.ToInternal(this.Board.MessageSize))
             {
                 Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
                 command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);

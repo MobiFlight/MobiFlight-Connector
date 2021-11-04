@@ -53,6 +53,9 @@ namespace MobiFlight
         /// The type of the board as provided by the MobiFlight firmware.
         /// </summary>
         public String MobiFlightType;
+        /// <summary>
+        /// A list of regular expressions of USB hardware IDs that use this board definition.
+        /// </summary>
         public List<String> HardwareIds;
 
         public int MessageSize;
