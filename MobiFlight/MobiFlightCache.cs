@@ -111,10 +111,63 @@ namespace MobiFlight
             return Modules.Values;
         }
 
+        private static Dictionary<string, Board> getSupportedPorts()
+        {
+            var result = new Dictionary<string, Board>();
+
+            RegistryKey regLocalMachine = Registry.LocalMachine;
+
+            string[] regPaths = {
+                    @"SYSTEM\CurrentControlSet\Enum\USB",
+                    @"SYSTEM\CurrentControlSet\Enum\FTDIBUS"
+            };
+
+            foreach (var regPath in regPaths)
+            {
+                RegistryKey regUSB = regLocalMachine.OpenSubKey(regPath);
+                if (regUSB == null) continue;
+                foreach (String regDevice in regUSB.GetSubKeyNames())
+                {
+                    String message = null;
+                    Log.Instance.log($"Checking for compatible module: {regDevice}", LogSeverity.Debug);
+
+                    foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
+                    {
+                        String FriendlyName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("FriendlyName") as String;
+                        if (FriendlyName == null) continue;
+
+                        // New way of doing it
+                        // Matching by board friendly name takes precedence over matching by hardware ID.
+                        var board = BoardDefinitions.GetBoardByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardByHardwareId(regDevice);
+
+                        // No match? It's not a board MobiFlight knows how to handle so move on to the next USB device.
+                        if (board == null)
+                        {
+                            continue;
+                        }
+
+                        // Get the port name for the board so it can be used later for communication.
+                        String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
+
+                        // Make sure the port isn't already in the list of known devices.
+                        if (result.ContainsKey(portName))
+                        {
+                            Log.Instance.log($"Duplicate entry for port: {board.FriendlyName} {regDevice} @ {portName}", LogSeverity.Debug);
+                            continue;
+                        }
+
+                        // At this point this is a supported board on a communication port that's not already known so add it to the list of boards to work with.
+                        result.Add(portName, board);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private static List<Tuple<string, string>> getArduinoPorts()
         {
             List<Tuple<string, string>> result = new List<Tuple<string, string>>();
-            List<Tuple<string, Board>> boardResult = new List<Tuple<string, Board>>();
 
             RegistryKey regLocalMachine = Registry.LocalMachine;
 
@@ -146,30 +199,7 @@ namespace MobiFlight
                         String FriendlyName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("FriendlyName") as String;
                         if (FriendlyName == null) continue;
 
-                        // New way of doing it
-                        // Matching by board friendly name takes precedence over matching by hardware ID.
-                        var board = BoardDefinitions.GetBoardByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardByHardwareId(regDevice);
-
-                        // No match? It's not a board MobiFlight knows how to handle so move on to the next USB device.
-                        if (board == null)
-                        {
-                            continue;
-                        }
-
-                        // Get the port name for the board so it can be used later for communication.
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
-
-                        // Make sure the port isn't already in the list of known devices.
-                        if (boardResult.Exists(x => x.Item1 == portName))
-                        {
-                            Log.Instance.log($"Duplicate entry for port: {board.FriendlyName} {regDevice} @ {portName}", LogSeverity.Debug);
-                            continue;
-                        }
-
-                        // At this point this is a supported board on a communication port that's not already known so add it to the list of boards to work with.
-                        boardResult.Add(new Tuple<string, Board>(portName, board));
-
-                        // Old way of doing it
 
                         // determine type based on names
                         if (FriendlyName.Contains("Mega 2560"))
@@ -229,7 +259,6 @@ namespace MobiFlight
                 }
 
                 result = result.Distinct().ToList();
-                boardResult = boardResult.Distinct().ToList();
                 result.Sort((Tuple<string, string> item1, Tuple<string, string> item2) =>
                 {
                     if (item1.Item1.CompareTo(item2.Item1) == 0) return item1.Item2.CompareTo(item2.Item2);
@@ -251,13 +280,13 @@ namespace MobiFlight
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
             List<Tuple<string, string>> arduinoPorts = getArduinoPorts();
+            var supportedPorts = getSupportedPorts();
             List<string> connectingPorts = new List<string>();
             
-            for (var i = 0; i != arduinoPorts.Count; i++)
+            for (var i = 0; i != supportedPorts.Count; i++)
             {
-                Tuple<string, string> item = arduinoPorts[i];
-                String portName = item.Item1;
-                String ArduinoType = item.Item2;
+                var port = supportedPorts.ElementAt(i);
+                String portName = port.Key;
                 int progressValue = (i * 25) / arduinoPorts.Count;
 
                 if (!connectedPorts.Contains(portName))
@@ -275,23 +304,14 @@ namespace MobiFlight
 
                 tasks.Add(Task.Run(() =>
                 {
-                    MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = portName, Type = ArduinoType });
+                    MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig { ComPort = portName });
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue);
                     tmp.Connect();
                     MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
 
                     tmp.Disconnect();
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue + 5);
-
-                    if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
-                    {
-                        devInfo.SetTypeByName(item.Item2);
-                    }
-
-                    if (devInfo.Type == MobiFlightModuleInfo.TYPE_UNKNOWN)
-                    {
-                        devInfo.SetTypeByVidPid(item.Item2);
-                    }
+                    devInfo.Board = port.Value;
                     result.Add(devInfo);
 
                     return devInfo;
