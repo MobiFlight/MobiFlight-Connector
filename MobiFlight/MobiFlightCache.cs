@@ -111,7 +111,7 @@ namespace MobiFlight
             return Modules.Values;
         }
 
-        private static Dictionary<string, Board> getSupportedPorts()
+        private static Dictionary<string, Board> getArduinoPorts()
         {
             var result = new Dictionary<string, Board>();
 
@@ -124,8 +124,10 @@ namespace MobiFlight
 
             foreach (var regPath in regPaths)
             {
+
                 RegistryKey regUSB = regLocalMachine.OpenSubKey(regPath);
                 if (regUSB == null) continue;
+
                 foreach (String regDevice in regUSB.GetSubKeyNames())
                 {
                     String message = null;
@@ -133,38 +135,38 @@ namespace MobiFlight
 
                     foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
                     {
+                        Board board;
                         String FriendlyName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("FriendlyName") as String;
                         if (FriendlyName == null) continue;
 
-                        // Matching by board friendly name takes precedence over matching by hardware ID.
-                        var board = BoardDefinitions.GetBoardByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardByHardwareId(regDevice);
+                        // Check to see if any board configurations exist
+                        board = BoardDefinitions.GetBoardByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardByHardwareId(regDevice);
 
-                        // No match? It's not a board MobiFlight knows how to handle so move on to the next USB device.
+                        // If no matching board definition is found at this point then it's an incompatible board and just keep going.
                         if (board == null)
                         {
-                            Log.Instance.log($"Skipping unsupported board: {FriendlyName} {regDevice}", LogSeverity.Debug);
+                            Log.Instance.log($"Incompatible module skipped: {FriendlyName} - VID/PID: {regDevice}", LogSeverity.Debug);
                             continue;
                         }
 
-                        // Get the port name for the board so it can be used later for communication.
+                        // The board is a known type so test and see if a COM port is registered for it. If not, skip it.
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
 
-                        if (String.IsNullOrEmpty(portName))
+                        if (portName == null)
                         {
-                            Log.Instance.log($"Skipping connected device with no associated COM port: {FriendlyName} {regDevice}", LogSeverity.Debug);
+                            Log.Instance.log($"Arduino device has no port information: {regDevice}", LogSeverity.Debug);
                             continue;
                         }
 
-                        // Make sure the port isn't already in the list of known devices.
+                        // Safety check to ensure duplicate entires in the registry don't result in duplicate entires in the list.
                         if (result.ContainsKey(portName))
                         {
-                            Log.Instance.log($"Skipping duplicate entry for port: {FriendlyName} {regDevice} @ {portName}", LogSeverity.Debug);
+                            Log.Instance.log($"Duplicate entry for port: {board.FriendlyName} {portName}", LogSeverity.Debug);
                             continue;
                         }
 
-                        // At this point this is a supported board on a communication port that's not already known so add it to the list of boards to work with.
-                        Log.Instance.log($"Found potentially compatible module: {FriendlyName} {regDevice} @ {portName}", LogSeverity.Debug);
                         result.Add(portName, board);
+                        Log.Instance.log($"Found potentially compatible module ({FriendlyName}): {regDevice}@{portName}", LogSeverity.Debug);
                     }
                 }
             }
@@ -182,7 +184,7 @@ namespace MobiFlight
             _lookingUpModules = true;
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
-            var supportedPorts = getSupportedPorts();
+            var supportedPorts = getArduinoPorts();
             List<string> connectingPorts = new List<string>();
             
             for (var i = 0; i != supportedPorts.Count; i++)
@@ -216,7 +218,8 @@ namespace MobiFlight
 
                     // If GetInfo was successful then the board definition was updated based on the MobiFlight type reported by the firmware.
                     // If the device wasn't flashed with MobiFlight firmware then the board definition needs to be set to the one detected via
-                    // VID/PID or USB FriendlyName in getSupportedPorts().
+                    // VID/PID or USB FriendlyName in getSupportedPorts(). This ensures devices without the MobiFlight firmware display correctly
+                    // in the MobiFlight Modules dialog.
                     devInfo.Board = devInfo.Board ?? port.Value;
 
                     result.Add(devInfo);

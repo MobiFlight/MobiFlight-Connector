@@ -62,7 +62,7 @@ namespace MobiFlight
                     {
                         var board = (Board)serializer.Deserialize(reader);
                         boards.Add(board);
-                        Log.Instance.log($"Loaded board definition for {board.FriendlyName}", LogSeverity.Info);
+                        Log.Instance.log($"Loaded board definition for {board.MobiFlightType} ({board.FriendlyName})", LogSeverity.Info);
                     } catch (Exception ex)
                     {
                         Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
