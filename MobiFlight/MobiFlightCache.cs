@@ -125,7 +125,6 @@ namespace MobiFlight
 
             foreach (var regPath in regPaths)
             {
-
                 RegistryKey regUSB = regLocalMachine.OpenSubKey(regPath);
                 if (regUSB == null) continue;
 
@@ -140,7 +139,7 @@ namespace MobiFlight
                 foreach (String regDevice in regUSB.GetSubKeyNames())
                 {
                     String message = null;
-                    Log.Instance.log("Checking for compatible module: " + regDevice, LogSeverity.Debug);
+                    Log.Instance.log($"Checking for compatible module: {regDevice}", LogSeverity.Debug);
 
                     foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
                     {
@@ -148,14 +147,26 @@ namespace MobiFlight
                         if (FriendlyName == null) continue;
 
                         // New way of doing it
+                        // Matching by board friendly name takes precedence over matching by hardware ID.
                         var board = BoardDefinitions.GetBoardByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardByHardwareId(regDevice);
 
+                        // No match? It's not a board MobiFlight knows how to handle so move on to the next USB device.
                         if (board == null)
                         {
                             continue;
                         }
 
+                        // Get the port name for the board so it can be used later for communication.
                         String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
+
+                        // Make sure the port isn't already in the list of known devices.
+                        if (boardResult.Exists(x => x.Item1 == portName))
+                        {
+                            Log.Instance.log($"Duplicate entry for port: {board.FriendlyName} {regDevice} @ {portName}", LogSeverity.Debug);
+                            continue;
+                        }
+
+                        // At this point this is a supported board on a communication port that's not already known so add it to the list of boards to work with.
                         boardResult.Add(new Tuple<string, Board>(portName, board));
 
                         // Old way of doing it
