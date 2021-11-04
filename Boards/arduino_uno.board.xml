@@ -11,6 +11,7 @@
   <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
   <FriendlyName>Arduino Uno</FriendlyName>
   <MobiFlightType>MobiFlight Uno</MobiFlightType>
+  <CanInstallFirmware>true</CanInstallFirmware>
   <HardwareIds>
     <string>VID_2341&amp;PID_0043</string>
     <string>VID_2A03&amp;PID_0043</string>
