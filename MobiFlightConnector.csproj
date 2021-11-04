@@ -791,9 +791,6 @@
     <Content Include="Boards\arduino_uno.board.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Boards\ATMega32U4.board.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
     <Content Include="Resources\discord_icon.png" />
