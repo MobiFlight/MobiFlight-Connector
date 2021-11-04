@@ -12,6 +12,8 @@
   <FriendlyName>Arduino Mega 2560</FriendlyName>
   <MobiFlightType>MobiFlight Mega</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
+  <ConnectionDelay>1250</ConnectionDelay>
+  <DtrEnable>true</DtrEnable>
   <HardwareIds>
     <string>^VID_2341&amp;PID_0010</string>
     <string>^VID_2341&amp;PID_0042</string>
