@@ -7,9 +7,6 @@ namespace MobiFlight
 {
     public class MobiFlightModuleInfo : IModuleInfo
     {
-        public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
-        public const String TYPE_MICRO = "MobiFlight Micro";
-
         String _version = null;
         public String Type { get; set; }
         public String Serial { get; set; }
