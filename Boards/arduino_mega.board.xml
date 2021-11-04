@@ -30,6 +30,12 @@
   </HardwareIds>
   <MessageSize>64</MessageSize>
   <EEPROMSize>1024</EEPROMSize>
+  <FirmwareUpdateSettings>
+    <Device>atmega2560</Device>
+    <BaudRate>115200</BaudRate>
+    <Programmer>wiring</Programmer>
+    <FirmwareBaseName>mobiflight_mega</FirmwareBaseName>
+  </FirmwareUpdateSettings>
   <Pins>
     <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="2" />
     <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="3" />

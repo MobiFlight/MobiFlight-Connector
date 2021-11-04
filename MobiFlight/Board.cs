@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
+    public class FirmwareUpdateSettings
+    {
+        public String Device;
+        public String BaudRate;
+        public String Programmer;
+        public String FirmwareBaseName;
+    }
+
     public class Board
     {
         public int MaxOutputs = 0;
@@ -46,8 +54,14 @@ namespace MobiFlight
         public int MessageSize;
         public int EEPROMSize;
 
+        public FirmwareUpdateSettings FirmwareUpdateSettings;
+
         public List<MobiFlightPin> Pins;
 
+        public string GetFirmwareName()
+        {
+            return $"{FirmwareUpdateSettings.FirmwareBaseName}_{LatestFirmwareVersion.Replace('.', '_')}.hex";
+        }
         public override string ToString()
         {
             return $"{FriendlyName} ({MobiFlightType})";
