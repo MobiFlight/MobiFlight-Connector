@@ -116,7 +116,19 @@ namespace MobiFlight
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
         public String Name { get; set; }
-        public String Type { get; set; }
+        public String Type {
+            get
+            {
+                if (HasMfFirmware())
+                {
+                    return Board.MobiFlightType;
+                }    
+                else
+                {
+                    return Board.FriendlyName;
+                }
+            }
+        }
         public String ArduinoType { get { 
                 if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO) return MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
                 if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA || Type == MobiFlightModuleInfo.TYPE_MEGA) return MobiFlightModuleInfo.TYPE_ARDUINO_MEGA;
@@ -718,7 +730,6 @@ namespace MobiFlight
                 // Get the board specifics based on the MobiFlight type returned by the firmware.
                 devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type);
 
-                Type = devInfo.Type;
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
@@ -727,7 +738,7 @@ namespace MobiFlight
                 MaxMessageSize = devInfo.Board.EEPROMSize;
                 EepromSize = devInfo.Board.MessageSize;
             }
-            Log.Instance.log("MobiFlightModule.GetInfo: " + Type + ", " + Name + "," + Version + ", " + Serial, LogSeverity.Debug);
+            Log.Instance.log($"MobiFlightModule.GetInfo: {Type}, {Name}, {Version}, {Serial}", LogSeverity.Debug);
             return devInfo;
         }
 
