@@ -41,7 +41,7 @@ namespace MobiFlight
                 System.Threading.Thread.Sleep(100);
             }
 
-            RunAvrDude(Port, module.ArduinoType);
+            RunAvrDude(Port, module.Board);
             
             return true;
         }
@@ -66,31 +66,16 @@ namespace MobiFlight
         }
         */
 
-        public static void RunAvrDude(String Port, String ArduinoType) 
+        public static void RunAvrDude(String Port, Board board) 
         {
-            String FirmwareName = "mobiflight_mega_" + MobiFlightModuleInfo.LatestFirmwareMega.Replace('.', '_') + ".hex"; 
-            String ArduinoChip = "atmega2560";
-            String Bytes = "115200";
-            String C = "wiring";
+            String FirmwareName = board.GetFirmwareName(); 
+            String ArduinoChip = board.FirmwareUpdateSettings.Device;
+            String Bytes = board.FirmwareUpdateSettings.BaudRate;
+            String C = board.FirmwareUpdateSettings.Programmer;
 
-            if (MobiFlightModuleInfo.TYPE_ARDUINO_MICRO == ArduinoType) {
-                FirmwareName = "mobiflight_micro_" + MobiFlightModuleInfo.LatestFirmwareMicro.Replace('.', '_') + ".hex";
-                ArduinoChip = "atmega32u4"; 
-                Bytes = "57600"; 
-                C = "avr109"; 
-            } else if (MobiFlightModuleInfo.TYPE_ARDUINO_UNO == ArduinoType)
+            if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + board.GetFirmwareName()))
             {
-                //:\Projekte\MobiFlightFC\FirmwareSource\arduino - 1.8.0\hardware\tools\avr / bin / avrdude - CD:\Projekte\MobiFlightFC\FirmwareSource\arduino - 1.8.0\hardware\tools\avr / etc / avrdude.conf - v - patmega328p - carduino - PCOM11 - b115200 - D - Uflash:w: C: \Users\SEBAST~1\AppData\Local\Temp\arduino_build_118832 / mobiflight_mega.ino.hex:i
-                FirmwareName = "mobiflight_uno_" + MobiFlightModuleInfo.LatestFirmwareUno.Replace('.', '_') + ".hex";
-                ArduinoChip = "atmega328p";
-                Bytes = "115200";
-                C = "arduino";
-            }
-
-
-            if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + FirmwareName))
-            {
-                String message = "Firmware not found: " + FirmwarePath + "\\" + FirmwareName;
+                String message = "Firmware not found: " + FirmwarePath + "\\" + board.GetFirmwareName();
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
