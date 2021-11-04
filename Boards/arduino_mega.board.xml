@@ -9,22 +9,22 @@
   <MaxLcdI2C>2</MaxLcdI2C>
   <MaxAnalogInputs>5</MaxAnalogInputs>
   <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
-  <FriendlyName>Arduino Mega 2560</FriendlyName>
+  <FriendlyName>Arduino Mega 2560xxx</FriendlyName>
   <MobiFlightType>MobiFlight Mega</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
   <HardwareIds>
-    <string>VID_2341&amp;PID_0010</string>
-    <string>VID_2341&amp;PID_0042</string>
-    <string>VID_2341&amp;PID_0001</string>
-    <string>VID_8087&amp;PID_0024</string>
-    <string>VID_1A86&amp;PID_7523</string>
-    <string>VID_2A03&amp;PID_0042</string>
-    <string>VID_0403&amp;PID_6001</string>
-    <string>VID_0403\+PID_6001\+.+</string>
-    <string>VID_2A03&amp;PID_0010</string>
-    <string>VID_2341&amp;PID_0210</string>
-    <string>VID_2341&amp;PID_0242</string>
-    <string>VID_10C4&amp;PID_EA60</string>
+    <string>^VID_2341&amp;PID_0010</string>
+    <string>^VID_2341&amp;PID_0042</string>
+    <string>^VID_2341&amp;PID_0001</string>
+    <string>^VID_8087&amp;PID_0024</string>
+    <string>^VID_1A86&amp;PID_7523</string>
+    <string>^VID_2A03&amp;PID_0042</string>
+    <string>^VID_0403&amp;PID_6001</string>
+    <string>^VID_0403\+PID_6001\+.+</string>
+    <string>^VID_2A03&amp;PID_0010</string>
+    <string>^VID_2341&amp;PID_0210</string>
+    <string>^VID_2341&amp;PID_0242</string>
+    <string>^VID_10C4&amp;PID_EA60</string>
   </HardwareIds>
   <MessageSize>64</MessageSize>
   <EEPROMSize>1024</EEPROMSize>
