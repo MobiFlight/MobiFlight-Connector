@@ -240,14 +240,13 @@ namespace MobiFlight
             }
 
             // Create Serial Port object
-            bool dtrEnable = (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO);
             int baudRate = 115200;
             //baudRate = 57600;
             _transportLayer = new SerialTransport
             //_transportLayer = new SerialPortManager
             {
                 //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
-                CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = true } // object initializer
+                CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.DtrEnable } // object initializer
             };
 
             _cmdMessenger = new CmdMessenger(_transportLayer)
@@ -269,11 +268,7 @@ namespace MobiFlight
             
             // this sleep helps during initialization
             // without this line modules did not connect properly
-            System.Threading.Thread.Sleep(1250);
-
-            // workaround ahead!!!
-            if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
-                System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(Board.ConnectionDelay);
 
             //if (!this.Connected) return;
             //ResetBoard();

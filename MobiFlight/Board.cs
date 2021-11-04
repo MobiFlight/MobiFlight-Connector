@@ -22,6 +22,14 @@ namespace MobiFlight
         /// </summary>
         public Boolean CanInstallFirmware;
         /// <summary>
+        /// Number of milliseconds to wait before loading the configuration after initially connecting to the board.
+        /// </summary>
+        public int ConnectionDelay;
+        /// <summary>
+        /// True if DTR should be enabled when connecting to the board over serial.
+        /// </summary>
+        public Boolean DtrEnable;
+        /// <summary>
         /// The latest supported version of the firmware.
         /// </summary>
         public String LatestFirmwareVersion;

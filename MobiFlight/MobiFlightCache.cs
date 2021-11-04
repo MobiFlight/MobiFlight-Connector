@@ -206,7 +206,7 @@ namespace MobiFlight
 
                 tasks.Add(Task.Run(() =>
                 {
-                    MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig { ComPort = portName });
+                    MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig { ComPort = portName, Board = port.Value });
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue);
                     tmp.Connect();
                     MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
