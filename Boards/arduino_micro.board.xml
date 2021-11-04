@@ -10,7 +10,7 @@
   <MaxAnalogInputs>5</MaxAnalogInputs>
   <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
   <FriendlyName>Arduino Micro Pro</FriendlyName>
-  <MobiFlightName>MobiFlight Micro</MobiFlightName>
+  <MobiFlightType>MobiFlight Micro</MobiFlightType>
   <HardwareIds>
     <string>VID_1B4F&amp;PID_9206</string>
     <string>VID_2341&amp;PID_8036</string>

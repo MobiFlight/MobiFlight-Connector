@@ -109,7 +109,7 @@ namespace MobiFlight.UI.Panels.Settings
                                 latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareUno);
                                 break;
                         }
-                        Version currentVersion = new Version(module.Version != "n/a" && module.Version != "" ? module.Version : "0.0.0");
+                        Version currentVersion = new Version(!String.IsNullOrEmpty(module.Version) ? module.Version : "0.0.0");
                         if (currentVersion.CompareTo(latestVersion) < 0)
                         {
                             node.SelectedImageKey = node.ImageKey = "module-update";

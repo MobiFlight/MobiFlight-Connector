@@ -213,11 +213,13 @@ namespace MobiFlight
             set;
         }
 
+        public Board Board { get; set; }
+
         public MobiFlightModule(MobiFlightModuleConfig config)
         {
             Name = "Default";
-            Version = "n/a"; // this is simply unknown, in case of an unflashed Arduino
-            Serial = "n/a"; // this is simply unknown, in case of an unflashed Arduino
+            Version = null; // this is simply unknown, in case of an unflashed Arduino
+            Serial = null; // this is simply unknown, in case of an unflashed Arduino
             this.MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MICRO;
             this.EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MICRO;
             UpdateConfig(config);
@@ -225,8 +227,8 @@ namespace MobiFlight
 
         public void UpdateConfig (MobiFlightModuleConfig config) 
         {
-            Type = config.Type;
-            _comPort = config.ComPort;            
+            _comPort = config.ComPort;
+            Board = config.Board;
         }
 
         public void Connect()
@@ -1000,7 +1002,7 @@ namespace MobiFlight
         public bool GenerateNewSerial()
         {
             System.Version minVersion = new System.Version("1.3.0");
-            System.Version currentVersion = new System.Version(Version != "n/a" ? Version : "0.0.0");
+            System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
             if (currentVersion.CompareTo(minVersion) < 0)
             {
                 throw new FirmwareVersionTooLowException(minVersion, currentVersion);
@@ -1013,7 +1015,7 @@ namespace MobiFlight
         public bool HasFirmwareFeature(String FirmwareFeature)
         {
             System.Version minVersion = new System.Version(FirmwareFeature);
-            System.Version currentVersion = new System.Version(Version != "n/a" ? Version : "0.0.0");
+            System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
 
             return (currentVersion.CompareTo(minVersion) >= 0);
         }

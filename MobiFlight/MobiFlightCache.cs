@@ -311,7 +311,13 @@ namespace MobiFlight
 
                     tmp.Disconnect();
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue + 5);
-                    devInfo.Board = port.Value;
+
+                    // At this point the board information is based on the generic data reported by the board, either the VID/PID or the USB Friendly Name.
+                    // If the MobiFlight firmware is already installed on the board then it should be a more specific Board configuration based on the board's
+                    // reported type, so look that up and apply it now.
+                    // Unflashed boards will wind up with the Board configuration detected via VID/PID or USB FriendlyName in getSupportedPorts().
+                    devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? port.Value;
+
                     result.Add(devInfo);
 
                     return devInfo;

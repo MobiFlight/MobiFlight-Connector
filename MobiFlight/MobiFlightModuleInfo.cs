@@ -250,7 +250,7 @@ namespace MobiFlight
             "VID_10C4&PID_EA60"             // https://www.mobiflight.com/forum/message/20158.html
         };
 
-        String _version = "n/a";
+        String _version = null;
         public String Type { get; set; }
         public String Serial { get; set; }
         public String Port { get; set; }
