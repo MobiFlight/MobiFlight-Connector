@@ -262,7 +262,7 @@ namespace MobiFlight
 
             // Start listening    
             var status = _cmdMessenger.Connect();
-            Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable})", LogSeverity.Info);
+            Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable})", LogSeverity.Info);
             //this.Connected = status;
             this.connected = true;
             
