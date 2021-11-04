@@ -17,6 +17,13 @@ namespace MobiFlight
         public int MaxLcdI2C = 0;
         public int MaxAnalogInputs = 0;
 
+        /// <summary>
+        /// True if the board supports loading firmware via MobiFlight.
+        /// </summary>
+        public Boolean CanInstallFirmware;
+        /// <summary>
+        /// The latest supported version of the firmware.
+        /// </summary>
         public String LatestFirmwareVersion;
         /// <summary>
         /// The USB friendly name for the board as specified by the board manufacturer.

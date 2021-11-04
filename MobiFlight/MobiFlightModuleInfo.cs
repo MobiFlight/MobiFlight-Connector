@@ -266,7 +266,7 @@ namespace MobiFlight
 
         public bool HasMfFirmware()
         {
-            return (Type == TYPE_MICRO) || (Type == TYPE_MEGA) || (Type == TYPE_UNO);
+            return !String.IsNullOrEmpty(Version);
         }
 
         public void SetTypeByName(String FriendlyName)

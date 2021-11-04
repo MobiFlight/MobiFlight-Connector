@@ -347,7 +347,7 @@ namespace MobiFlight
 
                 MobiFlightModule m = new MobiFlightModule(new MobiFlightModuleConfig() {
                     ComPort = devInfo.Port,
-                    Type = devInfo.Type
+                    Board = devInfo.Board
                 });
                 RegisterModule(m, devInfo);
             }
