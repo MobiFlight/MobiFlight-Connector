@@ -724,18 +724,11 @@ namespace MobiFlight
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
 
-                MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MICRO;
-                EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MICRO;
+                // Get the board specifics based on the MobiFlight type returned by the firmware.
+                Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type);
 
-                if (ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
-                {
-                    MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_UNO;
-                    EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_UNO;
-                } else if (ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
-                {
-                    MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MEGA;
-                    EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MEGA;
-                }
+                MaxMessageSize = Board.EEPROMSize;
+                EepromSize = Board.MessageSize;
             }
             Log.Instance.log("MobiFlightModule.GetInfo: " + Type + ", " + Name + "," + Version + ", " + Serial, LogSeverity.Debug);
             return devInfo;
