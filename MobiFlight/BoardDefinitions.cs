@@ -14,6 +14,11 @@ namespace MobiFlight
     {
         private static List<Board> boards = new List<Board>();
 
+        /// <summary>
+        /// Finds a board definition by matching against the USB VID/PID.
+        /// </summary>
+        /// <param name="hardwareIdPattern">A RegEx of the VID/PID to match against.</param>
+        /// <returns>The first board definition matching the hardwareIdPattern, or null if none found.</returns>
         public static Board GetBoardByHardwareId(String hardwareIdPattern)
         {
             return boards.Find(board => board.HardwareIds.Any(hardwareId =>
@@ -42,6 +47,10 @@ namespace MobiFlight
         {
             return boards.Find(board => board.MobiFlightType.ToLower() == mobiflightType?.ToLower());
         }
+
+        /// <summary>
+        /// Loads all board definintions from disk.
+        /// </summary>
         public static void Load()
         {
             var serializer = new XmlSerializer(typeof(Board));
