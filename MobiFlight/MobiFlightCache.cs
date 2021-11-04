@@ -52,7 +52,6 @@ namespace MobiFlight
         /// list of known modules
         /// </summary>
         Dictionary<string, MobiFlightModule> Modules = new Dictionary<string, MobiFlightModule>();
-        Dictionary<string, MobiFlightModuleConfig> configs;
         Dictionary<string, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
 
         /// <summary>
@@ -67,12 +66,6 @@ namespace MobiFlight
                 result = result & module.Connected;
             }
             return result;
-        }
-
-        public bool updateModuleSettings(Dictionary<string, MobiFlightModuleConfig> configs)
-        {
-            this.configs = configs;
-            return true;
         }
 
         public bool updateConnectedModuleName(MobiFlightModule m)
@@ -191,6 +184,7 @@ namespace MobiFlight
             {
                 var port = supportedPorts.ElementAt(i);
                 String portName = port.Key;
+                Board board = port.Value;
                 int progressValue = (i * 25) / supportedPorts.Count;
 
                 if (!connectedPorts.Contains(portName))
@@ -208,7 +202,7 @@ namespace MobiFlight
 
                 tasks.Add(Task.Run(() =>
                 {
-                    MobiFlightModule tmp = new MobiFlightModule(new MobiFlightModuleConfig { ComPort = portName, Board = port.Value });
+                    MobiFlightModule tmp = new MobiFlightModule(portName, board);
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue);
                     tmp.Connect();
                     MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
@@ -255,10 +249,7 @@ namespace MobiFlight
             {
                 if (!devInfo.HasMfFirmware()) continue;
 
-                MobiFlightModule m = new MobiFlightModule(new MobiFlightModuleConfig() {
-                    ComPort = devInfo.Port,
-                    Board = devInfo.Board
-                });
+                MobiFlightModule m = new MobiFlightModule(devInfo.Port, devInfo.Board);
                 RegisterModule(m, devInfo);
             }
 
