@@ -114,7 +114,8 @@ namespace MobiFlight
         private static List<Tuple<string, string>> getArduinoPorts()
         {
             List<Tuple<string, string>> result = new List<Tuple<string, string>>();
-            
+            List<Tuple<string, Board>> boardResult = new List<Tuple<string, Board>>();
+
             RegistryKey regLocalMachine = Registry.LocalMachine;
 
             string[] regPaths = {
@@ -146,10 +147,22 @@ namespace MobiFlight
                         String FriendlyName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("FriendlyName") as String;
                         if (FriendlyName == null) continue;
 
+                        // New way of doing it
+                        var board = BoardDefinitions.GetBoardByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardByHardwareId(regDevice);
+
+                        if (board == null)
+                        {
+                            continue;
+                        }
+
+                        String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
+                        boardResult.Add(new Tuple<string, Board>(portName, board));
+
+                        // Old way of doing it
+
                         // determine type based on names
                         if (FriendlyName.Contains("Mega 2560"))
                         {
-                            String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                             if (portName != null)
                             {
                                 result.Add(new Tuple<string, string>(portName, MobiFlightModuleInfo.TYPE_ARDUINO_MEGA));
@@ -159,7 +172,6 @@ namespace MobiFlight
                         }
                         else if (FriendlyName.Contains("Pro Micro"))
                         {
-                            String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                             if (portName != null)
                             {
                                 result.Add(new Tuple<string, string>(portName, MobiFlightModuleInfo.TYPE_ARDUINO_MICRO));
@@ -173,8 +185,6 @@ namespace MobiFlight
                             String VidPid = regEx.Match(regDevice).Value;
                             try
                             {
-                                //String val = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Control").GetValue("ActiveService") as String;
-                                String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
                                 if (portName != null)
                                 {
                                     String ArduinoType = MobiFlightModuleInfo.TYPE_ARDUINO_MEGA;
@@ -208,6 +218,7 @@ namespace MobiFlight
                 }
 
                 result = result.Distinct().ToList();
+                boardResult = boardResult.Distinct().ToList();
                 result.Sort((Tuple<string, string> item1, Tuple<string, string> item2) =>
                 {
                     if (item1.Item1.CompareTo(item2.Item1) == 0) return item1.Item2.CompareTo(item2.Item2);

@@ -19,9 +19,9 @@ namespace MobiFlight
 
         public String LatestFirmwareVersion;
         /// <summary>
-        /// The USB name for the board as specified by the board manufacturer.
+        /// The USB friendly name for the board as specified by the board manufacturer.
         /// </summary>
-        public String ManufacturerName;
+        public String FriendlyName;
         /// <summary>
         /// The name for board as provided by the MobiFlight firmware.
         /// </summary>
@@ -32,5 +32,10 @@ namespace MobiFlight
         public int EEPROMSize;
 
         public List<MobiFlightPin> Pins;
+
+        public override string ToString()
+        {
+            return FriendlyName;
+        }
     }
 }
