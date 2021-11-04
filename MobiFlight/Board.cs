@@ -26,6 +26,10 @@ namespace MobiFlight
         public int MaxAnalogInputs = 0;
 
         /// <summary>
+        /// True if multiple attempts should be made when connecting to the board.
+        /// </summary>
+        public Boolean ExtraConnectionRetry;
+        /// <summary>
         /// True if the board supports loading firmware via MobiFlight.
         /// </summary>
         public Boolean CanInstallFirmware;

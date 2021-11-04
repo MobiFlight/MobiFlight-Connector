@@ -311,7 +311,7 @@ namespace MobiFlight.UI.Panels.Settings
                             break;
 
                         case DeviceType.Output:
-                            panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetPins(), module.Type);
+                            panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetPins(), module.Board);
                             (panel as MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 

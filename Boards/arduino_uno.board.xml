@@ -14,6 +14,7 @@
   <CanInstallFirmware>true</CanInstallFirmware>
   <ConnectionDelay>1750</ConnectionDelay>
   <DtrEnable>true</DtrEnable>
+  <ExtraConnectionRetry>true</ExtraConnectionRetry>
   <HardwareIds>
     <string>^VID_2341&amp;PID_0043</string>
     <string>^VID_2A03&amp;PID_0043</string>

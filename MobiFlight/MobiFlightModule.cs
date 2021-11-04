@@ -129,12 +129,6 @@ namespace MobiFlight
                 }
             }
         }
-        public String ArduinoType { get { 
-                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO) return MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
-                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA || Type == MobiFlightModuleInfo.TYPE_MEGA) return MobiFlightModuleInfo.TYPE_ARDUINO_MEGA;
-                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO || Type == MobiFlightModuleInfo.TYPE_UNO) return MobiFlightModuleInfo.TYPE_ARDUINO_UNO;
-                return MobiFlightModuleInfo.TYPE_UNKNOWN;
-                } }
         public String Serial { get; set; }
         public String Version { get; set; }
         public bool HasMfFirmware()
@@ -156,7 +150,9 @@ namespace MobiFlight
                             InfoCommand = _cmdMessenger.SendCommand(command);
                         }
                         
-                        if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
+                        // Some boards, like the Arduino Uno, require several attempts
+                        // before the initial command succeeds.
+                        if (Board.ExtraConnectionRetry)
                         {
                             if (!InfoCommand.Ok)
                             InfoCommand = _cmdMessenger.SendCommand(command);
@@ -900,17 +896,7 @@ namespace MobiFlight
 
         public List<MobiFlightPin> getPwmPins()
         {
-            switch (this.Type)
-            {
-                case MobiFlightModuleInfo.TYPE_MICRO:
-                    return MobiFlightModuleInfo.MICRO_PINS.FindAll(x=>x.isPWM==true);
-
-                case MobiFlightModuleInfo.TYPE_UNO:
-                    return MobiFlightModuleInfo.UNO_PINS.FindAll(x => x.isPWM == true);
-
-                default:
-                    return MobiFlightModuleInfo.MEGA_PINS.FindAll(x => x.isPWM == true); ;
-            }
+            return Board.Pins.FindAll(x => x.isPWM);
         }
         
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
@@ -1049,19 +1035,8 @@ namespace MobiFlight
 
         public List<MobiFlightPin> GetPins(bool FreeOnly = false)
         {
-            List<MobiFlightPin> Pins = MobiFlightModuleInfo.MEGA_PINS;
-                 
-            if (Type == MobiFlightModuleInfo.TYPE_MICRO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO)
-            {
-                Pins = MobiFlightModuleInfo.MICRO_PINS;
-            }
-            else if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
-            {
-                Pins = MobiFlightModuleInfo.UNO_PINS;
-            }
-
             List<MobiFlightPin> ResultPins = new List<MobiFlightPin>();
-            ResultPins.AddRange(Pins.Select(x => new MobiFlightPin(x)));
+            ResultPins.AddRange(Board.Pins.Select(x => new MobiFlightPin(x)));
 
             List<byte> usedPins = new List<byte>();
 
@@ -1102,7 +1077,7 @@ namespace MobiFlight
 
                     case DeviceType.LcdDisplay:
                         // Statically add correct I2C pins
-                        foreach (MobiFlightPin pin in Pins.FindAll(x=>x.isI2C==true))
+                        foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))
                         {
                             if (usedPins.Contains(Convert.ToByte(pin.Pin))) continue;
                             
