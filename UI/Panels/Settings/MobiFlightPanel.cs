@@ -242,7 +242,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
             else
             {
-                node.Tag = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = module.Port, Type = module.Type, Board = module.Board });
+                node.Tag = new MobiFlightModule(module.Port, module.Board);
             }
 
             return node;
@@ -762,13 +762,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             parentNode = getModuleNode(parentNode);
 
-            MobiFlightModule module = new MobiFlightModule(
-                new MobiFlightModuleConfig()
-                {
-                    ComPort = (parentNode.Tag as MobiFlightModule).Port,
-                    Board = (parentNode.Tag as MobiFlightModule).Board
-                }
-            );
+            MobiFlightModule module = new MobiFlightModule((parentNode.Tag as MobiFlightModule).Port, (parentNode.Tag as MobiFlightModule).Board);
             
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             foreach (TreeNode node in parentNode.Nodes)
@@ -801,7 +795,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
             foreach (MobiFlightModuleInfo moduleInfo in modulesForFlashing)
             {
-                MobiFlightModule module = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = moduleInfo.Port, Type = moduleInfo.Type });
+                MobiFlightModule module = new MobiFlightModule(moduleInfo.Port, moduleInfo.Board);
                 updateFirmware(module);
             }
 

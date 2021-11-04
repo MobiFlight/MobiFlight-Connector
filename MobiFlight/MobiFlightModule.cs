@@ -217,18 +217,13 @@ namespace MobiFlight
 
         public Board Board { get; set; }
 
-        public MobiFlightModule(MobiFlightModuleConfig config)
+        public MobiFlightModule(String port, Board board)
         {
             Name = "Default";
             Version = null; // this is simply unknown, in case of an unflashed Arduino
             Serial = null; // this is simply unknown, in case of an unflashed Arduino
-            UpdateConfig(config);
-        }
-
-        public void UpdateConfig (MobiFlightModuleConfig config) 
-        {
-            _comPort = config.ComPort;
-            Board = config.Board;
+            _comPort = port;
+            Board = board;
         }
 
         public void Connect()
