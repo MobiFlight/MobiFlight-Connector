@@ -1206,7 +1206,7 @@ namespace MobiFlight
                 }
                 else
                 {
-                    Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
+                    // Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
                 }
             }
 
