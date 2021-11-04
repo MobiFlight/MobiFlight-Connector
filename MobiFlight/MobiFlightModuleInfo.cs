@@ -219,37 +219,6 @@ namespace MobiFlight
             { new MobiFlightPin() { Pin = 19, isAnalog = true, Name = "A5", isI2C = true } },
         };
 
-        // different vendor and product ids for 
-        // board detection
-        public static readonly String[] VIDPID_MICRO = {
-            "VID_1B4F&PID_9206",
-            "VID_2341&PID_8036",  // Arduino Pro Micro
-            "VID_2341&PID_8037"   // https://bitbucket.org/mobiflight/mobiflightfc/issues/324/add-new-micro-pro-vid_2341-pid_8037
-        };
-
-        public static readonly String[] VIDPID_UNO = {
-            //"VID_1A86&PID_7523", // this is actually an CH-340 and can be a Mega OR an UNO
-            "VID_2341&PID_0043",
-            "VID_2A03&PID_0043"  // https://www.mobiflight.com/forum/topic/680.html
-        };
-
-        public static readonly String[] VIDPID_MEGA = {
-            "VID_2341&PID_0010",
-            "VID_2341&PID_0042",
-            "VID_2341&PID_0001",            // was reported on youtube video
-            "VID_8087&PID_0024",
-            "VID_1A86&PID_7523",            // this is actually an CH-340 and can be a Mega OR an UNO
-            "VID_2A03&PID_0042",            // http://www.mobiflight.de/forum/message/983.html
-            "VID_0403&PID_6001",            // http://www.mobiflight.de/forum/topic/570.html
-            "VID_0403\\+PID_6001\\+.+",     // https://bitbucket.org/mobiflight/mobiflightfc/issues/265
-                                            // https://bitbucket.org/mobiflight/mobiflightfc/issues/280/ftdi-driver-board-is-not-connected
-            // added from https://github.com/arduino/Arduino/blob/1.8.0/hardware/arduino/avr/boards.txt#L51-L58
-            "VID_2A03&PID_0010",
-            "VID_2341&PID_0210",
-            "VID_2341&PID_0242",
-            "VID_10C4&PID_EA60"             // https://www.mobiflight.com/forum/message/20158.html
-        };
-
         String _version = null;
         public String Type { get; set; }
         public String Serial { get; set; }
@@ -267,45 +236,6 @@ namespace MobiFlight
         public bool HasMfFirmware()
         {
             return !String.IsNullOrEmpty(Version);
-        }
-
-        public void SetTypeByName(String FriendlyName)
-        {
-            Name = Type = TYPE_UNKNOWN;
-
-            if (FriendlyName.Contains("Pro Micro"))
-            {
-                Name = TYPE_ARDUINO_MICRO;
-                Type = TYPE_ARDUINO_MICRO;
-            }
-
-            if (FriendlyName.Contains("Mega 2560"))
-            {
-                Name = TYPE_ARDUINO_MEGA;
-                Type = TYPE_ARDUINO_MEGA;
-            }
-        }
-
-        public void SetTypeByVidPid(String VidPid)
-        {
-            Type = TYPE_UNKNOWN;
-
-            if (VIDPID_MEGA.Contains(VidPid))
-            {
-                Name = TYPE_ARDUINO_MEGA;
-                Type = TYPE_ARDUINO_MEGA;
-            }
-            else if (VIDPID_MICRO.Contains(VidPid))
-            {
-                Name = TYPE_ARDUINO_MICRO;
-                Type = TYPE_ARDUINO_MICRO;
-            }
-
-            else if (VIDPID_UNO.Contains(VidPid))
-            {
-                Name = TYPE_ARDUINO_UNO;
-                Type = TYPE_ARDUINO_UNO;
-            }
         }
 
         public MobiFlightCapabilities GetCapabilities()

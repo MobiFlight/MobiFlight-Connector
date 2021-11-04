@@ -125,6 +125,10 @@ namespace MobiFlight
                 } }
         public String Serial { get; set; }
         public String Version { get; set; }
+        public bool HasMfFirmware()
+        {
+            return !String.IsNullOrEmpty(Version);
+        }
         public Config.Config Config { 
             get {                    
                     if (_config==null) {
