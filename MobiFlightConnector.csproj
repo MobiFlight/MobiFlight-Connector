@@ -504,7 +504,6 @@
     <Compile Include="MobiFlight\MobiFlightIOBasic.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModule.cs" />
     <Compile Include="MobiFlight\MobiFlightModule.cs" />
-    <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
     <Compile Include="UI\Panels\Device\MFModulePanel.cs">
@@ -790,6 +789,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Boards\arduino_uno.board.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Boards\ATMega32U4.board.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="mobiflight.ico" />
