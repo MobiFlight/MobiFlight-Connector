@@ -421,7 +421,7 @@ namespace MobiFlight
             List<String> connectedPorts = SerialPort.GetPortNames().ToList();
 
             Disconnect();
-            if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO)
+            if (Board.FriendlyName.Contains("Micro"))
             {
                 SerialTransport tmpSerial = new SerialTransport() {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
@@ -952,7 +952,8 @@ namespace MobiFlight
                     Name    = Name, 
                     Type    = Type, 
                     Port    = Port,
-                    Version = Version
+                    Version = Version,
+                    Board   = Board
             };
             
         }
