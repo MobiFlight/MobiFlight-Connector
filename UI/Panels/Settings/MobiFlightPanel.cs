@@ -359,9 +359,9 @@ namespace MobiFlight.UI.Panels.Settings
                 {
                     case "servoToolStripMenuItem":
                     case "addServoToolStripMenuItem":
-                        if (statistics[MobiFlightServo.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxServos)
+                        if (statistics[MobiFlightServo.TYPE] == tempModule.Board.MaxServos)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightServo.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxServos);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightServo.TYPE, tempModule.Board.MaxServos);
                         }
 
                         cfgItem = new MobiFlight.Config.Servo();
@@ -369,9 +369,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "stepperToolStripMenuItem":
                     case "addStepperToolStripMenuItem":
-                        if (statistics[MobiFlightStepper.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxSteppers)
+                        if (statistics[MobiFlightStepper.TYPE] == tempModule.Board.MaxSteppers)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightStepper.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxSteppers);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightStepper.TYPE, tempModule.Board.MaxSteppers);
                         }
 
                         cfgItem = new MobiFlight.Config.Stepper();
@@ -383,9 +383,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "ledOutputToolStripMenuItem":
                     case "addOutputToolStripMenuItem":
-                        if (statistics[MobiFlightOutput.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxOutputs)
+                        if (statistics[MobiFlightOutput.TYPE] == tempModule.Board.MaxOutputs)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightOutput.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxOutputs);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightOutput.TYPE, tempModule.Board.MaxOutputs);
                         }
 
                         cfgItem = new MobiFlight.Config.Output();
@@ -393,9 +393,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "ledSegmentToolStripMenuItem":
                     case "addLedModuleToolStripMenuItem":
-                        if (statistics[MobiFlightLedModule.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLedSegments)
+                        if (statistics[MobiFlightLedModule.TYPE] == tempModule.Board.MaxLedSegments)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLedModule.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLedSegments);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLedModule.TYPE, tempModule.Board.MaxLedSegments);
                         }
 
                         cfgItem = new MobiFlight.Config.LedModule();
@@ -405,18 +405,18 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "analogDeviceToolStripMenuItem1":
                     case "analogDeviceToolStripMenuItem":
-                        if (statistics[MobiFlightAnalogInput.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxAnalogInputs)
+                        if (statistics[MobiFlightAnalogInput.TYPE] == tempModule.Board.MaxAnalogInputs)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightAnalogInput.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxAnalogInputs);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightAnalogInput.TYPE, tempModule.Board.MaxAnalogInputs);
                         }
                         cfgItem = new MobiFlight.Config.AnalogInput();
                         (cfgItem as MobiFlight.Config.AnalogInput).Pin = getVirtualModuleFromTree().GetFreePins().FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
                         break;                        
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
-                        if (statistics[MobiFlightButton.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxButtons)
+                        if (statistics[MobiFlightButton.TYPE] == tempModule.Board.MaxButtons)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightButton.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxButtons);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightButton.TYPE, tempModule.Board.MaxButtons);
                         }
 
                         cfgItem = new MobiFlight.Config.Button();
@@ -424,9 +424,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "encoderToolStripMenuItem":
                     case "addEncoderToolStripMenuItem":
-                        if (statistics[MobiFlightEncoder.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxEncoders)
+                        if (statistics[MobiFlightEncoder.TYPE] == tempModule.Board.MaxEncoders)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightEncoder.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxEncoders);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightEncoder.TYPE, tempModule.Board.MaxEncoders);
                         }
 
                         cfgItem = new MobiFlight.Config.Encoder();
@@ -435,9 +435,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":
-                        if (statistics[MobiFlightLcdDisplay.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLcdI2C)
+                        if (statistics[MobiFlightLcdDisplay.TYPE] == tempModule.Board.MaxLcdI2C)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLcdI2C);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.Board.MaxLcdI2C);
                         }
 
                         cfgItem = new MobiFlight.Config.LcdDisplay();
@@ -766,7 +766,7 @@ namespace MobiFlight.UI.Panels.Settings
                 new MobiFlightModuleConfig()
                 {
                     ComPort = (parentNode.Tag as MobiFlightModule).Port,
-                    Type = (parentNode.Tag as MobiFlightModule).Type
+                    Board = (parentNode.Tag as MobiFlightModule).Board
                 }
             );
             
