@@ -125,7 +125,7 @@ namespace MobiFlight
                 }    
                 else
                 {
-                    return Board.FriendlyName;
+                    return Board?.FriendlyName ?? "Unknown";
                 }
             }
         }
