@@ -683,8 +683,8 @@ namespace MobiFlight.UI.Panels.Settings
             module.Config = newConfig;
 
             // Prevent upload from too long configs that would exceed the available EEPROM size
-            String LogMessage = String.Join("", module.Config.ToInternal(module.MaxMessageSize).ToArray());
-            if (LogMessage.Length > module.EepromSize)
+            String LogMessage = String.Join("", module.Config.ToInternal(module.Board.MessageSize).ToArray());
+            if (LogMessage.Length > module.Board.EEPROMSize)
             {
                 MessageBox.Show(i18n._tr("uiMessageUploadConfigurationTooLong"),
                                 i18n._tr("uiMessageUploadConfigurationHint"),
