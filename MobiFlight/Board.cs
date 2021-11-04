@@ -8,21 +8,57 @@ namespace MobiFlight
 {
     public class FirmwareUpdateSettings
     {
+        /// <summary>
+        /// AvrDude device type for the device.
+        /// </summary>
         public String Device;
+        /// <summary>
+        /// Baud rate to use with AvrDude
+        /// </summary>
         public String BaudRate;
+        /// <summary>
+        /// AvrDude programmer to use for the device.
+        /// </summary>
         public String Programmer;
+        /// <summary>
+        /// Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.hex.
+        /// </summary>
         public String FirmwareBaseName;
     }
 
     public class Board
     {
+        /// <summary>
+        /// Maximum number of outputs supported by the board.
+        /// </summary>
         public int MaxOutputs = 0;
+        /// <summary>
+        /// Maximum number of buttons supported by the board.
+        /// </summary>
         public int MaxButtons = 0;
+        /// <summary>
+        /// Maximum number of LED segments supported by the board.
+        /// </summary>
         public int MaxLedSegments = 0;
+        /// <summary>
+        /// Maximum number of encoders supported by the board.
+        /// </summary>
         public int MaxEncoders = 0;
+        /// <summary>
+        /// Maximum number of steppers supported by the board.
+        /// </summary>
         public int MaxSteppers = 0;
+        /// <summary>
+        /// Maximum number of servos supported by the board.
+        /// </summary>
         public int MaxServos = 0;
+        /// <summary>
+        /// Maximum number of I2C LCDs supported by the board.
+        /// </summary>
         public int MaxLcdI2C = 0;
+        /// <summary>
+        /// Maximum number of analog inputs supported by the board.
+        /// </summary>
         public int MaxAnalogInputs = 0;
 
         /// <summary>
@@ -57,10 +93,18 @@ namespace MobiFlight
         /// A list of regular expressions of USB hardware IDs that use this board definition.
         /// </summary>
         public List<String> HardwareIds;
-
+        /// <summary>
+        /// Maximum size of a CmdMessenger message, in bytes.
+        /// </summary>
         public int MessageSize;
+        /// <summary>
+        /// Maximum size of EEPROM storage, in bytes.
+        /// </summary>
         public int EEPROMSize;
 
+        /// <summary>
+        /// Settings related to updating the firmware.
+        /// </summary>
         public FirmwareUpdateSettings FirmwareUpdateSettings;
 
         public List<MobiFlightPin> Pins;
