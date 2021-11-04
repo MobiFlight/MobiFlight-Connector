@@ -13,9 +13,9 @@
   <MobiFlightType>MobiFlight Micro</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
   <HardwareIds>
-    <string>VID_1B4F&amp;PID_9206</string>
-    <string>VID_2341&amp;PID_8036</string>
-    <string>VID_2341&amp;PID_8037</string>
+    <string>^VID_1B4F&amp;PID_9206</string>
+    <string>^VID_2341&amp;PID_8036</string>
+    <string>^VID_2341&amp;PID_8037</string>
   </HardwareIds>
   <MessageSize>32</MessageSize>
   <EEPROMSize>256</EEPROMSize>

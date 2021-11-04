@@ -13,8 +13,8 @@
   <MobiFlightType>MobiFlight Uno</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
   <HardwareIds>
-    <string>VID_2341&amp;PID_0043</string>
-    <string>VID_2A03&amp;PID_0043</string>
+    <string>^VID_2341&amp;PID_0043</string>
+    <string>^VID_2A03&amp;PID_0043</string>
   </HardwareIds>
   <MessageSize>32</MessageSize>
   <EEPROMSize>256</EEPROMSize>

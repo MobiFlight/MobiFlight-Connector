@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -15,7 +16,11 @@ namespace MobiFlight
 
         public static Board GetBoardByHardwareId(String hardwareIdPattern)
         {
-            return boards.Find(board => board.HardwareIds.Any(hardwareId => hardwareIdPattern.StartsWith(hardwareId)));
+            return boards.Find(board => board.HardwareIds.Any(hardwareId =>
+            {
+                var regEx = new Regex(hardwareId);
+                return regEx.Match(hardwareIdPattern).Success;
+            }));
         }
         
         /// <summary>
