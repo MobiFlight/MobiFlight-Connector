@@ -104,7 +104,7 @@ namespace MobiFlight
             return Modules.Values;
         }
 
-        private static Dictionary<string, Board> getArduinoPorts()
+        private static Dictionary<string, Board> getSupportedPorts()
         {
             var result = new Dictionary<string, Board>();
 
@@ -177,7 +177,7 @@ namespace MobiFlight
             _lookingUpModules = true;
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
-            var supportedPorts = getArduinoPorts();
+            var supportedPorts = getSupportedPorts();
             List<string> connectingPorts = new List<string>();
             
             for (var i = 0; i != supportedPorts.Count; i++)
