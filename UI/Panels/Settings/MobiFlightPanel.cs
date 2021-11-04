@@ -98,17 +98,8 @@ namespace MobiFlight.UI.Panels.Settings
                     }
                     else
                     {
-                        Version latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMega);
-                        switch (module.Type)
-                        {
-                            case MobiFlightModuleInfo.TYPE_ARDUINO_MICRO:
-                                latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMicro);
-                                break;
+                        Version latestVersion = new Version(module.Board.LatestFirmwareVersion);
 
-                            case MobiFlightModuleInfo.TYPE_ARDUINO_UNO:
-                                latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareUno);
-                                break;
-                        }
                         Version currentVersion = new Version(!String.IsNullOrEmpty(module.Version) ? module.Version : "0.0.0");
                         if (currentVersion.CompareTo(latestVersion) < 0)
                         {
