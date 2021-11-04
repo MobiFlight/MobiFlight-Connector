@@ -242,7 +242,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
             else
             {
-                node.Tag = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = module.Port, Type = module.Type });
+                node.Tag = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = module.Port, Type = module.Type, Board = module.Board });
             }
 
             return node;
