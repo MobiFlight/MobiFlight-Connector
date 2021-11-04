@@ -257,6 +257,7 @@ namespace MobiFlight
         public String Name { get; set; }
         public String Config { get; set; }
 
+        public Board Board { get; set; }
         public String Version
         {
             get { return _version; }

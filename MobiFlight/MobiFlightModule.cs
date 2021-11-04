@@ -213,10 +213,6 @@ namespace MobiFlight
             set;
         }
 
-        
-
-        
-        
         public MobiFlightModule(MobiFlightModuleConfig config)
         {
             Name = "Default";
