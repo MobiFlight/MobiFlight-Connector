@@ -29,23 +29,23 @@
     <FirmwareBaseName>mobiflight_uno</FirmwareBaseName>
   </AvrDudeSettings>
   <Pins>
-    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="2" />
-    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="3" />
-    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="4" />
-    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="5" />
-    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="6" />
-    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="7" />
-    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="8" />
-    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="9" />
-    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="10" />
-    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="11" />
-    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="12" />
-    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="13" />
-    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="false" Used="false" Pin="14" Name="A0" />
-    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="false" Used="false" Pin="15" Name="A1" />
-    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="false" Used="false" Pin="16" Name="A2" />
-    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="false" Used="false" Pin="17" Name="A3" />
-    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="true" Used="false" Pin="18" Name="A4" />
-    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="true" Used="false" Pin="19" Name="A5" />
+    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Pin="2" />
+    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Pin="3" />
+    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Pin="4" />
+    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Pin="5" />
+    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Pin="6" />
+    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Pin="7" />
+    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Pin="8" />
+    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Pin="9" />
+    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Pin="10" />
+    <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Pin="11" />
+    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Pin="12" />
+    <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Pin="13" />
+    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="false" Pin="14" Name="A0" />
+    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="false" Pin="15" Name="A1" />
+    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="false" Pin="16" Name="A2" />
+    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="false" Pin="17" Name="A3" />
+    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="true" Pin="18" Name="A4" />
+    <MobiFlightPin isAnalog="true" isPWM="false" isI2C="true" Pin="19" Name="A5" />
   </Pins>
 </Board>
