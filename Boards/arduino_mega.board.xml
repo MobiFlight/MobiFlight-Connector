@@ -15,6 +15,7 @@
   <ConnectionDelay>1250</ConnectionDelay>
   <DtrEnable>true</DtrEnable>
   <ExtraConnectionRetry>false</ExtraConnectionRetry>
+  <ForceResetOnFirmwareUpdate>false</ForceResetOnFirmwareUpdate>
   <HardwareIds>
     <string>^VID_2341&amp;PID_0010</string>
     <string>^VID_2341&amp;PID_0042</string>
@@ -31,13 +32,12 @@
   </HardwareIds>
   <MessageSize>64</MessageSize>
   <EEPROMSize>1024</EEPROMSize>
-  <FirmwareUpdateSettings>
+  <AvrDudeSettings>
     <Device>atmega2560</Device>
     <BaudRate>115200</BaudRate>
     <Programmer>wiring</Programmer>
     <FirmwareBaseName>mobiflight_mega</FirmwareBaseName>
-    <ForceReset>false</ForceReset>
-  </FirmwareUpdateSettings>
+  </AvrDudeSettings>
   <Pins>
     <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="2" />
     <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="3" />

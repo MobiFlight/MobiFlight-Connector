@@ -890,6 +890,13 @@ namespace MobiFlight.UI.Panels.Settings
             // update presentation in treeView
             MobiFlightModule module = (MobiFlightModule) sender;
 
+            // If the update fails for some reason, e.g. the board definition file was missing the settings for the
+            // update, then module will be null.
+            if (module == null)
+            {
+                return;
+            }
+
             module.Connect();
             MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
             mobiflightCache.RefreshModule(module);

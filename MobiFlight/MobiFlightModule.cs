@@ -421,7 +421,7 @@ namespace MobiFlight
             List<String> connectedPorts = SerialPort.GetPortNames().ToList();
 
             Disconnect();
-            if (Board.FirmwareUpdateSettings.ForceReset)
+            if (Board.ForceResetOnFirmwareUpdate)
             {
                 SerialTransport tmpSerial = new SerialTransport() {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer

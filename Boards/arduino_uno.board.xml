@@ -12,6 +12,7 @@
   <FriendlyName>Arduino Uno</FriendlyName>
   <MobiFlightType>MobiFlight Uno</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
+  <ForceResetOnFirmwareUpdate>false</ForceResetOnFirmwareUpdate>
   <ConnectionDelay>1750</ConnectionDelay>
   <DtrEnable>true</DtrEnable>
   <ExtraConnectionRetry>true</ExtraConnectionRetry>
@@ -21,13 +22,12 @@
   </HardwareIds>
   <MessageSize>32</MessageSize>
   <EEPROMSize>256</EEPROMSize>
-  <FirmwareUpdateSettings>
+  <AvrDudeSettings>
     <Device>atmega328p</Device>
     <BaudRate>115200</BaudRate>
     <Programmer>arduino</Programmer>
     <FirmwareBaseName>mobiflight_uno</FirmwareBaseName>
-    <ForceReset>false</ForceReset>
-  </FirmwareUpdateSettings>
+  </AvrDudeSettings>
   <Pins>
     <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="2" />
     <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="3" />

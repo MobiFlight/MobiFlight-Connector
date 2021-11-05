@@ -12,6 +12,7 @@
   <FriendlyName>Arduino Micro Pro</FriendlyName>
   <MobiFlightType>MobiFlight Micro</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
+  <ForceResetOnFirmwareUpdate>true</ForceResetOnFirmwareUpdate>
   <ConnectionDelay>1250</ConnectionDelay>
   <DtrEnable>true</DtrEnable>
   <ExtraConnectionRetry>false</ExtraConnectionRetry>
@@ -22,13 +23,12 @@
   </HardwareIds>
   <MessageSize>32</MessageSize>
   <EEPROMSize>256</EEPROMSize>
-  <FirmwareUpdateSettings>
+  <AvrDudeSettings>
     <Device>atmega32u4</Device>
     <BaudRate>115200</BaudRate>
     <Programmer>avr109</Programmer>
     <FirmwareBaseName>mobiflight_micro</FirmwareBaseName>
-    <ForceReset>true</ForceReset>
-  </FirmwareUpdateSettings>
+  </AvrDudeSettings>
   <Pins>
     <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="0" />
     <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="1" />
