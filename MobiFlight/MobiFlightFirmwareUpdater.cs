@@ -31,7 +31,7 @@ namespace MobiFlight
             return File.Exists(filepath);
         }
 
-        public static bool Update(MobiFlightModule module)
+        public static bool UpdateViaAvrDude(MobiFlightModule module)
         {
             String Port = module.InitUploadAndReturnUploadPort();
             if (module.Connected) module.Disconnect();
@@ -68,14 +68,14 @@ namespace MobiFlight
 
         public static void RunAvrDude(String Port, Board board) 
         {
-            String FirmwareName = board.GetFirmwareName(); 
-            String ArduinoChip = board.FirmwareUpdateSettings.Device;
-            String Bytes = board.FirmwareUpdateSettings.BaudRate;
-            String C = board.FirmwareUpdateSettings.Programmer;
+            String FirmwareName = board.AvrDudeSettings.GetFirmwareName(board.LatestFirmwareVersion); 
+            String ArduinoChip = board.AvrDudeSettings.Device;
+            String Bytes = board.AvrDudeSettings.BaudRate;
+            String C = board.AvrDudeSettings.Programmer;
 
-            if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + board.GetFirmwareName()))
+            if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + FirmwareName))
             {
-                String message = "Firmware not found: " + FirmwarePath + "\\" + board.GetFirmwareName();
+                String message = "Firmware not found: " + FirmwarePath + "\\" + FirmwareName;
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }

@@ -847,8 +847,14 @@ namespace MobiFlight.UI.Panels.Settings
         void firmwareUpdateBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             MobiFlightModule module = (MobiFlightModule)e.Argument;
-            bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
-            e.Result = module;
+            if (module.Board.AvrDudeSettings != null)
+            {
+                bool UpdateResult = MobiFlightFirmwareUpdater.UpdateViaAvrDude(module);
+                e.Result = module;
+                return;
+            }
+
+            Log.Instance.log($"Firmware update requested for {module.Board.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
         }
 
         void firmwareUpdateBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -869,6 +875,13 @@ namespace MobiFlight.UI.Panels.Settings
 
             // update presentation in treeView
             MobiFlightModule module = (MobiFlightModule)e.Result;
+
+            // If the update fails for some reason, e.g. the board definition file was missing the settings for the
+            // update, then module will be null.
+            if (module == null)
+            {
+                return;
+            }
 
             module.Connect();
             MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;

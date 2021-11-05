@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class FirmwareUpdateSettings
+    public class AvrDudeSettings
     {
         /// <summary>
         /// AvrDude device type for the device.
@@ -24,10 +24,10 @@ namespace MobiFlight
         /// Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.hex.
         /// </summary>
         public String FirmwareBaseName;
-        /// <summary>
-        /// True if a force reset should be done to the board before attempting to upload the firmware.
-        /// </summary>
-        public Boolean ForceReset;
+        public string GetFirmwareName(string latestFirmwareVersion)
+        {
+            return $"{FirmwareBaseName}_{latestFirmwareVersion.Replace('.', '_')}.hex";
+        }
     }
 
     public class Board
@@ -107,16 +107,17 @@ namespace MobiFlight
         public int EEPROMSize;
 
         /// <summary>
-        /// Settings related to updating the firmware.
+        /// True if a force reset should be done to the board before attempting to upload the firmware.
         /// </summary>
-        public FirmwareUpdateSettings FirmwareUpdateSettings;
+        public Boolean ForceResetOnFirmwareUpdate;
+
+        /// <summary>
+        /// Settings related to updating the firmware via AvrDude.
+        /// </summary>
+        public AvrDudeSettings AvrDudeSettings;
 
         public List<MobiFlightPin> Pins;
 
-        public string GetFirmwareName()
-        {
-            return $"{FirmwareUpdateSettings.FirmwareBaseName}_{LatestFirmwareVersion.Replace('.', '_')}.hex";
-        }
         public override string ToString()
         {
             return $"{FriendlyName}";
