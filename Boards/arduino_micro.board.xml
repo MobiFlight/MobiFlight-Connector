@@ -27,6 +27,7 @@
     <BaudRate>115200</BaudRate>
     <Programmer>avr109</Programmer>
     <FirmwareBaseName>mobiflight_micro</FirmwareBaseName>
+    <ForceReset>true</ForceReset>
   </FirmwareUpdateSettings>
   <Pins>
     <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="0" />

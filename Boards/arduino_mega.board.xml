@@ -36,6 +36,7 @@
     <BaudRate>115200</BaudRate>
     <Programmer>wiring</Programmer>
     <FirmwareBaseName>mobiflight_mega</FirmwareBaseName>
+    <ForceReset>false</ForceReset>
   </FirmwareUpdateSettings>
   <Pins>
     <MobiFlightPin isAnalog="false" isPWM="true" isI2C="false" Used="false" Pin="2" />
