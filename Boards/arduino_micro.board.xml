@@ -23,12 +23,6 @@
   </HardwareIds>
   <MessageSize>32</MessageSize>
   <EEPROMSize>256</EEPROMSize>
-  <AvrDudeSettings>
-    <Device>atmega32u4</Device>
-    <BaudRate>115200</BaudRate>
-    <Programmer>avr109</Programmer>
-    <FirmwareBaseName>mobiflight_micro</FirmwareBaseName>
-  </AvrDudeSettings>
   <Pins>
     <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="0" />
     <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="1" />

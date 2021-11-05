@@ -847,14 +847,15 @@ namespace MobiFlight.UI.Panels.Settings
         void firmwareUpdateBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             MobiFlightModule module = (MobiFlightModule)e.Argument;
-            if (module.Board.AvrDudeSettings != null)
+            bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
+            if (UpdateResult)
             {
-                bool UpdateResult = MobiFlightFirmwareUpdater.UpdateViaAvrDude(module);
                 e.Result = module;
-                return;
             }
-
-            Log.Instance.log($"Firmware update requested for {module.Board.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
+            else
+            {
+                e.Result = null;
+            }
         }
 
         void firmwareUpdateBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

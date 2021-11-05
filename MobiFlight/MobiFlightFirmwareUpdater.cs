@@ -31,7 +31,7 @@ namespace MobiFlight
             return File.Exists(filepath);
         }
 
-        public static bool UpdateViaAvrDude(MobiFlightModule module)
+        public static bool Update(MobiFlightModule module)
         {
             String Port = module.InitUploadAndReturnUploadPort();
             if (module.Connected) module.Disconnect();
@@ -41,9 +41,14 @@ namespace MobiFlight
                 System.Threading.Thread.Sleep(100);
             }
 
-            RunAvrDude(Port, module.Board);
-            
-            return true;
+            if (module.Board.AvrDudeSettings != null)
+            {
+                RunAvrDude(Port, module.Board);
+                return true;
+            }
+
+            Log.Instance.log($"Firmware update requested for {module.Board.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
+            return false;
         }
 
         /*
