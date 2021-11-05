@@ -13,7 +13,7 @@ namespace MobiFlight
         public bool isPWM = false;
         [XmlAttribute]
         public bool isI2C = false;
-        [XmlAttribute]
+        // This is internal state and shouldn't be serialized to/from the .board.xml files
         public bool Used = false;
 
         private string name = null;
