@@ -26,6 +26,7 @@
     <BaudRate>115200</BaudRate>
     <Programmer>arduino</Programmer>
     <FirmwareBaseName>mobiflight_uno</FirmwareBaseName>
+    <ForceReset>false</ForceReset>
   </FirmwareUpdateSettings>
   <Pins>
     <MobiFlightPin isAnalog="false" isPWM="false" isI2C="false" Used="false" Pin="2" />

@@ -24,6 +24,10 @@ namespace MobiFlight
         /// Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.hex.
         /// </summary>
         public String FirmwareBaseName;
+        /// <summary>
+        /// True if a force reset should be done to the board before attempting to upload the firmware.
+        /// </summary>
+        public Boolean ForceReset;
     }
 
     public class Board
