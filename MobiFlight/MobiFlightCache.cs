@@ -210,12 +210,6 @@ namespace MobiFlight
                     tmp.Disconnect();
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue + 5);
 
-                    // If GetInfo was successful then the board definition was updated based on the MobiFlight type reported by the firmware.
-                    // If the device wasn't flashed with MobiFlight firmware then the board definition needs to be set to the one detected via
-                    // VID/PID or USB FriendlyName in getSupportedPorts(). This ensures devices without the MobiFlight firmware display correctly
-                    // in the MobiFlight Modules dialog.
-                    devInfo.Board = devInfo.Board ?? port.Value;
-
                     result.Add(devInfo);
 
                     return devInfo;
