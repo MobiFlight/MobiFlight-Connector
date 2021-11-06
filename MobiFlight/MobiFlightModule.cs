@@ -708,14 +708,22 @@ namespace MobiFlight
                 {
                     devInfo.Version = "1.0.0";
                 }
-                // Get the board specifics based on the MobiFlight type returned by the firmware.
-                devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type);
 
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
-                Board = devInfo.Board;
             }
+
+            // Get the board specifics based on the MobiFlight type returned by the firmware. If there's no match,
+            // either because it is a generic Arduino without the firmware installed or because there
+            // was no board definition file that matches the MobiFlight Type returned from the firmware,
+            // then fall back to the Board type detected earlier via VID/PID.
+            //
+            // This check and assignment is done outside of the above if statement to catch cases
+            // where there was no firmware installed.
+            devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
+            Board = devInfo.Board;
+
             Log.Instance.log($"MobiFlightModule.GetInfo: {Type}, {Name}, {Version}, {Serial}", LogSeverity.Debug);
             return devInfo;
         }
