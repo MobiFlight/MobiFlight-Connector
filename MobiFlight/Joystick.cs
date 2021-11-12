@@ -230,29 +230,26 @@ namespace MobiFlight
         {            
             if (joystick.Capabilities.AxeCount > 0)
             {
-                for (int CurrentAxis = 0; CurrentAxis != joystick.Capabilities.AxeCount; CurrentAxis++)
+                for (int CurrentAxis = 0; CurrentAxis != Axes.Count; CurrentAxis++)
                 {
-                    if (CurrentAxis == Axes.Count) break;
-
-                    if (!StateExists() || IsValidAxis(CurrentAxis))
+                    
+                    int oldValue = 0;
+                    if (StateExists())
                     {
-                        int oldValue = 0;
-                        if (StateExists())
-                        {
-                            oldValue = GetValueForAxisFromState(CurrentAxis, state);
-                        }
-                            
-                        int newValue = GetValueForAxisFromState(CurrentAxis, newState);
-
-                        if (!StateExists() || oldValue != newValue)
-                            OnButtonPressed?.Invoke(this, new InputEventArgs()
-                            {
-                                DeviceId = Axes[CurrentAxis].Label,
-                                Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
-                                Type = DeviceType.AnalogInput,
-                                Value = newValue
-                            });
+                        oldValue = GetValueForAxisFromState(CurrentAxis, state);
                     }
+                            
+                    int newValue = GetValueForAxisFromState(CurrentAxis, newState);
+
+                    if (!StateExists() || oldValue != newValue)
+                        OnButtonPressed?.Invoke(this, new InputEventArgs()
+                        {
+                            DeviceId = Axes[CurrentAxis].Label,
+                            Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
+                            Type = DeviceType.AnalogInput,
+                            Value = newValue
+                        });
+
                 }
             }
         }
@@ -286,11 +283,6 @@ namespace MobiFlight
                 return state.Sliders[index];
             }
             return (int)state.GetType().GetProperty(RawAxisName).GetValue(state, null);
-        }
-
-        private bool IsValidAxis(int i)
-        {
-            return state.GetType().GetProperty(AxisNames[i]) != null;
         }
 
         private bool StateExists()
