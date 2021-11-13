@@ -1424,6 +1424,10 @@ namespace MobiFlight
                         if (gridViewRow.DataBoundItem == null) continue;
 
                         InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+
+                        // item currently created and not saved yet.
+                        if (cfg == null) continue;
+
                         if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
                         {
                             inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
@@ -1496,7 +1500,7 @@ namespace MobiFlight
         private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
         {
             return !Joystick.IsJoystickSerial(Serial) ||
-                    (Joystick.IsJoystickSerial(Serial) && type == DeviceType.AnalogInput && Log.Instance.LogJoystickAxis);
+                    (Joystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis));
         }
 #endif
 

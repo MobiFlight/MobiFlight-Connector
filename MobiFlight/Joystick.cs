@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SharpDX.DirectInput;
 
@@ -107,7 +108,8 @@ namespace MobiFlight
                 }
                 else if (IsButton)
                 {
-                    Buttons.Add(new JoystickDevice() { Name = ButtonPrefix + (Buttons.Count + 1), Label = name, Type = JoystickDeviceType.Button });
+                    String ButtonName = CorrectButtonIndexForButtonName(name, Buttons.Count + 1);
+                    Buttons.Add(new JoystickDevice() { Name = ButtonPrefix + (Buttons.Count + 1), Label = ButtonName, Type = JoystickDeviceType.Button });
                     Log.Instance.log("EnumerateDevices: " + joystick.Information.InstanceName + ": Aspect : " + aspect.ToString() + ":Offset:" + offset + ":Usage:" + usage + ":" + "Button: " + name, LogSeverity.Debug);
                 }
                 else if (IsPOV)
@@ -126,6 +128,11 @@ namespace MobiFlight
                     break;
                 }
             }
+        }
+
+        private string CorrectButtonIndexForButtonName(string name, int v)
+        {
+            return Regex.Replace(name, @"\d+", v.ToString()).ToString();
         }
 
         public void Connect(IntPtr handle)
@@ -223,29 +230,26 @@ namespace MobiFlight
         {            
             if (joystick.Capabilities.AxeCount > 0)
             {
-                for (int CurrentAxis = 0; CurrentAxis != joystick.Capabilities.AxeCount; CurrentAxis++)
+                for (int CurrentAxis = 0; CurrentAxis != Axes.Count; CurrentAxis++)
                 {
-                    if (CurrentAxis == Axes.Count) break;
-
-                    if (!StateExists() || IsValidAxis(CurrentAxis))
+                    
+                    int oldValue = 0;
+                    if (StateExists())
                     {
-                        int oldValue = 0;
-                        if (StateExists())
-                        {
-                            oldValue = GetValueForAxisFromState(CurrentAxis, state);
-                        }
-                            
-                        int newValue = GetValueForAxisFromState(CurrentAxis, newState);
-
-                        if (!StateExists() || oldValue != newValue)
-                            OnButtonPressed?.Invoke(this, new InputEventArgs()
-                            {
-                                DeviceId = Axes[CurrentAxis].Label,
-                                Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
-                                Type = DeviceType.AnalogInput,
-                                Value = newValue
-                            });
+                        oldValue = GetValueForAxisFromState(CurrentAxis, state);
                     }
+                            
+                    int newValue = GetValueForAxisFromState(CurrentAxis, newState);
+
+                    if (!StateExists() || oldValue != newValue)
+                        OnButtonPressed?.Invoke(this, new InputEventArgs()
+                        {
+                            DeviceId = Axes[CurrentAxis].Label,
+                            Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
+                            Type = DeviceType.AnalogInput,
+                            Value = newValue
+                        });
+
                 }
             }
         }
@@ -259,7 +263,7 @@ namespace MobiFlight
                     if (newState.Buttons[i] || (state != null))
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
-                            DeviceId = ButtonPrefix + (i + 1),
+                            DeviceId = Buttons[i].Label,
                             Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                             Type = DeviceType.Button,
                             Value = newState.Buttons[i] ? 0 : 1
@@ -279,11 +283,6 @@ namespace MobiFlight
                 return state.Sliders[index];
             }
             return (int)state.GetType().GetProperty(RawAxisName).GetValue(state, null);
-        }
-
-        private bool IsValidAxis(int i)
-        {
-            return state.GetType().GetProperty(AxisNames[i]) != null;
         }
 
         private bool StateExists()

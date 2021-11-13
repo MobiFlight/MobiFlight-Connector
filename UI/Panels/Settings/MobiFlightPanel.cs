@@ -226,7 +226,6 @@ namespace MobiFlight.UI.Panels.Settings
             uploadToolStripMenuItem.Enabled = (parentNode.Nodes.Count > 0) || (parentNode.ImageKey == "Changed");
             openToolStripMenuItem.Enabled = isMobiFlightBoard;
             saveToolStripMenuItem.Enabled = parentNode.Nodes.Count > 0;
-            saveAsToolStripMenuItem.Enabled = parentNode.Nodes.Count > 0;
 
             syncPanelWithSelectedDevice(e.Node);
         }

@@ -15,7 +15,7 @@ namespace MobiFlight.SimConnectMSFS
         
         public const String WasmEventsTxtUrl = @"https://raw.githubusercontent.com/Mobiflight/MobiFlight-Connector/main/MSFS2020-module/mobiflight-event-module/modules/events.txt";    
         public const String WasmEventsCipUrl = @"https://raw.githubusercontent.com/Mobiflight/MobiFlight-Connector/main/Presets/msfs2020_eventids.cip";
-        public const String WasmEventsTxtFolder = @"\mobiflight-event-module\modules";
+        public const String WasmEventsTxtFolder = @"mobiflight-event-module\modules";
         public const String WasmEventsTxtFile = "events.txt";
         public const String WasmEventsCipFolder = @".\presets";
         
@@ -145,15 +145,23 @@ namespace MobiFlight.SimConnectMSFS
 
         public bool InstallWasmEvents()
         {
+            String destFolder = Path.Combine(CommunityFolder, WasmEventsTxtFolder);
+
+            if (!Directory.Exists(destFolder))
+            {
+                Log.Instance.log("WASM events cannot be installed. WASM module folder not found. " + destFolder, LogSeverity.Error);
+                return false;
+            }
+
             if (!Directory.Exists(WasmModuleFolder))
             {
-                Log.Instance.log("WASM events cannot be installed. WASM Module Folder not found. " + WasmModuleFolder, LogSeverity.Error);
+                Log.Instance.log("WASM events cannot be installed. WASM module folder not found. " + WasmModuleFolder, LogSeverity.Error);
                 return false;
             }
 
             if (!Directory.Exists(CommunityFolder))
             {
-                Log.Instance.log("WASM events cannot be installed. Community Folder not found. " + CommunityFolder, LogSeverity.Error);
+                Log.Instance.log("WASM events cannot be installed. Community folder not found. " + CommunityFolder, LogSeverity.Error);
                 return false;
             }
 
@@ -163,14 +171,23 @@ namespace MobiFlight.SimConnectMSFS
                 return false;
             }
 
-            String sourcePath = WasmModuleFolder + @"\modules\" + WasmEventsTxtFile;
-            String destPath = CommunityFolder + WasmEventsTxtFolder + @"\" + WasmEventsTxtFile;
-            System.IO.File.Delete(destPath + ".bak");
+            String sourceFile = Path.Combine(WasmModuleFolder, "modules", WasmEventsTxtFile);
+            String destFile = Path.Combine(destFolder, WasmEventsTxtFile);
 
-            if (System.IO.File.Exists(destPath))
-                System.IO.File.Move(destPath, destPath + ".bak");
+            try
+            {
+                System.IO.File.Delete(destFile + ".bak");
 
-            System.IO.File.Copy(sourcePath, destPath);
+                if (System.IO.File.Exists(destFile))
+                    System.IO.File.Move(destFile, destFile + ".bak");
+
+                System.IO.File.Copy(sourceFile, destFile);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log("WASM events cannot be installed. " + ex.Message, LogSeverity.Error);
+                return false;
+            }
 
             Log.Instance.log("WASM events have been installed successfully.", LogSeverity.Info);
             return true;
