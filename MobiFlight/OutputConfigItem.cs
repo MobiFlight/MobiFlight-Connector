@@ -45,7 +45,7 @@ namespace MobiFlight
 
         public OutputConfigItem()
         {
-            SourceType = SourceType.FSUIPC;
+            SourceType = SourceType.SIMCONNECT;
             FSUIPC = new FsuipcOffset();
             SimConnectValue = new SimConnectValue();
             MobiFlightVariable = new MobiFlightVariable();
