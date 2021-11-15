@@ -101,9 +101,9 @@ namespace MobiFlight
     {
         public const String TYPE_UNKNOWN = "unknown";
 
-        public const String LatestFirmwareMega = "1.11.3";
-        public const String LatestFirmwareMicro = "1.11.3";
-        public const String LatestFirmwareUno = "1.11.3";
+        public const String LatestFirmwareMega = "1.12.0";
+        public const String LatestFirmwareMicro = "1.12.0";
+        public const String LatestFirmwareUno = "1.12.0";
 
         // these types are used for standard stock arduino boards
         public const String TYPE_ARDUINO_MICRO = "Arduino Micro Pro";
@@ -118,9 +118,9 @@ namespace MobiFlight
         // message size is used for building
         // correct chunk sizes for messages
         // to the arduino boards
-        public const int MESSAGE_MAX_SIZE_MICRO = 32;
-        public const int MESSAGE_MAX_SIZE_UNO = 32;
-        public const int MESSAGE_MAX_SIZE_MEGA = 64;
+        public const int MESSAGE_MAX_SIZE_MICRO = 96;
+        public const int MESSAGE_MAX_SIZE_UNO = 96;
+        public const int MESSAGE_MAX_SIZE_MEGA = 96;
 
         // this is used to check for 
         // maximum config length and
