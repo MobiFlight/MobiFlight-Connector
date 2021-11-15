@@ -1,4 +1,0 @@
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\CommandMessenger\bin\Release\CommandMessenger.dll
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\CommandMessenger\bin\Release\CommandMessenger.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\CommandMessenger\obj\Release\CommandMessenger.dll
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\CommandMessenger\obj\Release\CommandMessenger.pdb
