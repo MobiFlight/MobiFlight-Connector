@@ -1437,7 +1437,8 @@ namespace MobiFlight
                         if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
                         {
                             // Input shift registers have an additional check to see if the pin that changed matches the pin
-                            // assigned to the row. If not just skip this row
+                            // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
+                            // would get added to the input cache and fired even though the pins don't match.
                             if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.pin != e.Pin)
                             {
                                 continue;
