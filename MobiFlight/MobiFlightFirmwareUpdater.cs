@@ -42,7 +42,10 @@ namespace MobiFlight
             }
 
             RunAvrDude(Port, module.ArduinoType);
-            
+
+            if (module.ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO)
+                System.Threading.Thread.Sleep(1250);
+
             return true;
         }
 
