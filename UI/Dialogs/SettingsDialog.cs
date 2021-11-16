@@ -100,13 +100,15 @@ namespace MobiFlight.UI.Dialogs
         {
             // General Tab
             generalPanel.saveSettings();
-
-            // Arcaze Tab
 #if ARCAZE
+            // Arcaze Tab
             arcazePanel.SaveSettings();
 #endif
             // MobiFlight Tab
             mobiFlightPanel.SaveSettings();
+
+            // Save all Settings
+            Properties.Settings.Default.Save();
         }
 
         /// <summary>

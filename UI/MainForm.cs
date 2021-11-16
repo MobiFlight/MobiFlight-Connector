@@ -513,6 +513,12 @@ namespace MobiFlight.UI
             {
                 AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
             }
+
+            if (e.SettingName == "LogEnabled")
+            {
+                logTextBox.Visible = (bool) e.NewValue;
+                logSplitter.Visible = (bool) e.NewValue;
+            }
         }
 
         private void _autoloadConfig()
@@ -587,9 +593,6 @@ namespace MobiFlight.UI
                     (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[1] as TabPage;
                     if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        Properties.Settings.Default.Save();
-                        logTextBox.Visible = Log.Instance.Enabled;
-                        logSplitter.Visible = Log.Instance.Enabled;
                     }
                 }
             }           
@@ -1463,10 +1466,6 @@ namespace MobiFlight.UI
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                Properties.Settings.Default.Save();
-                // TODO: refactor
-                logTextBox.Visible = Log.Instance.Enabled;
-                logSplitter.Visible = Log.Instance.Enabled;
 #if ARCAZE
                 execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
 #endif
