@@ -45,6 +45,9 @@ namespace MobiFlight.UI.Panels.Settings
             else if (Properties.Settings.Default.TestTimerInterval == 125) testModeSpeedTrackBar.Value = 3;
             else if (Properties.Settings.Default.TestTimerInterval == 50) testModeSpeedTrackBar.Value = 4;
 
+            // Config Execution Speed
+            fsuipcPollIntervalTrackBar.Value = (fsuipcPollIntervalTrackBar.Maximum + fsuipcPollIntervalTrackBar.Minimum) - (int)Math.Floor(Properties.Settings.Default.PollInterval / 50.0);
+
             // Debug Mode
             logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
             ComboBoxHelper.SetSelectedItem(logLevelComboBox, Properties.Settings.Default.LogLevel);
@@ -70,6 +73,9 @@ namespace MobiFlight.UI.Panels.Settings
             else if (testModeSpeedTrackBar.Value == 2) Properties.Settings.Default.TestTimerInterval = 250;
             else if (testModeSpeedTrackBar.Value == 3) Properties.Settings.Default.TestTimerInterval = 125;
             else Properties.Settings.Default.TestTimerInterval = 50;
+
+            // Config Execution Speed
+            Properties.Settings.Default.PollInterval = (int)(((fsuipcPollIntervalTrackBar.Maximum+ fsuipcPollIntervalTrackBar.Minimum) - fsuipcPollIntervalTrackBar.Value) * 50);
 
             // Recent Files max count
             Properties.Settings.Default.RecentFilesMaxCount = (int)recentFilesNumericUpDown.Value;

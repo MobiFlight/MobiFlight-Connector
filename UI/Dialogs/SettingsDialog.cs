@@ -90,12 +90,6 @@ namespace MobiFlight.UI.Dialogs
             // TAB MobiFlight
             //
             mobiFlightPanel.LoadSettings();
-
-            //
-            // TAB FSUIPC
-            //
-            // FSUIPC poll interval
-            fsuipcPollIntervalTrackBar.Value = (int)Math.Floor(Properties.Settings.Default.PollInterval / 50.0);
         }
 
         /// <summary>
@@ -113,9 +107,6 @@ namespace MobiFlight.UI.Dialogs
 #endif
             // MobiFlight Tab
             mobiFlightPanel.SaveSettings();
-
-            // FSUIPC poll interval
-            Properties.Settings.Default.PollInterval = (int)(fsuipcPollIntervalTrackBar.Value * 50);
         }
 
         /// <summary>

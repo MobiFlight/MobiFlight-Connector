@@ -126,7 +126,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="okButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>538, 8</value>
+    <value>624, 8</value>
   </data>
   <data name="okButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -160,7 +160,7 @@
     <value>NoControl</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>650, 8</value>
+    <value>736, 8</value>
   </data>
   <data name="cancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -190,7 +190,7 @@
     <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 762</value>
+    <value>0, 832</value>
   </data>
   <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -199,7 +199,7 @@
     <value>8, 8, 8, 8</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>770, 58</value>
+    <value>856, 58</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -226,7 +226,7 @@
     <value>6, 8, 6, 8</value>
   </data>
   <data name="arcazePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>754, 719</value>
+    <value>823, 763</value>
   </data>
   <data name="arcazePanel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -235,7 +235,7 @@
     <value>arcazePanel</value>
   </data>
   <data name="&gt;&gt;arcazePanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.ArcazePanel, MFConnector, Version=9.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.ArcazePanel, MFConnector, Version=9.1.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;arcazePanel.Parent" xml:space="preserve">
     <value>ArcazeTabPage</value>
@@ -253,7 +253,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="ArcazeTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>762, 729</value>
+    <value>831, 773</value>
   </data>
   <data name="ArcazeTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -415,7 +415,7 @@
     <value>6, 8, 6, 8</value>
   </data>
   <data name="generalPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>754, 719</value>
+    <value>840, 789</value>
   </data>
   <data name="generalPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -424,7 +424,7 @@
     <value>generalPanel</value>
   </data>
   <data name="&gt;&gt;generalPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=9.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=9.1.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;generalPanel.Parent" xml:space="preserve">
     <value>generalTabPage</value>
@@ -442,7 +442,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="generalTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>762, 729</value>
+    <value>848, 799</value>
   </data>
   <data name="generalTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -472,7 +472,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="mobiFlightPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>754, 719</value>
+    <value>823, 763</value>
   </data>
   <data name="mobiFlightPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -481,7 +481,7 @@
     <value>mobiFlightPanel</value>
   </data>
   <data name="&gt;&gt;mobiFlightPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.MobiFlightPanel, MFConnector, Version=9.0.0.7, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.MobiFlightPanel, MFConnector, Version=9.1.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mobiFlightPanel.Parent" xml:space="preserve">
     <value>mobiFlightTabPage</value>
@@ -499,7 +499,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="mobiFlightTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>762, 729</value>
+    <value>831, 773</value>
   </data>
   <data name="mobiFlightTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -519,240 +519,6 @@
   <data name="&gt;&gt;mobiFlightTabPage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>356, 82</value>
-  </data>
-  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 20</value>
-  </data>
-  <data name="label4.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>300ms</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>682, 82</value>
-  </data>
-  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 20</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>500ms</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 82</value>
-  </data>
-  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 20</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>100ms</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 97</value>
-  </data>
-  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="label5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 15, 0, 0</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>736, 613</value>
-  </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Adjust the polling interval for reading values from FSUIPC. The lower the value the more updates you'll have but it might hit the performance.</value>
-  </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
-  </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 28</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>736, 69</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Name" xml:space="preserve">
-    <value>fsuipcPollIntervalTrackBar</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 5</value>
-  </data>
-  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>754, 719</value>
-  </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>FSUIPC Polling Interval</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="fsuipcTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="fsuipcTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>762, 729</value>
-  </data>
-  <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="fsuipcTabPage.Text" xml:space="preserve">
-    <value>FSUIPC</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTabPage.Name" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTabPage.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTabPage.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
   <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -763,7 +529,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>770, 762</value>
+    <value>856, 832</value>
   </data>
   <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -811,7 +577,7 @@
     <value>9, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>770, 820</value>
+    <value>856, 890</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
