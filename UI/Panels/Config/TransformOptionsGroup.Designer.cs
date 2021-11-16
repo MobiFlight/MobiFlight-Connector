@@ -41,7 +41,7 @@ namespace MobiFlight.UI.Panels.Config
             this.SubStringFromTextBox = new System.Windows.Forms.TextBox();
             this.MultiplyPanel = new System.Windows.Forms.Panel();
             this.TransformationCheckBox = new System.Windows.Forms.CheckBox();
-            this.fsuipcMultiplyTextBox = new System.Windows.Forms.TextBox();
+            this.TransformTextBox = new System.Windows.Forms.TextBox();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
             this.ValuePanel.SuspendLayout();
             this.SubstringPanel.SuspendLayout();
@@ -110,7 +110,7 @@ namespace MobiFlight.UI.Panels.Config
             // 
             resources.ApplyResources(this.MultiplyPanel, "multiplyPanel");
             this.MultiplyPanel.Controls.Add(this.TransformationCheckBox);
-            this.MultiplyPanel.Controls.Add(this.fsuipcMultiplyTextBox);
+            this.MultiplyPanel.Controls.Add(this.TransformTextBox);
             this.MultiplyPanel.Name = "multiplyPanel";
             // 
             // TransformationCheckBox
@@ -124,8 +124,8 @@ namespace MobiFlight.UI.Panels.Config
             // 
             // fsuipcMultiplyTextBox
             // 
-            resources.ApplyResources(this.fsuipcMultiplyTextBox, "fsuipcMultiplyTextBox");
-            this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
+            resources.ApplyResources(this.TransformTextBox, "fsuipcMultiplyTextBox");
+            this.TransformTextBox.Name = "fsuipcMultiplyTextBox";
             // 
             // TransformOptionsGroup
             // 
@@ -159,6 +159,6 @@ namespace MobiFlight.UI.Panels.Config
         private System.Windows.Forms.TextBox SubStringFromTextBox;
         private System.Windows.Forms.Panel MultiplyPanel;
         private System.Windows.Forms.CheckBox TransformationCheckBox;
-        private System.Windows.Forms.TextBox fsuipcMultiplyTextBox;
+        private System.Windows.Forms.TextBox TransformTextBox;
     }
 }
