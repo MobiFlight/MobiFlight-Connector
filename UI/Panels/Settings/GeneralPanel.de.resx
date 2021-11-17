@@ -127,6 +127,9 @@
   <data name="BetaUpdatesGroupBox.Text" xml:space="preserve">
     <value>Beta Versionen</value>
   </data>
+  <data name="languageGroupBox.Text" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 75</value>
   </data>
@@ -138,9 +141,6 @@
   </data>
   <data name="languageLabel.Text" xml:space="preserve">
     <value>Sprache von UI ändern:</value>
-  </data>
-  <data name="languageGroupBox.Text" xml:space="preserve">
-    <value>Sprache</value>
   </data>
   <data name="OfflineModeLabel.Text" xml:space="preserve">
     <value>Wenn aktiv, dann werden die Konfigurationen auch ohne Verbindung zum Flugsimulator ausgeführt. Das kann sinnvoll z.B. für Keyboard Commands 
@@ -158,25 +158,59 @@ sein, wenn der Sim nicht speziell unterstützt ist.</value>
   <data name="logLevelCheckBox.Text" xml:space="preserve">
     <value>aktiviert</value>
   </data>
+  <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
+    <value>Test Mode Geschwindigkeit</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>205, 54</value>
+  </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 13</value>
+    <value>124, 39</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
     <value>Sehr schnell</value>
   </data>
+  <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 63</value>
+  </data>
   <data name="label6.Text" xml:space="preserve">
     <value>Langsam</value>
-  </data>
-  <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
-    <value>Test Mode Geschwindigkeit</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Anzahl der angezeigten Dateien in der Liste</value>
   </data>
   <data name="recentFilesGroupBox.Text" xml:space="preserve">
     <value>Zuletzt verwendete Dateien</value>
   </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Anzahl der angezeigten Dateien in der Liste</value>
+  </data>
   <data name="CommunityFeedbackCheckBox.Text" xml:space="preserve">
     <value>Ja, ich möchte am Community Feedback Programm teilnehmen und helfen MobiFlight zu verbessern.</value>
+  </data>
+  <data name="ConfigExecutionGroupBox.Text" xml:space="preserve">
+    <value>Config Ausführung Speed</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 63</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 20</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Sehr Schnell</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 63</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 20</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Langsam</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Wie schnell MobiFlight die Konfigurationen ausführt. Je niedriger der Wert, desto schneller die Updates. Schnelle Updates können die Performance beeinträchtigen.
+</value>
   </data>
 </root>

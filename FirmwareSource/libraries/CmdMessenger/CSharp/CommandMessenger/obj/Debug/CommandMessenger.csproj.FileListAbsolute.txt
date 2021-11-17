@@ -1,4 +1,0 @@
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\CommandMessenger\bin\Debug\CommandMessenger.dll
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\CommandMessenger\bin\Debug\CommandMessenger.pdb
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.dll
-D:\Temp\CmdMessenger-3.4\CmdMessenger\CSharp\CommandMessenger\obj\Debug\CommandMessenger.pdb

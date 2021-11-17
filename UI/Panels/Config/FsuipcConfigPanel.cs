@@ -305,13 +305,13 @@ namespace MobiFlight.UI.Panels.Config
                 config.Transform.Active = SubstringTransformationCheckBox.Checked;
             }
 
-            // TODO: refactor this conditional stuff.
-            if (fsuipcMultiplyTextBox.Visible)
-                config.Transform.Expression = fsuipcMultiplyTextBox.Text;
+            config.Transform.Expression = fsuipcMultiplyTextBox.Text;
+            
             if (SubStringFromTextBox.Text!="")
                 config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
             if (SubStringToTextBox.Text != "")
                 config.Transform.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
+            
             config.FSUIPC.BcdMode = fsuipcBcdModeCheckBox.Checked;
             config.Value = fsuipcValueTextBox.Text;
         }

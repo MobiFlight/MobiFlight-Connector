@@ -72,7 +72,7 @@ namespace MobiFlight.UI.Panels.Config
                 
             }
 
-            fsuipcMultiplyTextBox.Text = config.Transform.Expression;
+            TransformTextBox.Text = config.Transform.Expression;
             fsuipcValueTextBox.Text = config.Value;
 
             // substring panel
@@ -95,8 +95,8 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             // TODO: refactor this conditional stuff.
-            if (fsuipcMultiplyTextBox.Visible)
-                config.Transform.Expression = fsuipcMultiplyTextBox.Text;
+            config.Transform.Expression = TransformTextBox.Text;
+            
             if (SubStringFromTextBox.Text != "")
                 config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
             if (SubStringToTextBox.Text != "")
@@ -106,7 +106,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            fsuipcMultiplyTextBox.Enabled = (sender as CheckBox).Checked;
+            TransformTextBox.Enabled = (sender as CheckBox).Checked;
         }
     }
 }
