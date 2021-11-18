@@ -260,6 +260,12 @@
     <Compile Include="UI\Dialogs\Msfs2020StartupForm.Designer.cs">
       <DependentUpon>Msfs2020StartupForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\TimeoutMessageDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialogs\TimeoutMessageDialog.Designer.cs">
+      <DependentUpon>TimeoutMessageDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\ArduinoIdePathForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -796,6 +802,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\SettingsDialog.de-DE.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialogs\TimeoutMessageDialog.de.resx">
+      <DependentUpon>TimeoutMessageDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialogs\TimeoutMessageDialog.resx">
+      <DependentUpon>TimeoutMessageDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ArduinoIdePathForm.de.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>

@@ -355,7 +355,9 @@ Du musst einen gültigen Pfad zu Deiner Arduino IDE angeben (min. 1.0.5).</value
     <value>Der Wert darf nicht leer sein.</value>
   </data>
   <data name="uiMessageUpdateArduinoOkCancel" xml:space="preserve">
-    <value>Es wurden Arduinos ohne MobiFlight Firmware gefunden - jetzt updaten?</value>
+    <value>Es wurden kompatible Arduinos ohne MobiFlight Firmware gefunden. Um sie zu verwenden benötigen sie die neueste Firmware.
+
+Jetzt MobiFlight Firmware hochladen!</value>
   </data>
   <data name="uiMessageUpdateOldFirmwareOkCancel" xml:space="preserve">
     <value>Die Firmware der MobiFlight Boards ist nicht aktuell - jetzt updaten?</value>
@@ -469,5 +471,18 @@ Die entsprechenden Input Actions funktionieren nicht bis der Joystick wieder ang
 {0}
 
 Respective input actions won't work until they are connected and you have restarted MobiFlight.</comment>
+  </data>
+  <data name="uiMessageFirmwareUpdateStatus" xml:space="preserve">
+    <value>Update von {0} an {1} (Modul {2}/{3})</value>
+    <comment>Updating {0} on {1} (Module {2}/{3})</comment>
+  </data>
+  <data name="uiMessageFirmwareUploadTitle" xml:space="preserve">
+    <value>Firmware Update</value>
+  </data>
+  <data name="uiMessageUpdateArduinoTitle" xml:space="preserve">
+    <value>Kompatible Boards gefunden!</value>
+  </data>
+  <data name="uiMessageUpdateOldFirmwareTitle" xml:space="preserve">
+    <value>Neue Firmware verfügbar!</value>
   </data>
 </root>

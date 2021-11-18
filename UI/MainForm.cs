@@ -370,10 +370,13 @@ namespace MobiFlight.UI
 
             if (modulesForUpdate.Count > 0)
             {
-                if (MessageBox.Show(
-                    i18n._tr("uiMessageUpdateOldFirmwareOkCancel"),
-                    i18n._tr("Hint"),
-                    MessageBoxButtons.OKCancel) == DialogResult.OK)
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.DefaultDialogResult = DialogResult.Cancel;
+                tmd.Message = i18n._tr("uiMessageUpdateOldFirmwareOkCancel");
+                tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
+                
+                if (tmd.ShowDialog() == DialogResult.OK)
                 {
                     SettingsDialog dlg = new SettingsDialog(execManager);
                     dlg.StartPosition = FormStartPosition.CenterParent;
@@ -385,14 +388,16 @@ namespace MobiFlight.UI
                 };
             }
 
+            // this is only for non mobiflight boards
             if (Properties.Settings.Default.FwAutoUpdateCheck && modulesForFlashing.Count > 0)
             {
-                DialogResult dr = MessageBox.Show(
-                    i18n._tr("uiMessageUpdateArduinoOkCancel"),
-                    i18n._tr("Hint"),
-                    MessageBoxButtons.OKCancel);
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.DefaultDialogResult = DialogResult.Cancel;
+                tmd.Message = i18n._tr("uiMessageUpdateArduinoOkCancel");
+                tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
 
-                if (dr == DialogResult.OK)
+                if (tmd.ShowDialog() == DialogResult.OK)
                 {
                     SettingsDialog dlg = new SettingsDialog(execManager);
                     dlg.StartPosition = FormStartPosition.CenterParent;
@@ -404,10 +409,12 @@ namespace MobiFlight.UI
                 }
                 else
                 {
-                    if (MessageBox.Show(
-                        i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo"),
-                        i18n._tr("Hint"),
-                        MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    tmd.StartPosition = FormStartPosition.CenterParent;
+                    tmd.DefaultDialogResult = DialogResult.Cancel;
+                    tmd.Message = i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo");
+                    tmd.Text = i18n._tr("Hint");
+
+                    if (tmd.ShowDialog() == DialogResult.OK)
                     {
                         Properties.Settings.Default.FwAutoUpdateCheck = false;
                     };
@@ -1168,38 +1175,20 @@ namespace MobiFlight.UI
 
             if (NotConnectedJoysticks.Count>0)
             {
-                MessageBox.Show(string.Format(
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.HasCancelButton = false;
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.Message = string.Format(
                                     i18n._tr("uiMessageNotConnectedJoysticksInConfigFound"),
                                     string.Join("\n", NotConnectedJoysticks)
-                                    ), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    );
+                tmd.Text = i18n._tr("Hint");
+                tmd.ShowDialog();
             }
             else if (showNotNecessaryMessage)
             {
                 MessageBox.Show(i18n._tr("uiMessageNoNotConnectedJoysticksInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            /*try
-            {
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, outputConfigPanel.ConfigDataTable, inputConfigPanel.ConfigDataTable);
-                opd.StartPosition = FormStartPosition.CenterParent;
-                if (opd.HasOrphanedSerials())
-                {
-                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        _restoreValuesInGridView();
-                        saveToolStripButton.Enabled = opd.HasChanged();
-                    }
-                }
-                else if (showNotNecessaryMessage)
-                {
-                    MessageBox.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception e)
-            {
-                // do nothing
-                Log.Instance.log("Orphaned Serials Exception. " + e.Message, LogSeverity.Error);
-            }*/
         }
 
         private void _restoreValuesInGridView()
