@@ -552,7 +552,20 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error on uploading the firmware!\nEnable Debug Logging for more details..
+        ///   Looks up a localized string similar to Updating {0} on {1} (Module {2}/{3}).
+        /// </summary>
+        internal static string uiMessageFirmwareUpdateStatus {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareUpdateStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error on uploading the firmware for the board(s):
+        ///
+        ///{0}
+        ///
+        ///Check log for more details..
         /// </summary>
         internal static string uiMessageFirmwareUploadError {
             get {
@@ -566,6 +579,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageFirmwareUploadSuccessful {
             get {
                 return ResourceManager.GetString("uiMessageFirmwareUploadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firmware Update.
+        /// </summary>
+        internal static string uiMessageFirmwareUploadTitle {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareUploadTitle", resourceCulture);
             }
         }
         
@@ -901,7 +923,9 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are Arduinos connected to your PC - do you want to upload the MobiFlight Firmware to them?.
+        ///   Looks up a localized string similar to Arduino boards found that are compatible with MobiFlight. To be able to use them they require the latest MobiFlight Firmware.
+        ///
+        ///Upload the MobiFlight Firmware now!.
         /// </summary>
         internal static string uiMessageUpdateArduinoOkCancel {
             get {
@@ -910,11 +934,29 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Some Mobiflight Boards have an old firmware - update them now.
+        ///   Looks up a localized string similar to Compatible boards found!.
+        /// </summary>
+        internal static string uiMessageUpdateArduinoTitle {
+            get {
+                return ResourceManager.GetString("uiMessageUpdateArduinoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some Mobiflight Boards have an old firmware - update them now?.
         /// </summary>
         internal static string uiMessageUpdateOldFirmwareOkCancel {
             get {
                 return ResourceManager.GetString("uiMessageUpdateOldFirmwareOkCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Firmware Available!.
+        /// </summary>
+        internal static string uiMessageUpdateOldFirmwareTitle {
+            get {
+                return ResourceManager.GetString("uiMessageUpdateOldFirmwareTitle", resourceCulture);
             }
         }
         
