@@ -332,7 +332,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TabPage ArcazeTabPage;
+        public System.Windows.Forms.TabPage ArcazeTabPage;
         private System.Windows.Forms.TabPage generalTabPage;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ContextMenuStrip mfModuleSettingsContextMenuStrip;

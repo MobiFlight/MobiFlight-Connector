@@ -254,7 +254,12 @@ namespace MobiFlight.UI
 
         private void ConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
         {
-            settingsToolStripMenuItem_Click(sender, null);
+            MobiFlightModule module = (sender as MobiFlightModule);
+            MobiFlightModuleInfo moduleInfo = null;
+
+            if (module != null) moduleInfo = module.ToMobiFlightModuleInfo();
+
+            ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
         private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
@@ -378,11 +383,7 @@ namespace MobiFlight.UI
                 
                 if (tmd.ShowDialog() == DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.MobiFlightModulesForUpdate = modulesForUpdate;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("mobiFlightTabPage", null, null, modulesForUpdate) == System.Windows.Forms.DialogResult.OK)
                     {
                     }
                 };
@@ -399,11 +400,7 @@ namespace MobiFlight.UI
 
                 if (tmd.ShowDialog() == DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.MobiFlightModulesForFlashing = modulesForFlashing;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("mobiFlightTabPage", null, modulesForFlashing, null) == System.Windows.Forms.DialogResult.OK)
                     {
                     }
                 }
@@ -420,6 +417,30 @@ namespace MobiFlight.UI
                     };
                 }
             }
+        }
+
+        private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
+        {
+            SettingsDialog dlg = new SettingsDialog(execManager);
+            dlg.StartPosition = FormStartPosition.CenterParent;
+            switch(SelectedTab)
+            {
+                case "mobiFlightTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
+                    break;
+                case "ArcazeTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
+                    break;
+            }
+            if (SelectedBoard != null)
+                dlg.PreselectedBoard = SelectedBoard;
+
+            if (BoardsForFlashing != null)
+                dlg.MobiFlightModulesForFlashing = BoardsForFlashing;
+
+            if (BoardsForUpdate != null)
+                dlg.MobiFlightModulesForUpdate = BoardsForUpdate;
+            return dlg.ShowDialog();
         }
 
         // this performs the update of the existing user settings 
@@ -595,10 +616,7 @@ namespace MobiFlight.UI
                                 MessageBoxIcon.Exclamation,
                                 MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[1] as TabPage;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("ArcazeTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
                     {
                     }
                 }
@@ -845,7 +863,7 @@ namespace MobiFlight.UI
             {
                 ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
                 item.Tag = module;
-                item.Click += ModuleToolStripItemClick;
+                item.Click += statusToolStripMenuItemClick;
                 moduleToolStripDropDownButton.DropDownItems.Add(item);
                 modulesFound = true;
             }
@@ -858,17 +876,11 @@ namespace MobiFlight.UI
             return (modulesFound);
         } //fillComboBoxesWithArcazeModules()
 
-        private void ModuleToolStripItemClick(object sender, EventArgs e)
+        private void statusToolStripMenuItemClick(object sender, EventArgs e)
         {
             MobiFlightModuleInfo moduleInfo = (sender as ToolStripMenuItem).Tag as MobiFlightModuleInfo;
 
-            SettingsDialog dlg = new SettingsDialog(execManager);
-            dlg.StartPosition = FormStartPosition.CenterParent;
-            (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-            dlg.PreselectedBoard = moduleInfo;
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-            }
+            ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
         /// <summary>
@@ -1460,16 +1472,7 @@ namespace MobiFlight.UI
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: refactor dependency to module cache
-            SettingsDialog dialog = new SettingsDialog(execManager);
-            dialog.StartPosition = FormStartPosition.CenterParent;
-            if (sender is InputConfigWizard || sender is ConfigWizard)
-            {
-                // show the mobiflight tab page
-                dialog.tabControl1.SelectedTab = dialog.mobiFlightTabPage;
-            }
-
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
             {
 #if ARCAZE
                 execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
@@ -1676,14 +1679,9 @@ namespace MobiFlight.UI
             Process.Start("https://discord.gg/U28QeEJpBV");
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void StatusBarToolStripButton_Click(object sender, EventArgs e)
         {
-            SettingsDialog dlg = new SettingsDialog(execManager);
-            dlg.StartPosition = FormStartPosition.CenterParent;
-            (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage");
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-            }
+            ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
         private void YouTubeToolStripButton_Click(object sender, EventArgs e)
