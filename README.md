@@ -1,5 +1,5 @@
 This is a fork from the original MobiFlight-Connector.
-The branch Teensy supports the Teensy Board 3.5 (and 4.1, but not recommended, less Pins and I/O's not 5V tolerant).
+The branch Teensy supports the Teensy Board 3.5 (and 4.1, but not recommended, less Pins and I/O's not 5V tolerant), Raspberry Pico and BluePill (also not recommended).
 Additionaly support for the Port Expander MCP23017 is added. For details and the required firmware (ATmega and Teensy) see https://github.com/elral/MobiFlight-Firmware
 Automatic Updates for the Connector is NOT supported. If you choose it when an new release is available, the original Connector will be downloaded and installed.
 Up ton now the connector has to be compiled by yourself using Visual Studio, as explained on the original MobiFlight page.
