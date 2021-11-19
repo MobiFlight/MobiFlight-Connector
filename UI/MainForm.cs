@@ -1589,7 +1589,7 @@ namespace MobiFlight.UI
 
                 if (!updater.AutoDetectCommunityFolder())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1598,7 +1598,7 @@ namespace MobiFlight.UI
 
                 if (!updater.WasmModulesAreDifferent())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1607,7 +1607,7 @@ namespace MobiFlight.UI
 
                 if (updater.InstallWasmModule())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1620,7 +1620,7 @@ namespace MobiFlight.UI
             }
 
             // We only get here in case of an error.
-            MessageBox.Show(
+            TimeoutMessageDialog.Show(
                 i18n._tr("uiMessageWasmUpdateInstallationError"),
                 i18n._tr("uiMessageWasmUpdater"),
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1632,7 +1632,7 @@ namespace MobiFlight.UI
 
             if (!updater.AutoDetectCommunityFolder())
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1641,14 +1641,14 @@ namespace MobiFlight.UI
 
             if (updater.InstallWasmEvents())
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationError"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Error);

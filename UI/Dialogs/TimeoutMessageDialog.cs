@@ -39,6 +39,16 @@ namespace MobiFlight.UI.Dialogs
             set { checkBox1.Checked = value;  } 
         }
 
+        new public static DialogResult Show(string Message, String Title, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.HasCancelButton = buttons == MessageBoxButtons.OKCancel;
+            tmd.Message = Message;
+            tmd.Text = Title;
+            return tmd.ShowDialog();
+        }
+
         public TimeoutMessageDialog()
         {
             InitializeComponent();
