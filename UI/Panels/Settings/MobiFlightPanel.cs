@@ -30,6 +30,7 @@ namespace MobiFlight.UI.Panels.Settings
         private String FirmwareUpdatePath = "";
         public List<MobiFlightModuleInfo> modulesForFlashing = new List<MobiFlightModuleInfo>();
         public List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule>();
+        public MobiFlightModuleInfo PreselectedMobiFlightBoard { get; internal set; }
         public bool MFModuleConfigChanged { get { return _IsModified(); } }
 
         MobiFlightCache mobiflightCache;
@@ -831,6 +832,22 @@ namespace MobiFlight.UI.Panels.Settings
             }
 
             UpdateModules(modules);
+
+            if (PreselectedMobiFlightBoard != null)
+                PreSelectMobiFlightBoard(PreselectedMobiFlightBoard);
+        }
+
+        private void PreSelectMobiFlightBoard(MobiFlightModuleInfo preselectedMobiFlightBoard)
+        {
+            TreeNode resultNode = findNodeByPort(preselectedMobiFlightBoard.Port);
+
+            if (resultNode != null)
+            {
+                resultNode.Expand();
+                mfModulesTreeView.SelectedNode = resultNode;
+            }
+
+            PreselectedMobiFlightBoard = null;
         }
 
         private void UpdateModules(List<MobiFlightModule> modules)

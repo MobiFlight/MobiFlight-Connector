@@ -315,6 +315,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "SettingsDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.Load += new System.EventHandler(this.SettingsDialog_Load);
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.panel1.ResumeLayout(false);
             this.ArcazeTabPage.ResumeLayout(false);

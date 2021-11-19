@@ -843,7 +843,10 @@ namespace MobiFlight.UI
 #if MOBIFLIGHT
             foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                moduleToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+                ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
+                item.Tag = module;
+                item.Click += ModuleToolStripItemClick;
+                moduleToolStripDropDownButton.DropDownItems.Add(item);
                 modulesFound = true;
             }
 #endif
@@ -854,6 +857,19 @@ namespace MobiFlight.UI
             // only enable button if modules are available            
             return (modulesFound);
         } //fillComboBoxesWithArcazeModules()
+
+        private void ModuleToolStripItemClick(object sender, EventArgs e)
+        {
+            MobiFlightModuleInfo moduleInfo = (sender as ToolStripMenuItem).Tag as MobiFlightModuleInfo;
+
+            SettingsDialog dlg = new SettingsDialog(execManager);
+            dlg.StartPosition = FormStartPosition.CenterParent;
+            (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
+            dlg.PreselectedBoard = moduleInfo;
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+            }
+        }
 
         /// <summary>
         /// toggles the current timer when user clicks on respective run/stop buttons

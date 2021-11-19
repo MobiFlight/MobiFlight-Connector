@@ -34,6 +34,12 @@ namespace MobiFlight.UI.Dialogs
             set { mobiFlightPanel.modulesForFlashing = value; }
         }
 
+        public MobiFlightModuleInfo PreselectedBoard
+        {
+            get { return mobiFlightPanel.PreselectedMobiFlightBoard; }
+            set { mobiFlightPanel.PreselectedMobiFlightBoard = value; }
+        }
+
         public SettingsDialog()
         {
             Init();
@@ -174,6 +180,11 @@ namespace MobiFlight.UI.Dialogs
         }
 
         private void SettingsDialog_Shown(object sender, EventArgs e)
+        {
+            TabPage current = tabControl1.SelectedTab;
+        }
+
+        private void SettingsDialog_Load(object sender, EventArgs e)
         {
             TabPage current = tabControl1.SelectedTab;
         }

@@ -226,7 +226,7 @@
     <value>6, 8, 6, 8</value>
   </data>
   <data name="arcazePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>823, 763</value>
+    <value>840, 789</value>
   </data>
   <data name="arcazePanel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -253,7 +253,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="ArcazeTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>831, 773</value>
+    <value>848, 799</value>
   </data>
   <data name="ArcazeTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -472,7 +472,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="mobiFlightPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>823, 763</value>
+    <value>840, 789</value>
   </data>
   <data name="mobiFlightPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -499,7 +499,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="mobiFlightTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>831, 773</value>
+    <value>848, 799</value>
   </data>
   <data name="mobiFlightTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
