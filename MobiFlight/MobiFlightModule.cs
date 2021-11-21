@@ -263,7 +263,9 @@ namespace MobiFlight
             
             // this sleep helps during initialization
             // without this line modules did not connect properly
-            System.Threading.Thread.Sleep(Board.ConnectionDelay);
+            if (Board.ConnectionDelay > 0) { 
+                System.Threading.Thread.Sleep(Board.ConnectionDelay);
+            }
 
             //if (!this.Connected) return;
             //ResetBoard();
