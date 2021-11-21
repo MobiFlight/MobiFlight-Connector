@@ -8,19 +8,12 @@
   <MaxServos>10</MaxServos>
   <MaxLcdI2C>2</MaxLcdI2C>
   <MaxAnalogInputs>5</MaxAnalogInputs>
-<<<<<<< HEAD
   <LatestFirmwareVersion>1.12.0</LatestFirmwareVersion>
-=======
-  <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
->>>>>>> 532805f39aeaa56e3b005da9a4993b4b513b90cc
   <FriendlyName>Arduino Mega 2560</FriendlyName>
   <MobiFlightType>MobiFlight Mega</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
   <ConnectionDelay>1250</ConnectionDelay>
-<<<<<<< HEAD
   <DelayAfterFirmwareUpdate>0</DelayAfterFirmwareUpdate>
-=======
->>>>>>> 532805f39aeaa56e3b005da9a4993b4b513b90cc
   <DtrEnable>true</DtrEnable>
   <ExtraConnectionRetry>false</ExtraConnectionRetry>
   <ForceResetOnFirmwareUpdate>false</ForceResetOnFirmwareUpdate>
