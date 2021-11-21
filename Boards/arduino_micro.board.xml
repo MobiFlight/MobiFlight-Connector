@@ -8,18 +8,30 @@
   <MaxServos>2</MaxServos>
   <MaxLcdI2C>2</MaxLcdI2C>
   <MaxAnalogInputs>5</MaxAnalogInputs>
+<<<<<<< HEAD
   <LatestFirmwareVersion>1.12.0</LatestFirmwareVersion>
+=======
+  <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
+>>>>>>> 532805f39aeaa56e3b005da9a4993b4b513b90cc
   <FriendlyName>Arduino Micro Pro</FriendlyName>
   <MobiFlightType>MobiFlight Micro</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
   <ForceResetOnFirmwareUpdate>true</ForceResetOnFirmwareUpdate>
   <ConnectionDelay>1250</ConnectionDelay>
+<<<<<<< HEAD
   <DelayAfterFirmwareUpdate>1250</DelayAfterFirmwareUpdate>
   <DtrEnable>true</DtrEnable>
   <ExtraConnectionRetry>false</ExtraConnectionRetry>
   <AvrDudeSettings>
     <Device>atmega32u4</Device>
     <BaudRate>57600</BaudRate>
+=======
+  <DtrEnable>true</DtrEnable>
+  <ExtraConnectionRetry>false</ExtraConnectionRetry>
+  <AvrDudeSettings>
+    <Device>atmega2560</Device>
+    <BaudRate>115200</BaudRate>
+>>>>>>> 532805f39aeaa56e3b005da9a4993b4b513b90cc
     <Programmer>wiring</Programmer>
     <FirmwareBaseName>mobiflight_micro</FirmwareBaseName>
   </AvrDudeSettings>

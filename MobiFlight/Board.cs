@@ -78,10 +78,13 @@ namespace MobiFlight
         /// </summary>
         public int ConnectionDelay;
         /// <summary>
+<<<<<<< HEAD
         /// Number of milliseconds to wait after a firmware update before attempting to reconnect to the board.
         /// </summary>
         public int DelayAfterFirmwareUpdate = 0;
         /// <summary>
+=======
+>>>>>>> 532805f39aeaa56e3b005da9a4993b4b513b90cc
         /// True if DTR should be enabled when connecting to the board over serial.
         /// </summary>
         public Boolean DtrEnable;
