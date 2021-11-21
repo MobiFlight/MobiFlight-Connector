@@ -806,11 +806,7 @@ namespace MobiFlight.UI.Panels.Settings
             foreach (MobiFlightModuleInfo moduleInfo in modulesForFlashing)
             {
                 MobiFlightModule module = new MobiFlightModule(moduleInfo.Port, moduleInfo.Board);
-<<<<<<< HEAD
                 modules.Add(module);
-=======
-                updateFirmware(module);
->>>>>>> 532805f39aeaa56e3b005da9a4993b4b513b90cc
             }
 
             foreach (MobiFlightModule module in modulesForUpdate)
@@ -886,26 +882,13 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             OnBeforeFirmwareUpdate?.Invoke(sender, e);
-=======
-            MobiFlightModule module = (MobiFlightModule)e.Argument;
-            bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
-            if (UpdateResult)
-            {
-                e.Result = module;
-            }
-            else
-            {
-                e.Result = null;
-            }
->>>>>>> 532805f39aeaa56e3b005da9a4993b4b513b90cc
         }
 
         private void FirmwareUpdateProcessForm_OnAfterFirmwareUpdate(object sender, EventArgs e)
         {
             // update presentation in treeView
-            MobiFlightModule module = (MobiFlightModule) sender;
+            MobiFlightModule module = (MobiFlightModule)sender;
 
             // If the update fails for some reason, e.g. the board definition file was missing the settings for the
             // update, then module will be null.
@@ -914,19 +897,6 @@ namespace MobiFlight.UI.Panels.Settings
                 return;
             }
 
-<<<<<<< HEAD
-=======
-            // update presentation in treeView
-            MobiFlightModule module = (MobiFlightModule)e.Result;
-
-            // If the update fails for some reason, e.g. the board definition file was missing the settings for the
-            // update, then module will be null.
-            if (module == null)
-            {
-                return;
-            }
-
->>>>>>> 532805f39aeaa56e3b005da9a4993b4b513b90cc
             module.Connect();
             MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
             mobiflightCache.RefreshModule(module);
