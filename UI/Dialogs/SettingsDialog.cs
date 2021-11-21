@@ -34,6 +34,12 @@ namespace MobiFlight.UI.Dialogs
             set { mobiFlightPanel.modulesForFlashing = value; }
         }
 
+        public MobiFlightModuleInfo PreselectedBoard
+        {
+            get { return mobiFlightPanel.PreselectedMobiFlightBoard; }
+            set { mobiFlightPanel.PreselectedMobiFlightBoard = value; }
+        }
+
         public SettingsDialog()
         {
             Init();
@@ -90,12 +96,6 @@ namespace MobiFlight.UI.Dialogs
             // TAB MobiFlight
             //
             mobiFlightPanel.LoadSettings();
-
-            //
-            // TAB FSUIPC
-            //
-            // FSUIPC poll interval
-            fsuipcPollIntervalTrackBar.Value = (int)Math.Floor(Properties.Settings.Default.PollInterval / 50.0);
         }
 
         /// <summary>
@@ -106,16 +106,15 @@ namespace MobiFlight.UI.Dialogs
         {
             // General Tab
             generalPanel.saveSettings();
-
-            // Arcaze Tab
 #if ARCAZE
+            // Arcaze Tab
             arcazePanel.SaveSettings();
 #endif
             // MobiFlight Tab
             mobiFlightPanel.SaveSettings();
 
-            // FSUIPC poll interval
-            Properties.Settings.Default.PollInterval = (int)(fsuipcPollIntervalTrackBar.Value * 50);
+            // Save all Settings
+            Properties.Settings.Default.Save();
         }
 
         /// <summary>
@@ -181,6 +180,11 @@ namespace MobiFlight.UI.Dialogs
         }
 
         private void SettingsDialog_Shown(object sender, EventArgs e)
+        {
+            TabPage current = tabControl1.SelectedTab;
+        }
+
+        private void SettingsDialog_Load(object sender, EventArgs e)
         {
             TabPage current = tabControl1.SelectedTab;
         }

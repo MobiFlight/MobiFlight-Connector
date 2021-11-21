@@ -622,7 +622,7 @@ namespace MobiFlight.UI.Dialogs
                         {
                             if (SettingsDialogRequested != null)
                             {
-                                SettingsDialogRequested(this, new EventArgs());
+                                SettingsDialogRequested(module, new EventArgs());
 
                                 // trigger reload of Type ComboBox
                                 int CurrentIdx = displayModuleNameComboBox.SelectedIndex;

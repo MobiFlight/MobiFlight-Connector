@@ -254,7 +254,12 @@ namespace MobiFlight.UI
 
         private void ConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
         {
-            settingsToolStripMenuItem_Click(sender, null);
+            MobiFlightModule module = (sender as MobiFlightModule);
+            MobiFlightModuleInfo moduleInfo = null;
+
+            if (module != null) moduleInfo = module.ToMobiFlightModuleInfo();
+
+            ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
         private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
@@ -370,49 +375,72 @@ namespace MobiFlight.UI
 
             if (modulesForUpdate.Count > 0)
             {
-                if (MessageBox.Show(
-                    i18n._tr("uiMessageUpdateOldFirmwareOkCancel"),
-                    i18n._tr("Hint"),
-                    MessageBoxButtons.OKCancel) == DialogResult.OK)
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.DefaultDialogResult = DialogResult.Cancel;
+                tmd.Message = i18n._tr("uiMessageUpdateOldFirmwareOkCancel");
+                tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
+                
+                if (tmd.ShowDialog() == DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.MobiFlightModulesForUpdate = modulesForUpdate;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("mobiFlightTabPage", null, null, modulesForUpdate) == System.Windows.Forms.DialogResult.OK)
                     {
                     }
                 };
             }
 
+            // this is only for non mobiflight boards
             if (Properties.Settings.Default.FwAutoUpdateCheck && modulesForFlashing.Count > 0)
             {
-                DialogResult dr = MessageBox.Show(
-                    i18n._tr("uiMessageUpdateArduinoOkCancel"),
-                    i18n._tr("Hint"),
-                    MessageBoxButtons.OKCancel);
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.DefaultDialogResult = DialogResult.Cancel;
+                tmd.Message = i18n._tr("uiMessageUpdateArduinoOkCancel");
+                tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
 
-                if (dr == DialogResult.OK)
+                if (tmd.ShowDialog() == DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.MobiFlightModulesForFlashing = modulesForFlashing;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("mobiFlightTabPage", null, modulesForFlashing, null) == System.Windows.Forms.DialogResult.OK)
                     {
                     }
                 }
                 else
                 {
-                    if (MessageBox.Show(
-                        i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo"),
-                        i18n._tr("Hint"),
-                        MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    tmd.StartPosition = FormStartPosition.CenterParent;
+                    tmd.DefaultDialogResult = DialogResult.Cancel;
+                    tmd.Message = i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo");
+                    tmd.Text = i18n._tr("Hint");
+
+                    if (tmd.ShowDialog() == DialogResult.OK)
                     {
                         Properties.Settings.Default.FwAutoUpdateCheck = false;
                     };
                 }
             }
+        }
+
+        private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
+        {
+            SettingsDialog dlg = new SettingsDialog(execManager);
+            dlg.StartPosition = FormStartPosition.CenterParent;
+            switch(SelectedTab)
+            {
+                case "mobiFlightTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
+                    break;
+                case "ArcazeTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
+                    break;
+            }
+            if (SelectedBoard != null)
+                dlg.PreselectedBoard = SelectedBoard;
+
+            if (BoardsForFlashing != null)
+                dlg.MobiFlightModulesForFlashing = BoardsForFlashing;
+
+            if (BoardsForUpdate != null)
+                dlg.MobiFlightModulesForUpdate = BoardsForUpdate;
+            return dlg.ShowDialog();
         }
 
         // this performs the update of the existing user settings 
@@ -513,6 +541,12 @@ namespace MobiFlight.UI
             {
                 AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
             }
+
+            if (e.SettingName == "LogEnabled")
+            {
+                logTextBox.Visible = (bool) e.NewValue;
+                logSplitter.Visible = (bool) e.NewValue;
+            }
         }
 
         private void _autoloadConfig()
@@ -582,14 +616,8 @@ namespace MobiFlight.UI
                                 MessageBoxIcon.Exclamation,
                                 MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[1] as TabPage;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("ArcazeTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
                     {
-                        Properties.Settings.Default.Save();
-                        logTextBox.Visible = Log.Instance.Enabled;
-                        logSplitter.Visible = Log.Instance.Enabled;
                     }
                 }
             }           
@@ -833,7 +861,10 @@ namespace MobiFlight.UI
 #if MOBIFLIGHT
             foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                moduleToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+                ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
+                item.Tag = module;
+                item.Click += statusToolStripMenuItemClick;
+                moduleToolStripDropDownButton.DropDownItems.Add(item);
                 modulesFound = true;
             }
 #endif
@@ -844,6 +875,13 @@ namespace MobiFlight.UI
             // only enable button if modules are available            
             return (modulesFound);
         } //fillComboBoxesWithArcazeModules()
+
+        private void statusToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            MobiFlightModuleInfo moduleInfo = (sender as ToolStripMenuItem).Tag as MobiFlightModuleInfo;
+
+            ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
+        }
 
         /// <summary>
         /// toggles the current timer when user clicks on respective run/stop buttons
@@ -1165,38 +1203,20 @@ namespace MobiFlight.UI
 
             if (NotConnectedJoysticks.Count>0)
             {
-                MessageBox.Show(string.Format(
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.HasCancelButton = false;
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.Message = string.Format(
                                     i18n._tr("uiMessageNotConnectedJoysticksInConfigFound"),
                                     string.Join("\n", NotConnectedJoysticks)
-                                    ), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    );
+                tmd.Text = i18n._tr("Hint");
+                tmd.ShowDialog();
             }
             else if (showNotNecessaryMessage)
             {
                 MessageBox.Show(i18n._tr("uiMessageNoNotConnectedJoysticksInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            /*try
-            {
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, outputConfigPanel.ConfigDataTable, inputConfigPanel.ConfigDataTable);
-                opd.StartPosition = FormStartPosition.CenterParent;
-                if (opd.HasOrphanedSerials())
-                {
-                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        _restoreValuesInGridView();
-                        saveToolStripButton.Enabled = opd.HasChanged();
-                    }
-                }
-                else if (showNotNecessaryMessage)
-                {
-                    MessageBox.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception e)
-            {
-                // do nothing
-                Log.Instance.log("Orphaned Serials Exception. " + e.Message, LogSeverity.Error);
-            }*/
         }
 
         private void _restoreValuesInGridView()
@@ -1452,21 +1472,8 @@ namespace MobiFlight.UI
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: refactor dependency to module cache
-            SettingsDialog dialog = new SettingsDialog(execManager);
-            dialog.StartPosition = FormStartPosition.CenterParent;
-            if (sender is InputConfigWizard || sender is ConfigWizard)
+            if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
             {
-                // show the mobiflight tab page
-                dialog.tabControl1.SelectedTab = dialog.mobiFlightTabPage;
-            }
-
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                Properties.Settings.Default.Save();
-                // TODO: refactor
-                logTextBox.Visible = Log.Instance.Enabled;
-                logSplitter.Visible = Log.Instance.Enabled;
 #if ARCAZE
                 execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
 #endif
@@ -1601,7 +1608,7 @@ namespace MobiFlight.UI
 
                 if (!updater.AutoDetectCommunityFolder())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1610,7 +1617,7 @@ namespace MobiFlight.UI
 
                 if (!updater.WasmModulesAreDifferent())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1619,7 +1626,7 @@ namespace MobiFlight.UI
 
                 if (updater.InstallWasmModule())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1632,7 +1639,7 @@ namespace MobiFlight.UI
             }
 
             // We only get here in case of an error.
-            MessageBox.Show(
+            TimeoutMessageDialog.Show(
                 i18n._tr("uiMessageWasmUpdateInstallationError"),
                 i18n._tr("uiMessageWasmUpdater"),
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1644,7 +1651,7 @@ namespace MobiFlight.UI
 
             if (!updater.AutoDetectCommunityFolder())
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1653,14 +1660,14 @@ namespace MobiFlight.UI
 
             if (updater.InstallWasmEvents())
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationError"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1672,14 +1679,9 @@ namespace MobiFlight.UI
             Process.Start("https://discord.gg/U28QeEJpBV");
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void StatusBarToolStripButton_Click(object sender, EventArgs e)
         {
-            SettingsDialog dlg = new SettingsDialog(execManager);
-            dlg.StartPosition = FormStartPosition.CenterParent;
-            (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage");
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-            }
+            ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
         private void YouTubeToolStripButton_Click(object sender, EventArgs e)

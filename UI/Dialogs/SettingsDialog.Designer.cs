@@ -63,13 +63,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
             this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
-            this.fsuipcTabPage = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.fsuipcPollIntervalTrackBar = new System.Windows.Forms.TrackBar();
             this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,9 +74,6 @@
             this.generalTabPage.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
-            this.fsuipcTabPage.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -280,7 +270,6 @@
             this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
             this.tabControl1.Controls.Add(this.ArcazeTabPage);
-            this.tabControl1.Controls.Add(this.fsuipcTabPage);
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -296,53 +285,6 @@
             // 
             resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
             this.mobiFlightPanel.Name = "mobiFlightPanel";
-            // 
-            // fsuipcTabPage
-            // 
-            this.fsuipcTabPage.Controls.Add(this.groupBox1);
-            resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
-            this.fsuipcTabPage.Name = "fsuipcTabPage";
-            this.fsuipcTabPage.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.fsuipcPollIntervalTrackBar);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
-            // fsuipcPollIntervalTrackBar
-            // 
-            this.fsuipcPollIntervalTrackBar.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.fsuipcPollIntervalTrackBar, "fsuipcPollIntervalTrackBar");
-            this.fsuipcPollIntervalTrackBar.LargeChange = 2;
-            this.fsuipcPollIntervalTrackBar.Minimum = 2;
-            this.fsuipcPollIntervalTrackBar.Name = "fsuipcPollIntervalTrackBar";
-            this.fsuipcPollIntervalTrackBar.Value = 10;
             // 
             // firmwareSettingsToolStripMenuItem
             // 
@@ -373,6 +315,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "SettingsDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.Load += new System.EventHandler(this.SettingsDialog_Load);
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.panel1.ResumeLayout(false);
             this.ArcazeTabPage.ResumeLayout(false);
@@ -380,10 +323,6 @@
             this.generalTabPage.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
-            this.fsuipcTabPage.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -393,16 +332,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TabPage ArcazeTabPage;
+        public System.Windows.Forms.TabPage ArcazeTabPage;
         private System.Windows.Forms.TabPage generalTabPage;
-        private System.Windows.Forms.TabPage fsuipcTabPage;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TrackBar fsuipcPollIntervalTrackBar;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ContextMenuStrip mfModuleSettingsContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ledOutputToolStripMenuItem;

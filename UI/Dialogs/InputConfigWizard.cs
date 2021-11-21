@@ -429,32 +429,31 @@ namespace MobiFlight.UI.Dialogs
                                 break;
                         }
                     }
+
+                    if (inputTypeComboBox.Items.Count == 0)
+                    {
+                        if (MessageBox.Show(
+                                i18n._tr("uiMessageSelectedModuleDoesNotContainAnyInputDevices"),
+                                i18n._tr("Hint"),
+                                MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes
+                            )
+                        {
+                            if (SettingsDialogRequested != null)
+                            {
+                                SettingsDialogRequested(module, new EventArgs());
+
+                                // trigger reload of Type ComboBox
+                                int CurrentIdx = inputModuleNameComboBox.SelectedIndex;
+                                inputModuleNameComboBox.SelectedIndex = 0;
+                                inputModuleNameComboBox.SelectedIndex = CurrentIdx;
+                            }
+                        }
+                    }
                 }
                 // Add all Joysticks
                 else { 
                     Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
                     inputTypeComboBox.Items.AddRange(joystick.GetAvailableDevices().ToArray());
-                }
-                /// ---- 
-
-                if (inputTypeComboBox.Items.Count == 0)
-                {
-                    if (MessageBox.Show(
-                            i18n._tr("uiMessageSelectedModuleDoesNotContainAnyInputDevices"),
-                            i18n._tr("Hint"),
-                            MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes
-                        )
-                    {
-                        if (SettingsDialogRequested != null)
-                        {
-                            SettingsDialogRequested(this, new EventArgs());
-
-                            // trigger reload of Type ComboBox
-                            int CurrentIdx = inputModuleNameComboBox.SelectedIndex;
-                            inputModuleNameComboBox.SelectedIndex = 0;
-                            inputModuleNameComboBox.SelectedIndex = CurrentIdx;
-                        }
-                    }
                 }
                 
                 // third tab

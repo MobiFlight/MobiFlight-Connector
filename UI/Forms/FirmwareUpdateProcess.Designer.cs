@@ -33,12 +33,18 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.StatusLabel = new System.Windows.Forms.Label();
+            this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // progressBar1
             // 
             resources.ApplyResources(this.progressBar1, "progressBar1");
+            this.progressBar1.MarqueeAnimationSpeed = 200;
+            this.progressBar1.Maximum = 1000;
             this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Step = 1;
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             // 
             // label1
             // 
@@ -49,12 +55,19 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // StatusLabel
+            // 
+            resources.ApplyResources(this.StatusLabel, "StatusLabel");
+            this.StatusLabel.Name = "StatusLabel";
+            // 
             // FirmwareUpdateProcess
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.StatusLabel);
             this.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -75,5 +88,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label StatusLabel;
+        private System.ComponentModel.BackgroundWorker firmwareUpdateBackgroundWorker;
     }
 }

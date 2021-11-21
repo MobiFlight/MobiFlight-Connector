@@ -122,9 +122,9 @@ namespace MobiFlight
         // message size is used for building
         // correct chunk sizes for messages
         // to the arduino boards
-        public const int MESSAGE_MAX_SIZE_MICRO = 96;
-        public const int MESSAGE_MAX_SIZE_UNO = 96;
-        public const int MESSAGE_MAX_SIZE_MEGA = 96;
+        public const int MESSAGE_MAX_SIZE_MICRO = 64;
+        public const int MESSAGE_MAX_SIZE_UNO = 64;
+        public const int MESSAGE_MAX_SIZE_MEGA = 64;
 
         // this is used to check for 
         // maximum config length and

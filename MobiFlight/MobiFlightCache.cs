@@ -347,22 +347,27 @@ namespace MobiFlight
         private void RegisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo, bool replace = false)
         {
             Log.Instance.log("MobiFlightCache.RegisterModule("+m.Name+":"+ m.Port +")", LogSeverity.Debug);
-            m.OnInputDeviceAction += new MobiFlightModule.InputDeviceEventHandler(module_OnButtonPressed);
-
+            
             if (Modules.ContainsKey(devInfo.Serial))
             {
                 if (replace)
                 {
-                    Modules[devInfo.Serial] = m;
+                    // remove the existing handler
+                    Modules[devInfo.Serial].OnInputDeviceAction -= new MobiFlightModule.InputDeviceEventHandler(module_OnButtonPressed);
+                    Modules[devInfo.Serial] = m;                
                 }
                 else
                 {
                     Log.Instance.log("Duplicate serial number found: " + devInfo.Serial + ". Module won't be added.", LogSeverity.Error);
+                    return;
                 }
-                return;
+            } else
+            {                
+                Modules.Add(devInfo.Serial, m);
             }
 
-            Modules.Add(devInfo.Serial, m);
+            // add the handler
+            m.OnInputDeviceAction += new MobiFlightModule.InputDeviceEventHandler(module_OnButtonPressed);
         }
 
         public void module_OnButtonPressed(object sender, InputEventArgs e)
@@ -701,7 +706,7 @@ namespace MobiFlight
 
             if (oldDevInfo != null) connectedArduinoModules.Remove(oldDevInfo);
             connectedArduinoModules.Add(module.ToMobiFlightModuleInfo());
-
+            
             RegisterModule(module, module.ToMobiFlightModuleInfo(), true);
 
             return module;
