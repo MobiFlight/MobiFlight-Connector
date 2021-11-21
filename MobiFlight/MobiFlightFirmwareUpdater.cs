@@ -44,6 +44,11 @@ namespace MobiFlight
             if (module.Board.AvrDudeSettings != null)
             {
                 RunAvrDude(Port, module.Board);
+
+                if (module.Board.DelayAfterFirmwareUpdate > 0)
+                {
+                    System.Threading.Thread.Sleep(module.Board.DelayAfterFirmwareUpdate);
+                }
                 return true;
             }
 

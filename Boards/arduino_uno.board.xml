@@ -8,12 +8,13 @@
   <MaxServos>2</MaxServos>
   <MaxLcdI2C>2</MaxLcdI2C>
   <MaxAnalogInputs>2</MaxAnalogInputs>
-  <LatestFirmwareVersion>1.11.3</LatestFirmwareVersion>
+  <LatestFirmwareVersion>1.12.0</LatestFirmwareVersion>
   <FriendlyName>Arduino Uno</FriendlyName>
   <MobiFlightType>MobiFlight Uno</MobiFlightType>
   <CanInstallFirmware>true</CanInstallFirmware>
   <ForceResetOnFirmwareUpdate>false</ForceResetOnFirmwareUpdate>
   <ConnectionDelay>1750</ConnectionDelay>
+  <DelayAfterFirmwareUpdate>0</DelayAfterFirmwareUpdate>
   <DtrEnable>true</DtrEnable>
   <ExtraConnectionRetry>true</ExtraConnectionRetry>
   <HardwareIds>
