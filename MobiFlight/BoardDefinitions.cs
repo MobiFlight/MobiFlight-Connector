@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -35,7 +34,7 @@ namespace MobiFlight
         /// <returns>The first board definition matching the name, or null if none found</returns>
         public static Board GetBoardByFriendlyName(String friendlyName)
         {
-            return boards.Find(board => board.FriendlyName.ToLower() == friendlyName.ToLower());
+            return boards.Find(board => board.Info.FriendlyName.ToLower() == friendlyName.ToLower());
         }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace MobiFlight
         /// <returns>The first board definition matching the name, or null if none found</returns>
         public static Board GetBoardByMobiFlightType(String mobiflightType)
         {
-            return boards.Find(board => board.MobiFlightType.ToLower() == mobiflightType?.ToLower());
+            return boards.Find(board => board.Info.MobiFlightType.ToLower() == mobiflightType?.ToLower());
         }
 
         /// <summary>
@@ -53,20 +52,17 @@ namespace MobiFlight
         /// </summary>
         public static void Load()
         {
-            var serializer = new XmlSerializer(typeof(Board));
-            foreach (var definitionFile in Directory.GetFiles("Boards", "*.board.xml"))
+            foreach (var definitionFile in Directory.GetFiles("Boards", "*.board.json"))
             {
-                using (var reader = XmlReader.Create(definitionFile))
+                try
                 {
-                    try
-                    {
-                        var board = (Board)serializer.Deserialize(reader);
-                        boards.Add(board);
-                        Log.Instance.log($"Loaded board definition for {board.MobiFlightType} ({board.FriendlyName})", LogSeverity.Info);
-                    } catch (Exception ex)
-                    {
-                        Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                    }
+                    var board = JsonConvert.DeserializeObject<Board>(File.ReadAllText(definitionFile));
+                    boards.Add(board);
+                    Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
                 }
             }
         }

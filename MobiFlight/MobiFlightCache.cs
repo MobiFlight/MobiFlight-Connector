@@ -154,7 +154,7 @@ namespace MobiFlight
                         // Safety check to ensure duplicate entires in the registry don't result in duplicate entires in the list.
                         if (result.ContainsKey(portName))
                         {
-                            Log.Instance.log($"Duplicate entry for port: {board.FriendlyName} {portName}", LogSeverity.Debug);
+                            Log.Instance.log($"Duplicate entry for port: {board.Info.FriendlyName} {portName}", LogSeverity.Debug);
                             continue;
                         }
 

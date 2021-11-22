@@ -121,11 +121,11 @@ namespace MobiFlight
             {
                 if (HasMfFirmware())
                 {
-                    return Board.MobiFlightType;
+                    return Board.Info.MobiFlightType;
                 }    
                 else
                 {
-                    return Board?.FriendlyName ?? "Unknown";
+                    return Board?.Info.FriendlyName ?? "Unknown";
                 }
             }
         }
@@ -152,7 +152,7 @@ namespace MobiFlight
                         
                         // Some boards, like the Arduino Uno, require several attempts
                         // before the initial command succeeds.
-                        if (Board.ExtraConnectionRetry)
+                        if (Board.Connection.ExtraConnectionRetry)
                         {
                             if (!InfoCommand.Ok)
                             InfoCommand = _cmdMessenger.SendCommand(command);
@@ -241,7 +241,7 @@ namespace MobiFlight
             //_transportLayer = new SerialPortManager
             {
                 //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
-                CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.DtrEnable } // object initializer
+                CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
             };
 
             _cmdMessenger = new CmdMessenger(_transportLayer)
@@ -257,14 +257,14 @@ namespace MobiFlight
 
             // Start listening    
             var status = _cmdMessenger.Connect();
-            Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable})", LogSeverity.Info);
+            Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable})", LogSeverity.Info);
             //this.Connected = status;
             this.connected = true;
             
             // this sleep helps during initialization
             // without this line modules did not connect properly
-            if (Board.ConnectionDelay > 0) { 
-                System.Threading.Thread.Sleep(Board.ConnectionDelay);
+            if (Board.Connection.ConnectionDelay > 0) { 
+                System.Threading.Thread.Sleep(Board.Connection.ConnectionDelay);
             }
 
             //if (!this.Connected) return;
@@ -423,7 +423,7 @@ namespace MobiFlight
             List<String> connectedPorts = SerialPort.GetPortNames().ToList();
 
             Disconnect();
-            if (Board.ForceResetOnFirmwareUpdate)
+            if (Board.Connection.ForceResetOnFirmwareUpdate)
             {
                 SerialTransport tmpSerial = new SerialTransport() {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
@@ -749,7 +749,7 @@ namespace MobiFlight
             Log.Instance.log("Reset config: " + (int)MobiFlightModule.Command.ResetConfig, LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
-            foreach (string MessagePart in this.Config.ToInternal(this.Board.MessageSize))
+            foreach (string MessagePart in this.Config.ToInternal(this.Board.Connection.MessageSize))
             {
                 Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
                 command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);

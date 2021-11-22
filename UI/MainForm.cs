@@ -333,9 +333,9 @@ namespace MobiFlight.UI
 
             foreach (MobiFlightModule module in mfCache.GetModules())
             {
-                if (module.Board.CanInstallFirmware)
+                if (module.Board.Info.CanInstallFirmware)
                 {
-                    Version latestVersion = new Version(module.Board.LatestFirmwareVersion);
+                    Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
                     Version currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
                     if (currentVersion.CompareTo(latestVersion) < 0)
                     {
@@ -347,7 +347,7 @@ namespace MobiFlight.UI
 
             foreach (MobiFlightModuleInfo moduleInfo in modules)
             {
-                if (moduleInfo.Board.CanInstallFirmware && !moduleInfo.HasMfFirmware())
+                if (moduleInfo.Board.Info.CanInstallFirmware && !moduleInfo.HasMfFirmware())
                 {
                     modulesForFlashing.Add(moduleInfo);
                 }

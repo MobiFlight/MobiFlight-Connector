@@ -45,14 +45,14 @@ namespace MobiFlight
             {
                 RunAvrDude(Port, module.Board);
 
-                if (module.Board.DelayAfterFirmwareUpdate > 0)
+                if (module.Board.Connection.DelayAfterFirmwareUpdate > 0)
                 {
-                    System.Threading.Thread.Sleep(module.Board.DelayAfterFirmwareUpdate);
+                    System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
                 }
                 return true;
             }
 
-            Log.Instance.log($"Firmware update requested for {module.Board.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
+            Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
             return false;
         }
 
@@ -78,7 +78,7 @@ namespace MobiFlight
 
         public static void RunAvrDude(String Port, Board board) 
         {
-            String FirmwareName = board.AvrDudeSettings.GetFirmwareName(board.LatestFirmwareVersion); 
+            String FirmwareName = board.AvrDudeSettings.GetFirmwareName(board.Info.LatestFirmwareVersion); 
             String ArduinoChip = board.AvrDudeSettings.Device;
             String Bytes = board.AvrDudeSettings.BaudRate;
             String C = board.AvrDudeSettings.Programmer;
