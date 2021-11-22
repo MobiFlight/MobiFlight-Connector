@@ -98,18 +98,9 @@ namespace MobiFlight.UI.Panels.Settings
                     }
                     else
                     {
-                        Version latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMega);
-                        switch (module.Type)
-                        {
-                            case MobiFlightModuleInfo.TYPE_ARDUINO_MICRO:
-                                latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMicro);
-                                break;
+                        Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
 
-                            case MobiFlightModuleInfo.TYPE_ARDUINO_UNO:
-                                latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareUno);
-                                break;
-                        }
-                        Version currentVersion = new Version(module.Version != "n/a" && module.Version != "" ? module.Version : "0.0.0");
+                        Version currentVersion = new Version(!String.IsNullOrEmpty(module.Version) ? module.Version : "0.0.0");
                         if (currentVersion.CompareTo(latestVersion) < 0)
                         {
                             node.SelectedImageKey = node.ImageKey = "module-update";
@@ -207,9 +198,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfSettingsPanel.Controls.Clear();
             if (parentNode.Tag == null) return;
 
-            bool isMobiFlightBoard = (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MEGA
-                                  && (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_MICRO
-                                  && (parentNode.Tag as MobiFlightModule).Type != MobiFlightModuleInfo.TYPE_ARDUINO_UNO;
+            bool isMobiFlightBoard = (parentNode.Tag as MobiFlightModule).HasMfFirmware();
 
             mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
             // this is the module node
@@ -256,7 +245,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
             else
             {
-                node.Tag = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = module.Port, Type = module.Type });
+                node.Tag = new MobiFlightModule(module.Port, module.Board);
             }
 
             return node;
@@ -322,7 +311,7 @@ namespace MobiFlight.UI.Panels.Settings
                             break;
 
                         case DeviceType.Output:
-                            panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetPins(), module.Type);
+                            panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetPins(), module.Board);
                             (panel as MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
@@ -373,9 +362,9 @@ namespace MobiFlight.UI.Panels.Settings
                 {
                     case "servoToolStripMenuItem":
                     case "addServoToolStripMenuItem":
-                        if (statistics[MobiFlightServo.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxServos)
+                        if (statistics[MobiFlightServo.TYPE] == tempModule.Board.ModuleLimits.MaxServos)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightServo.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxServos);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightServo.TYPE, tempModule.Board.ModuleLimits.MaxServos);
                         }
 
                         cfgItem = new MobiFlight.Config.Servo();
@@ -383,9 +372,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "stepperToolStripMenuItem":
                     case "addStepperToolStripMenuItem":
-                        if (statistics[MobiFlightStepper.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxSteppers)
+                        if (statistics[MobiFlightStepper.TYPE] == tempModule.Board.ModuleLimits.MaxSteppers)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightStepper.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxSteppers);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightStepper.TYPE, tempModule.Board.ModuleLimits.MaxSteppers);
                         }
 
                         cfgItem = new MobiFlight.Config.Stepper();
@@ -397,9 +386,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "ledOutputToolStripMenuItem":
                     case "addOutputToolStripMenuItem":
-                        if (statistics[MobiFlightOutput.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxOutputs)
+                        if (statistics[MobiFlightOutput.TYPE] == tempModule.Board.ModuleLimits.MaxOutputs)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightOutput.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxOutputs);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightOutput.TYPE, tempModule.Board.ModuleLimits.MaxOutputs);
                         }
 
                         cfgItem = new MobiFlight.Config.Output();
@@ -407,9 +396,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "ledSegmentToolStripMenuItem":
                     case "addLedModuleToolStripMenuItem":
-                        if (statistics[MobiFlightLedModule.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLedSegments)
+                        if (statistics[MobiFlightLedModule.TYPE] == tempModule.Board.ModuleLimits.MaxLedSegments)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLedModule.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLedSegments);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLedModule.TYPE, tempModule.Board.ModuleLimits.MaxLedSegments);
                         }
 
                         cfgItem = new MobiFlight.Config.LedModule();
@@ -419,18 +408,18 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "analogDeviceToolStripMenuItem1":
                     case "analogDeviceToolStripMenuItem":
-                        if (statistics[MobiFlightAnalogInput.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxAnalogInputs)
+                        if (statistics[MobiFlightAnalogInput.TYPE] == tempModule.Board.ModuleLimits.MaxAnalogInputs)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightAnalogInput.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxAnalogInputs);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightAnalogInput.TYPE, tempModule.Board.ModuleLimits.MaxAnalogInputs);
                         }
                         cfgItem = new MobiFlight.Config.AnalogInput();
                         (cfgItem as MobiFlight.Config.AnalogInput).Pin = getVirtualModuleFromTree().GetFreePins().FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
                         break;                        
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
-                        if (statistics[MobiFlightButton.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxButtons)
+                        if (statistics[MobiFlightButton.TYPE] == tempModule.Board.ModuleLimits.MaxButtons)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightButton.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxButtons);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightButton.TYPE, tempModule.Board.ModuleLimits.MaxButtons);
                         }
 
                         cfgItem = new MobiFlight.Config.Button();
@@ -438,9 +427,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "encoderToolStripMenuItem":
                     case "addEncoderToolStripMenuItem":
-                        if (statistics[MobiFlightEncoder.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxEncoders)
+                        if (statistics[MobiFlightEncoder.TYPE] == tempModule.Board.ModuleLimits.MaxEncoders)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightEncoder.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxEncoders);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightEncoder.TYPE, tempModule.Board.ModuleLimits.MaxEncoders);
                         }
 
                         cfgItem = new MobiFlight.Config.Encoder();
@@ -449,9 +438,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":
-                        if (statistics[MobiFlightLcdDisplay.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLcdI2C)
+                        if (statistics[MobiFlightLcdDisplay.TYPE] == tempModule.Board.ModuleLimits.MaxLcdI2C)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxLcdI2C);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.Board.ModuleLimits.MaxLcdI2C);
                         }
 
                         cfgItem = new MobiFlight.Config.LcdDisplay();
@@ -697,8 +686,8 @@ namespace MobiFlight.UI.Panels.Settings
             module.Config = newConfig;
 
             // Prevent upload from too long configs that would exceed the available EEPROM size
-            String LogMessage = String.Join("", module.Config.ToInternal(module.MaxMessageSize).ToArray());
-            if (LogMessage.Length > module.EepromSize)
+            String LogMessage = String.Join("", module.Config.ToInternal(module.Board.Connection.MessageSize).ToArray());
+            if (LogMessage.Length > module.Board.Connection.EEPROMSize)
             {
                 MessageBox.Show(i18n._tr("uiMessageUploadConfigurationTooLong"),
                                 i18n._tr("uiMessageUploadConfigurationHint"),
@@ -780,13 +769,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             parentNode = getModuleNode(parentNode);
 
-            MobiFlightModule module = new MobiFlightModule(
-                new MobiFlightModuleConfig()
-                {
-                    ComPort = (parentNode.Tag as MobiFlightModule).Port,
-                    Type = (parentNode.Tag as MobiFlightModule).Type
-                }
-            );
+            MobiFlightModule module = new MobiFlightModule((parentNode.Tag as MobiFlightModule).Port, (parentNode.Tag as MobiFlightModule).Board);
             
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             foreach (TreeNode node in parentNode.Nodes)
@@ -822,7 +805,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             foreach (MobiFlightModuleInfo moduleInfo in modulesForFlashing)
             {
-                MobiFlightModule module = new MobiFlightModule(new MobiFlightModuleConfig() { ComPort = moduleInfo.Port, Type = moduleInfo.Type });
+                MobiFlightModule module = new MobiFlightModule(moduleInfo.Port, moduleInfo.Board);
                 modules.Add(module);
             }
 
@@ -905,7 +888,14 @@ namespace MobiFlight.UI.Panels.Settings
         private void FirmwareUpdateProcessForm_OnAfterFirmwareUpdate(object sender, EventArgs e)
         {
             // update presentation in treeView
-            MobiFlightModule module = (MobiFlightModule) sender;
+            MobiFlightModule module = (MobiFlightModule)sender;
+
+            // If the update fails for some reason, e.g. the board definition file was missing the settings for the
+            // update, then module will be null.
+            if (module == null)
+            {
+                return;
+            }
 
             module.Connect();
             MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;

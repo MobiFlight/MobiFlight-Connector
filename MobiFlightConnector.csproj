@@ -146,6 +146,9 @@
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
     </Reference>
@@ -197,6 +200,8 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\AppTelemetry.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="MobiFlight\Board.cs" />
+    <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
@@ -208,6 +213,7 @@
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
+    <Compile Include="MobiFlight\MobiFlightPin.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
@@ -501,7 +507,6 @@
     <Compile Include="MobiFlight\MobiFlightIOBasic.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModule.cs" />
     <Compile Include="MobiFlight\MobiFlightModule.cs" />
-    <Compile Include="MobiFlight\MobiFlightModuleConfig.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
     <Compile Include="UI\Panels\Device\MFModulePanel.cs">
@@ -723,6 +728,16 @@
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </Compile>
     <None Include="ApplicationInsights.config" />
+    <None Include="Boards\arduino_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Boards\arduino_micro.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Boards\arduino_uno.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Boards\mfboard.schema.json" />
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
     <None Include="examples\example-default-plane-v6.1.mcc">

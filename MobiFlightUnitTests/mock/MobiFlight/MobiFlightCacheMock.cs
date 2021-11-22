@@ -17,7 +17,7 @@ namespace MobiFlightUnitTests.mock.MobiFlight
             return await Task.Run(() => {
                 List<MobiFlightModule> list = new List<MobiFlightModule>()
                 {
-                    new MobiFlightModule(new MobiFlightModuleConfig())
+                    new MobiFlightModule("COM1", new Board())
                 };
 
                     return list;
@@ -29,7 +29,7 @@ namespace MobiFlightUnitTests.mock.MobiFlight
         public IEnumerable<MobiFlightModule> GetModules()
         {
             return new List<MobiFlightModule>() {
-                new MobiFlightModule(new MobiFlightModuleConfig())
+                new MobiFlightModule("COM1", new Board())
             };
         }
 
