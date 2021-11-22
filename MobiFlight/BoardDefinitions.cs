@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
-    static class BoardDefinitions
+    public static class BoardDefinitions
     {
         private static List<Board> boards = new List<Board>();
 
