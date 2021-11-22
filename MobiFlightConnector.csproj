@@ -734,9 +734,6 @@
     <None Include="Boards\arduino_micro.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Boards\arduino_nano.board.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Boards\mfboard.schema.json" />
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
