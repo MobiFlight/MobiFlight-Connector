@@ -33,6 +33,7 @@ namespace MobiFlight
 
         public static bool Update(MobiFlightModule module)
         {
+            bool result = false;
             String Port = module.InitUploadAndReturnUploadPort();
             if (module.Connected) module.Disconnect();
 
@@ -43,38 +44,23 @@ namespace MobiFlight
 
             if (module.Board.AvrDudeSettings != null)
             {
-                RunAvrDude(Port, module.Board);
+                try {
+                    RunAvrDude(Port, module.Board);
+                    result = true;
+                } catch(Exception e) {
+                    result = false;
+                }
 
                 if (module.Board.Connection.DelayAfterFirmwareUpdate > 0)
                 {
                     System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
                 }
-                return true;
-            }
-
-            Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
-            return false;
-        }
-
-        /*
-        public static String GetLatestFirmwareFile(String ArduinoType)
-        {
-            String prefix = "mobiflight_micro_";
-            if (MobiFlightModuleInfo.TYPE_ARDUINO_MEGA == ArduinoType)
+            } else
             {
-                prefix = "mobiflight_mega_";
+                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
             }
-            string[] filePaths = Directory.GetFiles(@FirmwarePath, prefix + "*.hex");
-
-            String result = null;
-            foreach (string file in filePaths)
-            {
-            }
-
-            if (result == null) throw new FileNotFoundException("Could not find any firmware in " + FirmwarePath);
             return result;
         }
-        */
 
         public static void RunAvrDude(String Port, Board board) 
         {

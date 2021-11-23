@@ -128,6 +128,10 @@
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>9, 20</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
@@ -140,8 +144,8 @@
   <data name="label1.Text" xml:space="preserve">
     <value>The firmware is being uploaded. This may take some time. Please wait until this window closes.</value>
   </data>
-  <data name="StatusLabel.Text" xml:space="preserve">
-    <value>Status</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FirmwareUpdateProcess</value>
   </data>
   <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Name" xml:space="preserve">
     <value>firmwareUpdateBackgroundWorker</value>
@@ -161,7 +165,6 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>506, 225</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
@@ -176,9 +179,6 @@
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
-  </data>
-  <data name="StatusLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
   </data>
   <data name="progressBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
@@ -201,9 +201,6 @@
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>FirmwareUpdateProcess</value>
-  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>490, 117</value>
   </data>
@@ -222,8 +219,8 @@
   <data name="progressBar1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="label1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="StatusLabel.Text" xml:space="preserve">
+    <value>Status</value>
   </data>
   <data name="StatusLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 154</value>
@@ -234,23 +231,23 @@
   <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 117</value>
   </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="&gt;&gt;firmwareUpdateBackgroundWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Firmware Update Running</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="StatusLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="&gt;&gt;StatusLabel.Name" xml:space="preserve">
     <value>StatusLabel</value>
   </data>
   <metadata name="firmwareUpdateBackgroundWorker.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>565, 17</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>de</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
