@@ -477,7 +477,7 @@
             this.settingsToolStripButton.Image = global::MobiFlight.Properties.Resources.module_mobiflight;
             resources.ApplyResources(this.settingsToolStripButton, "settingsToolStripButton");
             this.settingsToolStripButton.Name = "settingsToolStripButton";
-            this.settingsToolStripButton.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.settingsToolStripButton.Click += new System.EventHandler(this.StatusBarToolStripButton_Click);
             // 
             // toolStripSeparator3
             // 

@@ -230,6 +230,14 @@ namespace MobiFlight
             autoConnectTimer.Stop();
         }
 
+        internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
+        {
+            lock (inputCache)
+            {
+                inputCache.Clear();
+            }
+        }
+
         public bool IsStarted()
         {
             return timer.Enabled;
@@ -1411,43 +1419,45 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + "=>" +e.Value;
             }
 
-            if (!inputCache.ContainsKey(inputKey))
-            {
-                inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
-                // check if we have configs for this button
-                // and store it      
-
-                foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
+            lock (inputCache) {
+                if (!inputCache.ContainsKey(inputKey))
                 {
-                    try
+                    inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
+                    // check if we have configs for this button
+                    // and store it      
+
+                    foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
                     {
-                        if (gridViewRow.DataBoundItem == null) continue;
-
-                        InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-
-                        // item currently created and not saved yet.
-                        if (cfg == null) continue;
-
-                        if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
+                        try
                         {
-                            inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
+                            if (gridViewRow.DataBoundItem == null) continue;
+
+                            InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+
+                            // item currently created and not saved yet.
+                            if (cfg == null) continue;
+
+                            if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
+                            {
+                                inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // probably the last row with no settings object 
+                            continue;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        // probably the last row with no settings object 
-                        continue;
-                    }
                 }
-            }
 
-            // no config for this button found
-            if (inputCache[inputKey].Count == 0)
-            {
+                // no config for this button found
+                if (inputCache[inputKey].Count == 0)
+                {
 
-                if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
-                return;
+                    if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
+                        Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
+                    return;
+                }
             }
 
             Log.Instance.log("Config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);

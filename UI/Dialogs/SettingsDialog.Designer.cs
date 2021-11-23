@@ -315,6 +315,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "SettingsDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.Load += new System.EventHandler(this.SettingsDialog_Load);
             this.Shown += new System.EventHandler(this.SettingsDialog_Shown);
             this.panel1.ResumeLayout(false);
             this.ArcazeTabPage.ResumeLayout(false);
@@ -331,7 +332,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TabPage ArcazeTabPage;
+        public System.Windows.Forms.TabPage ArcazeTabPage;
         private System.Windows.Forms.TabPage generalTabPage;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ContextMenuStrip mfModuleSettingsContextMenuStrip;

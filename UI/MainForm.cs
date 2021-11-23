@@ -94,6 +94,9 @@ namespace MobiFlight.UI
             // finally set up logging (based on settings)
             InitializeLogging();
 
+            // Initialize the board configurations
+            BoardDefinitions.Load();
+
             // configure tracking correctly
             InitializeTracking();
         }
@@ -182,6 +185,7 @@ namespace MobiFlight.UI
             inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
             inputConfigPanel.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
             inputConfigPanel.OutputDataSetConfig = outputConfigPanel.DataSetConfig;
+            inputConfigPanel.SettingsChanged += execManager.OnInputConfigSettingsChanged;
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
@@ -254,7 +258,12 @@ namespace MobiFlight.UI
 
         private void ConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
         {
-            settingsToolStripMenuItem_Click(sender, null);
+            MobiFlightModule module = (sender as MobiFlightModule);
+            MobiFlightModuleInfo moduleInfo = null;
+
+            if (module != null) moduleInfo = module.ToMobiFlightModuleInfo();
+
+            ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
         private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
@@ -324,18 +333,10 @@ namespace MobiFlight.UI
 
             foreach (MobiFlightModule module in mfCache.GetModules())
             {
-                if (module.Type == MobiFlightModuleInfo.TYPE_MEGA ||
-                    module.Type == MobiFlightModuleInfo.TYPE_MICRO ||
-                    module.Type == MobiFlightModuleInfo.TYPE_UNO
-                    )
+                if (module.Board.Info.CanInstallFirmware)
                 {
-                    Version latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMega);
-                    if (module.Type == MobiFlightModuleInfo.TYPE_MICRO)
-                        latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMicro);
-                    if (module.Type == MobiFlightModuleInfo.TYPE_UNO)
-                        latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareUno);
-
-                    Version currentVersion = new Version(module.Version != "n/a" ? module.Version : "0.0.0");
+                    Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
+                    Version currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
                     if (currentVersion.CompareTo(latestVersion) < 0)
                     {
                         // Update needed!!!
@@ -346,10 +347,7 @@ namespace MobiFlight.UI
 
             foreach (MobiFlightModuleInfo moduleInfo in modules)
             {
-                if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA ||
-                    moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO ||
-                    moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO
-                    )
+                if (moduleInfo.Board.Info.CanInstallFirmware && !moduleInfo.HasMfFirmware())
                 {
                     modulesForFlashing.Add(moduleInfo);
                 }
@@ -378,11 +376,7 @@ namespace MobiFlight.UI
                 
                 if (tmd.ShowDialog() == DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.MobiFlightModulesForUpdate = modulesForUpdate;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("mobiFlightTabPage", null, null, modulesForUpdate) == System.Windows.Forms.DialogResult.OK)
                     {
                     }
                 };
@@ -399,11 +393,7 @@ namespace MobiFlight.UI
 
                 if (tmd.ShowDialog() == DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage"); // = (dlg.Controls["tabControl1"] as TabControl).Controls[2] as TabPage;
-                    dlg.MobiFlightModulesForFlashing = modulesForFlashing;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("mobiFlightTabPage", null, modulesForFlashing, null) == System.Windows.Forms.DialogResult.OK)
                     {
                     }
                 }
@@ -420,6 +410,30 @@ namespace MobiFlight.UI
                     };
                 }
             }
+        }
+
+        private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
+        {
+            SettingsDialog dlg = new SettingsDialog(execManager);
+            dlg.StartPosition = FormStartPosition.CenterParent;
+            switch(SelectedTab)
+            {
+                case "mobiFlightTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
+                    break;
+                case "ArcazeTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
+                    break;
+            }
+            if (SelectedBoard != null)
+                dlg.PreselectedBoard = SelectedBoard;
+
+            if (BoardsForFlashing != null)
+                dlg.MobiFlightModulesForFlashing = BoardsForFlashing;
+
+            if (BoardsForUpdate != null)
+                dlg.MobiFlightModulesForUpdate = BoardsForUpdate;
+            return dlg.ShowDialog();
         }
 
         // this performs the update of the existing user settings 
@@ -595,10 +609,7 @@ namespace MobiFlight.UI
                                 MessageBoxIcon.Exclamation,
                                 MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.OK)
                 {
-                    SettingsDialog dlg = new SettingsDialog(execManager);
-                    dlg.StartPosition = FormStartPosition.CenterParent;
-                    (dlg.Controls["tabControl1"] as TabControl).SelectedTab = (dlg.Controls["tabControl1"] as TabControl).Controls[1] as TabPage;
-                    if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (ShowSettingsDialog("ArcazeTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
                     {
                     }
                 }
@@ -843,7 +854,10 @@ namespace MobiFlight.UI
 #if MOBIFLIGHT
             foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                moduleToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
+                ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
+                item.Tag = module;
+                item.Click += statusToolStripMenuItemClick;
+                moduleToolStripDropDownButton.DropDownItems.Add(item);
                 modulesFound = true;
             }
 #endif
@@ -854,6 +868,13 @@ namespace MobiFlight.UI
             // only enable button if modules are available            
             return (modulesFound);
         } //fillComboBoxesWithArcazeModules()
+
+        private void statusToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            MobiFlightModuleInfo moduleInfo = (sender as ToolStripMenuItem).Tag as MobiFlightModuleInfo;
+
+            ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
+        }
 
         /// <summary>
         /// toggles the current timer when user clicks on respective run/stop buttons
@@ -1444,16 +1465,7 @@ namespace MobiFlight.UI
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: refactor dependency to module cache
-            SettingsDialog dialog = new SettingsDialog(execManager);
-            dialog.StartPosition = FormStartPosition.CenterParent;
-            if (sender is InputConfigWizard || sender is ConfigWizard)
-            {
-                // show the mobiflight tab page
-                dialog.tabControl1.SelectedTab = dialog.mobiFlightTabPage;
-            }
-
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
             {
 #if ARCAZE
                 execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
@@ -1589,7 +1601,7 @@ namespace MobiFlight.UI
 
                 if (!updater.AutoDetectCommunityFolder())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1598,7 +1610,7 @@ namespace MobiFlight.UI
 
                 if (!updater.WasmModulesAreDifferent())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1607,7 +1619,7 @@ namespace MobiFlight.UI
 
                 if (updater.InstallWasmModule())
                 {
-                    MessageBox.Show(
+                    TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1620,7 +1632,7 @@ namespace MobiFlight.UI
             }
 
             // We only get here in case of an error.
-            MessageBox.Show(
+            TimeoutMessageDialog.Show(
                 i18n._tr("uiMessageWasmUpdateInstallationError"),
                 i18n._tr("uiMessageWasmUpdater"),
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1632,7 +1644,7 @@ namespace MobiFlight.UI
 
             if (!updater.AutoDetectCommunityFolder())
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1641,14 +1653,14 @@ namespace MobiFlight.UI
 
             if (updater.InstallWasmEvents())
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show(
+                TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationError"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1660,14 +1672,9 @@ namespace MobiFlight.UI
             Process.Start("https://discord.gg/U28QeEJpBV");
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void StatusBarToolStripButton_Click(object sender, EventArgs e)
         {
-            SettingsDialog dlg = new SettingsDialog(execManager);
-            dlg.StartPosition = FormStartPosition.CenterParent;
-            (dlg.Controls["tabControl1"] as TabControl).SelectTab("mobiFlightTabPage");
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-            }
+            ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
         private void YouTubeToolStripButton_Click(object sender, EventArgs e)
