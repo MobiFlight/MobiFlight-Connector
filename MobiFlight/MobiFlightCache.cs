@@ -620,7 +620,7 @@ namespace MobiFlight
                     result.Add(moduleInfo);
             }
 
-            return result;
+            return result.OrderBy(module => module.Name);
         }
 
         public MobiFlightModule GetModule(string port)
