@@ -212,6 +212,12 @@
           "title": "Maxsteppers",
           "description": "Maximum number of steppers supported by the board.",
           "type": "integer"
+        },
+        "MaxShifters": {
+          "$id": "#root/ModuleLimits/MaxShifters",
+          "title": "Maxshifters",
+          "description": "Maximum number of output shift registers supported by the board.",
+          "type": "integer"
         }
       }
     },

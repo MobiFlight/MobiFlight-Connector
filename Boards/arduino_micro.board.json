@@ -27,14 +27,15 @@
     "MobiFlightType": "MobiFlight Micro"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 5,
-    "MaxButtons": 16,
-    "MaxEncoders": 4,
-    "MaxLcdI2C": 2,
+    "MaxOutputs": 18,
+    "MaxButtons": 18,
     "MaxLedSegments": 1,
-    "MaxOutputs": 10,
-    "MaxServos": 2,
-    "MaxSteppers": 2
+    "MaxEncoders": 5,
+    "MaxSteppers": 3,
+    "MaxServos": 3,
+    "MaxLcdI2C": 2,
+    "MaxAnalogInputs": 5,
+    "MaxShifters": 2
   },
   "Pins": [
     {
