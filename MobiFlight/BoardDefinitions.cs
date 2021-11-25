@@ -39,12 +39,33 @@ namespace MobiFlight
 
         /// <summary>
         /// Finds a board definition by matching against the MobiFlight firmware name for the board.
+        /// If multiple board definitions match this returns the board definition with the highest
+        /// MinimumFirmwareVersion that supports the provided current firmware version.
         /// </summary>
-        /// <param name="mobiflightType">The name to search for</param>
-        /// <returns>The first board definition matching the name, or null if none found</returns>
-        public static Board GetBoardByMobiFlightType(String mobiflightType)
+        /// <param name="mobiflightType">The name to search for.</param>
+        /// <param name="version">The version of the firmware on the board.</param>
+        /// <returns>The first board definition matching the name and firmware version, or null if none found.</returns>
+        public static Board GetBoardByMobiFlightType(String mobiflightType, string version)
         {
-            return boards.Find(board => board.Info.MobiFlightType.ToLower() == mobiflightType?.ToLower());
+            var firmwareVersion = new Version(version);
+
+            // Candidate boards match the mobiflight type and have a minimum firmware version equal to or lower than the
+            // firmware version provided.
+            var candidateBoards = boards.FindAll(board => {
+                return board.Info.MobiFlightType.ToLower() == mobiflightType?.ToLower() &&
+                       board.Info.MinimumFirmwareVersion.CompareTo(firmwareVersion) <= 0;
+                });
+
+            if (candidateBoards == null)
+            {
+                return null;
+            }
+
+            // Sort the boards in descending order by MinimumFirmwareVersion
+            candidateBoards.Sort((y, x) => x.Info.MinimumFirmwareVersion.CompareTo(y.Info.MinimumFirmwareVersion));
+
+            // Return the first board in the sorted list, which will be the one with the highest MinimumFirmwareVersion.
+            return candidateBoards[0];
         }
 
         /// <summary>

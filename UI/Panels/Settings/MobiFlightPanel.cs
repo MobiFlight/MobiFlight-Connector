@@ -98,10 +98,8 @@ namespace MobiFlight.UI.Panels.Settings
                     }
                     else
                     {
-                        Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
-
                         Version currentVersion = new Version(!String.IsNullOrEmpty(module.Version) ? module.Version : "0.0.0");
-                        if (currentVersion.CompareTo(latestVersion) < 0)
+                        if (currentVersion.CompareTo(module.Board.Info.LatestFirmwareVersion) < 0)
                         {
                             node.SelectedImageKey = node.ImageKey = "module-update";
                             node.ToolTipText = i18n._tr("uiMessageSettingsDlgOldFirmware");

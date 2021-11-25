@@ -120,6 +120,7 @@
         "CanInstallFirmware",
         "FriendlyName",
         "LatestFirmwareVersion",
+        "MinimumFirmwareVersion",
         "MobiFlightType"
       ],
       "properties": {
@@ -139,7 +140,15 @@
           "$id": "#root/Info/LatestFirmwareVersion",
           "title": "Latestfirmwareversion",
           "description": "The latest supported version of the firmware.",
-          "type": "string"
+          "type": "string",
+          "pattern": "\\d+\\.\\d+\\.\\d+"
+        },
+        "MinimumFirmwareVersion": {
+          "$id": "#root/Info/MinimumFirmwareVersion",
+          "title": "MinimumFirmwareVersion",
+          "description": "The lowest firmware version that works with this board definition.",
+          "type": "string",
+          "pattern": "\\d+\\.\\d+\\.\\d+"
         },
         "MobiFlightType": {
           "$id": "#root/Info/MobiFlightType",

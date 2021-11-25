@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,9 +38,9 @@ namespace MobiFlight
         /// </summary>
         /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
         /// <returns>The firmware file name using FirmwareBaseName and the specified firmware version.</returns>
-        public string GetFirmwareName(string latestFirmwareVersion)
+        public string GetFirmwareName(Version latestFirmwareVersion)
         {
-            return $"{FirmwareBaseName}_{latestFirmwareVersion.Replace('.', '_')}.hex";
+            return $"{FirmwareBaseName}_{latestFirmwareVersion.ToString().Replace('.', '_')}.hex";
         }
     }
 
@@ -101,7 +103,14 @@ namespace MobiFlight
         /// <summary>
         /// The latest supported version of the firmware.
         /// </summary>
-        public String LatestFirmwareVersion;
+        [JsonConverter(typeof(VersionConverter))]
+        public Version LatestFirmwareVersion = new Version(0, 0, 0);
+
+        /// <summary>
+        /// The lowest firmware version that works with this board definition.
+        /// </summary>
+        [JsonConverter(typeof(VersionConverter))]
+        public Version MinimumFirmwareVersion = new Version(0, 0, 0);
 
         /// <summary>
         /// The type of the board as provided by the MobiFlight firmware.
@@ -190,6 +199,37 @@ namespace MobiFlight
         public override string ToString()
         {
             return $"{Info.MobiFlightType} ({Info.FriendlyName})";
+        }
+    }
+
+    public class VersionConverter : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException("Not implemented yet");
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.String)
+            {
+                var versionString = serializer.Deserialize(reader, objectType).ToString();
+                return new Version(versionString);
+            }
+            else
+            {
+                return new Version(0, 0, 0);
+            }
+        }
+
+        public override bool CanWrite
+        {
+            get { return false; }
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return false;
         }
     }
 }

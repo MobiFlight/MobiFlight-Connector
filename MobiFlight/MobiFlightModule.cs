@@ -723,7 +723,7 @@ namespace MobiFlight
             //
             // This check and assignment is done outside of the above if statement to catch cases
             // where there was no firmware installed.
-            devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
+            devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type, devInfo.Version) ?? Board;
             Board = devInfo.Board;
 
             Log.Instance.log($"MobiFlightModule.GetInfo: {Type}, {Name}, {Version}, {Serial}", LogSeverity.Debug);

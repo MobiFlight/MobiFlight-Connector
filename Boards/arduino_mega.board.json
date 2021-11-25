@@ -34,6 +34,7 @@
     "DelayAfterFirmwareUpdate": 0,
     "LatestFirmwareVersion": "1.12.1",
     "FriendlyName": "Arduino Mega 2560",
+    "MinimumFirmwareVersion": "0.0.1",
     "MobiFlightType": "MobiFlight Mega"
   },
   "ModuleLimits": {

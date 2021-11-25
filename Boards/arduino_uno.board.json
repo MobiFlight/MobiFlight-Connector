@@ -20,6 +20,7 @@
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Uno",
     "LatestFirmwareVersion": "1.12.1",
+    "MinimumFirmwareVersion": "0.0.1",
     "MobiFlightType": "MobiFlight Uno"
   },
   "ModuleLimits": {
