@@ -61,7 +61,7 @@ namespace MobiFlight
                 return null;
             }
 
-            // Sort the boards in descending order by MinimumFirmwareVersion
+            // Sort the boards in descending order by MinimumFirmwareVersion to find the best match.
             candidateBoards.Sort((y, x) => x.Info.MinimumFirmwareVersion.CompareTo(y.Info.MinimumFirmwareVersion));
 
             // Return the first board in the sorted list, which will be the one with the highest MinimumFirmwareVersion.
