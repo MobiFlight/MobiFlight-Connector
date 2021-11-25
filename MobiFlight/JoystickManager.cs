@@ -27,9 +27,11 @@ namespace MobiFlight
         {
             try
             {
-                foreach (MobiFlight.Joystick js in joysticks)
-                {
-                    js?.Update();
+                lock (joysticks) { 
+                    foreach (MobiFlight.Joystick js in joysticks)
+                    {
+                        js?.Update();
+                    }
                 }
             } catch (InvalidOperationException ex)
             {
@@ -76,6 +78,8 @@ namespace MobiFlight
                 js.OnAxisChanged += Js_OnAxisChanged;
                 js.OnDisconnected += Js_OnDisconnected;
             }
+
+            joysticks.Sort((j1, j2) => j1.Name.CompareTo(j2.Name));
         }
 
         private void Js_OnDisconnected(object sender, EventArgs e)

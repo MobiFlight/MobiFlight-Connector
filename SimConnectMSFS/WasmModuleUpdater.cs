@@ -14,15 +14,15 @@ namespace MobiFlight.SimConnectMSFS
     {
         public const String WasmModuleFolder = @".\MSFS2020-module\mobiflight-event-module";
         
-        public const String WasmEventsTxtUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/export/presetss?type=wasm";
+        public const String WasmEventsTxtUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/export/presets?type=wasm";
         public const String WasmEventsTxtFolder = @"mobiflight-event-module\modules";
         public const String WasmEventsTxtFile = "events.txt";
 
-        public const String WasmEventsCipUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/export/presetss?type=cip";
+        public const String WasmEventsCipUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/export/presets?type=cip";
         public const String WasmEventsCipFolder = @".\presets";
         public const String WasmEventsCipFileName = @"msfs2020_eventids.cip";
 
-        public const String WasmEventsSimVarsUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/export/presetss?type=simVars";
+        public const String WasmEventsSimVarsUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/export/presets?type=simVars";
         public const String WasmEventsSimVarsFolder = @".\presets";
         public const String WasmEventsSimVarsFileName = @"msfs2020_simvars.cip";
 

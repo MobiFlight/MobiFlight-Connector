@@ -201,7 +201,7 @@ namespace MobiFlight
             {
                 result.Add(module.GetInfo());
             }
-            return result;
+            return result.OrderBy(m => m.Name);
         }
 
         /// <summary>

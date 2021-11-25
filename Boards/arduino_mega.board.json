@@ -44,7 +44,8 @@
     "MaxSteppers": 10,
     "MaxServos": 10,
     "MaxLcdI2C": 2,
-    "MaxAnalogInputs": 5
+    "MaxAnalogInputs": 16,
+    "MaxShifters": 4
   },
   "Pins": [
     {
