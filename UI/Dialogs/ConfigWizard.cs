@@ -1136,7 +1136,14 @@ namespace MobiFlight.UI.Dialogs
             displayPinTestButton.Enabled = false;
             displayTypeGroupBox.Enabled = false;
             groupBoxDisplaySettings.Enabled = false;
-            _execManager.ExecuteTestOn(config);
+            try
+            {
+                _execManager.ExecuteTestOn(config);
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log($"Error Test Mode execution. ExecuteTestOn > {e.Message}", LogSeverity.Error);
+            }
         }
 
         private void _testModeStop()
@@ -1148,7 +1155,15 @@ namespace MobiFlight.UI.Dialogs
             displayPinTestButton.Enabled = true;
             displayTypeGroupBox.Enabled = true;
             groupBoxDisplaySettings.Enabled = true;
-            _execManager.ExecuteTestOff(config);
+            try
+            {
+                _execManager.ExecuteTestOff(config);
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log($"Error Test Mode execution. ExecuteTestOff > {e.Message}", LogSeverity.Error);
+            }
+            
         }
 
         private void tabControlFsuipc_SelectedIndexChanged(object sender, EventArgs e)
