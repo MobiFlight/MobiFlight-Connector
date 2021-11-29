@@ -1,0 +1,271 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://mobiflight.com/mfboard.schema.json",
+  "title": "Root",
+  "type": "object",
+  "required": ["Connection", "HardwareIds", "Info", "ModuleLimits", "Pins"],
+  "properties": {
+    "AvrDudeSettings": {
+      "$id": "#root/AvrDudeSettings",
+      "title": "Avrdudesettings",
+      "type": "object",
+      "description": "Settings for flashing Arduino devices with avrdude.",
+      "required": ["BaudRate", "Device", "FirmwareBaseName", "Programmer"],
+      "properties": {
+        "BaudRate": {
+          "$id": "#root/AvrDudeSettings/BaudRate",
+          "title": "Baudrate",
+          "description": "Baud rate to use with AvrDude.",
+          "type": "string"
+        },
+        "Device": {
+          "$id": "#root/AvrDudeSettings/Device",
+          "title": "Device",
+          "description": "AvrDude device type for the device.",
+          "type": "string"
+        },
+        "FirmwareBaseName": {
+          "$id": "#root/AvrDudeSettings/FirmwareBaseName",
+          "title": "Firmwarebasename",
+          "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.hex.",
+          "type": "string"
+        },
+        "Programmer": {
+          "$id": "#root/AvrDudeSettings/Programmer",
+          "title": "Programmer",
+          "description": "AvrDude programmer to use for the device.",
+          "type": "string"
+        }
+      }
+    },
+    "Connection": {
+      "$id": "#root/Connection",
+      "title": "Connection",
+      "description": "Connection-related settings for the board.",
+      "type": "object",
+      "required": [
+        "ConnectionDelay",
+        "DelayAfterFirmwareUpdate",
+        "DtrEnable",
+        "EEPROMSize",
+        "ExtraConnectionRetry",
+        "ForceResetOnFirmwareUpdate",
+        "MessageSize"
+      ],
+      "properties": {
+        "ConnectionDelay": {
+          "$id": "#root/Connection/ConnectionDelay",
+          "title": "Connectiondelay",
+          "description": "Number of milliseconds to wait before loading the configuration after initially connecting to the board.",
+          "type": "integer"
+        },
+        "DelayAfterFirmwareUpdate": {
+          "$id": "#root/Connection/DelayAfterFirmwareUpdate",
+          "title": "Delayafterfirmwareupdate",
+          "description": "Number of milliseconds to wait after a firmware update before attempting to reconnect to the board.",
+          "type": "integer"
+        },
+        "DtrEnable": {
+          "$id": "#root/Connection/DtrEnable",
+          "title": "Dtrenable",
+          "description": "True if DTR should be enabled when connecting to the board over serial.",
+          "type": "boolean"
+        },
+        "EEPROMSize": {
+          "$id": "#root/Connection/EEPROMSize",
+          "title": "Eepromsize",
+          "description": "Maximum size of EEPROM storage, in bytes.",
+          "type": "integer"
+        },
+        "ExtraConnectionRetry": {
+          "$id": "#root/Connection/ExtraConnectionRetry",
+          "title": "Extraconnectionretry",
+          "description": "True if multiple attempts should be made when connecting to the board.",
+          "type": "boolean"
+        },
+        "ForceResetOnFirmwareUpdate": {
+          "$id": "#root/Connection/ForceResetOnFirmwareUpdate",
+          "title": "Forceresetonfirmwareupdate",
+          "description": "True if a force reset should be done to the board before attempting to upload the firmware.",
+          "type": "boolean"
+        },
+        "MessageSize": {
+          "$id": "#root/Connection/MessageSize",
+          "title": "Messagesize",
+          "description": "Maximum size of a CmdMessenger message, in bytes.",
+          "type": "integer"
+        }
+      }
+    },
+    "HardwareIds": {
+      "$id": "#root/HardwareIds",
+      "title": "Hardwareids",
+      "description": "A list of regular expressions of USB hardware IDs that use this board definition.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/HardwareIds/items",
+        "title": "Items",
+        "description": "A regular expression that should match a VID/PID.",
+        "type": "string"
+      }
+    },
+    "Info": {
+      "$id": "#root/Info",
+      "title": "Info",
+      "description": "General board information properties.",
+      "type": "object",
+      "required": [
+        "CanInstallFirmware",
+        "FriendlyName",
+        "LatestFirmwareVersion",
+        "MobiFlightType"
+      ],
+      "properties": {
+        "CanInstallFirmware": {
+          "$id": "#root/Info/CanInstallFirmware",
+          "title": "Caninstallfirmware",
+          "description": "True if the board supports loading firmware via MobiFlight.",
+          "type": "boolean"
+        },
+        "FriendlyName": {
+          "$id": "#root/Info/FriendlyName",
+          "title": "Friendlyname",
+          "description": "The USB friendly name for the board as specified by the board manufacturer.",
+          "type": "string"
+        },
+        "LatestFirmwareVersion": {
+          "$id": "#root/Info/LatestFirmwareVersion",
+          "title": "Latestfirmwareversion",
+          "description": "The latest supported version of the firmware.",
+          "type": "string"
+        },
+        "MobiFlightType": {
+          "$id": "#root/Info/MobiFlightType",
+          "title": "Mobiflighttype",
+          "description": "The type of the board as provided by the MobiFlight firmware.",
+          "type": "string"
+        }
+      }
+    },
+    "ModuleLimits": {
+      "$id": "#root/ModuleLimits",
+      "title": "Modulelimits",
+      "description": "Maximum number of each type of module supported by the board.",
+      "type": "object",
+      "required": [
+        "MaxAnalogInputs",
+        "MaxButtons",
+        "MaxEncoders",
+        "MaxLcdI2C",
+        "MaxLedSegments",
+        "MaxOutputs",
+        "MaxServos",
+        "MaxSteppers"
+      ],
+      "properties": {
+        "MaxAnalogInputs": {
+          "$id": "#root/ModuleLimits/MaxAnalogInputs",
+          "title": "Maxanaloginputs",
+          "description": "Maximum number of analog inputs supported by the board.",
+          "type": "integer"
+        },
+        "MaxButtons": {
+          "$id": "#root/ModuleLimits/MaxButtons",
+          "title": "Maxbuttons",
+          "description": "Maximum number of buttons supported by the board.",
+          "type": "integer"
+        },
+        "MaxEncoders": {
+          "$id": "#root/ModuleLimits/MaxEncoders",
+          "title": "Maxencoders",
+          "description": "Maximum number of encoders supported by the board.",
+          "type": "integer"
+        },
+        "MaxLcdI2C": {
+          "$id": "#root/ModuleLimits/MaxLcdI2C",
+          "title": "Maxlcdi2c",
+          "description": "Maximum number of I2C LCDs supported by the board.",
+          "type": "integer"
+        },
+        "MaxLedSegments": {
+          "$id": "#root/ModuleLimits/MaxLedSegments",
+          "title": "Maxledsegments",
+          "description": "Maximum number of LED segments supported by the board.",
+          "type": "integer"
+        },
+        "MaxOutputs": {
+          "$id": "#root/ModuleLimits/MaxOutputs",
+          "title": "Maxoutputs",
+          "description": "Maximum number of outputs supported by the board.",
+          "type": "integer"
+        },
+        "MaxServos": {
+          "$id": "#root/ModuleLimits/MaxServos",
+          "title": "Maxservos",
+          "description": "Maximum number of servos supported by the board.",
+          "type": "integer"
+        },
+        "MaxSteppers": {
+          "$id": "#root/ModuleLimits/MaxSteppers",
+          "title": "Maxsteppers",
+          "description": "Maximum number of steppers supported by the board.",
+          "type": "integer"
+        },
+        "MaxShifters": {
+          "$id": "#root/ModuleLimits/MaxShifters",
+          "title": "Maxshifters",
+          "description": "Maximum number of output shift registers supported by the board.",
+          "type": "integer"
+        }
+      }
+    },
+    "Pins": {
+      "$id": "#root/Pins",
+      "title": "Pins",
+      "description": "List of pins supported by the board.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/Pins/items",
+        "title": "Items",
+        "type": "object",
+        "required": ["isAnalog", "isPWM", "isI2C", "Pin"],
+        "properties": {
+          "isAnalog": {
+            "$id": "#root/Pins/items/isAnalog",
+            "title": "Isanalog",
+            "description": "True if the pin is an analog pin.",
+            "type": "boolean"
+          },
+          "isPWM": {
+            "$id": "#root/Pins/items/isPWM",
+            "title": "Ispwm",
+            "description": "True if the pin supports PWM.",
+            "type": "boolean"
+          },
+          "isI2C": {
+            "$id": "#root/Pins/items/isI2C",
+            "title": "Isi2c",
+            "description": "True if the pin is used for I2C communication.",
+            "type": "boolean"
+          },
+          "Name": {
+            "$id": "#root/Pins/items/Name",
+            "title": "Name",
+            "description": "Optional display name for the pin.",
+            "examples": ["A1"],
+            "type": "string"
+          },
+          "Pin": {
+            "$id": "#root/Pins/items/Pin",
+            "title": "Pin",
+            "description": "The number for the pin on the board.",
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

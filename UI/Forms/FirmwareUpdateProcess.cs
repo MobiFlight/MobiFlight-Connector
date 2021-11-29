@@ -70,8 +70,8 @@ namespace MobiFlight.UI.Forms
         private void FirmwareUpdateProcess_Shown(object sender, EventArgs e)
         {
             progressBar1.Value = 0;
+            FailedModules.Clear();
 
-            
             NumberOfModulesForFirmwareUpdate = modules.Count;
 
             foreach (MobiFlightModule module in modules)
@@ -139,7 +139,7 @@ namespace MobiFlight.UI.Forms
                         this.Close();
                     }
                 }, TaskScheduler.FromCurrentSynchronizationContext()
-            );
+                );
         }
     }
 }

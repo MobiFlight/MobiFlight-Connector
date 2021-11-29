@@ -120,15 +120,25 @@ namespace MobiFlight
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
         public String Name { get; set; }
-        public String Type { get; set; }
-        public String ArduinoType { get { 
-                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO) return MobiFlightModuleInfo.TYPE_ARDUINO_MICRO;
-                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA || Type == MobiFlightModuleInfo.TYPE_MEGA) return MobiFlightModuleInfo.TYPE_ARDUINO_MEGA;
-                if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO || Type == MobiFlightModuleInfo.TYPE_UNO) return MobiFlightModuleInfo.TYPE_ARDUINO_UNO;
-                return MobiFlightModuleInfo.TYPE_UNKNOWN;
-                } }
+        public String Type {
+            get
+            {
+                if (HasMfFirmware())
+                {
+                    return Board.Info.MobiFlightType;
+                }    
+                else
+                {
+                    return Board?.Info.FriendlyName ?? "Unknown";
+                }
+            }
+        }
         public String Serial { get; set; }
         public String Version { get; set; }
+        public bool HasMfFirmware()
+        {
+            return !String.IsNullOrEmpty(Version);
+        }
         public Config.Config Config { 
             get {                    
                     if (_config==null) {
@@ -144,7 +154,9 @@ namespace MobiFlight
                             InfoCommand = _cmdMessenger.SendCommand(command);
                         }
                         
-                        if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
+                        // Some boards, like the Arduino Uno, require several attempts
+                        // before the initial command succeeds.
+                        if (Board.Connection.ExtraConnectionRetry)
                         {
                             if (!InfoCommand.Ok)
                             InfoCommand = _cmdMessenger.SendCommand(command);
@@ -172,7 +184,7 @@ namespace MobiFlight
             }
         }
 
-        public const int CommandTimeout = 2000;
+        public const int CommandTimeout = 2500;
         
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();
@@ -207,54 +219,34 @@ namespace MobiFlight
         /// the look up table with the last set values
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
-        public int MaxMessageSize
-        {
-            get;
-            set;
-        }
-        public int EepromSize
-        {
-            get;
-            set;
-        }
 
-        
+        public Board Board { get; set; }
 
-        
-        
-        public MobiFlightModule(MobiFlightModuleConfig config)
+        public MobiFlightModule(String port, Board board)
         {
             Name = "Default";
-            Version = "n/a"; // this is simply unknown, in case of an unflashed Arduino
-            Serial = "n/a"; // this is simply unknown, in case of an unflashed Arduino
-            this.MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MICRO;
-            this.EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MICRO;
-            UpdateConfig(config);
-        }
-
-        public void UpdateConfig (MobiFlightModuleConfig config) 
-        {
-            Type = config.Type;
-            _comPort = config.ComPort;            
+            Version = null; // this is simply unknown, in case of an unflashed Arduino
+            Serial = null; // this is simply unknown, in case of an unflashed Arduino
+            _comPort = port;
+            Board = board;
         }
 
         public void Connect()
         {
             if (this.Connected)
             {
-                Log.Instance.log("MobiflightModule.connect: Already connected to " + this.Name + " at " + _comPort + " of Type " + Type, LogSeverity.Warn);
+                Log.Instance.log($"MobiflightModule.connect: Already connected to {Name} at {_comPort} of type {Board}", LogSeverity.Warn);
                 return;
             }
 
             // Create Serial Port object
-            bool dtrEnable = (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO);
             int baudRate = 115200;
             //baudRate = 57600;
             _transportLayer = new SerialTransport
             //_transportLayer = new SerialPortManager
             {
                 //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
-                CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = true } // object initializer
+                CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
             };
 
             _cmdMessenger = new CmdMessenger(_transportLayer)
@@ -270,17 +262,15 @@ namespace MobiFlight
 
             // Start listening    
             var status = _cmdMessenger.Connect();
-            Log.Instance.log("MobiflightModule.connect: Connected to " + this.Name + " at " + _comPort + " of Type " + Type + " (DTR=>" + _transportLayer.CurrentSerialSettings.DtrEnable + ")", LogSeverity.Info);
+            Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable})", LogSeverity.Info);
             //this.Connected = status;
             this.connected = true;
             
             // this sleep helps during initialization
             // without this line modules did not connect properly
-            System.Threading.Thread.Sleep(1250);
-
-            // workaround ahead!!!
-            if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
-                System.Threading.Thread.Sleep(500);
+            if (Board.Connection.ConnectionDelay > 0) { 
+                System.Threading.Thread.Sleep(Board.Connection.ConnectionDelay);
+            }
 
             //if (!this.Connected) return;
             //ResetBoard();
@@ -443,7 +433,7 @@ namespace MobiFlight
             List<String> connectedPorts = SerialPort.GetPortNames().ToList();
 
             Disconnect();
-            if (Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO || Type == MobiFlightModuleInfo.TYPE_MICRO)
+            if (Board.Connection.ForceResetOnFirmwareUpdate)
             {
                 SerialTransport tmpSerial = new SerialTransport() {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
@@ -742,25 +732,22 @@ namespace MobiFlight
                     devInfo.Version = "1.0.0";
                 }
 
-                Type = devInfo.Type;
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
-
-                MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MICRO;
-                EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MICRO;
-
-                if (ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
-                {
-                    MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_UNO;
-                    EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_UNO;
-                } else if (ArduinoType == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA)
-                {
-                    MaxMessageSize = MobiFlightModuleInfo.MESSAGE_MAX_SIZE_MEGA;
-                    EepromSize = MobiFlightModuleInfo.EEPROM_SIZE_MEGA;
-                }
             }
-            Log.Instance.log("MobiFlightModule.GetInfo: " + Type + ", " + Name + "," + Version + ", " + Serial, LogSeverity.Debug);
+
+            // Get the board specifics based on the MobiFlight type returned by the firmware. If there's no match,
+            // either because it is a generic Arduino without the firmware installed or because there
+            // was no board definition file that matches the MobiFlight Type returned from the firmware,
+            // then fall back to the Board type detected earlier via VID/PID.
+            //
+            // This check and assignment is done outside of the above if statement to catch cases
+            // where there was no firmware installed.
+            devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
+            Board = devInfo.Board;
+
+            Log.Instance.log($"MobiFlightModule.GetInfo: {Type}, {Name}, {Version}, {Serial}", LogSeverity.Debug);
             return devInfo;
         }
 
@@ -783,7 +770,7 @@ namespace MobiFlight
             Log.Instance.log("Reset config: " + (int)MobiFlightModule.Command.ResetConfig, LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
-            foreach (string MessagePart in this.Config.ToInternal(this.MaxMessageSize))
+            foreach (string MessagePart in this.Config.ToInternal(this.Board.Connection.MessageSize))
             {
                 Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
                 command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
@@ -811,6 +798,8 @@ namespace MobiFlight
                     command = new SendCommand((int)MobiFlightModule.Command.ActivateConfig, (int)MobiFlightModule.Command.ConfigActivated, CommandTimeout);
                     StatusCommand = _cmdMessenger.SendCommand(command);
                     isOk = StatusCommand.Ok;
+                    if (isOk) Log.Instance.log("Config activated.", LogSeverity.Debug);
+                    else Log.Instance.log("Config NOT activated SUCCESSFULLY.", LogSeverity.Debug);
                 }
                 else
                 {
@@ -923,17 +912,7 @@ namespace MobiFlight
 
         public List<MobiFlightPin> getPwmPins()
         {
-            switch (this.Type)
-            {
-                case MobiFlightModuleInfo.TYPE_MICRO:
-                    return MobiFlightModuleInfo.MICRO_PINS.FindAll(x=>x.isPWM==true);
-
-                case MobiFlightModuleInfo.TYPE_UNO:
-                    return MobiFlightModuleInfo.UNO_PINS.FindAll(x => x.isPWM == true);
-
-                default:
-                    return MobiFlightModuleInfo.MEGA_PINS.FindAll(x => x.isPWM == true); ;
-            }
+            return Board.Pins.FindAll(x => x.isPWM);
         }
         
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
@@ -1012,7 +991,8 @@ namespace MobiFlight
                     Name    = Name, 
                     Type    = Type, 
                     Port    = Port,
-                    Version = Version
+                    Version = Version,
+                    Board   = Board
             };
             
         }
@@ -1031,7 +1011,7 @@ namespace MobiFlight
         public bool GenerateNewSerial()
         {
             System.Version minVersion = new System.Version("1.3.0");
-            System.Version currentVersion = new System.Version(Version != "n/a" ? Version : "0.0.0");
+            System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
             if (currentVersion.CompareTo(minVersion) < 0)
             {
                 throw new FirmwareVersionTooLowException(minVersion, currentVersion);
@@ -1044,7 +1024,7 @@ namespace MobiFlight
         public bool HasFirmwareFeature(String FirmwareFeature)
         {
             System.Version minVersion = new System.Version(FirmwareFeature);
-            System.Version currentVersion = new System.Version(Version != "n/a" ? Version : "0.0.0");
+            System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
 
             return (currentVersion.CompareTo(minVersion) >= 0);
         }
@@ -1077,19 +1057,8 @@ namespace MobiFlight
 
         public List<MobiFlightPin> GetPins(bool FreeOnly = false)
         {
-            List<MobiFlightPin> Pins = MobiFlightModuleInfo.MEGA_PINS;
-                 
-            if (Type == MobiFlightModuleInfo.TYPE_MICRO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO)
-            {
-                Pins = MobiFlightModuleInfo.MICRO_PINS;
-            }
-            else if (Type == MobiFlightModuleInfo.TYPE_UNO || Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO)
-            {
-                Pins = MobiFlightModuleInfo.UNO_PINS;
-            }
-
             List<MobiFlightPin> ResultPins = new List<MobiFlightPin>();
-            ResultPins.AddRange(Pins.Select(x => new MobiFlightPin(x)));
+            ResultPins.AddRange(Board.Pins.Select(x => new MobiFlightPin(x)));
 
             List<byte> usedPins = new List<byte>();
 
@@ -1136,7 +1105,7 @@ namespace MobiFlight
 
                     case DeviceType.LcdDisplay:
                         // Statically add correct I2C pins
-                        foreach (MobiFlightPin pin in Pins.FindAll(x=>x.isI2C==true))
+                        foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))
                         {
                             if (usedPins.Contains(Convert.ToByte(pin.Pin))) continue;
                             

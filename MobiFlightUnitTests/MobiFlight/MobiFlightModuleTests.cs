@@ -189,16 +189,17 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void GetFreePinsTest()
         {
-            MobiFlightModuleConfig moduleConfig = new MobiFlightModuleConfig();
-            MobiFlightModule o = new MobiFlightModule(moduleConfig);
-            o.Type = MobiFlightModuleInfo.TYPE_MEGA;
+            BoardDefinitions.Load();
+
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+            MobiFlightModule o = new MobiFlightModule("COM1", board);
             o.Config = new Config.Config();
 
-            Assert.AreEqual(MobiFlightModuleInfo.MEGA_PINS.Count(), o.GetFreePins().Count, "Number of free pins is wrong");
+            Assert.AreEqual(board.Pins.Count(), o.GetFreePins().Count, "Number of free pins is wrong");
             o.Config.Items.Add(new Config.Button() { Name = "Test", Pin = "2" });
             o.Config.Items.Add(new Config.Button() { Name = "Test", Pin = "5" });
 
-            Assert.AreEqual(MobiFlightModuleInfo.MEGA_PINS.Count() - o.Config.Items.Count, o.GetFreePins().Count, "Number of free pins is wrong");
+            Assert.AreEqual(board.Pins.Count() - o.Config.Items.Count, o.GetFreePins().Count, "Number of free pins is wrong");
             Assert.AreEqual(false, o.GetFreePins().Exists(x=>x.Pin==2), "Used pin still available");
             Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 5), "Used pin still available");
             Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 52), "Free pin not available");
@@ -207,7 +208,9 @@ namespace MobiFlight.Tests
             Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 3), "Used pin still available");
             Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 2), "Free pin not available");
 
-            o.Type = MobiFlightModuleInfo.TYPE_UNO;
+            board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Uno");
+            o = new MobiFlightModule("COM1", board);
+            o.Config = new Config.Config();
             Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 13), "Free pin not available");
             Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 52), "Invalid pin available");
         }

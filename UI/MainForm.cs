@@ -94,6 +94,9 @@ namespace MobiFlight.UI
             // finally set up logging (based on settings)
             InitializeLogging();
 
+            // Initialize the board configurations
+            BoardDefinitions.Load();
+
             // configure tracking correctly
             InitializeTracking();
         }
@@ -182,6 +185,7 @@ namespace MobiFlight.UI
             inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
             inputConfigPanel.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
             inputConfigPanel.OutputDataSetConfig = outputConfigPanel.DataSetConfig;
+            inputConfigPanel.SettingsChanged += execManager.OnInputConfigSettingsChanged;
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
@@ -329,18 +333,10 @@ namespace MobiFlight.UI
 
             foreach (MobiFlightModule module in mfCache.GetModules())
             {
-                if (module.Type == MobiFlightModuleInfo.TYPE_MEGA ||
-                    module.Type == MobiFlightModuleInfo.TYPE_MICRO ||
-                    module.Type == MobiFlightModuleInfo.TYPE_UNO
-                    )
+                if (module.Board.Info.CanInstallFirmware)
                 {
-                    Version latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMega);
-                    if (module.Type == MobiFlightModuleInfo.TYPE_MICRO)
-                        latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareMicro);
-                    if (module.Type == MobiFlightModuleInfo.TYPE_UNO)
-                        latestVersion = new Version(MobiFlightModuleInfo.LatestFirmwareUno);
-
-                    Version currentVersion = new Version(module.Version != "n/a" ? module.Version : "0.0.0");
+                    Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
+                    Version currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
                     if (currentVersion.CompareTo(latestVersion) < 0)
                     {
                         // Update needed!!!
@@ -351,10 +347,7 @@ namespace MobiFlight.UI
 
             foreach (MobiFlightModuleInfo moduleInfo in modules)
             {
-                if (moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MEGA ||
-                    moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_MICRO ||
-                    moduleInfo.Type == MobiFlightModuleInfo.TYPE_ARDUINO_UNO
-                    )
+                if (moduleInfo.Board.Info.CanInstallFirmware && !moduleInfo.HasMfFirmware())
                 {
                     modulesForFlashing.Add(moduleInfo);
                 }

@@ -230,6 +230,14 @@ namespace MobiFlight
             autoConnectTimer.Stop();
         }
 
+        internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
+        {
+            lock (inputCache)
+            {
+                inputCache.Clear();
+            }
+        }
+
         public bool IsStarted()
         {
             return timer.Enabled;
@@ -1418,17 +1426,18 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + "=>" +e.Value;
             }
 
-            if (!inputCache.ContainsKey(inputKey))
-            {
-                inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
-                // check if we have configs for this button
-                // and store it      
-
-                foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
+            lock (inputCache) {
+                if (!inputCache.ContainsKey(inputKey))
                 {
-                    try
+                    inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
+                    // check if we have configs for this button
+                    // and store it      
+
+                    foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
                     {
-                        if (gridViewRow.DataBoundItem == null) continue;
+                        try
+                        {
+                            if (gridViewRow.DataBoundItem == null) continue;
 
                         InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
                         // item currently created and not saved yet.
@@ -1461,7 +1470,7 @@ namespace MobiFlight
                     Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
                 return;
             }
-
+            }
             Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.Pin.HasValue ? $":{e.Pin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
 
             // Skip execution if not started
