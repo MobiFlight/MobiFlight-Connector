@@ -130,6 +130,11 @@ namespace MobiFlight
         public int MaxEncoders = 0;
 
         /// <summary>
+        /// Maximum number of input shifters supported by the board.
+        /// </summary>
+        public int MaxInputShifters = 0;
+
+        /// <summary>
         /// Maximum number of I2C LCDs supported by the board.
         /// </summary>
         public int MaxLcdI2C = 0;

@@ -443,9 +443,9 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
                     case "InputShiftRegisterToolStripMenuItem":
                     case "addInputShiftRegisterToolStripMenuItem":
-                        if (statistics[MobiFlightInputShiftRegister.TYPE] == tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxInputShifters)
+                        if (statistics[MobiFlightInputShiftRegister.TYPE] == tempModule.Board.ModuleLimits.MaxInputShifters)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightInputShiftRegister.TYPE, tempModule.ToMobiFlightModuleInfo().GetCapabilities().MaxInputShifters);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightInputShiftRegister.TYPE, tempModule.Board.ModuleLimits.MaxInputShifters);
                         }
                         cfgItem = new MobiFlight.Config.InputShiftRegister();
                         (cfgItem as MobiFlight.Config.InputShiftRegister).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
