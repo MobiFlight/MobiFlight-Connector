@@ -10,7 +10,7 @@
     "ConnectionDelay": 1250,
     "DelayAfterFirmwareUpdate": 1250,
     "DtrEnable": true,
-    "EEPROMSize": 256,
+    "EEPROMSize": 440,
     "ExtraConnectionRetry": false,
     "ForceResetOnFirmwareUpdate": true,
     "MessageSize": 32
@@ -23,7 +23,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Micro Pro",
-    "LatestFirmwareVersion": "1.12.1",
+    "LatestFirmwareVersion": "1.12.2",
     "MobiFlightType": "MobiFlight Micro"
   },
   "ModuleLimits": {
