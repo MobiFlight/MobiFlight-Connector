@@ -13,7 +13,7 @@
     "DelayAfterFirmwareUpdate": 0,
     "DtrEnable": true,
     "MessageSize": 64,
-    "EEPROMSize": 1024
+    "EEPROMSize": 1496
   },
   "HardwareIds": [
     "^VID_2341&PID_0010",
@@ -32,7 +32,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "DelayAfterFirmwareUpdate": 0,
-    "LatestFirmwareVersion": "1.12.1",
+    "LatestFirmwareVersion": "1.12.2",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega"
   },
