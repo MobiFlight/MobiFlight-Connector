@@ -4,7 +4,8 @@
     "BaudRate": "57600",
     "Device": "atmega32u4",
     "FirmwareBaseName": "mobiflight_micro",
-    "Programmer": "avr109"
+    "Programmer": "avr109",
+    "Timeout": 15000
   },
   "Connection": {
     "ConnectionDelay": 1250,

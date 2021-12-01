@@ -32,6 +32,11 @@ namespace MobiFlight
         public String Programmer;
 
         /// <summary>
+        /// Number of milliseconds to wait before we assume the AvrDude process failed and has to get killed.
+        /// </summary>
+        public int Timeout;
+
+        /// <summary>
         /// Provides the name of the firmware file for a given firmware version.
         /// </summary>
         /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>

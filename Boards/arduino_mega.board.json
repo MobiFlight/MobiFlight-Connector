@@ -4,7 +4,8 @@
     "Device": "atmega2560",
     "BaudRate": "115200",
     "Programmer": "wiring",
-    "FirmwareBaseName": "mobiflight_mega"
+    "FirmwareBaseName": "mobiflight_mega",
+    "Timeout": 15000
   },
   "Connection": {
     "ConnectionDelay": 1250,

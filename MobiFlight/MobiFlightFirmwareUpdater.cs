@@ -5,6 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
+using System.Threading.Tasks;
 
 namespace MobiFlight
 {
@@ -68,45 +69,49 @@ namespace MobiFlight
             String ArduinoChip = board.AvrDudeSettings.Device;
             String Bytes = board.AvrDudeSettings.BaudRate;
             String C = board.AvrDudeSettings.Programmer;
+            String message = "";
 
             if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + FirmwareName))
             {
-                String message = "Firmware not found: " + FirmwarePath + "\\" + FirmwareName;
+                message = "Firmware not found: " + FirmwarePath + "\\" + FirmwareName;
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
 
             String verboseLevel = "";
+            
             //verboseLevel = " -v -v -v -v";
 
-            String FullAvrDudePath = ArduinoIdePath + "\\" + AvrPath;
+            String FullAvrDudePath = $@"{ArduinoIdePath}\{AvrPath}";
 
             var proc1 = new ProcessStartInfo();
-            string anyCommand = "-C\"" + FullAvrDudePath + "\\etc\\avrdude.conf\"" + verboseLevel + " -p" + ArduinoChip + " -c"+ C +" -P\\\\.\\" + Port + " -b"+ Bytes +" -D -Uflash:w:\"" + FirmwarePath + "\\" + FirmwareName + "\":i";
+            string anyCommand = 
+                $@"-C""{FullAvrDudePath}\etc\avrdude.conf"" {verboseLevel} -p{ArduinoChip} -c{C} -P\\.\{Port} -b{Bytes} -D -Uflash:w:""{FirmwarePath}\{FirmwareName}"":i";
             proc1.UseShellExecute = true;
-            proc1.WorkingDirectory = "\"" + FullAvrDudePath + "\"";
-            proc1.FileName = "\"" + FullAvrDudePath + "\\bin\\avrdude" + "\"";
-            //proc1.Verb = "runas";
+            proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
+            proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
             proc1.Arguments = anyCommand;
             proc1.WindowStyle = ProcessWindowStyle.Hidden;
-            //proc1.WindowStyle = ProcessWindowStyle.Maximized;
-            //proc1.RedirectStandardOutput = true;
-            //proc1.RedirectStandardError = true;
-            Log.Instance.log("RunAvrDude : " + proc1.FileName, LogSeverity.Info);
-            Log.Instance.log("RunAvrDude : " + anyCommand, LogSeverity.Info);
+            Log.Instance.log("RunAvrDude : " + proc1.FileName, LogSeverity.Debug);
+            Log.Instance.log("RunAvrDude : " + anyCommand, LogSeverity.Debug);
             Process p = Process.Start(proc1);
-            // string output = p.StandardOutput.ReadToEnd();
-            // string error = p.StandardError.ReadToEnd();
-            p.WaitForExit();
-            //Log.Instance.log("Firmware Upload Output: " + output, LogSeverity.Debug);
-            Log.Instance.log("Firmware Upload Exit Code: " + p.ExitCode, LogSeverity.Info);
-            if (p.ExitCode != 0)
+            if (p.WaitForExit(board.AvrDudeSettings.Timeout))
             {
-                //Log.Instance.log("Firmware Upload Error Output: " + output, LogSeverity.Debug);
-                String message = "Something went wrong when flashing with command \n" + proc1.FileName + " " + anyCommand;
-                Log.Instance.log(message, LogSeverity.Error);
-                throw new Exception(message);
+                Log.Instance.log("Firmware Upload Exit Code: " + p.ExitCode, LogSeverity.Info);
+                // everything OK
+                if (p.ExitCode == 0) return;
+                
+                // process terminated but with an error.
+                message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}";
+            } else
+            {
+                // we timed out;
+                p.Kill();
+                message = $"avrdude timed out! Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}";
             }
+
+            Log.Instance.log(message, LogSeverity.Error);
+            throw new Exception(message);
         }
     }
 }

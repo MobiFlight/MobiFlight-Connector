@@ -36,6 +36,12 @@
           "title": "Programmer",
           "description": "AvrDude programmer to use for the device.",
           "type": "string"
+        },
+        "Timeout": {
+          "$id": "#root/AvrDudeSettings/Timeout",
+          "title": "Timeout",
+          "description": "Number of milliseconds to wait before we assume the AvrDude process failed and has to get killed.",
+          "type": "integer"
         }
       }
     },
