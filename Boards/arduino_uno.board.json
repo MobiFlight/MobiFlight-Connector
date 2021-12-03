@@ -4,7 +4,8 @@
     "Device": "atmega328p",
     "BaudRate": "115200",
     "Programmer": "arduino",
-    "FirmwareBaseName": "mobiflight_uno"
+    "FirmwareBaseName": "mobiflight_uno",
+    "Timeout": 15000
   },
   "Connection": {
     "ConnectionDelay": 1750,
