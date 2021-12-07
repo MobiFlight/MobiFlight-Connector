@@ -4,7 +4,8 @@
     "Device": "atmega2560",
     "BaudRate": "115200",
     "Programmer": "wiring",
-    "FirmwareBaseName": "mobiflight_mega"
+    "FirmwareBaseName": "mobiflight_mega",
+    "Timeout": 15000
   },
   "Connection": {
     "ConnectionDelay": 1250,
@@ -32,7 +33,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "DelayAfterFirmwareUpdate": 0,
-    "LatestFirmwareVersion": "1.12.2",
+    "LatestFirmwareVersion": "1.12.3",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega"
   },
@@ -51,74 +52,74 @@
   "Pins": [
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 2
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 3
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 4
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 5
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 6
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 7
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 8
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 9
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 10
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 11
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 12
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 13
     },
     {
@@ -303,20 +304,20 @@
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 44
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 45
     },
     {
       "isAnalog": false,
-      "isI2C": true,
-      "isPWM": false,
+      "isI2C": false,
+      "isPWM": true,
       "Pin": 46
     },
     {

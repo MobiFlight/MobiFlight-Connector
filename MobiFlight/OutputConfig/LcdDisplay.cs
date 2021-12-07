@@ -68,7 +68,8 @@ namespace MobiFlight.OutputConfig
                     {
                         reader.Read();
                         Lines.Add(reader.Value);
-                        reader.Read();
+                        if (reader.NodeType == XmlNodeType.Text)
+                            reader. Read();
                         reader.ReadEndElement(); //line
                     }
                     else

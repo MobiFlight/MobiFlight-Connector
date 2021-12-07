@@ -61,6 +61,21 @@ namespace MobiFlight.OutputConfig.Tests
             Assert.AreEqual("LCDDisplay", o.Address, "Address does not match.");
             Assert.AreEqual(1, o.Lines.Count, "Lines.Count does not match.");
             Assert.AreEqual("Read Test Line 1", o.Lines[0]);
+
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\LcdDisplay\ReadXmlTest.2.xml");
+            sr = new StringReader(s);
+
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("display");
+            o = new LcdDisplay();
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual("LCDDisplay", o.Address, "Address does not match.");
+            Assert.AreEqual(4, o.Lines.Count, "Lines.Count does not match.");
+            Assert.AreEqual("Read Test Line 1", o.Lines[0]);
+            Assert.AreEqual("", o.Lines[1]); // no space was used in the node
+            Assert.AreEqual("", o.Lines[2]); // 20 spaces were used, but it cant get loaded again, that is what XML does 
+            Assert.AreEqual("Read Test Line 4", o.Lines[3]);
         }
 
         [TestMethod()]

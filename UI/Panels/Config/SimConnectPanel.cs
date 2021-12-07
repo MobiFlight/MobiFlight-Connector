@@ -193,7 +193,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://docs.flightsimulator.com/html/Programming_Tools/SimVars/Aircraft_Simulation_Variables.htm");
+            Process.Start("https://docs.flightsimulator.com/html/Programming_Tools/SimVars/Simulation_Variables.htm");
         }
 
         private void GroupComboBox_SelectedIndexChanged(object sender, EventArgs e)

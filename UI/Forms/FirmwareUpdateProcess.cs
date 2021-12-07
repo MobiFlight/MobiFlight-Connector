@@ -87,7 +87,7 @@ namespace MobiFlight.UI.Forms
             timer1.Stop();
         }
 
-        void UpdateModule(MobiFlightModule module)
+        async void UpdateModule(MobiFlightModule module)
         {
             String arduinoIdePath = Properties.Settings.Default.ArduinoIdePathDefault;
             String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
@@ -106,40 +106,52 @@ namespace MobiFlight.UI.Forms
             MobiFlightFirmwareUpdater.ArduinoIdePath = arduinoIdePath;
             MobiFlightFirmwareUpdater.FirmwarePath = firmwarePath;
 
-            Task<bool>.Run(
-                () => {
-                    bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
-                    return UpdateResult;
-                })
-                .ContinueWith( 
-                result =>
-                {
-                    NumberOfModulesForFirmwareUpdate--;
+            int timeout = 15000;
+            var task = Task<bool>.Run(() => {
+                bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
+                return UpdateResult;
+            });
+            if (await Task.WhenAny(task, Task.Delay(timeout)) == task)
+            {
+                NumberOfModulesForFirmwareUpdate--;
 
-                    StatusLabel.Text = string.Format(
-                                        "{0} ({1}) firmware update completed ({2}/{3})",
-                                        module.Name,
-                                        module.Port,
-                                        TotalModuleCount - NumberOfModulesForFirmwareUpdate,
-                                        TotalModuleCount
-                                        );
+                StatusLabel.Text = string.Format(
+                                    "{0} ({1}) firmware update completed ({2}/{3})",
+                                    module.Name,
+                                    module.Port,
+                                    TotalModuleCount - NumberOfModulesForFirmwareUpdate,
+                                    TotalModuleCount
+                                    );
 
-                    if (!result.Result)
-                        FailedModules.Add(module);
+                if (!task.Result)
+                    FailedModules.Add(module);
+            }
+            else
+            {
+                NumberOfModulesForFirmwareUpdate--;
+                FailedModules.Add(module);
+                StatusLabel.Text = string.Format(
+                                    "{0} ({1}) firmware update timed out ({2}/{3})",
+                                    module.Name,
+                                    module.Port,
+                                    TotalModuleCount - NumberOfModulesForFirmwareUpdate,
+                                    TotalModuleCount
+                                    );
 
-                    progressBar1.Value = (int)Math.Round(progressBar1.Maximum * ((TotalModuleCount - NumberOfModulesForFirmwareUpdate) / (float)TotalModuleCount));
+                
+            };
 
-                    OnAfterFirmwareUpdate?.Invoke(module, null);
+            progressBar1.Value = (int)Math.Round(progressBar1.Maximum * ((TotalModuleCount - NumberOfModulesForFirmwareUpdate) / (float)TotalModuleCount));
 
-                    if (NumberOfModulesForFirmwareUpdate == 0)
-                    {
-                        timer1.Stop();
-                        this.Hide();
-                        OnFinished?.Invoke(FailedModules);
-                        this.Close();
-                    }
-                }, TaskScheduler.FromCurrentSynchronizationContext()
-                );
+            OnAfterFirmwareUpdate?.Invoke(module, null);
+
+            if (NumberOfModulesForFirmwareUpdate == 0)
+            {
+                timer1.Stop();
+                this.Hide();
+                OnFinished?.Invoke(FailedModules);
+                this.Close();
+            }
         }
     }
 }
