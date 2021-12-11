@@ -125,9 +125,6 @@ namespace MobiFlight.UI.Forms
 
                 if (!task.Result)
                     FailedModules.Add(module);
-                // Fix for issue 611: only call OnAfterFirmwareUpdate for the module if the update was successful.
-                else
-                    OnAfterFirmwareUpdate?.Invoke(module, null);
             }
             else
             {
@@ -143,6 +140,8 @@ namespace MobiFlight.UI.Forms
             };
 
             progressBar1.Value = (int)Math.Round(progressBar1.Maximum * ((TotalModuleCount - NumberOfModulesForFirmwareUpdate) / (float)TotalModuleCount));
+
+            OnAfterFirmwareUpdate?.Invoke(module, null);
 
             if (NumberOfModulesForFirmwareUpdate == 0)
             {
