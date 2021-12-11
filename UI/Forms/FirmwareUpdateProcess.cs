@@ -108,8 +108,7 @@ namespace MobiFlight.UI.Forms
 
             int timeout = 15000;
             var task = Task<bool>.Run(() => {
-                bool UpdateResult = false;
-                UpdateResult = MobiFlightFirmwareUpdater.Update(module);
+                bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
                 return UpdateResult;
             });
             if (await Task.WhenAny(task, Task.Delay(timeout)) == task)
