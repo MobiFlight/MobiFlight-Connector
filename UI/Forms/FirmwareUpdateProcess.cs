@@ -108,7 +108,8 @@ namespace MobiFlight.UI.Forms
 
             int timeout = 15000;
             var task = Task<bool>.Run(() => {
-                bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
+                bool UpdateResult = false;
+                UpdateResult = MobiFlightFirmwareUpdater.Update(module);
                 return UpdateResult;
             });
             if (await Task.WhenAny(task, Task.Delay(timeout)) == task)
@@ -125,6 +126,9 @@ namespace MobiFlight.UI.Forms
 
                 if (!task.Result)
                     FailedModules.Add(module);
+                // Fix for issue 611: only call OnAfterFirmwareUpdate for the module if the update was successful.
+                else
+                    OnAfterFirmwareUpdate?.Invoke(module, null);
             }
             else
             {
@@ -136,14 +140,10 @@ namespace MobiFlight.UI.Forms
                                     module.Port,
                                     TotalModuleCount - NumberOfModulesForFirmwareUpdate,
                                     TotalModuleCount
-                                    );
-
-                
+                                    ); 
             };
 
             progressBar1.Value = (int)Math.Round(progressBar1.Maximum * ((TotalModuleCount - NumberOfModulesForFirmwareUpdate) / (float)TotalModuleCount));
-
-            OnAfterFirmwareUpdate?.Invoke(module, null);
 
             if (NumberOfModulesForFirmwareUpdate == 0)
             {
