@@ -149,8 +149,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.BcdPins[0], c.BcdPins[0], "clone: BcdPins not the same");
 
             // Shift Register
-            Assert.AreEqual(o.ShiftRegister, c.ShiftRegister, "clone: ShiftRegister not the same");
-            Assert.AreEqual(o.RegisterOutputPin, c.RegisterOutputPin, "clone: RegisterOutputPin not the same");
+            Assert.AreEqual(o.ShiftRegister.Address, c.ShiftRegister.Address, "clone: ShiftRegister.Address not the same");
+            Assert.AreEqual(o.ShiftRegister.Pin, c.ShiftRegister.Pin, "clone: ShiftRegister.Address not the same");
 
             //o. = new Interpolation();
             Assert.AreEqual(o.Interpolation.Active, c.Interpolation.Active, "clone: Interpolation.Active is not the same.");
@@ -218,8 +218,11 @@ namespace MobiFlight.Tests
             o.Stepper.TestValue = "212";
             o.Stepper.CompassMode = true;
 
-            o.ShiftRegister = "ShiftRegister";
-            o.RegisterOutputPin = "99";
+            o.ShiftRegister = new OutputConfig.ShiftRegister()
+            {
+                Address = "ShiftRegister",
+                Pin = "99"
+            };
 
             o.ConfigRefs.Add(new ConfigRef() { Active = true, Placeholder = "#", Ref = "123" });
             o.ConfigRefs.Add(new ConfigRef() { Active = false, Placeholder = "$", Ref = "321" });
@@ -241,6 +244,11 @@ namespace MobiFlight.Tests
             o2 = _generateConfigItem();
 
             Assert.IsTrue(o1.Equals(o2));
+
+            o2.ShiftRegister.Address = "ShiftRegister1";
+            o2.ShiftRegister.Pin = "69";
+
+            Assert.IsFalse(o1.Equals(o2));
         }
     }
 }

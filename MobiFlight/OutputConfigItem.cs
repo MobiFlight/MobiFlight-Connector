@@ -37,8 +37,7 @@ namespace MobiFlight
         public OutputConfig.Servo Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
         public Interpolation Interpolation              { get; set; }
-        public string       ShiftRegister               { get; set; }
-        public string       RegisterOutputPin           { get; set; }
+        public OutputConfig.ShiftRegister ShiftRegister               { get; set; }
         public string       DisplayTrigger              { get; set; }
         public PreconditionList   Preconditions       { get; set; }
         public ConfigRefList      ConfigRefs          { get; set; }        
@@ -57,6 +56,7 @@ namespace MobiFlight
             Servo = new OutputConfig.Servo();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
+            ShiftRegister = new OutputConfig.ShiftRegister();
             Interpolation = new Interpolation();
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
@@ -83,6 +83,8 @@ namespace MobiFlight
                 //===
                 // TODO: I will ignore this, because it is a deprecated feature
                 // this.BcdPins.Equals((obj as OutputConfigItem).BcdPins) &&
+                //===
+                this.ShiftRegister.Equals((obj as OutputConfigItem).ShiftRegister) &&
                 //===
                 this.Interpolation.Equals((obj as OutputConfigItem).Interpolation) &&
                 //===
@@ -176,15 +178,7 @@ namespace MobiFlight
                 }
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
                 {
-                    if (reader["registerOutputPin"] != null && reader["registerOutputPin"] != "")
-                    {
-                        RegisterOutputPin = reader["registerOutputPin"];
-                    }
-
-                    if (reader["shiftRegister"] != null && reader["shiftRegister"] != "")
-                    {
-                        ShiftRegister = reader["shiftRegister"];
-                    }
+                    ShiftRegister.ReadXml(reader);
                 }
             }
 
@@ -294,8 +288,7 @@ namespace MobiFlight
                 }
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
                 {
-                    writer.WriteAttributeString("shiftRegister", ShiftRegister);
-                    writer.WriteAttributeString("registerOutputPin", RegisterOutputPin);
+                    ShiftRegister.WriteXml(writer);
                 }
                 else
                 {
@@ -343,8 +336,7 @@ namespace MobiFlight
             clone.Servo                     = Servo.Clone() as OutputConfig.Servo;
             clone.Stepper                   = Stepper.Clone() as OutputConfig.Stepper;
 
-            clone.ShiftRegister             = this.ShiftRegister;
-            clone.RegisterOutputPin         = this.RegisterOutputPin;
+            clone.ShiftRegister             = ShiftRegister.Clone() as OutputConfig.ShiftRegister;
 
             clone.LcdDisplay                = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
             clone.Preconditions             = Preconditions.Clone() as PreconditionList;
