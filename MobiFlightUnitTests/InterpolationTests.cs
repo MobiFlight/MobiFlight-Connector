@@ -52,22 +52,24 @@ namespace MobiFlightUnitTests
 
             Assert.IsTrue(o1.Equals(o2));
 
+            // Verify that Active is used in the equals comparison
+            o1.Active = true;
+            Assert.IsFalse(o1.Equals(o2));
+
+            // Verify that a list of interpolations is used in the equals comparison
             float x1 = 0.1f; float y1 = 0.1f;
             float x3 = 0.5f; float y3 = 2.0f;
             float x2 = 1.0f; float y2 = 1.0f;
-            o1.Active = true;
             o1.Add(x1, y1);
             o1.Add(x2, y2);
             o1.Add(x3, y3);
-
             Assert.IsFalse(o1.Equals(o2));
 
-            o2.Active = true;
             o2.Add(x1, y1);
             o2.Add(x2, y2);
             o2.Add(x3, y3);
+            o2.Active = true;
             Assert.IsTrue(o1.Equals(o2));
-
         }
 
         [TestMethod]
