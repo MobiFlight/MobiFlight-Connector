@@ -26,9 +26,9 @@ namespace MobiFlight.UI.Panels
         internal void SyncFromConfig(OutputConfigItem config)
         {
             // pre-select display stuff
-            if (config.ShiftRegister != null)
+            if (config.ShiftRegister != null && config.ShiftRegister.Address != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(shiftRegistersComboBox, config.ShiftRegister.ToString()))
+                if (!ComboBoxHelper.SetSelectedItem(shiftRegistersComboBox, config.ShiftRegister.Address.ToString()))
                 {
                     Log.Instance.log("_syncConfigToForm : Exception on selecting item in Shift Register ComboBox", LogSeverity.Debug);
                 }
@@ -36,9 +36,9 @@ namespace MobiFlight.UI.Panels
 
             UpdatePinList();
 
-            if (config.RegisterOutputPin != null) {
+            if (config.ShiftRegister.Pin != null) {
                 OutputConfigItem cfg = config.Clone() as OutputConfigItem;
-                cfg.Pin.DisplayPin = config.RegisterOutputPin;
+                cfg.Pin.DisplayPin = config.ShiftRegister.Pin;
                 displayPinPanel.syncFromConfig(cfg);
             }
         }
@@ -77,12 +77,12 @@ namespace MobiFlight.UI.Panels
 
         internal OutputConfigItem SyncToConfig(OutputConfigItem config)
         {
-            config.ShiftRegister = shiftRegistersComboBox.SelectedValue as String;
+            config.ShiftRegister.Address = shiftRegistersComboBox.SelectedValue as String;
 
             OutputConfigItem cfg = config.Clone() as OutputConfigItem;
             cfg = displayPinPanel.syncToConfig(cfg);
 
-            config.RegisterOutputPin = cfg.Pin.DisplayPin;
+            config.ShiftRegister.Pin = cfg.Pin.DisplayPin;
             return config;
         }
         internal void SetNumModules(int num8bitRegisters)
