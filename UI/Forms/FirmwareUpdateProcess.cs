@@ -136,9 +136,7 @@ namespace MobiFlight.UI.Forms
                                     module.Port,
                                     TotalModuleCount - NumberOfModulesForFirmwareUpdate,
                                     TotalModuleCount
-                                    );
-
-                
+                                    ); 
             };
 
             progressBar1.Value = (int)Math.Round(progressBar1.Maximum * ((TotalModuleCount - NumberOfModulesForFirmwareUpdate) / (float)TotalModuleCount));

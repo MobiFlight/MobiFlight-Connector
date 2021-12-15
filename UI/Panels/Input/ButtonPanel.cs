@@ -139,11 +139,9 @@ namespace MobiFlight.UI.Panels.Input
 
             if (panel != null)
             {
-                panel.Padding = new Padding(0, 0, 0, 0);
-                panel.Width = owner.Width;
+                panel.Padding = new Padding(2, 0, 2, 0);
                 panel.Dock = DockStyle.Fill;
                 owner.Controls.Add(panel);
-                panel.Height = owner.Height - 3;
             }
         }
 

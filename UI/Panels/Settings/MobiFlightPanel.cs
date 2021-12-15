@@ -895,10 +895,20 @@ namespace MobiFlight.UI.Panels.Settings
             if (module == null)
             {
                 return;
-            }
+            }           
 
             module.Connect();
             MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
+
+            // Issue 611
+            // If the board definition file is correct but the firmware failed to flash and the result is
+            // a bare module with no MobiFlight firmware on it then the serial number will be null
+            // and the module should not be refreshed.
+            if (String.IsNullOrEmpty(newInfo.Serial))
+            {
+                return;
+            }
+
             mobiflightCache.RefreshModule(module);
 
             OnAfterFirmwareUpdate?.Invoke(module, null);

@@ -285,6 +285,14 @@ namespace MobiFlight
         {
             Log.Instance.log("MobiFlightCache.RegisterModule("+m.Name+":"+ m.Port +")", LogSeverity.Debug);
             
+            // Additional protection added for edge cases where this gets called after a failed firmware update, which resulted
+            // in the exception reported in issue 611.
+            if (String.IsNullOrEmpty(devInfo.Serial))
+            {
+                Log.Instance.log("A module with a null or empty serial number was specified and will not be registered.", LogSeverity.Error);
+                return;
+            }    
+
             if (Modules.ContainsKey(devInfo.Serial))
             {
                 if (replace)

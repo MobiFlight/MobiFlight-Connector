@@ -997,8 +997,8 @@ namespace MobiFlight
                           
                             mobiFlightCache.setShiftRegisterOutput(
                                 serial,
-                                cfg.ShiftRegister,
-                                cfg.RegisterOutputPin,
+                                cfg.ShiftRegister.Address,
+                                cfg.ShiftRegister.Pin,
                                 outputValueShiftRegister);
                         }
                         break;
