@@ -294,7 +294,6 @@ namespace MobiFlight
             {
                 if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
 
-                String deviceName = device.Name;
                 switch(device.Type) {
                     case DeviceType.LedModule:
                         int submodules = 1;
@@ -348,27 +347,12 @@ namespace MobiFlight
         public static string GenerateUniqueDeviceName(String[] Keys, String Name)
         {
             String result = Name;
-            
-            bool renameNecessary = false;
             int renameIndex = 1;
-            string renamePat = Name + @"\s\d";
-            Regex renameRegex = new Regex(renamePat);
 
-            foreach (String key in Keys)
-            {
-                Match m = renameRegex.Match(key);
-                if (m.Success) renameIndex++;
-
-                if (key == Name)
-                {
-                    // duplicated name found ... :(
-                    // add an index and let user know
-                    renameNecessary = true;
-                }
-            }
-            if (renameNecessary)
+            while (Keys.Contains(result))
             {
                 result = Name + " " + renameIndex;
+                renameIndex++;
             }
 
             return result;
