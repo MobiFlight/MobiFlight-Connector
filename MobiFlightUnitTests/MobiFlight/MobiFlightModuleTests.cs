@@ -44,6 +44,15 @@ namespace MobiFlight.Tests
         public void LoadConfigTest()
         {
             Assert.Fail();
+            /*
+            MobiFlight.Config.Config config = new Config.Config();
+            MobiFlightModule module = new MobiFlightModule("COM1", BoardDefinitions.GetBoardByMobiFlightType("asrduino_mega"));
+            module.Config = config;
+            config.Items.Add(new MobiFlightOutput() { })
+            module.LoadConfig();
+
+            // do the check for two devices with the same name
+            */
         }
 
         [TestMethod()]

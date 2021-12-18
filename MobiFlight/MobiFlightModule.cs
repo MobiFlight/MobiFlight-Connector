@@ -290,6 +290,7 @@ namespace MobiFlight
             analogInputs.Clear();
             shiftRegisters.Clear();
 
+
             foreach (Config.BaseDevice device in Config.Items)
             {
                 if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
@@ -298,13 +299,12 @@ namespace MobiFlight
                     case DeviceType.LedModule:
                         int submodules = 1;
                         int.TryParse( (device as Config.LedModule).NumModules, out submodules);
-                        int brightness = 15;
                         device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
                         ledModules.Add(device.Name, new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count, SubModules = submodules, Brightness = (device as Config.LedModule).Brightness });
                         break;
 
                     case DeviceType.Stepper:
-                        device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
+                            device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
                         stepperModules.Add(device.Name, new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count, HasAutoZero = (device as Config.Stepper).BtnPin != "0" });
                         break;
 
@@ -319,24 +319,27 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.LcdDisplay:
-                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        device.Name = GenerateUniqueDeviceName(lcdDisplays.Keys.ToArray(), device.Name);
                         lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
                         break;
+
                     case DeviceType.Button:
-                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        device.Name = GenerateUniqueDeviceName(buttons.Keys.ToArray(), device.Name);
                         buttons.Add(device.Name, new MobiFlightButton() { Name = device.Name });
                         break;
+
                     case DeviceType.Encoder:
-                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        device.Name = GenerateUniqueDeviceName(encoders.Keys.ToArray(), device.Name);
                         encoders.Add(device.Name, new MobiFlightEncoder() { Name = device.Name });
                         break;
+
                     case DeviceType.AnalogInput:
-                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        device.Name = GenerateUniqueDeviceName(analogInputs.Keys.ToArray(), device.Name);
                         analogInputs.Add(device.Name, new MobiFlightAnalogInput() { Name = device.Name });
                         break;
 
                     case DeviceType.ShiftRegister:
-                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        device.Name = GenerateUniqueDeviceName(shiftRegisters.Keys.ToArray(), device.Name);
                         int.TryParse((device as Config.ShiftRegister).NumModules, out submodules);
                         shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count});
                         break;
