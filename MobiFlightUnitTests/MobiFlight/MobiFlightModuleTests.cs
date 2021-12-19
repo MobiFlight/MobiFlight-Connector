@@ -44,13 +44,36 @@ namespace MobiFlight.Tests
         public void LoadConfigTest()
         {
             Assert.Fail();
+            /*
+            MobiFlight.Config.Config config = new Config.Config();
+            MobiFlightModule module = new MobiFlightModule("COM1", BoardDefinitions.GetBoardByMobiFlightType("asrduino_mega"));
+            module.Config = config;
+            config.Items.Add(new MobiFlightOutput() { })
+            module.LoadConfig();
+
+            // do the check for two devices with the same name
+            */
         }
 
         [TestMethod()]
-        [Ignore]
         public void GenerateUniqueDeviceNameTest()
         {
-            Assert.Fail();
+            List<String> UsedKeys = new List<String>() {
+            };
+
+            // Test with no Used Keys
+            Assert.AreEqual("TestDevice", MobiFlightModule.GenerateUniqueDeviceName(UsedKeys.ToArray(), "TestDevice"), "Name is not as expected.");
+
+            UsedKeys.Add("TestDevice");
+            Assert.AreEqual("TestDevice 1", MobiFlightModule.GenerateUniqueDeviceName(UsedKeys.ToArray(), "TestDevice"), "Name is not as expected.");
+
+            UsedKeys.Add("TestDevice 2");
+            Assert.AreEqual("TestDevice 1", MobiFlightModule.GenerateUniqueDeviceName(UsedKeys.ToArray(), "TestDevice"), "Name is not as expected.");
+
+            UsedKeys.Add("TestDevice 1");
+            Assert.AreEqual("TestDevice 3", MobiFlightModule.GenerateUniqueDeviceName(UsedKeys.ToArray(), "TestDevice"), "Name is not as expected.");
+
+            Assert.AreEqual("TestDevice 1 1", MobiFlightModule.GenerateUniqueDeviceName(UsedKeys.ToArray(), "TestDevice 1"), "Name is not as expected.");
         }
 
         [TestMethod()]
