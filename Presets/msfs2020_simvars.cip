@@ -1952,6 +1952,9 @@ VELOCITY WORLD Y#(A:VELOCITY WORLD Y,Feet per second)#Microsoft.Generic.Position
 VELOCITY WORLD Z#(A:VELOCITY WORLD Z,Feet per second)#Microsoft.Generic.Position and Speed.VELOCITY WORLD Z
 WINDSHIELD WIND VELOCITY#(A:WINDSHIELD WIND VELOCITY,Feet per second)#Microsoft.Generic.Position and Speed.WINDSHIELD WIND VELOCITY
 WING FLEX PCT:index#(A:WING FLEX PCT:index,Percent over 100)#Microsoft.Generic.Position and Speed.WING FLEX PCT:index
+Microsoft/Generic/Radio#GROUP
+COM RECEIVE EX1:index#(A:COM RECEIVE EX1:index,bool)#Microsoft.Generic.Radio.COM RECEIVE EX1:index
+COM RECEIVE:index#(A:COM RECEIVE:index,bool)#Microsoft.Generic.Radio.COM RECEIVE:index
 Microsoft/Generic/Warning System#GROUP
 CABIN_SEATBELTS_ALERT_SWITCH#(A:CABIN SEATBELTS ALERT SWITCH, bool)#Microsoft.Generic.Warning System.CABIN_SEATBELTS_ALERT_SWITCH
 Working Title/CJ4/Air Condition / Pressurization#GROUP
