@@ -318,6 +318,11 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFEncoderPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
+                        case DeviceType.InputShiftRegister:
+                            panel = new MFInputShiftRegisterPanel(dev as MobiFlight.Config.InputShiftRegister, module.GetPins());
+                            (panel as MFInputShiftRegisterPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+
                         case DeviceType.Output:
                             panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetPins(), module.Board);
                             (panel as MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
@@ -443,6 +448,17 @@ namespace MobiFlight.UI.Panels.Settings
                         cfgItem = new MobiFlight.Config.Encoder();
                         (cfgItem as MobiFlight.Config.Encoder).PinLeft = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         (cfgItem as MobiFlight.Config.Encoder).PinRight = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
+                        break;
+                    case "InputShiftRegisterToolStripMenuItem":
+                    case "addInputShiftRegisterToolStripMenuItem":
+                        if (statistics[MobiFlightInputShiftRegister.TYPE] == tempModule.Board.ModuleLimits.MaxInputShifters)
+                        {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightInputShiftRegister.TYPE, tempModule.Board.ModuleLimits.MaxInputShifters);
+                        }
+                        cfgItem = new MobiFlight.Config.InputShiftRegister();
+                        (cfgItem as MobiFlight.Config.InputShiftRegister).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.InputShiftRegister).ClockPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).ToString();
+                        (cfgItem as MobiFlight.Config.InputShiftRegister).LatchPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).ToString();
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":

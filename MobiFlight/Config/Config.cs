@@ -13,6 +13,7 @@ namespace MobiFlight.Config
 
         [XmlElement(typeof(Button))]
         [XmlElement(typeof(Encoder))]
+        [XmlElement(typeof(InputShiftRegister))]
         [XmlElement(typeof(LedModule))]
         [XmlElement(typeof(Output))]
         [XmlElement(typeof(Servo))]
@@ -121,6 +122,11 @@ namespace MobiFlight.Config
 
                         case DeviceType.Encoder:
                             currentItem = new MobiFlight.Config.Encoder();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
+                        case DeviceType.InputShiftRegister:
+                            currentItem = new MobiFlight.Config.InputShiftRegister();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
