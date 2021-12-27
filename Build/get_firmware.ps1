@@ -11,7 +11,7 @@ if ($version -eq "latest") {
 }
 else {
   Write-Output "Downloading firmware version $($version)"
-  $releaseDetails = Invoke-RestMethod -Uri "https://api.github.com/repos/MobiFlight/MobiFlight-FirmwareSource/releases/tags/v${version}"
+  $releaseDetails = Invoke-RestMethod -Uri "https://api.github.com/repos/MobiFlight/MobiFlight-FirmwareSource/releases/tags/${version}"
 }
 
 # The list of assets also includes the zipped source code so filter it to just the
