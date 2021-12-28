@@ -14,6 +14,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(Button))]
         [XmlElement(typeof(Encoder))]
         [XmlElement(typeof(InputShiftRegister))]
+        [XmlElement(typeof(DigInputMux))]
         [XmlElement(typeof(LedModule))]
         [XmlElement(typeof(Output))]
         [XmlElement(typeof(Servo))]
@@ -127,6 +128,11 @@ namespace MobiFlight.Config
 
                         case DeviceType.InputShiftRegister:
                             currentItem = new MobiFlight.Config.InputShiftRegister();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
+                        case DeviceType.DigInputMux:
+                            currentItem = new MobiFlight.Config.DigInputMux();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 

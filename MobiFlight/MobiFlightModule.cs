@@ -21,8 +21,7 @@ namespace MobiFlight
         public string Serial { get; set; }
         public string DeviceId { get; set; }
         public DeviceType Type { get; set; }
-        public int? Pin { get; set; }
-
+        public int? Channel { get; set; }
         public int Value { get; set; }
     }
 
@@ -48,7 +47,8 @@ namespace MobiFlight
         Stepper,             // 9
         ShiftRegister,       // 10
         AnalogInput,         // 11
-        InputShiftRegister   // 12
+        InputShiftRegister,  // 12
+        DigInputMux,   		 // 13
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -84,7 +84,8 @@ namespace MobiFlight
             SetModuleBrightness,    // 26
             SetShiftRegisterPins,   // 27
             AnalogChange,           // 28
-            InputShiftRegisterChange // 29
+            InputShiftRegisterChange, // 29
+            DigInputMuxChange, 		// 30
         };
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
@@ -207,6 +208,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightAnalogInput> analogInputs = new Dictionary<string, MobiFlightAnalogInput>();
         Dictionary<String, MobiFlightShiftRegister> shiftRegisters = new Dictionary<string, MobiFlightShiftRegister>();
         Dictionary<String, MobiFlightInputShiftRegister> inputShiftRegisters = new Dictionary<string, MobiFlightInputShiftRegister>();
+        Dictionary<String, MobiFlightDigInputMux> digInputMuxes = new Dictionary<string, MobiFlightDigInputMux>();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -293,6 +295,7 @@ namespace MobiFlight
             buttons.Clear();
             encoders.Clear();
             inputShiftRegisters.Clear();
+            // No need to clear multiplexer digital inputs
             analogInputs.Clear();
             shiftRegisters.Clear();
 
@@ -336,6 +339,10 @@ namespace MobiFlight
                     case DeviceType.InputShiftRegister:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         inputShiftRegisters.Add(device.Name, new MobiFlightInputShiftRegister() { Name = device.Name });
+                        break;
+                    case DeviceType.DigInputMux:
+                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        digInputMuxes.Add(device.Name, new MobiFlightDigInputMux() { Name = device.Name });
                         break;
                     case DeviceType.Encoder:
                         device.Name = GenerateUniqueDeviceName(encoders.Keys.ToArray(), device.Name);
@@ -451,6 +458,7 @@ namespace MobiFlight
             _cmdMessenger.Attach((int)Command.Info, OnInfo);
             _cmdMessenger.Attach((int)Command.EncoderChange, OnEncoderChange);
             _cmdMessenger.Attach((int)Command.InputShiftRegisterChange, OnInputShiftRegisterChange);
+            _cmdMessenger.Attach((int)Command.DigInputMuxChange, OnDigInputMuxChange);
             _cmdMessenger.Attach((int)Command.ButtonChange, OnButtonChange);
             _cmdMessenger.Attach((int)Command.AnalogChange, OnAnalogChange);
 
@@ -497,11 +505,19 @@ namespace MobiFlight
         void OnInputShiftRegisterChange(ReceivedCommand arguments)
         {
             String deviceId = arguments.ReadStringArg();
-            String pin = arguments.ReadStringArg();
-            String state = arguments.ReadStringArg();
+            String channel  = arguments.ReadStringArg();
+            String state    = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, Pin = int.Parse(pin), Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.DigInputMux, Channel = int.Parse(channel), Value = int.Parse(state) });
+        }
 
+        void OnDigInputMuxChange(ReceivedCommand arguments)
+        {
+            String deviceId = arguments.ReadStringArg();
+            String channel  = arguments.ReadStringArg();
+            String state    = arguments.ReadStringArg();
+            if (OnInputDeviceAction != null)
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, Channel = int.Parse(channel), Value = int.Parse(state) });
         }
 
         // Callback function that prints the Arduino status to the console
@@ -849,6 +865,7 @@ namespace MobiFlight
             result[MobiFlightEncoder.TYPE] = encoders.Count;
             result[MobiFlightAnalogInput.TYPE] = analogInputs.Count;
             result[MobiFlightInputShiftRegister.TYPE] = inputShiftRegisters.Count;
+            result[MobiFlightDigInputMux.TYPE] = digInputMuxes.Count;
 
             return result;
         }
@@ -920,7 +937,8 @@ namespace MobiFlight
             bool _hasEncoder = false;
             bool _hasAnalog = false;
             bool _hasInputShiftRegisters = false;
-
+			bool _hasDigInputMuxes = false;
+			
             List<DeviceType> result = new List<DeviceType>();
             
             foreach (Config.BaseDevice dev in Config.Items)
@@ -936,6 +954,9 @@ namespace MobiFlight
                     case DeviceType.InputShiftRegister:
                         _hasInputShiftRegisters = true;
                         break;
+                    case DeviceType.DigInputMux:
+                        _hasDigInputMuxes = true;
+                        break;
                     case DeviceType.AnalogInput:
                         _hasAnalog = true;
                         break;
@@ -946,6 +967,7 @@ namespace MobiFlight
             if (_hasEncoder) result.Add(DeviceType.Encoder);
             if (_hasAnalog) result.Add(DeviceType.AnalogInput);
             if (_hasInputShiftRegisters) result.Add(DeviceType.InputShiftRegister);
+            if (_hasDigInputMuxes) result.Add(DeviceType.DigInputMux);
 
             return result;
         }
@@ -961,6 +983,7 @@ namespace MobiFlight
                     case DeviceType.Button:
                     case DeviceType.Encoder:
                     case DeviceType.InputShiftRegister:
+                    case DeviceType.DigInputMux:
                     case DeviceType.AnalogInput:
                         result.Add(dev);
                         break;
@@ -1087,6 +1110,10 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).ClockPin));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).DataPin));
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).LatchPin));
+                        break;
+                        
+                    case DeviceType.DigInputMux:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.DigInputMux).DataPin));
                         break;
 
                     case DeviceType.LcdDisplay:
