@@ -1488,7 +1488,7 @@ namespace MobiFlight
                 return;
             }
             }
-            Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.Pin.HasValue ? $":{e.Pin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+            Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.Channel.HasValue ? $":{e.Channel}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
 
             // Skip execution if not started
             if (!IsStarted()) return;

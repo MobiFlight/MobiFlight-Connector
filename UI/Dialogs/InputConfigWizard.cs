@@ -360,7 +360,7 @@ namespace MobiFlight.UI.Dialogs
                 case DeviceType.InputShiftRegister:
                     config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
                     if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
-                    config.inputShiftRegister.pin = (int)inputPinDropDown.SelectedItem;
+                    config.inputShiftRegister.channel = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
                     break;
@@ -368,7 +368,7 @@ namespace MobiFlight.UI.Dialogs
                 case DeviceType.DigInputMux:
                     config.Type = InputConfigItem.TYPE_DIG_INPUT_MUX;
                     if (config.digInputMux == null) config.digInputMux = new InputConfig.DigInputMuxConfig();
-                    config.digInputMux.pin = (int)inputPinDropDown.SelectedItem;
+                    config.digInputMux.channel = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as DigInputMuxPanel).ToConfig(config.digInputMux);
                     break;
@@ -541,15 +541,15 @@ namespace MobiFlight.UI.Dialogs
                         Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel();
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
-                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.pin);
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.channel);
                         inputPinDropDown.Visible = true;
                         break;
 
                     case DeviceType.DigInputMux:
                         Config.DigInputMux selectedDigInputMux = inputTypeComboBox.SelectedItem as Config.DigInputMux;
                         panel = new Panels.Input.DigInputMuxPanel();
-                        (panel as Panels.Input.DigInputMuxPanel).syncFromConfig(config.DigInputMux);
-                        PopulateInputPinDropdown(Convert.ToInt32(selectedDigInputMux.NumModules), config.digInputMux?.pin);
+                        (panel as Panels.Input.DigInputMuxPanel).syncFromConfig(config.digInputMux);
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedDigInputMux.NumModules), config.digInputMux?.channel);
                         inputPinDropDown.Visible = true;
                         break;
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-// from InputShiftRegisterConfig
+// from DigInputMuxConfig
 
 namespace MobiFlight.InputConfig
 {

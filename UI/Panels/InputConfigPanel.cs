@@ -381,7 +381,7 @@ namespace MobiFlight.UI.Panels
                     // Input shift registers show their name in the grid as the shifter name + configured pin for clarity.
                     if (cfg.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
                     {
-                        row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.pin}";
+                        row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.channel}";
                     }
                     else
                     {
