@@ -9,6 +9,8 @@ namespace MobiFlight.Config
         const ushort _paramCount = 2;
         [XmlAttribute]
         public String DataPin = "-1";
+        [XmlAttribute]
+        public String NumModules = "2"; // defaults to CD4067
 
         public DigInputMux() { Name = "DigInputMux"; _type = DeviceType.DigInputMux; }
 
@@ -29,9 +31,9 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
 
-            LatchPin = paramList[1];
-            Name = paramList[2];
-
+            DataPin = paramList[1];
+            Name = paramList[2];
+            NumModules = paramList[3];
             return true;
         }
 

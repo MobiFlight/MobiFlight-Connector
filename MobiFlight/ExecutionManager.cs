@@ -1459,12 +1459,12 @@ namespace MobiFlight
                             // Input shift registers have an additional check to see if the pin that changed matches the pin
                             // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
                             // would get added to the input cache and fired even though the pins don't match.
-                            if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.pin != e.Pin)
+                            if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.channel != e.Channel)
                             {
                                 continue;
                             }
                             // similarly also for digital input Muxes
-                            if (cfg.digInputMux != null && cfg.digInputMux.channel != e.channel)
+                            if (cfg.digInputMux != null && cfg.digInputMux.channel != e.Channel)
                             {
                                 continue;
                             }
