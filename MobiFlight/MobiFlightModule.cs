@@ -300,7 +300,6 @@ namespace MobiFlight
             analogInputs.Clear();
             shiftRegisters.Clear();
 
-
             foreach (Config.BaseDevice device in Config.Items)
             {
                 if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
@@ -314,7 +313,7 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.Stepper:
-                            device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
+                        device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
                         stepperModules.Add(device.Name, new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count, HasAutoZero = (device as Config.Stepper).BtnPin != "0" });
                         break;
 
@@ -337,14 +336,6 @@ namespace MobiFlight
                         device.Name = GenerateUniqueDeviceName(buttons.Keys.ToArray(), device.Name);
                         buttons.Add(device.Name, new MobiFlightButton() { Name = device.Name });
                         break;
-                    case DeviceType.InputShiftRegister:
-                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
-                        inputShiftRegisters.Add(device.Name, new MobiFlightInputShiftRegister() { Name = device.Name });
-                        break;
-                    case DeviceType.DigInputMux:
-                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
-                        digInputMuxes.Add(device.Name, new MobiFlightDigInputMux() { Name = device.Name });
-                        break;
                     case DeviceType.Encoder:
                         device.Name = GenerateUniqueDeviceName(encoders.Keys.ToArray(), device.Name);
                         encoders.Add(device.Name, new MobiFlightEncoder() { Name = device.Name });
@@ -357,6 +348,19 @@ namespace MobiFlight
                         device.Name = GenerateUniqueDeviceName(shiftRegisters.Keys.ToArray(), device.Name);
                         int.TryParse((device as Config.ShiftRegister).NumModules, out submodules);
                         shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count });
+                        break;
+                    case DeviceType.InputShiftRegister:
+                        device.Name = GenerateUniqueDeviceName(inputShiftRegisters.Keys.ToArray(), device.Name);
+                        inputShiftRegisters.Add(device.Name, new MobiFlightInputShiftRegister() { Name = device.Name });
+                        break;
+                    case DeviceType.DigInputMux:
+                        device.Name = GenerateUniqueDeviceName(digInputMuxes.Keys.ToArray(), device.Name);
+                        digInputMuxes.Add(device.Name, new MobiFlightDigInputMux() { Name = device.Name });
+                        //MUX: no check if a MuxDriver is already in the device list here. Check when done loading and prompt user if not found. 
+                        break;
+                    case DeviceType.MuxDriver:
+                        //device.Name = GenerateUniqueDeviceName(?????.Keys.ToArray(), device.Name);
+                        //digInputMuxes.Add(device.Name, new ???????() { Name = device.Name });
                         break;
                 }
             }

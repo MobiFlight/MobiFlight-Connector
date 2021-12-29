@@ -23,6 +23,7 @@ namespace MobiFlight
         public const String TYPE_ENCODER = "Encoder";
         public const String TYPE_INPUT_SHIFT_REGISTER = "InputShiftRegister";
         public const String TYPE_DIG_INPUT_MUX = "DigInputMux";
+        public const String TYPE_MUX_DRIVER = "MuxDriver";
         public const String TYPE_ANALOG = "Analog";
 
 
@@ -33,9 +34,8 @@ namespace MobiFlight
         public EncoderInputConfig encoder { get; set; }
         public InputShiftRegisterConfig inputShiftRegister { get; set; }
         public DigInputMuxConfig digInputMux { get; set; }
-
+        public MuxDriverConfig muxDriver { get; set; }
         public AnalogInputConfig analog { get; set; }
-
         public PreconditionList Preconditions { get; set; }
         public ConfigRefList ConfigRefs { get; set; }
 
@@ -89,6 +89,13 @@ namespace MobiFlight
             if (reader.LocalName == "digInputMux")
             {
                 digInputMux = new DigInputMuxConfig();
+                digInputMux.ReadXml(reader);
+                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
+                reader.Read(); // advance to the next node
+            }
+
+            if (reader.LocalName == "muxDriver") {
+                digInputMux = new MuxDriverConfig();
                 digInputMux.ReadXml(reader);
                 if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
                 reader.Read(); // advance to the next node
