@@ -1428,7 +1428,8 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + "=>" +e.Value;
             }
 
-            lock (inputCache) {
+            lock (inputCache)
+            {
                 if (!inputCache.ContainsKey(inputKey))
                 {
                     inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
@@ -1441,38 +1442,39 @@ namespace MobiFlight
                         {
                             if (gridViewRow.DataBoundItem == null) continue;
 
-                        InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-                        // item currently created and not saved yet.
-                        if (cfg == null) continue;
-                        
-                        if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
-                        {
-                            // Input shift registers have an additional check to see if the pin that changed matches the pin
-                            // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
-                            // would get added to the input cache and fired even though the pins don't match.
-                            if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.pin != e.Pin)
+                            InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                            // item currently created and not saved yet.
+                            if (cfg == null) continue;
+
+                            if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
                             {
-                                continue;
+                                // Input shift registers have an additional check to see if the pin that changed matches the pin
+                                // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
+                                // would get added to the input cache and fired even though the pins don't match.
+                                if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.pin != e.Pin)
+                                {
+                                    continue;
+                                }
+                                inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
                             }
-                            inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
+                        }
+                        catch (Exception ex)
+                        {
+                            // probably the last row with no settings object 
+                            continue;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        // probably the last row with no settings object 
-                        continue;
-                    }
+                }
+
+                // no config for this button found
+                if (inputCache[inputKey].Count == 0)
+                {
+                    if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
+                        Log.Instance.log($"No config found for {e.Type}: {e.DeviceId}{(e.Pin.HasValue ? $":{e.Pin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+                    return;
                 }
             }
 
-            // no config for this button found
-            if (inputCache[inputKey].Count == 0)
-            {
-                if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
-                return;
-            }
-            }
             Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.Pin.HasValue ? $":{e.Pin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
 
             // Skip execution if not started
