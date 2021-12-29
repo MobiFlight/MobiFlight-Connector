@@ -153,5 +153,29 @@ namespace MobiFlight.Tests
 
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        [TestMethod()]
+        public void GetStatisticsTest()
+        {
+            // https://github.com/MobiFlight/MobiFlight-Connector/issues/623
+            InputConfigItem o = new InputConfigItem();
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputConfigItem\ReadXmlTest.623.xml");
+            StringReader sr = new StringReader(s);
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("settings");
+            o.ReadXml(xmlReader);
+
+            var statistics = o.GetStatistics();
+            Assert.IsNotNull(statistics, "Statistics should be always an empty Dictionary<String, int>");
+            Assert.AreEqual(0, statistics.Count);
+
+            o.analog = new InputConfig.AnalogInputConfig();
+            o.analog.onChange = new InputConfig.MSFS2020CustomInputAction();
+            statistics = o.GetStatistics();
+            Assert.AreEqual(o.analog.GetStatistics().Count, statistics.Count);
+        }
     }
 }
