@@ -135,6 +135,8 @@ namespace MobiFlight.UI.Panels.Settings
                 mfModulesTreeView.Enabled = false;
             }
 
+            //mfModulesTreeView.Select(); // ( .SelectedNode = mfModulesTreeView.Nodes[0];
+            
             FwAutoInstallCheckBox.Checked = Properties.Settings.Default.FwAutoUpdateCheck;
 #endif
         }

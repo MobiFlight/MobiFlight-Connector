@@ -38,7 +38,7 @@
     "MaxAnalogInputs": 5,
     "MaxShifters": 2,
     "MaxInputShifters": 1,
-    "MaxDigInputMux": 1,
+    "MaxDigInputMuxes": 1,
   },
   "Pins": [
     {

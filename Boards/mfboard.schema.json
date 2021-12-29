@@ -168,7 +168,9 @@
         "MaxLedSegments",
         "MaxOutputs",
         "MaxServos",
-        "MaxSteppers"
+        "MaxSteppers",
+        "MaxInputShifters",
+        "MaxDigInputMuxes",
       ],
       "properties": {
         "MaxAnalogInputs": {
@@ -224,7 +226,20 @@
           "title": "Maxshifters",
           "description": "Maximum number of output shift registers supported by the board.",
           "type": "integer"
+        },
+        "MaxInputShifters": {
+          "$id": "#root/ModuleLimits/MaxInputShifters",
+          "title": "MaxInputShifters",
+          "description": "Maximum number of input shift registers supported by the board.",
+          "type": "integer"
+        },
+        "MaxDigInputMuxes": {
+          "$id": "#root/ModuleLimits/MaxDigInputMuxes",
+          "title": "MaxInputMuxes",
+          "description": "Maximum number of digital input multiplexers supported by the board.",
+          "type": "integer"
         }
+
       }
     },
     "Pins": {
