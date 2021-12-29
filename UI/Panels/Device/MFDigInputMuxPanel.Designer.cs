@@ -36,10 +36,6 @@
             this.numberOfModulesLabel = new System.Windows.Forms.Label();
             this.mfPin1Label = new System.Windows.Forms.Label();
             this.mfPin1ComboBox = new System.Windows.Forms.ComboBox();
-            this.mfPin3Label = new System.Windows.Forms.Label();
-            this.mfPin3ComboBox = new System.Windows.Forms.ComboBox();
-            this.mfPin2Label = new System.Windows.Forms.Label();
-            this.mfPin2ComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -54,10 +50,6 @@
             this.groupBox1.Controls.Add(this.numberOfModulesLabel);
             this.groupBox1.Controls.Add(this.mfPin1Label);
             this.groupBox1.Controls.Add(this.mfPin1ComboBox);
-            this.groupBox1.Controls.Add(this.mfPin3Label);
-            this.groupBox1.Controls.Add(this.mfPin3ComboBox);
-            this.groupBox1.Controls.Add(this.mfPin2Label);
-            this.groupBox1.Controls.Add(this.mfPin2ComboBox);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
@@ -95,34 +87,6 @@
             this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             this.mfPin1ComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
             // 
-            // mfPin3Label
-            // 
-            resources.ApplyResources(this.mfPin3Label, "mfPin3Label");
-            this.mfPin3Label.Name = "mfPin3Label";
-            // 
-            // mfPin3ComboBox
-            // 
-            this.mfPin3ComboBox.BackColor = System.Drawing.SystemColors.Window;
-            this.mfPin3ComboBox.FormattingEnabled = true;
-            resources.ApplyResources(this.mfPin3ComboBox, "mfPin3ComboBox");
-            this.mfPin3ComboBox.Name = "mfPin3ComboBox";
-            this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
-            this.mfPin3ComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
-            // 
-            // mfPin2Label
-            // 
-            resources.ApplyResources(this.mfPin2Label, "mfPin2Label");
-            this.mfPin2Label.Name = "mfPin2Label";
-            // 
-            // mfPin2ComboBox
-            // 
-            this.mfPin2ComboBox.BackColor = System.Drawing.SystemColors.Window;
-            this.mfPin2ComboBox.FormattingEnabled = true;
-            resources.ApplyResources(this.mfPin2ComboBox, "mfPin2ComboBox");
-            this.mfPin2ComboBox.Name = "mfPin2ComboBox";
-            this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
-            this.mfPin2ComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.textBox1);
@@ -157,10 +121,6 @@
         private System.Windows.Forms.Label numberOfModulesLabel;
         private System.Windows.Forms.Label mfPin1Label;
         private System.Windows.Forms.ComboBox mfPin1ComboBox;
-        private System.Windows.Forms.Label mfPin3Label;
-        private System.Windows.Forms.ComboBox mfPin3ComboBox;
-        private System.Windows.Forms.Label mfPin2Label;
-        private System.Windows.Forms.ComboBox mfPin2ComboBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolTip toolTip1;

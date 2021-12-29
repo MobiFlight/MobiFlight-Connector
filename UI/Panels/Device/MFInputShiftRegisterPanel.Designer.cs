@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -40,9 +39,9 @@
             this.mfPin3ComboBox = new System.Windows.Forms.ComboBox();
             this.mfPin2Label = new System.Windows.Forms.Label();
             this.mfPin2ComboBox = new System.Windows.Forms.ComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -134,7 +133,6 @@
             // 
             resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
-            this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
             // MFInputShiftRegisterPanel
             // 
@@ -161,9 +159,9 @@
         private System.Windows.Forms.ComboBox mfPin3ComboBox;
         private System.Windows.Forms.Label mfPin2Label;
         private System.Windows.Forms.ComboBox mfPin2ComboBox;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

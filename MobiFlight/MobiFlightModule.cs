@@ -49,6 +49,7 @@ namespace MobiFlight
         AnalogInput,         // 11
         InputShiftRegister,  // 12
         DigInputMux,   		 // 13
+        MuxDriver,   		 // 14
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -295,7 +296,7 @@ namespace MobiFlight
             buttons.Clear();
             encoders.Clear();
             inputShiftRegisters.Clear();
-            // No need to clear multiplexer digital inputs
+            digInputMuxes.Clear();
             analogInputs.Clear();
             shiftRegisters.Clear();
 
@@ -348,18 +349,16 @@ namespace MobiFlight
                         device.Name = GenerateUniqueDeviceName(encoders.Keys.ToArray(), device.Name);
                         encoders.Add(device.Name, new MobiFlightEncoder() { Name = device.Name });
                         break;
-
                     case DeviceType.AnalogInput:
                         device.Name = GenerateUniqueDeviceName(analogInputs.Keys.ToArray(), device.Name);
                         analogInputs.Add(device.Name, new MobiFlightAnalogInput() { Name = device.Name });
                         break;
-
                     case DeviceType.ShiftRegister:
                         device.Name = GenerateUniqueDeviceName(shiftRegisters.Keys.ToArray(), device.Name);
                         int.TryParse((device as Config.ShiftRegister).NumModules, out submodules);
-                        shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count});
+                        shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count });
                         break;
-                }                
+                }
             }
         }
 

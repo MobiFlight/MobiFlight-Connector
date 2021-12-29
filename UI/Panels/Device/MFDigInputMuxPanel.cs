@@ -13,31 +13,25 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class MFDigInputMuxPanel : UserControl
     {
-        private InputShiftRegister inputShiftRegister;
+        private DigInputMux digInputMux;
         private bool initialized;
         public event EventHandler Changed;
-        private int MAX_MODULES = 4;
+        private int MAX_MODULES = 2;            // Only possible values: 1 module for HCT4051, 2 for HCT4067
         private const string NA_STRING = "N/A";
 
         public MFDigInputMuxPanel()
         {
             InitializeComponent();
             mfPin1ComboBox.Items.Clear();
-            mfPin2ComboBox.Items.Clear();
-            mfPin3ComboBox.Items.Clear();
         }
 
-        public MFDigInputMuxPanel(InputShiftRegister inputShiftRegister, List<MobiFlightPin> Pins) : this()
+        public MFDigInputMuxPanel(DigInputMux digInputMux, List<MobiFlightPin> Pins) : this()
         {
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, inputShiftRegister.LatchPin);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, inputShiftRegister.ClockPin);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, inputShiftRegister.DataPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, digInputMux.DataPin);
 
             if (mfPin1ComboBox.Items.Count > 2)
             {
                 mfPin1ComboBox.SelectedIndex = 0;
-                mfPin2ComboBox.SelectedIndex = 1;
-                mfPin3ComboBox.SelectedIndex = 2;
             }
 
             for (int i = 1; i <= MAX_MODULES; i++)
@@ -45,14 +39,12 @@ namespace MobiFlight.UI.Panels.Settings
                 mfNumModulesComboBox.Items.Add(i);
             }
 
-            this.inputShiftRegister = inputShiftRegister;
+            this.digInputMux = digInputMux;
 
-            ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, inputShiftRegister.LatchPin);
-            ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, inputShiftRegister.ClockPin);
-            ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, inputShiftRegister.DataPin);
-            ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, inputShiftRegister.NumModules);
+            ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, digInputMux.DataPin);
+            ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, digInputMux.NumModules);
 
-            textBox1.Text = inputShiftRegister.Name;
+            textBox1.Text = digInputMux.Name;
 
             initialized = true;
         }
@@ -64,16 +56,14 @@ namespace MobiFlight.UI.Panels.Settings
             setValues();
 
             if (Changed != null)
-                Changed(inputShiftRegister, new EventArgs());
+                Changed(digInputMux, new EventArgs());
         }
 
         private void setValues()
         {
-            inputShiftRegister.LatchPin = mfPin1ComboBox.Text;
-            inputShiftRegister.ClockPin = mfPin2ComboBox.Text;
-            inputShiftRegister.DataPin = mfPin3ComboBox.Text;
-            inputShiftRegister.Name = textBox1.Text;
-            inputShiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
+            digInputMux.DataPin = mfPin1ComboBox.Text;
+            digInputMux.Name = textBox1.Text;
+            digInputMux.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
         }
 
         static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin)
