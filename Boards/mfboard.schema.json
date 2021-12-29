@@ -164,6 +164,7 @@
         "MaxAnalogInputs",
         "MaxButtons",
         "MaxEncoders",
+        "MaxInputShifters",
         "MaxLcdI2C",
         "MaxLedSegments",
         "MaxOutputs",
@@ -187,6 +188,12 @@
           "$id": "#root/ModuleLimits/MaxEncoders",
           "title": "Maxencoders",
           "description": "Maximum number of encoders supported by the board.",
+          "type": "integer"
+        },
+        "MaxInputShifters": {
+          "$id": "#root/ModuleLimits/MaxInputShifters",
+          "title": "Maxinputshifters",
+          "description": "Maximum number of input shifters supported by the board.",
           "type": "integer"
         },
         "MaxLcdI2C": {
