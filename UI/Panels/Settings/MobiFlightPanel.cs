@@ -149,6 +149,8 @@ namespace MobiFlight.UI.Panels.Settings
         private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
+            var selectedBoard = (sender as ToolStripMenuItem).Tag as Board;
+
             if (parentNode == null) return;
 
             if (this.mfModulesTreeView.SelectedNode == null) return;
@@ -203,10 +205,12 @@ namespace MobiFlight.UI.Panels.Settings
             TreeNode parentNode = e.Node;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
 
+            MobiFlightModule module = (parentNode.Tag as MobiFlightModule);
+
             mfSettingsPanel.Controls.Clear();
             if (parentNode.Tag == null) return;
 
-            bool isMobiFlightBoard = (parentNode.Tag as MobiFlightModule).HasMfFirmware();
+            bool isMobiFlightBoard = module.HasMfFirmware();
 
             mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
             // this is the module node
@@ -226,6 +230,14 @@ namespace MobiFlight.UI.Panels.Settings
             uploadToolStripMenuItem.Enabled = (parentNode.Nodes.Count > 0) || (parentNode.ImageKey == "Changed");
             openToolStripMenuItem.Enabled = isMobiFlightBoard;
             saveToolStripMenuItem.Enabled = parentNode.Nodes.Count > 0;
+
+            // Populate the update firmware context menu with the list of possible boards
+            updateFirmwareToolStripMenuItem.DropDownItems.Clear();
+            module.Boards.ForEach(board => {
+                var menuItem = new ToolStripMenuItem(board.Info.FriendlyName, null, updateFirmwareToolStripMenuItem_Click);
+                menuItem.Tag = board;
+                updateFirmwareToolStripMenuItem.DropDownItems.Add(menuItem);
+            });
 
             syncPanelWithSelectedDevice(e.Node);
         }
