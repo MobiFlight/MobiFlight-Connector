@@ -65,18 +65,5 @@ namespace MobiFlight.UI.Panels.Settings
             digInputMux.Name = textBox1.Text;
             digInputMux.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
         }
-
-        static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin)
-        {
-            List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
-            if (UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin)))
-                UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
-
-            comboBox.DataSource = UsablePins.FindAll(x => x.Used == false);
-            comboBox.DisplayMember = "Name";
-            comboBox.ValueMember = "Pin";
-
-            return false;
-        }
     }
 }

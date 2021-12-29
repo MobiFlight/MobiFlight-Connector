@@ -27,8 +27,10 @@ namespace MobiFlight.UI.Panels.Settings
             mfPin3ComboBox.Items.Clear();
         }
 
-        public MFInputShiftRegisterPanel(InputShiftRegister inputShiftRegister, List<MobiFlightPin> Pins) : this()
+        public MFInputShiftRegisterPanel(InputShiftRegister inShiftReg, List<MobiFlightPin> Pins) : this()
         {
+            this.inputShiftRegister = inShiftReg;
+
             ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, inputShiftRegister.LatchPin);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, inputShiftRegister.ClockPin);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, inputShiftRegister.DataPin);
@@ -44,8 +46,6 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 mfNumModulesComboBox.Items.Add(i);
             }
-
-            this.inputShiftRegister = inputShiftRegister;
 
             ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, inputShiftRegister.LatchPin);
             ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, inputShiftRegister.ClockPin);
@@ -74,19 +74,6 @@ namespace MobiFlight.UI.Panels.Settings
             inputShiftRegister.DataPin = mfPin3ComboBox.Text;
             inputShiftRegister.Name = textBox1.Text;
             inputShiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
-        }
-
-        static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin)
-        {
-            List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
-            if (UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin)))
-                UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
-
-            comboBox.DataSource = UsablePins.FindAll(x => x.Used == false);
-            comboBox.DisplayMember = "Name";
-            comboBox.ValueMember = "Pin";
-
-            return false;
         }
     }
 }

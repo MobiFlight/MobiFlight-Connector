@@ -265,6 +265,7 @@ namespace MobiFlight.UI.Panels.Settings
         /// <param name="selectedNode"></param>
         private void syncPanelWithSelectedDevice(TreeNode selectedNode)
         {
+            if (selectedNode == null) return;
             try
             {
                 Control panel = null;
@@ -364,6 +365,117 @@ namespace MobiFlight.UI.Panels.Settings
                 // Show error message
                 Log.Instance.log("syncPanelWithSelectedDevice: Exception: " + ex.Message, LogSeverity.Debug);
             }
+        }
+
+        /// <summary>
+        /// Helper function to add a node in the current module structure
+        /// </summary>
+        ///<returns>TreeNode of current module, null if no item selected.</returns>
+        /// 
+        private TreeNode getNodeOfCurrentModule()
+        {
+            TreeNode parentNode = mfModulesTreeView.SelectedNode;   // (not yet parent)
+            if (parentNode == null) {
+                // should never happen... when creating a new device in a module, a selection is either made by the user or forced
+                return null;
+                // otherwise: how can we determine which module we're in within the TreeView?
+            }
+            // Shift parentNode to actual root parent
+            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            return parentNode;
+        }
+
+        /// <summary>
+        /// Helper function to add a node in the current module structure
+        /// </summary>
+        ///<returns>Newly created TreeNode if correctly added, null otherwise</returns>
+        /// <param name="device">Device to add as node</param>
+        /// <param name="pos">Position in the list (null = last)</param>
+        /// 
+        private TreeNode addDeviceToModule(MobiFlight.Config.BaseDevice device, int pos = -1)
+        {
+            bool added = false;
+
+            TreeNode parentNode = getNodeOfCurrentModule();
+            if (parentNode == null) return null;
+
+            // Build a list of all names in the tree
+            List<String> NodeNames = new List<String>();
+            foreach (TreeNode node in parentNode.Nodes) {
+                NodeNames.Add(node.Text);
+            }
+            // Use the list of names for verification to build a new unique name
+            device.Name = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), device.Name);
+
+            // Build new node containing the device
+            TreeNode newNode = new TreeNode(device.Name);
+            newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
+            newNode.Tag = device;
+
+            // Add newly built node to the tree
+            if (pos < 0 || pos > parentNode.Nodes.Count) {
+                parentNode.Nodes.Add(newNode);
+            } else {
+                parentNode.Nodes.Insert(pos, newNode);
+            }
+            parentNode.ImageKey = "Changed";
+            parentNode.SelectedImageKey = "Changed";
+
+            // Make it the current selected one
+            mfModulesTreeView.SelectedNode = newNode;
+            return newNode;
+        }
+
+        /// <summary>
+        /// Helper function to check whether a MuxDriver device exists (as first device) in the current module
+        /// and add it if required
+        /// </summary>
+        /// <returns>true if added or existing, false if it can't be created</returns>
+        private bool addMuxDriverToModule()
+        {
+            TreeNode newNode;
+
+            // if first element of the tree is a muxDriver, we're already done
+            // To be safe, we check if there's a mux driver regardless of its position.
+            TreeNode parentNode = getNodeOfCurrentModule();
+            if (parentNode == null) return false;
+
+            foreach (TreeNode node in parentNode.Nodes) {
+                if((node.Tag as MobiFlight.Config.BaseDevice).Type == DeviceType.MuxDriver) {
+                    return true;
+                }
+            }
+
+            // otherwise see if we can create one
+            List<MobiFlightPin> freePins = getVirtualModuleFromTree().GetFreePins();
+            if(freePins.Count < 4) {
+                MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
+                                i18n._tr("uiMessageNotEnoughPinsHint"),
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            MobiFlight.Config.MuxDriver newMux = new MobiFlight.Config.MuxDriver();
+            for(var i=0; i<4; i++) {
+                newMux.PinSx[i] = freePins.ElementAt(i).ToString();
+            }
+
+            addDeviceToModule(newMux, 0);   // Add at the beginning of the list
+            
+            // Do not select newly added item (the invoking item will have the selection) 
+            return true;
+        }
+                
+
+        /// <summary>
+        /// Helper function to check whether a MuxDriver device exists (as first device) in the current module
+        /// and if it's still required; otherwise it is removed.
+        /// </summary>
+        /// <returns>true if removed, false if already missing</returns>
+        private bool removeMuxDriverFromModule()
+        {
+            bool removed = false;
+            return removed;
         }
 
         /// <summary>
@@ -476,6 +588,7 @@ namespace MobiFlight.UI.Panels.Settings
                         if (statistics[MobiFlightDigInputMux.TYPE] == tempModule.Board.ModuleLimits.MaxDigInputMuxes) {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightDigInputMux.TYPE, tempModule.Board.ModuleLimits.MaxDigInputMuxes);
                         }
+                        addMuxDriverToModule();
                         cfgItem = new MobiFlight.Config.DigInputMux();
                         (cfgItem as MobiFlight.Config.DigInputMux).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
                         break;
@@ -502,26 +615,34 @@ namespace MobiFlight.UI.Panels.Settings
                         // do nothing
                         return;
                 }
-                TreeNode parentNode = mfModulesTreeView.SelectedNode;
-                if (parentNode == null) return;
 
-                while (parentNode.Level > 0) parentNode = parentNode.Parent;
-                List<String> NodeNames = new List<String>();
-                foreach (TreeNode node in parentNode.Nodes)
-                {
-                    NodeNames.Add(node.Text);
-                }
-                cfgItem.Name = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), cfgItem.Name);
+                //MUX begin
 
-                TreeNode newNode = new TreeNode(cfgItem.Name);
-                newNode.SelectedImageKey = newNode.ImageKey = cfgItem.Type.ToString();
-                newNode.Tag = cfgItem;
+                TreeNode newNode = addDeviceToModule(cfgItem);
+                
+                // Following moved to function addDeviceToModule(...):
 
-                parentNode.Nodes.Add(newNode);
-                parentNode.ImageKey = "Changed";
-                parentNode.SelectedImageKey = "Changed";
+                //TreeNode parentNode = mfModulesTreeView.SelectedNode;
+                //if (parentNode == null) return;
 
-                mfModulesTreeView.SelectedNode = newNode;
+                //while (parentNode.Level > 0) parentNode = parentNode.Parent;
+                //List<String> NodeNames = new List<String>();
+                //foreach (TreeNode node in parentNode.Nodes)
+                //{
+                //    NodeNames.Add(node.Text);
+                //}
+                //cfgItem.Name = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), cfgItem.Name);
+
+                //TreeNode newNode = new TreeNode(cfgItem.Name);
+                //newNode.SelectedImageKey = newNode.ImageKey = cfgItem.Type.ToString();
+                //newNode.Tag = cfgItem;
+
+                //parentNode.Nodes.Add(newNode);
+                //parentNode.ImageKey = "Changed";
+                //parentNode.SelectedImageKey = "Changed";
+
+                //mfModulesTreeView.SelectedNode = newNode;
+                //MUX end
                 syncPanelWithSelectedDevice(newNode);
             }
             catch (MaximumDeviceNumberReachedMobiFlightException ex)
@@ -692,6 +813,13 @@ namespace MobiFlight.UI.Panels.Settings
 
             TreeNode parentNode = mfModulesTreeView.SelectedNode;
             while (parentNode.Level > 0) parentNode = parentNode.Parent;
+
+            //MUX
+            //if(node) is a DigInputMux (future: has a valid "channel" value)
+            //{
+            //     removeMuxDriverFromModule();
+            //     // (if not present, exception)
+            //}
 
             mfModulesTreeView.Nodes.Remove(node);
 

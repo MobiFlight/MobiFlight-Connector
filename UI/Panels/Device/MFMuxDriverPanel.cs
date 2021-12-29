@@ -26,8 +26,10 @@ namespace MobiFlight.UI.Panels.Settings
             mfPinS3ComboBox.Items.Clear();
         }
 
-        public MFMuxDriverPanel(InputShiftRegister inputShiftRegister, List<MobiFlightPin> Pins) : this()
+        public MFMuxDriverPanel(MuxDriver muxDr, List<MobiFlightPin> Pins) : this()
         {
+            this.muxDriver = muxDr;
+
             ComboBoxHelper.BindMobiFlightFreePins(mfPinS0ComboBox, Pins, muxDriver.PinSx[0]);
             ComboBoxHelper.BindMobiFlightFreePins(mfPinS1ComboBox, Pins, muxDriver.PinSx[1]);
             ComboBoxHelper.BindMobiFlightFreePins(mfPinS2ComboBox, Pins, muxDriver.PinSx[2]);
@@ -40,8 +42,6 @@ namespace MobiFlight.UI.Panels.Settings
                 mfPinS2ComboBox.SelectedIndex = 2;
                 mfPinS3ComboBox.SelectedIndex = 3;
             }
-
-            this.muxDriver = muxDriver;
 
             ComboBoxHelper.SetSelectedItem(mfPinS0ComboBox, muxDriver.PinSx[0]);
             ComboBoxHelper.SetSelectedItem(mfPinS1ComboBox, muxDriver.PinSx[1]);
@@ -67,19 +67,6 @@ namespace MobiFlight.UI.Panels.Settings
             muxDriver.PinSx[1] = mfPinS1ComboBox.Text;
             muxDriver.PinSx[2] = mfPinS2ComboBox.Text;
             muxDriver.PinSx[3] = mfPinS3ComboBox.Text;
-        }
-
-        static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin)
-        {
-            List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
-            if (UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin)))
-                UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
-
-            comboBox.DataSource = UsablePins.FindAll(x => x.Used == false);
-            comboBox.DisplayMember = "Name";
-            comboBox.ValueMember = "Pin";
-
-            return false;
         }
     }
 }
