@@ -27,7 +27,7 @@ namespace MobiFlight.InputConfig.Tests
         private InputShiftRegisterConfig generateTestObject()
         {
             InputShiftRegisterConfig o = new InputShiftRegisterConfig();
-            o.pin = 1;
+            o.channel = 1;
             o.onPress = new EventIdInputAction() { EventId = 12345 };
             o.onRelease = new JeehellInputAction() { EventId = 127, Param = "123" };
             return o;
@@ -53,7 +53,7 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("inputShiftRegister");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(1, o.pin, "Pin not the same");
+            Assert.AreEqual(1, o.channel, "Channel not the same");
             Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
             Assert.AreEqual(127, (o.onRelease as JeehellInputAction).EventId, "EventId not the same");
         }

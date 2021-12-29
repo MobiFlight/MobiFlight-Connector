@@ -1419,16 +1419,16 @@ namespace MobiFlight
             if (e.Type == DeviceType.InputShiftRegister)
             {
                 eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
-                // This ensures caching works correctly when there are multiple channels on the same physical device
                 // The inputKey gets the shifter channel added to it if the input came from a shift register
+                // This ensures caching works correctly when there are multiple channels on the same physical device
                 inputKey = inputKey + e.Channel;
             }
             else if (e.Type == DeviceType.DigInputMux)
             {
                 eventAction = MobiFlightDigInputMux.InputEventIdToString(e.Value);
-                //GCC CHECK
+//GCC CHECK
                 // The inputKey gets the channel no. added to it if the input came from a shift register
-                // This ensures caching works correctly when there are multiple pins on the same physical device
+                // xThis ensures caching works correctly when there are multiple pins on the same physical device
                 inputKey = inputKey + e.Channel;
             }
             else if (e.Type == DeviceType.AnalogInput)
@@ -1436,7 +1436,8 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + "=>" +e.Value;
             }
 
-            lock (inputCache) {
+            lock (inputCache)
+			{
                 if (!inputCache.ContainsKey(inputKey))
                 {
                     inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
@@ -1449,45 +1450,46 @@ namespace MobiFlight
                         {
                             if (gridViewRow.DataBoundItem == null) continue;
 
-                        InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                        	InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
 
-                        // item currently created and not saved yet.
-                        if (cfg == null) continue;
+                        	// item currently created and not saved yet.
+                        	if (cfg == null) continue;
                         
-                        if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
-                        {
-                            // Input shift registers have an additional check to see if the pin that changed matches the pin
-                            // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
-                            // would get added to the input cache and fired even though the pins don't match.
-                            if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.channel != e.Channel)
-                            {
-                                continue;
-                            }
-                            // similarly also for digital input Muxes
-                            if (cfg.digInputMux != null && cfg.digInputMux.channel != e.Channel)
-                            {
-                                continue;
-                            }
-                            inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // probably the last row with no settings object 
-                        continue;
-                    }
-                }
+                        	if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
+                        	{
+                            	// Input shift registers have an additional check to see if the pin that changed matches the pin
+                            	// assigned to the row. If not just skip this row. Without this every row that uses the input shift register
+                            	// would get added to the input cache and fired even though the pins don't match.
+//GCC CHECK
+                            	if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.channel != e.Channel)
+                            	{
+                                	continue;
+                            	}
+                            	// similarly also for digital input Muxes
+                            	if (cfg.digInputMux != null && cfg.digInputMux.channel != e.Channel)
+                            	{
+                                	continue;
+                            	}
+                            	inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
+                        	}
+                    	}
+                    	catch (Exception ex)
+                    	{
+                        	// probably the last row with no settings object 
+                        	continue;
+                    	}
+                	}
+            	}
+
+            	// no config for this button found
+            	if (inputCache[inputKey].Count == 0)
+            	{
+                	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
+                    	    Log.Instance.log($"No config found for {e.Type}: {e.DeviceId}{(e.Channel.HasValue ? $":{e.Channel}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+                	return;
+            	}
             }
 
-            // no config for this button found
-            if (inputCache[inputKey].Count == 0)
-            {
-
-                if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
-                return;
-            }
-            }
             Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.Channel.HasValue ? $":{e.Channel}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
 
             // Skip execution if not started

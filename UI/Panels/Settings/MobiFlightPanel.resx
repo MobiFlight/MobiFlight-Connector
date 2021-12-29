@@ -122,121 +122,121 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ledOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="ledOutputToolStripMenuItem.Text" xml:space="preserve">
     <value>LED / Output</value>
   </data>
   <data name="ledSegmentToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="ledSegmentToolStripMenuItem.Text" xml:space="preserve">
     <value>LED 7-Segment</value>
   </data>
   <data name="servoToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="servoToolStripMenuItem.Text" xml:space="preserve">
     <value>Servo</value>
   </data>
   <data name="stepperToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="stepperToolStripMenuItem.Text" xml:space="preserve">
     <value>Stepper</value>
   </data>
   <data name="LcdDisplayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="LcdDisplayToolStripMenuItem.Text" xml:space="preserve">
     <value>LCD Display</value>
   </data>
   <data name="ShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="ShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
     <value>Shift Register</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="buttonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
     <value>Button</value>
   </data>
   <data name="encoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="encoderToolStripMenuItem.Text" xml:space="preserve">
     <value>Encoder</value>
   </data>
   <data name="analogDeviceToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>155, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="analogDeviceToolStripMenuItem.Text" xml:space="preserve">
     <value>Analog Input</value>
   </data>
   <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="addToolStripMenuItem.Text" xml:space="preserve">
     <value>Add device</value>
   </data>
   <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="removeToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove device</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="uploadToolStripMenuItem.Text" xml:space="preserve">
     <value>Upload Config</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Open</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save As...</value>
   </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="updateFirmwareToolStripMenuItem.Text" xml:space="preserve">
     <value>Update Firmware</value>
   </data>
   <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="regenerateSerialToolStripMenuItem.Text" xml:space="preserve">
     <value>Regenerate Serial</value>
   </data>
   <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
     <value>Reload Config</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>165, 198</value>
+    <value>181, 220</value>
   </data>
   <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Name" xml:space="preserve">
     <value>mfModuleSettingsContextMenuStrip</value>
@@ -446,6 +446,12 @@
   </data>
   <data name="addInputShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
     <value>Input Shift Register</value>
+  </data>
+  <data name="addDigInputMuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="addDigInputMuxToolStripMenuItem.Text" xml:space="preserve">
+    <value>Digital Input Multiplexer</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -870,6 +876,12 @@
   <data name="&gt;&gt;addInputShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;addDigInputMuxToolStripMenuItem.Name" xml:space="preserve">
+    <value>addDigInputMuxToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addDigInputMuxToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
     <value>removeDeviceToolStripButton</value>
   </data>
@@ -893,6 +905,30 @@
   </data>
   <data name="&gt;&gt;CompatibleBoardScanToolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inputShiftRegisterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="inputShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Input Shift Register</value>
+  </data>
+  <data name="&gt;&gt;inputShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
+    <value>inputShiftRegisterToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;inputShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="digInputMuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="digInputMuxToolStripMenuItem.Text" xml:space="preserve">
+    <value>Digital Input Multiplexer</value>
+  </data>
+  <data name="&gt;&gt;digInputMuxToolStripMenuItem.Name" xml:space="preserve">
+    <value>digInputMuxToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;digInputMuxToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MobiFlightPanel</value>

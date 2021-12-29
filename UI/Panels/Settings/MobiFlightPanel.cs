@@ -449,7 +449,7 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.Encoder).PinLeft = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         (cfgItem as MobiFlight.Config.Encoder).PinRight = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
                         break;
-                    case "InputShiftRegisterToolStripMenuItem":
+                    case "inputShiftRegisterToolStripMenuItem":
                     case "addInputShiftRegisterToolStripMenuItem":
                         if (statistics[MobiFlightInputShiftRegister.TYPE] == tempModule.Board.ModuleLimits.MaxInputShifters)
                         {
@@ -459,6 +459,14 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.InputShiftRegister).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
                         (cfgItem as MobiFlight.Config.InputShiftRegister).ClockPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).ToString();
                         (cfgItem as MobiFlight.Config.InputShiftRegister).LatchPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).ToString();
+                        break;
+                    case "digInputMuxToolStripMenuItem":
+                    case "addDigInputMuxToolStripMenuItem":
+                        if (statistics[MobiFlightDigInputMux.TYPE] == tempModule.Board.ModuleLimits.MaxDigInputMuxes) {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightDigInputMux.TYPE, tempModule.Board.ModuleLimits.MaxDigInputMuxes);
+                        }
+                        cfgItem = new MobiFlight.Config.DigInputMux();
+                        (cfgItem as MobiFlight.Config.DigInputMux).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
                         break;
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":
