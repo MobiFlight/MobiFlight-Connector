@@ -449,7 +449,7 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.Encoder).PinLeft = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
                         (cfgItem as MobiFlight.Config.Encoder).PinRight = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
                         break;
-                    case "InputShiftRegisterToolStripMenuItem":
+                    case "inputShiftRegisterToolStripMenuItem":
                     case "addInputShiftRegisterToolStripMenuItem":
                         if (statistics[MobiFlightInputShiftRegister.TYPE] == tempModule.Board.ModuleLimits.MaxInputShifters)
                         {
