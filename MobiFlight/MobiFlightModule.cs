@@ -16,7 +16,7 @@ using System.Threading;
 
 namespace MobiFlight
 {
-    public class InputEventArgs : EventArgs    
+    public class InputEventArgs : EventArgs
     {
         public string Serial { get; set; }
         public string DeviceId { get; set; }
@@ -27,7 +27,7 @@ namespace MobiFlight
     public class FirmwareFeature
     {
         public const string GenerateSerial = "1.3.0";
-        public const string SetName        = "1.6.0";
+        public const string SetName = "1.6.0";
     }
 
     // This is the list of recognized commands. These can be commands that can either be sent or received. 
@@ -103,16 +103,16 @@ namespace MobiFlight
         /// characters that are not allowed in device names to prevent any conflict when parsing EEPROM text
         /// </summary>
         public static List<string> ReservedChars = new List<string>
-		{
-			@":",
+        {
+            @":",
             @".",
-			@";",
-			@",",
-			@"#",
-			@"/",
-			@"|"
-		};
-        
+            @";",
+            @",",
+            @"#",
+            @"/",
+            @"|"
+        };
+
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
         public String Name { get; set; }
@@ -121,11 +121,11 @@ namespace MobiFlight
             {
                 if (HasMfFirmware())
                 {
-                    return Board.Info.MobiFlightType;
-                }    
+                    return Boards[0].Info.MobiFlightType;
+                }
                 else
                 {
-                    return Board?.Info.FriendlyName ?? "Unknown";
+                    return Boards?[0].Info.FriendlyName ?? "Unknown";
                 }
             }
         }
@@ -135,44 +135,44 @@ namespace MobiFlight
         {
             return !String.IsNullOrEmpty(Version);
         }
-        public Config.Config Config { 
-            get {                    
-                    if (_config==null) {
-                        if (!Connected) return null;
-                        
-                        var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
-                        var InfoCommand = _cmdMessenger.SendCommand(command);
+        public Config.Config Config {
+            get {
+                if (_config == null) {
+                    if (!Connected) return null;
 
-                        // Sometimes first attempt times out.
-                        if (!InfoCommand.Ok)
-                        {
-                            Log.Instance.log("MobiflightModule.Config: Timeout. !InfoCommand.Ok. Retrying...", LogSeverity.Debug);
-                            InfoCommand = _cmdMessenger.SendCommand(command);
-                        }
-                        
-                        // Some boards, like the Arduino Uno, require several attempts
-                        // before the initial command succeeds.
-                        if (Board.Connection.ExtraConnectionRetry)
-                        {
-                            if (!InfoCommand.Ok)
-                            InfoCommand = _cmdMessenger.SendCommand(command);
-                            if (!InfoCommand.Ok)
-                            InfoCommand = _cmdMessenger.SendCommand(command);
-                        }
+                    var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
+                    var InfoCommand = _cmdMessenger.SendCommand(command);
 
-                        if (InfoCommand.Ok)
-                        {
-                            _config = new Config.Config(InfoCommand.ReadStringArg());
-                        }
-                        else
-                        {
-                            Log.Instance.log("MobiflightModule.Config: !InfoCommand.Ok. Init with empty config.", LogSeverity.Debug);
-                            _config = new Config.Config();
-                        }
-                            
+                    // Sometimes first attempt times out.
+                    if (!InfoCommand.Ok)
+                    {
+                        Log.Instance.log("MobiflightModule.Config: Timeout. !InfoCommand.Ok. Retrying...", LogSeverity.Debug);
+                        InfoCommand = _cmdMessenger.SendCommand(command);
                     }
-                    return _config;
+
+                    // Some boards, like the Arduino Uno, require several attempts
+                    // before the initial command succeeds.
+                    if (Board.Connection.ExtraConnectionRetry)
+                    {
+                        if (!InfoCommand.Ok)
+                            InfoCommand = _cmdMessenger.SendCommand(command);
+                        if (!InfoCommand.Ok)
+                            InfoCommand = _cmdMessenger.SendCommand(command);
+                    }
+
+                    if (InfoCommand.Ok)
+                    {
+                        _config = new Config.Config(InfoCommand.ReadStringArg());
+                    }
+                    else
+                    {
+                        Log.Instance.log("MobiflightModule.Config: !InfoCommand.Ok. Init with empty config.", LogSeverity.Debug);
+                        _config = new Config.Config();
+                    }
+
                 }
+                return _config;
+            }
 
             set
             {
@@ -181,7 +181,7 @@ namespace MobiFlight
         }
 
         public const int CommandTimeout = 2500;
-        
+
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();
 
@@ -196,7 +196,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightLedModule> ledModules = new Dictionary<string, MobiFlightLedModule>();
         Dictionary<String, MobiFlightStepper> stepperModules = new Dictionary<string, MobiFlightStepper>();
         Dictionary<String, MobiFlightServo> servoModules = new Dictionary<string, MobiFlightServo>();
-        Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string,MobiFlightOutput>();
+        Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string, MobiFlightOutput>();
         Dictionary<String, MobiFlightLcdDisplay> lcdDisplays = new Dictionary<string, MobiFlightLcdDisplay>();
         Dictionary<String, MobiFlightButton> buttons = new Dictionary<string, MobiFlightButton>();
         Dictionary<String, MobiFlightEncoder> encoders = new Dictionary<string, MobiFlightEncoder>();
@@ -215,15 +215,31 @@ namespace MobiFlight
         /// </summary>
         Dictionary<string, string> lastValue = new Dictionary<string, string>();
 
-        public Board Board { get; set; }
+        /// <summary>
+        /// List of all possible board definitions for the module. The module in position 0 is considered the primary
+        /// module type and is used in all cases where it is expected the board definition is known. The remaining board definitions
+        /// are only used to assist the user in disambiguating the board type on bare Arduinos prior to flashing the firmware.
+        /// </summary>
+        public List<Board> Boards { get; set; }
 
-        public MobiFlightModule(String port, Board board)
+        /// <summary>
+        /// The primary board definition for the module. In cases where the MobiFlight firmware is installed
+        /// on the board this will be the correct board definition. For unknown boards (new Arduinos) this will
+        /// be whatever was found first.
+        /// </summary>
+        public Board Board {
+            get {
+                return Boards?[0];
+            }
+        }
+
+        public MobiFlightModule(String port, List<Board> boards)
         {
             Name = "Default";
             Version = null; // this is simply unknown, in case of an unflashed Arduino
             Serial = null; // this is simply unknown, in case of an unflashed Arduino
             _comPort = port;
-            Board = board;
+            Boards = boards;
         }
 
         public void Connect()
@@ -710,8 +726,8 @@ namespace MobiFlight
             //
             // This check and assignment is done outside of the above if statement to catch cases
             // where there was no firmware installed.
-            devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
-            Board = devInfo.Board;
+            devInfo.Boards = BoardDefinitions.GetBoardsByMobiFlightType(devInfo.Type) ?? Boards;
+            Boards = devInfo.Boards;
 
             Log.Instance.log($"MobiFlightModule.GetInfo: {Type}, {Name}, {Version}, {Serial}", LogSeverity.Debug);
             return devInfo;
@@ -952,7 +968,7 @@ namespace MobiFlight
                     Type    = Type, 
                     Port    = Port,
                     Version = Version,
-                    Board   = Board
+                    Boards   = Boards
             };
             
         }

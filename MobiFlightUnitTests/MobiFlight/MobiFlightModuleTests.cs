@@ -214,15 +214,15 @@ namespace MobiFlight.Tests
         {
             BoardDefinitions.Load();
 
-            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
-            MobiFlightModule o = new MobiFlightModule("COM1", board);
+            var boards = BoardDefinitions.GetBoardsByMobiFlightType("MobiFlight Mega");
+            MobiFlightModule o = new MobiFlightModule("COM1", boards);
             o.Config = new Config.Config();
 
-            Assert.AreEqual(board.Pins.Count(), o.GetFreePins().Count, "Number of free pins is wrong");
+            Assert.AreEqual(board[0].Pins.Count(), o.GetFreePins().Count, "Number of free pins is wrong");
             o.Config.Items.Add(new Config.Button() { Name = "Test", Pin = "2" });
             o.Config.Items.Add(new Config.Button() { Name = "Test", Pin = "5" });
 
-            Assert.AreEqual(board.Pins.Count() - o.Config.Items.Count, o.GetFreePins().Count, "Number of free pins is wrong");
+            Assert.AreEqual(board[0].Pins.Count() - o.Config.Items.Count, o.GetFreePins().Count, "Number of free pins is wrong");
             Assert.AreEqual(false, o.GetFreePins().Exists(x=>x.Pin==2), "Used pin still available");
             Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 5), "Used pin still available");
             Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 52), "Free pin not available");
@@ -231,8 +231,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 3), "Used pin still available");
             Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 2), "Free pin not available");
 
-            board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Uno");
-            o = new MobiFlightModule("COM1", board);
+            boards = BoardDefinitions.GetBoardsByMobiFlightType("MobiFlight Uno");
+            o = new MobiFlightModule("COM1", boards);
             o.Config = new Config.Config();
             Assert.AreEqual(true, o.GetFreePins().Exists(x => x.Pin == 13), "Free pin not available");
             Assert.AreEqual(false, o.GetFreePins().Exists(x => x.Pin == 52), "Invalid pin available");

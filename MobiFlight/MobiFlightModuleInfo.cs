@@ -14,7 +14,16 @@ namespace MobiFlight
         public String Name { get; set; }
         public String Config { get; set; }
 
-        public Board Board { get; set; }
+        public List<Board> Boards { get; set; }
+
+        public Board Board
+        {
+            get
+            {
+                return Boards?[0];
+            }
+        }
+
         public String Version
         {
             get { return _version; }

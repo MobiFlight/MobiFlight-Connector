@@ -104,9 +104,9 @@ namespace MobiFlight
             return Modules.Values;
         }
 
-        private static Dictionary<string, Board> getSupportedPorts()
+        private static Dictionary<string, List<Board>> getSupportedPorts()
         {
-            var result = new Dictionary<string, Board>();
+            var result = new Dictionary<string, List<Board>>();
 
             RegistryKey regLocalMachine = Registry.LocalMachine;
 
@@ -128,15 +128,15 @@ namespace MobiFlight
 
                     foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
                     {
-                        Board board;
+                        List<Board> boards;
                         String FriendlyName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("FriendlyName") as String;
                         if (FriendlyName == null) continue;
 
                         // Check to see if any board configurations exist
-                        board = BoardDefinitions.GetBoardByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardByHardwareId(regDevice);
+                        boards = BoardDefinitions.GetBoardsByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardsByHardwareId(regDevice);
 
                         // If no matching board definition is found at this point then it's an incompatible board and just keep going.
-                        if (board == null)
+                        if (boards == null)
                         {
                             Log.Instance.log($"Incompatible module skipped: {FriendlyName} - VID/PID: {regDevice}", LogSeverity.Debug);
                             continue;
@@ -154,11 +154,12 @@ namespace MobiFlight
                         // Safety check to ensure duplicate entires in the registry don't result in duplicate entires in the list.
                         if (result.ContainsKey(portName))
                         {
-                            Log.Instance.log($"Duplicate entry for port: {board.Info.FriendlyName} {portName}", LogSeverity.Debug);
+                            // For the purposes of logging just use the first entry in the list of returned possible boards.
+                            Log.Instance.log($"Duplicate entry for port: {boards[0].Info.FriendlyName} {portName}", LogSeverity.Debug);
                             continue;
                         }
 
-                        result.Add(portName, board);
+                        result.Add(portName, boards);
                         Log.Instance.log($"Found potentially compatible module ({FriendlyName}): {regDevice}@{portName}", LogSeverity.Debug);
                     }
                 }
@@ -184,7 +185,11 @@ namespace MobiFlight
             {
                 var port = supportedPorts.ElementAt(i);
                 String portName = port.Key;
-                Board board = port.Value;
+                // For the purposes of initial attempt to connect to a board it's sufficient to just use the first entry in the list of possible
+                // board definitions. If this works then eventually it'll get replaced with the single true board definition by GetInfo().
+                // If it doesn't then that's fine, the user will manually select the correct board type later in the UI to get the board
+                // flashed with the firmware.
+                Board board = port.Value[0];
                 int progressValue = (i * 25) / supportedPorts.Count;
 
                 if (!connectedPorts.Contains(portName))
@@ -202,7 +207,7 @@ namespace MobiFlight
 
                 tasks.Add(Task.Run(() =>
                 {
-                    MobiFlightModule tmp = new MobiFlightModule(portName, board);
+                    MobiFlightModule tmp = new MobiFlightModule(portName, port.Value);
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue);
                     tmp.Connect();
                     MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
@@ -243,7 +248,7 @@ namespace MobiFlight
             {
                 if (!devInfo.HasMfFirmware()) continue;
 
-                MobiFlightModule m = new MobiFlightModule(devInfo.Port, devInfo.Board);
+                MobiFlightModule m = new MobiFlightModule(devInfo.Port, devInfo.Boards);
                 RegisterModule(m, devInfo);
             }
 

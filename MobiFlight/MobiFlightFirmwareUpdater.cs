@@ -32,7 +32,7 @@ namespace MobiFlight
             return File.Exists(filepath);
         }
 
-        public static bool Update(MobiFlightModule module)
+        public static bool Update(MobiFlightModule module, Board boardDefinition)
         {
             bool result = false;
             String Port = module.InitUploadAndReturnUploadPort();
@@ -43,22 +43,22 @@ namespace MobiFlight
                 System.Threading.Thread.Sleep(100);
             }
 
-            if (module.Board.AvrDudeSettings != null)
+            if (boardDefinition.AvrDudeSettings != null)
             {
                 try {
-                    RunAvrDude(Port, module.Board);
+                    RunAvrDude(Port, boardDefinition);
                     result = true;
                 } catch(Exception e) {
                     result = false;
                 }
 
-                if (module.Board.Connection.DelayAfterFirmwareUpdate > 0)
+                if (boardDefinition.Connection.DelayAfterFirmwareUpdate > 0)
                 {
-                    System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
+                    System.Threading.Thread.Sleep(boardDefinition.Connection.DelayAfterFirmwareUpdate);
                 }
             } else
             {
-                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
+                Log.Instance.log($"Firmware update requested for {boardDefinition.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
             }
             return result;
         }

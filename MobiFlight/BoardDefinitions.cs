@@ -14,37 +14,64 @@ namespace MobiFlight
         private static List<Board> boards = new List<Board>();
 
         /// <summary>
-        /// Finds a board definition by matching against the USB VID/PID.
+        /// Finds matching board definitions by matching against the USB VID/PID.
         /// </summary>
         /// <param name="hardwareIdPattern">A RegEx of the VID/PID to match against.</param>
-        /// <returns>The first board definition matching the hardwareIdPattern, or null if none found.</returns>
-        public static Board GetBoardByHardwareId(String hardwareIdPattern)
+        /// <returns>The list of all board definitions matching the hardwareIdPattern, or null if none found.</returns>
+        public static List<Board> GetBoardsByHardwareId(String hardwareIdPattern)
         {
-            return boards.Find(board => board.HardwareIds.Any(hardwareId =>
+            var result = boards.FindAll(board => board.HardwareIds.Any(hardwareId =>
             {
                 var regEx = new Regex(hardwareId);
                 return regEx.Match(hardwareIdPattern).Success;
             }));
+
+            if (result.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return result;
+            }
         }
         
         /// <summary>
-        /// Finds a board definition by matching against the manufacturer's name for the board.
+        /// Finds matching board definition by matching against the manufacturer's name for the board.
         /// </summary>
         /// <param name="friendlyName">The name to search for</param>
-        /// <returns>The first board definition matching the name, or null if none found</returns>
-        public static Board GetBoardByFriendlyName(String friendlyName)
+        /// <returns>The list of all board definitions matching the name, or null if none found.</returns>
+        public static List<Board> GetBoardsByFriendlyName(String friendlyName)
         {
-            return boards.Find(board => board.Info.FriendlyName.ToLower() == friendlyName.ToLower());
+            var result = boards.FindAll(board => board.Info.FriendlyName.ToLower() == friendlyName.ToLower());
+
+            if (result.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return result;
+            }
         }
 
         /// <summary>
-        /// Finds a board definition by matching against the MobiFlight firmware name for the board.
+        /// Finds matching board definitions by matching against the MobiFlight firmware name for the board.
         /// </summary>
         /// <param name="mobiflightType">The name to search for</param>
-        /// <returns>The first board definition matching the name, or null if none found</returns>
-        public static Board GetBoardByMobiFlightType(String mobiflightType)
+        /// <returns>The list of all board definitions matching the name, or null if none found.</returns>
+        public static List<Board> GetBoardsByMobiFlightType(String mobiflightType)
         {
-            return boards.Find(board => board.Info.MobiFlightType.ToLower() == mobiflightType?.ToLower());
+            var result = boards.FindAll(board => board.Info.MobiFlightType.ToLower() == mobiflightType?.ToLower());
+
+            if (result.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return result;
+            }
         }
 
         /// <summary>
