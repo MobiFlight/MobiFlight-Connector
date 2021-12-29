@@ -66,8 +66,6 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
-
-
         }
 
         /// <summary>
@@ -135,7 +133,7 @@ namespace MobiFlight.UI.Panels.Settings
                 mfModulesTreeView.Enabled = false;
             }
 
-            //mfModulesTreeView.Select(); // ( .SelectedNode = mfModulesTreeView.Nodes[0];
+            mfModulesTreeView.Select();
             
             FwAutoInstallCheckBox.Checked = Properties.Settings.Default.FwAutoUpdateCheck;
 #endif
@@ -320,11 +318,6 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFEncoderPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
-                        case DeviceType.InputShiftRegister:
-                            panel = new MFInputShiftRegisterPanel(dev as MobiFlight.Config.InputShiftRegister, module.GetPins());
-                            (panel as MFInputShiftRegisterPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
-                            break;
-
                         case DeviceType.Output:
                             panel = new MFOutputPanel(dev as MobiFlight.Config.Output, module.GetPins(), module.Board);
                             (panel as MFOutputPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
@@ -339,6 +332,22 @@ namespace MobiFlight.UI.Panels.Settings
                             panel = new MFShiftRegisterPanel(dev as MobiFlight.Config.ShiftRegister, module.GetPins());
                             (panel as MFShiftRegisterPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
+
+                        case DeviceType.InputShiftRegister:
+                            panel = new MFInputShiftRegisterPanel(dev as MobiFlight.Config.InputShiftRegister, module.GetPins());
+                            (panel as MFInputShiftRegisterPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+
+                        case DeviceType.DigInputMux:
+                            panel = new MFDigInputMuxPanel(dev as MobiFlight.Config.DigInputMux, module.GetPins());
+                            (panel as MFDigInputMuxPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+
+                        case DeviceType.MuxDriver:
+                            panel = new MFMuxDriverPanel (dev as MobiFlight.Config.MuxDriver, module.GetPins());
+                            (panel as MFMuxDriverPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
+
                             // output
                     }
                 }

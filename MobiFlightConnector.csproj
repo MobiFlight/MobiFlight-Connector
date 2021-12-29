@@ -203,6 +203,7 @@
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\Config\DigInputMux.cs" />
+    <Compile Include="MobiFlight\Config\MuxDriver.cs" />
     <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="MobiFlight\OutputConfig\Comparison.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
+    <Compile Include="MobiFlight\OutputConfig\MuxDriver.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
     <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
     <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
@@ -359,6 +361,12 @@
     </Compile>
     <Compile Include="UI\Panels\Device\MFDigInputMuxPanel.Designer.cs">
       <DependentUpon>MFDigInputMuxPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFMuxDriverPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFMuxDriverPanel.Designer.cs">
+      <DependentUpon>MFMuxDriverPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Device\MFInputShiftRegisterPanel.cs">
       <SubType>UserControl</SubType>
@@ -938,6 +946,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFDigInputMuxPanel.resx">
       <DependentUpon>MFDigInputMuxPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFMuxDriverPanel.de.resx">
+      <DependentUpon>MFMuxDriverPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFMuxDriverPanel.resx">
+      <DependentUpon>MFMuxDriverPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFInputShiftRegisterPanel.de.resx">
       <DependentUpon>MFInputShiftRegisterPanel.cs</DependentUpon>
