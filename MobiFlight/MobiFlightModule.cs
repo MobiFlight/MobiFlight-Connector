@@ -279,7 +279,9 @@ namespace MobiFlight
         }
 
         public void LoadConfig()
-        {           
+        {
+            if (Config == null) return;
+
             ledModules.Clear();
             stepperModules.Clear();
             servoModules.Clear();
@@ -289,7 +291,6 @@ namespace MobiFlight
             encoders.Clear();
             analogInputs.Clear();
             shiftRegisters.Clear();
-
 
             foreach (Config.BaseDevice device in Config.Items)
             {
