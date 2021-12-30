@@ -1119,6 +1119,13 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as MobiFlight.Config.DigInputMux).DataPin));
                         break;
 
+                    case DeviceType.MuxDriver:
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.MuxDriver).PinSx[0]));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.MuxDriver).PinSx[1]));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.MuxDriver).PinSx[2]));
+                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.MuxDriver).PinSx[3]));
+                        break;
+
                     case DeviceType.LcdDisplay:
                         // Statically add correct I2C pins
                         foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))

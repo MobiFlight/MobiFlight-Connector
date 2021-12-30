@@ -62,6 +62,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), MobiFlight.Properties.Resources.output);
             mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), MobiFlight.Properties.Resources.led7);
             mfTreeViewImageList.Images.Add(DeviceType.LcdDisplay.ToString(), MobiFlight.Properties.Resources.led7);
+            mfTreeViewImageList.Images.Add(DeviceType.MuxDriver.ToString(), MobiFlight.Properties.Resources.mux_driver);
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
@@ -195,6 +196,18 @@ namespace MobiFlight.UI.Panels.Settings
             module.Config = null;
             module.LoadConfig();
             mfModulesTreeView_initNode(module.GetInfo() as MobiFlightModuleInfo, parentNode);
+        }
+
+        private void mfModulesTreeView_AfterExpand(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node == null) return;
+            mfModulesTreeView.SelectedNode = e.Node;
+        }
+
+        private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node == null) return;
+            mfModulesTreeView.SelectedNode = e.Node;
         }
 
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -436,10 +449,10 @@ namespace MobiFlight.UI.Panels.Settings
             TreeNode newNode;
 
             // if first element of the tree is a muxDriver, we're already done
-            // To be safe, we check if there's a mux driver regardless of its position.
             TreeNode parentNode = getNodeOfCurrentModule();
             if (parentNode == null) return false;
 
+            // To be safe, we check if there's a muxDriver anywhere regardless of its position.
             foreach (TreeNode node in parentNode.Nodes) {
                 if((node.Tag as MobiFlight.Config.BaseDevice).Type == DeviceType.MuxDriver) {
                     return true;
@@ -491,6 +504,7 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 cfgItem = null;
                 tempModule = getVirtualModuleFromTree();
+                if (tempModule == null) return;
                 tempModule.LoadConfig();
                 Dictionary<String, int> statistics = tempModule.GetConnectedDevicesStatistics();
 
@@ -616,33 +630,7 @@ namespace MobiFlight.UI.Panels.Settings
                         return;
                 }
 
-                //MUX begin
-
                 TreeNode newNode = addDeviceToModule(cfgItem);
-                
-                // Following moved to function addDeviceToModule(...):
-
-                //TreeNode parentNode = mfModulesTreeView.SelectedNode;
-                //if (parentNode == null) return;
-
-                //while (parentNode.Level > 0) parentNode = parentNode.Parent;
-                //List<String> NodeNames = new List<String>();
-                //foreach (TreeNode node in parentNode.Nodes)
-                //{
-                //    NodeNames.Add(node.Text);
-                //}
-                //cfgItem.Name = MobiFlightModule.GenerateUniqueDeviceName(NodeNames.ToArray(), cfgItem.Name);
-
-                //TreeNode newNode = new TreeNode(cfgItem.Name);
-                //newNode.SelectedImageKey = newNode.ImageKey = cfgItem.Type.ToString();
-                //newNode.Tag = cfgItem;
-
-                //parentNode.Nodes.Add(newNode);
-                //parentNode.ImageKey = "Changed";
-                //parentNode.SelectedImageKey = "Changed";
-
-                //mfModulesTreeView.SelectedNode = newNode;
-                //MUX end
                 syncPanelWithSelectedDevice(newNode);
             }
             catch (MaximumDeviceNumberReachedMobiFlightException ex)

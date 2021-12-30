@@ -215,8 +215,8 @@
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\Joystick.cs" />
     <Compile Include="MobiFlight\JoystickManager.cs" />
-    <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
+    <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
     <Compile Include="MobiFlight\MobiFlightDigInputMux.cs" />
     <Compile Include="MobiFlight\MobiFlightPin.cs" />
@@ -1101,6 +1101,8 @@
     <None Include="Resources\module-mobiflight.png" />
     <None Include="Resources\module-changed.png" />
     <None Include="Resources\module-mobiflight-update.png" />
+    <None Include="Resources\mux_driver.bmp" />
+    <None Include="Resources\mux-driver.png" />
     <Content Include="Resources\output.png" />
     <Content Include="Resources\servo.png" />
     <Content Include="Resources\stepper.png" />
