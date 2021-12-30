@@ -381,9 +381,9 @@ namespace MobiFlight.UI.Panels.Settings
         }
 
         /// <summary>
-        /// Helper function to add a node in the current module structure
+        /// Helper function to return the node corresponding to current module
         /// </summary>
-        ///<returns>TreeNode of current module, null if no item selected.</returns>
+        ///<returns>TreeNode of the module of current selected item; null if no item selected.</returns>
         /// 
         private TreeNode getNodeOfCurrentModule()
         {
@@ -440,24 +440,50 @@ namespace MobiFlight.UI.Panels.Settings
         }
 
         /// <summary>
-        /// Helper function to check whether a MuxDriver device exists (as first device) in the current module
+        /// Tell whether a device requires the presence of a MuxDriver 
+        /// </summary>
+        /// <returns>true if required, false otherwise</returns>
+        /// This function could be turned to a method of MobiFlight.Config.BaseDevice
+        private bool requiresMuxDriver(MobiFlight.Config.BaseDevice device)
+        {
+            // Currently, the only device type requiring a mux driver is the Digital Input Mux;
+            // in a prospective improvement, multiplexers can easily be used to route many other devices.
+            // These devices may basically be the exact same ones that are in use now directly attached,
+            // provided that a "channel" attribute is added. A device assigned to channel #N will be polled
+            // by the firmware (and correctly routed) by setting the mux driver channel to N.
+            // When/if this will be implemented, the following condition will only have to be modified to check
+            // if any device has a non-null "channel" value.
+            return (device.Type == DeviceType.DigInputMux);
+        }
+
+        /// <summary>
+        /// Helper function to check whether a MuxDriver device exists in the current module
+        /// </summary>
+        /// <returns>Object if existing, null otherwise</returns>
+        private TreeNode findMuxDriverInTree()
+        {
+            // if there is a muxDriver, it is supposed to be the first element of the tree,
+            // but to be safe we check if there's one anywhere regardless of its position.
+            TreeNode parentNode = getNodeOfCurrentModule();
+            if (parentNode == null) return null;
+
+            foreach (TreeNode node in parentNode.Nodes) {
+                if ((node.Tag as MobiFlight.Config.BaseDevice).Type == DeviceType.MuxDriver) {
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Helper function to check whether a MuxDriver device exists in the current module
         /// and add it if required
         /// </summary>
         /// <returns>true if added or existing, false if it can't be created</returns>
-        private bool addMuxDriverToModule()
+        private bool tryAddMuxDriverToModule()
         {
-            TreeNode newNode;
-
-            // if first element of the tree is a muxDriver, we're already done
-            TreeNode parentNode = getNodeOfCurrentModule();
-            if (parentNode == null) return false;
-
-            // To be safe, we check if there's a muxDriver anywhere regardless of its position.
-            foreach (TreeNode node in parentNode.Nodes) {
-                if((node.Tag as MobiFlight.Config.BaseDevice).Type == DeviceType.MuxDriver) {
-                    return true;
-                }
-            }
+            // if there is a muxDriver in the tree, we're already done
+            if (findMuxDriverInTree() != null) return true;
 
             // otherwise see if we can create one
             List<MobiFlightPin> freePins = getVirtualModuleFromTree().GetFreePins();
@@ -478,17 +504,30 @@ namespace MobiFlight.UI.Panels.Settings
             // Do not select newly added item (the invoking item will have the selection) 
             return true;
         }
-                
 
         /// <summary>
-        /// Helper function to check whether a MuxDriver device exists (as first device) in the current module
+        /// Helper function to check whether a MuxDriver device exists in the current module
         /// and if it's still required; otherwise it is removed.
         /// </summary>
-        /// <returns>true if removed, false if already missing</returns>
-        private bool removeMuxDriverFromModule()
+        /// <returns>true if removed or already missing, false if still required</returns>
+        private bool tryRemoveMuxDriverFromModule()
         {
-            bool removed = false;
-            return removed;
+            TreeNode muxNode = findMuxDriverInTree();
+            // if there is no muxDriver in the tree, we're already done
+            if (muxNode == null) return true;
+
+            TreeNode parentNode = getNodeOfCurrentModule();
+            if (parentNode == null) return true;
+            foreach (TreeNode node in parentNode.Nodes) {
+                if (requiresMuxDriver(node.Tag as MobiFlight.Config.BaseDevice)) {
+                    return false;
+                }
+            }
+            mfModulesTreeView.Nodes.Remove(muxNode);
+            // do not bother to change parentNode.ImageKey: this is only a helper function, therefore there is
+            // a caller that is removing another device and will take care of that.
+
+            return true;
         }
 
         /// <summary>
@@ -602,7 +641,7 @@ namespace MobiFlight.UI.Panels.Settings
                         if (statistics[MobiFlightDigInputMux.TYPE] == tempModule.Board.ModuleLimits.MaxDigInputMuxes) {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightDigInputMux.TYPE, tempModule.Board.ModuleLimits.MaxDigInputMuxes);
                         }
-                        addMuxDriverToModule();
+                        tryAddMuxDriverToModule();
                         cfgItem = new MobiFlight.Config.DigInputMux();
                         (cfgItem as MobiFlight.Config.DigInputMux).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
                         break;
@@ -797,19 +836,17 @@ namespace MobiFlight.UI.Panels.Settings
         {
             TreeNode node = mfModulesTreeView.SelectedNode;
             if (node == null) return;
-            if (node.Level == 0) return;
+            if (node.Level == 0) return;    // removing a device, not a module
 
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-
-            //MUX
-            //if(node) is a DigInputMux (future: has a valid "channel" value)
-            //{
-            //     removeMuxDriverFromModule();
-            //     // (if not present, exception)
-            //}
+            TreeNode parentNode = getNodeOfCurrentModule();
 
             mfModulesTreeView.Nodes.Remove(node);
+            
+            // if we're removing a device that uses the multiplexer driver (currently DigInputMux only),
+            // check if any other device uses it, and otherwise make sure to remove that too 
+            if (requiresMuxDriver(node.Tag as MobiFlight.Config.BaseDevice)) {
+                tryRemoveMuxDriverFromModule();
+            }
 
             parentNode.ImageKey = "Changed";
             parentNode.SelectedImageKey = "Changed";
