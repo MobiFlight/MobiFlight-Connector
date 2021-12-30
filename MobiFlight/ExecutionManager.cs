@@ -246,12 +246,19 @@ namespace MobiFlight
         public void TestModeStart()
         {
             testModeTimer.Enabled = true;
+
+            OnTestModeStarted?.Invoke(this, null);
             Log.Instance.log("ExecutionManager.TestModeStart:" + "Started test timer", LogSeverity.Info);
         }
 
         public void TestModeStop()
         {
             testModeTimer.Enabled = false;
+
+            // make sure every device is turned off
+            mobiFlightCache.Stop();
+            
+            OnTestModeStopped?.Invoke(this, null);
             Log.Instance.log("ExecutionManager.TestModeStop:" + "Stopped test timer", LogSeverity.Info);
         }
 

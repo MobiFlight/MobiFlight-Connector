@@ -260,14 +260,24 @@ namespace MobiFlight
 
             if (Type == TYPE_BUTTON)
             {
-                result = button.GetStatistics();
+                // explicit test is needed 
+                // in some older version we didn't save the node correctly
+                if (button != null)
+                    result = button?.GetStatistics();
+
             } else if (Type == TYPE_ENCODER)
             {
-                result = encoder.GetStatistics();
+                // explicit test is needed 
+                // in some older version we didn't save the node correctly
+                if (encoder != null)
+                    result = encoder.GetStatistics();
             }
             else if (Type == TYPE_ANALOG)
             {
-                result = analog.GetStatistics();
+                // explicit test is needed 
+                // in some older version we didn't save the node correctly
+                if (analog != null)
+                    result = analog.GetStatistics();
             }
 
             return result;
