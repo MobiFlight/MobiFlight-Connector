@@ -334,7 +334,7 @@ namespace MobiFlight
                         buttons.Add(device.Name, new MobiFlightButton() { Name = device.Name });
                         break;
                     case DeviceType.InputShiftRegister:
-                        device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        device.Name = GenerateUniqueDeviceName(inputShiftRegisters.Keys.ToArray(), device.Name);
                         inputShiftRegisters.Add(device.Name, new MobiFlightInputShiftRegister() { Name = device.Name });
                         break;
                     case DeviceType.Encoder:
