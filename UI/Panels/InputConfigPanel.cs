@@ -384,6 +384,10 @@ namespace MobiFlight.UI.Panels
                         row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.channel}";
                     }
                     else
+                    if (cfg.Type == InputConfigItem.TYPE_DIG_INPUT_MUX) {
+                        row["inputName"] = $"{cfg.Name}:{cfg.digInputMux.channel}";
+                    } 
+                    else 
                     {
                         row["inputName"] = cfg.Name;
                     }

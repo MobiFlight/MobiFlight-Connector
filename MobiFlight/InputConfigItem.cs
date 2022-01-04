@@ -23,7 +23,6 @@ namespace MobiFlight
         public const String TYPE_ENCODER = "Encoder";
         public const String TYPE_INPUT_SHIFT_REGISTER = "InputShiftRegister";
         public const String TYPE_DIG_INPUT_MUX = "DigInputMux";
-        public const String TYPE_MUX_DRIVER = "MuxDriver";
         public const String TYPE_ANALOG = "Analog";
 
 

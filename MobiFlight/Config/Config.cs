@@ -15,6 +15,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(Encoder))]
         [XmlElement(typeof(InputShiftRegister))]
         [XmlElement(typeof(DigInputMux))]
+        [XmlElement(typeof(MuxDriver))]
         [XmlElement(typeof(LedModule))]
         [XmlElement(typeof(Output))]
         [XmlElement(typeof(Servo))]
@@ -133,6 +134,11 @@ namespace MobiFlight.Config
 
                         case DeviceType.DigInputMux:
                             currentItem = new MobiFlight.Config.DigInputMux();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
+                        case DeviceType.MuxDriver:
+                            currentItem = new MobiFlight.Config.MuxDriver();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 

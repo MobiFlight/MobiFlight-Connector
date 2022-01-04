@@ -6,7 +6,7 @@ namespace MobiFlight.Config
 {
     public class DigInputMux : BaseDevice
     {
-        const ushort _paramCount = 2;
+        const ushort _paramCount = 3;
         [XmlAttribute]
         public String DataPin = "-1";
         [XmlAttribute]
@@ -31,9 +31,9 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
 
-            DataPin = paramList[1];
-            Name = paramList[2];
-            NumModules = paramList[3];
+            DataPin     = paramList[1];
+            NumModules  = paramList[2];
+            Name        = paramList[3];
             return true;
         }
 

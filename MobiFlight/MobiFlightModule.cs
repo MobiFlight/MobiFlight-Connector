@@ -48,8 +48,8 @@ namespace MobiFlight
         ShiftRegister,       // 10
         AnalogInput,         // 11
         InputShiftRegister,  // 12
-        DigInputMux,   		 // 13
-        MuxDriver,   		 // 14
+        MuxDriver,   		 // 13
+        DigInputMux,   		 // 14
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -511,7 +511,7 @@ namespace MobiFlight
             String channel  = arguments.ReadStringArg();
             String state    = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.DigInputMux, Channel = int.Parse(channel), Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, Channel = int.Parse(channel), Value = int.Parse(state) });
         }
 
         void OnDigInputMuxChange(ReceivedCommand arguments)
@@ -520,7 +520,7 @@ namespace MobiFlight
             String channel  = arguments.ReadStringArg();
             String state    = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, Channel = int.Parse(channel), Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.DigInputMux, Channel = int.Parse(channel), Value = int.Parse(state) });
         }
 
         // Callback function that prints the Arduino status to the console

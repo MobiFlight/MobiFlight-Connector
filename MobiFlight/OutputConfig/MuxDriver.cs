@@ -9,47 +9,46 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class MuxDriver
+    public static class MuxDriver
     {
-        public String[] PinSx { get; set; }
+        private static String[] PinSx;
+        private static bool initialized; 
 
-        public MuxDriver()
+        static MuxDriver()
         {
             PinSx[0] = "";
             PinSx[1] = "";
             PinSx[2] = "";
             PinSx[3] = "";
+            initialized = false;
         }
-
-        public override bool Equals(Object obj)
+        public static bool isInitialized()
         {
-            return (obj == this);
+            return initialized;
         }
-
-        public void ReadXml(XmlReader reader)
+        public static void Clear()
         {
-            for(var i=0; )
-            
-            if (reader["muxDriverPinS0"] != null && reader["muxDriverPinS0"] != "")
-            {
-                PinSx[0] = reader["muxDriverPinS0"];
+            initialized = false;
+        }
+        public static void ReadXml(XmlReader reader)
+        {
+            String pinName;
+            for(var i=0; i<4; i++) {
+                pinName = $"muxDriverPinS{i}";
+                if (reader[pinName] != null && reader[pinName] != "") {
+                    PinSx[i] = reader[pinName];
+                }
             }
+            initialized = true;
+        }
 
-            if (reader["shiftRegister"] != null && reader["shiftRegister"] != "")
-            {
-                Address = reader["shiftRegister"];
+        public static void WriteXml(XmlWriter writer)
+        {
+            String pinName;
+            for (var i = 0; i < 4; i++) {
+                pinName = $"muxDriverPinS{i}";
+                writer.WriteAttributeString(pinName, PinSx[i]);
             }
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteAttributeString("shiftRegister", Address);
-            writer.WriteAttributeString("registerOutputPin", Pin);
-        }
-
-        public object Clone()
-        {
-            return null;    // Singleton, can't be cloned
         }
     }
 }

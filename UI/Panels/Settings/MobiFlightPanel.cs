@@ -684,7 +684,6 @@ namespace MobiFlight.UI.Panels.Settings
                                 i18n._tr("uiMessageNotEnoughPinsHint"),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         /// <summary>

@@ -7,10 +7,11 @@ namespace MobiFlight.Config
     public class MuxDriver : BaseDevice
     {
         const ushort _paramCount = 5;
+
         [XmlAttribute]
         public String[] PinSx = { "-1", "-2", "-3", "-4" };
 
-        public MuxDriver() { Name = "MuxDriver"; _type = DeviceType.MuxDriver; }
+        public MuxDriver() {  Name = "MuxDriver"; _type = DeviceType.MuxDriver; }
 
         override public String ToInternal()
         {
