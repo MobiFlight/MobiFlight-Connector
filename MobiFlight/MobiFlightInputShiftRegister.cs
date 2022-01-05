@@ -12,6 +12,7 @@ namespace MobiFlight
         {
             PRESS,
             RELEASE,
+            REPEAT,     // For future uses, like Buttons
         }
 
         public const string TYPE = "InputShiftRegister";
@@ -50,6 +51,10 @@ namespace MobiFlight
 
                 case (int)InputEvent.RELEASE:
                     eventAction = InputEvent.RELEASE.ToString();
+                    break;
+
+                case (int)InputEvent.REPEAT:
+                    eventAction = InputEvent.REPEAT.ToString();
                     break;
             }
 
