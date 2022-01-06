@@ -128,6 +128,31 @@ namespace MobiFlight
             joystickManager.Connect(handle);
         }
 
+        internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
+        {
+            Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
+
+            // iterate over the config row by row
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
+                // and the ones that are not checked active
+                if (row.IsNewRow) continue;
+
+                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+                
+                if (cfg.SourceType != SourceType.VARIABLE) continue;
+
+                if (cfg.MobiFlightVariable == null) continue;
+
+                if (variables.ContainsKey(cfg.MobiFlightVariable.Name)) continue;
+
+                variables[cfg.MobiFlightVariable.Name] = cfg.MobiFlightVariable;
+            }
+
+            return variables;
+        }
+
         public void HandleWndProc(ref Message m)
         {
 #if SIMCONNECT

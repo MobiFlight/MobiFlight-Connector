@@ -34,7 +34,7 @@
             this.ValueTextBox = new System.Windows.Forms.TextBox();
             this.ValueLabel = new System.Windows.Forms.Label();
             this.TypeComboBox = new System.Windows.Forms.ComboBox();
-            this.NameTextBox = new System.Windows.Forms.TextBox();
+            this.NameTextBox = new System.Windows.Forms.ComboBox();
             this.TypeLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -108,7 +108,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label TypeLabel;
-        private System.Windows.Forms.TextBox NameTextBox;
+        private System.Windows.Forms.ComboBox NameTextBox;
         private System.Windows.Forms.ComboBox TypeComboBox;
         private System.Windows.Forms.TextBox ValueTextBox;
         private System.Windows.Forms.Label ValueLabel;

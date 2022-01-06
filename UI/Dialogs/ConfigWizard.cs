@@ -59,7 +59,7 @@ namespace MobiFlight.UI.Dialogs
             initWithoutArcazeCache();
 #endif
             preconditionPanel.preparePreconditionPanel(dataSetConfig, filterGuid);
-            initConfigRefDropDowns(dataSetConfig, filterGuid);            
+            initConfigRefDropDowns(dataSetConfig, filterGuid);          
         }
 
         private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
@@ -113,6 +113,8 @@ namespace MobiFlight.UI.Dialogs
             {
                 tabControlFsuipc.SelectedTab = preconditionTabPage;
             };
+
+            variablePanel1.SetVariableReferences(_execManager.GetAvailableVariables());
 
             // FSUIPC PANEL
             fsuipcConfigPanel.setMode(true);

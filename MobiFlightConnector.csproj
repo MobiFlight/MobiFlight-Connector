@@ -315,6 +315,12 @@
     <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.Designer.cs">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Action\BaseVariablePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Action\BaseVariablePanel.Designer.cs">
+      <DependentUpon>BaseVariablePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020CustomInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
