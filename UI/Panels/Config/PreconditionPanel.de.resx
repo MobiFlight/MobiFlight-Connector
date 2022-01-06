@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="preconditionListTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQoAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wAQEBAAABAAEABAEICAgdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5v
+        ZGUCAAAAAgAAAAYDAAAADlByZWNvbmRpdGlvbiBJBgQAAAAABgUAAAAHS25vdGVuMAH/////CQQAAAD/
+        ////CQQAAAABAAAACQcAAAAFBwAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQkAAAAEVGV4
+        dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1h
+        Z2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQBAQEAAAEAAQABCAgIAgAAAAYIAAAAB0tu
+        b3RlbjIJBAAAAAYKAAAAB0tub3RlbjIA/////wkEAAAA/////wkEAAAAAAAAAAs=
+</value>
+  </data>
+  <data name="preconditionListTreeView.Nodes1" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAAB1TeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5UcmVlTm9kZQsAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tl
+        ZApJbWFnZUluZGV4CEltYWdlS2V5ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNo
+        aWxkQ291bnQJY2hpbGRyZW4wCWNoaWxkcmVuMQEBAQAAAQABAAQEAQgICB1TeXN0ZW0uV2luZG93cy5G
+        b3Jtcy5UcmVlTm9kZQIAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYDAAAA
+        B0tub3RlbjMGBAAAAAAGBQAAAAdLbm90ZW4zAP////8JBAAAAP////8JBAAAAAIAAAAJBwAAAAkIAAAA
+        BQcAAAAdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUJAAAABFRleHQLVG9vbFRpcFRleHQETmFt
+        ZQlJc0NoZWNrZWQKSW1hZ2VJbmRleAhJbWFnZUtleRJTZWxlY3RlZEltYWdlSW5kZXgQU2VsZWN0ZWRJ
+        bWFnZUtleQpDaGlsZENvdW50AQEBAAABAAEAAQgICAIAAAAGCQAAAAdLbm90ZW40CQQAAAAGCwAAAAdL
+        bm90ZW40AP////8JBAAAAP////8JBAAAAAAAAAAFCAAAAB1TeXN0ZW0uV2luZG93cy5Gb3Jtcy5UcmVl
+        Tm9kZQoAAAAEVGV4dAtUb29sVGlwVGV4dAROYW1lCUlzQ2hlY2tlZApJbWFnZUluZGV4CEltYWdlS2V5
+        ElNlbGVjdGVkSW1hZ2VJbmRleBBTZWxlY3RlZEltYWdlS2V5CkNoaWxkQ291bnQJY2hpbGRyZW4wAQEB
+        AAABAAEABAEICAgdU3lzdGVtLldpbmRvd3MuRm9ybXMuVHJlZU5vZGUCAAAAAgAAAAYNAAAAB0tub3Rl
+        bjUJBAAAAAYPAAAAB0tub3RlbjUA/////wkEAAAA/////wkEAAAAAQAAAAkRAAAABREAAAAdU3lzdGVt
+        LldpbmRvd3MuRm9ybXMuVHJlZU5vZGUKAAAABFRleHQLVG9vbFRpcFRleHQETmFtZQlJc0NoZWNrZWQK
+        SW1hZ2VJbmRleAhJbWFnZUtleRJTZWxlY3RlZEltYWdlSW5kZXgQU2VsZWN0ZWRJbWFnZUtleQpDaGls
+        ZENvdW50CWNoaWxkcmVuMAEBAQAAAQABAAQBCAgIHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2Rl
+        AgAAAAIAAAAGEgAAAAdLbm90ZW42CQQAAAAGFAAAAAdLbm90ZW42AP////8JBAAAAP////8JBAAAAAEA
+        AAAJFgAAAAUWAAAAHVN5c3RlbS5XaW5kb3dzLkZvcm1zLlRyZWVOb2RlCQAAAARUZXh0C1Rvb2xUaXBU
+        ZXh0BE5hbWUJSXNDaGVja2VkCkltYWdlSW5kZXgISW1hZ2VLZXkSU2VsZWN0ZWRJbWFnZUluZGV4EFNl
+        bGVjdGVkSW1hZ2VLZXkKQ2hpbGRDb3VudAEBAQAAAQABAAEICAgCAAAABhcAAAAHS25vdGVuNwkEAAAA
+        BhkAAAAHS25vdGVuNwD/////CQQAAAD/////CQQAAAAAAAAACw==
+</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="preconditionListTreeView.Size" type="System.Drawing.Size, System.Drawing">
+    <value>666, 125</value>
+  </data>
+  <data name="preconditionListgroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 154</value>
+  </data>
+  <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 49</value>
+  </data>
+  <data name="preconditionTabTextBox.Text" xml:space="preserve">
+    <value>Lege eine Vorbedingung für diese Konfiguration an. Nur wenn die Vorbedingung erfüllt ist, wird die Konfiguration berücksichtigt. Das ist z.B. für ein Multi-Radio sinnvoll.</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 72</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
+    <value>Liste Vorbedingungen</value>
+  </data>
+  <data name="preconditionTypeLabel.Text" xml:space="preserve">
+    <value>Verwende Typ</value>
+  </data>
+  <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 605</value>
+  </data>
+  <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 110</value>
+  </data>
+  <data name="overrideGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 528</value>
+  </data>
+  <data name="overrideGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 77</value>
+  </data>
+  <data name="preconditionPinValueLabel.Text" xml:space="preserve">
+    <value>Wenn Wert</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="preconditionPinPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 24</value>
+  </data>
+  <data name="preconditionPinPanel.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 160</value>
+  </data>
+  <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>666, 160</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>666, 170</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 199</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
+    <value>Einstellungen Vorbedingung</value>
+  </data>
+  <data name="preconditionApplyButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>176, 280</value>
+  </data>
+  <data name="preconditionApplyButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>404, 35</value>
+  </data>
+  <data name="preconditionApplyButton.Text" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="preconditionSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 325</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.Text" xml:space="preserve">
+    <value>Wenn Wert</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Wähle Config</value>
+  </data>
+  <data name="preconditionTreeImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAG
+        CgAAAk1TRnQBSQFMAgEBAgEAASQBBgEkAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8AFwADOwFkA2IB4QJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJl
+        AVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wNiAeEDOgFiCAADOwFkA2IB4QJcAWUB5wJcAWUB5wJc
+        AWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wNiAeEDOgFiiAACYQFb
+        AeQB/wHTAYkB/wH6AbwBAAH/AfsBsQEAAf8B/AGpAQAB/wH+AZ8BAAL/AZsBAAL/AZ4BAAL/AZ4BAAL/
+        AaABAAL/AZ8BAAL/AZ8BAAL/AaQBAAH/AmEBXgHiCAACWwFhAeQBiQGhAv8BAAGEAv8CAAL/AgAC/wIA
+        Av8CAAL/AgAC/wEAAYoC/wEAAZcC/wEAAaEC/wEAAaMC/wEAAaUC/wJeAWEB4ogAA10B6gH2AcABAAH/
+        AfABqQEAAf8B8AGfAQAB/wHwAZYBAAH/AfIBjgEAAf8B9AGOAQAB/wH3AZEBAAH/AfoBlAEAAf8B/AGW
+        AQAC/wGZAQAB/wH+AZgBAAL/AaABAAH/A10B6ggAA10B6gEAAZAB/QH/AgAB/gH/AgAC/wIAAv8CAAL/
+        AgAC/wIAAv8BAAGCAv8BAAGPAv8BAAGbAv8BAAGaAv8BAAGgAv8DXQHqiAADXQHqAfIBuQEAAf8B6wGi
+        AQAB/wHqAZcBAAH/AeoBjAEAAf8B6wGGAQAB/wHuAYgBAAH/AfEBiwEAAf8B8wGNAQAB/wH2AZABAAH/
+        AfkBkwEAAf8B/QGXAQAC/wGgAQAB/wNdAeoIAANdAeoBAAGLAf4B/wIAAf4B/wIAAv8CAAL/AgAC/wIA
+        Av8CAAL/AQABgQL/AQABjQL/AQABlgL/AQABmAL/AQABmgL/A10B6ogAA10B6gHuAbQBAAH/AeYBnAEA
+        Af8B5QGQAQAB/wHkAYUBAAH/AeUCAAH/AegBggEAAf8B6gGEAQAB/wHtAYcBAAH/AfABigEAAf8B8wGN
+        AQAB/wH2AZABAAH/Af4BmAEAAf8DXQHqCAADXQHqAQABiQH8Af8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
+        Av8CAAL/AQABgwL/AQABiQL/AQABiwL/AQABkQL/A10B6ogAA10C6gGwAQAB/wHhAZcBAAH/Ad8BiwEA
+        Af8B3gIAAf8B3wIAAf8B4QIAAf8B5AIAAf8B5wGBAQAB/wHqAYQBAAH/Ae0BhwEAAf8B7wGJAQAB/wH4
+        AZIBAAH/A10B6ggAA10B6gEAAYgB+wH/AgAB/QH/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
+        Av8CAAL/AQABhQL/A10B6ogAA10B6gHmAa4BAAH/Ad0BlAEAAf8B2wGHAQAB/wHZAgAB/wHYAgAB/wHb
+        AgAB/wHeAgAB/wHhAgAB/wHjAgAB/wHmAYABAAH/AekBgwEAAf8B8gGMAQAB/wNdAeoIAANdAeoBAAGI
+        AfgB/wIAAfoB/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8DXQHqiAADXQHq
+        AeQBrQEAAf8B2gGUAQAB/wHXAYYBAAH/AdUCAAH/AdMCAAH/AdUCAAH/AdgCAAH/AdoCAAH/Ad0CAAH/
+        AeACAAH/AeMCAAH/AewBhgEAAf8DXQHqCAADXQHqAQABjAH1Af8CAAH1Af8CAAH9Af8CAAL/AgAC/wIA
+        Av8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8DXQHqiAADXQHqAeMBrwEAAf8B2AGVAQAB/wHUAYcBAAH/
+        AdECAAH/Ac8CAAH/Ac8CAAH/AdECAAH/AdQCAAH/AdcCAAH/AdoCAAH/AdwCAAH/AeUCAAH/A10B6ggA
+        A10B6gEAAZIB8wH/AgAB8AH/AgAB9wH/AgAB/gH/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIA
+        Av8DXQHqiAADXQHqAeIBswGLAf8B1gGYAQAB/wHSAYsBAAH/Ac8CAAH/AcwCAAH/AcsCAAH/AcsCAAH/
+        Ac4CAAH/AdECAAH/AdMCAAH/AdYCAAH/Ad8CAAH/A10B6ggAA10B6gGLAZoB8AH/AgAB7AH/AgAB8QH/
+        AgAB9wH/AgAC/wIAAv8CAAL/AgAC/wIAAv8CAAL/AgAC/wIAAv8DXQHqiAADXQHqAeIBuwGYAf8B1gGd
+        AQAB/wHSAZABAAH/Ac4BhAEAAf8BywIAAf8ByQIAAf8ByAIAAf8ByAIAAf8BygIAAf8BzQIAAf8B0AIA
+        Af8B2AIAAf8DXQHqCAADXQHqAZgBpQHvAf8BAAGBAegB/wIAAesB/wIAAfAB/wIAAfUB/wIAAf0B/wIA
+        Av8CAAH+Af8CAAL/AgAC/wIAAv8CAAL/A10B6ogAA10B6gHlAcIBqQH/AdcBpQGAAf8B0gGXAQAB/wHO
+        AYsBAAH/AcsBgQEAAf8ByQIAAf8ByAIAAf8ByAIAAf8ByAIAAf8BygIAAf8BzQIAAf8B1QIAAf8DXQHq
+        CAADXQHqAakBsQHvAf8BgAGMAeYB/wIAAecB/wIAAeoB/wIAAe4B/wIAAfIB/wIAAfYB/wIAAfoB/wIA
+        Af4B/wIAAv8CAAL/AgAC/wNdAeqIAAFhAlsB5AHvAdkBygH/AeIBvQGjAf8B3AGtAYwB/wHWAaEBAAH/
+        AdMBlQEAAf8BzwGLAQAB/wHOAYUBAAH/Ac0BgAEAAf8BzgIAAf8BzwIAAf8B0wGAAQAB/wHaAYkBAAH/
+        A2AB4wgAAlsBYQHkAcoB0AH1Af8BowGsAewB/wGMAZgB6wH/AQABigHtAf8CAAHvAf8CAAHxAf8CAAH1
+        Af8CAAH3Af8CAAH6Af8CAAH6Af8CAAH8Af8CAAL/A2AB44gAAzwBZgFhAlsB5ANdAeoDXQHqA10B6gNd
+        AeoDXQHqA10B6gNdAeoDXQHqA10B6gNdAeoBYQJbAeQDOwFkCAADPAFmAlsBYQHkA10B6gNdAeoDXQHq
+        A10B6gNdAeoDXQHqA10B6gNdAeoDXQHqA10B6gJbAWEB5AM7AWT/AIUAAUIBTQE+BwABPgMAASgDAAFA
+        AwABEAMAAQEBAAEBBQABgBcAA/8BAAT/BAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEB
+        AYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEB
+        AYABAQQAAYABAQGAAQEEAAGAAQEBgAEBBAABgAEBAYABAQQAAYABAQGAAQEEAAT/BAAL
+</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 715</value>
+  </data>
+</root>
