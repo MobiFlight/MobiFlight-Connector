@@ -27,10 +27,8 @@ namespace MobiFlight.UI.Panels.Settings
             mfPin3ComboBox.Items.Clear();
         }
 
-        public MFInputShiftRegisterPanel(InputShiftRegister inShiftReg, List<MobiFlightPin> Pins) : this()
+        public MFInputShiftRegisterPanel(InputShiftRegister inputShiftRegister, List<MobiFlightPin> Pins) : this()
         {
-            this.inputShiftRegister = inShiftReg;
-
             ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, inputShiftRegister.LatchPin);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, inputShiftRegister.ClockPin);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, inputShiftRegister.DataPin);
@@ -46,6 +44,8 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 mfNumModulesComboBox.Items.Add(i);
             }
+
+            this.inputShiftRegister = inputShiftRegister;
 
             ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, inputShiftRegister.LatchPin);
             ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, inputShiftRegister.ClockPin);

@@ -25,7 +25,6 @@ namespace MobiFlight
         public const String TYPE_DIG_INPUT_MUX = "DigInputMux";
         public const String TYPE_ANALOG = "Analog";
 
-
         public string ModuleSerial { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
@@ -257,7 +256,6 @@ namespace MobiFlight
                     if (button != null)
                         button.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
-
                 case TYPE_ENCODER:
                     if (encoder != null)
                         encoder.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);

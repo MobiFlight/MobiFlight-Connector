@@ -220,6 +220,11 @@ namespace MobiFlight.UI
         {
             int i = Properties.Settings.Default.Started;
             WelcomeDialog wd = new WelcomeDialog();
+            wd.ReleaseNotesClicked += (sender, e) =>
+            {
+                Process.Start("https://www.mobiflight.com/en/download.html#Release_Notes");
+            };
+
             wd.StartPosition = FormStartPosition.CenterParent;
             wd.Text = String.Format(wd.Text, DisplayVersion());
             wd.ShowDialog();
