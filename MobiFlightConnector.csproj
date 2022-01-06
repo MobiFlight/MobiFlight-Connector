@@ -273,6 +273,12 @@
     <Compile Include="UI\Dialogs\TimeoutMessageDialog.Designer.cs">
       <DependentUpon>TimeoutMessageDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\TransparentOverlay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Dialogs\TransparentOverlay.Designer.cs">
+      <DependentUpon>TransparentOverlay.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\ArduinoIdePathForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -824,6 +830,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\TimeoutMessageDialog.resx">
       <DependentUpon>TimeoutMessageDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Dialogs\TransparentOverlay.resx">
+      <DependentUpon>TransparentOverlay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ArduinoIdePathForm.de.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>

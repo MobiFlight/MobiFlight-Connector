@@ -1,4 +1,6 @@
-﻿namespace MobiFlight.UI.Dialogs
+﻿using System;
+
+namespace MobiFlight.UI.Dialogs
 {
     partial class WelcomeDialog
     {
@@ -33,6 +35,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.transparentOverlay = new MobiFlight.UI.Dialogs.TransparentOverlay();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,10 +63,19 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
+            // transparentOverlay
+            // 
+            this.transparentOverlay.BackColor = System.Drawing.Color.Transparent;
+            this.transparentOverlay.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.transparentOverlay, "transparentOverlay");
+            this.transparentOverlay.Name = "transparentOverlay";
+            this.transparentOverlay.Click += new System.EventHandler(this.transparentOverlay1_Click);
+            // 
             // WelcomeDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.transparentOverlay);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
@@ -80,5 +92,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
+        private TransparentOverlay transparentOverlay;
     }
 }
