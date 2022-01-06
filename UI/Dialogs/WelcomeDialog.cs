@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace MobiFlight.UI.Dialogs
 {
     public partial class WelcomeDialog : Form
     {
+        public event EventHandler<EventArgs> ReleaseNotesClicked;
         public WelcomeDialog()
         {
             InitializeComponent();
@@ -24,6 +26,11 @@ namespace MobiFlight.UI.Dialogs
         private void WelcomeDialog_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void transparentOverlay1_Click(object sender, EventArgs e)
+        {
+            ReleaseNotesClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }
