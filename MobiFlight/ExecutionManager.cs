@@ -1426,17 +1426,17 @@ namespace MobiFlight
             if (e.Type == DeviceType.InputShiftRegister)
             {
                 eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
-                // The inputKey gets the shifter channel added to it if the input came from a shift register
+                // The inputKey gets the shifter external pin added to it if the input came from a shift register
                 // This ensures caching works correctly when there are multiple channels on the same physical device
-                inputKey = inputKey + e.Channel;
+                inputKey = inputKey + e.ExtPin;
             }
             else if (e.Type == DeviceType.DigInputMux)
             {
                 eventAction = MobiFlightDigInputMux.InputEventIdToString(e.Value);
 //GCC CHECK
-                // The inputKey gets the channel no. added to it if the input came from a shift register
+                // The inputKey gets the external pin no. added to it if the input came from a shift register
                 // xThis ensures caching works correctly when there are multiple pins on the same physical device
-                inputKey = inputKey + e.Channel;
+                inputKey = inputKey + e.ExtPin;
             }
             else if (e.Type == DeviceType.AnalogInput)
             {
@@ -1468,12 +1468,12 @@ namespace MobiFlight
                             	// assigned to the row. If not just skip this row. Without this every row that uses the input shift register
                             	// would get added to the input cache and fired even though the pins don't match.
 //GCC CHECK
-                            	if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.channel != e.Channel)
+                            	if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.ExtPin != e.ExtPin)
                             	{
                                 	continue;
                             	}
                             	// similarly also for digital input Muxes
-                            	if (cfg.digInputMux != null && cfg.digInputMux.channel != e.Channel)
+                            	if (cfg.digInputMux != null && cfg.digInputMux.ExtPin != e.ExtPin)
                             	{
                                 	continue;
                             	}
@@ -1492,12 +1492,12 @@ namespace MobiFlight
             	if (inputCache[inputKey].Count == 0)
             	{
                 	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    	    Log.Instance.log($"No config found for {e.Type}: {e.DeviceId}{(e.Channel.HasValue ? $":{e.Channel}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+                    	    Log.Instance.log($"No config found for {e.Type}: {e.DeviceId}{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
                 	return;
             	}
             }
 
-            Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.Channel.HasValue ? $":{e.Channel}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+            Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
 
             // Skip execution if not started
             if (!IsStarted()) return;

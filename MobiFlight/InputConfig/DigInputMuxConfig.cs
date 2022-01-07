@@ -14,34 +14,34 @@ namespace MobiFlight.InputConfig
     // its fundamental capabilities stay in sync with buttons.
     public class DigInputMuxConfig : ButtonInputConfig
     {
-        public int channel;
+        public int ExtPin;
 
         public new object Clone()
         {
             DigInputMuxConfig clone = new DigInputMuxConfig();
             if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
             if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();
-            clone.channel = channel;
+            clone.ExtPin = ExtPin;
             return clone;
         }
 
         public new void ReadXml(System.Xml.XmlReader reader)
         {
-            channel = Convert.ToInt32(reader.GetAttribute(channel));
+            ExtPin = Convert.ToInt32(reader.GetAttribute(ExtPin));
             base.ReadXml(reader);
         }
 
         public new void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteAttributeString("channel", channel.ToString());
+            writer.WriteAttributeString("ExtPin", ExtPin.ToString());
             base.WriteXml(writer);
         }
 
         public override bool Equals(object obj)
         {
-            // Digital input multiplexer configurations are equal when their data channel is the same
+            // Digital input multiplexer configurations are equal when their data ExtPin is the same
             // and all of the button configuration from the base class matches.
-            return (obj is DigInputMuxConfig) && ((obj as DigInputMuxConfig).channel == channel) && base.Equals(obj);
+            return (obj is DigInputMuxConfig) && ((obj as DigInputMuxConfig).ExtPin == ExtPin) && base.Equals(obj);
         }
 
         public new Dictionary<String, int> GetStatistics()
