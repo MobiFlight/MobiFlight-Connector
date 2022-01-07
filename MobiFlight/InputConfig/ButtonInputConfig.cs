@@ -156,6 +156,16 @@ namespace MobiFlight.InputConfig
             }
         }
 
+        internal List<InputAction> GetInputActionsByType(Type type)
+        {
+            List<InputAction> result = new List<InputAction>();
+            if (onPress != null && onPress.GetType()==type)
+                result.Add(onPress);
+            if (onRelease != null && onRelease.GetType() == type)
+                result.Add(onRelease);
+            return result;
+        }
+
         public void WriteXml(System.Xml.XmlWriter writer)
         {
             writer.WriteStartElement("onPress");

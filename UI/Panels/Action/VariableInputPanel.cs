@@ -31,7 +31,7 @@ namespace MobiFlight.UI.Panels.Action
             NameTextBox.AutoCompleteMode = AutoCompleteMode.Append;
         }
 
-        internal void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
+        public void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
         {
             Variables = variables;
             AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
@@ -118,6 +118,5 @@ namespace MobiFlight.UI.Panels.Action
 
             TypeComboBox.SelectedValue = Variables[key].TYPE;
         }
-
     }
 }

@@ -244,6 +244,20 @@ namespace MobiFlight.InputConfig
             }
         }
 
+        internal List<InputAction> GetInputActionsByType(Type type)
+        {
+            List<InputAction> result = new List<InputAction>();
+            if (onRight != null && onRight.GetType() == type)
+                result.Add(onRight);
+            if (onRightFast != null && onRightFast.GetType() == type)
+                result.Add(onRightFast);
+            if (onLeft != null && onLeft.GetType() == type)
+                result.Add(onLeft);
+            if (onLeftFast != null && onLeftFast.GetType() == type)
+                result.Add(onLeftFast);
+            return result;
+        }
+
         public Dictionary<String, int> GetStatistics()
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
