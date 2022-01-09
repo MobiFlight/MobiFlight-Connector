@@ -12,6 +12,7 @@ namespace MobiFlight.UI.Panels.Config
 {
     public partial class ConfigRefPanelItem : UserControl
     {
+        public event EventHandler<EventArgs> ConfigRemoved;
         public ConfigRefPanelItem()
         {
             InitializeComponent();
@@ -72,6 +73,11 @@ namespace MobiFlight.UI.Panels.Config
                 config.Ref = configRefComboBox.SelectedValue.ToString();
             config.Placeholder = textBox1.Text;
             return config;
+        }
+
+        private void removeConfigReferenceButton_Click(object sender, EventArgs e)
+        {
+            ConfigRemoved?.Invoke(this, EventArgs.Empty);
         }
     }
 }

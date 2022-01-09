@@ -141,6 +141,9 @@ namespace MobiFlight
                 if (row.IsNewRow) continue;
 
                 OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+
+                // cfg was not set yet, e.g. we created row and are still in edit mode and now we hit "Edit"
+                if (cfg == null) continue;
                 
                 if (cfg.SourceType != SourceType.VARIABLE) continue;
 
@@ -159,6 +162,8 @@ namespace MobiFlight
                 if (row.IsNewRow) continue;
 
                 InputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                if (cfg == null) continue;
+
                 List<InputAction> actions = cfg.GetInputActionsByType(typeof(VariableInputAction));
 
                 if(actions == null) continue;
