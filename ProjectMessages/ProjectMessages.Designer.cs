@@ -19,7 +19,7 @@ namespace MobiFlight.ProjectMessages {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ProjectMessages {
@@ -734,6 +734,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageNoModuleFound {
             get {
                 return ResourceManager.GetString("uiMessageNoModuleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You already can reference all available configs. Adding more doesn&apos;t make sense..
+        /// </summary>
+        internal static string uiMessageNoMoreConfigReferenceAvailable {
+            get {
+                return ResourceManager.GetString("uiMessageNoMoreConfigReferenceAvailable", resourceCulture);
             }
         }
         
