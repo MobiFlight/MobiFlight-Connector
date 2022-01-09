@@ -156,7 +156,7 @@ namespace MobiFlight.InputConfig
             }
         }
 
-        internal List<InputAction> GetInputActionsByType(Type type)
+        public List<InputAction> GetInputActionsByType(Type type)
         {
             List<InputAction> result = new List<InputAction>();
             if (onPress != null && onPress.GetType()==type)
