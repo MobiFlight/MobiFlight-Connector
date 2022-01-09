@@ -244,6 +244,22 @@ namespace MobiFlight.UI.Panels.Config
             OnGetLVarListRequested?.Invoke(sender, e);
             LVarListButton.Enabled = false;
         }
+
+        private void ExpandButton_Click(object sender, EventArgs e)
+        {
+            if (SimVarNameTextBox.Height > 21)
+            {
+                ExpandButton.Text = "+";
+                SimVarNameTextBox.Height = 21;
+                SimVarNameTextBox.ScrollBars = ScrollBars.None;
+            } else
+            {
+                ExpandButton.Text = "-";
+                SimVarNameTextBox.Height = 88;
+                SimVarNameTextBox.ScrollBars = ScrollBars.Both;
+            }
+
+        }
     }
 
     public class SimVarPreset
