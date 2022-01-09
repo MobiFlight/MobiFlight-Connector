@@ -194,11 +194,7 @@ namespace MobiFlight.UI.Dialogs
             display_syncToConfig();
 
             String stepperAddress = (sender as ComboBox).SelectedValue.ToString();
-            String serial = config.DisplaySerial;
-            if (serial.Contains('/'))
-            {
-                serial = serial.Split('/')[1].Trim();
-            }
+            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
 
             MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
                                             .GetModuleBySerial(serial)
@@ -210,11 +206,7 @@ namespace MobiFlight.UI.Dialogs
         void stepperPanel_OnSetZeroTriggered(object sender, EventArgs e)
         {
             _syncFormToConfig();
-            String serial = config.DisplaySerial;
-            if (serial.Contains('/'))
-            {
-                serial = serial.Split('/')[1].Trim();
-            }
+            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
             _execManager.getMobiFlightModuleCache().resetStepper(serial, config.Stepper.Address);
         }
 
@@ -223,13 +215,7 @@ namespace MobiFlight.UI.Dialogs
             _syncFormToConfig();
             int steps = e.Steps;
             
-            String serial = config.DisplaySerial;
-            if (serial == null) return;
-
-            if (serial.Contains('/'))
-            {
-                serial = serial.Split('/')[1].Trim();
-            }
+            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
 
             MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
                                                     .GetModuleBySerial(serial)
@@ -260,24 +246,35 @@ namespace MobiFlight.UI.Dialogs
             // update the display box with
             // modules
             displayModuleNameComboBox.Items.Clear();
-            displayModuleNameComboBox.Items.Add("-");
+            displayModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "-" });
             
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 arcazeFirmware[module.Serial] = module.Version;
-                displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
-                PreconditionModuleList.Add(module.Name + "/ " + module.Port);
+                displayModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = module.Name + "/ " + module.Serial,
+                    Label = $"{module.Name}/ {module.Serial}"
+                });
+
+                PreconditionModuleList.Add(module.Name + "/ " + module.Serial);
             }
 
 
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
+                displayModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = module.Name + "/ " + module.Serial,
+                    Label = $"{module.Name} ({module.Port})"
+                });
 
                 // Not yet supported for pins
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 
+            displayModuleNameComboBox.ValueMember = "Value";
+            displayModuleNameComboBox.DisplayMember = "Label";
             displayModuleNameComboBox.SelectedIndex = 0;
 
             preconditionPanel.SetModules(PreconditionModuleList);
@@ -293,16 +290,22 @@ namespace MobiFlight.UI.Dialogs
             // update the display box with
             // modules
             displayModuleNameComboBox.Items.Clear();
-            displayModuleNameComboBox.Items.Add("-");
+            displayModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "-" });
 
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
+                displayModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = module.Name + "/ " + module.Serial,
+                    Label = $"{module.Name} ({module.Port})"
+                });
 
                 // Not yet supported for pins
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 
+            displayModuleNameComboBox.ValueMember = "Value";
+            displayModuleNameComboBox.DisplayMember = "Label";
             displayModuleNameComboBox.SelectedIndex = 0;
         }
 #endif
@@ -329,15 +332,11 @@ namespace MobiFlight.UI.Dialogs
 
             if (config.DisplaySerial != null && config.DisplaySerial != "")
             {
-                serial = config.DisplaySerial;
-                if (serial.Contains('/'))
-                {
-                    serial = serial.Split('/')[1].Trim();
-                }
-                if (!ComboBoxHelper.SetSelectedItemByPart(displayModuleNameComboBox, serial))
+                serial = SerialNumber.ExtractSerial(config.DisplaySerial);
+                if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, config.DisplaySerial))
                 {
                     // TODO: provide error message
-                }
+                }                
             }
 
 
@@ -454,7 +453,7 @@ namespace MobiFlight.UI.Dialogs
         {
             config.DisplayType = displayTypeComboBox.Text;
             config.DisplayTrigger = "normal";
-            config.DisplaySerial = displayModuleNameComboBox.Text;
+            config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
