@@ -254,7 +254,7 @@ namespace MobiFlight.UI.Dialogs
                 displayModuleNameComboBox.Items.Add(new ListItem()
                 {
                     Value = module.Name + "/ " + module.Serial,
-                    Label = $"{module.Name}/ {module.Serial}"
+                    Label = $"{module.Name} ({module.Serial})"
                 });
 
                 PreconditionModuleList.Add(module.Name + "/ " + module.Serial);

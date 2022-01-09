@@ -199,15 +199,15 @@ namespace MobiFlight.UI.Dialogs
                 
                 //displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
                 preconditionPinSerialComboBox.Items.Add(new ListItem() { 
-                    Value = module.Name + "/ " + module.Serial, 
-                    Label = module.Name + "/ " + module.Serial 
+                    Value = $"{module.Name}/ {module.Serial}",
+                    Label = $"{module.Name} ({module.Serial})"
                 });
             }
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = module.Name + "/ " + module.Serial,
+                    Value = $"{module.Name}/ {module.Serial}",
                     Label = $"{module.Name} ({module.Port})"
                 });
 
@@ -219,7 +219,7 @@ namespace MobiFlight.UI.Dialogs
                 if (joystick.GetAvailableDevices().Count > 0)
                     inputModuleNameComboBox.Items.Add(new ListItem()
                     {
-                        Value = joystick.Name + " / " + joystick.Serial,
+                        Value = $"{joystick.Name} / {joystick.Serial}",
                         Label = $"{joystick.Name}"
                     });
             }
@@ -247,7 +247,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = module.Name + "/ " + module.Serial,
+                    Value = $"{module.Name}/ {module.Serial}",
                     Label = $"{module.Name} ({module.Port})"
                 });
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
@@ -257,7 +257,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = joystick.Name + " / " + joystick.Serial,
+                    Value = $"{joystick.Name} / {joystick.Serial}",
                     Label = $"{joystick.Name}"
                 });
             }
