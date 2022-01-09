@@ -333,6 +333,12 @@
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\PreconditionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\PreconditionPanel.Designer.cs">
+      <DependentUpon>PreconditionPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Config\VariablePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -647,12 +653,6 @@
     <Compile Include="UI\Panels\Config\InterpolationPanel.Designer.cs">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Config\PreconditionPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Config\PreconditionPanel.Designer.cs">
-      <DependentUpon>PreconditionPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\Action\InputActionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -906,6 +906,12 @@
     <EmbeddedResource Include="UI\Panels\Config\ConfigRefPanel.de.resx">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\PreconditionPanel.de.resx">
+      <DependentUpon>PreconditionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\PreconditionPanel.resx">
+      <DependentUpon>PreconditionPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1027,9 +1033,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\EventIdInputPanel.resx">
       <DependentUpon>EventIdInputPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Config\PreconditionPanel.resx">
-      <DependentUpon>PreconditionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\LCDDisplayPanel.de.resx">
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>

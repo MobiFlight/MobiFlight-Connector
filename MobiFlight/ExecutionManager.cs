@@ -11,6 +11,7 @@ using MobiFlight.Base;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.Config;
 using MobiFlight.OutputConfig;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight
 {
@@ -126,6 +127,52 @@ namespace MobiFlight
 #endif
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             joystickManager.Connect(handle);
+        }
+
+        internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
+        {
+            Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
+
+            // iterate over the config row by row
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
+                // and the ones that are not checked active
+                if (row.IsNewRow) continue;
+
+                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+                
+                if (cfg.SourceType != SourceType.VARIABLE) continue;
+
+                if (cfg.MobiFlightVariable == null) continue;
+
+                if (variables.ContainsKey(cfg.MobiFlightVariable.Name)) continue;
+
+                variables[cfg.MobiFlightVariable.Name] = cfg.MobiFlightVariable;
+            }
+
+            // iterate over the config row by row
+            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            {
+                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
+                // and the ones that are not checked active
+                if (row.IsNewRow) continue;
+
+                InputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                List<InputAction> actions = cfg.GetInputActionsByType(typeof(VariableInputAction));
+
+                if(actions == null) continue;
+
+                actions.ForEach(action =>
+                {
+                    VariableInputAction a = (VariableInputAction)action;
+                    if (variables.ContainsKey(a.Variable.Name)) return;
+
+                    variables[a.Variable.Name] = a.Variable;
+                });
+            }
+
+            return variables;
         }
 
         public void HandleWndProc(ref Message m)
