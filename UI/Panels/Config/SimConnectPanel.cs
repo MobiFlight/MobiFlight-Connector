@@ -56,6 +56,11 @@ namespace MobiFlight.UI.Panels.Config
 
             _loadPresets();
             OnLVarsSet += SimConnectPanel_OnLVarsSet;
+
+            if (Properties.Settings.Default.SimVarTextBoxExpanded)
+            {
+                MaximizeSimVarNameTextBox();
+            }
         }
 
         private void SimConnectPanel_OnLVarsSet(object sender, EventArgs e)
@@ -243,6 +248,40 @@ namespace MobiFlight.UI.Panels.Config
 
             OnGetLVarListRequested?.Invoke(sender, e);
             LVarListButton.Enabled = false;
+        }
+
+        private void ExpandButton_Click(object sender, EventArgs e)
+        {
+            if (SimVarNameTextBoxIsMaximized())
+            {
+                MinimizeSimVarNameTextBox();
+            }
+            else
+            {
+                MaximizeSimVarNameTextBox();
+            }
+
+        }
+
+        private bool SimVarNameTextBoxIsMaximized()
+        {
+            return SimVarNameTextBox.Height > 21;
+        }
+
+        private void MaximizeSimVarNameTextBox()
+        {
+            ExpandButton.Text = "-";
+            SimVarNameTextBox.Height = 88;
+            SimVarNameTextBox.ScrollBars = ScrollBars.Both;
+            Properties.Settings.Default.SimVarTextBoxExpanded = true;
+        }
+
+        private void MinimizeSimVarNameTextBox()
+        {
+            ExpandButton.Text = "+";
+            SimVarNameTextBox.Height = 21;
+            SimVarNameTextBox.ScrollBars = ScrollBars.None;
+            Properties.Settings.Default.SimVarTextBoxExpanded = false;
         }
     }
 
