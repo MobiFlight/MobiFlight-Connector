@@ -1,0 +1,9 @@
+Memo for impact of commit https://github.com/MobiFlight/MobiFlight-Connector/pull/650
+on Multiplex branch
+
+Some files to look into for clues:
+MobiFlight/InputConfigItem.cs
+MobiFlight/InputConfig/ButtonInputConfig.cs
+UI/Dialogs/InputConfigWizard.cs
+UI/Panels/Input/InputShiftRegisterPanel.cs
+ 
