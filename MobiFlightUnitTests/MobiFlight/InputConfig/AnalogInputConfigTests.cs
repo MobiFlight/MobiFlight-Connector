@@ -92,5 +92,22 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        [TestMethod()]
+        public void GetInputActionsByTypeTest()
+        {
+            AnalogInputConfig cfg = new AnalogInputConfig();
+            cfg.onChange = new VariableInputAction();
+            
+            var result = cfg.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 1);
+            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
+
+
+            cfg.onChange = new MSFS2020CustomInputAction();
+
+            result = cfg.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 0);
+        }
     }
 }

@@ -231,8 +231,8 @@ namespace MobiFlight.UI
             this.BringToFront();
 
             // MSFS2020
-            WasmModuleUpdater udpater = new WasmModuleUpdater();
-            if (udpater.AutoDetectCommunityFolder())
+            WasmModuleUpdater updater = new WasmModuleUpdater();
+            if (updater.AutoDetectCommunityFolder())
             {
                 // MSFS2020 installed
                 Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
@@ -324,7 +324,7 @@ namespace MobiFlight.UI
 
         private void CheckForWasmModuleUpdate()
         {
-            WasmModuleUpdater udpater = new WasmModuleUpdater();
+            WasmModuleUpdater updater = new WasmModuleUpdater();
             
         }
 

@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Panels.Input
     public partial class InputShiftRegisterPanel : UserControl
     {
         InputConfig.InputShiftRegisterConfig _config;
+        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
         public InputShiftRegisterPanel()
         {
@@ -274,6 +275,11 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                 }
             }
+        }
+
+        public void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
+        {
+            Variables = variables;
         }
     }
 }

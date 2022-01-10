@@ -16,6 +16,7 @@ namespace MobiFlight.UI.Panels.Input
     public partial class EncoderPanel : UserControl
     {
         InputConfig.EncoderInputConfig _config;
+        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
         public EncoderPanel()
         {
@@ -144,6 +145,7 @@ namespace MobiFlight.UI.Panels.Input
 
                 case VariableInputAction.Label:
                     panel = new VariableInputPanel();
+                    (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
                     if (isLeft && !isFast && _config != null && _config.onLeft != null)
                         (panel as VariableInputPanel).syncFromConfig(_config.onLeft as VariableInputAction);
                     else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
@@ -369,6 +371,11 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                 }
             }
+        }
+
+        public void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
+        {
+            Variables = variables;
         }
     }
 }

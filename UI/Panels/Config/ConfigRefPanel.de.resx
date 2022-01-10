@@ -117,15 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Definiere Verweise, die in dieser Config verwendet werden können.</value>
+    <value>Lege Referenzen zu anderer Konfigurationen an. Du kannst dann den Wert  in dieser Config verwenden.</value>
   </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="addReferenceButton.Text" xml:space="preserve">
+    <value>Referenz anlegen</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Es sind keine weiteren Configs vorhanden. Erstelle zuerst weitere, um diese dann hier verwenden zu können.</value>
