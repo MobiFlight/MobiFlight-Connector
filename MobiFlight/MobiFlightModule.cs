@@ -285,8 +285,6 @@ namespace MobiFlight
 
         public void LoadConfig()
         {
-            if (Config == null) return;
-
             ledModules.Clear();
             stepperModules.Clear();
             servoModules.Clear();
