@@ -11,6 +11,7 @@ using MobiFlight.Base;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.Config;
 using MobiFlight.OutputConfig;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight
 {
@@ -126,6 +127,57 @@ namespace MobiFlight
 #endif
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             joystickManager.Connect(handle);
+        }
+
+        internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
+        {
+            Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
+
+            // iterate over the config row by row
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
+                // and the ones that are not checked active
+                if (row.IsNewRow) continue;
+
+                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+
+                // cfg was not set yet, e.g. we created row and are still in edit mode and now we hit "Edit"
+                if (cfg == null) continue;
+                
+                if (cfg.SourceType != SourceType.VARIABLE) continue;
+
+                if (cfg.MobiFlightVariable == null) continue;
+
+                if (variables.ContainsKey(cfg.MobiFlightVariable.Name)) continue;
+
+                variables[cfg.MobiFlightVariable.Name] = cfg.MobiFlightVariable;
+            }
+
+            // iterate over the config row by row
+            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            {
+                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
+                // and the ones that are not checked active
+                if (row.IsNewRow) continue;
+
+                InputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                if (cfg == null) continue;
+
+                List<InputAction> actions = cfg.GetInputActionsByType(typeof(VariableInputAction));
+
+                if(actions == null) continue;
+
+                actions.ForEach(action =>
+                {
+                    VariableInputAction a = (VariableInputAction)action;
+                    if (variables.ContainsKey(a.Variable.Name)) return;
+
+                    variables[a.Variable.Name] = a.Variable;
+                });
+            }
+
+            return variables;
         }
 
         public void HandleWndProc(ref Message m)
@@ -246,12 +298,19 @@ namespace MobiFlight
         public void TestModeStart()
         {
             testModeTimer.Enabled = true;
+
+            OnTestModeStarted?.Invoke(this, null);
             Log.Instance.log("ExecutionManager.TestModeStart:" + "Started test timer", LogSeverity.Info);
         }
 
         public void TestModeStop()
         {
             testModeTimer.Enabled = false;
+
+            // make sure every device is turned off
+            mobiFlightCache.Stop();
+            
+            OnTestModeStopped?.Invoke(this, null);
             Log.Instance.log("ExecutionManager.TestModeStop:" + "Stopped test timer", LogSeverity.Info);
         }
 
@@ -1416,12 +1475,20 @@ namespace MobiFlight
             {
                 eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
             }
+            if (e.Type == DeviceType.InputShiftRegister)
+            {
+                eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
+                // The inputKey gets the shifter pin added to it if the input came from a shift register
+                // This ensures caching works correctly when there are multiple pins on the same physical device
+                inputKey = inputKey + e.Pin;
+            }
             else if (e.Type == DeviceType.AnalogInput)
             {
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + "=>" +e.Value;
             }
 
-            lock (inputCache) {
+            lock (inputCache)
+            {
                 if (!inputCache.ContainsKey(inputKey))
                 {
                     inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
@@ -1435,12 +1502,18 @@ namespace MobiFlight
                             if (gridViewRow.DataBoundItem == null) continue;
 
                             InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-
                             // item currently created and not saved yet.
                             if (cfg == null) continue;
 
                             if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
                             {
+                                // Input shift registers have an additional check to see if the pin that changed matches the pin
+                                // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
+                                // would get added to the input cache and fired even though the pins don't match.
+                                if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.pin != e.Pin)
+                                {
+                                    continue;
+                                }
                                 inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
                             }
                         }
@@ -1455,14 +1528,13 @@ namespace MobiFlight
                 // no config for this button found
                 if (inputCache[inputKey].Count == 0)
                 {
-
                     if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                        Log.Instance.log("No config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
+                        Log.Instance.log($"No config found for {e.Type}: {e.DeviceId}{(e.Pin.HasValue ? $":{e.Pin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
                     return;
                 }
             }
 
-            Log.Instance.log("Config found for " + e.Type + ": " + e.DeviceId + " (" + eventAction + ")" + "@" + e.Serial, LogSeverity.Debug);
+            Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.Pin.HasValue ? $":{e.Pin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
 
             // Skip execution if not started
             if (!IsStarted()) return;

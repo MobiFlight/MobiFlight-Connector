@@ -44,6 +44,7 @@
             this.buttonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.analogDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +74,7 @@
             this.addEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addButtonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.analogDeviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addInputShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDeviceToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.mobiflightSettingsLabel = new System.Windows.Forms.Label();
@@ -140,7 +142,8 @@
             this.toolStripMenuItem4,
             this.buttonToolStripMenuItem,
             this.encoderToolStripMenuItem,
-            this.analogDeviceToolStripMenuItem});
+            this.analogDeviceToolStripMenuItem,
+            this.inputShiftRegisterToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
             // 
@@ -202,6 +205,12 @@
             this.analogDeviceToolStripMenuItem.Name = "analogDeviceToolStripMenuItem";
             resources.ApplyResources(this.analogDeviceToolStripMenuItem, "analogDeviceToolStripMenuItem");
             this.analogDeviceToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // inputShiftRegisterToolStripMenuItem
+            // 
+            this.inputShiftRegisterToolStripMenuItem.Name = "inputShiftRegisterToolStripMenuItem";
+            resources.ApplyResources(this.inputShiftRegisterToolStripMenuItem, "inputShiftRegisterToolStripMenuItem");
+            this.inputShiftRegisterToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
@@ -332,7 +341,8 @@
             this.toolStripSeparator3,
             this.addEncoderToolStripMenuItem,
             this.addButtonToolStripMenuItem,
-            this.analogDeviceToolStripMenuItem1});
+            this.analogDeviceToolStripMenuItem1,
+            this.addInputShiftRegisterToolStripMenuItem});
             this.addDeviceToolStripDropDownButton.Image = global::MobiFlight.Properties.Resources.star_yellow_add;
             resources.ApplyResources(this.addDeviceToolStripDropDownButton, "addDeviceToolStripDropDownButton");
             this.addDeviceToolStripDropDownButton.Name = "addDeviceToolStripDropDownButton";
@@ -395,6 +405,12 @@
             this.analogDeviceToolStripMenuItem1.Name = "analogDeviceToolStripMenuItem1";
             resources.ApplyResources(this.analogDeviceToolStripMenuItem1, "analogDeviceToolStripMenuItem1");
             this.analogDeviceToolStripMenuItem1.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // addInputShiftRegisterToolStripMenuItem
+            // 
+            this.addInputShiftRegisterToolStripMenuItem.Name = "addInputShiftRegisterToolStripMenuItem";
+            resources.ApplyResources(this.addInputShiftRegisterToolStripMenuItem, "addInputShiftRegisterToolStripMenuItem");
+            this.addInputShiftRegisterToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // removeDeviceToolStripButton
             // 
@@ -504,5 +520,7 @@
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem1;
         private System.Windows.Forms.ToolTip CompatibleBoardScanToolTip;
+        private System.Windows.Forms.ToolStripMenuItem addInputShiftRegisterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inputShiftRegisterToolStripMenuItem;
     }
 }

@@ -16,7 +16,7 @@
     "ForceResetOnFirmwareUpdate": false,
     "MessageSize": 32
   },
-  "HardwareIds": ["^VID_2341&PID_0043", "^VID_2A03&PID_0043"],
+  "HardwareIds": [ "^VID_2341&PID_0043", "^VID_2A03&PID_0043", "^VID_2341&PID_0243" ],
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Uno",
@@ -24,15 +24,16 @@
     "MobiFlightType": "MobiFlight Uno"
   },
   "ModuleLimits": {
-    "MaxOutputs": 8,
-    "MaxButtons": 8,
-    "MaxLedSegments": 1,
-    "MaxEncoders": 3,
-    "MaxSteppers": 2,
-    "MaxServos": 2,
-    "MaxLcdI2C": 2,
     "MaxAnalogInputs": 3,
-    "MaxShifters": 2
+    "MaxButtons": 8,
+    "MaxEncoders": 3,
+    "MaxInputShifters":  2,
+    "MaxLcdI2C": 2,
+    "MaxLedSegments": 1,
+    "MaxOutputs": 8,
+    "MaxServos": 2,
+    "MaxShifters": 2,
+    "MaxSteppers": 2
   },
   "Pins": [
     {

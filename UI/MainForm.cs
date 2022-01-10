@@ -220,14 +220,19 @@ namespace MobiFlight.UI
         {
             int i = Properties.Settings.Default.Started;
             WelcomeDialog wd = new WelcomeDialog();
+            wd.ReleaseNotesClicked += (sender, e) =>
+            {
+                Process.Start("https://www.mobiflight.com/en/download.html#Release_Notes");
+            };
+
             wd.StartPosition = FormStartPosition.CenterParent;
             wd.Text = String.Format(wd.Text, DisplayVersion());
             wd.ShowDialog();
             this.BringToFront();
 
             // MSFS2020
-            WasmModuleUpdater udpater = new WasmModuleUpdater();
-            if (udpater.AutoDetectCommunityFolder())
+            WasmModuleUpdater updater = new WasmModuleUpdater();
+            if (updater.AutoDetectCommunityFolder())
             {
                 // MSFS2020 installed
                 Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
@@ -319,7 +324,7 @@ namespace MobiFlight.UI
 
         private void CheckForWasmModuleUpdate()
         {
-            WasmModuleUpdater udpater = new WasmModuleUpdater();
+            WasmModuleUpdater updater = new WasmModuleUpdater();
             
         }
 

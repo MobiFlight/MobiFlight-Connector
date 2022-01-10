@@ -28,7 +28,8 @@
     "^VID_2A03&PID_0010",
     "^VID_2341&PID_0210",
     "^VID_2341&PID_0242",
-    "^VID_10C4&PID_EA60"
+    "^VID_10C4&PID_EA60",
+    "^VID_2341&PID_0044"
   ],
   "Info": {
     "CanInstallFirmware": true,
@@ -38,15 +39,16 @@
     "MobiFlightType": "MobiFlight Mega"
   },
   "ModuleLimits": {
-    "MaxOutputs": 40,
-    "MaxButtons": 68,
-    "MaxLedSegments": 4,
-    "MaxEncoders": 20,
-    "MaxSteppers": 10,
-    "MaxServos": 10,
-    "MaxLcdI2C": 2,
     "MaxAnalogInputs": 16,
-    "MaxShifters": 4
+    "MaxInputShifters": 4,
+    "MaxButtons": 68,
+    "MaxEncoders": 20,
+    "MaxLcdI2C": 2,
+    "MaxLedSegments": 4,
+    "MaxOutputs": 40,
+    "MaxServos": 10,
+    "MaxShifters": 4,
+    "MaxSteppers": 10
   },
   "Pins": [
     {

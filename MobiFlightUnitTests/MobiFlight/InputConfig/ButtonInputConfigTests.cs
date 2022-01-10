@@ -93,5 +93,38 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        [TestMethod()]
+        public void GetInputActionsByTypeTest()
+        {
+            ButtonInputConfig cfg = new ButtonInputConfig();
+            cfg.onPress = new VariableInputAction();
+            cfg.onRelease = new MSFS2020CustomInputAction();
+
+            var result = cfg.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 1);
+            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
+
+            cfg.onPress = new MSFS2020CustomInputAction();
+            cfg.onRelease = new VariableInputAction();
+
+            result = cfg.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 1);
+            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
+
+            cfg.onPress = new MSFS2020CustomInputAction();
+            cfg.onRelease = new MSFS2020CustomInputAction();
+
+            result = cfg.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 0);
+
+            cfg.onPress = new VariableInputAction();
+            cfg.onRelease = new VariableInputAction();
+
+            result = cfg.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 2);
+            Assert.AreEqual(result[0].GetType(), typeof(VariableInputAction));
+            Assert.AreEqual(result[1].GetType(), typeof(VariableInputAction));
+        }
     }
 }

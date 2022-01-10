@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Panels.Input
     public partial class AnalogPanel : UserControl
     {
         InputConfig.AnalogInputConfig _config;
+        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
         public AnalogPanel()
         {
@@ -98,6 +99,7 @@ namespace MobiFlight.UI.Panels.Input
 
                 case MobiFlight.InputConfig.VariableInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.VariableInputPanel();
+                    (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
                     if (_config != null && _config.onChange != null)
                         (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).syncFromConfig(_config.onChange as VariableInputAction);
 
@@ -187,6 +189,11 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                 }
             }         
+        }
+
+        public void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
+        {
+            Variables = variables;
         }
     }
 }
