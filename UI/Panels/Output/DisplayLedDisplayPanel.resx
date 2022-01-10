@@ -664,6 +664,9 @@
     <value>6</value>
   </data>
   <data name="displayLedModuleSizeComboBox.Items4" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="displayLedModuleSizeComboBox.Items5" xml:space="preserve">
     <value>8</value>
   </data>
   <data name="displayLedModuleSizeComboBox.Location" type="System.Drawing.Point, System.Drawing">

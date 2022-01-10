@@ -491,4 +491,7 @@ Respective input actions won't work until they are connected and you have restar
   <data name="uiMessageUpdateOldFirmwareTitle" xml:space="preserve">
     <value>New Firmware Available!</value>
   </data>
+  <data name="uiMessageNoMoreConfigReferenceAvailable" xml:space="preserve">
+    <value>You already can reference all available configs. Adding more doesn't make sense.</value>
+  </data>
 </root>

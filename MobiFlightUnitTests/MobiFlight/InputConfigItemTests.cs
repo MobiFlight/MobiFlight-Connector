@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight;
+using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
@@ -176,6 +177,35 @@ namespace MobiFlight.Tests
             o.analog.onChange = new InputConfig.MSFS2020CustomInputAction();
             statistics = o.GetStatistics();
             Assert.AreEqual(o.analog.GetStatistics().Count, statistics.Count);
+        }
+
+        [TestMethod()]
+        public void GetInputActionsByTypeTest()
+        {
+            InputConfigItem o = new InputConfigItem();
+            o.analog = new InputConfig.AnalogInputConfig();
+            o.analog.onChange = new VariableInputAction();
+
+            var result = o.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 1);
+
+            o.encoder = new InputConfig.EncoderInputConfig();
+            o.encoder.onLeft = new VariableInputAction();
+
+            result = o.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 2);
+
+            o.button = new InputConfig.ButtonInputConfig();
+            o.button.onPress = new VariableInputAction();
+
+            result = o.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 3);
+
+            o.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
+            o.inputShiftRegister.onPress = new VariableInputAction();
+
+            result = o.GetInputActionsByType(typeof(VariableInputAction));
+            Assert.AreEqual(result.Count, 4);
         }
     }
 }

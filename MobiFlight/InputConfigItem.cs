@@ -44,6 +44,31 @@ namespace MobiFlight
             ConfigRefs = new ConfigRefList();
         }
 
+        public List<InputAction> GetInputActionsByType(System.Type type)
+        {
+            List<InputAction> result = new List<InputAction>();
+            if (button != null)
+            {
+                result.AddRange(button.GetInputActionsByType(type));
+            }
+
+            if (encoder != null)
+            {
+                result.AddRange(encoder.GetInputActionsByType(type));
+            }
+
+            if (analog != null)
+            {
+                result.AddRange(analog.GetInputActionsByType(type));
+            }
+
+            if (inputShiftRegister != null)
+            {
+                result.AddRange(inputShiftRegister.GetInputActionsByType(type));
+            }
+            return result;
+        }
+
         public System.Xml.Schema.XmlSchema GetSchema()
         {
             return (null);

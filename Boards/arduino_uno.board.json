@@ -16,7 +16,7 @@
     "ForceResetOnFirmwareUpdate": false,
     "MessageSize": 32
   },
-  "HardwareIds": ["^VID_2341&PID_0043", "^VID_2A03&PID_0043"],
+  "HardwareIds": [ "^VID_2341&PID_0043", "^VID_2A03&PID_0043", "^VID_2341&PID_0243" ],
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Uno",

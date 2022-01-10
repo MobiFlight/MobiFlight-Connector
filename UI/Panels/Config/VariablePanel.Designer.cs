@@ -33,7 +33,7 @@ namespace MobiFlight.UI.Panels.Config
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.TypeComboBox = new System.Windows.Forms.ComboBox();
-            this.NameTextBox = new System.Windows.Forms.TextBox();
+            this.NameTextBox = new System.Windows.Forms.ComboBox();
             this.TypeLabel = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
             this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
@@ -70,7 +70,9 @@ namespace MobiFlight.UI.Panels.Config
             // NameTextBox
             // 
             resources.ApplyResources(this.NameTextBox, "NameTextBox");
+            this.NameTextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.SelectedValueChanged += new System.EventHandler(this.NameTextBox_SelectedValueChanged);
             // 
             // TypeLabel
             // 
@@ -95,7 +97,6 @@ namespace MobiFlight.UI.Panels.Config
             this.Controls.Add(this.groupBox1);
             this.Name = "VariablePanel";
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -105,7 +106,7 @@ namespace MobiFlight.UI.Panels.Config
         private System.Windows.Forms.GroupBox groupBox1;
         private TransformOptionsGroup transformOptionsGroup1;
         private System.Windows.Forms.ComboBox TypeComboBox;
-        private System.Windows.Forms.TextBox NameTextBox;
+        private System.Windows.Forms.ComboBox NameTextBox;
         private System.Windows.Forms.Label TypeLabel;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label label1;

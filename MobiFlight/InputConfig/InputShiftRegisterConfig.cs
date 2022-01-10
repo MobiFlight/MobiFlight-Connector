@@ -60,6 +60,6 @@ namespace MobiFlight.InputConfig
             }
 
             return result;
-        }
+        }    
     }
 }

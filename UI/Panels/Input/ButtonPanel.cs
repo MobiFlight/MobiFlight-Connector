@@ -13,6 +13,7 @@ namespace MobiFlight.UI.Panels.Input
 {
     public partial class ButtonPanel : UserControl
     {
+        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         InputConfig.ButtonInputConfig _config;
 
         public ButtonPanel()
@@ -20,6 +21,11 @@ namespace MobiFlight.UI.Panels.Input
             InitializeComponent();
             onPressActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
             onReleaseActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
+        }
+
+        public void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
+        {
+            Variables = variables;
         }
 
         // On Press Action
@@ -120,6 +126,7 @@ namespace MobiFlight.UI.Panels.Input
 
                 case MobiFlight.InputConfig.VariableInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.VariableInputPanel();
+                    (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
                     if (isOnPress && _config != null && _config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).syncFromConfig(_config.onPress as VariableInputAction);
                     else if (!isOnPress && _config != null && _config.onRelease != null)
@@ -209,7 +216,7 @@ namespace MobiFlight.UI.Panels.Input
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).ToConfig();
                         break;
 
-                    case MobiFlight.InputConfig.VariableInputAction.Label:
+                    case MobiFlight.InputConfig.VariableInputAction.Label:                        
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.VariableInputPanel).ToConfig();
                         break;
 
