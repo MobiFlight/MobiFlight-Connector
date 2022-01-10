@@ -66,6 +66,10 @@ namespace MobiFlight
             {
                 result.AddRange(inputShiftRegister.GetInputActionsByType(type));
             }
+
+            if (digInputMux != null) {
+                result.AddRange(digInputMux.GetInputActionsByType(type));
+            }
             return result;
         }
 

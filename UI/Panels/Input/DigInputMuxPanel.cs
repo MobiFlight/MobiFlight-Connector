@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Panels.Input
     public partial class DigInputMuxPanel : UserControl
     {
         InputConfig.DigInputMuxConfig _config;
+        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
         public DigInputMuxPanel()
         {
@@ -274,6 +275,10 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                 }
             }
+        }
+        public void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
+        {
+            Variables = variables;
         }
     }
 }
