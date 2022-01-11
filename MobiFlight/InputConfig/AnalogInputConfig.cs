@@ -92,6 +92,14 @@ namespace MobiFlight.InputConfig
             }         
         }
 
+        public List<InputAction> GetInputActionsByType(Type type)
+        {
+            List<InputAction> result = new List<InputAction>();
+            if (onChange != null && onChange.GetType() == type)
+                result.Add(onChange);
+            return result;
+        }
+
         public void WriteXml(System.Xml.XmlWriter writer)
         {
             writer.WriteStartElement("onChange");

@@ -189,29 +189,46 @@ namespace MobiFlight.UI.Dialogs
             // update the display box with
             // modules
             inputModuleNameComboBox.Items.Clear();
-            preconditionPinSerialComboBox.Items.Clear();
-            inputModuleNameComboBox.Items.Add("-");
+            inputModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "-" });
+
+            preconditionPinSerialComboBox.Items.Clear();            
             preconditionPinSerialComboBox.Items.Add("-");
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 arcazeFirmware[module.Serial] = module.Version;
+                
                 //displayModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
-                preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+                preconditionPinSerialComboBox.Items.Add(new ListItem() { 
+                    Value = $"{module.Name}/ {module.Serial}",
+                    Label = $"{module.Name} ({module.Serial})"
+                });
             }
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                inputModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
-                preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+                inputModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = $"{module.Name}/ {module.Serial}",
+                    Label = $"{module.Name} ({module.Port})"
+                });
+
+                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 if (joystick.GetAvailableDevices().Count > 0)
-                    inputModuleNameComboBox.Items.Add(joystick.Name + " / " + joystick.Serial);
+                    inputModuleNameComboBox.Items.Add(new ListItem()
+                    {
+                        Value = $"{joystick.Name} / {joystick.Serial}",
+                        Label = $"{joystick.Name}"
+                    });
             }
 
             inputModuleNameComboBox.SelectedIndex = 0;
-            preconditionPinSerialComboBox.SelectedIndex = 0;            
+            preconditionPinSerialComboBox.SelectedIndex = 0;
+
+            inputModuleNameComboBox.DisplayMember = "Label";
+            inputModuleNameComboBox.ValueMember = "Value";
         }
 #endif
         
@@ -220,42 +237,36 @@ namespace MobiFlight.UI.Dialogs
 
             // update the display box with
             // modules
-            inputModuleNameComboBox.Items.Clear();
+            inputModuleNameComboBox.Items.Clear();         
+            inputModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "-" });
+
             preconditionPinSerialComboBox.Items.Clear();
-            inputModuleNameComboBox.Items.Add("-");
             preconditionPinSerialComboBox.Items.Add("-");
 
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
-                inputModuleNameComboBox.Items.Add(module.Name + "/ " + module.Serial);
-                preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+                inputModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = $"{module.Name}/ {module.Serial}",
+                    Label = $"{module.Name} ({module.Port})"
+                });
+                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
-                inputModuleNameComboBox.Items.Add(joystick.Name + " / " + joystick.Serial);
+                inputModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = $"{joystick.Name} / {joystick.Serial}",
+                    Label = $"{joystick.Name}"
+                });
             }
 
             inputModuleNameComboBox.SelectedIndex = 0;
             preconditionPinSerialComboBox.SelectedIndex = 0;
-        }
 
-        protected string _extractSerial(String ModuleSerial)
-        {
-            string serial = null;
-            if (config == null) throw new Exception(i18n._tr("uiException_ConfigItemNotFound"));
-            // first tab                        
-
-            if (ModuleSerial != null && ModuleSerial != "")
-            {
-                serial = ModuleSerial;
-                if (serial.Contains('/'))
-                {
-                    serial = serial.Split('/')[1].Trim();
-                }
-            }
-
-            return serial;
+            inputModuleNameComboBox.DisplayMember = "Label";
+            inputModuleNameComboBox.ValueMember = "Value";
         }
 
         /// <summary>
@@ -268,10 +279,10 @@ namespace MobiFlight.UI.Dialogs
             string serial = null;
             if (config == null) throw new Exception(i18n._tr("uiException_ConfigItemNotFound"));
             // first tab                        
-            serial = _extractSerial(config.ModuleSerial);
-            if (serial != null)
+            serial = SerialNumber.ExtractSerial(config.ModuleSerial);
+            if (serial != "")
             {
-                if (!ComboBoxHelper.SetSelectedItemByPart(inputModuleNameComboBox, serial))
+                if (!ComboBoxHelper.SetSelectedItemByValue(inputModuleNameComboBox, config.ModuleSerial))
                 {
                     // TODO: provide error message
                 }
@@ -330,14 +341,14 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            config.ModuleSerial = inputModuleNameComboBox.Text;
+            config.ModuleSerial = inputModuleNameComboBox.SelectedItem.ToString();
             config.Name = inputTypeComboBox.Text;
 
             configRefPanel.syncToConfig(config);
 
             if (config.ModuleSerial == "-") return true;
 
-            DeviceType currentInputType = determineCurrentDeviceType(_extractSerial(config.ModuleSerial));
+            DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
 
             switch (currentInputType)
             {
@@ -518,11 +529,13 @@ namespace MobiFlight.UI.Dialogs
                 {
                     case DeviceType.Button:
                         panel = new Panels.Input.ButtonPanel();
+                        (panel as Panels.Input.ButtonPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.button);
                         break;
 
                     case DeviceType.Encoder:
                         panel = new Panels.Input.EncoderPanel();
+                        (panel as Panels.Input.EncoderPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
                         break;
 
@@ -531,12 +544,14 @@ namespace MobiFlight.UI.Dialogs
                         Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel();
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
+                        (panel as Panels.Input.InputShiftRegisterPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.pin);
                         inputPinDropDown.Visible = true;
                         break;
 
                     case DeviceType.AnalogInput:
                         panel = new Panels.Input.AnalogPanel();
+                        (panel as Panels.Input.AnalogPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
                         break;
                 }

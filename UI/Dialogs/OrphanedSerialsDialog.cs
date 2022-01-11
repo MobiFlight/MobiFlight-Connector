@@ -57,7 +57,8 @@ namespace MobiFlight.UI.Dialogs
             foreach (DataRow row in inputDataTable.Rows)
             {
                 InputConfigItem cfg = row["settings"] as InputConfigItem;
-                if (cfg.ModuleSerial != "" &&
+                if (cfg != null &&
+                    cfg.ModuleSerial != "" &&
                     cfg.ModuleSerial != "-" &&
                     !Joystick.IsJoystickSerial(cfg.ModuleSerial) &&
                     !configSerials.Contains(cfg.ModuleSerial) &&

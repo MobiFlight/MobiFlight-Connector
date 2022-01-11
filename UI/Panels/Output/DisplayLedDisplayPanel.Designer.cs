@@ -217,7 +217,8 @@
             resources.GetString("displayLedModuleSizeComboBox.Items1"),
             resources.GetString("displayLedModuleSizeComboBox.Items2"),
             resources.GetString("displayLedModuleSizeComboBox.Items3"),
-            resources.GetString("displayLedModuleSizeComboBox.Items4")});
+            resources.GetString("displayLedModuleSizeComboBox.Items4"),
+            resources.GetString("displayLedModuleSizeComboBox.Items5")});
             resources.ApplyResources(this.displayLedModuleSizeComboBox, "displayLedModuleSizeComboBox");
             this.displayLedModuleSizeComboBox.Name = "displayLedModuleSizeComboBox";
             this.displayLedModuleSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);

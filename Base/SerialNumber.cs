@@ -10,6 +10,8 @@ namespace MobiFlight.Base
     {
         public static string ExtractSerial(String s)
         {
+            if (s == null) return "";
+
             if (!s.Contains("/")) return "";
 
             return s.Split('/')[1].Trim();
