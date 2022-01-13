@@ -6,18 +6,27 @@ namespace MobiFlight.Config
 {
     public class DigInputMux : BaseDevice
     {
-        const ushort _paramCount = 3;
+        private MuxDriverS _selector;
+        
+        const ushort _paramCount = 7;
         [XmlAttribute]
         public String DataPin = "-1";
         [XmlAttribute]
         public String NumModules = "2"; // defaults to CD4067
 
-        public DigInputMux() { Name = "DigInputMux"; _type = DeviceType.DigInputMux; }
+        public DigInputMux() { 
+            Name = "DigInputMux"; 
+            _type = DeviceType.DigInputMux;
+            _selector = MuxDriverS.Instance;
+        }
 
         override public String ToInternal()
         {
+            string selectorPins;
             return base.ToInternal() + Separator
-                 + DataPin + Separator  // data
+                 + DataPin + Separator
+                 // Selector pins, always sent
+                 + _selector.ToInternal()
                  + NumModules + Separator
                  + Name + End;
         }
@@ -33,7 +42,10 @@ namespace MobiFlight.Config
 
             DataPin     = paramList[1];
             NumModules  = paramList[2];
-            Name        = paramList[3];
+            // pass the MuxDriver pins
+            // (could be more efficient...)
+            _selector.FromInternal(paramList[3] + Separator + paramList[4] + Separator + paramList[5] + Separator + paramList[6]);
+            Name        = paramList[7];
             return true;
         }
 

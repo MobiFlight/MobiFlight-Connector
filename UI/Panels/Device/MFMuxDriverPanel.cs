@@ -13,8 +13,8 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class MFMuxDriverPanel : UserControl
     {
-        private MuxDriver muxDriver;
-        private bool initialized;
+        private MuxDriverS _muxDriver;
+        private bool _initialized;
         public event EventHandler Changed;
 
         public MFMuxDriverPanel()
@@ -26,14 +26,16 @@ namespace MobiFlight.UI.Panels.Settings
             mfPinS3ComboBox.Items.Clear();
         }
 
-        public MFMuxDriverPanel(MuxDriver muxDr, List<MobiFlightPin> Pins) : this()
+        public MFMuxDriverPanel(MuxDriverS muxDriver, List<MobiFlightPin> Pins, bool isEnabled = false) : this()
         {
-            this.muxDriver = muxDr;
+            _muxDriver = muxDriver;
 
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinS0ComboBox, Pins, muxDriver.PinSx[0]);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinS1ComboBox, Pins, muxDriver.PinSx[1]);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinS2ComboBox, Pins, muxDriver.PinSx[2]);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinS3ComboBox, Pins, muxDriver.PinSx[3]);
+            SuspendLayout();
+
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinS0ComboBox, Pins, _muxDriver.PinSx[0]);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinS1ComboBox, Pins, _muxDriver.PinSx[1]);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinS2ComboBox, Pins, _muxDriver.PinSx[2]);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinS3ComboBox, Pins, _muxDriver.PinSx[3]);
 
             if (mfPinS0ComboBox.Items.Count > 3)
             {
@@ -43,30 +45,48 @@ namespace MobiFlight.UI.Panels.Settings
                 mfPinS3ComboBox.SelectedIndex = 3;
             }
 
-            ComboBoxHelper.SetSelectedItem(mfPinS0ComboBox, muxDriver.PinSx[0]);
-            ComboBoxHelper.SetSelectedItem(mfPinS1ComboBox, muxDriver.PinSx[1]);
-            ComboBoxHelper.SetSelectedItem(mfPinS2ComboBox, muxDriver.PinSx[2]);
-            ComboBoxHelper.SetSelectedItem(mfPinS3ComboBox, muxDriver.PinSx[3]);
+            ComboBoxHelper.SetSelectedItem(mfPinS0ComboBox, _muxDriver.PinSx[0]);
+            ComboBoxHelper.SetSelectedItem(mfPinS1ComboBox, _muxDriver.PinSx[1]);
+            ComboBoxHelper.SetSelectedItem(mfPinS2ComboBox, _muxDriver.PinSx[2]);
+            ComboBoxHelper.SetSelectedItem(mfPinS3ComboBox, _muxDriver.PinSx[3]);
 
-            initialized = true;
+            enable(isEnabled);
+
+            ResumeLayout();
+
+            _initialized = true;
+        }
+
+        public void enable(bool status)
+        {
+            mfPinS0ComboBox.Enabled = status;
+            mfPinS1ComboBox.Enabled = status;
+            mfPinS2ComboBox.Enabled = status;
+            mfPinS3ComboBox.Enabled = status;
+            btnGotoSetting.Visible  = !status;
         }
 
         private void value_Changed(object sender, EventArgs e)
         {
-            if (!initialized) return;
+            if (!_initialized) return;
 
             setValues();
 
             if (Changed != null)
-                Changed(muxDriver, new EventArgs());
+                Changed(_muxDriver, new EventArgs());
         }
 
         private void setValues()
         {
-            muxDriver.PinSx[0] = mfPinS0ComboBox.Text;
-            muxDriver.PinSx[1] = mfPinS1ComboBox.Text;
-            muxDriver.PinSx[2] = mfPinS2ComboBox.Text;
-            muxDriver.PinSx[3] = mfPinS3ComboBox.Text;
+            _muxDriver.PinSx[0] = mfPinS0ComboBox.Text;
+            _muxDriver.PinSx[1] = mfPinS1ComboBox.Text;
+            _muxDriver.PinSx[2] = mfPinS2ComboBox.Text;
+            _muxDriver.PinSx[3] = mfPinS3ComboBox.Text;
+        }
+
+        private void btnGotoSetting_Click(object sender, EventArgs e)
+        {
+            //TODO
         }
     }
 }

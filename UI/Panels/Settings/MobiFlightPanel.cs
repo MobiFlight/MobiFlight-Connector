@@ -62,7 +62,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add(DeviceType.Output.ToString(), MobiFlight.Properties.Resources.output);
             mfTreeViewImageList.Images.Add(DeviceType.LedModule.ToString(), MobiFlight.Properties.Resources.led7);
             mfTreeViewImageList.Images.Add(DeviceType.LcdDisplay.ToString(), MobiFlight.Properties.Resources.led7);
-            mfTreeViewImageList.Images.Add(DeviceType.MuxDriver.ToString(), MobiFlight.Properties.Resources.mux_driver);
+            //mfTreeViewImageList.Images.Add(DeviceType.MuxDriver.ToString(), MobiFlight.Properties.Resources.mux_driver);
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
@@ -353,16 +353,16 @@ namespace MobiFlight.UI.Panels.Settings
                             break;
 
                         case DeviceType.DigInputMux:
-                            panel = new MFDigInputMuxPanel(dev as MobiFlight.Config.DigInputMux, module.GetPins());
+                            panel = new MFDigInputMuxPanel(dev as MobiFlight.Config.DigInputMux, module.GetPins(), true);
                             (panel as MFDigInputMuxPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
-                        case DeviceType.MuxDriver:
-                            panel = new MFMuxDriverPanel (dev as MobiFlight.Config.MuxDriver, module.GetPins());
-                            (panel as MFMuxDriverPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
-                            break;
+                        //case DeviceType.MuxDriver:
+                        //    panel = new MFMuxDriverPanel (dev as MobiFlight.Config.MuxDriver, module.GetPins());
+                        //    (panel as MFMuxDriverPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                        //    break;
 
-                            // output
+                        // output
                     }
                 }
 
