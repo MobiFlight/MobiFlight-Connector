@@ -149,15 +149,8 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return;
-
-            if (this.mfModulesTreeView.SelectedNode == null) return;
-
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-
-            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
-
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
             List<MobiFlightModule> modules = new List<MobiFlightModule>();
             modules.Add(module);
             UpdateModules(modules);
@@ -165,13 +158,9 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void regenerateSerialToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return;
-
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
-            try
-            {
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
+            try {
                 module.GenerateNewSerial();
             }
             catch (FirmwareVersionTooLowException exc)
@@ -182,20 +171,17 @@ namespace MobiFlight.UI.Panels.Settings
 
             mobiflightCache.RefreshModule(module);
             MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
-            mfModulesTreeView_initNode(newInfo, parentNode);
-            syncPanelWithSelectedDevice(parentNode);
+            mfModulesTreeView_initNode(newInfo, moduleNode);
+            syncPanelWithSelectedDevice(moduleNode);
         }
 
         private void reloadConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TreeNode parentNode = this.mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return;
-
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
             module.Config = null;
             module.LoadConfig();
-            mfModulesTreeView_initNode(module.GetInfo() as MobiFlightModuleInfo, parentNode);
+            mfModulesTreeView_initNode(module.GetInfo() as MobiFlightModuleInfo, moduleNode);
         }
 
         private void mfModulesTreeView_AfterExpand(object sender, TreeViewEventArgs e)
@@ -213,21 +199,22 @@ namespace MobiFlight.UI.Panels.Settings
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node == null) return;
-            TreeNode parentNode = e.Node;
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+
+            TreeNode moduleNode = getModuleNode(e.Node);
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             mfSettingsPanel.Controls.Clear();
-            if (parentNode.Tag == null) return;
+            if (moduleNode.Tag == null) return;
 
-            bool isMobiFlightBoard = (parentNode.Tag as MobiFlightModule).HasMfFirmware();
+            bool isMobiFlightBoard = (moduleNode.Tag as MobiFlightModule).HasMfFirmware();
 
             mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
             // this is the module node
             // set the add device icon enabled
             addDeviceToolStripDropDownButton.Enabled = isMobiFlightBoard;
             removeDeviceToolStripButton.Enabled = isMobiFlightBoard & (e.Node.Level > 0);
-            uploadToolStripButton.Enabled = (parentNode.Nodes.Count > 0) || (parentNode.ImageKey == "Changed");
-            saveToolStripButton.Enabled = parentNode.Nodes.Count > 0;
+            uploadToolStripButton.Enabled = (moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed");
+            saveToolStripButton.Enabled = moduleNode.Nodes.Count > 0;
 
 
             // Toggle visibility of items in context menu
@@ -236,9 +223,9 @@ namespace MobiFlight.UI.Panels.Settings
             // this is by default true
             addToolStripMenuItem.Enabled = isMobiFlightBoard;
             removeToolStripMenuItem.Enabled = isMobiFlightBoard & (e.Node.Level > 0);
-            uploadToolStripMenuItem.Enabled = (parentNode.Nodes.Count > 0) || (parentNode.ImageKey == "Changed");
+            uploadToolStripMenuItem.Enabled = (moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed");
             openToolStripMenuItem.Enabled = isMobiFlightBoard;
-            saveToolStripMenuItem.Enabled = parentNode.Nodes.Count > 0;
+            saveToolStripMenuItem.Enabled = moduleNode.Nodes.Count > 0;
 
             syncPanelWithSelectedDevice(e.Node);
         }
@@ -294,9 +281,6 @@ namespace MobiFlight.UI.Panels.Settings
                 }
                 else
                 {
-                    TreeNode parentNode = mfModulesTreeView.SelectedNode;
-                    if (parentNode == null) return;
-                    while (parentNode.Level > 0) parentNode = parentNode.Parent;
                     MobiFlightModule module = getVirtualModuleFromTree();
 
                     MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
@@ -381,24 +365,6 @@ namespace MobiFlight.UI.Panels.Settings
         }
 
         /// <summary>
-        /// Helper function to return the node corresponding to current module
-        /// </summary>
-        ///<returns>TreeNode of the module of current selected item; null if no item selected.</returns>
-        /// 
-        private TreeNode getNodeOfCurrentModule()
-        {
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;   // (not yet parent)
-            if (parentNode == null) {
-                // should never happen... when creating a new device in a module, a selection is either made by the user or forced
-                return null;
-                // otherwise: how can we determine which module we're in within the TreeView?
-            }
-            // Shift parentNode to actual root parent
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-            return parentNode;
-        }
-
-        /// <summary>
         /// Helper function to add a node in the current module structure
         /// </summary>
         ///<returns>Newly created TreeNode if correctly added, null otherwise</returns>
@@ -409,7 +375,7 @@ namespace MobiFlight.UI.Panels.Settings
         {
             bool added = false;
 
-            TreeNode parentNode = getNodeOfCurrentModule();
+            TreeNode parentNode = getModuleNode();
             if (parentNode == null) return null;
 
             // Build a list of all names in the tree
@@ -464,7 +430,7 @@ namespace MobiFlight.UI.Panels.Settings
         {
             // if there is a muxDriver, it is supposed to be the first element of the tree,
             // but to be safe we check if there's one anywhere regardless of its position.
-            TreeNode parentNode = getNodeOfCurrentModule();
+            TreeNode parentNode = getModuleNode();
             if (parentNode == null) return null;
 
             foreach (TreeNode node in parentNode.Nodes) {
@@ -516,7 +482,7 @@ namespace MobiFlight.UI.Panels.Settings
             // if there is no muxDriver in the tree, we're already done
             if (muxNode == null) return true;
 
-            TreeNode parentNode = getNodeOfCurrentModule();
+            TreeNode parentNode = getModuleNode();
             if (parentNode == null) return true;
             foreach (TreeNode node in parentNode.Nodes) {
                 if (requiresMuxDriver(node.Tag as MobiFlight.Config.BaseDevice)) {
@@ -693,10 +659,8 @@ namespace MobiFlight.UI.Panels.Settings
         /// <param name="e"></param>
         void mfConfigDeviceObject_changed(object sender, EventArgs e)
         {
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return;
-
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             String UniqueName;
             bool BaseDeviceHasChanged = (sender is MobiFlight.Config.BaseDevice);
@@ -735,7 +699,7 @@ namespace MobiFlight.UI.Panels.Settings
             if (BaseDeviceHasChanged)
             {
                 List<String> NodeNames = new List<String>();
-                foreach (TreeNode node in parentNode.Nodes)
+                foreach (TreeNode node in moduleNode.Nodes)
                 {
                     if (node == mfModulesTreeView.SelectedNode) continue;
                     NodeNames.Add(node.Text);
@@ -756,8 +720,8 @@ namespace MobiFlight.UI.Panels.Settings
                 mfModulesTreeView.SelectedNode.Text = (sender as MobiFlight.MobiFlightModule).Name;
             }
 
-            parentNode.ImageKey = "Changed";
-            parentNode.SelectedImageKey = "Changed";
+            moduleNode.ImageKey = "Changed";
+            moduleNode.SelectedImageKey = "Changed";
 
             OnModuleConfigChanged?.Invoke(sender, null);
         }
@@ -765,23 +729,20 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return;
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-
-            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             newConfig.ModuleName = module.Name;
 
-            foreach (TreeNode node in parentNode.Nodes)
+            foreach (TreeNode node in moduleNode.Nodes)
             {
                 newConfig.Items.Add(node.Tag as MobiFlight.Config.BaseDevice);
             }
 
             SaveFileDialog fd = new SaveFileDialog();
             fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
-            fd.FileName = parentNode.Text + ".mfmc";
+            fd.FileName = moduleNode.Text + ".mfmc";
 
             if (DialogResult.OK == fd.ShowDialog())
             {
@@ -794,10 +755,8 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return;
-
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
@@ -812,22 +771,22 @@ namespace MobiFlight.UI.Panels.Settings
 
                 if (newConfig.ModuleName != null && newConfig.ModuleName != "")
                 {
-                    parentNode.Text = (parentNode.Tag as MobiFlightModule).Name = newConfig.ModuleName;
+                    moduleNode.Text = (moduleNode.Tag as MobiFlightModule).Name = newConfig.ModuleName;
 
                 }
 
-                parentNode.Nodes.Clear();
+                moduleNode.Nodes.Clear();
 
                 foreach (MobiFlight.Config.BaseDevice device in newConfig.Items)
                 {
                     TreeNode newNode = new TreeNode(device.Name);
                     newNode.Tag = device;
                     newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
-                    parentNode.Nodes.Add(newNode);
+                    moduleNode.Nodes.Add(newNode);
                 }
 
-                parentNode.ImageKey = "Changed";
-                parentNode.SelectedImageKey = "Changed";
+                moduleNode.ImageKey = "Changed";
+                moduleNode.SelectedImageKey = "Changed";
             }
         }
 
@@ -837,7 +796,7 @@ namespace MobiFlight.UI.Panels.Settings
             if (node == null) return;
             if (node.Level == 0) return;    // removing a device, not a module
 
-            TreeNode parentNode = getNodeOfCurrentModule();
+            TreeNode parentNode = getModuleNode();
 
             mfModulesTreeView.Nodes.Remove(node);
             
@@ -865,15 +824,11 @@ namespace MobiFlight.UI.Panels.Settings
                 return;
             }
 
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return;
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
-            while (parentNode.Level > 0) parentNode = parentNode.Parent;
-
-            MobiFlightModule module = parentNode.Tag as MobiFlightModule;
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
-
-            foreach (TreeNode node in parentNode.Nodes)
+            foreach (TreeNode node in moduleNode.Nodes)
             {
                 newConfig.Items.Add(node.Tag as MobiFlight.Config.BaseDevice);
             }
@@ -937,8 +892,8 @@ namespace MobiFlight.UI.Panels.Settings
                                 i18n._tr("uiMessageUploadConfigurationHint"),
                                 MessageBoxButtons.OK);
             }
-            parentNode.ImageKey = "";
-            parentNode.SelectedImageKey = "";
+            moduleNode.ImageKey = "";
+            moduleNode.SelectedImageKey = "";
         }
 
         protected bool _IsModified()
@@ -950,31 +905,24 @@ namespace MobiFlight.UI.Panels.Settings
             return false;
         }
 
-        private TreeNode getModuleNode(TreeNode node)
+        private TreeNode getModuleNode(TreeNode node = null)
         {
-            TreeNode moduleNode = node;
+            TreeNode moduleNode = (node == null ? mfModulesTreeView.SelectedNode : node);
             while (moduleNode.Level > 0) moduleNode = moduleNode.Parent;
             return moduleNode;
         }
 
         private MobiFlightModule getVirtualModuleFromTree()
         {
-            TreeNode parentNode = mfModulesTreeView.SelectedNode;
-            if (parentNode == null) return null;
-
-            parentNode = getModuleNode(parentNode);
-
-            MobiFlightModule module = new MobiFlightModule((parentNode.Tag as MobiFlightModule).Port, (parentNode.Tag as MobiFlightModule).Board);
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).Port, (moduleNode.Tag as MobiFlightModule).Board);
             
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
-            foreach (TreeNode node in parentNode.Nodes)
+            foreach (TreeNode node in moduleNode.Nodes)
             {
                 newConfig.Items.Add(node.Tag as MobiFlight.Config.BaseDevice);
             }
-
             module.Config = newConfig;
-
-
             return module;
         }
 
