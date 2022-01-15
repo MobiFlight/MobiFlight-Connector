@@ -108,7 +108,9 @@
             ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes"))),
             ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes1")))});
             this.mfModulesTreeView.ShowNodeToolTips = true;
+            this.mfModulesTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.mfModulesTreeView_AfterExpand);
             this.mfModulesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.mfModulesTreeView_AfterSelect);
+            this.mfModulesTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.mfModulesTreeView_NodeMouseClick);
             // 
             // mfModuleSettingsContextMenuStrip
             // 
