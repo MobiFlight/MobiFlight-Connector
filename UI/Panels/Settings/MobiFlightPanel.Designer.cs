@@ -108,11 +108,12 @@
             ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes"))),
             ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes1")))});
             this.mfModulesTreeView.ShowNodeToolTips = true;
+            this.mfModulesTreeView.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.mfModulesTreeView_AfterExpand);
             this.mfModulesTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.mfModulesTreeView_AfterSelect);
+            this.mfModulesTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.mfModulesTreeView_NodeMouseClick);
             // 
             // mfModuleSettingsContextMenuStrip
             // 
-            this.mfModuleSettingsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.mfModuleSettingsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
             this.removeToolStripMenuItem,
@@ -281,7 +282,6 @@
             // mobiflightSettingsToolStrip
             // 
             resources.ApplyResources(this.mobiflightSettingsToolStrip, "mobiflightSettingsToolStrip");
-            this.mobiflightSettingsToolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.mobiflightSettingsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uploadToolStripButton,
             this.toolStripSeparator1,
