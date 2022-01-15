@@ -63,12 +63,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
             bool ex_initialized = initialized;
             initialized = false;    // inhibit value_Changed events
             ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, ledModule.DinPin);
-            mfPin1ComboBox.SelectedValue = byte.Parse(ledModule.DinPin);
+            //mfPin1ComboBox.SelectedValue = byte.Parse(ledModule.DinPin);  // moved inside BindMobiFlightFreePins()
             ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, pinList, ledModule.ClsPin);
-            mfPin2ComboBox.SelectedValue = byte.Parse(ledModule.ClsPin);
+            //mfPin2ComboBox.SelectedValue = byte.Parse(ledModule.ClsPin);  // moved inside BindMobiFlightFreePins()
             ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, pinList, ledModule.ClkPin);
-            mfPin3ComboBox.SelectedValue = byte.Parse(ledModule.ClkPin);
-
+            //mfPin3ComboBox.SelectedValue = byte.Parse(ledModule.ClkPin);  // moved inside BindMobiFlightFreePins()
             initialized = ex_initialized;
         }
 
@@ -78,13 +77,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
             initialized = false;    // inhibit value_Changed events
 
             // First update the one that is changed
-            // Here, the config data (ledModule.XXXPin) is updated with the new value read fom the ComboBox;
-            // at the same time (a) the assignment flags in the "base" pin list are accorddingly updated, and
-            // (b) 
+            // Here, the config data (ledModule.XXXPin) is updated with the new value read from the changed ComboBox;
             if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref ledModule.DinPin); } else
             if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(mfPin2ComboBox, pinList, ref ledModule.ClsPin); } else
             if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(mfPin3ComboBox, pinList, ref ledModule.ClkPin); }
-            // then the others
+            // then the others are updated too 
             update_lists();
 
             initialized = ex_initialized;

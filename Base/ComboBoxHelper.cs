@@ -83,6 +83,9 @@ namespace System
             comboBox.DisplayMember = "Name";
             comboBox.ValueMember = "Pin";
 
+            // Restore the original item selection
+            comboBox.SelectedValue = byte.Parse(CurrentPin);
+            
             return false;
         }
         static public void reassignPin(ComboBox comboBox, List<MobiFlightPin> pinList, ref string signalPin)
@@ -104,11 +107,12 @@ namespace System
             catch (Exception e) {
                 Log.Instance.log($"Pin reassignment from {signalPin} to {after} went wrong", LogSeverity.Debug);
             }
-            ComboBoxHelper.BindMobiFlightFreePins(comboBox, pinList, after);
-            // the previous function has rebuilt its datasource, therefore the ComboBox selection must be reasserted:
-            comboBox.SelectedValue = nAfter;  // Not required: datasource changed, but the selected VALUE remains the same
-            // finally, assign the new value in the configuration data
+            // now confirm assignment of the new value in the configuration data
             signalPin = after;
+            
+            //ComboBoxHelper.BindMobiFlightFreePins(comboBox, pinList, after);
+            // the function above has rebuilt its datasource, therefore the ComboBox selection must be restored:
+            //comboBox.SelectedValue = nAfter;
         }
     }
 }
