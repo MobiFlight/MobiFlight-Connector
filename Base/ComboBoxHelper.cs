@@ -61,8 +61,10 @@ namespace System
 
         static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin, bool analogOnly = false)
         {
-            // This function returns a list of all currently free pins, plus the specified one marked as free.
-            // Required because, in a selection list for a device signal, the already assigned pin must be in the list in order to be selectable.
+            // This function assigns to a ComboBox the supplied list of all currently free pins,
+            // plus the specified one marked as free.
+            // Required because, in a selection list for a device signal, the already assigned pin
+            // must be in the list in order to be selectable.
             
             if (Pins == null) return false;
             // Deep-clone list as 'Used' list
