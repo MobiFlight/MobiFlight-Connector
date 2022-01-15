@@ -135,6 +135,8 @@ namespace MobiFlight.UI.Panels.Settings
                 mfModulesTreeView.Enabled = false;
             }
 
+            mfModulesTreeView.Select();
+
             FwAutoInstallCheckBox.Checked = Properties.Settings.Default.FwAutoUpdateCheck;
 #endif
         }
@@ -182,6 +184,18 @@ namespace MobiFlight.UI.Panels.Settings
             module.Config = null;
             module.LoadConfig();
             mfModulesTreeView_initNode(module.GetInfo() as MobiFlightModuleInfo, moduleNode);
+        }
+
+        private void mfModulesTreeView_AfterExpand(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node == null) return;
+            mfModulesTreeView.SelectedNode = e.Node;
+        }
+
+        private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node == null) return;
+            mfModulesTreeView.SelectedNode = e.Node;
         }
 
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -352,6 +366,7 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 cfgItem = null;
                 tempModule = getVirtualModuleFromTree();
+                if (tempModule == null) return;
                 tempModule.LoadConfig();
                 Dictionary<String, int> statistics = tempModule.GetConnectedDevicesStatistics();
                 List<MobiFlightPin> pinList = getVirtualModuleFromTree().GetFreePins();
@@ -503,7 +518,7 @@ namespace MobiFlight.UI.Panels.Settings
         }
 
         /// <summary>
-        /// Update the name of a module in the TreeView
+        /// Update the name of a module or device in the TreeView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -572,6 +587,8 @@ namespace MobiFlight.UI.Panels.Settings
             moduleNode.ImageKey = "Changed";
             moduleNode.SelectedImageKey = "Changed";
 
+            // This could be used to account for changes also to different module parameters
+            // Currently, the handler is empty!
             OnModuleConfigChanged?.Invoke(sender, null);
         }
 

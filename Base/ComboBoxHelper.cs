@@ -85,23 +85,30 @@ namespace System
 
             return false;
         }
-        static public void reassignPin(ComboBox comboBox, List<MobiFlightPin> pinList, ref string before)
+        static public void reassignPin(ComboBox comboBox, List<MobiFlightPin> pinList, ref string signalPin)
         {
+            // This function updates the config data (signalPin) with the new value read from the ComboBox.
+            // At the same time:
+            // - the assignment flags in the "base" pin list are accordingly updated (the current pin no. is marked as free
+            //   and the new one as used)
+            // - an updated pin list is associated to the ComboBox
             string after = comboBox.SelectedItem.ToString();
-            byte nBefore = byte.Parse(before);
+            byte nBefore = byte.Parse(signalPin);
             byte nAfter = byte.Parse(after);
             try {
-                if (before != after) {
+                if (signalPin != after) {
                     pinList.Find(x => x.Pin == nBefore).Used = false;
                     pinList.Find(x => x.Pin == nAfter).Used = true;
                 }
             }
             catch (Exception e) {
-                Log.Instance.log($"Pin reassignment from {before} to {after} went wrong", LogSeverity.Debug);
+                Log.Instance.log($"Pin reassignment from {signalPin} to {after} went wrong", LogSeverity.Debug);
             }
             ComboBoxHelper.BindMobiFlightFreePins(comboBox, pinList, after);
-            comboBox.SelectedValue = nAfter;
-            before = after;
+            // the previous function has rebuilt its datasource, therefore the ComboBox selection must be reasserted:
+            comboBox.SelectedValue = nAfter;  // Not required: datasource changed, but the selected VALUE remains the same
+            // finally, assign the new value in the configuration data
+            signalPin = after;
         }
     }
 }

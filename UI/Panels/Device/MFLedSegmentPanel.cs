@@ -78,6 +78,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
             initialized = false;    // inhibit value_Changed events
 
             // First update the one that is changed
+            // Here, the config data (ledModule.XXXPin) is updated with the new value read fom the ComboBox;
+            // at the same time (a) the assignment flags in the "base" pin list are accorddingly updated, and
+            // (b) 
             if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref ledModule.DinPin); } else
             if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(mfPin2ComboBox, pinList, ref ledModule.ClsPin); } else
             if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(mfPin3ComboBox, pinList, ref ledModule.ClkPin); }
