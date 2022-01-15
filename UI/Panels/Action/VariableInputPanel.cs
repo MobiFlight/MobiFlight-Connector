@@ -12,6 +12,7 @@ namespace MobiFlight.UI.Panels.Action
     public partial class VariableInputPanel : UserControl
     {
         ErrorProvider errorProvider = new ErrorProvider();
+        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
         public VariableInputPanel()
         {
@@ -26,6 +27,29 @@ namespace MobiFlight.UI.Panels.Action
             TypeComboBox.ValueMember = "Value";
             TypeComboBox.DataSource = options;
             TypeComboBox.SelectedIndex = 0;
+
+            NameTextBox.AutoCompleteMode = AutoCompleteMode.Append;
+        }
+
+        public void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
+        {
+            Variables = variables;
+            AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
+            List<ListItem> options = new List<ListItem>();
+
+            foreach (String key in variables.Keys)
+            {
+                collection.Add(variables[key].Name);
+                options.Add(new ListItem() { Value = variables[key].Name, Label = variables[key].Name });
+            }
+
+            NameTextBox.DisplayMember = "Label";
+            NameTextBox.ValueMember = "Value";
+            NameTextBox.DataSource = options;
+
+            NameTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            NameTextBox.AutoCompleteCustomSource = collection;
+
         }
 
         private void InitWithVariable(MobiFlightVariable Variable)
@@ -83,5 +107,16 @@ namespace MobiFlight.UI.Panels.Action
                     "");
         }
 
+        private void NameTextBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            String key = (sender as ComboBox).SelectedValue as String;
+
+            if (key == null) return;
+
+            // lookup and check if the value is an existing preset
+            if (!Variables.ContainsKey(key)) return;
+
+            TypeComboBox.SelectedValue = Variables[key].TYPE;
+        }
     }
 }

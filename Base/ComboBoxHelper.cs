@@ -45,6 +45,20 @@ namespace System
             return false;
         }
 
+        static public bool SetSelectedItemByValue(ComboBox comboBox, string value)
+        {
+            Log.Instance.log("Select " + value + " in ComboBox: " + comboBox.Name, LogSeverity.Debug);
+            foreach (object item in comboBox.Items)
+            {
+                if ((item.ToString()) == value)
+                {
+                    comboBox.SelectedItem = item;
+                    return true;
+                }
+            }
+            return false;
+        }
+
         static public bool BindMobiFlightFreePins(ComboBox comboBox, List<MobiFlightPin> Pins, String CurrentPin, bool analogOnly = false)
         {
             // This function returns a list of all currently free pins, plus the specified one marked as free.

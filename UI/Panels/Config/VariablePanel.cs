@@ -12,9 +12,12 @@ namespace MobiFlight.UI.Panels.Config
 {
     public partial class VariablePanel : UserControl
     {
+        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
+
         public VariablePanel()
         {
             InitializeComponent();
+            NameTextBox.AutoCompleteMode = AutoCompleteMode.Append;
 
             // hide the string options.
             transformOptionsGroup1.setMode(true);
@@ -28,6 +31,27 @@ namespace MobiFlight.UI.Panels.Config
             TypeComboBox.ValueMember = "Value";
             TypeComboBox.DataSource = options;
             TypeComboBox.SelectedIndex = 0;
+        }
+
+        internal void SetVariableReferences(Dictionary<String, MobiFlightVariable> variables)
+        {
+            Variables = variables;
+            AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
+            List<ListItem> options = new List<ListItem>();
+
+            foreach (String key in variables.Keys)
+            {
+                collection.Add(variables[key].Name);
+                options.Add(new ListItem() { Value = variables[key].Name, Label = variables[key].Name });
+            }
+
+            NameTextBox.DisplayMember = "Label";
+            NameTextBox.ValueMember = "Value";
+            NameTextBox.DataSource = options;
+
+            NameTextBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            NameTextBox.AutoCompleteCustomSource = collection;
+
         }
 
         internal void syncToConfig(OutputConfigItem config)
@@ -54,6 +78,18 @@ namespace MobiFlight.UI.Panels.Config
         {
             transformOptionsGroup1.ShowMultiplyPanel(MobiFlightVariable.TYPE_NUMBER == (sender as ComboBox).SelectedValue.ToString());
             transformOptionsGroup1.ShowSubStringPanel(MobiFlightVariable.TYPE_STRING == (sender as ComboBox).SelectedValue.ToString());
+        }
+
+        private void NameTextBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            String key = (sender as ComboBox).SelectedValue as String;
+
+            if (key == null) return;
+
+            // lookup and check if the value is an existing preset
+            if (!Variables.ContainsKey(key)) return;
+
+            TypeComboBox.SelectedValue = Variables[key].TYPE;
         }
     }
 }

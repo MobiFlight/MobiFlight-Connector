@@ -47,10 +47,6 @@
     <Setting Name="PresetFileEventId" Type="System.String" Scope="User">
       <Value Profile="(Default)">Presets\presets_eventids.cip</Value>
     </Setting>
-    <Setting Name="RecentFiles" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" /&gt;</Value>
-    </Setting>
     <Setting Name="PresetFileJeehell" Type="System.String" Scope="User">
       <Value Profile="(Default)">Presets\presets_jeehell.cip</Value>
     </Setting>
@@ -97,6 +93,13 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LogJoystickAxis" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="RecentFiles" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" /&gt;</Value>
+    </Setting>
+    <Setting Name="SimVarTextBoxExpanded" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

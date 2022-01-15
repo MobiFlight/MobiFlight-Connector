@@ -43,6 +43,10 @@ namespace MobiFlight.Base
         {
             Preconditions.Remove(p);
         }
+        public void Clear()
+        {
+            Preconditions.Clear();
+        }
 
         public XmlSchema GetSchema()
         {

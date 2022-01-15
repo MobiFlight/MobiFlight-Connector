@@ -39,15 +39,16 @@
     "MobiFlightType": "MobiFlight Mega"
   },
   "ModuleLimits": {
-    "MaxOutputs": 40,
-    "MaxButtons": 68,
-    "MaxLedSegments": 4,
-    "MaxEncoders": 20,
-    "MaxSteppers": 10,
-    "MaxServos": 10,
-    "MaxLcdI2C": 2,
     "MaxAnalogInputs": 16,
-    "MaxShifters": 4
+    "MaxInputShifters": 4,
+    "MaxButtons": 68,
+    "MaxEncoders": 20,
+    "MaxLcdI2C": 2,
+    "MaxLedSegments": 4,
+    "MaxOutputs": 40,
+    "MaxServos": 10,
+    "MaxShifters": 4,
+    "MaxSteppers": 10
   },
   "Pins": [
     {

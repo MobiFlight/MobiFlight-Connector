@@ -73,6 +73,7 @@
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.groupBoxInputSettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.inputPinDropDown = new System.Windows.Forms.ComboBox();
             this.arcazeSerialLabel = new System.Windows.Forms.Label();
             this.inputModuleNameComboBox = new System.Windows.Forms.ComboBox();
             this.inputTypeComboBoxLabel = new System.Windows.Forms.Label();
@@ -442,6 +443,7 @@
             // 
             // displayTypeGroupBox
             // 
+            this.displayTypeGroupBox.Controls.Add(this.inputPinDropDown);
             this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
             this.displayTypeGroupBox.Controls.Add(this.inputModuleNameComboBox);
             this.displayTypeGroupBox.Controls.Add(this.inputTypeComboBoxLabel);
@@ -449,6 +451,13 @@
             resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
+            // 
+            // inputPinDropDown
+            // 
+            this.inputPinDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.inputPinDropDown.FormattingEnabled = true;
+            resources.ApplyResources(this.inputPinDropDown, "inputPinDropDown");
+            this.inputPinDropDown.Name = "inputPinDropDown";
             // 
             // arcazeSerialLabel
             // 
@@ -475,6 +484,7 @@
             // 
             // inputTypeComboBox
             // 
+            this.inputTypeComboBox.DisplayMember = "Name";
             this.inputTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.inputTypeComboBox.FormattingEnabled = true;
             this.inputTypeComboBox.Items.AddRange(new object[] {
@@ -635,5 +645,6 @@
         private System.Windows.Forms.TextBox displayTabTextBox;
         private System.Windows.Forms.TabPage configRefTabPage;
         private Panels.Config.ConfigRefPanel configRefPanel;
+        private System.Windows.Forms.ComboBox inputPinDropDown;
     }
 }

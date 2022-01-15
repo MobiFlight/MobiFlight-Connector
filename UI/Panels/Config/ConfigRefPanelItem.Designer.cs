@@ -35,6 +35,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.removeConfigReferenceButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,10 +70,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // removeConfigReferenceButton
+            // 
+            resources.ApplyResources(this.removeConfigReferenceButton, "removeConfigReferenceButton");
+            this.removeConfigReferenceButton.Name = "removeConfigReferenceButton";
+            this.removeConfigReferenceButton.UseVisualStyleBackColor = true;
+            this.removeConfigReferenceButton.Click += new System.EventHandler(this.removeConfigReferenceButton_Click);
+            // 
             // ConfigRefPanelItem
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.removeConfigReferenceButton);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.configRefComboBox);
             this.Controls.Add(this.label3);
@@ -91,5 +100,6 @@
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.ComboBox configRefComboBox;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button removeConfigReferenceButton;
     }
 }

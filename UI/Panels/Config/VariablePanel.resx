@@ -123,10 +123,13 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+    <value>4, 24</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>304, 19</value>
+    <value>457, 29</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
@@ -154,10 +157,13 @@
     <value>String</value>
   </data>
   <data name="TypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>63, 37</value>
+    <value>94, 57</value>
+  </data>
+  <data name="TypeComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="TypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 21</value>
+    <value>132, 28</value>
   </data>
   <data name="TypeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -178,13 +184,10 @@
     <value>Top, Left, Right</value>
   </data>
   <data name="NameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>63, 61</value>
-  </data>
-  <data name="NameTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+    <value>94, 94</value>
   </data>
   <data name="NameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>238, 20</value>
+    <value>355, 28</value>
   </data>
   <data name="NameTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -193,7 +196,7 @@
     <value>NameTextBox</value>
   </data>
   <data name="&gt;&gt;NameTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;NameTextBox.Parent" xml:space="preserve">
     <value>groupBox1</value>
@@ -205,13 +208,10 @@
     <value>NoControl</value>
   </data>
   <data name="TypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 40</value>
-  </data>
-  <data name="TypeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
+    <value>15, 62</value>
   </data>
   <data name="TypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 13</value>
+    <value>70, 20</value>
   </data>
   <data name="TypeLabel.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -238,13 +238,10 @@
     <value>NoControl</value>
   </data>
   <data name="NameLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 64</value>
-  </data>
-  <data name="NameLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
+    <value>20, 98</value>
   </data>
   <data name="NameLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 13</value>
+    <value>66, 20</value>
   </data>
   <data name="NameLabel.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -273,8 +270,14 @@
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 95</value>
+    <value>465, 146</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -298,10 +301,13 @@
     <value>Top</value>
   </data>
   <data name="transformOptionsGroup1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 95</value>
+    <value>0, 146</value>
+  </data>
+  <data name="transformOptionsGroup1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 8, 6, 8</value>
   </data>
   <data name="transformOptionsGroup1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 94</value>
+    <value>465, 145</value>
   </data>
   <data name="transformOptionsGroup1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -310,7 +316,7 @@
     <value>transformOptionsGroup1</value>
   </data>
   <data name="&gt;&gt;transformOptionsGroup1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.TransformOptionsGroup, MFConnector, Version=8.2.0.4, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.TransformOptionsGroup, MFConnector, Version=9.2.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;transformOptionsGroup1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -322,13 +328,16 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>9, 20</value>
   </data>
   <data name="$this.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>310, 195</value>
+    <value>465, 300</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>VariablePanel</value>
