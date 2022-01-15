@@ -52,5 +52,19 @@ namespace MobiFlight.UI.Panels.Config
         public BytePanel() {
             InitializeComponent();            
         }
+
+        private void btnSetAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i != 8; i++) {
+                (flowLayoutPanel.Controls["checkBox" + i] as CheckBox).Checked = true;
+            }
+        }
+
+        private void btnClrAll_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i != 8; i++) {
+                (flowLayoutPanel.Controls["checkBox" + i] as CheckBox).Checked = false;
+            }
+        }
     }
 }

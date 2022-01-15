@@ -45,9 +45,9 @@ namespace MobiFlight.UI.Forms
                 Width = (flowLayoutPanel.Width + PanelBorderWidth);
 
                 panel.Left = (int)(Math.Floor((decimal)((flowLayoutPanel.Width - panel.Width) / 2)));
-                panel.Top = flowLayoutPanel.Top + flowLayoutPanel.Height + 30;
+                panel.Top = flowLayoutPanel.Top + flowLayoutPanel.Height + 10;
 
-                Height = panel.Top + PanelBorderHeight;
+                Height = panel.Top + panel.Height + PanelBorderHeight;
             }
         }
 
