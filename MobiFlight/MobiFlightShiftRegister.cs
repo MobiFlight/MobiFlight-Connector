@@ -63,7 +63,7 @@ namespace MobiFlight
 
             Log.Instance.log("Command: SetShiftRegisterPin <" + (int)MobiFlightModule.Command.SetShiftRegisterPins + "," +
                                                       this.ModuleNumber + "," +
-                                                      outputPins + "," +
+                                                      pinsOnly + "," +
                                                       value + ";>", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
