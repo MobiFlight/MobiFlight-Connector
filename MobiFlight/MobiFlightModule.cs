@@ -284,7 +284,7 @@ namespace MobiFlight
         }
 
         public void LoadConfig()
-        {           
+        {
             ledModules.Clear();
             stepperModules.Clear();
             servoModules.Clear();
@@ -295,7 +295,6 @@ namespace MobiFlight
             inputShiftRegisters.Clear();
             analogInputs.Clear();
             shiftRegisters.Clear();
-
 
             foreach (Config.BaseDevice device in Config.Items)
             {
