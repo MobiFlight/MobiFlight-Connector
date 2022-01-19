@@ -9,5 +9,7 @@ namespace MobiFlight
     {
         String Name { get; }
         DeviceType Type { get; }
+
+        void Stop();
     }
 }
