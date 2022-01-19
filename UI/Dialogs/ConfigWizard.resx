@@ -123,16 +123,16 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="configRefPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
+    <value>3, 16</value>
   </data>
   <data name="configRefPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="configRefPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>8, 0, 8, 0</value>
+    <value>5, 0, 5, 0</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>779, 0</value>
+    <value>598, 0</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
@@ -142,7 +142,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>referencesGroupBox</value>
@@ -154,16 +154,10 @@
     <value>Fill</value>
   </data>
   <data name="referencesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 1054</value>
-  </data>
-  <data name="referencesGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="referencesGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 705</value>
   </data>
   <data name="referencesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 0</value>
+    <value>604, 0</value>
   </data>
   <data name="referencesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -190,13 +184,13 @@
     <value>Top</value>
   </data>
   <data name="variablePanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 841</value>
+    <value>6, 567</value>
   </data>
   <data name="variablePanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="variablePanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 213</value>
+    <value>604, 138</value>
   </data>
   <data name="variablePanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -205,7 +199,7 @@
     <value>variablePanel1</value>
   </data>
   <data name="&gt;&gt;variablePanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;variablePanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -220,7 +214,7 @@
     <value>Top</value>
   </data>
   <data name="simConnectPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 448</value>
+    <value>6, 291</value>
   </data>
   <data name="simConnectPanel1.LVars" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -232,10 +226,10 @@
 </value>
   </data>
   <data name="simConnectPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="simConnectPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 393</value>
+    <value>604, 276</value>
   </data>
   <data name="simConnectPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -244,7 +238,7 @@
     <value>simConnectPanel1</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -259,13 +253,13 @@
     <value>Top</value>
   </data>
   <data name="fsuipcConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 35</value>
+    <value>0, 23</value>
   </data>
   <data name="fsuipcConfigPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 365</value>
+    <value>604, 237</value>
   </data>
   <data name="fsuipcConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -274,7 +268,7 @@
     <value>fsuipcConfigPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>FsuipcSettingsPanel</value>
@@ -288,11 +282,8 @@
   <data name="fsuipcHintLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="fsuipcHintLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
   <data name="fsuipcHintLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 35</value>
+    <value>604, 23</value>
   </data>
   <data name="fsuipcHintLabel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -319,13 +310,10 @@
     <value>Top</value>
   </data>
   <data name="FsuipcSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 60</value>
-  </data>
-  <data name="FsuipcSettingsPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 39</value>
   </data>
   <data name="FsuipcSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 388</value>
+    <value>604, 252</value>
   </data>
   <data name="FsuipcSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -343,10 +331,13 @@
     <value>3</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 8</value>
+    <value>3, 5</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 26</value>
+    <value>111, 17</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -376,13 +367,10 @@
     <value>NoControl</value>
   </data>
   <data name="OffsetTypeVariableRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>405, 8</value>
-  </data>
-  <data name="OffsetTypeVariableRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>270, 5</value>
   </data>
   <data name="OffsetTypeVariableRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>169, 24</value>
+    <value>114, 17</value>
   </data>
   <data name="OffsetTypeVariableRadioButton.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -409,13 +397,10 @@
     <value>NoControl</value>
   </data>
   <data name="OffsetTypeSimConnectRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>178, 8</value>
-  </data>
-  <data name="OffsetTypeSimConnectRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>119, 5</value>
   </data>
   <data name="OffsetTypeSimConnectRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 24</value>
+    <value>144, 17</value>
   </data>
   <data name="OffsetTypeSimConnectRadioButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -442,13 +427,10 @@
     <value>NoControl</value>
   </data>
   <data name="OffsetTypeFsuipRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>585, 8</value>
-  </data>
-  <data name="OffsetTypeFsuipRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>390, 5</value>
   </data>
   <data name="OffsetTypeFsuipRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 24</value>
+    <value>94, 17</value>
   </data>
   <data name="OffsetTypeFsuipRadioButton.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -472,13 +454,10 @@
     <value>Top</value>
   </data>
   <data name="OffsetTypePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 9</value>
-  </data>
-  <data name="OffsetTypePanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 6</value>
   </data>
   <data name="OffsetTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 51</value>
+    <value>604, 33</value>
   </data>
   <data name="OffsetTypePanel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -496,16 +475,13 @@
     <value>4</value>
   </data>
   <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="fsuipcTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 22</value>
   </data>
   <data name="fsuipcTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
+    <value>6, 6, 6, 6</value>
   </data>
   <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>805, 852</value>
+    <value>616, 657</value>
   </data>
   <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -529,13 +505,10 @@
     <value>Fill</value>
   </data>
   <data name="compareSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 575</value>
-  </data>
-  <data name="compareSpacerPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 374</value>
   </data>
   <data name="compareSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 268</value>
+    <value>522, 169</value>
   </data>
   <data name="compareSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -556,13 +529,13 @@
     <value>Fill</value>
   </data>
   <data name="interpolationPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 58</value>
+    <value>3, 39</value>
   </data>
   <data name="interpolationPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+    <value>1, 1, 1, 1</value>
   </data>
   <data name="interpolationPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>779, 202</value>
+    <value>516, 130</value>
   </data>
   <data name="interpolationPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -571,7 +544,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -589,16 +562,13 @@
     <value>NoControl</value>
   </data>
   <data name="interpolationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 24</value>
-  </data>
-  <data name="interpolationCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>3, 16</value>
   </data>
   <data name="interpolationCheckBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="interpolationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>779, 34</value>
+    <value>516, 23</value>
   </data>
   <data name="interpolationCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -622,16 +592,10 @@
     <value>Top</value>
   </data>
   <data name="interpolationGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 310</value>
-  </data>
-  <data name="interpolationGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="interpolationGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 202</value>
   </data>
   <data name="interpolationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 265</value>
+    <value>522, 172</value>
   </data>
   <data name="interpolationGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -652,13 +616,10 @@
     <value>1</value>
   </data>
   <data name="comparisonValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>256, 15</value>
-  </data>
-  <data name="comparisonValueTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>171, 10</value>
   </data>
   <data name="comparisonValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 26</value>
+    <value>100, 20</value>
   </data>
   <data name="comparisonValueTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -676,13 +637,10 @@
     <value>0</value>
   </data>
   <data name="comparisonElseValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>256, 94</value>
-  </data>
-  <data name="comparisonElseValueTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>171, 61</value>
   </data>
   <data name="comparisonElseValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 26</value>
+    <value>100, 20</value>
   </data>
   <data name="comparisonElseValueTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -706,13 +664,10 @@
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>156, 98</value>
-  </data>
-  <data name="label8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>104, 64</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 20</value>
+    <value>63, 13</value>
   </data>
   <data name="label8.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -733,13 +688,10 @@
     <value>2</value>
   </data>
   <data name="comparisonIfValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>256, 54</value>
-  </data>
-  <data name="comparisonIfValueTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>171, 35</value>
   </data>
   <data name="comparisonIfValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 26</value>
+    <value>100, 20</value>
   </data>
   <data name="comparisonIfValueTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -763,13 +715,10 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 58</value>
-  </data>
-  <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>126, 38</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
+    <value>41, 13</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -811,13 +760,10 @@
     <value />
   </data>
   <data name="comparisonOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 15</value>
-  </data>
-  <data name="comparisonOperandComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>126, 10</value>
   </data>
   <data name="comparisonOperandComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 28</value>
+    <value>39, 21</value>
   </data>
   <data name="comparisonOperandComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -841,13 +787,10 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>48, 20</value>
-  </data>
-  <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>32, 13</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 20</value>
+    <value>88, 13</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -871,13 +814,10 @@
     <value>Fill</value>
   </data>
   <data name="comparisonSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 52</value>
-  </data>
-  <data name="comparisonSettingsPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 36</value>
   </data>
   <data name="comparisonSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>769, 151</value>
+    <value>510, 96</value>
   </data>
   <data name="comparisonSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -904,13 +844,10 @@
     <value>NoControl</value>
   </data>
   <data name="comparisonActiveCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 28</value>
-  </data>
-  <data name="comparisonActiveCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 19</value>
   </data>
   <data name="comparisonActiveCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>769, 24</value>
+    <value>510, 17</value>
   </data>
   <data name="comparisonActiveCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -934,16 +871,13 @@
     <value>Top</value>
   </data>
   <data name="comparisonSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 98</value>
-  </data>
-  <data name="comparisonSettingsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 64</value>
   </data>
   <data name="comparisonSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
+    <value>6, 6, 6, 6</value>
   </data>
   <data name="comparisonSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 212</value>
+    <value>522, 138</value>
   </data>
   <data name="comparisonSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -967,16 +901,16 @@
     <value>Top</value>
   </data>
   <data name="comparisonHintTtextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 9</value>
+    <value>6, 6</value>
   </data>
   <data name="comparisonHintTtextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
+    <value>6, 6, 6, 6</value>
   </data>
   <data name="comparisonHintTtextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="comparisonHintTtextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 89</value>
+    <value>522, 58</value>
   </data>
   <data name="comparisonHintTtextBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -998,16 +932,13 @@
     <value>3</value>
   </data>
   <data name="compareTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="compareTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 22</value>
   </data>
   <data name="compareTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
+    <value>6, 6, 6, 6</value>
   </data>
   <data name="compareTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>805, 852</value>
+    <value>534, 549</value>
   </data>
   <data name="compareTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1040,13 +971,10 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinTestStopButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>559, 18</value>
-  </data>
-  <data name="displayPinTestStopButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>370, 12</value>
   </data>
   <data name="displayPinTestStopButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 35</value>
+    <value>58, 23</value>
   </data>
   <data name="displayPinTestStopButton.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -1082,13 +1010,10 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinTestButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>463, 18</value>
-  </data>
-  <data name="displayPinTestButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>306, 12</value>
   </data>
   <data name="displayPinTestButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 35</value>
+    <value>58, 23</value>
   </data>
   <data name="displayPinTestButton.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -1118,16 +1043,10 @@
     <value>Top</value>
   </data>
   <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 184</value>
-  </data>
-  <data name="testSettingsGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="testSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 119</value>
   </data>
   <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 62</value>
+    <value>522, 40</value>
   </data>
   <data name="testSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -1154,16 +1073,10 @@
     <value>Top</value>
   </data>
   <data name="groupBoxDisplaySettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 175</value>
-  </data>
-  <data name="groupBoxDisplaySettings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="groupBoxDisplaySettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 114</value>
   </data>
   <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 9</value>
+    <value>522, 5</value>
   </data>
   <data name="groupBoxDisplaySettings.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1190,13 +1103,10 @@
     <value>NoControl</value>
   </data>
   <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 35</value>
-  </data>
-  <data name="arcazeSerialLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>50, 23</value>
   </data>
   <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 20</value>
+    <value>42, 13</value>
   </data>
   <data name="arcazeSerialLabel.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -1223,13 +1133,10 @@
     <value>Modul B</value>
   </data>
   <data name="displayModuleNameComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 31</value>
-  </data>
-  <data name="displayModuleNameComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>98, 20</value>
   </data>
   <data name="displayModuleNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>420, 28</value>
+    <value>281, 21</value>
   </data>
   <data name="displayModuleNameComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1253,13 +1160,10 @@
     <value>NoControl</value>
   </data>
   <data name="displayTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 74</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>31, 48</value>
   </data>
   <data name="displayTypeComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 20</value>
+    <value>61, 13</value>
   </data>
   <data name="displayTypeComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1289,13 +1193,10 @@
     <value>BCD4056</value>
   </data>
   <data name="displayTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 69</value>
-  </data>
-  <data name="displayTypeComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>98, 45</value>
   </data>
   <data name="displayTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>420, 28</value>
+    <value>281, 21</value>
   </data>
   <data name="displayTypeComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1316,16 +1217,10 @@
     <value>Top</value>
   </data>
   <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 60</value>
-  </data>
-  <data name="displayTypeGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="displayTypeGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 39</value>
   </data>
   <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 115</value>
+    <value>522, 75</value>
   </data>
   <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1349,16 +1244,16 @@
     <value>Top</value>
   </data>
   <data name="displayTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 9</value>
+    <value>6, 6</value>
   </data>
   <data name="displayTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>18, 18, 18, 18</value>
+    <value>12, 12, 12, 12</value>
   </data>
   <data name="displayTabTextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 51</value>
+    <value>522, 33</value>
   </data>
   <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1379,16 +1274,13 @@
     <value>3</value>
   </data>
   <data name="displayTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="displayTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 22</value>
   </data>
   <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
+    <value>6, 6, 6, 6</value>
   </data>
   <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>805, 852</value>
+    <value>534, 549</value>
   </data>
   <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1412,13 +1304,13 @@
     <value>Fill</value>
   </data>
   <data name="preconditionPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 9</value>
+    <value>6, 6</value>
   </data>
   <data name="preconditionPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>787, 834</value>
+    <value>522, 537</value>
   </data>
   <data name="preconditionPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1427,7 +1319,7 @@
     <value>preconditionPanel</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.2.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
     <value>preconditionTabPage</value>
@@ -1436,16 +1328,13 @@
     <value>0</value>
   </data>
   <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="preconditionTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>4, 22</value>
   </data>
   <data name="preconditionTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>9, 9, 9, 9</value>
+    <value>6, 6, 6, 6</value>
   </data>
   <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>805, 852</value>
+    <value>534, 549</value>
   </data>
   <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -1471,11 +1360,8 @@
   <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tabControlFsuipc.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>813, 885</value>
+    <value>624, 683</value>
   </data>
   <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1498,11 +1384,8 @@
   <data name="MainPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="MainPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>813, 885</value>
+    <value>624, 683</value>
   </data>
   <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1526,13 +1409,10 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>589, 0</value>
-  </data>
-  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>474, 0</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 43</value>
+    <value>75, 28</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -1559,13 +1439,10 @@
     <value>NoControl</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>701, 0</value>
-  </data>
-  <data name="cancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>549, 0</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 43</value>
+    <value>75, 28</value>
   </data>
   <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -1589,13 +1466,10 @@
     <value>Bottom</value>
   </data>
   <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 885</value>
-  </data>
-  <data name="ButtonPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>0, 683</value>
   </data>
   <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>813, 43</value>
+    <value>624, 28</value>
   </data>
   <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1619,13 +1493,13 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>190</value>
+    <value>82</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>813, 928</value>
+    <value>624, 711</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1770,9 +1644,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

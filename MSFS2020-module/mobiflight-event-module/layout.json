@@ -11,9 +11,9 @@
       "date": 132621057343026307
     },
     {
-      "path": "modules/StandaloneModule.wasm",
-      "size": 1470160,
-      "date": 132755806609778491
+      "path": "modules/MobiFlightWasmModule.wasm",
+      "size": 1496828,
+      "date": 132898483147099476
     }
   ]
 }

@@ -53,14 +53,14 @@ namespace MobiFlight.UI
 
         private void InitializeLogging()
         {
-            LogAppenderTextBox logAppenderTextBox = new LogAppenderTextBox(logTextBox);
+            LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
             LogAppenderFile logAppenderFile = new LogAppenderFile();
 
             Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
-            logTextBox.Visible = Log.Instance.Enabled;
+            logPanel1.Visible = Log.Instance.Enabled;
             logSplitter.Visible = Log.Instance.Enabled;
 
             try
@@ -516,7 +516,7 @@ namespace MobiFlight.UI
 
             if (e.SettingName == "LogEnabled")
             {
-                logTextBox.Visible = (bool) e.NewValue;
+                logPanel1.Visible = (bool) e.NewValue;
                 logSplitter.Visible = (bool) e.NewValue;
             }
         }
@@ -708,6 +708,7 @@ namespace MobiFlight.UI
                 simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
                 simConnectToolStripMenuItem.Image = Properties.Resources.check;
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), "SimConnect");
+                Log.Instance.log("MSFS2020 detected.", LogSeverity.Info);
             }
 
             else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
@@ -729,11 +730,13 @@ namespace MobiFlight.UI
                 }
                 FsuipcToolStripMenuItem.Image = Properties.Resources.check;
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), c.FlightSimConnectionMethod.ToString());
+                Log.Instance.log($"{FlightSim.FlightSimType.ToString()} detected.", LogSeverity.Info);
             }
 
             if (execManager.SimConnected())
             {
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                Log.Instance.log($"{FlightSim.FlightSimType.ToString()} connected.", LogSeverity.Info);
             }
 
             runToolStripButton.Enabled = RunIsAvailable();

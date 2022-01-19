@@ -72,5 +72,11 @@ namespace MobiFlight
             if (_initialized) return;
             _initialized = true;
         }
+
+        public void Stop()
+        {
+            // do nothing
+            return;
+        }
     }
 }

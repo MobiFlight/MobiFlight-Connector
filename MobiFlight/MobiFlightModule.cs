@@ -288,7 +288,7 @@ namespace MobiFlight
         }
 
         public void LoadConfig()
-        {           
+        {
             ledModules.Clear();
             stepperModules.Clear();
             servoModules.Clear();
@@ -661,7 +661,7 @@ namespace MobiFlight
 
             lastValue[key] = cachedValue;
 
-            lcdDisplays[address].Display(address, value);
+            lcdDisplays[address].Display(value);
             return true;
         }
 
@@ -1042,23 +1042,17 @@ namespace MobiFlight
 
         public void Stop()
         {
-            foreach (MobiFlightOutput output in outputs.Values)
-            {
-                SetPin("base", output.Name, 0);
-            }
-            
-            foreach (MobiFlightLedModule module in ledModules.Values)
-            {
-                for(int i = 0; i!=module.SubModules;i++)
-                    SetDisplay(module.Name, i, 0, 0xff, "        ");
-            }
-            
-            foreach (MobiFlightStepper stepper in stepperModules.Values)
-            {
-                SetStepper(stepper.Name, 0);
-            }
-
+            // Always clear the cache 
+            // also in case maybe later something goes wrong
+            // we will simply resend the value in that case
+            // when we start again
             lastValue.Clear();
+
+            // we have to make sure to not send messages
+            // when we are not connected
+            if (!this.connected) return;
+            
+            GetConnectedDevices().ForEach(device => device.Stop());                      
         }
 
         public List<MobiFlightPin> GetFreePins()

@@ -15,7 +15,6 @@ namespace MobiFlight.UI.Dialogs
 {
     public partial class ConfigWizard : Form
     {
-        public event EventHandler PreconditionTreeNodeChanged;
         public event EventHandler SettingsDialogRequested;
 
         static int lastTabActive = 0;
@@ -121,7 +120,7 @@ namespace MobiFlight.UI.Dialogs
             fsuipcConfigPanel.syncFromConfig(cfg);
 
             // SIMCONNECT SIMVARS PANEL
-            simConnectPanel1.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
+            simConnectPanel1.HubHopPresetPanel.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
             _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
         }
 
@@ -135,7 +134,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void ConfigWizard_LVarListUpdated(object sender, EventArgs e)
         {
-            simConnectPanel1.LVars = (sender as List<String>);
+            simConnectPanel1.HubHopPresetPanel.LVars = (sender as List<String>);
         }
 
         protected void _initDisplayPanels () {
@@ -242,7 +241,7 @@ namespace MobiFlight.UI.Dialogs
         /// <param name="arcazeCache"></param>
         public void initWithArcazeCache (ArcazeCache arcazeCache)
         {
-            List<String> PreconditionModuleList = new List<String>();
+            List<ListItem> PreconditionModuleList = new List<ListItem>();
             // update the display box with
             // modules
             displayModuleNameComboBox.Items.Clear();
@@ -257,7 +256,11 @@ namespace MobiFlight.UI.Dialogs
                     Label = $"{module.Name} ({module.Serial})"
                 });
 
-                PreconditionModuleList.Add(module.Name + "/ " + module.Serial);
+                PreconditionModuleList.Add(new ListItem()
+                {
+                    Value = module.Name + "/ " + module.Serial,
+                    Label = $"{module.Name} ({module.Serial})"
+                });
             }
 
 
@@ -356,7 +359,7 @@ namespace MobiFlight.UI.Dialogs
 
             displayShiftRegisterPanel.SyncFromConfig(config);
 
-            preconditionPanel.syncFromOutputConfig(config);
+            preconditionPanel.syncFromConfig(config);
             
             return true;
         }
@@ -419,7 +422,7 @@ namespace MobiFlight.UI.Dialogs
 
             display_syncToConfig();
 
-            preconditionPanel.syncToOutputConfig(config);
+            preconditionPanel.syncToConfig(config);
 
             // sync panels
             displayPinPanel.syncToConfig(config);

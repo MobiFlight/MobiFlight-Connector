@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Action
 {
@@ -17,21 +18,22 @@ namespace MobiFlight.UI.Panels.Action
         public MSFS2020CustomInputPanel()
         {
             InitializeComponent();
+            hubHopPresetPanel1.Mode = Config.HubHopPanelMode.Input;
         }       
 
         internal void syncFromConfig(InputConfig.MSFS2020CustomInputAction inputAction)
         {
-            if (inputAction == null) return;
-            if (inputAction.Command == null) return;
-
-            CommandTextBox.Text = inputAction.Command;
+            hubHopPresetPanel1.syncFromConfig(inputAction);
         }
 
         internal InputConfig.InputAction ToConfig()
         {
-            MobiFlight.InputConfig.MSFS2020CustomInputAction result = new InputConfig.MSFS2020CustomInputAction();
-            result.Command = CommandTextBox.Text;
-            return result;
+            return hubHopPresetPanel1.ToConfig();            
+        }
+
+        internal void syncFromConfig(MSFS2020EventIdInputAction inputAction)
+        {
+            hubHopPresetPanel1.syncFromConfig(inputAction);
         }
     }
 }

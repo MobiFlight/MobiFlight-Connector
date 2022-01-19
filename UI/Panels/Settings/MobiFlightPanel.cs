@@ -196,6 +196,12 @@ namespace MobiFlight.UI.Panels.Settings
             mfModulesTreeView.SelectedNode = e.Node;
         }
 
+        private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Node == null) return;
+            mfModulesTreeView.SelectedNode = e.Node;
+        }
+
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node == null) return;
