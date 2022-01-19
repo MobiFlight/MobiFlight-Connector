@@ -84,7 +84,7 @@ namespace MobiFlight.UI.Panels.Config
             preconditionPinValueComboBox.SelectedIndex = 0;
 
             preconditionSettingsPanel.Enabled = false;
-            preconditionApplyButton.Visible = false;
+            ApplyButtonPanel.Visible = false;
         }
 
         public void SetModules(List<String> ModuleList)
@@ -135,10 +135,17 @@ namespace MobiFlight.UI.Panels.Config
         private void preConditionTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selected = ((sender as ComboBox).SelectedItem as ListItem).Value;
+
             preconditionSettingsGroupBox.Visible = selected != "none";
-            preconditionRuleConfigPanel.Visible = false;
             preconditionRuleConfigPanel.Visible = selected == "config";
             preconditionPinPanel.Visible = selected == "pin";
+
+            if (preconditionRuleConfigPanel.Visible)
+                preconditionSettingsGroupBox.Height = preconditionRuleConfigPanel.Height;
+            else if (preconditionPinPanel.Visible)
+            {
+                preconditionSettingsGroupBox.Height = preconditionPinPanel.Height;
+            }
         }
 
         private void preconditionRefValueTextBox_Validating(object sender, CancelEventArgs e)
@@ -233,7 +240,7 @@ namespace MobiFlight.UI.Panels.Config
             Precondition config = (e.Node.Tag as Precondition);
             preConditionTypeComboBox.SelectedValue = config.PreconditionType;
             preconditionSettingsPanel.Enabled = true;
-            preconditionApplyButton.Visible = true;
+            ApplyButtonPanel.Visible = true;
             config.PreconditionActive = e.Node.Checked;
 
             switch (config.PreconditionType)
