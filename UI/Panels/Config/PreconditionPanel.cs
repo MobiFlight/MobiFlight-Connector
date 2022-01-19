@@ -87,15 +87,15 @@ namespace MobiFlight.UI.Panels.Config
             ApplyButtonPanel.Visible = false;
         }
 
-        public void SetModules(List<String> ModuleList)
+        public void SetModules(List<ListItem> ModuleList)
         {
             preconditionPinSerialComboBox.Items.Clear();
-            preconditionPinSerialComboBox.Items.Add("-");
+            preconditionPinSerialComboBox.Items.Add(new ListItem() { Value = "-", Label = "" });
             preconditionPinSerialComboBox.Items.AddRange(ModuleList.ToArray());
             preconditionPinSerialComboBox.SelectedIndex = 0;
         }
 
-        public bool syncFromOutputConfig(OutputConfigItem config)
+        public bool syncFromConfig(IBaseConfigItem config)
         {
             preconditionListTreeView.Nodes.Clear();
             Preconditions = config.Preconditions.Clone() as PreconditionList;
@@ -122,9 +122,9 @@ namespace MobiFlight.UI.Panels.Config
             overridePreconditionTextBox.Text = config.Preconditions.FalseCaseValue;
 
             return true;
-        }   
+        }
 
-        public bool syncToOutputConfig(OutputConfigItem config)
+        public bool syncToConfig(IBaseConfigItem config)
         {
             config.Preconditions = Preconditions;
             config.Preconditions.ExecuteOnFalse = overridePreconditionCheckBox.Checked;
