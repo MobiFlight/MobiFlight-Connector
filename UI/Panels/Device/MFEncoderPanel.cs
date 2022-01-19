@@ -27,6 +27,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         public MFEncoderPanel(MobiFlight.Config.Encoder encoder, List<MobiFlightPin> Pins) : this()
         {
+            pinList = Pins;
             this.encoder = encoder;
             update_lists();
             ////ComboBoxHelper.BindMobiFlightFreePins(mfLeftPinComboBox, Pins, encoder.PinLeft);
