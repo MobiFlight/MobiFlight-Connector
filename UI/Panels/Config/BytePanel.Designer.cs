@@ -38,6 +38,8 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox0 = new System.Windows.Forms.CheckBox();
+            this.btnClrAll = new System.Windows.Forms.Button();
+            this.btnSetAll = new System.Windows.Forms.Button();
             this.flowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +48,8 @@
             this.Label.Dock = System.Windows.Forms.DockStyle.Top;
             this.Label.Location = new System.Drawing.Point(0, 0);
             this.Label.Name = "Label";
-            this.Label.Size = new System.Drawing.Size(198, 16);
+            this.Label.Padding = new System.Windows.Forms.Padding(2);
+            this.Label.Size = new System.Drawing.Size(206, 16);
             this.Label.TabIndex = 0;
             this.Label.Text = "Byte 1";
             this.Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -61,10 +64,11 @@
             this.flowLayoutPanel.Controls.Add(this.checkBox2);
             this.flowLayoutPanel.Controls.Add(this.checkBox1);
             this.flowLayoutPanel.Controls.Add(this.checkBox0);
-            this.flowLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 16);
+            this.flowLayoutPanel.Controls.Add(this.btnClrAll);
+            this.flowLayoutPanel.Controls.Add(this.btnSetAll);
+            this.flowLayoutPanel.Location = new System.Drawing.Point(5, 19);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(198, 38);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(198, 62);
             this.flowLayoutPanel.TabIndex = 9;
             // 
             // checkBox7
@@ -179,14 +183,37 @@
             this.checkBox0.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.checkBox0.UseVisualStyleBackColor = true;
             // 
+            // btnClrAll
+            // 
+            this.btnClrAll.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClrAll.Location = new System.Drawing.Point(3, 41);
+            this.btnClrAll.Name = "btnClrAll";
+            this.btnClrAll.Size = new System.Drawing.Size(92, 22);
+            this.btnClrAll.TabIndex = 18;
+            this.btnClrAll.Text = "Clear all";
+            this.btnClrAll.UseVisualStyleBackColor = true;
+            this.btnClrAll.Click += new System.EventHandler(this.btnClrAll_Click);
+            // 
+            // btnSetAll
+            // 
+            this.btnSetAll.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnSetAll.Location = new System.Drawing.Point(101, 41);
+            this.btnSetAll.Name = "btnSetAll";
+            this.btnSetAll.Size = new System.Drawing.Size(94, 22);
+            this.btnSetAll.TabIndex = 17;
+            this.btnSetAll.Text = "Set all";
+            this.btnSetAll.UseVisualStyleBackColor = true;
+            this.btnSetAll.Click += new System.EventHandler(this.btnSetAll_Click);
+            // 
             // BytePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.flowLayoutPanel);
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.Label);
+            this.Controls.Add(this.flowLayoutPanel);
             this.Name = "BytePanel";
-            this.Size = new System.Drawing.Size(198, 54);
+            this.Size = new System.Drawing.Size(206, 86);
             this.flowLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -204,5 +231,7 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox0;
+        private System.Windows.Forms.Button btnSetAll;
+        private System.Windows.Forms.Button btnClrAll;
     }
 }

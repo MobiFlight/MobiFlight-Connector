@@ -135,7 +135,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
 
             mfModulesTreeView.Select();
-            
+
             FwAutoInstallCheckBox.Checked = Properties.Settings.Default.FwAutoUpdateCheck;
 #endif
         }
@@ -196,12 +196,6 @@ namespace MobiFlight.UI.Panels.Settings
             module.Config = null;
             module.LoadConfig();
             mfModulesTreeView_initNode(module.GetInfo() as MobiFlightModuleInfo, parentNode);
-        }
-
-        private void mfModulesTreeView_AfterExpand(object sender, TreeViewEventArgs e)
-        {
-            if (e.Node == null) return;
-            mfModulesTreeView.SelectedNode = e.Node;
         }
 
         private void mfModulesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)

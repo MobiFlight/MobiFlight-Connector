@@ -29,5 +29,11 @@ namespace MobiFlight
 
             return eventAction;
         }
+
+        public void Stop()
+        {
+            // do nothing
+            return;
+        }
     }
 }

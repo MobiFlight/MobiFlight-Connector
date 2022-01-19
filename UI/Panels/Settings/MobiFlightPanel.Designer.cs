@@ -116,7 +116,6 @@
             // 
             // mfModuleSettingsContextMenuStrip
             // 
-            this.mfModuleSettingsContextMenuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.mfModuleSettingsContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
             this.removeToolStripMenuItem,
@@ -286,7 +285,6 @@
             // mobiflightSettingsToolStrip
             // 
             resources.ApplyResources(this.mobiflightSettingsToolStrip, "mobiflightSettingsToolStrip");
-            this.mobiflightSettingsToolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.mobiflightSettingsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uploadToolStripButton,
             this.toolStripSeparator1,
