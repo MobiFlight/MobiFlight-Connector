@@ -60,5 +60,10 @@ namespace MobiFlight
             // Send command
             CmdMessenger.SendCommand(command);
         }
+
+        public void Stop()
+        {
+            MoveToPosition(0);
+        }
     }
 }

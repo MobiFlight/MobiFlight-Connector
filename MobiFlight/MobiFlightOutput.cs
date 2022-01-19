@@ -42,5 +42,10 @@ namespace MobiFlight
 
             CmdMessenger.SendCommand(command);
         }
+
+        public void Stop()
+        {
+            Set(0);
+        }
     }
 }

@@ -99,5 +99,12 @@ namespace MobiFlight
             // Send command
             CmdMessenger.SendCommand(command);
         }
+
+        // Blank the display when stopped
+        public void Stop()
+        {
+            for (int i = 0; i != SubModules; i++)
+                Display(i, "        ", 0, 0xff);
+        }
     }
 }

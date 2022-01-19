@@ -68,5 +68,11 @@ namespace MobiFlight
             // Send command
             CmdMessenger.SendCommand(command);
         }
+
+        public void Stop()
+        {
+            for (int i = 0; i != NumberOfShifters; i++)
+                Display("0|1|2|3|4|5|6|7", "255");
+        }
     }
 }
