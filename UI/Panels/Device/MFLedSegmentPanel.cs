@@ -11,13 +11,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
 {
     public partial class MFLedSegmentPanel : UserControl
     {
-        /// <summary>
-        /// Gets raised whenever config object has changed
-        /// </summary>
-        public event EventHandler Changed;
         private MobiFlight.Config.LedModule ledModule;
         private List<MobiFlightPin> pinList;    // COMPLETE list of pins (includes status)
-        bool initialized = false;
+        private bool initialized = false;
+        
+        public event EventHandler Changed;
 
         public MFLedSegmentPanel()
         {
@@ -35,16 +33,15 @@ namespace MobiFlight.UI.Panels.Settings.Device
                             // (because of changes elsewhere) as long as we remain in this panel, so we can keep it stored
                             // for the lifetime of the panel.
 
-            // TODO: Complete member initialization
             this.ledModule = ledModule;
 
             update_lists();
 
-            if (mfPin1ComboBox.Items.Count > 2) {
+            //if (mfPin1ComboBox.Items.Count > 2) {
                 // mfPin1ComboBox.SelectedIndex = 0;
                 // mfPin2ComboBox.SelectedIndex = 1;
                 // mfPin3ComboBox.SelectedIndex = 2;
-            }
+            //}
 
             textBox1.Text = ledModule.Name;
             mfIntensityTrackBar.Value = ledModule.Brightness;
