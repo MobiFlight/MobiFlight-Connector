@@ -211,6 +211,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightShiftRegister> shiftRegisters = new Dictionary<string, MobiFlightShiftRegister>();
         Dictionary<String, MobiFlightInputShiftRegister> inputShiftRegisters = new Dictionary<string, MobiFlightInputShiftRegister>();
         Dictionary<String, MobiFlightDigInputMux> digInputMuxes = new Dictionary<string, MobiFlightDigInputMux>();
+        MuxDriverS muxDriver = new MuxDriverS();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -817,6 +818,11 @@ namespace MobiFlight
             return isOk;
         }
 
+        public MuxDriverS GetMuxDriver()
+        {
+            return muxDriver;
+        }
+
         public List<IConnectedDevice> GetConnectedDevices()
         {
             List<IConnectedDevice> result = new List<IConnectedDevice>();
@@ -1138,7 +1144,8 @@ namespace MobiFlight
                         break;
 
                     default:
-                        throw new NotImplementedException();
+                        //throw new NotImplementedException();
+                        break;
                 }
             }
             

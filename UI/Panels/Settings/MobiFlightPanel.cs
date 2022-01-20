@@ -3,12 +3,8 @@ using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -375,12 +371,12 @@ namespace MobiFlight.UI.Panels.Settings
         {
             bool added = false;
 
-            TreeNode parentNode = getModuleNode();
-            if (parentNode == null) return null;
+            TreeNode ModuleNode = getModuleNode();
+            if (ModuleNode == null) return null;
 
             // Build a list of all names in the tree
             List<String> NodeNames = new List<String>();
-            foreach (TreeNode node in parentNode.Nodes) {
+            foreach (TreeNode node in ModuleNode.Nodes) {
                 NodeNames.Add(node.Text);
             }
             // Use the list of names for verification to build a new unique name
@@ -392,13 +388,13 @@ namespace MobiFlight.UI.Panels.Settings
             newNode.Tag = device;
 
             // Add newly built node to the tree
-            if (pos < 0 || pos > parentNode.Nodes.Count) {
-                parentNode.Nodes.Add(newNode);
+            if (pos < 0 || pos > ModuleNode.Nodes.Count) {
+                ModuleNode.Nodes.Add(newNode);
             } else {
-                parentNode.Nodes.Insert(pos, newNode);
+                ModuleNode.Nodes.Insert(pos, newNode);
             }
-            parentNode.ImageKey = "Changed";
-            parentNode.SelectedImageKey = "Changed";
+            ModuleNode.ImageKey = "Changed";
+            ModuleNode.SelectedImageKey = "Changed";
 
             // Make it the current selected one
             mfModulesTreeView.SelectedNode = newNode;
@@ -428,47 +424,82 @@ namespace MobiFlight.UI.Panels.Settings
         /// <returns>Object if existing, null otherwise</returns>
         private TreeNode findMuxDriverInTree()
         {
+            // !!!!!!!!  DEPRECATED  !!!!!!!!!!
+
+            // MuxDriver is now an internal structure, NOT a user-displayable module.
+            // Look for getModuleMuxDriver().
+
             // if there is a muxDriver, it is supposed to be the first element of the tree,
             // but to be safe we check if there's one anywhere regardless of its position.
-            TreeNode parentNode = getModuleNode();
-            if (parentNode == null) return null;
+            //TreeNode ModuleNode = getModuleNode();
+            //if (ModuleNode == null) return null;
 
-            foreach (TreeNode node in parentNode.Nodes) {
-                if ((node.Tag as MobiFlight.Config.BaseDevice).Type == DeviceType.MuxDriver) {
-                    return node;
-                }
-            }
+            //foreach (TreeNode node in ModuleNode.Nodes) {
+            //    if ((node.Tag as MobiFlight.Config.BaseDevice).Type == DeviceType.MuxDriver) {
+            //        return node;
+            //    }
+            //}
             return null;
         }
 
-        /// <summary>
+         /// <summary>
         /// Helper function to check whether a MuxDriver device exists in the current module
         /// and add it if required
         /// </summary>
         /// <returns>true if added or existing, false if it can't be created</returns>
         private bool tryAddMuxDriverToModule()
         {
-            // if there is a muxDriver in the tree, we're already done
-            if (findMuxDriverInTree() != null) return true;
+            // !!!!!!!!  DEPRECATED  !!!!!!!!!!
+            // Integrated in getModuleMuxDriver()
 
-            // otherwise see if we can create one
-            List<MobiFlightPin> freePins = getVirtualModuleFromTree().GetFreePins();
-            if(freePins.Count < 4) {
-                MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
-                                i18n._tr("uiMessageNotEnoughPinsHint"),
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            //// if there is a muxDriver in the tree, we're already done
+            //if (findMuxDriverInTree() != null) return true;
 
-            MobiFlight.Config.MuxDriver newMux = new MobiFlight.Config.MuxDriver();
-            for(var i=0; i<4; i++) {
-                newMux.PinSx[i] = freePins.ElementAt(i).ToString();
-            }
+            //// otherwise see if we can create one
+            //List<MobiFlightPin> freePins = getVirtualModuleFromTree().GetFreePins();
+            //if(freePins.Count < 4) {
+            //    MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
+            //                    i18n._tr("uiMessageNotEnoughPinsHint"),
+            //                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return false;
+            //}
 
-            addDeviceToModule(newMux, 0);   // Add at the beginning of the list
-            
-            // Do not select newly added item (the invoking item will have the selection) 
+            //MobiFlight.Config.MuxDriver newMux = new MobiFlight.Config.MuxDriver();
+            //for(var i=0; i<4; i++) {
+            //    newMux.PinSx[i] = freePins.ElementAt(i).ToString();
+            //}
+            //addDeviceToModule(newMux, 0);   // Add at the beginning of the list
+            //// Do not select newly added item (the invoking item will have the selection) 
             return true;
+        }
+
+        /// <summary>
+        /// Helper function to return the MuxDriver device belonging to the current module
+        /// Initializes module values if not yet done
+        /// </summary>
+        /// <returns>Object if existing, null otherwise</returns>
+        private MobiFlight.Config.MuxDriverS getModuleMuxDriver()
+        {
+            var moduleNode = getModuleNode();
+            if (moduleNode == null) return null;
+            var muxDriver = (moduleNode.Tag as MobiFlightModule).GetMuxDriver();
+
+            // If muxDriver has no users yet, initialize it
+            if (!muxDriver.isInitialized()) {
+                List<MobiFlightPin> freePins = getVirtualModuleFromTree().GetFreePins();
+                if (freePins.Count < 4) {
+                    MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
+                                    i18n._tr("uiMessageNotEnoughPinsHint"),
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                String[] pins = new String[4];
+                for (var i = 0; i < 4; i++) {
+                    pins[i] = freePins.ElementAt(i).ToString();
+                }
+                muxDriver.Initialize(pins);
+                //TODO Check if initialize was successful
+            }
+            return muxDriver;
         }
 
         /// <summary>
@@ -482,15 +513,15 @@ namespace MobiFlight.UI.Panels.Settings
             // if there is no muxDriver in the tree, we're already done
             if (muxNode == null) return true;
 
-            TreeNode parentNode = getModuleNode();
-            if (parentNode == null) return true;
-            foreach (TreeNode node in parentNode.Nodes) {
+            TreeNode ModuleNode = getModuleNode();
+            if (ModuleNode == null) return true;
+            foreach (TreeNode node in ModuleNode.Nodes) {
                 if (requiresMuxDriver(node.Tag as MobiFlight.Config.BaseDevice)) {
                     return false;
                 }
             }
             mfModulesTreeView.Nodes.Remove(muxNode);
-            // do not bother to change parentNode.ImageKey: this is only a helper function, therefore there is
+            // do not bother to change ModuleNode.ImageKey: this is only a helper function, therefore there is
             // a caller that is removing another device and will take care of that.
 
             return true;
@@ -796,7 +827,7 @@ namespace MobiFlight.UI.Panels.Settings
             if (node == null) return;
             if (node.Level == 0) return;    // removing a device, not a module
 
-            TreeNode parentNode = getModuleNode();
+            TreeNode ModuleNode = getModuleNode();
 
             mfModulesTreeView.Nodes.Remove(node);
             
@@ -806,8 +837,8 @@ namespace MobiFlight.UI.Panels.Settings
                 tryRemoveMuxDriverFromModule();
             }
 
-            parentNode.ImageKey = "Changed";
-            parentNode.SelectedImageKey = "Changed";
+            ModuleNode.ImageKey = "Changed";
+            ModuleNode.SelectedImageKey = "Changed";
         }
 
         /// <summary>
