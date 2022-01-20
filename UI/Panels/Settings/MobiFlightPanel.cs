@@ -485,7 +485,7 @@ namespace MobiFlight.UI.Panels.Settings
             var muxDriver = (moduleNode.Tag as MobiFlightModule).GetMuxDriver();
 
             // If muxDriver has no users yet, initialize it
-            if (!muxDriver.isInitialized()) {
+            if (!muxDriver.registerClient()) {
                 List<MobiFlightPin> freePins = getVirtualModuleFromTree().GetFreePins();
                 if (freePins.Count < 4) {
                     MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
@@ -496,7 +496,7 @@ namespace MobiFlight.UI.Panels.Settings
                 for (var i = 0; i < 4; i++) {
                     pins[i] = freePins.ElementAt(i).ToString();
                 }
-                muxDriver.Initialize(pins);
+                muxDriver.Initialize(pins);     // this also registers (if first client, which we are)
                 //TODO Check if initialize was successful
             }
             return muxDriver;

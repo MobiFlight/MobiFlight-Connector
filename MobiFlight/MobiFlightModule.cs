@@ -1072,6 +1072,7 @@ namespace MobiFlight
             ResultPins.AddRange(Board.Pins.Select(x => new MobiFlightPin(x)));
 
             List<byte> usedPins = new List<byte>();
+            MuxDriverS muxDriver = null;
 
             foreach (Config.BaseDevice device in Config.Items)
             {
@@ -1116,6 +1117,8 @@ namespace MobiFlight
                         
                     case DeviceType.DigInputMux:
                         usedPins.Add(Convert.ToByte((device as DigInputMux).DataPin));
+                        // Collect muxDriver reference to be added at the end
+                        muxDriver = (device as DigInputMux).Selector;
                         break;
 
                     case DeviceType.LcdDisplay:
@@ -1136,25 +1139,27 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as AnalogInput).Pin));
                         break;
 
-
                     case DeviceType.ShiftRegister:
                         usedPins.Add(Convert.ToByte((device as ShiftRegister).ClockPin));
                         usedPins.Add(Convert.ToByte((device as ShiftRegister).LatchPin));
                         usedPins.Add(Convert.ToByte((device as ShiftRegister).DataPin));
                         break;
 
-                    default:
-                        //throw new NotImplementedException();
+                    case DeviceType.MuxDriver:
+                        // There is no actual muxDriver item in the list:
+                        // its data will be added if a reference is set by any Mux Client item.
                         break;
+
+                    default:
+                        throw new NotImplementedException();
                 }
             }
-            
-            // Add pins used by singleton instance of Multiplexer selector
-            if(MobiFlight.Config.MuxDriverS.isInitialized) {
-                usedPins.Add(Convert.ToByte(MuxDriverS.Instance.PinSx[0]));
-                usedPins.Add(Convert.ToByte(MuxDriverS.Instance.PinSx[1]));
-                usedPins.Add(Convert.ToByte(MuxDriverS.Instance.PinSx[2]));
-                usedPins.Add(Convert.ToByte(MuxDriverS.Instance.PinSx[3]));
+
+            if(muxDriver != null && muxDriver.isInitialized()) {
+                usedPins.Add(Convert.ToByte(muxDriver.PinSx[0]));
+                usedPins.Add(Convert.ToByte(muxDriver.PinSx[1]));
+                usedPins.Add(Convert.ToByte(muxDriver.PinSx[2]));
+                usedPins.Add(Convert.ToByte(muxDriver.PinSx[3]));
             }
 
             // Mark all the used pins as used in the result list.

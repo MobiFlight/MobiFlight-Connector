@@ -41,9 +41,11 @@ namespace MobiFlight.UI.Panels.Settings
 
             textBox1.Text = digInputMux.Name;
 
-            _selectorPanel = new MFMuxDriverPanel(MuxDriverS.Instance, Pins, isFirstMuxed);
+            _selectorPanel = new MFMuxDriverPanel(digInputMux.Selector, Pins, isFirstMuxed);
             _selectorPanel.Changed += this.Changed;
             muxDrvPanel.Controls.Add(_selectorPanel);
+
+            //TODO: _selectorPanel.Enabled = (this is first mux client)
 
             _initialized = true;
         }

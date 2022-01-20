@@ -7,9 +7,10 @@ namespace MobiFlight.Config
     public sealed class MuxDriverS : BaseDevice
     {
         const ushort _paramCount = 4;
-        private static bool _initialized;
+        private int _initCounter;
         [XmlAttribute]
-        public String[] PinSx = { "-1", "-2", "-3", "-4" };
+        private String[] _pins = { "-1", "-2", "-3", "-4" };
+        public String[] PinSx  { get => _pins; }
 
         public MuxDriverS()
         {
@@ -20,7 +21,27 @@ namespace MobiFlight.Config
 
         public bool isInitialized()
         {
-            return _initialized;
+            return (_initCounter>0);
+        }
+
+        public bool registerClient()
+        {
+            bool res = false;
+            if (_initCounter > 0) {
+                _initCounter++;
+                res = true;
+            }
+            return res;
+        }
+
+        public bool unregisterClient()
+        {
+            bool res = false;
+            if (isInitialized()) {
+                if (--_initCounter == 0) Reset();
+                res = true;
+            }
+            return res;
         }
 
         public bool Initialize(String[] pinNos)
@@ -29,18 +50,18 @@ namespace MobiFlight.Config
             for (var i = 0; i < 4; i++) {
                 if (byte.Parse(pinNos[i]) <= 0) return false;
             }
-            Array.Copy(pinNos, PinSx, 4); 
-            _initialized = true;
+            Array.Copy(pinNos, _pins, 4); 
+            if(_initCounter == 0) _initCounter++;
             return true;
         }
 
         public void Reset()
         {
-            PinSx[0] = "-1";
-            PinSx[1] = "-2";
-            PinSx[2] = "-3";
-            PinSx[3] = "-4";
-            _initialized = false;
+            _pins[0] = "-1";
+            _pins[1] = "-2";
+            _pins[2] = "-3";
+            _pins[3] = "-4";
+            _initCounter = 0;
         }
 
 
@@ -48,10 +69,10 @@ namespace MobiFlight.Config
         {
             // Differs from other devices' "ToInternal" because it only returns a partial string
             // to be embedded in the string returned by devices using the multiplexer 
-            return PinSx[0] + Separator
-                 + PinSx[1] + Separator
-                 + PinSx[2] + Separator
-                 + PinSx[3] + Separator;
+            return _pins[0] + Separator
+                 + _pins[1] + Separator
+                 + _pins[2] + Separator
+                 + _pins[3] + Separator;
         }
         override public bool FromInternal(String value)
         {
@@ -61,13 +82,20 @@ namespace MobiFlight.Config
             if (paramList.Count() != _paramCount + 1) {
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
-            PinSx[0] = paramList[1];
-            PinSx[1] = paramList[2];
-            PinSx[2] = paramList[3];
-            PinSx[3] = paramList[4];
-            _initialized = true;
 
-            return true;
+            bool res = true;
+            if (!isInitialized()) {
+                var pins = new string[4];
+                pins[0] = paramList[1];
+                pins[1] = paramList[2];
+                pins[2] = paramList[3];
+                pins[3] = paramList[4];
+                res = Initialize(pins);
+            } else {
+                _initCounter++;
+            }
+
+            return res;
         }
 
         public override string ToString()

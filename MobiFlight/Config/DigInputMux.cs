@@ -7,7 +7,9 @@ namespace MobiFlight.Config
     public class DigInputMux : BaseDevice
     {
         private MuxDriverS _selector;
-        
+
+        public MuxDriverS Selector { get => _selector; }
+
         const ushort _paramCount = 7;
         [XmlAttribute]
         public String DataPin = "-1";
@@ -17,12 +19,11 @@ namespace MobiFlight.Config
         public DigInputMux() { 
             Name = "DigInputMux"; 
             _type = DeviceType.DigInputMux;
-            _selector = MuxDriverS.Instance;
+            _selector = null; //TODO ???
         }
 
         override public String ToInternal()
         {
-            string selectorPins;
             return base.ToInternal() + Separator
                  + DataPin + Separator
                  // Selector pins, always sent

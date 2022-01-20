@@ -15,7 +15,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(Encoder))]
         [XmlElement(typeof(InputShiftRegister))]
         [XmlElement(typeof(DigInputMux))]
-        [XmlElement(typeof(MuxDriver))]
+        [XmlElement(typeof(MuxDriverS))]
         [XmlElement(typeof(LedModule))]
         [XmlElement(typeof(Output))]
         [XmlElement(typeof(Servo))]
@@ -36,9 +36,12 @@ namespace MobiFlight.Config
         {
             List<String> result = new List<string>();
             String message = "";
-            
+
             foreach (BaseDevice item in Items)
             {
+                // MuxDriver does not appear in this list as separate device config record
+                // Its data is embedded (redundantly) in mux client devices
+
                 String current = item.ToInternal();
                 
                 if ((message.Length + current.Length) > MaxMessageLength && message.Length > 0) {
@@ -133,14 +136,17 @@ namespace MobiFlight.Config
                             break;
 
                         case DeviceType.DigInputMux:
+                            //TODO find correct config instance of MuxDriver
                             currentItem = new MobiFlight.Config.DigInputMux();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
-                        case DeviceType.MuxDriver:
-                            currentItem = new MobiFlight.Config.MuxDriver();
-                            currentItem.FromInternal(item + BaseDevice.End);
-                            break;
+                        // MuxDriver data is bound to be included (very redundantly) in client devices,
+                        // therefore there is no individual MuxDriver item in config
+                        //case DeviceType.MuxDriver:
+                        //    currentItem = new MobiFlight.Config.MuxDriver();
+                        //    currentItem.FromInternal(item + BaseDevice.End);
+                        //    break;
 
                         case DeviceType.AnalogInput:
                             currentItem = new MobiFlight.Config.AnalogInput();
@@ -175,7 +181,6 @@ namespace MobiFlight.Config
                 }
 
             }
-
             return this;
         }
     }
