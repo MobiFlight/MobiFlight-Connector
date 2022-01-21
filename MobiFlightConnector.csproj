@@ -760,6 +760,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Boards\mfboard.schema.json" />
+    <None Include="Boards\raspberrypi_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
     <None Include="examples\example-default-plane-v6.1.mcc">
@@ -790,6 +793,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_micro_2_0_1.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_pico_2_0_1.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_uno_2_0_0.hex">
@@ -827,6 +833,12 @@
     <None Include="Resources\arcaze-new.png" />
     <None Include="Resources\arcaze-changed.png" />
     <Content Include="mobiflight.ico" />
+    <Content Include="RaspberryPi\tools\picotool.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RaspberryPi\tools\rp2040load.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\button.png" />
     <Content Include="Resources\discord_icon.png" />
     <Content Include="Resources\encoder.png" />

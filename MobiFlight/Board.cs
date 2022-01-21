@@ -63,6 +63,11 @@ namespace MobiFlight
         public int DelayAfterFirmwareUpdate = 0;
 
         /// <summary>
+        /// Number of milliseconds to wait before a firmware update before attempting to upload the firmware to the board.
+        /// </summary>
+        public int DelayBeforeFirmwareUpdate = 0;
+
+        /// <summary>
         /// True if DTR should be enabled when connecting to the board over serial.
         /// </summary>
         public Boolean DtrEnable;
@@ -165,6 +170,29 @@ namespace MobiFlight
         public int MaxSteppers = 0;
     }
 
+    public class PicoToolSettings
+    {
+        /// <summary>
+        /// Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.uf2.
+        /// </summary>
+        public String FirmwareBaseName;
+
+        /// <summary>
+        /// Number of milliseconds to wait before we assume the PicoTool process failed and has to get killed.
+        /// </summary>
+        public int Timeout;
+
+        /// <summary>
+        /// Provides the name of the firmware file for a given firmware version.
+        /// </summary>
+        /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
+        /// <returns>The firmware file name using FirmwareBaseName and the specified firmware version. This does not include the '.uf2' extension as rpi2040load.exe adds that on its own automatically.</returns>
+        public string GetFirmwareName(string latestFirmwareVersion)
+        {
+            return $"{FirmwareBaseName}_{latestFirmwareVersion.Replace('.', '_')}";
+        }
+    }
+
     public class Board
     {
         /// <summary>
@@ -191,6 +219,11 @@ namespace MobiFlight
         /// Module limits for the board.
         /// </summary>
         public ModuleLimits ModuleLimits;
+
+        /// <summary>
+        /// Settings related to updating the firmware via PicoTool.
+        /// </summary>
+        public PicoToolSettings PicoToolSettings;
 
         /// <summary>
         /// List of pins supported by the board.

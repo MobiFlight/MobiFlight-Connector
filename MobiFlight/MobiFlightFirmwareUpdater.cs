@@ -38,14 +38,15 @@ namespace MobiFlight
             String Port = module.InitUploadAndReturnUploadPort();
             if (module.Connected) module.Disconnect();
 
-            while (!SerialPort.GetPortNames().Contains(Port))
-            {
-                System.Threading.Thread.Sleep(100);
-            }
-
             if (module.Board.AvrDudeSettings != null)
             {
-                try {
+                while (!SerialPort.GetPortNames().Contains(Port))
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+
+                try
+                {
                     RunAvrDude(Port, module.Board);
                     result = true;
                 } catch(Exception e) {
@@ -56,11 +57,71 @@ namespace MobiFlight
                 {
                     System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
                 }
-            } else
+            }
+            else if (module.Board.PicoToolSettings != null)
+            {
+                System.Threading.Thread.Sleep(module.Board.Connection.DelayBeforeFirmwareUpdate); // wait for Bootloader to be ready for RaspiPico
+
+                try
+                {
+                    RunPicoTool(module.Board);
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    result = false;
+                }
+            }
+            else
             {
                 Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
             }
             return result;
+        }
+
+        public static void RunPicoTool(Board board)
+        {
+            var FirmwareName = board.PicoToolSettings.GetFirmwareName(board.Info.LatestFirmwareVersion);
+            string message;
+
+            if (!IsValidFirmwareFilepath($"{FirmwarePath}\\{FirmwareName}.uf2"))
+            {
+                message = "Firmware not found: " + FirmwarePath + "\\" + FirmwareName;
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new FileNotFoundException(message);
+            }
+
+            var FullRaspiPicoUpdatePath = $"{Directory.GetCurrentDirectory()}\\RaspberryPi\\tools";
+            var proc1 = new ProcessStartInfo();
+            var updateCommand = $"-v -D {FirmwarePath}\\{FirmwareName}";
+
+            proc1.WorkingDirectory = FullRaspiPicoUpdatePath;
+            proc1.FileName = $"\"{FullRaspiPicoUpdatePath}\\rp2040load.exe\"";
+
+            proc1.Arguments = updateCommand;
+            proc1.WindowStyle = ProcessWindowStyle.Hidden;
+
+            Log.Instance.log($"RunRaspberryPicoUpdater : {proc1.FileName} {updateCommand}", LogSeverity.Debug);
+
+            Process p = Process.Start(proc1);
+            if (p.WaitForExit(board.PicoToolSettings.Timeout))
+            {
+                Log.Instance.log($"Firmware Upload Exit Code: {p.ExitCode}", LogSeverity.Info);
+                // everything OK
+                if (p.ExitCode == 0) return;
+
+                // process terminated but with an error.
+                message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {updateCommand}";
+            }
+            else
+            {
+                // we timed out;
+                p.Kill();
+                message = $"picotool timed out! Something went wrong when flashing with command \n {proc1.FileName} {updateCommand}";
+            }
+
+            Log.Instance.log(message, LogSeverity.Error);
+            throw new Exception(message);
         }
 
         public static void RunAvrDude(String Port, Board board) 

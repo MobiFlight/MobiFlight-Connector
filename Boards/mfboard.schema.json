@@ -11,7 +11,7 @@
       "title": "Avrdudesettings",
       "type": "object",
       "description": "Settings for flashing Arduino devices with avrdude.",
-      "required": ["BaudRate", "Device", "FirmwareBaseName", "Programmer"],
+      "required": [ "BaudRate", "Device", "FirmwareBaseName", "Programmer" ],
       "properties": {
         "BaudRate": {
           "$id": "#root/AvrDudeSettings/BaudRate",
@@ -70,6 +70,12 @@
           "$id": "#root/Connection/DelayAfterFirmwareUpdate",
           "title": "Delayafterfirmwareupdate",
           "description": "Number of milliseconds to wait after a firmware update before attempting to reconnect to the board.",
+          "type": "integer"
+        },
+        "DelayBeforeFirmwareUpdate": {
+          "$id": "#root/Connection/DelayBeforeFirmwareUpdate",
+          "title": "DelayBeforeFirmwareUpdate",
+          "description": "Number of milliseconds to wait before a firmware update before attempting to upload the firmware to the board.",
           "type": "integer"
         },
         "DtrEnable": {
@@ -234,51 +240,71 @@
         }
       }
     },
-    "Pins": {
-      "$id": "#root/Pins",
-      "title": "Pins",
-      "description": "List of pins supported by the board.",
-      "type": "array",
-      "default": [],
-      "items": {
-        "$id": "#root/Pins/items",
-        "title": "Items",
-        "type": "object",
-        "required": ["isAnalog", "isPWM", "isI2C", "Pin"],
-        "properties": {
-          "isAnalog": {
-            "$id": "#root/Pins/items/isAnalog",
-            "title": "Isanalog",
-            "description": "True if the pin is an analog pin.",
-            "type": "boolean"
-          },
-          "isPWM": {
-            "$id": "#root/Pins/items/isPWM",
-            "title": "Ispwm",
-            "description": "True if the pin supports PWM.",
-            "type": "boolean"
-          },
-          "isI2C": {
-            "$id": "#root/Pins/items/isI2C",
-            "title": "Isi2c",
-            "description": "True if the pin is used for I2C communication.",
-            "type": "boolean"
-          },
-          "Name": {
-            "$id": "#root/Pins/items/Name",
-            "title": "Name",
-            "description": "Optional display name for the pin.",
-            "examples": ["A1"],
-            "type": "string"
-          },
-          "Pin": {
-            "$id": "#root/Pins/items/Pin",
-            "title": "Pin",
-            "description": "The number for the pin on the board.",
-            "type": "integer"
+    "PicoToolSettings": {
+      "$id": "#root/PicoToolSettings",
+      "title": "PicoToolSettings",
+      "type": "object",
+      "description": "Settings for flashing Raspberry Pi Pico devices with PicoToolSettings.",
+      "required": ["FirmwareBaseName", "Timeout"],
+      "properties": {
+        "FirmwareBaseName": {
+          "$id": "#root/PicoToolSettings/FirmwareBaseName",
+          "title": "Firmwarebasename",
+          "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}, with no extension as it is automatically added by the rp2040load.exe command.",
+          "type": "string"
+        },
+        "Timeout": {
+          "$id": "#root/PicoToolSettings/Timeout",
+          "title": "Timeout",
+          "description": "Number of milliseconds to wait before we assume the PicoTool process failed and has to get killed.",
+          "type": "integer"
+        }
+      },
+      "Pins": {
+        "$id": "#root/Pins",
+        "title": "Pins",
+        "description": "List of pins supported by the board.",
+        "type": "array",
+        "default": [],
+        "items": {
+          "$id": "#root/Pins/items",
+          "title": "Items",
+          "type": "object",
+          "required": [ "isAnalog", "isPWM", "isI2C", "Pin" ],
+          "properties": {
+            "isAnalog": {
+              "$id": "#root/Pins/items/isAnalog",
+              "title": "Isanalog",
+              "description": "True if the pin is an analog pin.",
+              "type": "boolean"
+            },
+            "isPWM": {
+              "$id": "#root/Pins/items/isPWM",
+              "title": "Ispwm",
+              "description": "True if the pin supports PWM.",
+              "type": "boolean"
+            },
+            "isI2C": {
+              "$id": "#root/Pins/items/isI2C",
+              "title": "Isi2c",
+              "description": "True if the pin is used for I2C communication.",
+              "type": "boolean"
+            },
+            "Name": {
+              "$id": "#root/Pins/items/Name",
+              "title": "Name",
+              "description": "Optional display name for the pin.",
+              "examples": [ "A1" ],
+              "type": "string"
+            },
+            "Pin": {
+              "$id": "#root/Pins/items/Pin",
+              "title": "Pin",
+              "description": "The number for the pin on the board.",
+              "type": "integer"
+            }
           }
         }
       }
     }
-  }
-}
+    }
