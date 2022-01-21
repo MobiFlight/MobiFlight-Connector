@@ -272,11 +272,13 @@ namespace MobiFlight.UI.Panels.Settings
 
                 if (selectedNode.Level == 0)
                 {
+                    // It's a Module entry
                     panel = new MFModulePanel((selectedNode.Tag as MobiFlightModule));
                     (panel as MFModulePanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                 }
                 else
                 {
+                    // It's a Device entry
                     MobiFlightModule module = getVirtualModuleFromTree();
 
                     MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
@@ -413,9 +415,9 @@ namespace MobiFlight.UI.Panels.Settings
             // These devices may basically be the exact same ones that are in use now directly attached,
             // provided that a "channel" attribute is added. A device assigned to channel #N will be polled
             // by the firmware (and correctly routed) by setting the mux driver channel to N.
-            // When/if this will be implemented, the following condition will only have to be modified to check
-            // if any device has a non-null "channel" value.
-            return (device.Type == DeviceType.DigInputMux);
+            // When/if this will be implemented, each "mux-able" object shall have to be set isMuxClient=true
+            // if it has a non-null "channel" value.
+            return device.isMuxClient;
         }
 
         /// <summary>
@@ -425,20 +427,8 @@ namespace MobiFlight.UI.Panels.Settings
         private TreeNode findMuxDriverInTree()
         {
             // !!!!!!!!  DEPRECATED  !!!!!!!!!!
-
             // MuxDriver is now an internal structure, NOT a user-displayable module.
             // Look for getModuleMuxDriver().
-
-            // if there is a muxDriver, it is supposed to be the first element of the tree,
-            // but to be safe we check if there's one anywhere regardless of its position.
-            //TreeNode ModuleNode = getModuleNode();
-            //if (ModuleNode == null) return null;
-
-            //foreach (TreeNode node in ModuleNode.Nodes) {
-            //    if ((node.Tag as MobiFlight.Config.BaseDevice).Type == DeviceType.MuxDriver) {
-            //        return node;
-            //    }
-            //}
             return null;
         }
 
@@ -451,25 +441,6 @@ namespace MobiFlight.UI.Panels.Settings
         {
             // !!!!!!!!  DEPRECATED  !!!!!!!!!!
             // Integrated in getModuleMuxDriver()
-
-            //// if there is a muxDriver in the tree, we're already done
-            //if (findMuxDriverInTree() != null) return true;
-
-            //// otherwise see if we can create one
-            //List<MobiFlightPin> freePins = getVirtualModuleFromTree().GetFreePins();
-            //if(freePins.Count < 4) {
-            //    MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
-            //                    i18n._tr("uiMessageNotEnoughPinsHint"),
-            //                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return false;
-            //}
-
-            //MobiFlight.Config.MuxDriver newMux = new MobiFlight.Config.MuxDriver();
-            //for(var i=0; i<4; i++) {
-            //    newMux.PinSx[i] = freePins.ElementAt(i).ToString();
-            //}
-            //addDeviceToModule(newMux, 0);   // Add at the beginning of the list
-            //// Do not select newly added item (the invoking item will have the selection) 
             return true;
         }
 
@@ -638,8 +609,9 @@ namespace MobiFlight.UI.Panels.Settings
                         if (statistics[MobiFlightDigInputMux.TYPE] == tempModule.Board.ModuleLimits.MaxDigInputMuxes) {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightDigInputMux.TYPE, tempModule.Board.ModuleLimits.MaxDigInputMuxes);
                         }
-                        tryAddMuxDriverToModule();
+                        //tryAddMuxDriverToModule();
                         cfgItem = new MobiFlight.Config.DigInputMux();
+                        //TODO Creating a new Mux client should take care of also creating the MuxDriver if required!
                         (cfgItem as MobiFlight.Config.DigInputMux).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
                         break;
                     case "LcdDisplayToolStripMenuItem":
@@ -666,7 +638,10 @@ namespace MobiFlight.UI.Panels.Settings
                         return;
                 }
 
+                // Add a tree element corresponding to the just created config item 
                 TreeNode newNode = addDeviceToModule(cfgItem);
+                
+                // Update the side panel
                 syncPanelWithSelectedDevice(newNode);
             }
             catch (MaximumDeviceNumberReachedMobiFlightException ex)
@@ -955,6 +930,18 @@ namespace MobiFlight.UI.Panels.Settings
             }
             module.Config = newConfig;
             return module;
+        }
+
+        private MobiFlight.Config.BaseDevice getFirstMuxClient()
+        {
+            //TODO
+            TreeNode moduleNode = getModuleNode();
+            MobiFlight.Config.BaseDevice res;
+            foreach (TreeNode node in moduleNode.Nodes) {
+                res = node.Tag as MobiFlight.Config.BaseDevice;
+                if (res.isMuxClient) return res;
+            }
+            return null;
         }
 
         private void MobiFlightPanel_Load(object sender, EventArgs e)

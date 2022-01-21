@@ -44,7 +44,8 @@ namespace MobiFlight.UI.Panels.Settings
             ComboBoxHelper.SetSelectedItem(mfPinS2ComboBox, _muxDriver.PinSx[2]);
             ComboBoxHelper.SetSelectedItem(mfPinS3ComboBox, _muxDriver.PinSx[3]);
 
-            enable(isEnabled);
+            enable(isEnabled);  
+            //TODO  isEnabled should affect comboboxes (and user message) only
 
             ResumeLayout();
 

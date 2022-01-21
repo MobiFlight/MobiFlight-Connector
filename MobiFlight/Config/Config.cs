@@ -14,8 +14,6 @@ namespace MobiFlight.Config
         [XmlElement(typeof(Button))]
         [XmlElement(typeof(Encoder))]
         [XmlElement(typeof(InputShiftRegister))]
-        [XmlElement(typeof(DigInputMux))]
-        [XmlElement(typeof(MuxDriverS))]
         [XmlElement(typeof(LedModule))]
         [XmlElement(typeof(Output))]
         [XmlElement(typeof(Servo))]
@@ -23,6 +21,8 @@ namespace MobiFlight.Config
         [XmlElement(typeof(LcdDisplay))]
         [XmlElement(typeof(AnalogInput))]
         [XmlElement(typeof(ShiftRegister))]
+        [XmlElement(typeof(DigInputMux))]
+        [XmlElement(typeof(MuxDriverS))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }

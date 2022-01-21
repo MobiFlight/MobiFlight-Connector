@@ -4,12 +4,19 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
-    public sealed class MuxDriverS : BaseDevice
+    // MuxDriverS is not really used as a full-fledged BaseDevice (though it could really well be);
+    // it is mainly embedded in other devices which are mux clients.
+    // However, it inherits from BaseDevice because:
+    // 1 - it uses many of the features of the base class in the very same capacity
+    // 2 - this way it can easily be returned to the role of full Device, should it be required
+    public class MuxDriverS: BaseDevice
     {
         const ushort _paramCount = 4;
         private int _initCounter;
-        [XmlAttribute]
+        
         private String[] _pins = { "-1", "-2", "-3", "-4" };
+
+        [XmlAttribute]
         public String[] PinSx  { get => _pins; }
 
         public MuxDriverS()
@@ -65,7 +72,8 @@ namespace MobiFlight.Config
         }
 
 
-        override public String ToInternal()
+        //override 
+        public String ToInternal()
         {
             // Differs from other devices' "ToInternal" because it only returns a partial string
             // to be embedded in the string returned by devices using the multiplexer 
@@ -74,7 +82,8 @@ namespace MobiFlight.Config
                  + _pins[2] + Separator
                  + _pins[3] + Separator;
         }
-        override public bool FromInternal(String value)
+        //override
+        public bool FromInternal(String value)
         {
             // Cut end character if present
             if (value.Length == value.IndexOf(End) + 1) value = value.Substring(0, value.Length - 1);

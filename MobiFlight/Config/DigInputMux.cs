@@ -6,20 +6,20 @@ namespace MobiFlight.Config
 {
     public class DigInputMux : BaseDevice
     {
-        private MuxDriverS _selector;
-
-        public MuxDriverS Selector { get => _selector; }
+        public MobiFlight.Config.MuxDriverS Selector;
 
         const ushort _paramCount = 7;
         [XmlAttribute]
         public String DataPin = "-1";
         [XmlAttribute]
         public String NumModules = "2"; // defaults to CD4067
+        //TODO how to include Selector's pins as XMLattributes? Are they necessary?
 
         public DigInputMux() { 
             Name = "DigInputMux"; 
             _type = DeviceType.DigInputMux;
-            _selector = null; //TODO ???
+            _muxClient = true;
+            Selector = null; //TODO ???
         }
 
         override public String ToInternal()
@@ -27,7 +27,7 @@ namespace MobiFlight.Config
             return base.ToInternal() + Separator
                  + DataPin + Separator
                  // Selector pins, always sent
-                 + _selector.ToInternal()
+                 + Selector.ToInternal()       
                  + NumModules + Separator
                  + Name + End;
         }
@@ -45,7 +45,7 @@ namespace MobiFlight.Config
             NumModules  = paramList[2];
             // pass the MuxDriver pins
             // (could be more efficient...)
-            _selector.FromInternal(paramList[3] + Separator + paramList[4] + Separator + paramList[5] + Separator + paramList[6]);
+            Selector.FromInternal(paramList[3] + Separator + paramList[4] + Separator + paramList[5] + Separator + paramList[6]);
             Name        = paramList[7];
             return true;
         }
