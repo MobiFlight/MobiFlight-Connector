@@ -13,13 +13,13 @@ namespace MobiFlight.Config
         public String DataPin = "-1";
         [XmlAttribute]
         public String NumModules = "2"; // defaults to CD4067
-        //TODO how to include Selector's pins as XMLattributes? Are they necessary?
+        //TODO how to include Selector's pins as XMLattributes here? Are they necessary?
 
-        public DigInputMux() { 
+        public DigInputMux(MobiFlight.Config.MuxDriverS muxSelector) { 
             Name = "DigInputMux"; 
             _type = DeviceType.DigInputMux;
             _muxClient = true;
-            Selector = null; //TODO ???
+            Selector = muxSelector; //XTODO ???
         }
 
         override public String ToInternal()
@@ -27,7 +27,7 @@ namespace MobiFlight.Config
             return base.ToInternal() + Separator
                  + DataPin + Separator
                  // Selector pins, always sent
-                 + Selector.ToInternal()       
+                 + Selector?.ToInternal()       
                  + NumModules + Separator
                  + Name + End;
         }

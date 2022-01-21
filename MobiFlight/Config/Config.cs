@@ -59,6 +59,10 @@ namespace MobiFlight.Config
         public Config FromInternal(String value, bool throwException = false)
         {
             String[] items = value.Split(BaseDevice.End);
+
+            // Need to set aside the MuxDriver reference (for subsequent devices) when we find it 
+            MobiFlight.Config.MuxDriverS muxDriver = null;
+
             foreach (String item in items)
             {
                 BaseDevice currentItem = null;
@@ -136,16 +140,26 @@ namespace MobiFlight.Config
                             break;
 
                         case DeviceType.DigInputMux:
-                            //TODO find correct config instance of MuxDriver
-                            currentItem = new MobiFlight.Config.DigInputMux();
+                            // Build muxDriver if none found yet 
+                            if (muxDriver == null) {
+                                //TODO get pin parameters to pass to constructor
+                                muxDriver = new MobiFlight.Config.MuxDriverS();
+                                // Treat the MuxDriver as a regular device (add it to the items list), except it won't be shown in the GUI tree.
+                                Items.Add(muxDriver);
+                            }
+                            currentItem = new MobiFlight.Config.DigInputMux(muxDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
+                            Items.Add(currentItem);
+
                             break;
 
                         // MuxDriver data is bound to be included (very redundantly) in client devices,
-                        // therefore there is no individual MuxDriver item in config
+                        // therefore there is no config message corresponding to a MuxDriver item.
+                        // If there was, we would do this:
                         //case DeviceType.MuxDriver:
                         //    currentItem = new MobiFlight.Config.MuxDriver();
                         //    currentItem.FromInternal(item + BaseDevice.End);
+                        //    muxDriver = currentItem as MobiFlight.Config.MuxDriverS;
                         //    break;
 
                         case DeviceType.AnalogInput:
