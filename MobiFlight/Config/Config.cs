@@ -142,8 +142,9 @@ namespace MobiFlight.Config
                         case DeviceType.DigInputMux:
                             // Build muxDriver if none found yet 
                             if (muxDriver == null) {
-                                //TODO get pin parameters to pass to constructor
                                 muxDriver = new MobiFlight.Config.MuxDriverS();
+                                // muxDriver is not yet init'ed with pin numbers: the FromInternal() of the client
+                                // (in this case DigInputMux) will provide them
                                 // Treat the MuxDriver as a regular device (add it to the items list), except it won't be shown in the GUI tree.
                                 Items.Add(muxDriver);
                             }
@@ -153,8 +154,9 @@ namespace MobiFlight.Config
 
                             break;
 
-                        // MuxDriver data is bound to be included (very redundantly) in client devices,
-                        // therefore there is no config message corresponding to a MuxDriver item.
+                        // MuxDriver data is bound to be included (very redundantly) in client devices;
+                        // therefore, even if there is an internal device object, there is no config message
+                        // corresponding to a MuxDriver item.
                         // If there was, we would do this:
                         //case DeviceType.MuxDriver:
                         //    currentItem = new MobiFlight.Config.MuxDriver();

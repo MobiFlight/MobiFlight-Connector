@@ -31,6 +31,8 @@ namespace MobiFlight.UI.Panels.Settings
 
         MobiFlightCache mobiflightCache;
 
+        private Dictionary<string, MobiFlight.Config.MuxDriverS> moduleMuxDrivers = new Dictionary<string, MobiFlight.Config.MuxDriverS>();
+
         public MobiFlightPanel()
         {
             InitializeComponent();
@@ -81,6 +83,8 @@ namespace MobiFlight.UI.Panels.Settings
             removeDeviceToolStripButton.Enabled = false;
 
             mfModulesTreeView.Nodes.Clear();
+            moduleMuxDrivers.Clear();
+
             try
             {
                 foreach (MobiFlightModuleInfo module in mobiflightCache.GetDetectedArduinoModules())
@@ -226,33 +230,41 @@ namespace MobiFlight.UI.Panels.Settings
             syncPanelWithSelectedDevice(e.Node);
         }
 
-        private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo module, TreeNode node)
+        private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo module, TreeNode moduleNode)
         {
-            node.Text = module.Name;
+            moduleNode.Text = module.Name;
             if (module.HasMfFirmware())
             {
-                node.SelectedImageKey = node.ImageKey = "module";
-                node.Tag = mobiflightCache.GetModule(module);
-                node.Nodes.Clear();
+                moduleNode.SelectedImageKey = moduleNode.ImageKey = "module";
+                moduleNode.Tag = mobiflightCache.GetModule(module);
+                moduleNode.Nodes.Clear();
 
-                if (null == (node.Tag as MobiFlightModule).Config) return node;
+                if (null == (moduleNode.Tag as MobiFlightModule).Config) return moduleNode;
 
-                foreach (MobiFlight.Config.BaseDevice device in (node.Tag as MobiFlightModule).Config.Items)
+                // This is where the UI (TreeView.Node.Tag) is populated with the configuration data coming from MobiFlightModule.Config.Items
+                
+                foreach (MobiFlight.Config.BaseDevice device in (moduleNode.Tag as MobiFlightModule).Config.Items)
                 {
                     if (device == null) continue; // Happens if working on an older firmware version. Ok.
 
-                    TreeNode deviceNode = new TreeNode(device.Name);
-                    deviceNode.Tag = device;
-                    deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();
-                    node.Nodes.Add(deviceNode);
+                    // MuxDrivers should not appear in the tree, therefore they are stored in a dictionary 
+                    // (by module name) for easy retrieval
+                    if(device.Type == DeviceType.MuxDriver) {
+                        moduleMuxDrivers.Add(module.Name, device as MobiFlight.Config.MuxDriverS);
+                    } else {
+                        TreeNode deviceNode = new TreeNode(device.Name);
+                        deviceNode.Tag = device;
+                        deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();
+                        moduleNode.Nodes.Add(deviceNode);
+                    }
                 }
             }
             else
             {
-                node.Tag = new MobiFlightModule(module.Port, module.Board);
+                moduleNode.Tag = new MobiFlightModule(module.Port, module.Board);
             }
 
-            return node;
+            return moduleNode;
         }
 
         /// <summary>
@@ -449,26 +461,23 @@ namespace MobiFlight.UI.Panels.Settings
         /// Initializes module values if not yet done
         /// </summary>
         /// <returns>Object if existing, null otherwise</returns>
-        private MobiFlight.Config.MuxDriverS getModuleMuxDriver()
+        private MobiFlight.Config.MuxDriverS getOrAddModuleMuxDriver(List<MobiFlightPin> freePins)
         {
-            var moduleNode = getModuleNode();
-            if (moduleNode == null) return null;
-            var muxDriver = (moduleNode.Tag as MobiFlightModule).GetMuxDriver();
+            var muxDriver = getModuleMuxDriver();
 
             // If muxDriver has no users yet, initialize it
-            if (!muxDriver.registerClient()) {
-                List<MobiFlightPin> freePins = getVirtualModuleFromTree().GetFreePins();
+            if (!muxDriver.isInitialized()) {
                 if (freePins.Count < 4) {
-                    MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
-                                    i18n._tr("uiMessageNotEnoughPinsHint"),
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"), i18n._tr("uiMessageNotEnoughPinsHint"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 String[] pins = new String[4];
                 for (var i = 0; i < 4; i++) {
                     pins[i] = freePins.ElementAt(i).ToString();
                 }
+                freePins.RemoveRange(0, 4);
                 muxDriver.Initialize(pins);     // this also registers (if first client, which we are)
-                //TODO Check if initialize was successful
+            } else {
+                muxDriver.registerClient();
             }
             return muxDriver;
         }
@@ -514,6 +523,7 @@ namespace MobiFlight.UI.Panels.Settings
                 if (tempModule == null) return;
                 tempModule.LoadConfig();
                 Dictionary<String, int> statistics = tempModule.GetConnectedDevicesStatistics();
+                List<MobiFlightPin> freePinList = getVirtualModuleFromTree().GetFreePins();
 
                 switch ((sender as ToolStripMenuItem).Name)
                 {
@@ -525,7 +535,7 @@ namespace MobiFlight.UI.Panels.Settings
                         }
 
                         cfgItem = new MobiFlight.Config.Servo();
-                        (cfgItem as MobiFlight.Config.Servo).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Servo).DataPin = freePinList.ElementAt(0).Pin.ToString();
                         break;
                     case "stepperToolStripMenuItem":
                     case "addStepperToolStripMenuItem":
@@ -535,10 +545,10 @@ namespace MobiFlight.UI.Panels.Settings
                         }
 
                         cfgItem = new MobiFlight.Config.Stepper();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin1 = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin2 = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin3 = getVirtualModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin4 = getVirtualModuleFromTree().GetFreePins().ElementAt(3).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin1 = freePinList.ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin2 = freePinList.ElementAt(1).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin3 = freePinList.ElementAt(2).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Stepper).Pin4 = freePinList.ElementAt(3).Pin.ToString();
                         //(cfgItem as MobiFlight.Config.Stepper).BtnPin = getModuleFromTree().GetFreePins().ElementAt(4).ToString();
                         break;
                     case "ledOutputToolStripMenuItem":
@@ -549,7 +559,7 @@ namespace MobiFlight.UI.Panels.Settings
                         }
 
                         cfgItem = new MobiFlight.Config.Output();
-                        (cfgItem as MobiFlight.Config.Output).Pin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Output).Pin = freePinList.ElementAt(0).Pin.ToString();
                         break;
                     case "ledSegmentToolStripMenuItem":
                     case "addLedModuleToolStripMenuItem":
@@ -559,9 +569,9 @@ namespace MobiFlight.UI.Panels.Settings
                         }
 
                         cfgItem = new MobiFlight.Config.LedModule();
-                        (cfgItem as MobiFlight.Config.LedModule).DinPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.LedModule).ClkPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.LedModule).ClsPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).DinPin = freePinList.ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).ClkPin = freePinList.ElementAt(1).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.LedModule).ClsPin = freePinList.ElementAt(2).Pin.ToString();
                         break;
                     case "analogDeviceToolStripMenuItem1":
                     case "analogDeviceToolStripMenuItem":
@@ -570,7 +580,7 @@ namespace MobiFlight.UI.Panels.Settings
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightAnalogInput.TYPE, tempModule.Board.ModuleLimits.MaxAnalogInputs);
                         }
                         cfgItem = new MobiFlight.Config.AnalogInput();
-                        (cfgItem as MobiFlight.Config.AnalogInput).Pin = getVirtualModuleFromTree().GetFreePins().FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.AnalogInput).Pin = freePinList.FindAll(x=>x.isAnalog==true).ElementAt(0).Pin.ToString();
                         break;                        
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
@@ -580,7 +590,7 @@ namespace MobiFlight.UI.Panels.Settings
                         }
 
                         cfgItem = new MobiFlight.Config.Button();
-                        (cfgItem as MobiFlight.Config.Button).Pin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Button).Pin = freePinList.ElementAt(0).Pin.ToString();
                         break;
                     case "encoderToolStripMenuItem":
                     case "addEncoderToolStripMenuItem":
@@ -590,8 +600,8 @@ namespace MobiFlight.UI.Panels.Settings
                         }
 
                         cfgItem = new MobiFlight.Config.Encoder();
-                        (cfgItem as MobiFlight.Config.Encoder).PinLeft = getVirtualModuleFromTree().GetFreePins().ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Encoder).PinRight = getVirtualModuleFromTree().GetFreePins().ElementAt(1).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Encoder).PinLeft = freePinList.ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Encoder).PinRight = freePinList.ElementAt(1).Pin.ToString();
                         break;
                     case "inputShiftRegisterToolStripMenuItem":
                     case "addInputShiftRegisterToolStripMenuItem":
@@ -600,20 +610,21 @@ namespace MobiFlight.UI.Panels.Settings
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightInputShiftRegister.TYPE, tempModule.Board.ModuleLimits.MaxInputShifters);
                         }
                         cfgItem = new MobiFlight.Config.InputShiftRegister();
-                        (cfgItem as MobiFlight.Config.InputShiftRegister).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
-                        (cfgItem as MobiFlight.Config.InputShiftRegister).ClockPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).ToString();
-                        (cfgItem as MobiFlight.Config.InputShiftRegister).LatchPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).ToString();
+                        (cfgItem as MobiFlight.Config.InputShiftRegister).DataPin = freePinList.ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.InputShiftRegister).ClockPin = freePinList.ElementAt(1).ToString();
+                        (cfgItem as MobiFlight.Config.InputShiftRegister).LatchPin = freePinList.ElementAt(2).ToString();
                         break;
                     case "digInputMuxToolStripMenuItem":
                     case "addDigInputMuxToolStripMenuItem":
                         if (statistics[MobiFlightDigInputMux.TYPE] == tempModule.Board.ModuleLimits.MaxDigInputMuxes) {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightDigInputMux.TYPE, tempModule.Board.ModuleLimits.MaxDigInputMuxes);
                         }
-                        //tryAddMuxDriverToModule();
-                        cfgItem = new MobiFlight.Config.DigInputMux();
-                        //TODO Creating a new Mux client should take care of also creating the MuxDriver if required!
-                        (cfgItem as MobiFlight.Config.DigInputMux).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
+
+                        // getOrAddModuleMuxDriver() takes care of creating the MuxDriver if not done yet
+                        cfgItem = new MobiFlight.Config.DigInputMux(getOrAddModuleMuxDriver(freePinList));
+                        (cfgItem as MobiFlight.Config.DigInputMux).DataPin = freePinList.ElementAt(0).ToString();
                         break;
+
                     case "LcdDisplayToolStripMenuItem":
                     case "addLcdDisplayToolStripMenuItem":
                         if (statistics[MobiFlightLcdDisplay.TYPE] == tempModule.Board.ModuleLimits.MaxLcdI2C)
@@ -628,9 +639,9 @@ namespace MobiFlight.UI.Panels.Settings
                     case "ShiftRegisterToolStripMenuItem":
                     case "addShiftRegisterToolStripMenuItem":
                         cfgItem = new MobiFlight.Config.ShiftRegister();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).DataPin = getVirtualModuleFromTree().GetFreePins().ElementAt(0).ToString();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).ClockPin = getVirtualModuleFromTree().GetFreePins().ElementAt(1).ToString();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).LatchPin = getVirtualModuleFromTree().GetFreePins().ElementAt(2).ToString();                        
+                        (cfgItem as MobiFlight.Config.ShiftRegister).DataPin = freePinList.ElementAt(0).ToString();
+                        (cfgItem as MobiFlight.Config.ShiftRegister).ClockPin = freePinList.ElementAt(1).ToString();
+                        (cfgItem as MobiFlight.Config.ShiftRegister).LatchPin = freePinList.ElementAt(2).ToString();                        
                         break;
 
                     default:
@@ -932,6 +943,11 @@ namespace MobiFlight.UI.Panels.Settings
             return module;
         }
 
+        private MobiFlight.Config.MuxDriverS getModuleMuxDriver()
+        {
+            return moduleMuxDrivers[getModuleNode().Name];
+        }
+        
         private MobiFlight.Config.BaseDevice getFirstMuxClient()
         {
             //TODO

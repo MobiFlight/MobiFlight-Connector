@@ -14,6 +14,7 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String NumModules = "2"; // defaults to CD4067
         //TODO how to include Selector's pins as XMLattributes here? Are they necessary?
+        // REMINDER: MobiFlightPanel.openToolStripButton_Click()
 
         public DigInputMux(MobiFlight.Config.MuxDriverS muxSelector) { 
             Name = "DigInputMux"; 
@@ -22,12 +23,19 @@ namespace MobiFlight.Config
             Selector = muxSelector; //XTODO ???
         }
 
+        //XTODO
+        //~DigInputMux()
+        //{
+        //    if (Selector != null) Selector.unregisterClient();
+        //}
+
         override public String ToInternal()
         {
+            string dummySel = "-1" + Separator + "-1" + Separator + "-1" + Separator + "-1" + Separator;
             return base.ToInternal() + Separator
                  + DataPin + Separator
                  // Selector pins, always sent
-                 + Selector?.ToInternal()       
+                 + (Selector?.ToInternalStripped() ?? dummySel)
                  + NumModules + Separator
                  + Name + End;
         }
@@ -43,10 +51,12 @@ namespace MobiFlight.Config
 
             DataPin     = paramList[1];
             NumModules  = paramList[2];
-            // pass the MuxDriver pins
-            // (could be more efficient...)
-            Selector.FromInternal(paramList[3] + Separator + paramList[4] + Separator + paramList[5] + Separator + paramList[6]);
             Name        = paramList[7];
+
+            // pass the MuxDriver pins, but only if the muxDriver wasn't already set
+            if (Selector == null) return false;
+            Selector.FromInternal(paramList[3] + Separator + paramList[4] + Separator + paramList[5] + Separator + paramList[6] + End);
+            // The FromInternal() call takes care internally of the activation counter and the "initialized" flag
             return true;
         }
 

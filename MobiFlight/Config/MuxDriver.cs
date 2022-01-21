@@ -71,9 +71,7 @@ namespace MobiFlight.Config
             _initCounter = 0;
         }
 
-
-        //override 
-        public String ToInternal()
+        public String ToInternalStripped()
         {
             // Differs from other devices' "ToInternal" because it only returns a partial string
             // to be embedded in the string returned by devices using the multiplexer 
@@ -82,8 +80,17 @@ namespace MobiFlight.Config
                  + _pins[2] + Separator
                  + _pins[3] + Separator;
         }
-        //override
-        public bool FromInternal(String value)
+        override public String ToInternal()
+        {
+            return base.ToInternal() + Separator
+                 + _pins[0] + Separator
+                 + _pins[1] + Separator
+                 + _pins[2] + Separator
+                 + _pins[3] + Separator
+                 + Name + End;
+        }
+
+        override public bool FromInternal(String value)
         {
             // Cut end character if present
             if (value.Length == value.IndexOf(End) + 1) value = value.Substring(0, value.Length - 1);
