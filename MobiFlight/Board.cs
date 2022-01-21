@@ -189,7 +189,7 @@ namespace MobiFlight
         /// <returns>The firmware file name using FirmwareBaseName and the specified firmware version. This does not include the '.uf2' extension as rpi2040load.exe adds that on its own automatically.</returns>
         public string GetFirmwareName(string latestFirmwareVersion)
         {
-            return $"{FirmwareBaseName}_{latestFirmwareVersion.Replace('.', '_')}";
+            return $"{FirmwareBaseName}_{latestFirmwareVersion.Replace('.', '_')}.uf2";
         }
     }
 

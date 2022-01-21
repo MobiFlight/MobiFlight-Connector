@@ -65,6 +65,7 @@ namespace MobiFlight
                 try
                 {
                     RunPicoTool(module.Board);
+                    RebootPico(module.Board);
                     result = true;
                 }
                 catch (Exception e)
@@ -84,7 +85,7 @@ namespace MobiFlight
             var FirmwareName = board.PicoToolSettings.GetFirmwareName(board.Info.LatestFirmwareVersion);
             string message;
 
-            if (!IsValidFirmwareFilepath($"{FirmwarePath}\\{FirmwareName}.uf2"))
+            if (!IsValidFirmwareFilepath($"{FirmwarePath}\\{FirmwareName}"))
             {
                 message = "Firmware not found: " + FirmwarePath + "\\" + FirmwareName;
                 Log.Instance.log(message, LogSeverity.Error);
@@ -93,10 +94,12 @@ namespace MobiFlight
 
             var FullRaspiPicoUpdatePath = $"{Directory.GetCurrentDirectory()}\\RaspberryPi\\tools";
             var proc1 = new ProcessStartInfo();
-            var updateCommand = $"-v -D {FirmwarePath}\\{FirmwareName}";
+            // var updateCommand = $"-v -D {FirmwarePath}\\{FirmwareName}";
+
+            var updateCommand = $"load {FirmwarePath}\\{FirmwareName}";
 
             proc1.WorkingDirectory = FullRaspiPicoUpdatePath;
-            proc1.FileName = $"\"{FullRaspiPicoUpdatePath}\\rp2040load.exe\"";
+            proc1.FileName = $"\"{FullRaspiPicoUpdatePath}\\picotool.exe\"";
 
             proc1.Arguments = updateCommand;
             proc1.WindowStyle = ProcessWindowStyle.Hidden;
@@ -118,6 +121,40 @@ namespace MobiFlight
                 // we timed out;
                 p.Kill();
                 message = $"picotool timed out! Something went wrong when flashing with command \n {proc1.FileName} {updateCommand}";
+            }
+
+            Log.Instance.log(message, LogSeverity.Error);
+            throw new Exception(message);
+        }
+
+        public static void RebootPico(Board board)
+        {
+            string message;
+            var FullRaspiPicoUpdatePath = $"{Directory.GetCurrentDirectory()}\\RaspberryPi\\tools";
+            var proc1 = new ProcessStartInfo();
+
+            proc1.WorkingDirectory = FullRaspiPicoUpdatePath;
+            proc1.FileName = $"\"{FullRaspiPicoUpdatePath}\\picotool.exe\"";
+            proc1.Arguments = "reboot";
+            proc1.WindowStyle = ProcessWindowStyle.Hidden;
+
+            Log.Instance.log($"RunRaspberryPicoUpdater : {proc1.FileName} reboot", LogSeverity.Debug);
+
+            Process p = Process.Start(proc1);
+            if (p.WaitForExit(board.PicoToolSettings.Timeout))
+            {
+                Log.Instance.log($"PicoTool reboot exit code: {p.ExitCode}", LogSeverity.Info);
+                // everything OK
+                if (p.ExitCode == 0) return;
+
+                // process terminated but with an error.
+                message = $"ExitCode: {p.ExitCode} => Something went wrong when rebooting the Pico with command \n {proc1.FileName} reboot";
+            }
+            else
+            {
+                // we timed out;
+                p.Kill();
+                message = $"picotool timed out! Something went wrong when rebooting the Pico with command \n {proc1.FileName} reboot";
             }
 
             Log.Instance.log(message, LogSeverity.Error);
