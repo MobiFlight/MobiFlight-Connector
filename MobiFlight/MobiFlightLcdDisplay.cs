@@ -57,7 +57,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display(string address, String value)
+        public void Display(String value)
         {
             if (!_initialized) Initialize();
 
@@ -127,6 +127,12 @@ namespace MobiFlight
             result += String.Join("", lineArray);
 
             return result;
+        }
+
+        public void Stop()
+        {
+            Display(new string(' ', Cols * Lines));
+            return;
         }
     }
 }
