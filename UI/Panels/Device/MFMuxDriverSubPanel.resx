@@ -117,12 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnGotoSetting.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnGotoSetting.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9.75pt</value>
   </data>
   <data name="btnGotoSetting.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 97</value>
+    <value>165, 95</value>
   </data>
   <data name="btnGotoSetting.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 45</value>
@@ -149,7 +153,6 @@
   <data name="labelSlave.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 9pt</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelSlave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -163,7 +166,7 @@
     <value>33</value>
   </data>
   <data name="labelSlave.Text" xml:space="preserve">
-    <value>Their values can be changed in the first device using multiplexers.</value>
+    <value>Click here to go to the device where you can set the selector pin values:</value>
   </data>
   <data name="&gt;&gt;labelSlave.Name" xml:space="preserve">
     <value>labelSlave</value>
