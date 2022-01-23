@@ -48,7 +48,6 @@
             // 
             // displayTypeGroupBox
             // 
-            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Controls.Add(this.OutputTypeLabel);
             this.displayTypeGroupBox.Controls.Add(this.InputActionRadioButton);
             this.displayTypeGroupBox.Controls.Add(this.OutputTypeDeviceRadioButton);
@@ -56,6 +55,7 @@
             this.displayTypeGroupBox.Controls.Add(this.displayModuleNameComboBox);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBoxLabel);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBox);
+            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
             // 
@@ -85,13 +85,14 @@
             // 
             // displayModuleNameComboBox
             // 
-            resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
             this.displayModuleNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayModuleNameComboBox.FormattingEnabled = true;
             this.displayModuleNameComboBox.Items.AddRange(new object[] {
             resources.GetString("displayModuleNameComboBox.Items"),
             resources.GetString("displayModuleNameComboBox.Items1")});
+            resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
             this.displayModuleNameComboBox.Name = "displayModuleNameComboBox";
+            this.displayModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.displaySerialComboBox_SelectedIndexChanged);
             // 
             // displayTypeComboBoxLabel
             // 
@@ -100,20 +101,21 @@
             // 
             // displayTypeComboBox
             // 
-            resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
             this.displayTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayTypeComboBox.FormattingEnabled = true;
             this.displayTypeComboBox.Items.AddRange(new object[] {
             resources.GetString("displayTypeComboBox.Items"),
             resources.GetString("displayTypeComboBox.Items1"),
             resources.GetString("displayTypeComboBox.Items2")});
+            resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
             this.displayTypeComboBox.Name = "displayTypeComboBox";
+            this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.displayTypeComboBox_SelectedIndexChanged);
             // 
             // testSettingsGroupBox
             // 
-            resources.ApplyResources(this.testSettingsGroupBox, "testSettingsGroupBox");
             this.testSettingsGroupBox.Controls.Add(this.displayPinTestStopButton);
             this.testSettingsGroupBox.Controls.Add(this.displayPinTestButton);
+            resources.ApplyResources(this.testSettingsGroupBox, "testSettingsGroupBox");
             this.testSettingsGroupBox.Name = "testSettingsGroupBox";
             this.testSettingsGroupBox.TabStop = false;
             // 
@@ -123,6 +125,7 @@
             this.displayPinTestStopButton.Image = global::MobiFlight.Properties.Resources.media_stop;
             this.displayPinTestStopButton.Name = "displayPinTestStopButton";
             this.displayPinTestStopButton.UseVisualStyleBackColor = true;
+            this.displayPinTestStopButton.Click += new System.EventHandler(this.displayPinTestStopButton_Click);
             // 
             // displayPinTestButton
             // 
@@ -130,6 +133,7 @@
             this.displayPinTestButton.Image = global::MobiFlight.Properties.Resources.media_play;
             this.displayPinTestButton.Name = "displayPinTestButton";
             this.displayPinTestButton.UseVisualStyleBackColor = true;
+            this.displayPinTestButton.Click += new System.EventHandler(this.displayPinTestButton_Click);
             // 
             // groupBoxDisplaySettings
             // 
@@ -139,10 +143,10 @@
             // 
             // displayTabTextBox
             // 
-            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
             this.displayTabTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.displayTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.displayTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
             this.displayTabTextBox.Name = "displayTabTextBox";
             this.displayTabTextBox.ReadOnly = true;
             this.displayTabTextBox.TabStop = false;

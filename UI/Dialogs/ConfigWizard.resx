@@ -117,806 +117,104 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 237</value>
-  </data>
-  <data name="&gt;&gt;InputActionRadioButton.Name" xml:space="preserve">
-    <value>InputActionRadioButton</value>
-  </data>
-  <data name="&gt;&gt;comparisonHintTtextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>else set it to</value>
-  </data>
-  <data name="&gt;&gt;displayModuleNameComboBox.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="displayPinTestButton.Text" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="&gt;&gt;interpolationCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="displayTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;displayTypeComboBoxLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;description.Name" xml:space="preserve">
-    <value>description</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypePanel.Parent" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="displayPinTestButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcHintLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="comparisonIfValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="configRefPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="&gt;&gt;compareSpacerPanel.Parent" xml:space="preserve">
-    <value>compareTabPage</value>
-  </data>
-  <data name="&gt;&gt;presetDataTable.Type" xml:space="preserve">
-    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OutputTypeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="MainPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="&gt;&gt;comparisonIfValueTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="OffsetTypeFsuipRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 5</value>
-  </data>
-  <data name="displayTypeComboBox.Items1" xml:space="preserve">
-    <value>Display Module</value>
-  </data>
-  <data name="simConnectPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;comparisonSettingsPanel.Name" xml:space="preserve">
-    <value>comparisonSettingsPanel</value>
-  </data>
-  <data name="OffsetTypeFsuipRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;OutputTypeDeviceRadioButton.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="displayPinTestButton.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;interpolationPanel1.Name" xml:space="preserve">
-    <value>interpolationPanel1</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypePanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comparisonOperandComboBox.Items4" xml:space="preserve">
-    <value>&lt;</value>
-  </data>
-  <data name="&gt;&gt;interpolationPanel1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;displayTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 28</value>
-  </data>
-  <data name="interpolationPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="variablePanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.Parent" xml:space="preserve">
-    <value>OffsetTypePanel</value>
-  </data>
-  <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;displayTypeComboBox.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;comparisonSettingsGroupBox.Parent" xml:space="preserve">
-    <value>compareTabPage</value>
-  </data>
-  <data name="&gt;&gt;variablePanel1.Name" xml:space="preserve">
-    <value>variablePanel1</value>
-  </data>
-  <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="comparisonActiveCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 13</value>
-  </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="arcazeSerialLabel.Text" xml:space="preserve">
-    <value>Module</value>
-  </data>
-  <data name="displayTypeComboBox.Items2" xml:space="preserve">
-    <value>BCD4056</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="referencesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="comparisonActiveCheckBox.Text" xml:space="preserve">
-    <value>Apply comparison to modify the current value</value>
-  </data>
-  <data name="displayPinTestStopButton.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="MainPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="InputActionRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>207, 25</value>
-  </data>
-  <data name="interpolationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>516, 23</value>
-  </data>
-  <data name="displayPinTestStopButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="&gt;&gt;compareSpacerPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 13</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeVariableRadioButton.Name" xml:space="preserve">
-    <value>OffsetTypeVariableRadioButton</value>
-  </data>
-  <data name="&gt;&gt;simConnectPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;compareTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;testSettingsGroupBox.Name" xml:space="preserve">
-    <value>testSettingsGroupBox</value>
-  </data>
-  <data name="displayModuleNameComboBox.Items1" xml:space="preserve">
-    <value>Modul B</value>
-  </data>
-  <data name="fsuipcTabPage.Text" xml:space="preserve">
-    <value>Sim Variable</value>
-  </data>
-  <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 575</value>
-  </data>
-  <data name="interpolationCheckBox.Text" xml:space="preserve">
-    <value>Apply interpolation to modify the current value</value>
-  </data>
-  <data name="simConnectPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;interpolationCheckBox.Name" xml:space="preserve">
-    <value>interpolationCheckBox</value>
-  </data>
-  <data name="&gt;&gt;displayPinTestButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="displayPinTestStopButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>370, 12</value>
-  </data>
-  <data name="displayPinTestStopButton.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>ButtonPanel</value>
-  </data>
-  <data name="&gt;&gt;FsuipcSettingsPanel.Name" xml:space="preserve">
-    <value>FsuipcSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;FsuipcSettingsPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="comparisonElseValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 21</value>
-  </data>
-  <data name="comparisonSettingsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="displayTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 73</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;variablePanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="displayPinTestButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>306, 12</value>
-  </data>
-  <data name="&gt;&gt;configRefPanel.Name" xml:space="preserve">
-    <value>configRefPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>542, 575</value>
-  </data>
-  <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 549</value>
-  </data>
-  <data name="&gt;&gt;compareSpacerPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="OffsetTypeSimConnectRadioButton.Text" xml:space="preserve">
-    <value>SimConnect (MSFS2020)</value>
-  </data>
-  <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="testSettingsGroupBox.Text" xml:space="preserve">
-    <value>Test current settings</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 5</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.Name" xml:space="preserve">
-    <value>ButtonPanel</value>
-  </data>
-  <data name="&gt;&gt;comparisonActiveCheckBox.Name" xml:space="preserve">
-    <value>comparisonActiveCheckBox</value>
-  </data>
-  <data name="groupBoxDisplaySettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="comparisonOperandComboBox.Items3" xml:space="preserve">
-    <value>&lt;=</value>
-  </data>
-  <data name="&gt;&gt;displayPinTestButton.Parent" xml:space="preserve">
-    <value>testSettingsGroupBox</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>542, 603</value>
-  </data>
-  <data name="tabControlFsuipc.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="variablePanel1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="comparisonSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 36</value>
-  </data>
-  <data name="&gt;&gt;fsuipcConfigPanel.Name" xml:space="preserve">
-    <value>fsuipcConfigPanel</value>
-  </data>
-  <data name="compareSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 169</value>
-  </data>
-  <data name="OffsetTypeVariableRadioButton.Text" xml:space="preserve">
-    <value>MobiFlight Variable</value>
-  </data>
-  <data name="&gt;&gt;interpolationGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonIfValueTextBox.Parent" xml:space="preserve">
-    <value>comparisonSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;OutputTypeLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="OutputTypeDeviceRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 25</value>
-  </data>
-  <data name="displayModuleNameComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 48</value>
-  </data>
-  <data name="fsuipcConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 23</value>
-  </data>
-  <data name="&gt;&gt;comparisonElseValueTextBox.Parent" xml:space="preserve">
-    <value>comparisonSettingsPanel</value>
-  </data>
-  <data name="interpolationPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="interpolationCheckBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="OffsetTypeVariableRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="displayPinTestButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;comparisonElseValueTextBox.Name" xml:space="preserve">
-    <value>comparisonElseValueTextBox</value>
-  </data>
-  <data name="displayPinTestStopButton.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="&gt;&gt;displayTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fsuipcConfigPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
   <data name="configRefPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="OffsetTypeFsuipRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 17</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="configRefPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
   </data>
-  <data name="&gt;&gt;displayTabPage.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="variablePanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 543</value>
-  </data>
-  <data name="&gt;&gt;OutputTypeDeviceRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="displayModuleNameComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>If current value is</value>
-  </data>
-  <data name="referencesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;simConnectPanel1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Select Variable Type</value>
-  </data>
-  <data name="&gt;&gt;variablePanel1.Parent" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="&gt;&gt;fsuipcHintLabel.Name" xml:space="preserve">
-    <value>fsuipcHintLabel</value>
-  </data>
-  <data name="comparisonHintTtextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
+  <data name="configRefPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="configRefPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 0, 5, 0</value>
   </data>
-  <data name="interpolationPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>1, 1, 1, 1</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
-    <value>settingsColumn</value>
-  </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>516, 0</value>
   </data>
-  <data name="groupBoxDisplaySettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 151</value>
-  </data>
-  <data name="compareSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 374</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.ZOrder" xml:space="preserve">
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="comparisonValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 10</value>
+  <data name="&gt;&gt;configRefPanel.Name" xml:space="preserve">
+    <value>configRefPanel</value>
   </data>
-  <data name="&gt;&gt;comparisonHintTtextBox.Name" xml:space="preserve">
-    <value>comparisonHintTtextBox</value>
+  <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;OffsetTypeVariableRadioButton.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
+    <value>referencesGroupBox</value>
   </data>
-  <data name="&gt;&gt;displayModuleNameComboBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>comparisonSettingsPanel</value>
-  </data>
-  <data name="FsuipcSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 252</value>
-  </data>
-  <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;comparisonOperandComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;compareTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OffsetTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 33</value>
-  </data>
-  <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 33</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
-    <value>ButtonPanel</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>comparisonSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;comparisonSettingsGroupBox.Name" xml:space="preserve">
-    <value>comparisonSettingsGroupBox</value>
-  </data>
-  <data name="displayPinTestStopButton.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;preconditionPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;configRefPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;compareSpacerPanel.Name" xml:space="preserve">
-    <value>compareSpacerPanel</value>
-  </data>
-  <data name="&gt;&gt;InputActionRadioButton.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
-    <value>presetsDataSet</value>
-  </data>
-  <data name="preconditionPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="referencesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;displayPinTestStopButton.Parent" xml:space="preserve">
-    <value>testSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="comparisonOperandComboBox.Items2" xml:space="preserve">
-    <value>&gt;=</value>
-  </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="&gt;&gt;comparisonValueTextBox.Name" xml:space="preserve">
-    <value>comparisonValueTextBox</value>
-  </data>
-  <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Text" xml:space="preserve">
-    <value>Use type of</value>
-  </data>
-  <data name="OffsetTypePanel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;displayTypeComboBoxLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="OffsetTypeFsuipRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;testSettingsGroupBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="simConnectPanel1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="OffsetTypePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 5</value>
-  </data>
-  <data name="FsuipcSettingsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="simConnectPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.Name" xml:space="preserve">
-    <value>OffsetTypeSimConnectRadioButton</value>
-  </data>
-  <data name="compareTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 549</value>
-  </data>
-  <data name="&gt;&gt;interpolationGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="comparisonSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 138</value>
-  </data>
-  <data name="&gt;&gt;presetDataTable.Name" xml:space="preserve">
-    <value>presetDataTable</value>
-  </data>
-  <data name="comparisonSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>510, 96</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonValueTextBox.Parent" xml:space="preserve">
-    <value>comparisonSettingsPanel</value>
-  </data>
-  <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>542, 28</value>
-  </data>
-  <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="referencesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 681</value>
   </data>
   <data name="referencesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>522, 0</value>
   </data>
-  <data name="preconditionPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 537</value>
+  <data name="referencesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
   </data>
-  <data name="&gt;&gt;simConnectPanel1.Parent" xml:space="preserve">
+  <data name="referencesGroupBox.Text" xml:space="preserve">
+    <value>Config References</value>
+  </data>
+  <data name="&gt;&gt;referencesGroupBox.Name" xml:space="preserve">
+    <value>referencesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;referencesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;referencesGroupBox.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
   </data>
-  <data name="&gt;&gt;displayPinTestButton.Name" xml:space="preserve">
-    <value>displayPinTestButton</value>
+  <data name="&gt;&gt;referencesGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="comparisonOperandComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 21</value>
+  <data name="variablePanel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;InputActionRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fsuipcConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="variablePanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="interpolationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 172</value>
+  <data name="variablePanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 543</value>
   </data>
-  <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
-    <value>interpolationGroupBox</value>
+  <data name="variablePanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="variablePanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 138</value>
   </data>
   <data name="variablePanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="comparisonSettingsGroupBox.Text" xml:space="preserve">
-    <value>Comparison Settings</value>
+  <data name="&gt;&gt;variablePanel1.Name" xml:space="preserve">
+    <value>variablePanel1</value>
   </data>
-  <data name="&gt;&gt;MainPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;variablePanel1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="FsuipcSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+  <data name="&gt;&gt;variablePanel1.Parent" xml:space="preserve">
+    <value>fsuipcTabPage</value>
   </data>
-  <data name="comparisonActiveCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="displayPinTestStopButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="fsuipcHintLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 23</value>
-  </data>
-  <data name="&gt;&gt;comparisonElseValueTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;variablePanel1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="interpolationGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 202</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 17</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Name" xml:space="preserve">
-    <value>displayTabTextBox</value>
-  </data>
-  <data name="&gt;&gt;comparisonOperandComboBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>set it to</value>
-  </data>
-  <data name="&gt;&gt;comparisonSettingsPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OutputTypeDeviceRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;displayPinTestButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="compareSpacerPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;displayPinTestStopButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OffsetTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 38</value>
-  </data>
-  <data name="comparisonActiveCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>510, 17</value>
-  </data>
-  <data name="interpolationGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 112</value>
-  </data>
-  <data name="displayPinTestStopButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="InputActionRadioButton.AutoSize" type="System.Boolean, mscorlib">
+  <data name="simConnectPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="displayTabPage.Text" xml:space="preserve">
-    <value>Display</value>
+  <data name="simConnectPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>comparisonSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;comparisonSettingsPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="comparisonOperandComboBox.Items6" xml:space="preserve">
-    <value />
-  </data>
-  <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 549</value>
-  </data>
-  <data name="comparisonHintTtextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="interpolationPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 39</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>32, 13</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;testSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
-    <value>FsuipcSettingsPanel</value>
-  </data>
-  <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>542, 575</value>
-  </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 28</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 73</value>
-  </data>
-  <data name="interpolationPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>516, 130</value>
-  </data>
-  <data name="&gt;&gt;displayTypeComboBoxLabel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;comparisonIfValueTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OffsetTypeVariableRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 17</value>
-  </data>
-  <data name="OffsetTypeSimConnectRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="interpolationGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypePanel.Name" xml:space="preserve">
-    <value>OffsetTypePanel</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="displayTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 21</value>
-  </data>
-  <data name="comparisonHintTtextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 58</value>
-  </data>
-  <data name="configRefPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="simConnectPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 291</value>
   </data>
   <data name="simConnectPanel1.LVars" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -927,206 +225,990 @@
         ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
 </value>
   </data>
-  <data name="OffsetTypeSimConnectRadioButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="simConnectPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="simConnectPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 252</value>
+  </data>
+  <data name="simConnectPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Parent" xml:space="preserve">
-    <value>MainPanel</value>
-  </data>
-  <data name="comparisonHintTtextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Name" xml:space="preserve">
     <value>simConnectPanel1</value>
   </data>
-  <data name="simConnectPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 291</value>
+  <data name="&gt;&gt;simConnectPanel1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;OffsetTypeFsuipRadioButton.Parent" xml:space="preserve">
-    <value>OffsetTypePanel</value>
-  </data>
-  <data name="&gt;&gt;comparisonOperandComboBox.Name" xml:space="preserve">
-    <value>comparisonOperandComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPanel.Name" xml:space="preserve">
-    <value>preconditionPanel</value>
-  </data>
-  <data name="displayModuleNameComboBox.Items" xml:space="preserve">
-    <value>Modul A</value>
-  </data>
-  <data name="interpolationGroupBox.Text" xml:space="preserve">
-    <value>Interpolation Settings</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="OffsetTypeSimConnectRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 17</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>OffsetTypePanel</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.Name" xml:space="preserve">
-    <value>MainPanel</value>
-  </data>
-  <data name="comparisonSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 64</value>
-  </data>
-  <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;referencesGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="displayTypeComboBox.Items" xml:space="preserve">
-    <value>Pin</value>
-  </data>
-  <data name="comparisonActiveCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="variablePanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;comparisonOperandComboBox.Parent" xml:space="preserve">
-    <value>comparisonSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;groupBoxDisplaySettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="InputActionRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;comparisonActiveCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="fsuipcTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="comparisonElseValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;displayPinTestStopButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;referencesGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;simConnectPanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
   </data>
-  <data name="InputActionRadioButton.Text" xml:space="preserve">
-    <value>Input Action</value>
+  <data name="&gt;&gt;simConnectPanel1.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="comparisonOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>126, 10</value>
+  <data name="fsuipcConfigPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
   </data>
-  <data name="displayModuleNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>281, 21</value>
+  <data name="fsuipcConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="comparisonOperandComboBox.Items5" xml:space="preserve">
-    <value>!=</value>
+  <data name="fsuipcConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 23</value>
   </data>
-  <data name="&gt;&gt;comparisonActiveCheckBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="fsuipcConfigPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
-  <data name="&gt;&gt;OffsetTypeVariableRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="compareTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 21</value>
-  </data>
-  <data name="&gt;&gt;fsuipcHintLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 237</value>
   </data>
   <data name="fsuipcConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;referencesGroupBox.Name" xml:space="preserve">
-    <value>referencesGroupBox</value>
+  <data name="&gt;&gt;fsuipcConfigPanel.Name" xml:space="preserve">
+    <value>fsuipcConfigPanel</value>
   </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
+    <value>FsuipcSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcConfigPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;description.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="fsuipcHintLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="preconditionPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+  <data name="fsuipcHintLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="comparisonIfValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 35</value>
+  <data name="fsuipcHintLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 23</value>
   </data>
-  <data name="&gt;&gt;presetsDataSet.Type" xml:space="preserve">
-    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comparisonIfValueTextBox.Name" xml:space="preserve">
-    <value>comparisonIfValueTextBox</value>
-  </data>
-  <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;displayTypeComboBoxLabel.Name" xml:space="preserve">
-    <value>displayTypeComboBoxLabel</value>
-  </data>
-  <data name="OffsetTypeVariableRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>270, 5</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>ConfigWizard</value>
-  </data>
-  <data name="referencesGroupBox.Text" xml:space="preserve">
-    <value>Config References</value>
-  </data>
-  <data name="comparisonIfValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="comparisonValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="&gt;&gt;displayModuleNameComboBox.Name" xml:space="preserve">
-    <value>displayModuleNameComboBox</value>
-  </data>
-  <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="fsuipcHintLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
   </data>
   <data name="fsuipcHintLabel.Text" xml:space="preserve">
     <value>Define the necessary FSUIPC information. Use an existing preset for common values.</value>
   </data>
-  <data name="comparisonOperandComboBox.Items" xml:space="preserve">
-    <value>=</value>
+  <data name="fsuipcHintLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomLeft</value>
   </data>
-  <data name="OutputTypeLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 17</value>
+  <data name="&gt;&gt;fsuipcHintLabel.Name" xml:space="preserve">
+    <value>fsuipcHintLabel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcHintLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcHintLabel.Parent" xml:space="preserve">
+    <value>FsuipcSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;fsuipcHintLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="FsuipcSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="FsuipcSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 39</value>
+  </data>
+  <data name="FsuipcSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 252</value>
+  </data>
+  <data name="FsuipcSettingsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;FsuipcSettingsPanel.Name" xml:space="preserve">
+    <value>FsuipcSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;FsuipcSettingsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FsuipcSettingsPanel.Parent" xml:space="preserve">
+    <value>fsuipcTabPage</value>
+  </data>
+  <data name="&gt;&gt;FsuipcSettingsPanel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 5</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 17</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Select Variable Type</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>OffsetTypePanel</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="OffsetTypeVariableRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="OffsetTypeVariableRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="OffsetTypeVariableRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>270, 5</value>
+  </data>
+  <data name="OffsetTypeVariableRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 17</value>
+  </data>
+  <data name="OffsetTypeVariableRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="OffsetTypeVariableRadioButton.Text" xml:space="preserve">
+    <value>MobiFlight Variable</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeVariableRadioButton.Name" xml:space="preserve">
+    <value>OffsetTypeVariableRadioButton</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeVariableRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeVariableRadioButton.Parent" xml:space="preserve">
+    <value>OffsetTypePanel</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeVariableRadioButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="OffsetTypeSimConnectRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="OffsetTypeSimConnectRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="OffsetTypeSimConnectRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>119, 5</value>
+  </data>
+  <data name="OffsetTypeSimConnectRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>144, 17</value>
+  </data>
+  <data name="OffsetTypeSimConnectRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="OffsetTypeSimConnectRadioButton.Text" xml:space="preserve">
+    <value>SimConnect (MSFS2020)</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.Name" xml:space="preserve">
+    <value>OffsetTypeSimConnectRadioButton</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.Parent" xml:space="preserve">
+    <value>OffsetTypePanel</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="OffsetTypeFsuipRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="OffsetTypeFsuipRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="OffsetTypeFsuipRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>390, 5</value>
+  </data>
+  <data name="OffsetTypeFsuipRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 17</value>
+  </data>
+  <data name="OffsetTypeFsuipRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="OffsetTypeFsuipRadioButton.Text" xml:space="preserve">
+    <value>FSUIPC Offset</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeFsuipRadioButton.Name" xml:space="preserve">
+    <value>OffsetTypeFsuipRadioButton</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeFsuipRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeFsuipRadioButton.Parent" xml:space="preserve">
+    <value>OffsetTypePanel</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeFsuipRadioButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="OffsetTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="OffsetTypePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="OffsetTypePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 33</value>
+  </data>
+  <data name="OffsetTypePanel.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypePanel.Name" xml:space="preserve">
+    <value>OffsetTypePanel</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypePanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypePanel.Parent" xml:space="preserve">
+    <value>fsuipcTabPage</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypePanel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="fsuipcTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>534, 549</value>
+  </data>
+  <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="fsuipcTabPage.Text" xml:space="preserve">
+    <value>Sim Variable</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTabPage.Name" xml:space="preserve">
+    <value>fsuipcTabPage</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;fsuipcTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="compareSpacerPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="compareSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 374</value>
+  </data>
+  <data name="compareSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 169</value>
+  </data>
+  <data name="compareSpacerPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;compareSpacerPanel.Name" xml:space="preserve">
+    <value>compareSpacerPanel</value>
+  </data>
+  <data name="&gt;&gt;compareSpacerPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;compareSpacerPanel.Parent" xml:space="preserve">
+    <value>compareTabPage</value>
+  </data>
+  <data name="&gt;&gt;compareSpacerPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="interpolationPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="interpolationPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 39</value>
+  </data>
+  <data name="interpolationPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 1, 1, 1</value>
+  </data>
+  <data name="interpolationPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>516, 130</value>
+  </data>
+  <data name="interpolationPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;interpolationPanel1.Name" xml:space="preserve">
+    <value>interpolationPanel1</value>
+  </data>
+  <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
+    <value>interpolationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;interpolationPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="interpolationCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="interpolationCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="interpolationCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="interpolationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="interpolationCheckBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="interpolationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>516, 23</value>
   </data>
   <data name="interpolationCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;displayTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
+  <data name="interpolationCheckBox.Text" xml:space="preserve">
+    <value>Apply interpolation to modify the current value</value>
   </data>
-  <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="&gt;&gt;interpolationCheckBox.Name" xml:space="preserve">
+    <value>interpolationCheckBox</value>
+  </data>
+  <data name="&gt;&gt;interpolationCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;interpolationCheckBox.Parent" xml:space="preserve">
+    <value>interpolationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;interpolationCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="interpolationGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
+  </data>
+  <data name="interpolationGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 202</value>
+  </data>
+  <data name="interpolationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 172</value>
+  </data>
+  <data name="interpolationGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="interpolationGroupBox.Text" xml:space="preserve">
+    <value>Interpolation Settings</value>
+  </data>
+  <data name="&gt;&gt;interpolationGroupBox.Name" xml:space="preserve">
+    <value>interpolationGroupBox</value>
+  </data>
+  <data name="&gt;&gt;interpolationGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;interpolationGroupBox.Parent" xml:space="preserve">
+    <value>compareTabPage</value>
+  </data>
+  <data name="&gt;&gt;interpolationGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comparisonValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 10</value>
+  </data>
+  <data name="comparisonValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="comparisonValueTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;comparisonValueTextBox.Name" xml:space="preserve">
+    <value>comparisonValueTextBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonValueTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonValueTextBox.Parent" xml:space="preserve">
+    <value>comparisonSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;comparisonValueTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="comparisonElseValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 61</value>
+  </data>
+  <data name="comparisonElseValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="comparisonElseValueTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;comparisonElseValueTextBox.Name" xml:space="preserve">
+    <value>comparisonElseValueTextBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonElseValueTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonElseValueTextBox.Parent" xml:space="preserve">
+    <value>comparisonSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;comparisonElseValueTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 64</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 13</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>else set it to</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>comparisonSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="comparisonIfValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>171, 35</value>
+  </data>
+  <data name="comparisonIfValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="comparisonIfValueTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;comparisonIfValueTextBox.Name" xml:space="preserve">
+    <value>comparisonIfValueTextBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonIfValueTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonIfValueTextBox.Parent" xml:space="preserve">
+    <value>comparisonSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;comparisonIfValueTextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>126, 38</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 13</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>set it to</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>comparisonSettingsPanel</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>467, 0</value>
+  <data name="comparisonOperandComboBox.Items" xml:space="preserve">
+    <value>=</value>
+  </data>
+  <data name="comparisonOperandComboBox.Items1" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="comparisonOperandComboBox.Items2" xml:space="preserve">
+    <value>&gt;=</value>
+  </data>
+  <data name="comparisonOperandComboBox.Items3" xml:space="preserve">
+    <value>&lt;=</value>
+  </data>
+  <data name="comparisonOperandComboBox.Items4" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="comparisonOperandComboBox.Items5" xml:space="preserve">
+    <value>!=</value>
+  </data>
+  <data name="comparisonOperandComboBox.Items6" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comparisonOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>126, 10</value>
+  </data>
+  <data name="comparisonOperandComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 21</value>
+  </data>
+  <data name="comparisonOperandComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;comparisonOperandComboBox.Name" xml:space="preserve">
+    <value>comparisonOperandComboBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonOperandComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonOperandComboBox.Parent" xml:space="preserve">
+    <value>comparisonSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;comparisonOperandComboBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>32, 13</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 13</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>If current value is</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>comparisonSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="comparisonSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="comparisonSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 36</value>
+  </data>
+  <data name="comparisonSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>510, 96</value>
+  </data>
+  <data name="comparisonSettingsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;comparisonSettingsPanel.Name" xml:space="preserve">
+    <value>comparisonSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;comparisonSettingsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonSettingsPanel.Parent" xml:space="preserve">
+    <value>comparisonSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonSettingsPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="comparisonActiveCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="comparisonActiveCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="comparisonActiveCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="comparisonActiveCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="comparisonActiveCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>510, 17</value>
+  </data>
+  <data name="comparisonActiveCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="comparisonActiveCheckBox.Text" xml:space="preserve">
+    <value>Apply comparison to modify the current value</value>
+  </data>
+  <data name="&gt;&gt;comparisonActiveCheckBox.Name" xml:space="preserve">
+    <value>comparisonActiveCheckBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonActiveCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonActiveCheckBox.Parent" xml:space="preserve">
+    <value>comparisonSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonActiveCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comparisonSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="comparisonSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 64</value>
+  </data>
+  <data name="comparisonSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="comparisonSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 138</value>
+  </data>
+  <data name="comparisonSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="comparisonSettingsGroupBox.Text" xml:space="preserve">
+    <value>Comparison Settings</value>
+  </data>
+  <data name="&gt;&gt;comparisonSettingsGroupBox.Name" xml:space="preserve">
+    <value>comparisonSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonSettingsGroupBox.Parent" xml:space="preserve">
+    <value>compareTabPage</value>
+  </data>
+  <data name="&gt;&gt;comparisonSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="comparisonHintTtextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="comparisonHintTtextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="comparisonHintTtextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="comparisonHintTtextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="comparisonHintTtextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 58</value>
+  </data>
+  <data name="comparisonHintTtextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="comparisonHintTtextBox.Text" xml:space="preserve">
+    <value>Often it is necessary to compare the current value to a certain other value - e.g. determine flaps extension - and sometimes even set to a different value - e.g. heading from 360 to 0.
+</value>
+  </data>
+  <data name="&gt;&gt;comparisonHintTtextBox.Name" xml:space="preserve">
+    <value>comparisonHintTtextBox</value>
+  </data>
+  <data name="&gt;&gt;comparisonHintTtextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comparisonHintTtextBox.Parent" xml:space="preserve">
+    <value>compareTabPage</value>
+  </data>
+  <data name="&gt;&gt;comparisonHintTtextBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="compareTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="compareTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="compareTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>534, 549</value>
+  </data>
+  <data name="compareTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="compareTabPage.Text" xml:space="preserve">
+    <value>Compare</value>
+  </data>
+  <data name="&gt;&gt;compareTabPage.Name" xml:space="preserve">
+    <value>compareTabPage</value>
+  </data>
+  <data name="&gt;&gt;compareTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;compareTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;compareTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="displayPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="displayPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="displayPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 537</value>
+  </data>
+  <data name="displayPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;displayPanel1.Name" xml:space="preserve">
+    <value>displayPanel1</value>
+  </data>
+  <data name="&gt;&gt;displayPanel1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.OutputWizard.DisplayPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;displayPanel1.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="&gt;&gt;displayPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="displayTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>534, 549</value>
+  </data>
+  <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="displayTabPage.Text" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.Name" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="preconditionPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="preconditionPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="preconditionPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="preconditionPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>522, 537</value>
+  </data>
+  <data name="preconditionPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preconditionPanel.Name" xml:space="preserve">
+    <value>preconditionPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;preconditionPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="preconditionTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 6, 6, 6</value>
+  </data>
+  <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>534, 549</value>
+  </data>
+  <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="preconditionTabPage.Text" xml:space="preserve">
+    <value>Precondition</value>
   </data>
   <data name="&gt;&gt;preconditionTabPage.Name" xml:space="preserve">
     <value>preconditionTabPage</value>
   </data>
-  <data name="&gt;&gt;OffsetTypePanel.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;preconditionTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tabControlFsuipc.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>542, 575</value>
+  </data>
+  <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Name" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Parent" xml:space="preserve">
+    <value>MainPanel</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="MainPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="MainPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>542, 575</value>
+  </data>
+  <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Name" xml:space="preserve">
+    <value>MainPanel</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="button1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>392, 0</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 28</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="button1.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>ButtonPanel</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="cancelButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>467, 0</value>
+  </data>
+  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 28</value>
+  </data>
+  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="cancelButton.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
+    <value>cancelButton</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
+    <value>ButtonPanel</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ButtonPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 575</value>
+  </data>
+  <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>542, 28</value>
+  </data>
+  <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ButtonPanel.Name" xml:space="preserve">
+    <value>ButtonPanel</value>
+  </data>
+  <data name="&gt;&gt;ButtonPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ButtonPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ButtonPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="presetsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>190</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>542, 603</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -1272,503 +1354,40 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
   </data>
-  <data name="&gt;&gt;comparisonSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="OutputTypeLabel.Text" xml:space="preserve">
-    <value>OutputType</value>
-  </data>
-  <data name="testSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;comparisonSettingsPanel.Parent" xml:space="preserve">
-    <value>comparisonSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Name" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
-    <value>cancelButton</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="testSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeFsuipRadioButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OutputTypeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 25</value>
-  </data>
-  <data name="fsuipcHintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="&gt;&gt;variablePanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="displayTabTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;groupBoxDisplaySettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;displayTypeComboBox.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="cancelButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="&gt;&gt;interpolationCheckBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="displayTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>12, 12, 12, 12</value>
-  </data>
-  <data name="OutputTypeDeviceRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 17</value>
-  </data>
-  <data name="&gt;&gt;OutputTypeLabel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 40</value>
-  </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="displayPinTestStopButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 23</value>
-  </data>
-  <data name="&gt;&gt;compareTabPage.Name" xml:space="preserve">
-    <value>compareTabPage</value>
-  </data>
-  <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
-    <value>preconditionTabPage</value>
-  </data>
-  <data name="interpolationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="comparisonHintTtextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="comparisonSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTabPage.Name" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="compareTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="&gt;&gt;groupBoxDisplaySettings.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="&gt;&gt;comparisonHintTtextBox.Parent" xml:space="preserve">
-    <value>compareTabPage</value>
-  </data>
-  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="InputActionRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 17</value>
-  </data>
-  <data name="comparisonSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="fsuipcConfigPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OutputTypeDeviceRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 64</value>
-  </data>
-  <data name="groupBoxDisplaySettings.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeVariableRadioButton.Parent" xml:space="preserve">
-    <value>OffsetTypePanel</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="comparisonHintTtextBox.Text" xml:space="preserve">
-    <value>Often it is necessary to compare the current value to a certain other value - e.g. determine flaps extension - and sometimes even set to a different value - e.g. heading from 360 to 0.
-</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTabPage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="arcazeSerialLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="&gt;&gt;testSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="displayPinTestButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="comparisonOperandComboBox.Items1" xml:space="preserve">
-    <value>&gt;</value>
-  </data>
-  <data name="&gt;&gt;comparisonHintTtextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OffsetTypeFsuipRadioButton.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="preconditionTabPage.Text" xml:space="preserve">
-    <value>Precondition</value>
-  </data>
-  <data name="interpolationCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>ConfigWizard</value>
   </data>
-  <data name="OffsetTypeVariableRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
+    <value>presetsDataSet</value>
   </data>
-  <data name="compareTabPage.Text" xml:space="preserve">
-    <value>Compare</value>
+  <data name="&gt;&gt;presetsDataSet.Type" xml:space="preserve">
+    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;presetDataTable.Name" xml:space="preserve">
+    <value>presetDataTable</value>
   </data>
-  <data name="groupBoxDisplaySettings.Text" xml:space="preserve">
-    <value>Display settings</value>
+  <data name="&gt;&gt;presetDataTable.Type" xml:space="preserve">
+    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="displayPinTestButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>58, 23</value>
+  <data name="&gt;&gt;description.Name" xml:space="preserve">
+    <value>description</value>
   </data>
-  <data name="&gt;&gt;OutputTypeDeviceRadioButton.Name" xml:space="preserve">
-    <value>OutputTypeDeviceRadioButton</value>
+  <data name="&gt;&gt;description.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="displayPinTestButton.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
+  <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
+    <value>settingsColumn</value>
   </data>
-  <data name="&gt;&gt;fsuipcConfigPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="displayPinTestButton.TextImageRelation" type="System.Windows.Forms.TextImageRelation, System.Windows.Forms">
-    <value>ImageBeforeText</value>
-  </data>
-  <data name="OutputTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="displayTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
-  </data>
-  <data name="comparisonHintTtextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="referencesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 681</value>
-  </data>
-  <data name="variablePanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 138</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
-  <data name="button1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="&gt;&gt;OutputTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="comparisonValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="OffsetTypeSimConnectRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>119, 5</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeFsuipRadioButton.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="OutputTypeDeviceRadioButton.Text" xml:space="preserve">
-    <value>Output Device</value>
-  </data>
-  <data name="displayTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="groupBoxDisplaySettings.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="comparisonActiveCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="&gt;&gt;FsuipcSettingsPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="displayTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="compareTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;fsuipcHintLabel.Parent" xml:space="preserve">
-    <value>FsuipcSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;FsuipcSettingsPanel.Parent" xml:space="preserve">
-    <value>fsuipcTabPage</value>
-  </data>
-  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="displayTabTextBox.Text" xml:space="preserve">
-    <value>Choose your display type which is used for output from the list below.</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;InputActionRadioButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ButtonPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;OutputTypeDeviceRadioButton.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="fsuipcHintLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="&gt;&gt;fsuipcHintLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OffsetTypeVariableRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;configRefPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;groupBoxDisplaySettings.Name" xml:space="preserve">
-    <value>groupBoxDisplaySettings</value>
-  </data>
-  <data name="OffsetTypeSimConnectRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="interpolationCheckBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="&gt;&gt;comparisonActiveCheckBox.Parent" xml:space="preserve">
-    <value>comparisonSettingsGroupBox</value>
-  </data>
-  <data name="comparisonActiveCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="interpolationCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="preconditionTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="fsuipcHintLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>BottomLeft</value>
-  </data>
-  <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 156</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;displayPinTestStopButton.Name" xml:space="preserve">
-    <value>displayPinTestStopButton</value>
-  </data>
-  <data name="comparisonSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 6, 6, 6</value>
-  </data>
-  <data name="&gt;&gt;OffsetTypeFsuipRadioButton.Name" xml:space="preserve">
-    <value>OffsetTypeFsuipRadioButton</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
-  </data>
-  <data name="comparisonOperandComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;referencesGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;compareTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="compareSpacerPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="preconditionPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="ButtonPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ConfigWizard</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="InputActionRadioButton.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="displayPinTestStopButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="displayTabTextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;comparisonValueTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;interpolationCheckBox.Parent" xml:space="preserve">
-    <value>interpolationGroupBox</value>
-  </data>
-  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="&gt;&gt;comparisonSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTypeComboBox.Name" xml:space="preserve">
-    <value>displayTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
-    <value>referencesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Name" xml:space="preserve">
-    <value>arcazeSerialLabel</value>
-  </data>
-  <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="cancelButton.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="&gt;&gt;comparisonElseValueTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTabPage.Name" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="displayTypeGroupBox.Text" xml:space="preserve">
-    <value>Display type</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="OutputTypeLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;displayModuleNameComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="FsuipcSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 39</value>
-  </data>
-  <data name="arcazeSerialLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;OutputTypeLabel.Name" xml:space="preserve">
-    <value>OutputTypeLabel</value>
-  </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 549</value>
-  </data>
-  <data name="simConnectPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 252</value>
-  </data>
-  <data name="comparisonSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="comparisonElseValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 61</value>
-  </data>
-  <data name="&gt;&gt;comparisonValueTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>392, 0</value>
-  </data>
-  <data name="&gt;&gt;interpolationGroupBox.Parent" xml:space="preserve">
-    <value>compareTabPage</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OffsetTypeFsuipRadioButton.Text" xml:space="preserve">
-    <value>FSUIPC Offset</value>
-  </data>
-  <data name="&gt;&gt;interpolationGroupBox.Name" xml:space="preserve">
-    <value>interpolationGroupBox</value>
-  </data>
-  <data name="preconditionPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 48</value>
-  </data>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>190</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>de</value>
-  </metadata>
-  <metadata name="presetsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
 </root>

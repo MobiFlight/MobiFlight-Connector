@@ -979,9 +979,6 @@
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\OutputWizard\DisplayPanel.aa.resx">
-      <DependentUpon>DisplayPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\OutputWizard\DisplayPanel.de.resx">
       <DependentUpon>DisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
