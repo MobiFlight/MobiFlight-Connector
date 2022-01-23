@@ -20,9 +20,10 @@ namespace MobiFlight
 
         public CmdMessenger CmdMessenger { get; set; }
 
-        public int ModuleNumber { get; set; }
 
+        private DeviceType _type = DeviceType.DigInputMux;
         private String _name = "DigInputMux";
+        public int ModuleNumber { get; set; }
 
         public String Name
         {
@@ -36,7 +37,7 @@ namespace MobiFlight
         {
         }
 
-        private DeviceType _type = DeviceType.DigInputMux;
+        public void Stop() {}
 
         public static string InputEventIdToString(int enumId)
         {
@@ -70,5 +71,7 @@ namespace MobiFlight
             if (_initialized) return;
             _initialized = true;
         }
+
+
     }
 }

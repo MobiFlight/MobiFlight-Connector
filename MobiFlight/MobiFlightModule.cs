@@ -13,6 +13,7 @@ using CommandMessenger.Serialport;
 //using CommandMessenger.Transport.Serial;
 #endif
 using System.Threading;
+using MobiFlight.Config;
 
 namespace MobiFlight
 {
@@ -48,8 +49,8 @@ namespace MobiFlight
         ShiftRegister,       // 10
         AnalogInput,         // 11
         InputShiftRegister,  // 12
-        MuxDriver,   		 // 13
-        DigInputMux,   		 // 14
+        MuxDriver,   		 // 13  Not a proper device, but index required for update events
+        DigInputMux,   		 // 15
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -141,6 +142,7 @@ namespace MobiFlight
         {
             return !String.IsNullOrEmpty(Version);
         }
+
         public Config.Config Config { 
             get {                    
                     if (_config==null) {
@@ -168,6 +170,8 @@ namespace MobiFlight
 
                         if (InfoCommand.Ok)
                         {
+                            // This is where the whole config in string form read from the Arduino is loaded
+                            // to the internal objects (Config.Config.Items)
                             _config = new Config.Config(InfoCommand.ReadStringArg());
                         }
                         else
@@ -288,6 +292,8 @@ namespace MobiFlight
 
         public void LoadConfig()
         {
+            // Rebuilds all objects from Config.Items.
+            
             ledModules.Clear();
             stepperModules.Clear();
             servoModules.Clear();
@@ -311,27 +317,22 @@ namespace MobiFlight
                         device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
                         ledModules.Add(device.Name, new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count, SubModules = submodules, Brightness = (device as Config.LedModule).Brightness });
                         break;
-
                     case DeviceType.Stepper:
                         device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
                         stepperModules.Add(device.Name, new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count, HasAutoZero = (device as Config.Stepper).BtnPin != "0" });
                         break;
-
                     case DeviceType.Servo:
                         device.Name = GenerateUniqueDeviceName(servoModules.Keys.ToArray(), device.Name);
                         servoModules.Add(device.Name, new MobiFlightServo() { CmdMessenger = _cmdMessenger, Name = device.Name, ServoNumber = servoModules.Count });
                         break;
-
                     case DeviceType.Output:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
                         outputs.Add(device.Name, new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
                         break;
-
                     case DeviceType.LcdDisplay:
                         device.Name = GenerateUniqueDeviceName(lcdDisplays.Keys.ToArray(), device.Name);
                         lcdDisplays.Add(device.Name, new MobiFlightLcdDisplay() { CmdMessenger = _cmdMessenger, Name = device.Name, Address = lcdDisplays.Count, Cols = (device as Config.LcdDisplay).Cols, Lines = (device as Config.LcdDisplay).Lines });
                         break;
-
                     case DeviceType.Button:
                         device.Name = GenerateUniqueDeviceName(buttons.Keys.ToArray(), device.Name);
                         buttons.Add(device.Name, new MobiFlightButton() { Name = device.Name });
@@ -356,12 +357,10 @@ namespace MobiFlight
                     case DeviceType.DigInputMux:
                         device.Name = GenerateUniqueDeviceName(digInputMuxes.Keys.ToArray(), device.Name);
                         digInputMuxes.Add(device.Name, new MobiFlightDigInputMux() { Name = device.Name });
-                        //MUX: no check if a MuxDriver is already in the device list here. Check when done loading and prompt user if not found. 
                         break;
-                    case DeviceType.MuxDriver:
-                        //device.Name = GenerateUniqueDeviceName(?????.Keys.ToArray(), device.Name);
-                        //digInputMuxes.Add(device.Name, new ???????() { Name = device.Name });
-                        break;
+                    // The MuxDriver does not belong here (a "MobiFlightMuxDriverS" doesn't even exist) because all I/O devices here
+                    // are only those meant to be linked to a user input event or output data, while MuxDrivers are not addressable
+                    // by the user (and shouldn't show in the UI).
                 }
             }
         }
@@ -1074,75 +1073,73 @@ namespace MobiFlight
                 switch (device.Type)
                 {
                     case DeviceType.LedModule:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.LedModule).ClkPin));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.LedModule).ClsPin));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.LedModule).DinPin));
+                        usedPins.Add(Convert.ToByte((device as LedModule).ClkPin));
+                        usedPins.Add(Convert.ToByte((device as LedModule).ClsPin));
+                        usedPins.Add(Convert.ToByte((device as LedModule).DinPin));
                         break;
 
                     case DeviceType.Stepper:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin1));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin2));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin3));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).Pin4));
+                        usedPins.Add(Convert.ToByte((device as Stepper).Pin1));
+                        usedPins.Add(Convert.ToByte((device as Stepper).Pin2));
+                        usedPins.Add(Convert.ToByte((device as Stepper).Pin3));
+                        usedPins.Add(Convert.ToByte((device as Stepper).Pin4));
 
                         // We don't have to set the default 0 pin (for none auto zero)
                         if ((device as MobiFlight.Config.Stepper).BtnPin != "0")
-                            usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Stepper).BtnPin));
+                            usedPins.Add(Convert.ToByte((device as Stepper).BtnPin));
                         break;
 
                     case DeviceType.Servo:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Servo).DataPin));
+                        usedPins.Add(Convert.ToByte((device as Servo).DataPin));
                         break;
 
                     case DeviceType.Button:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Button).Pin));
+                        usedPins.Add(Convert.ToByte((device as Button).Pin));
                         break;
 
                     case DeviceType.Encoder:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Encoder).PinLeft));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Encoder).PinRight));
+                        usedPins.Add(Convert.ToByte((device as Config.Encoder).PinLeft));
+                        usedPins.Add(Convert.ToByte((device as Config.Encoder).PinRight));
                         break;
 
                     case DeviceType.InputShiftRegister:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).ClockPin));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).DataPin));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.InputShiftRegister).LatchPin));
+                        usedPins.Add(Convert.ToByte((device as InputShiftRegister).ClockPin));
+                        usedPins.Add(Convert.ToByte((device as InputShiftRegister).DataPin));
+                        usedPins.Add(Convert.ToByte((device as InputShiftRegister).LatchPin));
                         break;
                         
-                    case DeviceType.DigInputMux:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.DigInputMux).DataPin));
-                        break;
-
-                    case DeviceType.MuxDriver:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.MuxDriver).PinSx[0]));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.MuxDriver).PinSx[1]));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.MuxDriver).PinSx[2]));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.MuxDriver).PinSx[3]));
-                        break;
-
                     case DeviceType.LcdDisplay:
                         // Statically add correct I2C pins
                         foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))
                         {
                             if (usedPins.Contains(Convert.ToByte(pin.Pin))) continue;
-                            
                             usedPins.Add(Convert.ToByte(pin.Pin));
                         }
                         break;
 
                     case DeviceType.Output:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.Output).Pin));
+                        usedPins.Add(Convert.ToByte((device as Output).Pin));
                         break;
             
                     case DeviceType.AnalogInput:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.AnalogInput).Pin));
+                        usedPins.Add(Convert.ToByte((device as AnalogInput).Pin));
                         break;
 
-
                     case DeviceType.ShiftRegister:
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).ClockPin));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).LatchPin));
-                        usedPins.Add(Convert.ToByte((device as MobiFlight.Config.ShiftRegister).DataPin));
+                        usedPins.Add(Convert.ToByte((device as ShiftRegister).ClockPin));
+                        usedPins.Add(Convert.ToByte((device as ShiftRegister).LatchPin));
+                        usedPins.Add(Convert.ToByte((device as ShiftRegister).DataPin));
+                        break;
+
+                    case DeviceType.DigInputMux:
+                        usedPins.Add(Convert.ToByte((device as DigInputMux).DataPin));
+                        break;
+
+                    case DeviceType.MuxDriver:
+                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[0]));
+                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[1]));
+                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[2]));
+                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[3]));
                         break;
 
                     default:

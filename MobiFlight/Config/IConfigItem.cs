@@ -10,6 +10,7 @@ namespace MobiFlight.Config
         bool FromInternal(String value);
         DeviceType Type { get; }
         String Name { get; }
+        bool isMuxClient { get; }
         String ToInternal();
     }
 }

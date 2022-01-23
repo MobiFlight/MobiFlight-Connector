@@ -1,6 +1,6 @@
 ﻿namespace MobiFlight.UI.Panels.Settings
 {
-    partial class MFMuxDriverPanel
+    partial class MFMuxDriverSubPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFMuxDriverPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFMuxDriverSubPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.btnGotoSetting = new System.Windows.Forms.Button();
+            this.labelSlave = new System.Windows.Forms.Label();
+            this.labelMaster = new System.Windows.Forms.Label();
+            this.mfPinS0Label = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mfPinS0ComboBox = new System.Windows.Forms.ComboBox();
             this.mfPinS1ComboBox = new System.Windows.Forms.ComboBox();
             this.mfPinS2ComboBox = new System.Windows.Forms.ComboBox();
             this.mfPinS3ComboBox = new System.Windows.Forms.ComboBox();
-            this.mfPinS0Label = new System.Windows.Forms.Label();
             this.mfPinS1Label = new System.Windows.Forms.Label();
             this.mfPinS2Label = new System.Windows.Forms.Label();
             this.mfPinS3Label = new System.Windows.Forms.Label();
@@ -47,7 +49,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnGotoSetting);
+            this.groupBox1.Controls.Add(this.labelSlave);
+            this.groupBox1.Controls.Add(this.labelMaster);
             this.groupBox1.Controls.Add(this.mfPinS0Label);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.mfPinS0ComboBox);
@@ -61,10 +65,29 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // label2
+            // btnGotoSetting
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.btnGotoSetting, "btnGotoSetting");
+            this.btnGotoSetting.Name = "btnGotoSetting";
+            this.btnGotoSetting.UseVisualStyleBackColor = true;
+            this.btnGotoSetting.Click += new System.EventHandler(this.btnGotoSetting_Click);
+            // 
+            // labelSlave
+            // 
+            resources.ApplyResources(this.labelSlave, "labelSlave");
+            this.labelSlave.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelSlave.Name = "labelSlave";
+            // 
+            // labelMaster
+            // 
+            resources.ApplyResources(this.labelMaster, "labelMaster");
+            this.labelMaster.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.labelMaster.Name = "labelMaster";
+            // 
+            // mfPinS0Label
+            // 
+            resources.ApplyResources(this.mfPinS0Label, "mfPinS0Label");
+            this.mfPinS0Label.Name = "mfPinS0Label";
             // 
             // label1
             // 
@@ -107,11 +130,6 @@
             this.mfPinS3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             this.mfPinS3ComboBox.SelectedValueChanged += new System.EventHandler(this.value_Changed);
             // 
-            // mfPinS0Label
-            // 
-            resources.ApplyResources(this.mfPinS0Label, "mfPinS0Label");
-            this.mfPinS0Label.Name = "mfPinS0Label";
-            // 
             // mfPinS1Label
             // 
             resources.ApplyResources(this.mfPinS1Label, "mfPinS1Label");
@@ -127,12 +145,12 @@
             resources.ApplyResources(this.mfPinS3Label, "mfPinS3Label");
             this.mfPinS3Label.Name = "mfPinS3Label";
             // 
-            // MFMuxDriverPanel
+            // MFMuxDriverSubPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
-            this.Name = "MFMuxDriverPanel";
+            this.Name = "MFMuxDriverSubPanel";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -151,6 +169,8 @@
         private System.Windows.Forms.ComboBox mfPinS3ComboBox;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnGotoSetting;
+        private System.Windows.Forms.Label labelSlave;
+        private System.Windows.Forms.Label labelMaster;
     }
 }
