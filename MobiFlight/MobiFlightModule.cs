@@ -360,7 +360,7 @@ namespace MobiFlight
                         break;
                     // The MuxDriver does not belong here (a "MobiFlightMuxDriverS" doesn't even exist) because all I/O devices here
                     // are only those meant to be linked to a user input event or output data, while MuxDrivers are not addressable
-                    // by the user (and shouldn't shouw in the UI).
+                    // by the user (and shouldn't show in the UI).
                 }
             }
         }

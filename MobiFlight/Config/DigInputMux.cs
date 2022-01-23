@@ -50,12 +50,13 @@ namespace MobiFlight.Config
             }
 
             DataPin     = paramList[1];
-            NumModules  = paramList[2];
+            NumModules  = paramList[6];
             Name        = paramList[7];
 
             // pass the MuxDriver pins, but only if the muxDriver wasn't already set
-            if (Selector == null) return false;
-            Selector.FromInternal(paramList[3] + Separator + paramList[4] + Separator + paramList[5] + Separator + paramList[6] + End);
+            if (Selector == null || Selector.isInitialized()) return false;
+            value = ((int)DeviceType.MuxDriver).ToString() + Separator + paramList[2] + Separator + paramList[3] + Separator + paramList[4] + Separator + paramList[5] + End;
+            Selector.FromInternal(value);
             // The FromInternal() call takes care internally of the activation counter and the "initialized" flag
             return true;
         }

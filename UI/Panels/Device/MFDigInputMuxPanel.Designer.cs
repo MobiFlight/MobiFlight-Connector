@@ -97,8 +97,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
             resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 

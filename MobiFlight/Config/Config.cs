@@ -150,7 +150,6 @@ namespace MobiFlight.Config
                             }
                             currentItem = new MobiFlight.Config.DigInputMux(muxDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
-                            Items.Add(currentItem);
 
                             break;
 
