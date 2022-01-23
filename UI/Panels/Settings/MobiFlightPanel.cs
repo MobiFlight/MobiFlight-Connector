@@ -31,7 +31,7 @@ namespace MobiFlight.UI.Panels.Settings
 
         MobiFlightCache mobiflightCache;
 
-        private Dictionary<string, MobiFlight.Config.MuxDriverS> moduleMuxDrivers = new Dictionary<string, MobiFlight.Config.MuxDriverS>();
+        private Dictionary<string, MobiFlight.Config.MuxDriver> moduleMuxDrivers = new Dictionary<string, MobiFlight.Config.MuxDriver>();
 
         public MobiFlightPanel()
         {
@@ -251,7 +251,7 @@ namespace MobiFlight.UI.Panels.Settings
                     // MuxDrivers should not appear in the tree, therefore they are stored in a dictionary 
                     // (by module name) for easy retrieval
                     if(device.Type == DeviceType.MuxDriver) {
-                        moduleMuxDrivers.Add(module.Name, device as MobiFlight.Config.MuxDriverS);
+                        moduleMuxDrivers.Add(module.Name, device as MobiFlight.Config.MuxDriver);
                     } else {
                         TreeNode deviceNode = new TreeNode(device.Name);
                         deviceNode.Tag = device;
@@ -674,7 +674,7 @@ namespace MobiFlight.UI.Panels.Settings
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             newConfig.ModuleName = module.Name;
 
-            foreach (MobiFlight.Config.MuxDriverS muxDriver in moduleMuxDrivers.Values) {
+            foreach (MobiFlight.Config.MuxDriver muxDriver in moduleMuxDrivers.Values) {
                 newConfig.Items.Add(muxDriver as MobiFlight.Config.BaseDevice);
             }
 
@@ -722,10 +722,12 @@ namespace MobiFlight.UI.Panels.Settings
 
                 foreach (MobiFlight.Config.BaseDevice device in newConfig.Items)
                 {
-                    TreeNode newNode = new TreeNode(device.Name);
-                    newNode.Tag = device;
-                    newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
-                    moduleNode.Nodes.Add(newNode);
+                    if(device.Type != DeviceType.MuxDriver) {
+                        TreeNode newNode = new TreeNode(device.Name);
+                        newNode.Tag = device;
+                        newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
+                        moduleNode.Nodes.Add(newNode);
+                    }
                 }
 
                 moduleNode.ImageKey = "Changed";
@@ -896,15 +898,15 @@ namespace MobiFlight.UI.Panels.Settings
             return device.isMuxClient;
         }
 
-        private MobiFlight.Config.MuxDriverS getModuleMuxDriver()
+        private MobiFlight.Config.MuxDriver getModuleMuxDriver()
         {
-            MobiFlight.Config.MuxDriverS moduleMuxDriver;
+            MobiFlight.Config.MuxDriver moduleMuxDriver;
             
             string moduleName = getModuleNode().Name;
 
             if (!moduleMuxDrivers.ContainsKey(moduleName)) {
                 // None found: we are adding first client, therefore we must also build a new MuxDriver
-                moduleMuxDriver = new MobiFlight.Config.MuxDriverS();
+                moduleMuxDriver = new MobiFlight.Config.MuxDriver();
                 // append it to module's configuration first,
                 TreeNode moduleNode = getModuleNode();
                 (moduleNode.Tag as MobiFlightModule).Config.Items.Add(moduleMuxDriver);
@@ -921,7 +923,7 @@ namespace MobiFlight.UI.Panels.Settings
         /// Initializes module values if not yet done
         /// </summary>
         /// <returns>Object if existing, null otherwise</returns>
-        private MobiFlight.Config.MuxDriverS getOrAddModuleMuxDriver(List<MobiFlightPin> freePins)
+        private MobiFlight.Config.MuxDriver getOrAddModuleMuxDriver(List<MobiFlightPin> freePins)
         {
             var muxDriver = getModuleMuxDriver();
 
@@ -947,7 +949,7 @@ namespace MobiFlight.UI.Panels.Settings
         /// </summary>
         private void unregisterMuxClient()
         {
-            MobiFlight.Config.MuxDriverS muxDriver;
+            MobiFlight.Config.MuxDriver muxDriver;
             
             muxDriver = getModuleMuxDriver();
             muxDriver.unregisterClient();

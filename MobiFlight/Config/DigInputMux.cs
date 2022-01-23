@@ -6,28 +6,40 @@ namespace MobiFlight.Config
 {
     public class DigInputMux : BaseDevice
     {
-        public MobiFlight.Config.MuxDriverS Selector;
+        //The selector is serialized without specifying [XmlAttribute], because it is serializable itself
+        //TODO: should we not prevent including Selector in the clients'serialization?
+        // This might be seen as consistent with including the selector pins in the config messages
+        // (which is in itself arguable at least), but it has no real use and it might might lead to "strange" issues
+        // if the config file is tampered with.
+        public MobiFlight.Config.MuxDriver Selector;
 
         const ushort _paramCount = 7;
         [XmlAttribute]
         public String DataPin = "-1";
         [XmlAttribute]
         public String NumModules = "2"; // defaults to CD4067
-        //TODO how to include Selector's pins as XMLattributes here? Are they necessary?
-        // REMINDER: MobiFlightPanel.openToolStripButton_Click()
 
-        public DigInputMux(MobiFlight.Config.MuxDriverS muxSelector) { 
+        public DigInputMux()
+        {
+            Name = "DigInputMux";
+            _type = DeviceType.DigInputMux;
+            _muxClient = true;
+            Selector = null;
+        }
+
+        public DigInputMux(MobiFlight.Config.MuxDriver muxSelector) { 
             Name = "DigInputMux"; 
             _type = DeviceType.DigInputMux;
             _muxClient = true;
-            Selector = muxSelector; //XTODO ???
+            Selector = muxSelector;
         }
 
-        //XTODO
-        //~DigInputMux()
-        //{
-        //    if (Selector != null) Selector.unregisterClient();
-        //}
+        public void setDriver(MobiFlight.Config.MuxDriver muxSelector)
+        {
+            Selector = muxSelector;
+        }
+
+
 
         override public String ToInternal()
         {
