@@ -7,7 +7,7 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class MFMuxDriverSubPanel : UserControl
     {
-        private MuxDriverS _muxDriver;
+        private MuxDriver _muxDriver;
         private bool _initialized;
         public event EventHandler Changed;
         public event EventHandler MoveToFirstMux;
@@ -21,7 +21,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfPinS3ComboBox.Items.Clear();
         }
 
-        public MFMuxDriverSubPanel(MuxDriverS muxDriver, List<MobiFlightPin> Pins, bool isEnabled = false) : this()
+        public MFMuxDriverSubPanel(MuxDriver muxDriver, List<MobiFlightPin> Pins, bool isEnabled = false) : this()
         {
             _muxDriver = muxDriver;
 

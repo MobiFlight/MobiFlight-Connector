@@ -1136,10 +1136,10 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.MuxDriver:
-                        usedPins.Add(Convert.ToByte((device as MuxDriverS).PinSx[0]));
-                        usedPins.Add(Convert.ToByte((device as MuxDriverS).PinSx[1]));
-                        usedPins.Add(Convert.ToByte((device as MuxDriverS).PinSx[2]));
-                        usedPins.Add(Convert.ToByte((device as MuxDriverS).PinSx[3]));
+                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[0]));
+                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[1]));
+                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[2]));
+                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[3]));
                         break;
 
                     default:
