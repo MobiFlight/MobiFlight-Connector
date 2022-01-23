@@ -66,6 +66,9 @@
             this.displayPinTestButton = new System.Windows.Forms.Button();
             this.groupBoxDisplaySettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.OutputTypeLabel = new System.Windows.Forms.Label();
+            this.InputActionRadioButton = new System.Windows.Forms.RadioButton();
+            this.OutputTypeDeviceRadioButton = new System.Windows.Forms.RadioButton();
             this.arcazeSerialLabel = new System.Windows.Forms.Label();
             this.displayModuleNameComboBox = new System.Windows.Forms.ComboBox();
             this.displayTypeComboBoxLabel = new System.Windows.Forms.Label();
@@ -101,36 +104,36 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.Controls.Add(this.tabControlFsuipc);
             resources.ApplyResources(this.MainPanel, "MainPanel");
+            this.MainPanel.Controls.Add(this.tabControlFsuipc);
             this.MainPanel.Name = "MainPanel";
             // 
             // tabControlFsuipc
             // 
+            resources.ApplyResources(this.tabControlFsuipc, "tabControlFsuipc");
             this.tabControlFsuipc.Controls.Add(this.fsuipcTabPage);
             this.tabControlFsuipc.Controls.Add(this.compareTabPage);
             this.tabControlFsuipc.Controls.Add(this.displayTabPage);
             this.tabControlFsuipc.Controls.Add(this.preconditionTabPage);
-            resources.ApplyResources(this.tabControlFsuipc, "tabControlFsuipc");
             this.tabControlFsuipc.Name = "tabControlFsuipc";
             this.tabControlFsuipc.SelectedIndex = 0;
             this.tabControlFsuipc.SelectedIndexChanged += new System.EventHandler(this.tabControlFsuipc_SelectedIndexChanged);
             // 
             // fsuipcTabPage
             // 
+            resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Controls.Add(this.referencesGroupBox);
             this.fsuipcTabPage.Controls.Add(this.variablePanel1);
             this.fsuipcTabPage.Controls.Add(this.simConnectPanel1);
             this.fsuipcTabPage.Controls.Add(this.FsuipcSettingsPanel);
             this.fsuipcTabPage.Controls.Add(this.OffsetTypePanel);
-            resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Name = "fsuipcTabPage";
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
             // 
             // referencesGroupBox
             // 
-            this.referencesGroupBox.Controls.Add(this.configRefPanel);
             resources.ApplyResources(this.referencesGroupBox, "referencesGroupBox");
+            this.referencesGroupBox.Controls.Add(this.configRefPanel);
             this.referencesGroupBox.Name = "referencesGroupBox";
             this.referencesGroupBox.TabStop = false;
             // 
@@ -154,9 +157,9 @@
             // 
             // FsuipcSettingsPanel
             // 
+            resources.ApplyResources(this.FsuipcSettingsPanel, "FsuipcSettingsPanel");
             this.FsuipcSettingsPanel.Controls.Add(this.fsuipcConfigPanel);
             this.FsuipcSettingsPanel.Controls.Add(this.fsuipcHintLabel);
-            resources.ApplyResources(this.FsuipcSettingsPanel, "FsuipcSettingsPanel");
             this.FsuipcSettingsPanel.Name = "FsuipcSettingsPanel";
             // 
             // fsuipcConfigPanel
@@ -172,11 +175,11 @@
             // 
             // OffsetTypePanel
             // 
+            resources.ApplyResources(this.OffsetTypePanel, "OffsetTypePanel");
             this.OffsetTypePanel.Controls.Add(this.label1);
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeVariableRadioButton);
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeSimConnectRadioButton);
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeFsuipRadioButton);
-            resources.ApplyResources(this.OffsetTypePanel, "OffsetTypePanel");
             this.OffsetTypePanel.Name = "OffsetTypePanel";
             // 
             // label1
@@ -210,11 +213,11 @@
             // 
             // compareTabPage
             // 
+            resources.ApplyResources(this.compareTabPage, "compareTabPage");
             this.compareTabPage.Controls.Add(this.compareSpacerPanel);
             this.compareTabPage.Controls.Add(this.interpolationGroupBox);
             this.compareTabPage.Controls.Add(this.comparisonSettingsGroupBox);
             this.compareTabPage.Controls.Add(this.comparisonHintTtextBox);
-            resources.ApplyResources(this.compareTabPage, "compareTabPage");
             this.compareTabPage.Name = "compareTabPage";
             this.compareTabPage.UseVisualStyleBackColor = true;
             // 
@@ -225,9 +228,9 @@
             // 
             // interpolationGroupBox
             // 
+            resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
             this.interpolationGroupBox.Controls.Add(this.interpolationPanel1);
             this.interpolationGroupBox.Controls.Add(this.interpolationCheckBox);
-            resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
             this.interpolationGroupBox.Name = "interpolationGroupBox";
             this.interpolationGroupBox.TabStop = false;
             // 
@@ -248,14 +251,15 @@
             // 
             // comparisonSettingsGroupBox
             // 
+            resources.ApplyResources(this.comparisonSettingsGroupBox, "comparisonSettingsGroupBox");
             this.comparisonSettingsGroupBox.Controls.Add(this.comparisonSettingsPanel);
             this.comparisonSettingsGroupBox.Controls.Add(this.comparisonActiveCheckBox);
-            resources.ApplyResources(this.comparisonSettingsGroupBox, "comparisonSettingsGroupBox");
             this.comparisonSettingsGroupBox.Name = "comparisonSettingsGroupBox";
             this.comparisonSettingsGroupBox.TabStop = false;
             // 
             // comparisonSettingsPanel
             // 
+            resources.ApplyResources(this.comparisonSettingsPanel, "comparisonSettingsPanel");
             this.comparisonSettingsPanel.Controls.Add(this.comparisonValueTextBox);
             this.comparisonSettingsPanel.Controls.Add(this.comparisonElseValueTextBox);
             this.comparisonSettingsPanel.Controls.Add(this.label8);
@@ -263,7 +267,6 @@
             this.comparisonSettingsPanel.Controls.Add(this.label7);
             this.comparisonSettingsPanel.Controls.Add(this.comparisonOperandComboBox);
             this.comparisonSettingsPanel.Controls.Add(this.label6);
-            resources.ApplyResources(this.comparisonSettingsPanel, "comparisonSettingsPanel");
             this.comparisonSettingsPanel.Name = "comparisonSettingsPanel";
             // 
             // comparisonValueTextBox
@@ -293,6 +296,7 @@
             // 
             // comparisonOperandComboBox
             // 
+            resources.ApplyResources(this.comparisonOperandComboBox, "comparisonOperandComboBox");
             this.comparisonOperandComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comparisonOperandComboBox.FormattingEnabled = true;
             this.comparisonOperandComboBox.Items.AddRange(new object[] {
@@ -303,7 +307,6 @@
             resources.GetString("comparisonOperandComboBox.Items4"),
             resources.GetString("comparisonOperandComboBox.Items5"),
             resources.GetString("comparisonOperandComboBox.Items6")});
-            resources.ApplyResources(this.comparisonOperandComboBox, "comparisonOperandComboBox");
             this.comparisonOperandComboBox.Name = "comparisonOperandComboBox";
             // 
             // label6
@@ -320,29 +323,29 @@
             // 
             // comparisonHintTtextBox
             // 
+            resources.ApplyResources(this.comparisonHintTtextBox, "comparisonHintTtextBox");
             this.comparisonHintTtextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.comparisonHintTtextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.comparisonHintTtextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.comparisonHintTtextBox, "comparisonHintTtextBox");
             this.comparisonHintTtextBox.Name = "comparisonHintTtextBox";
             this.comparisonHintTtextBox.ReadOnly = true;
             this.comparisonHintTtextBox.TabStop = false;
             // 
             // displayTabPage
             // 
+            resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Controls.Add(this.testSettingsGroupBox);
             this.displayTabPage.Controls.Add(this.groupBoxDisplaySettings);
             this.displayTabPage.Controls.Add(this.displayTypeGroupBox);
             this.displayTabPage.Controls.Add(this.displayTabTextBox);
-            resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Name = "displayTabPage";
             this.displayTabPage.UseVisualStyleBackColor = true;
             // 
             // testSettingsGroupBox
             // 
+            resources.ApplyResources(this.testSettingsGroupBox, "testSettingsGroupBox");
             this.testSettingsGroupBox.Controls.Add(this.displayPinTestStopButton);
             this.testSettingsGroupBox.Controls.Add(this.displayPinTestButton);
-            resources.ApplyResources(this.testSettingsGroupBox, "testSettingsGroupBox");
             this.testSettingsGroupBox.Name = "testSettingsGroupBox";
             this.testSettingsGroupBox.TabStop = false;
             // 
@@ -370,13 +373,35 @@
             // 
             // displayTypeGroupBox
             // 
+            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
+            this.displayTypeGroupBox.Controls.Add(this.OutputTypeLabel);
+            this.displayTypeGroupBox.Controls.Add(this.InputActionRadioButton);
+            this.displayTypeGroupBox.Controls.Add(this.OutputTypeDeviceRadioButton);
             this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
             this.displayTypeGroupBox.Controls.Add(this.displayModuleNameComboBox);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBoxLabel);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBox);
-            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
+            // 
+            // OutputTypeLabel
+            // 
+            resources.ApplyResources(this.OutputTypeLabel, "OutputTypeLabel");
+            this.OutputTypeLabel.Name = "OutputTypeLabel";
+            // 
+            // InputActionRadioButton
+            // 
+            resources.ApplyResources(this.InputActionRadioButton, "InputActionRadioButton");
+            this.InputActionRadioButton.Name = "InputActionRadioButton";
+            this.InputActionRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // OutputTypeDeviceRadioButton
+            // 
+            resources.ApplyResources(this.OutputTypeDeviceRadioButton, "OutputTypeDeviceRadioButton");
+            this.OutputTypeDeviceRadioButton.Checked = true;
+            this.OutputTypeDeviceRadioButton.Name = "OutputTypeDeviceRadioButton";
+            this.OutputTypeDeviceRadioButton.TabStop = true;
+            this.OutputTypeDeviceRadioButton.UseVisualStyleBackColor = true;
             // 
             // arcazeSerialLabel
             // 
@@ -385,15 +410,14 @@
             // 
             // displayModuleNameComboBox
             // 
+            resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
             this.displayModuleNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayModuleNameComboBox.FormattingEnabled = true;
             this.displayModuleNameComboBox.Items.AddRange(new object[] {
             resources.GetString("displayModuleNameComboBox.Items"),
             resources.GetString("displayModuleNameComboBox.Items1")});
-            resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
             this.displayModuleNameComboBox.Name = "displayModuleNameComboBox";
-            this.displayModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.displaySerialComboBox_SelectedIndexChanged);
-            this.displayModuleNameComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.displayArcazeSerialComboBox_Validating);
+            
             // 
             // displayTypeComboBoxLabel
             // 
@@ -402,30 +426,30 @@
             // 
             // displayTypeComboBox
             // 
+            resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
             this.displayTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayTypeComboBox.FormattingEnabled = true;
             this.displayTypeComboBox.Items.AddRange(new object[] {
             resources.GetString("displayTypeComboBox.Items"),
             resources.GetString("displayTypeComboBox.Items1"),
             resources.GetString("displayTypeComboBox.Items2")});
-            resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
             this.displayTypeComboBox.Name = "displayTypeComboBox";
             this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.displayTypeComboBox_SelectedIndexChanged);
             // 
             // displayTabTextBox
             // 
+            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
             this.displayTabTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.displayTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.displayTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
             this.displayTabTextBox.Name = "displayTabTextBox";
             this.displayTabTextBox.ReadOnly = true;
             this.displayTabTextBox.TabStop = false;
             // 
             // preconditionTabPage
             // 
-            this.preconditionTabPage.Controls.Add(this.preconditionPanel);
             resources.ApplyResources(this.preconditionTabPage, "preconditionTabPage");
+            this.preconditionTabPage.Controls.Add(this.preconditionPanel);
             this.preconditionTabPage.Name = "preconditionTabPage";
             this.preconditionTabPage.UseVisualStyleBackColor = true;
             // 
@@ -436,9 +460,9 @@
             // 
             // ButtonPanel
             // 
+            resources.ApplyResources(this.ButtonPanel, "ButtonPanel");
             this.ButtonPanel.Controls.Add(this.button1);
             this.ButtonPanel.Controls.Add(this.cancelButton);
-            resources.ApplyResources(this.ButtonPanel, "ButtonPanel");
             this.ButtonPanel.Name = "ButtonPanel";
             // 
             // button1
@@ -450,8 +474,8 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             resources.ApplyResources(this.cancelButton, "cancelButton");
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -575,5 +599,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label fsuipcHintLabel;
         private Panels.Config.PreconditionPanel preconditionPanel;
+        private System.Windows.Forms.Label OutputTypeLabel;
+        private System.Windows.Forms.RadioButton InputActionRadioButton;
+        private System.Windows.Forms.RadioButton OutputTypeDeviceRadioButton;
     }
 }
