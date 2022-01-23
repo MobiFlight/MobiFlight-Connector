@@ -382,11 +382,11 @@
     <Compile Include="UI\Panels\Device\MFDigInputMuxPanel.Designer.cs">
       <DependentUpon>MFDigInputMuxPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Device\MFMuxDriverPanel.cs">
+    <Compile Include="UI\Panels\Device\MFMuxDriverSubPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Device\MFMuxDriverPanel.Designer.cs">
-      <DependentUpon>MFMuxDriverPanel.cs</DependentUpon>
+    <Compile Include="UI\Panels\Device\MFMuxDriverSubPanel.Designer.cs">
+      <DependentUpon>MFMuxDriverSubPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Device\MFInputShiftRegisterPanel.cs">
       <SubType>UserControl</SubType>
@@ -991,12 +991,12 @@
     <EmbeddedResource Include="UI\Panels\Device\MFDigInputMuxPanel.resx">
       <DependentUpon>MFDigInputMuxPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\MFMuxDriverPanel.de.resx">
-      <DependentUpon>MFMuxDriverPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Device\MFMuxDriverSubPanel.de.resx">
+      <DependentUpon>MFMuxDriverSubPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\MFMuxDriverPanel.resx">
-      <DependentUpon>MFMuxDriverPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Device\MFMuxDriverSubPanel.resx">
+      <DependentUpon>MFMuxDriverSubPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFInputShiftRegisterPanel.de.resx">

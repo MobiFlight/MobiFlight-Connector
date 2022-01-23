@@ -7,12 +7,15 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class MFDigInputMuxPanel : UserControl
     {
-        private DigInputMux         _digInputMux;
-        private MFMuxDriverPanel    _selectorPanel; 
         private bool                _initialized;
-        public event EventHandler   Changed;
+        private DigInputMux         _digInputMux;
+        private MFMuxDriverSubPanel _selectorPanel; 
+        
         private int MAX_MODULES = 2;            // Only possible values: 1 module for HCT4051, 2 for HCT4067
         private const string NA_STRING = "N/A";
+        
+        public event EventHandler   Changed;
+        public event EventHandler   MoveToFirstMux;
 
         public MFDigInputMuxPanel()
         {
@@ -41,11 +44,25 @@ namespace MobiFlight.UI.Panels.Settings
 
             textBox1.Text = digInputMux.Name;
 
-            _selectorPanel = new MFMuxDriverPanel(MuxDriverS.Instance, Pins, isFirstMuxed);
+            _selectorPanel = new MFMuxDriverSubPanel(digInputMux.Selector, Pins, isFirstMuxed);
             _selectorPanel.Changed += this.Changed;
+            _selectorPanel.MoveToFirstMux += new EventHandler(gotoToFirstMux);
+
             muxDrvPanel.Controls.Add(_selectorPanel);
+            _selectorPanel.Dock = DockStyle.Fill;
 
             _initialized = true;
+        }
+        private void gotoToFirstMux(object sender, EventArgs e) 
+        {
+            this.MoveToFirstMux(sender, e);
+        }
+
+        private void setValues()
+        {
+            _digInputMux.DataPin = mfPin1ComboBox.Text;
+            _digInputMux.Name = textBox1.Text;
+            _digInputMux.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
         }
 
         private void value_Changed(object sender, EventArgs e)
@@ -56,13 +73,6 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (Changed != null)
                 Changed(_digInputMux, new EventArgs());
-        }
-
-        private void setValues()
-        {
-            _digInputMux.DataPin = mfPin1ComboBox.Text;
-            _digInputMux.Name = textBox1.Text;
-            _digInputMux.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
         }
     }
 }
