@@ -18,7 +18,7 @@
 	"Info": {
 		"CanInstallFirmware": true,
 		"FriendlyName": "RaspiPico",
-		"LatestFirmwareVersion": "2.0.1",
+		"LatestFirmwareVersion": "2.0.2",
 		"MobiFlightType": "MobiFlight RaspiPico"
 	},
 	"ModuleLimits": {

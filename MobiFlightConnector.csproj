@@ -134,6 +134,9 @@
     <Reference Include="FSUIPCClient, Version=3.1.25.341, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
       <HintPath>packages\FSUIPCClientDLL.3.1.25\lib\net40\FSUIPCClient.dll</HintPath>
     </Reference>
+    <Reference Include="LibUsbDotNet, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c677239abe1e02a9, processorArchitecture=MSIL">
+      <HintPath>packages\LibUsbDotNet.3.0.97-alpha\lib\net45\LibUsbDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.17.0.146, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.17.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
     </Reference>
@@ -802,6 +805,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_uno_2_0_1.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="libusb-1.0">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\msfs2020_simvars.cip">
