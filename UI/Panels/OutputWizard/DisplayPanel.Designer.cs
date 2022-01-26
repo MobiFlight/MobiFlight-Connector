@@ -30,27 +30,29 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayPanel));
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
-            this.OutputTypeLabel = new System.Windows.Forms.Label();
-            this.InputActionRadioButton = new System.Windows.Forms.RadioButton();
-            this.OutputTypeDeviceRadioButton = new System.Windows.Forms.RadioButton();
             this.arcazeSerialLabel = new System.Windows.Forms.Label();
             this.displayModuleNameComboBox = new System.Windows.Forms.ComboBox();
             this.displayTypeComboBoxLabel = new System.Windows.Forms.Label();
             this.displayTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.OutputTypeLabel = new System.Windows.Forms.Label();
+            this.InputActionRadioButton = new System.Windows.Forms.RadioButton();
+            this.OutputTypeDeviceRadioButton = new System.Windows.Forms.RadioButton();
             this.testSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.displayPinTestStopButton = new System.Windows.Forms.Button();
             this.displayPinTestButton = new System.Windows.Forms.Button();
             this.groupBoxDisplaySettings = new System.Windows.Forms.GroupBox();
             this.displayTabTextBox = new System.Windows.Forms.TextBox();
+            this.analogPanel1 = new MobiFlight.UI.Panels.Input.AnalogPanel();
+            this.inputActionGroupBox = new System.Windows.Forms.GroupBox();
+            this.OutputTypeGroupBox = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox.SuspendLayout();
             this.testSettingsGroupBox.SuspendLayout();
+            this.inputActionGroupBox.SuspendLayout();
+            this.OutputTypeGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayTypeGroupBox
             // 
-            this.displayTypeGroupBox.Controls.Add(this.OutputTypeLabel);
-            this.displayTypeGroupBox.Controls.Add(this.InputActionRadioButton);
-            this.displayTypeGroupBox.Controls.Add(this.OutputTypeDeviceRadioButton);
             this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
             this.displayTypeGroupBox.Controls.Add(this.displayModuleNameComboBox);
             this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBoxLabel);
@@ -58,25 +60,6 @@
             resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
-            // 
-            // OutputTypeLabel
-            // 
-            resources.ApplyResources(this.OutputTypeLabel, "OutputTypeLabel");
-            this.OutputTypeLabel.Name = "OutputTypeLabel";
-            // 
-            // InputActionRadioButton
-            // 
-            resources.ApplyResources(this.InputActionRadioButton, "InputActionRadioButton");
-            this.InputActionRadioButton.Name = "InputActionRadioButton";
-            this.InputActionRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // OutputTypeDeviceRadioButton
-            // 
-            resources.ApplyResources(this.OutputTypeDeviceRadioButton, "OutputTypeDeviceRadioButton");
-            this.OutputTypeDeviceRadioButton.Checked = true;
-            this.OutputTypeDeviceRadioButton.Name = "OutputTypeDeviceRadioButton";
-            this.OutputTypeDeviceRadioButton.TabStop = true;
-            this.OutputTypeDeviceRadioButton.UseVisualStyleBackColor = true;
             // 
             // arcazeSerialLabel
             // 
@@ -111,6 +94,25 @@
             this.displayTypeComboBox.Name = "displayTypeComboBox";
             this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.displayTypeComboBox_SelectedIndexChanged);
             // 
+            // OutputTypeLabel
+            // 
+            resources.ApplyResources(this.OutputTypeLabel, "OutputTypeLabel");
+            this.OutputTypeLabel.Name = "OutputTypeLabel";
+            // 
+            // InputActionRadioButton
+            // 
+            resources.ApplyResources(this.InputActionRadioButton, "InputActionRadioButton");
+            this.InputActionRadioButton.Name = "InputActionRadioButton";
+            this.InputActionRadioButton.UseVisualStyleBackColor = true;
+            this.InputActionRadioButton.CheckedChanged += new System.EventHandler(this.OutputTypeDeviceRadioButton_CheckedChanged);
+            // 
+            // OutputTypeDeviceRadioButton
+            // 
+            resources.ApplyResources(this.OutputTypeDeviceRadioButton, "OutputTypeDeviceRadioButton");
+            this.OutputTypeDeviceRadioButton.Name = "OutputTypeDeviceRadioButton";
+            this.OutputTypeDeviceRadioButton.UseVisualStyleBackColor = true;
+            this.OutputTypeDeviceRadioButton.CheckedChanged += new System.EventHandler(this.OutputTypeDeviceRadioButton_CheckedChanged);
+            // 
             // testSettingsGroupBox
             // 
             this.testSettingsGroupBox.Controls.Add(this.displayPinTestStopButton);
@@ -143,7 +145,6 @@
             // 
             // displayTabTextBox
             // 
-            this.displayTabTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.displayTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.displayTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
@@ -151,19 +152,44 @@
             this.displayTabTextBox.ReadOnly = true;
             this.displayTabTextBox.TabStop = false;
             // 
+            // analogPanel1
+            // 
+            resources.ApplyResources(this.analogPanel1, "analogPanel1");
+            this.analogPanel1.Name = "analogPanel1";
+            // 
+            // inputActionGroupBox
+            // 
+            resources.ApplyResources(this.inputActionGroupBox, "inputActionGroupBox");
+            this.inputActionGroupBox.Controls.Add(this.analogPanel1);
+            this.inputActionGroupBox.Name = "inputActionGroupBox";
+            this.inputActionGroupBox.TabStop = false;
+            // 
+            // OutputTypeGroupBox
+            // 
+            this.OutputTypeGroupBox.Controls.Add(this.OutputTypeLabel);
+            this.OutputTypeGroupBox.Controls.Add(this.InputActionRadioButton);
+            this.OutputTypeGroupBox.Controls.Add(this.OutputTypeDeviceRadioButton);
+            resources.ApplyResources(this.OutputTypeGroupBox, "OutputTypeGroupBox");
+            this.OutputTypeGroupBox.Name = "OutputTypeGroupBox";
+            this.OutputTypeGroupBox.TabStop = false;
+            // 
             // DisplayPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.testSettingsGroupBox);
+            this.Controls.Add(this.inputActionGroupBox);
             this.Controls.Add(this.groupBoxDisplaySettings);
             this.Controls.Add(this.displayTypeGroupBox);
+            this.Controls.Add(this.OutputTypeGroupBox);
             this.Controls.Add(this.displayTabTextBox);
             this.Name = "DisplayPanel";
             this.displayTypeGroupBox.ResumeLayout(false);
-            this.displayTypeGroupBox.PerformLayout();
             this.testSettingsGroupBox.ResumeLayout(false);
+            this.inputActionGroupBox.ResumeLayout(false);
+            this.inputActionGroupBox.PerformLayout();
+            this.OutputTypeGroupBox.ResumeLayout(false);
+            this.OutputTypeGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,5 +210,8 @@
         private System.Windows.Forms.Button displayPinTestButton;
         private System.Windows.Forms.GroupBox groupBoxDisplaySettings;
         private System.Windows.Forms.TextBox displayTabTextBox;
+        private Input.AnalogPanel analogPanel1;
+        private System.Windows.Forms.GroupBox inputActionGroupBox;
+        private System.Windows.Forms.GroupBox OutputTypeGroupBox;
     }
 }

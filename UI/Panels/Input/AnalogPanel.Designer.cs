@@ -44,7 +44,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.tabPage2.Size = new System.Drawing.Size(332, 254);
+            this.tabPage2.Size = new System.Drawing.Size(392, 168);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "On Change";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -55,17 +55,18 @@
             this.onChangeActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.onChangeActionConfigPanel.Location = new System.Drawing.Point(0, 31);
             this.onChangeActionConfigPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.onChangeActionConfigPanel.MinimumSize = new System.Drawing.Size(0, 100);
             this.onChangeActionConfigPanel.Name = "onChangeActionConfigPanel";
-            this.onChangeActionConfigPanel.Size = new System.Drawing.Size(332, 220);
+            this.onChangeActionConfigPanel.Size = new System.Drawing.Size(392, 134);
             this.onChangeActionConfigPanel.TabIndex = 19;
             // 
             // onChangeActionTypePanel
             // 
             this.onChangeActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onChangeActionTypePanel.Location = new System.Drawing.Point(0, 3);
-            this.onChangeActionTypePanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.onChangeActionTypePanel.Margin = new System.Windows.Forms.Padding(4);
             this.onChangeActionTypePanel.Name = "onChangeActionTypePanel";
-            this.onChangeActionTypePanel.Size = new System.Drawing.Size(332, 28);
+            this.onChangeActionTypePanel.Size = new System.Drawing.Size(392, 28);
             this.onChangeActionTypePanel.TabIndex = 20;
             // 
             // tabControl1
@@ -75,17 +76,18 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(340, 280);
+            this.tabControl1.Size = new System.Drawing.Size(400, 194);
             this.tabControl1.TabIndex = 20;
             // 
             // AnalogPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.tabControl1);
-            this.MinimumSize = new System.Drawing.Size(300, 0);
+            this.MinimumSize = new System.Drawing.Size(350, 70);
             this.Name = "AnalogPanel";
-            this.Size = new System.Drawing.Size(340, 280);
+            this.Size = new System.Drawing.Size(400, 194);
             this.tabPage2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);

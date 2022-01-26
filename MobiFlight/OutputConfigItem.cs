@@ -8,6 +8,7 @@ using MobiFlight;
 using MobiFlight.OutputConfig;
 using MobiFlight.Base;
 using MobiFlight.Config;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight
 {
@@ -40,7 +41,9 @@ namespace MobiFlight
         public OutputConfig.ShiftRegister ShiftRegister               { get; set; }
         public string       DisplayTrigger              { get; set; }
         public PreconditionList   Preconditions       { get; set; }
-        public ConfigRefList      ConfigRefs          { get; set; }        
+        public ConfigRefList      ConfigRefs          { get; set; }     
+        
+        public InputConfig.InputAction InputAction { get; set; }
 
         public OutputConfigItem()
         {
@@ -60,6 +63,7 @@ namespace MobiFlight
             Interpolation = new Interpolation();
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
+            InputAction = null;
         }
 
         public override bool Equals(object obj)
@@ -90,7 +94,10 @@ namespace MobiFlight
                 //===
                 this.Preconditions.Equals((obj as OutputConfigItem).Preconditions) &&
                 //===
-                this.ConfigRefs.Equals((obj as OutputConfigItem).ConfigRefs)
+                this.ConfigRefs.Equals((obj as OutputConfigItem).ConfigRefs) &&
+                //===
+                ((this.InputAction==null&&(obj as InputConfigItem)==null) || (
+                this.InputAction!=null && this.InputAction.Equals((obj as InputConfigItem))))
             );
         }
 
@@ -179,6 +186,13 @@ namespace MobiFlight
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
                 {
                     ShiftRegister.ReadXml(reader);
+                }
+                else if (DisplayType == "InputAction")
+                {
+                    if (reader.ReadToDescendant("action"))
+                    {
+                        InputAction = InputActionFactory.CreateFromXmlReader(reader);
+                    }
                 }
             }
 
@@ -290,6 +304,12 @@ namespace MobiFlight
                 {
                     ShiftRegister.WriteXml(writer);
                 }
+                else if (DisplayType == "InputAction")
+                {
+                    writer.WriteStartElement("action");
+                        InputAction?.WriteXml(writer);
+                    writer.WriteEndElement();
+                }
                 else
                 {
                     Pin.WriteXml(writer);
@@ -343,6 +363,7 @@ namespace MobiFlight
 
             clone.Interpolation             = this.Interpolation.Clone() as Interpolation;
             clone.ConfigRefs                = ConfigRefs.Clone() as ConfigRefList;
+            clone.InputAction               = this.InputAction?.Clone() as InputConfig.InputAction;
 
             return clone;
         }

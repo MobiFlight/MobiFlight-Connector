@@ -13,6 +13,7 @@ namespace MobiFlight.UI.Panels.Input
 {
     public partial class AnalogPanel : UserControl
     {
+        public event EventHandler<EventArgs> OnPanelChanged;
         InputConfig.AnalogInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
@@ -118,6 +119,7 @@ namespace MobiFlight.UI.Panels.Input
                 panel.Padding = new Padding(2, 0, 2, 0);
                 panel.Dock = DockStyle.Fill;
                 owner.Controls.Add(panel);
+                OnPanelChanged?.Invoke(panel, EventArgs.Empty);
             }
         }
 

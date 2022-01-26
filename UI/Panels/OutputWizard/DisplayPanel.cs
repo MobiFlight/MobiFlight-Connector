@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using MobiFlight.InputConfig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,6 +48,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
         public DisplayPanel()
         {
             InitializeComponent();
+            analogPanel1.OnPanelChanged += (s, e) => {
+                inputActionGroupBox.AutoSize = false;
+                inputActionGroupBox.Height = (s as UserControl).Height + 80;
+            };
         }
 
         public void SetConfigRefsDataView(DataView dv, string filterGuid)
@@ -126,36 +131,47 @@ namespace MobiFlight.UI.Panels.OutputWizard
             originalConfig = cfg.Clone() as OutputConfigItem;
             config = cfg;
 
-            if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
-            {
-                // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
-            }
+            OutputTypeDeviceRadioButton.Checked = (config.DisplayType != "InputAction");
+            InputActionRadioButton.Checked = (config.DisplayType == "InputAction");
 
-            if (config.DisplaySerial != null && config.DisplaySerial != "")
+            if (OutputTypeDeviceRadioButton.Checked)
             {
-                if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, config.DisplaySerial))
+                if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
                 {
                     // TODO: provide error message
+                    Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
                 }
+
+                if (config.DisplaySerial != null && config.DisplaySerial != "")
+                {
+                    if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, config.DisplaySerial))
+                    {
+                        // TODO: provide error message
+                    }
+                }
+
+                displayPinPanel.syncFromConfig(config);
+
+                displayBcdPanel.syncFromConfig(config);
+
+                displayLedDisplayPanel.syncFromConfig(config);
+
+                servoPanel.syncFromConfig(config);
+
+                // it is not nice but we haev to check what kind of stepper the stepper is
+                // to show or not show the manual calibration piece.
+                stepperPanel.syncFromConfig(config);
+
+                displayLcdDisplayPanel.syncFromConfig(config);
+
+                displayShiftRegisterPanel.SyncFromConfig(config);
             }
-
-            displayPinPanel.syncFromConfig(config);
-
-            displayBcdPanel.syncFromConfig(config);
-
-            displayLedDisplayPanel.syncFromConfig(config);
-
-            servoPanel.syncFromConfig(config);
-
-            // it is not nice but we haev to check what kind of stepper the stepper is
-            // to show or not show the manual calibration piece.
-            stepperPanel.syncFromConfig(config);
-
-            displayLcdDisplayPanel.syncFromConfig(config);
-
-            displayShiftRegisterPanel.SyncFromConfig(config);
-
+            else
+            {
+                AnalogInputConfig analogInputConfig = new AnalogInputConfig();
+                analogInputConfig.onChange = config.InputAction;
+                analogPanel1.syncFromConfig(analogInputConfig);
+            }
         }
 
         private void StepperPanel_OnStepperSelected(object sender, EventArgs e)
@@ -216,24 +232,32 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         internal void syncToConfig()
         {
-            config.DisplayType = displayTypeComboBox.Text;
-            config.DisplayTrigger = "normal";
-            config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
+            if (OutputTypeDeviceRadioButton.Checked) { 
+                config.DisplayType = displayTypeComboBox.Text;
+                config.DisplayTrigger = "normal";
+                config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
 
-            // sync panels
-            displayPinPanel.syncToConfig(config);
+                // sync panels
+                displayPinPanel.syncToConfig(config);
 
-            displayLedDisplayPanel.syncToConfig(config);
+                displayLedDisplayPanel.syncToConfig(config);
 
-            displayBcdPanel.syncToConfig(config);
+                displayBcdPanel.syncToConfig(config);
 
-            servoPanel.syncToConfig(config);
+                servoPanel.syncToConfig(config);
 
-            stepperPanel.syncToConfig(config);
+                stepperPanel.syncToConfig(config);
 
-            displayLcdDisplayPanel.syncToConfig(config);
+                displayLcdDisplayPanel.syncToConfig(config);
 
-            displayShiftRegisterPanel.SyncToConfig(config);
+                displayShiftRegisterPanel.SyncToConfig(config);
+            }
+            else { 
+                config.DisplayType = "InputAction";
+                AnalogInputConfig tmpConfig = new AnalogInputConfig();
+                analogPanel1.ToConfig(tmpConfig);
+                config.InputAction = tmpConfig.onChange;
+            }
         }
 
         private void displaySerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -679,6 +703,13 @@ namespace MobiFlight.UI.Panels.OutputWizard
             errorProvider.SetError(
                     control,
                     "");
+        }
+
+        private void OutputTypeDeviceRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            displayTypeGroupBox.Visible = OutputTypeDeviceRadioButton.Checked;
+            groupBoxDisplaySettings.Visible = OutputTypeDeviceRadioButton.Checked;
+            inputActionGroupBox.Visible = !OutputTypeDeviceRadioButton.Checked;
         }
     }
 }
