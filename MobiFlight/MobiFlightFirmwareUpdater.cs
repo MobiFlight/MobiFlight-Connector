@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Threading.Tasks;
 using LibUsbDotNet.LibUsb;
+using LibUsbDotNet.Main;
 
 namespace MobiFlight
 {
@@ -48,6 +49,9 @@ namespace MobiFlight
                 {
                     foreach (UsbDevice deviceInfo in allDevices)
                     {
+                        // It's possible to get the parent, but unfortunately that doesn't have an ID that matches the "hub" ID stored in the registry for the connected devices.
+                        var parent = deviceInfo.GetParent();
+
                         // At this point for a given device the following properties are available:
                         // * VendorId (a.k.a. VID)
                         // * ProductId (a.k.a. PID)
