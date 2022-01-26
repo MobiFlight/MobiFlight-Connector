@@ -133,8 +133,6 @@ namespace MobiFlight
             var FullRaspiPicoUpdatePath = $"{Directory.GetCurrentDirectory()}\\RaspberryPi\\tools";
             var proc1 = new ProcessStartInfo();
 
-            // This command doesn't actually work even with bus and address specified. I've opened a bug against
-            // picotool about it, see https://github.com/raspberrypi/picotool/issues/49
             var updateCommand = $"load {FirmwarePath}\\{FirmwareName} --bus {busNumber} --address {address}";
 
             proc1.WorkingDirectory = FullRaspiPicoUpdatePath;
