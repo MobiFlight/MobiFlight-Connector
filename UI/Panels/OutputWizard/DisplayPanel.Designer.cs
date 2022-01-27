@@ -41,14 +41,16 @@
             this.displayPinTestStopButton = new System.Windows.Forms.Button();
             this.displayPinTestButton = new System.Windows.Forms.Button();
             this.groupBoxDisplaySettings = new System.Windows.Forms.GroupBox();
-            this.displayTabTextBox = new System.Windows.Forms.TextBox();
             this.analogPanel1 = new MobiFlight.UI.Panels.Input.AnalogPanel();
             this.inputActionGroupBox = new System.Windows.Forms.GroupBox();
             this.OutputTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.OutputDevicePanel = new System.Windows.Forms.Panel();
+            this.DisplayPanelTextLabel = new System.Windows.Forms.Label();
             this.displayTypeGroupBox.SuspendLayout();
             this.testSettingsGroupBox.SuspendLayout();
             this.inputActionGroupBox.SuspendLayout();
             this.OutputTypeGroupBox.SuspendLayout();
+            this.OutputDevicePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayTypeGroupBox
@@ -143,15 +145,6 @@
             this.groupBoxDisplaySettings.Name = "groupBoxDisplaySettings";
             this.groupBoxDisplaySettings.TabStop = false;
             // 
-            // displayTabTextBox
-            // 
-            this.displayTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.displayTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
-            this.displayTabTextBox.Name = "displayTabTextBox";
-            this.displayTabTextBox.ReadOnly = true;
-            this.displayTabTextBox.TabStop = false;
-            // 
             // analogPanel1
             // 
             resources.ApplyResources(this.analogPanel1, "analogPanel1");
@@ -173,16 +166,27 @@
             this.OutputTypeGroupBox.Name = "OutputTypeGroupBox";
             this.OutputTypeGroupBox.TabStop = false;
             // 
+            // OutputDevicePanel
+            // 
+            resources.ApplyResources(this.OutputDevicePanel, "OutputDevicePanel");
+            this.OutputDevicePanel.Controls.Add(this.testSettingsGroupBox);
+            this.OutputDevicePanel.Controls.Add(this.groupBoxDisplaySettings);
+            this.OutputDevicePanel.Controls.Add(this.displayTypeGroupBox);
+            this.OutputDevicePanel.Name = "OutputDevicePanel";
+            // 
+            // DisplayPanelTextLabel
+            // 
+            resources.ApplyResources(this.DisplayPanelTextLabel, "DisplayPanelTextLabel");
+            this.DisplayPanelTextLabel.Name = "DisplayPanelTextLabel";
+            // 
             // DisplayPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.testSettingsGroupBox);
             this.Controls.Add(this.inputActionGroupBox);
-            this.Controls.Add(this.groupBoxDisplaySettings);
-            this.Controls.Add(this.displayTypeGroupBox);
+            this.Controls.Add(this.OutputDevicePanel);
             this.Controls.Add(this.OutputTypeGroupBox);
-            this.Controls.Add(this.displayTabTextBox);
+            this.Controls.Add(this.DisplayPanelTextLabel);
             this.Name = "DisplayPanel";
             this.displayTypeGroupBox.ResumeLayout(false);
             this.testSettingsGroupBox.ResumeLayout(false);
@@ -190,6 +194,8 @@
             this.inputActionGroupBox.PerformLayout();
             this.OutputTypeGroupBox.ResumeLayout(false);
             this.OutputTypeGroupBox.PerformLayout();
+            this.OutputDevicePanel.ResumeLayout(false);
+            this.OutputDevicePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,9 +215,10 @@
         private System.Windows.Forms.Button displayPinTestStopButton;
         private System.Windows.Forms.Button displayPinTestButton;
         private System.Windows.Forms.GroupBox groupBoxDisplaySettings;
-        private System.Windows.Forms.TextBox displayTabTextBox;
         private Input.AnalogPanel analogPanel1;
         private System.Windows.Forms.GroupBox inputActionGroupBox;
         private System.Windows.Forms.GroupBox OutputTypeGroupBox;
+        private System.Windows.Forms.Panel OutputDevicePanel;
+        private System.Windows.Forms.Label DisplayPanelTextLabel;
     }
 }

@@ -61,6 +61,7 @@
             this.comparisonActiveCheckBox = new System.Windows.Forms.CheckBox();
             this.comparisonHintTtextBox = new System.Windows.Forms.TextBox();
             this.displayTabPage = new System.Windows.Forms.TabPage();
+            this.displayPanel1 = new MobiFlight.UI.Panels.OutputWizard.DisplayPanel();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
             this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
             this.ButtonPanel = new System.Windows.Forms.Panel();
@@ -70,7 +71,6 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
-            this.displayPanel1 = new MobiFlight.UI.Panels.OutputWizard.DisplayPanel();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
@@ -309,7 +309,6 @@
             // 
             // comparisonHintTtextBox
             // 
-            this.comparisonHintTtextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.comparisonHintTtextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.comparisonHintTtextBox.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.comparisonHintTtextBox, "comparisonHintTtextBox");
@@ -323,6 +322,11 @@
             resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Name = "displayTabPage";
             this.displayTabPage.UseVisualStyleBackColor = true;
+            // 
+            // displayPanel1
+            // 
+            resources.ApplyResources(this.displayPanel1, "displayPanel1");
+            this.displayPanel1.Name = "displayPanel1";
             // 
             // preconditionTabPage
             // 
@@ -380,12 +384,6 @@
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
-            // 
-            // displayPanel1
-            // 
-            this.displayPanel1.BackColor = System.Drawing.SystemColors.Control;
-            resources.ApplyResources(this.displayPanel1, "displayPanel1");
-            this.displayPanel1.Name = "displayPanel1";
             // 
             // ConfigWizard
             // 

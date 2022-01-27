@@ -1063,13 +1063,18 @@ namespace MobiFlight
                         break;
 
                     case "InputAction":
+                        int iValue = 0;
+                        int.TryParse(value, out iValue);
+                        
+
                         inputActionExecutionCache.Execute(
                             cfg.InputAction,
                             fsuipcCache,
                             simConnectCache,
                             mobiFlightCache,
-                            new InputEventArgs() { StrValue = value },
-                            new List<ConfigRefValue>());
+                            new InputEventArgs() { Value = iValue, StrValue = value },
+                            GetRefs(cfg.ConfigRefs)
+                        );
                         break;
 
                     default:

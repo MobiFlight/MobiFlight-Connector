@@ -707,8 +707,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void OutputTypeDeviceRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            displayTypeGroupBox.Visible = OutputTypeDeviceRadioButton.Checked;
-            groupBoxDisplaySettings.Visible = OutputTypeDeviceRadioButton.Checked;
+            OutputDevicePanel.Visible = OutputTypeDeviceRadioButton.Checked;
             inputActionGroupBox.Visible = !OutputTypeDeviceRadioButton.Checked;
         }
     }

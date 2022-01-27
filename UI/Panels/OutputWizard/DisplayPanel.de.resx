@@ -117,13 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="OutputTypeDeviceRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 17</value>
-  </data>
-  <data name="OutputTypeDeviceRadioButton.Text" xml:space="preserve">
-    <value>Ausgabe Gerät</value>
-  </data>
   <data name="arcazeSerialLabel.Text" xml:space="preserve">
     <value>Modul</value>
   </data>
@@ -133,16 +126,20 @@
   <data name="displayTypeGroupBox.Text" xml:space="preserve">
     <value>Display Typ</value>
   </data>
-  <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 153</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="OutputTypeDeviceRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>96, 17</value>
+  </data>
+  <data name="OutputTypeDeviceRadioButton.Text" xml:space="preserve">
+    <value>Ausgabe Gerät</value>
   </data>
   <data name="testSettingsGroupBox.Text" xml:space="preserve">
     <value>Aktuelle Einstellung testen</value>
   </data>
-  <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 5</value>
-  </data>
   <data name="displayTabTextBox.Text" xml:space="preserve">
+    <value>Bitte passenden Display-Typ wählen, der für die Ausgabe verwendet werden soll.</value>
+  </data>
+  <data name="DisplayPanelTextLabel.Text" xml:space="preserve">
     <value>Bitte passenden Display-Typ wählen, der für die Ausgabe verwendet werden soll.</value>
   </data>
 </root>
