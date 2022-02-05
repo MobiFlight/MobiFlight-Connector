@@ -362,6 +362,8 @@ namespace MobiFlight.UI.Dialogs
                 // type of module
                 
                 inputTypeComboBox.Items.Clear();
+                inputTypeComboBox.ValueMember = "Value";
+                inputTypeComboBox.DisplayMember = "Label";
 
                 if (!Joystick.IsJoystickSerial(serial))
                 {
@@ -375,7 +377,7 @@ namespace MobiFlight.UI.Dialogs
                             case DeviceType.AnalogInput:
                             case DeviceType.Encoder:
                             case DeviceType.InputShiftRegister:
-                                inputTypeComboBox.Items.Add(device);
+                                inputTypeComboBox.Items.Add(new ListItem<Config.BaseDevice>() { Label = device.Name, Value = device });
                                 break;
                         }
                     }
@@ -430,7 +432,7 @@ namespace MobiFlight.UI.Dialogs
                 // find the correct input type based on the name
                 foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
                 {
-                    if (device.Name != (inputTypeComboBox.SelectedItem as Config.BaseDevice).Name) continue;
+                    if (device.Name != ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.BaseDevice).Name) continue;
 
                     currentInputType = device.Type;
                     break;
@@ -480,7 +482,7 @@ namespace MobiFlight.UI.Dialogs
 
 
                     case DeviceType.InputShiftRegister:
-                        Config.InputShiftRegister selectedInputShifter = inputTypeComboBox.SelectedItem as Config.InputShiftRegister;
+                        Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel();
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
                         (panel as Panels.Input.InputShiftRegisterPanel).SetVariableReferences(_execManager.GetAvailableVariables());
