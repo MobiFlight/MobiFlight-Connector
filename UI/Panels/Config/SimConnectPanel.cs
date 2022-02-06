@@ -181,7 +181,12 @@ namespace MobiFlight.UI.Panels.Config
             if (!PresetList.Items.Exists(x => x.code == OriginalCode))
             {
                 ShowExpertSerttingsCheckBox.Checked = true;
-                Msfs2020HubhopPreset CustomPreset = new Msfs2020HubhopPreset() { id = "0", label = "Customized Preset loaded", code = OriginalCode };
+                Msfs2020HubhopPreset CustomPreset = new Msfs2020HubhopPreset() { 
+                    id = "0", 
+                    label = "Customized Preset loaded", 
+                    code = OriginalCode,
+                    description = "This is a customized preset."
+                };
                 FilteredPresetList.Items.Add(CustomPreset);
                 FilteredPresetListChanged();
                 // We have found the original preset
@@ -198,7 +203,7 @@ namespace MobiFlight.UI.Panels.Config
             VendorComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
             AircraftComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
             SystemComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-            PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
+            //PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
 
             ComboBoxHelper.SetSelectedItemByValue(VendorComboBox, preset.vendor);
             ComboBoxHelper.SetSelectedItemByValue(AircraftComboBox, preset.aircraft);
@@ -208,7 +213,7 @@ namespace MobiFlight.UI.Panels.Config
             VendorComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
             AircraftComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
             SystemComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
-            PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
+            //PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -332,7 +337,7 @@ namespace MobiFlight.UI.Panels.Config
             PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             if (PresetComboBox.SelectedIndex > 0)
             {
-                SelectedValue = PresetComboBox.SelectedItem as String;
+                SelectedValue = PresetComboBox.SelectedValue as String;
             }
             PresetComboBox.DataSource = null;
             PresetComboBox.ValueMember = "id";
@@ -340,8 +345,9 @@ namespace MobiFlight.UI.Panels.Config
             PresetComboBox.DataSource = FilteredPresetList.Items;
 
             if (SelectedValue != null)
-                ComboBoxHelper.SetSelectedItemByValue(PresetComboBox, SelectedValue);
-
+            {
+                PresetComboBox.SelectedValue = SelectedValue;
+            }
             PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
 
@@ -373,6 +379,19 @@ namespace MobiFlight.UI.Panels.Config
         private void ShowExpertSerttingsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             ExpertSettingsPanel.Visible = ShowExpertSerttingsCheckBox.Checked;
+        }
+
+        private void ResetFilterButton_Click(object sender, EventArgs e)
+        {
+            ResetFilter();
+        }
+
+        private void ResetFilter()
+        {
+            VendorComboBox.SelectedIndex = 0;
+            AircraftComboBox.SelectedIndex = 0;
+            SystemComboBox.SelectedIndex = 0;
+            FilterTextBox.Text = "";
         }
     }
 

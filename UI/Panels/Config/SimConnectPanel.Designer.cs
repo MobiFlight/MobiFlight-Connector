@@ -255,10 +255,11 @@ namespace MobiFlight.UI.Panels.Config
             // 
             this.DescriptionLabel.AutoEllipsis = true;
             this.DescriptionLabel.BackColor = System.Drawing.SystemColors.Window;
+            this.DescriptionLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DescriptionLabel.Location = new System.Drawing.Point(75, 43);
             this.DescriptionLabel.Name = "DescriptionLabel";
             this.DescriptionLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.DescriptionLabel.Size = new System.Drawing.Size(345, 39);
+            this.DescriptionLabel.Size = new System.Drawing.Size(459, 39);
             this.DescriptionLabel.TabIndex = 18;
             this.DescriptionLabel.Text = "label7";
             // 
@@ -323,6 +324,7 @@ namespace MobiFlight.UI.Panels.Config
             this.button1.TabIndex = 15;
             this.button1.Text = "Reset";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.ResetFilterButton_Click);
             // 
             // FilterLabel
             // 
