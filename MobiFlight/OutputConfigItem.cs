@@ -43,7 +43,9 @@ namespace MobiFlight
         public PreconditionList   Preconditions       { get; set; }
         public ConfigRefList      ConfigRefs          { get; set; }     
         
-        public InputConfig.InputAction InputAction { get; set; }
+        public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
+
+        public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
 
         public OutputConfigItem()
         {
@@ -63,7 +65,8 @@ namespace MobiFlight
             Interpolation = new Interpolation();
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
-            InputAction = null;
+            ButtonInputConfig = null;
+            AnalogInputConfig = null;
         }
 
         public override bool Equals(object obj)
@@ -96,8 +99,8 @@ namespace MobiFlight
                 //===
                 this.ConfigRefs.Equals((obj as OutputConfigItem).ConfigRefs) &&
                 //===
-                ((this.InputAction==null&&(obj as InputConfigItem)==null) || (
-                this.InputAction!=null && this.InputAction.Equals((obj as InputConfigItem))))
+                ((this.AnalogInputConfig==null&&(obj as AnalogInputConfig)==null) || (
+                this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as AnalogInputConfig))))
             );
         }
 
@@ -189,9 +192,16 @@ namespace MobiFlight
                 }
                 else if (DisplayType == "InputAction")
                 {
-                    if (reader.ReadToDescendant("action"))
+                    reader.Read();
+
+                    if (reader.Name == "button")
                     {
-                        InputAction = InputActionFactory.CreateFromXmlReader(reader);
+                        ButtonInputConfig = new ButtonInputConfig();
+                        ButtonInputConfig.ReadXml(reader);
+                    } else if (reader.Name == "analog")
+                    {
+                        ButtonInputConfig = new ButtonInputConfig();
+                        ButtonInputConfig.ReadXml(reader);
                     }
                 }
             }
@@ -278,42 +288,51 @@ namespace MobiFlight
                 if ( DisplayTrigger != null)
                     writer.WriteAttributeString("trigger", DisplayTrigger);
 
-                if (DisplayType == ArcazeLedDigit.TYPE)
+            if (DisplayType == ArcazeLedDigit.TYPE)
+            {
+                LedModule.WriteXml(writer);
+
+            }
+            else if (DisplayType == ArcazeBcd4056.TYPE)
+            {
+                writer.WriteAttributeString("bcdPins", String.Join(",", BcdPins));
+            }
+            else if (DisplayType == DeviceType.Servo.ToString("F"))
+            {
+                Servo.WriteXml(writer);
+            }
+            else if (DisplayType == DeviceType.Stepper.ToString("F"))
+            {
+                Stepper.WriteXml(writer);
+            }
+            else if (DisplayType == OutputConfig.LcdDisplay.Type)
+            {
+                if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
+                LcdDisplay.WriteXml(writer);
+            }
+            else if (DisplayType == MobiFlightShiftRegister.TYPE)
+            {
+                ShiftRegister.WriteXml(writer);
+            }
+            else if (DisplayType == "InputAction")
+            {
+                if (ButtonInputConfig != null)
                 {
-                    LedModule.WriteXml(writer);
-                    
-                }
-                else if (DisplayType == ArcazeBcd4056.TYPE)
-                {
-                    writer.WriteAttributeString("bcdPins", String.Join(",",BcdPins));
-                }
-                else if (DisplayType == DeviceType.Servo.ToString("F"))
-                {
-                    Servo.WriteXml(writer);
-                }
-                else if (DisplayType == DeviceType.Stepper.ToString("F"))
-                {
-                    Stepper.WriteXml(writer);
-                }
-                else if (DisplayType == OutputConfig.LcdDisplay.Type)
-                {
-                    if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
-                    LcdDisplay.WriteXml(writer);
-                }
-                else if (DisplayType == MobiFlightShiftRegister.TYPE)
-                {
-                    ShiftRegister.WriteXml(writer);
-                }
-                else if (DisplayType == "InputAction")
-                {
-                    writer.WriteStartElement("action");
-                        InputAction?.WriteXml(writer);
+                    writer.WriteStartElement("button");
+                    ButtonInputConfig.WriteXml(writer);
                     writer.WriteEndElement();
                 }
-                else
+                else if (AnalogInputConfig != null)
                 {
-                    Pin.WriteXml(writer);
+                    writer.WriteStartElement("analog");
+                    AnalogInputConfig.WriteXml(writer);
+                    writer.WriteEndElement();
                 }
+            }
+            else
+            {
+                Pin.WriteXml(writer);
+            }
                                 
             writer.WriteEndElement(); // end of display
 

@@ -964,6 +964,9 @@
   <data name="displayPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
   </data>
+  <data name="displayPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="displayPanel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>522, 537</value>
   </data>

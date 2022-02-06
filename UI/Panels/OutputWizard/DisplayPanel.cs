@@ -131,10 +131,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
             originalConfig = cfg.Clone() as OutputConfigItem;
             config = cfg;
 
-            OutputTypeDeviceRadioButton.Checked = (config.DisplayType != "InputAction");
-            InputActionRadioButton.Checked = (config.DisplayType == "InputAction");
+            OutputTypeComboBox.SelectedIndex = (config.DisplayType == "InputAction") ? 1 : 0;
 
-            if (OutputTypeDeviceRadioButton.Checked)
+            if (OutputTypeComboBox.SelectedIndex == 0)
             {
                 if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
                 {
@@ -232,7 +231,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         internal void syncToConfig()
         {
-            if (OutputTypeDeviceRadioButton.Checked) { 
+            if (OutputTypeComboBox.SelectedIndex == 0) { 
                 config.DisplayType = displayTypeComboBox.Text;
                 config.DisplayTrigger = "normal";
                 config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
@@ -705,10 +704,14 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     "");
         }
 
-        private void OutputTypeDeviceRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void OutputTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            OutputDevicePanel.Visible = OutputTypeDeviceRadioButton.Checked;
-            inputActionGroupBox.Visible = !OutputTypeDeviceRadioButton.Checked;
+            DisplayTypePanel.Visible = OutputTypeComboBox.SelectedIndex == 0;
+            groupBoxDisplaySettings.Visible = OutputTypeComboBox.SelectedIndex == 0;
+            testSettingsGroupBox.Visible = OutputTypeComboBox.SelectedIndex == 0;
+
+            InputActionTypePanel.Visible = OutputTypeComboBox.SelectedIndex == 1;
+            inputActionGroupBox.Visible = OutputTypeComboBox.SelectedIndex == 1;
         }
     }
 }
