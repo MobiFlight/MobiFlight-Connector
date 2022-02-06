@@ -132,7 +132,7 @@
     <value>5, 0, 5, 0</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>516, 0</value>
+    <value>598, 0</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
@@ -142,7 +142,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>referencesGroupBox</value>
@@ -154,10 +154,10 @@
     <value>Fill</value>
   </data>
   <data name="referencesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 681</value>
+    <value>6, 705</value>
   </data>
   <data name="referencesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 0</value>
+    <value>604, 0</value>
   </data>
   <data name="referencesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -184,13 +184,13 @@
     <value>Top</value>
   </data>
   <data name="variablePanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 543</value>
+    <value>6, 567</value>
   </data>
   <data name="variablePanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
   <data name="variablePanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 138</value>
+    <value>604, 138</value>
   </data>
   <data name="variablePanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -199,7 +199,7 @@
     <value>variablePanel1</value>
   </data>
   <data name="&gt;&gt;variablePanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;variablePanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -229,7 +229,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="simConnectPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 252</value>
+    <value>604, 276</value>
   </data>
   <data name="simConnectPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -238,7 +238,7 @@
     <value>simConnectPanel1</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -259,7 +259,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 237</value>
+    <value>604, 237</value>
   </data>
   <data name="fsuipcConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -268,7 +268,7 @@
     <value>fsuipcConfigPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>FsuipcSettingsPanel</value>
@@ -283,7 +283,7 @@
     <value>0, 0</value>
   </data>
   <data name="fsuipcHintLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 23</value>
+    <value>604, 23</value>
   </data>
   <data name="fsuipcHintLabel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -313,7 +313,7 @@
     <value>6, 39</value>
   </data>
   <data name="FsuipcSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 252</value>
+    <value>604, 252</value>
   </data>
   <data name="FsuipcSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -457,7 +457,7 @@
     <value>6, 6</value>
   </data>
   <data name="OffsetTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>522, 33</value>
+    <value>604, 33</value>
   </data>
   <data name="OffsetTypePanel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -481,7 +481,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>534, 549</value>
+    <value>616, 657</value>
   </data>
   <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -544,7 +544,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -1319,7 +1319,7 @@
     <value>preconditionPanel</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.2.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
     <value>preconditionTabPage</value>
@@ -1361,7 +1361,7 @@
     <value>0, 0</value>
   </data>
   <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>542, 575</value>
+    <value>624, 683</value>
   </data>
   <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -1385,7 +1385,7 @@
     <value>0, 0</value>
   </data>
   <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>542, 575</value>
+    <value>624, 683</value>
   </data>
   <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1409,7 +1409,7 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>392, 0</value>
+    <value>474, 0</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -1439,7 +1439,7 @@
     <value>NoControl</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>467, 0</value>
+    <value>549, 0</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -1466,10 +1466,10 @@
     <value>Bottom</value>
   </data>
   <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 575</value>
+    <value>0, 683</value>
   </data>
   <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>542, 28</value>
+    <value>624, 28</value>
   </data>
   <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1493,13 +1493,13 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>190</value>
+    <value>82</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>542, 603</value>
+    <value>624, 711</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

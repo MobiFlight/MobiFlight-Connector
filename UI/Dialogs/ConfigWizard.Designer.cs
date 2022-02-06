@@ -149,7 +149,7 @@
             resources.ApplyResources(this.simConnectPanel1, "simConnectPanel1");
             this.simConnectPanel1.LVars = ((System.Collections.Generic.List<string>)(resources.GetObject("simConnectPanel1.LVars")));
             this.simConnectPanel1.Name = "simConnectPanel1";
-            this.simConnectPanel1.PresetFile = "Presets\\msfs2020_simvars.cip";
+            this.simConnectPanel1.PresetFile = "Presets\\msfs2020_presets.json";
             this.simConnectPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
             // 
             // FsuipcSettingsPanel
