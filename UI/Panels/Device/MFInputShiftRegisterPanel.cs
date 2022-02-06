@@ -33,24 +33,12 @@ namespace MobiFlight.UI.Panels.Settings
             pinList = Pins; // Keep pin list stored
 
             this.inputShiftRegister = inputShiftRegister;
-            ////ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, inputShiftRegister.LatchPin);
-            ////ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, inputShiftRegister.ClockPin);
-            ////ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, inputShiftRegister.DataPin);
             update_lists();
-
-            ////if (mfPin1ComboBox.Items.Count > 2) {
-            ////    mfPin1ComboBox.SelectedIndex = 0;
-            ////    mfPin2ComboBox.SelectedIndex = 1;
-            ////    mfPin3ComboBox.SelectedIndex = 2;
-            ////}
 
             for (int i = 1; i <= MAX_MODULES; i++) {
                 mfNumModulesComboBox.Items.Add(i);
             }
 
-            ////ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, inputShiftRegister.LatchPin);
-            ////ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, inputShiftRegister.ClockPin);
-            ////ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, inputShiftRegister.DataPin);
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, inputShiftRegister.NumModules);
             textBox1.Text = inputShiftRegister.Name;
 
@@ -59,26 +47,23 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void setNonPinValues()
         {
-            ////inputShiftRegister.LatchPin = mfPin1ComboBox.Text;
-            ////inputShiftRegister.ClockPin = mfPin2ComboBox.Text;
-            ////inputShiftRegister.DataPin = mfPin3ComboBox.Text;
             inputShiftRegister.Name = textBox1.Text;
             inputShiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
         }
 
         private void update_lists()
         {
-            bool ex_initialized = initialized;
+            bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
             ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, inputShiftRegister.LatchPin);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, pinList, inputShiftRegister.ClockPin);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, pinList, inputShiftRegister.DataPin);
-            initialized = ex_initialized;
+            initialized = exInitialized;
         }
 
         private void update_all(ComboBox comboBox)
         {
-            bool ex_initialized = initialized;
+            bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
 
             // First update the one that is changed
@@ -89,7 +74,7 @@ namespace MobiFlight.UI.Panels.Settings
             // then the others are updated too 
             update_lists();
 
-            initialized = ex_initialized;
+            initialized = exInitialized;
         }
 
         private void value_Changed(object sender, EventArgs e)

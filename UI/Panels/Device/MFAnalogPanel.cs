@@ -38,21 +38,14 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         public MFAnalogPanel(MobiFlight.Config.AnalogInput analogDevice, List<MobiFlightPin> FreePins): this()
         {
-            //var list = FreePins.Where(s => s.isAnalog == true);
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, FreePins, analogDevice.Pin, true);
 
             this.analog = analogDevice;
-
-            ////if (mfPinComboBox.Items.Count > 0)
-            ////{
-            ////    mfPinComboBox.SelectedIndex = 0;
-            ////}
 
             mfPinComboBox.SelectedValue = byte.Parse(analog.Pin);
             textBox1.Text = analog.Name;
             SensitivityTrackBar.Value = byte.Parse(analog.Sensitivity);
             
-            //setValues();
             initialized = true;
         }
 

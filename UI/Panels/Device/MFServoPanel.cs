@@ -20,16 +20,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             this.servo = servo;
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, servo.DataPin);
-
-            ////if (mfPinComboBox.Items.Count > 0) {
-            ////    mfPinComboBox.SelectedIndex = 0;
-            ////}
-            ////// TODO: Complete member initialization
-            ////mfPinComboBox.SelectedValue = byte.Parse(servo.DataPin);
-            
             textBox1.Text = servo.Name;
-            ////setValues();
-
             initialized = true;
         }
 

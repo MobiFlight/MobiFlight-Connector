@@ -37,12 +37,6 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             update_lists();
 
-            //if (mfPin1ComboBox.Items.Count > 2) {
-                // mfPin1ComboBox.SelectedIndex = 0;
-                // mfPin2ComboBox.SelectedIndex = 1;
-                // mfPin3ComboBox.SelectedIndex = 2;
-            //}
-
             textBox1.Text = ledModule.Name;
             mfIntensityTrackBar.Value = ledModule.Brightness;
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, ledModule.NumModules);
@@ -60,11 +54,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
             bool ex_initialized = initialized;
             initialized = false;    // inhibit value_Changed events
             ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, ledModule.DinPin);
-            //mfPin1ComboBox.SelectedValue = byte.Parse(ledModule.DinPin);  // moved inside BindMobiFlightFreePins()
             ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, pinList, ledModule.ClsPin);
-            //mfPin2ComboBox.SelectedValue = byte.Parse(ledModule.ClsPin);  // moved inside BindMobiFlightFreePins()
             ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, pinList, ledModule.ClkPin);
-            //mfPin3ComboBox.SelectedValue = byte.Parse(ledModule.ClkPin);  // moved inside BindMobiFlightFreePins()
             initialized = ex_initialized;
         }
 

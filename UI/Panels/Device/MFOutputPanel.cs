@@ -30,15 +30,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             this.MobiFlightBoard = MobiFlightBoard;
 
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, output.Pin);
-            ////if (mfPinComboBox.Items.Count > 0) {
-            ////    mfPinComboBox.SelectedIndex = 0;
-            ////}
-            //// TODO: Complete member initialization
-            //mfPinComboBox.SelectedValue = byte.Parse(output.Pin);
-            
             textBox1.Text = output.Name;
-            //setValues();
-
             initialized = true;
         }
 

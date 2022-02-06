@@ -28,25 +28,12 @@ namespace MobiFlight.UI.Panels.Settings
             pinList = Pins; // Keep pin list stored
 
             this.shiftRegister = shiftRegister;
-            ////ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, shiftRegister.LatchPin);
-            ////ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, shiftRegister.ClockPin);
-            ////ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, shiftRegister.DataPin);
             update_lists();
-
-            ////if (mfPin1ComboBox.Items.Count > 2)
-            ////{
-            ////    mfPin1ComboBox.SelectedIndex = 0;
-            ////    mfPin2ComboBox.SelectedIndex = 1;
-            ////    mfPin3ComboBox.SelectedIndex = 2;                
-            ////}
 
             for (int i = 1; i <= MAX_MODULES; i++) {
                 mfNumModulesComboBox.Items.Add(i);
             }
 
-            ////mfPin1ComboBox.SelectedValue = byte.Parse(shiftRegister.LatchPin);
-            ////mfPin2ComboBox.SelectedValue = byte.Parse(shiftRegister.ClockPin);
-            ////mfPin3ComboBox.SelectedValue = byte.Parse(shiftRegister.DataPin);
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, shiftRegister.NumModules);
             textBox1.Text = shiftRegister.Name;
 
@@ -55,9 +42,6 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void setNonPinValues()
         {
-            ////shiftRegister.LatchPin = mfPin1ComboBox.SelectedItem.ToString();
-            ////shiftRegister.ClockPin = mfPin2ComboBox.SelectedItem.ToString();
-            ////shiftRegister.DataPin = mfPin3ComboBox.SelectedItem.ToString();
             shiftRegister.Name = textBox1.Text;
             shiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
         }

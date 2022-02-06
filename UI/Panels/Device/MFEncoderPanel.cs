@@ -30,29 +30,18 @@ namespace MobiFlight.UI.Panels.Settings.Device
             pinList = Pins;
             this.encoder = encoder;
             update_lists();
-            ////ComboBoxHelper.BindMobiFlightFreePins(mfLeftPinComboBox, Pins, encoder.PinLeft);
-            ////ComboBoxHelper.BindMobiFlightFreePins(mfRightPinComboBox, Pins, encoder.PinRight);
 
             // Default standard selected values, next pins available
-            ////if (mfLeftPinComboBox.Items.Count > 1) 
-            ////{
-            ////    mfLeftPinComboBox.SelectedIndex = 0;
-            ////    mfRightPinComboBox.SelectedIndex = 1;
-            ////}
-
             mfLeftPinComboBox.SelectedValue = byte.Parse(encoder.PinLeft);
             mfRightPinComboBox.SelectedValue = byte.Parse(encoder.PinRight);
             ComboBoxHelper.SetSelectedItemByIndex(mfEncoderTypeComboBox, int.Parse(encoder.EncoderType));
             textBox1.Text = encoder.Name;
-            //setNonPinValues();
 
             initialized = true;
         }
 
         private void setNonPinValues()
         {
-            ////encoder.PinLeft = mfLeftPinComboBox.SelectedItem.ToString();
-            ////encoder.PinRight = mfRightPinComboBox.SelectedItem.ToString();
             encoder.EncoderType = mfEncoderTypeComboBox.SelectedIndex.ToString();
             encoder.Name = textBox1.Text;
         }
@@ -61,9 +50,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             bool ex_initialized = initialized;
             initialized = false;    // inhibit value_Changed events
             ComboBoxHelper.BindMobiFlightFreePins(mfLeftPinComboBox, pinList, encoder.PinLeft);
-            //mfLeftPinComboBox.SelectedValue = byte.Parse(encoder.PinLeft);  // moved inside BindMobiFlightFreePins()
             ComboBoxHelper.BindMobiFlightFreePins(mfRightPinComboBox, pinList, encoder.PinRight);
-            //mfRightPinComboBox.SelectedValue = byte.Parse(encoder.PinRight);  // moved inside BindMobiFlightFreePins()
             initialized = ex_initialized;
         }
 
