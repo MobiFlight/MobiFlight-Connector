@@ -1,5 +1,5 @@
 ﻿using MobiFlight.OutputConfig;
-using MobiFlight.SimConnectMSFS;
+using MobiFlight.HubHop;
 using MobiFlight.UI.Forms;
 using System;
 using System.Collections.Generic;
@@ -32,7 +32,6 @@ namespace MobiFlight.UI.Panels.Config
 
         Msfs2020HubhopPresetList PresetList = new Msfs2020HubhopPresetList();
         Msfs2020HubhopPresetList FilteredPresetList = new Msfs2020HubhopPresetList();
-        private Msfs2020HubhopPreset SelectedPreset = null;
 
         public List<String> LVars
         {
@@ -55,7 +54,7 @@ namespace MobiFlight.UI.Panels.Config
             PresetFile = Properties.Settings.Default.PresetFileMSFS2020SimVars;
 
             // New Json File
-            PresetFile = @"Presets\msfs2020_presets.json";
+            PresetFile = @"Presets\msfs2020_hubhop_presets.json";
 
             // Not sure if we want to keep the user file?
             // Would have to be JSON too...
@@ -67,6 +66,7 @@ namespace MobiFlight.UI.Panels.Config
             PresetComboBox.Enabled = false;
 
             _loadPresets();
+
             OnLVarsSet += SimConnectPanel_OnLVarsSet;
 
             if (Properties.Settings.Default.SimVarTextBoxExpanded)
@@ -101,7 +101,7 @@ namespace MobiFlight.UI.Panels.Config
             else
             {
                 try
-                {
+                {                    
                     PresetList.Load(PresetFile);
                     FilteredPresetList.Items = PresetList.Filtered("Output", null, null, null, null);
 
@@ -203,7 +203,9 @@ namespace MobiFlight.UI.Panels.Config
             ComboBoxHelper.SetSelectedItemByValue(VendorComboBox, preset.vendor);
             ComboBoxHelper.SetSelectedItemByValue(AircraftComboBox, preset.aircraft);
             ComboBoxHelper.SetSelectedItemByValue(SystemComboBox, preset.system);
+            PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             PresetComboBox.SelectedValue = preset.id;
+            PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

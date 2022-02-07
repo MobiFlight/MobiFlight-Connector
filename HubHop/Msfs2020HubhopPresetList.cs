@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MobiFlight.SimConnectMSFS
+namespace MobiFlight.HubHop
 {
     public class Msfs2020HubhopPreset
     {

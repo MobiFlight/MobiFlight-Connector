@@ -229,7 +229,7 @@
     <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
-    <Compile Include="SimConnectMSFS\Msfs2020HubhopPresetList.cs" />
+    <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
@@ -824,7 +824,7 @@
     <None Include="Presets\presets_eventids.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Presets\msfs2020_presets.json">
+    <None Include="Presets\msfs2020_hubhop_presets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\arcaze-module.png" />

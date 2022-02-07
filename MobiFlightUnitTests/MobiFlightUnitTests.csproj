@@ -106,7 +106,7 @@
     <Compile Include="mock\SimConnectMSFS\SimConnectCacheMock.cs" />
     <Compile Include="Panels\Group\InterpolationPanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MobiFlight\SimConnectMSFS\Msfs2020HubhopPresetListTests.cs" />
+    <Compile Include="HubHop\Msfs2020HubhopPresetListTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Base\BooleanConverterConfig\GetPins.xml" />
@@ -386,7 +386,7 @@
     <None Include="assets\Base\ConfigFile\tutorial-episode2.mcc.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="assets\MobiFlight\SimConnectMSFS\Msfs2020HubhopPresetListTests\test01.json">
+    <None Include="assets\HubHop\Msfs2020HubhopPresetListTests\test01.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -397,7 +397,10 @@
       <Name>MobiFlightConnector</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="assets\MobiFlight\SimConnectMSFS\" />
+    <Folder Include="MobiFlight\SimConnectMSFS\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
