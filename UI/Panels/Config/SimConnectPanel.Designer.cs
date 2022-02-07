@@ -404,7 +404,6 @@ namespace MobiFlight.UI.Panels.Config
             this.SystemComboBox.Name = "SystemComboBox";
             this.SystemComboBox.Size = new System.Drawing.Size(110, 21);
             this.SystemComboBox.TabIndex = 5;
-            this.SystemComboBox.SelectedIndexChanged += new System.EventHandler(this.GroupComboBox_SelectedIndexChanged);
             // 
             // transformOptionsGroup1
             // 

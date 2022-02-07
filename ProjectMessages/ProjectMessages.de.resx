@@ -489,4 +489,12 @@ Respective input actions won't work until they are connected and you have restar
     <value>Du kannst schon alle Configs referenzieren. Mehr hinzuzufügen macht keinen Sinn.</value>
     <comment>You already can reference all available configs. Adding more doesn't make sense.</comment>
   </data>
+  <data name="uiMessagesSimConnectPanelMatchesFound" xml:space="preserve">
+    <value>{0} Treffer gefunden</value>
+    <comment>{0} matches found.</comment>
+  </data>
+  <data name="uiMessagesSimConnectPanelShowAll" xml:space="preserve">
+    <value>- Alle zeigen - </value>
+    <comment>- show all - </comment>
+  </data>
 </root>

@@ -904,6 +904,24 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} matches found..
+        /// </summary>
+        internal static string uiMessagesSimConnectPanelMatchesFound {
+            get {
+                return ResourceManager.GetString("uiMessagesSimConnectPanelMatchesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - show all -.
+        /// </summary>
+        internal static string uiMessagesSimConnectPanelShowAll {
+            get {
+                return ResourceManager.GetString("uiMessagesSimConnectPanelShowAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error during Test-Mode: Module not connected..
         /// </summary>
         internal static string uiMessageTestModeModuleNotConnected {

@@ -18,6 +18,7 @@ namespace MobiFlight.UI.Panels.Config
 
     public partial class SimConnectPanel : UserControl
     {
+        public const byte MINIMUM_SEARCH_STRING_LENGTH = 1;
         public event EventHandler OnGetLVarListRequested;
         private event EventHandler OnLVarsSet;
 
@@ -99,10 +100,6 @@ namespace MobiFlight.UI.Panels.Config
             }
             else
             {
-                SystemComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-                VendorComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-                AircraftComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-
                 try
                 {
                     PresetList.Load(PresetFile);
@@ -139,10 +136,6 @@ namespace MobiFlight.UI.Panels.Config
                     isLoaded = false;
                     MessageBox.Show(i18n._tr("uiMessageConfigWizard_ErrorLoadingPresets"), i18n._tr("Hint"));
                 }
-
-                SystemComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
-                VendorComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
-                AircraftComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
             }
             SystemComboBox.Enabled = isLoaded;
         }
@@ -163,7 +156,8 @@ namespace MobiFlight.UI.Panels.Config
         internal void syncFromConfig(OutputConfigItem config)
         {
             // Restore the code
-            SimVarNameTextBox.Text = config.SimConnectValue.Value;
+            if (config.SimConnectValue.Value!="")
+                SimVarNameTextBox.Text = config.SimConnectValue.Value;
 
             // Sync the transform panel
             transformOptionsGroup1.syncFromConfig(config);
@@ -174,18 +168,24 @@ namespace MobiFlight.UI.Panels.Config
             String OriginalCode = config.SimConnectValue.Value;
             String OriginalId = config.SimConnectValue.Value;
 
-            if (OriginalCode == null) return;
+            TryToSelectOriginalPresetFromCode(OriginalCode);
+        }
+
+        private void TryToSelectOriginalPresetFromCode(string OriginalCode)
+        {
+            if (OriginalCode == null || OriginalCode == "") return;
 
             OriginalCode = Regex.Replace(OriginalCode, @":\d+", ":index");
 
             if (!PresetList.Items.Exists(x => x.code == OriginalCode))
             {
                 ShowExpertSerttingsCheckBox.Checked = true;
-                Msfs2020HubhopPreset CustomPreset = new Msfs2020HubhopPreset() { 
-                    id = "0", 
-                    label = "Customized Preset loaded", 
+                Msfs2020HubhopPreset CustomPreset = new Msfs2020HubhopPreset()
+                {
+                    id = "0",
+                    label = "Customized Preset or Custom Code",
                     code = OriginalCode,
-                    description = "This is a customized preset."
+                    description = "This is a customized preset or custom code."
                 };
                 FilteredPresetList.Items.Add(CustomPreset);
                 FilteredPresetListChanged();
@@ -200,20 +200,10 @@ namespace MobiFlight.UI.Panels.Config
 
         private void InitializeComboBoxesWithPreset(Msfs2020HubhopPreset preset)
         {
-            VendorComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-            AircraftComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-            SystemComboBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-            //PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
-
             ComboBoxHelper.SetSelectedItemByValue(VendorComboBox, preset.vendor);
             ComboBoxHelper.SetSelectedItemByValue(AircraftComboBox, preset.aircraft);
             ComboBoxHelper.SetSelectedItemByValue(SystemComboBox, preset.system);
             PresetComboBox.SelectedValue = preset.id;
-
-            VendorComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
-            AircraftComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
-            SystemComboBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
-            //PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -221,20 +211,17 @@ namespace MobiFlight.UI.Panels.Config
             Process.Start("https://docs.flightsimulator.com/html/Programming_Tools/SimVars/Simulation_Variables.htm");
         }
 
-        private void GroupComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            return;
-        }
-
         private void PresetComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((sender as ComboBox).SelectedValue == null) return;
-            String id = (sender as ComboBox).SelectedValue as String;
+            if ((sender as ComboBox).SelectedItem == null) return;
+            Msfs2020HubhopPreset selectedItem = (sender as ComboBox).SelectedItem as Msfs2020HubhopPreset;
 
-            Msfs2020HubhopPreset selectedPreset = FilteredPresetList.Items.Find(x => x.id == id);
+            Msfs2020HubhopPreset selectedPreset = FilteredPresetList.Items.Find(x => x.id == selectedItem.id);
             if (selectedPreset == null) return;
             DescriptionLabel.Text = selectedPreset?.description;
             SimVarNameTextBox.Text = selectedPreset?.code;
+
+            DescriptionLabel.Enabled = selectedItem.id != "-";
         }
 
         private void SimVarNameTextBox_TextChanged(object sender, EventArgs e)
@@ -307,9 +294,15 @@ namespace MobiFlight.UI.Panels.Config
             if (VendorComboBox.SelectedIndex > 0) SelectedVendor = VendorComboBox.SelectedItem.ToString();
             if (AircraftComboBox.SelectedIndex > 0) SelectedAircraft = AircraftComboBox.SelectedItem.ToString();
             if (SystemComboBox.SelectedIndex > 0) SelectedSystem = SystemComboBox.SelectedItem.ToString();
-            if (FilterTextBox.Text != "" && FilterTextBox.Text.Length > 2) FilterText = FilterTextBox.Text;
+            if (FilterTextBox.Text != "" && FilterTextBox.Text.Length >= MINIMUM_SEARCH_STRING_LENGTH) FilterText = FilterTextBox.Text;
 
             FilteredPresetList.Items.Clear();
+            FilteredPresetList.Items.Add(new Msfs2020HubhopPreset() { 
+                    label = "- Select Preset -",
+                    id = "-",
+                    code = "",
+                    description = "No Preset selected."
+            });
             FilteredPresetList.Items.AddRange(
                 PresetList.Filtered(
                     "Output",
@@ -319,6 +312,13 @@ namespace MobiFlight.UI.Panels.Config
                     FilterText
                     )
             );
+
+            // Substract 1 because of the static "select preset"-label
+            int MatchesFound = FilteredPresetList.Items.Count - 1;
+            MatchLabel.Text = String.Format(
+                                    i18n._tr("uiMessagesSimConnectPanelMatchesFound"), 
+                                    MatchesFound);
+
             FilteredPresetListChanged();
         }
 
@@ -328,26 +328,32 @@ namespace MobiFlight.UI.Panels.Config
             UpdateValues(AircraftComboBox, FilteredPresetList.AllAircraft("Output").ToArray());
             UpdateValues(SystemComboBox, FilteredPresetList.AllSystems("Output").ToArray());
             UpdatePresetComboBoxValues();
-            MatchLabel.Text = $"{FilteredPresetList.Items.Count} presets found";
         }
 
         private void UpdatePresetComboBoxValues()
-        {
+        {           
             String SelectedValue = null;
             PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             if (PresetComboBox.SelectedIndex > 0)
             {
-                SelectedValue = PresetComboBox.SelectedValue as String;
+                SelectedValue = (PresetComboBox.Items[PresetComboBox.SelectedIndex] as Msfs2020HubhopPreset).id;
             }
+
             PresetComboBox.DataSource = null;
+            PresetComboBox.DataSource = FilteredPresetList.Items;
             PresetComboBox.ValueMember = "id";
             PresetComboBox.DisplayMember = "label";
-            PresetComboBox.DataSource = FilteredPresetList.Items;
 
             if (SelectedValue != null)
             {
                 PresetComboBox.SelectedValue = SelectedValue;
+            } else
+            {
+                PresetComboBox.SelectedIndex = 0;
             }
+
+            PresetComboBox.Enabled = (FilteredPresetList.Items.Count > 1);
+
             PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
 
@@ -361,7 +367,7 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             cb.Items.Clear();
-            cb.Items.Add(i18n._tr("- show all -"));
+            cb.Items.Add(i18n._tr("uiMessagesSimConnectPanelShowAll"));
             cb.SelectedIndex = 0;
             cb.Items.AddRange(valueList);
 
@@ -384,6 +390,7 @@ namespace MobiFlight.UI.Panels.Config
         private void ResetFilterButton_Click(object sender, EventArgs e)
         {
             ResetFilter();
+            TryToSelectOriginalPresetFromCode(SimVarNameTextBox.Text);
         }
 
         private void ResetFilter()

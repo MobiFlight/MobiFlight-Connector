@@ -51,7 +51,9 @@ namespace MobiFlight.SimConnectMSFS
                 return Items
                     .FindAll(x => x.presetType == presetType)
                     .GroupBy(x => x.vendor)
-                    .Select(g => g.FirstOrDefault().vendor).ToList();
+                    .Select(g => g.FirstOrDefault().vendor)
+                    .OrderBy(x => x)
+                    .ToList();
         }
 
         public List<String> AllAircraft(String presetType)
@@ -59,7 +61,9 @@ namespace MobiFlight.SimConnectMSFS
             return Items
                 .FindAll(x => x.presetType == presetType)
                 .GroupBy(x => x.aircraft)
-                .Select(g => g.FirstOrDefault().aircraft).ToList();
+                .Select(g => g.FirstOrDefault().aircraft)
+                .OrderBy(x => x)
+                .ToList();
         }
 
         public List<String> AllSystems(String presetType)
@@ -67,98 +71,12 @@ namespace MobiFlight.SimConnectMSFS
             return Items
                 .FindAll(x => x.presetType == presetType)
                 .GroupBy(x => x.system)
-                .Select(g => g.FirstOrDefault().system).ToList();
+                .Select(g => g.FirstOrDefault().system)
+                .OrderBy(x => x)
+                .ToList();
         }
 
-        public List<String> FilteredVendors(String Aircraft, String System)
-        {
-            List<String> result = new List<string>();
-
-            if (Aircraft != null)
-            {
-                if (System != null)
-                    result = Items.FindAll(x => x.aircraft == Aircraft && x.system == System)
-                        .GroupBy(x => x.vendor)
-                        .Select(g => g.FirstOrDefault().vendor).ToList();
-                else
-                    result = Items.FindAll(x => x.aircraft == Aircraft)
-                        .GroupBy(x => x.vendor)
-                        .Select(g => g.FirstOrDefault().vendor).ToList();
-            }
-            else if (System != null)
-            {
-                result = Items.FindAll(x => x.system == System)
-                        .GroupBy(x => x.vendor)
-                        .Select(g => g.FirstOrDefault().vendor).ToList();
-            }
-
-            return result;
-        }
-
-        public List<String> FilteredAircraft(String Vendor, String System)
-        {
-            List<String> result = new List<string>();
-
-            if (Vendor != null)
-            {
-                if (System != null)
-                    result = Items.FindAll(x => x.vendor == Vendor && x.system == System)
-                        .GroupBy(x => x.aircraft)
-                        .Select(g => g.FirstOrDefault().aircraft).ToList();
-                else
-                    result = Items.FindAll(x => x.vendor == Vendor)
-                        .GroupBy(x => x.aircraft)
-                        .Select(g => g.FirstOrDefault().aircraft).ToList();
-            }
-            else if (System != null)
-            {
-                result = Items.FindAll(x => x.system == System)
-                        .GroupBy(x => x.aircraft)
-                        .Select(g => g.FirstOrDefault().aircraft).ToList();
-            }
-
-            return result;
-        }
-
-        public List<String> FilteredSystems(String Vendor, String Aircraft)
-        {
-            List<String> result = new List<string>();
-            
-            if (Vendor != null)
-            {
-                if (Aircraft != null) 
-                    result = Items.FindAll(x => x.vendor==Vendor && x.aircraft==Aircraft)
-                        .GroupBy(x => x.system)
-                        .Select(g => g.FirstOrDefault().system).ToList();
-                else
-                    result = Items.FindAll(x => x.vendor == Vendor)
-                        .GroupBy(x => x.system)
-                        .Select(g => g.FirstOrDefault().system).ToList();
-            } else if (Aircraft != null)
-            {
-                result = Items.FindAll(x => x.aircraft == Aircraft)
-                        .GroupBy(x => x.system)
-                        .Select(g => g.FirstOrDefault().system).ToList();
-            }
-            
-            return result;
-        }
-
-        public List<Msfs2020HubhopPreset> FilteredByText(String type, String filterText)
-        {
-            if (filterText == null || filterText == "") return Items;
-
-            return new List<Msfs2020HubhopPreset>(
-                Items.FindAll(x => x.presetType == type)
-                     .FindAll(x => x.vendor.IndexOf(filterText) >= 0 ||
-                                   x.aircraft.IndexOf(filterText) >= 0 ||
-                                   x.system.IndexOf(filterText) >= 0 ||
-                                   x.description?.IndexOf(filterText) >= 0)
-                     .ToArray()
-            );
-        }
-
-        internal List<Msfs2020HubhopPreset> Filtered(string type, string selectedVendor, string selectedAircraft, string selectedSystem, string filterText)
+        public List<Msfs2020HubhopPreset> Filtered(string type, string selectedVendor, string selectedAircraft, string selectedSystem, string filterText)
         {
             List<Msfs2020HubhopPreset> temp;
             temp = Items.FindAll(x => x.presetType == type);
@@ -171,11 +89,12 @@ namespace MobiFlight.SimConnectMSFS
             if (selectedSystem != null)
                 temp = temp.FindAll(x => x.system == selectedSystem);
 
-            if (filterText != null && filterText.Length > 2)
-                temp = temp.FindAll(x => x.vendor.IndexOf(filterText) >= 0 ||
-                                   x.aircraft.IndexOf(filterText) >= 0 ||
-                                   x.system.IndexOf(filterText) >= 0 ||
-                                   x.description?.IndexOf(filterText) >= 0);
+            if (filterText != null)
+                temp = temp.FindAll(x=>(x.vendor.ToLower().IndexOf(filterText.ToLower()) >= 0) ||
+                                        x.aircraft.ToLower().IndexOf(filterText.ToLower()) >= 0 ||
+                                        x.system.ToLower().IndexOf(filterText.ToLower()) >= 0 ||
+                                        x.description?.ToLower().IndexOf(filterText.ToLower()) >= 0 ||
+                                        x.code?.ToLower().IndexOf(filterText.ToLower()) >= 0);
 
             return new List<Msfs2020HubhopPreset>(
                 temp.ToArray()

@@ -494,4 +494,10 @@ Respective input actions won't work until they are connected and you have restar
   <data name="uiMessageNoMoreConfigReferenceAvailable" xml:space="preserve">
     <value>You already can reference all available configs. Adding more doesn't make sense.</value>
   </data>
+  <data name="uiMessagesSimConnectPanelMatchesFound" xml:space="preserve">
+    <value>{0} matches found.</value>
+  </data>
+  <data name="uiMessagesSimConnectPanelShowAll" xml:space="preserve">
+    <value>- show all -</value>
+  </data>
 </root>
