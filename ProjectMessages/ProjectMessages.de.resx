@@ -437,12 +437,6 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
   <data name="uiMessageNoSimConnectConnection" xml:space="preserve">
     <value>Keine aktive SimConnect Verbindung.</value>
   </data>
-  <data name="uiSimConnectPanelComboBoxPresetSelect" xml:space="preserve">
-    <value>Preset auswählen</value>
-  </data>
-  <data name="uiSimConnectPanelComboBoxPresetSelectGroup" xml:space="preserve">
-    <value>Preset Gruppe auswählen</value>
-  </data>
   <data name="uiMessageSimConnectConnectionLost" xml:space="preserve">
     <value>Die Verbindung zu SimConnect wurde unterbrochen.</value>
   </data>

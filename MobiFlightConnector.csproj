@@ -334,6 +334,12 @@
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\HubHopPresetPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\HubHopPresetPanel.Designer.cs">
+      <DependentUpon>HubHopPresetPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Config\PreconditionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -918,6 +924,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\ConfigRefPanel.de.resx">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\HubHopPresetPanel.resx">
+      <DependentUpon>HubHopPresetPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\PreconditionPanel.de.resx">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
