@@ -15,11 +15,43 @@ using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
 {
+    public enum HubHopPanelMode {
+        Output,
+        Input
+    }
+
     public partial class HubHopPresetPanel : UserControl
     {
         public const byte MINIMUM_SEARCH_STRING_LENGTH = 1;
         public event EventHandler OnGetLVarListRequested;
         private event EventHandler OnLVarsSet;
+
+        private HubHopPanelMode _mode;
+        public HubHopPanelMode Mode { 
+            get { return _mode; } 
+            set { 
+                if (_mode == value) return;
+                _mode = value;
+                OnModeChanged(value);
+            } 
+        }
+
+        private void OnModeChanged(HubHopPanelMode value)
+        {
+            LVarExamplePanel.Visible = value == HubHopPanelMode.Output;
+            AVarExamplePanel.Visible = value == HubHopPanelMode.Output;
+            ExampleLabel.Visible = value == HubHopPanelMode.Output;
+
+            ShowExpertSettingsCheckBox.Checked = value == HubHopPanelMode.Input;
+
+            if (value == HubHopPanelMode.Input)
+            {
+                FilterVendorPanel.Width = 100;
+                AircraftFilterPanel.Width = 100;
+                SystemFilterPanel.Width = 100;
+                TextFilterPanel.Width = 100;
+            }
+        }
 
         public String PresetFile { get; set; }
         public String PresetFileUser { get; set; }
@@ -43,6 +75,7 @@ namespace MobiFlight.UI.Panels.Config
                 OnLVarsSet?.Invoke(lVars, new EventArgs());
             }
         }
+        
 
         public HubHopPresetPanel()
         {
@@ -53,7 +86,7 @@ namespace MobiFlight.UI.Panels.Config
             ExpandButton.Click += this.ExpandButton_Click;
             ShowExpertSettingsCheckBox.CheckedChanged += this.ShowExpertSerttingsCheckBox_CheckedChanged;
             PresetComboBox.SelectedIndexChanged += this.PresetComboBox_SelectedIndexChanged;
-            button1.Click += this.ResetFilterButton_Click;
+            ResetButton.Click += this.ResetFilterButton_Click;
             FilterTextBox.TextChanged += this.textBox1_TextChanged;
             VendorComboBox.SelectedIndexChanged += this.OnFilter_SelectedIndexChanged;
             OnLVarsSet += SimConnectPanel_OnLVarsSet;
@@ -156,6 +189,16 @@ namespace MobiFlight.UI.Panels.Config
             config.SimConnectValue.Value = SimVarNameTextBox.Text;
         }
 
+        internal InputConfig.InputAction ToConfig()
+        {
+            MobiFlight.InputConfig.MSFS2020CustomInputAction result = 
+                new InputConfig.MSFS2020CustomInputAction()
+                {
+                    Command = SimVarNameTextBox.Text
+                };
+            return result;
+        }
+
         internal void syncFromConfig(OutputConfigItem config)
         {
             // Restore the code
@@ -165,6 +208,19 @@ namespace MobiFlight.UI.Panels.Config
             // Try to find the original preset and 
             // initialize comboboxes accordingly
             String OriginalCode = config.SimConnectValue.Value;
+
+            TryToSelectOriginalPresetFromCode(OriginalCode);
+        }
+
+        internal void syncFromConfig(InputConfig.MSFS2020CustomInputAction inputAction)
+        {
+            // Restore the code
+            if (inputAction.Command != "")
+                SimVarNameTextBox.Text = inputAction.Command;
+
+            // Try to find the original preset and 
+            // initialize comboboxes accordingly
+            String OriginalCode = inputAction.Command;
 
             TryToSelectOriginalPresetFromCode(OriginalCode);
         }

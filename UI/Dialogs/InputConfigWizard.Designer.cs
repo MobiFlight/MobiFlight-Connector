@@ -32,9 +32,7 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
-            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
             this.configRefTabPage = new System.Windows.Forms.TabPage();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.groupBoxInputSettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
@@ -50,6 +48,8 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
@@ -85,22 +85,12 @@
             this.preconditionTabPage.Name = "preconditionTabPage";
             this.preconditionTabPage.UseVisualStyleBackColor = true;
             // 
-            // preconditionPanel
-            // 
-            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
-            this.preconditionPanel.Name = "preconditionPanel";
-            // 
             // configRefTabPage
             // 
             this.configRefTabPage.Controls.Add(this.configRefPanel);
             resources.ApplyResources(this.configRefTabPage, "configRefTabPage");
             this.configRefTabPage.Name = "configRefTabPage";
             this.configRefTabPage.UseVisualStyleBackColor = true;
-            // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
             // 
             // displayTabPage
             // 
@@ -219,6 +209,16 @@
             // description
             // 
             this.description.ColumnName = "description";
+            // 
+            // preconditionPanel
+            // 
+            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
+            this.preconditionPanel.Name = "preconditionPanel";
+            // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
             // 
             // settingsColumn
             // 
