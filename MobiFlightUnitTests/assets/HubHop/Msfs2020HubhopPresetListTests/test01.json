@@ -94,5 +94,23 @@
     "version": 1,
     "author": "Mobiflight Community",
     "createdDate": "2021-08-15T19:44:15.763Z"
+  },
+  {
+    "path": "Asobo.Cessna 172.Engines.C172_THROTTLE_SET",
+    "vendor": "Asobo",
+    "aircraft": "Cessna 172",
+    "system": "Engines",
+    "code": "@ 16383 1023 / * 0 max 16383 min (>K:THROTTLE1_SET) ",
+    "label": "C172_THROTTLE_SET",
+    "presetType": "Input (Potentiometer)",
+    "version": 3,
+    "status": "Updated",
+    "createdDate": "2021-10-02T21:34:25.465Z",
+    "author": "Jaime Leon",
+    "updatedBy": "Jaime Leon",
+    "description": "EVENT INTENDED FOR ANALOG POTENTIOMETER AND CUSTOM INPUT BOX\nExpected input range 0-16383",
+    "reported": 0,
+    "score": 0,
+    "id": "83c53203-e8f3-4cf4-831e-e8e3ceaad005"
   }
 ]

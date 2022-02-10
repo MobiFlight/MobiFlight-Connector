@@ -1,13 +1,25 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MobiFlight.HubHop
 {
+    public enum HubhopType
+    {
+        [EnumMember(Value = "Output")]
+        Output = 1,
+        [EnumMember(Value = "Input")]
+        Input = 2,
+        [EnumMember(Value = "Input (Potentiometer)")]
+        InputPotentiometer = 4
+    }
+
     public class Msfs2020HubhopPreset
     {
         public String path;
@@ -16,7 +28,8 @@ namespace MobiFlight.HubHop
         public String system;
         public String code { get; set; }
         public String label { get; set; }
-        public String presetType;
+        [JsonConverter(typeof(StringEnumConverter))]
+        public HubhopType presetType;
         public int version;
         public String status;
         public String description;
@@ -46,40 +59,44 @@ namespace MobiFlight.HubHop
             }
         }
 
-        public List<String> AllVendors(String presetType)
+        public List<String> AllVendors(HubhopType presetType)
         {
-                return Items
-                    .FindAll(x => x.presetType == presetType)
-                    .GroupBy(x => x.vendor)
-                    .Select(g => g.FirstOrDefault().vendor)
-                    .OrderBy(x => x)
-                    .ToList();
+
+            return Items
+                .FindAll(x => (x.presetType & presetType) > 0)
+                .GroupBy(x => x.vendor)
+                .Select(g => g.FirstOrDefault().vendor)
+                .OrderBy(x => x)
+                .ToList();
         }
 
-        public List<String> AllAircraft(String presetType)
+        public List<String> AllAircraft(HubhopType presetType)
         {
+
             return Items
-                .FindAll(x => x.presetType == presetType)
+                .FindAll(x => (x.presetType & presetType) > 0)
                 .GroupBy(x => x.aircraft)
                 .Select(g => g.FirstOrDefault().aircraft)
                 .OrderBy(x => x)
                 .ToList();
         }
 
-        public List<String> AllSystems(String presetType)
+        public List<String> AllSystems(HubhopType presetType)
         {
             return Items
-                .FindAll(x => x.presetType == presetType)
+                .FindAll(x => (x.presetType & presetType) > 0)
                 .GroupBy(x => x.system)
                 .Select(g => g.FirstOrDefault().system)
                 .OrderBy(x => x)
                 .ToList();
         }
 
-        public List<Msfs2020HubhopPreset> Filtered(string type, string selectedVendor, string selectedAircraft, string selectedSystem, string filterText)
+        public List<Msfs2020HubhopPreset> Filtered(HubhopType presetType, string selectedVendor, string selectedAircraft, string selectedSystem, string filterText)
         {
             List<Msfs2020HubhopPreset> temp;
-            temp = Items.FindAll(x => x.presetType == type);
+
+            temp = Items.FindAll(x => (x.presetType & presetType) > 0);
+            
             if (selectedVendor != null)
                 temp = temp.FindAll(x => x.vendor == selectedVendor);
 
@@ -93,14 +110,14 @@ namespace MobiFlight.HubHop
                 temp = temp.FindAll(x=>(x.vendor.ToLower().IndexOf(filterText.ToLower()) >= 0) ||
                                         x.aircraft.ToLower().IndexOf(filterText.ToLower()) >= 0 ||
                                         x.system.ToLower().IndexOf(filterText.ToLower()) >= 0 ||
+                                        x.label.ToLower().IndexOf(filterText.ToLower()) >= 0 ||
                                         x.description?.ToLower().IndexOf(filterText.ToLower()) >= 0 ||
                                         x.code?.ToLower().IndexOf(filterText.ToLower()) >= 0);
 
             return new List<Msfs2020HubhopPreset>(
-                temp.ToArray()
+                temp.OrderBy(x => x.label)
+                    .ToArray()
             );
         }
     }
-
-   
 }
