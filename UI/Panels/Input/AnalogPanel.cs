@@ -98,7 +98,7 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
-                // For backward compatibility this is now combined and MSFS2020EventIdPanel was removed
+                // For backward compatibility this is now combined and MSFS2020EventIdInputAction was removed
                 case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel();
                     if (_config != null && _config.onChange != null)
