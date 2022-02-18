@@ -106,7 +106,6 @@
             this.OfflineModeIconToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.logTextBox = new System.Windows.Forms.TextBox();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataTable1 = new System.Data.DataTable();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -116,6 +115,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
+            this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -653,12 +653,6 @@
             resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
             this.toolStripStatusLabel.Spring = true;
             // 
-            // logTextBox
-            // 
-            resources.ApplyResources(this.logTextBox, "logTextBox");
-            this.logTextBox.Name = "logTextBox";
-            this.logTextBox.ReadOnly = true;
-            // 
             // activeDataGridViewCheckBoxColumn
             // 
             this.activeDataGridViewCheckBoxColumn.DataPropertyName = "active";
@@ -715,6 +709,11 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
             // 
+            // logPanel1
+            // 
+            resources.ApplyResources(this.logPanel1, "logPanel1");
+            this.logPanel1.Name = "logPanel1";
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -722,7 +721,7 @@
             this.Controls.Add(this.startupPanel);
             this.Controls.Add(this.logSplitter);
             this.Controls.Add(this.panelMain);
-            this.Controls.Add(this.logTextBox);
+            this.Controls.Add(this.logPanel1);
             this.Controls.Add(this.statusStripPanel);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip);
@@ -803,7 +802,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripButton donateToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        public System.Windows.Forms.TextBox logTextBox;
         private System.Windows.Forms.TabControl inputsTabControl;
         private System.Windows.Forms.TabPage OutputTabPage;
         private System.Windows.Forms.TabPage InputTabPage;
@@ -846,6 +844,7 @@
         private System.Windows.Forms.ToolStripButton YouTubeToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem openYoutubeChannelToolStripMenuItem;
+        private Panels.LogPanel logPanel1;
     }
 }
 
