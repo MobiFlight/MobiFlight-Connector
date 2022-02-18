@@ -10,16 +10,6 @@ using System.Threading.Tasks;
 
 namespace MobiFlight.HubHop
 {
-    public enum HubhopType
-    {
-        [EnumMember(Value = "Output")]
-        Output = 1,
-        [EnumMember(Value = "Input")]
-        Input = 2,
-        [EnumMember(Value = "Input (Potentiometer)")]
-        InputPotentiometer = 4
-    }
-
     public class Msfs2020HubhopPreset
     {
         public String path;
@@ -29,7 +19,7 @@ namespace MobiFlight.HubHop
         public String code { get; set; }
         public String label { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
-        public HubhopType presetType;
+        public HubHopType presetType;
         public int version;
         public String status;
         public String description;
@@ -59,7 +49,7 @@ namespace MobiFlight.HubHop
             }
         }
 
-        public List<String> AllVendors(HubhopType presetType)
+        public List<String> AllVendors(HubHopType presetType)
         {
 
             return Items
@@ -70,7 +60,7 @@ namespace MobiFlight.HubHop
                 .ToList();
         }
 
-        public List<String> AllAircraft(HubhopType presetType)
+        public List<String> AllAircraft(HubHopType presetType)
         {
 
             return Items
@@ -81,7 +71,7 @@ namespace MobiFlight.HubHop
                 .ToList();
         }
 
-        public List<String> AllSystems(HubhopType presetType)
+        public List<String> AllSystems(HubHopType presetType)
         {
             return Items
                 .FindAll(x => (x.presetType & presetType) > 0)
@@ -91,7 +81,7 @@ namespace MobiFlight.HubHop
                 .ToList();
         }
 
-        public List<Msfs2020HubhopPreset> Filtered(HubhopType presetType, string selectedVendor, string selectedAircraft, string selectedSystem, string filterText)
+        public List<Msfs2020HubhopPreset> Filtered(HubHopType presetType, string selectedVendor, string selectedAircraft, string selectedSystem, string filterText)
         {
             List<Msfs2020HubhopPreset> temp;
 
@@ -118,6 +108,15 @@ namespace MobiFlight.HubHop
                 temp.OrderBy(x => x.label)
                     .ToArray()
             );
+        }
+
+        public Msfs2020HubhopPreset FindByLabel(HubHopType presetType, string label)
+        {
+            Msfs2020HubhopPreset result = new Msfs2020HubhopPreset();
+
+            result = Items.Find(x => (x.presetType & presetType) > 0 && x.label == label);
+
+            return result;
         }
     }
 }

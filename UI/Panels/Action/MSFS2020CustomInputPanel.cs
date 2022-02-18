@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Action
 {
@@ -28,6 +29,11 @@ namespace MobiFlight.UI.Panels.Action
         internal InputConfig.InputAction ToConfig()
         {
             return hubHopPresetPanel1.ToConfig();            
+        }
+
+        internal void syncFromConfig(MSFS2020EventIdInputAction inputAction)
+        {
+            hubHopPresetPanel1.syncFromConfig(inputAction);
         }
     }
 }

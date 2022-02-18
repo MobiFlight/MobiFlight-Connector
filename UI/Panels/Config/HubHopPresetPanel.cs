@@ -1,4 +1,5 @@
 ﻿using MobiFlight.HubHop;
+using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
 using System;
@@ -134,8 +135,8 @@ namespace MobiFlight.UI.Panels.Config
             }
             else
             {
-                HubhopType hubhopType = HubhopType.Output;
-                if (Mode==HubHopPanelMode.Input) hubhopType = HubhopType.Input | HubhopType.InputPotentiometer;
+                HubHopType hubhopType = HubHopType.Output;
+                if (Mode==HubHopPanelMode.Input) hubhopType = HubHopType.Input | HubHopType.InputPotentiometer;
                 try
                 {
                     PresetList.Load(PresetFile);
@@ -225,6 +226,23 @@ namespace MobiFlight.UI.Panels.Config
             // initialize comboboxes accordingly
             String OriginalCode = inputAction.Command;
 
+            TryToSelectOriginalPresetFromCode(OriginalCode);
+        }
+
+        internal void syncFromConfig(MSFS2020EventIdInputAction inputAction)
+        {
+            Msfs2020EventPresetList deprecatedPresets = new Msfs2020EventPresetList();
+            deprecatedPresets.Load();
+
+            String OriginalCode = deprecatedPresets.FindCodeByEventId(inputAction.EventId);
+
+            if (OriginalCode == null)
+            {
+                return;
+            }
+
+            // Restore the code
+            SimVarNameTextBox.Text = OriginalCode;
             TryToSelectOriginalPresetFromCode(OriginalCode);
         }
 
@@ -365,8 +383,8 @@ namespace MobiFlight.UI.Panels.Config
                 description = "No Preset selected."
             });
 
-            HubhopType hubhopType = HubhopType.Output;
-            if (Mode == HubHopPanelMode.Input) hubhopType = HubhopType.Input;
+            HubHopType hubhopType = HubHopType.Output;
+            if (Mode == HubHopPanelMode.Input) hubhopType = HubHopType.Input;
 
             FilteredPresetList.Items.AddRange(
                 PresetList.Filtered(
@@ -389,8 +407,8 @@ namespace MobiFlight.UI.Panels.Config
 
         private void FilteredPresetListChanged()
         {
-            HubhopType hubhopType = HubhopType.Output;
-            if (Mode == HubHopPanelMode.Input) hubhopType = HubhopType.Input;
+            HubHopType hubhopType = HubHopType.Output;
+            if (Mode == HubHopPanelMode.Input) hubhopType = HubHopType.Input;
 
             UpdateValues(VendorComboBox, FilteredPresetList.AllVendors(hubhopType).ToArray());
             UpdateValues(AircraftComboBox, FilteredPresetList.AllAircraft(hubhopType).ToArray());
