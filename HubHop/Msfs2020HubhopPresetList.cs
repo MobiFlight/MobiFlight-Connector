@@ -110,11 +110,12 @@ namespace MobiFlight.HubHop
             );
         }
 
-        public Msfs2020HubhopPreset FindByLabel(HubHopType presetType, string label)
+        public Msfs2020HubhopPreset FindByCode(HubHopType presetType, string code)
         {
-            Msfs2020HubhopPreset result = new Msfs2020HubhopPreset();
-
-            result = Items.Find(x => (x.presetType & presetType) > 0 && x.label == label);
+            Msfs2020HubhopPreset result = null;
+            String trimmedCode = code.Trim();
+            String testString = "(L:LandingLight_Position) 0 == if{(>L:LandingLight_Position,Number) 1 (>L:LandingLight_SwitchPosition, Number)}\n".Replace('\n', ' ').TrimEnd();
+            result = Items.Find(x => (x.presetType & presetType) > 0 && x.code.Replace('\n', ' ').TrimEnd() == trimmedCode);
 
             return result;
         }

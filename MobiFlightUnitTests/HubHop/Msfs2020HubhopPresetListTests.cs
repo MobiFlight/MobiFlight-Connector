@@ -24,7 +24,7 @@ namespace MobiFlight.HubHop.Tests
             Assert.AreEqual("Avionics", list.Items[0].system);
             Assert.AreEqual("(>H:AS1000_PFD_VOL_1_INC)", list.Items[0].code);
             Assert.AreEqual("AS1000_PFD_VOL_1_INC", list.Items[0].label);
-            Assert.AreEqual(HubhopType.Input, list.Items[0].presetType);
+            Assert.AreEqual(HubHopType.Input, list.Items[0].presetType);
             Assert.AreEqual(34, list.Items[0].version);
             Assert.AreEqual("Updated", list.Items[0].status);
             Assert.AreEqual("2021-12-13T20:49:56.522Z", list.Items[0].createdDate);
@@ -42,21 +42,21 @@ namespace MobiFlight.HubHop.Tests
             String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test01.json";
             list.Load(TestFile);
 
-            Assert.AreEqual(3, list.AllVendors(HubhopType.Input).Count);
+            Assert.AreEqual(3, list.AllVendors(HubHopType.Input).Count);
 
             // check for order
-            Assert.AreEqual("Asobo", list.AllVendors(HubhopType.Input)[0]);
-            Assert.AreEqual("Just Flight", list.AllVendors(HubhopType.Input)[1]);
-            Assert.AreEqual("Microsoft", list.AllVendors(HubhopType.Input)[2]);
+            Assert.AreEqual("Asobo", list.AllVendors(HubHopType.Input)[0]);
+            Assert.AreEqual("Just Flight", list.AllVendors(HubHopType.Input)[1]);
+            Assert.AreEqual("Microsoft", list.AllVendors(HubHopType.Input)[2]);
 
             // check for outputs
-            Assert.AreEqual(2, list.AllVendors(HubhopType.Output).Count);
+            Assert.AreEqual(2, list.AllVendors(HubHopType.Output).Count);
 
             // check for potentiometers
-            Assert.AreEqual(1, list.AllVendors(HubhopType.InputPotentiometer).Count);
+            Assert.AreEqual(1, list.AllVendors(HubHopType.InputPotentiometer).Count);
 
             // check for all inputs
-            Assert.AreEqual(3, list.AllVendors(HubhopType.InputPotentiometer | HubhopType.Input).Count);
+            Assert.AreEqual(3, list.AllVendors(HubHopType.InputPotentiometer | HubHopType.Input).Count);
         }
 
         [TestMethod()]
@@ -66,21 +66,21 @@ namespace MobiFlight.HubHop.Tests
             String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test01.json";
             list.Load(TestFile);
 
-            Assert.AreEqual(3, list.AllAircraft(HubhopType.Input).Count);
+            Assert.AreEqual(3, list.AllAircraft(HubHopType.Input).Count);
 
             // check for order
-            Assert.AreEqual("Generic", list.AllAircraft(HubhopType.Input)[0]);
-            Assert.AreEqual("Hawk T1", list.AllAircraft(HubhopType.Input)[1]);
-            Assert.AreEqual("TBM 580", list.AllAircraft(HubhopType.Input)[2]);
+            Assert.AreEqual("Generic", list.AllAircraft(HubHopType.Input)[0]);
+            Assert.AreEqual("Hawk T1", list.AllAircraft(HubHopType.Input)[1]);
+            Assert.AreEqual("TBM 580", list.AllAircraft(HubHopType.Input)[2]);
 
             // check for outputs
-            Assert.AreEqual(2, list.AllAircraft(HubhopType.Output).Count);
+            Assert.AreEqual(2, list.AllAircraft(HubHopType.Output).Count);
 
             // check for potentiometers
-            Assert.AreEqual(1, list.AllAircraft(HubhopType.InputPotentiometer).Count);
+            Assert.AreEqual(1, list.AllAircraft(HubHopType.InputPotentiometer).Count);
 
             // check for all inputs
-            Assert.AreEqual(4, list.AllAircraft(HubhopType.InputPotentiometer | HubhopType.Input).Count);
+            Assert.AreEqual(4, list.AllAircraft(HubHopType.InputPotentiometer | HubHopType.Input).Count);
         }
 
         [TestMethod()]
@@ -90,21 +90,51 @@ namespace MobiFlight.HubHop.Tests
             String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test01.json";
             list.Load(TestFile);
 
-            Assert.AreEqual(3, list.AllSystems(HubhopType.Input).Count);
+            Assert.AreEqual(3, list.AllSystems(HubHopType.Input).Count);
 
             // check for order
-            Assert.AreEqual("Avionics", list.AllSystems(HubhopType.Input)[0]);
-            Assert.AreEqual("Flight Instrumentation", list.AllSystems(HubhopType.Input)[1]);
-            Assert.AreEqual("Gear", list.AllSystems(HubhopType.Input)[2]);
+            Assert.AreEqual("Avionics", list.AllSystems(HubHopType.Input)[0]);
+            Assert.AreEqual("Flight Instrumentation", list.AllSystems(HubHopType.Input)[1]);
+            Assert.AreEqual("Gear", list.AllSystems(HubHopType.Input)[2]);
 
             // check for outputs
-            Assert.AreEqual(2, list.AllSystems(HubhopType.Output).Count);
+            Assert.AreEqual(2, list.AllSystems(HubHopType.Output).Count);
 
             // check for potentiometers
-            Assert.AreEqual(1, list.AllSystems(HubhopType.InputPotentiometer).Count);
+            Assert.AreEqual(1, list.AllSystems(HubHopType.InputPotentiometer).Count);
 
             // check for all inputs
-            Assert.AreEqual(4, list.AllAircraft(HubhopType.InputPotentiometer | HubhopType.Input).Count);
+            Assert.AreEqual(4, list.AllAircraft(HubHopType.InputPotentiometer | HubHopType.Input).Count);
+        }
+
+        [TestMethod()]
+        public void FindByCodeTest()
+        {
+            Msfs2020EventPresetList deprecatedList = new Msfs2020EventPresetList();
+            deprecatedList.PresetFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test-events.txt";
+            deprecatedList.Load();
+
+            String code = deprecatedList.FindCodeByEventId("ASCRJ_AIRC_AFT_CARGO_AIRCOND_SWITCH");
+
+            Msfs2020HubhopPresetList list = new Msfs2020HubhopPresetList();
+            String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test-eventids.json";
+            list.Load(TestFile);
+
+            Msfs2020HubhopPreset preset = list.FindByCode(HubHopType.InputPotentiometer | HubHopType.Input, code);
+
+            // (L:LandingLight_Position) 0 == if{(>L:LandingLight_Position,Number) 1 (>L:LandingLight_SwitchPosition, Number)}\n
+            // (L:LandingLight_Position)·0·==·if{(>L:LandingLight_Position,Number)·0·(>L:LandingLight_SwitchPosition,·Number)} 
+            Assert.IsNotNull(preset);
+            Assert.AreEqual("6b07a2fa-abba-4a9c-9163-b103d8eda124", preset.id);
+
+            // This one has line breaks in hubHop
+            code = deprecatedList.FindCodeByEventId("ASCRJ_APU_STARTSTOP_RELEASE");
+            preset = list.FindByCode(HubHopType.InputPotentiometer | HubHopType.Input, code);
+
+            Assert.IsNotNull(preset);
+            Assert.AreEqual("5ad9abcd-8777-41cb-a344-109719c6715c", preset.id);
+
+            
         }
     }
 }

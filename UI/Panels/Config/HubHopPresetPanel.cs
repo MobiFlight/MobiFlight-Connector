@@ -252,7 +252,10 @@ namespace MobiFlight.UI.Panels.Config
 
             OriginalCode = Regex.Replace(OriginalCode, @":\d+", ":index");
 
-            if (!PresetList.Items.Exists(x => x.code == OriginalCode))
+            Msfs2020HubhopPreset OriginalPreset = 
+                PresetList.FindByCode(Mode == HubHopPanelMode.Input ? HubHopType.Input | HubHopType.InputPotentiometer : HubHopType.Output, OriginalCode);
+
+            if (OriginalPreset==null)
             {
                 ShowExpertSettingsCheckBox.Checked = true;
                 Msfs2020HubhopPreset CustomPreset = new Msfs2020HubhopPreset()
@@ -270,7 +273,7 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             // We have found the original preset
-            InitializeComboBoxesWithPreset(PresetList.Items.Find(x => x.code == OriginalCode));
+            InitializeComboBoxesWithPreset(OriginalPreset);
         }
 
         private void InitializeComboBoxesWithPreset(Msfs2020HubhopPreset preset)
