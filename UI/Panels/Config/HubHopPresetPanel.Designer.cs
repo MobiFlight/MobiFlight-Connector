@@ -99,7 +99,7 @@
             this.flowLayoutPanel1.Controls.Add(this.ResetButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(70, 0, 0, 0);
             this.flowLayoutPanel1.Size = new System.Drawing.Size(597, 46);
@@ -143,7 +143,7 @@
             this.AircraftFilterPanel.Controls.Add(this.AircraftComboBox);
             this.AircraftFilterPanel.Controls.Add(this.AircraftLabel);
             this.AircraftFilterPanel.Location = new System.Drawing.Point(189, 2);
-            this.AircraftFilterPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.AircraftFilterPanel.Margin = new System.Windows.Forms.Padding(2);
             this.AircraftFilterPanel.Name = "AircraftFilterPanel";
             this.AircraftFilterPanel.Size = new System.Drawing.Size(113, 40);
             this.AircraftFilterPanel.TabIndex = 18;
@@ -176,7 +176,7 @@
             this.SystemFilterPanel.Controls.Add(this.SystemComboBox);
             this.SystemFilterPanel.Controls.Add(this.SystemLabel);
             this.SystemFilterPanel.Location = new System.Drawing.Point(306, 2);
-            this.SystemFilterPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SystemFilterPanel.Margin = new System.Windows.Forms.Padding(2);
             this.SystemFilterPanel.Name = "SystemFilterPanel";
             this.SystemFilterPanel.Size = new System.Drawing.Size(113, 40);
             this.SystemFilterPanel.TabIndex = 19;
@@ -209,7 +209,7 @@
             this.TextFilterPanel.Controls.Add(this.FilterTextBox);
             this.TextFilterPanel.Controls.Add(this.FilterLabel);
             this.TextFilterPanel.Location = new System.Drawing.Point(423, 2);
-            this.TextFilterPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TextFilterPanel.Margin = new System.Windows.Forms.Padding(2);
             this.TextFilterPanel.Name = "TextFilterPanel";
             this.TextFilterPanel.Size = new System.Drawing.Size(113, 40);
             this.TextFilterPanel.TabIndex = 20;
@@ -440,10 +440,9 @@
             this.DescriptionLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DescriptionLabel.Location = new System.Drawing.Point(75, 43);
             this.DescriptionLabel.Name = "DescriptionLabel";
-            this.DescriptionLabel.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.DescriptionLabel.Padding = new System.Windows.Forms.Padding(5);
             this.DescriptionLabel.Size = new System.Drawing.Size(459, 39);
             this.DescriptionLabel.TabIndex = 18;
-            this.DescriptionLabel.Text = "label7";
             // 
             // ShowExpertSettingsCheckBox
             // 
@@ -463,7 +462,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.PresetGroupBox);
             this.Controls.Add(this.FilterGroupBox);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(603, 0);
             this.Name = "HubHopPresetPanel";
             this.Size = new System.Drawing.Size(603, 291);
