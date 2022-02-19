@@ -105,9 +105,7 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
-            //PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
             FilterTextBox.TextChanged += textBox1_TextChanged;
-            //VendorComboBox.SelectedIndexChanged += OnFilter_SelectedIndexChanged;
         }
 
         private void SimConnectPanel_OnLVarsSet(object sender, EventArgs e)
@@ -181,7 +179,6 @@ namespace MobiFlight.UI.Panels.Config
                 SimVarNameTextBox.Text = config.SimConnectValue.Value;
                 SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             }
-
             // Try to find the original preset and 
             // initialize comboboxes accordingly
             String OriginalCode = config.SimConnectValue.Value;
@@ -277,7 +274,6 @@ namespace MobiFlight.UI.Panels.Config
             SimVarNameTextBox.Text = selectedPreset?.code;
 
             DescriptionLabel.Enabled = selectedItem.id != "-";
-
             InitializeComboBoxesWithPreset(selectedPreset);
         }
 
@@ -374,20 +370,7 @@ namespace MobiFlight.UI.Panels.Config
                     FilterText
                     )
             );
-
-            /*
-            String Code = SimVarNameTextBox.Text;
-            FilteredPresetList.Items.Add(
-                new Msfs2020HubhopPreset()
-                {
-                    id = "0",
-                    label = "Customized Preset or Custom Code",
-                    code = Code,
-                    description = "This is a customized preset or custom code."
-                }
-            );
-            */
-
+            
             // Substract 1 because of the static "select preset"-label
             int MatchesFound = FilteredPresetList.Items.Count - 1;
             MatchLabel.Text = String.Format(
@@ -481,13 +464,11 @@ namespace MobiFlight.UI.Panels.Config
         private void ResetFilterButton_Click(object sender, EventArgs e)
         {
             ResetFilter();
-            //TryToSelectOriginalPresetFromCode(SimVarNameTextBox.Text);
         }
 
         private void ResetFilter()
         {
             SuspendUpdateEvents();
-
             VendorComboBox.SelectedIndex = 0;
             AircraftComboBox.SelectedIndex = 0;
             SystemComboBox.SelectedIndex = 0;
