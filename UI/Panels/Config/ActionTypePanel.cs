@@ -21,7 +21,6 @@ namespace MobiFlight.UI.Panels.Config
             ActionTypeComboBox.Items.Clear();
             ActionTypeComboBox.Items.Add(i18n._tr("none"));
             // --MSFS 2020 
-            ActionTypeComboBox.Items.Add(InputConfig.MSFS2020EventIdInputAction.Label);
             ActionTypeComboBox.Items.Add(InputConfig.MSFS2020CustomInputAction.Label);
 
             // --MobiFlight
@@ -83,21 +82,19 @@ namespace MobiFlight.UI.Panels.Config
                 case "MobiFlight.InputConfig.RetriggerInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.RetriggerInputAction.Label);
                     break;
+
                 case "MobiFlight.InputConfig.MSFS2020EventIdInputAction":
-                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label);
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.MSFS2020CustomInputAction.Label);
                     break;
+
                 case "MobiFlight.InputConfig.MSFS2020CustomInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.MSFS2020CustomInputAction.Label);
                     break;
+
                 case "MobiFlight.InputConfig.VariableInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.VariableInputAction.Label);
                     break;
             }
-        }
-
-        internal void syncToConfig(InputConfig.InputAction inputAction)
-        {
-            throw new NotImplementedException();
         }
     }
 }

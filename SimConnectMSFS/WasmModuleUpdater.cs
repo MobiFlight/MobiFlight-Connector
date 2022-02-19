@@ -26,6 +26,10 @@ namespace MobiFlight.SimConnectMSFS
         public const String WasmEventsSimVarsFolder = @".\presets";
         public const String WasmEventsSimVarsFileName = @"msfs2020_simvars.cip";
 
+        public const String WasmEventHubHHopUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/presets?type=json";
+        public const String WasmEventsHubHopFolder = @".\presets";
+        public const String WasmEventsHubHopFileName = @"msfs2020_hubhop_presets.json";
+
         public String CommunityFolder { get; set; }
 
         private String ExtractCommunityFolderFromUserCfg(String UserCfg)
@@ -218,6 +222,9 @@ namespace MobiFlight.SimConnectMSFS
             
             if (!DownloadSingleFile(new Uri(WasmEventsSimVarsUrl), WasmEventsSimVarsFileName, WasmEventsSimVarsFolder)) return false;
             Log.Instance.log("WASM msfs2020_simvars.cip has been downloaded and installed successfully.", LogSeverity.Info);
+
+            if (!DownloadSingleFile(new Uri(WasmEventHubHHopUrl), WasmEventsHubHopFileName, WasmEventsHubHopFolder)) return false;
+            Log.Instance.log($"WASM {WasmEventsHubHopFileName} has been downloaded and installed successfully.", LogSeverity.Info);
             return true;
         }
 
