@@ -134,7 +134,12 @@ namespace MobiFlight.HubHop.Tests
             Assert.IsNotNull(preset);
             Assert.AreEqual("5ad9abcd-8777-41cb-a344-109719c6715c", preset.id);
 
-            
+
+            code = deprecatedList.FindCodeByEventId("ASCRJ_ECAM_AICE");
+            preset = list.FindByCode(HubHopType.InputPotentiometer | HubHopType.Input, code);
+
+            Assert.IsNotNull(preset);
+            Assert.AreEqual("e1fb3d0a-9fe4-4439-948d-7023809d6d73", preset.id);
         }
     }
 }

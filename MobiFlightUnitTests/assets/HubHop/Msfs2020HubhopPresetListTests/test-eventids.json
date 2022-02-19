@@ -145,5 +145,20 @@
     "reported": 0,
     "score": 0,
     "id": "5ad9abcd-8777-41cb-a344-109719c6715c"
+  },
+  {
+    "path": "Aerosoft.CRJ 550-700-1000.Avionics.ASCRJ_ECAM_AICE",
+    "vendor": "Aerosoft",
+    "aircraft": "CRJ 550-700-1000",
+    "system": "Avionics",
+    "code": "0 (>L:ASCRJ_ECAM_AICE) \n1 (>L:ASCRJ_ECAM_AICE)\n",
+    "label": "ASCRJ_ECAM_AICE",
+    "presetType": "Input",
+    "status": "Submitted",
+    "createdDate": "2021-11-09T10:00:10.317Z",
+    "author": "Gábor Paróczay",
+    "description": "EICAS  ICE key button\n\nRelease",
+    "version": 1,
+    "id": "e1fb3d0a-9fe4-4439-948d-7023809d6d73"
   }
 ]

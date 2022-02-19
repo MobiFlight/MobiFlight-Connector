@@ -114,8 +114,8 @@ namespace MobiFlight.HubHop
         {
             Msfs2020HubhopPreset result = null;
             String trimmedCode = code.Trim();
-            String testString = "(L:LandingLight_Position) 0 == if{(>L:LandingLight_Position,Number) 1 (>L:LandingLight_SwitchPosition, Number)}\n".Replace('\n', ' ').TrimEnd();
-            result = Items.Find(x => (x.presetType & presetType) > 0 && x.code.Replace('\n', ' ').TrimEnd() == trimmedCode);
+            
+            result = Items.Find(x => (x.presetType & presetType) > 0 && x.code.Replace('\n', ' ').Replace("  ", " ").TrimEnd() == trimmedCode);
 
             return result;
         }
