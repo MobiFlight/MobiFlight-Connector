@@ -209,7 +209,7 @@
             this.TextFilterPanel.Controls.Add(this.FilterTextBox);
             this.TextFilterPanel.Controls.Add(this.FilterLabel);
             this.TextFilterPanel.Location = new System.Drawing.Point(423, 2);
-            this.TextFilterPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TextFilterPanel.Margin = new System.Windows.Forms.Padding(2);
             this.TextFilterPanel.Name = "TextFilterPanel";
             this.TextFilterPanel.Size = new System.Drawing.Size(113, 40);
             this.TextFilterPanel.TabIndex = 20;
@@ -440,10 +440,9 @@
             this.DescriptionLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DescriptionLabel.Location = new System.Drawing.Point(75, 43);
             this.DescriptionLabel.Name = "DescriptionLabel";
-            this.DescriptionLabel.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.DescriptionLabel.Padding = new System.Windows.Forms.Padding(5);
             this.DescriptionLabel.Size = new System.Drawing.Size(459, 39);
             this.DescriptionLabel.TabIndex = 18;
-            this.DescriptionLabel.Text = "label7";
             // 
             // ShowExpertSettingsCheckBox
             // 
