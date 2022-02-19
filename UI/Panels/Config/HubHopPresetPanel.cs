@@ -252,10 +252,6 @@ namespace MobiFlight.UI.Panels.Config
 
         private void InitializeComboBoxesWithPreset(Msfs2020HubhopPreset preset)
         {
-            VendorComboBox.SuspendLayout();
-            AircraftComboBox.SuspendLayout();
-            SystemComboBox.SuspendLayout();
-            // ---
             ComboBoxHelper.SetSelectedItemByValue(VendorComboBox, preset.vendor);
             ComboBoxHelper.SetSelectedItemByValue(AircraftComboBox, preset.aircraft);
             ComboBoxHelper.SetSelectedItemByValue(SystemComboBox, preset.system);
@@ -263,10 +259,6 @@ namespace MobiFlight.UI.Panels.Config
             PresetComboBox.SelectedValue = preset.id;
             DescriptionLabel.Text = preset?.description;
             PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
-            // ---
-            VendorComboBox.ResumeLayout();
-            AircraftComboBox.ResumeLayout();
-            SystemComboBox.ResumeLayout();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -440,6 +432,11 @@ namespace MobiFlight.UI.Panels.Config
             if (SelectedValue != null)
             {                
                 PresetComboBox.SelectedValue = SelectedValue;
+
+                // we didn't find the preset within the current
+                // list
+                if (PresetComboBox.SelectedValue == null)
+                PresetComboBox.SelectedIndex = 0;
             }
             else
             {
