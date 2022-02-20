@@ -15,6 +15,7 @@ namespace MobiFlight.SimConnectMSFS
             if (simConnect == null) return;
 
             SendWasmCmd(simConnect, "MF.Ping");
+            DummyCommand(simConnect);
         }
 
         public static void Stop(SimConnect simConnect)
