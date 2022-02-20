@@ -312,7 +312,7 @@ namespace MobiFlight.InputConfig
 
         internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs args, List<ConfigRefValue> configRefs)
         {
-            if ((args.Value == 0 && onLeft != null) || (args.Value == 1 && onLeftFast == null))
+            if ((args.Value == 0 && onLeft != null) || (args.Value == 1 && onLeftFast == null && onLeft != null))
             {
                 Log.Instance.log("Executing OnLeft: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onLeft.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
@@ -322,7 +322,7 @@ namespace MobiFlight.InputConfig
                 Log.Instance.log("Executing OnLeftFast: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onLeftFast.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
-            else if ((args.Value == 2 && onRight != null) || (args.Value == 3 && onRightFast == null))
+            else if ((args.Value == 2 && onRight != null) || (args.Value == 3 && onRightFast == null && onRight != null))
             {
                 Log.Instance.log("Executing OnRight: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onRight.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
