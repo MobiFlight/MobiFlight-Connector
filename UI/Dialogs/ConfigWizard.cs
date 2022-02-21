@@ -120,7 +120,7 @@ namespace MobiFlight.UI.Dialogs
             fsuipcConfigPanel.syncFromConfig(cfg);
 
             // SIMCONNECT SIMVARS PANEL
-            simConnectPanel1.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
+            simConnectPanel1.HubHopPresetPanel.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
             _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
         }
 
@@ -134,7 +134,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void ConfigWizard_LVarListUpdated(object sender, EventArgs e)
         {
-            simConnectPanel1.LVars = (sender as List<String>);
+            simConnectPanel1.HubHopPresetPanel.LVars = (sender as List<String>);
         }
 
         protected void _initDisplayPanels () {

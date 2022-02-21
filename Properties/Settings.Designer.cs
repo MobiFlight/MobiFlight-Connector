@@ -361,7 +361,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_simvars.cip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_presets.json")]
         public string PresetFileMSFS2020SimVars {
             get {
                 return ((string)(this["PresetFileMSFS2020SimVars"]));
