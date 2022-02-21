@@ -118,47 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CommandTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="DescriptionLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="DescriptionLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="CommandTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 38</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CommandTextBox.MaxLength" type="System.Int32, mscorlib">
-    <value>1024</value>
-  </data>
-  <data name="CommandTextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="CommandTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 131</value>
-  </data>
-  <data name="CommandTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;CommandTextBox.Name" xml:space="preserve">
-    <value>CommandTextBox</value>
-  </data>
-  <data name="&gt;&gt;CommandTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CommandTextBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;CommandTextBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="DescriptionLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
   <data name="DescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 9</value>
+    <value>0, 0</value>
+  </data>
+  <data name="DescriptionLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="DescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 26</value>
+    <value>880, 40</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="DescriptionLabel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -175,19 +151,25 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DescriptionLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
-  <data name="HintLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
+  <data name="HintLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
   <data name="HintLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="HintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 172</value>
+    <value>0, 369</value>
+  </data>
+  <data name="HintLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="HintLabel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>105, 0, 0, 0</value>
   </data>
   <data name="HintLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>320, 25</value>
+    <value>880, 38</value>
   </data>
   <data name="HintLabel.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
@@ -208,14 +190,59 @@
   <data name="&gt;&gt;HintLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="hubHopPresetPanel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="hubHopPresetPanel1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="hubHopPresetPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="hubHopPresetPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 40</value>
+  </data>
+  <data name="hubHopPresetPanel1.LVars" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u
+        ZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5XV0sIG1zY29ybGliLCBWZXJzaW9u
+        PTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQUB
+        AAAAMFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljLkxpc3RgMVtbU3lzdGVtLlN0cmluZwMAAAAGX2l0
+        ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
+</value>
+  </data>
+  <data name="hubHopPresetPanel1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>400, 0</value>
+  </data>
+  <data name="hubHopPresetPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>880, 329</value>
+  </data>
+  <data name="hubHopPresetPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;hubHopPresetPanel1.Name" xml:space="preserve">
+    <value>hubHopPresetPanel1</value>
+  </data>
+  <data name="&gt;&gt;hubHopPresetPanel1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.HubHopPresetPanel, MFConnector, Version=9.2.0.4, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;hubHopPresetPanel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;hubHopPresetPanel1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>9, 20</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 203</value>
+    <value>880, 741</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MSFS2020CustomInputPanel</value>
