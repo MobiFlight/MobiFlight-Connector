@@ -107,6 +107,7 @@
     <Compile Include="mock\SimConnectMSFS\SimConnectCacheMock.cs" />
     <Compile Include="Panels\Group\InterpolationPanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HubHop\Msfs2020HubhopPresetListTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\Base\BooleanConverterConfig\GetPins.xml" />
@@ -147,6 +148,9 @@
     </Content>
     <Content Include="assets\Base\Precondition\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\HubHop\Msfs2020HubhopPresetListTests\test-events.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\MobiFlight\InputConfig\AnalogInputConfig\ReadXmlTest.1.xml">
@@ -399,6 +403,12 @@
     <None Include="assets\Base\ConfigFile\tutorial-episode2.mcc.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="assets\HubHop\Msfs2020HubhopPresetListTests\test-eventids.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\HubHop\Msfs2020HubhopPresetListTests\test01.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +416,10 @@
       <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
       <Name>MobiFlightConnector</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="assets\MobiFlight\SimConnectMSFS\" />
+    <Folder Include="MobiFlight\SimConnectMSFS\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -904,6 +904,24 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} matches found..
+        /// </summary>
+        internal static string uiMessagesSimConnectPanelMatchesFound {
+            get {
+                return ResourceManager.GetString("uiMessagesSimConnectPanelMatchesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - show all -.
+        /// </summary>
+        internal static string uiMessagesSimConnectPanelShowAll {
+            get {
+                return ResourceManager.GetString("uiMessagesSimConnectPanelShowAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error during Test-Mode: Module not connected..
         /// </summary>
         internal static string uiMessageTestModeModuleNotConnected {
@@ -1101,24 +1119,6 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiPmdgEventIdInputPanelCustomParam {
             get {
                 return ResourceManager.GetString("uiPmdgEventIdInputPanelCustomParam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose a Preset.
-        /// </summary>
-        internal static string uiSimConnectPanelComboBoxPresetSelect {
-            get {
-                return ResourceManager.GetString("uiSimConnectPanelComboBoxPresetSelect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose a Preset Group....
-        /// </summary>
-        internal static string uiSimConnectPanelComboBoxPresetSelectGroup {
-            get {
-                return ResourceManager.GetString("uiSimConnectPanelComboBoxPresetSelectGroup", resourceCulture);
             }
         }
         
