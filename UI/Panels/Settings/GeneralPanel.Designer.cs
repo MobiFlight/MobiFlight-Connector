@@ -74,8 +74,8 @@
             // 
             // BetaUpdatesGroupBox
             // 
-            resources.ApplyResources(this.BetaUpdatesGroupBox, "BetaUpdatesGroupBox");
             this.BetaUpdatesGroupBox.Controls.Add(this.BetaUpdateCheckBox);
+            resources.ApplyResources(this.BetaUpdatesGroupBox, "BetaUpdatesGroupBox");
             this.BetaUpdatesGroupBox.Name = "BetaUpdatesGroupBox";
             this.BetaUpdatesGroupBox.TabStop = false;
             // 
@@ -87,10 +87,10 @@
             // 
             // languageGroupBox
             // 
-            resources.ApplyResources(this.languageGroupBox, "languageGroupBox");
             this.languageGroupBox.Controls.Add(this.label9);
             this.languageGroupBox.Controls.Add(this.languageComboBox);
             this.languageGroupBox.Controls.Add(this.languageLabel);
+            resources.ApplyResources(this.languageGroupBox, "languageGroupBox");
             this.languageGroupBox.Name = "languageGroupBox";
             this.languageGroupBox.TabStop = false;
             // 
@@ -101,12 +101,12 @@
             // 
             // languageComboBox
             // 
-            resources.ApplyResources(this.languageComboBox, "languageComboBox");
             this.languageComboBox.FormattingEnabled = true;
             this.languageComboBox.Items.AddRange(new object[] {
             resources.GetString("languageComboBox.Items"),
             resources.GetString("languageComboBox.Items1"),
             resources.GetString("languageComboBox.Items2")});
+            resources.ApplyResources(this.languageComboBox, "languageComboBox");
             this.languageComboBox.Name = "languageComboBox";
             // 
             // languageLabel
@@ -116,9 +116,9 @@
             // 
             // offlineModeGroupBox
             // 
-            resources.ApplyResources(this.offlineModeGroupBox, "offlineModeGroupBox");
             this.offlineModeGroupBox.Controls.Add(this.OfflineModeLabel);
             this.offlineModeGroupBox.Controls.Add(this.offlineModeCheckBox);
+            resources.ApplyResources(this.offlineModeGroupBox, "offlineModeGroupBox");
             this.offlineModeGroupBox.Name = "offlineModeGroupBox";
             this.offlineModeGroupBox.TabStop = false;
             // 
@@ -135,11 +135,11 @@
             // 
             // debugGroupBox
             // 
-            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
             this.debugGroupBox.Controls.Add(this.LogJoystickAxisCheckBox);
             this.debugGroupBox.Controls.Add(this.logLevelComboBox);
             this.debugGroupBox.Controls.Add(this.logLevelLabel);
             this.debugGroupBox.Controls.Add(this.logLevelCheckBox);
+            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
             this.debugGroupBox.Name = "debugGroupBox";
             this.debugGroupBox.TabStop = false;
             // 
@@ -151,7 +151,6 @@
             // 
             // logLevelComboBox
             // 
-            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
             this.logLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.logLevelComboBox.FormattingEnabled = true;
             this.logLevelComboBox.Items.AddRange(new object[] {
@@ -159,6 +158,7 @@
             resources.GetString("logLevelComboBox.Items1"),
             resources.GetString("logLevelComboBox.Items2"),
             resources.GetString("logLevelComboBox.Items3")});
+            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
             this.logLevelComboBox.Name = "logLevelComboBox";
             // 
             // logLevelLabel
@@ -174,10 +174,10 @@
             // 
             // testModeSpeedGroupBox
             // 
-            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Controls.Add(this.label8);
             this.testModeSpeedGroupBox.Controls.Add(this.label6);
             this.testModeSpeedGroupBox.Controls.Add(this.testModeSpeedTrackBar);
+            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Name = "testModeSpeedGroupBox";
             this.testModeSpeedGroupBox.TabStop = false;
             // 
@@ -199,16 +199,16 @@
             // 
             // recentFilesGroupBox
             // 
-            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
             this.recentFilesGroupBox.Controls.Add(this.label1);
             this.recentFilesGroupBox.Controls.Add(this.recentFilesNumericUpDown);
+            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
             this.recentFilesGroupBox.Name = "recentFilesGroupBox";
             this.recentFilesGroupBox.TabStop = false;
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
             this.label1.AutoEllipsis = true;
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
             // recentFilesNumericUpDown
@@ -218,8 +218,8 @@
             // 
             // CommunityFeedbackGroupBox
             // 
-            resources.ApplyResources(this.CommunityFeedbackGroupBox, "CommunityFeedbackGroupBox");
             this.CommunityFeedbackGroupBox.Controls.Add(this.CommunityFeedbackCheckBox);
+            resources.ApplyResources(this.CommunityFeedbackGroupBox, "CommunityFeedbackGroupBox");
             this.CommunityFeedbackGroupBox.Name = "CommunityFeedbackGroupBox";
             this.CommunityFeedbackGroupBox.TabStop = false;
             // 
@@ -231,11 +231,11 @@
             // 
             // ConfigExecutionGroupBox
             // 
-            resources.ApplyResources(this.ConfigExecutionGroupBox, "ConfigExecutionGroupBox");
             this.ConfigExecutionGroupBox.Controls.Add(this.label3);
             this.ConfigExecutionGroupBox.Controls.Add(this.label2);
             this.ConfigExecutionGroupBox.Controls.Add(this.label5);
             this.ConfigExecutionGroupBox.Controls.Add(this.fsuipcPollIntervalTrackBar);
+            resources.ApplyResources(this.ConfigExecutionGroupBox, "ConfigExecutionGroupBox");
             this.ConfigExecutionGroupBox.Name = "ConfigExecutionGroupBox";
             this.ConfigExecutionGroupBox.TabStop = false;
             // 
