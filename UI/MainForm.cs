@@ -1662,6 +1662,11 @@ namespace MobiFlight.UI
         {
             Process.Start("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
         }
+
+        private void HubHopToolStripButton_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://hubhop.mobiflight.com/");
+        }
     }
 
     internal static class Helper
