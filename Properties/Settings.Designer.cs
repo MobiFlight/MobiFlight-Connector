@@ -37,7 +37,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public int PollInterval {
             get {
                 return ((int)(this["PollInterval"]));
@@ -361,7 +361,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_presets.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Presets\\msfs2020_simvars.cip")]
         public string PresetFileMSFS2020SimVars {
             get {
                 return ((string)(this["PresetFileMSFS2020SimVars"]));
