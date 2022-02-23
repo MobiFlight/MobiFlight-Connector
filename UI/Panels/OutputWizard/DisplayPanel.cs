@@ -50,12 +50,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
             InitializeComponent();
             analogPanel1.OnPanelChanged += (s, e) => {
                 inputActionGroupBox.AutoSize = false;
-                inputActionGroupBox.Height = (s as UserControl).Height + 80;
+                inputActionGroupBox.Height = (s as UserControl).Height + 80 + AnalogInputActionLabel.Height;
             };
 
             buttonPanel1.OnPanelChanged += (s, e) => {
                 inputActionGroupBox.AutoSize = false;
-                inputActionGroupBox.Height = (s as UserControl).Height + 80;
+                inputActionGroupBox.Height = (s as UserControl).Height + 80 + ButtonInputActionLabel.Height;
             };
         }
 
@@ -740,9 +740,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
         {
             buttonPanel1.Enabled = InputTypeButtonRadioButton.Checked;
             buttonPanel1.Visible = InputTypeButtonRadioButton.Checked;
+            ButtonInputActionLabel.Visible = InputTypeButtonRadioButton.Checked;
 
             analogPanel1.Enabled = InputTypeAnalogRadioButton.Checked;
             analogPanel1.Visible = InputTypeAnalogRadioButton.Checked;
+            AnalogInputActionLabel.Visible = InputTypeAnalogRadioButton.Checked;
         }
     }
 }

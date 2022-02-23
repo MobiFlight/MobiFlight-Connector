@@ -117,40 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="arcazeSerialLabel.Text" xml:space="preserve">
-    <value>Modul</value>
-  </data>
-  <data name="displayTypeComboBoxLabel.Text" xml:space="preserve">
-    <value>Verwende Typ</value>
-  </data>
-  <data name="displayTypeGroupBox.Text" xml:space="preserve">
-    <value>Display Typ</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 137</value>
   </data>
-  <data name="testSettingsGroupBox.Text" xml:space="preserve">
-    <value>Aktuelle Einstellung testen</value>
-  </data>
   <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
     <value>457, 5</value>
-  </data>
-  <data name="AnalogInputActionLabel.Text" xml:space="preserve">
-    <value>Definiere eine Aktion, die ausgeführt wird sobald sich der Config-Wert ändert.
-Du kannst den aktuellen Config-Wert mit @ referenzieren (not mit $).</value>
-  </data>
-  <data name="ButtonInputActionLabel.Text" xml:space="preserve">
-    <value>Definiere eine Aktion, die ausgeführt wird sobald sich der Config-Wert ändert.
-Der Wert kann entweder "1" oder "0" sein und triggert damit "OnPress" respektive "OnRelease". </value>
   </data>
   <data name="inputActionGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 213</value>
   </data>
   <data name="OutputDevicePanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>457, 177</value>
-  </data>
-  <data name="DisplayPanelTextLabel.Text" xml:space="preserve">
-    <value>Bitte passenden Display-Typ wählen, der für die Ausgabe verwendet werden soll.</value>
   </data>
 </root>

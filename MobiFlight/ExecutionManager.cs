@@ -1065,26 +1065,29 @@ namespace MobiFlight
                     case "InputAction":
                         int iValue = 0;
                         int.TryParse(value, out iValue);
-                        
 
-                        if (cfg.ButtonInputConfig!=null)
+                        List<ConfigRefValue> cfgRefs = GetRefs(cfg.ConfigRefs);
+                        
+                        if (cfg.ButtonInputConfig != null)
                             inputActionExecutionCache.Execute(
                                 cfg.ButtonInputConfig,
                                 fsuipcCache,
                                 simConnectCache,
                                 mobiFlightCache,
                                 new InputEventArgs() { Value = iValue, StrValue = value },
-                                GetRefs(cfg.ConfigRefs)
+                                cfgRefs
                             );
                         else
+                        {
                             inputActionExecutionCache.Execute(
                                 cfg.AnalogInputConfig,
                                 fsuipcCache,
                                 simConnectCache,
                                 mobiFlightCache,
                                 new InputEventArgs() { Value = iValue, StrValue = value },
-                                GetRefs(cfg.ConfigRefs)
+                                cfgRefs
                             );
+                        }
                         break;
 
                     default:
