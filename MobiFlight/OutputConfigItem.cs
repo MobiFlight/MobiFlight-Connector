@@ -99,11 +99,11 @@ namespace MobiFlight
                 //===
                 this.ConfigRefs.Equals((obj as OutputConfigItem).ConfigRefs) &&
                 //===
-                ((this.ButtonInputConfig == null && (obj as AnalogInputConfig) == null) || (
-                this.ButtonInputConfig != null && this.ButtonInputConfig.Equals((obj as AnalogInputConfig)))) &&
+                ((this.ButtonInputConfig == null && (obj as OutputConfigItem).ButtonInputConfig == null) || (
+                this.ButtonInputConfig != null && this.ButtonInputConfig.Equals((obj as OutputConfigItem).ButtonInputConfig))) &&
                 //===
-                ((this.AnalogInputConfig==null&&(obj as AnalogInputConfig)==null) || (
-                this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as AnalogInputConfig))))
+                ((this.AnalogInputConfig==null&&(obj as OutputConfigItem).AnalogInputConfig == null) || (
+                this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as OutputConfigItem).AnalogInputConfig)))
             );
         }
 

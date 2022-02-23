@@ -39,6 +39,7 @@ namespace MobiFlight.UI.Panels.Input
             bool isOnPress = (sender as MobiFlight.UI.Panels.Config.ActionTypePanel) == onPressActionTypePanel;
 
             if (!isOnPress) owner = onReleaseActionConfigPanel;
+            owner.Controls.Clear();
 
             switch (value)
             {
@@ -147,7 +148,7 @@ namespace MobiFlight.UI.Panels.Input
             }
 
             if (panel != null)
-            {
+            {                
                 panel.Padding = new Padding(2, 0, 2, 0);
                 panel.Dock = DockStyle.Top;
                 owner.Controls.Add(panel);
