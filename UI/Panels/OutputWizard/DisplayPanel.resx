@@ -125,35 +125,233 @@
   <data name="displayTypeGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="radioButton1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;InputTypeAnalogRadioButton.Name" xml:space="preserve">
+    <value>InputTypeAnalogRadioButton</value>
   </data>
-  <data name="radioButton1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 6</value>
-  </data>
-  <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 17</value>
-  </data>
-  <data name="radioButton1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="radioButton1.Text" xml:space="preserve">
-    <value>OnChange</value>
-  </data>
-  <data name="&gt;&gt;radioButton1.Name" xml:space="preserve">
-    <value>radioButton1</value>
-  </data>
-  <data name="&gt;&gt;radioButton1.Type" xml:space="preserve">
+  <data name="&gt;&gt;InputTypeAnalogRadioButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;radioButton1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;InputTypeAnalogRadioButton.Parent" xml:space="preserve">
     <value>InputActionTypePanel</value>
   </data>
-  <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;InputTypeAnalogRadioButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;InputTypeButtonRadioButton.Name" xml:space="preserve">
+    <value>InputTypeButtonRadioButton</value>
+  </data>
+  <data name="&gt;&gt;InputTypeButtonRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputTypeButtonRadioButton.Parent" xml:space="preserve">
+    <value>InputActionTypePanel</value>
+  </data>
+  <data name="&gt;&gt;InputTypeButtonRadioButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="InputActionTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="InputActionTypePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 100</value>
+  </data>
+  <data name="InputActionTypePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>451, 29</value>
+  </data>
+  <data name="InputActionTypePanel.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="&gt;&gt;InputActionTypePanel.Name" xml:space="preserve">
+    <value>InputActionTypePanel</value>
+  </data>
+  <data name="&gt;&gt;InputActionTypePanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputActionTypePanel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;InputActionTypePanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.Name" xml:space="preserve">
+    <value>arcazeSerialLabel</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.Parent" xml:space="preserve">
+    <value>DisplayTypePanel</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;displayModuleNameComboBox.Name" xml:space="preserve">
+    <value>displayModuleNameComboBox</value>
+  </data>
+  <data name="&gt;&gt;displayModuleNameComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayModuleNameComboBox.Parent" xml:space="preserve">
+    <value>DisplayTypePanel</value>
+  </data>
+  <data name="&gt;&gt;displayModuleNameComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBoxLabel.Name" xml:space="preserve">
+    <value>displayTypeComboBoxLabel</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBoxLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBoxLabel.Parent" xml:space="preserve">
+    <value>DisplayTypePanel</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBoxLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBox.Name" xml:space="preserve">
+    <value>displayTypeComboBox</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBox.Parent" xml:space="preserve">
+    <value>DisplayTypePanel</value>
+  </data>
+  <data name="&gt;&gt;displayTypeComboBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="DisplayTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="DisplayTypePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 43</value>
+  </data>
+  <data name="DisplayTypePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>451, 57</value>
+  </data>
+  <data name="DisplayTypePanel.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;DisplayTypePanel.Name" xml:space="preserve">
+    <value>DisplayTypePanel</value>
+  </data>
+  <data name="&gt;&gt;DisplayTypePanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DisplayTypePanel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;DisplayTypePanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;OutputTypeComboBox.Name" xml:space="preserve">
+    <value>OutputTypeComboBox</value>
+  </data>
+  <data name="&gt;&gt;OutputTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OutputTypeComboBox.Parent" xml:space="preserve">
+    <value>OutputTypePanel</value>
+  </data>
+  <data name="&gt;&gt;OutputTypeComboBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;OutputTypeLabel.Name" xml:space="preserve">
+    <value>OutputTypeLabel</value>
+  </data>
+  <data name="&gt;&gt;OutputTypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OutputTypeLabel.Parent" xml:space="preserve">
+    <value>OutputTypePanel</value>
+  </data>
+  <data name="&gt;&gt;OutputTypeLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="OutputTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="OutputTypePanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="OutputTypePanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>451, 27</value>
+  </data>
+  <data name="OutputTypePanel.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;OutputTypePanel.Name" xml:space="preserve">
+    <value>OutputTypePanel</value>
+  </data>
+  <data name="&gt;&gt;OutputTypePanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OutputTypePanel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;OutputTypePanel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="displayTypeGroupBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 200</value>
+  </data>
+  <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>457, 132</value>
+  </data>
+  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="displayTypeGroupBox.Text" xml:space="preserve">
+    <value>Display type</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
+    <value>OutputDevicePanel</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="InputTypeAnalogRadioButton.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="InputTypeAnalogRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="InputTypeAnalogRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 6</value>
+  </data>
+  <data name="InputTypeAnalogRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 17</value>
+  </data>
+  <data name="InputTypeAnalogRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="InputTypeAnalogRadioButton.Text" xml:space="preserve">
+    <value>OnChange</value>
+  </data>
+  <data name="&gt;&gt;InputTypeAnalogRadioButton.Name" xml:space="preserve">
+    <value>InputTypeAnalogRadioButton</value>
+  </data>
+  <data name="&gt;&gt;InputTypeAnalogRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputTypeAnalogRadioButton.Parent" xml:space="preserve">
+    <value>InputActionTypePanel</value>
+  </data>
+  <data name="&gt;&gt;InputTypeAnalogRadioButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="InputTypeButtonRadioButton.AutoSize" type="System.Boolean, mscorlib">
@@ -185,30 +383,6 @@
   </data>
   <data name="&gt;&gt;InputTypeButtonRadioButton.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="InputActionTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="InputActionTypePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 100</value>
-  </data>
-  <data name="InputActionTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 29</value>
-  </data>
-  <data name="InputActionTypePanel.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;InputActionTypePanel.Name" xml:space="preserve">
-    <value>InputActionTypePanel</value>
-  </data>
-  <data name="&gt;&gt;InputActionTypePanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;InputActionTypePanel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;InputActionTypePanel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -327,30 +501,6 @@
   <data name="&gt;&gt;displayTypeComboBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="DisplayTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="DisplayTypePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 43</value>
-  </data>
-  <data name="DisplayTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 57</value>
-  </data>
-  <data name="DisplayTypePanel.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;DisplayTypePanel.Name" xml:space="preserve">
-    <value>DisplayTypePanel</value>
-  </data>
-  <data name="&gt;&gt;DisplayTypePanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DisplayTypePanel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;DisplayTypePanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="OutputTypeComboBox.Items" xml:space="preserve">
     <value>Output Device</value>
   </data>
@@ -408,59 +558,56 @@
   <data name="&gt;&gt;OutputTypeLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="OutputTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="&gt;&gt;displayPinTestStopButton.Name" xml:space="preserve">
+    <value>displayPinTestStopButton</value>
+  </data>
+  <data name="&gt;&gt;displayPinTestStopButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayPinTestStopButton.Parent" xml:space="preserve">
+    <value>testSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;displayPinTestStopButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;displayPinTestButton.Name" xml:space="preserve">
+    <value>displayPinTestButton</value>
+  </data>
+  <data name="&gt;&gt;displayPinTestButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayPinTestButton.Parent" xml:space="preserve">
+    <value>testSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;displayPinTestButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="testSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="OutputTypePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
+  <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 137</value>
   </data>
-  <data name="OutputTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 27</value>
+  <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>457, 40</value>
   </data>
-  <data name="OutputTypePanel.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
+  <data name="testSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
-  <data name="&gt;&gt;OutputTypePanel.Name" xml:space="preserve">
-    <value>OutputTypePanel</value>
+  <data name="testSettingsGroupBox.Text" xml:space="preserve">
+    <value>Test current settings</value>
   </data>
-  <data name="&gt;&gt;OutputTypePanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;testSettingsGroupBox.Name" xml:space="preserve">
+    <value>testSettingsGroupBox</value>
   </data>
-  <data name="&gt;&gt;OutputTypePanel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;OutputTypePanel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="displayTypeGroupBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>0, 200</value>
-  </data>
-  <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 132</value>
-  </data>
-  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="displayTypeGroupBox.Text" xml:space="preserve">
-    <value>Display type</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;testSettingsGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;testSettingsGroupBox.Parent" xml:space="preserve">
     <value>OutputDevicePanel</value>
   </data>
-  <data name="&gt;&gt;displayTypeGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;testSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="displayPinTestStopButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -543,33 +690,6 @@
   <data name="&gt;&gt;displayPinTestButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="testSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 151</value>
-  </data>
-  <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 40</value>
-  </data>
-  <data name="testSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="testSettingsGroupBox.Text" xml:space="preserve">
-    <value>Test current settings</value>
-  </data>
-  <data name="&gt;&gt;testSettingsGroupBox.Name" xml:space="preserve">
-    <value>testSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;testSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;testSettingsGroupBox.Parent" xml:space="preserve">
-    <value>OutputDevicePanel</value>
-  </data>
-  <data name="&gt;&gt;testSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="groupBoxDisplaySettings.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -583,7 +703,7 @@
     <value>0, 132</value>
   </data>
   <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 19</value>
+    <value>457, 5</value>
   </data>
   <data name="groupBoxDisplaySettings.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -608,6 +728,39 @@
   </data>
   <data name="inputActionGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
+  </data>
+  <data name="buttonPanel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="buttonPanel1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="buttonPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="buttonPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="buttonPanel1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>300, 0</value>
+  </data>
+  <data name="buttonPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>451, 61</value>
+  </data>
+  <data name="buttonPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;buttonPanel1.Name" xml:space="preserve">
+    <value>buttonPanel1</value>
+  </data>
+  <data name="&gt;&gt;buttonPanel1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Input.ButtonPanel, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;buttonPanel1.Parent" xml:space="preserve">
+    <value>inputActionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;buttonPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="analogPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -640,13 +793,13 @@
     <value>inputActionGroupBox</value>
   </data>
   <data name="&gt;&gt;analogPanel1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="inputActionGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="inputActionGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 227</value>
+    <value>0, 213</value>
   </data>
   <data name="inputActionGroupBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>0, 80</value>
@@ -682,7 +835,7 @@
     <value>0, 36</value>
   </data>
   <data name="OutputDevicePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 191</value>
+    <value>457, 177</value>
   </data>
   <data name="OutputDevicePanel.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>

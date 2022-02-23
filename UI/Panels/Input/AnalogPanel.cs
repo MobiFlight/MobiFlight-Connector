@@ -117,7 +117,7 @@ namespace MobiFlight.UI.Panels.Input
             if (panel != null)
             {
                 panel.Padding = new Padding(2, 0, 2, 0);
-                panel.Dock = DockStyle.Fill;
+                panel.Dock = DockStyle.Top;
                 owner.Controls.Add(panel);
                 OnPanelChanged?.Invoke(panel, EventArgs.Empty);
             }

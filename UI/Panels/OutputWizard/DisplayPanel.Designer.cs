@@ -30,32 +30,33 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayPanel));
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.InputActionTypePanel = new System.Windows.Forms.Panel();
+            this.InputTypeAnalogRadioButton = new System.Windows.Forms.RadioButton();
+            this.InputTypeButtonRadioButton = new System.Windows.Forms.RadioButton();
+            this.DisplayTypePanel = new System.Windows.Forms.Panel();
             this.arcazeSerialLabel = new System.Windows.Forms.Label();
             this.displayModuleNameComboBox = new System.Windows.Forms.ComboBox();
             this.displayTypeComboBoxLabel = new System.Windows.Forms.Label();
             this.displayTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.OutputTypePanel = new System.Windows.Forms.Panel();
+            this.OutputTypeComboBox = new System.Windows.Forms.ComboBox();
             this.OutputTypeLabel = new System.Windows.Forms.Label();
             this.testSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.displayPinTestStopButton = new System.Windows.Forms.Button();
             this.displayPinTestButton = new System.Windows.Forms.Button();
             this.groupBoxDisplaySettings = new System.Windows.Forms.GroupBox();
             this.inputActionGroupBox = new System.Windows.Forms.GroupBox();
+            this.buttonPanel1 = new MobiFlight.UI.Panels.Input.ButtonPanel();
+            this.analogPanel1 = new MobiFlight.UI.Panels.Input.AnalogPanel();
             this.OutputDevicePanel = new System.Windows.Forms.Panel();
             this.DisplayPanelTextLabel = new System.Windows.Forms.Label();
-            this.OutputTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.DisplayTypePanel = new System.Windows.Forms.Panel();
-            this.OutputTypePanel = new System.Windows.Forms.Panel();
-            this.InputActionTypePanel = new System.Windows.Forms.Panel();
-            this.InputTypeButtonRadioButton = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.analogPanel1 = new MobiFlight.UI.Panels.Input.AnalogPanel();
             this.displayTypeGroupBox.SuspendLayout();
+            this.InputActionTypePanel.SuspendLayout();
+            this.DisplayTypePanel.SuspendLayout();
+            this.OutputTypePanel.SuspendLayout();
             this.testSettingsGroupBox.SuspendLayout();
             this.inputActionGroupBox.SuspendLayout();
             this.OutputDevicePanel.SuspendLayout();
-            this.DisplayTypePanel.SuspendLayout();
-            this.OutputTypePanel.SuspendLayout();
-            this.InputActionTypePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayTypeGroupBox
@@ -66,6 +67,38 @@
             this.displayTypeGroupBox.Controls.Add(this.OutputTypePanel);
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
+            // 
+            // InputActionTypePanel
+            // 
+            this.InputActionTypePanel.Controls.Add(this.InputTypeAnalogRadioButton);
+            this.InputActionTypePanel.Controls.Add(this.InputTypeButtonRadioButton);
+            resources.ApplyResources(this.InputActionTypePanel, "InputActionTypePanel");
+            this.InputActionTypePanel.Name = "InputActionTypePanel";
+            // 
+            // InputTypeAnalogRadioButton
+            // 
+            resources.ApplyResources(this.InputTypeAnalogRadioButton, "InputTypeAnalogRadioButton");
+            this.InputTypeAnalogRadioButton.Name = "InputTypeAnalogRadioButton";
+            this.InputTypeAnalogRadioButton.TabStop = true;
+            this.InputTypeAnalogRadioButton.UseVisualStyleBackColor = true;
+            this.InputTypeAnalogRadioButton.CheckedChanged += new System.EventHandler(this.InputTypeButtonRadioButton_CheckedChanged);
+            // 
+            // InputTypeButtonRadioButton
+            // 
+            resources.ApplyResources(this.InputTypeButtonRadioButton, "InputTypeButtonRadioButton");
+            this.InputTypeButtonRadioButton.Name = "InputTypeButtonRadioButton";
+            this.InputTypeButtonRadioButton.TabStop = true;
+            this.InputTypeButtonRadioButton.UseVisualStyleBackColor = true;
+            this.InputTypeButtonRadioButton.CheckedChanged += new System.EventHandler(this.InputTypeButtonRadioButton_CheckedChanged);
+            // 
+            // DisplayTypePanel
+            // 
+            this.DisplayTypePanel.Controls.Add(this.arcazeSerialLabel);
+            this.DisplayTypePanel.Controls.Add(this.displayModuleNameComboBox);
+            this.DisplayTypePanel.Controls.Add(this.displayTypeComboBoxLabel);
+            this.DisplayTypePanel.Controls.Add(this.displayTypeComboBox);
+            resources.ApplyResources(this.DisplayTypePanel, "DisplayTypePanel");
+            this.DisplayTypePanel.Name = "DisplayTypePanel";
             // 
             // arcazeSerialLabel
             // 
@@ -99,6 +132,24 @@
             resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
             this.displayTypeComboBox.Name = "displayTypeComboBox";
             this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.displayTypeComboBox_SelectedIndexChanged);
+            // 
+            // OutputTypePanel
+            // 
+            this.OutputTypePanel.Controls.Add(this.OutputTypeComboBox);
+            this.OutputTypePanel.Controls.Add(this.OutputTypeLabel);
+            resources.ApplyResources(this.OutputTypePanel, "OutputTypePanel");
+            this.OutputTypePanel.Name = "OutputTypePanel";
+            // 
+            // OutputTypeComboBox
+            // 
+            this.OutputTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.OutputTypeComboBox.FormattingEnabled = true;
+            this.OutputTypeComboBox.Items.AddRange(new object[] {
+            resources.GetString("OutputTypeComboBox.Items"),
+            resources.GetString("OutputTypeComboBox.Items1")});
+            resources.ApplyResources(this.OutputTypeComboBox, "OutputTypeComboBox");
+            this.OutputTypeComboBox.Name = "OutputTypeComboBox";
+            this.OutputTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.OutputTypeComboBox_SelectedIndexChanged);
             // 
             // OutputTypeLabel
             // 
@@ -138,9 +189,20 @@
             // inputActionGroupBox
             // 
             resources.ApplyResources(this.inputActionGroupBox, "inputActionGroupBox");
+            this.inputActionGroupBox.Controls.Add(this.buttonPanel1);
             this.inputActionGroupBox.Controls.Add(this.analogPanel1);
             this.inputActionGroupBox.Name = "inputActionGroupBox";
             this.inputActionGroupBox.TabStop = false;
+            // 
+            // buttonPanel1
+            // 
+            resources.ApplyResources(this.buttonPanel1, "buttonPanel1");
+            this.buttonPanel1.Name = "buttonPanel1";
+            // 
+            // analogPanel1
+            // 
+            resources.ApplyResources(this.analogPanel1, "analogPanel1");
+            this.analogPanel1.Name = "analogPanel1";
             // 
             // OutputDevicePanel
             // 
@@ -155,59 +217,6 @@
             resources.ApplyResources(this.DisplayPanelTextLabel, "DisplayPanelTextLabel");
             this.DisplayPanelTextLabel.Name = "DisplayPanelTextLabel";
             // 
-            // OutputTypeComboBox
-            // 
-            this.OutputTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.OutputTypeComboBox.FormattingEnabled = true;
-            this.OutputTypeComboBox.Items.AddRange(new object[] {
-            resources.GetString("OutputTypeComboBox.Items"),
-            resources.GetString("OutputTypeComboBox.Items1")});
-            resources.ApplyResources(this.OutputTypeComboBox, "OutputTypeComboBox");
-            this.OutputTypeComboBox.Name = "OutputTypeComboBox";
-            this.OutputTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.OutputTypeComboBox_SelectedIndexChanged);
-            // 
-            // DisplayTypePanel
-            // 
-            this.DisplayTypePanel.Controls.Add(this.arcazeSerialLabel);
-            this.DisplayTypePanel.Controls.Add(this.displayModuleNameComboBox);
-            this.DisplayTypePanel.Controls.Add(this.displayTypeComboBoxLabel);
-            this.DisplayTypePanel.Controls.Add(this.displayTypeComboBox);
-            resources.ApplyResources(this.DisplayTypePanel, "DisplayTypePanel");
-            this.DisplayTypePanel.Name = "DisplayTypePanel";
-            // 
-            // OutputTypePanel
-            // 
-            this.OutputTypePanel.Controls.Add(this.OutputTypeComboBox);
-            this.OutputTypePanel.Controls.Add(this.OutputTypeLabel);
-            resources.ApplyResources(this.OutputTypePanel, "OutputTypePanel");
-            this.OutputTypePanel.Name = "OutputTypePanel";
-            // 
-            // InputActionTypePanel
-            // 
-            this.InputActionTypePanel.Controls.Add(this.radioButton1);
-            this.InputActionTypePanel.Controls.Add(this.InputTypeButtonRadioButton);
-            resources.ApplyResources(this.InputActionTypePanel, "InputActionTypePanel");
-            this.InputActionTypePanel.Name = "InputActionTypePanel";
-            // 
-            // InputTypeButtonRadioButton
-            // 
-            resources.ApplyResources(this.InputTypeButtonRadioButton, "InputTypeButtonRadioButton");
-            this.InputTypeButtonRadioButton.Name = "InputTypeButtonRadioButton";
-            this.InputTypeButtonRadioButton.TabStop = true;
-            this.InputTypeButtonRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            resources.ApplyResources(this.radioButton1, "radioButton1");
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.TabStop = true;
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // analogPanel1
-            // 
-            resources.ApplyResources(this.analogPanel1, "analogPanel1");
-            this.analogPanel1.Name = "analogPanel1";
-            // 
             // DisplayPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -217,15 +226,15 @@
             this.Controls.Add(this.DisplayPanelTextLabel);
             this.Name = "DisplayPanel";
             this.displayTypeGroupBox.ResumeLayout(false);
+            this.InputActionTypePanel.ResumeLayout(false);
+            this.InputActionTypePanel.PerformLayout();
+            this.DisplayTypePanel.ResumeLayout(false);
+            this.OutputTypePanel.ResumeLayout(false);
             this.testSettingsGroupBox.ResumeLayout(false);
             this.inputActionGroupBox.ResumeLayout(false);
             this.inputActionGroupBox.PerformLayout();
             this.OutputDevicePanel.ResumeLayout(false);
             this.OutputDevicePanel.PerformLayout();
-            this.DisplayTypePanel.ResumeLayout(false);
-            this.OutputTypePanel.ResumeLayout(false);
-            this.InputActionTypePanel.ResumeLayout(false);
-            this.InputActionTypePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,9 +258,10 @@
         private System.Windows.Forms.Label DisplayPanelTextLabel;
         private System.Windows.Forms.ComboBox OutputTypeComboBox;
         private System.Windows.Forms.Panel InputActionTypePanel;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton InputTypeAnalogRadioButton;
         private System.Windows.Forms.RadioButton InputTypeButtonRadioButton;
         private System.Windows.Forms.Panel DisplayTypePanel;
         private System.Windows.Forms.Panel OutputTypePanel;
+        private Input.ButtonPanel buttonPanel1;
     }
 }

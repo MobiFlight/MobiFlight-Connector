@@ -99,6 +99,9 @@ namespace MobiFlight
                 //===
                 this.ConfigRefs.Equals((obj as OutputConfigItem).ConfigRefs) &&
                 //===
+                ((this.ButtonInputConfig == null && (obj as AnalogInputConfig) == null) || (
+                this.ButtonInputConfig != null && this.ButtonInputConfig.Equals((obj as AnalogInputConfig)))) &&
+                //===
                 ((this.AnalogInputConfig==null&&(obj as AnalogInputConfig)==null) || (
                 this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as AnalogInputConfig))))
             );
@@ -200,8 +203,8 @@ namespace MobiFlight
                         ButtonInputConfig.ReadXml(reader);
                     } else if (reader.Name == "analog")
                     {
-                        ButtonInputConfig = new ButtonInputConfig();
-                        ButtonInputConfig.ReadXml(reader);
+                        AnalogInputConfig = new AnalogInputConfig();
+                        AnalogInputConfig.ReadXml(reader);
                     }
                 }
             }
@@ -382,8 +385,8 @@ namespace MobiFlight
 
             clone.Interpolation             = this.Interpolation.Clone() as Interpolation;
             clone.ConfigRefs                = ConfigRefs.Clone() as ConfigRefList;
-            clone.InputAction               = this.InputAction?.Clone() as InputConfig.InputAction;
-
+            clone.ButtonInputConfig         = this.ButtonInputConfig?.Clone() as InputConfig.ButtonInputConfig;
+            clone.AnalogInputConfig         = this.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
             return clone;
         }
     }

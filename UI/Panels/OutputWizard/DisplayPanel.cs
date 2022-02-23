@@ -52,6 +52,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 inputActionGroupBox.AutoSize = false;
                 inputActionGroupBox.Height = (s as UserControl).Height + 80;
             };
+
+            buttonPanel1.OnPanelChanged += (s, e) => {
+                inputActionGroupBox.AutoSize = false;
+                inputActionGroupBox.Height = (s as UserControl).Height + 80;
+            };
         }
 
         public void SetConfigRefsDataView(DataView dv, string filterGuid)
@@ -168,8 +173,16 @@ namespace MobiFlight.UI.Panels.OutputWizard
             else
             {
                 AnalogInputConfig analogInputConfig = new AnalogInputConfig();
-                analogInputConfig.onChange = config.InputAction;
+                analogInputConfig.onChange = config.AnalogInputConfig?.onChange;                    ;
                 analogPanel1.syncFromConfig(analogInputConfig);
+
+                ButtonInputConfig buttonInputConfig = new ButtonInputConfig();
+                buttonInputConfig.onPress = config.ButtonInputConfig?.onPress;
+                buttonInputConfig.onRelease = config.ButtonInputConfig?.onRelease;
+                buttonPanel1.syncFromConfig(buttonInputConfig);
+
+                InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
+                InputTypeAnalogRadioButton.Checked = config.AnalogInputConfig?.onChange != null;
             }
         }
 
@@ -253,9 +266,18 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
             else { 
                 config.DisplayType = "InputAction";
-                AnalogInputConfig tmpConfig = new AnalogInputConfig();
-                analogPanel1.ToConfig(tmpConfig);
-                config.InputAction = tmpConfig.onChange;
+
+                if (analogPanel1.Enabled)
+                {
+                    AnalogInputConfig tmpConfig = new AnalogInputConfig();
+                    analogPanel1.ToConfig(tmpConfig);
+                    config.AnalogInputConfig = tmpConfig;
+                } else
+                {
+                    ButtonInputConfig tmpConfig = new ButtonInputConfig();
+                    buttonPanel1.ToConfig(tmpConfig);
+                    config.ButtonInputConfig = tmpConfig;
+                }
             }
         }
 
@@ -712,6 +734,15 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             InputActionTypePanel.Visible = OutputTypeComboBox.SelectedIndex == 1;
             inputActionGroupBox.Visible = OutputTypeComboBox.SelectedIndex == 1;
+        }
+
+        private void InputTypeButtonRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonPanel1.Enabled = InputTypeButtonRadioButton.Checked;
+            buttonPanel1.Visible = InputTypeButtonRadioButton.Checked;
+
+            analogPanel1.Enabled = InputTypeAnalogRadioButton.Checked;
+            analogPanel1.Visible = InputTypeAnalogRadioButton.Checked;
         }
     }
 }
