@@ -14,6 +14,8 @@ namespace MobiFlight.HubHop
         [EnumMember(Value = "Input")]
         Input = 2,
         [EnumMember(Value = "Input (Potentiometer)")]
-        InputPotentiometer = 4
+        InputPotentiometer = 4,
+        [EnumMember(Value = "AllInputs")]
+        AllInputs = 6
     }
 }

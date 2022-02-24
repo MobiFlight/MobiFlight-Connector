@@ -134,7 +134,7 @@ namespace MobiFlight.UI.Panels.Config
             else
             {
                 HubHopType hubhopType = HubHopType.Output;
-                if (Mode==HubHopPanelMode.Input) hubhopType = HubHopType.Input | HubHopType.InputPotentiometer;
+                if (Mode==HubHopPanelMode.Input) hubhopType = HubHopType.AllInputs;
                 try
                 {
                     PresetList.Load(PresetFile);
@@ -224,7 +224,7 @@ namespace MobiFlight.UI.Panels.Config
             String OriginalCode = Regex.Replace(Code, @":\d+", ":index");
 
             Msfs2020HubhopPreset OriginalPreset = 
-                PresetList.FindByCode(Mode == HubHopPanelMode.Input ? HubHopType.Input | HubHopType.InputPotentiometer : HubHopType.Output, OriginalCode);
+                PresetList.FindByCode(Mode == HubHopPanelMode.Input ? HubHopType.AllInputs : HubHopType.Output, OriginalCode);
 
             if (OriginalPreset==null)
             {
@@ -359,7 +359,7 @@ namespace MobiFlight.UI.Panels.Config
             });
 
             HubHopType hubhopType = HubHopType.Output;
-            if (Mode == HubHopPanelMode.Input) hubhopType = HubHopType.Input;
+            if (Mode == HubHopPanelMode.Input) hubhopType = HubHopType.AllInputs;
 
             FilteredPresetList.Items.AddRange(
                 PresetList.Filtered(
@@ -383,7 +383,7 @@ namespace MobiFlight.UI.Panels.Config
         private void FilteredPresetListChanged()
         {
             HubHopType hubhopType = HubHopType.Output;
-            if (Mode == HubHopPanelMode.Input) hubhopType = HubHopType.Input;
+            if (Mode == HubHopPanelMode.Input) hubhopType = HubHopType.AllInputs;
 
             UpdateValues(VendorComboBox, FilteredPresetList.AllVendors(hubhopType).ToArray());
             UpdateValues(AircraftComboBox, FilteredPresetList.AllAircraft(hubhopType).ToArray());
