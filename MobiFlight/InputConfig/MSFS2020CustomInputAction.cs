@@ -36,7 +36,8 @@ namespace MobiFlight.InputConfig
         {
             writer.WriteAttributeString("type", getType());
             writer.WriteAttributeString("command", Command);
-            writer.WriteAttributeString("presetId", PresetId);
+            if(PresetId != null && PresetId!="")
+                writer.WriteAttributeString("presetId", PresetId);
         }
 
         protected virtual String getType()
