@@ -141,5 +141,17 @@ namespace MobiFlight.HubHop.Tests
             Assert.IsNotNull(preset);
             Assert.AreEqual("e1fb3d0a-9fe4-4439-948d-7023809d6d73", preset.id);
         }
+
+        [TestMethod()]
+        public void FindByUUIDTest()
+        {
+            Msfs2020HubhopPresetList list = new Msfs2020HubhopPresetList();
+            String TestFile = @"assets\HubHop\Msfs2020HubhopPresetListTests\test-eventids.json";
+            list.Load(TestFile);
+
+            Msfs2020HubhopPreset preset = list.FindByUUID(HubHopType.AllInputs, "167a047e-eee9-48e4-8101-398dc99d6ebb");
+            Assert.IsNotNull(preset);
+            Assert.AreEqual("AS1000_PFD_VOL_1_DEC", preset.label) ;
+        }
     }
 }
