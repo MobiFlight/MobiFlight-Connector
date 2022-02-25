@@ -30,6 +30,9 @@ namespace MobiFlight.SimConnectMSFS
         public const String WasmEventsHubHopFolder = @".\presets";
         public const String WasmEventsHubHopFileName = @"msfs2020_hubhop_presets.json";
 
+        public const String WasmModuleName = @"MobiFlightWasmModule.wasm";
+        public const String WasmModuleNameOld = @"StandaloneModule.wasm";
+
         public String CommunityFolder { get; set; }
 
         private String ExtractCommunityFolderFromUserCfg(String UserCfg)
@@ -96,8 +99,18 @@ namespace MobiFlight.SimConnectMSFS
             String destFolder = CommunityFolder + @"\mobiflight-event-module";
             CopyFolder(new DirectoryInfo(WasmModuleFolder), new DirectoryInfo(destFolder));
 
+            // Remove the old Wasm File
+            DeleteOldWasmFile();
+
             Log.Instance.log("WASM module has been installed successfully.", LogSeverity.Info);
             return true;
+        }
+
+        private void DeleteOldWasmFile()
+        {
+            String installedWASM = CommunityFolder + $@"\mobiflight-event-module\modules\{WasmModuleNameOld}";
+            if(System.IO.File.Exists(installedWASM))
+                System.IO.File.Delete(installedWASM);
         }
 
         public static void CopyFolder(DirectoryInfo source, DirectoryInfo target)
@@ -142,11 +155,11 @@ namespace MobiFlight.SimConnectMSFS
             if (CommunityFolder == null) return true;
 
 
-            if (!File.Exists(CommunityFolder + @"\mobiflight-event-module\modules\StandaloneModule.wasm"))
+            if (!File.Exists(CommunityFolder + $@"\mobiflight-event-module\modules\{WasmModuleName}"))
                 return true;
 
-            installedWASM = CalculateMD5(CommunityFolder + @"\mobiflight-event-module\modules\StandaloneModule.wasm");
-            mobiflightWASM = CalculateMD5(@".\MSFS2020-module\mobiflight-event-module\modules\StandaloneModule.wasm");
+            installedWASM = CalculateMD5(CommunityFolder + $@"\mobiflight-event-module\modules\{WasmModuleName}");
+            mobiflightWASM = CalculateMD5($@".\MSFS2020-module\mobiflight-event-module\modules\{WasmModuleName}");
 
             installedEvents = CalculateMD5(CommunityFolder + $@"\mobiflight-event-module\modules\{WasmEventsTxtFile}");
             mobiflightEvents = CalculateMD5($@".\MSFS2020-module\mobiflight-event-module\modules\{WasmEventsTxtFile}");
