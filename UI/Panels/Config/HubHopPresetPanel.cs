@@ -43,8 +43,6 @@ namespace MobiFlight.UI.Panels.Config
             AVarExamplePanel.Visible = value == HubHopPanelMode.Output;
             ExampleLabel.Visible = value == HubHopPanelMode.Output;
 
-            ShowExpertSettingsCheckBox.Checked = value == HubHopPanelMode.Input;
-
             if (value == HubHopPanelMode.Input)
             {
                 FilterVendorPanel.Width = 100;
@@ -152,20 +150,21 @@ namespace MobiFlight.UI.Panels.Config
         internal void syncToConfig(OutputConfigItem config)
         {
             config.SimConnectValue.VarType = SimConnectVarType.CODE;
-            switch (config.SimConnectValue.VarType)
-            {
-                case SimConnectVarType.CODE:
-                    config.SimConnectValue.Value = SimVarNameTextBox.Text;
-                    break;
-            }
+
+            Msfs2020HubhopPreset selectedPreset = (PresetComboBox.Items[PresetComboBox.SelectedIndex] as Msfs2020HubhopPreset);
+
+            config.SimConnectValue.UUID = selectedPreset?.id;
             config.SimConnectValue.Value = SimVarNameTextBox.Text;
         }
 
         internal InputConfig.InputAction ToConfig()
         {
+            Msfs2020HubhopPreset selectedPreset = (PresetComboBox.Items[PresetComboBox.SelectedIndex] as Msfs2020HubhopPreset);
+
             MobiFlight.InputConfig.MSFS2020CustomInputAction result = 
                 new InputConfig.MSFS2020CustomInputAction()
                 {
+                    PresetId = selectedPreset?.id,
                     Command = SimVarNameTextBox.Text
                 };
             return result;
@@ -179,10 +178,28 @@ namespace MobiFlight.UI.Panels.Config
                 SimVarNameTextBox.Text = config.SimConnectValue.Value;
                 SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             }
+
+            if (config.SimConnectValue.UUID!=null) {
+                // Try to find the preset by UUID
+                Msfs2020HubhopPreset OriginalPreset =
+                    PresetList.FindByUUID(Mode == HubHopPanelMode.Input ? HubHopType.AllInputs : HubHopType.Output, config.SimConnectValue.UUID);
+                if (OriginalPreset != null)
+                {
+                    String Code = Regex.Replace(config.SimConnectValue.Value, @":\d+", ":index");
+                    
+                    // Code was modified by user after
+                    // originally using a preset as template
+                    ShowExpertSettingsCheckBox.Checked = Code != OriginalPreset.code;
+
+                    // We have found the original preset
+                    InitializeComboBoxesWithPreset(OriginalPreset);
+                    return;
+                }
+            }
+
             // Try to find the original preset and 
             // initialize comboboxes accordingly
             String OriginalCode = config.SimConnectValue.Value;
-
             TryToSelectOriginalPresetFromCode(OriginalCode);
         }
 
@@ -192,6 +209,25 @@ namespace MobiFlight.UI.Panels.Config
 
             // Restore the code
             SimVarNameTextBox.Text = inputAction.Command;
+
+            if (inputAction.PresetId != null)
+            {
+                // Try to find the preset by UUID
+                Msfs2020HubhopPreset OriginalPreset =
+                    PresetList.FindByUUID(Mode == HubHopPanelMode.Input ? HubHopType.AllInputs : HubHopType.Output, inputAction.PresetId);
+                if (OriginalPreset != null)
+                {
+                    String Code = Regex.Replace(inputAction.Command, @":\d+", ":index");
+
+                    // Code was modified by user after
+                    // originally using a preset as template
+                    ShowExpertSettingsCheckBox.Checked = Code != OriginalPreset.code;
+
+                    // We have found the original preset
+                    InitializeComboBoxesWithPreset(OriginalPreset);
+                    return;
+                }
+            }
 
             // Try to find the original preset and 
             // initialize comboboxes accordingly

@@ -7,33 +7,37 @@ namespace MobiFlight.InputConfig
 {
     public class MSFS2020CustomInputAction : InputAction, ICloneable
     {
-        const Int16 BaseOffset = 0x3110;
-        const Int16 ParamOffset = 0x3114;
-
         public new const String Label = "MSFS2020 - Custom Input";
         public new const String CacheType = "SimConnect";
         public const String TYPE = "MSFS2020CustomInputAction";
         public String Command;
-        
+        public String PresetId;
+
         override public object Clone()
         {
             MSFS2020CustomInputAction clone = new MSFS2020CustomInputAction();
             clone.Command = Command;
+            clone.PresetId = PresetId;
 
             return clone;
         }
 
         public override void ReadXml(System.Xml.XmlReader reader)
         {
-            String command = reader["command"];
+            Command = reader["command"];
 
-            Command = command;
+            // backward compatible loading:
+            // presetId might not exist
+            if (reader["presetId"] != null)
+                PresetId = reader["presetId"];
         }
 
         public override void WriteXml(System.Xml.XmlWriter writer)
         {
             writer.WriteAttributeString("type", getType());
-            writer.WriteAttributeString("command", Command.ToString());
+            writer.WriteAttributeString("command", Command);
+            if(PresetId != null && PresetId!="")
+                writer.WriteAttributeString("presetId", PresetId);
         }
 
         protected virtual String getType()
@@ -83,7 +87,9 @@ namespace MobiFlight.InputConfig
         public override bool Equals(object obj)
         {
             return obj != null && obj is MSFS2020CustomInputAction &&
-                Command == (obj as MSFS2020CustomInputAction).Command;
+                Command == (obj as MSFS2020CustomInputAction).Command &&
+                ((PresetId == null && (obj as MSFS2020CustomInputAction).PresetId == null) || 
+                 (PresetId == (obj as MSFS2020CustomInputAction).PresetId));
         }
     }
 }
