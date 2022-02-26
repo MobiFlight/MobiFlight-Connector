@@ -13,11 +13,12 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class MFInputShiftRegisterPanel : UserControl
     {
+        private List<MobiFlightPin> pinList;    // COMPLETE list of pins (includes status)
         private InputShiftRegister inputShiftRegister;
         private bool initialized;
-        public event EventHandler Changed;
         private int MAX_MODULES = 4;
-        private const string NA_STRING = "N/A";
+
+        public event EventHandler Changed;
 
         public MFInputShiftRegisterPanel()
         {
@@ -29,51 +30,61 @@ namespace MobiFlight.UI.Panels.Settings
 
         public MFInputShiftRegisterPanel(InputShiftRegister inputShiftRegister, List<MobiFlightPin> Pins) : this()
         {
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, Pins, inputShiftRegister.LatchPin);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, Pins, inputShiftRegister.ClockPin);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, Pins, inputShiftRegister.DataPin);
+            pinList = Pins; // Keep pin list stored
 
-            if (mfPin1ComboBox.Items.Count > 2)
-            {
-                mfPin1ComboBox.SelectedIndex = 0;
-                mfPin2ComboBox.SelectedIndex = 1;
-                mfPin3ComboBox.SelectedIndex = 2;
-            }
+            this.inputShiftRegister = inputShiftRegister;
+            UpdateFreePinsInDropDowns();
 
-            for (int i = 1; i <= MAX_MODULES; i++)
-            {
+            for (int i = 1; i <= MAX_MODULES; i++) {
                 mfNumModulesComboBox.Items.Add(i);
             }
 
-            this.inputShiftRegister = inputShiftRegister;
-
-            ComboBoxHelper.SetSelectedItem(mfPin1ComboBox, inputShiftRegister.LatchPin);
-            ComboBoxHelper.SetSelectedItem(mfPin2ComboBox, inputShiftRegister.ClockPin);
-            ComboBoxHelper.SetSelectedItem(mfPin3ComboBox, inputShiftRegister.DataPin);
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, inputShiftRegister.NumModules);
-
             textBox1.Text = inputShiftRegister.Name;
 
             initialized = true;
         }
 
+        private void setNonPinValues()
+        {
+            inputShiftRegister.Name = textBox1.Text;
+            inputShiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
+        }
+
+        private void UpdateFreePinsInDropDowns()
+        {
+            bool exInitialized = initialized;
+            initialized = false;    // inhibit value_Changed events
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, inputShiftRegister.LatchPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, pinList, inputShiftRegister.ClockPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, pinList, inputShiftRegister.DataPin);
+            initialized = exInitialized;
+        }
+
+        private void ReassignFreePinsInDropDowns(ComboBox comboBox)
+        {
+            bool exInitialized = initialized;
+            initialized = false;    // inhibit value_Changed events
+
+            // First update the one that is changed
+            // Here, the config data (shiftRegister.XXXPin) is updated with the new value read from the changed ComboBox;
+            if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref inputShiftRegister.LatchPin); } else
+            if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(mfPin2ComboBox, pinList, ref inputShiftRegister.ClockPin); } else
+            if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(mfPin3ComboBox, pinList, ref inputShiftRegister.DataPin); }
+            // then the others are updated too 
+            UpdateFreePinsInDropDowns();
+
+            initialized = exInitialized;
+        }
+
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-
-            setValues();
-
+            ReassignFreePinsInDropDowns(sender as ComboBox);
+            setNonPinValues();
             if (Changed != null)
                 Changed(inputShiftRegister, new EventArgs());
         }
 
-        private void setValues()
-        {
-            inputShiftRegister.LatchPin = mfPin1ComboBox.Text;
-            inputShiftRegister.ClockPin = mfPin2ComboBox.Text;
-            inputShiftRegister.DataPin = mfPin3ComboBox.Text;
-            inputShiftRegister.Name = textBox1.Text;
-            inputShiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
-        }
     }
 }

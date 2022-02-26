@@ -24,17 +24,15 @@ namespace MobiFlight.UI.Panels.Settings.Device
             InitializeComponent();
         }
 
-        public MFLcddDisplayPanel(MobiFlight.Config.LcdDisplay config, List<MobiFlightPin> Pins)
-            : this()
+        public MFLcddDisplayPanel(MobiFlight.Config.LcdDisplay config, List<MobiFlightPin> Pins): this()
         {
-            // TODO: Complete member initialization
+            //// TODO: Complete member initialization
             this.config = config;
             NameTextBox.Text = config.Name;
             AddressComboBox.SelectedItem = "0x" + config.Address.ToString("X2");
             ColTextBox.Text = config.Cols.ToString();
             LinesTextBox.Text = config.Lines.ToString();
-
-            setValues();
+            ////setValues();
 
             initialized = true;
         }
@@ -42,9 +40,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            
             setValues();
-
             if (Changed!=null)
                 Changed(config, new EventArgs());
         }
@@ -52,15 +48,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void setValues()
         {
             config.Name     = NameTextBox.Text;
-
             config.Address  = Byte.Parse(AddressComboBox.Text.Replace("0x",""), System.Globalization.NumberStyles.HexNumber);
-
             byte Cols;
-            if (Byte.TryParse(ColTextBox.Text, out Cols))
-            {
+            if (Byte.TryParse(ColTextBox.Text, out Cols)) {
                 config.Cols = Cols;
             }
-
             byte Lines;
             if (Byte.TryParse(LinesTextBox.Text, out Lines)) { 
                 config.Lines = Lines;

@@ -68,6 +68,7 @@
             // 
             // mfNumModulesComboBox
             // 
+            this.mfNumModulesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfNumModulesComboBox.FormattingEnabled = true;
             this.mfNumModulesComboBox.Items.AddRange(new object[] {
             resources.GetString("mfNumModulesComboBox.Items"),
@@ -99,6 +100,7 @@
             // 
             // mfPin1ComboBox
             // 
+            this.mfPin1ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPin1ComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPin1ComboBox, "mfPin1ComboBox");
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
@@ -111,6 +113,7 @@
             // 
             // mfPin3ComboBox
             // 
+            this.mfPin3ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPin3ComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPin3ComboBox, "mfPin3ComboBox");
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
@@ -123,6 +126,7 @@
             // 
             // mfPin2ComboBox
             // 
+            this.mfPin2ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPin2ComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPin2ComboBox, "mfPin2ComboBox");
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";

@@ -33,16 +33,16 @@
             this.mfPinLabel = new System.Windows.Forms.Label();
             this.mfPinComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.SensitivityValueLabel = new System.Windows.Forms.Label();
+            this.SensitivityLowLabel1 = new System.Windows.Forms.Label();
+            this.SensitivityHighLabel = new System.Windows.Forms.Label();
+            this.SensitivityTrackBar = new System.Windows.Forms.TrackBar();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.SensitivityTrackBar = new System.Windows.Forms.TrackBar();
-            this.SensitivityHighLabel = new System.Windows.Forms.Label();
-            this.SensitivityLowLabel1 = new System.Windows.Forms.Label();
-            this.SensitivityValueLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -60,6 +60,7 @@
             // 
             // mfPinComboBox
             // 
+            this.mfPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPinComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPinComboBox, "mfPinComboBox");
             this.mfPinComboBox.Name = "mfPinComboBox";
@@ -75,6 +76,31 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // SensitivityValueLabel
+            // 
+            resources.ApplyResources(this.SensitivityValueLabel, "SensitivityValueLabel");
+            this.SensitivityValueLabel.Name = "SensitivityValueLabel";
+            // 
+            // SensitivityLowLabel1
+            // 
+            resources.ApplyResources(this.SensitivityLowLabel1, "SensitivityLowLabel1");
+            this.SensitivityLowLabel1.Name = "SensitivityLowLabel1";
+            // 
+            // SensitivityHighLabel
+            // 
+            resources.ApplyResources(this.SensitivityHighLabel, "SensitivityHighLabel");
+            this.SensitivityHighLabel.Name = "SensitivityHighLabel";
+            // 
+            // SensitivityTrackBar
+            // 
+            resources.ApplyResources(this.SensitivityTrackBar, "SensitivityTrackBar");
+            this.SensitivityTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.SensitivityTrackBar.Maximum = 20;
+            this.SensitivityTrackBar.Minimum = 1;
+            this.SensitivityTrackBar.Name = "SensitivityTrackBar";
+            this.SensitivityTrackBar.TickFrequency = 5;
+            this.SensitivityTrackBar.Value = 1;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox1);
@@ -88,31 +114,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
-            // SensitivityTrackBar
-            // 
-            resources.ApplyResources(this.SensitivityTrackBar, "SensitivityTrackBar");
-            this.SensitivityTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.SensitivityTrackBar.Maximum = 20;
-            this.SensitivityTrackBar.Minimum = 1;
-            this.SensitivityTrackBar.Name = "SensitivityTrackBar";
-            this.SensitivityTrackBar.TickFrequency = 5;
-            this.SensitivityTrackBar.Value = 1;
-            // 
-            // SensitivityHighLabel
-            // 
-            resources.ApplyResources(this.SensitivityHighLabel, "SensitivityHighLabel");
-            this.SensitivityHighLabel.Name = "SensitivityHighLabel";
-            // 
-            // SensitivityLowLabel1
-            // 
-            resources.ApplyResources(this.SensitivityLowLabel1, "SensitivityLowLabel1");
-            this.SensitivityLowLabel1.Name = "SensitivityLowLabel1";
-            // 
-            // SensitivityValueLabel
-            // 
-            resources.ApplyResources(this.SensitivityValueLabel, "SensitivityValueLabel");
-            this.SensitivityValueLabel.Name = "SensitivityValueLabel";
-            // 
             // MFAnalogPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -124,9 +125,9 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
