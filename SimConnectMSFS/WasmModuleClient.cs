@@ -10,6 +10,14 @@ namespace MobiFlight.SimConnectMSFS
 
     static class WasmModuleClient
     {
+        public static void Ping(SimConnect simConnect)
+        {
+            if (simConnect == null) return;
+
+            SendWasmCmd(simConnect, "MF.Ping");
+            DummyCommand(simConnect);
+        }
+
         public static void Stop(SimConnect simConnect)
         {
             if (simConnect == null) return;

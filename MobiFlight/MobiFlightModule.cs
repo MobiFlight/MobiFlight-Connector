@@ -24,6 +24,8 @@ namespace MobiFlight
         public int? Pin { get; set; }
 
         public int Value { get; set; }
+
+        public String StrValue { get; set;}
     }
 
     public class FirmwareFeature

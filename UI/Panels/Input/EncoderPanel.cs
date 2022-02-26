@@ -131,18 +131,6 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as RetriggerInputPanel).syncFromConfig(_config.onRightFast as RetriggerInputAction);
                     break;
 
-                case MSFS2020EventIdInputAction.Label:
-                    panel = new MSFS2020InputPanel();
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as MSFS2020InputPanel).syncFromConfig(_config.onLeft as MSFS2020EventIdInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as MSFS2020InputPanel).syncFromConfig(_config.onLeftFast as MSFS2020EventIdInputAction);
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as MSFS2020InputPanel).syncFromConfig(_config.onRight as MSFS2020EventIdInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as MSFS2020InputPanel).syncFromConfig(_config.onRightFast as MSFS2020EventIdInputAction);
-                    break;
-
                 case VariableInputAction.Label:
                     panel = new VariableInputPanel();
                     (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
@@ -156,16 +144,37 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as VariableInputPanel).syncFromConfig(_config.onRightFast as VariableInputAction);
                     break;
 
+                // For backward compatibility this is now combined and MSFS2020EventIdInputAction was removed
                 case MSFS2020CustomInputAction.Label:
                     panel = new MSFS2020CustomInputPanel();
                     if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeft as MSFS2020CustomInputAction);
+                    {
+                        if (_config.onLeft is MSFS2020CustomInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeft as MSFS2020CustomInputAction);
+                        else
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeft as MSFS2020EventIdInputAction);
+                    }
                     else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeftFast as MSFS2020CustomInputAction);
+                    {
+                        if (_config.onLeftFast is MSFS2020CustomInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeftFast as MSFS2020CustomInputAction);
+                        else
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeftFast as MSFS2020EventIdInputAction);
+                    }
                     else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRight as MSFS2020CustomInputAction);
+                    {
+                        if (_config.onRight is MSFS2020CustomInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRight as MSFS2020CustomInputAction);
+                        else
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRight as MSFS2020EventIdInputAction);
+                    }
                     else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRightFast as MSFS2020CustomInputAction);
+                    {
+                        if (_config.onRightFast is MSFS2020CustomInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRightFast as MSFS2020CustomInputAction);
+                        else
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRightFast as MSFS2020EventIdInputAction);
+                    }
                     break;
             }
 

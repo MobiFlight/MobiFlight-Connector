@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.2.0.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<source type="SimConnect" VarType="CODE" Value="(A:INDICATED ALTITUDE,Feet)" />
+	<comparison active="True" value="6000" operand="&lt;" ifValue="1" elseValue="0" />
+	<display type="InputAction" serial="-" trigger="normal">
+		<button>
+			<onPress type="MSFS2020CustomInputAction" command="Test" />
+			<onRelease type="MSFS2020CustomInputAction" command="Test~!" />
+		</button>
+	</display>
+	<preconditions />
+	<transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+	<configrefs />
+</settings>

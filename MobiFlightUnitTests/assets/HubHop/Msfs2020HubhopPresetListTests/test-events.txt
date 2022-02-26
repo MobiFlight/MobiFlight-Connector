@@ -1,0 +1,7 @@
+﻿//Milviz/PC6 Turbo Porter/Lights
+Landing_Light_Position_DOWN#(L:LandingLight_Position)·0·==·if{(>L:LandingLight_Position,Number)·0·(>L:LandingLight_SwitchPosition,·Number)} 
+Landing_Light_Position_UP#(L:LandingLight_Position)·0·==·if{(>L:LandingLight_Position,Number)·1·(>L:LandingLight_SwitchPosition,·Number)} 
+//Aerosoft/CRJ 550-700-1000/Air Condition / Pressurization
+ASCRJ_AIRC_AFT_CARGO_AIRCOND_SWITCH#(L:ASCRJ_AIRC_AFT_CARGO, Bool) ! (>L:ASCRJ_AIRC_AFT_CARGO)
+ASCRJ_APU_STARTSTOP_RELEASE#(L:ASCRJ_APU_STARTSTOP) ! s0 (>L:ASCRJ_APU_STARTSTOP) l0 (>L:ASCRJ_APU_STARTSTOP_ANIM)
+ASCRJ_ECAM_AICE#0 (>L:ASCRJ_ECAM_AICE) 1 (>L:ASCRJ_ECAM_AICE) 

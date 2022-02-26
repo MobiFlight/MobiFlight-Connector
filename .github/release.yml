@@ -1,0 +1,23 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+      - bug-beta
+    authors:
+      - MobiFlight-Admin
+  categories:
+    - title: New Feature :tada:
+      labels:
+        - feature
+    - title: Improvement :sparkles:
+      labels:
+        - enhancement
+    - title: Bug Fixes :bug:
+      labels:
+        - bug
+    - title: Documentation :bug:
+      labels:
+        - documentation
+    - title: Other Changes
+      labels:
+        - "*"

@@ -61,16 +61,7 @@
             this.comparisonActiveCheckBox = new System.Windows.Forms.CheckBox();
             this.comparisonHintTtextBox = new System.Windows.Forms.TextBox();
             this.displayTabPage = new System.Windows.Forms.TabPage();
-            this.testSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.displayPinTestStopButton = new System.Windows.Forms.Button();
-            this.displayPinTestButton = new System.Windows.Forms.Button();
-            this.groupBoxDisplaySettings = new System.Windows.Forms.GroupBox();
-            this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
-            this.arcazeSerialLabel = new System.Windows.Forms.Label();
-            this.displayModuleNameComboBox = new System.Windows.Forms.ComboBox();
-            this.displayTypeComboBoxLabel = new System.Windows.Forms.Label();
-            this.displayTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.displayTabTextBox = new System.Windows.Forms.TextBox();
+            this.displayPanel1 = new MobiFlight.UI.Panels.OutputWizard.DisplayPanel();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
             this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
             this.ButtonPanel = new System.Windows.Forms.Panel();
@@ -91,8 +82,6 @@
             this.comparisonSettingsGroupBox.SuspendLayout();
             this.comparisonSettingsPanel.SuspendLayout();
             this.displayTabPage.SuspendLayout();
-            this.testSettingsGroupBox.SuspendLayout();
-            this.displayTypeGroupBox.SuspendLayout();
             this.preconditionTabPage.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
@@ -147,10 +136,6 @@
             // simConnectPanel1
             // 
             resources.ApplyResources(this.simConnectPanel1, "simConnectPanel1");
-            this.simConnectPanel1.LVars = ((System.Collections.Generic.List<string>)(resources.GetObject("simConnectPanel1.LVars")));
-            this.simConnectPanel1.Name = "simConnectPanel1";
-            this.simConnectPanel1.PresetFile = "Presets\\msfs2020_simvars.cip";
-            this.simConnectPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
             // 
             // FsuipcSettingsPanel
             // 
@@ -320,7 +305,6 @@
             // 
             // comparisonHintTtextBox
             // 
-            this.comparisonHintTtextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.comparisonHintTtextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.comparisonHintTtextBox.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.comparisonHintTtextBox, "comparisonHintTtextBox");
@@ -330,97 +314,15 @@
             // 
             // displayTabPage
             // 
-            this.displayTabPage.Controls.Add(this.testSettingsGroupBox);
-            this.displayTabPage.Controls.Add(this.groupBoxDisplaySettings);
-            this.displayTabPage.Controls.Add(this.displayTypeGroupBox);
-            this.displayTabPage.Controls.Add(this.displayTabTextBox);
+            this.displayTabPage.Controls.Add(this.displayPanel1);
             resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Name = "displayTabPage";
             this.displayTabPage.UseVisualStyleBackColor = true;
             // 
-            // testSettingsGroupBox
+            // displayPanel1
             // 
-            this.testSettingsGroupBox.Controls.Add(this.displayPinTestStopButton);
-            this.testSettingsGroupBox.Controls.Add(this.displayPinTestButton);
-            resources.ApplyResources(this.testSettingsGroupBox, "testSettingsGroupBox");
-            this.testSettingsGroupBox.Name = "testSettingsGroupBox";
-            this.testSettingsGroupBox.TabStop = false;
-            // 
-            // displayPinTestStopButton
-            // 
-            resources.ApplyResources(this.displayPinTestStopButton, "displayPinTestStopButton");
-            this.displayPinTestStopButton.Image = global::MobiFlight.Properties.Resources.media_stop;
-            this.displayPinTestStopButton.Name = "displayPinTestStopButton";
-            this.displayPinTestStopButton.UseVisualStyleBackColor = true;
-            this.displayPinTestStopButton.Click += new System.EventHandler(this.displayPinTestStopButton_Click);
-            // 
-            // displayPinTestButton
-            // 
-            resources.ApplyResources(this.displayPinTestButton, "displayPinTestButton");
-            this.displayPinTestButton.Image = global::MobiFlight.Properties.Resources.media_play;
-            this.displayPinTestButton.Name = "displayPinTestButton";
-            this.displayPinTestButton.UseVisualStyleBackColor = true;
-            this.displayPinTestButton.Click += new System.EventHandler(this.displayPinTestButton_Click);
-            // 
-            // groupBoxDisplaySettings
-            // 
-            resources.ApplyResources(this.groupBoxDisplaySettings, "groupBoxDisplaySettings");
-            this.groupBoxDisplaySettings.Name = "groupBoxDisplaySettings";
-            this.groupBoxDisplaySettings.TabStop = false;
-            // 
-            // displayTypeGroupBox
-            // 
-            this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
-            this.displayTypeGroupBox.Controls.Add(this.displayModuleNameComboBox);
-            this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBoxLabel);
-            this.displayTypeGroupBox.Controls.Add(this.displayTypeComboBox);
-            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
-            this.displayTypeGroupBox.Name = "displayTypeGroupBox";
-            this.displayTypeGroupBox.TabStop = false;
-            // 
-            // arcazeSerialLabel
-            // 
-            resources.ApplyResources(this.arcazeSerialLabel, "arcazeSerialLabel");
-            this.arcazeSerialLabel.Name = "arcazeSerialLabel";
-            // 
-            // displayModuleNameComboBox
-            // 
-            this.displayModuleNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displayModuleNameComboBox.FormattingEnabled = true;
-            this.displayModuleNameComboBox.Items.AddRange(new object[] {
-            resources.GetString("displayModuleNameComboBox.Items"),
-            resources.GetString("displayModuleNameComboBox.Items1")});
-            resources.ApplyResources(this.displayModuleNameComboBox, "displayModuleNameComboBox");
-            this.displayModuleNameComboBox.Name = "displayModuleNameComboBox";
-            this.displayModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.displaySerialComboBox_SelectedIndexChanged);
-            this.displayModuleNameComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.displayArcazeSerialComboBox_Validating);
-            // 
-            // displayTypeComboBoxLabel
-            // 
-            resources.ApplyResources(this.displayTypeComboBoxLabel, "displayTypeComboBoxLabel");
-            this.displayTypeComboBoxLabel.Name = "displayTypeComboBoxLabel";
-            // 
-            // displayTypeComboBox
-            // 
-            this.displayTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.displayTypeComboBox.FormattingEnabled = true;
-            this.displayTypeComboBox.Items.AddRange(new object[] {
-            resources.GetString("displayTypeComboBox.Items"),
-            resources.GetString("displayTypeComboBox.Items1"),
-            resources.GetString("displayTypeComboBox.Items2")});
-            resources.ApplyResources(this.displayTypeComboBox, "displayTypeComboBox");
-            this.displayTypeComboBox.Name = "displayTypeComboBox";
-            this.displayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.displayTypeComboBox_SelectedIndexChanged);
-            // 
-            // displayTabTextBox
-            // 
-            this.displayTabTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.displayTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.displayTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
-            this.displayTabTextBox.Name = "displayTabTextBox";
-            this.displayTabTextBox.ReadOnly = true;
-            this.displayTabTextBox.TabStop = false;
+            resources.ApplyResources(this.displayPanel1, "displayPanel1");
+            this.displayPanel1.Name = "displayPanel1";
             // 
             // preconditionTabPage
             // 
@@ -509,10 +411,6 @@
             this.comparisonSettingsPanel.ResumeLayout(false);
             this.comparisonSettingsPanel.PerformLayout();
             this.displayTabPage.ResumeLayout(false);
-            this.displayTabPage.PerformLayout();
-            this.testSettingsGroupBox.ResumeLayout(false);
-            this.displayTypeGroupBox.ResumeLayout(false);
-            this.displayTypeGroupBox.PerformLayout();
             this.preconditionTabPage.ResumeLayout(false);
             this.ButtonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
@@ -534,11 +432,6 @@
         private System.Windows.Forms.CheckBox comparisonActiveCheckBox;
         private System.Windows.Forms.TextBox comparisonHintTtextBox;
         private System.Windows.Forms.TabPage displayTabPage;
-        private System.Windows.Forms.TextBox displayTabTextBox;
-        private System.Windows.Forms.GroupBox groupBoxDisplaySettings;
-        private System.Windows.Forms.GroupBox displayTypeGroupBox;
-        private System.Windows.Forms.Label displayTypeComboBoxLabel;
-        private System.Windows.Forms.ComboBox displayTypeComboBox;
         private System.Windows.Forms.Panel comparisonSettingsPanel;
         private System.Windows.Forms.TextBox comparisonValueTextBox;
         private System.Windows.Forms.TextBox comparisonElseValueTextBox;
@@ -547,17 +440,12 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comparisonOperandComboBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label arcazeSerialLabel;
-        private System.Windows.Forms.ComboBox displayModuleNameComboBox;
         private System.Data.DataSet presetsDataSet;
         private System.Data.DataTable presetDataTable;
         private System.Data.DataColumn description;
         private System.Data.DataColumn settingsColumn;
         //private System.Windows.Forms.Panel displayBcdPanel;
         private System.Windows.Forms.TabPage preconditionTabPage;
-        private System.Windows.Forms.GroupBox testSettingsGroupBox;
-        private System.Windows.Forms.Button displayPinTestButton;
-        private System.Windows.Forms.Button displayPinTestStopButton;
         private System.Windows.Forms.Panel compareSpacerPanel;
         private System.Windows.Forms.GroupBox interpolationGroupBox;
         private UI.Panels.Config.InterpolationPanel interpolationPanel1;
@@ -575,5 +463,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label fsuipcHintLabel;
         private Panels.Config.PreconditionPanel preconditionPanel;
+        private Panels.OutputWizard.DisplayPanel displayPanel1;
     }
 }

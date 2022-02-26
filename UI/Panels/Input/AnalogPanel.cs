@@ -13,6 +13,7 @@ namespace MobiFlight.UI.Panels.Input
 {
     public partial class AnalogPanel : UserControl
     {
+        public event EventHandler<EventArgs> OnPanelChanged;
         InputConfig.AnalogInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
@@ -90,13 +91,6 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
-                case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
-                    panel = new MobiFlight.UI.Panels.Action.MSFS2020InputPanel();
-                    if ( _config != null && _config.onChange != null)
-                        (panel as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).syncFromConfig(_config.onChange as MSFS2020EventIdInputAction);
-
-                    break;
-
                 case MobiFlight.InputConfig.VariableInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.VariableInputPanel();
                     (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
@@ -105,19 +99,25 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
+                // For backward compatibility this is now combined and MSFS2020EventIdInputAction was removed
                 case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel();
                     if (_config != null && _config.onChange != null)
-                        (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onChange as MSFS2020CustomInputAction);
-
+                    {
+                        if (_config.onChange is MSFS2020EventIdInputAction)
+                            (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onChange as MSFS2020EventIdInputAction);
+                        else
+                            (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onChange as MSFS2020CustomInputAction);
+                    }
                     break;
             }
 
             if (panel != null)
             {
                 panel.Padding = new Padding(2, 0, 2, 0);
-                panel.Dock = DockStyle.Fill;
+                panel.Dock = DockStyle.Top;
                 owner.Controls.Add(panel);
+                OnPanelChanged?.Invoke(panel, EventArgs.Empty);
             }
         }
 

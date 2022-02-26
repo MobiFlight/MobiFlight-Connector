@@ -6,7 +6,7 @@
       <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="PollInterval" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">200</Value>
+      <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="AutoRun" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

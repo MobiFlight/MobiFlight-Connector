@@ -13,6 +13,7 @@ namespace MobiFlight.UI.Panels.Input
 {
     public partial class ButtonPanel : UserControl
     {
+        public event EventHandler<EventArgs> OnPanelChanged;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         InputConfig.ButtonInputConfig _config;
 
@@ -31,13 +32,15 @@ namespace MobiFlight.UI.Panels.Input
         // On Press Action
         private void onPressActionTypePanel_ActionTypeChanged(object sender, String value)
         {
+            this.SuspendLayout();
+            
             Control panel = null;
             Panel owner = onPressActionConfigPanel;
             bool isOnPress = (sender as MobiFlight.UI.Panels.Config.ActionTypePanel) == onPressActionTypePanel;
 
             if (!isOnPress) owner = onReleaseActionConfigPanel;
-
             owner.Controls.Clear();
+
             switch (value)
             {
                 case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
@@ -115,15 +118,6 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
-                case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
-                    panel = new MobiFlight.UI.Panels.Action.MSFS2020InputPanel();
-                    if (isOnPress && _config != null && _config.onPress != null)
-                        (panel as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).syncFromConfig(_config.onPress as MSFS2020EventIdInputAction);
-                    else if (!isOnPress && _config != null && _config.onRelease != null)
-                        (panel as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).syncFromConfig(_config.onRelease as MSFS2020EventIdInputAction);
-
-                    break;
-
                 case MobiFlight.InputConfig.VariableInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.VariableInputPanel();
                     (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
@@ -134,22 +128,34 @@ namespace MobiFlight.UI.Panels.Input
 
                     break;
 
+                // For backward compatibility this is now combined and MSFS2020EventIdInputAction was removed
                 case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel();
-                    if (isOnPress && _config != null && _config.onPress != null)
-                        (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onPress as MSFS2020CustomInputAction);
-                    else if (!isOnPress && _config != null && _config.onRelease != null)
-                        (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onRelease as MSFS2020CustomInputAction);
+                    if (isOnPress && _config != null && _config.onPress != null) { 
+                        if(_config.onPress is MSFS2020CustomInputAction)
+                            (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onPress as MSFS2020CustomInputAction);
+                        else
+                            (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onPress as MSFS2020EventIdInputAction);
+                    }
+                    else if (!isOnPress && _config != null && _config.onRelease != null) {
+                        if (_config.onRelease is MSFS2020CustomInputAction)
+                            (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onRelease as MSFS2020CustomInputAction);
+                        else
+                            (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onRelease as MSFS2020EventIdInputAction);
+                    }
 
                     break;
             }
 
             if (panel != null)
-            {
+            {                
                 panel.Padding = new Padding(2, 0, 2, 0);
-                panel.Dock = DockStyle.Fill;
+                panel.Dock = DockStyle.Top;
                 owner.Controls.Add(panel);
+                owner.Dock = DockStyle.Top;
+                OnPanelChanged?.Invoke(panel, EventArgs.Empty);
             }
+            this.ResumeLayout(true);
         }
 
         public void syncFromConfig(InputConfig.ButtonInputConfig config)

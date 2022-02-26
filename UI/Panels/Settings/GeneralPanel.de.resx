@@ -210,7 +210,6 @@ sein, wenn der Sim nicht speziell unterstützt ist.</value>
     <value>Langsam</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>Wie schnell MobiFlight die Konfigurationen ausführt. Je niedriger der Wert, desto schneller die Updates. Schnelle Updates können die Performance beeinträchtigen.
-</value>
+    <value>Du kannst die Geschwindigkeit anpassen, z.B. wenn du Lag bei Eingaben hast. Zu schnelle Einstellung kann sich eventuell auf die System-Performance auswirken.</value>
   </data>
 </root>
