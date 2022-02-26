@@ -1341,10 +1341,8 @@ namespace MobiFlight
             }
 
             if (cfg != null &&
-                // (cfg.FSUIPC.Offset != FsuipcOffset.OffsetNull) &&
-
                 lastRow.Cells["active"].Value != null && ((bool)lastRow.Cells["active"].Value) &&
-                (cfg.DisplaySerial.Contains("/"))
+                cfg.DisplaySerial!=null && (cfg.DisplaySerial.Contains("/"))
             )
             {
                 lastSerial = cfg.DisplaySerial.Split('/')[1].Trim();
