@@ -59,15 +59,15 @@ namespace MobiFlight.UI.Dialogs
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
             resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Name = "panel1";
             // 
             // transparentOverlay
             // 
+            resources.ApplyResources(this.transparentOverlay, "transparentOverlay");
             this.transparentOverlay.BackColor = System.Drawing.Color.Transparent;
             this.transparentOverlay.Cursor = System.Windows.Forms.Cursors.Hand;
-            resources.ApplyResources(this.transparentOverlay, "transparentOverlay");
             this.transparentOverlay.Name = "transparentOverlay";
             this.transparentOverlay.Click += new System.EventHandler(this.transparentOverlay1_Click);
             // 
