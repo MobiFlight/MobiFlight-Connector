@@ -29,7 +29,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             pinList = Pins;
             this.encoder = encoder;
-            update_lists();
+            UpdateFreePinsInDropDowns();
 
             // Default standard selected values, next pins available
             mfLeftPinComboBox.SelectedValue = byte.Parse(encoder.PinLeft);
@@ -45,18 +45,18 @@ namespace MobiFlight.UI.Panels.Settings.Device
             encoder.EncoderType = mfEncoderTypeComboBox.SelectedIndex.ToString();
             encoder.Name = textBox1.Text;
         }
-        private void update_lists()
+        private void UpdateFreePinsInDropDowns()
         {
-            bool ex_initialized = initialized;
+            bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
             ComboBoxHelper.BindMobiFlightFreePins(mfLeftPinComboBox, pinList, encoder.PinLeft);
             ComboBoxHelper.BindMobiFlightFreePins(mfRightPinComboBox, pinList, encoder.PinRight);
-            initialized = ex_initialized;
+            initialized = exInitialized;
         }
 
-        private void update_all(ComboBox comboBox)
+        private void ReassignFreePinsInDropDowns(ComboBox comboBox)
         {
-            bool ex_initialized = initialized;
+            bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
 
             // First update the one that is changed
@@ -64,15 +64,15 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (comboBox == mfLeftPinComboBox) { ComboBoxHelper.reassignPin(mfLeftPinComboBox, pinList, ref encoder.PinLeft); } else
             if (comboBox == mfRightPinComboBox) { ComboBoxHelper.reassignPin(mfRightPinComboBox, pinList, ref encoder.PinRight); }
             // then the others are updated too 
-            update_lists();
+            UpdateFreePinsInDropDowns();
 
-            initialized = ex_initialized;
+            initialized = exInitialized;
         }
 
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            update_all(sender as ComboBox);
+            ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)
                 Changed(encoder, new EventArgs());

@@ -33,7 +33,7 @@ namespace MobiFlight.UI.Panels.Settings
             pinList = Pins; // Keep pin list stored
 
             this.inputShiftRegister = inputShiftRegister;
-            update_lists();
+            UpdateFreePinsInDropDowns();
 
             for (int i = 1; i <= MAX_MODULES; i++) {
                 mfNumModulesComboBox.Items.Add(i);
@@ -51,7 +51,7 @@ namespace MobiFlight.UI.Panels.Settings
             inputShiftRegister.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
         }
 
-        private void update_lists()
+        private void UpdateFreePinsInDropDowns()
         {
             bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
@@ -61,7 +61,7 @@ namespace MobiFlight.UI.Panels.Settings
             initialized = exInitialized;
         }
 
-        private void update_all(ComboBox comboBox)
+        private void ReassignFreePinsInDropDowns(ComboBox comboBox)
         {
             bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
@@ -72,7 +72,7 @@ namespace MobiFlight.UI.Panels.Settings
             if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(mfPin2ComboBox, pinList, ref inputShiftRegister.ClockPin); } else
             if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(mfPin3ComboBox, pinList, ref inputShiftRegister.DataPin); }
             // then the others are updated too 
-            update_lists();
+            UpdateFreePinsInDropDowns();
 
             initialized = exInitialized;
         }
@@ -80,7 +80,7 @@ namespace MobiFlight.UI.Panels.Settings
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            update_all(sender as ComboBox);
+            ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)
                 Changed(inputShiftRegister, new EventArgs());

@@ -35,7 +35,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             this.ledModule = ledModule;
 
-            update_lists();
+            UpdateFreePinsInDropDowns();
 
             textBox1.Text = ledModule.Name;
             mfIntensityTrackBar.Value = ledModule.Brightness;
@@ -49,19 +49,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
             ledModule.Brightness = (byte)(mfIntensityTrackBar.Value);
             ledModule.NumModules = mfNumModulesComboBox.Text;
         }
-        private void update_lists()
+        private void UpdateFreePinsInDropDowns()
         {
-            bool ex_initialized = initialized;
+            bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
             ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, ledModule.DinPin);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, pinList, ledModule.ClsPin);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, pinList, ledModule.ClkPin);
-            initialized = ex_initialized;
+            initialized = exInitialized;
         }
 
-        private void update_all(ComboBox comboBox)
+        private void ReassignFreePinsInDropDowns(ComboBox comboBox)
         {
-            bool ex_initialized = initialized;
+            bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
 
             // First update the one that is changed
@@ -70,15 +70,15 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(mfPin2ComboBox, pinList, ref ledModule.ClsPin); } else
             if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(mfPin3ComboBox, pinList, ref ledModule.ClkPin); }
             // then the others are updated too 
-            update_lists();
+            UpdateFreePinsInDropDowns();
 
-            initialized = ex_initialized;
+            initialized = exInitialized;
         }
 
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            update_all(sender as ComboBox);
+            ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)
                 Changed(ledModule, new EventArgs());

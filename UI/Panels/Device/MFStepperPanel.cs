@@ -26,7 +26,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             pinList = Pins; // Keep pin list stored
 
             this.stepper = stepper;
-            update_lists();
+            UpdateFreePinsInDropDowns();
 
             mfNameTextBox.Text = stepper.Name;
             autoZeroCheckBox.Checked = stepper.BtnPin == "0";
@@ -40,21 +40,21 @@ namespace MobiFlight.UI.Panels.Settings.Device
             stepper.Name = mfNameTextBox.Text;
         }
 
-        private void update_lists()
+        private void UpdateFreePinsInDropDowns()
         {
-            bool ex_initialized = initialized;
+            bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
             ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, stepper.Pin1);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, pinList, stepper.Pin2);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, pinList, stepper.Pin3);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin4ComboBox, pinList, stepper.Pin4);
             ComboBoxHelper.BindMobiFlightFreePins(mfBtnPinComboBox, pinList, stepper.BtnPin);
-            initialized = ex_initialized;
+            initialized = exInitialized;
         }
 
-        private void update_all(ComboBox comboBox)
+        private void ReassignFreePinsInDropDowns(ComboBox comboBox)
         {
-            bool ex_initialized = initialized;
+            bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
 
             // First update the one that is changed
@@ -65,15 +65,15 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (comboBox == mfPin4ComboBox) { ComboBoxHelper.reassignPin(mfPin4ComboBox, pinList, ref stepper.Pin4); } else
             if (comboBox == mfBtnPinComboBox) { ComboBoxHelper.reassignPin(mfBtnPinComboBox, pinList, ref stepper.BtnPin); }
             // then the others are updated too 
-            update_lists();
+            UpdateFreePinsInDropDowns();
 
-            initialized = ex_initialized;
+            initialized = exInitialized;
         }
 
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            update_all(sender as ComboBox);
+            ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)
                 Changed(stepper, new EventArgs());
