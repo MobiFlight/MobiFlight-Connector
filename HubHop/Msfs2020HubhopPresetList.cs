@@ -119,5 +119,14 @@ namespace MobiFlight.HubHop
 
             return result;
         }
+
+        public Msfs2020HubhopPreset FindByUUID(HubHopType presetType, string UUID)
+        {
+            Msfs2020HubhopPreset result = null;
+            
+            result = Items.Find(x => (x.presetType & presetType) > 0 && x.id == UUID);
+
+            return result;
+        }
     }
 }

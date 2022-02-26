@@ -52,6 +52,31 @@ namespace MobiFlight.UI.Panels
             listView1.Items.Add(item);
             listView1.TopItem = item;
         }
+
+        private void listView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Provides copy support for logged events in the log panel.
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                var copyBuffer = new System.Text.StringBuilder();
+
+                foreach (ListViewItem item in listView1.SelectedItems)
+                {
+                    // This results in a string that mimics what's shown in the log window:
+                    // Debug	2/23/2022 3:49:09 PM	Command: SetModule <1,0,3,        ,0,255;>
+                    copyBuffer.AppendLine($"{item.SubItems[1].Text}\t{item.SubItems[2].Text}\t{item.SubItems[3].Text}");
+                }
+
+                // Only populate the clipboard if there's something that wound up in the copy buffer.
+                if (copyBuffer.Length > 0)
+                {
+                    Clipboard.SetDataObject(copyBuffer.ToString());
+                }
+
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+            }
+        }
     }
 
     public static class ControlExtensions

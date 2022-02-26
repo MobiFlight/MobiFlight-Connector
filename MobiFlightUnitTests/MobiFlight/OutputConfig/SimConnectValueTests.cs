@@ -44,6 +44,7 @@ namespace MobiFlight.OutputConfig.Tests
             SimConnectValue o = new SimConnectValue();
             o.VarType = SimConnectVarType.CODE;
             o.Value = "(A:COM RECEIVE:1,Bool)";
+            o.UUID = "123";
 
             xmlWriter.WriteStartElement("source");
             o.WriteXml(xmlWriter);

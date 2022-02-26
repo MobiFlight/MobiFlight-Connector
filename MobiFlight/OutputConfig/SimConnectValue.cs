@@ -9,6 +9,7 @@ namespace MobiFlight.OutputConfig
 {
     public class SimConnectValue
     {
+        public String UUID { get; set; }
         public string Value { get; set; }
         public SimConnectVarType VarType { get; set; }
 
@@ -18,6 +19,9 @@ namespace MobiFlight.OutputConfig
             {
                 Value = reader["Value"];
                 VarType = (SimConnectVarType) Enum.Parse(typeof(SimConnectVarType), reader["VarType"]);
+                if (reader["UUID"] != null)
+                    UUID = reader["UUID"];
+
             }
         }
 
@@ -26,20 +30,26 @@ namespace MobiFlight.OutputConfig
             writer.WriteAttributeString("type", "SimConnect");
             writer.WriteAttributeString("VarType", VarType.ToString());
             writer.WriteAttributeString("Value", Value);
+
+            // this is an optional element...
+            if (UUID != null && UUID != "")
+                writer.WriteAttributeString("UUID", UUID);
         }
 
         public override bool Equals(object obj)
         {
             return (obj != null) && (obj is SimConnectValue) &&
                 this.Value == (obj as SimConnectValue).Value &&
-                this.VarType == (obj as SimConnectValue).VarType;
+                this.VarType == (obj as SimConnectValue).VarType &&
+                this.UUID == (obj as SimConnectValue).UUID;
         }
 
         public object Clone()
         {
             return new SimConnectValue() { 
                 Value = this.Value,
-                VarType = this.VarType
+                VarType = this.VarType,
+                UUID = this.UUID
             };
         }
     }
