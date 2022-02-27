@@ -160,7 +160,8 @@ namespace MobiFlight.UI.Panels.Settings
         {
             TreeNode moduleNode = getModuleNode();
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
-            try {
+            try
+            {
                 module.GenerateNewSerial();
             }
             catch (FirmwareVersionTooLowException exc)
@@ -199,9 +200,7 @@ namespace MobiFlight.UI.Panels.Settings
         private void mfModulesTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node == null) return;
-
             TreeNode moduleNode = getModuleNode(e.Node);
-            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             mfSettingsPanel.Controls.Clear();
             if (moduleNode.Tag == null) return;
@@ -593,14 +592,13 @@ namespace MobiFlight.UI.Panels.Settings
         }
 
         /// <summary>
-        /// Update the name of a module in the TreeView
+        /// Update the name of a module or device in the TreeView
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void mfConfigDeviceObject_changed(object sender, EventArgs e)
         {
             TreeNode moduleNode = getModuleNode();
-            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             String UniqueName;
             bool BaseDeviceHasChanged = (sender is MobiFlight.Config.BaseDevice);
@@ -663,6 +661,8 @@ namespace MobiFlight.UI.Panels.Settings
             moduleNode.ImageKey = "Changed";
             moduleNode.SelectedImageKey = "Changed";
 
+            // This could be used to account for changes also to different module parameters
+            // Currently, the handler is empty!
             OnModuleConfigChanged?.Invoke(sender, null);
         }
 
@@ -771,8 +771,8 @@ namespace MobiFlight.UI.Panels.Settings
 
             TreeNode moduleNode = getModuleNode();
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
-
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
+
             foreach (TreeNode node in moduleNode.Nodes)
             {
                 newConfig.Items.Add(node.Tag as MobiFlight.Config.BaseDevice);
@@ -852,7 +852,8 @@ namespace MobiFlight.UI.Panels.Settings
 
         private TreeNode getModuleNode(TreeNode node = null)
         {
-            TreeNode moduleNode = (node == null ? mfModulesTreeView.SelectedNode : node);
+            TreeNode moduleNode = (node != null ? node : this.mfModulesTreeView.SelectedNode);
+            if (moduleNode == null) return null;
             while (moduleNode.Level > 0) moduleNode = moduleNode.Parent;
             return moduleNode;
         }
@@ -867,11 +868,15 @@ namespace MobiFlight.UI.Panels.Settings
             return null;
         }
 
+        // Generate a new complete module object from the information in the panel tree
         private MobiFlightModule getVirtualModuleFromTree()
         {
             TreeNode moduleNode = getModuleNode();
+            if (moduleNode == null) return null;
+
             MobiFlightModule module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).Port, (moduleNode.Tag as MobiFlightModule).Board);
             
+            // Generate config
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             foreach (TreeNode node in moduleNode.Nodes)
             {
@@ -1091,14 +1096,14 @@ namespace MobiFlight.UI.Panels.Settings
 
             // Update the corresponding TreeView Item
             //// Find the parent node that matches the Port
-            TreeNode parentNode = findNodeByPort(module.Port);
+            TreeNode moduleNode = findNodeByPort(module.Port);
 
-            if (parentNode != null)
+            if (moduleNode != null)
             {
-                mfModulesTreeView_initNode(newInfo, parentNode);
+                mfModulesTreeView_initNode(newInfo, moduleNode);
                 // make sure that we retrigger all events and sync the panel
                 mfModulesTreeView.SelectedNode = null;
-                mfModulesTreeView.SelectedNode = parentNode;
+                mfModulesTreeView.SelectedNode = moduleNode;
             }
         }
 

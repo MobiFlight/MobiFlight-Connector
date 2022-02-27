@@ -150,7 +150,8 @@ namespace MobiFlight.UI.Panels
             if (displayLedAddressComboBox.SelectedValue as String != null)
                 config.LedModule.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
 
-            config.LedModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
+            if (brightnessDropDown.SelectedValue!=null)
+                config.LedModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
 
             config.LedModule.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
             config.LedModule.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;

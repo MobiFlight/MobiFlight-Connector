@@ -78,6 +78,19 @@ namespace MobiFlight.Tests
             oci.ReadXml(xmlReader);
             Assert.AreEqual(true, oci.Interpolation.Active, "Interpolation is supposed to be active");
             Assert.AreEqual(5, oci.Interpolation.Count);
+
+            // read buttoninputaction
+            // read problem with interpolation OUTSIDE of display node
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.ButtonInputAction.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci.ReadXml(xmlReader);
+            Assert.IsNotNull(oci.ButtonInputConfig, "ButtonInputConfig null");
+            Assert.IsNotNull(oci.ButtonInputConfig.onPress, "ButtonInputConfig.onPress null");
+            Assert.IsNotNull(oci.ButtonInputConfig.onRelease, "ButtonInputConfig.onRelease null");
+            Assert.IsNotNull(oci.ButtonInputConfig.onPress as MobiFlight.InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
+            Assert.AreEqual("Test", (oci.ButtonInputConfig.onPress as MobiFlight.InputConfig.MSFS2020CustomInputAction).Command, "Not correct Command.");
+            // read analoginputaction
         }
 
         [TestMethod()]
@@ -223,6 +236,9 @@ namespace MobiFlight.Tests
                 Address = "ShiftRegister",
                 Pin = "99"
             };
+
+            o.ButtonInputConfig = new InputConfig.ButtonInputConfig();
+            o.AnalogInputConfig = new InputConfig.AnalogInputConfig();
 
             o.ConfigRefs.Add(new ConfigRef() { Active = true, Placeholder = "#", Ref = "123" });
             o.ConfigRefs.Add(new ConfigRef() { Active = false, Placeholder = "$", Ref = "321" });

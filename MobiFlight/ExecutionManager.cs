@@ -77,6 +77,8 @@ namespace MobiFlight
         readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
+        readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
+
         DataGridView dataGridViewConfig = null;
         DataGridView inputsDataGridView = null;
         Dictionary<String, List<Tuple<InputConfigItem, DataGridViewRow>>> inputCache = new Dictionary<string, List<Tuple<InputConfigItem, DataGridViewRow>>>();
@@ -927,15 +929,13 @@ namespace MobiFlight
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
         {
-            string serial = "";
-            if (cfg.DisplaySerial.Contains("/"))
-            {
-                serial = cfg.DisplaySerial.Split('/')[1].Trim();
-            }
+            string serial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
 
-            if (serial == "") return value.ToString();
+            if (serial == "" && 
+                cfg.DisplayType!="InputAction") 
+                return value.ToString();
 
-            if (serial.IndexOf("SN") != 0)
+            if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
             {
 #if ARCAZE
                 switch (cfg.DisplayType)
@@ -1062,6 +1062,34 @@ namespace MobiFlight
                         }
                         break;
 
+                    case "InputAction":
+                        int iValue = 0;
+                        int.TryParse(value, out iValue);
+
+                        List<ConfigRefValue> cfgRefs = GetRefs(cfg.ConfigRefs);
+                        
+                        if (cfg.ButtonInputConfig != null)
+                            inputActionExecutionCache.Execute(
+                                cfg.ButtonInputConfig,
+                                fsuipcCache,
+                                simConnectCache,
+                                mobiFlightCache,
+                                new InputEventArgs() { Value = iValue, StrValue = value },
+                                cfgRefs
+                            );
+                        else
+                        {
+                            inputActionExecutionCache.Execute(
+                                cfg.AnalogInputConfig,
+                                fsuipcCache,
+                                simConnectCache,
+                                mobiFlightCache,
+                                new InputEventArgs() { Value = iValue, StrValue = value },
+                                cfgRefs
+                            );
+                        }
+                        break;
+
                     default:
                         string outputValue = value;
 
@@ -1168,6 +1196,8 @@ namespace MobiFlight
             arcazeCache.Clear();
 #endif
             inputCache.Clear();
+            inputActionExecutionCache.Clear();
+
             this.OnStopped(this, new EventArgs());
         } //timer_Stopped
 
@@ -1311,10 +1341,8 @@ namespace MobiFlight
             }
 
             if (cfg != null &&
-                // (cfg.FSUIPC.Offset != FsuipcOffset.OffsetNull) &&
-
                 lastRow.Cells["active"].Value != null && ((bool)lastRow.Cells["active"].Value) &&
-                (cfg.DisplaySerial.Contains("/"))
+                cfg.DisplaySerial!=null && (cfg.DisplaySerial.Contains("/"))
             )
             {
                 lastSerial = cfg.DisplaySerial.Split('/')[1].Trim();
@@ -1369,7 +1397,7 @@ namespace MobiFlight
                  cfg.DisplaySerial != null && cfg.DisplaySerial.Contains("/")
             )
             {
-                serial = cfg.DisplaySerial.Split('/')[1].Trim();
+                serial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
                 row.Selected = true;
 
                 try
@@ -1397,6 +1425,8 @@ namespace MobiFlight
         public void ExecuteTestOff(OutputConfigItem cfg)
         {
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
+            if (offCfg.DisplayType == null) return;
+
             switch (offCfg.DisplayType)
             {
                 case MobiFlightServo.TYPE:
@@ -1414,6 +1444,10 @@ namespace MobiFlight
                     ExecuteDisplay("0", offCfg);
                     break;
 
+                case "InputAction":
+                    // Do nothing for the InputAction
+                    break;
+
                 default:
                     offCfg.LedModule.DisplayLedDecimalPoints = new List<string>();
                     ExecuteDisplay(offCfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
@@ -1423,6 +1457,8 @@ namespace MobiFlight
 
         public void ExecuteTestOn(OutputConfigItem cfg)
         {
+            if (cfg.DisplayType == null) return;
+
             switch (cfg.DisplayType)
             {
                 case MobiFlightStepper.TYPE:
@@ -1439,6 +1475,10 @@ namespace MobiFlight
                 
                 case MobiFlightShiftRegister.TYPE:
                     ExecuteDisplay("1", cfg);
+                    break;
+
+                case "InputAction":
+                    // Do nothing for the InputAction
                     break;
 
                 default:

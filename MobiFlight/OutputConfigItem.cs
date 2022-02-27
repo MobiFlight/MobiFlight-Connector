@@ -8,6 +8,7 @@ using MobiFlight;
 using MobiFlight.OutputConfig;
 using MobiFlight.Base;
 using MobiFlight.Config;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight
 {
@@ -38,9 +39,13 @@ namespace MobiFlight
         public OutputConfig.Stepper Stepper { get; set; }
         public Interpolation        Interpolation              { get; set; }
         public OutputConfig.ShiftRegister ShiftRegister               { get; set; }
-        public string               DisplayTrigger              { get; set; }
-        public PreconditionList     Preconditions       { get; set; }
-        public ConfigRefList        ConfigRefs          { get; set; }        
+        public string       DisplayTrigger              { get; set; }
+        public PreconditionList   Preconditions       { get; set; }
+        public ConfigRefList      ConfigRefs          { get; set; }     
+        
+        public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
+
+        public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
 
         public OutputConfigItem()
         {
@@ -60,6 +65,8 @@ namespace MobiFlight
             Interpolation = new Interpolation();
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
+            ButtonInputConfig = null;
+            AnalogInputConfig = null;
         }
 
         public override bool Equals(object obj)
@@ -90,7 +97,13 @@ namespace MobiFlight
                 //===
                 this.Preconditions.Equals((obj as OutputConfigItem).Preconditions) &&
                 //===
-                this.ConfigRefs.Equals((obj as OutputConfigItem).ConfigRefs)
+                this.ConfigRefs.Equals((obj as OutputConfigItem).ConfigRefs) &&
+                //===
+                ((this.ButtonInputConfig == null && (obj as OutputConfigItem).ButtonInputConfig == null) || (
+                this.ButtonInputConfig != null && this.ButtonInputConfig.Equals((obj as OutputConfigItem).ButtonInputConfig))) &&
+                //===
+                ((this.AnalogInputConfig==null&&(obj as OutputConfigItem).AnalogInputConfig == null) || (
+                this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as OutputConfigItem).AnalogInputConfig)))
             );
         }
 
@@ -180,6 +193,20 @@ namespace MobiFlight
                 {
                     ShiftRegister.ReadXml(reader);
                 }
+                else if (DisplayType == "InputAction")
+                {
+                    reader.Read();
+
+                    if (reader.Name == "button")
+                    {
+                        ButtonInputConfig = new ButtonInputConfig();
+                        ButtonInputConfig.ReadXml(reader);
+                    } else if (reader.Name == "analog")
+                    {
+                        AnalogInputConfig = new AnalogInputConfig();
+                        AnalogInputConfig.ReadXml(reader);
+                    }
+                }
             }
 
             // Actually interpolation is in he wrong spot. :(
@@ -264,36 +291,51 @@ namespace MobiFlight
                 if ( DisplayTrigger != null)
                     writer.WriteAttributeString("trigger", DisplayTrigger);
 
-                if (DisplayType == ArcazeLedDigit.TYPE)
+            if (DisplayType == ArcazeLedDigit.TYPE)
+            {
+                LedModule.WriteXml(writer);
+
+            }
+            else if (DisplayType == ArcazeBcd4056.TYPE)
+            {
+                writer.WriteAttributeString("bcdPins", String.Join(",", BcdPins));
+            }
+            else if (DisplayType == DeviceType.Servo.ToString("F"))
+            {
+                Servo.WriteXml(writer);
+            }
+            else if (DisplayType == DeviceType.Stepper.ToString("F"))
+            {
+                Stepper.WriteXml(writer);
+            }
+            else if (DisplayType == OutputConfig.LcdDisplay.Type)
+            {
+                if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
+                LcdDisplay.WriteXml(writer);
+            }
+            else if (DisplayType == MobiFlightShiftRegister.TYPE)
+            {
+                ShiftRegister.WriteXml(writer);
+            }
+            else if (DisplayType == "InputAction")
+            {
+                if (ButtonInputConfig != null)
                 {
-                    LedModule.WriteXml(writer);
-                    
+                    writer.WriteStartElement("button");
+                    ButtonInputConfig.WriteXml(writer);
+                    writer.WriteEndElement();
                 }
-                else if (DisplayType == ArcazeBcd4056.TYPE)
+                else if (AnalogInputConfig != null)
                 {
-                    writer.WriteAttributeString("bcdPins", String.Join(",",BcdPins));
+                    writer.WriteStartElement("analog");
+                    AnalogInputConfig.WriteXml(writer);
+                    writer.WriteEndElement();
                 }
-                else if (DisplayType == DeviceType.Servo.ToString("F"))
-                {
-                    Servo.WriteXml(writer);
-                }
-                else if (DisplayType == DeviceType.Stepper.ToString("F"))
-                {
-                    Stepper.WriteXml(writer);
-                }
-                else if (DisplayType == OutputConfig.LcdDisplay.Type)
-                {
-                    if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
-                    LcdDisplay.WriteXml(writer);
-                }
-                else if (DisplayType == MobiFlightShiftRegister.TYPE)
-                {
-                    ShiftRegister.WriteXml(writer);
-                }
-                else
-                {
-                    Pin.WriteXml(writer);
-                }
+            }
+            else
+            {
+                Pin.WriteXml(writer);
+            }
                                 
             writer.WriteEndElement(); // end of display
 
@@ -343,7 +385,8 @@ namespace MobiFlight
 
             clone.Interpolation             = this.Interpolation.Clone() as Interpolation;
             clone.ConfigRefs                = ConfigRefs.Clone() as ConfigRefList;
-
+            clone.ButtonInputConfig         = this.ButtonInputConfig?.Clone() as InputConfig.ButtonInputConfig;
+            clone.AnalogInputConfig         = this.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
             return clone;
         }
     }
