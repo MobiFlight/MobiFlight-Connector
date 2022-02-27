@@ -69,7 +69,7 @@ namespace MobiFlight.InputConfig.Tests
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
             DigInputMuxConfig o = generateTestObject();
-            xmlWriter.WriteStartElement("inputShiftRegister");
+            xmlWriter.WriteStartElement("digInputMux");
             o.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
