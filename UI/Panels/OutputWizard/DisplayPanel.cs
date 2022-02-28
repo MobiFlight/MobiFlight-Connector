@@ -100,8 +100,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             stepperPanel.Dock = DockStyle.Top;
             groupBoxDisplaySettings.Controls.Add(displayShiftRegisterPanel);
             displayShiftRegisterPanel.Dock = DockStyle.Top;
-            stepperPanel.OnManualCalibrationTriggered += new EventHandler<Panels.ManualCalibrationTriggeredEventArgs>(stepperPanel_OnManualCalibrationTriggered);
-            stepperPanel.OnSetZeroTriggered += new EventHandler(stepperPanel_OnSetZeroTriggered);
+            stepperPanel.OnManualCalibrationTriggered += stepperPanel_OnManualCalibrationTriggered;
+            stepperPanel.OnSetZeroTriggered += stepperPanel_OnSetZeroTriggered;
             stepperPanel.OnStepperSelected += StepperPanel_OnStepperSelected;
 
 
@@ -154,21 +154,34 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     }
                 }
 
-                displayPinPanel.syncFromConfig(config);
+                switch (config.DisplayType)
+                {
+                    case MobiFlightOutput.TYPE:
+                        displayPinPanel.syncFromConfig(config);
+                        break;
 
-                displayBcdPanel.syncFromConfig(config);
+                    case MobiFlightStepper.TYPE:
+                        // it is not nice but we haev to check what kind of stepper the stepper is
+                        // to show or not show the manual calibration piece.
+                        stepperPanel.syncFromConfig(config);
+                        break;
 
-                displayLedDisplayPanel.syncFromConfig(config);
+                    case MobiFlightLedModule.TYPE:
+                        displayLedDisplayPanel.syncFromConfig(config);
+                        break;
 
-                servoPanel.syncFromConfig(config);
+                    case MobiFlightServo.TYPE:
+                        servoPanel.syncFromConfig(config);
+                        break;
 
-                // it is not nice but we haev to check what kind of stepper the stepper is
-                // to show or not show the manual calibration piece.
-                stepperPanel.syncFromConfig(config);
+                    case MobiFlightLcdDisplay.TYPE:
+                        displayLcdDisplayPanel.syncFromConfig(config);
+                        break;
 
-                displayLcdDisplayPanel.syncFromConfig(config);
-
-                displayShiftRegisterPanel.SyncFromConfig(config);
+                    case MobiFlightShiftRegister.TYPE:
+                        displayShiftRegisterPanel.SyncFromConfig(config);
+                        break;
+                }
             }
             else
             {
@@ -186,15 +199,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
         }
 
-        private void StepperPanel_OnStepperSelected(object sender, EventArgs e)
+        private void StepperPanel_OnStepperSelected(object sender, StepperConfigChangedEventArgs e)
         {
-            // in case the module has changed
-            // we have to sync those changes to properly
-            // find the stepper and be able to
-            // show manual calibration group box or not.
-            syncToConfig();
-
-            String stepperAddress = (sender as ComboBox).SelectedValue.ToString();
+            String stepperAddress = e.StepperAddress;
             String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
 
             MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
@@ -204,11 +211,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
             // sorry for this hack...
         }
 
-        void stepperPanel_OnSetZeroTriggered(object sender, EventArgs e)
+        void stepperPanel_OnSetZeroTriggered(object sender, StepperConfigChangedEventArgs e)
         {
-            syncToConfig();
             String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
-            _execManager.getMobiFlightModuleCache().resetStepper(serial, config.Stepper.Address);
+            _execManager.getMobiFlightModuleCache().resetStepper(serial, (sender as String));
         }
 
         internal void SetArcazeSettings(Dictionary<string, string> arcazeFirmware, Dictionary<string, ArcazeModuleSettings> moduleSettings)
@@ -219,6 +225,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
         {
+            // TODO: remove this sync to config
+            // to prevent overriding accidentaly something
             syncToConfig();
             int steps = e.Steps;
 
@@ -249,20 +257,35 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 config.DisplayTrigger = "normal";
                 config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
 
-                // sync panels
-                displayPinPanel.syncToConfig(config);
 
-                displayLedDisplayPanel.syncToConfig(config);
+                switch (config.DisplayType)
+                {
+                    case MobiFlightOutput.TYPE:
+                        displayPinPanel.syncToConfig(config);
+                        break;
 
-                displayBcdPanel.syncToConfig(config);
+                    case MobiFlightStepper.TYPE:
+                        // it is not nice but we haev to check what kind of stepper the stepper is
+                        // to show or not show the manual calibration piece.
+                        stepperPanel.syncToConfig(config);
+                        break;
 
-                servoPanel.syncToConfig(config);
+                    case MobiFlightLedModule.TYPE:
+                        displayLedDisplayPanel.syncToConfig(config);
+                        break;
 
-                stepperPanel.syncToConfig(config);
+                    case MobiFlightServo.TYPE:
+                        servoPanel.syncToConfig(config);
+                        break;
 
-                displayLcdDisplayPanel.syncToConfig(config);
+                    case MobiFlightLcdDisplay.TYPE:
+                        displayLcdDisplayPanel.syncToConfig(config);
+                        break;
 
-                displayShiftRegisterPanel.SyncToConfig(config);
+                    case MobiFlightShiftRegister.TYPE:
+                        displayShiftRegisterPanel.SyncToConfig(config);
+                        break;
+                }
             }
             else { 
                 config.DisplayType = "InputAction";
