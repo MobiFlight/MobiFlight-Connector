@@ -474,10 +474,7 @@ namespace MobiFlight
                 String strValueAfterComparison = (string)strValue.Clone();
                 strValue = ExecuteInterpolation(strValue, cfg);
 
-
                 row.Cells["arcazeValueColumn"].Value = strValue;
-                if (strValueAfterComparison != strValue) row.Cells["arcazeValueColumn"].Value += " (" + strValueAfterComparison + ")";
-                row.Cells["arcazeValueColumn"].Tag = processedValue + " / " + strValueAfterComparison;
 
                 // check preconditions
                 if (!CheckPrecondition(cfg, processedValue))
