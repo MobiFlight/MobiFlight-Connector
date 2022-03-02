@@ -60,6 +60,7 @@
             // 
             // mfRightPinComboBox
             // 
+            this.mfRightPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfRightPinComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfRightPinComboBox, "mfRightPinComboBox");
             this.mfRightPinComboBox.Name = "mfRightPinComboBox";
@@ -72,6 +73,7 @@
             // 
             // mfLeftPinComboBox
             // 
+            this.mfLeftPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfLeftPinComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfLeftPinComboBox, "mfLeftPinComboBox");
             this.mfLeftPinComboBox.Name = "mfLeftPinComboBox";

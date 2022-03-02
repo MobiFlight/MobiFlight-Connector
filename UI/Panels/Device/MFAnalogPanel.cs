@@ -17,14 +17,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
         static int MIN_SENSITIVITY = 1;
         static int MAX_SENSITIVITY = 20;
         static String DEFAULT_SENSITIVITY_STRING = DEFAULT_SENSITIVITY.ToString();
-
-
-        /// <summary>
-        /// Gets raised whenever config object has changed
-        /// </summary>
-        public event EventHandler Changed;
         private MobiFlight.Config.AnalogInput analog;
-        bool initialized = false;        
+        private bool initialized = false;        
+
+        public event EventHandler Changed;
 
         public MFAnalogPanel()
         {
@@ -40,33 +36,23 @@ namespace MobiFlight.UI.Panels.Settings.Device
             value_Changed(sender, e);
         }
 
-        public MFAnalogPanel(MobiFlight.Config.AnalogInput analogDevice, List<MobiFlightPin> FreePins)
-            : this()
+        public MFAnalogPanel(MobiFlight.Config.AnalogInput analogDevice, List<MobiFlightPin> FreePins): this()
         {
-            //var list = FreePins.Where(s => s.isAnalog == true);
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, FreePins, analogDevice.Pin, true);
 
-            if (mfPinComboBox.Items.Count > 0)
-            {
-                mfPinComboBox.SelectedIndex = 0;
-            }
-
             this.analog = analogDevice;
+
             mfPinComboBox.SelectedValue = byte.Parse(analog.Pin);
-            SensitivityTrackBar.Value = byte.Parse(analog.Sensitivity);
-
             textBox1.Text = analog.Name;
-            setValues();
-
+            SensitivityTrackBar.Value = byte.Parse(analog.Sensitivity);
+            
             initialized = true;
         }
 
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-
             setValues();
-
             if (Changed != null)
                 Changed(analog, new EventArgs());
         }
@@ -75,7 +61,6 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             analog.Pin = mfPinComboBox.SelectedValue.ToString();
             analog.Name = textBox1.Text;
-
             analog.Sensitivity = SensitivityTrackBar.Value.ToString();
         }
     }

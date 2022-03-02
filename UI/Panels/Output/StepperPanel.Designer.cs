@@ -123,7 +123,6 @@
             resources.GetString("stepperAddressesComboBox.Items2")});
             resources.ApplyResources(this.stepperAddressesComboBox, "stepperAddressesComboBox");
             this.stepperAddressesComboBox.Name = "stepperAddressesComboBox";
-            this.stepperAddressesComboBox.SelectedValueChanged += new System.EventHandler(this.stepperAddressesComboBox_SelectedValueChanged);
             // 
             // groupBox2
             // 

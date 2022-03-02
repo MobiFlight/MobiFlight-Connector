@@ -1,0 +1,23 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+      - bug-beta
+    authors:
+      - MobiFlight-Admin
+  categories:
+    - title: New Feature 🎉
+      labels:
+        - feature
+    - title: Improvement ✨
+      labels:
+        - enhancement
+    - title: Bug Fixes 🐛
+      labels:
+        - bug
+    - title: Documentation 📚
+      labels:
+        - documentation
+    - title: Other Changes ⚡
+      labels:
+        - "*"

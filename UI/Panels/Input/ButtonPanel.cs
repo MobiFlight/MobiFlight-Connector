@@ -13,6 +13,7 @@ namespace MobiFlight.UI.Panels.Input
 {
     public partial class ButtonPanel : UserControl
     {
+        public event EventHandler<EventArgs> OnPanelChanged;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         InputConfig.ButtonInputConfig _config;
 
@@ -31,13 +32,15 @@ namespace MobiFlight.UI.Panels.Input
         // On Press Action
         private void onPressActionTypePanel_ActionTypeChanged(object sender, String value)
         {
+            this.SuspendLayout();
+            
             Control panel = null;
             Panel owner = onPressActionConfigPanel;
             bool isOnPress = (sender as MobiFlight.UI.Panels.Config.ActionTypePanel) == onPressActionTypePanel;
 
             if (!isOnPress) owner = onReleaseActionConfigPanel;
-
             owner.Controls.Clear();
+
             switch (value)
             {
                 case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
@@ -145,11 +148,14 @@ namespace MobiFlight.UI.Panels.Input
             }
 
             if (panel != null)
-            {
+            {                
                 panel.Padding = new Padding(2, 0, 2, 0);
-                panel.Dock = DockStyle.Fill;
+                panel.Dock = DockStyle.Top;
                 owner.Controls.Add(panel);
+                owner.Dock = DockStyle.Top;
+                OnPanelChanged?.Invoke(panel, EventArgs.Empty);
             }
+            this.ResumeLayout(true);
         }
 
         public void syncFromConfig(InputConfig.ButtonInputConfig config)

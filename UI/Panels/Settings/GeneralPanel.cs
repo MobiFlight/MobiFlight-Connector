@@ -46,7 +46,9 @@ namespace MobiFlight.UI.Panels.Settings
             else if (Properties.Settings.Default.TestTimerInterval == 50) testModeSpeedTrackBar.Value = 4;
 
             // Config Execution Speed
-            fsuipcPollIntervalTrackBar.Value = (fsuipcPollIntervalTrackBar.Maximum + fsuipcPollIntervalTrackBar.Minimum) - (int)Math.Floor(Properties.Settings.Default.PollInterval / 50.0);
+            int ExecutionSpeedInTicks = (int)Math.Floor(Properties.Settings.Default.PollInterval / 25.0);
+            // Maximum is 10, and Minimum is 1
+            fsuipcPollIntervalTrackBar.Value = Math.Max(fsuipcPollIntervalTrackBar.Minimum, (fsuipcPollIntervalTrackBar.Maximum + fsuipcPollIntervalTrackBar.Minimum - ExecutionSpeedInTicks));
 
             // Debug Mode
             logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
@@ -75,7 +77,7 @@ namespace MobiFlight.UI.Panels.Settings
             else Properties.Settings.Default.TestTimerInterval = 50;
 
             // Config Execution Speed
-            Properties.Settings.Default.PollInterval = (int)(((fsuipcPollIntervalTrackBar.Maximum+ fsuipcPollIntervalTrackBar.Minimum) - fsuipcPollIntervalTrackBar.Value) * 50);
+            Properties.Settings.Default.PollInterval = (int)(((fsuipcPollIntervalTrackBar.Maximum + fsuipcPollIntervalTrackBar.Minimum) - fsuipcPollIntervalTrackBar.Value) * 25);
 
             // Recent Files max count
             Properties.Settings.Default.RecentFilesMaxCount = (int)recentFilesNumericUpDown.Value;

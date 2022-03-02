@@ -24,6 +24,8 @@ namespace MobiFlight
         public int? Pin { get; set; }
 
         public int Value { get; set; }
+
+        public String StrValue { get; set;}
     }
 
     public class FirmwareFeature
@@ -1034,6 +1036,7 @@ namespace MobiFlight
             return GetPins(true);
         }
 
+        // Returns a List<> of the pins used by the module
         public List<MobiFlightPin> GetPins(bool FreeOnly = false)
         {
             List<MobiFlightPin> ResultPins = new List<MobiFlightPin>();

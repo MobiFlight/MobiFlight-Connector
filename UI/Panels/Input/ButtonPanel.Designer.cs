@@ -31,9 +31,9 @@
             this.onPressActionConfigPanel = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.onPressActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.onReleaseActionConfigPanel = new System.Windows.Forms.Panel();
+            this.onPressActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
             this.onReleaseActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -42,12 +42,14 @@
             // 
             // onPressActionConfigPanel
             // 
+            this.onPressActionConfigPanel.AutoSize = true;
             this.onPressActionConfigPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.onPressActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.onPressActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onPressActionConfigPanel.Location = new System.Drawing.Point(0, 31);
             this.onPressActionConfigPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.onPressActionConfigPanel.MinimumSize = new System.Drawing.Size(0, 100);
             this.onPressActionConfigPanel.Name = "onPressActionConfigPanel";
-            this.onPressActionConfigPanel.Size = new System.Drawing.Size(332, 220);
+            this.onPressActionConfigPanel.Size = new System.Drawing.Size(392, 100);
             this.onPressActionConfigPanel.TabIndex = 19;
             // 
             // tabControl1
@@ -58,72 +60,77 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(340, 280);
+            this.tabControl1.Size = new System.Drawing.Size(400, 100);
             this.tabControl1.TabIndex = 20;
             // 
             // tabPage2
             // 
-            this.tabPage2.AutoScroll = true;
             this.tabPage2.Controls.Add(this.onPressActionConfigPanel);
             this.tabPage2.Controls.Add(this.onPressActionTypePanel);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.tabPage2.Size = new System.Drawing.Size(332, 254);
+            this.tabPage2.Size = new System.Drawing.Size(392, 74);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "On Press";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // onPressActionTypePanel
-            // 
-            this.onPressActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.onPressActionTypePanel.Location = new System.Drawing.Point(0, 3);
-            this.onPressActionTypePanel.Name = "onPressActionTypePanel";
-            this.onPressActionTypePanel.Size = new System.Drawing.Size(332, 28);
-            this.onPressActionTypePanel.TabIndex = 20;
-            // 
             // tabPage1
             // 
-            this.tabPage1.AutoScroll = true;
             this.tabPage1.Controls.Add(this.onReleaseActionConfigPanel);
             this.tabPage1.Controls.Add(this.onReleaseActionTypePanel);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.tabPage1.Size = new System.Drawing.Size(332, 224);
+            this.tabPage1.Size = new System.Drawing.Size(392, 74);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "On Release";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // onReleaseActionConfigPanel
             // 
+            this.onReleaseActionConfigPanel.AutoSize = true;
             this.onReleaseActionConfigPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.onReleaseActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.onReleaseActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onReleaseActionConfigPanel.Location = new System.Drawing.Point(0, 31);
             this.onReleaseActionConfigPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.onReleaseActionConfigPanel.MinimumSize = new System.Drawing.Size(0, 100);
             this.onReleaseActionConfigPanel.Name = "onReleaseActionConfigPanel";
-            this.onReleaseActionConfigPanel.Size = new System.Drawing.Size(332, 190);
+            this.onReleaseActionConfigPanel.Size = new System.Drawing.Size(392, 100);
             this.onReleaseActionConfigPanel.TabIndex = 19;
+            // 
+            // onPressActionTypePanel
+            // 
+            this.onPressActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.onPressActionTypePanel.Location = new System.Drawing.Point(0, 3);
+            this.onPressActionTypePanel.Name = "onPressActionTypePanel";
+            this.onPressActionTypePanel.Size = new System.Drawing.Size(392, 28);
+            this.onPressActionTypePanel.TabIndex = 20;
             // 
             // onReleaseActionTypePanel
             // 
             this.onReleaseActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onReleaseActionTypePanel.Location = new System.Drawing.Point(0, 3);
             this.onReleaseActionTypePanel.Name = "onReleaseActionTypePanel";
-            this.onReleaseActionTypePanel.Size = new System.Drawing.Size(332, 28);
+            this.onReleaseActionTypePanel.Size = new System.Drawing.Size(392, 28);
             this.onReleaseActionTypePanel.TabIndex = 20;
             // 
             // ButtonPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.tabControl1);
-            this.MinimumSize = new System.Drawing.Size(300, 0);
+            this.DoubleBuffered = true;
+            this.MinimumSize = new System.Drawing.Size(400, 100);
             this.Name = "ButtonPanel";
-            this.Size = new System.Drawing.Size(340, 280);
+            this.Size = new System.Drawing.Size(400, 100);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -60,91 +60,85 @@
             this.groupBox1.Controls.Add(this.mfPin2ComboBox);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(304, 112);
+            this.groupBox1.Size = new System.Drawing.Size(203, 73);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pin Settings Motor";
             // 
             // mfPin4Label
             // 
-            this.mfPin4Label.Location = new System.Drawing.Point(222, 77);
-            this.mfPin4Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.mfPin4Label.Location = new System.Drawing.Point(148, 50);
             this.mfPin4Label.Name = "mfPin4Label";
-            this.mfPin4Label.Size = new System.Drawing.Size(52, 28);
+            this.mfPin4Label.Size = new System.Drawing.Size(35, 18);
             this.mfPin4Label.TabIndex = 20;
             this.mfPin4Label.Text = "Pin 4";
             // 
             // mfPin4ComboBox
             // 
+            this.mfPin4ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPin4ComboBox.FormattingEnabled = true;
-            this.mfPin4ComboBox.Location = new System.Drawing.Point(159, 72);
-            this.mfPin4ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mfPin4ComboBox.Location = new System.Drawing.Point(106, 47);
             this.mfPin4ComboBox.MaxLength = 2;
             this.mfPin4ComboBox.Name = "mfPin4ComboBox";
-            this.mfPin4ComboBox.Size = new System.Drawing.Size(60, 28);
+            this.mfPin4ComboBox.Size = new System.Drawing.Size(41, 21);
             this.mfPin4ComboBox.TabIndex = 19;
             this.mfPin4ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin1Label
             // 
-            this.mfPin1Label.Location = new System.Drawing.Point(90, 32);
-            this.mfPin1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.mfPin1Label.Location = new System.Drawing.Point(60, 21);
             this.mfPin1Label.Name = "mfPin1Label";
-            this.mfPin1Label.Size = new System.Drawing.Size(46, 28);
+            this.mfPin1Label.Size = new System.Drawing.Size(31, 18);
             this.mfPin1Label.TabIndex = 16;
             this.mfPin1Label.Text = "Pin 1";
             // 
             // mfPin1ComboBox
             // 
+            this.mfPin1ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPin1ComboBox.FormattingEnabled = true;
-            this.mfPin1ComboBox.Location = new System.Drawing.Point(27, 28);
-            this.mfPin1ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mfPin1ComboBox.Location = new System.Drawing.Point(18, 18);
             this.mfPin1ComboBox.MaxLength = 2;
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
-            this.mfPin1ComboBox.Size = new System.Drawing.Size(60, 28);
+            this.mfPin1ComboBox.Size = new System.Drawing.Size(41, 21);
             this.mfPin1ComboBox.TabIndex = 15;
             this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin3Label
             // 
-            this.mfPin3Label.Location = new System.Drawing.Point(90, 74);
-            this.mfPin3Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.mfPin3Label.Location = new System.Drawing.Point(60, 48);
             this.mfPin3Label.Name = "mfPin3Label";
-            this.mfPin3Label.Size = new System.Drawing.Size(52, 28);
+            this.mfPin3Label.Size = new System.Drawing.Size(35, 18);
             this.mfPin3Label.TabIndex = 18;
             this.mfPin3Label.Text = "Pin 3";
             // 
             // mfPin3ComboBox
             // 
+            this.mfPin3ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPin3ComboBox.FormattingEnabled = true;
-            this.mfPin3ComboBox.Location = new System.Drawing.Point(27, 69);
-            this.mfPin3ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mfPin3ComboBox.Location = new System.Drawing.Point(18, 45);
             this.mfPin3ComboBox.MaxLength = 2;
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
-            this.mfPin3ComboBox.Size = new System.Drawing.Size(60, 28);
+            this.mfPin3ComboBox.Size = new System.Drawing.Size(41, 21);
             this.mfPin3ComboBox.TabIndex = 17;
             this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin2Label
             // 
-            this.mfPin2Label.Location = new System.Drawing.Point(222, 32);
-            this.mfPin2Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.mfPin2Label.Location = new System.Drawing.Point(148, 21);
             this.mfPin2Label.Name = "mfPin2Label";
-            this.mfPin2Label.Size = new System.Drawing.Size(46, 28);
+            this.mfPin2Label.Size = new System.Drawing.Size(31, 18);
             this.mfPin2Label.TabIndex = 16;
             this.mfPin2Label.Text = "Pin 2";
             // 
             // mfPin2ComboBox
             // 
+            this.mfPin2ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPin2ComboBox.FormattingEnabled = true;
-            this.mfPin2ComboBox.Location = new System.Drawing.Point(159, 28);
-            this.mfPin2ComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mfPin2ComboBox.Location = new System.Drawing.Point(106, 18);
             this.mfPin2ComboBox.MaxLength = 2;
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";
-            this.mfPin2ComboBox.Size = new System.Drawing.Size(60, 28);
+            this.mfPin2ComboBox.Size = new System.Drawing.Size(41, 21);
             this.mfPin2ComboBox.TabIndex = 15;
             this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
@@ -152,21 +146,18 @@
             // 
             this.groupBox2.Controls.Add(this.mfNameTextBox);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 181);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Location = new System.Drawing.Point(0, 118);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(304, 74);
+            this.groupBox2.Size = new System.Drawing.Size(203, 48);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Name";
             // 
             // mfNameTextBox
             // 
-            this.mfNameTextBox.Location = new System.Drawing.Point(27, 29);
-            this.mfNameTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mfNameTextBox.Location = new System.Drawing.Point(18, 19);
             this.mfNameTextBox.Name = "mfNameTextBox";
-            this.mfNameTextBox.Size = new System.Drawing.Size(224, 26);
+            this.mfNameTextBox.Size = new System.Drawing.Size(151, 20);
             this.mfNameTextBox.TabIndex = 0;
             this.mfNameTextBox.TextChanged += new System.EventHandler(this.value_Changed);
             // 
@@ -176,11 +167,9 @@
             this.autoZeroPinGroupBox.Controls.Add(this.label2);
             this.autoZeroPinGroupBox.Controls.Add(this.mfBtnPinComboBox);
             this.autoZeroPinGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.autoZeroPinGroupBox.Location = new System.Drawing.Point(0, 112);
-            this.autoZeroPinGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.autoZeroPinGroupBox.Location = new System.Drawing.Point(0, 73);
             this.autoZeroPinGroupBox.Name = "autoZeroPinGroupBox";
-            this.autoZeroPinGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.autoZeroPinGroupBox.Size = new System.Drawing.Size(304, 69);
+            this.autoZeroPinGroupBox.Size = new System.Drawing.Size(203, 45);
             this.autoZeroPinGroupBox.TabIndex = 3;
             this.autoZeroPinGroupBox.TabStop = false;
             this.autoZeroPinGroupBox.Text = "Auto Zero Input";
@@ -188,10 +177,9 @@
             // autoZeroCheckBox
             // 
             this.autoZeroCheckBox.AutoSize = true;
-            this.autoZeroCheckBox.Location = new System.Drawing.Point(27, 25);
-            this.autoZeroCheckBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.autoZeroCheckBox.Location = new System.Drawing.Point(18, 16);
             this.autoZeroCheckBox.Name = "autoZeroCheckBox";
-            this.autoZeroCheckBox.Size = new System.Drawing.Size(73, 24);
+            this.autoZeroCheckBox.Size = new System.Drawing.Size(52, 17);
             this.autoZeroCheckBox.TabIndex = 17;
             this.autoZeroCheckBox.Text = "None";
             this.autoZeroCheckBox.UseVisualStyleBackColor = true;
@@ -199,35 +187,33 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(222, 25);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(148, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 28);
+            this.label2.Size = new System.Drawing.Size(31, 18);
             this.label2.TabIndex = 16;
             this.label2.Text = "Pin";
             // 
             // mfBtnPinComboBox
             // 
+            this.mfBtnPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfBtnPinComboBox.FormattingEnabled = true;
-            this.mfBtnPinComboBox.Location = new System.Drawing.Point(159, 20);
-            this.mfBtnPinComboBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.mfBtnPinComboBox.Location = new System.Drawing.Point(106, 13);
             this.mfBtnPinComboBox.MaxLength = 2;
             this.mfBtnPinComboBox.Name = "mfBtnPinComboBox";
-            this.mfBtnPinComboBox.Size = new System.Drawing.Size(60, 28);
+            this.mfBtnPinComboBox.Size = new System.Drawing.Size(41, 21);
             this.mfBtnPinComboBox.TabIndex = 15;
             this.mfBtnPinComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // MFStepperPanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.autoZeroPinGroupBox);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MFStepperPanel";
-            this.Size = new System.Drawing.Size(304, 295);
+            this.Size = new System.Drawing.Size(203, 192);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

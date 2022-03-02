@@ -41,11 +41,11 @@
             "Message"}, -1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogPanel));
             this.listView1 = new System.Windows.Forms.ListView();
+            this.IconHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LevelHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TimeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.MessageHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.IconHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listView1
@@ -75,6 +75,12 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView1_KeyDown);
+            // 
+            // IconHeader
+            // 
+            this.IconHeader.Text = "";
+            this.IconHeader.Width = 20;
             // 
             // LevelHeader
             // 
@@ -99,11 +105,6 @@
             this.imageList1.Images.SetKeyName(1, "log-warning.png");
             this.imageList1.Images.SetKeyName(2, "log-info.png");
             this.imageList1.Images.SetKeyName(3, "log-debug.png");
-            // 
-            // IconHeader
-            // 
-            this.IconHeader.Text = "";
-            this.IconHeader.Width = 20;
             // 
             // LogPanel
             // 
