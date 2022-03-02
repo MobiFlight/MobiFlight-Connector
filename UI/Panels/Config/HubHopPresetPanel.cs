@@ -509,8 +509,9 @@ namespace MobiFlight.UI.Panels.Config
             AircraftComboBox.SelectedIndex = 0;
             SystemComboBox.SelectedIndex = 0;
             FilterTextBox.Text = "";
-
             FilterPresetList();
+
+            ResumeUpdateEvents();
         }
 
         private void SuspendUpdateEvents()
@@ -519,6 +520,20 @@ namespace MobiFlight.UI.Panels.Config
             AircraftComboBox.SelectedIndexChanged -= OnFilter_SelectedIndexChanged;
             SystemComboBox.SelectedIndexChanged -= OnFilter_SelectedIndexChanged;
             FilterTextBox.TextChanged -= textBox1_TextChanged;
+        }
+
+        private void ResumeUpdateEvents()
+        {
+            // make sure to remove potentially
+            // registered events
+            SuspendUpdateEvents();
+
+            // And now really register
+            // all required events
+            VendorComboBox.SelectedIndexChanged += OnFilter_SelectedIndexChanged;
+            AircraftComboBox.SelectedIndexChanged += OnFilter_SelectedIndexChanged;
+            SystemComboBox.SelectedIndexChanged += OnFilter_SelectedIndexChanged;
+            FilterTextBox.TextChanged += textBox1_TextChanged;
         }
 
         public class SimVarPreset
