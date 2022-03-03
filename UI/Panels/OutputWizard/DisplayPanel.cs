@@ -156,6 +156,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 switch (config.DisplayType)
                 {
+                    case "Pin":
                     case MobiFlightOutput.TYPE:
                         displayPinPanel.syncFromConfig(config);
                         break;
@@ -260,6 +261,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 switch (config.DisplayType)
                 {
+                    case "Pin":
                     case MobiFlightOutput.TYPE:
                         displayPinPanel.syncToConfig(config);
                         break;
