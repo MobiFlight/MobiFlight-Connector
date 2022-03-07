@@ -139,6 +139,7 @@ namespace MobiFlight.UI
             execManager.OnStarted += new EventHandler(timer_Started);
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
+            execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
             execManager.OnSimCacheConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
             execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
@@ -697,6 +698,14 @@ namespace MobiFlight.UI
             noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
         }
 
+        private void ExecManager_OnSimUnavailable(object sender, EventArgs e)
+        {
+            FlightSimType flightSim = (FlightSimType)sender;
+
+            noSimRunningToolStripMenuItem.Text = "No sim running.";
+            noSimRunningToolStripMenuItem.Image = Properties.Resources.warning;
+        }
+
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>        
@@ -705,9 +714,21 @@ namespace MobiFlight.UI
             if (sender.GetType() == typeof(SimConnectCache) && FlightSim.FlightSimType == FlightSimType.MSFS2020)
             {
                 noSimRunningToolStripMenuItem.Text = "MSFS2020 Detected";
-                simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
-                simConnectToolStripMenuItem.Image = Properties.Resources.check;
-                AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), "SimConnect");
+
+                if ((sender as SimConnectCache).IsSimConnectConnected())
+                {
+                    simConnectToolStripMenuItem.Text = "SimConnect OK. Waiting for WASM Module. (MSFS2020)";
+                    simConnectToolStripMenuItem.Image = Properties.Resources.warning;
+                    Log.Instance.log("Connected to SimConnect (MSFS2020).", LogSeverity.Info);
+                }
+
+                if ((sender as SimConnectCache).IsConnected()) { 
+                    simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
+                    simConnectToolStripMenuItem.Image = Properties.Resources.check;
+                    Log.Instance.log("Connected to WASM Module (MSFS2020).", LogSeverity.Info);
+                }
+
+                AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.SIMCONNECT.ToString());
                 Log.Instance.log("MSFS2020 detected.", LogSeverity.Info);
             }
 

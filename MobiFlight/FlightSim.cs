@@ -13,6 +13,7 @@ namespace MobiFlight
         FSUIPC,
         WIDECLIENT,
         XPUIPC,
+        SIMCONNECT,
         OFFLINE
     }
 
@@ -110,6 +111,9 @@ namespace MobiFlight
                 return true;
             }
 
+            // if we made it here, then
+            // we didn't detect anything
+            FlightSimType = FlightSimType.NONE;
             return false;
         }
     }
