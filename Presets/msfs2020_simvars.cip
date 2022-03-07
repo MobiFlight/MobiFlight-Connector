@@ -66,6 +66,8 @@ ASCRJ_GSC_MASTER_CAUT_ON#(L:ASCRJ_GSC_MASTER_CAUT_ON)#Aerosoft.CRJ 550-700-1000.
 ASCRJ_GSC_MASTER_WARN_ON#(L:ASCRJ_GSC_MASTER_WARN_ON)#Aerosoft.CRJ 550-700-1000.Warning System.ASCRJ_GSC_MASTER_WARN_ON
 ASCRJ_GSF_MASTER_CAUT_ON#(L:ASCRJ_GSF_MASTER_CAUT_ON)#Aerosoft.CRJ 550-700-1000.Warning System.ASCRJ_GSF_MASTER_CAUT_ON
 ASCRJ_GSF_MASTER_WARN_ON#(L:ASCRJ_GSF_MASTER_WARN_ON)#Aerosoft.CRJ 550-700-1000.Warning System.ASCRJ_GSF_MASTER_WARN_ON
+Asobo/330 Extra/Avionics#GROUP
+AS3X_MFD_Cursor#(L:MFD_Main_MapShowCursor,Number)#Asobo.330 Extra.Avionics.AS3X_MFD_Cursor
 Asobo/Baron G58/Controls#GROUP
 G58 FLAPS BLUE INDICATOR#(A:TRAILING EDGE FLAPS LEFT ANGLE, degrees) 10 - abs 0.1 <#Asobo.Baron G58.Controls.G58 FLAPS BLUE INDICATOR
 G58 FLAPS RED INDICATOR#(A:CIRCUIT FLAP MOTOR ON, bool)#Asobo.Baron G58.Controls.G58 FLAPS RED INDICATOR
@@ -76,6 +78,8 @@ Asobo/Cessna 172/Autopilot#GROUP
 C_172_AP_Heading#(A:AUTOPILOT HEADING LOCK DIR, degrees)#Asobo.Cessna 172.Autopilot.C_172_AP_Heading
 Asobo/Cessna 172/Warning System#GROUP
 C172 Standby Battery Switch Test #(L:XMLVAR_STBYBattery_Test, bool)#Asobo.Cessna 172.Warning System.C172 Standby Battery Switch Test 
+Asobo/Longitude/Autopilot#GROUP
+LONGITUDE_AUTOPILOT_VNAV_ON#(L:XMLVAR_VNAVButtonValue)#Asobo.Longitude.Autopilot.LONGITUDE_AUTOPILOT_VNAV_ON
 Asobo/Longitude/Lights#GROUP
 (A:ENGINE 1 DEICE ON, Number)#(A:ENGINE 1 DEICE ON, Number)#Asobo.Longitude.Lights.(A:ENGINE 1 DEICE ON, Number)
 (A:ENGINE 2 DEICE ON, Number)#(A:ENGINE 2 DEICE ON, Number)#Asobo.Longitude.Lights.(A:ENGINE 2 DEICE ON, Number)
@@ -85,7 +89,6 @@ Asobo/Longitude/Lights#GROUP
 (A:LIGHT WING ON, Number)#(A:LIGHT WING ON, Number)#Asobo.Longitude.Lights.(A:LIGHT WING ON, Number)
 (A:PITOT DEICE ON, Number)#(A:PITOT DEICE ON, Number)#Asobo.Longitude.Lights.(A:PITOT DEICE ON, Number)
 (A:WING DEICE ON, Number)#(A:WING DEICE ON, Number)#Asobo.Longitude.Lights.(A:WING DEICE ON, Number)
-LONGITUDE DEICE#GROUP#LONGITUDE DEICE#GROUP#Asobo.Longitude.Lights.LONGITUDE DEICE#GROUP
 Asobo/TBM 930/Anti-Ice#GROUP
 TBM930_AIRFRAME_DE_ICE_LED_LEFT#(L:XMLVAR_IsDeiceAirFrame, Number)#Asobo.TBM 930.Anti-Ice.TBM930_AIRFRAME_DE_ICE_LED_LEFT
 TBM930_AIRFRAME_DE_ICE_LED_RIGHT#(L:XMLVAR_IsDeiceAirFrame2)#Asobo.TBM 930.Anti-Ice.TBM930_AIRFRAME_DE_ICE_LED_RIGHT
@@ -104,6 +107,10 @@ Asobo/TBM 930/Gear#GROUP
 TBM930_GEAR_DOWN_LEDS#1·0·(A:GEAR·LEFT·POSITION,·Percent)·100·==·?#Asobo.TBM 930.Gear.TBM930_GEAR_DOWN_LEDS
 Asobo/TBM 930/Lights#GROUP
 TBM930_PANEL_BRIGHTNESS#(A:LIGHT POTENTIOMETER:4, Percent)#Asobo.TBM 930.Lights.TBM930_PANEL_BRIGHTNESS
+Asobo/TBM 930/Miscellaneous#GROUP
+TBM930_BACK_DOOR_STATE#(L:XMLVAR_TBM930_BackDoor_State)#Asobo.TBM 930.Miscellaneous.TBM930_BACK_DOOR_STATE
+TBM930_CARGO_DOOR_STATE#(L:XMLVAR_TBM930_CargoDoor_State)#Asobo.TBM 930.Miscellaneous.TBM930_CARGO_DOOR_STATE
+TBM930_FRONT_DOOR_STATE#(L:XMLVAR_TBM930_FrontDoor_State)#Asobo.TBM 930.Miscellaneous.TBM930_FRONT_DOOR_STATE
 Asobo/TBM 930/Safety#GROUP
 TBM930_ELT_LED#(A:ELT ACTIVATED, Bool) (E:SIMULATION TIME, second) 3 * 2 % and (L:XMLVAR_ELT_STATE) 3 ==#Asobo.TBM 930.Safety.TBM930_ELT_LED
 Asobo/TBM 930/Warning System#GROUP
@@ -154,6 +161,7 @@ Autopilot 2 Active#(L:A32NX_AUTOPILOT_2_ACTIVE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0
 Expedite Mode Active#(L:A32NX_FMA_EXPEDITE_MODE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Expedite Mode Active
 Localizer Mode Active#(L:A32NX_FCU_LOC_MODE_ACTIVE, bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Localizer Mode Active
 Fly By Wire/A320-Dev/EFIS#GROUP
+A32NX_KOHLSMAN_SETTING#(L:XMLVAR_Baro1_Mode) 2 > if{ 99 } els{ (L:XMLVAR_Baro_Selector_HPA_1,bool) ! if{ (A:KOHLSMAN SETTING HG, inHg) 100 * near } els{ (A:KOHLSMAN SETTING HG, mbar) near } }#Fly By Wire.A320-Dev.EFIS.A32NX_KOHLSMAN_SETTING
 ARPT 1 Active#(L:A32NX_EFIS_L_OPTION, enum) 5 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.ARPT 1 Active
 BTN_LS_1#(L:BTN_LS_1_FILTER_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.BTN_LS_1
 CSTR 1 Active#(L:A32NX_EFIS_L_OPTION, enum) 1 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.CSTR 1 Active
@@ -203,7 +211,15 @@ A32NX_LIGHTS_GLARESHIELD3_PERCENT#(A:LIGHT POTENTIOMETER:87, percent)#Fly By Wir
 Main panel and pedestal backlight#(A:LIGHT POTENTIOMETER:85, Percent)#Fly By Wire.A320-Dev.Lights.Main panel and pedestal backlight
 Pedestal Light#(A:LIGHT POTENTIOMETER:76, Percent)#Fly By Wire.A320-Dev.Lights.Pedestal Light
 Fly By Wire/A320-Dev/Miscellaneous#GROUP
+COCKPIT_DOOR_OPEN#(L:A32NX_COCKPIT_DOOR_LOCKED) !#Fly By Wire.A320-Dev.Miscellaneous.COCKPIT_DOOR_OPEN
 RCDR (GND CTL)#(L:A32NX_RCDR_GROUND_CONTROL_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Miscellaneous.RCDR (GND CTL)
+Fly By Wire/A320-Dev/Navigation#GROUP
+ATC Custom 7 Sec Timeout Handler#(L:XPNDR_timeout) 0 != if{ (E:SIMULATION TIME,second) (L:XPNDR_timeout) > if{ 0 s0 (>L:XPNDR_timeout) l0 (>L:XPNDR_temp) l0 (>L:XPNDR_pos) l0 (>L:XPNDR_clr) } }#Fly By Wire.A320-Dev.Navigation.ATC Custom 7 Sec Timeout Handler
+ATC Custom Numeric Keypress Handler#(L:XPNDR_act,bool) if{ 0 (>L:XPNDR_act) (E:SIMULATION TIME,second) 7 + (>L:XPNDR_timeout) (L:XPNDR_clr) 2 == if{ 1 (>L:XPNDR_clr) } (L:XPNDR_key) (L:XPNDR_temp,number) 10 * + (>L:XPNDR_temp,number) (L:XPNDR_pos) ++ 4 min s0 (>L:XPNDR_pos) l0 4 == if{ (L:XPNDR_temp,bco16) (>K:XPNDR_SET) 0 (>L:XPNDR_timeout) 0 (>L:XPNDR_temp,number) 0 (>L:XPNDR_pos) 0 (>L:XPNDR_clr) } } (L:XPNDR_temp)#Fly By Wire.A320-Dev.Navigation.ATC Custom Numeric Keypress Handler
+ATC Custom XPNDR_clr#(L:XPNDR_clr)#Fly By Wire.A320-Dev.Navigation.ATC Custom XPNDR_clr
+ATC Custom XPNDR_pos#(L:XPNDR_pos)#Fly By Wire.A320-Dev.Navigation.ATC Custom XPNDR_pos
+Fly By Wire/A320-Dev/Safety#GROUP
+A32NX_OVHD_EMEREXIT_LIGHT_OFF#(L:XMLVAR_SWITCH_OVHD_INTLT_EMEREXIT_Position) 2 ==#Fly By Wire.A320-Dev.Safety.A32NX_OVHD_EMEREXIT_LIGHT_OFF
 Fly By Wire/A320-Dev/Warning System#GROUP
 Master Caution Active#(L:Generic_Master_Caution_Active) (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) or and (I:SAFETY_Push_Warning_ButtonAnimVar_IsDown) or (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * max 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Fly By Wire.A320-Dev.Warning System.Master Caution Active
 Master Warning Active#(L:Generic_Master_Warning_Active) (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, Bool) or and (I:SAFETY_Push_Warning_ButtonAnimVar_IsDown) or (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * max 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Fly By Wire.A320-Dev.Warning System.Master Warning Active
@@ -864,6 +880,7 @@ Fly By Wire/A320/Autopilot#GROUP
 (L:XMLVAR_Autopilot_2_Status)#(L:XMLVAR_Autopilot_2_Status)#Fly By Wire.A320.Autopilot.(L:XMLVAR_Autopilot_2_Status)
 AUTOPILOT SPEED SELECTED#(L:A32NX_AUTOPILOT_SPEED_SELECTED, Number)#Fly By Wire.A320.Autopilot.AUTOPILOT SPEED SELECTED
 FCU MACH Value Selected & Pre-Selected Modes#(L:A32NX_AUTOPILOT_SPEED_SELECTED, Number) 100 * near#Fly By Wire.A320.Autopilot.FCU MACH Value Selected & Pre-Selected Modes
+XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT#(L:XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT)#Fly By Wire.A320.Autopilot.XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT
 Fly By Wire/A320/ECAM#GROUP
 A32NX_ECAM_Current_Page_Index#(L:A32NX_ECAM_SD_CURRENT_PAGE_INDEX)#Fly By Wire.A320.ECAM.A32NX_ECAM_Current_Page_Index
 Fly By Wire/A320/EFIS#GROUP
@@ -1039,7 +1056,10 @@ Just Flight/Piper Arrow III/Gear#GROUP
 LAND_GEAR_LEFT_LED#(L:LDG_GEAR_left_gear)#Just Flight.Piper Arrow III.Gear.LAND_GEAR_LEFT_LED
 LAND_GEAR_NOSE_LED#(L:LDG_GEAR_nose_gear)#Just Flight.Piper Arrow III.Gear.LAND_GEAR_NOSE_LED
 LAND_GEAR_RIGHT_LED#(L:LDG_GEAR_right_gear)#Just Flight.Piper Arrow III.Gear.LAND_GEAR_RIGHT_LED
+LDG_GEAR_AUTO_EXT / AUTO EXT OFF#(L:LDG_GEAR_AUTO_EXT,Bool)#Just Flight.Piper Arrow III.Gear.LDG_GEAR_AUTO_EXT / AUTO EXT OFF
 PARKING_BRAKE_LED#(L:ParkingBrake_Position)#Just Flight.Piper Arrow III.Gear.PARKING_BRAKE_LED
+Microsoft/A320/EFIS#GROUP
+LED QFE ENCENDIDO#(L:XMLVAR_Baro1_Mode) ++ 2 %#Microsoft.A320.EFIS.LED QFE ENCENDIDO
 Microsoft/Generic/Autopilot#GROUP
 AUTOPILOT AIRSPEED HOLD#(A:AUTOPILOT AIRSPEED HOLD,Bool)#Microsoft.Generic.Autopilot.AUTOPILOT AIRSPEED HOLD
 AUTOPILOT AIRSPEED HOLD VAR#(A:AUTOPILOT AIRSPEED HOLD VAR,Knots)#Microsoft.Generic.Autopilot.AUTOPILOT AIRSPEED HOLD VAR
@@ -1458,6 +1478,7 @@ LOCAL TIME#(E:LOCAL TIME,second)#Microsoft.Generic.Environment.LOCAL TIME
 LOCAL YEAR#(E:LOCAL YEAR,number)#Microsoft.Generic.Environment.LOCAL YEAR
 SEA LEVEL PRESSURE#(A:SEA LEVEL PRESSURE,Millibars)#Microsoft.Generic.Environment.SEA LEVEL PRESSURE
 SIMULATION TIME#(E:SIMULATION TIME,second)#Microsoft.Generic.Environment.SIMULATION TIME
+SIMULATION_RATE#(E:SIMULATION RATE,number)#Microsoft.Generic.Environment.SIMULATION_RATE
 STANDARD ATM TEMPERATURE#(A:STANDARD ATM TEMPERATURE,Rankine)#Microsoft.Generic.Environment.STANDARD ATM TEMPERATURE
 STRUCT AMBIENT WIND#(A:STRUCT AMBIENT WIND,Feet_per_second)#Microsoft.Generic.Environment.STRUCT AMBIENT WIND
 TIME OF DAY#(E:TIME OF DAY,enum)#Microsoft.Generic.Environment.TIME OF DAY
@@ -1489,7 +1510,7 @@ INDICATED ALTITUDE#(A:INDICATED ALTITUDE,Feet)#Microsoft.Generic.Flight Instrume
 INDICATED ALTITUDE EX1#(A:INDICATED ALTITUDE EX1,Feet)#Microsoft.Generic.Flight Instrumentation.INDICATED ALTITUDE EX1
 KOHLSMAN SETTING HG#(A:KOHLSMAN SETTING HG, inHg)#Microsoft.Generic.Flight Instrumentation.KOHLSMAN SETTING HG
 KOHLSMAN SETTING MB#(A:KOHLSMAN SETTING MB,Millibars)#Microsoft.Generic.Flight Instrumentation.KOHLSMAN SETTING MB
-KOHLSMAN SETTING STD#(A:KOHLSMAN SETTING STD,Bool)#Microsoft.Generic.Flight Instrumentation.KOHLSMAN SETTING STD
+KOHLSMAN SETTING STD#(A:KOHLSMAN SETTING STD:index,Bool)#Microsoft.Generic.Flight Instrumentation.KOHLSMAN SETTING STD
 MACH MAX OPERATE#(A:MACH MAX OPERATE,Mach)#Microsoft.Generic.Flight Instrumentation.MACH MAX OPERATE
 MAX G FORCE#(A:MAX G FORCE,Gforce)#Microsoft.Generic.Flight Instrumentation.MAX G FORCE
 MIN G FORCE#(A:MIN G FORCE,Gforce)#Microsoft.Generic.Flight Instrumentation.MIN G FORCE
@@ -1977,7 +1998,11 @@ WT_CJ4_AP_VS_LOCK_DIR#(A:AUTOPILOT VERTICAL LOCK DIR:1, Feet/minute)#Working Tit
 WT_CJ4_FLC_ON#(L:WT_CJ4_FLC_ON, bool)#Working Title.CJ4.Autopilot.WT_CJ4_FLC_ON
 WT_CJ4_HDG_ON#(L:WT_CJ4_HDG_ON,bool)#Working Title.CJ4.Autopilot.WT_CJ4_HDG_ON
 WT_CJ4_NAV_ON#(L:WT_CJ4_NAV_ON, Bool)#Working Title.CJ4.Autopilot.WT_CJ4_NAV_ON
+WT_CJ4_TOD_DISTANCE#(L:WT_CJ4_TOD_DISTANCE)#Working Title.CJ4.Autopilot.WT_CJ4_TOD_DISTANCE
+WT_CJ4_TOD_REMAINING#(L:WT_CJ4_TOD_REMAINING)#Working Title.CJ4.Autopilot.WT_CJ4_TOD_REMAINING
 WT_CJ4_VS_ON#(L:WT_CJ4_VS_ON)#Working Title.CJ4.Autopilot.WT_CJ4_VS_ON
+Working Title/CJ4/Avionics#GROUP
+WT_CJ4_PANEL_BRIGHTNESS#(L:LIGHTING_Knob_Master)#Working Title.CJ4.Avionics.WT_CJ4_PANEL_BRIGHTNESS
 Working Title/CJ4/Engines#GROUP
 Eng L Man Ignition Switch ON#(A:TURB ENG IGNITION SWITCH EX1:1, enum) 2 ==#Working Title.CJ4.Engines.Eng L Man Ignition Switch ON
 Eng R Man Ignition ON#(A:TURB ENG IGNITION SWITCH EX1:2, enum) 2 ==#Working Title.CJ4.Engines.Eng R Man Ignition ON
