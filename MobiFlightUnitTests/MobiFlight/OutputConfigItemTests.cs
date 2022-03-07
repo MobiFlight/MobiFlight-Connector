@@ -265,6 +265,12 @@ namespace MobiFlight.Tests
             o2.ShiftRegister.Pin = "69";
 
             Assert.IsFalse(o1.Equals(o2));
+
+            // reset o2
+            // https://github.com/MobiFlight/MobiFlight-Connector/issues/697
+            o2 = _generateConfigItem();
+            o2.Servo.MaxRotationPercent = "90";
+            Assert.IsFalse(o1.Equals(o2));
         }
     }
 }
