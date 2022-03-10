@@ -11,13 +11,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
 {
     public partial class MFEncoderPanel : UserControl
     {
-        /// <summary>
-        /// Gets raised whenever config object has changed
-        /// </summary>
-        public event EventHandler Changed;
 
         private MobiFlight.Config.Encoder encoder;
-        bool initialized = false;
+        private List<MobiFlightPin> pinList;    // COMPLETE list of pins (includes status)
+        private bool initialized = false;
+
+        public event EventHandler Changed;
 
         public MFEncoderPanel()
         {
@@ -26,47 +25,57 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfRightPinComboBox.Items.Clear();
         }
 
-        public MFEncoderPanel(MobiFlight.Config.Encoder encoder, List<MobiFlightPin> Pins)
-            : this()
+        public MFEncoderPanel(MobiFlight.Config.Encoder encoder, List<MobiFlightPin> Pins) : this()
         {
-            ComboBoxHelper.BindMobiFlightFreePins(mfLeftPinComboBox, Pins, encoder.PinLeft);
-            ComboBoxHelper.BindMobiFlightFreePins(mfRightPinComboBox, Pins, encoder.PinRight);
-            
-            // Default standard selected values, next pins available
-            if (mfLeftPinComboBox.Items.Count > 1)
-            {
-                mfLeftPinComboBox.SelectedIndex = 0;
-                mfRightPinComboBox.SelectedIndex = 1;
-            }
-
+            pinList = Pins;
             this.encoder = encoder;
+            UpdateFreePinsInDropDowns();
+
+            // Default standard selected values, next pins available
             mfLeftPinComboBox.SelectedValue = byte.Parse(encoder.PinLeft);
             mfRightPinComboBox.SelectedValue = byte.Parse(encoder.PinRight);
-
             ComboBoxHelper.SetSelectedItemByIndex(mfEncoderTypeComboBox, int.Parse(encoder.EncoderType));
-
             textBox1.Text = encoder.Name;
-            setValues();
 
             initialized = true;
+        }
+
+        private void setNonPinValues()
+        {
+            encoder.EncoderType = mfEncoderTypeComboBox.SelectedIndex.ToString();
+            encoder.Name = textBox1.Text;
+        }
+        private void UpdateFreePinsInDropDowns()
+        {
+            bool exInitialized = initialized;
+            initialized = false;    // inhibit value_Changed events
+            ComboBoxHelper.BindMobiFlightFreePins(mfLeftPinComboBox, pinList, encoder.PinLeft);
+            ComboBoxHelper.BindMobiFlightFreePins(mfRightPinComboBox, pinList, encoder.PinRight);
+            initialized = exInitialized;
+        }
+
+        private void ReassignFreePinsInDropDowns(ComboBox comboBox)
+        {
+            bool exInitialized = initialized;
+            initialized = false;    // inhibit value_Changed events
+
+            // First update the one that is changed
+            // Here, the config data (encoder.XXXPin) is updated with the new value read from the changed ComboBox;
+            if (comboBox == mfLeftPinComboBox) { ComboBoxHelper.reassignPin(mfLeftPinComboBox, pinList, ref encoder.PinLeft); } else
+            if (comboBox == mfRightPinComboBox) { ComboBoxHelper.reassignPin(mfRightPinComboBox, pinList, ref encoder.PinRight); }
+            // then the others are updated too 
+            UpdateFreePinsInDropDowns();
+
+            initialized = exInitialized;
         }
 
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-
-            setValues();
-
+            ReassignFreePinsInDropDowns(sender as ComboBox);
+            setNonPinValues();
             if (Changed != null)
                 Changed(encoder, new EventArgs());
-        }
-
-        private void setValues()
-        {
-            encoder.PinLeft = mfLeftPinComboBox.SelectedItem.ToString();
-            encoder.PinRight = mfRightPinComboBox.SelectedItem.ToString();
-            encoder.EncoderType = mfEncoderTypeComboBox.SelectedIndex.ToString();
-            encoder.Name = textBox1.Text;
         }
     }
 }

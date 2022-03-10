@@ -11,12 +11,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
 {
     public partial class MFButtonPanel : UserControl
     {
-        /// <summary>
-        /// Gets raised whenever config object has changed
-        /// </summary>
-        public event EventHandler Changed;
         private MobiFlight.Config.Button button;
-        bool initialized = false;
+        private bool initialized = false;
+
+        public event EventHandler Changed;
 
         public MFButtonPanel()
         {
@@ -24,16 +22,14 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfPinComboBox.Items.Clear();
         }
 
-        public MFButtonPanel(MobiFlight.Config.Button button, List<MobiFlightPin> Pins)
-            : this()
+        public MFButtonPanel(MobiFlight.Config.Button button, List<MobiFlightPin> Pins): this()
         {
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, button.Pin);
 
-            // TODO: Complete member initialization
             this.button = button;
             mfPinComboBox.SelectedValue = byte.Parse(button.Pin);
             textBox1.Text = button.Name;
-            setValues();
+            ////setValues();
 
             initialized = true;
         }
@@ -41,9 +37,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-
             setValues();
-
             if (Changed != null)
                 Changed(button, new EventArgs());
         }

@@ -53,6 +53,7 @@
             // 
             // mfPinComboBox
             // 
+            this.mfPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPinComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPinComboBox, "mfPinComboBox");
             this.mfPinComboBox.Name = "mfPinComboBox";

@@ -20,17 +20,17 @@
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Uno",
-    "LatestFirmwareVersion": "2.0.1",
+    "LatestFirmwareVersion": "2.1.1",
     "MobiFlightType": "MobiFlight Uno"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 3,
-    "MaxButtons": 8,
+    "MaxAnalogInputs": 6,
+    "MaxButtons": 18,
     "MaxEncoders": 3,
     "MaxInputShifters":  2,
     "MaxLcdI2C": 2,
     "MaxLedSegments": 1,
-    "MaxOutputs": 8,
+    "MaxOutputs": 18,
     "MaxServos": 2,
     "MaxShifters": 2,
     "MaxSteppers": 2

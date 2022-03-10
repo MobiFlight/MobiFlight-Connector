@@ -6,18 +6,18 @@ changelog:
     authors:
       - MobiFlight-Admin
   categories:
-    - title: New Feature :tada:
+    - title: New Feature 🎉
       labels:
         - feature
-    - title: Improvement :sparkles:
+    - title: Improvement ✨
       labels:
         - enhancement
-    - title: Bug Fixes :bug:
+    - title: Bug Fixes 🐛
       labels:
         - bug
-    - title: Documentation :bug:
+    - title: Documentation 📚
       labels:
         - documentation
-    - title: Other Changes
+    - title: Other Changes ⚡
       labels:
         - "*"

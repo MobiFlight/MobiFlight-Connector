@@ -25,6 +25,7 @@ namespace MobiFlight
         public event EventHandler OnTestModeException;
 
         public event EventHandler OnSimAvailable;
+        public event EventHandler OnSimUnavailable;
         public event EventHandler OnSimCacheClosed;
         public event EventHandler OnSimCacheConnected;
         public event EventHandler OnSimCacheConnectionLost;
@@ -84,6 +85,8 @@ namespace MobiFlight
         Dictionary<String, List<Tuple<InputConfigItem, DataGridViewRow>>> inputCache = new Dictionary<string, List<Tuple<InputConfigItem, DataGridViewRow>>>();
 
         private bool _autoConnectTimerRunning = false;
+
+        FlightSimType LastDetectedSim = FlightSimType.NONE;
 
         public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView, IntPtr handle)
         {
@@ -474,10 +477,7 @@ namespace MobiFlight
                 String strValueAfterComparison = (string)strValue.Clone();
                 strValue = ExecuteInterpolation(strValue, cfg);
 
-
                 row.Cells["arcazeValueColumn"].Value = strValue;
-                if (strValueAfterComparison != strValue) row.Cells["arcazeValueColumn"].Value += " (" + strValueAfterComparison + ")";
-                row.Cells["arcazeValueColumn"].Tag = processedValue + " / " + strValueAfterComparison;
 
                 // check preconditions
                 if (!CheckPrecondition(cfg, processedValue))
@@ -1288,7 +1288,10 @@ namespace MobiFlight
 
                 if (SimAvailable())
                 {
-                    OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
+                    if (LastDetectedSim!= FlightSim.FlightSimType) {
+                        LastDetectedSim = FlightSim.FlightSimType;
+                        OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
+                    }
 
                     Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
 
@@ -1305,6 +1308,10 @@ namespace MobiFlight
                 }
                 else
                 {
+                    if (LastDetectedSim != FlightSimType.NONE) {
+                        OnSimUnavailable?.Invoke(LastDetectedSim, null);
+                        LastDetectedSim = FlightSim.FlightSimType;
+                    }
                     Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
                 }
             }
@@ -1341,10 +1348,8 @@ namespace MobiFlight
             }
 
             if (cfg != null &&
-                // (cfg.FSUIPC.Offset != FsuipcOffset.OffsetNull) &&
-
                 lastRow.Cells["active"].Value != null && ((bool)lastRow.Cells["active"].Value) &&
-                (cfg.DisplaySerial.Contains("/"))
+                cfg.DisplaySerial!=null && (cfg.DisplaySerial.Contains("/"))
             )
             {
                 lastSerial = cfg.DisplaySerial.Split('/')[1].Trim();

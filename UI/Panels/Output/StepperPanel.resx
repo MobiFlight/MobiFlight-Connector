@@ -123,10 +123,14 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="CompassModeCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 66</value>
+    <value>140, 102</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CompassModeCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="CompassModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 17</value>
+    <value>146, 24</value>
   </data>
   <data name="CompassModeCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
@@ -150,10 +154,13 @@
     <value>0</value>
   </data>
   <data name="stepperTestValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 40</value>
+    <value>140, 62</value>
+  </data>
+  <data name="stepperTestValueTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="stepperTestValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
+    <value>108, 26</value>
   </data>
   <data name="stepperTestValueTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
@@ -173,15 +180,17 @@
   <data name="&gt;&gt;stepperTestValueTextBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 43</value>
+    <value>9, 66</value>
+  </data>
+  <data name="label9.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>123, 20</value>
   </data>
   <data name="label9.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
@@ -205,10 +214,13 @@
     <value>2</value>
   </data>
   <data name="outputRevTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>176, 18</value>
+    <value>264, 28</value>
+  </data>
+  <data name="outputRevTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="outputRevTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
+    <value>108, 26</value>
   </data>
   <data name="outputRevTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -229,10 +241,13 @@
     <value>3</value>
   </data>
   <data name="inputRevTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 18</value>
+    <value>140, 28</value>
+  </data>
+  <data name="inputRevTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="inputRevTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 20</value>
+    <value>108, 26</value>
   </data>
   <data name="inputRevTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -256,10 +271,13 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinComoBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 21</value>
+    <value>8, 32</value>
+  </data>
+  <data name="displayPinComoBoxLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="displayPinComoBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>123, 20</value>
   </data>
   <data name="displayPinComoBoxLabel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -286,10 +304,16 @@
     <value>Top</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 28</value>
+    <value>0, 43</value>
+  </data>
+  <data name="groupBox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="groupBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 98</value>
+    <value>382, 151</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -313,10 +337,13 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 7</value>
+    <value>4, 11</value>
+  </data>
+  <data name="label2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>123, 20</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -349,16 +376,19 @@
     <value>3BCD-8Bit-with-Strobe</value>
   </data>
   <data name="stepperAddressesComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 3</value>
+    <value>140, 5</value>
+  </data>
+  <data name="stepperAddressesComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="stepperAddressesComboBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>122, 0</value>
+    <value>181, 0</value>
   </data>
   <data name="stepperAddressesComboBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>47, 0</value>
+    <value>68, 0</value>
   </data>
   <data name="stepperAddressesComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 21</value>
+    <value>181, 28</value>
   </data>
   <data name="stepperAddressesComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -381,8 +411,11 @@
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 28</value>
+    <value>382, 43</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>23</value>
@@ -400,10 +433,13 @@
     <value>2</value>
   </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>174, 60</value>
+    <value>261, 92</value>
+  </data>
+  <data name="button2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>112, 35</value>
   </data>
   <data name="button2.TabIndex" type="System.Int32, mscorlib">
     <value>39</value>
@@ -424,10 +460,13 @@
     <value>0</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>90, 60</value>
+    <value>135, 92</value>
+  </data>
+  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>112, 35</value>
   </data>
   <data name="button1.TabIndex" type="System.Int32, mscorlib">
     <value>38</value>
@@ -451,10 +490,13 @@
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>196, 44</value>
+    <value>294, 68</value>
+  </data>
+  <data name="label8.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 13</value>
+    <value>38, 20</value>
   </data>
   <data name="label8.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -481,10 +523,13 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>166, 44</value>
+    <value>249, 68</value>
+  </data>
+  <data name="label7.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 13</value>
+    <value>38, 20</value>
   </data>
   <data name="label7.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
@@ -511,10 +556,13 @@
     <value>NoControl</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>145, 44</value>
+    <value>218, 68</value>
+  </data>
+  <data name="label6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>20, 13</value>
+    <value>30, 20</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
@@ -541,10 +589,13 @@
     <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 44</value>
+    <value>171, 68</value>
+  </data>
+  <data name="label5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 13</value>
+    <value>38, 20</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -571,10 +622,13 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>224, 44</value>
+    <value>336, 68</value>
+  </data>
+  <data name="label4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 13</value>
+    <value>38, 20</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -601,10 +655,13 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>88, 44</value>
+    <value>132, 68</value>
+  </data>
+  <data name="label3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 13</value>
+    <value>38, 20</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -628,10 +685,13 @@
     <value>7</value>
   </data>
   <data name="trackBar1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>91, 15</value>
+    <value>136, 23</value>
+  </data>
+  <data name="trackBar1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="trackBar1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 45</value>
+    <value>237, 69</value>
   </data>
   <data name="trackBar1.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
@@ -652,10 +712,13 @@
     <value>NoControl</value>
   </data>
   <data name="ManualCalibrateLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 19</value>
+    <value>4, 29</value>
+  </data>
+  <data name="ManualCalibrateLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
   </data>
   <data name="ManualCalibrateLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>123, 20</value>
   </data>
   <data name="ManualCalibrateLabel.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -682,10 +745,16 @@
     <value>Top</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 126</value>
+    <value>0, 194</value>
+  </data>
+  <data name="groupBox2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="groupBox2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 86</value>
+    <value>382, 132</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -709,10 +778,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>9, 20</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 216</value>
+    <value>382, 332</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>StepperPanel</value>

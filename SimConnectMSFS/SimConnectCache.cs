@@ -181,6 +181,9 @@ namespace MobiFlight.SimConnectMSFS
             InitializeClientDataAreas(sender);
             // register receive data events
             (sender).OnRecvClientData += SimConnectCache_OnRecvClientData;
+
+            Connected?.Invoke(this, null);
+
             WasmModuleClient.Ping(sender);
         }
 
@@ -274,7 +277,11 @@ namespace MobiFlight.SimConnectMSFS
         private void SimConnect_OnRecvException(SimConnect sender, SIMCONNECT_RECV_EXCEPTION data)
         {
             SIMCONNECT_EXCEPTION eException = (SIMCONNECT_EXCEPTION)data.dwException;
-            Log.Instance.log("SimConnectCache::Exception " + eException.ToString(), LogSeverity.Error);
+            if (eException == SIMCONNECT_EXCEPTION.ALREADY_CREATED) {
+                Log.Instance.log("SimConnectCache::Exception " + eException.ToString(), LogSeverity.Debug);
+            }
+            else
+                Log.Instance.log("SimConnectCache::Exception " + eException.ToString(), LogSeverity.Error);
         }
 
         public bool Disconnect()
@@ -300,6 +307,11 @@ namespace MobiFlight.SimConnectMSFS
         public bool IsConnected()
         {
             return _connected;
+        }
+
+        public bool IsSimConnectConnected()
+        {
+            return _simConnectConnected;
         }
 
         public void setEventID(string eventID)
