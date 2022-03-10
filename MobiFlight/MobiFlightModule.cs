@@ -17,7 +17,7 @@ using MobiFlight.Config;
 
 namespace MobiFlight
 {
-    public class InputEventArgs : EventArgs    
+    public class InputEventArgs : EventArgs
     {
         public string Serial { get; set; }
         public string DeviceId { get; set; }
@@ -25,13 +25,13 @@ namespace MobiFlight
         public int? ExtPin { get; set; }
         public int Value { get; set; }
 
-        public String StrValue { get; set;}
+        public String StrValue { get; set; }
     }
 
     public class FirmwareFeature
     {
         public const string GenerateSerial = "1.3.0";
-        public const string SetName        = "1.6.0";
+        public const string SetName = "1.6.0";
     }
 
     // This is the list of recognized commands. These can be commands that can either be sent or received. 
@@ -112,26 +112,27 @@ namespace MobiFlight
         /// characters that are not allowed in device names to prevent any conflict when parsing EEPROM text
         /// </summary>
         public static List<string> ReservedChars = new List<string>
-		{
-			@":",
+        {
+            @":",
             @".",
-			@";",
-			@",",
-			@"#",
-			@"/",
-			@"|"
-		};
-        
+            @";",
+            @",",
+            @"#",
+            @"/",
+            @"|"
+        };
+
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
         public String Name { get; set; }
-        public String Type {
+        public String Type
+        {
             get
             {
                 if (HasMfFirmware())
                 {
                     return Board.Info.MobiFlightType;
-                }    
+                }
                 else
                 {
                     return Board?.Info.FriendlyName ?? "Unknown";
@@ -145,46 +146,49 @@ namespace MobiFlight
             return !String.IsNullOrEmpty(Version);
         }
 
-        public Config.Config Config { 
-            get {                    
-                    if (_config==null) {
-                        if (!Connected) return null;
-                        
-                        var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
-                        var InfoCommand = _cmdMessenger.SendCommand(command);
+        public Config.Config Config
+        {
+            get
+            {
+                if (_config == null)
+                {
+                    if (!Connected) return null;
 
-                        // Sometimes first attempt times out.
-                        if (!InfoCommand.Ok)
-                        {
-                            Log.Instance.log("MobiflightModule.Config: Timeout. !InfoCommand.Ok. Retrying...", LogSeverity.Debug);
-                            InfoCommand = _cmdMessenger.SendCommand(command);
-                        }
-                        
-                        // Some boards, like the Arduino Uno, require several attempts
-                        // before the initial command succeeds.
-                        if (Board.Connection.ExtraConnectionRetry)
-                        {
-                            if (!InfoCommand.Ok)
-                            InfoCommand = _cmdMessenger.SendCommand(command);
-                            if (!InfoCommand.Ok)
-                            InfoCommand = _cmdMessenger.SendCommand(command);
-                        }
+                    var command = new SendCommand((int)MobiFlightModule.Command.GetConfig, (int)MobiFlightModule.Command.Info, CommandTimeout);
+                    var InfoCommand = _cmdMessenger.SendCommand(command);
 
-                        if (InfoCommand.Ok)
-                        {
-                            // This is where the whole config in string form read from the Arduino is loaded
-                            // to the internal objects (Config.Config.Items)
-                            _config = new Config.Config(InfoCommand.ReadStringArg());
-                        }
-                        else
-                        {
-                            Log.Instance.log("MobiflightModule.Config: !InfoCommand.Ok. Init with empty config.", LogSeverity.Debug);
-                            _config = new Config.Config();
-                        }
-                            
+                    // Sometimes first attempt times out.
+                    if (!InfoCommand.Ok)
+                    {
+                        Log.Instance.log("MobiflightModule.Config: Timeout. !InfoCommand.Ok. Retrying...", LogSeverity.Debug);
+                        InfoCommand = _cmdMessenger.SendCommand(command);
                     }
-                    return _config;
+
+                    // Some boards, like the Arduino Uno, require several attempts
+                    // before the initial command succeeds.
+                    if (Board.Connection.ExtraConnectionRetry)
+                    {
+                        if (!InfoCommand.Ok)
+                            InfoCommand = _cmdMessenger.SendCommand(command);
+                        if (!InfoCommand.Ok)
+                            InfoCommand = _cmdMessenger.SendCommand(command);
+                    }
+
+                    if (InfoCommand.Ok)
+                    {
+                        // This is where the whole config in string form read from the Arduino is loaded
+                        // to the internal objects (Config.Config.Items)
+                        _config = new Config.Config(InfoCommand.ReadStringArg());
+                    }
+                    else
+                    {
+                        Log.Instance.log("MobiflightModule.Config: !InfoCommand.Ok. Init with empty config.", LogSeverity.Debug);
+                        _config = new Config.Config();
+                    }
+
                 }
+                return _config;
+            }
 
             set
             {
@@ -193,7 +197,7 @@ namespace MobiFlight
         }
 
         public const int CommandTimeout = 2500;
-        
+
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();
 
@@ -208,7 +212,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightLedModule> ledModules = new Dictionary<string, MobiFlightLedModule>();
         Dictionary<String, MobiFlightStepper> stepperModules = new Dictionary<string, MobiFlightStepper>();
         Dictionary<String, MobiFlightServo> servoModules = new Dictionary<string, MobiFlightServo>();
-        Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string,MobiFlightOutput>();
+        Dictionary<String, MobiFlightOutput> outputs = new Dictionary<string, MobiFlightOutput>();
         Dictionary<String, MobiFlightLcdDisplay> lcdDisplays = new Dictionary<string, MobiFlightLcdDisplay>();
         Dictionary<String, MobiFlightButton> buttons = new Dictionary<string, MobiFlightButton>();
         Dictionary<String, MobiFlightEncoder> encoders = new Dictionary<string, MobiFlightEncoder>();
@@ -220,7 +224,8 @@ namespace MobiFlight
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
         private bool connected;
-        public bool Connected {
+        public bool Connected
+        {
             get { return connected; }
         }
 
@@ -274,10 +279,11 @@ namespace MobiFlight
             Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable})", LogSeverity.Info);
             //this.Connected = status;
             this.connected = true;
-            
+
             // this sleep helps during initialization
             // without this line modules did not connect properly
-            if (Board.Connection.ConnectionDelay > 0) { 
+            if (Board.Connection.ConnectionDelay > 0)
+            {
                 System.Threading.Thread.Sleep(Board.Connection.ConnectionDelay);
             }
 
@@ -295,7 +301,7 @@ namespace MobiFlight
         public void LoadConfig()
         {
             // Rebuilds all objects from Config.Items.
-            
+
             ledModules.Clear();
             stepperModules.Clear();
             servoModules.Clear();
@@ -312,10 +318,11 @@ namespace MobiFlight
             {
                 if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
 
-                switch(device.Type) {
+                switch (device.Type)
+                {
                     case DeviceType.LedModule:
                         int submodules = 1;
-                        int.TryParse( (device as Config.LedModule).NumModules, out submodules);
+                        int.TryParse((device as Config.LedModule).NumModules, out submodules);
                         device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
                         ledModules.Add(device.Name, new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count, SubModules = submodules, Brightness = (device as Config.LedModule).Brightness });
                         break;
@@ -360,9 +367,9 @@ namespace MobiFlight
                         device.Name = GenerateUniqueDeviceName(digInputMuxes.Keys.ToArray(), device.Name);
                         digInputMuxes.Add(device.Name, new MobiFlightDigInputMux() { Name = device.Name });
                         break;
-                    // The MuxDriver does not belong here (a "MobiFlightMuxDriverS" doesn't even exist) because all I/O devices here
-                    // are only those meant to be linked to a user input event or output data, while MuxDrivers are not addressable
-                    // by the user (and shouldn't show in the UI).
+                        // The MuxDriver does not belong here (a "MobiFlightMuxDriverS" doesn't even exist) because all I/O devices here
+                        // are only those meant to be linked to a user input event or output data, while MuxDrivers are not addressable
+                        // by the user (and shouldn't show in the UI).
                 }
             }
         }
@@ -409,8 +416,8 @@ namespace MobiFlight
             }
 
             this.connected = false;
-            
-#if COMMAND_MESSENGER_3_6    
+
+#if COMMAND_MESSENGER_3_6
             _cmdMessenger.Disconnect();
 #else
             _cmdMessenger.StopListening();
@@ -432,7 +439,8 @@ namespace MobiFlight
             Disconnect();
             if (Board.Connection.ForceResetOnFirmwareUpdate)
             {
-                SerialTransport tmpSerial = new SerialTransport() {
+                SerialTransport tmpSerial = new SerialTransport()
+                {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
                 };
 #if COMMAND_MESSENGER_3_6    
@@ -453,7 +461,7 @@ namespace MobiFlight
             };
             return result;
         }
-        
+
         /// Attach command call backs. 
         private void AttachCommandCallBacks()
         {
@@ -500,17 +508,17 @@ namespace MobiFlight
             String pos = arguments.ReadStringArg();
             int value;
             if (!int.TryParse(pos, out value)) return;
-            
+
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = enc, Type = DeviceType.Encoder, Value = value});
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = enc, Type = DeviceType.Encoder, Value = value });
             //addLog("Enc: " + enc + ":" + pos);
         }
 
         void OnInputShiftRegisterChange(ReceivedCommand arguments)
         {
             String deviceId = arguments.ReadStringArg();
-            String channel  = arguments.ReadStringArg();
-            String state    = arguments.ReadStringArg();
+            String channel = arguments.ReadStringArg();
+            String state = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, ExtPin = int.Parse(channel), Value = int.Parse(state) });
         }
@@ -518,8 +526,8 @@ namespace MobiFlight
         void OnDigInputMuxChange(ReceivedCommand arguments)
         {
             String deviceId = arguments.ReadStringArg();
-            String channel  = arguments.ReadStringArg();
-            String state    = arguments.ReadStringArg();
+            String channel = arguments.ReadStringArg();
+            String state = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.DigInputMux, ExtPin = int.Parse(channel), Value = int.Parse(state) });
         }
@@ -534,7 +542,7 @@ namespace MobiFlight
                 OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = button, Type = DeviceType.Button, Value = int.Parse(state) });
         }
 
-         // Callback function that prints the Arduino status to the console
+        // Callback function that prints the Arduino status to the console
         void OnAnalogChange(ReceivedCommand arguments)
         {
             String name = arguments.ReadStringArg();
@@ -542,20 +550,20 @@ namespace MobiFlight
             //addLog("Button: " + button + ":" + state);
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = name, Type = DeviceType.AnalogInput, Value = int.Parse(value) });
-         }
+        }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="port">the virtual port on the board or extension</param>
-    /// <param name="pin"></param>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public bool SetPin(string port, string pin, int value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="port">the virtual port on the board or extension</param>
+        /// <param name="pin"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool SetPin(string port, string pin, int value)
         {
             // if value has not changed since the last time, then we continue to next item to prevent 
             // unnecessary communication with Arcaze USB
-            String key = port+pin;
+            String key = port + pin;
 
             if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
                 lastValue[key] == value.ToString()) return false;
@@ -639,7 +647,7 @@ namespace MobiFlight
             {
                 stepperModules[stepper].InputRevolutionSteps = inputRevolutionSteps;
             }
-            
+
             stepperModules[stepper].MoveToPosition(value, (value - iLastValue) > 0);
             lastValue[key] = value.ToString();
             return true;
@@ -695,9 +703,9 @@ namespace MobiFlight
 
             shiftRegisters[moduleID].Display(outputPin, value);
             return true;
-        }       
+        }
 
-        public bool Retrigger ()
+        public bool Retrigger()
         {
             bool isOk = true;
             var command = new SendCommand((int)MobiFlightModule.Command.Retrigger, (int)MobiFlightModule.Command.Status);
@@ -710,7 +718,8 @@ namespace MobiFlight
 
         public IModuleInfo GetInfo()
         {
-            MobiFlightModuleInfo devInfo = new MobiFlightModuleInfo() {
+            MobiFlightModuleInfo devInfo = new MobiFlightModuleInfo()
+            {
                 Name = "Unknown",
                 Type = Type,
                 Port = _comPort
@@ -728,7 +737,7 @@ namespace MobiFlight
                 InfoCommand = _cmdMessenger.SendCommand(command);
 
                 devInfo.Type = InfoCommand.ReadStringArg();
-                devInfo.Name = InfoCommand.ReadStringArg();                
+                devInfo.Name = InfoCommand.ReadStringArg();
                 devInfo.Serial = InfoCommand.ReadStringArg();
                 String v = InfoCommand.ReadStringArg();
                 if (v.IndexOf(":") == -1)
@@ -792,7 +801,7 @@ namespace MobiFlight
             {
                 Log.Instance.log("Error on Uploading.", LogSeverity.Error);
             }
-            
+
             if (isOk)
             {
                 command = new SendCommand((int)MobiFlightModule.Command.SaveConfig, (int)MobiFlightModule.Command.ConfigSaved, CommandTimeout);
@@ -921,7 +930,7 @@ namespace MobiFlight
         {
             return Board.Pins.FindAll(x => x.isPWM);
         }
-        
+
         public IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
             List<DeviceType> result = new List<DeviceType>();
@@ -934,17 +943,17 @@ namespace MobiFlight
 
             return result;
         }
-        
+
         public IEnumerable<DeviceType> GetConnectedInputDeviceTypes()
         {
             bool _hasButtons = false;
             bool _hasEncoder = false;
             bool _hasAnalog = false;
             bool _hasInputShiftRegisters = false;
-			bool _hasDigInputMuxes = false;
-			
+            bool _hasDigInputMuxes = false;
+
             List<DeviceType> result = new List<DeviceType>();
-            
+
             foreach (Config.BaseDevice dev in Config.Items)
             {
                 switch (dev.Type)
@@ -966,7 +975,7 @@ namespace MobiFlight
                         break;
 
                 }
-            }            
+            }
             if (_hasButtons) result.Add(DeviceType.Button);
             if (_hasEncoder) result.Add(DeviceType.Encoder);
             if (_hasAnalog) result.Add(DeviceType.AnalogInput);
@@ -999,18 +1008,19 @@ namespace MobiFlight
         internal MobiFlightModuleInfo ToMobiFlightModuleInfo()
         {
             return new MobiFlightModuleInfo()
-            { 
-                    Serial  = Serial,
-                    Name    = Name, 
-                    Type    = Type, 
-                    Port    = Port,
-                    Version = Version,
-                    Board   = Board
+            {
+                Serial = Serial,
+                Name = Name,
+                Type = Type,
+                Port = Port,
+                Version = Version,
+                Board = Board
             };
-            
+
         }
 
-        protected bool KeepAliveNeeded() {
+        protected bool KeepAliveNeeded()
+        {
             if (lastUpdate.AddMinutes(KeepAliveIntervalInMinutes) < DateTime.UtcNow)
             {
                 lastUpdate = DateTime.UtcNow;
@@ -1053,8 +1063,8 @@ namespace MobiFlight
             // we have to make sure to not send messages
             // when we are not connected
             if (!this.connected) return;
-            
-            GetConnectedDevices().ForEach(device => device.Stop());                      
+
+            GetConnectedDevices().ForEach(device => device.Stop());
         }
 
         public List<MobiFlightPin> GetFreePins()
@@ -1110,7 +1120,7 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as InputShiftRegister).DataPin));
                         usedPins.Add(Convert.ToByte((device as InputShiftRegister).LatchPin));
                         break;
-                        
+
                     case DeviceType.LcdDisplay:
                         // Statically add correct I2C pins
                         foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))
@@ -1123,7 +1133,7 @@ namespace MobiFlight
                     case DeviceType.Output:
                         usedPins.Add(Convert.ToByte((device as Output).Pin));
                         break;
-            
+
                     case DeviceType.AnalogInput:
                         usedPins.Add(Convert.ToByte((device as AnalogInput).Pin));
                         break;
@@ -1136,14 +1146,18 @@ namespace MobiFlight
 
                     case DeviceType.DigInputMux:
                         usedPins.Add(Convert.ToByte((device as DigInputMux).DataPin));
+                        usedPins.Add(Convert.ToByte((device as DigInputMux).Selector.PinSx[0]));
+                        usedPins.Add(Convert.ToByte((device as DigInputMux).Selector.PinSx[1]));
+                        usedPins.Add(Convert.ToByte((device as DigInputMux).Selector.PinSx[2]));
+                        usedPins.Add(Convert.ToByte((device as DigInputMux).Selector.PinSx[3]));
                         break;
 
-                    case DeviceType.MuxDriver:
-                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[0]));
-                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[1]));
-                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[2]));
-                        usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[3]));
-                        break;
+                    //case DeviceType.MuxDriver:
+                    //    usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[0]));
+                    //    usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[1]));
+                    //    usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[2]));
+                    //    usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[3]));
+                    //    break;
 
                     default:
                         throw new NotImplementedException();

@@ -500,7 +500,7 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.DigInputMux:
-                        Config.DigInputMux selectedDigInputMux = inputTypeComboBox.SelectedItem as Config.DigInputMux;
+                        Config.DigInputMux selectedDigInputMux = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.DigInputMux;
                         panel = new Panels.Input.DigInputMuxPanel();
                         (panel as Panels.Input.DigInputMuxPanel).syncFromConfig(config.digInputMux);
                         PopulateInputPinDropdown(Convert.ToInt32(selectedDigInputMux.NumModules), config.digInputMux?.ExtPin);
