@@ -87,6 +87,8 @@ namespace MobiFlight
                 this.LcdDisplay.Equals((obj as OutputConfigItem).LcdDisplay) &&
                 //===
                 this.Stepper.Equals((obj as OutputConfigItem).Stepper) &&
+                //==
+                this.Servo.Equals((obj as OutputConfigItem).Servo) &&
                 //===
                 // TODO: I will ignore this, because it is a deprecated feature
                 // this.BcdPins.Equals((obj as OutputConfigItem).BcdPins) &&

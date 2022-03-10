@@ -98,8 +98,12 @@ namespace System
             byte nAfter = byte.Parse(after);
             try {
                 if (signalPin != after) {
-                    pinList.Find(x => x.Pin == nBefore).Used = false;
-                    pinList.Find(x => x.Pin == nAfter).Used = true;
+                    // Pin 0 is used for the stepper.
+                    // But Pin 0 is not a correct Pin for the Mega.
+                    if (pinList.Find(x => x.Pin == nBefore)!=null)
+                        pinList.Find(x => x.Pin == nBefore).Used = false;
+                    if (pinList.Find(x => x.Pin == nAfter)!=null)
+                        pinList.Find(x => x.Pin == nAfter).Used = true;
                 }
             }
             catch (Exception e) {
