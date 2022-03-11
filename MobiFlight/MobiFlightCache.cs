@@ -126,18 +126,15 @@ namespace MobiFlight
                 // case where no hardware IDs are available.
                 var rawHardwareID = (queryObj["HardwareID"] as string[])?[0];
 
-                // Only hardware IDs that start with USB are potentially valid. In testing we've seen other
-                // detected connection types, such as "ACPI". Also handle the case where rawHardwareID
-                // is null.
-                if (!rawHardwareID?.StartsWith("USB") ?? false)
+                if (String.IsNullOrEmpty(rawHardwareID))
                 {
-                    Log.Instance.log($"Incompatible module skipped: {rawHardwareID}", LogSeverity.Debug);
+                    Log.Instance.log($"Skipping module with no available VID/PID", LogSeverity.Debug);
                     continue;
                 }
 
-                // Historically MobiFlight expects a straight VID/PID string without a leading USB\ so get
+                // Historically MobiFlight expects a straight VID/PID string without a leading USB\ or FTDI\ so get
                 // rid of that to ensure other code works as it used to.
-                var hardwareId = rawHardwareID.Remove(0, 4);
+                var hardwareId = rawHardwareID.Substring(rawHardwareID.IndexOf('\\') + 1);
 
                 Log.Instance.log($"Checking for compatible module: {hardwareId}", LogSeverity.Debug);
                 var board = BoardDefinitions.GetBoardByHardwareId(hardwareId);
