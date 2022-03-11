@@ -131,7 +131,7 @@ namespace MobiFlight
                 // is null.
                 if (!rawHardwareID?.StartsWith("USB") ?? false)
                 {
-                    Log.Instance.log($"Incompatible module skipped: VID/PID: {rawHardwareID}", LogSeverity.Debug);
+                    Log.Instance.log($"Incompatible module skipped: {rawHardwareID}", LogSeverity.Debug);
                     continue;
                 }
 
@@ -145,7 +145,7 @@ namespace MobiFlight
                 // If no matching board definition is found at this point then it's an incompatible board and just keep going.
                 if (board == null)
                 {
-                    Log.Instance.log($"Incompatible module skipped: VID/PID: {hardwareId}", LogSeverity.Debug);
+                    Log.Instance.log($"Incompatible module skipped: {hardwareId}", LogSeverity.Debug);
                     continue;
                 }
 
