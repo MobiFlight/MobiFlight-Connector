@@ -115,25 +115,32 @@ namespace MobiFlight
             foreach (ManagementObject queryObj in searcher.Get())
             {
                 // At this point we have a list of possibly valid connected devices. Since everything at this point
-                // depends on the VID/PID extract that to start.
+                // depends on the VID/PID extract that to start. USB devices seem to consistently have two hardwareID
+                // entries, in this order:
+                //
+                // USB\VID_1B4F&PID_9206&REV_0100&MI_00
+                // USB\VID_1B4F&PID_9206&MI_00
+                //
+                // Either will work with how the BoardDefinitions class and existing board definition files do regular expression
+                // lookups so just grab the first one in the array every time. Note the use of '?' to handle the (never seen)
+                // case where no hardware IDs are available.
                 var rawHardwareID = (queryObj["HardwareID"] as string[])?[0];
 
                 // Only hardware IDs that start with USB are potentially valid. In testing we've seen other
-                // detected connection types, such as "ACPI".
-                if (!rawHardwareID.StartsWith("USB\\"))
+                // detected connection types, such as "ACPI". Also handle the case where rawHardwareID
+                // is null.
+                if (!rawHardwareID?.StartsWith("USB") ?? false)
                 {
+                    Log.Instance.log($"Incompatible module skipped: VID/PID: {rawHardwareID}", LogSeverity.Debug);
                     continue;
                 }
 
-                // Historically MobiFlight expects a straight VID/PID string without a leading USB\\ so get
+                // Historically MobiFlight expects a straight VID/PID string without a leading USB\ so get
                 // rid of that to ensure other code works as it used to.
                 var hardwareId = rawHardwareID.Remove(0, 4);
 
-                String message = null;
-                Board board;
-
                 Log.Instance.log($"Checking for compatible module: {hardwareId}", LogSeverity.Debug);
-                board = BoardDefinitions.GetBoardByHardwareId(hardwareId);
+                var board = BoardDefinitions.GetBoardByHardwareId(hardwareId);
 
                 // If no matching board definition is found at this point then it's an incompatible board and just keep going.
                 if (board == null)
@@ -142,9 +149,12 @@ namespace MobiFlight
                     continue;
                 }
 
-                // The board is a known type so grab the COM port for it.
-                var portNameMatch = Regex.Match(queryObj["Caption"].ToString(), portNameRegEx);
-                var portName = portNameMatch?.Value.Trim(new char[]{ '(', ')'});
+                // The board is a known type so grab the COM port for it. Every USB device seen so far has the
+                // COM port in the full name of the device surrounded by (), for example:
+                //
+                // USB Serial Device (COM22)
+                var portNameMatch = Regex.Match(queryObj["Caption"].ToString(), portNameRegEx); // Find the COM port.
+                var portName = portNameMatch?.Value.Trim(new char[]{ '(', ')'}); // Remove the surrounding ().
 
                 if (portName == null)
                 {
