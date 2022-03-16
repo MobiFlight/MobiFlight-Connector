@@ -554,6 +554,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     displayPinPanel.SetPorts(new List<ListItem>());
                     displayPinPanel.SetPins(outputs);
 
+                    //displayLedDisplayPanel.syncFromConfig(config);
                     displayLedDisplayPanel.WideStyle = true;
                     displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged += new EventHandler(displayLedAddressComboBox_SelectedIndexChanged);
                     displayLedDisplayPanel.SetAddresses(ledSegments);
