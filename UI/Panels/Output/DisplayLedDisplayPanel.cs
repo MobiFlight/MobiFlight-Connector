@@ -18,8 +18,7 @@ namespace MobiFlight.UI.Panels
         public DisplayLedDisplayPanel()
         {
             InitializeComponent();
-            InitPanelWithDefaultSettings();
-            
+            InitPanelWithDefaultSettings();            
         }
 
         private void InitPanelWithDefaultSettings()
