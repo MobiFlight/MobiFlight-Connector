@@ -177,12 +177,14 @@ namespace MobiFlight
         {
             Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Start", LogSeverity.Debug);
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
+            string[] connectedPorts = SerialPort.GetPortNames();
 
             if (_lookingUpModules) return result;
             _lookingUpModules = true;
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
             var supportedPorts = getSupportedPorts();
+            List<string> connectingPorts = new List<string>();
             
             for (var i = 0; i != supportedPorts.Count; i++)
             {
@@ -190,6 +192,19 @@ namespace MobiFlight
                 String portName = port.Key;
                 Board board = port.Value;
                 int progressValue = (i * 25) / supportedPorts.Count;
+
+                if (!connectedPorts.Contains(portName))
+                {
+                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port not connected ("+portName+")", LogSeverity.Debug);
+                    continue;
+                }
+                if (connectingPorts.Contains(portName))
+                {
+                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port already connecting (" + portName + ")", LogSeverity.Debug);
+                    continue;
+                }
+
+                connectingPorts.Add(portName);
 
                 tasks.Add(Task.Run(() =>
                 {
