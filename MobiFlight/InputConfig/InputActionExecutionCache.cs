@@ -39,10 +39,10 @@ namespace MobiFlight.InputConfig
 
             if (args.Value==1)
             {
-                config.onPress.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefsInputEventArgs);
+                config.onPress?.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefsInputEventArgs);
             } else
             {
-                config.onRelease.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefsInputEventArgs);
+                config.onRelease?.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefsInputEventArgs);
             }
 
             return true;
