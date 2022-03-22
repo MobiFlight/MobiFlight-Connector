@@ -303,7 +303,8 @@ namespace MobiFlight.UI.Panels
                     dgv.BeginEdit(true);
                     if (e.KeyCode != Keys.F2)
                     {
-                        (dgv.EditingControl as TextBox).Text = (e.Shift) ? e.KeyCode.ToString() : e.KeyCode.ToString().ToLower();
+                        
+                        (dgv.EditingControl as TextBox).Text = (e.Shift || Control.IsKeyLocked(Keys.CapsLock)) ? e.KeyCode.ToString() : e.KeyCode.ToString().ToLower();
                         (dgv.EditingControl as TextBox).Select(1, 0);
                     }
                 }
