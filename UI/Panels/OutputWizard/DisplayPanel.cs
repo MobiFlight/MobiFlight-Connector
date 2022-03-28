@@ -297,11 +297,13 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     AnalogInputConfig tmpConfig = new AnalogInputConfig();
                     analogPanel1.ToConfig(tmpConfig);
                     config.AnalogInputConfig = tmpConfig;
+                    config.ButtonInputConfig = null;
                 } else
                 {
                     ButtonInputConfig tmpConfig = new ButtonInputConfig();
                     buttonPanel1.ToConfig(tmpConfig);
                     config.ButtonInputConfig = tmpConfig;
+                    config.AnalogInputConfig = null;
                 }
             }
         }
