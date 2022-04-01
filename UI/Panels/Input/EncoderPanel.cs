@@ -151,28 +151,28 @@ namespace MobiFlight.UI.Panels.Input
                     {
                         if (_config.onLeft is MSFS2020CustomInputAction)
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeft as MSFS2020CustomInputAction);
-                        else
+                        else if (_config.onLeft is MSFS2020EventIdInputAction)
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeft as MSFS2020EventIdInputAction);
                     }
                     else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
                     {
                         if (_config.onLeftFast is MSFS2020CustomInputAction)
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeftFast as MSFS2020CustomInputAction);
-                        else
+                        else if (_config.onLeftFast is MSFS2020EventIdInputAction)
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeftFast as MSFS2020EventIdInputAction);
                     }
                     else if (!isLeft && !isFast && _config != null && _config.onRight != null)
                     {
                         if (_config.onRight is MSFS2020CustomInputAction)
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRight as MSFS2020CustomInputAction);
-                        else
+                        else if (_config.onRight is MSFS2020EventIdInputAction)
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRight as MSFS2020EventIdInputAction);
                     }
                     else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
                     {
                         if (_config.onRightFast is MSFS2020CustomInputAction)
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRightFast as MSFS2020CustomInputAction);
-                        else
+                        else if (_config.onRightFast is MSFS2020EventIdInputAction)
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRightFast as MSFS2020EventIdInputAction);
                     }
                     break;

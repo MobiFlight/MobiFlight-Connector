@@ -106,7 +106,7 @@ namespace MobiFlight.UI.Panels.Input
                     {
                         if (_config.onChange is MSFS2020EventIdInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onChange as MSFS2020EventIdInputAction);
-                        else
+                        else if (_config.onChange is MSFS2020CustomInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onChange as MSFS2020CustomInputAction);
                     }
                     break;

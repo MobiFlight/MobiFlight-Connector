@@ -238,6 +238,8 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncFromConfig(MSFS2020EventIdInputAction inputAction)
         {
+            if (inputAction == null) return;
+
             Msfs2020EventPresetList deprecatedPresets = new Msfs2020EventPresetList();
             deprecatedPresets.Load();
 

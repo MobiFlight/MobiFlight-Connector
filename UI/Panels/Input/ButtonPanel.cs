@@ -134,13 +134,13 @@ namespace MobiFlight.UI.Panels.Input
                     if (isOnPress && _config != null && _config.onPress != null) { 
                         if(_config.onPress is MSFS2020CustomInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onPress as MSFS2020CustomInputAction);
-                        else
+                        else if (_config.onPress is MSFS2020EventIdInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onPress as MSFS2020EventIdInputAction);
                     }
                     else if (!isOnPress && _config != null && _config.onRelease != null) {
                         if (_config.onRelease is MSFS2020CustomInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onRelease as MSFS2020CustomInputAction);
-                        else
+                        else if (_config.onRelease is MSFS2020EventIdInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onRelease as MSFS2020EventIdInputAction);
                     }
 
