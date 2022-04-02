@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
+// from DigInputMuxConfig
+
 namespace MobiFlight.InputConfig
 {
-    // Since input shift registers are really just a bunch of buttons, deriving from ButtonInputConfig
-    // saves copying over a ton of code for reading/writing XML and executing actions and ensures its
-    // fundamental capabilities stay in sync with buttons.
-    public class InputShiftRegisterConfig : ButtonInputConfig
+    // Since digital inputs on a multiplexer are really just a bunch of buttons, 
+    // deriving from ButtonInputConfig saves copying over a ton of code 
+    // for reading/writing XML and executing actions and ensures
+    // its fundamental capabilities stay in sync with buttons.
+    public class DigInputMuxConfig : ButtonInputConfig
     {
         public int ExtPin;
 
         public new object Clone()
         {
-            InputShiftRegisterConfig clone = new InputShiftRegisterConfig();
+            DigInputMuxConfig clone = new DigInputMuxConfig();
             if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
             if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();
             clone.ExtPin = ExtPin;
@@ -36,16 +39,16 @@ namespace MobiFlight.InputConfig
 
         public override bool Equals(object obj)
         {
-            // Input shift registers configurations are equal when their ExtPin values are the same and all of
-            // the button configuration from the base class matches.
-            return (obj is InputShiftRegisterConfig) && ((obj as InputShiftRegisterConfig).ExtPin == ExtPin) && base.Equals(obj);
+            // Digital input multiplexer configurations are equal when their data ExtPin is the same
+            // and all of the button configuration from the base class matches.
+            return (obj is DigInputMuxConfig) && ((obj as DigInputMuxConfig).ExtPin == ExtPin) && base.Equals(obj);
         }
 
         public new Dictionary<String, int> GetStatistics()
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
 
-            result["Input.InputShiftRegister"] = 1;
+            result["Input.DigInputMux"] = 1;
 
             if (onPress != null)
             {
@@ -60,6 +63,6 @@ namespace MobiFlight.InputConfig
             }
 
             return result;
-        }    
+        }
     }
 }

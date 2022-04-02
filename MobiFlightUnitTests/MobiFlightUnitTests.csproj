@@ -74,6 +74,7 @@
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\InputShiftRegisterConfigTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\DigInputMuxConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\ButtonInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\EncoderInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\LuaMacroInputActionTests.cs" />
@@ -173,6 +174,22 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\MobiFlight\InputConfig\ButtonInputConfig\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\InputShiftRegisterConfig\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\InputShiftRegisterConfig\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\DigInputMuxConfig\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\DigInputMuxConfig\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

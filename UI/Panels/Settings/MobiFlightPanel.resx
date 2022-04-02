@@ -453,6 +453,12 @@
   <data name="addInputShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
     <value>Input Shift Register</value>
   </data>
+  <data name="addDigInputMuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 34</value>
+  </data>
+  <data name="addDigInputMuxToolStripMenuItem.Text" xml:space="preserve">
+    <value>Digital Input Multiplexer</value>
+  </data>
   <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
@@ -483,8 +489,8 @@
   <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>531, 31</value>
   </data>
-  <data name="mobiflightSettingsToolStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 28</value>
   </data>
   <data name="mobiflightSettingsToolStrip.Text" xml:space="preserve">
     <value>toolStrip1</value>
@@ -606,6 +612,9 @@
   <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 426</value>
   </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
+  <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="firmwareSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>537, 63</value>
   </data>
@@ -705,7 +714,7 @@
   <data name="&gt;&gt;analogDeviceToolStripMenuItem.Name" xml:space="preserve">
     <value>analogDeviceToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;analogDeviceToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;openToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;inputShiftRegisterToolStripMenuItem.Name" xml:space="preserve">
@@ -786,8 +795,8 @@
   <data name="&gt;&gt;uploadToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
+  <data name="&gt;&gt;addServoToolStripMenuItem.Name" xml:space="preserve">
+    <value>addServoToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -798,8 +807,8 @@
   <data name="&gt;&gt;openToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
-    <value>saveToolStripButton</value>
+  <data name="&gt;&gt;addStepperToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -882,6 +891,12 @@
   <data name="&gt;&gt;addInputShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;addDigInputMuxToolStripMenuItem.Name" xml:space="preserve">
+    <value>addDigInputMuxToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addDigInputMuxToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
     <value>removeDeviceToolStripButton</value>
   </data>
@@ -905,6 +920,18 @@
   </data>
   <data name="&gt;&gt;CompatibleBoardScanToolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="digInputMuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="digInputMuxToolStripMenuItem.Text" xml:space="preserve">
+    <value>Digital Input Multiplexer</value>
+  </data>
+  <data name="&gt;&gt;digInputMuxToolStripMenuItem.Name" xml:space="preserve">
+    <value>digInputMuxToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;digInputMuxToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MobiFlightPanel</value>

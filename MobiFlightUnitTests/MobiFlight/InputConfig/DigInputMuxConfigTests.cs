@@ -11,22 +11,22 @@ using System.Xml;
 namespace MobiFlight.InputConfig.Tests
 {
     [TestClass()]
-    public class InputShiftRegisterConfigTests
+    public class DigInputMuxConfigTests
     {
         [TestMethod()]
         public void CloneTest()
         {
-            InputShiftRegisterConfig o = generateTestObject();
-            InputShiftRegisterConfig c = (InputShiftRegisterConfig)o.Clone();
+            DigInputMuxConfig o = generateTestObject();
+            DigInputMuxConfig c = (DigInputMuxConfig)o.Clone();
 
             Assert.AreNotSame(o, c, "Cloned object is the same");
             Assert.AreEqual((o.onPress as EventIdInputAction).EventId, (c.onPress as EventIdInputAction).EventId, "OnPress is not correct");
             Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelase is not correct");
         }
 
-        private InputShiftRegisterConfig generateTestObject()
+        private DigInputMuxConfig generateTestObject()
         {
-            InputShiftRegisterConfig o = new InputShiftRegisterConfig();
+            DigInputMuxConfig o = new DigInputMuxConfig();
             o.ExtPin = 1;
             o.onPress = new EventIdInputAction() { EventId = 12345 };
             o.onRelease = new JeehellInputAction() { EventId = 127, Param = "123" };
@@ -36,21 +36,21 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void GetSchemaTest()
         {
-            InputShiftRegisterConfig o = new InputShiftRegisterConfig();
+            DigInputMuxConfig o = new DigInputMuxConfig();
             Assert.IsNull(o.GetSchema());
         }
 
         [TestMethod()]
         public void ReadXmlTest()
         {
-            InputShiftRegisterConfig o = new InputShiftRegisterConfig();
-            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputShiftRegisterConfig\ReadXmlTest.1.xml");
+            DigInputMuxConfig o = new DigInputMuxConfig();
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\DigInputMuxConfig\ReadXmlTest.1.xml");
             StringReader sr = new StringReader(s);
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
 
             System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
-            xmlReader.ReadToDescendant("inputShiftRegister");
+            xmlReader.ReadToDescendant("digInputMux");
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(1, o.ExtPin, "ExtPin not the same");
@@ -68,14 +68,14 @@ namespace MobiFlight.InputConfig.Tests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
-            InputShiftRegisterConfig o = generateTestObject();
-            xmlWriter.WriteStartElement("inputShiftRegister");
+            DigInputMuxConfig o = generateTestObject();
+            xmlWriter.WriteStartElement("digInputMux");
             o.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
 
-            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputShiftRegisterConfig\WriteXmlTest.1.xml");
+            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\DigInputMuxConfig\WriteXmlTest.1.xml");
 
             Assert.AreEqual(result, s, "The both strings are not equal");
         }
@@ -83,8 +83,8 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void EqualsTest()
         {
-            InputShiftRegisterConfig o1 = new InputShiftRegisterConfig();
-            InputShiftRegisterConfig o2 = new InputShiftRegisterConfig();
+            DigInputMuxConfig o1 = new DigInputMuxConfig();
+            DigInputMuxConfig o2 = new DigInputMuxConfig();
 
             Assert.IsTrue(o1.Equals(o2));
 

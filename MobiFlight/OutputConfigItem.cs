@@ -22,22 +22,22 @@ namespace MobiFlight
         
         // this implements the FSUIPC Config Item Interface
         // It would be nicer to have an aggregation of FSUIPC.FSUIPCConfigItem instead
-		public SourceType   SourceType                  { get; set; }
-		public FsuipcOffset FSUIPC                      { get; set; }
-		public SimConnectValue SimConnectValue              { get; set; }
-		public MobiFlightVariable MobiFlightVariable          { get; set; }
-		public Transformation Transform                   { get; set; }
-		public string Value                       { get; set; }	
+		public SourceType           SourceType                  { get; set; }
+		public FsuipcOffset         FSUIPC                      { get; set; }
+		public SimConnectValue      SimConnectValue             { get; set; }
+		public MobiFlightVariable   MobiFlightVariable          { get; set; }
+		public Transformation       Transform                   { get; set; }
+		public string               Value                       { get; set; }	
 		public OutputConfig.Comparison Comparison                  { get; set; }
-		public string       DisplayType                 { get; set; }
-		public string       DisplaySerial               { get; set; }
-		public OutputConfig.Pin Pin                         { get; set; }
-		public OutputConfig.LedModule LedModule                   { get; set; }
-		public OutputConfig.LcdDisplay LcdDisplay                  { get; set; }
-		public List<string> BcdPins                     { get; set; }
-        public OutputConfig.Servo Servo { get; set; }
+		public string               DisplayType                 { get; set; }
+		public string               DisplaySerial               { get; set; }
+		public OutputConfig.Pin     Pin                         { get; set; }
+		public OutputConfig.LedModule   LedModule                   { get; set; }
+		public OutputConfig.LcdDisplay  LcdDisplay                  { get; set; }
+		public List<string>         BcdPins                     { get; set; }
+        public OutputConfig.Servo   Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
-        public Interpolation Interpolation              { get; set; }
+        public Interpolation        Interpolation              { get; set; }
         public OutputConfig.ShiftRegister ShiftRegister               { get; set; }
         public string       DisplayTrigger              { get; set; }
         public PreconditionList   Preconditions       { get; set; }
