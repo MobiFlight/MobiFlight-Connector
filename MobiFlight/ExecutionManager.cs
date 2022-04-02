@@ -469,7 +469,7 @@ namespace MobiFlight
                 }
                 catch (Exception e)
                 {
-                    Log.Instance.log("Problem with transform. " + e.Message, LogSeverity.Error);
+                    Log.Instance.log($"Transform error ({row.Cells["Description"].Value}): {e.Message}", LogSeverity.Error);
                     row.ErrorText = i18n._tr("uiMessageTransformError") + "(" + e.Message + ")";
                     continue;
                 }

@@ -293,7 +293,7 @@ You should configure them now.</value>
     <value>Copy</value>
   </data>
   <data name="uiMessageErrorOnParsingExpression" xml:space="preserve">
-    <value>An error occured on parsing your value formula. Please review and correct any errors.</value>
+    <value>An error occurred on parsing your value formula. Please review and correct any errors.</value>
   </data>
   <data name="uiMessageNoOrphanedSerialsFound" xml:space="preserve">
     <value>There are no orphaned serials in the current config.</value>
