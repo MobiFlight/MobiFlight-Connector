@@ -14,11 +14,16 @@ namespace MobiFlight.UI.Panels
     {
         public bool WideStyle = false;
         private string filterReferenceGuid;
+        public event EventHandler OnLedAddressChanged;
         
         public DisplayLedDisplayPanel()
         {
             InitializeComponent();
-            InitPanelWithDefaultSettings();            
+            InitPanelWithDefaultSettings();
+            displayLedAddressComboBox.SelectedIndexChanged += (sender, e) =>
+            {
+                OnLedAddressChanged?.Invoke(displayLedAddressComboBox, new EventArgs());
+            };
         }
 
         private void InitPanelWithDefaultSettings()
@@ -35,6 +40,9 @@ namespace MobiFlight.UI.Panels
                 {
                     // TODO: provide error message
                     Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
+                } else
+                {
+                    OnLedAddressChanged?.Invoke(displayLedAddressComboBox, new EventArgs());
                 }
             }
 
@@ -103,7 +111,7 @@ namespace MobiFlight.UI.Panels
             displayLedConnectorComboBox.Enabled = pins.Count > 0;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void DisplayLedModuleSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             int value = Int16.Parse((sender as ComboBox).Text);
             for (int i = 0; i < 8; i++)

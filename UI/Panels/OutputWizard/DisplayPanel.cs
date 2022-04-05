@@ -85,50 +85,34 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         protected void _initDisplayPanels()
         {
-            // make all panels small and store the common height
-            groupBoxDisplaySettings.Controls.Add(displayPinPanel);
-            displayPinPanel.Dock = DockStyle.Top;
-            groupBoxDisplaySettings.Controls.Add(displayBcdPanel);
-            displayBcdPanel.Dock = DockStyle.Top;
-            groupBoxDisplaySettings.Controls.Add(displayLedDisplayPanel);
-            displayLedDisplayPanel.Dock = DockStyle.Top;
-            groupBoxDisplaySettings.Controls.Add(displayNothingSelectedPanel);
-            displayNothingSelectedPanel.Dock = DockStyle.Top;
-            groupBoxDisplaySettings.Controls.Add(servoPanel);
-            servoPanel.Dock = DockStyle.Top;
-            groupBoxDisplaySettings.Controls.Add(stepperPanel);
-            stepperPanel.Dock = DockStyle.Top;
-            groupBoxDisplaySettings.Controls.Add(displayShiftRegisterPanel);
-            displayShiftRegisterPanel.Dock = DockStyle.Top;
-            stepperPanel.OnManualCalibrationTriggered += stepperPanel_OnManualCalibrationTriggered;
-            stepperPanel.OnSetZeroTriggered += stepperPanel_OnSetZeroTriggered;
-            stepperPanel.OnStepperSelected += StepperPanel_OnStepperSelected;
+            displayPanels = new List<UserControl>() { 
+                displayPinPanel, 
+                displayBcdPanel, 
+                displayLedDisplayPanel, 
+                displayNothingSelectedPanel,
+                servoPanel,
+                stepperPanel,
+                displayShiftRegisterPanel,
+                displayLcdDisplayPanel
+            };
 
-
-            groupBoxDisplaySettings.Controls.Add(displayLcdDisplayPanel);
-            displayLcdDisplayPanel.AutoSize = false;
-            displayLcdDisplayPanel.Height = 0;
-            displayLcdDisplayPanel.Dock = DockStyle.Top;
-
-            displayPanels.Clear();
             displayPanelHeight = 0;
-            displayPanels.Add(displayPinPanel);
-            displayPanels.Add(displayBcdPanel);
-            displayPanels.Add(displayLedDisplayPanel);
-            displayPanels.Add(displayNothingSelectedPanel);
-            displayPanels.Add(servoPanel);
-            displayPanels.Add(stepperPanel);
-            displayPanels.Add(displayLcdDisplayPanel);
-            displayPanels.Add(displayShiftRegisterPanel);
+            displayLcdDisplayPanel.AutoSize = false;
 
-            foreach (UserControl p in displayPanels)
-            {
-                if (p.Height > 0 && (p.Height > displayPanelHeight)) displayPanelHeight = p.Height;
-                p.Height = 0;
-            } //foreach
+            displayPanels.ForEach(control => { 
+                groupBoxDisplaySettings.Controls.Add (control);
+                control.Dock = DockStyle.Top;
+
+                if (control.Height > 0 && (control.Height > displayPanelHeight)) displayPanelHeight = control.Height;
+                control.Height = 0;
+            });
 
             displayNothingSelectedPanel.Height = displayPanelHeight;
             displayNothingSelectedPanel.Enabled = true;
+
+            stepperPanel.OnManualCalibrationTriggered += stepperPanel_OnManualCalibrationTriggered;
+            stepperPanel.OnSetZeroTriggered += stepperPanel_OnSetZeroTriggered;
+            stepperPanel.OnStepperSelected += StepperPanel_OnStepperSelected;
         }
 
         internal void syncFromConfig(OutputConfigItem cfg)
@@ -140,18 +124,18 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             if (OutputTypeComboBox.SelectedIndex == 0)
             {
-                if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
-                {
-                    // TODO: provide error message
-                    Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
-                }
-
                 if (config.DisplaySerial != null && config.DisplaySerial != "")
                 {
                     if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, config.DisplaySerial))
                     {
                         // TODO: provide error message
                     }
+                }
+
+                if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
+                {
+                    // TODO: provide error message
+                    Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
                 }
 
                 switch (config.DisplayType)
@@ -419,14 +403,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void displayTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+#if DEBUG
             Log.Instance.log("displayTypeComboBox_SelectedIndexChanged: called.", LogSeverity.Debug);
-
-            foreach (UserControl p in displayPanels)
-            {
-                p.Enabled = false;
-                p.AutoSize = false;
-                p.Height = 0;
-            } //foreach
+#endif
+            HideAllDisplayPanels();
 
             try
             {
@@ -435,182 +415,19 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 ComboBox cb = displayModuleNameComboBox;
                 String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
 
-                // we remove the callback method to ensure, that it is not added more than once
-                displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged -= displayLedAddressComboBox_SelectedIndexChanged;
-
 #if ARCAZE
                 if (arcazeFirmware.ContainsKey(serial))
                 {
-
-                    switch ((sender as ComboBox).SelectedItem.ToString())
-                    {
-                        case "DisplayDriver":
-                            panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x529;
-                            break;
-
-                        case "LedDriver2":
-                            panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x554;
-                            break;
-
-                        case "LedDriver3":
-                            panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x550;
-                            break;
-                    }
-
-                    displayPinPanel.displayPinBrightnessPanel.Visible = (moduleSettings[serial].type == SimpleSolutions.Usb.ArcazeCommand.ExtModuleType.LedDriver3);
-                    displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
-
-                    //preconditionPortComboBox.Items.Clear();
-                    //preconditionPinComboBox.Items.Clear();
-
-                    List<ListItem> ports = new List<ListItem>();
-
-                    foreach (String v in ArcazeModule.getPorts())
-                    {
-                        ports.Add(new ListItem() { Label = v, Value = v });
-                        if (v == "B" || v == "E" || v == "H" || v == "K")
-                        {
-                            ports.Add(new ListItem() { Label = "-----", Value = "-----" });
-                        }
-
-                        if (v == "A" || v == "B")
-                        {
-                            //preconditionPortComboBox.Items.Add(v);
-                        }
-                    }
-
-                    displayPinPanel.SetPorts(ports);
-                    displayBcdPanel.SetPorts(ports);
-
-                    List<ListItem> pins = new List<ListItem>();
-                    foreach (String v in ArcazeModule.getPins())
-                    {
-                        pins.Add(new ListItem() { Label = v, Value = v });
-                        //preconditionPinComboBox.Items.Add(v);
-                    }
-
-                    displayPinPanel.SetPins(pins);
-                    displayBcdPanel.SetPins(pins);
-                    displayPinPanel.WideStyle = false;
-
-                    List<ListItem> addr = new List<ListItem>();
-                    List<ListItem> connectors = new List<ListItem>();
-                    foreach (string v in ArcazeModule.getDisplayAddresses()) addr.Add(new ListItem() { Label = v, Value = v });
-                    foreach (string v in ArcazeModule.getDisplayConnectors()) connectors.Add(new ListItem() { Label = v, Value = v });
-                    displayLedDisplayPanel.WideStyle = false;
-                    displayLedDisplayPanel.SetAddresses(addr);
-                    displayLedDisplayPanel.SetConnectors(connectors);
+                    panelEnabled = InitializeArcazeDisplays(cb, serial);
                 }
                 else
 #endif
                 if (serial.IndexOf("SN") == 0)
                 {
-                    MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-
-                    displayPinPanel.SetModule(module);
-                    displayPinPanel.displayPinBrightnessPanel.Visible = true;
-                    displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
-
-                    List<ListItem> outputs = new List<ListItem>();
-                    List<ListItem> ledSegments = new List<ListItem>();
-                    List<ListItem> servos = new List<ListItem>();
-                    List<ListItem> stepper = new List<ListItem>();
-                    List<ListItem> lcdDisplays = new List<ListItem>();
-                    List<ListItem> shiftRegisters = new List<ListItem>();
-
-
-                    foreach (IConnectedDevice device in module.GetConnectedDevices())
-                    {
-                        Log.Instance.log("displayTypeComboBox_SelectedIndexChanged: Adding connected device: " + device.Type.ToString() + ", " + device.Name, LogSeverity.Debug);
-                        switch (device.Type)
-                        {
-                            case DeviceType.LedModule:
-                                ledSegments.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                                break;
-
-                            case DeviceType.Output:
-                                outputs.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                                break;
-
-                            case DeviceType.Servo:
-                                servos.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                                break;
-
-                            case DeviceType.Stepper:
-                                stepper.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                                break;
-
-                            case DeviceType.LcdDisplay:
-                                int Cols = (device as MobiFlightLcdDisplay).Cols;
-                                int Lines = (device as MobiFlightLcdDisplay).Lines;
-                                lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Name });
-                                break;
-
-                            case DeviceType.ShiftRegister:
-                                shiftRegisters.Add(new ListItem() { Value = device.Name, Label = device.Name });
-
-                                break;
-                        }
-                    }
-                    displayPinPanel.WideStyle = true;
-                    displayPinPanel.SetPorts(new List<ListItem>());
-                    displayPinPanel.SetPins(outputs);
-
-                    displayLedDisplayPanel.WideStyle = true;
-                    displayLedDisplayPanel.displayLedAddressComboBox.SelectedIndexChanged += new EventHandler(displayLedAddressComboBox_SelectedIndexChanged);
-                    displayLedDisplayPanel.SetAddresses(ledSegments);
-
-                    servoPanel.SetAdresses(servos);
-
-                    stepperPanel.SetAdresses(stepper);
-
-                    displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged -= shiftRegistersComboBox_selectedIndexChanged;
-                    displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged += new EventHandler(shiftRegistersComboBox_selectedIndexChanged);
-                    displayShiftRegisterPanel.SetAddresses(shiftRegisters);
-
-                    displayLcdDisplayPanel.SetAddresses(lcdDisplays);
-                }
-                if ((sender as ComboBox).Text == "Pin")
-                {
-                    displayPinPanel.Enabled = panelEnabled;
-                    displayPinPanel.Height = displayPanelHeight;
+                    panelEnabled = InitializeMobiFlightDisplays(cb, serial);
                 }
 
-                if ((sender as ComboBox).Text == ArcazeBcd4056.TYPE)
-                {
-                    displayBcdPanel.Enabled = panelEnabled;
-                    displayBcdPanel.Height = displayPanelHeight;
-                }
-
-                if ((sender as ComboBox).Text == ArcazeLedDigit.TYPE)
-                {
-                    displayLedDisplayPanel.Enabled = panelEnabled;
-                    displayLedDisplayPanel.Height = displayPanelHeight;
-                }
-
-                if ((sender as ComboBox).Text == DeviceType.Servo.ToString("F"))
-                {
-                    servoPanel.Enabled = panelEnabled;
-                    servoPanel.Height = displayPanelHeight;
-                }
-
-                if ((sender as ComboBox).Text == DeviceType.Stepper.ToString("F"))
-                {
-                    stepperPanel.Enabled = panelEnabled;
-                    stepperPanel.Height = displayPanelHeight;
-                }
-                if ((sender as ComboBox).Text == DeviceType.LcdDisplay.ToString("F"))
-                {
-                    displayLcdDisplayPanel.Enabled = panelEnabled;
-                    displayLcdDisplayPanel.AutoSize = true;
-                    displayLcdDisplayPanel.Height = displayPanelHeight;
-                }
-
-                if ((sender as ComboBox).Text == DeviceType.ShiftRegister.ToString("F"))
-                {
-                    displayShiftRegisterPanel.Enabled = panelEnabled;
-                    displayShiftRegisterPanel.Height = displayPanelHeight;
-                }
+                ShowActiveDisplayPanel(sender, serial, panelEnabled);
             }
             catch (Exception exc)
             {
@@ -619,6 +436,202 @@ namespace MobiFlight.UI.Panels.OutputWizard
                                 i18n._tr("Hint"),
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ShowActiveDisplayPanel(object sender, string serial, bool panelEnabled)
+        {
+            if ((sender as ComboBox).Text == "Pin")
+            {
+                displayPinPanel.Enabled = panelEnabled;
+                displayPinPanel.Height = displayPanelHeight;
+            } 
+            
+            else if ((sender as ComboBox).Text == ArcazeBcd4056.TYPE)
+            {
+                displayBcdPanel.Enabled = panelEnabled;
+                displayBcdPanel.Height = displayPanelHeight;
+            }
+
+            else if ((sender as ComboBox).Text == ArcazeLedDigit.TYPE)
+            {
+                displayLedDisplayPanel.Enabled = panelEnabled;
+                displayLedDisplayPanel.Height = displayPanelHeight;
+            }
+
+            else if ((sender as ComboBox).Text == DeviceType.Servo.ToString("F"))
+            {
+                servoPanel.Enabled = panelEnabled;
+                servoPanel.Height = displayPanelHeight;
+            }
+
+            else if ((sender as ComboBox).Text == DeviceType.Stepper.ToString("F"))
+            {
+                stepperPanel.Enabled = panelEnabled;
+                stepperPanel.Height = displayPanelHeight;
+            }
+
+            else if ((sender as ComboBox).Text == DeviceType.LcdDisplay.ToString("F"))
+            {
+                displayLcdDisplayPanel.Enabled = panelEnabled;
+                displayLcdDisplayPanel.AutoSize = true;
+                displayLcdDisplayPanel.Height = displayPanelHeight;
+            }
+
+            else if ((sender as ComboBox).Text == DeviceType.ShiftRegister.ToString("F"))
+            {
+                displayShiftRegisterPanel.Enabled = panelEnabled;
+                displayShiftRegisterPanel.Height = displayPanelHeight;
+            }
+        }
+
+        private bool InitializeMobiFlightDisplays(ComboBox cb, string serial)
+        {
+            bool panelEnabled = true;
+            MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
+
+            displayPinPanel.SetModule(module);
+            displayPinPanel.displayPinBrightnessPanel.Visible = true;
+            displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
+
+            List<ListItem> outputs = new List<ListItem>();
+            List<ListItem> ledSegments = new List<ListItem>();
+            List<ListItem> servos = new List<ListItem>();
+            List<ListItem> stepper = new List<ListItem>();
+            List<ListItem> lcdDisplays = new List<ListItem>();
+            List<ListItem> shiftRegisters = new List<ListItem>();
+
+
+            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            {
+                Log.Instance.log("displayTypeComboBox_SelectedIndexChanged: Adding connected device: " + device.Type.ToString() + ", " + device.Name, LogSeverity.Debug);
+                switch (device.Type)
+                {
+                    case DeviceType.LedModule:
+                        ledSegments.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                        break;
+
+                    case DeviceType.Output:
+                        outputs.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                        break;
+
+                    case DeviceType.Servo:
+                        servos.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                        break;
+
+                    case DeviceType.Stepper:
+                        stepper.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                        break;
+
+                    case DeviceType.LcdDisplay:
+                        int Cols = (device as MobiFlightLcdDisplay).Cols;
+                        int Lines = (device as MobiFlightLcdDisplay).Lines;
+                        lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Name });
+                        break;
+
+                    case DeviceType.ShiftRegister:
+                        shiftRegisters.Add(new ListItem() { Value = device.Name, Label = device.Name });
+
+                        break;
+                }
+            }
+            displayPinPanel.WideStyle = true;
+            displayPinPanel.SetPorts(new List<ListItem>());
+            displayPinPanel.SetPins(outputs);
+
+            displayLedDisplayPanel.WideStyle = true;
+
+            // we remove the callback method to ensure, that it is not added more than once
+            displayLedDisplayPanel.OnLedAddressChanged -= displayLedAddressComboBox_SelectedIndexChanged;
+            displayLedDisplayPanel.OnLedAddressChanged += new EventHandler(displayLedAddressComboBox_SelectedIndexChanged);
+            displayLedDisplayPanel.SetAddresses(ledSegments);
+
+            servoPanel.SetAdresses(servos);
+
+            stepperPanel.SetAdresses(stepper);
+
+            displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged -= shiftRegistersComboBox_selectedIndexChanged;
+            displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged += new EventHandler(shiftRegistersComboBox_selectedIndexChanged);
+            displayShiftRegisterPanel.SetAddresses(shiftRegisters);
+
+            displayLcdDisplayPanel.SetAddresses(lcdDisplays);
+
+            return panelEnabled;
+        }
+
+        private bool InitializeArcazeDisplays(ComboBox cb, string serial)
+        {
+            bool panelEnabled = true;
+
+            switch (cb.SelectedItem.ToString())
+            {
+                case "DisplayDriver":
+                    panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x529;
+                    break;
+
+                case "LedDriver2":
+                    panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x554;
+                    break;
+
+                case "LedDriver3":
+                    panelEnabled = ushort.Parse(arcazeFirmware[serial]) > 0x550;
+                    break;
+            }
+
+            displayPinPanel.displayPinBrightnessPanel.Visible = (moduleSettings[serial].type == SimpleSolutions.Usb.ArcazeCommand.ExtModuleType.LedDriver3);
+            displayPinPanel.displayPinBrightnessPanel.Enabled = (displayPinPanel.displayPinBrightnessPanel.Visible && (cb.SelectedIndex > 1));
+
+            //preconditionPortComboBox.Items.Clear();
+            //preconditionPinComboBox.Items.Clear();
+
+            List<ListItem> ports = new List<ListItem>();
+
+            foreach (String v in ArcazeModule.getPorts())
+            {
+                ports.Add(new ListItem() { Label = v, Value = v });
+                if (v == "B" || v == "E" || v == "H" || v == "K")
+                {
+                    ports.Add(new ListItem() { Label = "-----", Value = "-----" });
+                }
+
+                if (v == "A" || v == "B")
+                {
+                    //preconditionPortComboBox.Items.Add(v);
+                }
+            }
+
+            displayPinPanel.SetPorts(ports);
+            displayBcdPanel.SetPorts(ports);
+
+            List<ListItem> pins = new List<ListItem>();
+            foreach (String v in ArcazeModule.getPins())
+            {
+                pins.Add(new ListItem() { Label = v, Value = v });
+                //preconditionPinComboBox.Items.Add(v);
+            }
+
+            displayPinPanel.SetPins(pins);
+            displayBcdPanel.SetPins(pins);
+            displayPinPanel.WideStyle = false;
+
+            List<ListItem> addr = new List<ListItem>();
+            List<ListItem> connectors = new List<ListItem>();
+            foreach (string v in ArcazeModule.getDisplayAddresses()) addr.Add(new ListItem() { Label = v, Value = v });
+            foreach (string v in ArcazeModule.getDisplayConnectors()) connectors.Add(new ListItem() { Label = v, Value = v });
+            displayLedDisplayPanel.WideStyle = false;
+            displayLedDisplayPanel.SetAddresses(addr);
+            displayLedDisplayPanel.SetConnectors(connectors);
+
+            return panelEnabled;
+        }
+
+        private void HideAllDisplayPanels()
+        {
+            foreach (UserControl p in displayPanels)
+            {
+                p.Enabled = false;
+                p.AutoSize = false;
+                p.Height = 0;
             }
         }
 
