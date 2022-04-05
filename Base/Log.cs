@@ -165,6 +165,12 @@ namespace MobiFlight
                         sw.Close();
                     }
                 }
+                catch
+                {
+                    // Fix for https://github.com/MobiFlight/MobiFlight-Connector/issues/757
+                    // If something goes wrong writing to the log file it's just the log file, no need to crash
+                    // or do anything special. Just ignore the exception and keep going.
+                }
                 finally
                 {
                     // Release lock
