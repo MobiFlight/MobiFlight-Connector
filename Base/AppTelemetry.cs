@@ -129,6 +129,13 @@ namespace MobiFlight.Base
             GetClient().Flush();
         }
 
+        public void TrackSimpleEvent(String EventLabel, bool Flush = false)
+        {
+            EventTelemetry trackingEvent = new EventTelemetry(EventLabel);
+            GetClient().TrackEvent(trackingEvent);
+            if (Flush) GetClient().Flush();
+        }
+
         public void TrackFlightSimConnected(String SimName, String ConnectionType)
         {
             EventTelemetry trackingEvent = new EventTelemetry("FlightSimConnected");

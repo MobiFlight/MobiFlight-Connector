@@ -406,7 +406,12 @@ namespace MobiFlight
 
             // this is kind of sempahore to prevent multiple execution
             // in fact I don't know if this needs to be done in C# 
-            if (isExecuting) return;
+            if (isExecuting)
+            {
+                Log.Instance.log("ExecutionManager::ExecuteConfig() > Config execution taking too long, skipping execution.", LogSeverity.Warn);
+                AppTelemetry.Instance.TrackSimpleEvent("SkippingExecuteConfig");
+                return;
+            }
             // now set semaphore to true
             isExecuting = true;
             fsuipcCache.Clear();
