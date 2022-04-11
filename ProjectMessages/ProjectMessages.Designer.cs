@@ -533,7 +533,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured on parsing your value formula. Please review and correct any errors..
+        ///   Looks up a localized string similar to An error occurred on parsing your value formula. Please review and correct any errors..
         /// </summary>
         internal static string uiMessageErrorOnParsingExpression {
             get {

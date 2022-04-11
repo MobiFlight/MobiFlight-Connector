@@ -7,6 +7,7 @@ using Microsoft.Win32;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Management;
 
 namespace MobiFlight
 {
@@ -106,62 +107,67 @@ namespace MobiFlight
 
         private static Dictionary<string, Board> getSupportedPorts()
         {
+            var portNameRegEx = "\\(.*\\)";
             var result = new Dictionary<string, Board>();
 
-            RegistryKey regLocalMachine = Registry.LocalMachine;
-
-            string[] regPaths = {
-                    @"SYSTEM\CurrentControlSet\Enum\USB",
-                    @"SYSTEM\CurrentControlSet\Enum\FTDIBUS"
-            };
-
-            foreach (var regPath in regPaths)
+            // Code from https://stackoverflow.com/questions/45165299/wmi-get-list-of-all-serial-com-ports-including-virtual-ports
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity WHERE ClassGuid=\"{4d36e978-e325-11ce-bfc1-08002be10318}\"");
+            foreach (ManagementObject queryObj in searcher.Get())
             {
+                // At this point we have a list of possibly valid connected devices. Since everything at this point
+                // depends on the VID/PID extract that to start. USB devices seem to consistently have two hardwareID
+                // entries, in this order:
+                //
+                // USB\VID_1B4F&PID_9206&REV_0100&MI_00
+                // USB\VID_1B4F&PID_9206&MI_00
+                //
+                // Either will work with how the BoardDefinitions class and existing board definition files do regular expression
+                // lookups so just grab the first one in the array every time. Note the use of '?' to handle the (never seen)
+                // case where no hardware IDs are available.
+                var rawHardwareID = (queryObj["HardwareID"] as string[])?[0];
 
-                RegistryKey regUSB = regLocalMachine.OpenSubKey(regPath);
-                if (regUSB == null) continue;
-
-                foreach (String regDevice in regUSB.GetSubKeyNames())
+                if (String.IsNullOrEmpty(rawHardwareID))
                 {
-                    String message = null;
-                    Log.Instance.log($"Checking for compatible module: {regDevice}", LogSeverity.Debug);
-
-                    foreach (String regSubDevice in regUSB.OpenSubKey(regDevice).GetSubKeyNames())
-                    {
-                        Board board;
-                        String FriendlyName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).GetValue("FriendlyName") as String;
-                        if (FriendlyName == null) continue;
-
-                        // Check to see if any board configurations exist
-                        board = BoardDefinitions.GetBoardByFriendlyName(FriendlyName) ?? BoardDefinitions.GetBoardByHardwareId(regDevice);
-
-                        // If no matching board definition is found at this point then it's an incompatible board and just keep going.
-                        if (board == null)
-                        {
-                            Log.Instance.log($"Incompatible module skipped: {FriendlyName} - VID/PID: {regDevice}", LogSeverity.Debug);
-                            continue;
-                        }
-
-                        // The board is a known type so test and see if a COM port is registered for it. If not, skip it.
-                        String portName = regUSB.OpenSubKey(regDevice).OpenSubKey(regSubDevice).OpenSubKey("Device Parameters").GetValue("PortName") as String;
-
-                        if (portName == null)
-                        {
-                            Log.Instance.log($"Arduino device has no port information: {regDevice}", LogSeverity.Debug);
-                            continue;
-                        }
-
-                        // Safety check to ensure duplicate entires in the registry don't result in duplicate entires in the list.
-                        if (result.ContainsKey(portName))
-                        {
-                            Log.Instance.log($"Duplicate entry for port: {board.Info.FriendlyName} {portName}", LogSeverity.Debug);
-                            continue;
-                        }
-
-                        result.Add(portName, board);
-                        Log.Instance.log($"Found potentially compatible module ({FriendlyName}): {regDevice}@{portName}", LogSeverity.Debug);
-                    }
+                    Log.Instance.log($"Skipping module with no available VID/PID", LogSeverity.Debug);
+                    continue;
                 }
+
+                // Historically MobiFlight expects a straight VID/PID string without a leading USB\ or FTDI\ so get
+                // rid of that to ensure other code works as it used to.
+                var hardwareId = rawHardwareID.Substring(rawHardwareID.IndexOf('\\') + 1);
+
+                Log.Instance.log($"Checking for compatible module: {hardwareId}", LogSeverity.Debug);
+                var board = BoardDefinitions.GetBoardByHardwareId(hardwareId);
+
+                // If no matching board definition is found at this point then it's an incompatible board and just keep going.
+                if (board == null)
+                {
+                    Log.Instance.log($"Incompatible module skipped: {hardwareId}", LogSeverity.Debug);
+                    continue;
+                }
+
+                // The board is a known type so grab the COM port for it. Every USB device seen so far has the
+                // COM port in the full name of the device surrounded by (), for example:
+                //
+                // USB Serial Device (COM22)
+                var portNameMatch = Regex.Match(queryObj["Caption"].ToString(), portNameRegEx); // Find the COM port.
+                var portName = portNameMatch?.Value.Trim(new char[]{ '(', ')'}); // Remove the surrounding ().
+
+                if (portName == null)
+                {
+                    Log.Instance.log($"Arduino device has no port information: {hardwareId}", LogSeverity.Debug);
+                    continue;
+                }
+
+                // Safety check to ensure duplicate entires in the registry don't result in duplicate entires in the list.
+                if (result.ContainsKey(portName))
+                {
+                    Log.Instance.log($"Duplicate entry for port: {board.Info.FriendlyName} {portName}", LogSeverity.Debug);
+                    continue;
+                }
+
+                result.Add(portName, board);
+                Log.Instance.log($"Found potentially compatible module ({board.Info.FriendlyName}): {hardwareId}@{portName}", LogSeverity.Debug);
             }
 
             return result;

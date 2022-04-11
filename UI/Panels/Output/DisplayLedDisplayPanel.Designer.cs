@@ -221,7 +221,7 @@
             resources.GetString("displayLedModuleSizeComboBox.Items5")});
             resources.ApplyResources(this.displayLedModuleSizeComboBox, "displayLedModuleSizeComboBox");
             this.displayLedModuleSizeComboBox.Name = "displayLedModuleSizeComboBox";
-            this.displayLedModuleSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.displayLedModuleSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.DisplayLedModuleSize_SelectedIndexChanged);
             // 
             // NumberOfDigitsLabel
             // 

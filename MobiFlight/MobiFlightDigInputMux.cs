@@ -6,7 +6,7 @@ using CommandMessenger;
 
 namespace MobiFlight
 {
-    public class MobiFlightInputShiftRegister : IConnectedDevice
+    public class MobiFlightDigInputMux : IConnectedDevice
     {
         public enum InputEvent
         {
@@ -15,16 +15,15 @@ namespace MobiFlight
             REPEAT,     // For future uses, like Buttons
         }
 
-        public const string TYPE = "InputShiftRegister";
+        public const string TYPE = "DigInputMux";
         public const string LABEL_PREFIX = "Input";
 
         public CmdMessenger CmdMessenger { get; set; }
 
-        public int NumberOfShifters { get; set; }
 
+        private DeviceType _type = DeviceType.DigInputMux;
+        private String _name = "DigInputMux";
         public int ModuleNumber { get; set; }
-
-        private String _name = "InputShifter";
 
         public String Name
         {
@@ -34,11 +33,11 @@ namespace MobiFlight
 
         protected bool _initialized = false;
 
-        public MobiFlightInputShiftRegister()
+        public MobiFlightDigInputMux()
         {
         }
 
-        private DeviceType _type = DeviceType.InputShiftRegister;
+        public void Stop() {}
 
         public static string InputEventIdToString(int enumId)
         {
@@ -73,10 +72,6 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Stop()
-        {
-            // do nothing
-            return;
-        }
+
     }
 }

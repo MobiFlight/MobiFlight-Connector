@@ -9,9 +9,10 @@ namespace MobiFlight.Config
     public class BaseDevice : IConfigItem
     {
         protected DeviceType _type = DeviceType.NotSet;
+        protected bool _muxClient = false;
         public const char Separator = '.';
         public const char End = ':';
-        
+
         [XmlAttribute]
         public String Name { get; set; }
 
@@ -22,6 +23,10 @@ namespace MobiFlight.Config
         public DeviceType Type
         {
             get { return _type; }
+        }
+        public bool isMuxClient
+        {
+            get { return _muxClient; }
         }
     }
 }

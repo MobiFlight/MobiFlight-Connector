@@ -22,6 +22,7 @@ namespace MobiFlight
         public const String TYPE_BUTTON = "Button";
         public const String TYPE_ENCODER = "Encoder";
         public const String TYPE_INPUT_SHIFT_REGISTER = "InputShiftRegister";
+        public const String TYPE_DIG_INPUT_MUX = "DigInputMux";
         public const String TYPE_ANALOG = "Analog";
 
         public string ModuleSerial { get; set; }
@@ -30,9 +31,8 @@ namespace MobiFlight
         public ButtonInputConfig button { get; set; }
         public EncoderInputConfig encoder { get; set; }
         public InputShiftRegisterConfig inputShiftRegister { get; set; }
-
+        public DigInputMuxConfig digInputMux { get; set; }
         public AnalogInputConfig analog { get; set; }
-
         public PreconditionList Preconditions { get; set; }
         public ConfigRefList ConfigRefs { get; set; }
 
@@ -65,6 +65,10 @@ namespace MobiFlight
             if (inputShiftRegister != null)
             {
                 result.AddRange(inputShiftRegister.GetInputActionsByType(type));
+            }
+
+            if (digInputMux != null) {
+                result.AddRange(digInputMux.GetInputActionsByType(type));
             }
             return result;
         }
@@ -104,6 +108,14 @@ namespace MobiFlight
             {
                 inputShiftRegister = new InputShiftRegisterConfig();
                 inputShiftRegister.ReadXml(reader);
+                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
+                reader.Read(); // advance to the next node
+            }
+
+            if (reader.LocalName == "digInputMux")
+            {
+                digInputMux = new DigInputMuxConfig();
+                digInputMux.ReadXml(reader);
                 if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
                 reader.Read(); // advance to the next node
             }
@@ -196,6 +208,13 @@ namespace MobiFlight
                 writer.WriteEndElement();
             }
 
+            if (digInputMux != null)
+            {
+                writer.WriteStartElement("digInputMux");
+                digInputMux.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+
             if (analog != null)
             {
                 writer.WriteStartElement("analog");
@@ -233,6 +252,9 @@ namespace MobiFlight
 
             if (inputShiftRegister != null)
                 clone.inputShiftRegister = (InputShiftRegisterConfig)this.inputShiftRegister.Clone();
+
+            if (digInputMux != null)
+                clone.digInputMux = (DigInputMuxConfig)this.digInputMux.Clone();
 
             if (analog != null)
                 clone.analog = (AnalogInputConfig)this.analog.Clone();
@@ -272,6 +294,12 @@ namespace MobiFlight
                     if (inputShiftRegister != null)
                         inputShiftRegister.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
                     break;
+
+                case TYPE_DIG_INPUT_MUX:
+                    if (digInputMux != null)
+                        digInputMux.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                    break;
+
                 case TYPE_ANALOG:
                     if (analog != null)
                         analog.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
@@ -320,6 +348,7 @@ namespace MobiFlight
                 areSame = areSame && ((encoder == null && (obj as InputConfigItem).encoder == null) || (encoder != null && encoder.Equals((obj as InputConfigItem).encoder)));
                 areSame = areSame && ((analog == null && (obj as InputConfigItem).analog == null) || (analog != null && analog.Equals((obj as InputConfigItem).analog)));
                 areSame = areSame && ((inputShiftRegister == null && (obj as InputConfigItem).inputShiftRegister == null) || (inputShiftRegister != null && inputShiftRegister.Equals((obj as InputConfigItem).inputShiftRegister)));
+                areSame = areSame && ((digInputMux == null && (obj as InputConfigItem).digInputMux == null) || (digInputMux != null && digInputMux.Equals((obj as InputConfigItem).digInputMux)));
 
                 areSame = areSame && 
                             Preconditions.Equals((obj as InputConfigItem).Preconditions) &&

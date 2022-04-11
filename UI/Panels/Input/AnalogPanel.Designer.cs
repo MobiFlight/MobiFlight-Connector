@@ -66,7 +66,7 @@
             // 
             this.onChangeActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onChangeActionTypePanel.Location = new System.Drawing.Point(0, 5);
-            this.onChangeActionTypePanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.onChangeActionTypePanel.Margin = new System.Windows.Forms.Padding(6);
             this.onChangeActionTypePanel.Name = "onChangeActionTypePanel";
             this.onChangeActionTypePanel.Size = new System.Drawing.Size(592, 43);
             this.onChangeActionTypePanel.TabIndex = 20;

@@ -119,7 +119,7 @@ namespace MobiFlight.InputConfig
             {
                 System.Globalization.NumberStyles format = System.Globalization.NumberStyles.Integer;
                 if (FSUIPC.BcdMode) format = System.Globalization.NumberStyles.HexNumber;
-                Int16 sValue = Int16.Parse(Math.Floor(double.Parse(value)).ToString());
+                Int16 sValue = Int16.Parse(Math.Floor(double.Parse(value)).ToString(), format);
                 if (FSUIPC.Mask != 0xFFFF)
                 {
                     Int16 cByte = (Int16)cache.getValue(FSUIPC.Offset, FSUIPC.Size);

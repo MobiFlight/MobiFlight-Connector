@@ -42,7 +42,7 @@ namespace MobiFlight.InputConfig
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
 
-            if (value.Contains("@"))
+            if (value != null && value.Contains("@"))
             {
                 Tuple<string, string> replacement = new Tuple<string, string>("@", args.Value.ToString());
                 replacements.Add(replacement);
@@ -71,13 +71,14 @@ namespace MobiFlight.InputConfig
 
             if (axisString != "--")
             {
-                if (VJoyHelper.setAxisVal(vJoyID,axisString,UInt16.Parse(sendValue)))
+                UInt16 vJoyIntValue = (UInt16)Math.Round(Double.Parse(value));
+                if (VJoyHelper.setAxisVal(vJoyID,axisString,vJoyIntValue))
                 {
-                    Log.Instance.log("set Axis:" + axisString + " ID:" + vJoyID + " to " + value, LogSeverity.Debug);
+                    Log.Instance.log("set Axis:" + axisString + " ID:" + vJoyID + " to " + vJoyIntValue, LogSeverity.Debug);
                 }
                 else
                 {
-                    Log.Instance.log("ERROR set Axis:" + axisString + " ID:" + vJoyID + " to " + value, LogSeverity.Error);
+                    Log.Instance.log("ERROR set Axis:" + axisString + " ID:" + vJoyID + " to " + vJoyIntValue, LogSeverity.Error);
                 }
                 return;
             }

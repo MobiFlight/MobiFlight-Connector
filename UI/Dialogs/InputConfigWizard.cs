@@ -258,6 +258,8 @@ namespace MobiFlight.UI.Dialogs
 
         private void PopulateInputPinDropdown(int numModules, int? selectedPin)
         {
+			// Originally added for Input shift registers
+			// Also used for digital input multiplexers, usually with numModules=2 (CD4067) or 1 (CD4051)
             // The selected input in the dropdown is the shift register details, which includes the
             // number of connected modules. That gets multiplied by 8 pins per module to get the total
             // number of available pins to populate.
@@ -308,9 +310,17 @@ namespace MobiFlight.UI.Dialogs
                 case DeviceType.InputShiftRegister:
                     config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
                     if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
-                    config.inputShiftRegister.pin = (int)inputPinDropDown.SelectedItem;
+                    config.inputShiftRegister.ExtPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
+                    break;
+
+                case DeviceType.DigInputMux:
+                    config.Type = InputConfigItem.TYPE_DIG_INPUT_MUX;
+                    if (config.digInputMux == null) config.digInputMux = new InputConfig.DigInputMuxConfig();
+                    config.digInputMux.ExtPin = (int)inputPinDropDown.SelectedItem;
+                    if (groupBoxInputSettings.Controls[0] != null)
+                        (groupBoxInputSettings.Controls[0] as DigInputMuxPanel).ToConfig(config.digInputMux);
                     break;
 
                 case DeviceType.AnalogInput:
@@ -341,9 +351,9 @@ namespace MobiFlight.UI.Dialogs
 
         private void ModuleSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Hide the input shifter pin dropdown whenever the module changes. It will
-            // be made visible again in inputTypeComboBox_SelectedIndexChanged() when
-            // the user selects an input type.
+            // Hide the input shifter / dig. input mux pin dropdown whenever the module changes. 
+            // It will be made visible again in inputTypeComboBox_SelectedIndexChanged() 
+            // when the user selects an input type.
             inputPinDropDown.Visible = false;
 
             // check which extension type is available to current serial
@@ -377,6 +387,7 @@ namespace MobiFlight.UI.Dialogs
                             case DeviceType.AnalogInput:
                             case DeviceType.Encoder:
                             case DeviceType.InputShiftRegister:
+                            case DeviceType.DigInputMux:
                                 inputTypeComboBox.Items.Add(new ListItem<Config.BaseDevice>() { Label = device.Name, Value = device });
                                 break;
                         }
@@ -480,13 +491,19 @@ namespace MobiFlight.UI.Dialogs
                         (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
                         break;
 
-
                     case DeviceType.InputShiftRegister:
                         Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel();
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
-                        (panel as Panels.Input.InputShiftRegisterPanel).SetVariableReferences(_execManager.GetAvailableVariables());
-                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.pin);
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.ExtPin);
+                        inputPinDropDown.Visible = true;
+                        break;
+
+                    case DeviceType.DigInputMux:
+                        Config.DigInputMux selectedDigInputMux = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.DigInputMux;
+                        panel = new Panels.Input.DigInputMuxPanel();
+                        (panel as Panels.Input.DigInputMuxPanel).syncFromConfig(config.digInputMux);
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedDigInputMux.NumModules), config.digInputMux?.ExtPin);
                         inputPinDropDown.Visible = true;
                         break;
 

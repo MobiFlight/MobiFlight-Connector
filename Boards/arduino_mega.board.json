@@ -48,7 +48,8 @@
     "MaxOutputs": 40,
     "MaxServos": 10,
     "MaxShifters": 4,
-    "MaxSteppers": 10
+    "MaxSteppers": 10,
+    "MaxDigInputMuxes": 2,
   },
   "Pins": [
     {
