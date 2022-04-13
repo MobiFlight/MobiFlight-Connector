@@ -110,5 +110,10 @@ namespace MobiFlight.UI.Panels.Config
         {
             PasteButtonPressed?.Invoke(this, EventArgs.Empty);
         }
+
+        public void OnClipBoardChanged(InputAction value)
+        {
+            PasteButton.Enabled = value!=null;
+        }
     }
 }

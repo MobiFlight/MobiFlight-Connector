@@ -17,7 +17,28 @@ namespace MobiFlight.UI.Panels.Input
     {
         InputConfig.EncoderInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
-        InputAction ClipboardAction = null;
+
+        InputAction _clipBoardAction = null;
+        InputAction ClipboardAction
+        {
+            get { return _clipBoardAction; }
+            set
+            {
+                if (value != _clipBoardAction)
+                {
+                    _clipBoardAction = value;
+                    _clipBoardActionChanged(value);
+                }
+            }
+        }
+
+        private void _clipBoardActionChanged(InputAction action)
+        {
+            onLeftActionTypePanel.OnClipBoardChanged(action);
+            onLeftFastActionTypePanel.OnClipBoardChanged(action);
+            onRightActionTypePanel.OnClipBoardChanged(action);
+            onRightFastActionTypePanel.OnClipBoardChanged(action);
+        }
 
         public EncoderPanel()
         {
