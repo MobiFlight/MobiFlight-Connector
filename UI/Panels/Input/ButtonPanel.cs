@@ -105,6 +105,7 @@ namespace MobiFlight.UI.Panels.Input
         {
             this.SuspendLayout();
             Control panel = null;
+            owner.Controls.Clear();
             switch (value)
             {
                 case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
@@ -217,7 +218,6 @@ namespace MobiFlight.UI.Panels.Input
             {
                 panel.Padding = new Padding(2, 0, 2, 0);
                 panel.Dock = DockStyle.Top;
-                owner.Controls.Clear();
                 owner.Controls.Add(panel);
                 owner.Dock = DockStyle.Top;
                 OnPanelChanged?.Invoke(panel, EventArgs.Empty);

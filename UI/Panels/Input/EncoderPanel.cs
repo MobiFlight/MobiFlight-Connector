@@ -137,7 +137,10 @@ namespace MobiFlight.UI.Panels.Input
 
         private void UpdatePanelWithAction(Panel owner, EncoderInputConfig config, String value, bool isLeft, bool isFast)
         {
+            this.SuspendLayout();
             Control panel = null;
+            owner.Controls.Clear();
+
             switch (value)
             {
                 case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
@@ -277,9 +280,10 @@ namespace MobiFlight.UI.Panels.Input
             {
                 panel.Padding = new Padding(2, 0, 2, 0);
                 panel.Dock = DockStyle.Fill;
-                owner.Controls.Clear();
                 owner.Controls.Add(panel);
             }
+
+            this.ResumeLayout(true);
         }
 
         public void syncFromConfig(InputConfig.EncoderInputConfig config)
