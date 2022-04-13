@@ -45,6 +45,12 @@ namespace MobiFlight.UI.Panels.Config
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 
+        public void CopyPasteFeatureActive(bool value)
+        {
+            CopyButton.Visible = value;
+            PasteButton.Visible = value;
+        }
+
         void ActionTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ActionTypeChanged != null)

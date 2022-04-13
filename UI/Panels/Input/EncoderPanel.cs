@@ -121,7 +121,6 @@ namespace MobiFlight.UI.Panels.Input
         // On Press Action
         private void onPressActionTypePanel_ActionTypeChanged(object sender, String value)
         {
-            Control panel = null;
             Panel owner = onLeftActionConfigPanel;
             bool isLeft = ((sender as ActionTypePanel) == onLeftActionTypePanel) || ((sender as ActionTypePanel) == onLeftFastActionTypePanel);
             bool isFast = ((sender as ActionTypePanel) == onLeftFastActionTypePanel) || ((sender as ActionTypePanel) == onRightFastActionTypePanel);
