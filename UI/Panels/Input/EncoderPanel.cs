@@ -18,6 +18,28 @@ namespace MobiFlight.UI.Panels.Input
         InputConfig.EncoderInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
+        InputAction _clipBoardAction = null;
+        InputAction ClipboardAction
+        {
+            get { return _clipBoardAction; }
+            set
+            {
+                if (value != _clipBoardAction)
+                {
+                    _clipBoardAction = value;
+                    _clipBoardActionChanged(value);
+                }
+            }
+        }
+
+        private void _clipBoardActionChanged(InputAction action)
+        {
+            onLeftActionTypePanel.OnClipBoardChanged(action);
+            onLeftFastActionTypePanel.OnClipBoardChanged(action);
+            onRightActionTypePanel.OnClipBoardChanged(action);
+            onRightFastActionTypePanel.OnClipBoardChanged(action);
+        }
+
         public EncoderPanel()
         {
             InitializeComponent();
@@ -25,12 +47,80 @@ namespace MobiFlight.UI.Panels.Input
             onLeftFastActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
             onRightActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
             onRightFastActionTypePanel.ActionTypeChanged += new ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
+
+            List<ActionTypePanel> panels = new List<ActionTypePanel>() { onLeftActionTypePanel, onLeftFastActionTypePanel, onRightActionTypePanel, onRightFastActionTypePanel };
+            panels.ForEach(action =>
+            {
+                action.CopyButtonPressed += Action_CopyButtonPressed;
+                action.PasteButtonPressed += Action_PasteButtonPressed;
+            });
+        }
+
+        private void Action_PasteButtonPressed(object sender, EventArgs e)
+        {
+            Panel owner = onLeftActionConfigPanel;
+            
+            (sender as ActionTypePanel).syncFromConfig(ClipboardAction);
+            
+            bool isLeft = ((sender as ActionTypePanel) == onLeftActionTypePanel) || ((sender as ActionTypePanel) == onLeftFastActionTypePanel);
+            bool isFast = ((sender as ActionTypePanel) == onLeftFastActionTypePanel) || ((sender as ActionTypePanel) == onRightFastActionTypePanel);
+
+            InputConfig.EncoderInputConfig config = new EncoderInputConfig();
+            if (isLeft) {
+                if (isFast) { owner = onLeftFastActionConfigPanel; config.onLeftFast = ClipboardAction; }
+                else
+                {
+                    owner = onLeftActionConfigPanel; config.onLeft = ClipboardAction;
+                }
+            } else
+            {
+                if (isFast)
+                {
+                    owner = onRightFastActionConfigPanel; config.onRightFast = ClipboardAction;
+                }
+                else
+                {
+                    owner = onRightActionConfigPanel;
+                    config.onRight = ClipboardAction;
+                }
+            }
+
+            String value = null;
+            String type = this.ClipboardAction.GetType().ToString();
+
+            if (type == "MobiFlight.InputConfig.FsuipcOffsetInputAction") value = MobiFlight.InputConfig.FsuipcOffsetInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.KeyInputAction") value = MobiFlight.InputConfig.KeyInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.EventIdInputAction") value = MobiFlight.InputConfig.EventIdInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.PmdgEventIdInputAction") value = MobiFlight.InputConfig.PmdgEventIdInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.JeehellInputAction") value = MobiFlight.InputConfig.JeehellInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.VJoyInputAction") value = MobiFlight.InputConfig.VJoyInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.LuaMacroInputAction") value = MobiFlight.InputConfig.LuaMacroInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.RetriggerInputAction") value = MobiFlight.InputConfig.RetriggerInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.MSFS2020EventIdInputAction") value = MobiFlight.InputConfig.MSFS2020CustomInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.MSFS2020CustomInputAction") value = MobiFlight.InputConfig.MSFS2020CustomInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.VariableInputAction") value = MobiFlight.InputConfig.VariableInputAction.Label;
+
+            UpdatePanelWithAction(owner, config, value , isLeft, isFast);
+        }
+         
+        private void Action_CopyButtonPressed(object sender, EventArgs e)
+        {
+            InputConfig.EncoderInputConfig config = new EncoderInputConfig();
+            ToConfig(config);
+            ClipboardAction = config.onLeft;
+            bool isLeft = ((sender as ActionTypePanel) == onLeftActionTypePanel) || ((sender as ActionTypePanel) == onLeftFastActionTypePanel);
+            bool isFast = ((sender as ActionTypePanel) == onLeftFastActionTypePanel) || ((sender as ActionTypePanel) == onRightFastActionTypePanel);
+            if (isFast) ClipboardAction = config.onLeftFast;
+            else if (!isLeft)
+            {
+                ClipboardAction = config.onRight;
+                if (isFast) ClipboardAction = config.onRightFast;
+            }
         }
 
         // On Press Action
         private void onPressActionTypePanel_ActionTypeChanged(object sender, String value)
         {
-            Control panel = null;
             Panel owner = onLeftActionConfigPanel;
             bool isLeft = ((sender as ActionTypePanel) == onLeftActionTypePanel) || ((sender as ActionTypePanel) == onLeftFastActionTypePanel);
             bool isFast = ((sender as ActionTypePanel) == onLeftFastActionTypePanel) || ((sender as ActionTypePanel) == onRightFastActionTypePanel);
@@ -42,138 +132,146 @@ namespace MobiFlight.UI.Panels.Input
                 if (isFast) owner = onRightFastActionConfigPanel;
             }
 
+            UpdatePanelWithAction(owner, _config, value, isLeft, isFast);
+        }
+
+        private void UpdatePanelWithAction(Panel owner, EncoderInputConfig config, String value, bool isLeft, bool isFast)
+        {
+            this.SuspendLayout();
+            Control panel = null;
             owner.Controls.Clear();
+
             switch (value)
             {
                 case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
                     panel = new Panels.Config.FsuipcConfigPanel();
                     (panel as Panels.Config.FsuipcConfigPanel).setMode(false);
 
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(_config.onLeft as FsuipcOffsetInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(_config.onLeftFast as FsuipcOffsetInputAction);
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(_config.onRight as FsuipcOffsetInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(_config.onRightFast as FsuipcOffsetInputAction);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(config.onLeft as FsuipcOffsetInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(config.onLeftFast as FsuipcOffsetInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(config.onRight as FsuipcOffsetInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(config.onRightFast as FsuipcOffsetInputAction);
                     break;
 
                 case InputConfig.KeyInputAction.Label:
                     panel = new KeyboardInputPanel();
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as KeyboardInputPanel).syncFromConfig(_config.onLeft as KeyInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as KeyboardInputPanel).syncFromConfig(_config.onLeftFast as KeyInputAction);                        
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as KeyboardInputPanel).syncFromConfig(_config.onRight as KeyInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as KeyboardInputPanel).syncFromConfig(_config.onRightFast as KeyInputAction);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as KeyboardInputPanel).syncFromConfig(config.onLeft as KeyInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as KeyboardInputPanel).syncFromConfig(config.onLeftFast as KeyInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as KeyboardInputPanel).syncFromConfig(config.onRight as KeyInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as KeyboardInputPanel).syncFromConfig(config.onRightFast as KeyInputAction);
                     break;
 
                 case MobiFlight.InputConfig.EventIdInputAction.Label:
                     panel = new EventIdInputPanel();
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as EventIdInputPanel).syncFromConfig(_config.onLeft as EventIdInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as EventIdInputPanel).syncFromConfig(_config.onLeftFast as EventIdInputAction);
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as EventIdInputPanel).syncFromConfig(_config.onRight as EventIdInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as EventIdInputPanel).syncFromConfig(_config.onRightFast as EventIdInputAction);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as EventIdInputPanel).syncFromConfig(config.onLeft as EventIdInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as EventIdInputPanel).syncFromConfig(config.onLeftFast as EventIdInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as EventIdInputPanel).syncFromConfig(config.onRight as EventIdInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as EventIdInputPanel).syncFromConfig(config.onRightFast as EventIdInputAction);
                     break;
 
                 case PmdgEventIdInputAction.Label:
                     panel = new PmdgEventIdInputPanel();
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as PmdgEventIdInputPanel).syncFromConfig(_config.onLeft as PmdgEventIdInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as PmdgEventIdInputPanel).syncFromConfig(_config.onLeftFast as PmdgEventIdInputAction);
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as PmdgEventIdInputPanel).syncFromConfig(_config.onRight as PmdgEventIdInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as PmdgEventIdInputPanel).syncFromConfig(_config.onRightFast as PmdgEventIdInputAction);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as PmdgEventIdInputPanel).syncFromConfig(config.onLeft as PmdgEventIdInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as PmdgEventIdInputPanel).syncFromConfig(config.onLeftFast as PmdgEventIdInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as PmdgEventIdInputPanel).syncFromConfig(config.onRight as PmdgEventIdInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as PmdgEventIdInputPanel).syncFromConfig(config.onRightFast as PmdgEventIdInputAction);
                     break;
 
                 case InputConfig.JeehellInputAction.Label:
                     panel = new JeehellInputPanel();
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as JeehellInputPanel).syncFromConfig(_config.onLeft as JeehellInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as JeehellInputPanel).syncFromConfig(_config.onLeftFast as JeehellInputAction);
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as JeehellInputPanel).syncFromConfig(_config.onRight as JeehellInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as JeehellInputPanel).syncFromConfig(_config.onRightFast as JeehellInputAction);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as JeehellInputPanel).syncFromConfig(config.onLeft as JeehellInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as JeehellInputPanel).syncFromConfig(config.onLeftFast as JeehellInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as JeehellInputPanel).syncFromConfig(config.onRight as JeehellInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as JeehellInputPanel).syncFromConfig(config.onRightFast as JeehellInputAction);
                     break;
 
                 case LuaMacroInputAction.Label:
                     panel = new LuaMacroInputPanel();
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as LuaMacroInputPanel).syncFromConfig(_config.onLeft as LuaMacroInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as LuaMacroInputPanel).syncFromConfig(_config.onLeftFast as LuaMacroInputAction);
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as LuaMacroInputPanel).syncFromConfig(_config.onRight as LuaMacroInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as LuaMacroInputPanel).syncFromConfig(_config.onRightFast as LuaMacroInputAction);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as LuaMacroInputPanel).syncFromConfig(config.onLeft as LuaMacroInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as LuaMacroInputPanel).syncFromConfig(config.onLeftFast as LuaMacroInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as LuaMacroInputPanel).syncFromConfig(config.onRight as LuaMacroInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as LuaMacroInputPanel).syncFromConfig(config.onRightFast as LuaMacroInputAction);
                     break;
 
                 case RetriggerInputAction.Label:
                     panel = new RetriggerInputPanel();
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as RetriggerInputPanel).syncFromConfig(_config.onLeft as RetriggerInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as RetriggerInputPanel).syncFromConfig(_config.onLeftFast as RetriggerInputAction);
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as RetriggerInputPanel).syncFromConfig(_config.onRight as RetriggerInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as RetriggerInputPanel).syncFromConfig(_config.onRightFast as RetriggerInputAction);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as RetriggerInputPanel).syncFromConfig(config.onLeft as RetriggerInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as RetriggerInputPanel).syncFromConfig(config.onLeftFast as RetriggerInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as RetriggerInputPanel).syncFromConfig(config.onRight as RetriggerInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as RetriggerInputPanel).syncFromConfig(config.onRightFast as RetriggerInputAction);
                     break;
 
                 case VariableInputAction.Label:
                     panel = new VariableInputPanel();
                     (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
-                        (panel as VariableInputPanel).syncFromConfig(_config.onLeft as VariableInputAction);
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
-                        (panel as VariableInputPanel).syncFromConfig(_config.onLeftFast as VariableInputAction);
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
-                        (panel as VariableInputPanel).syncFromConfig(_config.onRight as VariableInputAction);
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
-                        (panel as VariableInputPanel).syncFromConfig(_config.onRightFast as VariableInputAction);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as VariableInputPanel).syncFromConfig(config.onLeft as VariableInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as VariableInputPanel).syncFromConfig(config.onLeftFast as VariableInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as VariableInputPanel).syncFromConfig(config.onRight as VariableInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as VariableInputPanel).syncFromConfig(config.onRightFast as VariableInputAction);
                     break;
 
                 // For backward compatibility this is now combined and MSFS2020EventIdInputAction was removed
                 case MSFS2020CustomInputAction.Label:
                     panel = new MSFS2020CustomInputPanel();
-                    if (isLeft && !isFast && _config != null && _config.onLeft != null)
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
                     {
-                        if (_config.onLeft is MSFS2020CustomInputAction)
-                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeft as MSFS2020CustomInputAction);
-                        else if (_config.onLeft is MSFS2020EventIdInputAction)
-                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeft as MSFS2020EventIdInputAction);
+                        if (config.onLeft is MSFS2020CustomInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onLeft as MSFS2020CustomInputAction);
+                        else if (config.onLeft is MSFS2020EventIdInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onLeft as MSFS2020EventIdInputAction);
                     }
-                    else if (isLeft && isFast && _config != null && _config.onLeftFast != null)
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
                     {
-                        if (_config.onLeftFast is MSFS2020CustomInputAction)
-                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeftFast as MSFS2020CustomInputAction);
-                        else if (_config.onLeftFast is MSFS2020EventIdInputAction)
-                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onLeftFast as MSFS2020EventIdInputAction);
+                        if (config.onLeftFast is MSFS2020CustomInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onLeftFast as MSFS2020CustomInputAction);
+                        else if (config.onLeftFast is MSFS2020EventIdInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onLeftFast as MSFS2020EventIdInputAction);
                     }
-                    else if (!isLeft && !isFast && _config != null && _config.onRight != null)
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
                     {
-                        if (_config.onRight is MSFS2020CustomInputAction)
-                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRight as MSFS2020CustomInputAction);
-                        else if (_config.onRight is MSFS2020EventIdInputAction)
-                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRight as MSFS2020EventIdInputAction);
+                        if (config.onRight is MSFS2020CustomInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onRight as MSFS2020CustomInputAction);
+                        else if (config.onRight is MSFS2020EventIdInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onRight as MSFS2020EventIdInputAction);
                     }
-                    else if (!isLeft && isFast && _config != null && _config.onRightFast != null)
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
                     {
-                        if (_config.onRightFast is MSFS2020CustomInputAction)
-                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRightFast as MSFS2020CustomInputAction);
-                        else if (_config.onRightFast is MSFS2020EventIdInputAction)
-                            (panel as MSFS2020CustomInputPanel).syncFromConfig(_config.onRightFast as MSFS2020EventIdInputAction);
+                        if (config.onRightFast is MSFS2020CustomInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onRightFast as MSFS2020CustomInputAction);
+                        else if (config.onRightFast is MSFS2020EventIdInputAction)
+                            (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onRightFast as MSFS2020EventIdInputAction);
                     }
                     break;
             }
@@ -184,6 +282,8 @@ namespace MobiFlight.UI.Panels.Input
                 panel.Dock = DockStyle.Fill;
                 owner.Controls.Add(panel);
             }
+
+            this.ResumeLayout(true);
         }
 
         public void syncFromConfig(InputConfig.EncoderInputConfig config)
@@ -386,5 +486,6 @@ namespace MobiFlight.UI.Panels.Input
         {
             Variables = variables;
         }
+
     }
 }

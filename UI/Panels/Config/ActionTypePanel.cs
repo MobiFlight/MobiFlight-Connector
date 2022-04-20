@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -14,6 +15,8 @@ namespace MobiFlight.UI.Panels.Config
         public delegate void ActionTypePanelSelectHandler(object sender, String selectedValue);
         [Browsable(true)]
         public event ActionTypePanelSelectHandler ActionTypeChanged;
+        public event EventHandler CopyButtonPressed;
+        public event EventHandler PasteButtonPressed;
 
         public ActionTypePanel()
         {
@@ -42,6 +45,12 @@ namespace MobiFlight.UI.Panels.Config
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
 
+        public void CopyPasteFeatureActive(bool value)
+        {
+            CopyButton.Visible = value;
+            PasteButton.Visible = value;
+        }
+
         void ActionTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ActionTypeChanged != null)
@@ -50,7 +59,8 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncFromConfig(InputConfig.InputAction inputAction)
         {
-            switch (inputAction.GetType().ToString()) {
+            switch (inputAction.GetType().ToString())
+            {
                 case "MobiFlight.InputConfig.FsuipcOffsetInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.FsuipcOffsetInputAction.Label);
                     break;
@@ -95,6 +105,21 @@ namespace MobiFlight.UI.Panels.Config
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.VariableInputAction.Label);
                     break;
             }
+        }
+
+        private void CopyButton_Click(object sender, EventArgs e)
+        {
+            CopyButtonPressed?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void PasteButton_Click(object sender, EventArgs e)
+        {
+            PasteButtonPressed?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void OnClipBoardChanged(InputAction value)
+        {
+            PasteButton.Enabled = value!=null;
         }
     }
 }

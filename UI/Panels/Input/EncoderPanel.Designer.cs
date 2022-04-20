@@ -52,10 +52,10 @@
             // 
             this.onLeftActionConfigPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.onLeftActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.onLeftActionConfigPanel.Location = new System.Drawing.Point(0, 31);
+            this.onLeftActionConfigPanel.Location = new System.Drawing.Point(0, 38);
             this.onLeftActionConfigPanel.Margin = new System.Windows.Forms.Padding(0);
             this.onLeftActionConfigPanel.Name = "onLeftActionConfigPanel";
-            this.onLeftActionConfigPanel.Size = new System.Drawing.Size(332, 220);
+            this.onLeftActionConfigPanel.Size = new System.Drawing.Size(422, 213);
             this.onLeftActionConfigPanel.TabIndex = 19;
             // 
             // encoderTabControl
@@ -68,7 +68,7 @@
             this.encoderTabControl.Location = new System.Drawing.Point(0, 0);
             this.encoderTabControl.Name = "encoderTabControl";
             this.encoderTabControl.SelectedIndex = 0;
-            this.encoderTabControl.Size = new System.Drawing.Size(340, 280);
+            this.encoderTabControl.Size = new System.Drawing.Size(430, 280);
             this.encoderTabControl.TabIndex = 20;
             // 
             // onLeftTabPage
@@ -79,7 +79,7 @@
             this.onLeftTabPage.Location = new System.Drawing.Point(4, 22);
             this.onLeftTabPage.Name = "onLeftTabPage";
             this.onLeftTabPage.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.onLeftTabPage.Size = new System.Drawing.Size(332, 254);
+            this.onLeftTabPage.Size = new System.Drawing.Size(422, 254);
             this.onLeftTabPage.TabIndex = 1;
             this.onLeftTabPage.Text = "On Left";
             this.onLeftTabPage.UseVisualStyleBackColor = true;
@@ -88,8 +88,9 @@
             // 
             this.onLeftActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onLeftActionTypePanel.Location = new System.Drawing.Point(0, 3);
+            this.onLeftActionTypePanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.onLeftActionTypePanel.Name = "onLeftActionTypePanel";
-            this.onLeftActionTypePanel.Size = new System.Drawing.Size(332, 28);
+            this.onLeftActionTypePanel.Size = new System.Drawing.Size(422, 35);
             this.onLeftActionTypePanel.TabIndex = 20;
             // 
             // onLeftFastTabPage
@@ -100,7 +101,7 @@
             this.onLeftFastTabPage.Location = new System.Drawing.Point(4, 22);
             this.onLeftFastTabPage.Name = "onLeftFastTabPage";
             this.onLeftFastTabPage.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.onLeftFastTabPage.Size = new System.Drawing.Size(332, 224);
+            this.onLeftFastTabPage.Size = new System.Drawing.Size(422, 254);
             this.onLeftFastTabPage.TabIndex = 3;
             this.onLeftFastTabPage.Text = "On Left (Fast)";
             this.onLeftFastTabPage.UseVisualStyleBackColor = true;
@@ -109,18 +110,20 @@
             // 
             this.onLeftFastActionConfigPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.onLeftFastActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.onLeftFastActionConfigPanel.Location = new System.Drawing.Point(0, 31);
+            this.onLeftFastActionConfigPanel.Location = new System.Drawing.Point(0, 38);
             this.onLeftFastActionConfigPanel.Margin = new System.Windows.Forms.Padding(0);
             this.onLeftFastActionConfigPanel.Name = "onLeftFastActionConfigPanel";
-            this.onLeftFastActionConfigPanel.Size = new System.Drawing.Size(332, 190);
+            this.onLeftFastActionConfigPanel.Size = new System.Drawing.Size(422, 213);
             this.onLeftFastActionConfigPanel.TabIndex = 19;
             // 
             // onLeftFastActionTypePanel
             // 
             this.onLeftFastActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onLeftFastActionTypePanel.Location = new System.Drawing.Point(0, 3);
+            this.onLeftFastActionTypePanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.onLeftFastActionTypePanel.Name = "onLeftFastActionTypePanel";
-            this.onLeftFastActionTypePanel.Size = new System.Drawing.Size(332, 28);
+            this.onLeftFastActionTypePanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
+            this.onLeftFastActionTypePanel.Size = new System.Drawing.Size(422, 35);
             this.onLeftFastActionTypePanel.TabIndex = 20;
             // 
             // onRightTabPage
@@ -131,7 +134,7 @@
             this.onRightTabPage.Location = new System.Drawing.Point(4, 22);
             this.onRightTabPage.Name = "onRightTabPage";
             this.onRightTabPage.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.onRightTabPage.Size = new System.Drawing.Size(332, 224);
+            this.onRightTabPage.Size = new System.Drawing.Size(422, 254);
             this.onRightTabPage.TabIndex = 2;
             this.onRightTabPage.Text = "On Right";
             this.onRightTabPage.UseVisualStyleBackColor = true;
@@ -140,18 +143,20 @@
             // 
             this.onRightActionConfigPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.onRightActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.onRightActionConfigPanel.Location = new System.Drawing.Point(0, 31);
+            this.onRightActionConfigPanel.Location = new System.Drawing.Point(0, 38);
             this.onRightActionConfigPanel.Margin = new System.Windows.Forms.Padding(0);
             this.onRightActionConfigPanel.Name = "onRightActionConfigPanel";
-            this.onRightActionConfigPanel.Size = new System.Drawing.Size(332, 190);
+            this.onRightActionConfigPanel.Size = new System.Drawing.Size(422, 213);
             this.onRightActionConfigPanel.TabIndex = 19;
             // 
             // onRightActionTypePanel
             // 
             this.onRightActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onRightActionTypePanel.Location = new System.Drawing.Point(0, 3);
+            this.onRightActionTypePanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.onRightActionTypePanel.Name = "onRightActionTypePanel";
-            this.onRightActionTypePanel.Size = new System.Drawing.Size(332, 28);
+            this.onRightActionTypePanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
+            this.onRightActionTypePanel.Size = new System.Drawing.Size(422, 35);
             this.onRightActionTypePanel.TabIndex = 20;
             // 
             // onRightFastTabPage
@@ -162,7 +167,7 @@
             this.onRightFastTabPage.Location = new System.Drawing.Point(4, 22);
             this.onRightFastTabPage.Name = "onRightFastTabPage";
             this.onRightFastTabPage.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.onRightFastTabPage.Size = new System.Drawing.Size(332, 224);
+            this.onRightFastTabPage.Size = new System.Drawing.Size(422, 254);
             this.onRightFastTabPage.TabIndex = 4;
             this.onRightFastTabPage.Text = "On Right (Fast)";
             this.onRightFastTabPage.UseVisualStyleBackColor = true;
@@ -171,18 +176,20 @@
             // 
             this.onRightFastActionConfigPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.onRightFastActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.onRightFastActionConfigPanel.Location = new System.Drawing.Point(0, 31);
+            this.onRightFastActionConfigPanel.Location = new System.Drawing.Point(0, 38);
             this.onRightFastActionConfigPanel.Margin = new System.Windows.Forms.Padding(0);
             this.onRightFastActionConfigPanel.Name = "onRightFastActionConfigPanel";
-            this.onRightFastActionConfigPanel.Size = new System.Drawing.Size(332, 190);
+            this.onRightFastActionConfigPanel.Size = new System.Drawing.Size(422, 213);
             this.onRightFastActionConfigPanel.TabIndex = 19;
             // 
             // onRightFastActionTypePanel
             // 
             this.onRightFastActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onRightFastActionTypePanel.Location = new System.Drawing.Point(0, 3);
+            this.onRightFastActionTypePanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.onRightFastActionTypePanel.Name = "onRightFastActionTypePanel";
-            this.onRightFastActionTypePanel.Size = new System.Drawing.Size(332, 28);
+            this.onRightFastActionTypePanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
+            this.onRightFastActionTypePanel.Size = new System.Drawing.Size(422, 35);
             this.onRightFastActionTypePanel.TabIndex = 20;
             // 
             // EncoderPanel
@@ -192,7 +199,7 @@
             this.Controls.Add(this.encoderTabControl);
             this.MinimumSize = new System.Drawing.Size(300, 0);
             this.Name = "EncoderPanel";
-            this.Size = new System.Drawing.Size(340, 280);
+            this.Size = new System.Drawing.Size(430, 280);
             this.encoderTabControl.ResumeLayout(false);
             this.onLeftTabPage.ResumeLayout(false);
             this.onLeftFastTabPage.ResumeLayout(false);
