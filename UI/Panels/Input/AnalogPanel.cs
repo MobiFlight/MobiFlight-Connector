@@ -22,7 +22,7 @@ namespace MobiFlight.UI.Panels.Input
             InitializeComponent();
 
             onChangeActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onChangeActionTypePanel_ActionTypeChanged);
-            
+            onChangeActionTypePanel.CopyPasteFeatureActive(false);
         }
 
         // On Press Action

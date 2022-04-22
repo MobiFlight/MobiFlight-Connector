@@ -31,12 +31,14 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, output.Pin);
             textBox1.Text = output.Name;
+            mfPinLabel.Text = isPwmPin() ? "Pin (PWM)" : "Pin";
             initialized = true;
         }
 
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
+
             setValues();
             if (Changed != null)
                 Changed(output, new EventArgs());
