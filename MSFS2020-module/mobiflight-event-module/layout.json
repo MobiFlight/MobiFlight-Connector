@@ -7,13 +7,13 @@
     },
     {
       "path": "modules/events.txt",
-      "size": 86238,
-      "date": 132621057343026307
+      "size": 361907,
+      "date": 132952866212423049
     },
     {
       "path": "modules/MobiFlightWasmModule.wasm",
-      "size": 1496828,
-      "date": 132898483147099476
+      "size": 1496625,
+      "date": 132952866261023681
     }
   ]
 }
