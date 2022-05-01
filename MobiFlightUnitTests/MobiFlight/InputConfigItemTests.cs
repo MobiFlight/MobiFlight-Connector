@@ -75,6 +75,42 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(o.encoder.onRightFast, "encoder onRightFast is null");
             Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
             Assert.AreEqual(o.ConfigRefs.Count, 0, "ConfigRefs.Count is not 2");
+
+            o = new InputConfigItem();
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputConfigItem\ReadXmlTest.InputShiftRegister.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("settings");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
+            Assert.AreEqual(o.Name, "TestName", "Name not the same");
+            Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
+            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.IsNull(o.inputShiftRegister.onPress, "button onpress not null");
+            Assert.IsNotNull(o.inputShiftRegister.onRelease, "button onRelease is null");
+            Assert.IsNotNull(o.inputShiftRegister.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
+
+            o = new InputConfigItem();
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputConfigItem\ReadXmlTest.DigInputMux.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("settings");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
+            Assert.AreEqual(o.Name, "TestName", "Name not the same");
+            Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
+            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.IsNull(o.digInputMux.onPress, "button onpress not null");
+            Assert.IsNotNull(o.digInputMux.onRelease, "button onRelease is null");
+            Assert.IsNotNull(o.digInputMux.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
         }
 
         [TestMethod()]

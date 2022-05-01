@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config guid="c47307a5-8950-491c-8faf-abca3ab0a1fe">
+	<active>true</active>
+	<description>pot1 -&gt; bacjlight</description>
+	<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.3.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<source type="Variable" varType="number" varName="POT1" varExpression="$" />
+		<comparison active="False" value="" operand="" ifValue="" elseValue="" />
+		<display type="InputAction" serial="-" trigger="normal">
+			<analog>
+				<onChange type="MSFS2020CustomInputAction" command="@ 13 - 10.1000 / 0 max 100 min &#xA;s0 (&gt;L:LIGHTING_GLARESHIELD_1) &#xA;l0 5 (&gt;K:2:LIGHT_POTENTIOMETER_SET) &#xA;(A:LIGHT GLARESHIELD:1, Bool) &#xA;(L:LIGHTING_GLARESHIELD_1) 0 &gt; != if{1 l0 (&gt;K:2:GLARESHIELD_LIGHTS_SET)}" presetId="c1476e16-8cc4-40f9-8469-91f83d514127" />
+			</analog>
+		</display>
+		<preconditions />
+		<transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+		<configrefs />
+	</settings>
+</config>

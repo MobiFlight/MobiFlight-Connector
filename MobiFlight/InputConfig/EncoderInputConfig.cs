@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig 
@@ -242,6 +243,9 @@ namespace MobiFlight.InputConfig
 
                 reader.Read(); // advance to the next
             }
+
+            if (reader.NodeType == XmlNodeType.EndElement) 
+                reader.Read(); // this should be the corresponding "end" node            
         }
 
         public List<InputAction> GetInputActionsByType(Type type)
