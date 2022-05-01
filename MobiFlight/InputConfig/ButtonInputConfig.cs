@@ -154,6 +154,9 @@ namespace MobiFlight.InputConfig
 
                 reader.Read(); // closing onRelease
             }
+
+            if(reader.NodeType==System.Xml.XmlNodeType.EndElement)
+                reader.Read();
         }
 
         public List<InputAction> GetInputActionsByType(Type type)

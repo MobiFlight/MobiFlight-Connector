@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.3.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<source type="Variable" varType="number" varName="TransponderLength" varExpression="$" />
+	<comparison active="True" value="4" operand="=" ifValue="1" elseValue="0" />
+	<display type="InputAction" serial="-" trigger="normal">
+		<button>
+			<onPress type="MSFS2020CustomInputAction" command="# (&gt;L:myXPNDR, number) (L:myXPNDR, bco16) (&gt;K:XPNDR_SET)" presetId="0" />
+			<onRelease />
+		</button>
+	</display>
+	<preconditions />
+	<transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+	<configrefs>
+		<configref active="True" ref="cb11a1d3-75df-4427-a152-f0511f5e250e" placeholder="#" />
+	</configrefs>
+</settings>

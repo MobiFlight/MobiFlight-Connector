@@ -88,44 +88,35 @@ namespace MobiFlight
             }
 
             reader.Read(); // this should be the button or encoder
+
             if (reader.LocalName == "button")
             {
                 button = new ButtonInputConfig();
                 button.ReadXml(reader);
-                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
-                reader.Read(); // advance to the next node
             }
 
             if (reader.LocalName == "encoder")
             {
                 encoder = new EncoderInputConfig();
                 encoder.ReadXml(reader);
-                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
-                reader.Read(); // advance to the next node
             }
 
             if (reader.LocalName == "inputShiftRegister")
             {
                 inputShiftRegister = new InputShiftRegisterConfig();
                 inputShiftRegister.ReadXml(reader);
-                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
-                reader.Read(); // advance to the next node
             }
 
             if (reader.LocalName == "digInputMux")
             {
                 digInputMux = new DigInputMuxConfig();
                 digInputMux.ReadXml(reader);
-                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
-                reader.Read(); // advance to the next node
             }
 
             if (reader.LocalName == "analog")
             {
                 analog = new AnalogInputConfig();
                 analog.ReadXml(reader);
-                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
-                reader.Read(); // advance to the next node
             }
 
             // this is fallback, because type was not set in the past
@@ -210,7 +201,7 @@ namespace MobiFlight
 
             if (digInputMux != null)
             {
-                writer.WriteStartElement("digInputMux");
+                writer.WriteStartElement("inputMultiplexer");
                 digInputMux.WriteXml(writer);
                 writer.WriteEndElement();
             }
