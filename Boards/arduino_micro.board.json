@@ -24,7 +24,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Micro Pro",
-    "LatestFirmwareVersion": "2.1.1",
+    "LatestFirmwareVersion": "2.1.2",
     "MobiFlightType": "MobiFlight Micro"
   },
   "ModuleLimits": {

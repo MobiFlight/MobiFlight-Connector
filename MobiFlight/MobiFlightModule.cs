@@ -770,6 +770,7 @@ namespace MobiFlight
         {
             bool isOk = true;
             var command = new SendCommand((int)MobiFlightModule.Command.SetName, (int)MobiFlightModule.Command.Status, CommandTimeout);
+            Log.Instance.log($"Save name: {(int)MobiFlightModule.Command.SetName} > {Name}", LogSeverity.Debug);
             command.AddArgument(Name);
             ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
 
