@@ -303,8 +303,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
             try
             {
                 // disable test button
-                // in case that no display is selected                
-                String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
+                // in case that no display is selected
+                String rawSerial = cb.SelectedItem.ToString();
+                String serial = SerialNumber.ExtractSerial(rawSerial);
 
                 displayTypeComboBox.Enabled = groupBoxDisplaySettings.Enabled = testSettingsGroupBox.Enabled = (serial != "");
                 // serial is empty if no module is selected (on init of form)
@@ -383,6 +384,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // because module information is set
                 // before config is loaded
                 if (config == null) return;
+                config.DisplaySerial = rawSerial;
 
 
                 // third tab

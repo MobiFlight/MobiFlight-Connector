@@ -91,12 +91,51 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(oci.ButtonInputConfig.onPress as MobiFlight.InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
             Assert.AreEqual("Test", (oci.ButtonInputConfig.onPress as MobiFlight.InputConfig.MSFS2020CustomInputAction).Command, "Not correct Command.");
             // read analoginputaction
+
+            // read buttoninputaction
+            // read problem with configrefs are not loaded correctly
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.ButtonInputActionConfigRef.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci = new OutputConfigItem();
+            oci.ReadXml(xmlReader);
+            Assert.IsNotNull(oci.ButtonInputConfig, "ButtonInputConfig null");
+            Assert.IsNotNull(oci.ButtonInputConfig.onPress, "ButtonInputConfig.onPress null");
+            Assert.IsNull(oci.ButtonInputConfig.onRelease, "ButtonInputConfig.onRelease is not null");
+            Assert.IsNotNull(oci.ButtonInputConfig.onPress as MobiFlight.InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
+            Assert.AreEqual(1, oci.ConfigRefs.Count, "Count is not 1");
+
+            // read buttoninputaction
+            // read problem with configrefs are not loaded correctly
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.AnalogInputActionProblem.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci = new OutputConfigItem();
+            oci.ReadXml(xmlReader);
+            Assert.IsNotNull(oci.AnalogInputConfig, "AnalogInputConfig null");
+            Assert.IsNotNull(oci.AnalogInputConfig.onChange, "AnalogInputConfig.onPress null");
+            Assert.IsNotNull(oci.AnalogInputConfig.onChange as MobiFlight.InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
+            Assert.AreEqual(0, oci.ConfigRefs.Count, "ConfigRefs Count is not 1");
+
+            // read buttoninputaction
+            // read problem with configrefs are not loaded correctly
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.AnalogInputActionWithConfigRef.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci = new OutputConfigItem();
+            oci.ReadXml(xmlReader);
+            Assert.IsNotNull(oci.AnalogInputConfig, "AnalogInputConfig null");
+            Assert.IsNotNull(oci.AnalogInputConfig.onChange, "AnalogInputConfig.onPress null");
+            Assert.IsNotNull(oci.AnalogInputConfig.onChange as MobiFlight.InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
+            Assert.AreEqual(1, oci.ConfigRefs.Count, "ConfigRefs Count is not 1");
+
         }
 
         [TestMethod()]
         public void WriteXmlTest()
         {
             StringWriter sw = new StringWriter();
+
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Encoding = System.Text.Encoding.UTF8;
             settings.Indent = true;

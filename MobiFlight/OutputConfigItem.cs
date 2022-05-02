@@ -164,11 +164,13 @@ namespace MobiFlight
                 {
                     Pin.ReadXml(reader);
                 }
-                else if (DisplayType == MobiFlightLedModule.TYPE) {
+                else if (DisplayType == MobiFlightLedModule.TYPE)
+                {
 
                     LedModule.XmlRead(reader);
                 }
-                else if (DisplayType == ArcazeBcd4056.TYPE) { 
+                else if (DisplayType == ArcazeBcd4056.TYPE)
+                {
                     // ignore empty values
                     if (reader["bcdPins"] != null && reader["bcdPins"] != "")
                     {
@@ -182,14 +184,11 @@ namespace MobiFlight
                 else if (DisplayType == MobiFlightStepper.TYPE)
                 {
                     Stepper.ReadXml(reader);
-                }              
+                }
                 else if (DisplayType == OutputConfig.LcdDisplay.Type)
                 {
                     if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                     LcdDisplay.ReadXml(reader);
-                    
-                    // don't read to the end tag all the way
-                    reader.Read();
                 }
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
                 {
@@ -203,27 +202,34 @@ namespace MobiFlight
                     {
                         ButtonInputConfig = new ButtonInputConfig();
                         ButtonInputConfig.ReadXml(reader);
-                    } else if (reader.Name == "analog")
+                    }
+                    else if (reader.Name == "analog")
                     {
                         AnalogInputConfig = new AnalogInputConfig();
                         AnalogInputConfig.ReadXml(reader);
                     }
+
+                    // read to the end of the InputAction
+                    reader.Read();
                 }
-            }
 
-            // Actually interpolation is in he wrong spot. :(
-            // it should not be nested
-            // it should be outside of the display node
-            if (reader.LocalName == "interpolation")
-            {
-                Interpolation.ReadXml(reader);
-                if (reader.LocalName == "display")
-                    reader.ReadEndElement(); // this closes the display node
-            }
+                // Actually interpolation is in he wrong spot. :(
+                // it should not be nested
+                // it should be outside of the display node
+                if (reader.LocalName == "interpolation")
+                {
+                    Interpolation.ReadXml(reader);
+                    if (reader.LocalName == "display")
+                        reader.ReadEndElement(); // this closes the display node
+                }
 
-            // forward
-            if (reader.LocalName == "display")
-                reader.ReadStartElement();
+                if (reader.NodeType == XmlNodeType.Element)
+                    reader.Read();
+
+                // forward
+                if (reader.NodeType == XmlNodeType.EndElement)
+                    reader.ReadEndElement();
+            }
 
             // Actually interpolation is in he wrong spot. :(
             // it should not be nested

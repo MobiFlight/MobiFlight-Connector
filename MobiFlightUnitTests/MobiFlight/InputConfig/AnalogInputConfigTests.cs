@@ -52,7 +52,6 @@ namespace MobiFlight.InputConfig.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual("AnalogInputConfigReadXML", (o.onChange as VariableInputAction).Variable.Name, "Variable.Name are not Equal");
-
         }
 
         [TestMethod()]
