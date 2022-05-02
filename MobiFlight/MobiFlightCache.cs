@@ -109,6 +109,7 @@ namespace MobiFlight
         {
             var portNameRegEx = "\\(.*\\)";
             var result = new Dictionary<string, Board>();
+            var regex = new Regex(@"(?<id>VID_\S*)"); // Pattern to match the VID/PID of the connected devices
 
             // Code from https://stackoverflow.com/questions/45165299/wmi-get-list-of-all-serial-com-ports-including-virtual-ports
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity WHERE ClassGuid=\"{4d36e978-e325-11ce-bfc1-08002be10318}\"");
@@ -132,9 +133,17 @@ namespace MobiFlight
                     continue;
                 }
 
-                // Historically MobiFlight expects a straight VID/PID string without a leading USB\ or FTDI\ so get
-                // rid of that to ensure other code works as it used to.
-                var hardwareId = rawHardwareID.Substring(rawHardwareID.IndexOf('\\') + 1);
+                // Historically MobiFlight expects a straight VID/PID string without a leading USB\ or FTDI\ or \COMPORT so get
+                // pick that out of the raw hardware ID.
+                var match = regex.Match(rawHardwareID);
+                if (!match.Success)
+                {
+                    Log.Instance.log($"Skipping device with no available VID/PID ({rawHardwareID})", LogSeverity.Debug);
+                    continue;
+                }
+
+                // Get the matched hardware ID and use it going forward to identify the board.
+                var hardwareId = match.Groups["id"].Value;
 
                 Log.Instance.log($"Checking for compatible module: {hardwareId}", LogSeverity.Debug);
                 var board = BoardDefinitions.GetBoardByHardwareId(hardwareId);
