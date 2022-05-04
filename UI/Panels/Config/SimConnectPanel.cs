@@ -25,6 +25,9 @@ namespace MobiFlight.UI.Panels.Config
 
             transformOptionsGroup1.setMode(true);
             transformOptionsGroup1.ShowSubStringPanel(false);
+
+            HubHopPresetPanel.Mode = Config.HubHopPanelMode.Output;
+            HubHopPresetPanel.LoadPresets();
         }
 
         internal void syncToConfig(OutputConfigItem config)

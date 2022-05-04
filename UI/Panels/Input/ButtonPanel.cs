@@ -17,6 +17,7 @@ namespace MobiFlight.UI.Panels.Input
         public event EventHandler<EventArgs> OnPanelChanged;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         InputConfig.ButtonInputConfig _config;
+
         InputAction _clipBoardAction = null;
         InputAction ClipboardAction
         {

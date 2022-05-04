@@ -385,7 +385,7 @@ namespace MobiFlight.UI.Panels
                     }
                     else
                     if (cfg.Type == InputConfigItem.TYPE_DIG_INPUT_MUX) {
-                        row["inputName"] = $"{cfg.Name}:{cfg.digInputMux.ExtPin}";
+                        row["inputName"] = $"{cfg.Name}:{cfg.digInputMux?.ExtPin}";
                     } 
                     else 
                     {
