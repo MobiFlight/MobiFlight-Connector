@@ -952,6 +952,9 @@
     <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.de.resx">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\ActionTypePanel.de.resx">
+      <DependentUpon>ActionTypePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\ConfigRefPanel.de.resx">
       <DependentUpon>ConfigRefPanel.cs</DependentUpon>
     </EmbeddedResource>

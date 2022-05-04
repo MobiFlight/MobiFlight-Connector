@@ -42,7 +42,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Location = new System.Drawing.Point(3, 16);
             this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.label2.Padding = new System.Windows.Forms.Padding(3);
             this.label2.Size = new System.Drawing.Size(598, 26);
             this.label2.TabIndex = 2;
             this.label2.Text = "Define the sim variable name that you would like to read from MSFS2020.";
@@ -78,7 +78,7 @@ namespace MobiFlight.UI.Panels.Config
             this.HubHopPresetPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.HubHopPresetPanel.Location = new System.Drawing.Point(3, 42);
             this.HubHopPresetPanel.LVars = ((System.Collections.Generic.List<string>)(resources.GetObject("HubHopPresetPanel.LVars")));
-            this.HubHopPresetPanel.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.HubHopPresetPanel.Margin = new System.Windows.Forms.Padding(1);
             this.HubHopPresetPanel.MinimumSize = new System.Drawing.Size(603, 0);
             this.HubHopPresetPanel.Mode = MobiFlight.UI.Panels.Config.HubHopPanelMode.Output;
             this.HubHopPresetPanel.Name = "HubHopPresetPanel";
