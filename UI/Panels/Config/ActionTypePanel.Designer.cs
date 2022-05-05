@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActionTypePanel));
             this.panel1 = new System.Windows.Forms.Panel();
             this.PasteButton = new System.Windows.Forms.Button();
             this.CopyButton = new System.Windows.Forms.Button();
@@ -38,78 +39,50 @@
             // 
             // panel1
             // 
-            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.PasteButton);
             this.panel1.Controls.Add(this.CopyButton);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.ActionTypeComboBox);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
-            this.panel1.Size = new System.Drawing.Size(438, 33);
-            this.panel1.TabIndex = 17;
             // 
             // PasteButton
             // 
-            this.PasteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PasteButton.Enabled = false;
-            this.PasteButton.Location = new System.Drawing.Point(385, 5);
-            this.PasteButton.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.PasteButton, "PasteButton");
             this.PasteButton.Name = "PasteButton";
-            this.PasteButton.Size = new System.Drawing.Size(51, 22);
-            this.PasteButton.TabIndex = 24;
-            this.PasteButton.Text = "Paste";
             this.PasteButton.UseVisualStyleBackColor = true;
             this.PasteButton.Click += new System.EventHandler(this.PasteButton_Click);
             // 
             // CopyButton
             // 
-            this.CopyButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CopyButton.Location = new System.Drawing.Point(330, 5);
-            this.CopyButton.Margin = new System.Windows.Forms.Padding(2);
+            resources.ApplyResources(this.CopyButton, "CopyButton");
             this.CopyButton.Name = "CopyButton";
-            this.CopyButton.Size = new System.Drawing.Size(51, 22);
-            this.CopyButton.TabIndex = 23;
-            this.CopyButton.Text = "Copy";
             this.CopyButton.UseVisualStyleBackColor = true;
             this.CopyButton.Click += new System.EventHandler(this.CopyButton_Click);
             // 
             // label2
             // 
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(19, 9);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Action Type";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ActionTypeComboBox
             // 
             this.ActionTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ActionTypeComboBox.FormattingEnabled = true;
             this.ActionTypeComboBox.Items.AddRange(new object[] {
-            "none",
-            "FSUIPC Offset",
-            "FSUIPC Macro",
-            "Key"});
-            this.ActionTypeComboBox.Location = new System.Drawing.Point(107, 5);
-            this.ActionTypeComboBox.MaximumSize = new System.Drawing.Size(250, 0);
-            this.ActionTypeComboBox.MinimumSize = new System.Drawing.Size(47, 0);
+            resources.GetString("ActionTypeComboBox.Items"),
+            resources.GetString("ActionTypeComboBox.Items1"),
+            resources.GetString("ActionTypeComboBox.Items2"),
+            resources.GetString("ActionTypeComboBox.Items3")});
+            resources.ApplyResources(this.ActionTypeComboBox, "ActionTypeComboBox");
             this.ActionTypeComboBox.Name = "ActionTypeComboBox";
-            this.ActionTypeComboBox.Size = new System.Drawing.Size(196, 21);
-            this.ActionTypeComboBox.TabIndex = 17;
             // 
             // ActionTypePanel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.Name = "ActionTypePanel";
-            this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
-            this.Size = new System.Drawing.Size(438, 36);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

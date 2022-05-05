@@ -70,7 +70,7 @@ namespace MobiFlight.UI.Panels
                 // Only populate the clipboard if there's something that wound up in the copy buffer.
                 if (copyBuffer.Length > 0)
                 {
-                    Clipboard.SetDataObject(copyBuffer.ToString());
+                    System.Windows.Forms.Clipboard.SetDataObject(copyBuffer.ToString());
                 }
 
                 e.SuppressKeyPress = true;
