@@ -18,21 +18,7 @@ namespace MobiFlight.UI.Panels.Input
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         InputConfig.DigInputMuxConfig _config;
 
-        InputAction _clipBoardAction = null;
-        InputAction ClipboardAction
-        {
-            get { return _clipBoardAction; }
-            set
-            {
-                if (value != _clipBoardAction)
-                {
-                    _clipBoardAction = value;
-                    _clipBoardActionChanged(value);
-                }
-            }
-        }
-
-        private void _clipBoardActionChanged(InputAction action)
+        private void clipBoardActionChanged(InputAction action)
         {
             onPressActionTypePanel.OnClipBoardChanged(action);
             onReleaseActionTypePanel.OnClipBoardChanged(action);
@@ -53,22 +39,42 @@ namespace MobiFlight.UI.Panels.Input
                 action.CopyButtonPressed += Action_CopyButtonPressed;
                 action.PasteButtonPressed += Action_PasteButtonPressed;
             });
+
+            Clipboard.Instance.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
+            {
+                Log.Instance.log(e.PropertyName, LogSeverity.Debug);
+                if (e.PropertyName != "InputAction") return;
+
+                clipBoardActionChanged(Clipboard.Instance.InputAction);
+            };
+
+            // activates the paste button
+            // in case that we have something in the clipboard
+            if (Clipboard.Instance.InputAction != null)
+            {
+                clipBoardActionChanged(Clipboard.Instance.InputAction);
+            }
         }
 
         private void Action_CopyButtonPressed(object sender, EventArgs e)
         {
             InputConfig.DigInputMuxConfig config = new DigInputMuxConfig();
             ToConfig(config);
-            ClipboardAction = config.onPress;
+            if ((sender as ActionTypePanel) == onPressActionTypePanel)
+            {
+                Clipboard.Instance.InputAction = config.onPress;
+            }
             if ((sender as ActionTypePanel) == onReleaseActionTypePanel)
-                ClipboardAction = config.onRelease;
+            {
+                Clipboard.Instance.InputAction = config.onRelease;
+            }
         }
 
         private void Action_PasteButtonPressed(object sender, EventArgs e)
         {
             Panel owner = null;
 
-            (sender as ActionTypePanel).syncFromConfig(ClipboardAction);
+            (sender as ActionTypePanel).syncFromConfig(Clipboard.Instance.InputAction);
 
             bool isPress = (sender as ActionTypePanel) == onPressActionTypePanel;
 
@@ -76,16 +82,16 @@ namespace MobiFlight.UI.Panels.Input
             if (isPress)
             {
                 owner = onPressActionConfigPanel;
-                config.onPress = ClipboardAction;
+                config.onPress = Clipboard.Instance.InputAction;
             }
             else
             {
                 owner = onReleaseActionConfigPanel;
-                config.onRelease = ClipboardAction;
+                config.onRelease = Clipboard.Instance.InputAction;
             }
 
             String value = null;
-            String type = this.ClipboardAction.GetType().ToString();
+            String type = Clipboard.Instance.InputAction.GetType().ToString();
 
             if (type == "MobiFlight.InputConfig.FsuipcOffsetInputAction") value = MobiFlight.InputConfig.FsuipcOffsetInputAction.Label;
             else if (type == "MobiFlight.InputConfig.KeyInputAction") value = MobiFlight.InputConfig.KeyInputAction.Label;

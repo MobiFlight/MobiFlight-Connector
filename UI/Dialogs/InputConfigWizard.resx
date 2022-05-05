@@ -117,569 +117,401 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="preconditionPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="preconditionPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 5</value>
-  </data>
-  <data name="preconditionPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
-  </data>
-  <data name="preconditionPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>866, 716</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="preconditionPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;preconditionPanel.Name" xml:space="preserve">
-    <value>preconditionPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.2.0.4, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
-    <value>preconditionTabPage</value>
-  </data>
-  <data name="&gt;&gt;preconditionPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="preconditionTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="preconditionTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>874, 726</value>
-  </data>
-  <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="preconditionTabPage.Text" xml:space="preserve">
-    <value>Precondition</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.Name" xml:space="preserve">
-    <value>preconditionTabPage</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;preconditionTabPage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="configRefPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="configRefPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="configRefPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>6, 8, 6, 8</value>
-  </data>
-  <data name="configRefPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>8, 8, 8, 8</value>
-  </data>
-  <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>874, 889</value>
-  </data>
-  <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;configRefPanel.Name" xml:space="preserve">
-    <value>configRefPanel</value>
-  </data>
-  <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.2.0.4, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
-    <value>configRefTabPage</value>
-  </data>
-  <data name="&gt;&gt;configRefPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="configRefTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
-  </data>
-  <data name="configRefTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="configRefTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>874, 889</value>
-  </data>
-  <data name="configRefTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="configRefTabPage.Text" xml:space="preserve">
-    <value>Config References</value>
-  </data>
-  <data name="&gt;&gt;configRefTabPage.Name" xml:space="preserve">
-    <value>configRefTabPage</value>
-  </data>
-  <data name="&gt;&gt;configRefTabPage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;configRefTabPage.Parent" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;configRefTabPage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="groupBoxInputSettings.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="groupBoxInputSettings.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="groupBoxInputSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="groupBoxInputSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 171</value>
-  </data>
-  <data name="groupBoxInputSettings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="groupBoxInputSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="groupBoxInputSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>866, 550</value>
-  </data>
-  <data name="groupBoxInputSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="groupBoxInputSettings.Text" xml:space="preserve">
-    <value>Input settings</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInputSettings.Name" xml:space="preserve">
-    <value>groupBoxInputSettings</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInputSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInputSettings.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInputSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="inputPinDropDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>501, 69</value>
-  </data>
-  <data name="inputPinDropDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="inputPinDropDown.Size" type="System.Drawing.Size, System.Drawing">
-    <value>66, 28</value>
-  </data>
-  <data name="inputPinDropDown.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;inputPinDropDown.Name" xml:space="preserve">
-    <value>inputPinDropDown</value>
-  </data>
-  <data name="&gt;&gt;inputPinDropDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputPinDropDown.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;inputPinDropDown.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>75, 35</value>
-  </data>
-  <data name="arcazeSerialLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 20</value>
-  </data>
-  <data name="arcazeSerialLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="arcazeSerialLabel.Text" xml:space="preserve">
-    <value>Module</value>
-  </data>
-  <data name="arcazeSerialLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Name" xml:space="preserve">
-    <value>arcazeSerialLabel</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="inputModuleNameComboBox.Items" xml:space="preserve">
-    <value>Modul A</value>
-  </data>
-  <data name="inputModuleNameComboBox.Items1" xml:space="preserve">
-    <value>Modul B</value>
-  </data>
-  <data name="inputModuleNameComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 31</value>
-  </data>
-  <data name="inputModuleNameComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="inputModuleNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>420, 28</value>
-  </data>
-  <data name="inputModuleNameComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;inputModuleNameComboBox.Name" xml:space="preserve">
-    <value>inputModuleNameComboBox</value>
-  </data>
-  <data name="&gt;&gt;inputModuleNameComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputModuleNameComboBox.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;inputModuleNameComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>46, 74</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 20</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.Text" xml:space="preserve">
-    <value>Device</value>
-  </data>
-  <data name="inputTypeComboBoxLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBoxLabel.Name" xml:space="preserve">
-    <value>inputTypeComboBoxLabel</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBoxLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBoxLabel.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBoxLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="inputTypeComboBox.Items" xml:space="preserve">
-    <value>Pin</value>
-  </data>
-  <data name="inputTypeComboBox.Items1" xml:space="preserve">
-    <value>Display Module</value>
-  </data>
-  <data name="inputTypeComboBox.Items2" xml:space="preserve">
-    <value>BCD4056</value>
-  </data>
-  <data name="inputTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 69</value>
-  </data>
-  <data name="inputTypeComboBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="inputTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>343, 28</value>
-  </data>
-  <data name="inputTypeComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBox.Name" xml:space="preserve">
-    <value>inputTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBox.Parent" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;inputTypeComboBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 56</value>
-  </data>
-  <data name="displayTypeGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="displayTypeGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>866, 115</value>
-  </data>
-  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="displayTypeGroupBox.Text" xml:space="preserve">
-    <value>Choose input</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
-    <value>displayTypeGroupBox</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
-  </data>
-  <data name="&gt;&gt;displayTypeGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="displayTabTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="displayTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 5</value>
-  </data>
-  <data name="displayTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>18, 18, 18, 18</value>
-  </data>
-  <data name="displayTabTextBox.Multiline" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>866, 51</value>
-  </data>
-  <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="displayTabTextBox.Text" xml:space="preserve">
-    <value>Choose your input from the list below.</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Name" xml:space="preserve">
-    <value>displayTabTextBox</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;displayTabTextBox.Parent" xml:space="preserve">
-    <value>displayTabPage</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>588, 627</value>
   </data>
   <data name="&gt;&gt;displayTabTextBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="displayTabPage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 29</value>
+  <data name="&gt;&gt;ButtonPanel.Name" xml:space="preserve">
+    <value>ButtonPanel</value>
   </data>
-  <data name="displayTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="&gt;&gt;preconditionTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="preconditionPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>574, 567</value>
   </data>
-  <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>874, 726</value>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>ButtonPanel</value>
   </data>
-  <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;displayTypeGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="arcazeSerialLabel.Text" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="MainPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="preconditionTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
   </data>
   <data name="displayTabPage.Text" xml:space="preserve">
     <value>Input</value>
   </data>
-  <data name="&gt;&gt;displayTabPage.Name" xml:space="preserve">
+  <data name="&gt;&gt;arcazeSerialLabel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Name" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="&gt;&gt;inputModuleNameComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 28</value>
+  </data>
+  <data name="configRefPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="configRefPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="configRefTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 573</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="preconditionPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="&gt;&gt;displayTabTextBox.Parent" xml:space="preserve">
     <value>displayTabPage</value>
   </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 573</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.Name" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>513, 0</value>
+  </data>
+  <data name="inputModuleNameComboBox.Items" xml:space="preserve">
+    <value>Modul A</value>
+  </data>
+  <data name="&gt;&gt;displayTabTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="configRefTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.Name" xml:space="preserve">
+    <value>inputPinDropDown</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>574, 33</value>
+  </data>
+  <data name="groupBoxInputSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>574, 459</value>
+  </data>
+  <data name="&gt;&gt;ButtonPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;displayTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;description.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="configRefTabPage.Text" xml:space="preserve">
+    <value>Config References</value>
+  </data>
+  <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="arcazeSerialLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 23</value>
+  </data>
+  <data name="&gt;&gt;inputModuleNameComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBoxLabel.Name" xml:space="preserve">
+    <value>inputTypeComboBoxLabel</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="displayTabTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>588, 28</value>
+  </data>
+  <data name="&gt;&gt;presetDataTable.Name" xml:space="preserve">
+    <value>presetDataTable</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Name" xml:space="preserve">
+    <value>MainPanel</value>
+  </data>
+  <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;presetDataTable.Type" xml:space="preserve">
+    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInputSettings.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="&gt;&gt;preconditionTabPage.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;configRefTabPage.Parent" xml:space="preserve">
+    <value>tabControlFsuipc</value>
+  </data>
+  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 28</value>
+  </data>
+  <data name="preconditionPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;inputModuleNameComboBox.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;configRefPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="configRefPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
+    <value>configRefTabPage</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="preconditionTabPage.Text" xml:space="preserve">
+    <value>Precondition</value>
+  </data>
+  <data name="cancelButton.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;displayTabTextBox.Name" xml:space="preserve">
+    <value>displayTabTextBox</value>
+  </data>
+  <data name="&gt;&gt;ButtonPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="inputTypeComboBox.Items" xml:space="preserve">
+    <value>Pin</value>
+  </data>
+  <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="preconditionPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="displayTypeGroupBox.Text" xml:space="preserve">
+    <value>Choose input</value>
+  </data>
+  <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>588, 599</value>
+  </data>
+  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>InputConfigWizard</value>
+  </data>
+  <data name="&gt;&gt;configRefTabPage.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;displayTabPage.Parent" xml:space="preserve">
     <value>tabControlFsuipc</value>
   </data>
-  <data name="&gt;&gt;displayTabPage.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;inputModuleNameComboBox.Name" xml:space="preserve">
+    <value>inputModuleNameComboBox</value>
+  </data>
+  <data name="displayTabTextBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>12, 12, 12, 12</value>
+  </data>
+  <data name="preconditionPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="configRefPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInputSettings.Name" xml:space="preserve">
+    <value>groupBoxInputSettings</value>
+  </data>
+  <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.3.2.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 13</value>
+  </data>
+  <data name="inputModuleNameComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
-  </data>
-  <data name="tabControlFsuipc.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="tabControlFsuipc.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>882, 922</value>
-  </data>
-  <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Name" xml:space="preserve">
-    <value>tabControlFsuipc</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.Parent" xml:space="preserve">
-    <value>MainPanel</value>
-  </data>
-  <data name="&gt;&gt;tabControlFsuipc.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="MainPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="MainPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="MainPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>882, 922</value>
-  </data>
-  <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.Name" xml:space="preserve">
-    <value>MainPanel</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;MainPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="button1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>658, 0</value>
-  </data>
-  <data name="button1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 43</value>
-  </data>
-  <data name="button1.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="button1.Text" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>ButtonPanel</value>
-  </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cancelButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>770, 0</value>
-  </data>
-  <data name="cancelButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 43</value>
-  </data>
-  <data name="cancelButton.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="cancelButton.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
-    <value>cancelButton</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
-    <value>ButtonPanel</value>
-  </data>
-  <data name="&gt;&gt;cancelButton.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ButtonPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 922</value>
-  </data>
-  <data name="ButtonPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>882, 43</value>
   </data>
   <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;ButtonPanel.Name" xml:space="preserve">
-    <value>ButtonPanel</value>
+  <data name="arcazeSerialLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
   </data>
-  <data name="&gt;&gt;ButtonPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ButtonPanel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;inputTypeComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ButtonPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;inputPinDropDown.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="groupBoxInputSettings.Text" xml:space="preserve">
+    <value>Input settings</value>
+  </data>
+  <data name="button1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inputTypeComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBoxLabel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="inputModuleNameComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>281, 21</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInputSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;description.Name" xml:space="preserve">
+    <value>description</value>
+  </data>
+  <data name="displayTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="inputTypeComboBox.Items2" xml:space="preserve">
+    <value>BCD4056</value>
+  </data>
+  <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="presetsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
+  <data name="&gt;&gt;preconditionPanel.Name" xml:space="preserve">
+    <value>preconditionPanel</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>882, 965</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>InputConfigWizard</value>
+  </data>
+  <data name="&gt;&gt;configRefTabPage.Name" xml:space="preserve">
+    <value>configRefTabPage</value>
+  </data>
+  <data name="inputPinDropDown.Size" type="System.Drawing.Size, System.Drawing">
+    <value>45, 21</value>
+  </data>
+  <data name="groupBoxInputSettings.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBox.Name" xml:space="preserve">
+    <value>inputTypeComboBox</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;presetsDataSet.Type" xml:space="preserve">
+    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;inputTypeComboBoxLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
+    <value>preconditionTabPage</value>
+  </data>
+  <data name="&gt;&gt;cancelButton.Parent" xml:space="preserve">
+    <value>ButtonPanel</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="arcazeSerialLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 573</value>
+  </data>
+  <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
+    <value>presetsDataSet</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="groupBoxInputSettings.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="groupBoxInputSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 111</value>
+  </data>
+  <data name="displayTabTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="displayTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="displayTypeGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 36</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -825,46 +657,157 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="&gt;&gt;arcazeSerialLabel.Name" xml:space="preserve">
+    <value>arcazeSerialLabel</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="inputModuleNameComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 20</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 48</value>
+  </data>
+  <data name="cancelButton.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="arcazeSerialLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 13</value>
+  </data>
+  <data name="&gt;&gt;MainPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="&gt;&gt;configRefTabPage.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
+  <data name="&gt;&gt;inputTypeComboBox.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>InputConfigWizard</value>
+  <data name="&gt;&gt;inputTypeComboBoxLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
-    <value>presetsDataSet</value>
+  <data name="displayTabTextBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;presetsDataSet.Type" xml:space="preserve">
-    <value>System.Data.DataSet, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>580, 573</value>
   </data>
-  <data name="&gt;&gt;presetDataTable.Name" xml:space="preserve">
-    <value>presetDataTable</value>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
   </data>
-  <data name="&gt;&gt;presetDataTable.Type" xml:space="preserve">
-    <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;configRefPanel.Name" xml:space="preserve">
+    <value>configRefPanel</value>
   </data>
-  <data name="&gt;&gt;description.Name" xml:space="preserve">
-    <value>description</value>
+  <data name="button1.Text" xml:space="preserve">
+    <value>OK</value>
   </data>
-  <data name="&gt;&gt;description.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="inputTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 45</value>
+  </data>
+  <data name="&gt;&gt;tabControlFsuipc.Parent" xml:space="preserve">
+    <value>MainPanel</value>
+  </data>
+  <data name="ButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 599</value>
+  </data>
+  <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>574, 75</value>
   </data>
   <data name="&gt;&gt;settingsColumn.Name" xml:space="preserve">
     <value>settingsColumn</value>
   </data>
-  <data name="&gt;&gt;settingsColumn.Type" xml:space="preserve">
-    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;groupBoxInputSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>InputConfigWizard</value>
+  <data name="preconditionTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="MainPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
+  <data name="&gt;&gt;cancelButton.Name" xml:space="preserve">
+    <value>cancelButton</value>
+  </data>
+  <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.3.2.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="configRefTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Name" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>588, 599</value>
+  </data>
+  <data name="inputPinDropDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>334, 45</value>
+  </data>
+  <data name="button1.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="ButtonPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tabControlFsuipc.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="tabControlFsuipc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="groupBoxInputSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>438, 0</value>
+  </data>
+  <data name="inputTypeComboBoxLabel.Text" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="&gt;&gt;ButtonPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="groupBoxInputSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inputTypeComboBox.Items1" xml:space="preserve">
+    <value>Display Module</value>
+  </data>
+  <data name="inputModuleNameComboBox.Items1" xml:space="preserve">
+    <value>Modul B</value>
+  </data>
+  <data name="cancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="displayTabTextBox.Text" xml:space="preserve">
+    <value>Choose your input from the list below.</value>
+  </data>
+  <data name="&gt;&gt;displayTypeGroupBox.Parent" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="&gt;&gt;displayTabPage.Name" xml:space="preserve">
+    <value>displayTabPage</value>
+  </data>
+  <data name="&gt;&gt;inputPinDropDown.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="inputPinDropDown.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="inputTypeComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>230, 21</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="presetsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

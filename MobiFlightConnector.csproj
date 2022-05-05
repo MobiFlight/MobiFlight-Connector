@@ -205,6 +205,7 @@
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
+    <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\Config\DigInputMux.cs" />
     <Compile Include="MobiFlight\Config\MuxDriver.cs" />
     <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />

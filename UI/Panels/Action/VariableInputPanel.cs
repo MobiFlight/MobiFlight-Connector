@@ -71,6 +71,16 @@ namespace MobiFlight.UI.Panels.Action
         {
             if (inputAction == null) inputAction = new InputConfig.VariableInputAction();
 
+            // this can happen when we are 
+            // copy & paste an input actions
+            // where the var name was defined after
+            // the panel was loaded.
+            if (!Variables.ContainsKey(inputAction.Variable.Name))
+            {
+                Variables.Add(inputAction.Variable.Name, inputAction.Variable);
+                SetVariableReferences(Variables);
+            }
+
             try
             {
                 TypeComboBox.SelectedValue = inputAction.Variable.TYPE;

@@ -32,7 +32,9 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
+            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
             this.configRefTabPage = new System.Windows.Forms.TabPage();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.groupBoxInputSettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
@@ -48,8 +50,6 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
-            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
@@ -64,40 +64,50 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.Controls.Add(this.tabControlFsuipc);
             resources.ApplyResources(this.MainPanel, "MainPanel");
+            this.MainPanel.Controls.Add(this.tabControlFsuipc);
             this.MainPanel.Name = "MainPanel";
             // 
             // tabControlFsuipc
             // 
+            resources.ApplyResources(this.tabControlFsuipc, "tabControlFsuipc");
             this.tabControlFsuipc.Controls.Add(this.preconditionTabPage);
             this.tabControlFsuipc.Controls.Add(this.configRefTabPage);
             this.tabControlFsuipc.Controls.Add(this.displayTabPage);
-            resources.ApplyResources(this.tabControlFsuipc, "tabControlFsuipc");
             this.tabControlFsuipc.Name = "tabControlFsuipc";
             this.tabControlFsuipc.SelectedIndex = 0;
             this.tabControlFsuipc.SelectedIndexChanged += new System.EventHandler(this.tabControlFsuipc_SelectedIndexChanged);
             // 
             // preconditionTabPage
             // 
-            this.preconditionTabPage.Controls.Add(this.preconditionPanel);
             resources.ApplyResources(this.preconditionTabPage, "preconditionTabPage");
+            this.preconditionTabPage.Controls.Add(this.preconditionPanel);
             this.preconditionTabPage.Name = "preconditionTabPage";
             this.preconditionTabPage.UseVisualStyleBackColor = true;
             // 
+            // preconditionPanel
+            // 
+            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
+            this.preconditionPanel.Name = "preconditionPanel";
+            // 
             // configRefTabPage
             // 
-            this.configRefTabPage.Controls.Add(this.configRefPanel);
             resources.ApplyResources(this.configRefTabPage, "configRefTabPage");
+            this.configRefTabPage.Controls.Add(this.configRefPanel);
             this.configRefTabPage.Name = "configRefTabPage";
             this.configRefTabPage.UseVisualStyleBackColor = true;
             // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
+            // 
             // displayTabPage
             // 
+            resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Controls.Add(this.groupBoxInputSettings);
             this.displayTabPage.Controls.Add(this.displayTypeGroupBox);
             this.displayTabPage.Controls.Add(this.displayTabTextBox);
-            resources.ApplyResources(this.displayTabPage, "displayTabPage");
             this.displayTabPage.Name = "displayTabPage";
             this.displayTabPage.UseVisualStyleBackColor = true;
             // 
@@ -109,20 +119,20 @@
             // 
             // displayTypeGroupBox
             // 
+            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Controls.Add(this.inputPinDropDown);
             this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
             this.displayTypeGroupBox.Controls.Add(this.inputModuleNameComboBox);
             this.displayTypeGroupBox.Controls.Add(this.inputTypeComboBoxLabel);
             this.displayTypeGroupBox.Controls.Add(this.inputTypeComboBox);
-            resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
             // 
             // inputPinDropDown
             // 
+            resources.ApplyResources(this.inputPinDropDown, "inputPinDropDown");
             this.inputPinDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.inputPinDropDown.FormattingEnabled = true;
-            resources.ApplyResources(this.inputPinDropDown, "inputPinDropDown");
             this.inputPinDropDown.Name = "inputPinDropDown";
             // 
             // arcazeSerialLabel
@@ -132,13 +142,13 @@
             // 
             // inputModuleNameComboBox
             // 
+            resources.ApplyResources(this.inputModuleNameComboBox, "inputModuleNameComboBox");
             this.inputModuleNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.inputModuleNameComboBox.DropDownWidth = 300;
             this.inputModuleNameComboBox.FormattingEnabled = true;
             this.inputModuleNameComboBox.Items.AddRange(new object[] {
             resources.GetString("inputModuleNameComboBox.Items"),
             resources.GetString("inputModuleNameComboBox.Items1")});
-            resources.ApplyResources(this.inputModuleNameComboBox, "inputModuleNameComboBox");
             this.inputModuleNameComboBox.Name = "inputModuleNameComboBox";
             this.inputModuleNameComboBox.SelectedIndexChanged += new System.EventHandler(this.ModuleSerialComboBox_SelectedIndexChanged);
             this.inputModuleNameComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.displayArcazeSerialComboBox_Validating);
@@ -150,6 +160,7 @@
             // 
             // inputTypeComboBox
             // 
+            resources.ApplyResources(this.inputTypeComboBox, "inputTypeComboBox");
             this.inputTypeComboBox.DisplayMember = "Name";
             this.inputTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.inputTypeComboBox.FormattingEnabled = true;
@@ -157,25 +168,24 @@
             resources.GetString("inputTypeComboBox.Items"),
             resources.GetString("inputTypeComboBox.Items1"),
             resources.GetString("inputTypeComboBox.Items2")});
-            resources.ApplyResources(this.inputTypeComboBox, "inputTypeComboBox");
             this.inputTypeComboBox.Name = "inputTypeComboBox";
             this.inputTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.inputTypeComboBox_SelectedIndexChanged);
             // 
             // displayTabTextBox
             // 
+            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
             this.displayTabTextBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.displayTabTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.displayTabTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.displayTabTextBox, "displayTabTextBox");
             this.displayTabTextBox.Name = "displayTabTextBox";
             this.displayTabTextBox.ReadOnly = true;
             this.displayTabTextBox.TabStop = false;
             // 
             // ButtonPanel
             // 
+            resources.ApplyResources(this.ButtonPanel, "ButtonPanel");
             this.ButtonPanel.Controls.Add(this.button1);
             this.ButtonPanel.Controls.Add(this.cancelButton);
-            resources.ApplyResources(this.ButtonPanel, "ButtonPanel");
             this.ButtonPanel.Name = "ButtonPanel";
             // 
             // button1
@@ -187,8 +197,8 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             resources.ApplyResources(this.cancelButton, "cancelButton");
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
@@ -209,16 +219,6 @@
             // description
             // 
             this.description.ColumnName = "description";
-            // 
-            // preconditionPanel
-            // 
-            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
-            this.preconditionPanel.Name = "preconditionPanel";
-            // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
             // 
             // settingsColumn
             // 
