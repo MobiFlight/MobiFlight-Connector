@@ -53,6 +53,12 @@
             this.fsuipcValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.arcazeValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EditButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.duplicateRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataSetConfig = new System.Data.DataSet();
             this.configDataTable = new System.Data.DataTable();
             this.activeDataColumn = new System.Data.DataColumn();
@@ -68,21 +74,15 @@
             this.fsuipcSizeDataColumn = new System.Data.DataColumn();
             this.triggerDataColumn = new System.Data.DataColumn();
             this.arcazeSerialDataColumn = new System.Data.DataColumn();
+            this.settingsColumn = new System.Data.DataColumn();
             this.guidDataColumn = new System.Data.DataColumn();
             this.outputDataColumn = new System.Data.DataColumn();
             this.outputTypeDataColumn = new System.Data.DataColumn();
-            this.dataGridViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.duplicateRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsColumn = new System.Data.DataColumn();
             this.MappingConfigGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).BeginInit();
+            this.dataGridViewContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.configDataTable)).BeginInit();
-            this.dataGridViewContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // MappingConfigGroupBox
@@ -94,6 +94,7 @@
             // 
             // dataGridViewConfig
             // 
+            resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.AllowUserToResizeRows = false;
             this.dataGridViewConfig.AutoGenerateColumns = false;
             this.dataGridViewConfig.BackgroundColor = System.Drawing.SystemColors.Window;
@@ -130,7 +131,6 @@
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewConfig.DefaultCellStyle = dataGridViewCellStyle10;
-            resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.dataGridViewConfig.Name = "dataGridViewConfig";
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.BottomCenter;
@@ -259,6 +259,51 @@
             this.EditButtonColumn.Text = "...";
             this.EditButtonColumn.UseColumnTextForButtonValue = true;
             // 
+            // dataGridViewContextMenuStrip
+            // 
+            resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
+            this.dataGridViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.duplicateRowToolStripMenuItem,
+            this.deleteRowToolStripMenuItem});
+            this.dataGridViewContextMenuStrip.Name = "dataGridViewContextMenuStrip";
+            this.dataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.DataGridViewContextMenuStrip_Opening);
+            // 
+            // copyToolStripMenuItem
+            // 
+            resources.ApplyResources(this.copyToolStripMenuItem, "copyToolStripMenuItem");
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            resources.ApplyResources(this.pasteToolStripMenuItem, "pasteToolStripMenuItem");
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            // 
+            // duplicateRowToolStripMenuItem
+            // 
+            resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
+            this.duplicateRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.duplicateRowToolStripMenuItem.Image = global::MobiFlight.Properties.Resources.star_yellow_new;
+            this.duplicateRowToolStripMenuItem.Name = "duplicateRowToolStripMenuItem";
+            this.duplicateRowToolStripMenuItem.Click += new System.EventHandler(this.DuplicateRowToolStripMenuItem_Click);
+            // 
+            // deleteRowToolStripMenuItem
+            // 
+            resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
+            this.deleteRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.deleteRowToolStripMenuItem.Image = global::MobiFlight.Properties.Resources.delete2;
+            this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
+            this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.DeleteRowToolStripMenuItem_Click);
+            // 
             // dataSetConfig
             // 
             this.dataSetConfig.DataSetName = "outputs";
@@ -362,6 +407,12 @@
             this.arcazeSerialDataColumn.ColumnName = "arcazeSerial";
             this.arcazeSerialDataColumn.DefaultValue = "";
             // 
+            // settingsColumn
+            // 
+            this.settingsColumn.Caption = "settings";
+            this.settingsColumn.ColumnName = "settings";
+            this.settingsColumn.DataType = typeof(object);
+            // 
             // guidDataColumn
             // 
             this.guidDataColumn.ColumnMapping = System.Data.MappingType.Attribute;
@@ -380,68 +431,18 @@
             this.outputTypeDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
             this.outputTypeDataColumn.ColumnName = "OutputType";
             // 
-            // dataGridViewContextMenuStrip
-            // 
-            this.dataGridViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem,
-            this.pasteToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.duplicateRowToolStripMenuItem,
-            this.deleteRowToolStripMenuItem});
-            this.dataGridViewContextMenuStrip.Name = "dataGridViewContextMenuStrip";
-            resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
-            this.dataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.DataGridViewContextMenuStrip_Opening);
-            // 
-            // duplicateRowToolStripMenuItem
-            // 
-            this.duplicateRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            resources.ApplyResources(this.duplicateRowToolStripMenuItem, "duplicateRowToolStripMenuItem");
-            this.duplicateRowToolStripMenuItem.Image = global::MobiFlight.Properties.Resources.star_yellow_new;
-            this.duplicateRowToolStripMenuItem.Name = "duplicateRowToolStripMenuItem";
-            this.duplicateRowToolStripMenuItem.Click += new System.EventHandler(this.DuplicateRowToolStripMenuItem_Click);
-            // 
-            // deleteRowToolStripMenuItem
-            // 
-            this.deleteRowToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            resources.ApplyResources(this.deleteRowToolStripMenuItem, "deleteRowToolStripMenuItem");
-            this.deleteRowToolStripMenuItem.Image = global::MobiFlight.Properties.Resources.delete2;
-            this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
-            this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.DeleteRowToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
-            // 
-            // copyToolStripMenuItem
-            // 
-            resources.ApplyResources(this.copyToolStripMenuItem, "copyToolStripMenuItem");
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
-            // 
-            // pasteToolStripMenuItem
-            // 
-            resources.ApplyResources(this.pasteToolStripMenuItem, "pasteToolStripMenuItem");
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
-            // 
-            // settingsColumn
-            // 
-            this.settingsColumn.Caption = "settings";
-            this.settingsColumn.ColumnName = "settings";
-            this.settingsColumn.DataType = typeof(object);
-            // 
             // OutputConfigPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.MappingConfigGroupBox);
+            this.DoubleBuffered = true;
             this.Name = "OutputConfigPanel";
             this.MappingConfigGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).EndInit();
+            this.dataGridViewContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.configDataTable)).EndInit();
-            this.dataGridViewContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
