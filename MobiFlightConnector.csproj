@@ -1017,6 +1017,9 @@
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.de.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\InputConfigPanel.de.resx">
+      <DependentUpon>InputConfigPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
     </EmbeddedResource>

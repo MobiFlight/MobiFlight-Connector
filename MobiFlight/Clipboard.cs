@@ -14,6 +14,10 @@ namespace MobiFlight
         public event PropertyChangedEventHandler     PropertyChanged;
 
         private InputAction inputAction;
+        private OutputConfigItem outputConfigItem;
+        private String outputConfigName;
+        private InputConfigItem inputConfigItem;
+        private String inputConfigName;
 
         private static readonly Clipboard clipboard = new Clipboard();
 
@@ -41,6 +45,57 @@ namespace MobiFlight
                     NotifyPropertyChanged();
                 }
             } 
+        }
+        public OutputConfigItem OutputConfigItem
+        {
+            get { return outputConfigItem; }
+            set
+            {
+                if (value != this.outputConfigItem)
+                {
+                    this.outputConfigItem = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public String OutputConfigName
+        {
+            get { return outputConfigName; }
+            set
+            {
+                if (value != this.outputConfigName)
+                {
+                    this.outputConfigName = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public InputConfigItem InputConfigItem
+        {
+            get { return inputConfigItem; }
+            set
+            {
+                if (value != this.inputConfigItem)
+                {
+                    this.inputConfigItem = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public String InputConfigName
+        {
+            get { return inputConfigName; }
+            set
+            {
+                if (value != this.inputConfigName)
+                {
+                    this.inputConfigName = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
     }
 }

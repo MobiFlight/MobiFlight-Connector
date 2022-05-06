@@ -35,6 +35,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.inputsDataGridViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.duplicateInputsRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteInputsRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataSetInputs = new System.Data.DataSet();
@@ -62,22 +65,43 @@
             // 
             // inputsDataGridViewContextMenuStrip
             // 
+            resources.ApplyResources(this.inputsDataGridViewContextMenuStrip, "inputsDataGridViewContextMenuStrip");
             this.inputsDataGridViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.duplicateInputsRowToolStripMenuItem,
             this.deleteInputsRowToolStripMenuItem});
             this.inputsDataGridViewContextMenuStrip.Name = "inputsDataGridViewContextMenuStrip";
-            resources.ApplyResources(this.inputsDataGridViewContextMenuStrip, "inputsDataGridViewContextMenuStrip");
+            this.inputsDataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.inputsDataGridViewContextMenuStrip_Opening);
+            // 
+            // copyToolStripMenuItem
+            // 
+            resources.ApplyResources(this.copyToolStripMenuItem, "copyToolStripMenuItem");
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            resources.ApplyResources(this.pasteToolStripMenuItem, "pasteToolStripMenuItem");
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             // 
             // duplicateInputsRowToolStripMenuItem
             // 
-            this.duplicateInputsRowToolStripMenuItem.Name = "duplicateInputsRowToolStripMenuItem";
             resources.ApplyResources(this.duplicateInputsRowToolStripMenuItem, "duplicateInputsRowToolStripMenuItem");
+            this.duplicateInputsRowToolStripMenuItem.Name = "duplicateInputsRowToolStripMenuItem";
             this.duplicateInputsRowToolStripMenuItem.Click += new System.EventHandler(this.duplicateInputsRowToolStripMenuItem_Click);
             // 
             // deleteInputsRowToolStripMenuItem
             // 
-            this.deleteInputsRowToolStripMenuItem.Name = "deleteInputsRowToolStripMenuItem";
             resources.ApplyResources(this.deleteInputsRowToolStripMenuItem, "deleteInputsRowToolStripMenuItem");
+            this.deleteInputsRowToolStripMenuItem.Name = "deleteInputsRowToolStripMenuItem";
             this.deleteInputsRowToolStripMenuItem.Click += new System.EventHandler(this.deleteInputsRowToolStripMenuItem_Click);
             // 
             // dataSetInputs
@@ -142,10 +166,11 @@
             // 
             // inputsDataGridView
             // 
+            resources.ApplyResources(this.inputsDataGridView, "inputsDataGridView");
             this.inputsDataGridView.AllowUserToResizeRows = false;
             this.inputsDataGridView.AutoGenerateColumns = false;
             this.inputsDataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.inputsDataGridView, "inputsDataGridView");
+            this.inputsDataGridView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.inputsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.inputsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.inputActive,
@@ -155,11 +180,11 @@
             this.inputName,
             this.inputType,
             this.inputEditButtonColumn});
+            this.inputsDataGridView.ContextMenuStrip = this.inputsDataGridViewContextMenuStrip;
             this.inputsDataGridView.DataMember = "config";
             this.inputsDataGridView.DataSource = this.dataSetInputs;
             this.inputsDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
             this.inputsDataGridView.Name = "inputsDataGridView";
-            this.inputsDataGridView.RowTemplate.ContextMenuStrip = this.inputsDataGridViewContextMenuStrip;
             this.inputsDataGridView.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.inputsDataGridView.RowTemplate.Height = 26;
             this.inputsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -169,6 +194,7 @@
             this.inputsDataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellContentDoubleClick);
             this.inputsDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellEndEdit);
             this.inputsDataGridView.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.inputsDataGridView_CellEnter);
+            this.inputsDataGridView.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.inputsDataGridView_CellMouseDown);
             this.inputsDataGridView.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.inputsDataGridView_DataBindingComplete);
             this.inputsDataGridView.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.inputsDataGridViewConfig_DefaultValuesNeeded);
             this.inputsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewConfig_KeyUp);
@@ -248,6 +274,7 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.inputsDataGridView);
+            this.DoubleBuffered = true;
             this.Name = "InputConfigPanel";
             this.inputsDataGridViewContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataSetInputs)).EndInit();
@@ -279,5 +306,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn inputName;
         private System.Windows.Forms.DataGridViewTextBoxColumn inputType;
         private System.Windows.Forms.DataGridViewButtonColumn inputEditButtonColumn;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     }
 }
