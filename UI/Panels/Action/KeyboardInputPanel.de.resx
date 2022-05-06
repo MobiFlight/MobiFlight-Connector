@@ -126,4 +126,7 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Hinweis: Für Kombinationen mit ALT, CTRL and SHIFT - drück zuerst die Taste mit dem Buchstaben und danach die Sondertasten.</value>
   </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Bekanntes Problem: Keyboard Events funktionieren nicht mit MSFS2020.</value>
+  </data>
 </root>
