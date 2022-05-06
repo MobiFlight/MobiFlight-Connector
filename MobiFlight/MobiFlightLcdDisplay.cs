@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using CommandMessenger;
 using MobiFlight.Base;
 using MobiFlight.OutputConfig;
@@ -11,7 +12,7 @@ namespace MobiFlight
     public class MobiFlightLcdDisplay : IConnectedDevice
     {
         public const string TYPE = "LcdDisplay";
-
+        
         public CmdMessenger CmdMessenger { get; set; }
         public int Address  { get; set; }
         public int Cols     { get; set; }
@@ -64,7 +65,7 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.SetLcdDisplayI2C);
 
             command.AddArgument(this.Address);
-            command.AddArgument(value);
+            command.AddArgument(EscapeString(value));
 
             Log.Instance.log("Command: SetLcdDisplayI2C <" + (int)MobiFlightModule.Command.SetLcdDisplayI2C + "," +
                                                       this.Address + "," +
@@ -73,6 +74,11 @@ namespace MobiFlight
 
             // Send command
             CmdMessenger.SendCommand(command, SendQueue.WaitForEmptyQueue, ReceiveQueue.Default);
+        }
+
+        private static string EscapeString(string value)
+        {
+            return value.Replace("/", "//").Replace(",", "/,").Replace(";", "/;");
         }
 
         public string Apply(LcdDisplay lcdConfig, string value, List<ConfigRefValue> replacements)
