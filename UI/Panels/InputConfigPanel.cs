@@ -489,9 +489,6 @@ namespace MobiFlight.UI.Panels
         {
             foreach (DataGridViewRow row in inputsDataGridView.SelectedRows)
             {
-                // ignore new rows since they cannot be copied nor deleted
-                if (row.IsNewRow) continue;
-
                 int index = row.Index;
                 PasteFromClipboard(index+1);
                 return;
@@ -548,6 +545,29 @@ namespace MobiFlight.UI.Panels
         private void inputsDataGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             lastClickedRow = e.RowIndex;
+
+            if (e.Button == MouseButtons.Right)
+            {
+                if (inputsDataGridView.IsCurrentCellInEditMode) return;
+
+                inputsDataGridView.EndEdit();
+
+                if (e.RowIndex != -1)
+                {
+                    if (!(sender as DataGridView).Rows[e.RowIndex].Selected)
+                    {
+                        // reset all rows since we are not right clicking on a currently
+                        // selected one
+                        foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
+                        {
+                            row.Selected = false;
+                        }
+                    }
+
+                    // the current one becomes selected in any case
+                    (sender as DataGridView).Rows[e.RowIndex].Selected = true;
+                }
+            }
         }
     }
 }
