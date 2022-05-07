@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MobiFlight.UI.Dialogs;
+using MobiFlight.Base;
 
 namespace MobiFlight.UI.Panels
 {
@@ -530,10 +531,14 @@ namespace MobiFlight.UI.Panels
             foreach (DataRow row in ConfigDataTable.Rows)
             {
                 OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
+                row["OutputName"] = "-";
+                row["OutputType"] = "-";
+                row["arcazeSerial"] = "-";
+
                 if (cfgItem != null)
                 {
                     row["fsuipcOffset"] = "0x" + cfgItem.FSUIPC.Offset.ToString("X4");
-                    if (cfgItem.DisplaySerial != null)
+                    if (cfgItem.DisplaySerial != null && cfgItem.DisplaySerial != "-")
                     {
                         row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];
                     
@@ -556,6 +561,20 @@ namespace MobiFlight.UI.Panels
                             case MobiFlightStepper.TYPE:
                                 row["OutputName"] = cfgItem.Stepper.Address;
                                 break;
+                        }
+                    } else if(cfgItem.DisplayType=="InputAction")
+                    {
+                        row["OutputType"] = cfgItem.DisplayType;
+                        if (cfgItem.ButtonInputConfig!=null)
+                        {
+                            if (cfgItem.ButtonInputConfig.onRelease!=null)
+                                row["OutputName"] = cfgItem.ButtonInputConfig.onRelease.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
+                            if (cfgItem.ButtonInputConfig.onPress != null)
+                                row["OutputName"] = cfgItem.ButtonInputConfig.onPress.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
+                        }
+                        if (cfgItem.AnalogInputConfig != null)
+                        {
+                            row["OutputName"] = cfgItem.AnalogInputConfig.onChange.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
                         }
                     }
                 }
