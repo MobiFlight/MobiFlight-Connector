@@ -17,6 +17,7 @@ namespace MobiFlight.UI.Panels
         public event EventHandler SettingsDialogRequested;
 
         private int lastClickedRow = -1;
+        private List<String> SelectedGuids = new List<String>();
 
         private object[] EditedItem = null;
         public ExecutionManager ExecutionManager { get; set; }
@@ -236,20 +237,20 @@ namespace MobiFlight.UI.Panels
 
 
         private void inputsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            //foreach (DataGridViewRow gridRow in inputsDataGridView.Rows)
-            //{
-            //    if (gridRow.DataBoundItem == null) continue;
-            //    DataRow dataRow = ((gridRow.DataBoundItem as DataRowView).Row as DataRow);
-            //    if (dataRow["settings"] is InputConfigItem)
-            //    {
-            //        InputConfigItem cfg = (dataRow["settings"] as InputConfigItem);
+        { 
+            if (e.ListChangedType == ListChangedType.Reset)
+            {
+                foreach (DataGridViewRow row in (sender as DataGridView).Rows)
+                {
+                    if (row.DataBoundItem == null) continue;
 
-            //        gridRow.Cells["inputName"].Value = cfg.Name;
-            //        gridRow.Cells["inputType"].Value = cfg.Type;
-            //        gridRow.Cells["Module"].Value = cfg.ModuleSerial;
-            //    }
-            //}
+                    DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                    String guid = currentRow["guid"].ToString();
+
+                    if (SelectedGuids.Contains(guid))
+                        row.Selected = true;
+                }
+            }
         }
 
 
@@ -566,6 +567,20 @@ namespace MobiFlight.UI.Panels
 
                     // the current one becomes selected in any case
                     (sender as DataGridView).Rows[e.RowIndex].Selected = true;
+                }
+            }
+            else
+            {
+                if (e.RowIndex == -1)
+                {
+                    // we know that we have clicked on the header area for sorting
+                    SelectedGuids.Clear();
+                    foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
+                    {
+                        DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                        if (currentRow != null)
+                            SelectedGuids.Add(currentRow["guid"].ToString());
+                    }
                 }
             }
         }

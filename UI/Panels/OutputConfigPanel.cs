@@ -19,6 +19,7 @@ namespace MobiFlight.UI.Panels
         private object[] EditedItem = null;
 
         private int lastClickedRow = -1;
+        private List<String> SelectedGuids = new List<String>();
         //private DataTable configDataTable;
         
         public OutputConfigPanel()
@@ -204,6 +205,19 @@ namespace MobiFlight.UI.Panels
 
                     // the current one becomes selected in any case
                     (sender as DataGridView).Rows[e.RowIndex].Selected = true;
+                }
+            } else
+            {
+                if (e.RowIndex == -1)
+                {
+                    // we know that we have clicked on the header area for sorting
+                    SelectedGuids.Clear();
+                    foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
+                    {
+                        DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                        if (currentRow != null)
+                            SelectedGuids.Add(currentRow["guid"].ToString());
+                    }
                 }
             }
         }
@@ -683,6 +697,23 @@ namespace MobiFlight.UI.Panels
                 int index = row.Index;
                 PasteFromClipboard(index+1);
                 return;
+            }
+        }
+
+        private void dataGridViewConfig_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.Reset)
+            {
+                foreach (DataGridViewRow row in (sender as DataGridView).Rows)
+                {
+                    if (row.DataBoundItem == null) continue;
+
+                    DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                    String guid = currentRow["guid"].ToString();
+
+                    if (SelectedGuids.Contains(guid))
+                        row.Selected = true;
+                }
             }
         }
     }
