@@ -1572,12 +1572,12 @@ namespace MobiFlight
                             	// assigned to the row. If not just skip this row. Without this every row that uses the input shift register
                             	// would get added to the input cache and fired even though the pins don't match.
 //GCC CHECK
-                            	if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.ExtPin != e.ExtPin)
+                            	if (e.Type == DeviceType.InputShiftRegister && cfg.inputShiftRegister != null && cfg.inputShiftRegister.ExtPin != e.ExtPin)
                             	{
                                 	continue;
                             	}
                             	// similarly also for digital input Muxes
-                            	if (cfg.digInputMux != null && cfg.digInputMux.ExtPin != e.ExtPin)
+                            	if (e.Type == DeviceType.DigInputMux && cfg.digInputMux != null && cfg.digInputMux.ExtPin != e.ExtPin)
                             	{
                                 	continue;
                             	}
