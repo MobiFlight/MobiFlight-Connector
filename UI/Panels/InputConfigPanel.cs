@@ -399,8 +399,17 @@ namespace MobiFlight.UI.Panels
             foreach (DataRow row in ConfigDataTable.Rows)
             {
                 InputConfigItem cfg = row["settings"] as InputConfigItem;
+                row["inputName"] = "-";
+                row["inputType"] = "-";
+                row["moduleSerial"] = "-";
+
                 if (cfg != null)
                 {
+                    if (cfg.ModuleSerial == null) continue;
+                    row["moduleSerial"] = cfg.ModuleSerial.Split('/')[0];
+
+                    if (cfg.Name=="") continue;
+
                     // Input shift registers show their name in the grid as the shifter name + configured pin for clarity.
                     if (cfg.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
                     {
@@ -414,9 +423,7 @@ namespace MobiFlight.UI.Panels
                     {
                         row["inputName"] = cfg.Name;
                     }
-                    row["inputType"] = cfg.Type;
-                    if (cfg.ModuleSerial == null) continue;
-                    row["moduleSerial"] = cfg.ModuleSerial.Split('/')[0];
+                    row["inputType"] = cfg.Type;                   
                 }
             }
         } //_restoreValuesInGridView()
