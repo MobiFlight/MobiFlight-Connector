@@ -40,6 +40,8 @@ namespace MobiFlight.UI.Dialogs
         UI.Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new UI.Panels.DisplayNothingSelectedPanel();
         UI.Panels.ServoPanel servoPanel = new UI.Panels.ServoPanel();
 
+        bool IsShown = false;
+
         public InputConfigWizard(ExecutionManager mainForm, 
                              InputConfigItem cfg,
 #if ARCAZE
@@ -291,6 +293,8 @@ namespace MobiFlight.UI.Dialogs
 
             DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
 
+            if (groupBoxInputSettings.Controls.Count == 0) return false;
+
             switch (currentInputType)
             {
                 case DeviceType.Button:
@@ -393,7 +397,7 @@ namespace MobiFlight.UI.Dialogs
                         }
                     }
 
-                    if (inputTypeComboBox.Items.Count == 0 && config.Type == InputConfigItem.TYPE_NOTSET)
+                    if (inputTypeComboBox.Items.Count == 0 && this.IsShown)
                     {
                         if (MessageBox.Show(
                                 i18n._tr("uiMessageSelectedModuleDoesNotContainAnyInputDevices"),
@@ -443,7 +447,9 @@ namespace MobiFlight.UI.Dialogs
                 // find the correct input type based on the name
                 foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
                 {
-                    if (device.Name != ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.BaseDevice).Name) continue;
+                    if ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>) == null) 
+                        break;
+                    if (device.Name != ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.BaseDevice)?.Name) continue;
 
                     currentInputType = device.Type;
                     break;
@@ -644,6 +650,11 @@ namespace MobiFlight.UI.Dialogs
         {
             // check if running in test mode
             lastTabActive = (sender as TabControl).SelectedIndex;
+        }
+
+        private void InputConfigWizard_Shown(object sender, EventArgs e)
+        {
+            IsShown = true;
         }
     }
 }
