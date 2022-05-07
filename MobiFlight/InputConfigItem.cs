@@ -178,35 +178,35 @@ namespace MobiFlight
             writer.WriteAttributeString("name", this.Name);
             writer.WriteAttributeString("type", this.Type);
 
-            if (button != null)
+            if (this.Type == MobiFlightButton.TYPE && button != null)
             {
                 writer.WriteStartElement("button");
                 button.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (encoder != null)
+            if (this.Type == MobiFlightEncoder.TYPE && encoder != null)
             {
                 writer.WriteStartElement("encoder");
                 encoder.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (inputShiftRegister != null)
+            if (this.Type == MobiFlightInputShiftRegister.TYPE && inputShiftRegister != null)
             {
                 writer.WriteStartElement("inputShiftRegister");
                 inputShiftRegister.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (digInputMux != null)
+            if (this.Type == MobiFlightDigInputMux.TYPE && digInputMux != null)
             {
                 writer.WriteStartElement("inputMultiplexer");
                 digInputMux.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (analog != null)
+            if (this.Type == MobiFlightAnalogInput.TYPE && analog != null)
             {
                 writer.WriteStartElement("analog");
                 analog.WriteXml(writer);
