@@ -393,7 +393,7 @@ namespace MobiFlight.UI.Dialogs
                         }
                     }
 
-                    if (inputTypeComboBox.Items.Count == 0)
+                    if (inputTypeComboBox.Items.Count == 0 && config.Type == InputConfigItem.TYPE_NOTSET)
                     {
                         if (MessageBox.Show(
                                 i18n._tr("uiMessageSelectedModuleDoesNotContainAnyInputDevices"),

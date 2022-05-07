@@ -49,13 +49,6 @@ namespace MobiFlight.UI.Dialogs
 #endif
             preconditionPanel.preparePreconditionPanel(dataSetConfig, filterGuid);
             initConfigRefDropDowns(dataSetConfig, filterGuid);   
-            
-            displayPanel1.TestModeStartRequested += (sender, args) => { _testModeStart();  };
-            displayPanel1.TestModeStopRequested += (sender, args) => { _testModeStop(); };
-            displayPanel1.DisplayPanelValidatingError += (sender, args) =>
-            {
-                tabControlFsuipc.SelectedTab = displayTabPage;
-            };
         }
 
         private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
@@ -103,6 +96,13 @@ namespace MobiFlight.UI.Dialogs
 
             // DISPLAY PANEL
             displayPanel1.Init(_execManager);
+            displayPanel1.TestModeStartRequested += (sender, args) => { _testModeStart(); };
+            displayPanel1.TestModeStopRequested += (sender, args) => { _testModeStop(); };
+            displayPanel1.DisplayPanelValidatingError += (sender, args) =>
+            {
+                tabControlFsuipc.SelectedTab = displayTabPage;
+            };
+            displayPanel1.SettingsDialogRequested += (sender, args) => { SettingsDialogRequested?.Invoke(sender, args); };
 
             // PRECONDITION PANEL
             preconditionPanel.Init();
