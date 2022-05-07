@@ -18,21 +18,8 @@ namespace MobiFlight.UI.Panels.Input
         InputConfig.EncoderInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
-        InputAction _clipBoardAction = null;
-        InputAction ClipboardAction
-        {
-            get { return _clipBoardAction; }
-            set
-            {
-                if (value != _clipBoardAction)
-                {
-                    _clipBoardAction = value;
-                    _clipBoardActionChanged(value);
-                }
-            }
-        }
 
-        private void _clipBoardActionChanged(InputAction action)
+        private void clipBoardActionChanged(InputAction action)
         {
             onLeftActionTypePanel.OnClipBoardChanged(action);
             onLeftFastActionTypePanel.OnClipBoardChanged(action);
@@ -54,39 +41,54 @@ namespace MobiFlight.UI.Panels.Input
                 action.CopyButtonPressed += Action_CopyButtonPressed;
                 action.PasteButtonPressed += Action_PasteButtonPressed;
             });
+
+            Clipboard.Instance.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
+            {
+                if (e.PropertyName != "InputAction") return;
+
+                clipBoardActionChanged(Clipboard.Instance.InputAction);
+            };
+
+            // activates the paste button
+            // in case that we have something in the clipboard
+            if (Clipboard.Instance.InputAction != null)
+            {
+                clipBoardActionChanged(Clipboard.Instance.InputAction);
+            }
         }
 
         private void Action_PasteButtonPressed(object sender, EventArgs e)
         {
             Panel owner = onLeftActionConfigPanel;
             
-            (sender as ActionTypePanel).syncFromConfig(ClipboardAction);
+            (sender as ActionTypePanel).syncFromConfig(Clipboard.Instance.InputAction);
             
             bool isLeft = ((sender as ActionTypePanel) == onLeftActionTypePanel) || ((sender as ActionTypePanel) == onLeftFastActionTypePanel);
             bool isFast = ((sender as ActionTypePanel) == onLeftFastActionTypePanel) || ((sender as ActionTypePanel) == onRightFastActionTypePanel);
 
             InputConfig.EncoderInputConfig config = new EncoderInputConfig();
             if (isLeft) {
-                if (isFast) { owner = onLeftFastActionConfigPanel; config.onLeftFast = ClipboardAction; }
+                if (isFast) 
+                { 
+                    owner = onLeftFastActionConfigPanel; config.onLeftFast = Clipboard.Instance.InputAction; 
+                }
                 else
                 {
-                    owner = onLeftActionConfigPanel; config.onLeft = ClipboardAction;
+                    owner = onLeftActionConfigPanel; config.onLeft = Clipboard.Instance.InputAction;
                 }
-            } else
-            {
+            } else {
                 if (isFast)
                 {
-                    owner = onRightFastActionConfigPanel; config.onRightFast = ClipboardAction;
+                    owner = onRightFastActionConfigPanel; config.onRightFast = Clipboard.Instance.InputAction;
                 }
                 else
                 {
-                    owner = onRightActionConfigPanel;
-                    config.onRight = ClipboardAction;
+                    owner = onRightActionConfigPanel; config.onRight = Clipboard.Instance.InputAction;
                 }
             }
 
             String value = null;
-            String type = this.ClipboardAction.GetType().ToString();
+            String type = Clipboard.Instance.InputAction.GetType().ToString();
 
             if (type == "MobiFlight.InputConfig.FsuipcOffsetInputAction") value = MobiFlight.InputConfig.FsuipcOffsetInputAction.Label;
             else if (type == "MobiFlight.InputConfig.KeyInputAction") value = MobiFlight.InputConfig.KeyInputAction.Label;
@@ -107,14 +109,17 @@ namespace MobiFlight.UI.Panels.Input
         {
             InputConfig.EncoderInputConfig config = new EncoderInputConfig();
             ToConfig(config);
-            ClipboardAction = config.onLeft;
             bool isLeft = ((sender as ActionTypePanel) == onLeftActionTypePanel) || ((sender as ActionTypePanel) == onLeftFastActionTypePanel);
             bool isFast = ((sender as ActionTypePanel) == onLeftFastActionTypePanel) || ((sender as ActionTypePanel) == onRightFastActionTypePanel);
-            if (isFast) ClipboardAction = config.onLeftFast;
-            else if (!isLeft)
+            if (isLeft)
             {
-                ClipboardAction = config.onRight;
-                if (isFast) ClipboardAction = config.onRightFast;
+                if (isFast) Clipboard.Instance.InputAction = config.onLeftFast;
+                else Clipboard.Instance.InputAction = config.onLeft;
+            }
+            else
+            {
+                if (isFast) Clipboard.Instance.InputAction = config.onRightFast;
+                else Clipboard.Instance.InputAction = config.onRight;
             }
         }
 
@@ -231,6 +236,7 @@ namespace MobiFlight.UI.Panels.Input
 
                 case VariableInputAction.Label:
                     panel = new VariableInputPanel();
+                    
                     (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
                     if (isLeft && !isFast && config != null && config.onLeft != null)
                         (panel as VariableInputPanel).syncFromConfig(config.onLeft as VariableInputAction);

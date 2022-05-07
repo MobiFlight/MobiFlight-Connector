@@ -95,8 +95,6 @@ namespace MobiFlight.UI.Panels.Config
 
             PresetComboBox.Enabled = false;
 
-            _loadPresets();
-
             if (Properties.Settings.Default.SimVarTextBoxExpanded)
             {
                 MaximizeSimVarNameTextBox();
@@ -104,6 +102,11 @@ namespace MobiFlight.UI.Panels.Config
 
             SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             FilterTextBox.TextChanged += textBox1_TextChanged;
+        }
+
+        public void LoadPresets()
+        {
+            _loadPresets();
         }
 
         private void SimConnectPanel_OnLVarsSet(object sender, EventArgs e)

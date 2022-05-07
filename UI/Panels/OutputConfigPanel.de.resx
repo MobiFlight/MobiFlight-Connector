@@ -140,6 +140,21 @@
     <value>Output Wert</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="copyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 22</value>
+  </data>
+  <data name="copyToolStripMenuItem.Text" xml:space="preserve">
+    <value>Kopieren</value>
+  </data>
+  <data name="pasteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 22</value>
+  </data>
+  <data name="pasteToolStripMenuItem.Text" xml:space="preserve">
+    <value>Einfügen</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 6</value>
+  </data>
   <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>160, 22</value>
   </data>
@@ -150,12 +165,12 @@
     <value>160, 22</value>
   </data>
   <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
-    <value>Delete row</value>
+    <value>Zeile löschen</value>
   </data>
   <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Delete the current selected row</value>
   </data>
   <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 48</value>
+    <value>161, 98</value>
   </data>
 </root>

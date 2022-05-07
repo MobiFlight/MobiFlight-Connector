@@ -181,12 +181,15 @@ namespace MobiFlight.UI.Panels
         /// <param name="e"></param>
         private void DataGridViewConfig_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                dataGridViewConfig.EndEdit();
-                lastClickedRow = e.RowIndex;
+            lastClickedRow = e.RowIndex;
 
-                if (e.RowIndex != -1 && e.RowIndex != (sender as DataGridView).Rows.Count - 1)
+            if (e.Button == MouseButtons.Right) 
+            {
+                if (dataGridViewConfig.IsCurrentCellInEditMode) return; 
+
+                dataGridViewConfig.EndEdit();
+                
+                if (e.RowIndex != -1)
                 {
                     if (!(sender as DataGridView).Rows[e.RowIndex].Selected)
                     {
@@ -280,7 +283,12 @@ namespace MobiFlight.UI.Panels
         {
             // do not show up context menu
             // id there is only the new line visible
-            e.Cancel = (dataGridViewConfig.Rows.Count == 1 || (lastClickedRow == dataGridViewConfig.Rows.Count - 1));
+            // e.Cancel = (dataGridViewConfig.Rows.Count == 1 || (lastClickedRow == dataGridViewConfig.Rows.Count - 1));
+            bool isNotLastRow = (lastClickedRow != dataGridViewConfig.Rows.Count - 1);
+            copyToolStripMenuItem.Enabled = isNotLastRow;
+            pasteToolStripMenuItem.Enabled = Clipboard.Instance.OutputConfigItem != null;
+            duplicateRowToolStripMenuItem.Enabled = isNotLastRow;
+            deleteRowToolStripMenuItem.Enabled = isNotLastRow;
         }
 
         private void DataGridViewConfig_KeyUp(object sender, KeyEventArgs e)
@@ -290,7 +298,7 @@ namespace MobiFlight.UI.Panels
             
             // do something
             // toggle active if current key is a simple character
-            if (e.KeyCode.ToString().Length == 1)
+            if (e.KeyCode.ToString().Length == 1 && !e.Control)
             {
 
                 // handle clicks on header cells or row-header cells
@@ -372,10 +380,70 @@ namespace MobiFlight.UI.Panels
                     }
                 }
             }
+            else if (e.KeyCode == Keys.V && e.Control)
+            {
+                // handle clicks on header cells or row-header cells
+                if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
+                int index = dgv.CurrentRow.Index;
+
+                PasteFromClipboard(index + 1);
+            }
+
+            else if (e.KeyCode == Keys.C && e.Control)
+            {
+                // handle clicks on header cells or row-header cells
+                if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
+
+                if ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["description"] != null)
+                {
+                    String Description = (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["description"].ToString();
+                    OutputConfigItem cfg = ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+
+                    CopyToClipboard(Description, cfg);
+                }
+            }
             else
             {
                 // do nothing
             }
+        }
+
+        private static void CopyToClipboard(string Description, OutputConfigItem cfg)
+        {
+            System.Windows.Forms.Clipboard.SetText(Description);
+            Clipboard.Instance.OutputConfigName = Description;
+
+            if (cfg != null)
+            {
+                Clipboard.Instance.OutputConfigItem = cfg;
+            }
+        }
+
+        private void PasteFromClipboard(int index)
+        {
+            this.Validate();
+            DataRow currentRow = configDataTable.NewRow();
+            currentRow["guid"] = Guid.NewGuid();
+            currentRow["active"] = false;
+
+            if (Clipboard.Instance.OutputConfigName != null)
+            {
+                currentRow["description"] = Clipboard.Instance.OutputConfigName.Clone() as String;
+                currentRow["description"] += $" ({i18n._tr("suffixCopy")})";
+            }
+
+            if (Clipboard.Instance.OutputConfigItem != null)
+            {
+                OutputConfigItem cfg = Clipboard.Instance.OutputConfigItem.Clone() as OutputConfigItem;
+                currentRow["settings"] = cfg;
+            }
+
+            if (currentRow.RowState == DataRowState.Detached)
+            {
+                configDataTable.Rows.InsertAt(currentRow, index);
+            }
+
+            RestoreValuesInGridView();
         }
 
         private void DataGridViewConfig_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -562,6 +630,41 @@ namespace MobiFlight.UI.Panels
 
             if (rowview.Row.ItemArray != null)
                 EditedItem = rowview.Row.ItemArray;
+        }
+
+        private void dataGridViewConfig_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.ContextMenu = new ContextMenu();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // do somehting here
+            foreach (DataGridViewRow row in dataGridViewConfig.SelectedRows)
+            {
+                // ignore new rows since they cannot be copied nor deleted
+                if (row.IsNewRow) continue;
+
+                DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                String Description = currentRow["description"] as String;
+                OutputConfigItem cfg = currentRow["settings"] as OutputConfigItem;
+                CopyToClipboard(Description, cfg);
+                return;
+            }
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // do somehting here
+            foreach (DataGridViewRow row in dataGridViewConfig.SelectedRows)
+            {
+                // ignore new rows since they cannot be copied nor deleted
+                //if (row.IsNewRow) continue;
+
+                int index = row.Index;
+                PasteFromClipboard(index+1);
+                return;
+            }
         }
     }
 }
