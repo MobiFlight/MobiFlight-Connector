@@ -522,6 +522,8 @@ namespace MobiFlight
             // that came from the inputs and are waiting to be written
             // fsuipcCache.Write();
 
+            UpdateInputPreconditions();
+
             isExecuting = false;
         }
 
@@ -1646,6 +1648,43 @@ namespace MobiFlight
             }
 
             //fsuipcCache.ForceUpdate();
+        }
+
+        private void UpdateInputPreconditions()
+        {
+            foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
+            {
+                try
+                {
+                    if (gridViewRow.DataBoundItem == null) continue;
+
+                    DataRowView rowView = gridViewRow.DataBoundItem as DataRowView;
+                    InputConfigItem cfg = rowView.Row["settings"] as InputConfigItem;
+
+                    // item currently created and not saved yet.
+                    if (cfg == null) continue;
+
+                    // if there are preconditions check and skip if necessary
+                    if (cfg.Preconditions.Count > 0)
+                    {
+                        ConnectorValue currentValue = new ConnectorValue();
+                        if (!CheckPrecondition(cfg, currentValue))
+                        {
+                            gridViewRow.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            continue;
+                        }
+                        else
+                        {
+                            gridViewRow.ErrorText = "";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // probably the last row with no settings object 
+                    continue;
+                }
+            }
         }
 
         private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
