@@ -19,11 +19,13 @@ namespace MobiFlight
         // @see: https://forge.simple-solutions.de/issues/275
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
         public const String TYPE_NOTSET = "";
-        public const String TYPE_BUTTON = "Button";
-        public const String TYPE_ENCODER = "Encoder";
-        public const String TYPE_INPUT_SHIFT_REGISTER = "InputShiftRegister";
-        public const String TYPE_DIG_INPUT_MUX = "DigInputMux";
-        public const String TYPE_ANALOG = "Analog";
+        public const String TYPE_BUTTON = MobiFlightButton.TYPE;
+        public const String TYPE_ENCODER = MobiFlightEncoder.TYPE;
+        public const String TYPE_INPUT_SHIFT_REGISTER = MobiFlightInputShiftRegister.TYPE;
+        public const String TYPE_DIG_INPUT_MUX = MobiFlightDigInputMux.TYPE;
+        public const String TYPE_ANALOG = MobiFlightAnalogInput.TYPE;
+        // only for backward compatibility during loading
+        public const String TYPE_ANALOG_OLD = "Analog";
 
         public string ModuleSerial { get; set; }
         public string Name { get; set; }
@@ -85,6 +87,7 @@ namespace MobiFlight
             if (reader["type"] != null && reader["type"] != "")
             {
                 Type = reader["type"];
+                if (Type == TYPE_ANALOG_OLD) Type = TYPE_ANALOG;
             }
 
             reader.Read(); // this should be the button or encoder
@@ -178,35 +181,35 @@ namespace MobiFlight
             writer.WriteAttributeString("name", this.Name);
             writer.WriteAttributeString("type", this.Type);
 
-            if (this.Type == MobiFlightButton.TYPE && button != null)
+            if (this.Type == TYPE_BUTTON && button != null)
             {
                 writer.WriteStartElement("button");
                 button.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Type == MobiFlightEncoder.TYPE && encoder != null)
+            if (this.Type == TYPE_ENCODER && encoder != null)
             {
                 writer.WriteStartElement("encoder");
                 encoder.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Type == MobiFlightInputShiftRegister.TYPE && inputShiftRegister != null)
+            if (this.Type == TYPE_INPUT_SHIFT_REGISTER && inputShiftRegister != null)
             {
                 writer.WriteStartElement("inputShiftRegister");
                 inputShiftRegister.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Type == MobiFlightDigInputMux.TYPE && digInputMux != null)
+            if (this.Type == TYPE_DIG_INPUT_MUX && digInputMux != null)
             {
                 writer.WriteStartElement("inputMultiplexer");
                 digInputMux.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Type == MobiFlightAnalogInput.TYPE && analog != null)
+            if (this.Type == TYPE_ANALOG && analog != null)
             {
                 writer.WriteStartElement("analog");
                 analog.WriteXml(writer);
