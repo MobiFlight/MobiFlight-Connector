@@ -359,7 +359,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         }
                     }
 
-                    if (displayTypeComboBox.Items.Count == 0)
+                    if (displayTypeComboBox.Items.Count == 0 && this.Visible)
                     {
                         if (MessageBox.Show(
                                 i18n._tr("uiMessageSelectedModuleDoesNotContainAnyOutputDevices"),

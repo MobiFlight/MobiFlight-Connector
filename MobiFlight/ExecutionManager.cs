@@ -522,6 +522,8 @@ namespace MobiFlight
             // that came from the inputs and are waiting to be written
             // fsuipcCache.Write();
 
+            UpdateInputPreconditions();
+
             isExecuting = false;
         }
 
@@ -1572,12 +1574,12 @@ namespace MobiFlight
                             	// assigned to the row. If not just skip this row. Without this every row that uses the input shift register
                             	// would get added to the input cache and fired even though the pins don't match.
 //GCC CHECK
-                            	if (cfg.inputShiftRegister != null && cfg.inputShiftRegister.ExtPin != e.ExtPin)
+                            	if (e.Type == DeviceType.InputShiftRegister && cfg.inputShiftRegister != null && cfg.inputShiftRegister.ExtPin != e.ExtPin)
                             	{
                                 	continue;
                             	}
                             	// similarly also for digital input Muxes
-                            	if (cfg.digInputMux != null && cfg.digInputMux.ExtPin != e.ExtPin)
+                            	if (e.Type == DeviceType.DigInputMux && cfg.digInputMux != null && cfg.digInputMux.ExtPin != e.ExtPin)
                             	{
                                 	continue;
                             	}
@@ -1646,6 +1648,43 @@ namespace MobiFlight
             }
 
             //fsuipcCache.ForceUpdate();
+        }
+
+        private void UpdateInputPreconditions()
+        {
+            foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
+            {
+                try
+                {
+                    if (gridViewRow.DataBoundItem == null) continue;
+
+                    DataRowView rowView = gridViewRow.DataBoundItem as DataRowView;
+                    InputConfigItem cfg = rowView.Row["settings"] as InputConfigItem;
+
+                    // item currently created and not saved yet.
+                    if (cfg == null) continue;
+
+                    // if there are preconditions check and skip if necessary
+                    if (cfg.Preconditions.Count > 0)
+                    {
+                        ConnectorValue currentValue = new ConnectorValue();
+                        if (!CheckPrecondition(cfg, currentValue))
+                        {
+                            gridViewRow.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            continue;
+                        }
+                        else
+                        {
+                            gridViewRow.ErrorText = "";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // probably the last row with no settings object 
+                    continue;
+                }
+            }
         }
 
         private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)

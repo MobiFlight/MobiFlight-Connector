@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MobiFlight.UI.Dialogs;
+using MobiFlight.Base;
 
 namespace MobiFlight.UI.Panels
 {
@@ -18,6 +19,7 @@ namespace MobiFlight.UI.Panels
         private object[] EditedItem = null;
 
         private int lastClickedRow = -1;
+        private List<String> SelectedGuids = new List<String>();
         //private DataTable configDataTable;
         
         public OutputConfigPanel()
@@ -203,6 +205,19 @@ namespace MobiFlight.UI.Panels
 
                     // the current one becomes selected in any case
                     (sender as DataGridView).Rows[e.RowIndex].Selected = true;
+                }
+            } else
+            {
+                if (e.RowIndex == -1)
+                {
+                    // we know that we have clicked on the header area for sorting
+                    SelectedGuids.Clear();
+                    foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
+                    {
+                        DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                        if (currentRow != null)
+                            SelectedGuids.Add(currentRow["guid"].ToString());
+                    }
                 }
             }
         }
@@ -530,10 +545,14 @@ namespace MobiFlight.UI.Panels
             foreach (DataRow row in ConfigDataTable.Rows)
             {
                 OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
+                row["OutputName"] = "-";
+                row["OutputType"] = "-";
+                row["arcazeSerial"] = "-";
+
                 if (cfgItem != null)
                 {
                     row["fsuipcOffset"] = "0x" + cfgItem.FSUIPC.Offset.ToString("X4");
-                    if (cfgItem.DisplaySerial != null)
+                    if (cfgItem.DisplaySerial != null && cfgItem.DisplaySerial != "-")
                     {
                         row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];
                     
@@ -556,6 +575,20 @@ namespace MobiFlight.UI.Panels
                             case MobiFlightStepper.TYPE:
                                 row["OutputName"] = cfgItem.Stepper.Address;
                                 break;
+                        }
+                    } else if(cfgItem.DisplayType=="InputAction")
+                    {
+                        row["OutputType"] = cfgItem.DisplayType;
+                        if (cfgItem.ButtonInputConfig!=null)
+                        {
+                            if (cfgItem.ButtonInputConfig.onRelease!=null)
+                                row["OutputName"] = cfgItem.ButtonInputConfig.onRelease.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
+                            if (cfgItem.ButtonInputConfig.onPress != null)
+                                row["OutputName"] = cfgItem.ButtonInputConfig.onPress.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
+                        }
+                        if (cfgItem.AnalogInputConfig != null)
+                        {
+                            row["OutputName"] = cfgItem.AnalogInputConfig.onChange.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
                         }
                     }
                 }
@@ -664,6 +697,23 @@ namespace MobiFlight.UI.Panels
                 int index = row.Index;
                 PasteFromClipboard(index+1);
                 return;
+            }
+        }
+
+        private void dataGridViewConfig_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.Reset)
+            {
+                foreach (DataGridViewRow row in (sender as DataGridView).Rows)
+                {
+                    if (row.DataBoundItem == null) continue;
+
+                    DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                    String guid = currentRow["guid"].ToString();
+
+                    if (SelectedGuids.Contains(guid))
+                        row.Selected = true;
+                }
             }
         }
     }
