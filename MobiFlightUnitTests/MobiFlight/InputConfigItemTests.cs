@@ -133,6 +133,32 @@ namespace MobiFlight.Tests
             String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputConfigItem\WriteXmlTest.1.xml");
 
             Assert.AreEqual(s, result, "The both strings are not equal");
+
+            // https://github.com/MobiFlight/MobiFlight-Connector/issues/797
+            o = new InputConfigItem();
+            o.Type = InputConfigItem.TYPE_ANALOG;
+            if (o.analog == null) o.analog = new InputConfig.AnalogInputConfig();
+            o.analog.onChange = new MSFS2020CustomInputAction() { Command = "test", PresetId = Guid.NewGuid().ToString() };
+
+            sw = new StringWriter();
+            xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
+            xmlWriter.WriteStartElement("settings");
+            o.WriteXml(xmlWriter);
+            xmlWriter.WriteEndElement();
+            xmlWriter.Flush();
+            s = sw.ToString();
+
+            StringReader sr = new StringReader(s);
+            XmlReaderSettings readerSettings = new XmlReaderSettings();
+            readerSettings.IgnoreWhitespace = true;
+
+            XmlReader xmlReader = System.Xml.XmlReader.Create(sr, readerSettings);
+            InputConfigItem o1 = new InputConfigItem();
+            xmlReader.ReadToDescendant("settings");
+            o1.ReadXml(xmlReader);
+
+            Assert.IsNotNull(o1.analog, "Is null");
+            Assert.AreEqual(o.analog.onChange is MSFS2020CustomInputAction, o1.analog.onChange is MSFS2020CustomInputAction, "Not of type MSFS2020CustomInputAction");
         }
 
         [TestMethod()]
