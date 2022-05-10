@@ -172,7 +172,7 @@
     <value>1</value>
   </data>
   <data name="mfNumModulesComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 38</value>
+    <value>76, 38</value>
   </data>
   <data name="mfNumModulesComboBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>67, 21</value>
@@ -196,7 +196,7 @@
     <value>NoControl</value>
   </data>
   <data name="numberOfModulesLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>57, 19</value>
+    <value>76, 19</value>
   </data>
   <data name="numberOfModulesLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>103, 17</value>
@@ -250,7 +250,7 @@
     <value>9, 38</value>
   </data>
   <data name="mfPin1ComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 21</value>
+    <value>52, 21</value>
   </data>
   <data name="mfPin1ComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
