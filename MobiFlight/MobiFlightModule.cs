@@ -51,7 +51,7 @@ namespace MobiFlight
         ShiftRegister,       // 10
         AnalogInput,         // 11
         InputShiftRegister,  // 12
-        MuxDriver,   		 // 13  Not a proper device, but index required for update events
+        MultiplexerDriver,   // 13  Not a proper device, but index required for update events
         InputMultiplexer, 	 // 15
     }
 
@@ -367,8 +367,8 @@ namespace MobiFlight
                         device.Name = GenerateUniqueDeviceName(inputMultiplexers.Keys.ToArray(), device.Name);
                         inputMultiplexers.Add(device.Name, new MobiFlightInputMultiplexer() { Name = device.Name });
                         break;
-                        // The MuxDriver does not belong here (a "MobiFlightMuxDriverS" doesn't even exist) because all I/O devices here
-                        // are only those meant to be linked to a user input event or output data, while MuxDrivers are not addressable
+                        // The MultiplexerDriver does not belong here (a "MobiFlightMultiplexerDriverS" doesn't even exist) because all I/O devices here
+                        // are only those meant to be linked to a user input event or output data, while MultiplexerDrivers are not addressable
                         // by the user (and shouldn't show in the UI).
                 }
             }
@@ -1153,11 +1153,11 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[3]));
                         break;
 
-                    //case DeviceType.MuxDriver:
-                    //    usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[0]));
-                    //    usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[1]));
-                    //    usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[2]));
-                    //    usedPins.Add(Convert.ToByte((device as MuxDriver).PinSx[3]));
+                    //case DeviceType.MultiplexerDriver:
+                    //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[0]));
+                    //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[1]));
+                    //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[2]));
+                    //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[3]));
                     //    break;
 
                     default:

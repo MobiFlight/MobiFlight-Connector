@@ -420,12 +420,6 @@
             resources.ApplyResources(this.addInputMultiplexerToolStripMenuItem, "addInputMultiplexerToolStripMenuItem");
             this.addInputMultiplexerToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
-            // addInputMultiplexerToolStripMenuItem
-            // 
-            this.addInputMultiplexerToolStripMenuItem.Name = "addInputMultiplexerToolStripMenuItem";
-            resources.ApplyResources(this.addInputMultiplexerToolStripMenuItem, "addInputMultiplexerToolStripMenuItem");
-            this.addInputMultiplexerToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
-            // 
             // removeDeviceToolStripButton
             // 
             this.removeDeviceToolStripButton.Image = global::MobiFlight.Properties.Resources.star_yellow_delete;

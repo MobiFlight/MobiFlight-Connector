@@ -11,7 +11,7 @@ namespace MobiFlight.UI.Panels.Settings
         private bool                initialized;
         private bool                firstMuxed;
         private InputMultiplexer         inputMultiplexer;
-        private MFMuxDriverSubPanel selectorPanel; 
+        private MFMultiplexerDriverSubPanel selectorPanel; 
         
         private int MAX_MODULES = 2;            // Only possible values: 1 module for HCT4051, 2 for HCT4067
         private const string NA_STRING = "N/A";
@@ -32,7 +32,7 @@ namespace MobiFlight.UI.Panels.Settings
             firstMuxed = isFirstMuxed;
 
             // Set selector panel values
-            selectorPanel = new MFMuxDriverSubPanel(inputMultiplexer.Selector, Pins, isFirstMuxed);
+            selectorPanel = new MFMultiplexerDriverSubPanel(inputMultiplexer.Selector, Pins, isFirstMuxed);
             selectorPanel.Changed += this.Changed;
             selectorPanel.MoveToFirstMux += new EventHandler(gotoToFirstMux);
             selectorPanel.notifyPinListChange = receivePinChange;
@@ -80,7 +80,7 @@ namespace MobiFlight.UI.Panels.Settings
         public void UpdateFreePinsInDropDowns(List<MobiFlightPin> newPinList = null)
         {
             // This method is public (and has an optional "new pin list" argument) because it must be called by the
-            // embedded MFMuxDriverSubPanel in case its pin data changes.
+            // embedded MFMultiplexerDriverSubPanel in case its pin data changes.
             bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
             if (newPinList != null)

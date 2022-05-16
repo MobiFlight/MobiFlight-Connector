@@ -11,7 +11,7 @@ namespace MobiFlight.Config
         // This might be seen as consistent with including the selector pins in the config messages
         // (which is in itself arguable at least), but it has no real use and it might might lead to "strange" issues
         // if the config file is tampered with.
-        public MobiFlight.Config.MuxDriver Selector;
+        public MobiFlight.Config.MultiplexerDriver Selector;
 
         const ushort _paramCount = 7;
         [XmlAttribute]
@@ -27,14 +27,14 @@ namespace MobiFlight.Config
             Selector = null;
         }
 
-        public InputMultiplexer(MobiFlight.Config.MuxDriver muxSelector) { 
+        public InputMultiplexer(MobiFlight.Config.MultiplexerDriver muxSelector) { 
             Name = "InputMultiplexer"; 
             _type = DeviceType.InputMultiplexer;
             _muxClient = true;
             Selector = muxSelector;
         }
 
-        public void setDriver(MobiFlight.Config.MuxDriver muxSelector)
+        public void setDriver(MobiFlight.Config.MultiplexerDriver muxSelector)
         {
             Selector = muxSelector;
         }
@@ -65,9 +65,9 @@ namespace MobiFlight.Config
             NumModules  = paramList[6];
             Name        = paramList[7];
 
-            // pass the MuxDriver pins, but only if the muxDriver wasn't already set
+            // pass the MultiplexerDriver pins, but only if the multiplexerDriver wasn't already set
             if (Selector == null || Selector.isInitialized()) return false;
-            value = ((int)DeviceType.MuxDriver).ToString() + Separator + paramList[2] + Separator + paramList[3] + Separator + paramList[4] + Separator + paramList[5] + End;
+            value = ((int)DeviceType.MultiplexerDriver).ToString() + Separator + paramList[2] + Separator + paramList[3] + Separator + paramList[4] + Separator + paramList[5] + End;
             Selector.FromInternal(value);
             // The FromInternal() call takes care internally of the activation counter and the "initialized" flag
             return true;

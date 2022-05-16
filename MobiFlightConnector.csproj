@@ -207,7 +207,7 @@
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\Config\InputMultiplexer.cs" />
-    <Compile Include="MobiFlight\Config\MuxDriver.cs" />
+    <Compile Include="MobiFlight\Config\MultiplexerDriver.cs" />
     <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
@@ -380,17 +380,17 @@
     <Compile Include="UI\Panels\Config\TransformOptionsGroup.Designer.cs">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Device\MFDigInputMuxPanel.cs">
+    <Compile Include="UI\Panels\Device\MFInputMultiplexerPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Device\MFDigInputMuxPanel.Designer.cs">
-      <DependentUpon>MFDigInputMuxPanel.cs</DependentUpon>
+    <Compile Include="UI\Panels\Device\MFInputMultiplexerPanel.Designer.cs">
+      <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Device\MFMuxDriverSubPanel.cs">
+    <Compile Include="UI\Panels\Device\MFMultiplexerDriverSubPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Device\MFMuxDriverSubPanel.Designer.cs">
-      <DependentUpon>MFMuxDriverSubPanel.cs</DependentUpon>
+    <Compile Include="UI\Panels\Device\MFMultiplexerDriverSubPanel.Designer.cs">
+      <DependentUpon>MFMultiplexerDriverSubPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Device\MFInputShiftRegisterPanel.cs">
       <SubType>UserControl</SubType>
@@ -989,19 +989,19 @@
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\MFDigInputMuxPanel.de.resx">
-      <DependentUpon>MFDigInputMuxPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Device\MFInputMultiplexerPanel.de.resx">
+      <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\MFDigInputMuxPanel.resx">
-      <DependentUpon>MFDigInputMuxPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Device\MFInputMultiplexerPanel.resx">
+      <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\MFMuxDriverSubPanel.de.resx">
-      <DependentUpon>MFMuxDriverSubPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Device\MFMultiplexerDriverSubPanel.de.resx">
+      <DependentUpon>MFMultiplexerDriverSubPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\MFMuxDriverSubPanel.resx">
-      <DependentUpon>MFMuxDriverSubPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Device\MFMultiplexerDriverSubPanel.resx">
+      <DependentUpon>MFMultiplexerDriverSubPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFInputShiftRegisterPanel.de.resx">

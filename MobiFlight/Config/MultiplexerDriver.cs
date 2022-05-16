@@ -4,12 +4,12 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
-    // MuxDriver is not really used as a full-fledged BaseDevice (though it could really well be);
+    // MultiplexerDriver is not really used as a full-fledged BaseDevice (though it could really well be);
     // it is mainly embedded in other devices which are mux clients.
     // However, it inherits from BaseDevice because:
     // 1 - it uses many of the features of the base class in the very same capacity
     // 2 - this way it can easily be returned to the role of full Device, should it be required
-    public class MuxDriver: BaseDevice
+    public class MultiplexerDriver: BaseDevice
     {
         const ushort _paramCount = 4;
         private int _initCounter;
@@ -17,10 +17,10 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String[] PinSx = { "-1", "-2", "-3", "-4" };
 
-        public MuxDriver()
+        public MultiplexerDriver()
         {
-            Name = "MuxDriver"; 
-            _type = DeviceType.MuxDriver;
+            Name = "MultiplexerDriver"; 
+            _type = DeviceType.MultiplexerDriver;
             Reset();
         }
 
