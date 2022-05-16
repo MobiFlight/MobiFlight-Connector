@@ -40,7 +40,6 @@ namespace MobiFlight.UI.Panels.Input
 
             Clipboard.Instance.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
             {
-                Log.Instance.log(e.PropertyName, LogSeverity.Debug);
                 if (e.PropertyName != "InputAction") return;
 
                 clipBoardActionChanged(Clipboard.Instance.InputAction);
