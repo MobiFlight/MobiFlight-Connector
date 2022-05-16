@@ -21,7 +21,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(LcdDisplay))]
         [XmlElement(typeof(AnalogInput))]
         [XmlElement(typeof(ShiftRegister))]
-        [XmlElement(typeof(DigInputMux))]
+        [XmlElement(typeof(InputMultiplexer))]
         [XmlElement(typeof(MuxDriver))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
@@ -139,16 +139,16 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
-                        case DeviceType.DigInputMux:
+                        case DeviceType.InputMultiplexer:
                             // Build muxDriver if none found yet 
                             if (muxDriver == null) {
                                 muxDriver = new MobiFlight.Config.MuxDriver();
                                 // muxDriver is not yet init'ed with pin numbers: the FromInternal() of the client
-                                // (in this case DigInputMux) will provide them
+                                // (in this case InputMultiplexer) will provide them
                                 // Treat the MuxDriver as a regular device (add it to the items list), except it won't be shown in the GUI tree.
                                 Items.Add(muxDriver);
                             }
-                            currentItem = new MobiFlight.Config.DigInputMux(muxDriver);
+                            currentItem = new MobiFlight.Config.InputMultiplexer(muxDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
 
                             break;

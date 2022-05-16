@@ -346,10 +346,10 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFInputShiftRegisterPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
-                        case DeviceType.DigInputMux:
-                            panel = new MFDigInputMuxPanel(dev as MobiFlight.Config.DigInputMux, module.GetPins(), (getFirstMuxClient()==selectedNode));
-                            (panel as MFDigInputMuxPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
-                            (panel as MFDigInputMuxPanel).MoveToFirstMux += new EventHandler(mfMoveToFirstMuxClient);
+                        case DeviceType.InputMultiplexer:
+                            panel = new MFInputMultiplexerPanel(dev as MobiFlight.Config.InputMultiplexer, module.GetPins(), (getFirstMuxClient()==selectedNode));
+                            (panel as MFInputMultiplexerPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            (panel as MFInputMultiplexerPanel).MoveToFirstMux += new EventHandler(mfMoveToFirstMuxClient);
                             break;
 
                         //case DeviceType.MuxDriver:
@@ -523,14 +523,14 @@ namespace MobiFlight.UI.Panels.Settings
                         (cfgItem as MobiFlight.Config.InputShiftRegister).ClockPin = freePinList.ElementAt(1).ToString();
                         (cfgItem as MobiFlight.Config.InputShiftRegister).LatchPin = freePinList.ElementAt(2).ToString();
                         break;
-                    case "digInputMuxToolStripMenuItem":
-                    case "addDigInputMuxToolStripMenuItem":
-                        if (statistics[MobiFlightDigInputMux.TYPE] == tempModule.Board.ModuleLimits.MaxDigInputMuxes) {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightDigInputMux.TYPE, tempModule.Board.ModuleLimits.MaxDigInputMuxes);
+                    case "inputMultiplexerToolStripMenuItem":
+                    case "addInputMultiplexerToolStripMenuItem":
+                        if (statistics[MobiFlightInputMultiplexer.TYPE] == tempModule.Board.ModuleLimits.MaxInputMultiplexer) {
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightInputMultiplexer.TYPE, tempModule.Board.ModuleLimits.MaxInputMultiplexer);
                         }
                         // getOrAddModuleMuxDriver() takes care of creating the MuxDriver if not done yet:
-                        cfgItem = new MobiFlight.Config.DigInputMux(getOrAddModuleMuxDriver(freePinList));
-                        (cfgItem as MobiFlight.Config.DigInputMux).DataPin = freePinList.ElementAt(0).ToString();
+                        cfgItem = new MobiFlight.Config.InputMultiplexer(getOrAddModuleMuxDriver(freePinList));
+                        (cfgItem as MobiFlight.Config.InputMultiplexer).DataPin = freePinList.ElementAt(0).ToString();
                         break;
 
                     case "LcdDisplayToolStripMenuItem":
@@ -745,7 +745,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             mfModulesTreeView.Nodes.Remove(node);
             
-            // if we're removing a device that uses the multiplexer driver (currently DigInputMux only),
+            // if we're removing a device that uses the multiplexer driver (currently InputMultiplexer only),
             // check if any other device uses it, and otherwise make sure to remove that too 
             if (requiresMuxDriver(node.Tag as MobiFlight.Config.BaseDevice)) {
                 unregisterMuxClient();

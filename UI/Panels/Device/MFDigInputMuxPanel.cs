@@ -5,12 +5,12 @@ using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings
 {
-    public partial class MFDigInputMuxPanel : UserControl
+    public partial class MFInputMultiplexerPanel : UserControl
     {
         private List<MobiFlightPin> pinList;    // COMPLETE list of pins (includes status)
         private bool                initialized;
         private bool                firstMuxed;
-        private DigInputMux         digInputMux;
+        private InputMultiplexer         inputMultiplexer;
         private MFMuxDriverSubPanel selectorPanel; 
         
         private int MAX_MODULES = 2;            // Only possible values: 1 module for HCT4051, 2 for HCT4067
@@ -20,19 +20,19 @@ namespace MobiFlight.UI.Panels.Settings
         // event that will re-throw the same event from the selectorPanel: see note to gotoToFirstMux()
         public event EventHandler   MoveToFirstMux;
 
-        public MFDigInputMuxPanel()
+        public MFInputMultiplexerPanel()
         {
             InitializeComponent();
             mfPin1ComboBox.Items.Clear();
         }
 
-        public MFDigInputMuxPanel(DigInputMux digInputMux, List<MobiFlightPin> Pins, bool isFirstMuxed) : this()
+        public MFInputMultiplexerPanel(InputMultiplexer inputMultiplexer, List<MobiFlightPin> Pins, bool isFirstMuxed) : this()
         {
             pinList = Pins; // Keep pin list stored
             firstMuxed = isFirstMuxed;
 
             // Set selector panel values
-            selectorPanel = new MFMuxDriverSubPanel(digInputMux.Selector, Pins, isFirstMuxed);
+            selectorPanel = new MFMuxDriverSubPanel(inputMultiplexer.Selector, Pins, isFirstMuxed);
             selectorPanel.Changed += this.Changed;
             selectorPanel.MoveToFirstMux += new EventHandler(gotoToFirstMux);
             selectorPanel.notifyPinListChange = receivePinChange;
@@ -42,7 +42,7 @@ namespace MobiFlight.UI.Panels.Settings
             selectorPanel.Dock = DockStyle.Fill;
 
             // Set Data pin values
-            this.digInputMux = digInputMux;
+            this.inputMultiplexer = inputMultiplexer;
             UpdateFreePinsInDropDowns();
 
             // Set non-pin data values
@@ -50,8 +50,8 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 mfNumModulesComboBox.Items.Add(i);
             }
-            ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, digInputMux.NumModules);
-            textBox1.Text = digInputMux.Name;
+            ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, inputMultiplexer.NumModules);
+            textBox1.Text = inputMultiplexer.Name;
 
             initialized = true;
         }
@@ -74,9 +74,8 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void setNonPinValues()
         {
-            //digInputMux.DataPin = mfPin1ComboBox.Text;
-            digInputMux.Name = textBox1.Text;
-            digInputMux.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
+            inputMultiplexer.Name = textBox1.Text;
+            inputMultiplexer.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
         }
         public void UpdateFreePinsInDropDowns(List<MobiFlightPin> newPinList = null)
         {
@@ -88,7 +87,7 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 pinList = newPinList;
             }
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, digInputMux.DataPin);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, inputMultiplexer.DataPin);
             if(!firstMuxed)
             {
                 selectorPanel.UpdateFreePinsInDropDowns(pinList);
@@ -102,8 +101,8 @@ namespace MobiFlight.UI.Panels.Settings
             initialized = false;    // inhibit value_Changed events
 
             // First update the one that is changed
-            // Here, the config data (digInputMux.DataPin) is updated with the new value read from the changed ComboBox;
-            if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref digInputMux.DataPin); }
+            // Here, the config data (inputMultiplexer.DataPin) is updated with the new value read from the changed ComboBox;
+            if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref inputMultiplexer.DataPin); }
             UpdateFreePinsInDropDowns();
 
             initialized = exInitialized;
@@ -115,7 +114,7 @@ namespace MobiFlight.UI.Panels.Settings
             ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)
-                Changed(digInputMux, new EventArgs());
+                Changed(inputMultiplexer, new EventArgs());
         }
     }
 }

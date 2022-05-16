@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
-    public class DigInputMux : BaseDevice
+    public class InputMultiplexer : BaseDevice
     {
         //The selector is serialized without specifying [XmlAttribute], because it is serializable itself
         //TODO: should we not prevent including Selector in the clients'serialization?
@@ -19,17 +19,17 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String NumModules = "2"; // defaults to CD4067
 
-        public DigInputMux()
+        public InputMultiplexer()
         {
-            Name = "DigInputMux";
-            _type = DeviceType.DigInputMux;
+            Name = "InputMultiplexer";
+            _type = DeviceType.InputMultiplexer;
             _muxClient = true;
             Selector = null;
         }
 
-        public DigInputMux(MobiFlight.Config.MuxDriver muxSelector) { 
-            Name = "DigInputMux"; 
-            _type = DeviceType.DigInputMux;
+        public InputMultiplexer(MobiFlight.Config.MuxDriver muxSelector) { 
+            Name = "InputMultiplexer"; 
+            _type = DeviceType.InputMultiplexer;
             _muxClient = true;
             Selector = muxSelector;
         }

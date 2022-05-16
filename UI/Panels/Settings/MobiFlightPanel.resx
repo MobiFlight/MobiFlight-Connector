@@ -453,10 +453,10 @@
   <data name="addInputShiftRegisterToolStripMenuItem.Text" xml:space="preserve">
     <value>Input Shift Register</value>
   </data>
-  <data name="addDigInputMuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="addInputMultiplexerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>265, 34</value>
   </data>
-  <data name="addDigInputMuxToolStripMenuItem.Text" xml:space="preserve">
+  <data name="addInputMultiplexerToolStripMenuItem.Text" xml:space="preserve">
     <value>Digital Input Multiplexer</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -891,10 +891,10 @@
   <data name="&gt;&gt;addInputShiftRegisterToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;addDigInputMuxToolStripMenuItem.Name" xml:space="preserve">
-    <value>addDigInputMuxToolStripMenuItem</value>
+  <data name="&gt;&gt;addInputMultiplexerToolStripMenuItem.Name" xml:space="preserve">
+    <value>addInputMultiplexerToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;addDigInputMuxToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;addInputMultiplexerToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
@@ -921,16 +921,16 @@
   <data name="&gt;&gt;CompatibleBoardScanToolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="digInputMuxToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="inputMultiplexerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
-  <data name="digInputMuxToolStripMenuItem.Text" xml:space="preserve">
+  <data name="inputMultiplexerToolStripMenuItem.Text" xml:space="preserve">
     <value>Digital Input Multiplexer</value>
   </data>
-  <data name="&gt;&gt;digInputMuxToolStripMenuItem.Name" xml:space="preserve">
-    <value>digInputMuxToolStripMenuItem</value>
+  <data name="&gt;&gt;inputMultiplexerToolStripMenuItem.Name" xml:space="preserve">
+    <value>inputMultiplexerToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;digInputMuxToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;inputMultiplexerToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

@@ -56,7 +56,7 @@ namespace MobiFlight.UI.Panels.Settings
         public void UpdateFreePinsInDropDowns(List<MobiFlightPin> newPinList = null)
         {
             // This method is public (and has an optional "new pin list" argument) because it must be called by the
-            // host MFDigInputMuxPanel in case its pin data changes.
+            // host MFInputMultiplexerPanel in case its pin data changes.
             bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
             if (newPinList != null)

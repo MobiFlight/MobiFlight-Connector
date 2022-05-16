@@ -27,14 +27,14 @@
     "MaxAnalogInputs": 6,
     "MaxButtons": 18,
     "MaxEncoders": 3,
-    "MaxInputShifters":  2,
+    "MaxInputShifters": 2,
     "MaxLcdI2C": 2,
     "MaxLedSegments": 1,
     "MaxOutputs": 18,
     "MaxServos": 2,
     "MaxShifters": 2,
     "MaxSteppers": 2,
-    "MaxDigInputMuxes": 1,
+    "MaxInputMultiplexer": 1
   },
   "Pins": [
     {
