@@ -265,7 +265,7 @@
     <value>9, 32</value>
   </data>
   <data name="mfPinS0ComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 21</value>
+    <value>45, 21</value>
   </data>
   <data name="mfPinS0ComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -283,10 +283,10 @@
     <value>5</value>
   </data>
   <data name="mfPinS1ComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>53, 32</value>
+    <value>60, 32</value>
   </data>
   <data name="mfPinS1ComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 21</value>
+    <value>45, 21</value>
   </data>
   <data name="mfPinS1ComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -304,10 +304,10 @@
     <value>6</value>
   </data>
   <data name="mfPinS2ComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 32</value>
+    <value>111, 32</value>
   </data>
   <data name="mfPinS2ComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 21</value>
+    <value>45, 21</value>
   </data>
   <data name="mfPinS2ComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -325,10 +325,10 @@
     <value>7</value>
   </data>
   <data name="mfPinS3ComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>141, 32</value>
+    <value>162, 32</value>
   </data>
   <data name="mfPinS3ComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 21</value>
+    <value>45, 21</value>
   </data>
   <data name="mfPinS3ComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -346,7 +346,7 @@
     <value>8</value>
   </data>
   <data name="mfPinS1Label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>53, 17</value>
+    <value>60, 17</value>
   </data>
   <data name="mfPinS1Label.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 14</value>
@@ -370,7 +370,7 @@
     <value>9</value>
   </data>
   <data name="mfPinS2Label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 17</value>
+    <value>112, 16</value>
   </data>
   <data name="mfPinS2Label.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 14</value>
@@ -394,7 +394,7 @@
     <value>10</value>
   </data>
   <data name="mfPinS3Label.Location" type="System.Drawing.Point, System.Drawing">
-    <value>141, 17</value>
+    <value>162, 17</value>
   </data>
   <data name="mfPinS3Label.Size" type="System.Drawing.Size, System.Drawing">
     <value>40, 14</value>

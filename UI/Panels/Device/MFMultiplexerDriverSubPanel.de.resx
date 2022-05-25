@@ -53,6 +53,7 @@
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
+
     mimetype: application/x-microsoft.net.object.bytearray.base64
     value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
@@ -116,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Unterstützt sind Shift Register &amp; LED drivers mit Support für SDI/SPI Protokoll. Für 16bit Register einfach 2x 8bit Register angeben :-)</value>
-  </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Pins und Anzahl der Register</value>
   </data>
