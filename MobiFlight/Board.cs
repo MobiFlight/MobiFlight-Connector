@@ -142,7 +142,7 @@ namespace MobiFlight
         /// <summary>
         /// Maximum number of Mux digital input blocks supported by the board.
         /// </summary>
-        public int MaxDigInputMuxes = 0;
+        public int MaxInputMultiplexer = 0;
 
         /// <summary>
         /// Maximum number of I2C LCDs supported by the board.

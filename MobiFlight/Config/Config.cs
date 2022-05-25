@@ -21,8 +21,8 @@ namespace MobiFlight.Config
         [XmlElement(typeof(LcdDisplay))]
         [XmlElement(typeof(AnalogInput))]
         [XmlElement(typeof(ShiftRegister))]
-        [XmlElement(typeof(DigInputMux))]
-        [XmlElement(typeof(MuxDriver))]
+        [XmlElement(typeof(InputMultiplexer))]
+        [XmlElement(typeof(MultiplexerDriver))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }
@@ -39,7 +39,7 @@ namespace MobiFlight.Config
 
             foreach (BaseDevice item in Items)
             {
-                // MuxDriver does not appear in this list as separate device config record
+                // MultiplexerDriver does not appear in this list as separate device config record
                 // Its data is embedded (redundantly) in mux client devices
 
                 String current = item.ToInternal();
@@ -60,8 +60,8 @@ namespace MobiFlight.Config
         {
             String[] items = value.Split(BaseDevice.End);
 
-            // Need to set aside the MuxDriver reference (for subsequent devices) when we find it 
-            MobiFlight.Config.MuxDriver muxDriver = null;
+            // Need to set aside the MultiplexerDriver reference (for subsequent devices) when we find it 
+            MobiFlight.Config.MultiplexerDriver multiplexerDriver = null;
 
             foreach (String item in items)
             {
@@ -139,28 +139,28 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
-                        case DeviceType.DigInputMux:
-                            // Build muxDriver if none found yet 
-                            if (muxDriver == null) {
-                                muxDriver = new MobiFlight.Config.MuxDriver();
-                                // muxDriver is not yet init'ed with pin numbers: the FromInternal() of the client
-                                // (in this case DigInputMux) will provide them
-                                // Treat the MuxDriver as a regular device (add it to the items list), except it won't be shown in the GUI tree.
-                                Items.Add(muxDriver);
+                        case DeviceType.InputMultiplexer:
+                            // Build multiplexerDriver if none found yet 
+                            if (multiplexerDriver == null) {
+                                multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
+                                // multiplexerDriver is not yet init'ed with pin numbers: the FromInternal() of the client
+                                // (in this case InputMultiplexer) will provide them
+                                // Treat the MultiplexerDriver as a regular device (add it to the items list), except it won't be shown in the GUI tree.
+                                Items.Add(multiplexerDriver);
                             }
-                            currentItem = new MobiFlight.Config.DigInputMux(muxDriver);
+                            currentItem = new MobiFlight.Config.InputMultiplexer(multiplexerDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
 
                             break;
 
-                        // MuxDriver data is bound to be included (very redundantly) in client devices;
+                        // MultiplexerDriver data is bound to be included (very redundantly) in client devices;
                         // therefore, even if there is an internal device object, there is no config message
-                        // corresponding to a MuxDriver item.
+                        // corresponding to a MultiplexerDriver item.
                         // If there was, we would do this:
-                        //case DeviceType.MuxDriver:
-                        //    currentItem = new MobiFlight.Config.MuxDriver();
+                        //case DeviceType.MultiplexerDriver:
+                        //    currentItem = new MobiFlight.Config.MultiplexerDriver();
                         //    currentItem.FromInternal(item + BaseDevice.End);
-                        //    muxDriver = currentItem as MobiFlight.Config.MuxDriver;
+                        //    multiplexerDriver = currentItem as MobiFlight.Config.MultiplexerDriver;
                         //    break;
 
                         case DeviceType.AnalogInput:

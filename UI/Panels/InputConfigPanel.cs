@@ -417,8 +417,8 @@ namespace MobiFlight.UI.Panels
                         row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.ExtPin}";
                     }
                     else
-                    if (cfg.Type == InputConfigItem.TYPE_DIG_INPUT_MUX) {
-                        row["inputName"] = $"{cfg.Name}:{cfg.digInputMux?.ExtPin}";
+                    if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
+                        row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.ExtPin}";
                     } 
                     else 
                     {

@@ -12,11 +12,11 @@ using MobiFlight.UI.Panels.Config;
 
 namespace MobiFlight.UI.Panels.Input
 {
-    public partial class DigInputMuxPanel : UserControl
+    public partial class InputMultiplexerPanel : UserControl
     {
         public event EventHandler<EventArgs> OnPanelChanged;        
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
-        InputConfig.DigInputMuxConfig _config;
+        InputConfig.InputMultiplexerConfig _config;
 
         private void clipBoardActionChanged(InputAction action)
         {
@@ -24,7 +24,7 @@ namespace MobiFlight.UI.Panels.Input
             onReleaseActionTypePanel.OnClipBoardChanged(action);
         }
 
-        public DigInputMuxPanel()
+        public InputMultiplexerPanel()
         {
             InitializeComponent();
             onPressActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
@@ -57,7 +57,7 @@ namespace MobiFlight.UI.Panels.Input
 
         private void Action_CopyButtonPressed(object sender, EventArgs e)
         {
-            InputConfig.DigInputMuxConfig config = new DigInputMuxConfig();
+            InputConfig.InputMultiplexerConfig config = new InputMultiplexerConfig();
             ToConfig(config);
             if ((sender as ActionTypePanel) == onPressActionTypePanel)
             {
@@ -77,7 +77,7 @@ namespace MobiFlight.UI.Panels.Input
 
             bool isPress = (sender as ActionTypePanel) == onPressActionTypePanel;
 
-            InputConfig.DigInputMuxConfig config = new DigInputMuxConfig();
+            InputConfig.InputMultiplexerConfig config = new InputMultiplexerConfig();
             if (isPress)
             {
                 owner = onPressActionConfigPanel;
@@ -107,7 +107,7 @@ namespace MobiFlight.UI.Panels.Input
             UpdatePanelWithAction(owner, config, value, isPress);
         }
 
-        private void UpdatePanelWithAction(Panel owner, DigInputMuxConfig config, string value, bool isOnPress)
+        private void UpdatePanelWithAction(Panel owner, InputMultiplexerConfig config, string value, bool isOnPress)
         {
             this.SuspendLayout();
             Control panel = null;
@@ -247,7 +247,7 @@ namespace MobiFlight.UI.Panels.Input
             UpdatePanelWithAction(owner, _config, value, isOnPress);
         }
 
-        public void syncFromConfig(InputConfig.DigInputMuxConfig config)
+        public void syncFromConfig(InputConfig.InputMultiplexerConfig config)
         {
             if (config == null) return;
 
@@ -264,7 +264,7 @@ namespace MobiFlight.UI.Panels.Input
             }
         }
 
-        public void ToConfig(InputConfig.DigInputMuxConfig config)
+        public void ToConfig(InputConfig.InputMultiplexerConfig config)
         {
             // for on press check the action type
             if (onPressActionTypePanel.ActionTypeComboBox.SelectedItem != null)

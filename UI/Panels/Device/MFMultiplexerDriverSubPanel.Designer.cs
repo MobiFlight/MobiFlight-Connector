@@ -1,6 +1,6 @@
 ﻿namespace MobiFlight.UI.Panels.Settings
 {
-    partial class MFMuxDriverSubPanel
+    partial class MFMultiplexerDriverSubPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFMuxDriverSubPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFMultiplexerDriverSubPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnGotoSetting = new System.Windows.Forms.Button();
             this.labelSlave = new System.Windows.Forms.Label();
@@ -145,12 +145,12 @@
             resources.ApplyResources(this.mfPinS3Label, "mfPinS3Label");
             this.mfPinS3Label.Name = "mfPinS3Label";
             // 
-            // MFMuxDriverSubPanel
+            // MFMultiplexerDriverSubPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
-            this.Name = "MFMuxDriverSubPanel";
+            this.Name = "MFMultiplexerDriverSubPanel";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

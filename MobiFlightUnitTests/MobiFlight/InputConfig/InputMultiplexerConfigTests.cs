@@ -11,22 +11,22 @@ using System.Xml;
 namespace MobiFlight.InputConfig.Tests
 {
     [TestClass()]
-    public class DigInputMuxConfigTests
+    public class InputMultiplexerConfigTests
     {
         [TestMethod()]
         public void CloneTest()
         {
-            DigInputMuxConfig o = generateTestObject();
-            DigInputMuxConfig c = (DigInputMuxConfig)o.Clone();
+            InputMultiplexerConfig o = generateTestObject();
+            InputMultiplexerConfig c = (InputMultiplexerConfig)o.Clone();
 
             Assert.AreNotSame(o, c, "Cloned object is the same");
             Assert.AreEqual((o.onPress as EventIdInputAction).EventId, (c.onPress as EventIdInputAction).EventId, "OnPress is not correct");
             Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelase is not correct");
         }
 
-        private DigInputMuxConfig generateTestObject()
+        private InputMultiplexerConfig generateTestObject()
         {
-            DigInputMuxConfig o = new DigInputMuxConfig();
+            InputMultiplexerConfig o = new InputMultiplexerConfig();
             o.ExtPin = 1;
             o.onPress = new EventIdInputAction() { EventId = 12345 };
             o.onRelease = new JeehellInputAction() { EventId = 127, Param = "123" };
@@ -36,21 +36,21 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void GetSchemaTest()
         {
-            DigInputMuxConfig o = new DigInputMuxConfig();
+            InputMultiplexerConfig o = new InputMultiplexerConfig();
             Assert.IsNull(o.GetSchema());
         }
 
         [TestMethod()]
         public void ReadXmlTest()
         {
-            DigInputMuxConfig o = new DigInputMuxConfig();
-            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\DigInputMuxConfig\ReadXmlTest.1.xml");
+            InputMultiplexerConfig o = new InputMultiplexerConfig();
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputMultiplexerConfig\ReadXmlTest.1.xml");
             StringReader sr = new StringReader(s);
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
 
             System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
-            xmlReader.ReadToDescendant("digInputMux");
+            xmlReader.ReadToDescendant("inputMultiplexer");
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(1, o.ExtPin, "ExtPin not the same");
@@ -68,14 +68,14 @@ namespace MobiFlight.InputConfig.Tests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
-            DigInputMuxConfig o = generateTestObject();
-            xmlWriter.WriteStartElement("digInputMux");
+            InputMultiplexerConfig o = generateTestObject();
+            xmlWriter.WriteStartElement("inputMultiplexer");
             o.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
 
-            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\DigInputMuxConfig\WriteXmlTest.1.xml");
+            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputMultiplexerConfig\WriteXmlTest.1.xml");
 
             Assert.AreEqual(result, s, "The both strings are not equal");
         }
@@ -83,8 +83,8 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void EqualsTest()
         {
-            DigInputMuxConfig o1 = new DigInputMuxConfig();
-            DigInputMuxConfig o2 = new DigInputMuxConfig();
+            InputMultiplexerConfig o1 = new InputMultiplexerConfig();
+            InputMultiplexerConfig o2 = new InputMultiplexerConfig();
 
             Assert.IsTrue(o1.Equals(o2));
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-// from DigInputMuxConfig
+// from InputMultiplexerConfig
 
 namespace MobiFlight.InputConfig
 {
@@ -12,13 +12,13 @@ namespace MobiFlight.InputConfig
     // deriving from ButtonInputConfig saves copying over a ton of code 
     // for reading/writing XML and executing actions and ensures
     // its fundamental capabilities stay in sync with buttons.
-    public class DigInputMuxConfig : ButtonInputConfig
+    public class InputMultiplexerConfig : ButtonInputConfig
     {
         public int ExtPin;
 
         public new object Clone()
         {
-            DigInputMuxConfig clone = new DigInputMuxConfig();
+            InputMultiplexerConfig clone = new InputMultiplexerConfig();
             if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
             if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();
             clone.ExtPin = ExtPin;
@@ -41,14 +41,14 @@ namespace MobiFlight.InputConfig
         {
             // Digital input multiplexer configurations are equal when their data ExtPin is the same
             // and all of the button configuration from the base class matches.
-            return (obj is DigInputMuxConfig) && ((obj as DigInputMuxConfig).ExtPin == ExtPin) && base.Equals(obj);
+            return (obj is InputMultiplexerConfig) && ((obj as InputMultiplexerConfig).ExtPin == ExtPin) && base.Equals(obj);
         }
 
         public new Dictionary<String, int> GetStatistics()
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
 
-            result["Input.DigInputMux"] = 1;
+            result["Input.InputMultiplexer"] = 1;
 
             if (onPress != null)
             {

@@ -1,6 +1,6 @@
 ﻿namespace MobiFlight.UI.Panels.Settings
 {
-    partial class MFDigInputMuxPanel
+    partial class MFInputMultiplexerPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFDigInputMuxPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFInputMultiplexerPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -113,14 +113,14 @@
             resources.ApplyResources(this.muxDrvPanel, "muxDrvPanel");
             this.muxDrvPanel.Name = "muxDrvPanel";
             // 
-            // MFDigInputMuxPanel
+            // MFInputMultiplexerPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.muxDrvPanel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "MFDigInputMuxPanel";
+            this.Name = "MFInputMultiplexerPanel";
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

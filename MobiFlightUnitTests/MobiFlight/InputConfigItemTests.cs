@@ -95,7 +95,7 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(o.inputShiftRegister.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
 
             o = new InputConfigItem();
-            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputConfigItem\ReadXmlTest.DigInputMux.xml");
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputConfigItem\ReadXmlTest.InputMultiplexer.xml");
             sr = new StringReader(s);
             settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
@@ -108,9 +108,9 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
             Assert.AreEqual(o.Type, "Button", "Type not the same");
-            Assert.IsNull(o.digInputMux.onPress, "button onpress not null");
-            Assert.IsNotNull(o.digInputMux.onRelease, "button onRelease is null");
-            Assert.IsNotNull(o.digInputMux.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
+            Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
+            Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
+            Assert.IsNotNull(o.inputMultiplexer.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
         }
 
         [TestMethod()]
