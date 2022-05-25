@@ -68,7 +68,7 @@
             // 
             // mfPin4Label
             // 
-            this.mfPin4Label.Location = new System.Drawing.Point(148, 50);
+            this.mfPin4Label.Location = new System.Drawing.Point(160, 50);
             this.mfPin4Label.Name = "mfPin4Label";
             this.mfPin4Label.Size = new System.Drawing.Size(35, 18);
             this.mfPin4Label.TabIndex = 20;
@@ -81,13 +81,13 @@
             this.mfPin4ComboBox.Location = new System.Drawing.Point(106, 47);
             this.mfPin4ComboBox.MaxLength = 2;
             this.mfPin4ComboBox.Name = "mfPin4ComboBox";
-            this.mfPin4ComboBox.Size = new System.Drawing.Size(41, 21);
+            this.mfPin4ComboBox.Size = new System.Drawing.Size(52, 21);
             this.mfPin4ComboBox.TabIndex = 19;
             this.mfPin4ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin1Label
             // 
-            this.mfPin1Label.Location = new System.Drawing.Point(60, 21);
+            this.mfPin1Label.Location = new System.Drawing.Point(72, 21);
             this.mfPin1Label.Name = "mfPin1Label";
             this.mfPin1Label.Size = new System.Drawing.Size(31, 18);
             this.mfPin1Label.TabIndex = 16;
@@ -100,13 +100,13 @@
             this.mfPin1ComboBox.Location = new System.Drawing.Point(18, 18);
             this.mfPin1ComboBox.MaxLength = 2;
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
-            this.mfPin1ComboBox.Size = new System.Drawing.Size(41, 21);
+            this.mfPin1ComboBox.Size = new System.Drawing.Size(52, 21);
             this.mfPin1ComboBox.TabIndex = 15;
             this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin3Label
             // 
-            this.mfPin3Label.Location = new System.Drawing.Point(60, 48);
+            this.mfPin3Label.Location = new System.Drawing.Point(72, 48);
             this.mfPin3Label.Name = "mfPin3Label";
             this.mfPin3Label.Size = new System.Drawing.Size(35, 18);
             this.mfPin3Label.TabIndex = 18;
@@ -119,13 +119,13 @@
             this.mfPin3ComboBox.Location = new System.Drawing.Point(18, 45);
             this.mfPin3ComboBox.MaxLength = 2;
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
-            this.mfPin3ComboBox.Size = new System.Drawing.Size(41, 21);
+            this.mfPin3ComboBox.Size = new System.Drawing.Size(52, 21);
             this.mfPin3ComboBox.TabIndex = 17;
             this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
             // mfPin2Label
             // 
-            this.mfPin2Label.Location = new System.Drawing.Point(148, 21);
+            this.mfPin2Label.Location = new System.Drawing.Point(160, 21);
             this.mfPin2Label.Name = "mfPin2Label";
             this.mfPin2Label.Size = new System.Drawing.Size(31, 18);
             this.mfPin2Label.TabIndex = 16;
@@ -138,7 +138,7 @@
             this.mfPin2ComboBox.Location = new System.Drawing.Point(106, 18);
             this.mfPin2ComboBox.MaxLength = 2;
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";
-            this.mfPin2ComboBox.Size = new System.Drawing.Size(41, 21);
+            this.mfPin2ComboBox.Size = new System.Drawing.Size(52, 21);
             this.mfPin2ComboBox.TabIndex = 15;
             this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
@@ -187,7 +187,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(148, 16);
+            this.label2.Location = new System.Drawing.Point(160, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(31, 18);
             this.label2.TabIndex = 16;
@@ -200,7 +200,7 @@
             this.mfBtnPinComboBox.Location = new System.Drawing.Point(106, 13);
             this.mfBtnPinComboBox.MaxLength = 2;
             this.mfBtnPinComboBox.Name = "mfBtnPinComboBox";
-            this.mfBtnPinComboBox.Size = new System.Drawing.Size(41, 21);
+            this.mfBtnPinComboBox.Size = new System.Drawing.Size(52, 21);
             this.mfBtnPinComboBox.TabIndex = 15;
             this.mfBtnPinComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 

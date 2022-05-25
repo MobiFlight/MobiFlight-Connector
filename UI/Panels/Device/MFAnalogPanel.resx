@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="mfPinLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 22</value>
+    <value>76, 22</value>
   </data>
   <data name="mfPinLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 18</value>
@@ -150,7 +150,7 @@
     <value>2</value>
   </data>
   <data name="mfPinComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 21</value>
+    <value>52, 21</value>
   </data>
   <data name="mfPinComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>

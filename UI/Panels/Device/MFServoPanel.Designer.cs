@@ -51,7 +51,7 @@
             // 
             // mfPinLabel
             // 
-            this.mfPinLabel.Location = new System.Drawing.Point(61, 22);
+            this.mfPinLabel.Location = new System.Drawing.Point(76, 22);
             this.mfPinLabel.Name = "mfPinLabel";
             this.mfPinLabel.Size = new System.Drawing.Size(75, 18);
             this.mfPinLabel.TabIndex = 14;
@@ -64,7 +64,7 @@
             this.mfPinComboBox.Location = new System.Drawing.Point(18, 19);
             this.mfPinComboBox.MaxLength = 2;
             this.mfPinComboBox.Name = "mfPinComboBox";
-            this.mfPinComboBox.Size = new System.Drawing.Size(41, 21);
+            this.mfPinComboBox.Size = new System.Drawing.Size(52, 21);
             this.mfPinComboBox.TabIndex = 13;
             this.mfPinComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
             // 
