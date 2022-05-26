@@ -69,10 +69,11 @@
             this.displayLedReverseDigitsCheckBox = new System.Windows.Forms.CheckBox();
             this.displayLedGroupFlowLayoutPanel = new System.Windows.Forms.GroupBox();
             this.brightnessDropDown = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.BrigthnessReferenceLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.ReverseDigitsLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BrightnessReferenceHintLabel = new System.Windows.Forms.Label();
             this.displayLedDecimalPointFlowLayoutPanel.SuspendLayout();
             this.displayLedDigitFlowLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -371,6 +372,7 @@
             // 
             // brightnessDropDown
             // 
+            resources.ApplyResources(this.brightnessDropDown, "brightnessDropDown");
             this.brightnessDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.brightnessDropDown.FormattingEnabled = true;
             this.brightnessDropDown.Items.AddRange(new object[] {
@@ -379,28 +381,28 @@
             resources.GetString("brightnessDropDown.Items2"),
             resources.GetString("brightnessDropDown.Items3"),
             resources.GetString("brightnessDropDown.Items4")});
-            resources.ApplyResources(this.brightnessDropDown, "brightnessDropDown");
             this.brightnessDropDown.Name = "brightnessDropDown";
             // 
-            // label1
+            // BrigthnessReferenceLabel
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.BrigthnessReferenceLabel, "BrigthnessReferenceLabel");
+            this.BrigthnessReferenceLabel.Name = "BrigthnessReferenceLabel";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.BrightnessReferenceHintLabel);
+            this.groupBox1.Controls.Add(this.ReverseDigitsLabel);
             this.groupBox1.Controls.Add(this.displayLedReverseDigitsCheckBox);
             this.groupBox1.Controls.Add(this.brightnessDropDown);
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.BrigthnessReferenceLabel);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // label2
+            // ReverseDigitsLabel
             // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
+            resources.ApplyResources(this.ReverseDigitsLabel, "ReverseDigitsLabel");
+            this.ReverseDigitsLabel.Name = "ReverseDigitsLabel";
             // 
             // panel1
             // 
@@ -408,6 +410,11 @@
             this.panel1.Controls.Add(this.ledDisplayComboBoxLabel);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            // 
+            // BrightnessReferenceHintLabel
+            // 
+            resources.ApplyResources(this.BrightnessReferenceHintLabel, "BrightnessReferenceHintLabel");
+            this.BrightnessReferenceHintLabel.Name = "BrightnessReferenceHintLabel";
             // 
             // DisplayLedDisplayPanel
             // 
@@ -475,9 +482,10 @@
         private System.Windows.Forms.CheckBox displayLedReverseDigitsCheckBox;
         private System.Windows.Forms.GroupBox displayLedGroupFlowLayoutPanel;
         public System.Windows.Forms.ComboBox brightnessDropDown;
-        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label BrigthnessReferenceLabel;
         private System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.Label ReverseDigitsLabel;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label BrightnessReferenceHintLabel;
     }
 }
