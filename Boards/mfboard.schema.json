@@ -171,7 +171,7 @@
         "MaxServos",
         "MaxSteppers",
         "MaxInputShifters",
-        "MaxDigInputMuxes",
+        "MaxInputMultiplexer"
       ],
       "properties": {
         "MaxAnalogInputs": {
@@ -190,12 +190,6 @@
           "$id": "#root/ModuleLimits/MaxEncoders",
           "title": "Maxencoders",
           "description": "Maximum number of encoders supported by the board.",
-          "type": "integer"
-        },
-        "MaxInputShifters": {
-          "$id": "#root/ModuleLimits/MaxInputShifters",
-          "title": "Maxinputshifters",
-          "description": "Maximum number of input shifters supported by the board.",
           "type": "integer"
         },
         "MaxLcdI2C": {
@@ -240,13 +234,12 @@
           "description": "Maximum number of input shift registers supported by the board.",
           "type": "integer"
         },
-        "MaxDigInputMuxes": {
-          "$id": "#root/ModuleLimits/MaxDigInputMuxes",
+        "MaxInputMultiplexer": {
+          "$id": "#root/ModuleLimits/MaxInputMultiplexer",
           "title": "MaxInputMuxes",
           "description": "Maximum number of digital input multiplexers supported by the board.",
           "type": "integer"
         }
-
       }
     },
     "Pins": {

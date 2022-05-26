@@ -24,7 +24,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Micro Pro",
-    "LatestFirmwareVersion": "2.1.3",
+    "LatestFirmwareVersion": "2.2.0",
     "MobiFlightType": "MobiFlight Micro"
   },
   "ModuleLimits": {
@@ -38,7 +38,7 @@
     "MaxServos": 3,
     "MaxShifters": 2,
     "MaxSteppers": 3,
-    "MaxDigInputMuxes": 1,
+    "MaxInputMultiplexer": 1
   },
   "Pins": [
     {

@@ -34,7 +34,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "DelayAfterFirmwareUpdate": 0,
-    "LatestFirmwareVersion": "2.1.3",
+    "LatestFirmwareVersion": "2.2.0",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega"
   },
@@ -49,7 +49,7 @@
     "MaxServos": 10,
     "MaxShifters": 4,
     "MaxSteppers": 10,
-    "MaxDigInputMuxes": 2,
+    "MaxInputMultiplexer": 2,
   },
   "Pins": [
     {

@@ -119,10 +119,10 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="mfPinLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 22</value>
+    <value>69, 22</value>
   </data>
   <data name="mfPinLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 18</value>
+    <value>100, 18</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="mfPinLabel.TabIndex" type="System.Int32, mscorlib">
@@ -150,7 +150,7 @@
     <value>2</value>
   </data>
   <data name="mfPinComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 21</value>
+    <value>45, 21</value>
   </data>
   <data name="mfPinComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>

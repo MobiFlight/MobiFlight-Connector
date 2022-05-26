@@ -119,10 +119,10 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 46</value>
+    <value>79, 22</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>57, 18</value>
+    <value>50, 16</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
@@ -144,13 +144,13 @@
     <value>0</value>
   </data>
   <data name="mfRightPinComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 43</value>
+    <value>82, 41</value>
   </data>
   <data name="mfRightPinComboBox.MaxLength" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="mfRightPinComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 21</value>
+    <value>45, 21</value>
   </data>
   <data name="mfRightPinComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -168,10 +168,10 @@
     <value>1</value>
   </data>
   <data name="mfPinLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>61, 22</value>
+    <value>15, 22</value>
   </data>
   <data name="mfPinLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 18</value>
+    <value>50, 16</value>
   </data>
   <data name="mfPinLabel.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -192,13 +192,13 @@
     <value>2</value>
   </data>
   <data name="mfLeftPinComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 19</value>
+    <value>18, 41</value>
   </data>
   <data name="mfLeftPinComboBox.MaxLength" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="mfLeftPinComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 21</value>
+    <value>45, 21</value>
   </data>
   <data name="mfLeftPinComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -223,7 +223,7 @@
     <value>0, 0</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 77</value>
+    <value>192, 77</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -271,7 +271,7 @@
     <value>0, 136</value>
   </data>
   <data name="groupBox3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 48</value>
+    <value>192, 48</value>
   </data>
   <data name="groupBox3.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -337,7 +337,7 @@
     <value>0, 77</value>
   </data>
   <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 59</value>
+    <value>192, 59</value>
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -367,7 +367,7 @@
     <value>True</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 239</value>
+    <value>192, 239</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MFEncoderPanel</value>

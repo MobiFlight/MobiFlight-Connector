@@ -5,18 +5,18 @@ using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings
 {
-    public partial class MFMuxDriverSubPanel : UserControl
+    public partial class MFMultiplexerDriverSubPanel : UserControl
     {
         public event EventHandler Changed;
         public event EventHandler MoveToFirstMux;
         public delegate void notifyPinListChangeEvent(List<MobiFlightPin> Pins);
 
         private List<MobiFlightPin> pinList;    // COMPLETE list of pins (includes status)
-        private MuxDriver muxDriver;
+        private MultiplexerDriver multiplexerDriver;
         public notifyPinListChangeEvent notifyPinListChange;
         private bool initialized;
 
-        public MFMuxDriverSubPanel()
+        public MFMultiplexerDriverSubPanel()
         {
             InitializeComponent();
             mfPinS0ComboBox.Items.Clear();
@@ -25,12 +25,12 @@ namespace MobiFlight.UI.Panels.Settings
             mfPinS3ComboBox.Items.Clear();
         }
 
-        public MFMuxDriverSubPanel(MuxDriver muxDriver, List<MobiFlightPin> Pins, bool isEnabled = false)
+        public MFMultiplexerDriverSubPanel(MultiplexerDriver multiplexerDriver, List<MobiFlightPin> Pins, bool isEnabled = false)
             : this()
         {
             pinList = Pins; // Keep pin list stored
 
-            this.muxDriver = muxDriver;
+            this.multiplexerDriver = multiplexerDriver;
             UpdateFreePinsInDropDowns();
 
             SuspendLayout();
@@ -56,17 +56,17 @@ namespace MobiFlight.UI.Panels.Settings
         public void UpdateFreePinsInDropDowns(List<MobiFlightPin> newPinList = null)
         {
             // This method is public (and has an optional "new pin list" argument) because it must be called by the
-            // host MFDigInputMuxPanel in case its pin data changes.
+            // host MFInputMultiplexerPanel in case its pin data changes.
             bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
             if (newPinList != null)
             {
                 pinList = newPinList;
             }
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinS0ComboBox, pinList, this.muxDriver.PinSx[0]);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinS1ComboBox, pinList, this.muxDriver.PinSx[1]);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinS2ComboBox, pinList, this.muxDriver.PinSx[2]);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPinS3ComboBox, pinList, this.muxDriver.PinSx[3]);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinS0ComboBox, pinList, this.multiplexerDriver.PinSx[0]);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinS1ComboBox, pinList, this.multiplexerDriver.PinSx[1]);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinS2ComboBox, pinList, this.multiplexerDriver.PinSx[2]);
+            ComboBoxHelper.BindMobiFlightFreePins(mfPinS3ComboBox, pinList, this.multiplexerDriver.PinSx[3]);
 
             if (newPinList == null)
             {
@@ -83,14 +83,14 @@ namespace MobiFlight.UI.Panels.Settings
             initialized = false;    // inhibit value_Changed events
 
             // First update the one that is changed
-            // Here, the config data (muxDriver.PinSx[]) is updated with the new value read from the changed ComboBox;
-            if (comboBox == mfPinS0ComboBox) { ComboBoxHelper.reassignPin(mfPinS0ComboBox, pinList, ref this.muxDriver.PinSx[0]); }
+            // Here, the config data (multiplexerDriver.PinSx[]) is updated with the new value read from the changed ComboBox;
+            if (comboBox == mfPinS0ComboBox) { ComboBoxHelper.reassignPin(mfPinS0ComboBox, pinList, ref this.multiplexerDriver.PinSx[0]); }
             else
-            if (comboBox == mfPinS1ComboBox) { ComboBoxHelper.reassignPin(mfPinS1ComboBox, pinList, ref this.muxDriver.PinSx[1]); }
+            if (comboBox == mfPinS1ComboBox) { ComboBoxHelper.reassignPin(mfPinS1ComboBox, pinList, ref this.multiplexerDriver.PinSx[1]); }
             else
-            if (comboBox == mfPinS2ComboBox) { ComboBoxHelper.reassignPin(mfPinS2ComboBox, pinList, ref this.muxDriver.PinSx[2]); }
+            if (comboBox == mfPinS2ComboBox) { ComboBoxHelper.reassignPin(mfPinS2ComboBox, pinList, ref this.multiplexerDriver.PinSx[2]); }
             else
-            if (comboBox == mfPinS3ComboBox) { ComboBoxHelper.reassignPin(mfPinS3ComboBox, pinList, ref this.muxDriver.PinSx[3]); }
+            if (comboBox == mfPinS3ComboBox) { ComboBoxHelper.reassignPin(mfPinS3ComboBox, pinList, ref this.multiplexerDriver.PinSx[3]); }
             // then the others are updated too 
             UpdateFreePinsInDropDowns();
 
@@ -111,14 +111,14 @@ namespace MobiFlight.UI.Panels.Settings
             //setValues();
             ReassignFreePinsInDropDowns(sender as ComboBox);
             if (Changed != null)
-                Changed(muxDriver, new EventArgs());
+                Changed(multiplexerDriver, new EventArgs());
         }
 
         private void btnGotoSetting_Click(object sender, EventArgs e)
         {
             if (!initialized) return;
             if (MoveToFirstMux != null)
-                MoveToFirstMux(muxDriver, new EventArgs());
+                MoveToFirstMux(multiplexerDriver, new EventArgs());
         }
 
     }

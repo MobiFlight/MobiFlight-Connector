@@ -1,6 +1,6 @@
 ﻿namespace MobiFlight.UI.Panels.Input
 {
-    partial class DigInputMuxPanel
+    partial class InputMultiplexerPanel
     {
         /// <summary> 
         /// Erforderliche Designervariable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DigInputMuxPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputMultiplexerPanel));
             this.onPressActionConfigPanel = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -85,12 +85,12 @@
             resources.ApplyResources(this.onReleaseActionTypePanel, "onReleaseActionTypePanel");
             this.onReleaseActionTypePanel.Name = "onReleaseActionTypePanel";
             // 
-            // DigInputMuxPanel
+            // InputMultiplexerPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
-            this.Name = "DigInputMuxPanel";
+            this.Name = "InputMultiplexerPanel";
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
