@@ -509,7 +509,7 @@ namespace MobiFlight.UI.Dialogs
                         Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputMultiplexer;
                         panel = new Panels.Input.InputMultiplexerPanel();
                         (panel as Panels.Input.InputMultiplexerPanel).syncFromConfig(config.inputMultiplexer);
-                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumModules), config.inputMultiplexer?.ExtPin);
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumBytes), config.inputMultiplexer?.ExtPin);
                         inputPinDropDown.Visible = true;
                         break;
 
