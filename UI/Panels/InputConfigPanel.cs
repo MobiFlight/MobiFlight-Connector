@@ -418,7 +418,7 @@ namespace MobiFlight.UI.Panels
                     }
                     else
                     if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
-                        row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.ExtPin}";
+                        row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.DataPin}";
                     } 
                     else 
                     {

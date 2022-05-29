@@ -1578,8 +1578,8 @@ namespace MobiFlight
                             	{
                                 	continue;
                             	}
-                            	// similarly also for digital input Muxes
-                            	if (e.Type == DeviceType.InputMultiplexer && cfg.inputMultiplexer != null && cfg.inputMultiplexer.ExtPin != e.ExtPin)
+                            	// similarly also for digital input Multiplexer
+                            	if (e.Type == DeviceType.InputMultiplexer && cfg.inputMultiplexer != null && cfg.inputMultiplexer.DataPin != e.ExtPin)
                             	{
                                 	continue;
                             	}

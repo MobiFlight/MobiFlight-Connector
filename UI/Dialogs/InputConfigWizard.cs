@@ -322,7 +322,7 @@ namespace MobiFlight.UI.Dialogs
                 case DeviceType.InputMultiplexer:
                     config.Type = InputConfigItem.TYPE_INPUT_MULTIPLEXER;
                     if (config.inputMultiplexer == null) config.inputMultiplexer = new InputConfig.InputMultiplexerConfig();
-                    config.inputMultiplexer.ExtPin = (int)inputPinDropDown.SelectedItem;
+                    config.inputMultiplexer.DataPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as InputMultiplexerPanel).ToConfig(config.inputMultiplexer);
                     break;
@@ -509,7 +509,7 @@ namespace MobiFlight.UI.Dialogs
                         Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputMultiplexer;
                         panel = new Panels.Input.InputMultiplexerPanel();
                         (panel as Panels.Input.InputMultiplexerPanel).syncFromConfig(config.inputMultiplexer);
-                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumBytes), config.inputMultiplexer?.ExtPin);
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumBytes), config.inputMultiplexer?.DataPin);
                         inputPinDropDown.Visible = true;
                         break;
 
