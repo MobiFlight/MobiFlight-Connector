@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MobiFlight</RootNamespace>
     <AssemblyName>MFConnector</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -131,14 +131,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
     </Reference>
-    <Reference Include="FSUIPCClient, Version=3.1.25.341, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
-      <HintPath>packages\FSUIPCClientDLL.3.1.25\lib\net40\FSUIPCClient.dll</HintPath>
+    <Reference Include="fsuipcClient, Version=3.2.19.388, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
+      <HintPath>packages\FSUIPCClientDLL.3.2.19\lib\net40\fsuipcClient.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.17.0.146, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.17.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.20.0.103, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.17.0.146, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.2.17.0\lib\net452\Microsoft.ApplicationInsights.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.20.0.103, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.2.20.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
@@ -159,19 +159,27 @@
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.CodeDom, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.CodeDom.6.0.0\lib\net461\System.CodeDom.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Memory.4.5.4\lib\netstandard1.1\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -796,6 +804,7 @@
     <Compile Include="UI\Panels\Output\LCDDisplayPanel.Designer.cs">
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="xplane\XplaneCache.cs" />
     <None Include="ApplicationInsights.config" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1412,12 +1421,12 @@ xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
 del "$(TargetDir)\log.txt"
 del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.17.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.17.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.17.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.17.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
