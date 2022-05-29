@@ -14,34 +14,34 @@ namespace MobiFlight.InputConfig
     // its fundamental capabilities stay in sync with buttons.
     public class InputMultiplexerConfig : ButtonInputConfig
     {
-        public int ExtPin;
+        public int DataPin;
 
         public new object Clone()
         {
             InputMultiplexerConfig clone = new InputMultiplexerConfig();
             if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
             if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();
-            clone.ExtPin = ExtPin;
+            clone.DataPin = DataPin;
             return clone;
         }
 
         public new void ReadXml(System.Xml.XmlReader reader)
         {
-            ExtPin = Convert.ToInt32(reader.GetAttribute(ExtPin));
+            DataPin = Convert.ToInt32(reader.GetAttribute(DataPin));
             base.ReadXml(reader);
         }
 
         public new void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteAttributeString("ExtPin", ExtPin.ToString());
+            writer.WriteAttributeString("DataPin", DataPin.ToString());
             base.WriteXml(writer);
         }
 
         public override bool Equals(object obj)
         {
-            // Digital input multiplexer configurations are equal when their data ExtPin is the same
+            // Digital input multiplexer configurations are equal when their DataPin is the same
             // and all of the button configuration from the base class matches.
-            return (obj is InputMultiplexerConfig) && ((obj as InputMultiplexerConfig).ExtPin == ExtPin) && base.Equals(obj);
+            return (obj is InputMultiplexerConfig) && ((obj as InputMultiplexerConfig).DataPin == DataPin) && base.Equals(obj);
         }
 
         public new Dictionary<String, int> GetStatistics()

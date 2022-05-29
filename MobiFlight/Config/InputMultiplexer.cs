@@ -17,7 +17,7 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String DataPin = "-1";
         [XmlAttribute]
-        public String NumModules = "2"; // defaults to CD4067
+        public String NumBytes = "2"; // defaults to CD4067
 
         public InputMultiplexer()
         {
@@ -48,7 +48,7 @@ namespace MobiFlight.Config
                  + DataPin + Separator
                  // Selector pins, always sent
                  + (Selector?.ToInternalStripped() ?? dummySel)
-                 + NumModules + Separator
+                 + NumBytes + Separator
                  + Name + End;
         }
 
@@ -62,7 +62,7 @@ namespace MobiFlight.Config
             }
 
             DataPin     = paramList[1];
-            NumModules  = paramList[6];
+            NumBytes    = paramList[6];
             Name        = paramList[7];
 
             // pass the MultiplexerDriver pins, but only if the multiplexerDriver wasn't already set

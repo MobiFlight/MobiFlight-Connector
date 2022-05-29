@@ -45,12 +45,15 @@ namespace MobiFlight.UI.Panels.Settings
             this.inputMultiplexer = inputMultiplexer;
             UpdateFreePinsInDropDowns();
 
-            // Set non-pin data values
-            for (int i = 1; i <= MAX_MODULES; i++)
-            {
-                mfNumModulesComboBox.Items.Add(i);
-            }
-            ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, inputMultiplexer.NumModules);
+            List<ListItem> options = new List<ListItem>();
+            options.Add(new ListItem() { Value = "1", Label = "8-bit multiplexer" });
+            options.Add(new ListItem() { Value = "2", Label = "16-bit multiplexer" });
+
+            mfNumModulesComboBox.DataSource = options;
+            mfNumModulesComboBox.ValueMember = "Value";
+            mfNumModulesComboBox.DisplayMember = "Label";
+
+            ComboBoxHelper.SetSelectedItemByValue(mfNumModulesComboBox, inputMultiplexer.NumBytes);
             textBox1.Text = inputMultiplexer.Name;
 
             initialized = true;
@@ -75,7 +78,7 @@ namespace MobiFlight.UI.Panels.Settings
         private void setNonPinValues()
         {
             inputMultiplexer.Name = textBox1.Text;
-            inputMultiplexer.NumModules = string.IsNullOrEmpty(mfNumModulesComboBox.Text) ? "1" : mfNumModulesComboBox.Text;
+            inputMultiplexer.NumBytes = string.IsNullOrEmpty(mfNumModulesComboBox.SelectedValue.ToString()) ? "1" : mfNumModulesComboBox.SelectedValue.ToString();
         }
         public void UpdateFreePinsInDropDowns(List<MobiFlightPin> newPinList = null)
         {
