@@ -97,6 +97,7 @@
             // mfPinS0ComboBox
             // 
             this.mfPinS0ComboBox.BackColor = System.Drawing.SystemColors.Window;
+            this.mfPinS0ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPinS0ComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPinS0ComboBox, "mfPinS0ComboBox");
             this.mfPinS0ComboBox.Name = "mfPinS0ComboBox";
@@ -106,6 +107,7 @@
             // mfPinS1ComboBox
             // 
             this.mfPinS1ComboBox.BackColor = System.Drawing.SystemColors.Window;
+            this.mfPinS1ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPinS1ComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPinS1ComboBox, "mfPinS1ComboBox");
             this.mfPinS1ComboBox.Name = "mfPinS1ComboBox";
@@ -115,6 +117,7 @@
             // mfPinS2ComboBox
             // 
             this.mfPinS2ComboBox.BackColor = System.Drawing.SystemColors.Window;
+            this.mfPinS2ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPinS2ComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPinS2ComboBox, "mfPinS2ComboBox");
             this.mfPinS2ComboBox.Name = "mfPinS2ComboBox";
@@ -124,6 +127,7 @@
             // mfPinS3ComboBox
             // 
             this.mfPinS3ComboBox.BackColor = System.Drawing.SystemColors.Window;
+            this.mfPinS3ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPinS3ComboBox.FormattingEnabled = true;
             resources.ApplyResources(this.mfPinS3ComboBox, "mfPinS3ComboBox");
             this.mfPinS3ComboBox.Name = "mfPinS3ComboBox";
