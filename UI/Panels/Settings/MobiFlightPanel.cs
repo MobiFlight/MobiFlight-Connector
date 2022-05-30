@@ -548,7 +548,7 @@ namespace MobiFlight.UI.Panels.Settings
                     case "addShiftRegisterToolStripMenuItem":
                         if (statistics[MobiFlightShiftRegister.TYPE] == tempModule.Board.ModuleLimits.MaxShifters)
                         {
-                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.Board.ModuleLimits.MaxShifters);
+                            throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightShiftRegister.TYPE, tempModule.Board.ModuleLimits.MaxShifters);
                         }
                         cfgItem = new MobiFlight.Config.ShiftRegister();
                         (cfgItem as MobiFlight.Config.ShiftRegister).DataPin = freePinList.ElementAt(0).ToString();
