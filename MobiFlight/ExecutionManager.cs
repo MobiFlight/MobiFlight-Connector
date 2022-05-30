@@ -12,6 +12,7 @@ using MobiFlight.SimConnectMSFS;
 using MobiFlight.Config;
 using MobiFlight.OutputConfig;
 using MobiFlight.InputConfig;
+using MobiFlight.xplane;
 
 namespace MobiFlight
 {
@@ -68,6 +69,7 @@ namespace MobiFlight
 #if SIMCONNECT
         readonly SimConnectCache simConnectCache = new SimConnectCache();
 #endif
+        readonly XplaneCache xplaneCache = new XplaneCache();
 
 #if ARCAZE
         readonly ArcazeCache arcazeCache = new ArcazeCache();
@@ -103,6 +105,10 @@ namespace MobiFlight
             simConnectCache.Connected += new EventHandler(simConnect_Connected);
             simConnectCache.Closed += new EventHandler(simConnect_Closed);
 #endif
+
+            xplaneCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
+            xplaneCache.Connected += new EventHandler(simConnect_Connected);
+            xplaneCache.Closed += new EventHandler(simConnect_Closed);
 
 #if ARCAZE
             arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
@@ -231,6 +237,7 @@ namespace MobiFlight
 #if SIMCONNECT
                 || simConnectCache.IsConnected()
 #endif
+                || xplaneCache.IsConnected()
                 ;
         }
 
@@ -250,6 +257,7 @@ namespace MobiFlight
         public void Start()
         {
             simConnectCache.Start();
+            xplaneCache.Start();
             joystickManager.Start();
             timer.Enabled = true;
         }
@@ -260,6 +268,7 @@ namespace MobiFlight
             isExecuting = false;
             mobiFlightCache.Stop();
             simConnectCache.Stop();
+            xplaneCache.Stop();
             joystickManager.Stop();
             ClearErrorMessages();
         }
@@ -279,6 +288,9 @@ namespace MobiFlight
             simConnectCache.Disconnect();
             simConnectCache.Connect();
 #endif
+            xplaneCache.Disconnect();
+            xplaneCache.Connect();
+
         }
 
         public void AutoConnectStop()
@@ -454,6 +466,13 @@ namespace MobiFlight
                     if (!OfflineMode) continue;
                 }
 #endif
+
+                // If not connected to SimConnect show an error message
+                if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
+                {
+                    row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                    if (!OfflineMode) continue;
+                }
                 // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
                 ConnectorValue value = ExecuteRead(cfg);
@@ -707,6 +726,11 @@ namespace MobiFlight
                     result.type = FSUIPCOffsetType.String;
                     result.String = mobiFlightCache.GetMobiFlightVariable(cfg.MobiFlightVariable.Name).Text;
                 }
+            }
+            else if (cfg.SourceType == SourceType.XPLANE)
+            {
+                result.type = FSUIPCOffsetType.Float;
+                result.Float64 = xplaneCache.readDataRef(cfg.XplaneDataRef.Path);
             }
             else
             {
@@ -1308,6 +1332,8 @@ namespace MobiFlight
                     if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
                         simConnectCache.Connect();
 #endif
+                    if (FlightSim.FlightSimType == FlightSimType.XPLANE && !xplaneCache.IsConnected())
+                        xplaneCache.Connect();
                     // we return here to prevent the disabling of the timer
                     // so that autostart-feature can work properly
                     _autoConnectTimerRunning = false;

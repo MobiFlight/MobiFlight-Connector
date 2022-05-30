@@ -198,6 +198,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\vJoyInterfaceWrap.dll</HintPath>
     </Reference>
+    <Reference Include="XPlaneConnector, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\XPlaneConnector.1.3.0\lib\netstandard2.0\XPlaneConnector.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\AutoUpdateChecker.cs" />
@@ -369,6 +372,12 @@
     </Compile>
     <Compile Include="UI\Panels\Config\VariablePanel.Designer.cs">
       <DependentUpon>VariablePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Config\XplaneDataRefPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\XplaneDataRefPanel.Designer.cs">
+      <DependentUpon>XplaneDataRefPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Device\MFAnalogPanel.cs">
       <SubType>UserControl</SubType>
@@ -805,6 +814,7 @@
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="xplane\XplaneCache.cs" />
+    <Compile Include="xplane\XplaneDataRef.cs" />
     <None Include="ApplicationInsights.config" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -991,6 +1001,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\VariablePanel.resx">
       <DependentUpon>VariablePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\XplaneDataRefPanel.resx">
+      <DependentUpon>XplaneDataRefPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.de.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>

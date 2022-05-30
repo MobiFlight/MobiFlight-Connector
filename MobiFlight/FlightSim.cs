@@ -14,6 +14,7 @@ namespace MobiFlight
         WIDECLIENT,
         XPUIPC,
         SIMCONNECT,
+        XPLANE,
         OFFLINE
     }
 
@@ -83,7 +84,7 @@ namespace MobiFlight
             proc = "x-plane";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
-                FlightSimConnectionMethod = FlightSimConnectionMethod.XPUIPC;
+                FlightSimConnectionMethod = FlightSimConnectionMethod.XPLANE;
                 FlightSimType = FlightSimType.XPLANE;
                 return true;
             }
@@ -91,7 +92,7 @@ namespace MobiFlight
             proc = "x-plane-32bit";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
-                FlightSimConnectionMethod = FlightSimConnectionMethod.XPUIPC;
+                FlightSimConnectionMethod = FlightSimConnectionMethod.XPLANE;
                 FlightSimType = FlightSimType.XPLANE;
                 return true;
             }

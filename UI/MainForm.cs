@@ -21,6 +21,7 @@ using MobiFlight.SimConnectMSFS;
 using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
 using Microsoft.ApplicationInsights.DataContracts;
+using MobiFlight.xplane;
 
 namespace MobiFlight.UI
 {
@@ -731,7 +732,19 @@ namespace MobiFlight.UI
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.SIMCONNECT.ToString());
                 Log.Instance.log("MSFS2020 detected.", LogSeverity.Info);
             }
+            else if (sender.GetType() == typeof(XplaneCache) && FlightSim.FlightSimType == FlightSimType.XPLANE)
+            {
+                noSimRunningToolStripMenuItem.Text = "XPlane Detected";
+                if ((sender as XplaneCache).IsConnected())
+                {
+                    simConnectToolStripMenuItem.Text = "XPlane (Native)";
+                    simConnectToolStripMenuItem.Image = Properties.Resources.check;
+                    Log.Instance.log("Connected to XPlane (Native).", LogSeverity.Info);
+                }
 
+                AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.XPLANE.ToString());
+                Log.Instance.log("MSFS2020 detected.", LogSeverity.Info);
+            }
             else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
 
                 Fsuipc2Cache c = sender as Fsuipc2Cache;

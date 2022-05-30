@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XPlaneConnector;
 
 namespace MobiFlight.xplane
 {
@@ -15,28 +16,69 @@ namespace MobiFlight.xplane
         private bool _simConnectConnected = false;
         private bool _connected = false;
 
+        XPlaneConnector.XPlaneConnector Connector = null;
+
+        Dictionary<String, DataRefElement> SubscribedDataRefs = new Dictionary<String, DataRefElement>();
+
         public bool Connect()
         {
-            return false;
+            if (Connector == null) Connector = new XPlaneConnector.XPlaneConnector();
+            
+            Connector.OnLog += (m) =>
+            {
+                Log.Instance.log(m, LogSeverity.Debug);
+            };
+
+            SubscribedDataRefs.Clear();
+            _connected = true;
+
+            Connected?.Invoke(this, new EventArgs());
+          
+            return _connected;
         }
         public bool Disconnect()
         {
-            return false;
+            _connected = false;
+            return _connected;
         }
 
-        public int readDataRef(string dataRefPath)
+        public bool IsConnected()
         {
-            return 0;
+            return _connected;
         }
 
-        public void writeDataRef(string dataRefPath, int value)
+        internal void Start()
         {
-
+            SubscribedDataRefs.Clear();
+            Connector?.Start();
         }
 
-        public void sendCommand(string commmand)
+        internal void Stop()
         {
+            Connector?.Stop();
+        }
 
+        public float readDataRef(string dataRefPath)
+        {
+            if (!SubscribedDataRefs.ContainsKey(dataRefPath))
+            {
+                SubscribedDataRefs.Add(dataRefPath, new DataRefElement() { DataRef = dataRefPath, Frequency = 5, Value = 0 });
+                Connector.Subscribe(SubscribedDataRefs[dataRefPath], 5, (e, v) => {
+                    SubscribedDataRefs[e.DataRef].Value = v;
+                });
+            }
+            return SubscribedDataRefs[dataRefPath].Value;
+        }
+
+        public void writeDataRef(string dataRefPath, float value)
+        {
+            Connector.SetDataRefValue(dataRefPath, value);
+        }
+
+        public void sendCommand(string command)
+        {
+            XPlaneCommand xPlaneCommand = new XPlaneCommand(command, command);
+            Connector.SendCommand(xPlaneCommand);
         }
     }
 }
