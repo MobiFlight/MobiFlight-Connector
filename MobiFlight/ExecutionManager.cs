@@ -1536,9 +1536,9 @@ namespace MobiFlight
                 // This ensures caching works correctly when there are multiple channels on the same physical device
                 inputKey = inputKey + e.ExtPin;
             }
-            else if (e.Type == DeviceType.DigInputMux)
+            else if (e.Type == DeviceType.InputMultiplexer)
             {
-                eventAction = MobiFlightDigInputMux.InputEventIdToString(e.Value);
+                eventAction = MobiFlightInputMultiplexer.InputEventIdToString(e.Value);
 //GCC CHECK
                 // The inputKey gets the external pin no. added to it if the input came from a shift register
                 // xThis ensures caching works correctly when there are multiple pins on the same physical device
@@ -1578,8 +1578,8 @@ namespace MobiFlight
                             	{
                                 	continue;
                             	}
-                            	// similarly also for digital input Muxes
-                            	if (e.Type == DeviceType.DigInputMux && cfg.digInputMux != null && cfg.digInputMux.ExtPin != e.ExtPin)
+                            	// similarly also for digital input Multiplexer
+                            	if (e.Type == DeviceType.InputMultiplexer && cfg.inputMultiplexer != null && cfg.inputMultiplexer.DataPin != e.ExtPin)
                             	{
                                 	continue;
                             	}

@@ -319,12 +319,12 @@ namespace MobiFlight.UI.Dialogs
                         (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
                     break;
 
-                case DeviceType.DigInputMux:
-                    config.Type = InputConfigItem.TYPE_DIG_INPUT_MUX;
-                    if (config.digInputMux == null) config.digInputMux = new InputConfig.DigInputMuxConfig();
-                    config.digInputMux.ExtPin = (int)inputPinDropDown.SelectedItem;
+                case DeviceType.InputMultiplexer:
+                    config.Type = InputConfigItem.TYPE_INPUT_MULTIPLEXER;
+                    if (config.inputMultiplexer == null) config.inputMultiplexer = new InputConfig.InputMultiplexerConfig();
+                    config.inputMultiplexer.DataPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
-                        (groupBoxInputSettings.Controls[0] as DigInputMuxPanel).ToConfig(config.digInputMux);
+                        (groupBoxInputSettings.Controls[0] as InputMultiplexerPanel).ToConfig(config.inputMultiplexer);
                     break;
 
                 case DeviceType.AnalogInput:
@@ -391,7 +391,7 @@ namespace MobiFlight.UI.Dialogs
                             case DeviceType.AnalogInput:
                             case DeviceType.Encoder:
                             case DeviceType.InputShiftRegister:
-                            case DeviceType.DigInputMux:
+                            case DeviceType.InputMultiplexer:
                                 inputTypeComboBox.Items.Add(new ListItem<Config.BaseDevice>() { Label = device.Name, Value = device });
                                 break;
                         }
@@ -505,11 +505,11 @@ namespace MobiFlight.UI.Dialogs
                         inputPinDropDown.Visible = true;
                         break;
 
-                    case DeviceType.DigInputMux:
-                        Config.DigInputMux selectedDigInputMux = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.DigInputMux;
-                        panel = new Panels.Input.DigInputMuxPanel();
-                        (panel as Panels.Input.DigInputMuxPanel).syncFromConfig(config.digInputMux);
-                        PopulateInputPinDropdown(Convert.ToInt32(selectedDigInputMux.NumModules), config.digInputMux?.ExtPin);
+                    case DeviceType.InputMultiplexer:
+                        Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputMultiplexer;
+                        panel = new Panels.Input.InputMultiplexerPanel();
+                        (panel as Panels.Input.InputMultiplexerPanel).syncFromConfig(config.inputMultiplexer);
+                        PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumBytes), config.inputMultiplexer?.DataPin);
                         inputPinDropDown.Visible = true;
                         break;
 

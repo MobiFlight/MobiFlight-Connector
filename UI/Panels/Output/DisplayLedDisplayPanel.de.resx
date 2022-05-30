@@ -142,19 +142,21 @@
   <data name="displayLedGroupFlowLayoutPanel.Text" xml:space="preserve">
     <value>Einstellungen</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 13</value>
+  <data name="BrigthnessReferenceLabel.Text" xml:space="preserve">
+    <value>Helligkeit Ref.</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Helligkeits-Referenz</value>
+  <data name="ReverseDigitHintLabel.Text" xml:space="preserve">
+    <value>(nur notwendig bei Custom PCBs)</value>
+  </data>
+  <data name="BrightnessReferenceHintLabel.Text" xml:space="preserve">
+    <value>Helligkeit geht von 0 -15.
+
+Null (0) macht das Display aus, z.B. Cold &amp;&amp; Dark ohne Bordspannung. 15 ist volle Helligkeit.</value>
+  </data>
+  <data name="ReverseDigitsLabel.Text" xml:space="preserve">
+    <value>Reversiere Ziffern</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
     <value>Erweiterte Einstellungen</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Stellen rückwärts</value>
   </data>
 </root>
