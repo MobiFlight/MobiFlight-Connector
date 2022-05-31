@@ -33,6 +33,7 @@ namespace MobiFlight.InputConfig
             if (reader.LocalName == "onChange")
             {
                 onChange = InputActionFactory.CreateByType(reader["type"]);
+                onChange.ReadXml(reader);
                 reader.Read(); // Closing onChange
             }
 
