@@ -68,7 +68,7 @@ namespace MobiFlightInstaller
                 }
                 else
                 {
-                    Application.Run(new UI.UpdaterMainForm());
+                    Application.Run(new UI.InstallMainForm());
                 }
             }
             else
