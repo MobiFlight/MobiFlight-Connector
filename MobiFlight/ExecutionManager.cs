@@ -1665,6 +1665,7 @@ namespace MobiFlight
                 tuple.Item1.execute(
                     fsuipcCache,
                     simConnectCache,
+                    xplaneCache,
                     mobiFlightCache,
                     e,
                     GetRefs(tuple.Item1.ConfigRefs))

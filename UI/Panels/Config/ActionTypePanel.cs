@@ -37,6 +37,9 @@ namespace MobiFlight.UI.Panels.Config
             ActionTypeComboBox.Items.Add(InputConfig.JeehellInputAction.Label);
             ActionTypeComboBox.Items.Add(InputConfig.LuaMacroInputAction.Label);
 
+            // -- Xplane
+            ActionTypeComboBox.Items.Add(InputConfig.XplaneInputAction.Label);
+
             // -- Misc
             ActionTypeComboBox.Items.Add(InputConfig.KeyInputAction.Label);
             ActionTypeComboBox.Items.Add(InputConfig.VJoyInputAction.Label);
@@ -103,6 +106,10 @@ namespace MobiFlight.UI.Panels.Config
 
                 case "MobiFlight.InputConfig.VariableInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.VariableInputAction.Label);
+                    break;
+
+                case "MobiFlight.InputConfig.XplaneInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.XplaneInputAction.Label);
                     break;
             }
         }

@@ -229,6 +229,7 @@
     <Compile Include="MobiFlight\InputConfig\InputActionFactory.cs" />
     <Compile Include="MobiFlight\InputConfig\InputShiftRegisterConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
+    <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\Joystick.cs" />
     <Compile Include="MobiFlight\JoystickManager.cs" />
@@ -354,6 +355,12 @@
     </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020InputPanel.Designer.cs">
       <DependentUpon>MSFS2020InputPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Action\XplaneInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Action\XplaneInputPanel.Designer.cs">
+      <DependentUpon>XplaneInputPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Config\HubHopPresetPanel.cs">
       <SubType>UserControl</SubType>
@@ -971,6 +978,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\VJoyInputPanel.de.resx">
       <DependentUpon>VJoyInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\XplaneInputPanel.resx">
+      <DependentUpon>XplaneInputPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\ActionTypePanel.de.resx">
       <DependentUpon>ActionTypePanel.cs</DependentUpon>

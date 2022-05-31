@@ -30,128 +30,18 @@ namespace MobiFlight.InputConfig
 
             reader.Read(); // this should be the opening tag "onPress"
             if (reader.LocalName == "") reader.Read();
-            if (reader.LocalName == "onPress")
+            if (reader.LocalName == "onPress" && reader["type"] != null)
             {
-                switch (reader["type"])
-                {
-                    case FsuipcOffsetInputAction.TYPE:
-                        onPress = new FsuipcOffsetInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case KeyInputAction.TYPE:
-                        onPress = new KeyInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case EventIdInputAction.TYPE:
-                        onPress = new EventIdInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case PmdgEventIdInputAction.TYPE:
-                        onPress = new PmdgEventIdInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case JeehellInputAction.TYPE:
-                        onPress = new JeehellInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case LuaMacroInputAction.TYPE:
-                        onPress = new LuaMacroInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case RetriggerInputAction.TYPE:
-                        onPress = new RetriggerInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case VJoyInputAction.TYPE:
-                        onPress = new VJoyInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case MSFS2020EventIdInputAction.TYPE:
-                        onPress = new MSFS2020EventIdInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case VariableInputAction.TYPE:
-                        onPress = new VariableInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-
-                    case MSFS2020CustomInputAction.TYPE:
-                        onPress = new MSFS2020CustomInputAction();
-                        onPress.ReadXml(reader);
-                        break;
-                }
+                onPress = InputActionFactory.CreateByType(reader["type"]);
+                onPress.ReadXml(reader);
                 reader.Read(); // Closing onPress
             }
 
             if (reader.LocalName == "") reader.Read();
-            if (reader.LocalName == "onRelease")
+            if (reader.LocalName == "onRelease" && reader["type"] != null)
             {
-                switch (reader["type"])
-                {
-                    case FsuipcOffsetInputAction.TYPE:
-                        onRelease = new FsuipcOffsetInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case KeyInputAction.TYPE:
-                        onRelease = new KeyInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case EventIdInputAction.TYPE:
-                        onRelease = new EventIdInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case PmdgEventIdInputAction.TYPE:
-                        onRelease = new PmdgEventIdInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case JeehellInputAction.TYPE:
-                        onRelease = new JeehellInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case LuaMacroInputAction.TYPE:
-                        onRelease = new LuaMacroInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case RetriggerInputAction.TYPE:
-                        onRelease = new RetriggerInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case VJoyInputAction.TYPE:
-                        onRelease = new VJoyInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-                    case MSFS2020EventIdInputAction.TYPE:
-                        onRelease = new MSFS2020EventIdInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case VariableInputAction.TYPE:
-                        onRelease = new VariableInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-
-                    case MSFS2020CustomInputAction.TYPE:
-                        onRelease = new MSFS2020CustomInputAction();
-                        onRelease.ReadXml(reader);
-                        break;
-                }
-
+                onRelease = InputActionFactory.CreateByType(reader["type"]);
+                onRelease.ReadXml(reader);
                 reader.Read(); // closing onRelease
             }
 
@@ -180,12 +70,22 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs args, List<ConfigRefValue> configRefs)
+        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, 
+                              SimConnectMSFS.SimConnectCache simConnectCache, 
+                              xplane.XplaneCache xplaneCache,
+                              MobiFlightCache moduleCache, 
+                              InputEventArgs args, 
+                              List<ConfigRefValue> configRefs)
         {
             if (args.Value == 0 && onPress != null)
             {
                 Log.Instance.log("Executing OnPress: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                onPress.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
+                if(onPress.GetType().ToString()== "MobiFlight.InputConfig.XplaneInputAction")
+                {
+                    (onPress as XplaneInputAction).execute(xplaneCache, moduleCache, args, configRefs);
+                }
+                else 
+                    onPress.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
             else if (args.Value == 1 && onRelease != null)
             {

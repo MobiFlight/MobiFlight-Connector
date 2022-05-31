@@ -34,213 +34,29 @@ namespace MobiFlight.InputConfig
             reader.Read(); // this should be the opening tag "onLeft"
             if (reader.LocalName == "onLeft")
             {
-                switch (reader["type"])
-                {
-                    case FsuipcOffsetInputAction.TYPE:
-                        onLeft = new FsuipcOffsetInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-
-                    case KeyInputAction.TYPE:
-                        onLeft = new KeyInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-
-                    case EventIdInputAction.TYPE:
-                        onLeft = new EventIdInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-
-                    case PmdgEventIdInputAction.TYPE:
-                        onLeft = new PmdgEventIdInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-
-                    case JeehellInputAction.TYPE:
-                        onLeft = new JeehellInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-
-                    case LuaMacroInputAction.TYPE:
-                        onLeft = new LuaMacroInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-
-                    case MSFS2020EventIdInputAction.TYPE:
-                        onLeft = new MSFS2020EventIdInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-
-                    case VariableInputAction.TYPE:
-                        onLeft = new VariableInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-
-                    case MSFS2020CustomInputAction.TYPE:
-                        onLeft = new MSFS2020CustomInputAction();
-                        onLeft.ReadXml(reader);
-                        break;
-                }
-
+                onLeft = InputActionFactory.CreateByType(reader["type"]);
+                onLeft?.ReadXml(reader);
                 reader.Read(); // advance to the next
             }
 
             if (reader.LocalName == "onLeftFast")
             {
-                switch (reader["type"])
-                {
-                    case FsuipcOffsetInputAction.TYPE:
-                        onLeftFast = new FsuipcOffsetInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-
-                    case KeyInputAction.TYPE:
-                        onLeftFast = new KeyInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-
-                    case EventIdInputAction.TYPE:
-                        onLeftFast = new EventIdInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-
-                    case PmdgEventIdInputAction.TYPE:
-                        onLeftFast = new PmdgEventIdInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-
-                    case JeehellInputAction.TYPE:
-                        onLeftFast = new JeehellInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-
-                    case LuaMacroInputAction.TYPE:
-                        onLeftFast = new LuaMacroInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-
-                    case MSFS2020EventIdInputAction.TYPE:
-                        onLeftFast = new MSFS2020EventIdInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-
-                    case VariableInputAction.TYPE:
-                        onLeftFast = new VariableInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-
-                    case MSFS2020CustomInputAction.TYPE:
-                        onLeftFast = new MSFS2020CustomInputAction();
-                        onLeftFast.ReadXml(reader);
-                        break;
-                }
-
+                onLeftFast = InputActionFactory.CreateByType(reader["type"]);
+                onLeftFast?.ReadXml(reader);
                 reader.Read(); // advance to the next
             }
 
             if (reader.LocalName == "onRight")
             {
-                switch (reader["type"])
-                {
-                    case FsuipcOffsetInputAction.TYPE:
-                        onRight = new FsuipcOffsetInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-
-                    case KeyInputAction.TYPE:
-                        onRight = new KeyInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-
-                    case EventIdInputAction.TYPE:
-                        onRight = new EventIdInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-
-                    case PmdgEventIdInputAction.TYPE:
-                        onRight = new PmdgEventIdInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-
-                    case JeehellInputAction.TYPE:
-                        onRight = new JeehellInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-
-                    case LuaMacroInputAction.TYPE:
-                        onRight = new LuaMacroInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-
-                    case MSFS2020EventIdInputAction.TYPE:
-                        onRight = new MSFS2020EventIdInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-
-                    case VariableInputAction.TYPE:
-                        onRight = new VariableInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-
-                    case MSFS2020CustomInputAction.TYPE:
-                        onRight = new MSFS2020CustomInputAction();
-                        onRight.ReadXml(reader);
-                        break;
-                }
-
+                onRight = InputActionFactory.CreateByType(reader["type"]);
+                onRight?.ReadXml(reader);
                 reader.Read(); // advance to the next
             }
 
             if (reader.LocalName == "onRightFast")
             {
-                switch (reader["type"])
-                {
-                    case FsuipcOffsetInputAction.TYPE:
-                        onRightFast = new FsuipcOffsetInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-
-                    case KeyInputAction.TYPE:
-                        onRightFast = new KeyInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-
-                    case EventIdInputAction.TYPE:
-                        onRightFast = new EventIdInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-
-                    case PmdgEventIdInputAction.TYPE:
-                        onRightFast = new PmdgEventIdInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-
-                    case JeehellInputAction.TYPE:
-                        onRightFast = new JeehellInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-
-                    case LuaMacroInputAction.TYPE:
-                        onRightFast = new LuaMacroInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-
-                    case MSFS2020EventIdInputAction.TYPE:
-                        onRightFast = new MSFS2020EventIdInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-
-                    case VariableInputAction.TYPE:
-                        onRightFast = new VariableInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-
-                    case MSFS2020CustomInputAction.TYPE:
-                        onRightFast = new MSFS2020CustomInputAction();
-                        onRightFast.ReadXml(reader);
-                        break;
-                }
-
+                onRightFast = InputActionFactory.CreateByType(reader["type"]);
+                onRightFast?.ReadXml(reader);
                 reader.Read(); // advance to the next
             }
 
