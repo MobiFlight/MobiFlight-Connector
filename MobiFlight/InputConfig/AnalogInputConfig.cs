@@ -56,16 +56,14 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, 
-                                SimConnectMSFS.SimConnectCache simConnectCache, 
-                                MobiFlightCache moduleCache, 
+        internal void execute(CacheCollection cacheCollection, 
                                 InputEventArgs args, 
                                 List<ConfigRefValue> configRefs)
         {
             if (onChange != null)
             {
                 Log.Instance.log("Executing Change: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                onChange.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
+                onChange.execute(cacheCollection, args, configRefs);
             }
         }
 

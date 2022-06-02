@@ -1098,13 +1098,18 @@ namespace MobiFlight
                         int.TryParse(value, out iValue);
 
                         List<ConfigRefValue> cfgRefs = GetRefs(cfg.ConfigRefs);
+                        CacheCollection cacheCollection = new CacheCollection()
+                        {
+                            fsuipcCache = fsuipcCache,
+                            simConnectCache = simConnectCache,
+                            moduleCache = mobiFlightCache,
+                            xplaneCache = xplaneCache
+                        };
                         
                         if (cfg.ButtonInputConfig != null)
                             inputActionExecutionCache.Execute(
                                 cfg.ButtonInputConfig,
-                                fsuipcCache,
-                                simConnectCache,
-                                mobiFlightCache,
+                                cacheCollection,
                                 new InputEventArgs() { Value = iValue, StrValue = value },
                                 cfgRefs
                             );
@@ -1112,9 +1117,7 @@ namespace MobiFlight
                         {
                             inputActionExecutionCache.Execute(
                                 cfg.AnalogInputConfig,
-                                fsuipcCache,
-                                simConnectCache,
-                                mobiFlightCache,
+                                cacheCollection,
                                 new InputEventArgs() { Value = iValue, StrValue = value },
                                 cfgRefs
                             );
@@ -1635,6 +1638,13 @@ namespace MobiFlight
             if (!IsStarted()) return;
 
             ConnectorValue currentValue = new ConnectorValue();
+            CacheCollection cacheCollection = new CacheCollection()
+            {
+                fsuipcCache = fsuipcCache,
+                simConnectCache = simConnectCache,
+                xplaneCache = xplaneCache,
+                moduleCache = mobiFlightCache
+            };
 
             foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
             {
@@ -1663,10 +1673,7 @@ namespace MobiFlight
                 }
 #if SIMCONNECT
                 tuple.Item1.execute(
-                    fsuipcCache,
-                    simConnectCache,
-                    xplaneCache,
-                    mobiFlightCache,
+                    cacheCollection,
                     e,
                     GetRefs(tuple.Item1.ConfigRefs))
                     ;

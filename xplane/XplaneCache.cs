@@ -7,7 +7,7 @@ using XPlaneConnector;
 
 namespace MobiFlight.xplane
 {
-    public class XplaneCache
+    public class XplaneCache : XplaneCacheInterface
     {
         public event EventHandler Closed;
         public event EventHandler Connected;
@@ -47,13 +47,13 @@ namespace MobiFlight.xplane
             return _connected;
         }
 
-        internal void Start()
+        public void Start()
         {
             SubscribedDataRefs.Clear();
             Connector?.Start();
         }
 
-        internal void Stop()
+        public void Stop()
         {
             Connector?.Stop();
         }

@@ -820,6 +820,7 @@
     <Compile Include="UI\Panels\Output\LCDDisplayPanel.Designer.cs">
       <DependentUpon>LCDDisplayPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="xplane\XplaneCacheInterface.cs" />
     <Compile Include="xplane\XplaneCache.cs" />
     <Compile Include="xplane\XplaneDataRef.cs" />
     <None Include="ApplicationInsights.config" />

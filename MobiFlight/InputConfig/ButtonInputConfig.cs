@@ -30,18 +30,19 @@ namespace MobiFlight.InputConfig
 
             reader.Read(); // this should be the opening tag "onPress"
             if (reader.LocalName == "") reader.Read();
-            if (reader.LocalName == "onPress" && reader["type"] != null)
+            if (reader.LocalName == "onPress")
             {
+                
                 onPress = InputActionFactory.CreateByType(reader["type"]);
-                onPress.ReadXml(reader);
+                onPress?.ReadXml(reader);
                 reader.Read(); // Closing onPress
             }
 
             if (reader.LocalName == "") reader.Read();
-            if (reader.LocalName == "onRelease" && reader["type"] != null)
-            {
+            if (reader.LocalName == "onRelease")
+            {                
                 onRelease = InputActionFactory.CreateByType(reader["type"]);
-                onRelease.ReadXml(reader);
+                onRelease?.ReadXml(reader);
                 reader.Read(); // closing onRelease
             }
 
@@ -70,10 +71,7 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, 
-                              SimConnectMSFS.SimConnectCache simConnectCache, 
-                              xplane.XplaneCache xplaneCache,
-                              MobiFlightCache moduleCache, 
+        internal void execute(CacheCollection cacheCollection, 
                               InputEventArgs args, 
                               List<ConfigRefValue> configRefs)
         {
@@ -82,15 +80,13 @@ namespace MobiFlight.InputConfig
                 Log.Instance.log("Executing OnPress: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 if(onPress.GetType().ToString()== "MobiFlight.InputConfig.XplaneInputAction")
                 {
-                    (onPress as XplaneInputAction).execute(xplaneCache, moduleCache, args, configRefs);
+                    (onPress as XplaneInputAction).execute(cacheCollection, args, configRefs);
                 }
-                else 
-                    onPress.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
             }
             else if (args.Value == 1 && onRelease != null)
             {
                 Log.Instance.log("Executing OnRelease: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                onRelease.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
+                onRelease.execute(cacheCollection, args, configRefs);
             }
 
         }

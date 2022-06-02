@@ -45,6 +45,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
+    <Reference Include="XPlaneConnector, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XPlaneConnector.1.3.0\lib\netstandard2.0\XPlaneConnector.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -80,6 +83,7 @@
     <Compile Include="MobiFlight\InputConfig\EncoderInputConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfig\LuaMacroInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputActionTests.cs" />
+    <Compile Include="MobiFlight\InputConfig\XplaneInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\RetriggerInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\PmdgEventIdInputActionTests.cs" />
@@ -106,6 +110,7 @@
     <Compile Include="mock\FSUIPC\FSUIPCCacheMock.cs" />
     <Compile Include="mock\MobiFlight\MobiFlightCacheMock.cs" />
     <Compile Include="mock\SimConnectMSFS\SimConnectCacheMock.cs" />
+    <Compile Include="mock\xplane\XplaneCacheMock.cs" />
     <Compile Include="Panels\Group\InterpolationPanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetListTests.cs" />
@@ -211,6 +216,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\MobiFlight\InputConfig\InputShiftRegisterConfig\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\XplaneInputAction\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\InputConfig\XplaneInputAction\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

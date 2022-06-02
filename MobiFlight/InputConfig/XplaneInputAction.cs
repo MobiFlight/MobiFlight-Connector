@@ -20,7 +20,9 @@ namespace MobiFlight.InputConfig
         override public object Clone()
         {
             XplaneInputAction clone = new XplaneInputAction();
+            clone.InputType = InputType;
             clone.Path = Path.Clone() as String;
+            clone.Expression = Expression.Clone() as String;
             return clone;
         }
 
@@ -44,20 +46,12 @@ namespace MobiFlight.InputConfig
             return TYPE;
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface fsuipcCache,
-                                     SimConnectMSFS.SimConnectCacheInterface simConnectCache,
-                                     MobiFlightCacheInterface moduleCache,
-                                     InputEventArgs args,
-                                     List<ConfigRefValue> configRefs)
-        {
-        }
-
-        public void execute(XplaneCache xplaneCache, 
-                            MobiFlightCacheInterface moduleCache, 
+        public override void execute(CacheCollection cacheCollection, 
                             InputEventArgs args,
                             List<ConfigRefValue> configRefs)
         {
             String value = Expression;
+            XplaneCacheInterface xplaneCache = cacheCollection.xplaneCache;
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();
 

@@ -130,27 +130,27 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, SimConnectMSFS.SimConnectCache simConnectCache, MobiFlightCache moduleCache, InputEventArgs args, List<ConfigRefValue> configRefs)
+        internal void execute(CacheCollection cacheCollection, InputEventArgs args, List<ConfigRefValue> configRefs)
         {
             if ((args.Value == 0 && onLeft != null) || (args.Value == 1 && onLeftFast == null && onLeft != null))
             {
                 Log.Instance.log("Executing OnLeft: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                onLeft.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
+                onLeft.execute(cacheCollection, args, configRefs);
             }
             else if (args.Value == 1 && onLeftFast != null)
             {
                 Log.Instance.log("Executing OnLeftFast: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                onLeftFast.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
+                onLeftFast.execute(cacheCollection, args, configRefs);
             }
             else if ((args.Value == 2 && onRight != null) || (args.Value == 3 && onRightFast == null && onRight != null))
             {
                 Log.Instance.log("Executing OnRight: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                onRight.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
+                onRight.execute(cacheCollection, args, configRefs);
             }
             else if (args.Value == 3 && onRightFast != null)
             {
                 Log.Instance.log("Executing OnRightFast: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                onRightFast.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
+                onRightFast.execute(cacheCollection, args, configRefs);
             }
 
         }

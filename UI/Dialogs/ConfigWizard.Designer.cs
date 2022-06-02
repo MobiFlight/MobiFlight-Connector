@@ -34,6 +34,7 @@
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
             this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
+            this.xplaneDataRefPanel1 = new MobiFlight.UI.Panels.Config.XplaneDataRefPanel();
             this.variablePanel1 = new MobiFlight.UI.Panels.Config.VariablePanel();
             this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
             this.FsuipcSettingsPanel = new System.Windows.Forms.Panel();
@@ -72,7 +73,6 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
-            this.xplaneDataRefPanel1 = new MobiFlight.UI.Panels.Config.XplaneDataRefPanel();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
@@ -130,6 +130,11 @@
             // 
             resources.ApplyResources(this.configRefPanel, "configRefPanel");
             this.configRefPanel.Name = "configRefPanel";
+            // 
+            // xplaneDataRefPanel1
+            // 
+            resources.ApplyResources(this.xplaneDataRefPanel1, "xplaneDataRefPanel1");
+            this.xplaneDataRefPanel1.Name = "xplaneDataRefPanel1";
             // 
             // variablePanel1
             // 
@@ -393,11 +398,6 @@
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
-            // 
-            // xplaneDataRefPanel1
-            // 
-            resources.ApplyResources(this.xplaneDataRefPanel1, "xplaneDataRefPanel1");
-            this.xplaneDataRefPanel1.Name = "xplaneDataRefPanel1";
             // 
             // ConfigWizard
             // 

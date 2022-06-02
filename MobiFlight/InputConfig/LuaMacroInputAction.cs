@@ -36,9 +36,7 @@ namespace MobiFlight.InputConfig
         }
 
         public override void execute(
-            FSUIPC.FSUIPCCacheInterface fsuipcCache,
-            SimConnectMSFS.SimConnectCacheInterface simConnectCache,
-            MobiFlightCacheInterface moduleCache,
+            CacheCollection cacheCollection,
             InputEventArgs args,
             List<ConfigRefValue> configRefs)
         {
@@ -62,7 +60,7 @@ namespace MobiFlight.InputConfig
             value = Replace(value, replacements);
 
             Log.Instance.log("LuaMacoInputAction:Execute : Calling macro " + MacroName, LogSeverity.Debug);
-            fsuipcCache.executeMacro(MacroName, int.Parse(value));
+            cacheCollection.fsuipcCache.executeMacro(MacroName, int.Parse(value));
         }
 
         public override bool Equals(object obj)

@@ -11,34 +11,34 @@ using System.Xml;
 namespace MobiFlight.InputConfig.Tests
 {
     [TestClass()]
-    public class VariableInputActionTests
+    public class XplaneInputActionTests
     {
         [TestMethod()]
         public void CloneTest()
         {
-            VariableInputAction o = generateTestObject();
-            VariableInputAction c = (VariableInputAction)o.Clone();
+            XplaneInputAction o = generateTestObject();
+            XplaneInputAction c = (XplaneInputAction)o.Clone();
             Assert.AreNotSame(o, c, "Clone is the same object");
-            Assert.AreEqual(o.Variable.TYPE, c.Variable.TYPE, "EventId not the same");
-            Assert.AreEqual(o.Variable.Name, c.Variable.Name, "EventId not the same");
-            Assert.AreEqual(o.Variable.Expression, c.Variable.Expression, "EventId not the same");
+            Assert.AreEqual(o.InputType, c.InputType, "InputType not the same");
+            Assert.AreEqual(o.Path, c.Path, "Path not the same");
+            Assert.AreEqual(o.Expression, c.Expression, "Expression not the same");
         }
 
-        private VariableInputAction generateTestObject()
+        private XplaneInputAction generateTestObject()
         {
-            VariableInputAction o = new VariableInputAction();
-            o.Variable.Name = "VariableInputActionTests";
-            o.Variable.TYPE = "string";
-            o.Variable.Text = "VariableInputActionTests";
-            o.Variable.Expression = "$+1";
+            XplaneInputAction o = new XplaneInputAction();
+            o.InputType = XplaneInputAction.INPUT_TYPE_DATAREF;
+            o.Path = "/my/test/path";
+            o.Expression = "$+1";
+
             return o;
         }
 
         [TestMethod()]
         public void ReadXmlTest()
         {
-            VariableInputAction o = new VariableInputAction();
-            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\VariableInputAction\ReadXmlTest.1.xml");
+            XplaneInputAction o = new XplaneInputAction();
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\XplaneInputAction\ReadXmlTest.1.xml");
             StringReader sr = new StringReader(s);
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
@@ -47,8 +47,9 @@ namespace MobiFlight.InputConfig.Tests
             xmlReader.ReadToDescendant("onPress");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual(o.Variable.TYPE, "string", "Variable.TYPE are not the same");
-            Assert.AreEqual(o.Variable.Name, "VariableInputActionReadXMLTests", "Param not the same");
+            Assert.AreEqual(o.InputType, "DataRef", "InputType not the same");
+            Assert.AreEqual(o.Path,"/my/test/path1", "Path not the same");
+            Assert.AreEqual(o.Expression, "$+2");
         }
 
         [TestMethod()]
@@ -61,15 +62,14 @@ namespace MobiFlight.InputConfig.Tests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
-            VariableInputAction o = generateTestObject();
-            o.Variable.Name = "VariableInputActionWriteXMLTests";
+            XplaneInputAction o = generateTestObject();
             xmlWriter.WriteStartElement("onPress");
             o.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
 
-            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\VariableInputAction\WriteXmlTest.1.xml");
+            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\XplaneInputAction\WriteXmlTest.1.xml");
 
             Assert.AreEqual(s, result, "The both strings are not equal");
         }
@@ -77,32 +77,38 @@ namespace MobiFlight.InputConfig.Tests
         [TestMethod()]
         public void executeTest()
         {
-            VariableInputAction o = generateTestObject();
+            XplaneInputAction o = generateTestObject();
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
-            MobiFlightUnitTests.mock.MobiFlight.MobiFlightCacheMock mobiflightCacheMock = new MobiFlightUnitTests.mock.MobiFlight.MobiFlightCacheMock();
             MobiFlightUnitTests.mock.xplane.XplaneCacheMock xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
 
             CacheCollection cacheCollection = new CacheCollection()
             {
                 fsuipcCache = mock,
                 simConnectCache = simConnectMock,
-                moduleCache = mobiflightCacheMock,
+                moduleCache = null,
                 xplaneCache = xplaneCacheMock
             };
 
-            o.Variable.TYPE = "number";
-            o.Variable.Expression = "$+1";
-
             o.execute(cacheCollection, null, new List<ConfigRefValue>());
-            Assert.AreEqual(mobiflightCacheMock.GetMobiFlightVariable("VariableInputActionTests").Number, 1, "The number is not correct.");
+            Assert.AreEqual(1, xplaneCacheMock.Writes.Count, "The message count is not as expected");
+
+            xplaneCacheMock.Clear();
+            // validate config references work
+            o.Expression = "1+#";
+            List<ConfigRefValue> configrefs = new List<ConfigRefValue>();
+            configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
+            o.execute(cacheCollection, null, configrefs);
+
+            Assert.AreEqual(1, xplaneCacheMock.Writes.Count, "The message count is not as expected");
+            Assert.AreEqual(2, xplaneCacheMock.Writes[0].Value, "The Write Value is wrong");
         }
 
         [TestMethod()]
         public void EqualsTest()
         {
-            VariableInputAction o1 = new VariableInputAction();
-            VariableInputAction o2 = new VariableInputAction();
+            XplaneInputAction o1 = new XplaneInputAction();
+            XplaneInputAction o2 = new XplaneInputAction();
 
             Assert.IsTrue(o1.Equals(o2));
 
