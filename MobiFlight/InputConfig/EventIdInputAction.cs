@@ -46,9 +46,7 @@ namespace MobiFlight.InputConfig
         }
 
         public override void execute(
-            FSUIPC.FSUIPCCacheInterface fsuipcCache, 
-            SimConnectMSFS.SimConnectCacheInterface simConnectCache, 
-            MobiFlightCacheInterface moduleCache,
+            CacheCollection cacheCollection,
             InputEventArgs args,
             List<ConfigRefValue> configRefs)
         {
@@ -70,7 +68,7 @@ namespace MobiFlight.InputConfig
 
             value = Replace(value, replacements);
 
-            fsuipcCache.setEventID(EventId, int.Parse(value));
+            cacheCollection.fsuipcCache.setEventID(EventId, int.Parse(value));
         }
 
         public override bool Equals(object obj)

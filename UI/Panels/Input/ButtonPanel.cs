@@ -101,6 +101,7 @@ namespace MobiFlight.UI.Panels.Input
             else if (type == "MobiFlight.InputConfig.MSFS2020EventIdInputAction") value = MobiFlight.InputConfig.MSFS2020CustomInputAction.Label;
             else if (type == "MobiFlight.InputConfig.MSFS2020CustomInputAction") value = MobiFlight.InputConfig.MSFS2020CustomInputAction.Label;
             else if (type == "MobiFlight.InputConfig.VariableInputAction") value = MobiFlight.InputConfig.VariableInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.XplaneInputAction") value = MobiFlight.InputConfig.XplaneInputAction.Label;
 
             UpdatePanelWithAction(owner, config, value, isPress);
         }
@@ -216,6 +217,15 @@ namespace MobiFlight.UI.Panels.Input
                     }
 
                     break;
+
+                case MobiFlight.InputConfig.XplaneInputAction.Label:
+                    panel = new MobiFlight.UI.Panels.Action.XplaneInputPanel();
+                    if (isOnPress && config != null && config.onPress != null)
+                        (panel as MobiFlight.UI.Panels.Action.XplaneInputPanel).syncFromConfig(config.onPress as XplaneInputAction);
+                    else if (!isOnPress && config != null && config.onRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.XplaneInputPanel).syncFromConfig(config.onRelease as XplaneInputAction);
+
+                    break;
             }
 
             if (panel != null)
@@ -313,6 +323,10 @@ namespace MobiFlight.UI.Panels.Input
                         config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.VariableInputPanel).ToConfig();
                         break;
 
+                    case MobiFlight.InputConfig.XplaneInputAction.Label:
+                        config.onPress = (onPressActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.XplaneInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onPress = null;
                         break;
@@ -365,6 +379,10 @@ namespace MobiFlight.UI.Panels.Input
 
                     case MobiFlight.InputConfig.VariableInputAction.Label:
                         config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.VariableInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.XplaneInputAction.Label:
+                        config.onRelease = (onReleaseActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.XplaneInputPanel).ToConfig();
                         break;
 
                     default:

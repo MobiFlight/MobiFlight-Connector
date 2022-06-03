@@ -23,12 +23,12 @@ namespace MobiFlightUnitTests.mock.FSUIPC
             return;
         }
 
-        public bool connect()
+        public bool Connect()
         {
             return true;
         }
 
-        public bool disconnect()
+        public bool Disconnect()
         {
             return true;
         }
@@ -58,7 +58,7 @@ namespace MobiFlightUnitTests.mock.FSUIPC
             return long.MaxValue;
         }
 
-        public bool isConnected()
+        public bool IsConnected()
         {
             return true;
         }

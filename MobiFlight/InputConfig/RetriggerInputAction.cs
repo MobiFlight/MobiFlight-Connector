@@ -29,9 +29,7 @@ namespace MobiFlight.InputConfig
         }
 
         public override void execute(
-            FSUIPC.FSUIPCCacheInterface fsuipcCache,
-            SimConnectMSFS.SimConnectCacheInterface simConnectCache,
-            MobiFlightCacheInterface moduleCache,
+            CacheCollection cacheCollection,
             InputEventArgs args,
             List<ConfigRefValue> configRefs)
         {
@@ -39,7 +37,7 @@ namespace MobiFlight.InputConfig
             if (DateTime.Now.Ticks  - lastExecution.Ticks < 50000000) return;
             // Log.Instance.log("RetriggerInputAction.execute: Seconds since lastExecution " + (DateTime.Now.Ticks - lastExecution.Ticks), LogSeverity.Debug);
 
-            foreach (MobiFlightModule module in moduleCache.GetModules()) {
+            foreach (MobiFlightModule module in cacheCollection.moduleCache.GetModules()) {
                 module.Retrigger();
             }
 

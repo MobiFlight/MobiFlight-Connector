@@ -9,6 +9,7 @@ using MobiFlight.OutputConfig;
 using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.InputConfig;
+using MobiFlight.xplane;
 
 namespace MobiFlight
 {
@@ -26,6 +27,8 @@ namespace MobiFlight
 		public FsuipcOffset         FSUIPC                      { get; set; }
 		public SimConnectValue      SimConnectValue             { get; set; }
 		public MobiFlightVariable   MobiFlightVariable          { get; set; }
+
+        public XplaneDataRef        XplaneDataRef               { get; set; }
 		public Transformation       Transform                   { get; set; }
 		public string               Value                       { get; set; }	
 		public OutputConfig.Comparison Comparison                  { get; set; }
@@ -53,6 +56,7 @@ namespace MobiFlight
             FSUIPC = new FsuipcOffset();
             SimConnectValue = new SimConnectValue();
             MobiFlightVariable = new MobiFlightVariable();
+            XplaneDataRef = new XplaneDataRef();
             Transform = new Transformation();
             Comparison = new OutputConfig.Comparison();
             Pin = new OutputConfig.Pin();
@@ -77,6 +81,7 @@ namespace MobiFlight
                 this.SourceType == (obj as OutputConfigItem).SourceType &&
                 this.FSUIPC.Equals((obj as OutputConfigItem).FSUIPC) &&
                 this.SimConnectValue.Equals((obj as OutputConfigItem).SimConnectValue) &&
+                this.XplaneDataRef.Equals((obj as OutputConfigItem).XplaneDataRef) &&
                 this.MobiFlightVariable.Equals((obj as OutputConfigItem).MobiFlightVariable) &&
                 this.Transform.Equals((obj as OutputConfigItem).Transform) &&
                 //===
@@ -127,6 +132,10 @@ namespace MobiFlight
                 {
                     SourceType = SourceType.VARIABLE;
                     this.MobiFlightVariable.ReadXml(reader);
+                } else if (reader["type"] == "XplaneDataRef")
+                {
+                    SourceType = SourceType.XPLANE;
+                    this.XplaneDataRef.ReadXml(reader);
                 }
                 else
                 {
@@ -282,10 +291,12 @@ namespace MobiFlight
         public virtual void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("source");
-                if(SourceType==SourceType.FSUIPC)
+                if (SourceType == SourceType.FSUIPC)
                     this.FSUIPC.WriteXml(writer);
                 else if (SourceType == SourceType.VARIABLE)
                     this.MobiFlightVariable.WriteXml(writer);
+                else if (SourceType == SourceType.XPLANE)
+                    this.XplaneDataRef.WriteXml(writer);
                 else
                     this.SimConnectValue.WriteXml(writer);
             writer.WriteEndElement();
@@ -369,6 +380,7 @@ namespace MobiFlight
             clone.FSUIPC                    = this.FSUIPC.Clone() as FsuipcOffset;
             clone.SimConnectValue           = this.SimConnectValue.Clone() as SimConnectValue;
             clone.MobiFlightVariable        = this.MobiFlightVariable.Clone() as MobiFlightVariable;
+            clone.XplaneDataRef             = this.XplaneDataRef.Clone() as XplaneDataRef;
 
 
             clone.Transform                 = this.Transform.Clone() as Transformation;
@@ -404,6 +416,7 @@ namespace MobiFlight
     {
         FSUIPC,
         SIMCONNECT,
-        VARIABLE
+        VARIABLE,
+        XPLANE
     }
 }

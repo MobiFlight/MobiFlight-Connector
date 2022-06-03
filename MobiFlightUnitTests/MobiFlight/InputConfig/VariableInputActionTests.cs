@@ -81,10 +81,20 @@ namespace MobiFlight.InputConfig.Tests
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
             MobiFlightUnitTests.mock.MobiFlight.MobiFlightCacheMock mobiflightCacheMock = new MobiFlightUnitTests.mock.MobiFlight.MobiFlightCacheMock();
+            MobiFlightUnitTests.mock.xplane.XplaneCacheMock xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            CacheCollection cacheCollection = new CacheCollection()
+            {
+                fsuipcCache = mock,
+                simConnectCache = simConnectMock,
+                moduleCache = mobiflightCacheMock,
+                xplaneCache = xplaneCacheMock
+            };
+
             o.Variable.TYPE = "number";
             o.Variable.Expression = "$+1";
 
-            o.execute(mock, simConnectMock, mobiflightCacheMock, null, new List<ConfigRefValue>());
+            o.execute(cacheCollection, null, new List<ConfigRefValue>());
             Assert.AreEqual(mobiflightCacheMock.GetMobiFlightVariable("VariableInputActionTests").Number, 1, "The number is not correct.");
         }
 

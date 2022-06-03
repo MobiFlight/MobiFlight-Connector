@@ -125,10 +125,11 @@ namespace MobiFlight.InputConfig
             return result;
         }
 
-        public override void execute(FSUIPC.FSUIPCCacheInterface cache, SimConnectMSFS.SimConnectCacheInterface simConnectCache, MobiFlightCacheInterface moduleCache,
+        public override void execute(CacheCollection cacheCollection,
             InputEventArgs args, List<ConfigRefValue> configRefs)
         {
             String value = Param;
+            FSUIPC.FSUIPCCacheInterface cache = cacheCollection.fsuipcCache;
             IFsuipcConfigItem cfg = CreateFsuipcConfigItem();
 
             List<Tuple<string, string>> replacements = new List<Tuple<string, string>>();

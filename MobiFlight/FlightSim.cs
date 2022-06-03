@@ -14,6 +14,7 @@ namespace MobiFlight
         WIDECLIENT,
         XPUIPC,
         SIMCONNECT,
+        XPLANE,
         OFFLINE
     }
 
@@ -33,6 +34,28 @@ namespace MobiFlight
         static public FlightSimConnectionMethod FlightSimConnectionMethod = FlightSimConnectionMethod.NONE;
         static public FlightSimType FlightSimType = FlightSimType.NONE;
         static public bool OfflineMode = false;
+        static public Dictionary<FlightSimConnectionMethod, String> SimConnectionNames = new Dictionary<FlightSimConnectionMethod, string>()
+        {
+            { FlightSimConnectionMethod.NONE, "None" },
+            { FlightSimConnectionMethod.UNKNOWN, "Unknown" },
+            { FlightSimConnectionMethod.FSUIPC, "FSUIPC" },
+            { FlightSimConnectionMethod.WIDECLIENT, "WideClient" },
+            { FlightSimConnectionMethod.XPUIPC, "XPUIPC" },
+            { FlightSimConnectionMethod.SIMCONNECT, "SimConnect" },
+            { FlightSimConnectionMethod.XPLANE, "X-Plane (Direct)" },
+            { FlightSimConnectionMethod.OFFLINE, "Offline" },
+        };
+
+        static public Dictionary<FlightSimType, String> SimNames = new Dictionary<FlightSimType, string>()
+        {
+            { FlightSimType.NONE, "None" },
+            { FlightSimType.UNKNOWN, "Unknown" },
+            { FlightSimType.FS9, "FS2004" },
+            { FlightSimType.FSX, "FSX" },
+            { FlightSimType.P3D, "Prepar3D" },
+            { FlightSimType.XPLANE, "X-Plane" },
+            { FlightSimType.MSFS2020, "MSFS2020" },
+        };
 
         static public bool IsAvailable()
         {
@@ -83,7 +106,7 @@ namespace MobiFlight
             proc = "x-plane";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
-                FlightSimConnectionMethod = FlightSimConnectionMethod.XPUIPC;
+                FlightSimConnectionMethod = FlightSimConnectionMethod.XPLANE;
                 FlightSimType = FlightSimType.XPLANE;
                 return true;
             }
@@ -91,7 +114,7 @@ namespace MobiFlight
             proc = "x-plane-32bit";
             if (Process.GetProcessesByName(proc).Length > 0)
             {
-                FlightSimConnectionMethod = FlightSimConnectionMethod.XPUIPC;
+                FlightSimConnectionMethod = FlightSimConnectionMethod.XPLANE;
                 FlightSimType = FlightSimType.XPLANE;
                 return true;
             }

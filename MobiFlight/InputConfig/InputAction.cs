@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.xplane;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,14 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig
 {
+    public class CacheCollection
+    {
+        public FSUIPC.FSUIPCCacheInterface fsuipcCache;
+        public SimConnectMSFS.SimConnectCacheInterface simConnectCache;
+        public MobiFlightCacheInterface moduleCache;
+        public XplaneCacheInterface xplaneCache;
+    }
+
     abstract public class InputAction : IXmlSerializable, ICloneable
     {
         public const String Label = "InputAction";
@@ -20,9 +29,7 @@ namespace MobiFlight.InputConfig
         abstract public void WriteXml(System.Xml.XmlWriter writer);
 
         abstract public void execute(
-            FSUIPC.FSUIPCCacheInterface fsuipcCache, 
-            SimConnectMSFS.SimConnectCacheInterface simConnectCache, 
-            MobiFlightCacheInterface moduleCache, 
+            CacheCollection cacheCollection, 
             InputEventArgs e,
             List<ConfigRefValue> configRefs);
 
