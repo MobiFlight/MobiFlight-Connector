@@ -233,7 +233,7 @@ namespace MobiFlight
 
         public bool SimConnected()
         {
-            return fsuipcCache.isConnected()
+            return fsuipcCache.IsConnected()
 #if SIMCONNECT
                 || simConnectCache.IsConnected()
 #endif
@@ -282,8 +282,8 @@ namespace MobiFlight
 
         public void ReconnectSim()
         {
-            fsuipcCache.disconnect();
-            fsuipcCache.connect();
+            fsuipcCache.Disconnect();
+            fsuipcCache.Connect();
 #if SIMCONNECT
             simConnectCache.Disconnect();
             simConnectCache.Connect();
@@ -382,7 +382,7 @@ namespace MobiFlight
 #if MOBIFLIGHT
             mobiFlightCache.disconnect();
 #endif
-            fsuipcCache.disconnect();
+            fsuipcCache.Disconnect();
 
 #if SIMCONNECT
             simConnectCache.Disconnect();
@@ -453,7 +453,7 @@ namespace MobiFlight
                 }
 
                 // If not connected to FSUIPC show an error message
-                if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.isConnected())
+                if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
                     if (!OfflineMode) continue;
@@ -1208,7 +1208,7 @@ namespace MobiFlight
         /// </summary>
         void FsuipcCache_ConnectionLost(object sender, EventArgs e)
         {
-            fsuipcCache.disconnect();
+            fsuipcCache.Disconnect();
             this.OnSimCacheConnectionLost(sender, e);
         }
 
@@ -1329,8 +1329,8 @@ namespace MobiFlight
 
                     Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
 
-                    if (!fsuipcCache.isConnected())
-                        fsuipcCache.connect();
+                    if (!fsuipcCache.IsConnected())
+                        fsuipcCache.Connect();
 #if SIMCONNECT
                     if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
                         simConnectCache.Connect();

@@ -49,10 +49,10 @@ namespace MobiFlight.SimConnectMSFS
         private List<String> LVars = new List<String>();
         private String ResponseStatus = "NEW";
 
-        /* public void Clear()
-         {
-             throw new NotImplementedException();
-         }*/
+        public void Clear()
+        {
+             // do nothing
+        }
 
         public void SetHandle(IntPtr handle)
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XPlaneConnector;
+using MobiFlight.Base;
 
 namespace MobiFlightUnitTests.mock.xplane
 {
@@ -16,7 +17,11 @@ namespace MobiFlightUnitTests.mock.xplane
 
         Dictionary<String, DataRefElement> SubscribedDataRefs = new Dictionary<String, DataRefElement>();
         private bool _connected;
-        
+
+        public event EventHandler Closed;
+        public event EventHandler ConnectionLost;
+        public event EventHandler Connected;
+
         internal void Clear()
         {
             Writes.Clear();
@@ -25,16 +30,12 @@ namespace MobiFlightUnitTests.mock.xplane
             SubscribedDataRefs.Clear();
         }
         
-        public bool Connected
-        {
-            get { return _connected; }
-            set { _connected = value; }
-        }
-
         public bool Connect()
         {
-            return Connected;
+            _connected = true;
+            return _connected;
         }
+
         public bool Disconnect()
         {
             _connected = false;
@@ -79,6 +80,11 @@ namespace MobiFlightUnitTests.mock.xplane
         public void sendCommand(string command)
         {
             Commands.Add(new XPlaneCommand(command, null));
+        }
+
+        void CacheInterface.Clear()
+        {
+            throw new NotImplementedException();
         }
     }
 }

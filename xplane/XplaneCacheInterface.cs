@@ -7,13 +7,8 @@ using XPlaneConnector;
 
 namespace MobiFlight.xplane
 {
-    public interface XplaneCacheInterface
+    public interface XplaneCacheInterface : Base.CacheInterface
     {
-        bool Connect();
-        bool Disconnect();
-
-        bool IsConnected();
-
         void Start();
 
         void Stop();

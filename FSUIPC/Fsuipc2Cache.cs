@@ -37,7 +37,7 @@ namespace MobiFlight.FSUIPC
 
         long lastProcessedMs = 0;
 
-        public MobiFlight.FlightSimConnectionMethod FlightSimConnectionMethod = MobiFlight.FlightSimConnectionMethod.NONE;
+        public MobiFlight.FlightSimConnectionMethod FlightSimConnectionMethod { get; set; } = MobiFlight.FlightSimConnectionMethod.NONE;
         public MobiFlight.FlightSimType FlightSim = FlightSimType.NONE;
         
         bool _offsetsRegistered = false;
@@ -52,17 +52,17 @@ namespace MobiFlight.FSUIPC
             __isProcessed = false;
         }
 
-        public bool isConnected()
+        public bool IsConnected()
         {
             return FSUIPCConnection.IsOpen;
         }
 
-        public bool connect()
+        public bool Connect()
         {
             try {
                 // Attempt to open a connection to FSUIPC 
                 // (running on any version of Flight Sim)     
-                if (!isConnected())
+                if (!IsConnected())
                 {
                     FSUIPCConnection.Open();
                     this.Connected(this, new EventArgs());
@@ -87,14 +87,14 @@ namespace MobiFlight.FSUIPC
             {
                 Log.Instance.log("Fsuipc2Cache::connect() - Exception " + ex.Message, LogSeverity.Error);
             }
-            return isConnected();
+            return IsConnected();
         }
 
-        public bool disconnect()
+        public bool Disconnect()
         {
             try
             {
-                if (isConnected())
+                if (IsConnected())
                 {
                     FSUIPCConnection.Close();
                     this.Closed(this, new EventArgs());
@@ -105,12 +105,12 @@ namespace MobiFlight.FSUIPC
                 return false;
             }
 
-            return !isConnected();
+            return !IsConnected();
         }
 
         protected void _process() {
             // test the cache and gather data from fsuipc if necessary
-            if (isConnected() && _offsetsRegistered && !__isProcessed) {
+            if (IsConnected() && _offsetsRegistered && !__isProcessed) {
                 try
                 {
                     FSUIPCConnection.Process();
@@ -127,7 +127,7 @@ namespace MobiFlight.FSUIPC
         public long getValue(int offset, byte size)
         {
             long result = 0;
-            if (!isConnected()) return result;
+            if (!IsConnected()) return result;
 
             _process();
 
@@ -276,7 +276,7 @@ namespace MobiFlight.FSUIPC
         public long getLongValue(int offset, byte size)
         {
             long result = 0;
-            if (!isConnected()) return result;
+            if (!IsConnected()) return result;
 
             _process();
 
@@ -302,7 +302,7 @@ namespace MobiFlight.FSUIPC
         public double getFloatValue(int offset, byte size)
         {
             double result = 0.0;
-            if (!isConnected()) return result;
+            if (!IsConnected()) return result;
 
             _process();
             if (!__cacheFloat.ContainsKey(offset))
@@ -327,7 +327,7 @@ namespace MobiFlight.FSUIPC
         public double getDoubleValue(int offset, byte size)
         {
             double result = 0.0;
-            if (!isConnected()) return result;
+            if (!IsConnected()) return result;
 
             _process();
             if (!__cacheDouble.ContainsKey(offset))
@@ -352,7 +352,7 @@ namespace MobiFlight.FSUIPC
         public string getStringValue(int offset, byte size)
         {
             String result = "";
-            if (!isConnected()) return result;
+            if (!IsConnected()) return result;
 
             _process();
 
@@ -481,7 +481,7 @@ namespace MobiFlight.FSUIPC
                 // the FSUIPC connection will 
                 // throw an exception in case that
                 // we have no offset registered
-                if (_offsetsRegistered && isConnected())
+                if (_offsetsRegistered && IsConnected())
                 {
                     FSUIPCConnection.Process();
                     long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;

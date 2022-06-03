@@ -58,6 +58,11 @@ namespace MobiFlight.xplane
             Connector?.Stop();
         }
 
+        public void Clear()
+        {
+            SubscribedDataRefs.Clear();
+        }
+
         public float readDataRef(string dataRefPath)
         {
             if (!SubscribedDataRefs.ContainsKey(dataRefPath))

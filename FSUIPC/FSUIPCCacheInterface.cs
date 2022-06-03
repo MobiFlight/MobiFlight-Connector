@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiFlight.FSUIPC
 {
-    public interface FSUIPCCacheInterface : Base.ReadCacheInterface, Base.WriteCacheInterface
+    public interface FSUIPCCacheInterface : Base.CacheInterface, Base.ReadCacheInterface, Base.WriteCacheInterface
     {        
     }
 }

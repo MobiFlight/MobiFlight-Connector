@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiFlight.SimConnectMSFS
 {
-    public interface SimConnectCacheInterface : Base.WriteCacheInterface
+    public interface SimConnectCacheInterface : Base.CacheInterface, Base.WriteCacheInterface
     {
         void SetSimVar(String SimVarCode);
     }
