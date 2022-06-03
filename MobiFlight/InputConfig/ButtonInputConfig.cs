@@ -78,10 +78,7 @@ namespace MobiFlight.InputConfig
             if (args.Value == 0 && onPress != null)
             {
                 Log.Instance.log("Executing OnPress: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                if(onPress.GetType().ToString()== "MobiFlight.InputConfig.XplaneInputAction")
-                {
-                    (onPress as XplaneInputAction).execute(cacheCollection, args, configRefs);
-                }
+                onPress.execute(cacheCollection, args, configRefs);
             }
             else if (args.Value == 1 && onRelease != null)
             {
