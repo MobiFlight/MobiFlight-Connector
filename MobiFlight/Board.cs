@@ -165,6 +165,11 @@ namespace MobiFlight
         public int MaxServos = 0;
 
         /// <summary>
+        /// Maximum number of output shifters supported by the board.
+        /// </summary>
+        public int MaxShifters = 0;
+
+        /// <summary>
         /// Maximum number of steppers supported by the board.
         /// </summary>
         public int MaxSteppers = 0;
