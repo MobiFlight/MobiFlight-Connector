@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.InputConfig;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,13 +18,18 @@ namespace MobiFlight.UI.Panels.Action
             InitializeComponent();
 
             List<ListItem> listItems = new List<ListItem>();
-            listItems.Add(new ListItem() { Value = "DataRef", Label = "DataRef" });
-            listItems.Add(new ListItem() { Value = "Command", Label = "Command" });
+            listItems.Add(new ListItem() { Value = XplaneInputAction.INPUT_TYPE_DATAREF, Label = XplaneInputAction.INPUT_TYPE_DATAREF });
+            listItems.Add(new ListItem() { Value = XplaneInputAction.INPUT_TYPE_COMMAND, Label = XplaneInputAction.INPUT_TYPE_COMMAND });
 
             TypeComboBox.DataSource = listItems;
             TypeComboBox.ValueMember = "Value";
-            TypeComboBox.DisplayMember = "Label";   
+            TypeComboBox.DisplayMember = "Label";
 
+            TypeComboBox.SelectedValueChanged += (sender, e) =>
+            {
+                PathLabel.Text = TypeComboBox.SelectedValue.ToString();
+                HintLabel.Visible = ValueLabel.Visible = ValueTextBox.Visible = TypeComboBox.SelectedValue.ToString() == XplaneInputAction.INPUT_TYPE_DATAREF;
+            };
         }
         internal void syncFromConfig(InputConfig.XplaneInputAction inputAction)
         {

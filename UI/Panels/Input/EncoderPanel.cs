@@ -418,7 +418,7 @@ namespace MobiFlight.UI.Panels.Input
                         break;
 
                     case XplaneInputAction.Label:
-                        config.onLeftFast = (onLeftActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
                         break;
 
                     default:
@@ -462,7 +462,7 @@ namespace MobiFlight.UI.Panels.Input
                         config.onRight = (onRightActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
                         break;
                     case XplaneInputAction.Label:
-                        config.onRight = (onLeftActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
                         break;
 
                     default:
@@ -506,7 +506,7 @@ namespace MobiFlight.UI.Panels.Input
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
                         break;
                     case XplaneInputAction.Label:
-                        config.onRightFast = (onLeftActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
                         break;
 
                     default:
