@@ -315,6 +315,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.Interpolation.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.ButtonInputActionConfigRef.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
