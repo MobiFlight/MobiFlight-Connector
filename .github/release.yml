@@ -1,7 +1,7 @@
 changelog:
   exclude:
     labels:
-      - ignore-for-release
+      - ignore-for-release-notes
       - bug-beta
     authors:
       - MobiFlight-Admin
