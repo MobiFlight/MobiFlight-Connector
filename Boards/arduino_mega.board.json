@@ -29,7 +29,8 @@
     "^VID_2341&PID_0210",
     "^VID_2341&PID_0242",
     "^VID_10C4&PID_EA60",
-    "^VID_2341&PID_0044"
+    "^VID_2341&PID_0044",
+    "^VID_3343&PID_0042"
   ],
   "Info": {
     "CanInstallFirmware": true,
