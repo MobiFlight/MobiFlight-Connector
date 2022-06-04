@@ -105,6 +105,12 @@ namespace MobiFlight.UI.Panels.Config
 
         private void dataGridView1_CellEnter(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
         {
+            // don't go into edit mode
+            // if the element is not visible
+            // CellEnter is triggered during loading the interpolation config
+            // And if we .BeginEdit() then, it will throw an exception
+            if (!this.Visible) return;
+
             DataGridView dgv = (sender as DataGridView);
             if (e.RowIndex != dgv.RowCount - 1) return;
             dgv.BeginEdit(true);
