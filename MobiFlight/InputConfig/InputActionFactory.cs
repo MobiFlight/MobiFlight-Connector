@@ -13,63 +13,65 @@ namespace MobiFlight.InputConfig
         static public InputAction CreateFromXmlReader(XmlReader reader)
         {
             InputAction action = null;
+            action = CreateByType(reader["type"]);
 
-            switch (reader["type"])
+            if (action == null) return action;
+
+            action.ReadXml(reader);
+
+            return action;
+        }
+
+        static public InputAction CreateByType(string type)
+        {
+            InputAction action = null;
+            switch (type)
             {
                 case FsuipcOffsetInputAction.TYPE:
                     action = new FsuipcOffsetInputAction();
-                    action.ReadXml(reader);
-                    reader.Read(); // this should be the closing tag "onChange"
                     break;
 
                 case KeyInputAction.TYPE:
                     action = new KeyInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case EventIdInputAction.TYPE:
                     action = new EventIdInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case PmdgEventIdInputAction.TYPE:
                     action = new PmdgEventIdInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case JeehellInputAction.TYPE:
                     action = new JeehellInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case LuaMacroInputAction.TYPE:
                     action = new LuaMacroInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case RetriggerInputAction.TYPE:
                     action = new RetriggerInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case VJoyInputAction.TYPE:
                     action = new VJoyInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case MSFS2020EventIdInputAction.TYPE:
                     action = new MSFS2020EventIdInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case VariableInputAction.TYPE:
                     action = new VariableInputAction();
-                    action.ReadXml(reader);
                     break;
 
                 case MSFS2020CustomInputAction.TYPE:
                     action = new MSFS2020CustomInputAction();
-                    action.ReadXml(reader);
+                    break;
+                case XplaneInputAction.TYPE:
+                    action = new XplaneInputAction();
                     break;
             }
 

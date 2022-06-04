@@ -101,6 +101,7 @@ namespace MobiFlight.UI.Panels.Input
             else if (type == "MobiFlight.InputConfig.MSFS2020EventIdInputAction") value = MobiFlight.InputConfig.MSFS2020CustomInputAction.Label;
             else if (type == "MobiFlight.InputConfig.MSFS2020CustomInputAction") value = MobiFlight.InputConfig.MSFS2020CustomInputAction.Label;
             else if (type == "MobiFlight.InputConfig.VariableInputAction") value = MobiFlight.InputConfig.VariableInputAction.Label;
+            else if (type == "MobiFlight.InputConfig.XplaneInputAction") value = MobiFlight.InputConfig.XplaneInputAction.Label;
 
             UpdatePanelWithAction(owner, config, value , isLeft, isFast);
         }
@@ -280,6 +281,18 @@ namespace MobiFlight.UI.Panels.Input
                             (panel as MSFS2020CustomInputPanel).syncFromConfig(config.onRightFast as MSFS2020EventIdInputAction);
                     }
                     break;
+
+                case XplaneInputAction.Label:
+                    panel = new XplaneInputPanel();
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as XplaneInputPanel).syncFromConfig(config.onLeft as XplaneInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as XplaneInputPanel).syncFromConfig(config.onLeftFast as XplaneInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as XplaneInputPanel).syncFromConfig(config.onRight as XplaneInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as XplaneInputPanel).syncFromConfig(config.onRightFast as XplaneInputAction);
+                    break;
             }
 
             if (panel != null)
@@ -356,6 +369,9 @@ namespace MobiFlight.UI.Panels.Input
                     case VariableInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
                         break;
+                    case XplaneInputAction.Label:
+                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeft = null;
                         break;
@@ -401,6 +417,10 @@ namespace MobiFlight.UI.Panels.Input
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
                         break;
 
+                    case XplaneInputAction.Label:
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onLeftFast = null;
                         break;
@@ -441,6 +461,10 @@ namespace MobiFlight.UI.Panels.Input
                     case VariableInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
                         break;
+                    case XplaneInputAction.Label:
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onRight = null;
                         break;
@@ -481,6 +505,10 @@ namespace MobiFlight.UI.Panels.Input
                     case VariableInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as VariableInputPanel).ToConfig();
                         break;
+                    case XplaneInputAction.Label:
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onRightFast = null;
                         break;

@@ -11,17 +11,22 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
     {
         public List<String> Writes = new List<String>();
         public List<String> Reads = new List<String>();
+
+        public event EventHandler Closed;
+        public event EventHandler Connected;
+        public event EventHandler ConnectionLost;
+
         public void Clear()
         {
             return;
         }
 
-        public bool connect()
+        public bool Connect()
         {
             return true;
         }
 
-        public bool disconnect()
+        public bool Disconnect()
         {
             return true;
         }
@@ -51,7 +56,7 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
             return long.MaxValue;
         }
 
-        public bool isConnected()
+        public bool IsConnected()
         {
             return true;
         }

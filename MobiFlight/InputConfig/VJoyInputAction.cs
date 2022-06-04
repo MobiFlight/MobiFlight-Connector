@@ -32,9 +32,7 @@ namespace MobiFlight.InputConfig
         }
 
         public override void execute(
-            FSUIPC.FSUIPCCacheInterface fsuipcCache,
-            SimConnectMSFS.SimConnectCacheInterface simConnectCache,
-            MobiFlightCacheInterface moduleCache,
+            CacheCollection cacheCollection,
             InputEventArgs args,
             List<ConfigRefValue> configRefs)
         {

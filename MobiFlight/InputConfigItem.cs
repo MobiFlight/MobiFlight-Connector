@@ -267,9 +267,7 @@ namespace MobiFlight
         }
 
         internal void execute(
-            FSUIPC.Fsuipc2Cache fsuipcCache,
-            SimConnectMSFS.SimConnectCache simConnectCache,
-            MobiFlightCache moduleCache,
+            CacheCollection cacheCollection,
             InputEventArgs e,
             List<ConfigRefValue> configRefs)
         {
@@ -277,26 +275,26 @@ namespace MobiFlight
             {
                 case TYPE_BUTTON:
                     if (button != null)
-                        button.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                        button.execute(cacheCollection, e, configRefs);
                     break;
                 case TYPE_ENCODER:
                     if (encoder != null)
-                        encoder.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                        encoder.execute(cacheCollection, e, configRefs);
                     break;
 
                 case TYPE_INPUT_SHIFT_REGISTER:
                     if (inputShiftRegister != null)
-                        inputShiftRegister.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                        inputShiftRegister.execute(cacheCollection, e, configRefs);
                     break;
 
                 case TYPE_INPUT_MULTIPLEXER:
                     if (inputMultiplexer != null)
-                        inputMultiplexer.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                        inputMultiplexer.execute(cacheCollection, e, configRefs);
                     break;
 
                 case TYPE_ANALOG:
                     if (analog != null)
-                        analog.execute(fsuipcCache, simConnectCache, moduleCache, e, configRefs);
+                        analog.execute(cacheCollection, e, configRefs);
                     break;
             }
         }

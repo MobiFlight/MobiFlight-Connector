@@ -16,9 +16,7 @@ namespace MobiFlight.InputConfig
 
         public bool Execute(
             ButtonInputConfig config, 
-            FSUIPC.FSUIPCCacheInterface fsuipcCache,
-            SimConnectMSFS.SimConnectCacheInterface simConnectCache,
-            MobiFlightCacheInterface moduleCache,
+            CacheCollection cacheCollection,
             InputEventArgs args,
             List<ConfigRefValue> configRefsInputEventArgs)
         {
@@ -39,10 +37,10 @@ namespace MobiFlight.InputConfig
 
             if (args.Value==1)
             {
-                config.onPress?.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefsInputEventArgs);
+                config.onPress?.execute(cacheCollection, args, configRefsInputEventArgs);
             } else
             {
-                config.onRelease?.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefsInputEventArgs);
+                config.onRelease?.execute(cacheCollection, args, configRefsInputEventArgs);
             }
 
             return true;
@@ -50,9 +48,7 @@ namespace MobiFlight.InputConfig
 
         public bool Execute(
             AnalogInputConfig config,
-            FSUIPC.FSUIPCCacheInterface fsuipcCache,
-            SimConnectMSFS.SimConnectCacheInterface simConnectCache,
-            MobiFlightCacheInterface moduleCache,
+            CacheCollection cacheCollection,
             InputEventArgs args,
             List<ConfigRefValue> configRefsInputEventArgs)
         {
@@ -69,7 +65,7 @@ namespace MobiFlight.InputConfig
 
             LastInputActionEventArgs[HashKey] = args;
 
-            config.onChange.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefsInputEventArgs);
+            config.onChange.execute(cacheCollection, args, configRefsInputEventArgs);
 
             return true;
         }

@@ -110,6 +110,13 @@ namespace MobiFlight.UI.Panels.Input
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(_config.onChange as MSFS2020CustomInputAction);
                     }
                     break;
+
+                case MobiFlight.InputConfig.XplaneInputAction.Label:
+                    panel = new MobiFlight.UI.Panels.Action.XplaneInputPanel();
+                    if (_config != null && _config.onChange != null)
+                        (panel as MobiFlight.UI.Panels.Action.XplaneInputPanel).syncFromConfig(_config.onChange as XplaneInputAction);
+
+                    break;
             }
 
             if (panel != null)
@@ -182,6 +189,10 @@ namespace MobiFlight.UI.Panels.Input
 
                     case MobiFlight.InputConfig.VariableInputAction.Label:
                         config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.VariableInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.XplaneInputAction.Label:
+                        config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.XplaneInputPanel).ToConfig();
                         break;
 
                     default:

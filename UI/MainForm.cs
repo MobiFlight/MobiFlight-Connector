@@ -21,6 +21,7 @@ using MobiFlight.SimConnectMSFS;
 using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
 using Microsoft.ApplicationInsights.DataContracts;
+using MobiFlight.xplane;
 
 namespace MobiFlight.UI
 {
@@ -711,6 +712,12 @@ namespace MobiFlight.UI
         /// </summary>        
         void fsuipcCache_Connected(object sender, EventArgs e)
         {
+            // Typically the information in this static object is correct
+            // only in the case of FSUIPC it might actually be not correct
+            // because we can have a native connection and a fsuipc connection at the same time
+            FlightSimConnectionMethod CurrentConnectionMethod = FlightSim.FlightSimConnectionMethod;
+            FlightSimType CurrentFlightSimType = FlightSim.FlightSimType;
+
             if (sender.GetType() == typeof(SimConnectCache) && FlightSim.FlightSimType == FlightSimType.MSFS2020)
             {
                 noSimRunningToolStripMenuItem.Text = "MSFS2020 Detected";
@@ -729,35 +736,66 @@ namespace MobiFlight.UI
                 }
 
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.SIMCONNECT.ToString());
-                Log.Instance.log("MSFS2020 detected.", LogSeverity.Info);
+                Log.Instance.log(
+                    $"{FlightSim.SimNames[FlightSim.FlightSimType].ToString()} detected. " +
+                    $"[{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod].ToString()}]",
+                    LogSeverity.Info
+                );
             }
+            else if (sender.GetType() == typeof(XplaneCache) && FlightSim.FlightSimType == FlightSimType.XPLANE)
+            {
+                noSimRunningToolStripMenuItem.Text = "X-Plane Detected";
+                if ((sender as XplaneCache).IsConnected())
+                {
+                    simConnectToolStripMenuItem.Text = FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod].ToString();
+                    simConnectToolStripMenuItem.Image = Properties.Resources.check;
+                }
 
+                AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.XPLANE.ToString());
+                Log.Instance.log(
+                    $"{FlightSim.SimNames[FlightSim.FlightSimType].ToString()} detected. " +
+                    $"[{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod].ToString()}]", 
+                    LogSeverity.Info
+                );
+            }
             else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
 
                 Fsuipc2Cache c = sender as Fsuipc2Cache;
                 switch (FlightSim.FlightSimConnectionMethod)
                 {
                     case FlightSimConnectionMethod.FSUIPC:
+                        CurrentConnectionMethod = FlightSimConnectionMethod.FSUIPC;
                         FsuipcToolStripMenuItem.Text = i18n._tr("fsuipcStatus") + " ("+ FlightSim.FlightSimType.ToString() +")";
                         break;
 
+                    case FlightSimConnectionMethod.XPLANE:
                     case FlightSimConnectionMethod.XPUIPC:
+                        CurrentConnectionMethod = FlightSimConnectionMethod.XPUIPC;
                         FsuipcToolStripMenuItem.Text = "XPUIPC Status";
                         break;
 
                     case FlightSimConnectionMethod.WIDECLIENT:
+                        CurrentConnectionMethod = FlightSimConnectionMethod.WIDECLIENT;
                         FsuipcToolStripMenuItem.Text = "WideClient Status";
                         break;
                 }
                 FsuipcToolStripMenuItem.Image = Properties.Resources.check;
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), c.FlightSimConnectionMethod.ToString());
-                Log.Instance.log($"{FlightSim.FlightSimType.ToString()} detected.", LogSeverity.Info);
+                Log.Instance.log(
+                    $"{FlightSim.SimNames[FlightSim.FlightSimType].ToString()} detected. " +
+                    $"[{FlightSim.SimConnectionNames[CurrentConnectionMethod].ToString()}]", 
+                    LogSeverity.Info
+                );
             }
 
-            if (execManager.SimConnected())
+            if ((sender as CacheInterface).IsConnected())
             {
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
-                Log.Instance.log($"{FlightSim.FlightSimType.ToString()} connected.", LogSeverity.Info);
+                Log.Instance.log(
+                    $"Connected to {FlightSim.SimNames[CurrentFlightSimType].ToString()}. " +
+                    $"[{FlightSim.SimConnectionNames[CurrentConnectionMethod].ToString()}]", 
+                    LogSeverity.Info
+                );
             }
 
             runToolStripButton.Enabled = RunIsAvailable();

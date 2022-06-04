@@ -76,8 +76,17 @@ namespace MobiFlight.InputConfig.Tests
             EventIdInputAction o = generateTestObject();
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
+            MobiFlightUnitTests.mock.xplane.XplaneCacheMock xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
 
-            o.execute(mock, simConnectMock, null, null, new List<ConfigRefValue>());
+            CacheCollection cacheCollection = new CacheCollection()
+            {
+                fsuipcCache = mock,
+                simConnectCache = simConnectMock,
+                moduleCache = null,
+                xplaneCache = xplaneCacheMock
+            };
+
+            o.execute(cacheCollection, null, new List<ConfigRefValue>());
             Assert.AreEqual(1, mock.Writes.Count, "The message count is not as expected");
             Assert.AreEqual("SetEventID>" + o.EventId + ">" + o.Param, mock.Writes[0].Value, "The Write Value is wrong");
 
@@ -86,7 +95,7 @@ namespace MobiFlight.InputConfig.Tests
             o.Param = "1+#";
             List<ConfigRefValue> configrefs = new List<ConfigRefValue>();
             configrefs.Add(new ConfigRefValue() { ConfigRef = new Base.ConfigRef() { Active = true, Placeholder = "#" }, Value = "1" });
-            o.execute(mock, simConnectMock, null, null, configrefs);
+            o.execute(cacheCollection, null, configrefs);
 
             Assert.AreEqual(1, mock.Writes.Count, "The message count is not as expected");
             Assert.AreEqual("SetEventID>" + o.EventId + ">" + 2, mock.Writes[0].Value, "The Write Value is wrong");

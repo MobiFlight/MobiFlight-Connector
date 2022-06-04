@@ -34,6 +34,7 @@
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
             this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
+            this.xplaneDataRefPanel1 = new MobiFlight.UI.Panels.Config.XplaneDataRefPanel();
             this.variablePanel1 = new MobiFlight.UI.Panels.Config.VariablePanel();
             this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
             this.FsuipcSettingsPanel = new System.Windows.Forms.Panel();
@@ -44,6 +45,7 @@
             this.OffsetTypeVariableRadioButton = new System.Windows.Forms.RadioButton();
             this.OffsetTypeSimConnectRadioButton = new System.Windows.Forms.RadioButton();
             this.OffsetTypeFsuipRadioButton = new System.Windows.Forms.RadioButton();
+            this.OffsetTypeXplaneRadioButton = new System.Windows.Forms.RadioButton();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
             this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
@@ -108,6 +110,7 @@
             // fsuipcTabPage
             // 
             this.fsuipcTabPage.Controls.Add(this.referencesGroupBox);
+            this.fsuipcTabPage.Controls.Add(this.xplaneDataRefPanel1);
             this.fsuipcTabPage.Controls.Add(this.variablePanel1);
             this.fsuipcTabPage.Controls.Add(this.simConnectPanel1);
             this.fsuipcTabPage.Controls.Add(this.FsuipcSettingsPanel);
@@ -128,6 +131,11 @@
             resources.ApplyResources(this.configRefPanel, "configRefPanel");
             this.configRefPanel.Name = "configRefPanel";
             // 
+            // xplaneDataRefPanel1
+            // 
+            resources.ApplyResources(this.xplaneDataRefPanel1, "xplaneDataRefPanel1");
+            this.xplaneDataRefPanel1.Name = "xplaneDataRefPanel1";
+            // 
             // variablePanel1
             // 
             resources.ApplyResources(this.variablePanel1, "variablePanel1");
@@ -136,6 +144,7 @@
             // simConnectPanel1
             // 
             resources.ApplyResources(this.simConnectPanel1, "simConnectPanel1");
+            this.simConnectPanel1.Name = "simConnectPanel1";
             // 
             // FsuipcSettingsPanel
             // 
@@ -161,6 +170,7 @@
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeVariableRadioButton);
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeSimConnectRadioButton);
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeFsuipRadioButton);
+            this.OffsetTypePanel.Controls.Add(this.OffsetTypeXplaneRadioButton);
             resources.ApplyResources(this.OffsetTypePanel, "OffsetTypePanel");
             this.OffsetTypePanel.Name = "OffsetTypePanel";
             // 
@@ -192,6 +202,14 @@
             this.OffsetTypeFsuipRadioButton.TabStop = true;
             this.OffsetTypeFsuipRadioButton.UseVisualStyleBackColor = true;
             this.OffsetTypeFsuipRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
+            // 
+            // OffsetTypeXplaneRadioButton
+            // 
+            resources.ApplyResources(this.OffsetTypeXplaneRadioButton, "OffsetTypeXplaneRadioButton");
+            this.OffsetTypeXplaneRadioButton.Name = "OffsetTypeXplaneRadioButton";
+            this.OffsetTypeXplaneRadioButton.TabStop = true;
+            this.OffsetTypeXplaneRadioButton.UseVisualStyleBackColor = true;
+            this.OffsetTypeXplaneRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
             // 
             // compareTabPage
             // 
@@ -464,5 +482,7 @@
         private System.Windows.Forms.Label fsuipcHintLabel;
         private Panels.Config.PreconditionPanel preconditionPanel;
         private Panels.OutputWizard.DisplayPanel displayPanel1;
+        private System.Windows.Forms.RadioButton OffsetTypeXplaneRadioButton;
+        private Panels.Config.XplaneDataRefPanel xplaneDataRefPanel1;
     }
 }

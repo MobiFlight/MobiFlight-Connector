@@ -248,12 +248,14 @@ namespace MobiFlight.UI.Dialogs
             OffsetTypeFsuipRadioButton.Checked = (config.SourceType == SourceType.FSUIPC);
             OffsetTypeSimConnectRadioButton.Checked = (config.SourceType == SourceType.SIMCONNECT);
             OffsetTypeVariableRadioButton.Checked = (config.SourceType == SourceType.VARIABLE);
+            OffsetTypeXplaneRadioButton.Checked = (config.SourceType == SourceType.XPLANE);
 
             fsuipcConfigPanel.syncFromConfig(config);
 
             simConnectPanel1.syncFromConfig(config);
             variablePanel1.syncFromConfig(config);
             configRefPanel.syncFromConfig(config);
+            xplaneDataRefPanel1.syncFromConfig(config);
         }
         
         /// <summary>
@@ -265,6 +267,7 @@ namespace MobiFlight.UI.Dialogs
             config.SourceType = SourceType.FSUIPC;
             if (OffsetTypeSimConnectRadioButton.Checked) config.SourceType = SourceType.SIMCONNECT;
             if (OffsetTypeVariableRadioButton.Checked) config.SourceType = SourceType.VARIABLE;
+            if (OffsetTypeXplaneRadioButton.Checked) config.SourceType = SourceType.XPLANE;
 
             if (config.SourceType == SourceType.FSUIPC)
                 fsuipcConfigPanel.syncToConfig(config);
@@ -272,6 +275,8 @@ namespace MobiFlight.UI.Dialogs
                 simConnectPanel1.syncToConfig(config);
             else if (config.SourceType == SourceType.VARIABLE)
                 variablePanel1.syncToConfig(config);
+            else if (config.SourceType == SourceType.XPLANE)
+                xplaneDataRefPanel1.syncToConfig(config);
 
             configRefPanel.syncToConfig(config);
 
@@ -397,6 +402,7 @@ namespace MobiFlight.UI.Dialogs
             FsuipcSettingsPanel.Visible = (sender as RadioButton) == OffsetTypeFsuipRadioButton;
             simConnectPanel1.Visible = (sender as RadioButton) == OffsetTypeSimConnectRadioButton;
             variablePanel1.Visible = (sender as RadioButton) == OffsetTypeVariableRadioButton;
+            xplaneDataRefPanel1.Visible = (sender as RadioButton) == OffsetTypeXplaneRadioButton;
         }
 
         private void ConfigWizard_FormClosing(object sender, FormClosingEventArgs e)

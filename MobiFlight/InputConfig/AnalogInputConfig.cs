@@ -32,64 +32,8 @@ namespace MobiFlight.InputConfig
             if (reader.LocalName == "") reader.Read();
             if (reader.LocalName == "onChange")
             {
-                switch (reader["type"])
-                {
-                    case FsuipcOffsetInputAction.TYPE:
-                        onChange = new FsuipcOffsetInputAction();
-                        onChange.ReadXml(reader);
-                        reader.Read(); // this should be the closing tag "onChange"
-                        break;
-
-                    case KeyInputAction.TYPE:
-                        onChange = new KeyInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case EventIdInputAction.TYPE:
-                        onChange = new EventIdInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case PmdgEventIdInputAction.TYPE:
-                        onChange = new PmdgEventIdInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case JeehellInputAction.TYPE:
-                        onChange = new JeehellInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case LuaMacroInputAction.TYPE:
-                        onChange = new LuaMacroInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case RetriggerInputAction.TYPE:
-                        onChange = new RetriggerInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case VJoyInputAction.TYPE:
-                        onChange = new VJoyInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case MSFS2020EventIdInputAction.TYPE:
-                        onChange = new MSFS2020EventIdInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case VariableInputAction.TYPE:
-                        onChange = new VariableInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-
-                    case MSFS2020CustomInputAction.TYPE:
-                        onChange = new MSFS2020CustomInputAction();
-                        onChange.ReadXml(reader);
-                        break;
-                }
+                onChange = InputActionFactory.CreateByType(reader["type"]);
+                onChange.ReadXml(reader);
                 reader.Read(); // Closing onChange
             }
 
@@ -112,16 +56,14 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(FSUIPC.Fsuipc2Cache fsuipcCache, 
-                                SimConnectMSFS.SimConnectCache simConnectCache, 
-                                MobiFlightCache moduleCache, 
+        internal void execute(CacheCollection cacheCollection, 
                                 InputEventArgs args, 
                                 List<ConfigRefValue> configRefs)
         {
             if (onChange != null)
             {
                 Log.Instance.log("Executing Change: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
-                onChange.execute(fsuipcCache, simConnectCache, moduleCache, args, configRefs);
+                onChange.execute(cacheCollection, args, configRefs);
             }
         }
 

@@ -72,7 +72,17 @@ namespace MobiFlight.InputConfig.Tests
             o.EventId = "MyEventId";
             MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock mock = new MobiFlightUnitTests.mock.FSUIPC.FSUIPCCacheMock();
             MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock simConnectMock = new MobiFlightUnitTests.mock.SimConnectMSFS.SimConnectCacheMock();
-            o.execute(mock, simConnectMock, null, null, null);
+            MobiFlightUnitTests.mock.xplane.XplaneCacheMock xplaneCacheMock = new MobiFlightUnitTests.mock.xplane.XplaneCacheMock();
+
+            CacheCollection cacheCollection = new CacheCollection()
+            {
+                fsuipcCache = mock,
+                simConnectCache = simConnectMock,
+                moduleCache = null,
+                xplaneCache = xplaneCacheMock
+            };
+
+            o.execute(cacheCollection, null, null);
             Assert.AreEqual(simConnectMock.Writes.Count, 1, "The message count is not as expected");
             Assert.AreEqual(simConnectMock.Writes[0], "SetEventID>MyEventId", "The Write Value is wrong");
         }
