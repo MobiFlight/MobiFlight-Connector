@@ -32,12 +32,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.InputValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OutputValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
-            this.InputValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OutputValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +82,20 @@
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyUp);
             // 
+            // InputValue
+            // 
+            this.InputValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle1.NullValue = "click to add new value..";
+            this.InputValue.DefaultCellStyle = dataGridViewCellStyle1;
+            resources.ApplyResources(this.InputValue, "InputValue");
+            this.InputValue.Name = "InputValue";
+            // 
+            // OutputValue
+            // 
+            this.OutputValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            resources.ApplyResources(this.OutputValue, "OutputValue");
+            this.OutputValue.Name = "OutputValue";
+            // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
@@ -109,20 +123,6 @@
             this.removeButton.Name = "removeButton";
             this.removeButton.UseVisualStyleBackColor = true;
             this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
-            // 
-            // InputValue
-            // 
-            this.InputValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.NullValue = "click to add new value..";
-            this.InputValue.DefaultCellStyle = dataGridViewCellStyle1;
-            resources.ApplyResources(this.InputValue, "InputValue");
-            this.InputValue.Name = "InputValue";
-            // 
-            // OutputValue
-            // 
-            this.OutputValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            resources.ApplyResources(this.OutputValue, "OutputValue");
-            this.OutputValue.Name = "OutputValue";
             // 
             // InterpolationPanel
             // 

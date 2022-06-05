@@ -15,6 +15,7 @@ namespace MobiFlight.xplane
 
         private bool _simConnectConnected = false;
         private bool _connected = false;
+        public int UpdateFrequencyPerSecond = 5;
 
         XPlaneConnector.XPlaneConnector Connector = null;
 
@@ -65,10 +66,12 @@ namespace MobiFlight.xplane
 
         public float readDataRef(string dataRefPath)
         {
+            if (Connector == null) return 0;
+
             if (!SubscribedDataRefs.ContainsKey(dataRefPath))
             {
-                SubscribedDataRefs.Add(dataRefPath, new DataRefElement() { DataRef = dataRefPath, Frequency = 5, Value = 0 });
-                Connector.Subscribe(SubscribedDataRefs[dataRefPath], 5, (e, v) => {
+                SubscribedDataRefs.Add(dataRefPath, new DataRefElement() { DataRef = dataRefPath, Frequency = UpdateFrequencyPerSecond, Value = 0 });
+                Connector.Subscribe(SubscribedDataRefs[dataRefPath], UpdateFrequencyPerSecond, (e, v) => {
                     SubscribedDataRefs[e.DataRef].Value = v;
                 });
             }
@@ -77,13 +80,13 @@ namespace MobiFlight.xplane
 
         public void writeDataRef(string dataRefPath, float value)
         {
-            Connector.SetDataRefValue(dataRefPath, value);
+            Connector?.SetDataRefValue(dataRefPath, value);
         }
 
         public void sendCommand(string command)
         {
             XPlaneCommand xPlaneCommand = new XPlaneCommand(command, command);
-            Connector.SendCommand(xPlaneCommand);
+            Connector?.SendCommand(xPlaneCommand);
         }
     }
 }

@@ -569,7 +569,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
             catch (MaximumDeviceNumberReachedMobiFlightException ex)
             {
-                MessageBox.Show(String.Format(i18n._tr("uiMessageMaxNumberOfDevicesReached"), ex.MaxNumber, ex.DeviceType, tempModule.Type),
+                MessageBox.Show(String.Format(i18n._tr("uiMessageMaxNumberOfDevicesReached"), ex.MaxNumber, ex.DeviceType, tempModule.Board.Info.MobiFlightType),
                                 i18n._tr("uiMessageNotEnoughPinsHint"),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

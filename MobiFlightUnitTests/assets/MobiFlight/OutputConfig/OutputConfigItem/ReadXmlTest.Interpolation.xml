@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.3.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<source type="FSUIPC" offset="0x654E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+	<comparison active="False" value="" operand="" ifValue="" elseValue="" />
+	<display type="Display Module" serial="-" trigger="normal" ledAddress="MCP_ISA_DIS" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="6,7" />
+	<interpolation active="True">
+		<value x="0" y="10" />
+		<value x="1" y="15" />
+		<value x="2" y="20" />
+		<value x="3" y="25" />
+		<value x="4" y="30" />
+	</interpolation>
+	<preconditions />
+	<transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+	<configrefs />
+</settings>

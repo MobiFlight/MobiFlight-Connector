@@ -339,6 +339,12 @@
     <Compile Include="UI\Forms\SimConnectPanelIndexSelectForm.Designer.cs">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\About\LicenseReferenceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\About\LicenseReferenceControl.Designer.cs">
+      <DependentUpon>LicenseReferenceControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Action\MSFS2020CustomInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -950,6 +956,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\SimConnectPanelIndexSelectForm.resx">
       <DependentUpon>SimConnectPanelIndexSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\About\LicenseReferenceControl.resx">
+      <DependentUpon>LicenseReferenceControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\MSFS2020CustomInputPanel.de.resx">
       <DependentUpon>MSFS2020CustomInputPanel.cs</DependentUpon>

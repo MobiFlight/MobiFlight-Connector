@@ -129,6 +129,15 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(oci.AnalogInputConfig.onChange as MobiFlight.InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
             Assert.AreEqual(1, oci.ConfigRefs.Count, "ConfigRefs Count is not 1");
 
+            // problem with reading config after xplane native integration
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.Interpolation.xml");
+            sr = new StringReader(s);
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            oci = new OutputConfigItem();
+            oci.ReadXml(xmlReader);
+            Assert.AreEqual("Display Module", oci.DisplayType, "Display Type not Display Module");
+            Assert.AreEqual(true, oci.Interpolation.Active, "AnalogInputConfig.onPress null");
+            Assert.AreEqual(5, oci.Interpolation.Count, "Interpolation Count is not 5");
         }
 
         [TestMethod()]

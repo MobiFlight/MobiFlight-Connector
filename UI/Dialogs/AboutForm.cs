@@ -22,10 +22,13 @@ namespace MobiFlight.UI.Dialogs
         {
             this.Close();            
         }
-
-        private void label1_Click(object sender, EventArgs e)
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            (sender as LinkLabel).LinkVisited = true;
+            String Link = (sender as LinkLabel).Text;
 
+            if ((sender as LinkLabel).Text.Contains("@")) Link = "mailto:" + Link;
+            System.Diagnostics.Process.Start(Link);
         }
     }
 }
