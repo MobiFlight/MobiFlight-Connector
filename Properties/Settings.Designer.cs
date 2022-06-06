@@ -419,5 +419,29 @@ namespace MobiFlight.Properties {
                 this["SimVarTextBoxExpanded"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IgnoreComPorts {
+            get {
+                return ((bool)(this["IgnoreComPorts"]));
+            }
+            set {
+                this["IgnoreComPorts"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string IgnoredComPortsList {
+            get {
+                return ((string)(this["IgnoredComPortsList"]));
+            }
+            set {
+                this["IgnoredComPortsList"] = value;
+            }
+        }
     }
 }

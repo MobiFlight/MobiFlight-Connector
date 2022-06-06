@@ -494,4 +494,7 @@ Respective input actions won't work until they are connected and you have restar
   <data name="uiMessagesSimConnectPanelShowAll" xml:space="preserve">
     <value>- show all -</value>
   </data>
+  <data name="uiSettingsMobiFlightChangeRequiresRestart" xml:space="preserve">
+    <value>This change will require a restart of MobiFlight to become effective.</value>
+  </data>
 </root>

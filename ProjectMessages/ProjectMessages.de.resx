@@ -491,4 +491,8 @@ Respective input actions won't work until they are connected and you have restar
     <value>- Alle zeigen - </value>
     <comment>- show all - </comment>
   </data>
+  <data name="uiSettingsMobiFlightChangeRequiresRestart" xml:space="preserve">
+    <value>Diese Änderung benötigt einen Neustart von MobiFlight.</value>
+    <comment>This change will require a restart of MobiFlight to become effective.</comment>
+  </data>
 </root>
