@@ -70,7 +70,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
-            mfTreeViewImageList.Images.Add("module-ignored", MobiFlight.Properties.Resources.delete2);
+            mfTreeViewImageList.Images.Add("module-ignored", MobiFlight.Properties.Resources.port_deactivated);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
         }
 
