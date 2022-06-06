@@ -44,6 +44,8 @@
             this.buttonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.analogDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputMultiplexerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +56,9 @@
             this.updateFirmwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.regenerateSerialToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.ignoreCOMPortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dontIgnoreCOMPortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.mfSettingsPanel = new System.Windows.Forms.Panel();
             this.mobiflightSettingsToolStrip = new System.Windows.Forms.ToolStrip();
@@ -74,16 +79,17 @@
             this.addButtonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.analogDeviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addInputShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addInputMultiplexerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDeviceToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.mobiflightSettingsLabel = new System.Windows.Forms.Label();
             this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.IgnoredComPortsLabel = new System.Windows.Forms.Label();
+            this.IgnoredComPortsTextBox = new System.Windows.Forms.TextBox();
+            this.IgnoreComPortsCheckBox = new System.Windows.Forms.CheckBox();
             this.FwAutoInstallCheckBox = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.CompatibleBoardScanToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.inputShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inputMultiplexerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addInputMultiplexerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mfConfiguredModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.mobiflightSettingsToolStrip.SuspendLayout();
@@ -126,7 +132,10 @@
             this.toolStripMenuItem3,
             this.updateFirmwareToolStripMenuItem,
             this.regenerateSerialToolStripMenuItem,
-            this.reloadConfigToolStripMenuItem});
+            this.reloadConfigToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.ignoreCOMPortToolStripMenuItem,
+            this.dontIgnoreCOMPortToolStripMenuItem});
             this.mfModuleSettingsContextMenuStrip.Name = "mfModuleSettingsContextMenuStrip";
             resources.ApplyResources(this.mfModuleSettingsContextMenuStrip, "mfModuleSettingsContextMenuStrip");
             // 
@@ -213,6 +222,12 @@
             resources.ApplyResources(this.inputShiftRegisterToolStripMenuItem, "inputShiftRegisterToolStripMenuItem");
             this.inputShiftRegisterToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
+            // inputMultiplexerToolStripMenuItem
+            // 
+            this.inputMultiplexerToolStripMenuItem.Name = "inputMultiplexerToolStripMenuItem";
+            resources.ApplyResources(this.inputMultiplexerToolStripMenuItem, "inputMultiplexerToolStripMenuItem");
+            this.inputMultiplexerToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
@@ -269,6 +284,23 @@
             this.reloadConfigToolStripMenuItem.Name = "reloadConfigToolStripMenuItem";
             resources.ApplyResources(this.reloadConfigToolStripMenuItem, "reloadConfigToolStripMenuItem");
             this.reloadConfigToolStripMenuItem.Click += new System.EventHandler(this.reloadConfigToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
+            // 
+            // ignoreCOMPortToolStripMenuItem
+            // 
+            this.ignoreCOMPortToolStripMenuItem.Name = "ignoreCOMPortToolStripMenuItem";
+            resources.ApplyResources(this.ignoreCOMPortToolStripMenuItem, "ignoreCOMPortToolStripMenuItem");
+            this.ignoreCOMPortToolStripMenuItem.Click += new System.EventHandler(this.ignoreCOMPortToolStripMenuItem_Click);
+            // 
+            // dontIgnoreCOMPortToolStripMenuItem
+            // 
+            this.dontIgnoreCOMPortToolStripMenuItem.Name = "dontIgnoreCOMPortToolStripMenuItem";
+            resources.ApplyResources(this.dontIgnoreCOMPortToolStripMenuItem, "dontIgnoreCOMPortToolStripMenuItem");
+            this.dontIgnoreCOMPortToolStripMenuItem.Click += new System.EventHandler(this.dontIgnoreCOMPortToolStripMenuItem_Click);
             // 
             // mfTreeViewImageList
             // 
@@ -343,8 +375,7 @@
             this.addButtonToolStripMenuItem,
             this.analogDeviceToolStripMenuItem1,
             this.addInputShiftRegisterToolStripMenuItem,
-            this.addInputMultiplexerToolStripMenuItem,
-            });
+            this.addInputMultiplexerToolStripMenuItem});
             this.addDeviceToolStripDropDownButton.Image = global::MobiFlight.Properties.Resources.star_yellow_add;
             resources.ApplyResources(this.addDeviceToolStripDropDownButton, "addDeviceToolStripDropDownButton");
             this.addDeviceToolStripDropDownButton.Name = "addDeviceToolStripDropDownButton";
@@ -439,10 +470,30 @@
             // 
             // firmwareSettingsGroupBox
             // 
+            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoredComPortsLabel);
+            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoredComPortsTextBox);
+            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoreComPortsCheckBox);
             this.firmwareSettingsGroupBox.Controls.Add(this.FwAutoInstallCheckBox);
             resources.ApplyResources(this.firmwareSettingsGroupBox, "firmwareSettingsGroupBox");
             this.firmwareSettingsGroupBox.Name = "firmwareSettingsGroupBox";
             this.firmwareSettingsGroupBox.TabStop = false;
+            // 
+            // IgnoredComPortsLabel
+            // 
+            resources.ApplyResources(this.IgnoredComPortsLabel, "IgnoredComPortsLabel");
+            this.IgnoredComPortsLabel.Name = "IgnoredComPortsLabel";
+            // 
+            // IgnoredComPortsTextBox
+            // 
+            resources.ApplyResources(this.IgnoredComPortsTextBox, "IgnoredComPortsTextBox");
+            this.IgnoredComPortsTextBox.Name = "IgnoredComPortsTextBox";
+            // 
+            // IgnoreComPortsCheckBox
+            // 
+            resources.ApplyResources(this.IgnoreComPortsCheckBox, "IgnoreComPortsCheckBox");
+            this.IgnoreComPortsCheckBox.Name = "IgnoreComPortsCheckBox";
+            this.CompatibleBoardScanToolTip.SetToolTip(this.IgnoreComPortsCheckBox, resources.GetString("IgnoreComPortsCheckBox.ToolTip"));
+            this.IgnoreComPortsCheckBox.UseVisualStyleBackColor = true;
             // 
             // FwAutoInstallCheckBox
             // 
@@ -454,12 +505,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // inputMultiplexerToolStripMenuItem
-            // 
-            this.inputMultiplexerToolStripMenuItem.Name = "inputMultiplexerToolStripMenuItem";
-            resources.ApplyResources(this.inputMultiplexerToolStripMenuItem, "inputMultiplexerToolStripMenuItem");
-            this.inputMultiplexerToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
             // MobiFlightPanel
             // 
@@ -538,5 +583,11 @@
         private System.Windows.Forms.ToolStripMenuItem inputShiftRegisterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addInputMultiplexerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inputMultiplexerToolStripMenuItem;
+        private System.Windows.Forms.Label IgnoredComPortsLabel;
+        private System.Windows.Forms.TextBox IgnoredComPortsTextBox;
+        private System.Windows.Forms.CheckBox IgnoreComPortsCheckBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem ignoreCOMPortToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dontIgnoreCOMPortToolStripMenuItem;
     }
 }

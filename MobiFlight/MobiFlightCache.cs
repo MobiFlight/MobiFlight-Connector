@@ -88,6 +88,13 @@ namespace MobiFlight
         {
             if (connectedArduinoModules == null)
                     return new List<MobiFlightModuleInfo>();
+
+            connectedArduinoModules.Sort(
+                (item1, item2) => {
+                    if (item1.Type == "Ignored" && item2.Type != "Ignored") return 1;
+                    if (item1.Type != "Ignored" && item2.Type == "Ignored") return -1;
+                    return item1.Name.CompareTo(item2.Name);
+                });
             return connectedArduinoModules;
         }
 
@@ -193,6 +200,7 @@ namespace MobiFlight
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
             var supportedPorts = getSupportedPorts();
+            List<string> ignoredComPorts = getIgnoredPorts();
             List<string> connectingPorts = new List<string>();
             
             for (var i = 0; i != supportedPorts.Count; i++)
@@ -212,6 +220,19 @@ namespace MobiFlight
                     Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port already connecting (" + portName + ")", LogSeverity.Debug);
                     continue;
                 }
+                if (ignoredComPorts.Contains(portName))
+                {
+                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port is ignored by user (" + portName + ")", LogSeverity.Info);
+                    result.Add(new MobiFlightModuleInfo()
+                    {
+                        Port = portName,
+                        Type = "Ignored",
+                        Name = $"Ignored Device at Port {portName}",
+                        Board = board
+                    });
+                    continue;
+                }
+
 
                 connectingPorts.Add(portName);
 
@@ -237,6 +258,16 @@ namespace MobiFlight
 
             _lookingUpModules = false;
             return result;
+        }
+
+        private List<string> getIgnoredPorts()
+        {
+            List<String> ports = new List<string>();
+            if (Properties.Settings.Default.IgnoreComPorts)
+            {
+                ports = Properties.Settings.Default.IgnoredComPortsList.Split(',').ToList();
+            }
+            return ports;
         }
 
         public async Task<bool> connectAsync(bool force=false)
