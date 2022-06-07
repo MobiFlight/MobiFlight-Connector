@@ -575,6 +575,10 @@ namespace MobiFlight.UI.Panels
                             case MobiFlightStepper.TYPE:
                                 row["OutputName"] = cfgItem.Stepper.Address;
                                 break;
+                            case MobiFlightShiftRegister.TYPE:
+                                row["OutputName"] = cfgItem.ShiftRegister.Address;
+                                break;
+
                         }
                     } else if(cfgItem.DisplayType=="InputAction")
                     {
