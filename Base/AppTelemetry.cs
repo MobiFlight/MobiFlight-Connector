@@ -89,10 +89,11 @@ namespace MobiFlight.Base
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
 
-                foreach(String itemKey in item.GetStatistics().Keys)
+                Dictionary<String, int> Statistics = item.GetStatistics();
+                foreach (String itemKey in Statistics.Keys)
                 {
                     if (!trackingEvent.Metrics.ContainsKey(itemKey)) trackingEvent.Metrics[itemKey] = 0;
-                    trackingEvent.Metrics[itemKey] += item.GetStatistics()[itemKey];
+                    trackingEvent.Metrics[itemKey] += Statistics[itemKey];
                 }
             }
 
@@ -104,9 +105,10 @@ namespace MobiFlight.Base
         public void TrackBoardStatistics(ExecutionManager execManager)
         {
             EventTelemetry trackingEvent = new EventTelemetry("BoardStatistics");
-            foreach (String key in execManager.GetStatistics().Keys)
+            Dictionary<String, int> Statistics = execManager.GetStatistics();
+            foreach (String key in Statistics.Keys)
             {
-                trackingEvent.Metrics[key] = execManager.GetStatistics()[key];
+                trackingEvent.Metrics[key] = Statistics[key];
             }
             GetClient().TrackEvent(trackingEvent);
         }
@@ -115,9 +117,11 @@ namespace MobiFlight.Base
         {
             EventTelemetry trackingEvent = new EventTelemetry("Settings");
             trackingEvent.Metrics["Settings.BetaUpdates"] = Properties.Settings.Default.BetaUpdates ? 1 : 0;
+            Dictionary<String, int> Statistics = Log.Instance.GetStatistics();
+
             foreach (String key in Log.Instance.GetStatistics().Keys)
             {
-                trackingEvent.Metrics["Settings." + key] = Log.Instance.GetStatistics()[key];
+                trackingEvent.Metrics["Settings." + key] = Statistics[key];
             }
             GetClient().TrackEvent(trackingEvent);
         }

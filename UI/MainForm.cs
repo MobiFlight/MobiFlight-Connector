@@ -500,7 +500,7 @@ namespace MobiFlight.UI
             if (e.SettingName == "PollInterval")
             {
                 // set FSUIPC update interval
-                execManager.SetFsuipcInterval((int)e.NewValue);
+                execManager.SetPollInterval((int)e.NewValue);
             }
 
             if (e.SettingName == "OfflineMode")

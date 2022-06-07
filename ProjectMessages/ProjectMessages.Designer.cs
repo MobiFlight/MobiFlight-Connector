@@ -1123,6 +1123,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This change will require a restart of MobiFlight to become effective..
+        /// </summary>
+        internal static string uiSettingsMobiFlightChangeRequiresRestart {
+            get {
+                return ResourceManager.GetString("uiSettingsMobiFlightChangeRequiresRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://www.mobiflight.com/en/documentation/software.html.
         /// </summary>
         internal static string WebsiteUrlHelp {

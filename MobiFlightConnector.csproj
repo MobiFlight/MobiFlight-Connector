@@ -1211,6 +1211,7 @@
     <None Include="Resources\mux_driver.bmp" />
     <None Include="Resources\mux-driver.png" />
     <Content Include="Resources\output.png" />
+    <None Include="Resources\port-deactivated.png" />
     <Content Include="Resources\servo.png" />
     <Content Include="Resources\stepper.png" />
     <EmbeddedResource Include="UI\Dialogs\AboutForm.de.resx">

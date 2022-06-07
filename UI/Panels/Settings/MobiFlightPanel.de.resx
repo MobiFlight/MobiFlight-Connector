@@ -117,8 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="IgnoredComPortsLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>497, 28</value>
+  </data>
+  <data name="IgnoredComPortsLabel.Text" xml:space="preserve">
+    <value>Eine komma-separierte Liste, z.B. "COM2,COM3" - Manueller Eintrag oder Rechtsklick in der Liste oben.</value>
+  </data>
+  <data name="IgnoreComPortsCheckBox.Text" xml:space="preserve">
+    <value>Ignoriere die folgenden COM Ports beim Starten</value>
+  </data>
+  <data name="IgnoreComPortsCheckBox.ToolTip" xml:space="preserve">
+    <value>Wenn aktiviert, dann erstellt MobiFlight keine Verbindung zu den COM Ports aus der Liste.</value>
+  </data>
   <data name="FwAutoInstallCheckBox.Text" xml:space="preserve">
-    <value>Suche nach kompatiblen Boards während Startup</value>
+    <value>Suche nach kompatiblen Boards beim Starten</value>
   </data>
   <data name="FwAutoInstallCheckBox.ToolTip" xml:space="preserve">
     <value>Wenn aktiviert, dann bietet MobiFlight während dem Start die Installation der Firmware für kompatible Boards an.</value>
@@ -132,60 +145,23 @@
   <data name="buttonToolStripMenuItem.Text" xml:space="preserve">
     <value>Schalter</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 32</value>
-  </data>
   <data name="addToolStripMenuItem.Text" xml:space="preserve">
     <value>Neues Device</value>
-  </data>
-  <data name="removeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 32</value>
   </data>
   <data name="removeToolStripMenuItem.Text" xml:space="preserve">
     <value>Entferne Device</value>
   </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 6</value>
-  </data>
-  <data name="uploadToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 32</value>
-  </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 6</value>
-  </data>
-  <data name="openToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 32</value>
-  </data>
   <data name="openToolStripMenuItem.Text" xml:space="preserve">
     <value>Öffnen</value>
-  </data>
-  <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 32</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Speichern unter...</value>
   </data>
-  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 6</value>
-  </data>
-  <data name="updateFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 32</value>
-  </data>
-  <data name="regenerateSerialToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 32</value>
-  </data>
   <data name="regenerateSerialToolStripMenuItem.Text" xml:space="preserve">
     <value>Neue Seriennummer</value>
   </data>
-  <data name="reloadConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>245, 32</value>
-  </data>
   <data name="reloadConfigToolStripMenuItem.Text" xml:space="preserve">
     <value>Config neu laden</value>
-  </data>
-  <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 278</value>
   </data>
   <data name="mfModulesTreeView.Nodes" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -233,13 +209,13 @@
     <value>Schalter</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 29</value>
+    <value>107, 22</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
     <value>Neues Device</value>
   </data>
   <data name="removeDeviceToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 29</value>
+    <value>109, 22</value>
   </data>
   <data name="removeDeviceToolStripButton.Text" xml:space="preserve">
     <value>Entferne Device</value>

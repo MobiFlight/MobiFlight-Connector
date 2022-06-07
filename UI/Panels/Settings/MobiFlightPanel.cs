@@ -36,6 +36,12 @@ namespace MobiFlight.UI.Panels.Settings
         public MobiFlightPanel()
         {
             InitializeComponent();
+
+            IgnoreComPortsCheckBox.CheckedChanged += (s, e) =>
+            {
+                IgnoredComPortsLabel.Enabled = (s as CheckBox).Checked;
+                IgnoredComPortsTextBox.Enabled = (s as CheckBox).Checked;
+            };
         }
 
         public void Init(MobiFlightCache mobiFlightCache)
@@ -64,6 +70,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
+            mfTreeViewImageList.Images.Add("module-ignored", MobiFlight.Properties.Resources.port_deactivated);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
         }
 
@@ -94,6 +101,10 @@ namespace MobiFlight.UI.Panels.Settings
                     if (!module.HasMfFirmware())
                     {
                         node.SelectedImageKey = node.ImageKey = "module-arduino";
+                        if (module.Type=="Ignored")
+                        {
+                            node.SelectedImageKey = node.ImageKey = "module-ignored";
+                        }
                     }
                     else
                     {
@@ -137,14 +148,18 @@ namespace MobiFlight.UI.Panels.Settings
             mfModulesTreeView.Select();
             
             FwAutoInstallCheckBox.Checked = Properties.Settings.Default.FwAutoUpdateCheck;
+            IgnoreComPortsCheckBox.Checked = Properties.Settings.Default.IgnoreComPorts;
+            IgnoredComPortsTextBox.Text = Properties.Settings.Default.IgnoredComPortsList;
 #endif
         }
 
         public void SaveSettings()
         {
             // MobiFlight Tab
-            // only the Firmware Auto Check Update needs to be synchronized 
+            // Firmware Auto Check Update needs to be synchronized 
             Properties.Settings.Default.FwAutoUpdateCheck = FwAutoInstallCheckBox.Checked;
+            Properties.Settings.Default.IgnoreComPorts = IgnoreComPortsCheckBox.Checked;
+            Properties.Settings.Default.IgnoredComPortsList = IgnoredComPortsTextBox.Text;
         }
 
         private void updateFirmwareToolStripMenuItem_Click(object sender, EventArgs e)
@@ -215,7 +230,6 @@ namespace MobiFlight.UI.Panels.Settings
             uploadToolStripButton.Enabled = (moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed");
             saveToolStripButton.Enabled = moduleNode.Nodes.Count > 0;
 
-
             // Toggle visibility of items in context menu
             // depending on whether it is a MobiFlight Board or not
             // only upload of firmware is allowed for all boards
@@ -225,6 +239,17 @@ namespace MobiFlight.UI.Panels.Settings
             uploadToolStripMenuItem.Enabled = (moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed");
             openToolStripMenuItem.Enabled = isMobiFlightBoard;
             saveToolStripMenuItem.Enabled = moduleNode.Nodes.Count > 0;
+            regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
+            reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
+
+            // the COM port actions depend on whether
+            // the module is already ignored or not
+            ignoreCOMPortToolStripMenuItem.Visible = moduleNode.ImageKey != "module-ignored";
+            dontIgnoreCOMPortToolStripMenuItem.Visible = moduleNode.ImageKey == "module-ignored";
+
+            // if the module is ignored, we don't want
+            // to display the firmware upload options, etc.
+            updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored";
 
             syncPanelWithSelectedDevice(e.Node);
         }
@@ -1143,6 +1168,53 @@ namespace MobiFlight.UI.Panels.Settings
             errorProvider1.SetError(
                     control,
                     "");
+        }
+
+        private void ignoreCOMPortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode moduleNode = getModuleNode();
+            moduleNode.SelectedImageKey = moduleNode.ImageKey = "module-ignored";
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
+            addPortToIgnoreList(module.Port);
+        }
+
+        private void addPortToIgnoreList(string port)
+        {
+            List<String> ports = IgnoredComPortsTextBox.Text.Split(',').ToList();
+            if (ports.Contains(port)) return;
+
+            ports.Add(port);
+            ports.Sort();
+            IgnoredComPortsTextBox.Text = String.Join(",", ports);
+            IgnoreComPortsCheckBox.Checked = ports.Count > 0;
+
+            ShowRestartHint();
+        }
+
+        private void ShowRestartHint()
+        {
+            String msg = i18n._tr("This change will require a restart of MobiFlight to become effective.");
+            TimeoutMessageDialog.Show(msg, i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void dontIgnoreCOMPortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
+            removePortFormIgnoreList(module.Port);
+        }
+
+        private void removePortFormIgnoreList(string port)
+        {
+            List<String> ports = IgnoredComPortsTextBox.Text.Split(',').ToList();
+            if (!ports.Contains(port)) return;
+
+            ports.Remove(port);
+            ports.Sort();
+            IgnoredComPortsTextBox.Text = String.Join(",", ports);
+            IgnoreComPortsCheckBox.Checked = ports.Count > 0;
+
+            ShowRestartHint();
         }
     }
 }

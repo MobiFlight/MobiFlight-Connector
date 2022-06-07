@@ -122,16 +122,16 @@ namespace MobiFlight
             mobiFlightCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
 
-            timer.Interval = Properties.Settings.Default.PollInterval;
             timer.Tick += new EventHandler(timer_Tick);
             timer.Stopped += new EventHandler(timer_Stopped);
             timer.Started += new EventHandler(timer_Started);
+            SetPollInterval(Properties.Settings.Default.PollInterval);
 
             autoConnectTimer.Interval = 10000;
             autoConnectTimer.Tick += new EventHandler(AutoConnectTimer_TickAsync);
 
-            testModeTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             testModeTimer.Tick += new EventHandler(testModeTimer_Tick);
+            SetTestModeInterval(Properties.Settings.Default.TestTimerInterval);
 
 #if MOBIFLIGHT
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
@@ -221,9 +221,10 @@ namespace MobiFlight
             OnModuleLookupFinished?.Invoke(sender, e);
         }
 
-        public void SetFsuipcInterval(int value)
+        public void SetPollInterval(int value)
         {
             timer.Interval = value;
+            xplaneCache.UpdateFrequencyPerSecond = (int)Math.Round(1000f / value);
         }
 
         public void SetTestModeInterval(int value)

@@ -12,10 +12,20 @@ namespace MobiFlight.xplane
         public event EventHandler Closed;
         public event EventHandler Connected;
         public event EventHandler ConnectionLost;
+        public event EventHandler OnUpdateFrequencyPerSecondChanged;
 
         private bool _simConnectConnected = false;
         private bool _connected = false;
-        public int UpdateFrequencyPerSecond = 5;
+        private int _updateFrequencyPerSecond = 10;
+        public int UpdateFrequencyPerSecond { 
+            get { return _updateFrequencyPerSecond; }
+            set
+            {
+                if (_updateFrequencyPerSecond == value) return;
+                _updateFrequencyPerSecond = value;
+                OnUpdateFrequencyPerSecondChanged?.Invoke(value, new EventArgs());
+            }
+        }
 
         XPlaneConnector.XPlaneConnector Connector = null;
 
@@ -28,6 +38,13 @@ namespace MobiFlight.xplane
             Connector.OnLog += (m) =>
             {
                 Log.Instance.log(m, LogSeverity.Debug);
+            };
+
+            OnUpdateFrequencyPerSecondChanged += (v, e) =>
+            {
+                Log.Instance.log($"XplaneCache: update frequency changed: {v} per second.", LogSeverity.Info);
+                Connector?.Stop();
+                Connector?.Start();
             };
 
             SubscribedDataRefs.Clear();
