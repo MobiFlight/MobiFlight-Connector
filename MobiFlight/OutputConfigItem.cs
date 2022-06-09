@@ -176,7 +176,6 @@ namespace MobiFlight
                 }
                 else if (DisplayType == MobiFlightLedModule.TYPE)
                 {
-
                     LedModule.XmlRead(reader);
                 }
                 else if (DisplayType == ArcazeBcd4056.TYPE)
@@ -233,11 +232,11 @@ namespace MobiFlight
                         reader.ReadEndElement(); // this closes the display node
                 }
 
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.LocalName == "display" && reader.NodeType == XmlNodeType.Element)
                     reader.Read();
 
                 // forward
-                if (reader.NodeType == XmlNodeType.EndElement)
+                if (reader.LocalName == "display" && reader.NodeType == XmlNodeType.EndElement)
                     reader.ReadEndElement();
             }
 
