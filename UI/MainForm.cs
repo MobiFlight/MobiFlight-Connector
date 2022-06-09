@@ -361,6 +361,8 @@ namespace MobiFlight.UI
 
             foreach (MobiFlightModuleInfo moduleInfo in modules)
             {
+                if (moduleInfo.Type == "Ignored") continue;
+
                 if (moduleInfo.Board.Info.CanInstallFirmware && !moduleInfo.HasMfFirmware())
                 {
                     modulesForFlashing.Add(moduleInfo);
