@@ -36,25 +36,20 @@ namespace MobiFlight.Base.Tests
             Assert.IsNull(o.Ref, "Ref is not null");
             Assert.IsNull(o.Placeholder, "Placeholder is not null");
 
-            xmlReader.ReadStartElement();
+            
             o.ReadXml(xmlReader);
-
             // the second one is set so the values should be initialized
             Assert.AreEqual(o.Ref, "d88beacf-a305-4964-a4be-caf6693e18eb", "Ref is not matching");
             Assert.AreEqual(o.Placeholder, "?", "Placeholder is not matching");
 
-            xmlReader.ReadStartElement();
             o.ReadXml(xmlReader);
-
             // the second one is set so the values should be initialized
             Assert.AreEqual(o.Ref, "2ab3b1b5-fbd2-4b8c-9366-ad948fff8135", "Ref is not matching");
             Assert.AreEqual(o.Placeholder, "#", "Placeholder is not matching");
 
             o = new ConfigRef(); // we have to make sure to use a new one otherwise 
                                  // it would hold the information from last read
-            xmlReader.ReadStartElement();
             o.ReadXml(xmlReader);
-
             // the last one is empty so the values should not be initialized
             Assert.IsNull(o.Ref, "Ref is not null");
             Assert.IsNull(o.Placeholder, "Placeholder is not null");

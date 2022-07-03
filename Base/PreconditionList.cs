@@ -55,50 +55,25 @@ namespace MobiFlight.Base
 
         public void ReadXml(XmlReader reader)
         {
-            // read precondition settings if present
-            if (reader.LocalName == "precondition")
-            {
-                // do so
-                Precondition tmp = new Precondition();
-                tmp.ReadXml(reader);
-                Preconditions.Add(tmp);
-            }
-
             if (reader.LocalName == "preconditions")
             {
-                bool atPosition = false;
-                if (null != reader.GetAttribute("executeOnFalse"))
-                {
-                    bool tmp;
-                    if (bool.TryParse(reader["executeOnFalse"], out tmp))
-                        ExecuteOnFalse = tmp;
-                }
-
-                if (null != reader.GetAttribute("falseCaseValue"))
-                {
-                    FalseCaseValue = reader["falseCaseValue"];
-                }
-
-                // read precondition settings if present
-                if (reader.ReadToDescendant("precondition"))
-                {
-                    // load a list
-                    do
-                    {
-                        Precondition tmp = new Precondition();
-                        tmp.ReadXml(reader);
-                        Preconditions.Add(tmp);
-                        reader.ReadStartElement();
-                    } while (reader.LocalName == "precondition");
-
-                    // read to the end of preconditions-node
-                    reader.ReadEndElement();
-                }
-                else
-                {
-                    reader.ReadStartElement();
-                }
+                reader.Read();
             }
+
+            if (reader.LocalName == "precondition")
+            {
+                // load a list
+                do
+                {
+                    Precondition tmp = new Precondition();
+                    tmp.ReadXml(reader);
+                    Preconditions.Add(tmp);
+                } while (reader.LocalName == "precondition");
+            }
+
+            // read to the end of preconditions-node
+            if (reader.LocalName=="preconditions")
+                reader.Read();
         }
 
         public void WriteXml(XmlWriter writer)
