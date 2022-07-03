@@ -246,8 +246,9 @@ namespace MobiFlight
             if (reader.LocalName == "interpolation")
             {
                 Interpolation.ReadXml(reader);
-                if (reader.LocalName != "preconditions")
-                    reader.ReadEndElement(); // this closes the display node
+                
+                if (reader.LocalName == "display" && reader.NodeType == XmlNodeType.EndElement)
+                    reader.Read(); // this closes the display node
             }
 
             // read precondition settings if present
@@ -274,17 +275,13 @@ namespace MobiFlight
                         ConfigRef tmp = new ConfigRef();
                         tmp.ReadXml(reader);
                         ConfigRefs.Add(tmp);
-                        reader.ReadStartElement();
                     } while (reader.LocalName == "configref");
-
-                    // read to the end of configref-node
-                    reader.ReadEndElement();
-                }
-                else
-                {
-                    reader.ReadStartElement();
                 }
             }
+
+            // read to the end of preconditions-node
+            if (reader.LocalName == "configrefs" && reader.NodeType == XmlNodeType.EndElement)
+                reader.ReadEndElement();
         }
 
         public virtual void WriteXml(XmlWriter writer)

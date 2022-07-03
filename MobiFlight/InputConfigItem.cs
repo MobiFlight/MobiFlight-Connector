@@ -149,10 +149,13 @@ namespace MobiFlight
                         Precondition tmp = new Precondition();
                         tmp.ReadXml(reader);
                         Preconditions.Add(tmp);
-                        reader.Read();
                     } while (reader.LocalName == "precondition");
                 }
-                if (reader.NodeType != XmlNodeType.EndElement) reader.Read(); // this should be the corresponding "end" node
+                if (reader.NodeType != XmlNodeType.EndElement) 
+                    reader.Read(); // this should be the corresponding "end" node
+
+                if (reader.NodeType == XmlNodeType.EndElement)
+                    reader.Read(); // move on to the next node
             }
 
             if (reader.LocalName == "configrefs")
@@ -167,7 +170,6 @@ namespace MobiFlight
                         ConfigRef tmp = new ConfigRef();
                         tmp.ReadXml(reader);
                         ConfigRefs.Add(tmp);
-                        reader.Read();
                     } while (reader.LocalName == "configref");
                 }
 

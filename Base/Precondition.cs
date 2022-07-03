@@ -80,6 +80,8 @@ namespace MobiFlight
 
             if (null != reader.GetAttribute("logic"))
                 PreconditionLogic = reader["logic"];
+
+            reader.Read();
         }
 
         public virtual void WriteXml(XmlWriter writer)
