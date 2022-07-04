@@ -53,7 +53,6 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.PreconditionType, "config", "Type not the same");
             Assert.AreEqual(o.PreconditionValue, "0", "Value not the same");
 
-            xmlReader.ReadToNextSibling("precondition");
             o = new Precondition();
             o.ReadXml(xmlReader);
 

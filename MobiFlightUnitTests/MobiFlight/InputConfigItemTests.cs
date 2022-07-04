@@ -111,6 +111,21 @@ namespace MobiFlight.Tests
             Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
+
+            o = new InputConfigItem();
+            s = System.IO.File.ReadAllText(@"assets\MobiFlight\InputConfig\InputConfigItem\ReadXmlTest.860.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("settings");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual(o.ModuleSerial, "737PEDESTAL1/ SN-769-a6a", "ModuleSerial not the same");
+            Assert.AreEqual(o.Name, "Analog 67 A13", "Name not the same");
+            Assert.AreEqual(o.Preconditions.Count, 1, "Preconditions Count not the same");
+            Assert.AreEqual(o.ConfigRefs.Count, 1, "Config ref count is not correct");
         }
 
         [TestMethod()]

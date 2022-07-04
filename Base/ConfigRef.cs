@@ -24,6 +24,7 @@ namespace MobiFlight.Base
             if (reader["active"] != null && reader["active"] != "") Active = bool.Parse( reader["active"]);
             if (reader["ref"] != null && reader["ref"] != "") Ref = reader["ref"];
             if (reader["placeholder"] != null && reader["placeholder"] != "") Placeholder = reader["placeholder"];
+            reader.Read();
         }
 
         public void WriteXml(XmlWriter writer)
