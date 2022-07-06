@@ -560,7 +560,7 @@ namespace MobiFlight
             String value1 = arguments.ReadStringArg();
             String value2 = arguments.ReadStringArg();
             String value3 = arguments.ReadStringArg();
-            Log.Instance.log("Firmware -> " + value1 + " - " + value2 + " - " + value3, LogSeverity.Debug);
+            Log.Instance.log($"{this.Name}.debug: Firmware  -> {value1} {value2} {value3}", LogSeverity.Debug);
         }
 
         /// <summary>
