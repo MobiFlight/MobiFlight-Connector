@@ -19,7 +19,6 @@
   "HardwareIds": [
     "^VID_2341&PID_0010",
     "^VID_2341&PID_0042",
-    "^VID_2341&PID_0001",
     "^VID_8087&PID_0024",
     "^VID_1A86&PID_7523",
     "^VID_2A03&PID_0042",
