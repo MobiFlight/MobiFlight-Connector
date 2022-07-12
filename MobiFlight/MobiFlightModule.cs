@@ -90,6 +90,7 @@ namespace MobiFlight
             AnalogChange,           // 28
             InputShiftRegisterChange, // 29
             InputMultiplexerChange, // 30
+            DebugPrint=0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
@@ -473,7 +474,7 @@ namespace MobiFlight
             _cmdMessenger.Attach((int)Command.InputMultiplexerChange, OnInputMultiplexerChange);
             _cmdMessenger.Attach((int)Command.ButtonChange, OnButtonChange);
             _cmdMessenger.Attach((int)Command.AnalogChange, OnAnalogChange);
-
+            _cmdMessenger.Attach((int)Command.DebugPrint, OnDebugPrint);
         }
 
         /// Executes when an unknown command has been received.
@@ -550,6 +551,16 @@ namespace MobiFlight
             //addLog("Button: " + button + ":" + state);
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = name, Type = DeviceType.AnalogInput, Value = int.Parse(value) });
+        }
+
+        // Callback function that prints the Arduino Debug Print to the console
+        // Up to 3 strings can be send from the firmware
+        void OnDebugPrint(ReceivedCommand arguments)
+        {
+            String value1 = arguments.ReadStringArg();
+            String value2 = arguments.ReadStringArg();
+            String value3 = arguments.ReadStringArg();
+            Log.Instance.log($"{this.Name}.debug: Firmware  -> {value1} {value2} {value3}", LogSeverity.Debug);
         }
 
         /// <summary>
