@@ -16,7 +16,12 @@
     "ForceResetOnFirmwareUpdate": false,
     "MessageSize": 32
   },
-  "HardwareIds": [ "^VID_2341&PID_0043", "^VID_2A03&PID_0043", "^VID_2341&PID_0243" ],
+  "HardwareIds": [
+    "^VID_2341&PID_0043",
+    "^VID_2A03&PID_0043",
+    "^VID_2341&PID_0243",
+    "^VID_2341&PID_0001"
+  ],
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Uno",
@@ -27,7 +32,7 @@
     "MaxAnalogInputs": 6,
     "MaxButtons": 18,
     "MaxEncoders": 9,
-    "MaxInputShifters":  2,
+    "MaxInputShifters": 2,
     "MaxLcdI2C": 2,
     "MaxLedSegments": 1,
     "MaxOutputs": 18,
