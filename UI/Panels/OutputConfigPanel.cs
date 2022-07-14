@@ -576,7 +576,7 @@ namespace MobiFlight.UI.Panels
                                 row["OutputName"] = cfgItem.Stepper.Address;
                                 break;
                             case MobiFlightShiftRegister.TYPE:
-                                row["OutputName"] = cfgItem.ShiftRegister.Address;
+                                row["OutputName"] = cfgItem.ShiftRegister.ToString();
                                 break;
 
                         }
