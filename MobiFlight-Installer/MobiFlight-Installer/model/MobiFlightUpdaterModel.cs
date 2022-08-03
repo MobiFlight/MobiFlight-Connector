@@ -253,10 +253,20 @@ namespace MobiFlightInstaller
             webRequest.Timeout = RequestTimeoutInMilliseconds;
 
             WebResponse webResponse;
-            webResponse = webRequest.GetResponse();
-            Stream ContentStream = webResponse.GetResponseStream();
-            
-            if (ContentStream == null )
+            Stream ContentStream = null;
+
+            try
+            {
+                webResponse = webRequest.GetResponse();
+                ContentStream = webResponse.GetResponseStream();
+            }
+            catch (WebException e)
+            {
+                _handleWebException(e);
+                return;
+            }
+
+            if (ContentStream == null)
             {
                 MessageBox.Show("Error download Mobiflight list failed");
                 return;
@@ -277,7 +287,16 @@ namespace MobiFlightInstaller
                     }
 
                 }
-            }            
+            }   
+        }
+
+        private static void _handleWebException(WebException e)
+        {
+            var reason = "";
+            // e.g. request timed out
+            if (e.Status == WebExceptionStatus.Timeout)
+                reason = " due to timeout";
+            Log.Instance.log($"Download FAILED{reason}, probably a connection error. ({e.Status.ToString()})", LogSeverity.Error);
         }
 
         public static void InstallerCheckForUpgrade(String InstallerUpdateUrl)
@@ -286,9 +305,19 @@ namespace MobiFlightInstaller
             webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
             webRequest.Timeout = RequestTimeoutInMilliseconds;
 
-            WebResponse webResponse;
-            webResponse = webRequest.GetResponse();
-            Stream ContentStream = webResponse.GetResponseStream();
+            WebResponse webResponse = null;
+            Stream ContentStream = null;
+
+            try
+            {
+                webResponse = webRequest.GetResponse();
+                ContentStream = webResponse.GetResponseStream();
+            }
+            catch(WebException e)
+            {
+                _handleWebException(e);
+                return;
+            }
 
             string LastFindVersion = "";
             string VersionDownloadURL = "";
@@ -298,7 +327,7 @@ namespace MobiFlightInstaller
 
             SafeDelete(fileTemp);
             SafeDelete(fileOld);
-            
+
             if (ContentStream != null)
             {
                 var ReceivedContent = new XmlDocument();
