@@ -10,6 +10,7 @@ namespace MobiFlight.UpdateChecker
     static class AutoUpdateChecker
     {
         static string mobiFlightInstaller = "MobiFlight-Installer.exe";
+        static int UpdateCheckTimeoutInMs = 5000;
         public static void CheckForUpdate(bool force = false, bool silent = false)
         {
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
@@ -45,7 +46,7 @@ namespace MobiFlight.UpdateChecker
             p.Start();
             string output = p.StandardOutput.ReadToEnd();
             string error = p.StandardError.ReadToEnd();
-            p.WaitForExit();
+            p.WaitForExit(UpdateCheckTimeoutInMs);
 
             Console.WriteLine(output + error);
             if (output.Contains("##RESULT##|1"))
