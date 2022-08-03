@@ -26,6 +26,7 @@ namespace MobiFlightInstaller
 
         public static string InstallerUpdateUrl = ""; // URL to check for installer upgrade, Set to empty to avoid installer autoUpgrade
         public static string InstallerActualVersion = "0.0.0";
+        public static int RequestTimeoutInMilliseconds = 5000;
         
         public static string CacheId = null;
 
@@ -249,6 +250,8 @@ namespace MobiFlightInstaller
         {
             WebRequest webRequest = WebRequest.Create(UrlXmlFile);
             webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
+            webRequest.Timeout = RequestTimeoutInMilliseconds;
+
             WebResponse webResponse;
             webResponse = webRequest.GetResponse();
             Stream ContentStream = webResponse.GetResponseStream();
@@ -281,6 +284,8 @@ namespace MobiFlightInstaller
         {
             WebRequest webRequest = WebRequest.Create(InstallerUpdateUrl);
             webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
+            webRequest.Timeout = RequestTimeoutInMilliseconds;
+
             WebResponse webResponse;
             webResponse = webRequest.GetResponse();
             Stream ContentStream = webResponse.GetResponseStream();
