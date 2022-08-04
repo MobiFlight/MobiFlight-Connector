@@ -296,11 +296,14 @@ namespace MobiFlight.SimConnectMSFS
                 m_oSimConnect = null;
             }
 
-            _simConnectConnected = false;
-            _connected = false;
+            if (_simConnectConnected || _connected)
+            {
+                _simConnectConnected = false;
+                _connected = false;
 
-            Closed?.Invoke(this, null);
-            
+                Closed?.Invoke(this, null);
+            }
+
             return true;
         }
 

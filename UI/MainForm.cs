@@ -508,7 +508,6 @@ namespace MobiFlight.UI
             if (e.SettingName == "OfflineMode")
             {
                 execManager.OfflineMode = (bool)e.NewValue;
-                execManager.ReconnectSim();
                 if (execManager.OfflineMode) OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb_on;
                 else OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb;
             }

@@ -281,19 +281,6 @@ namespace MobiFlight
             Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
         }
 
-        public void ReconnectSim()
-        {
-            fsuipcCache.Disconnect();
-            fsuipcCache.Connect();
-#if SIMCONNECT
-            simConnectCache.Disconnect();
-            simConnectCache.Connect();
-#endif
-            xplaneCache.Disconnect();
-            xplaneCache.Connect();
-
-        }
-
         public void AutoConnectStop()
         {
             Log.Instance.log("ExecutionManager.AutoConnectStop:" + "Stopped auto connect timer", LogSeverity.Debug);
@@ -457,24 +444,19 @@ namespace MobiFlight
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                    if (!OfflineMode) continue;
                 }
 #if SIMCONNECT
                 // If not connected to SimConnect show an error message
                 if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
-                    if (!OfflineMode) continue;
                 }
 #endif
-
-                // If not connected to SimConnect show an error message
+                // If not connected to X-Plane show an error message
                 if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
-                    if (!OfflineMode) continue;
                 }
-                // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
                 ConnectorValue value = ExecuteRead(cfg);
                 ConnectorValue processedValue = value;
@@ -1319,7 +1301,7 @@ namespace MobiFlight
             }
 
             // Check only for available sims if not in Offline mode.
-            if (!OfflineMode) { 
+            if (true) { 
 
                 if (SimAvailable())
                 {
