@@ -137,6 +137,7 @@ namespace MobiFlight
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            joystickManager.Connected += (o, e) => { joystickManager.Start(); };
             joystickManager.Connect(handle);
         }
 
@@ -259,7 +260,6 @@ namespace MobiFlight
         {
             simConnectCache.Start();
             xplaneCache.Start();
-            joystickManager.Start();
             timer.Enabled = true;
         }
 
@@ -270,7 +270,6 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
-            joystickManager.Stop();
             ClearErrorMessages();
         }
 
@@ -388,7 +387,7 @@ namespace MobiFlight
 #if SIMCONNECT
             simConnectCache.Disconnect();
 #endif
-
+            joystickManager.Stop();
             this.OnModulesDisconnected?.Invoke(this, new EventArgs());
         }
 
