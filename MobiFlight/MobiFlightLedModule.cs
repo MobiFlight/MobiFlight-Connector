@@ -13,7 +13,19 @@ namespace MobiFlight
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }
         public int Brightness { get; set; }
-        public int SubModules { get; set; }
+        public int SubModules
+        {
+            get { return _state.Count; }
+            set { 
+                _state.Clear(); 
+                for(int i = 0; i < value; i++)
+                {
+                    _state.Add(new LedModuleState());
+                }
+            }
+        }
+
+        List<LedModuleState> _state = new List<LedModuleState>();
 
         private String _name = "Led Module";
         public String Name
@@ -35,22 +47,12 @@ namespace MobiFlight
         public MobiFlightLedModule()
         {
             Brightness = 15;
+            _state.Add(new LedModuleState());
         }
 
         protected void Initialize()
         {
             if (_initialized) return;
-
-            // Create command
-            /*
-            var command = new SendCommand((int)MobiFlightModule.Command.InitModule);
-            command.AddArgument(this.ModuleNumber);
-            command.AddArgument(this.Brightness);
-
-            // Send command
-            CmdMessenger.SendCommand(command);
-            */
-
             _initialized = true;
         }
 
@@ -62,7 +64,10 @@ namespace MobiFlight
 
             // clamp and reverse the string
             if (value.Length > 8) value = value.Substring(0, 8);
-            //while (value.Length < 8) value += " ";
+
+            // cache hit
+            if (_state[subModule] == null || !_state[subModule].SetRequiresUpdate(value, points, mask))
+                return;
 
             command.AddArgument(this.ModuleNumber);
             command.AddArgument(subModule);            
@@ -106,6 +111,42 @@ namespace MobiFlight
         {
             for (int i = 0; i != SubModules; i++)
                 Display(i, "        ", 0, 0xff);
+        }
+    }
+
+    public class LedModuleState
+    {
+        char[] Displays = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+        byte Points = 0;
+        byte Brigthness = 255;
+
+        public bool SetRequiresUpdate(String value, byte points, byte mask)
+        {
+            byte CurrentPoints = Points;
+            bool DisplayUpdated = false;
+            
+            byte digit = 8;
+            byte pos = 0;
+            for (byte i = 0; i < 8; i++)
+            {
+                digit--;
+                if (((1 << digit) & mask) == 0)
+                    continue;
+
+                if (Displays[digit] != value[pos])
+                {
+                    Displays[digit] = value[pos];
+                    DisplayUpdated = true;
+                }
+
+                Points |= (byte) ((1 << digit) & points);
+                pos++;
+            }
+
+            if (CurrentPoints != Points)
+                DisplayUpdated = true;
+
+            return DisplayUpdated;
         }
     }
 }
