@@ -590,13 +590,6 @@ namespace MobiFlight
 
         public bool SetDisplay(string name, int module, byte points, byte mask, string value)
         {
-            String key = "LED_" + name + "_" + module + "_" + mask;
-            String cachedValue = value + "_" + points;
-
-            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
-                lastValue[key] == cachedValue) return false;
-
-            lastValue[key] = cachedValue;
             ledModules[name].Display(module, value, points, mask);
             return true;
         }

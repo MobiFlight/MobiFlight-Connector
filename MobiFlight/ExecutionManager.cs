@@ -519,11 +519,7 @@ namespace MobiFlight
                 }
                 else
                 {
-                    // the error text is coming from
-                    // the missing connection to FSUIPC/SimConnect
-                    // so if we are in Offline Mode then we want to keep it.
-                    if(!OfflineMode)
-                        row.ErrorText = "";
+                    row.ErrorText = "";
                 }
 
                 try
