@@ -80,6 +80,8 @@ namespace MobiFlight.UI.Panels.Config
         {
             InitializeComponent();
 
+            Disposed += HubHopPresetPanel_Disposed;
+
             linkLabel1.LinkClicked += this.linkLabel1_LinkClicked;
             ExpandButton.Click += this.ExpandButton_Click;
             ShowExpertSettingsCheckBox.CheckedChanged += this.ShowExpertSerttingsCheckBox_CheckedChanged;            
@@ -102,6 +104,24 @@ namespace MobiFlight.UI.Panels.Config
 
             SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             FilterTextBox.TextChanged += textBox1_TextChanged;
+        }
+
+        private void HubHopPresetPanel_Disposed(object sender, EventArgs e)
+        {
+            // Explicitly setting the HubHopPresets to null actually 
+            // helps with the Garbage Collection    
+            for(int i=0; i!=PresetList.Items.Count;i++)
+            {
+                PresetList.Items[i] = null;
+            }
+            PresetList = null;
+
+            for (int i = 0; i != FilteredPresetList.Items.Count; i++)
+            {
+                FilteredPresetList.Items[i] = null;
+            }
+            FilteredPresetList = null;
+            GC.Collect();
         }
 
         public void LoadPresets()
