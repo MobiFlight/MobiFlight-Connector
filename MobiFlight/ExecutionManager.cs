@@ -74,7 +74,6 @@ namespace MobiFlight
 #if ARCAZE
         readonly ArcazeCache arcazeCache = new ArcazeCache();
 #endif
-        public bool OfflineMode { get; set; }
 
 #if MOBIFLIGHT
         readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
@@ -1269,13 +1268,7 @@ namespace MobiFlight
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
-            // check if timer is running... 
-            // do nothing if so, since everything else has been checked before...            
-            if (timer.Enabled || testModeTimer.Enabled)
-            {
-                _autoConnectTimerRunning = false;
-                return;
-            }
+
 
             if (
 #if ARCAZE
@@ -1331,10 +1324,6 @@ namespace MobiFlight
                 }
             }
 
-            // this line here provokes a timer stop event each time
-            // and therefore the icon for starting the app will get enabled
-            // @see timer_Stopped
-            timer.Enabled = false;
             _autoConnectTimerRunning = false;
         } //autoConnectTimer_Tick()
 

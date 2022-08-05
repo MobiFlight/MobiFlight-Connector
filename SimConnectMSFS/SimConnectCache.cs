@@ -346,6 +346,9 @@ namespace MobiFlight.SimConnectMSFS
         public float GetSimVar(String SimVarName)
         {
             float result = 0;
+            if (!IsConnected()) 
+                return result;
+
             if (!SimVars.Exists(lvar => lvar.Name == SimVarName))
             {
                 RegisterSimVar(SimVarName);
