@@ -35,9 +35,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.languageComboBox = new System.Windows.Forms.ComboBox();
             this.languageLabel = new System.Windows.Forms.Label();
-            this.offlineModeGroupBox = new System.Windows.Forms.GroupBox();
-            this.OfflineModeLabel = new System.Windows.Forms.Label();
-            this.offlineModeCheckBox = new System.Windows.Forms.CheckBox();
             this.debugGroupBox = new System.Windows.Forms.GroupBox();
             this.LogJoystickAxisCheckBox = new System.Windows.Forms.CheckBox();
             this.logLevelComboBox = new System.Windows.Forms.ComboBox();
@@ -60,7 +57,6 @@
             this.SpeedTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
-            this.offlineModeGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
             this.testModeSpeedGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testModeSpeedTrackBar)).BeginInit();
@@ -113,25 +109,6 @@
             // 
             resources.ApplyResources(this.languageLabel, "languageLabel");
             this.languageLabel.Name = "languageLabel";
-            // 
-            // offlineModeGroupBox
-            // 
-            this.offlineModeGroupBox.Controls.Add(this.OfflineModeLabel);
-            this.offlineModeGroupBox.Controls.Add(this.offlineModeCheckBox);
-            resources.ApplyResources(this.offlineModeGroupBox, "offlineModeGroupBox");
-            this.offlineModeGroupBox.Name = "offlineModeGroupBox";
-            this.offlineModeGroupBox.TabStop = false;
-            // 
-            // OfflineModeLabel
-            // 
-            resources.ApplyResources(this.OfflineModeLabel, "OfflineModeLabel");
-            this.OfflineModeLabel.Name = "OfflineModeLabel";
-            // 
-            // offlineModeCheckBox
-            // 
-            resources.ApplyResources(this.offlineModeCheckBox, "offlineModeCheckBox");
-            this.offlineModeCheckBox.Name = "offlineModeCheckBox";
-            this.offlineModeCheckBox.UseVisualStyleBackColor = true;
             // 
             // debugGroupBox
             // 
@@ -277,15 +254,12 @@
             this.Controls.Add(this.languageGroupBox);
             this.Controls.Add(this.CommunityFeedbackGroupBox);
             this.Controls.Add(this.BetaUpdatesGroupBox);
-            this.Controls.Add(this.offlineModeGroupBox);
             this.Controls.Add(this.debugGroupBox);
             this.Controls.Add(this.recentFilesGroupBox);
             this.Name = "GeneralPanel";
             this.BetaUpdatesGroupBox.ResumeLayout(false);
             this.BetaUpdatesGroupBox.PerformLayout();
             this.languageGroupBox.ResumeLayout(false);
-            this.offlineModeGroupBox.ResumeLayout(false);
-            this.offlineModeGroupBox.PerformLayout();
             this.debugGroupBox.ResumeLayout(false);
             this.debugGroupBox.PerformLayout();
             this.testModeSpeedGroupBox.ResumeLayout(false);
@@ -310,9 +284,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox languageComboBox;
         private System.Windows.Forms.Label languageLabel;
-        private System.Windows.Forms.GroupBox offlineModeGroupBox;
-        private System.Windows.Forms.Label OfflineModeLabel;
-        private System.Windows.Forms.CheckBox offlineModeCheckBox;
         private System.Windows.Forms.GroupBox debugGroupBox;
         private System.Windows.Forms.ComboBox logLevelComboBox;
         private System.Windows.Forms.Label logLevelLabel;
