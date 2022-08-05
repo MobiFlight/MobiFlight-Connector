@@ -12,24 +12,35 @@ namespace MobiFlight.Tests
     public class LedModuleStateTests
     {
         [TestMethod()]
-        public void SetRequiresUpdateTest()
+        public void DisplayRequiresUpdateTest()
         {
             LedModuleState state = new LedModuleState();
-            Assert.IsTrue(state.SetRequiresUpdate("12345678", 0, 255));
-            Assert.IsFalse(state.SetRequiresUpdate("12345678", 0, 255));
-            Assert.IsTrue(state.SetRequiresUpdate("87654321", 0, 255));
-            Assert.IsTrue(state.SetRequiresUpdate("11111111", 0, 255));
-            Assert.IsTrue(state.SetRequiresUpdate("2", 0, 2));
-            Assert.IsFalse(state.SetRequiresUpdate("2", 0, 2));
-            Assert.IsTrue(state.SetRequiresUpdate("12121212", 0, 255));
-            Assert.IsFalse(state.SetRequiresUpdate("2222", 0, 2^1+2^3+2^5+2^7));
-            Assert.IsTrue(state.SetRequiresUpdate("3333", 0, 2 ^ 1 + 2 ^ 3 + 2 ^ 5 + 2 ^ 7));
+            Assert.IsTrue(state.DisplayRequiresUpdate("12345678", 0, 255));
+            Assert.IsFalse(state.DisplayRequiresUpdate("12345678", 0, 255));
+            Assert.IsTrue(state.DisplayRequiresUpdate("87654321", 0, 255));
+            Assert.IsTrue(state.DisplayRequiresUpdate("11111111", 0, 255));
+            Assert.IsTrue(state.DisplayRequiresUpdate("2", 0, 2));
+            Assert.IsFalse(state.DisplayRequiresUpdate("2", 0, 2));
+            Assert.IsTrue(state.DisplayRequiresUpdate("12121212", 0, 255));
+            Assert.IsFalse(state.DisplayRequiresUpdate("2222", 0, 2 ^ 1 + 2 ^ 3 + 2 ^ 5 + 2 ^ 7));
+            Assert.IsTrue(state.DisplayRequiresUpdate("3333", 0, 2 ^ 1 + 2 ^ 3 + 2 ^ 5 + 2 ^ 7));
 
             // check the decimal points
-            Assert.IsTrue(state.SetRequiresUpdate("12121212", 1, 255));
-            Assert.IsFalse(state.SetRequiresUpdate("12121212", 1, 255));
-            Assert.IsTrue(state.SetRequiresUpdate("12121212", 2 ^ 1 + 2 ^ 3 + 2 ^ 5 + 2 ^ 7, 255));
-            Assert.IsFalse (state.SetRequiresUpdate("12121212", 2 ^ 1 + 2 ^ 3 + 2 ^ 5 + 2 ^ 7, 255));
+            Assert.IsTrue(state.DisplayRequiresUpdate("12121212", 1, 255));
+            Assert.IsFalse(state.DisplayRequiresUpdate("12121212", 1, 255));
+            Assert.IsTrue(state.DisplayRequiresUpdate("12121212", 2 ^ 1 + 2 ^ 3 + 2 ^ 5 + 2 ^ 7, 255));
+            Assert.IsFalse(state.DisplayRequiresUpdate("12121212", 2 ^ 1 + 2 ^ 3 + 2 ^ 5 + 2 ^ 7, 255));
+            Assert.IsTrue(state.DisplayRequiresUpdate("12121212", 2 ^ 1 + 2 ^ 3 + 2 ^ 5, 255));
+        }
+
+        [TestMethod()]
+        public void SetBrightnessRequiresUpdateTest()
+        {
+            LedModuleState state = new LedModuleState();
+            Assert.IsTrue(state.SetBrightnessRequiresUpdate("15"));
+            Assert.IsFalse(state.SetBrightnessRequiresUpdate("15"));
+            Assert.IsTrue(state.SetBrightnessRequiresUpdate("0"));
+            Assert.IsFalse(state.SetBrightnessRequiresUpdate("0"));
         }
     }
 }

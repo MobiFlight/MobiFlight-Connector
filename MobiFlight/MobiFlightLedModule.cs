@@ -66,7 +66,7 @@ namespace MobiFlight
             if (value.Length > 8) value = value.Substring(0, 8);
 
             // cache hit
-            if (_state[subModule] == null || !_state[subModule].SetRequiresUpdate(value, points, mask))
+            if (_state[subModule] == null || !_state[subModule].DisplayRequiresUpdate(value, points, mask))
                 return;
 
             command.AddArgument(this.ModuleNumber);
@@ -90,6 +90,10 @@ namespace MobiFlight
         {
             if (!_initialized) Initialize();
 
+            // cache hit
+            if (_state[subModule] == null || !_state[subModule].SetBrightnessRequiresUpdate(value))
+                return;
+
             var command = new SendCommand((int)MobiFlightModule.Command.SetModuleBrightness);
 
             // clamp and reverse the string
@@ -110,7 +114,10 @@ namespace MobiFlight
         public void Stop()
         {
             for (int i = 0; i != SubModules; i++)
+            {
                 Display(i, "        ", 0, 0xff);
+                _state[i]?.Reset();
+            }    
         }
     }
 
@@ -118,11 +125,10 @@ namespace MobiFlight
     {
         char[] Displays = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
         byte Points = 0;
-        byte Brigthness = 255;
+        String Brigthness = "";
 
-        public bool SetRequiresUpdate(String value, byte points, byte mask)
+        public bool DisplayRequiresUpdate(String value, byte points, byte mask)
         {
-            byte CurrentPoints = Points;
             bool DisplayUpdated = false;
             
             byte digit = 8;
@@ -138,15 +144,32 @@ namespace MobiFlight
                     Displays[digit] = value[pos];
                     DisplayUpdated = true;
                 }
-
-                Points |= (byte) ((1 << digit) & points);
                 pos++;
             }
 
-            if (CurrentPoints != Points)
+            if (Points != points)
+            {
+                Points = points;
                 DisplayUpdated = true;
+            }     
 
             return DisplayUpdated;
+        }
+
+        public bool SetBrightnessRequiresUpdate(String value)
+        {
+            if (Brigthness == value)
+                return false;
+
+            Brigthness = value;
+            return true;
+        }
+
+        internal void Reset()
+        {
+            Displays = new[] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+            Points = 0;
+            Brigthness = "";
         }
     }
 }
