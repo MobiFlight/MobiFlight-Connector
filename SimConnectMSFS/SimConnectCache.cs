@@ -296,11 +296,14 @@ namespace MobiFlight.SimConnectMSFS
                 m_oSimConnect = null;
             }
 
-            _simConnectConnected = false;
-            _connected = false;
+            if (_simConnectConnected || _connected)
+            {
+                _simConnectConnected = false;
+                _connected = false;
 
-            Closed?.Invoke(this, null);
-            
+                Closed?.Invoke(this, null);
+            }
+
             return true;
         }
 
@@ -343,6 +346,9 @@ namespace MobiFlight.SimConnectMSFS
         public float GetSimVar(String SimVarName)
         {
             float result = 0;
+            if (!IsConnected()) 
+                return result;
+
             if (!SimVars.Exists(lvar => lvar.Name == SimVarName))
             {
                 RegisterSimVar(SimVarName);

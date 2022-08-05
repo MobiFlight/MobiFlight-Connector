@@ -33,7 +33,7 @@ namespace MobiFlight
     {
         static public FlightSimConnectionMethod FlightSimConnectionMethod = FlightSimConnectionMethod.NONE;
         static public FlightSimType FlightSimType = FlightSimType.NONE;
-        static public bool OfflineMode = false;
+        
         static public Dictionary<FlightSimConnectionMethod, String> SimConnectionNames = new Dictionary<FlightSimConnectionMethod, string>()
         {
             { FlightSimConnectionMethod.NONE, "None" },
@@ -124,13 +124,6 @@ namespace MobiFlight
             {
                 FlightSimConnectionMethod = FlightSimConnectionMethod.WIDECLIENT;
                 FlightSimType = FlightSimType.XPLANE;
-                return true;
-            }
-
-            if (OfflineMode)
-            {
-                FlightSimConnectionMethod = FlightSimConnectionMethod.OFFLINE;
-                FlightSimType = FlightSimType.UNKNOWN;
                 return true;
             }
 

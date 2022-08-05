@@ -55,9 +55,6 @@ namespace MobiFlight.UI.Panels.Settings
             ComboBoxHelper.SetSelectedItem(logLevelComboBox, Properties.Settings.Default.LogLevel);
             LogJoystickAxisCheckBox.Checked = Properties.Settings.Default.LogJoystickAxis;
 
-            // Offline Mode
-            offlineModeCheckBox.Checked = Properties.Settings.Default.OfflineMode;
-
             // System Language
             languageComboBox.SelectedValue = Properties.Settings.Default.Language;
 
@@ -90,9 +87,6 @@ namespace MobiFlight.UI.Panels.Settings
 
             Properties.Settings.Default.LogJoystickAxis = LogJoystickAxisCheckBox.Checked;
             Log.Instance.LogJoystickAxis = LogJoystickAxisCheckBox.Checked;
-
-            // Offline Mode
-            Properties.Settings.Default.OfflineMode = offlineModeCheckBox.Checked;
 
             // System Language
             Properties.Settings.Default.Language = languageComboBox.SelectedValue.ToString();
