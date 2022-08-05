@@ -408,6 +408,10 @@ namespace MobiFlight.UI.Dialogs
         private void ConfigWizard_FormClosing(object sender, FormClosingEventArgs e)
         {
             _execManager.GetSimConnectCache().LVarListUpdated -= ConfigWizard_LVarListUpdated;
+            // actively trigger dispose
+            // to be able to clean up hubHopPreset Instances
+            // to prevent memory leak.
+            simConnectPanel1.Dispose();
         }
 
         private void _testModeStart()

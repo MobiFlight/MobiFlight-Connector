@@ -656,5 +656,10 @@ namespace MobiFlight.UI.Dialogs
         {
             IsShown = true;
         }
+
+        private void InputConfigWizard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            groupBoxInputSettings.Dispose();
+        }
     }
 }

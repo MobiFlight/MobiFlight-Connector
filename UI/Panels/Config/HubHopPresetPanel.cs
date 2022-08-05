@@ -60,7 +60,7 @@ namespace MobiFlight.UI.Panels.Config
 
         SimConnectLvarsListForm LVarsListForm = new SimConnectLvarsListForm();
 
-        Msfs2020HubhopPresetList PresetList = new Msfs2020HubhopPresetList();
+        Msfs2020HubhopPresetList PresetList = null;
         Msfs2020HubhopPresetList FilteredPresetList = new Msfs2020HubhopPresetList();
 
         public List<String> LVars
@@ -79,6 +79,9 @@ namespace MobiFlight.UI.Panels.Config
         public HubHopPresetPanel()
         {
             InitializeComponent();
+            PresetList = Msfs2020HubhopPresetListSingleton.Instance;
+
+            Disposed += HubHopPresetPanel_Disposed;
 
             linkLabel1.LinkClicked += this.linkLabel1_LinkClicked;
             ExpandButton.Click += this.ExpandButton_Click;
@@ -86,9 +89,11 @@ namespace MobiFlight.UI.Panels.Config
             ResetButton.Click += this.ResetFilterButton_Click;
             OnLVarsSet += SimConnectPanel_OnLVarsSet;
             ExpertSettingsPanel.Visible = false;
+
             PresetFile = Properties.Settings.Default.PresetFileMSFS2020SimVars;
             // New Json File
             PresetFile = @"Presets\msfs2020_hubhop_presets.json";
+            
             // Not sure if we want to keep the user file?
             // Would have to be JSON too...
             PresetFileUser = Properties.Settings.Default.PresetFileMSFS2020SimVarsUser;
@@ -102,6 +107,13 @@ namespace MobiFlight.UI.Panels.Config
 
             SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             FilterTextBox.TextChanged += textBox1_TextChanged;
+        }
+
+        private void HubHopPresetPanel_Disposed(object sender, EventArgs e)
+        {
+            // Explicitly setting the HubHopPresets to null actually 
+            // helps with the Garbage Collection    
+            FilteredPresetList.Clear();
         }
 
         public void LoadPresets()

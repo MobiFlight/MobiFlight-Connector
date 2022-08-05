@@ -20,6 +20,7 @@ namespace MobiFlight.UI.Panels.Action
             InitializeComponent();
             hubHopPresetPanel1.Mode = Config.HubHopPanelMode.Input;
             hubHopPresetPanel1.LoadPresets();
+            Disposed += (sender, args) => { hubHopPresetPanel1.Dispose(); };
         }       
 
         internal void syncFromConfig(InputConfig.MSFS2020CustomInputAction inputAction)
