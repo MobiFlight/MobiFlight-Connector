@@ -22,6 +22,7 @@ using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
 using Microsoft.ApplicationInsights.DataContracts;
 using MobiFlight.xplane;
+using MobiFlight.HubHop;
 
 namespace MobiFlight.UI
 {
@@ -1695,6 +1696,8 @@ namespace MobiFlight.UI
 
             if (updater.InstallWasmEvents())
             {
+                Msfs2020HubhopPresetListSingleton.Instance.Clear();
+
                 TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),
