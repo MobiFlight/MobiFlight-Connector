@@ -499,7 +499,8 @@ namespace MobiFlight
                 }
                 else
                 {
-                    row.ErrorText = "";
+                    if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
+                        row.ErrorText = "";
                 }
 
                 try
