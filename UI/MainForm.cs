@@ -22,6 +22,7 @@ using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
 using Microsoft.ApplicationInsights.DataContracts;
 using MobiFlight.xplane;
+using MobiFlight.HubHop;
 
 namespace MobiFlight.UI
 {
@@ -156,9 +157,6 @@ namespace MobiFlight.UI
 
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
-            execManager.OfflineMode = Properties.Settings.Default.OfflineMode;
-
-            if (execManager.OfflineMode) OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb_on;
             FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             simConnectToolStripMenuItem.Image = Properties.Resources.warning;
 
@@ -505,14 +503,6 @@ namespace MobiFlight.UI
                 execManager.SetPollInterval((int)e.NewValue);
             }
 
-            if (e.SettingName == "OfflineMode")
-            {
-                execManager.OfflineMode = (bool)e.NewValue;
-                execManager.ReconnectSim();
-                if (execManager.OfflineMode) OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb_on;
-                else OfflineModeIconToolStripStatusLabel.Image = Properties.Resources.lightbulb;
-            }
-
             if (e.SettingName == "CommunityFeedback")
             {
                 AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
@@ -631,12 +621,8 @@ namespace MobiFlight.UI
         private bool RunIsAvailable()
         {
             return 
-                   // Offline Mode Or Sim available
-                   (execManager.OfflineMode || execManager.SimConnected()) &&
-                   // Hardware available
-                   (execManager.ModulesConnected() || execManager.GetJoystickManager().JoysticksConnected()) && 
-                   // We are not already running
-                   !execManager.IsStarted() && !execManager.TestModeIsStarted();
+                // We are not already running
+                !execManager.IsStarted() && !execManager.TestModeIsStarted();
         }
 
         /// <summary>
@@ -1695,6 +1681,8 @@ namespace MobiFlight.UI
 
             if (updater.InstallWasmEvents())
             {
+                Msfs2020HubhopPresetListSingleton.Instance.Clear();
+
                 TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),

@@ -71,8 +71,12 @@ namespace MobiFlight
 
         public void Stop()
         {
-            for (int i = 0; i != NumberOfShifters; i++)
-                Display("0|1|2|3|4|5|6|7", "0");
+            List<String> pins = new List<string>();
+            for (int i = 0; i != NumberOfShifters*8; i++)
+                pins.Add(i.ToString());
+
+            String pinString = string.Join("|", pins);
+            Display(pinString, "0");
         }
     }
 }

@@ -26,6 +26,7 @@ namespace MobiFlightInstaller
 
         public static string InstallerUpdateUrl = ""; // URL to check for installer upgrade, Set to empty to avoid installer autoUpgrade
         public static string InstallerActualVersion = "0.0.0";
+        public static int RequestTimeoutInMilliseconds = 5000;
         
         public static string CacheId = null;
 
@@ -249,11 +250,23 @@ namespace MobiFlightInstaller
         {
             WebRequest webRequest = WebRequest.Create(UrlXmlFile);
             webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
+            webRequest.Timeout = RequestTimeoutInMilliseconds;
+
             WebResponse webResponse;
-            webResponse = webRequest.GetResponse();
-            Stream ContentStream = webResponse.GetResponseStream();
-            
-            if (ContentStream == null )
+            Stream ContentStream = null;
+
+            try
+            {
+                webResponse = webRequest.GetResponse();
+                ContentStream = webResponse.GetResponseStream();
+            }
+            catch (WebException e)
+            {
+                _handleWebException(e);
+                return;
+            }
+
+            if (ContentStream == null)
             {
                 MessageBox.Show("Error download Mobiflight list failed");
                 return;
@@ -274,16 +287,37 @@ namespace MobiFlightInstaller
                     }
 
                 }
-            }            
+            }   
+        }
+
+        private static void _handleWebException(WebException e)
+        {
+            var reason = "";
+            // e.g. request timed out
+            if (e.Status == WebExceptionStatus.Timeout)
+                reason = " due to timeout";
+            Log.Instance.log($"Download FAILED{reason}, probably a connection error. ({e.Status.ToString()})", LogSeverity.Error);
         }
 
         public static void InstallerCheckForUpgrade(String InstallerUpdateUrl)
         {
             WebRequest webRequest = WebRequest.Create(InstallerUpdateUrl);
             webRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
-            WebResponse webResponse;
-            webResponse = webRequest.GetResponse();
-            Stream ContentStream = webResponse.GetResponseStream();
+            webRequest.Timeout = RequestTimeoutInMilliseconds;
+
+            WebResponse webResponse = null;
+            Stream ContentStream = null;
+
+            try
+            {
+                webResponse = webRequest.GetResponse();
+                ContentStream = webResponse.GetResponseStream();
+            }
+            catch(WebException e)
+            {
+                _handleWebException(e);
+                return;
+            }
 
             string LastFindVersion = "";
             string VersionDownloadURL = "";
@@ -293,7 +327,7 @@ namespace MobiFlightInstaller
 
             SafeDelete(fileTemp);
             SafeDelete(fileOld);
-            
+
             if (ContentStream != null)
             {
                 var ReceivedContent = new XmlDocument();

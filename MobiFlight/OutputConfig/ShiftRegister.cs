@@ -48,6 +48,17 @@ namespace MobiFlight.OutputConfig
             writer.WriteAttributeString("registerOutputPin", Pin);
         }
 
+        public override string ToString()
+        {
+            // The list of selected pins is stored as a string in this format: Output 1|Output 2|Output 10
+            // That's too wordy to display in UI so strip out the "Output " and "|", then separate
+            // the pin assignments with a comma. The resulting display string is: ShiftRegister:1,2,10.
+            //
+            // The UI forces at least one pin assignment so there is no case where the resulting string
+            // would be ShiftRegister: (with no pins listed and a trailing colon).
+            return $"{Address}:{Pin.Replace("Output ", ",").Replace("|", "").TrimStart(',')}";
+        }
+
         public object Clone()
         {
             ShiftRegister clone = new ShiftRegister();

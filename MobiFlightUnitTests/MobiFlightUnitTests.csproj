@@ -93,6 +93,7 @@
     <Compile Include="MobiFlight\InputConfig\KeyInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputActionTests.cs" />
     <Compile Include="MobiFlight\InputConfig\VJoyInputActionTests.cs" />
+    <Compile Include="MobiFlight\LedModuleStateTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLcdDisplayTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />

@@ -74,7 +74,6 @@ namespace MobiFlight
 #if ARCAZE
         readonly ArcazeCache arcazeCache = new ArcazeCache();
 #endif
-        public bool OfflineMode { get; set; }
 
 #if MOBIFLIGHT
         readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
@@ -137,6 +136,7 @@ namespace MobiFlight
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            joystickManager.Connected += (o, e) => { joystickManager.Start(); };
             joystickManager.Connect(handle);
         }
 
@@ -259,7 +259,6 @@ namespace MobiFlight
         {
             simConnectCache.Start();
             xplaneCache.Start();
-            joystickManager.Start();
             timer.Enabled = true;
         }
 
@@ -270,7 +269,6 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
-            joystickManager.Stop();
             ClearErrorMessages();
         }
 
@@ -279,19 +277,6 @@ namespace MobiFlight
             autoConnectTimer.Start();
             AutoConnectTimer_TickAsync(null, null);
             Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
-        }
-
-        public void ReconnectSim()
-        {
-            fsuipcCache.Disconnect();
-            fsuipcCache.Connect();
-#if SIMCONNECT
-            simConnectCache.Disconnect();
-            simConnectCache.Connect();
-#endif
-            xplaneCache.Disconnect();
-            xplaneCache.Connect();
-
         }
 
         public void AutoConnectStop()
@@ -388,7 +373,7 @@ namespace MobiFlight
 #if SIMCONNECT
             simConnectCache.Disconnect();
 #endif
-
+            joystickManager.Stop();
             this.OnModulesDisconnected?.Invoke(this, new EventArgs());
         }
 
@@ -457,24 +442,19 @@ namespace MobiFlight
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                    if (!OfflineMode) continue;
                 }
 #if SIMCONNECT
                 // If not connected to SimConnect show an error message
                 if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
-                    if (!OfflineMode) continue;
                 }
 #endif
-
-                // If not connected to SimConnect show an error message
+                // If not connected to X-Plane show an error message
                 if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
-                    if (!OfflineMode) continue;
                 }
-                // if (cfg.FSUIPCOffset == ArcazeConfigItem.FSUIPCOffsetNull) continue;
 
                 ConnectorValue value = ExecuteRead(cfg);
                 ConnectorValue processedValue = value;
@@ -519,10 +499,7 @@ namespace MobiFlight
                 }
                 else
                 {
-                    // the error text is coming from
-                    // the missing connection to FSUIPC/SimConnect
-                    // so if we are in Offline Mode then we want to keep it.
-                    if(!OfflineMode)
+                    if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
                         row.ErrorText = "";
                 }
 
@@ -1291,13 +1268,7 @@ namespace MobiFlight
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
-            // check if timer is running... 
-            // do nothing if so, since everything else has been checked before...            
-            if (timer.Enabled || testModeTimer.Enabled)
-            {
-                _autoConnectTimerRunning = false;
-                return;
-            }
+
 
             if (
 #if ARCAZE
@@ -1319,7 +1290,7 @@ namespace MobiFlight
             }
 
             // Check only for available sims if not in Offline mode.
-            if (!OfflineMode) { 
+            if (true) { 
 
                 if (SimAvailable())
                 {
@@ -1353,10 +1324,6 @@ namespace MobiFlight
                 }
             }
 
-            // this line here provokes a timer stop event each time
-            // and therefore the icon for starting the app will get enabled
-            // @see timer_Stopped
-            timer.Enabled = false;
             _autoConnectTimerRunning = false;
         } //autoConnectTimer_Tick()
 

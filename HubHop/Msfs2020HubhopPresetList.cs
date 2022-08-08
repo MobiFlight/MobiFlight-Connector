@@ -30,18 +30,39 @@ namespace MobiFlight.HubHop
         public int score;
         public String id { get; set; }
     }
+
+    public class Msfs2020HubhopPresetListSingleton
+    {
+        public static Msfs2020HubhopPresetList Instance { get; } = new Msfs2020HubhopPresetList();
+    }
+
     public class Msfs2020HubhopPresetList
     {
         public List<Msfs2020HubhopPreset> Items = new List<Msfs2020HubhopPreset>();
+        String LoadedFile = null;
+
+        public void Clear()
+        {
+            if (Items != null)
+            {
+                for (int i = 0; i != Items.Count; i++)
+                {
+                    Items[i] = null;
+                }
+                Items = null;
+            }
+        }
 
         public void Load(String Msfs2020HubhopPreset)
         {
-            Items.Clear();
+            if (LoadedFile == Msfs2020HubhopPreset) return;
+
+            Clear();
             try
             {
-                var presets = JsonConvert.DeserializeObject<List<Msfs2020HubhopPreset>>
-                                (File.ReadAllText(Msfs2020HubhopPreset), new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });  ;
-                Items.AddRange(presets);
+                Items = JsonConvert.DeserializeObject<List<Msfs2020HubhopPreset>>
+                                (File.ReadAllText(Msfs2020HubhopPreset), new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+                LoadedFile = Msfs2020HubhopPreset;
             }
             catch (Exception ex)
             {

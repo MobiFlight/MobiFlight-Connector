@@ -56,7 +56,12 @@ namespace MobiFlight.xplane
         }
         public bool Disconnect()
         {
-            _connected = false;
+            if (_connected)
+            {
+                _connected = false;
+                Closed?.Invoke(this, new EventArgs());
+            }
+            
             return _connected;
         }
 

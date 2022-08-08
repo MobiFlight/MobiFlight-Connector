@@ -80,7 +80,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
             displayModuleNameComboBox.Items.Clear();
             displayModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "" });
             displayModuleNameComboBox.Items.AddRange(ModuleList.ToArray());
-            displayModuleNameComboBox.SelectedIndex = 0;
+            // Pre selct the first module if there is only one in the list.
+            if (displayModuleNameComboBox.Items.Count == 2)
+                displayModuleNameComboBox.SelectedIndex = 1;
+            else
+                displayModuleNameComboBox.SelectedIndex = 0;
         }
 
         protected void _initDisplayPanels()

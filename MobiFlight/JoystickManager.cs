@@ -9,6 +9,7 @@ namespace MobiFlight
 {
     public class JoystickManager
     {
+        public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
         Timer PollTimer = new Timer();
         List<Joystick> joysticks = new List<Joystick>();
@@ -80,6 +81,7 @@ namespace MobiFlight
             }
 
             joysticks.Sort((j1, j2) => j1.Name.CompareTo(j2.Name));
+            Connected?.Invoke(this, null);
         }
 
         private void Js_OnDisconnected(object sender, EventArgs e)
