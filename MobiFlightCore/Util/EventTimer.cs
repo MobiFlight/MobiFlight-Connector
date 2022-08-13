@@ -8,8 +8,8 @@ namespace MobiFlight
 {
     public class EventTimer : Timer
     {
-        public event EventHandler Started;
         public event EventHandler Stopped;
+        public event EventHandler Started;
         public new bool Enabled
         {
             get { return base.Enabled; }

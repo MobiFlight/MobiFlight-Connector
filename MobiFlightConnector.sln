@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30503.244
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightConnector", "MobiFlightConnector.csproj", "{FAD08758-74C5-4DBA-9BC5-1AD98A0FE87B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "CmdMessenger\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj", "{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightInstaller", "MobiFlight-Installer\MobiFlight-Installer\MobiFlightInstaller.csproj", "{9891291C-16A1-48B7-BAEE-9FE876663E0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiFlightCore", "MobiFlightCore\MobiFlightCore.csproj", "{5A1D2EC5-02DF-4043-9880-858F44509AF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,14 @@ Global
 		{9891291C-16A1-48B7-BAEE-9FE876663E0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9891291C-16A1-48B7-BAEE-9FE876663E0E}.Release|x86.ActiveCfg = Release|Any CPU
 		{9891291C-16A1-48B7-BAEE-9FE876663E0E}.Release|x86.Build.0 = Release|Any CPU
+		{5A1D2EC5-02DF-4043-9880-858F44509AF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1D2EC5-02DF-4043-9880-858F44509AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1D2EC5-02DF-4043-9880-858F44509AF9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A1D2EC5-02DF-4043-9880-858F44509AF9}.Debug|x86.Build.0 = Debug|Any CPU
+		{5A1D2EC5-02DF-4043-9880-858F44509AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1D2EC5-02DF-4043-9880-858F44509AF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1D2EC5-02DF-4043-9880-858F44509AF9}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A1D2EC5-02DF-4043-9880-858F44509AF9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

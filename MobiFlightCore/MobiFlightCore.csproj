@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5A1D2EC5-02DF-4043-9880-858F44509AF9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MobiFlightCore</RootNamespace>
+    <AssemblyName>MobiFlightCore</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DEBUG SIMCONNECT ARCAZE MOBIFLIGHT</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArcazeHid">
+      <HintPath>..\lib\ArcazeHid.dll</HintPath>
+    </Reference>
+    <Reference Include="fsuipcClient, Version=3.2.20.389, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
+      <HintPath>..\packages\FSUIPCClientDLL.3.2.20\lib\net40\fsuipcClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.21.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.FlightSimulator.SimConnect">
+      <HintPath>..\SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="NCalc">
+      <HintPath>..\lib\NCalc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="vJoyInterfaceWrap">
+      <HintPath>..\lib\vJoyInterfaceWrap.dll</HintPath>
+    </Reference>
+    <Reference Include="XPlaneConnector, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\XPlaneConnector.1.3.0\lib\netstandard2.0\XPlaneConnector.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Arcaze\ArcazeBcd4056.cs" />
+    <Compile Include="Arcaze\ArcazeCache.cs" />
+    <Compile Include="Arcaze\ArcazeCommandExecutionException.cs" />
+    <Compile Include="Arcaze\ArcazeIoBasic.cs" />
+    <Compile Include="Arcaze\ArcazeLedDigit.cs" />
+    <Compile Include="Arcaze\ArcazeLedDisplayConfig.cs" />
+    <Compile Include="Arcaze\ArcazeModule.cs" />
+    <Compile Include="Arcaze\ArcazeModuleInfo.cs" />
+    <Compile Include="Arcaze\ArcazeModuleSettings.cs" />
+    <Compile Include="Arcaze\DeviceInfoAndCache.cs" />
+    <Compile Include="Base\CacheInterface.cs" />
+    <Compile Include="Base\FlightSim.cs" />
+    <Compile Include="Base\FullCacheInterface.cs" />
+    <Compile Include="Base\Log.cs" />
+    <Compile Include="Base\MobiFlightVariable.cs" />
+    <Compile Include="Base\ReadCacheInterface.cs" />
+    <Compile Include="Base\SerialNumber.cs" />
+    <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="BoardDefinitions.cs" />
+    <Compile Include="Config\BaseConfigItem.cs" />
+    <Compile Include="Config\BooleanConverterConfig.cs" />
+    <Compile Include="Config\Clipboard.cs" />
+    <Compile Include="Config\ConfigErrorException.cs" />
+    <Compile Include="Config\ConfigFile.cs" />
+    <Compile Include="Config\ConfigRefValue.cs" />
+    <Compile Include="Config\ConfigRef.cs" />
+    <Compile Include="Config\ConfigRefList.cs" />
+    <Compile Include="Config\Config\AnalogInput.cs" />
+    <Compile Include="Config\Config\BaseDevice.cs" />
+    <Compile Include="Config\Config\Button.cs" />
+    <Compile Include="Config\Config\Config.cs" />
+    <Compile Include="Config\Config\Encoder.cs" />
+    <Compile Include="Config\Config\EncoderSingleDetent.cs" />
+    <Compile Include="Config\Config\IConfigItem.cs" />
+    <Compile Include="Config\Config\IConfigRefConfigItem.cs" />
+    <Compile Include="Config\Config\InputMultiplexer.cs" />
+    <Compile Include="Config\Config\InputShiftRegister.cs" />
+    <Compile Include="Config\Config\LCDDisplay.cs" />
+    <Compile Include="Config\Config\LedModule.cs" />
+    <Compile Include="Config\Config\MultiplexerDriver.cs" />
+    <Compile Include="Config\Config\Output.cs" />
+    <Compile Include="Config\Config\Servo.cs" />
+    <Compile Include="Config\Config\ShiftRegister.cs" />
+    <Compile Include="Config\Config\Stepper.cs" />
+    <Compile Include="Config\ConnectorValue.cs" />
+    <Compile Include="Config\ConverterConfig.cs" />
+    <Compile Include="Config\InputConfigItem.cs" />
+    <Compile Include="Config\InputConfig\AnalogInputConfig.cs" />
+    <Compile Include="Config\InputConfig\BaseInputAction.cs" />
+    <Compile Include="Config\InputConfig\ButtonInputConfig.cs" />
+    <Compile Include="Config\InputConfig\EncoderInputConfig.cs" />
+    <Compile Include="Config\InputConfig\EventIdInputAction.cs" />
+    <Compile Include="Config\InputConfig\FsuipcOffsetInputAction.cs" />
+    <Compile Include="Config\InputConfig\IInputActionType.cs" />
+    <Compile Include="Config\InputConfig\InputAction.cs" />
+    <Compile Include="Config\InputConfig\InputActionExecutionCache.cs" />
+    <Compile Include="Config\InputConfig\InputActionFactory.cs" />
+    <Compile Include="Config\InputConfig\InputMultiplexerConfig.cs" />
+    <Compile Include="Config\InputConfig\InputShiftRegisterConfig.cs" />
+    <Compile Include="Config\InputConfig\JeehellInputAction.cs" />
+    <Compile Include="Config\InputConfig\KeyInputAction.cs" />
+    <Compile Include="Config\InputConfig\LuaMacroInputAction.cs" />
+    <Compile Include="Config\InputConfig\MSFS2020CustomInputAction.cs" />
+    <Compile Include="Config\InputConfig\MSFS2020EventIdInputAction.cs" />
+    <Compile Include="Config\InputConfig\PmdgEventIdInputAction.cs" />
+    <Compile Include="Config\InputConfig\RetriggerInputAction.cs" />
+    <Compile Include="Config\InputConfig\VariableInputAction.cs" />
+    <Compile Include="Config\InputConfig\VJoyInputAction.cs" />
+    <Compile Include="Config\InputConfig\XplaneInputAction.cs" />
+    <Compile Include="Config\OutputConfigItem.cs" />
+    <Compile Include="Config\OutputConfig\Comparison.cs" />
+    <Compile Include="Config\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="Config\OutputConfig\LcdDisplay.cs" />
+    <Compile Include="Config\OutputConfig\LedModule.cs" />
+    <Compile Include="Config\OutputConfig\Pin.cs" />
+    <Compile Include="Config\OutputConfig\Servo.cs" />
+    <Compile Include="Config\OutputConfig\ShiftRegister.cs" />
+    <Compile Include="Config\OutputConfig\SimConnectValue.cs" />
+    <Compile Include="Config\OutputConfig\Stepper.cs" />
+    <Compile Include="Config\OutputConfig\VariableOutput.cs" />
+    <Compile Include="Config\Precondition.cs" />
+    <Compile Include="Config\PreconditionList.cs" />
+    <Compile Include="Devices\IConnectedDevice.cs" />
+    <Compile Include="Devices\MobiFlightAnalogInput.cs" />
+    <Compile Include="Devices\MobiFlightButton.cs" />
+    <Compile Include="Devices\MobiFlightCache.cs" />
+    <Compile Include="Devices\MobiFlightCacheInterface.cs" />
+    <Compile Include="Devices\MobiFlightEncoder.cs" />
+    <Compile Include="Devices\MobiFlightFirmwareUpdater.cs" />
+    <Compile Include="Devices\MobiFlightInputMultiplexer.cs" />
+    <Compile Include="Devices\MobiFlightInputShiftRegister.cs" />
+    <Compile Include="Devices\MobiFlightIOBasic.cs" />
+    <Compile Include="Devices\MobiFlightLcdDisplay.cs" />
+    <Compile Include="Devices\MobiFlightLedModule.cs" />
+    <Compile Include="Devices\MobiFlightModule.cs" />
+    <Compile Include="Devices\MobiFlightModuleInfo.cs" />
+    <Compile Include="Devices\MobiFlightOutput.cs" />
+    <Compile Include="Devices\MobiFlightServo.cs" />
+    <Compile Include="Devices\MobiFlightShiftRegister.cs" />
+    <Compile Include="Devices\MobiFlightStepper.cs" />
+    <Compile Include="Devices\MobiFlightStepper28BYJ.cs" />
+    <Compile Include="Exceptions\FirmwareVersionTooLowException.cs" />
+    <Compile Include="Exceptions\MaximumDeviceNumberReachedMobiFlightException.cs" />
+    <Compile Include="FSUIPC\Fsuipc2Cache.cs" />
+    <Compile Include="FSUIPC\fsuipcBCD.cs" />
+    <Compile Include="FSUIPC\FSUIPCCacheInterface.cs" />
+    <Compile Include="FSUIPC\FSUIPCConfigItem.cs" />
+    <Compile Include="FSUIPC\FsuipcHelper.cs" />
+    <Compile Include="FSUIPC\FSUIPCOffsetType.cs" />
+    <Compile Include="FSUIPC\IFsuipcConfigItem.cs" />
+    <Compile Include="HubHop\HubHopType.cs" />
+    <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
+    <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
+    <Compile Include="Managers\ExecutionManager.cs" />
+    <Compile Include="Managers\Joystick.cs" />
+    <Compile Include="Managers\JoystickManager.cs" />
+    <Compile Include="MobiFlightPin.cs" />
+    <Compile Include="Modules\IModule.cs" />
+    <Compile Include="Modules\IModuleInfo.cs" />
+    <Compile Include="Modules\IOutputModule.cs" />
+    <Compile Include="Modules\ModuleCacheInterface.cs" />
+    <Compile Include="nodes\Interpolation.cs" />
+    <Compile Include="nodes\Transformation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimConnectMSFS\SimConnectCache.cs" />
+    <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
+    <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleUpdater.cs" />
+    <Compile Include="Tracking\AppTelemetry.cs" />
+    <Compile Include="Tracking\UsageDetails.cs" />
+    <Compile Include="Util\EventTimer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\i18n.cs" />
+    <Compile Include="Util\ListItem.cs" />
+    <Compile Include="VJoy\VJoyExceptions.cs" />
+    <Compile Include="VJoy\VJoyHelper.cs" />
+    <Compile Include="xplane\XplaneCache.cs" />
+    <Compile Include="xplane\XplaneCacheInterface.cs" />
+    <Compile Include="xplane\XplaneDataRef.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="ApplicationInsights.config" />
+    <None Include="Boards\arduino_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Boards\arduino_micro.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Boards\arduino_uno.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Boards\mfboard.schema.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CmdMessenger\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
+      <Project>{3cf8f8fc-6f5c-46f8-94dc-c2e4c505eca4}</Project>
+      <Name>CommandMessenger</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+  </Target>
+</Project>
