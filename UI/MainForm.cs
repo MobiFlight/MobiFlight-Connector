@@ -1676,10 +1676,10 @@ namespace MobiFlight.UI
             var t = new Task(() => {
                     if (!updater.AutoDetectCommunityFolder())
                     {
-                        TimeoutMessageDialog.Show(
+                        /*TimeoutMessageDialog.Show(
                            i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
                            i18n._tr("uiMessageWasmUpdater"),
-                           MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                           MessageBoxButtons.OK, MessageBoxIcon.Warning);*/
                         return;
                     }
 
@@ -1694,15 +1694,16 @@ namespace MobiFlight.UI
                     }
                     else
                     {
-                        TimeoutMessageDialog.Show(
+                        /*TimeoutMessageDialog.Show(
                            i18n._tr("uiMessageWasmEventsInstallationError"),
                            i18n._tr("uiMessageWasmUpdater"),
-                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);*/
                     }
                 }
             );
             t.Start();
-            progressForm.ShowDialog(Owner); 
+            progressForm.ShowDialog();
+            progressForm.Dispose();
         }
 
         private void openDiscordServer_Click(object sender, EventArgs e)
