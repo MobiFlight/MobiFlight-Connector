@@ -4,8 +4,8 @@
   "title": "Event Module",
   "manufacturer": "",
   "creator": "MobiFlight",
-  "package_version": "0.5.0",
-  "minimum_game_version": "1.24.5",
+  "package_version": "0.6.0",
+  "minimum_game_version": "1.26.5",
   "release_notes": {
     "neutral": {
       "LastUpdate": "",
