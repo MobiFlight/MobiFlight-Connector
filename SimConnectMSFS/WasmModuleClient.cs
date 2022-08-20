@@ -51,5 +51,13 @@ namespace MobiFlight.SimConnectMSFS
                new ClientDataString(command)
             );
         }
+
+        public static void SetConfig(SimConnect simConnect, String ConfigName, String ConfigValue)
+        {
+            if (simConnect == null) return;
+
+            SendWasmCmd(simConnect, $"MF.Config.{ConfigName}.Set.{ConfigValue}");
+            DummyCommand(simConnect);
+        }
     }
 }
