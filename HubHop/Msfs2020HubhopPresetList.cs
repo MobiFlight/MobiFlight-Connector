@@ -51,6 +51,7 @@ namespace MobiFlight.HubHop
                 }
                 Items = null;
             }
+            LoadedFile = null;
         }
 
         public void Load(String Msfs2020HubhopPreset)
