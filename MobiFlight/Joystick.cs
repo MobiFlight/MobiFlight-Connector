@@ -256,7 +256,9 @@ namespace MobiFlight
 
         private void UpdateButtons(JoystickState newState)
         {
-            for (int i = 0; i != newState.Buttons.Length; i++)
+            if (Buttons.Count==0) return;
+
+            for (int i = 0; i < newState.Buttons.Length; i++)
             {
                 if (!StateExists() || state.Buttons.Length < i || state.Buttons[i] != newState.Buttons[i])
                 {
