@@ -210,6 +210,7 @@
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\PreconditionList.cs" />
+    <Compile Include="Base\ProgressUpdateEvent.cs" />
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\AppTelemetry.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
@@ -326,6 +327,12 @@
     </Compile>
     <Compile Include="UI\Forms\ConfigUploadProgress.Designer.cs">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\SimConnectLvarsListForm.cs">
       <SubType>Form</SubType>
@@ -944,6 +951,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\SimConnectLvarsListForm.de.resx">
       <DependentUpon>SimConnectLvarsListForm.cs</DependentUpon>

@@ -23,6 +23,7 @@ using MobiFlight.Base;
 using Microsoft.ApplicationInsights.DataContracts;
 using MobiFlight.xplane;
 using MobiFlight.HubHop;
+using System.Threading.Tasks;
 
 namespace MobiFlight.UI
 {
@@ -1669,32 +1670,39 @@ namespace MobiFlight.UI
         private void downloadLatestEventsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
+            ProgressForm progressForm = new ProgressForm();
 
-            if (!updater.AutoDetectCommunityFolder())
-            {
-                TimeoutMessageDialog.Show(
-                   i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
+            var t = new Task(() => {
+                    if (!updater.AutoDetectCommunityFolder())
+                    {
+                        TimeoutMessageDialog.Show(
+                           i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
+                           i18n._tr("uiMessageWasmUpdater"),
+                           MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
 
-            if (updater.InstallWasmEvents())
-            {
-                Msfs2020HubhopPresetListSingleton.Instance.Clear();
+                    if (updater.InstallWasmEvents())
+                    {
+                        Msfs2020HubhopPresetListSingleton.Instance.Clear();
 
-                TimeoutMessageDialog.Show(
-                   i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                TimeoutMessageDialog.Show(
-                   i18n._tr("uiMessageWasmEventsInstallationError"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                        TimeoutMessageDialog.Show(
+                           i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
+                           i18n._tr("uiMessageWasmUpdater"),
+                           MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        TimeoutMessageDialog.Show(
+                           i18n._tr("uiMessageWasmEventsInstallationError"),
+                           i18n._tr("uiMessageWasmUpdater"),
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            );
+            t.Start();
+            progressForm.ShowDialog(Owner); 
         }
 
         private void openDiscordServer_Click(object sender, EventArgs e)
