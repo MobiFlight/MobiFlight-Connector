@@ -217,7 +217,8 @@ namespace MobiFlight.SimConnectMSFS
         }
 
         internal void Start()
-        {   
+        {
+            WasmModuleClient.SetConfig(m_oSimConnect, "MAX_VARS_PER_FRAME", "30");
         }
 
         private void SimConnectCache_OnRecvClientData(SimConnect sender, SIMCONNECT_RECV_CLIENT_DATA data)
