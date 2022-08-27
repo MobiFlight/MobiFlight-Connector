@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight 
 {
-    class MobiFlightButton : IConnectedDevice
+    public class MobiFlightButton : IConnectedDevice
     {
         public const string TYPE = "Button";
         public enum InputEvent

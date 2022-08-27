@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiFlight
 {
-    class MaximumDeviceNumberReachedMobiFlightException : Exception
+    public class MaximumDeviceNumberReachedMobiFlightException : Exception
     {
         public String DeviceType;
         public int MaxNumber;

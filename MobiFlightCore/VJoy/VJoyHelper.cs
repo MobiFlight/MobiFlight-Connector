@@ -7,7 +7,7 @@ using vJoyInterfaceWrap;
 
 namespace MobiFlight.VJoy
 {
-    static class VJoyHelper
+    public static class VJoyHelper
     {
         public struct AxisState
         {

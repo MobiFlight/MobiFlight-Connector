@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight 
 {
-    class MobiFlightAnalogInput : IConnectedDevice
+    public class MobiFlightAnalogInput : IConnectedDevice
     {
         public const string TYPE = "AnalogInput";
         public enum InputEvent

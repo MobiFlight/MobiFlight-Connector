@@ -119,7 +119,7 @@ namespace MobiFlight
             OnButtonPressed?.Invoke(sender, e);
         }
 
-        internal Joystick GetJoystickBySerial(string serial)
+        public Joystick GetJoystickBySerial(string serial)
         {
             Joystick result = null;
 

@@ -5,15 +5,15 @@ using System.Text;
 
 namespace MobiFlight.VJoy
 {
-    class VJoyException : Exception
+    public class VJoyException : Exception
     {
     }
 
-    class VJoyNotEnabledException : VJoyException
+    public class VJoyNotEnabledException : VJoyException
     {
     }
 
-    class VJoyNotAccessible : VJoyException
+    public class VJoyNotAccessible : VJoyException
     {
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiFlight
 {
-    class ArcazeLedDigit
+    public class ArcazeLedDigit
     {
         public const string TYPE = "Display Module";
         public const string OLDTYPE = "LedDigits";

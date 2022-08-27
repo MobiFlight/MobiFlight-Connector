@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    class MobiFlightEncoder : IConnectedDevice
+    public class MobiFlightEncoder : IConnectedDevice
     {
         public const string TYPE = "Encoder";
         public enum InputEvent

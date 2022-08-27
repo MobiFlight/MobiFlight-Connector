@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiFlight
 {
-    class FirmwareVersionTooLowException : Exception
+    public class FirmwareVersionTooLowException : Exception
     {
         Version Required;
         Version Current;

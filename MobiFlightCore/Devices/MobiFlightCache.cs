@@ -703,7 +703,7 @@ namespace MobiFlight
             throw new IndexOutOfRangeException();
         }
 
-        internal MobiFlightModule GetModule(MobiFlightModuleInfo moduleInfo)
+        public MobiFlightModule GetModule(MobiFlightModuleInfo moduleInfo)
         {
             foreach (MobiFlightModule module in Modules.Values)
             {

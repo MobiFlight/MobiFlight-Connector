@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiFlight
 {
-    class ArcazeIoBasic
+    public class ArcazeIoBasic
     {
         public const int MAX_PIN_NUM = 40;
         private int pin;

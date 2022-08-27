@@ -685,7 +685,7 @@ namespace MobiFlight
         /// <param name="stepper"></param>
         /// <throws>ArgumentOutOfRangeException</throws>
         /// <returns></returns>
-        internal MobiFlightStepper GetStepper(string stepper)
+        public MobiFlightStepper GetStepper(string stepper)
         {
             if (!stepperModules.ContainsKey(stepper))
             {

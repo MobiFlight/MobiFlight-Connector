@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MobiFlight
 {
-    class ArcazeBcd4056
+    public class ArcazeBcd4056
     {
         public const string TYPE = "BCD4056";
 
