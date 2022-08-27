@@ -11,7 +11,7 @@ using MobiFlight.Config;
 
 namespace MobiFlight
 {
-    public class InputConfigItem : IBaseConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
+    public class InputConfigItem : BaseConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
@@ -35,7 +35,6 @@ namespace MobiFlight
         public InputShiftRegisterConfig inputShiftRegister { get; set; }
         public InputMultiplexerConfig inputMultiplexer { get; set; }
         public AnalogInputConfig analog { get; set; }
-        public PreconditionList Preconditions { get; set; }
         public ConfigRefList ConfigRefs { get; set; }
 
         public InputConfigItem()

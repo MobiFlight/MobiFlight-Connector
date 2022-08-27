@@ -41,7 +41,46 @@ namespace MobiFlight.UI.Panels
             Helper.DoubleBufferedDGV(dataGridViewConfig, true);
         }
 
-        public ExecutionManager ExecutionManager { get; set; }
+        private ExecutionManager _executionManager = null;
+        public ExecutionManager ExecutionManager
+        {
+            get { return _executionManager; }
+            set
+            {
+                if (_executionManager != value)
+                {
+                    _executionManager.OnExecutingOutputConfigError += 
+                        _executionManager_OnExecutingOutputConfigError;
+                    _executionManager.OnExecutingOutputConfig += 
+                        _executionManager_OnExecutingOutputConfig;
+                    _executionManager.OnStopped += _executionManager_OnStopped;
+                }
+            }
+        }
+
+        private void _executionManager_OnStopped(object sender, EventArgs e)
+        {
+            ClearErrorMessages();
+        }
+
+        private void ClearErrorMessages()
+        {
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                row.ErrorText = "";
+            }
+        }
+
+        private void _executionManager_OnExecutingOutputConfig(object sender, ConfigExecutedEventArgs e)
+        {
+            /*
+            row.DefaultCellStyle.ForeColor = Color.Empty;
+            row.Cells["fsuipcValueColumn"].Value = value.ToString();
+            row.Cells["fsuipcValueColumn"].Tag = value;
+            row.Cells["arcazeValueColumn"].Value = strValue;
+                
+            */
+        }
 
         public DataSet DataSetConfig { get { return dataSetConfig; } }
         public DataTable ConfigDataTable { get { return configDataTable; } }
@@ -719,6 +758,34 @@ namespace MobiFlight.UI.Panels
                         row.Selected = true;
                 }
             }
+        }
+
+        private void _executionManager_OnExecutingOutputConfigError(object sender, ConfigExecutionErrorEventArgs e)
+        {
+            DataGridViewRow row = FindRowByConfig(sender as OutputConfigItem);
+            if (row == null) return;
+
+            row.ErrorText = e.Description;
+        }
+
+        private DataGridViewRow FindRowByConfig(OutputConfigItem config)
+        {
+            DataGridViewRow result = null;
+
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                if (row.DataBoundItem == null) continue;
+
+                DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                OutputConfigItem item = currentRow["settings"] as OutputConfigItem;
+
+                if (item != config) continue;
+
+                result = row;
+                break;
+            }
+
+            return result;
         }
     }
 }

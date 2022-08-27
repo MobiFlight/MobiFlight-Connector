@@ -126,6 +126,7 @@
     <Compile Include="Config\Clipboard.cs" />
     <Compile Include="Config\ConfigErrorException.cs" />
     <Compile Include="Config\ConfigFile.cs" />
+    <Compile Include="Config\ConfigItemList.cs" />
     <Compile Include="Config\ConfigRefValue.cs" />
     <Compile Include="Config\ConfigRef.cs" />
     <Compile Include="Config\ConfigRefList.cs" />

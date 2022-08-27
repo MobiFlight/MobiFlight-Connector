@@ -10,6 +10,16 @@ namespace MobiFlight
     {
         public event EventHandler Stopped;
         public event EventHandler Started;
+        public event EventHandler Tick;
+
+        public EventTimer() : base()
+        {
+            base.Elapsed += (s, e) =>
+            {
+                Tick?.Invoke(this, e);
+            };
+        }
+
         public new bool Enabled
         {
             get { return base.Enabled; }

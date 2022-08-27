@@ -20,7 +20,24 @@ namespace MobiFlight.UI.Panels
         private List<String> SelectedGuids = new List<String>();
 
         private object[] EditedItem = null;
-        public ExecutionManager ExecutionManager { get; set; }
+
+        private ExecutionManager _executionManager = null;
+        public ExecutionManager ExecutionManager
+        {
+            get { return _executionManager; }
+            set
+            {
+                if (_executionManager != value)
+                {
+                    _executionManager.OnExecutingOutputConfigError +=
+                        _executionManager_OnExecutingOutputConfigError;
+                    _executionManager.OnExecutingOutputConfig +=
+                        _executionManager_OnExecutingOutputConfig;
+                    _executionManager.OnStopped += _executionManager_OnStopped;
+                }
+            }
+        }
+
         public DataSet OutputDataSetConfig { get; set; }
         public DataSet InputDataSetConfig { get { return dataSetInputs; } }
         public DataTable ConfigDataTable { get { return inputsDataTable; } }
@@ -581,6 +598,90 @@ namespace MobiFlight.UI.Panels
                         if (currentRow != null)
                             SelectedGuids.Add(currentRow["guid"].ToString());
                     }
+                }
+            }
+        }
+
+        private void _executionManager_OnStopped(object sender, EventArgs e)
+        {
+            ClearErrorMessages();
+        }
+
+        private void ClearErrorMessages()
+        {
+            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            {
+                row.ErrorText = "";
+            }
+        }
+
+        private void _executionManager_OnExecutingOutputConfig(object sender, ConfigExecutedEventArgs e)
+        {
+            // TODO: highlight the executed config row
+        }
+
+        private void _executionManager_OnExecutingOutputConfigError(object sender, ConfigExecutionErrorEventArgs e)
+        {
+            // TODO: mark the executed config row with error message
+            DataGridViewRow row = FindRowByConfig(sender as OutputConfigItem);
+            if (row == null) return;
+
+            row.ErrorText = e.Description;
+        }
+
+        private DataGridViewRow FindRowByConfig(OutputConfigItem config)
+        {
+            DataGridViewRow result = null;
+
+            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            {
+                if (row.DataBoundItem == null) continue;
+
+                DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                OutputConfigItem item = currentRow["settings"] as OutputConfigItem;
+
+                if (item != config) continue;
+
+                result = row;
+                break;
+            }
+
+            return result;
+        }
+
+        private void UpdateInputPreconditions()
+        {
+            foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
+            {
+                try
+                {
+                    if (gridViewRow.DataBoundItem == null) continue;
+
+                    DataRowView rowView = gridViewRow.DataBoundItem as DataRowView;
+                    InputConfigItem cfg = rowView.Row["settings"] as InputConfigItem;
+
+                    // item currently created and not saved yet.
+                    if (cfg == null) continue;
+
+                    // if there are preconditions check and skip if necessary
+                    if (cfg.Preconditions.Count > 0)
+                    {
+                        ConnectorValue currentValue = new ConnectorValue();
+                        if (!CheckPrecondition(cfg, currentValue))
+                        {
+                            gridViewRow.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            continue;
+                        }
+                        else
+                        {
+                            gridViewRow.ErrorText = "";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // probably the last row with no settings object 
+                    continue;
                 }
             }
         }

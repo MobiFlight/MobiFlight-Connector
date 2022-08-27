@@ -20,10 +20,13 @@ namespace MobiFlight
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
         public System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
-        
+
         // this implements the FSUIPC Config Item Interface
         // It would be nicer to have an aggregation of FSUIPC.FSUIPCConfigItem instead
-		public SourceType           SourceType                  { get; set; }
+        public Guid Guid { get; set; }
+        public bool                 Active                      { get; set; }
+        public String               Description                 { get; set; }
+        public SourceType           SourceType                  { get; set; }
 		public FsuipcOffset         FSUIPC                      { get; set; }
 		public SimConnectValue      SimConnectValue             { get; set; }
 		public MobiFlightVariable   MobiFlightVariable          { get; set; }
@@ -49,6 +52,7 @@ namespace MobiFlight
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
+        public ConnectorValue CurrentValue { get; set; }
 
         public OutputConfigItem()
         {
@@ -71,6 +75,7 @@ namespace MobiFlight
             ConfigRefs = new ConfigRefList();
             ButtonInputConfig = null;
             AnalogInputConfig = null;
+            CurrentValue = null;
         }
 
         public override bool Equals(object obj)
@@ -111,7 +116,11 @@ namespace MobiFlight
                 this.ButtonInputConfig != null && this.ButtonInputConfig.Equals((obj as OutputConfigItem).ButtonInputConfig))) &&
                 //===
                 ((this.AnalogInputConfig==null&&(obj as OutputConfigItem).AnalogInputConfig == null) || (
-                this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as OutputConfigItem).AnalogInputConfig)))
+                this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as OutputConfigItem).AnalogInputConfig))) &&
+                //===
+                ((this.CurrentValue == null && (obj as OutputConfigItem).CurrentValue == null) || (
+                this.CurrentValue != null && this.CurrentValue.Equals((obj as OutputConfigItem).CurrentValue)))
+
             );
         }
 

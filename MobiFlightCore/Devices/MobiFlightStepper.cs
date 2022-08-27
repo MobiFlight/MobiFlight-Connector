@@ -6,7 +6,7 @@ using CommandMessenger;
 
 namespace MobiFlight
 {
-    class MobiFlightStepper : IConnectedDevice
+    public class MobiFlightStepper : IConnectedDevice
     {
         public const string TYPE = "Stepper";
 
