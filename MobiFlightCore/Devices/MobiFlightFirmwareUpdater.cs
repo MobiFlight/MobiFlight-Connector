@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    static class MobiFlightFirmwareUpdater
+    public static class MobiFlightFirmwareUpdater
     {
         /***
          * "D:\portableapps\arduino-1.0.5\hardware\tools\avr\bin\avrdude"

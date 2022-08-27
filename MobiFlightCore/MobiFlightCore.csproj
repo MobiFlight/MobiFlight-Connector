@@ -237,7 +237,6 @@
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleUpdater.cs" />
     <Compile Include="Tracking\AppTelemetry.cs" />
-    <Compile Include="Tracking\UsageDetails.cs" />
     <Compile Include="Util\EventTimer.cs">
       <SubType>Component</SubType>
     </Compile>

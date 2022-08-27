@@ -122,7 +122,7 @@ namespace MobiFlight.SimConnectMSFS
             }
         }
 
-        internal void RefreshLVarsList()
+        public void RefreshLVarsList()
         {
             if (m_oSimConnect == null) return;
             WasmModuleClient.GetLVarList(m_oSimConnect);

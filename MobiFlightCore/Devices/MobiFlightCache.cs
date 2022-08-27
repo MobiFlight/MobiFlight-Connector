@@ -56,6 +56,8 @@ namespace MobiFlight
         Dictionary<string, MobiFlightModule> Modules = new Dictionary<string, MobiFlightModule>();
         Dictionary<string, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
 
+        public List<string> IgnoredPorts { get; set; }
+
         /// <summary>
         /// indicates the status of the fsuipc connection
         /// </summary>
@@ -201,7 +203,7 @@ namespace MobiFlight
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
             var supportedPorts = getSupportedPorts();
-            List<string> ignoredComPorts = getIgnoredPorts();
+            List<string> ignoredComPorts = IgnoredPorts;
             List<string> connectingPorts = new List<string>();
             
             for (var i = 0; i != supportedPorts.Count; i++)
@@ -259,16 +261,6 @@ namespace MobiFlight
 
             _lookingUpModules = false;
             return result;
-        }
-
-        private List<string> getIgnoredPorts()
-        {
-            List<String> ports = new List<string>();
-            if (Properties.Settings.Default.IgnoreComPorts)
-            {
-                ports = Properties.Settings.Default.IgnoredComPortsList.Split(',').ToList();
-            }
-            return ports;
         }
 
         public async Task<bool> connectAsync(bool force=false)

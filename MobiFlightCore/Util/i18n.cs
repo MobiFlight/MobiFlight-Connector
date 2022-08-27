@@ -21,6 +21,8 @@ namespace MobiFlight
         /// <returns>the translated string</returns>
         public static String _tr(String s)
         {
+            String result = s;
+            /*
             if (null == resourceManager)
             {
                 resourceManager = new ResourceManager("MobiFlight.ProjectMessages.ProjectMessages", typeof(UI.MainForm).Assembly);
@@ -29,6 +31,7 @@ namespace MobiFlight
             if(result == null) {
                 result = s;
             }
+            */
             
             return result;
         }

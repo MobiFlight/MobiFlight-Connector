@@ -319,18 +319,18 @@ namespace MobiFlight
         /// rebuilt Arcaze module settings from the stored configuration
         /// </summary>
         /// <returns></returns>
-        public Dictionary<string, ArcazeModuleSettings> GetArcazeModuleSettings()
+        public Dictionary<string, ArcazeModuleSettings> GetArcazeModuleSettings(string ModuleSettings)
         {
             List<ArcazeModuleSettings> moduleSettings = new List<ArcazeModuleSettings>();
             Dictionary<string, ArcazeModuleSettings> result = new Dictionary<string, ArcazeModuleSettings>();
 
-            if (!Enabled || "" == Properties.Settings.Default.ModuleSettings) 
+            if (!Enabled || "" == ModuleSettings) 
                 return result;
 
             try
             {
                 XmlSerializer SerializerObj = new XmlSerializer(typeof(List<ArcazeModuleSettings>));
-                System.IO.StringReader w = new System.IO.StringReader(Properties.Settings.Default.ModuleSettings);
+                System.IO.StringReader w = new System.IO.StringReader(ModuleSettings);
                 moduleSettings = (List<ArcazeModuleSettings>)SerializerObj.Deserialize(w);
             }
             catch (Exception e)

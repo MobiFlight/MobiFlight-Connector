@@ -70,7 +70,7 @@ namespace MobiFlight.UI.Panels
                                 cfg,
 #if ARCAZE
                                 ExecutionManager.getModuleCache(),
-                                ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
+                                ExecutionManager.getModuleCache().GetArcazeModuleSettings(Properties.Settings.Default.ModuleSettings),
 #endif
                                 OutputDataSetConfig,
                                 dataRow["guid"].ToString()
@@ -667,7 +667,7 @@ namespace MobiFlight.UI.Panels
                     if (cfg.Preconditions.Count > 0)
                     {
                         ConnectorValue currentValue = new ConnectorValue();
-                        if (!CheckPrecondition(cfg, currentValue))
+                        if (!ExecutionManager.CheckPrecondition(cfg, currentValue))
                         {
                             gridViewRow.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
                             continue;

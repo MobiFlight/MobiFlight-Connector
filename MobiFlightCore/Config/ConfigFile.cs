@@ -84,7 +84,7 @@ namespace MobiFlight
             return result;
         }
 
-        internal List<InputConfigItem> GetInputConfigItems()
+        public List<InputConfigItem> GetInputConfigItems()
         {
             List<InputConfigItem> result = new List<InputConfigItem>();
 

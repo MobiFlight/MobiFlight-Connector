@@ -9,6 +9,9 @@ namespace MobiFlight
 {
     public class ArcazeModuleSettings : IXmlSerializable
     {
+        const int DEFAULT_BRIGTHNESS = 255;
+        const int DEFAULT_NUM_MODULES = 1;
+
         string _serial;
         public string serial
         {
@@ -59,8 +62,8 @@ namespace MobiFlight
 
         public ArcazeModuleSettings()
         {
-            globalBrightness = Properties.Settings.Default.LedIntensity;
-            numModules = 1;
+            globalBrightness = DEFAULT_BRIGTHNESS;
+            numModules = DEFAULT_NUM_MODULES;
             //type = ArcazeCommand.ExtModuleType.DisplayDriver;
             type = ArcazeCommand.ExtModuleType.LedDriver3;
         }

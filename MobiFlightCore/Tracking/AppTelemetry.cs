@@ -26,6 +26,8 @@ namespace MobiFlight.Base
             }
         }
 
+        public bool BetaUpdates { get; set; }
+
         AppTelemetry() {           
         }
 
@@ -113,10 +115,10 @@ namespace MobiFlight.Base
             GetClient().TrackEvent(trackingEvent);
         }
 
-        internal void TrackSettings()
+        public void TrackSettings()
         {
             EventTelemetry trackingEvent = new EventTelemetry("Settings");
-            trackingEvent.Metrics["Settings.BetaUpdates"] = Properties.Settings.Default.BetaUpdates ? 1 : 0;
+            trackingEvent.Metrics["Settings.BetaUpdates"] = BetaUpdates ? 1 : 0;
             Dictionary<String, int> Statistics = Log.Instance.GetStatistics();
 
             foreach (String key in Log.Instance.GetStatistics().Keys)

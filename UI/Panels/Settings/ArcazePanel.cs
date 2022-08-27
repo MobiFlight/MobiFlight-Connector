@@ -148,7 +148,10 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (settingsToSave == null)
             {
-                settingsToSave = new ArcazeModuleSettings() { serial = serial };
+                settingsToSave = new ArcazeModuleSettings() { 
+                    serial = serial,
+                    globalBrightness = Properties.Settings.Default.LedIntensity
+                };
                 moduleSettings.Add(settingsToSave);
             }
 

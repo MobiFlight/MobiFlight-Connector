@@ -15,6 +15,8 @@ namespace MobiFlight
         public int ExecutionSpeed = 50;
         public int TestModeSpeed = 500;
         public bool ArcazeSupportEnabled = true;
+        public List<string> IgnoredComPorts = new List<string>();
+        public IntPtr Handle = new IntPtr(0);
     }
 
     public enum ConfigExecutionErrorType
@@ -117,6 +119,19 @@ namespace MobiFlight
         List<OutputConfigItem> outputConfigs = null;
         List<InputConfigItem> inputConfigs = null;
 
+        public List<OutputConfigItem> OutputConfigs
+        {
+            get { return outputConfigs; }
+            set { outputConfigs = value; }
+        }
+
+        public List<InputConfigItem> InputConfigs
+        {
+            get { return inputConfigs; }
+            set { inputConfigs = value; }
+        }
+
+
         Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<String, List<InputConfigItem>>();
 
         private bool _autoConnectTimerRunning = false;
@@ -126,7 +141,9 @@ namespace MobiFlight
 
 
 
-        public ExecutionManager(List<OutputConfigItem> outputConfigs, List<InputConfigItem> inputConfigs, ExecutionManagerConfig config)
+        public ExecutionManager(List<OutputConfigItem> outputConfigs, 
+                                List<InputConfigItem> inputConfigs, 
+                                ExecutionManagerConfig config)
         {
             this.outputConfigs = outputConfigs;
             this.inputConfigs = inputConfigs;
@@ -137,7 +154,7 @@ namespace MobiFlight
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);
 
 #if SIMCONNECT
-            simConnectCache.SetHandle(handle);
+            simConnectCache.SetHandle(config.Handle);
             simConnectCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             simConnectCache.Connected += new EventHandler(simConnect_Connected);
             simConnectCache.Closed += new EventHandler(simConnect_Closed);
@@ -175,10 +192,10 @@ namespace MobiFlight
 #endif
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             joystickManager.Connected += (o, e) => { joystickManager.Start(); };
-            joystickManager.Connect(handle);
+            joystickManager.Connect(config.Handle);
         }
 
-        internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
+        public Dictionary<String, MobiFlightVariable> GetAvailableVariables()
         {
             Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
 
@@ -312,7 +329,7 @@ namespace MobiFlight
             autoConnectTimer.Stop();
         }
 
-        internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
+        public void OnInputConfigSettingsChanged(object sender, EventArgs e)
         {
             lock (inputCache)
             {
@@ -571,6 +588,7 @@ namespace MobiFlight
             isExecuting = false;
         }
 
+        // REFACTOR: executing interpolation shall happen as part of a transformation-"node".apply()
         private string ExecuteInterpolation(string strValue, OutputConfigItem cfg)
         {
             if (cfg.Interpolation.Count > 0 && cfg.Interpolation.Active)
@@ -581,7 +599,8 @@ namespace MobiFlight
             return strValue;
         }
 
-        private bool CheckPrecondition(IBaseConfigItem cfg, ConnectorValue currentValue)
+        // REFACTOR: check precondition ideally is part of a class and not the execution manager
+        public bool CheckPrecondition(IBaseConfigItem cfg, ConnectorValue currentValue)
         {
             bool finalResult = true;
             bool result = true;

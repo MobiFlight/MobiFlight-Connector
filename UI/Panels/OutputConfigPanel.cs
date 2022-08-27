@@ -519,7 +519,7 @@ namespace MobiFlight.UI.Panels
                                             cfg,
 #if ARCAZE
                                             ExecutionManager.getModuleCache(),
-                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
+                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(Properties.Settings.Default.ModuleSettings),
 #endif
                                             dataSetConfig,
                                             dataRow["guid"].ToString()

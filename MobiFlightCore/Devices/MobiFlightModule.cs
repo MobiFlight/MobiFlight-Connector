@@ -1010,7 +1010,7 @@ namespace MobiFlight
             return result;
         }
 
-        internal MobiFlightModuleInfo ToMobiFlightModuleInfo()
+        public MobiFlightModuleInfo ToMobiFlightModuleInfo()
         {
             return new MobiFlightModuleInfo()
             {

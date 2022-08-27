@@ -106,6 +106,7 @@ namespace MobiFlight.UI
         private void InitializeTracking()
         {
             AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
+            AppTelemetry.Instance.BetaUpdates = Properties.Settings.Default.BetaUpdates;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -135,7 +136,26 @@ namespace MobiFlight.UI
 
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
-            execManager = new ExecutionManager(outputConfigPanel.DataGridViewConfig, inputConfigPanel.InputsDataGridView, this.Handle);
+            List<String> ports = new List<string>();
+            if (Properties.Settings.Default.IgnoreComPorts)
+            {
+                ports = Properties.Settings.Default.IgnoredComPortsList.Split(',').ToList();
+            }
+
+            ExecutionManagerConfig executionManagerConfig = new ExecutionManagerConfig()
+            {
+                ArcazeSupportEnabled = Properties.Settings.Default.ArcazeSupportEnabled,
+                ExecutionSpeed = Properties.Settings.Default.PollInterval,
+                IgnoredComPorts = ports,
+                TestModeSpeed = Properties.Settings.Default.TestTimerInterval,
+                Handle = this.Handle
+            };
+
+            execManager = new ExecutionManager(
+                new List<OutputConfigItem>(), 
+                new List<InputConfigItem>(), 
+                executionManagerConfig);
+
             execManager.OnExecute += new EventHandler(timer_Tick);
             execManager.OnStopped += new EventHandler(timer_Stopped);
             execManager.OnStarted += new EventHandler(timer_Started);
@@ -156,7 +176,7 @@ namespace MobiFlight.UI
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
 
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
-
+            
             FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             simConnectToolStripMenuItem.Image = Properties.Resources.warning;
 
@@ -560,7 +580,10 @@ namespace MobiFlight.UI
         {
             if (!Properties.Settings.Default.ArcazeSupportEnabled) return;
 
-            Dictionary<string, ArcazeModuleSettings> settings = execManager.getModuleCache().GetArcazeModuleSettings();
+            Dictionary<string, ArcazeModuleSettings> settings = 
+                execManager.getModuleCache()
+                           .GetArcazeModuleSettings(Properties.Settings.Default.ModuleSettings);
+
             List<string> serials = new List<string>();
 
             // get all currently connected devices
@@ -588,7 +611,7 @@ namespace MobiFlight.UI
                 }
             }           
  
-            execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
+            execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings(Properties.Settings.Default.ModuleSettings));
         }
 #endif
         void ArcazeCache_ConnectionLost(object sender, EventArgs e)
@@ -1143,6 +1166,8 @@ namespace MobiFlight.UI
             }
 
             configFile = new ConfigFile(fileName);
+            execManager.OutputConfigs = configFile.GetOutputConfigItems();
+            execManager.InputConfigs = configFile.GetInputConfigItems();
             try
             {
                 // refactor!!!
@@ -1496,7 +1521,9 @@ namespace MobiFlight.UI
             if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
             {
 #if ARCAZE
-                execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
+                execManager.updateModuleSettings(
+                    execManager.getModuleCache().GetArcazeModuleSettings(Properties.Settings.Default.ModuleSettings)
+                );
 #endif
             }
         }
@@ -1606,7 +1633,10 @@ namespace MobiFlight.UI
             {
                 ShowMe();
             }
-            if (m.Msg == SimConnectMSFS.SimConnectCache.WM_USER_SIMCONNECT) execManager?.HandleWndProc(ref m);
+            if (m.Msg == SimConnectMSFS.SimConnectCache.WM_USER_SIMCONNECT)
+            {
+                execManager?.GetSimConnectCache().ReceiveSimConnectMessage();
+            }
 
             base.WndProc(ref m);
         }
