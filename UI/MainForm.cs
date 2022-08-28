@@ -829,6 +829,12 @@ namespace MobiFlight.UI
         /// </summary>
         void fsuipcCache_ConnectionLost(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new EventHandler(fsuipcCache_ConnectionLost), new object[] { sender, e });
+                return;
+            }
+
             if (!execManager.SimAvailable())
             {
                 _showError(i18n._tr("uiMessageFsHasBeenStopped"));
@@ -849,6 +855,11 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Started(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new EventHandler(timer_Started), new object[] { sender, e });
+                return;
+            }
             runToolStripButton.Enabled  = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = true;
@@ -860,6 +871,11 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new EventHandler(timer_Stopped), new object[] { sender, e });
+                return;
+            }
             runToolStripButton.Enabled = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = false;
@@ -1171,6 +1187,7 @@ namespace MobiFlight.UI
             try
             {
                 // refactor!!!
+                // outputConfigPanel.DataGridViewConfig.DataSource = execManager.OutputConfigs;
                 outputConfigPanel.DataSetConfig.ReadXml(configFile.getOutputConfig());
             }
             catch (Exception ex)
