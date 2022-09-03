@@ -89,6 +89,17 @@ namespace MobiFlight
                 reader.Read(); // this closes the interpolation node
         }
 
+        public string Apply(string strValue)
+        {
+            string result = strValue;
+            if (Count > 0 && Active)
+            {
+                result = Math.Round(Value(float.Parse(strValue)), 0).ToString();
+            }
+
+            return result;
+        }
+
         public double Value(double x)
         {
             double first = Values.Keys.First();

@@ -17,7 +17,8 @@ namespace MobiFlight.OutputConfig
         public string IfValue { get; set; }
         public string ElseValue { get; set; }
 
-        public Comparison() {
+        public Comparison() 
+        {
             Active = false;
             Operand = "";
             Value = "";
@@ -48,14 +49,14 @@ namespace MobiFlight.OutputConfig
             Value = reader["value"];
             Operand = reader["operand"];
             IfValue = reader["ifValue"];
-            ElseValue = reader["elseValue"];            
+            ElseValue = reader["elseValue"];
         }
 
 
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("comparison");
-            
+
                 writer.WriteAttributeString("active",   Active.ToString());
                 writer.WriteAttributeString("value",    Value);
                 writer.WriteAttributeString("operand",  Operand);
@@ -76,5 +77,103 @@ namespace MobiFlight.OutputConfig
 
             return clone;
         }
+        public string Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
+        {
+            string result = null;
+
+            if (connectorValue.type == FSUIPCOffsetType.String)
+            {
+                return ExecuteStringComparison(connectorValue);
+            }
+
+            Double value = connectorValue.Int64;
+            /*if (connectorValue.type == FSUIPCOffsetType.UnsignedInt) value = connectorValue.Uint64;*/
+            if (connectorValue.type == FSUIPCOffsetType.Float) value = connectorValue.Float64;
+
+            if (!Active)
+            {
+                return value.ToString();
+            }
+
+            if (Value == "")
+            {
+                return value.ToString();
+            }
+
+            Double comparisonValue = Double.Parse(Value);
+            string comparisonIfValue = IfValue != "" ? IfValue : value.ToString();
+            string comparisonElseValue = ElseValue != "" ? ElseValue : value.ToString();
+
+            switch (Operand)
+            {
+                case "!=":
+                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    break;
+                case ">":
+                    result = (value > comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    break;
+                case ">=":
+                    result = (value >= comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    break;
+                case "<=":
+                    result = (value <= comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    break;
+                case "<":
+                    result = (value < comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    break;
+                case "=":
+                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    break;
+                default:
+                    result = (value > 0) ? "1" : "0";
+                    break;
+            }
+
+            result = result.Replace("$", value.ToString());
+
+            foreach (ConfigRefValue configRef in configRefs)
+            {
+                result = result.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
+            }
+
+            try
+            {
+                var ce = new NCalc.Expression(result);
+                result = (ce.Evaluate()).ToString();
+            }
+            catch
+            {
+                if (Log.LooksLikeExpression(result))
+                    Log.Instance.log("ExecuteComparison : Exception on NCalc evaluate => " + result, LogSeverity.Warn);
+            }
+
+            return result;
+        }
+        private string ExecuteStringComparison(ConnectorValue connectorValue)
+        {
+            string result = connectorValue.String;
+            string value = connectorValue.String;
+
+            if (!Active)
+            {
+                return connectorValue.String;
+            }
+
+            string comparisonValue = Value;
+            string comparisonIfValue = IfValue;
+            string comparisonElseValue = ElseValue;
+
+            switch (Operand)
+            {
+                case "!=":
+                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    break;
+                case "=":
+                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    break;
+            }
+
+            return result;
+        }
     }
-}
+    }

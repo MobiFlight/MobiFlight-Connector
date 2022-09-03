@@ -470,7 +470,7 @@ namespace MobiFlight
                 {
                     processedValue = ExecuteTransform(value, cfg);
 
-                    strValue = ExecuteComparison(processedValue, cfg);
+                    strValue = cfg.Comparison.Apply(processedValue, GetRefs(cfg.ConfigRefs));
                 }
                 catch (Exception e)
                 {
@@ -480,7 +480,7 @@ namespace MobiFlight
                 }
 
                 String strValueAfterComparison = (string)strValue.Clone();
-                strValue = ExecuteInterpolation(strValue, cfg);
+                strValue = cfg.Interpolation.Apply(strValue);
 
                 row.Cells["arcazeValueColumn"].Value = strValue;
 
@@ -522,16 +522,6 @@ namespace MobiFlight
             UpdateInputPreconditions();
 
             isExecuting = false;
-        }
-
-        private string ExecuteInterpolation(string strValue, OutputConfigItem cfg)
-        {
-            if (cfg.Interpolation.Count > 0 && cfg.Interpolation.Active)
-            {
-                strValue = Math.Round(cfg.Interpolation.Value(float.Parse(strValue)), 0).ToString();
-            }
-
-            return strValue;
         }
 
         private bool CheckPrecondition(IBaseConfigItem cfg, ConnectorValue currentValue)
@@ -579,7 +569,7 @@ namespace MobiFlight
                         try
                         {
 
-                            String execResult = ExecuteComparison(connectorValue, tmp);
+                            String execResult = tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>());
                             //Log.Instance.log(p.PreconditionLabel + " - Pin - val:"+val+" - " + execResult + "==" + tmp.ComparisonIfValue, LogSeverity.Debug);
                             result = (execResult == tmp.Comparison.IfValue);
                         }
@@ -646,7 +636,7 @@ namespace MobiFlight
 
                             try
                             {
-                                result = (ExecuteComparison(connectorValue, tmp) == "1");
+                                result = (tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>()) == "1");
                             }
                             catch (FormatException e)
                             {
@@ -680,23 +670,11 @@ namespace MobiFlight
 
             if (cfg.SourceType == SourceType.FSUIPC)
             {
-                if (cfg.FSUIPC.OffsetType == FSUIPCOffsetType.String)
-                {
-                    result.type = FSUIPCOffsetType.String;
-                    result.String = fsuipcCache.getStringValue(cfg.FSUIPC.Offset, cfg.FSUIPC.Size);
-                }
-                else if (cfg.FSUIPC.OffsetType == FSUIPCOffsetType.Integer)
-                {
-                    result = ExecuteReadInt(cfg);
-                }
-                else if (cfg.FSUIPC.OffsetType == FSUIPCOffsetType.Float)
-                {
-                    result = ExecuteReadFloat(cfg);
-                }
+                result = FsuipcHelper.executeRead(cfg, fsuipcCache);
             }
             else if (cfg.SourceType == SourceType.VARIABLE)
             {
-                if (cfg.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_NUMBER) { 
+                if (cfg.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_NUMBER) {
                     result.type = FSUIPCOffsetType.Float;
                     result.Float64 = mobiFlightCache.GetMobiFlightVariable(cfg.MobiFlightVariable.Name).Number;
                 } else if (cfg.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_STRING)
@@ -716,92 +694,6 @@ namespace MobiFlight
                 result.Float64 = simConnectCache.GetSimVar(cfg.SimConnectValue.Value);
             }
 
-
-            return result;
-        }
-
-        private ConnectorValue ExecuteReadInt(OutputConfigItem cfg)
-        {
-            ConnectorValue result = new ConnectorValue();
-            switch (cfg.FSUIPC.Size)
-            {
-                case 1:
-                    Byte value8 = (Byte)(cfg.FSUIPC.Mask & fsuipcCache.getValue(
-                                                cfg.FSUIPC.Offset,
-                                                cfg.FSUIPC.Size
-                                              ));
-                    if (cfg.FSUIPC.BcdMode)
-                    {
-                        FsuipcBCD val = new FsuipcBCD() { Value = value8 };
-                        value8 = (Byte)val.asBCD;
-                    }
-
-                    result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value8;
-                    break;
-                case 2:
-                    Int16 value16 = (Int16)(cfg.FSUIPC.Mask & fsuipcCache.getValue(
-                                                cfg.FSUIPC.Offset,
-                                                cfg.FSUIPC.Size
-                                              ));
-                    if (cfg.FSUIPC.BcdMode)
-                    {
-                        FsuipcBCD val = new FsuipcBCD() { Value = value16 };
-                        value16 = (Int16)val.asBCD;
-                    }
-
-                    result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value16;
-                    break;
-                case 4:
-                    Int64 value32 = ((int)cfg.FSUIPC.Mask & fsuipcCache.getValue(
-                                                cfg.FSUIPC.Offset,
-                                                cfg.FSUIPC.Size
-                                              ));
-
-                    // no bcd support anymore for 4 byte
-
-                    result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value32;
-                    break;
-                case 8:
-                    Double value64 = (Double)fsuipcCache.getDoubleValue(
-                                                cfg.FSUIPC.Offset,
-                                                cfg.FSUIPC.Size
-                                                );
-
-                    result.type = FSUIPCOffsetType.Float;
-                    result.Float64 = (int)(Math.Round(value64, 0));
-
-                    break;
-            }
-            return result;
-        }
-
-        private ConnectorValue ExecuteReadFloat(OutputConfigItem cfg)
-        {
-            ConnectorValue result = new ConnectorValue();
-            result.type = FSUIPCOffsetType.Float;
-            switch (cfg.FSUIPC.Size)
-            {
-                case 4:
-                    Double value32 = fsuipcCache.getFloatValue(
-                                                cfg.FSUIPC.Offset,
-                                                cfg.FSUIPC.Size
-                                              );
-
-                    result.Float64 = value32;
-                    break;
-                case 8:
-                    Double value64 = (Double)fsuipcCache.getDoubleValue(
-                                                cfg.FSUIPC.Offset,
-                                                cfg.FSUIPC.Size
-                                                );
-
-                    result.Float64 = value64;
-
-                    break;
-            }
             return result;
         }
 
@@ -833,107 +725,6 @@ namespace MobiFlight
                     break;
             }
             return value;
-        }
-
-        private string ExecuteComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
-        {
-            string result = null;
-            List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
-
-            if (connectorValue.type == FSUIPCOffsetType.String)
-            {
-                return ExecuteStringComparison(connectorValue, cfg);
-            }
-
-            Double value = connectorValue.Int64;
-            /*if (connectorValue.type == FSUIPCOffsetType.UnsignedInt) value = connectorValue.Uint64;*/
-            if (connectorValue.type == FSUIPCOffsetType.Float) value = connectorValue.Float64;
-
-            if (!cfg.Comparison.Active)
-            {
-                return value.ToString();
-            }
-
-            if (cfg.Comparison.Value == "")
-            {
-                return value.ToString();
-            }
-
-            Double comparisonValue = Double.Parse(cfg.Comparison.Value);
-            string comparisonIfValue = cfg.Comparison.IfValue != "" ? cfg.Comparison.IfValue : value.ToString();
-            string comparisonElseValue = cfg.Comparison.ElseValue != "" ? cfg.Comparison.ElseValue : value.ToString();
-
-            switch (cfg.Comparison.Operand)
-            {
-                case "!=":
-                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case ">":
-                    result = (value > comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case ">=":
-                    result = (value >= comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "<=":
-                    result = (value <= comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "<":
-                    result = (value < comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "=":
-                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                default:
-                    result = (value > 0) ? "1" : "0";
-                    break;
-            }
-
-            result = result.Replace("$", value.ToString());
-
-            foreach (ConfigRefValue configRef in configRefs)
-            {
-                result = result.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
-            }
-                
-            try
-            {
-                var ce = new NCalc.Expression(result);
-                result = (ce.Evaluate()).ToString();
-            }
-            catch
-            {
-                if (Log.LooksLikeExpression(result))
-                    Log.Instance.log("ExecuteComparison : Exception on NCalc evaluate => " + result, LogSeverity.Warn);
-            }
-
-            return result;
-        }
-
-        private string ExecuteStringComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
-        {
-            string result = connectorValue.String;
-            string value = connectorValue.String;
-
-            if (!cfg.Comparison.Active)
-            {
-                return connectorValue.String;
-            }
-
-            string comparisonValue = cfg.Comparison.Value;
-            string comparisonIfValue = cfg.Comparison.IfValue;
-            string comparisonElseValue = cfg.Comparison.ElseValue;
-
-            switch (cfg.Comparison.Operand)
-            {
-                case "!=":
-                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "=":
-                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-            }
-
-            return result;
         }
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
