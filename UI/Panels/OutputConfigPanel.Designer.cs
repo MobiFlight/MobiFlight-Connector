@@ -43,7 +43,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MappingConfigGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridViewConfig = new System.Windows.Forms.DataGridView();
-            this.active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.guid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.moduleSerial = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,7 +94,6 @@
             // dataGridViewConfig
             // 
             this.dataGridViewConfig.AllowUserToResizeRows = false;
-            this.dataGridViewConfig.AutoGenerateColumns = false;
             this.dataGridViewConfig.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewConfig.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewConfig.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
@@ -109,7 +107,6 @@
             this.dataGridViewConfig.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewConfig.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewConfig.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.active,
             this.guid,
             this.Description,
             this.moduleSerial,
@@ -120,8 +117,6 @@
             this.arcazeValueColumn,
             this.EditButtonColumn});
             this.dataGridViewConfig.ContextMenuStrip = this.dataGridViewContextMenuStrip;
-            this.dataGridViewConfig.DataMember = "config";
-            this.dataGridViewConfig.DataSource = this.dataSetConfig;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -158,14 +153,6 @@
             this.dataGridViewConfig.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DataGridViewConfig_DefaultValuesNeeded);
             this.dataGridViewConfig.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewConfig_EditingControlShowing);
             this.dataGridViewConfig.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewConfig_KeyUp);
-            // 
-            // active
-            // 
-            this.active.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.active.DataPropertyName = "active";
-            this.active.FillWeight = 50F;
-            resources.ApplyResources(this.active, "active");
-            this.active.Name = "active";
             // 
             // guid
             // 
@@ -476,7 +463,6 @@
         private System.Data.DataTable configDataTable;
         private System.Data.DataColumn outputDataColumn;
         private System.Data.DataColumn outputTypeDataColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn active;
         private System.Windows.Forms.DataGridViewTextBoxColumn guid;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn moduleSerial;

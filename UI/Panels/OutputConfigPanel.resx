@@ -125,12 +125,6 @@
   <data name="MappingConfigGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="active.HeaderText" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="active.Width" type="System.Int32, mscorlib">
-    <value>43</value>
-  </data>
   <metadata name="guid.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -285,9 +279,6 @@
   <data name="&gt;&gt;dataGridViewContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="dataSetConfig.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>815, 56</value>
-  </metadata>
   <data name="dataGridViewConfig.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -339,6 +330,9 @@
   <data name="&gt;&gt;MappingConfigGroupBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="dataSetConfig.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>815, 56</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -350,12 +344,6 @@
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>929, 629</value>
-  </data>
-  <data name="&gt;&gt;active.Name" xml:space="preserve">
-    <value>active</value>
-  </data>
-  <data name="&gt;&gt;active.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewCheckBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;guid.Name" xml:space="preserve">
     <value>guid</value>

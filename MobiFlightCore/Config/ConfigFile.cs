@@ -71,6 +71,9 @@ namespace MobiFlight
         {
             List<OutputConfigItem> result = new List<OutputConfigItem>();
 
+            if (xmlConfig.DocumentElement == null) 
+                OpenFile();
+
             XmlNodeList outputs = xmlConfig.DocumentElement.SelectNodes("outputs/config/settings");
             foreach(XmlNode item in outputs)
             {
@@ -87,6 +90,9 @@ namespace MobiFlight
         public List<InputConfigItem> GetInputConfigItems()
         {
             List<InputConfigItem> result = new List<InputConfigItem>();
+
+            if (xmlConfig.DocumentElement == null) 
+                OpenFile();
 
             XmlNodeList inputs = xmlConfig.DocumentElement.SelectNodes("inputs/config/settings");
             foreach (XmlNode item in inputs)
@@ -169,6 +175,9 @@ namespace MobiFlight
                     throw new Exception("Error: Loading config");
                 }
             }
+
+            if (result.NodeType == XmlNodeType.None)
+                result.Read();
           
             return result;
         }

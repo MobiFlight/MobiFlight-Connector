@@ -29,6 +29,7 @@ namespace MobiFlight.UI.Panels
             {
                 if (_executionManager != value)
                 {
+                    _executionManager = value;
                     _executionManager.OnExecutingOutputConfigError +=
                         _executionManager_OnExecutingOutputConfigError;
                     _executionManager.OnExecutingOutputConfig +=
