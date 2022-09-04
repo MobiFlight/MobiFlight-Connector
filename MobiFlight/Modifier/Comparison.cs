@@ -85,10 +85,8 @@ namespace MobiFlight.Modifier
                 return ExecuteStringComparison(connectorValue);
             }
 
-            Double value = connectorValue.Int64;
-            /*if (connectorValue.type == FSUIPCOffsetType.UnsignedInt) value = connectorValue.Uint64;*/
-            if (connectorValue.type == FSUIPCOffsetType.Float) value = connectorValue.Float64;
-
+            Double value = connectorValue.Float64;
+            
             if (!Active)
             {
                 return value.ToString();

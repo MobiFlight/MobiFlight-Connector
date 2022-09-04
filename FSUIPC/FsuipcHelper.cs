@@ -45,7 +45,7 @@ namespace MobiFlight.FSUIPC
                     }
 
                     result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value8;
+                    result.Float64 = value8;
                     break;
                 case 2:
                     Int16 value16 = (Int16)(cfg.FSUIPC.Mask & fsuipcCache.getValue(
@@ -59,7 +59,7 @@ namespace MobiFlight.FSUIPC
                     }
 
                     result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value16;
+                    result.Float64 = value16;
                     break;
                 case 4:
                     Int64 value32 = ((int)cfg.FSUIPC.Mask & fsuipcCache.getValue(
@@ -70,7 +70,7 @@ namespace MobiFlight.FSUIPC
                     // no bcd support anymore for 4 byte
 
                     result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value32;
+                    result.Float64 = value32;
                     break;
                 case 8:
                     Double value64 = (Double)fsuipcCache.getDoubleValue(

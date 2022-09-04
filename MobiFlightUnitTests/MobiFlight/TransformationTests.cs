@@ -13,7 +13,7 @@ namespace MobiFlight.Tests
 {
     class TransformationForDeprecatedTest : Transformation
     {
-        public double ProtectedApply(double value, List<ConfigRefValue> configRefs)
+        public string ProtectedApply(double value, List<ConfigRefValue> configRefs)
         {
             return base.Apply(value, configRefs);
         }
@@ -34,17 +34,17 @@ namespace MobiFlight.Tests
             List<ConfigRefValue> configRefs = new List<ConfigRefValue>();
 
             t.Expression = "$*0.5";
-            Assert.AreEqual(1, t.ProtectedApply(1, configRefs));
+            Assert.AreEqual("1", t.ProtectedApply(1, configRefs));
             t.Active = true;
-            Assert.AreEqual(0.5, t.ProtectedApply(1, configRefs));
+            Assert.AreEqual("0.5", t.ProtectedApply(1, configRefs));
             t.Expression = "$*2";
-            Assert.AreEqual(2.0, t.ProtectedApply(1, configRefs));
+            Assert.AreEqual("2", t.ProtectedApply(1, configRefs));
             t.Expression = "$*2";
-            Assert.AreEqual(2.4, t.ProtectedApply(1.2, configRefs));
+            Assert.AreEqual("2.4", t.ProtectedApply(1.2, configRefs));
             t.Expression = "$*2.0";
-            Assert.AreEqual(2.0, t.ProtectedApply(1, configRefs));
+            Assert.AreEqual("2", t.ProtectedApply(1, configRefs));
             t.Expression = "Round(14.6,0)";
-            Assert.AreEqual(15, t.ProtectedApply(1, configRefs));
+            Assert.AreEqual("15", t.ProtectedApply(1, configRefs));
 
             // test the substring stuff
             t.SubStrStart = 1;
