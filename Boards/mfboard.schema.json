@@ -11,7 +11,7 @@
       "title": "Avrdudesettings",
       "type": "object",
       "description": "Settings for flashing Arduino devices with avrdude.",
-      "required": ["BaudRate", "Device", "FirmwareBaseName", "Programmer"],
+      "required": [ "BaudRate", "Device", "FirmwareBaseName", "Programmer" ],
       "properties": {
         "BaudRate": {
           "$id": "#root/AvrDudeSettings/BaudRate",
@@ -170,7 +170,6 @@
         "MaxOutputs",
         "MaxServos",
         "MaxSteppers",
-        "MaxInputShifters",
         "MaxInputMultiplexer"
       ],
       "properties": {
@@ -252,7 +251,7 @@
         "$id": "#root/Pins/items",
         "title": "Items",
         "type": "object",
-        "required": ["isAnalog", "isPWM", "isI2C", "Pin"],
+        "required": [ "isAnalog", "isPWM", "isI2C", "Pin" ],
         "properties": {
           "isAnalog": {
             "$id": "#root/Pins/items/isAnalog",
@@ -276,7 +275,7 @@
             "$id": "#root/Pins/items/Name",
             "title": "Name",
             "description": "Optional display name for the pin.",
-            "examples": ["A1"],
+            "examples": [ "A1" ],
             "type": "string"
           },
           "Pin": {
@@ -285,6 +284,39 @@
             "description": "The number for the pin on the board.",
             "type": "integer"
           }
+        }
+      }
+    },
+    "UsbDriveSettings": {
+      "$id": "#root/UsbDriveSettings",
+      "title": "UsbDriveSettings",
+      "type": "object",
+      "description": "Settings for flashing devices via a mounted USB drive.",
+      "required": [ "FirmwareBaseName", "FirmwareExtension", "VerificationFileName", "VolumeLabel" ],
+      "properties": {
+        "BaudRate": {
+          "$id": "#root/UsbDriveSettings/FirmwareBaseName",
+          "title": "FirmwareBaseName",
+          "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
+          "type": "string"
+        },
+        "Device": {
+          "$id": "#root/UsbDriveSettings/FirmwareExtension",
+          "title": "FirmwareExtension",
+          "description": "File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
+          "type": "string"
+        },
+        "FirmwareBaseName": {
+          "$id": "#root/UsbDriveSettings/VerificationFileName",
+          "title": "VerificationFileName",
+          "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered",
+          "type": "string"
+        },
+        "Programmer": {
+          "$id": "#root/UsbDriveSettings/VolumeLabel",
+          "title": "VolumeLabel",
+          "description": "Volume label of the USB drive when mounted in Windows.",
+          "type": "string"
         }
       }
     }
