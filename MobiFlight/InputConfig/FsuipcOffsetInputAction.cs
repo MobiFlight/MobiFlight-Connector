@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using MobiFlight;
+using MobiFlight.Modifier;
 using MobiFlight.OutputConfig;
 
 namespace MobiFlight.InputConfig

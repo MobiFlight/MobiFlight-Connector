@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight;
 using MobiFlight.Base;
+using MobiFlight.Modifier;
 using System;
 using System.Collections.Generic;
 using System.IO;
