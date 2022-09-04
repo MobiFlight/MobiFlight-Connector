@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight;
+using MobiFlight.Modifier;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,40 +11,53 @@ using System.Xml;
 
 namespace MobiFlight.Tests
 {
+    class TransformationForDeprecatedTest : Transformation
+    {
+        public double ProtectedApply(double value, List<ConfigRefValue> configRefs)
+        {
+            return base.Apply(value, configRefs);
+        }
+
+        public string ProtectedApply(string value)
+        {
+            return base.Apply(value);
+        }
+    }
+
     [TestClass()]
     public class TransformationTests
     {
         [TestMethod()]
         public void ApplyTest()
         {
-            Transformation t = new Transformation();
+            TransformationForDeprecatedTest t = new TransformationForDeprecatedTest();
             List<ConfigRefValue> configRefs = new List<ConfigRefValue>();
 
             t.Expression = "$*0.5";
-            Assert.AreEqual(1, t.Apply(1, configRefs));
+            Assert.AreEqual(1, t.ProtectedApply(1, configRefs));
             t.Active = true;
-            Assert.AreEqual(0.5, t.Apply(1, configRefs));
+            Assert.AreEqual(0.5, t.ProtectedApply(1, configRefs));
             t.Expression = "$*2";
-            Assert.AreEqual(2.0, t.Apply(1, configRefs));
+            Assert.AreEqual(2.0, t.ProtectedApply(1, configRefs));
             t.Expression = "$*2";
-            Assert.AreEqual(2.4, t.Apply(1.2, configRefs));
+            Assert.AreEqual(2.4, t.ProtectedApply(1.2, configRefs));
             t.Expression = "$*2.0";
-            Assert.AreEqual(2.0, t.Apply(1, configRefs));
+            Assert.AreEqual(2.0, t.ProtectedApply(1, configRefs));
             t.Expression = "Round(14.6,0)";
-            Assert.AreEqual(15, t.Apply(1, configRefs));
+            Assert.AreEqual(15, t.ProtectedApply(1, configRefs));
 
             // test the substring stuff
             t.SubStrStart = 1;
             t.SubStrEnd = 5;
             t.Active = false;
             string test = "UnitTest";
-            Assert.AreEqual(test, t.Apply(test));
+            Assert.AreEqual(test, t.ProtectedApply(test));
             t.Active = true;
-            Assert.AreEqual("nitT", t.Apply(test));
+            Assert.AreEqual("nitT", t.ProtectedApply(test));
 
             // if SubStrEnd > length 
             t.SubStrEnd = 10;
-            Assert.AreEqual("nitTest", t.Apply(test));
+            Assert.AreEqual("nitTest", t.ProtectedApply(test));
         }
 
         [TestMethod()]

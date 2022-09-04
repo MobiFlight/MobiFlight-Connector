@@ -7,11 +7,10 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace MobiFlight.OutputConfig
+namespace MobiFlight.Modifier
 {
-    public class Comparison
+    public class Comparison : ModifierBase
     {
-        public bool   Active { get; set; }
         public string Operand { get; set; }
         public string Value { get; set; }
         public string IfValue { get; set; }
@@ -26,7 +25,7 @@ namespace MobiFlight.OutputConfig
             ElseValue = "";
         }
 
-        public override bool Equals(Object obj)
+        override public bool Equals(Object obj)
         {
             return (
                 obj != null && (obj is Comparison) &&
@@ -38,12 +37,12 @@ namespace MobiFlight.OutputConfig
             );
         }
 
-        public XmlSchema GetSchema()
+        override public XmlSchema GetSchema()
         {
             return null;
         }
 
-        public void ReadXml(XmlReader reader)
+        override public void ReadXml(XmlReader reader)
         {
             Active = Boolean.Parse(reader["active"]);
             Value = reader["value"];
@@ -53,7 +52,7 @@ namespace MobiFlight.OutputConfig
         }
 
 
-        public void WriteXml(XmlWriter writer)
+        override public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("comparison");
 
@@ -66,7 +65,7 @@ namespace MobiFlight.OutputConfig
             writer.WriteEndElement();
         }
 
-        internal object Clone()
+        override public object Clone()
         {
             Comparison clone = new Comparison();
             clone.Active = this.Active;
@@ -176,4 +175,4 @@ namespace MobiFlight.OutputConfig
             return result;
         }
     }
-    }
+}

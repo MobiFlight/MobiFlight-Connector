@@ -10,6 +10,7 @@ using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.InputConfig;
 using MobiFlight.xplane;
+using MobiFlight.Modifier;
 
 namespace MobiFlight
 {
@@ -31,7 +32,7 @@ namespace MobiFlight
         public XplaneDataRef        XplaneDataRef               { get; set; }
 		public Transformation       Transform                   { get; set; }
 		public string               Value                       { get; set; }	
-		public OutputConfig.Comparison Comparison                  { get; set; }
+		public Comparison           Comparison                  { get; set; }
 		public string               DisplayType                 { get; set; }
 		public string               DisplaySerial               { get; set; }
 		public OutputConfig.Pin     Pin                         { get; set; }
@@ -58,7 +59,7 @@ namespace MobiFlight
             MobiFlightVariable = new MobiFlightVariable();
             XplaneDataRef = new XplaneDataRef();
             Transform = new Transformation();
-            Comparison = new OutputConfig.Comparison();
+            Comparison = new Comparison();
             Pin = new OutputConfig.Pin();
             LedModule = new OutputConfig.LedModule();
             LcdDisplay = new OutputConfig.LcdDisplay();
@@ -380,7 +381,7 @@ namespace MobiFlight
 
 
             clone.Transform                 = this.Transform.Clone() as Transformation;
-            clone.Comparison                = this.Comparison.Clone() as OutputConfig.Comparison;
+            clone.Comparison                = this.Comparison.Clone() as Comparison;
 
             clone.DisplayType               = this.DisplayType;
             clone.DisplaySerial             = this.DisplaySerial;

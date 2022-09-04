@@ -4,6 +4,7 @@ using System.Xml;
 using MobiFlight;
 using System.IO;
 using System.Data;
+using MobiFlight.Modifier;
 
 namespace MobiFlightUnitTests
 {

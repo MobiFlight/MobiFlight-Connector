@@ -702,29 +702,7 @@ namespace MobiFlight
             double tmpValue;
             List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
 
-            switch (value.type)
-            {
-                case FSUIPCOffsetType.Integer:
-                    tmpValue = value.Int64;
-                    tmpValue = cfg.Transform.Apply(tmpValue, configRefs);
-                    value.Int64 = (Int64)Math.Floor(tmpValue);
-                    break;
-
-                /*case FSUIPCOffsetType.UnsignedInt:
-                    tmpValue = value.Uint64;
-                    tmpValue = tmpValue * cfg.FSUIPCMultiplier;
-                    value.Uint64 = (UInt64)Math.Floor(tmpValue);
-                    break;*/
-
-                case FSUIPCOffsetType.Float:
-                    value.Float64 = Math.Floor(cfg.Transform.Apply(value.Float64, configRefs));
-                    break;
-
-                case FSUIPCOffsetType.String:
-                    value.String = cfg.Transform.Apply(value.String);
-                    break;
-            }
-            return value;
+            return cfg.Transform.Apply(value, configRefs);
         }
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
