@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MobiFlight
 {
@@ -62,17 +63,18 @@ namespace MobiFlight
             String Port = module.InitUploadAndReturnUploadPort();
             if (module.Connected) module.Disconnect();
 
-            while (!SerialPort.GetPortNames().Contains(Port))
-            {
-                System.Threading.Thread.Sleep(100);
-            }
-
             if (module.Board.AvrDudeSettings != null)
             {
-                try {
-                    RunAvrDude(Port, module.Board, FirmwareName);
+                while (!SerialPort.GetPortNames().Contains(Port))
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+
+                try
+                {
+                    RunAvrDude(Port, module.Board);
                     result = true;
-                } catch(Exception e) {
+                } catch (Exception e) {
                     result = false;
                 }
 
@@ -80,14 +82,90 @@ namespace MobiFlight
                 {
                     System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
                 }
-            } else
+            }
+            else if (module.Board.UsbDriveSettings != null)
             {
-                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Error);
+                try 
+                { 
+                    FlashViaUsbDrive(module.Board);
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    result = false;
+                }
+
+                if (module.Board.Connection.DelayAfterFirmwareUpdate > 0)
+                {
+                    System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
+                }
+            }
+            else
+            {
+                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
             }
             return result;
         }
 
-        public static void RunAvrDude(String Port, Board board, String FirmwareName) 
+        public static void FlashViaUsbDrive(Board board)
+        {
+            String FirmwareName = board.UsbDriveSettings.GetFirmwareName(board.Info.LatestFirmwareVersion);
+            String FullFirmwarePath = FirmwarePath + "\\" + FirmwareName;
+            String message = "";
+
+            if (!IsValidFirmwareFilepath(FullFirmwarePath))
+            {
+                message = $"Firmware not found: {FullFirmwarePath}";
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new FileNotFoundException(message);
+            }
+
+            // Find all drives connected to the PC with a volume label that matches the one used to identify the 
+            // drive that's the device to flash. This assumes the first matching drive is the one we want,
+            // since it is extremely unlikely that more than one flashable USB drive will be connected and in a
+            // flashable state at the same time.
+            DriveInfo drive;
+
+            try
+            {
+                drive = DriveInfo.GetDrives().Where(d => d.VolumeLabel == board.UsbDriveSettings.VolumeLabel).First();
+            }
+            catch
+            { 
+                message = $"No mounted USB drives named {board.UsbDriveSettings.VolumeLabel} found";
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new FileNotFoundException(message);
+            }
+
+            // Look for the presence of a file on the drive to confirm it is really a drive that supports flashing via
+            // file copy.
+            try
+            {
+                var verificationFile = drive.RootDirectory.GetFiles(board.UsbDriveSettings.VerificationFileName).First();
+            }
+            catch
+            {
+                message = $"A mounted USB drive named {board.UsbDriveSettings.VolumeLabel} was found but verification file {board.UsbDriveSettings.VerificationFileName} was not found.";
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new FileNotFoundException(message);
+            }
+
+            // At this point the drive is valid so all that's left is to copy the firmware over.
+            var destination = $"{drive.RootDirectory.FullName}{FirmwareName}";
+            try
+            {
+                Log.Instance.log($"Copying {FullFirmwarePath} to {destination}", LogSeverity.Debug);
+                File.Copy(FullFirmwarePath, destination);
+            }
+            catch (Exception e)
+            {
+                message = $"Unable to copy {FullFirmwarePath} to {destination}: {e.Message}";
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new Exception(message);
+            }
+        }
+
+        public static void RunAvrDude(String Port, Board board) 
         {
             String ArduinoChip = board.AvrDudeSettings.Device;
             String Bytes = board.AvrDudeSettings.BaudRate;
