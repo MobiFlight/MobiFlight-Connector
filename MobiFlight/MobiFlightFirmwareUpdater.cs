@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MobiFlight
 {
@@ -39,54 +38,45 @@ namespace MobiFlight
             String Port = module.InitUploadAndReturnUploadPort();
             if (module.Connected) module.Disconnect();
 
-            if (module.Board.AvrDudeSettings != null)
+            try
             {
-                while (!SerialPort.GetPortNames().Contains(Port))
+                if (module.Board.AvrDudeSettings != null)
                 {
-                    System.Threading.Thread.Sleep(100);
-                }
+                    while (!SerialPort.GetPortNames().Contains(Port))
+                    {
+                        System.Threading.Thread.Sleep(100);
+                    }
 
-                try
-                {
                     RunAvrDude(Port, module.Board);
-                    result = true;
-                } catch (Exception e) {
-                    result = false;
                 }
-
-                if (module.Board.Connection.DelayAfterFirmwareUpdate > 0)
+                else if (module.Board.UsbDriveSettings != null)
                 {
-                    System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
-                }
-            }
-            else if (module.Board.UsbDriveSettings != null)
-            {
-                try 
-                { 
                     FlashViaUsbDrive(module.Board);
-                    result = true;
                 }
-                catch (Exception e)
+                else
                 {
-                    result = false;
+                    Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
                 }
 
                 if (module.Board.Connection.DelayAfterFirmwareUpdate > 0)
                 {
                     System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
                 }
+
+                result = true;
             }
-            else
+            catch 
             {
-                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
+                result = false;
             }
+
             return result;
         }
 
         public static void FlashViaUsbDrive(Board board)
         {
             String FirmwareName = board.UsbDriveSettings.GetFirmwareName(board.Info.LatestFirmwareVersion);
-            String FullFirmwarePath = FirmwarePath + "\\" + FirmwareName;
+            String FullFirmwarePath = $"{FirmwarePath}\\{FirmwareName}";
             String message = "";
 
             if (!IsValidFirmwareFilepath(FullFirmwarePath))
@@ -126,7 +116,9 @@ namespace MobiFlight
                 throw new FileNotFoundException(message);
             }
 
-            // At this point the drive is valid so all that's left is to copy the firmware over.
+            // At this point the drive is valid so all that's left is to copy the firmware over. If the file
+            // copy succeeds the connected device will automatically reboot itself so there's no need to
+            // attempt any kind of reconnect after either. Nice!
             var destination = $"{drive.RootDirectory.FullName}{FirmwareName}";
             try
             {
