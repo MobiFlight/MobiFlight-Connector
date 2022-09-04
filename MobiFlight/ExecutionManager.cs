@@ -464,13 +464,13 @@ namespace MobiFlight
                 row.Cells["fsuipcValueColumn"].Value = value.ToString();
                 row.Cells["fsuipcValueColumn"].Tag = value;
 
-                // only none string values get transformed
+                List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
+
                 String strValue = "";
                 try
                 {
-                    processedValue = ExecuteTransform(value, cfg);
-
-                    strValue = cfg.Comparison.Apply(processedValue, GetRefs(cfg.ConfigRefs));
+                    processedValue = cfg.Transform.Apply(value, configRefs);
+                    strValue = cfg.Comparison.Apply(processedValue, configRefs);
                 }
                 catch (Exception e)
                 {
@@ -479,7 +479,6 @@ namespace MobiFlight
                     continue;
                 }
 
-                String strValueAfterComparison = (string)strValue.Clone();
                 strValue = cfg.Interpolation.Apply(strValue);
 
                 row.Cells["arcazeValueColumn"].Value = strValue;
@@ -557,7 +556,7 @@ namespace MobiFlight
                                         "repeat");
 
                         connectorValue.type = FSUIPCOffsetType.Integer;
-                        connectorValue.Int64 = Int64.Parse(val);
+                        connectorValue.Float64 = Int64.Parse(val);
 
                         tmp = new OutputConfigItem();
                         tmp.Comparison.Active = true;
@@ -626,8 +625,8 @@ namespace MobiFlight
                             tmp.Comparison.IfValue = "1";
                             tmp.Comparison.ElseValue = "0";
 
-                            connectorValue.type = FSUIPCOffsetType.Integer;
-                            if (!Int64.TryParse(value, out connectorValue.Int64))
+                            connectorValue.type = FSUIPCOffsetType.Float;
+                            if (!Double.TryParse(value, out connectorValue.Float64))
                             {
                                 // likely to be a string
                                 connectorValue.type = FSUIPCOffsetType.String;
@@ -695,14 +694,6 @@ namespace MobiFlight
             }
 
             return result;
-        }
-
-        private ConnectorValue ExecuteTransform(ConnectorValue value, OutputConfigItem cfg)
-        {
-            double tmpValue;
-            List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
-
-            return cfg.Transform.Apply(value, configRefs);
         }
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)

@@ -17,7 +17,7 @@ namespace MobiFlight.Modifier
         public int Count { get { return Values.Count; } }
         public double Max { get { return max; } }
         public double Min { get { return min; } }
-        public bool Active { get; set; }
+        
         protected double max = double.MinValue;
         protected double min = double.MaxValue;
 
@@ -82,6 +82,27 @@ namespace MobiFlight.Modifier
 
             if (reader.LocalName == "interpolation")
                 reader.Read(); // this closes the interpolation node
+        }
+
+        public ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
+        {
+            ConnectorValue result = connectorValue.Clone() as ConnectorValue;
+
+            if (!Active || Count == 0) return result;
+
+            switch (connectorValue.type)
+            {
+                case FSUIPCOffsetType.Float:
+                case FSUIPCOffsetType.Integer:
+                    result.Float64 = Math.Round(Value(connectorValue.Float64));
+                    break;
+
+                case FSUIPCOffsetType.String:
+                    // we can't apply interpolation to a string
+                    break;
+            } 
+                
+            return result;
         }
 
         public string Apply(string strValue)

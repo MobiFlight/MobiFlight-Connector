@@ -67,20 +67,19 @@ namespace MobiFlight.Modifier
 
             switch (value.type)
             {
-                case FSUIPCOffsetType.Integer:
-                    double tmpValue = value.Int64;
-                    tmpValue = Apply(tmpValue, configRefs);
-                    value.Int64 = (Int64)Math.Floor(tmpValue);
-                    break;
-
-                /*case FSUIPCOffsetType.UnsignedInt:
-                    tmpValue = value.Uint64;
-                    tmpValue = tmpValue * cfg.FSUIPCMultiplier;
-                    value.Uint64 = (UInt64)Math.Floor(tmpValue);
-                    break;*/
-
                 case FSUIPCOffsetType.Float:
-                    value.Float64 = Math.Floor(Apply(value.Float64, configRefs));
+                case FSUIPCOffsetType.Integer:
+                    string tmpValue = Apply(value.Float64, configRefs);
+                    if (Double.TryParse(tmpValue, out value.Float64))
+                    {
+                        value.Float64 = (Int64)Math.Floor(value.Float64);
+                    } 
+                    else 
+                    {
+                        // Expression has now made this a string
+                        value.type = FSUIPCOffsetType.String;
+                        value.String = tmpValue;
+                    }
                     break;
 
                 case FSUIPCOffsetType.String:
@@ -92,9 +91,9 @@ namespace MobiFlight.Modifier
         }
 
 
-        protected double Apply(double value, List<ConfigRefValue> configRefs)
+        protected string Apply(double value, List<ConfigRefValue> configRefs)
         {
-            double result = value;
+            string result = value.ToString();
 
             if (!Active) return result;
 
@@ -107,14 +106,20 @@ namespace MobiFlight.Modifier
             }
 
             var ce = new NCalc.Expression(exp);
+            string ncalcResult = null;
             try
             {
-                result = Double.Parse(ce.Evaluate().ToString());
+                ncalcResult = ce.Evaluate().ToString();
             }
             catch (Exception e)
             {
-                Log.Instance.log("checkPrecondition : Exception on NCalc evaluate", LogSeverity.Warn);
+                Log.Instance.log("Transformation.Apply : Exception on NCalc evaluate", LogSeverity.Warn);
                 throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
+            }
+
+            if (ncalcResult!=null)
+            {
+                result = ncalcResult;
             }
 
             return result;
