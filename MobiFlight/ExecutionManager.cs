@@ -89,6 +89,8 @@ namespace MobiFlight
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
+        Websocket.Server websocketServer = new Websocket.Server();
+
         public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView, IntPtr handle)
         {
             this.dataGridViewConfig = dataGridViewConfig;
@@ -138,6 +140,8 @@ namespace MobiFlight
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             joystickManager.Connected += (o, e) => { joystickManager.Start(); };
             joystickManager.Connect(handle);
+
+            websocketServer.SetConfig();
         }
 
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
@@ -257,6 +261,7 @@ namespace MobiFlight
 
         public void Start()
         {
+            websocketServer.Start();
             simConnectCache.Start();
             xplaneCache.Start();
             timer.Enabled = true;
@@ -269,6 +274,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
+            websocketServer.Stop();
             ClearErrorMessages();
         }
 
@@ -392,6 +398,7 @@ namespace MobiFlight
         private void ExecuteConfig()
         {
             if (
+                false &&
 #if ARCAZE
                 !arcazeCache.isConnected() &&
 #endif
@@ -482,6 +489,14 @@ namespace MobiFlight
                 String strValueAfterComparison = (string)strValue.Clone();
                 strValue = ExecuteInterpolation(strValue, cfg);
 
+                String RowDescr = ((row.Cells["description"]).Value as String);
+                String RowGuid = ((row.DataBoundItem as DataRowView).Row["guid"].ToString());
+                websocketServer.SendMessage($@"{{
+  'guid': {RowGuid},
+  'desc': {RowDescr},
+  'value': {strValue}
+}}"
+                );
                 row.Cells["arcazeValueColumn"].Value = strValue;
 
                 // check preconditions
