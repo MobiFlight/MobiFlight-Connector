@@ -565,8 +565,31 @@ namespace MobiFlight.UI.Panels.Settings
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.Board.ModuleLimits.MaxLcdI2C);
                         }
 
+                        // Check and see if any I2CPins exist in the board definition file. If not then there's no way to add an LCD device
+                        // so throw an error.
+                        var I2CPins = tempModule.Board.Pins.FindAll(x => x.isI2C);
+
+                        if (!(I2CPins?.Any() ?? false))
+                        {
+                            throw new I2CPinsNotDefinedException(MobiFlightLcdDisplay.TYPE);
+                        }
+
+                        // Fix for issue #900. Check for any I2C pins that might already be in use by
+                        // other modules configured for the device.
+                        var pinsInUse = getVirtualModuleFromTree().GetPins(false, true).Where(x => x.Used);
+
+                        // Check and see if any I2C pins are in use. This only looks for the first I2C pin that's
+                        // in use since that's sufficient to throw an error and tell the user what to do. Trying to
+                        // write an error message that works for one or more in use I2C pins is way more trouble
+                        // than it's worth.
+                        var inUseI2CPin = I2CPins.Find(x => pinsInUse?.Contains(x) ?? false);
+
+                        if (inUseI2CPin != null)
+                        {
+                            throw new I2CPinInUseException(MobiFlightLcdDisplay.TYPE, inUseI2CPin);
+                        }
+
                         cfgItem = new MobiFlight.Config.LcdDisplay();
-                        // does not deal yet with these kind of pins because we use I2C
                         break;
 
                     case "ShiftRegisterToolStripMenuItem":
@@ -596,6 +619,18 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 MessageBox.Show(String.Format(i18n._tr("uiMessageMaxNumberOfDevicesReached"), ex.MaxNumber, ex.DeviceType, tempModule.Board.Info.MobiFlightType),
                                 i18n._tr("uiMessageNotEnoughPinsHint"),
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (I2CPinInUseException ex)
+            {
+                MessageBox.Show(String.Format(i18n._tr("uiI2CPinInUse"), ex.DeviceType, ex.Pin.Pin),
+                                i18n._tr("uiI2CPinInUseHint"),
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (I2CPinsNotDefinedException ex)
+            {
+                MessageBox.Show(String.Format(i18n._tr("uiNoI2CPinsDefined"), ex.DeviceType, tempModule.Board.Info.FriendlyName),
+                                i18n._tr("uiNoI2CPinsDefinedHint"),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ArgumentOutOfRangeException ex)
