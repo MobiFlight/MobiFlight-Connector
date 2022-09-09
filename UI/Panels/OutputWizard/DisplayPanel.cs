@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.InputConfig;
+using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,7 +44,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
         Panels.ServoPanel servoPanel = new Panels.ServoPanel();
         Panels.StepperPanel stepperPanel = new Panels.StepperPanel();
         Panels.DisplayShiftRegisterPanel displayShiftRegisterPanel = new Panels.DisplayShiftRegisterPanel();
-
 
         public DisplayPanel()
         {
@@ -124,7 +124,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
             originalConfig = cfg.Clone() as OutputConfigItem;
             config = cfg;
 
-            OutputTypeComboBox.SelectedIndex = (config.DisplayType == "InputAction") ? 1 : 0;
+            byte SelectedType = 0;
+            if (config.DisplayType == "InputAction") SelectedType = 1;
+            if (config.DisplayType == WebsocketOutput.Type) SelectedType = 2;
+            OutputTypeComboBox.SelectedIndex = SelectedType;
 
             if (OutputTypeComboBox.SelectedIndex == 0)
             {
@@ -172,7 +175,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
                 }
             }
-            else
+            else if (OutputTypeComboBox.SelectedIndex == 1)
             {
                 AnalogInputConfig analogInputConfig = new AnalogInputConfig();
                 analogInputConfig.onChange = config.AnalogInputConfig?.onChange;                    ;
@@ -185,6 +188,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
                 InputTypeAnalogRadioButton.Checked = config.AnalogInputConfig?.onChange != null;
+            }
+            else if (OutputTypeComboBox.SelectedIndex == 2)
+            {
+                websocketPanel.syncFromConfig(config);
             }
         }
 
@@ -277,7 +284,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
                 }
             }
-            else { 
+            else if (OutputTypeComboBox.SelectedIndex == 1) { 
                 config.DisplayType = "InputAction";
 
                 if (analogPanel1.Enabled)
@@ -293,6 +300,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     config.ButtonInputConfig = tmpConfig;
                     config.AnalogInputConfig = null;
                 }
+            }
+            else if (OutputTypeComboBox.SelectedIndex == 2)
+            {
+                config.DisplayType = WebsocketOutput.Type;
+                websocketPanel.syncToConfig(config);
             }
         }
 
@@ -780,6 +792,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             InputActionTypePanel.Visible = OutputTypeComboBox.SelectedIndex == 1;
             inputActionGroupBox.Visible = OutputTypeComboBox.SelectedIndex == 1;
+
+            websocketPanel.Visible = OutputTypeComboBox.SelectedIndex == 2;
         }
 
         private void InputTypeButtonRadioButton_CheckedChanged(object sender, EventArgs e)

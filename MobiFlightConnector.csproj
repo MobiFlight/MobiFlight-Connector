@@ -253,6 +253,7 @@
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
     <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
     <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
+    <Compile Include="MobiFlight\OutputConfig\WebsocketOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
@@ -485,6 +486,12 @@
     </Compile>
     <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.Designer.cs">
       <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Output\WebsocketPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\WebsocketPanel.Designer.cs">
+      <DependentUpon>WebsocketPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Settings\ArcazePanel.cs">
       <SubType>UserControl</SubType>
@@ -1114,6 +1121,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\WebsocketPanel.de.resx">
+      <DependentUpon>WebsocketPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\WebsocketPanel.resx">
+      <DependentUpon>WebsocketPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.de.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>

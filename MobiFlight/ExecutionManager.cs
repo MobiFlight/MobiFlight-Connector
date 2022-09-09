@@ -489,14 +489,6 @@ namespace MobiFlight
                 String strValueAfterComparison = (string)strValue.Clone();
                 strValue = ExecuteInterpolation(strValue, cfg);
 
-                String RowDescr = ((row.Cells["description"]).Value as String);
-                String RowGuid = ((row.DataBoundItem as DataRowView).Row["guid"].ToString());
-                websocketServer.SendMessage($@"{{
-  'guid': {RowGuid},
-  'desc': {RowDescr},
-  'value': {strValue}
-}}"
-                );
                 row.Cells["arcazeValueColumn"].Value = strValue;
 
                 // check preconditions
@@ -956,10 +948,12 @@ namespace MobiFlight
             string serial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
 
             if (serial == "" && 
-                cfg.DisplayType!="InputAction") 
+                cfg.DisplayType!="InputAction" &&
+                cfg.DisplayType!=WebsocketOutput.Type
+                ) 
                 return value.ToString();
 
-            if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
+            if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction" && cfg.DisplayType != WebsocketOutput.Type)
             {
 #if ARCAZE
                 switch (cfg.DisplayType)
@@ -1084,6 +1078,11 @@ namespace MobiFlight
                                 cfg.ShiftRegister.Pin,
                                 outputValueShiftRegister);
                         }
+                        break;
+
+                    case WebsocketOutput.Type:
+                        string message = cfg.WebsocketOutput.Apply(value, GetRefs(cfg.ConfigRefs));
+                        websocketServer.SendMessage(cfg.GetHashCode(), message);
                         break;
 
                     case "InputAction":

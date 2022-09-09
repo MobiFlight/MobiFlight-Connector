@@ -42,6 +42,7 @@ namespace MobiFlight
         public OutputConfig.Stepper Stepper { get; set; }
         public Interpolation        Interpolation              { get; set; }
         public OutputConfig.ShiftRegister ShiftRegister               { get; set; }
+        public OutputConfig.WebsocketOutput WebsocketOutput { get; set; }
         public string       DisplayTrigger              { get; set; }
         public PreconditionList   Preconditions       { get; set; }
         public ConfigRefList      ConfigRefs          { get; set; }     
@@ -66,6 +67,7 @@ namespace MobiFlight
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
             ShiftRegister = new OutputConfig.ShiftRegister();
+            WebsocketOutput = new WebsocketOutput();
             Interpolation = new Interpolation();
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
@@ -101,6 +103,8 @@ namespace MobiFlight
                 //===
                 this.ShiftRegister.Equals((obj as OutputConfigItem).ShiftRegister) &&
                 //===
+                this.WebsocketOutput.Equals((obj as OutputConfigItem).WebsocketOutput) &&
+                //==
                 this.Interpolation.Equals((obj as OutputConfigItem).Interpolation) &&
                 //===
                 this.Preconditions.Equals((obj as OutputConfigItem).Preconditions) &&
@@ -202,6 +206,10 @@ namespace MobiFlight
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
                 {
                     ShiftRegister.ReadXml(reader);
+                }
+                else if (DisplayType == WebsocketOutput.Type)
+                {
+                    WebsocketOutput.ReadXml(reader);
                 }
                 else if (DisplayType == "InputAction")
                 {
@@ -333,6 +341,10 @@ namespace MobiFlight
             {
                 ShiftRegister.WriteXml(writer);
             }
+            else if (DisplayType == WebsocketOutput.Type)
+            {
+                WebsocketOutput.WriteXml(writer);
+            }
             else if (DisplayType == "InputAction")
             {
                 if (ButtonInputConfig != null)
@@ -396,6 +408,7 @@ namespace MobiFlight
             clone.Stepper                   = Stepper.Clone() as OutputConfig.Stepper;
 
             clone.ShiftRegister             = ShiftRegister.Clone() as OutputConfig.ShiftRegister;
+            clone.WebsocketOutput           = WebsocketOutput.Clone() as OutputConfig.WebsocketOutput;
 
             clone.LcdDisplay                = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
             clone.Preconditions             = Preconditions.Clone() as PreconditionList;

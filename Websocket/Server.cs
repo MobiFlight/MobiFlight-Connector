@@ -13,6 +13,8 @@ namespace MobiFlight.Websocket
         bool started = false;
         public static Server Instance { get; set; }
 
+        Dictionary<int, string> cache = new Dictionary<int, string>();
+
         public Server()
         {
         }
@@ -29,6 +31,7 @@ namespace MobiFlight.Websocket
         {
             if (!started)
             {
+                cache.Clear();
                 server.Start();
                 started = true;
             }
@@ -43,10 +46,14 @@ namespace MobiFlight.Websocket
             }
         }
 
-        public void SendMessage(string message)
+        public void SendMessage(int HashCode, string Message)
         {
+            if (cache.ContainsKey(HashCode) && cache[HashCode] == Message) return;
+
+            cache[HashCode] = Message;
+
             foreach (string client in server.ListClients())
-                server.SendAsync(client, message);
+                server.SendAsync(client, Message);
         }
 
         void ClientConnected(object sender, ClientConnectedEventArgs args)
