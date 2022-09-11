@@ -58,7 +58,7 @@ namespace MobiFlight.UI.Forms
             progressBar1.Maximum = e.Total;
             ProgressLabel.Text = String.Format("Completed {0}%", Math.Round((decimal)e.Current * 100 / e.Total, 0));
             StepDescriptionLabel.Text = e.ProgressMessage;
-            button1.Text = "OK";
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -1671,38 +1671,50 @@ namespace MobiFlight.UI
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
             ProgressForm progressForm = new ProgressForm();
+            Control MainForm = this;
 
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
             var t = new Task(() => {
                     if (!updater.AutoDetectCommunityFolder())
                     {
-                        /*TimeoutMessageDialog.Show(
-                           i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
-                           i18n._tr("uiMessageWasmUpdater"),
-                           MessageBoxButtons.OK, MessageBoxIcon.Warning);*/
+                        Log.Instance.log(
+                            i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
+                            LogSeverity.Error
+                        );
                         return;
                     }
 
                     if (updater.InstallWasmEvents())
                     {
                         Msfs2020HubhopPresetListSingleton.Instance.Clear();
-
-                        TimeoutMessageDialog.Show(
-                           i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
-                           i18n._tr("uiMessageWasmUpdater"),
-                           MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        progressForm.DialogResult = DialogResult.OK;
                     }
                     else
                     {
-                        /*TimeoutMessageDialog.Show(
-                           i18n._tr("uiMessageWasmEventsInstallationError"),
-                           i18n._tr("uiMessageWasmUpdater"),
-                           MessageBoxButtons.OK, MessageBoxIcon.Error);*/
+                        progressForm.DialogResult = DialogResult.No;
+                        Log.Instance.log(
+                            i18n._tr("uiMessageWasmEventsInstallationError"),
+                            LogSeverity.Error
+                        );
                     }
                 }
             );
+
             t.Start();
-            progressForm.ShowDialog();
+            if (progressForm.ShowDialog() == DialogResult.OK)
+            {
+                TimeoutMessageDialog.Show(
+                   i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else
+            {
+                TimeoutMessageDialog.Show(
+                    i18n._tr("uiMessageWasmEventsInstallationError"),
+                    i18n._tr("uiMessageWasmUpdater"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+
             progressForm.Dispose();
         }
 
