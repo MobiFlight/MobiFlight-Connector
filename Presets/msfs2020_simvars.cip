@@ -39,6 +39,11 @@ PLANE ALTITUDE#(A:INDICATED ALTITUDE:1, Feet) flr#Aerosoft.CRJ 550-700-1000.Envi
 PLANE HEADING#(A:PLANE HEADING DEGREES TRUE:0, Radians) 57.2957795131 * flr#Aerosoft.CRJ 550-700-1000.Environment.PLANE HEADING
 Aerosoft/CRJ 550-700-1000/Flight Controls#GROUP
 ASCRJ_FLAPS_SET#(L:ASCRJ_FLAPS_SET)#Aerosoft.CRJ 550-700-1000.Flight Controls.ASCRJ_FLAPS_SET
+Aerosoft/CRJ 550-700-1000/Flight Instrumentation#GROUP
+ASCRJ_HUD_CLR_LED#(A:LIGHT POTENTIOMETER:8, Percent over 100) (L:ASCRJ_HUD_CLR_LED, Bool) * 0 > (A:CIRCUIT GENERAL PANEL, Bool) and#Aerosoft.CRJ 550-700-1000.Flight Instrumentation.ASCRJ_HUD_CLR_LED
+ASCRJ_HUD_GS_LED#(A:LIGHT POTENTIOMETER:8, Percent over 100) (L:ASCRJ_HUD_GS_LED_, Bool) * 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and #Aerosoft.CRJ 550-700-1000.Flight Instrumentation.ASCRJ_HUD_GS_LED
+ASCRJ_HUD_KEY_TEST_LED#(A:LIGHT POTENTIOMETER:8, Percent over 100) (L:ASCRJ_HUD_KEY_TEST_LED, Bool) * 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Aerosoft.CRJ 550-700-1000.Flight Instrumentation.ASCRJ_HUD_KEY_TEST_LED
+ASCRJ_HUD_RWY_LED#(A:LIGHT POTENTIOMETER:8, Percent over 100) (L:ASCRJ_HUD_RWY_LED, Bool) * 0 > (A:CIRCUIT GENERAL PANEL ON, Bool) and#Aerosoft.CRJ 550-700-1000.Flight Instrumentation.ASCRJ_HUD_RWY_LED
 Aerosoft/CRJ 550-700-1000/Fuel#GROUP
 Fuel Quantity Center#(A:FUEL TANK CENTER QUANTITY,Gallons) 3.039 * flr#Aerosoft.CRJ 550-700-1000.Fuel.Fuel Quantity Center
 Fuel Quantity Left#(A:FUEL LEFT QUANTITY,Gallons) 3.039 * flr#Aerosoft.CRJ 550-700-1000.Fuel.Fuel Quantity Left
@@ -68,6 +73,21 @@ ASCRJ_GSF_MASTER_CAUT_ON#(L:ASCRJ_GSF_MASTER_CAUT_ON)#Aerosoft.CRJ 550-700-1000.
 ASCRJ_GSF_MASTER_WARN_ON#(L:ASCRJ_GSF_MASTER_WARN_ON)#Aerosoft.CRJ 550-700-1000.Warning System.ASCRJ_GSF_MASTER_WARN_ON
 Asobo/330 Extra/Avionics#GROUP
 AS3X_MFD_Cursor#(L:MFD_Main_MapShowCursor,Number)#Asobo.330 Extra.Avionics.AS3X_MFD_Cursor
+Asobo/747-8i/Autopilot#GROUP
+ALT DISPLAY#(L:HUD_AP_SELECTED_ALTITUDE)#Asobo.747-8i.Autopilot.Output.ALT DISPLAY
+APP#(L:AP_APP_ARMED)#Asobo.747-8i.Autopilot.Output.APP
+AP_ALT_HOLD_ACTIVE#(L:AP_ALT_HOLD_ACTIVE)#Asobo.747-8i.Autopilot.Output.AP_ALT_HOLD_ACTIVE
+AP_FLCH_ACTIVE#(L:AP_FLCH_ACTIVE)#Asobo.747-8i.Autopilot.Output.AP_FLCH_ACTIVE
+AP_LNAV_ARMED#(L:AP_LNAV_ARMED)#Asobo.747-8i.Autopilot.Output.AP_LNAV_ARMED
+AP_VNAV_ARMED#(L:AP_VNAV_ARMED)#Asobo.747-8i.Autopilot.Output.AP_VNAV_ARMED
+AP_VS_ACTIVE#(L:AP_VS_ACTIVE)#Asobo.747-8i.Autopilot.Output.AP_VS_ACTIVE
+MASTER CAUTION#(L:Generic_Master_Caution_Active)#Asobo.747-8i.Autopilot.Output.MASTER CAUTION
+SPEED#(L:AP_SPD_ACTIVE)#Asobo.747-8i.Autopilot.Output.SPEED
+Asobo/747-8i/Fuel#GROUP
+B747_8_FUEL_Pump_Ctr_Tank_L_LED#(A:FUELSYSTEM PUMP SWITCH:1, Bool)#Asobo.747-8i.Fuel.B747_8_FUEL_Pump_Ctr_Tank_L_LED
+B747_8_FUEL_Pump_Ctr_Tank_R_LED#(A:FUELSYSTEM PUMP SWITCH:2, Bool)#Asobo.747-8i.Fuel.B747_8_FUEL_Pump_Ctr_Tank_R_LED
+Asobo/747-8i/MCDU#GROUP
+Execute LED #(L:FMC_EXEC_ACTIVE)#Asobo.747-8i.MCDU.Output.Execute LED 
 Asobo/Baron G58/Controls#GROUP
 G58 FLAPS BLUE INDICATOR#(A:TRAILING EDGE FLAPS LEFT ANGLE, degrees) 10 - abs 0.1 <#Asobo.Baron G58.Controls.G58 FLAPS BLUE INDICATOR
 G58 FLAPS RED INDICATOR#(A:CIRCUIT FLAP MOTOR ON, bool)#Asobo.Baron G58.Controls.G58 FLAPS RED INDICATOR
@@ -112,20 +132,412 @@ TBM930_BACK_DOOR_STATE#(L:XMLVAR_TBM930_BackDoor_State)#Asobo.TBM 930.Miscellane
 TBM930_CARGO_DOOR_STATE#(L:XMLVAR_TBM930_CargoDoor_State)#Asobo.TBM 930.Miscellaneous.TBM930_CARGO_DOOR_STATE
 TBM930_FRONT_DOOR_STATE#(L:XMLVAR_TBM930_FrontDoor_State)#Asobo.TBM 930.Miscellaneous.TBM930_FRONT_DOOR_STATE
 Asobo/TBM 930/Safety#GROUP
-TBM930_ELT_LED#(A:ELT ACTIVATED, Bool) (E:SIMULATION TIME, second) 3 * 2 % and (L:XMLVAR_ELT_STATE) 3 ==#Asobo.TBM 930.Safety.TBM930_ELT_LED
+TBM930_ELT_LED - DUPLICATE (OLD)#(A:ELT ACTIVATED, Bool) (E:SIMULATION TIME, second) 3 * 2 % and (L:XMLVAR_ELT_STATE) 3 ==#Asobo.TBM 930.Safety.Output.TBM930_ELT_LED - DUPLICATE (OLD)
 Asobo/TBM 930/Warning System#GROUP
+MASTER_CAUTION_YELLOW_LED#(L:Generic_Master_Caution_Active)#Asobo.TBM 930.Warning System.MASTER_CAUTION_YELLOW_LED
+MASTER_WARNING_RED_LED#(L:Generic_Master_Warning_Active)#Asobo.TBM 930.Warning System.MASTER_WARNING_RED_LED
+Master Caution Yellow LED#(L:Generic_Master_Caution_Active)#Asobo.TBM 930.Warning System.Master Caution Yellow LED
 TBM930_ELT_LED#(A:ELT ACTIVATED, Bool) (E:SIMULATION TIME, second) 3 * 2 % and (L:XMLVAR_ELT_STATE) 3 == or#Asobo.TBM 930.Warning System.TBM930_ELT_LED
 Asobo/XCub/Controls#GROUP
 XCUB_FLAPS_ACTUAL_POSITION_DISPLAY#(A:FLAPS HANDLE INDEX, Number)#Asobo.XCub.Controls.XCUB_FLAPS_ACTUAL_POSITION_DISPLAY
 XCUB_TRIM_ACTUAL_POSITION_DISPLAY#(A:ELEVATOR TRIM INDICATOR, Percent) 10 /#Asobo.XCub.Controls.XCUB_TRIM_ACTUAL_POSITION_DISPLAY
 Asobo/XCub/Lights#GROUP
-XCUB_AUX_DIMMER_VALUE#(A:LIGHT POTENTIOMETER:3, Percent)#Asobo.XCub.Lights.XCUB_AUX_DIMMER_VALUE
+XCUB_AUX_DIMMER_VALUE#(A:LIGHT POTENTIOMETER:2, Percent)#Asobo.XCub.Lights.Output.XCUB_AUX_DIMMER_VALUE
+XCUB_PLACARDS_VALUE#(A:LIGHT POTENTIOMETER:3, Percent)#Asobo.XCub.Lights.Output.XCUB_PLACARDS_VALUE
 Asobo/XCub/Navigation#GROUP
 XCUB_AIRSPEED_INDICATED_DISPLAY#(A:AIRSPEED INDICATED, Mph)#Asobo.XCub.Navigation.XCUB_AIRSPEED_INDICATED_DISPLAY
+Carenado/M20R OVATION/Flight Instrumentation#GROUP
+Standby Vacuum Pump #(L:M20R_SWITCH_STANDBY_VACUUM)#Carenado.M20R OVATION.Flight Instrumentation.Output.Standby Vacuum Pump 
+FenixSim/A320/Air Conditioning and Pressurization#GROUP
+FNX320 Pneumatic APU Bleed Button Annunciator Lower#(L:I_OH_PNEUMATIC_APU_BLEED_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic APU Bleed Button Annunciator Lower
+FNX320 Pneumatic APU Bleed Button Annunciator Upper#(L:I_OH_PNEUMATIC_APU_BLEED_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic APU Bleed Button Annunciator Upper
+FNX320 Pneumatic Engine Bleed 1 Button Annunciator Lower#(L:I_OH_PNEUMATIC_ENG1_BLEED_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Engine Bleed 1 Button Annunciator Lower
+FNX320 Pneumatic Engine Bleed 1 Button Annunciator Upper#(L:I_OH_PNEUMATIC_ENG1_BLEED_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Engine Bleed 1 Button Annunciator Upper
+FNX320 Pneumatic Engine Bleed 2 Button Annunciator Lower#(L:I_OH_PNEUMATIC_ENG2_BLEED_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Engine Bleed 2 Button Annunciator Lower
+FNX320 Pneumatic Engine Bleed 2 Button Annunciator Upper#(L:I_OH_PNEUMATIC_ENG2_BLEED_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Engine Bleed 2 Button Annunciator Upper
+FNX320 Pneumatic Hot Air Button Annunciator Lower#(L:I_OH_PNEUMATIC_HOT_AIR_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Hot Air Button Annunciator Lower
+FNX320 Pneumatic Hot Air Button Annunciator Upper#(L:I_OH_PNEUMATIC_HOT_AIR_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Hot Air Button Annunciator Upper
+FNX320 Pneumatic Pack 1 Button Annunciator Lower#(L:I_OH_PNEUMATIC_PACK_1_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Pack 1 Button Annunciator Lower
+FNX320 Pneumatic Pack 1 Button Annunciator Upper#(L:I_OH_PNEUMATIC_PACK_1_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Pack 1 Button Annunciator Upper
+FNX320 Pneumatic Pack 2 Button Annunciator Lower#(L:I_OH_PNEUMATIC_PACK_2_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Pack 2 Button Annunciator Lower
+FNX320 Pneumatic Pack 2 Button Annunciator Upper#(L:I_OH_PNEUMATIC_PACK_2_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Pack 2 Button Annunciator Upper
+FNX320 Pneumatic Ram Air Button Annunciator#(L:I_OH_PNEUMATIC_RAM_AIR_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pneumatic Ram Air Button Annunciator
+FNX320 Pressurization Ditching Button Annunciator#(L:I_OH_PNEUMATIC_DITCHING_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pressurization Ditching Button Annunciator
+FNX320 Pressurization Mode Select Button Annunciator Lower#(L:I_OH_PNEUMATIC_PRESS_MODE_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pressurization Mode Select Button Annunciator Lower
+FNX320 Pressurization Mode Select Button Annunciator Upper#(L:I_OH_PNEUMATIC_PRESS_MODE_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Pressurization Mode Select Button Annunciator Upper
+FNX320 Ventilation Blower Button Annunciator Lower#(L:I_OH_PNEUMATIC_BLOWER_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Ventilation Blower Button Annunciator Lower
+FNX320 Ventilation Blower Button Annunciator Upper#(L:I_OH_PNEUMATIC_BLOWER_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Ventilation Blower Button Annunciator Upper
+FNX320 Ventilation Cabin Fans Button Annunciator Lower#(L:I_OH_PNEUMATIC_CAB_FANS_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Ventilation Cabin Fans Button Annunciator Lower
+FNX320 Ventilation Cabin Fans Button Annunciator Upper#(L:I_OH_PNEUMATIC_CAB_FANS_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Ventilation Cabin Fans Button Annunciator Upper
+FNX320 Ventilation Extract Button Annunciator Lower#(L:I_OH_PNEUMATIC_EXTRACT_L)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Ventilation Extract Button Annunciator Lower
+FNX320 Ventilation Extract Button Annunciator Upper#(L:I_OH_PNEUMATIC_EXTRACT_U)#FenixSim.A320.Air Conditioning and Pressurization.FNX320 Ventilation Extract Button Annunciator Upper
+FenixSim/A320/Anti-Ice#GROUP
+FNX320 Icing Engine 1 Button Annunciator Lower#(L:I_OH_PNEUMATIC_ENG1_ANTI_ICE_L)#FenixSim.A320.Anti-Ice.FNX320 Icing Engine 1 Button Annunciator Lower
+FNX320 Icing Engine 1 Button Annunciator Upper#(L:I_OH_PNEUMATIC_ENG1_ANTI_ICE_U)#FenixSim.A320.Anti-Ice.FNX320 Icing Engine 1 Button Annunciator Upper
+FNX320 Icing Engine 2 Button Annunciator Lower#(L:I_OH_PNEUMATIC_ENG2_ANTI_ICE_L)#FenixSim.A320.Anti-Ice.FNX320 Icing Engine 2 Button Annunciator Lower
+FNX320 Icing Engine 2 Button Annunciator Upper#(L:I_OH_PNEUMATIC_ENG2_ANTI_ICE_U)#FenixSim.A320.Anti-Ice.FNX320 Icing Engine 2 Button Annunciator Upper
+FNX320 Icing Probe Heat Button Annunciator Lower#(L:I_OH_PROBE_HEAT_L)#FenixSim.A320.Anti-Ice.FNX320 Icing Probe Heat Button Annunciator Lower
+FNX320 Icing Probe Heat Button Annunciator Upper#(L:I_OH_PROBE_HEAT_U)#FenixSim.A320.Anti-Ice.FNX320 Icing Probe Heat Button Annunciator Upper
+FNX320 Icing Wing Button Annunciator Lower#(L:I_OH_PNEUMATIC_WING_ANTI_ICE_L)#FenixSim.A320.Anti-Ice.FNX320 Icing Wing Button Annunciator Lower
+FNX320 Icing Wing Button Annunciator Upper#(L:I_OH_PNEUMATIC_WING_ANTI_ICE_U)#FenixSim.A320.Anti-Ice.FNX320 Icing Wing Button Annunciator Upper
+FenixSim/A320/Autopilot#GROUP
+FNX320 FCU AP1 Button Annunciator Upper#(L:I_FCU_AP1)#FenixSim.A320.Autopilot.FNX320 FCU AP1 Button Annunciator Upper
+FNX320 FCU AP2 Button Annunciator Upper#(L:I_FCU_AP2)#FenixSim.A320.Autopilot.FNX320 FCU AP2 Button Annunciator Upper
+FNX320 FCU APPR Button Annunciator Upper#(L:I_FCU_APPR)#FenixSim.A320.Autopilot.FNX320 FCU APPR Button Annunciator Upper
+FNX320 FCU ATHR Button Annunciator Upper#(L:I_FCU_ATHR)#FenixSim.A320.Autopilot.FNX320 FCU ATHR Button Annunciator Upper
+FNX320 FCU EXPED Button Annunciator Upper#(L:I_FCU_EXPED)#FenixSim.A320.Autopilot.FNX320 FCU EXPED Button Annunciator Upper
+FNX320 FCU LOC Button Annunciator Upper#(L:I_FCU_LOC)#FenixSim.A320.Autopilot.FNX320 FCU LOC Button Annunciator Upper
+FenixSim/A320/Avionics#GROUP
+FNX320 Glareshield ATC Captain Annunciator#(L:I_MIP_ATC_MSG_CAPT_U)#FenixSim.A320.Avionics.FNX320 Glareshield ATC Captain Annunciator
+FNX320 Glareshield ATC FO Annunciator#(L:I_MIP_ATC_MSG_FO_U)#FenixSim.A320.Avionics.FNX320 Glareshield ATC FO Annunciator
+FNX320 Glareshield Autoland Captain Button Annunciator#(L:I_MIP_AUTOLAND_CAPT)#FenixSim.A320.Avionics.FNX320 Glareshield Autoland Captain Button Annunciator
+FNX320 Glareshield Autoland FO Button Annunciator#(L:I_MIP_AUTOLAND_FO)#FenixSim.A320.Avionics.FNX320 Glareshield Autoland FO Button Annunciator
+FNX320 Glareshield MSG Captain Annunciator#(L:I_MIP_ATC_MSG_CAPT_L)#FenixSim.A320.Avionics.FNX320 Glareshield MSG Captain Annunciator
+FNX320 Glareshield MSG FO Annunciator#(L:I_MIP_ATC_MSG_FO_L)#FenixSim.A320.Avionics.FNX320 Glareshield MSG FO Annunciator
+FNX320 MainPanel Terrain On ND Captain Button Annunciator#(L:I_MIP_GPWS_TERRAIN_ON_ND_CAPT_L)#FenixSim.A320.Avionics.FNX320 MainPanel Terrain On ND Captain Button Annunciator
+FNX320 MainPanel Terrain On ND FO Button Annunciator#(L:I_MIP_GPWS_TERRAIN_ON_ND_FO_L)#FenixSim.A320.Avionics.FNX320 MainPanel Terrain On ND FO Button Annunciator
+FNX320 Transponder ATC FAIL Annunciator#(L:I_XPDR_FAIL)#FenixSim.A320.Avionics.FNX320 Transponder ATC FAIL Annunciator
+FenixSim/A320/Controls#GROUP
+FNX320 FlightControl ELAC 1 Button Annunciator Lower#(L:I_OH_FLT_CTL_ELAC_1_L)#FenixSim.A320.Controls.FNX320 FlightControl ELAC 1 Button Annunciator Lower
+FNX320 FlightControl ELAC 1 Button Annunciator Upper#(L:I_OH_FLT_CTL_ELAC_1_U)#FenixSim.A320.Controls.FNX320 FlightControl ELAC 1 Button Annunciator Upper
+FNX320 FlightControl ELAC 2 Button Annunciator Lower#(L:I_OH_FLT_CTL_ELAC_2_L)#FenixSim.A320.Controls.FNX320 FlightControl ELAC 2 Button Annunciator Lower
+FNX320 FlightControl ELAC 2 Button Annunciator Upper#(L:I_OH_FLT_CTL_ELAC_2_U)#FenixSim.A320.Controls.FNX320 FlightControl ELAC 2 Button Annunciator Upper
+FNX320 FlightControl FAC 1 Button Annunciator Lower#(L:I_OH_FLT_CTL_FAC_1_L)#FenixSim.A320.Controls.FNX320 FlightControl FAC 1 Button Annunciator Lower
+FNX320 FlightControl FAC 1 Button Annunciator Upper#(L:I_OH_FLT_CTL_FAC_1_U)#FenixSim.A320.Controls.FNX320 FlightControl FAC 1 Button Annunciator Upper
+FNX320 FlightControl FAC 2 Button Annunciator Lower#(L:I_OH_FLT_CTL_FAC_2_L)#FenixSim.A320.Controls.FNX320 FlightControl FAC 2 Button Annunciator Lower
+FNX320 FlightControl FAC 2 Button Annunciator Upper#(L:I_OH_FLT_CTL_FAC_2_U)#FenixSim.A320.Controls.FNX320 FlightControl FAC 2 Button Annunciator Upper
+FNX320 FlightControl SEC 1 Button Annunciator Lower#(L:I_OH_FLT_CTL_SEC_1_L)#FenixSim.A320.Controls.FNX320 FlightControl SEC 1 Button Annunciator Lower
+FNX320 FlightControl SEC 1 Button Annunciator Upper#(L:I_OH_FLT_CTL_SEC_1_U)#FenixSim.A320.Controls.FNX320 FlightControl SEC 1 Button Annunciator Upper
+FNX320 FlightControl SEC 2 Button Annunciator Lower#(L:I_OH_FLT_CTL_SEC_2_L)#FenixSim.A320.Controls.FNX320 FlightControl SEC 2 Button Annunciator Lower
+FNX320 FlightControl SEC 2 Button Annunciator Upper#(L:I_OH_FLT_CTL_SEC_2_U)#FenixSim.A320.Controls.FNX320 FlightControl SEC 2 Button Annunciator Upper
+FNX320 FlightControl SEC 3 Button Annunciator Lower#(L:I_OH_FLT_CTL_SEC_3_L)#FenixSim.A320.Controls.FNX320 FlightControl SEC 3 Button Annunciator Lower
+FNX320 FlightControl SEC 3 Button Annunciator Upper#(L:I_OH_FLT_CTL_SEC_3_U)#FenixSim.A320.Controls.FNX320 FlightControl SEC 3 Button Annunciator Upper
+FNX320 Glareshield Sidestick Priority Captain Button Annunciator Lower#(L:I_FC_SIDESTICK_PRIORITY_CAPT)#FenixSim.A320.Controls.FNX320 Glareshield Sidestick Priority Captain Button Annunciator Lower
+FNX320 Glareshield Sidestick Priority Captain Button Annunciator Upper#(L:I_FC_SIDESTICK_PRIORITY_CAPT_ARROW)#FenixSim.A320.Controls.FNX320 Glareshield Sidestick Priority Captain Button Annunciator Upper
+FNX320 Glareshield Sidestick Priority FO Button Annunciator Lower#(L:I_FC_SIDESTICK_PRIORITY_FO)#FenixSim.A320.Controls.FNX320 Glareshield Sidestick Priority FO Button Annunciator Lower
+FNX320 Glareshield Sidestick Priority FO Button Annunciator Upper#(L:I_FC_SIDESTICK_PRIORITY_FO_ARROW)#FenixSim.A320.Controls.FNX320 Glareshield Sidestick Priority FO Button Annunciator Upper
+FenixSim/A320/ECAM#GROUP
+FNX320 ECAM APU Button Annunciator#(L:I_ECAM_APU)#FenixSim.A320.ECAM.FNX320 ECAM APU Button Annunciator
+FNX320 ECAM BLEED Button Annunciator#(L:I_ECAM_BLEED)#FenixSim.A320.ECAM.FNX320 ECAM BLEED Button Annunciator
+FNX320 ECAM CLR Left Button Annunciator#(L:I_ECAM_CLR_LEFT)#FenixSim.A320.ECAM.FNX320 ECAM CLR Left Button Annunciator
+FNX320 ECAM CLR Right Button Annunciator#(L:I_ECAM_CLR_RIGHT)#FenixSim.A320.ECAM.FNX320 ECAM CLR Right Button Annunciator
+FNX320 ECAM COND Button Annunciator#(L:I_ECAM_COND)#FenixSim.A320.ECAM.FNX320 ECAM COND Button Annunciator
+FNX320 ECAM DOOR Button Annunciator#(L:I_ECAM_DOOR)#FenixSim.A320.ECAM.FNX320 ECAM DOOR Button Annunciator
+FNX320 ECAM ELEC Button Annunciator#(L:I_ECAM_ELEC)#FenixSim.A320.ECAM.FNX320 ECAM ELEC Button Annunciator
+FNX320 ECAM EMER CANC Button Off#(L:I_ECAM_EMER_CANCEL)#FenixSim.A320.ECAM.FNX320 ECAM EMER CANC Button Off
+FNX320 ECAM EMER CANC Button On#(L:I_ECAM_EMER_CANCEL)#FenixSim.A320.ECAM.FNX320 ECAM EMER CANC Button On
+FNX320 ECAM ENG Button Annunciator#(L:I_ECAM_ENGINE)#FenixSim.A320.ECAM.FNX320 ECAM ENG Button Annunciator
+FNX320 ECAM FCTL Button Annunciator#(L:I_ECAM_FCTL)#FenixSim.A320.ECAM.FNX320 ECAM FCTL Button Annunciator
+FNX320 ECAM FUEL Button Annunciator#(L:I_ECAM_FUEL)#FenixSim.A320.ECAM.FNX320 ECAM FUEL Button Annunciator
+FNX320 ECAM HYD Button Annunciator#(L:I_ECAM_HYD)#FenixSim.A320.ECAM.FNX320 ECAM HYD Button Annunciator
+FNX320 ECAM PRESS Button Annunciator#(L:I_ECAM_CAB_PRESS)#FenixSim.A320.ECAM.FNX320 ECAM PRESS Button Annunciator
+FNX320 ECAM STS Button Annunciator#(L:I_ECAM_STATUS)#FenixSim.A320.ECAM.FNX320 ECAM STS Button Annunciator
+FNX320 ECAM WHEEL Button Annunciator#(L:I_ECAM_WHEEL)#FenixSim.A320.ECAM.FNX320 ECAM WHEEL Button Annunciator
+FenixSim/A320/EFIS#GROUP
+FNX320 EFIS 1 ARPT Button Annunciator Upper#(L:I_FCU_EFIS1_ARPT)#FenixSim.A320.EFIS.FNX320 EFIS 1 ARPT Button Annunciator Upper
+FNX320 EFIS 1 CSTR Button Annunciator Upper#(L:I_FCU_EFIS1_CSTR)#FenixSim.A320.EFIS.FNX320 EFIS 1 CSTR Button Annunciator Upper
+FNX320 EFIS 1 FD Button Annunciator Upper#(L:I_FCU_EFIS1_FD)#FenixSim.A320.EFIS.FNX320 EFIS 1 FD Button Annunciator Upper
+FNX320 EFIS 1 LS Button Annunciator Upper#(L:I_FCU_EFIS1_LS)#FenixSim.A320.EFIS.FNX320 EFIS 1 LS Button Annunciator Upper
+FNX320 EFIS 1 NDB Button Annunciator Upper#(L:I_FCU_EFIS1_NDB)#FenixSim.A320.EFIS.FNX320 EFIS 1 NDB Button Annunciator Upper
+FNX320 EFIS 1 VORD Button Annunciator Upper#(L:I_FCU_EFIS1_VORD)#FenixSim.A320.EFIS.FNX320 EFIS 1 VORD Button Annunciator Upper
+FNX320 EFIS 1 WPT Button Annunciator Upper#(L:I_FCU_EFIS1_WPT)#FenixSim.A320.EFIS.FNX320 EFIS 1 WPT Button Annunciator Upper
+FNX320 EFIS 2 ARPT Button Annunciator Upper#(L:I_FCU_EFIS2_ARPT)#FenixSim.A320.EFIS.FNX320 EFIS 2 ARPT Button Annunciator Upper
+FNX320 EFIS 2 CSTR Button Annunciator Upper#(L:I_FCU_EFIS2_CSTR)#FenixSim.A320.EFIS.FNX320 EFIS 2 CSTR Button Annunciator Upper
+FNX320 EFIS 2 FD Button Annunciator Upper#(L:I_FCU_EFIS2_FD)#FenixSim.A320.EFIS.FNX320 EFIS 2 FD Button Annunciator Upper
+FNX320 EFIS 2 LS Button Annunciator Upper#(L:I_FCU_EFIS2_LS)#FenixSim.A320.EFIS.FNX320 EFIS 2 LS Button Annunciator Upper
+FNX320 EFIS 2 NDB Button Annunciator Upper#(L:I_FCU_EFIS2_NDB)#FenixSim.A320.EFIS.FNX320 EFIS 2 NDB Button Annunciator Upper
+FNX320 EFIS 2 VORD Button Annunciator Upper#(L:I_FCU_EFIS2_VORD)#FenixSim.A320.EFIS.FNX320 EFIS 2 VORD Button Annunciator Upper
+FNX320 EFIS 2 WPT Button Annunciator Upper#(L:I_FCU_EFIS2_WPT)#FenixSim.A320.EFIS.FNX320 EFIS 2 WPT Button Annunciator Upper
+FNX320 EFIS1_BARO_STD Status#(L:S_FCU_EFIS1_BARO_STD)#FenixSim.A320.EFIS.Output.FNX320 EFIS1_BARO_STD Status
+FNX320 EFIS_1_BARO_MODE_STATUS#(L:S_FCU_EFIS1_BARO_MODE)#FenixSim.A320.EFIS.Output.FNX320 EFIS_1_BARO_MODE_STATUS
+FNX320 EFIS_2_BARO_MODE_STATUS#(L:S_FCU_EFIS2_BARO_MODE)#FenixSim.A320.EFIS.Output.FNX320 EFIS_2_BARO_MODE_STATUS
+FenixSim/A320/Electrical#GROUP
+FNX320 Electrical AC Essential Feed Button Annunciator Lower#(L:I_OH_ELEC_AC_ESS_FEED_L)#FenixSim.A320.Electrical.FNX320 Electrical AC Essential Feed Button Annunciator Lower
+FNX320 Electrical AC Essential Feed Button Annunciator Upper#(L:I_OH_ELEC_AC_ESS_FEED_U)#FenixSim.A320.Electrical.FNX320 Electrical AC Essential Feed Button Annunciator Upper
+FNX320 Electrical APU Generator Button Annunciator Lower#(L:I_OH_ELEC_APU_GENERATOR_L)#FenixSim.A320.Electrical.FNX320 Electrical APU Generator Button Annunciator Lower
+FNX320 Electrical APU Generator Button Annunciator Upper#(L:I_OH_ELEC_APU_GENERATOR_U)#FenixSim.A320.Electrical.FNX320 Electrical APU Generator Button Annunciator Upper
+FNX320 Electrical Battery 1 Button Annunciator Lower#(L:I_OH_ELEC_BAT1_L)#FenixSim.A320.Electrical.FNX320 Electrical Battery 1 Button Annunciator Lower
+FNX320 Electrical Battery 1 Button Annunciator Upper#(L:I_OH_ELEC_BAT1_U)#FenixSim.A320.Electrical.FNX320 Electrical Battery 1 Button Annunciator Upper
+FNX320 Electrical Battery 2 Button Annunciator Lower#(L:I_OH_ELEC_BAT2_L)#FenixSim.A320.Electrical.FNX320 Electrical Battery 2 Button Annunciator Lower
+FNX320 Electrical Battery 2 Button Annunciator Upper#(L:I_OH_ELEC_BAT2_U)#FenixSim.A320.Electrical.FNX320 Electrical Battery 2 Button Annunciator Upper
+FNX320 Electrical Bus Tie Button Annunciator#(L:I_OH_ELEC_BUSTIE_L)#FenixSim.A320.Electrical.FNX320 Electrical Bus Tie Button Annunciator
+FNX320 Electrical Commercial Button Annunciator Lower#(L:I_OH_ELEC_COMMERCIAL_L)#FenixSim.A320.Electrical.FNX320 Electrical Commercial Button Annunciator Lower
+FNX320 Electrical Commercial Button Annunciator Upper#(L:I_OH_ELEC_COMMERCIAL_U)#FenixSim.A320.Electrical.FNX320 Electrical Commercial Button Annunciator Upper
+FNX320 Electrical External Power Button Annunciator Lower#(L:I_OH_ELEC_EXT_PWR_L)#FenixSim.A320.Electrical.FNX320 Electrical External Power Button Annunciator Lower
+FNX320 Electrical External Power Button Annunciator Upper#(L:I_OH_ELEC_EXT_PWR_U)#FenixSim.A320.Electrical.FNX320 Electrical External Power Button Annunciator Upper
+FNX320 Electrical Galley Cabin Button Annunciator Lower#(L:I_OH_ELEC_GALY_L)#FenixSim.A320.Electrical.FNX320 Electrical Galley Cabin Button Annunciator Lower
+FNX320 Electrical Galley Cabin Button Annunciator Upper#(L:I_OH_ELEC_GALY_U)#FenixSim.A320.Electrical.FNX320 Electrical Galley Cabin Button Annunciator Upper
+FNX320 Electrical Generator 1 Button Annunciator Lower#(L:I_OH_ELEC_GEN1_L)#FenixSim.A320.Electrical.FNX320 Electrical Generator 1 Button Annunciator Lower
+FNX320 Electrical Generator 1 Button Annunciator Upper#(L:I_OH_ELEC_GEN1_U)#FenixSim.A320.Electrical.FNX320 Electrical Generator 1 Button Annunciator Upper
+FNX320 Electrical Generator 2 Button Annunciator Lower#(L:I_OH_ELEC_GEN2_L)#FenixSim.A320.Electrical.FNX320 Electrical Generator 2 Button Annunciator Lower
+FNX320 Electrical Generator 2 Button Annunciator Upper#(L:I_OH_ELEC_GEN2_U)#FenixSim.A320.Electrical.FNX320 Electrical Generator 2 Button Annunciator Upper
+FNX320 Electrical IDG 1 Button Annunciator#(L:I_OH_ELEC_IDG1_U)#FenixSim.A320.Electrical.FNX320 Electrical IDG 1 Button Annunciator
+FNX320 Electrical IDG 2 Button Annunciator#(L:I_OH_ELEC_IDG2_U)#FenixSim.A320.Electrical.FNX320 Electrical IDG 2 Button Annunciator
+FenixSim/A320/Engines#GROUP
+FNX320 APU Master Button Annunciator Lower#(L:I_OH_ELEC_APU_MASTER_L)#FenixSim.A320.Engines.FNX320 APU Master Button Annunciator Lower
+FNX320 APU Master Button Annunciator Upper#(L:I_OH_ELEC_APU_MASTER_U)#FenixSim.A320.Engines.FNX320 APU Master Button Annunciator Upper
+FNX320 APU Start Button Annunciator Lower#(L:I_OH_ELEC_APU_START_L)#FenixSim.A320.Engines.FNX320 APU Start Button Annunciator Lower
+FNX320 APU Start Button Annunciator Upper#(L:I_OH_ELEC_APU_START_U)#FenixSim.A320.Engines.FNX320 APU Start Button Annunciator Upper
+FNX320 Engine Manual Start 1 Button Annunciator#(L:I_OH_ENG_MANSTART_1_L)#FenixSim.A320.Engines.FNX320 Engine Manual Start 1 Button Annunciator
+FNX320 Engine Manual Start 2 Button Annunciator#(L:I_OH_ENG_MANSTART_2_L)#FenixSim.A320.Engines.FNX320 Engine Manual Start 2 Button Annunciator
+FNX320 Engine N1 Mode 1 Button Annunciator#(L:PlaceholderVar)#FenixSim.A320.Engines.FNX320 Engine N1 Mode 1 Button Annunciator
+FNX320 Engine N1 Mode 2 Button Annunciator#(L:PlaceholderVar)#FenixSim.A320.Engines.FNX320 Engine N1 Mode 2 Button Annunciator
+FenixSim/A320/Flight Controls#GROUP
+FNX320_FC_FLAPS_EFFECTIVE_LEFT_POSITION#(L:A320_FC_L_FLAPS)#FenixSim.A320.Flight Controls.Output.FNX320_FC_FLAPS_EFFECTIVE_LEFT_POSITION
+FNX320_FC_FLAPS_EFFECTIVE_RIGHT_POSITION#(L:A320_FC_R_FLAPS)#FenixSim.A320.Flight Controls.Output.FNX320_FC_FLAPS_EFFECTIVE_RIGHT_POSITION
+FNX320_FC_FLAPS_LEVER_POSITION_INDEX#(L:S_FC_FLAPS) near#FenixSim.A320.Flight Controls.Output.FNX320_FC_FLAPS_LEVER_POSITION_INDEX
+FenixSim/A320/Flight Instrumentation#GROUP
+FXNX320_ACTUAL_AIRSPEED_DISPLAY#(A:AIRSPEED INDICATED,Knots)#FenixSim.A320.Flight Instrumentation.Output.FXNX320_ACTUAL_AIRSPEED_DISPLAY
+FXNX320_ACTUAL_ALTITUDE_DISPLAY#(A:INDICATED ALTITUDE,Feet)#FenixSim.A320.Flight Instrumentation.Output.FXNX320_ACTUAL_ALTITUDE_DISPLAY
+FXNX320_ACTUAL_HEADING_DISPLAY#(A:PLANE HEADING DEGREES MAGNETIC, Degrees)#FenixSim.A320.Flight Instrumentation.Output.FXNX320_ACTUAL_HEADING_DISPLAY
+FXNX320_ACTUAL_VERTICAL_SPEED_DISPLAY#(A:VERTICAL SPEED,Feet/minute)#FenixSim.A320.Flight Instrumentation.Output.FXNX320_ACTUAL_VERTICAL_SPEED_DISPLAY
+FenixSim/A320/Fuel#GROUP
+FNX320 Fuel Center Tank Pump 1 Button Annunciator Lower#(L:I_OH_FUEL_CENTER_1_L)#FenixSim.A320.Fuel.FNX320 Fuel Center Tank Pump 1 Button Annunciator Lower
+FNX320 Fuel Center Tank Pump 1 Button Annunciator Upper#(L:I_OH_FUEL_CENTER_1_U)#FenixSim.A320.Fuel.FNX320 Fuel Center Tank Pump 1 Button Annunciator Upper
+FNX320 Fuel Center Tank Pump 2 Button Annunciator Lower#(L:I_OH_FUEL_CENTER_2_L)#FenixSim.A320.Fuel.FNX320 Fuel Center Tank Pump 2 Button Annunciator Lower
+FNX320 Fuel Center Tank Pump 2 Button Annunciator Upper#(L:I_OH_FUEL_CENTER_2_U)#FenixSim.A320.Fuel.FNX320 Fuel Center Tank Pump 2 Button Annunciator Upper
+FNX320 Fuel Crossfeed Button Annunciator Lower#(L:I_OH_FUEL_XFEED_L)#FenixSim.A320.Fuel.FNX320 Fuel Crossfeed Button Annunciator Lower
+FNX320 Fuel Crossfeed Button Annunciator Upper#(L:I_OH_FUEL_XFEED_U)#FenixSim.A320.Fuel.FNX320 Fuel Crossfeed Button Annunciator Upper
+FNX320 Fuel Mode Select Button Annunciator Lower#(L:I_OH_FUEL_MODE_SEL_L)#FenixSim.A320.Fuel.FNX320 Fuel Mode Select Button Annunciator Lower
+FNX320 Fuel Mode Select Button Annunciator Upper#(L:I_OH_FUEL_MODE_SEL_U)#FenixSim.A320.Fuel.FNX320 Fuel Mode Select Button Annunciator Upper
+FNX320 Fuel Wing Tank Pump Left 1 Button Annunciator Lower#(L:I_OH_FUEL_LEFT_1_L)#FenixSim.A320.Fuel.FNX320 Fuel Wing Tank Pump Left 1 Button Annunciator Lower
+FNX320 Fuel Wing Tank Pump Left 1 Button Annunciator Upper#(L:I_OH_FUEL_LEFT_1_U)#FenixSim.A320.Fuel.FNX320 Fuel Wing Tank Pump Left 1 Button Annunciator Upper
+FNX320 Fuel Wing Tank Pump Left 2 Button Annunciator Lower#(L:I_OH_FUEL_LEFT_2_L)#FenixSim.A320.Fuel.FNX320 Fuel Wing Tank Pump Left 2 Button Annunciator Lower
+FNX320 Fuel Wing Tank Pump Left 2 Button Annunciator Upper#(L:I_OH_FUEL_LEFT_2_U)#FenixSim.A320.Fuel.FNX320 Fuel Wing Tank Pump Left 2 Button Annunciator Upper
+FNX320 Fuel Wing Tank Pump Right 1 Button Annunciator Lower#(L:I_OH_FUEL_RIGHT_1_L)#FenixSim.A320.Fuel.FNX320 Fuel Wing Tank Pump Right 1 Button Annunciator Lower
+FNX320 Fuel Wing Tank Pump Right 1 Button Annunciator Upper#(L:I_OH_FUEL_RIGHT_1_U)#FenixSim.A320.Fuel.FNX320 Fuel Wing Tank Pump Right 1 Button Annunciator Upper
+FNX320 Fuel Wing Tank Pump Right 2 Button Annunciator Lower#(L:I_OH_FUEL_RIGHT_2_L)#FenixSim.A320.Fuel.FNX320 Fuel Wing Tank Pump Right 2 Button Annunciator Lower
+FNX320 Fuel Wing Tank Pump Right 2 Button Annunciator Upper#(L:I_OH_FUEL_RIGHT_2_U)#FenixSim.A320.Fuel.FNX320 Fuel Wing Tank Pump Right 2 Button Annunciator Upper
+FenixSim/A320/Gear#GROUP
+FNX320 MainPanel Autobrake Low Button Annunciator Lower#(L:I_MIP_AUTOBRAKE_LO_L)#FenixSim.A320.Gear.FNX320 MainPanel Autobrake Low Button Annunciator Lower
+FNX320 MainPanel Autobrake Low Button Annunciator Upper#(L:I_MIP_AUTOBRAKE_LO_U)#FenixSim.A320.Gear.FNX320 MainPanel Autobrake Low Button Annunciator Upper
+FNX320 MainPanel Autobrake Max Button Annunciator Lower#(L:I_MIP_AUTOBRAKE_MAX_L)#FenixSim.A320.Gear.FNX320 MainPanel Autobrake Max Button Annunciator Lower
+FNX320 MainPanel Autobrake Max Button Annunciator Upper#(L:I_MIP_AUTOBRAKE_MAX_U)#FenixSim.A320.Gear.FNX320 MainPanel Autobrake Max Button Annunciator Upper
+FNX320 MainPanel Autobrake Medium Button Annunciator Lower#(L:I_MIP_AUTOBRAKE_MED_L)#FenixSim.A320.Gear.FNX320 MainPanel Autobrake Medium Button Annunciator Lower
+FNX320 MainPanel Autobrake Medium Button Annunciator Upper#(L:I_MIP_AUTOBRAKE_MED_U)#FenixSim.A320.Gear.FNX320 MainPanel Autobrake Medium Button Annunciator Upper
+FNX320 MainPanel Brake Fan Button Annunciator Lower#(L:I_MIP_BRAKE_FAN_L)#FenixSim.A320.Gear.FNX320 MainPanel Brake Fan Button Annunciator Lower
+FNX320 MainPanel Brake Fan Button Annunciator Upper#(L:I_MIP_BRAKE_FAN_U)#FenixSim.A320.Gear.FNX320 MainPanel Brake Fan Button Annunciator Upper
+FNX320 MainPanel Landing Gear 1 Annunciator Lower#(L:I_MIP_GEAR_1_L)#FenixSim.A320.Gear.FNX320 MainPanel Landing Gear 1 Annunciator Lower
+FNX320 MainPanel Landing Gear 1 Annunciator Upper#(L:I_MIP_GEAR_1_U)#FenixSim.A320.Gear.FNX320 MainPanel Landing Gear 1 Annunciator Upper
+FNX320 MainPanel Landing Gear 2 Annunciator Lower#(L:I_MIP_GEAR_2_L)#FenixSim.A320.Gear.FNX320 MainPanel Landing Gear 2 Annunciator Lower
+FNX320 MainPanel Landing Gear 2 Annunciator Upper#(L:I_MIP_GEAR_2_U)#FenixSim.A320.Gear.FNX320 MainPanel Landing Gear 2 Annunciator Upper
+FNX320 MainPanel Landing Gear 3 Annunciator Lower#(L:I_MIP_GEAR_3_L)#FenixSim.A320.Gear.FNX320 MainPanel Landing Gear 3 Annunciator Lower
+FNX320 MainPanel Landing Gear 3 Annunciator Upper#(L:I_MIP_GEAR_3_U)#FenixSim.A320.Gear.FNX320 MainPanel Landing Gear 3 Annunciator Upper
+FNX320 MainPanel Landing Gear Arrow Annunciator#(L:I_MIP_GEAR_RED)#FenixSim.A320.Gear.FNX320 MainPanel Landing Gear Arrow Annunciator
+FNX320_MIP_PARKING_BRAKE STATE_LED#(L:S_MIP_PARKING_BRAKE)#FenixSim.A320.Gear.Output.FNX320_MIP_PARKING_BRAKE STATE_LED
+FenixSim/A320/Hydraulic#GROUP
+FNX320 Hydraulic Electrical Pump Blue Button Annunciator Lower#(L:I_OH_HYD_BLUE_ELEC_PUMP_L)#FenixSim.A320.Hydraulic.FNX320 Hydraulic Electrical Pump Blue Button Annunciator Lower
+FNX320 Hydraulic Electrical Pump Blue Button Annunciator Upper#(L:I_OH_HYD_BLUE_ELEC_PUMP_U)#FenixSim.A320.Hydraulic.FNX320 Hydraulic Electrical Pump Blue Button Annunciator Upper
+FNX320 Hydraulic Electrical Pump Yellow Button Annunciator Lower#(L:I_OH_HYD_YELLOW_ELEC_PUMP_L)#FenixSim.A320.Hydraulic.FNX320 Hydraulic Electrical Pump Yellow Button Annunciator Lower
+FNX320 Hydraulic Electrical Pump Yellow Button Annunciator Upper#(L:I_OH_HYD_YELLOW_ELEC_PUMP_U)#FenixSim.A320.Hydraulic.FNX320 Hydraulic Electrical Pump Yellow Button Annunciator Upper
+FNX320 Hydraulic Engine Pump 1 Button Annunciator Lower#(L:I_OH_HYD_ENG_1_PUMP_L)#FenixSim.A320.Hydraulic.FNX320 Hydraulic Engine Pump 1 Button Annunciator Lower
+FNX320 Hydraulic Engine Pump 1 Button Annunciator Upper#(L:I_OH_HYD_ENG_1_PUMP_U)#FenixSim.A320.Hydraulic.FNX320 Hydraulic Engine Pump 1 Button Annunciator Upper
+FNX320 Hydraulic Engine Pump 2 Button Annunciator Lower#(L:I_OH_HYD_ENG_2_PUMP_L)#FenixSim.A320.Hydraulic.FNX320 Hydraulic Engine Pump 2 Button Annunciator Lower
+FNX320 Hydraulic Engine Pump 2 Button Annunciator Upper#(L:I_OH_HYD_ENG_2_PUMP_U)#FenixSim.A320.Hydraulic.FNX320 Hydraulic Engine Pump 2 Button Annunciator Upper
+FNX320 Hydraulic PTU Button Annunciator Lower#(L:I_OH_HYD_PTU_L)#FenixSim.A320.Hydraulic.FNX320 Hydraulic PTU Button Annunciator Lower
+FNX320 Hydraulic PTU Button Annunciator Upper#(L:I_OH_HYD_PTU_U)#FenixSim.A320.Hydraulic.FNX320 Hydraulic PTU Button Annunciator Upper
+FenixSim/A320/MCDU#GROUP
+FNX320 MCDU Dash Captain Annunciator#(L:I_CDU1_DASH)#FenixSim.A320.MCDU.FNX320 MCDU Dash Captain Annunciator
+FNX320 MCDU Dash FO Annunciator#(L:I_CDU2_DASH)#FenixSim.A320.MCDU.FNX320 MCDU Dash FO Annunciator
+FNX320 MCDU FAIL Captain Annunciator#(L:I_CDU1_FAIL)#FenixSim.A320.MCDU.FNX320 MCDU FAIL Captain Annunciator
+FNX320 MCDU FAIL FO Annunciator#(L:I_CDU2_FAIL)#FenixSim.A320.MCDU.FNX320 MCDU FAIL FO Annunciator
+FNX320 MCDU FM Captain Annunciator#(L:I_CDU1_FM)#FenixSim.A320.MCDU.FNX320 MCDU FM Captain Annunciator
+FNX320 MCDU FM FO Annunciator#(L:I_CDU2_FM)#FenixSim.A320.MCDU.FNX320 MCDU FM FO Annunciator
+FNX320 MCDU FM1 Captain Annunciator#(L:I_CDU1_FM1)#FenixSim.A320.MCDU.FNX320 MCDU FM1 Captain Annunciator
+FNX320 MCDU FM1 FO Annunciator#(L:I_CDU2_FM1)#FenixSim.A320.MCDU.FNX320 MCDU FM1 FO Annunciator
+FNX320 MCDU FM2 Captain Annunciator#(L:I_CDU1_FM2)#FenixSim.A320.MCDU.FNX320 MCDU FM2 Captain Annunciator
+FNX320 MCDU FM2 FO Annunciator#(L:I_CDU2_FM2)#FenixSim.A320.MCDU.FNX320 MCDU FM2 FO Annunciator
+FNX320 MCDU IND Captain Annunciator#(L:I_CDU1_IND)#FenixSim.A320.MCDU.FNX320 MCDU IND Captain Annunciator
+FNX320 MCDU IND FO Annunciator#(L:I_CDU2_IND)#FenixSim.A320.MCDU.FNX320 MCDU IND FO Annunciator
+FNX320 MCDU MENU Captain Annunciator#(L:I_CDU1_MCDU_MENU)#FenixSim.A320.MCDU.FNX320 MCDU MENU Captain Annunciator
+FNX320 MCDU MENU FO Annunciator#(L:I_CDU2_MCDU_MENU)#FenixSim.A320.MCDU.FNX320 MCDU MENU FO Annunciator
+FNX320 MCDU RDY Captain Annunciator#(L:I_CDU1_RDY)#FenixSim.A320.MCDU.FNX320 MCDU RDY Captain Annunciator
+FNX320 MCDU RDY FO Annunciator#(L:I_CDU2_RDY)#FenixSim.A320.MCDU.FNX320 MCDU RDY FO Annunciator
+FenixSim/A320/Miscellaneous#GROUP
+FNX320 CargoHeat Aft Isolation Button Annunciator Lower#(L:I_OH_PNEUMATIC_CARGO_AFT_ISOL_VALVE_L)#FenixSim.A320.Miscellaneous.FNX320 CargoHeat Aft Isolation Button Annunciator Lower
+FNX320 CargoHeat Aft Isolation Button Annunciator Upper#(L:I_OH_PNEUMATIC_CARGO_AFT_ISOL_VALVE_U)#FenixSim.A320.Miscellaneous.FNX320 CargoHeat Aft Isolation Button Annunciator Upper
+FNX320 CargoHeat Hot Air Button Annunciator Lower#(L:I_OH_PNEUMATIC_HOT_AIR_AFT_CARGO_L)#FenixSim.A320.Miscellaneous.FNX320 CargoHeat Hot Air Button Annunciator Lower
+FNX320 CargoHeat Hot Air Button Annunciator Upper#(L:I_OH_PNEUMATIC_HOT_AIR_AFT_CARGO_U)#FenixSim.A320.Miscellaneous.FNX320 CargoHeat Hot Air Button Annunciator Upper
+FNX320 CargoSmoke Aft Button Annunciator#(L:I_OH_CARGO_SMOKE_AFT_U)#FenixSim.A320.Miscellaneous.FNX320 CargoSmoke Aft Button Annunciator
+FNX320 CargoSmoke Forward Button Annunciator#(L:I_OH_CARGO_SMOKE_FWD_U)#FenixSim.A320.Miscellaneous.FNX320 CargoSmoke Forward Button Annunciator
+FNX320 OverheadMisc APU Auto Exiting Test Button Annunciator Lower#(L:I_OH_APU_AUTOEXTING_TEST_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc APU Auto Exiting Test Button Annunciator Lower
+FNX320 OverheadMisc APU Auto Exiting Test Button Annunciator Upper#(L:I_OH_APU_AUTOEXTING_TEST_U)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc APU Auto Exiting Test Button Annunciator Upper
+FNX320 OverheadMisc Avionics Compt Light Button Annunciator#(L:I_OH_LIGHTING_AVIONICS_COMPT)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Avionics Compt Light Button Annunciator
+FNX320 OverheadMisc Blue Pump Override Button Annunciator#(L:I_OH_HYD_BLUE_PUMP_OVERRIDE_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Blue Pump Override Button Annunciator
+FNX320 OverheadMisc Cockpit Door CTL Annunciator Lower#(L:I_OH_DOOR_CTL_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Cockpit Door CTL Annunciator Lower
+FNX320 OverheadMisc Cockpit Door CTL Annunciator Upper#(L:I_OH_DOOR_CTL_U)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Cockpit Door CTL Annunciator Upper
+FNX320 OverheadMisc Cockpit Door Video Button Annunciator#(L:I_OH_DOOR_VIDEO)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Cockpit Door Video Button Annunciator
+FNX320 OverheadMisc Engine FADEC Ground 1 Button Annunciator#(L:I_OH_AFT_FADEC_GND_1_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Engine FADEC Ground 1 Button Annunciator
+FNX320 OverheadMisc Engine FADEC Ground 2 Button Annunciator#(L:I_OH_AFT_FADEC_GND_2_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Engine FADEC Ground 2 Button Annunciator
+FNX320 OverheadMisc LMV Blue Button Annunciator#(L:I_OH_HYD_LMV_BLUE_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc LMV Blue Button Annunciator
+FNX320 OverheadMisc LMV Green Button Annunciator#(L:I_OH_HYD_LMV_GREEN_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc LMV Green Button Annunciator
+FNX320 OverheadMisc LMV Yellow Button Annunciator#(L:I_OH_HYD_LMV_YELLOW_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc LMV Yellow Button Annunciator
+FNX320 OverheadMisc Oxygen TMR Reset Button Annunciator Lower#(L:I_OH_OXYGEN_TMR_RESET_L)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Oxygen TMR Reset Button Annunciator Lower
+FNX320 OverheadMisc Oxygen TMR Reset Button Annunciator Upper#(L:I_OH_OXYGEN_TMR_RESET_U)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Oxygen TMR Reset Button Annunciator Upper
+FNX320 OverheadMisc Svce Int Button Annunciator#(L:I_OH_SVCE_INT_OVRD)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Svce Int Button Annunciator
+FNX320 OverheadMisc Toilet Annunciator#(L:I_OH_TOILET)#FenixSim.A320.Miscellaneous.FNX320 OverheadMisc Toilet Annunciator
+FNX320 PedestalMisc Cockpit Door Fault Annunciator#(L:I_PED_COCKPIT_DOOR_FAULT)#FenixSim.A320.Miscellaneous.FNX320 PedestalMisc Cockpit Door Fault Annunciator
+FNX320 PedestalMisc Cockpit Door Open Annunciator#(L:I_PED_COCKPIT_DOOR_OPEN)#FenixSim.A320.Miscellaneous.FNX320 PedestalMisc Cockpit Door Open Annunciator
+FNX320 Recorder Ground Control Button Annunciator#(L:I_OH_RCRD_GND_CTL_L)#FenixSim.A320.Miscellaneous.FNX320 Recorder Ground Control Button Annunciator
+FenixSim/A320/Navigation#GROUP
+FNX320 ADIRS Key Clear Dot#(L:I_OH_NAV_ADIRS_QUEUE_CLR)#FenixSim.A320.Navigation.FNX320 ADIRS Key Clear Dot
+FNX320 ADIRS Key Enter Dot#(L:I_OH_NAV_ADIRS_QUEUE_ENT)#FenixSim.A320.Navigation.FNX320 ADIRS Key Enter Dot
+FNX320 ADIRS On Bat Annunciator#(L:I_OH_NAV_ADIRS_ON_BAT)#FenixSim.A320.Navigation.FNX320 ADIRS On Bat Annunciator
+FenixSim/A320/Radio#GROUP
+FNX320 ACP1 CAB Send Button Annunciator Lower#(L:I_ASP_CAB_CALL)#FenixSim.A320.Radio.FNX320 ACP1 CAB Send Button Annunciator Lower
+FNX320 ACP1 CAB Send Button Annunciator Upper#(L:I_ASP_CAB_SEND)#FenixSim.A320.Radio.FNX320 ACP1 CAB Send Button Annunciator Upper
+FNX320 ACP1 HF 1 Send Button Annunciator Lower#(L:I_ASP_HF_1_CALL)#FenixSim.A320.Radio.FNX320 ACP1 HF 1 Send Button Annunciator Lower
+FNX320 ACP1 HF 1 Send Button Annunciator Upper#(L:I_ASP_HF_1_SEND)#FenixSim.A320.Radio.FNX320 ACP1 HF 1 Send Button Annunciator Upper
+FNX320 ACP1 HF 2 Send Button Annunciator Lower#(L:I_ASP_HF_2_CALL)#FenixSim.A320.Radio.FNX320 ACP1 HF 2 Send Button Annunciator Lower
+FNX320 ACP1 HF 2 Send Button Annunciator Upper#(L:I_ASP_HF_1_SEND)#FenixSim.A320.Radio.FNX320 ACP1 HF 2 Send Button Annunciator Upper
+FNX320 ACP1 INT Send Button Annunciator Lower#(L:I_ASP_INT_CALL)#FenixSim.A320.Radio.FNX320 ACP1 INT Send Button Annunciator Lower
+FNX320 ACP1 INT Send Button Annunciator Upper#(L:I_ASP_INT_SEND)#FenixSim.A320.Radio.FNX320 ACP1 INT Send Button Annunciator Upper
+FNX320 ACP1 PA SEND Button Annunciator#(L:I_ASP_PA_SEND)#FenixSim.A320.Radio.FNX320 ACP1 PA SEND Button Annunciator
+FNX320 ACP1 VHF 1 Send Button Annunciator Lower#(L:I_ASP_VHF_1_CALL)#FenixSim.A320.Radio.FNX320 ACP1 VHF 1 Send Button Annunciator Lower
+FNX320 ACP1 VHF 1 Send Button Annunciator Upper#(L:I_ASP_VHF_1_SEND)#FenixSim.A320.Radio.FNX320 ACP1 VHF 1 Send Button Annunciator Upper
+FNX320 ACP1 VHF 2 Send Button Annunciator Lower#(L:I_ASP_VHF_2_CALL)#FenixSim.A320.Radio.FNX320 ACP1 VHF 2 Send Button Annunciator Lower
+FNX320 ACP1 VHF 2 Send Button Annunciator Upper#(L:I_ASP_VHF_2_SEND)#FenixSim.A320.Radio.FNX320 ACP1 VHF 2 Send Button Annunciator Upper
+FNX320 ACP1 VHF 3 Send Button Annunciator Lower#(L:I_ASP_VHF_3_CALL)#FenixSim.A320.Radio.FNX320 ACP1 VHF 3 Send Button Annunciator Lower
+FNX320 ACP1 VHF 3 Send Button Annunciator Upper#(L:I_ASP_VHF_3_SEND)#FenixSim.A320.Radio.FNX320 ACP1 VHF 3 Send Button Annunciator Upper
+FNX320 ACP1 VOICE Button Annunciator#(L:I_ASP_VOICE)#FenixSim.A320.Radio.FNX320 ACP1 VOICE Button Annunciator
+FNX320 ACP2 CAB Send Button Annunciator Lower#(L:I_ASP2_CAB_CALL)#FenixSim.A320.Radio.FNX320 ACP2 CAB Send Button Annunciator Lower
+FNX320 ACP2 CAB Send Button Annunciator Upper#(L:I_ASP2_CAB_SEND)#FenixSim.A320.Radio.FNX320 ACP2 CAB Send Button Annunciator Upper
+FNX320 ACP2 HF 1 Send Button Annunciator Lower#(L:I_ASP2_HF_1_CALL)#FenixSim.A320.Radio.FNX320 ACP2 HF 1 Send Button Annunciator Lower
+FNX320 ACP2 HF 1 Send Button Annunciator Upper#(L:I_ASP2_HF_1_SEND)#FenixSim.A320.Radio.FNX320 ACP2 HF 1 Send Button Annunciator Upper
+FNX320 ACP2 HF 2 Send Button Annunciator Lower#(L:I_ASP2_HF_2_CALL)#FenixSim.A320.Radio.FNX320 ACP2 HF 2 Send Button Annunciator Lower
+FNX320 ACP2 HF 2 Send Button Annunciator Upper#(L:I_ASP2_HF_2_SEND)#FenixSim.A320.Radio.FNX320 ACP2 HF 2 Send Button Annunciator Upper
+FNX320 ACP2 INT Send Button Annunciator Lower#(L:I_ASP2_INT_CALL)#FenixSim.A320.Radio.FNX320 ACP2 INT Send Button Annunciator Lower
+FNX320 ACP2 INT Send Button Annunciator Upper#(L:I_ASP2_INT_SEND)#FenixSim.A320.Radio.FNX320 ACP2 INT Send Button Annunciator Upper
+FNX320 ACP2 PA SEND Button Annunciator#(L:I_ASP2_PA_SEND)#FenixSim.A320.Radio.FNX320 ACP2 PA SEND Button Annunciator
+FNX320 ACP2 VHF 1 Send Button Annunciator Lower#(L:I_ASP2_VHF_1_CALL)#FenixSim.A320.Radio.FNX320 ACP2 VHF 1 Send Button Annunciator Lower
+FNX320 ACP2 VHF 1 Send Button Annunciator Upper#(L:I_ASP2_VHF_1_SEND)#FenixSim.A320.Radio.FNX320 ACP2 VHF 1 Send Button Annunciator Upper
+FNX320 ACP2 VHF 2 Send Button Annunciator Lower#(L:I_ASP2_VHF_2_CALL)#FenixSim.A320.Radio.FNX320 ACP2 VHF 2 Send Button Annunciator Lower
+FNX320 ACP2 VHF 2 Send Button Annunciator Upper#(L:I_ASP2_VHF_2_SEND)#FenixSim.A320.Radio.FNX320 ACP2 VHF 2 Send Button Annunciator Upper
+FNX320 ACP2 VHF 3 Send Button Annunciator Lower#(L:I_ASP2_VHF_3_CALL)#FenixSim.A320.Radio.FNX320 ACP2 VHF 3 Send Button Annunciator Lower
+FNX320 ACP2 VHF 3 Send Button Annunciator Upper#(L:I_ASP2_VHF_3_SEND)#FenixSim.A320.Radio.FNX320 ACP2 VHF 3 Send Button Annunciator Upper
+FNX320 ACP2 VOICE Button Annunciator#(L:I_ASP2_VOICE)#FenixSim.A320.Radio.FNX320 ACP2 VOICE Button Annunciator
+FNX320 ACP3 CAB Send Button Annunciator Lower#(L:I_ASP3_CAB_CALL)#FenixSim.A320.Radio.FNX320 ACP3 CAB Send Button Annunciator Lower
+FNX320 ACP3 CAB Send Button Annunciator Upper#(L:I_ASP3_CAB_SEND)#FenixSim.A320.Radio.FNX320 ACP3 CAB Send Button Annunciator Upper
+FNX320 ACP3 HF 1 Send Button Annunciator Lower#(L:I_ASP3_HF_1_CALL)#FenixSim.A320.Radio.FNX320 ACP3 HF 1 Send Button Annunciator Lower
+FNX320 ACP3 HF 1 Send Button Annunciator Upper#(L:I_ASP3_HF_1_SEND)#FenixSim.A320.Radio.FNX320 ACP3 HF 1 Send Button Annunciator Upper
+FNX320 ACP3 HF 2 Send Button Annunciator Lower#(L:I_ASP3_HF_2_CALL)#FenixSim.A320.Radio.FNX320 ACP3 HF 2 Send Button Annunciator Lower
+FNX320 ACP3 HF 2 Send Button Annunciator Upper#(L:I_ASP3_HF_2_SEND)#FenixSim.A320.Radio.FNX320 ACP3 HF 2 Send Button Annunciator Upper
+FNX320 ACP3 INT Send Button Annunciator Lower#(L:I_ASP3_INT_CALL)#FenixSim.A320.Radio.FNX320 ACP3 INT Send Button Annunciator Lower
+FNX320 ACP3 INT Send Button Annunciator Upper#(L:I_ASP3_INT_SEND)#FenixSim.A320.Radio.FNX320 ACP3 INT Send Button Annunciator Upper
+FNX320 ACP3 PA SEND Button Annunciator#(L:I_ASP3_PA_SEND)#FenixSim.A320.Radio.FNX320 ACP3 PA SEND Button Annunciator
+FNX320 ACP3 VHF 1 Send Button Annunciator Lower#(L:I_ASP3_VHF_1_CALL)#FenixSim.A320.Radio.FNX320 ACP3 VHF 1 Send Button Annunciator Lower
+FNX320 ACP3 VHF 1 Send Button Annunciator Upper#(L:I_ASP3_VHF_1_SEND)#FenixSim.A320.Radio.FNX320 ACP3 VHF 1 Send Button Annunciator Upper
+FNX320 ACP3 VHF 2 Send Button Annunciator Lower#(L:I_ASP3_VHF_2_CALL)#FenixSim.A320.Radio.FNX320 ACP3 VHF 2 Send Button Annunciator Lower
+FNX320 ACP3 VHF 2 Send Button Annunciator Upper#(L:I_ASP3_VHF_2_SEND)#FenixSim.A320.Radio.FNX320 ACP3 VHF 2 Send Button Annunciator Upper
+FNX320 ACP3 VHF 3 Send Button Annunciator Lower#(L:I_ASP3_VHF_3_CALL)#FenixSim.A320.Radio.FNX320 ACP3 VHF 3 Send Button Annunciator Lower
+FNX320 ACP3 VHF 3 Send Button Annunciator Upper#(L:I_ASP3_VHF_3_SEND)#FenixSim.A320.Radio.FNX320 ACP3 VHF 3 Send Button Annunciator Upper
+FNX320 ACP3 VOICE Button Annunciator Upper#(L:I_ASP3_VOICE)#FenixSim.A320.Radio.FNX320 ACP3 VOICE Button Annunciator Upper
+FNX320 ADIRS ADR 1 Button Annunciator Lower#(L:I_OH_NAV_ADR1_L)#FenixSim.A320.Radio.FNX320 ADIRS ADR 1 Button Annunciator Lower
+FNX320 ADIRS ADR 1 Button Annunciator Upper#(L:I_OH_NAV_ADR1_U)#FenixSim.A320.Radio.FNX320 ADIRS ADR 1 Button Annunciator Upper
+FNX320 ADIRS ADR 2 Button Annunciator Lower#(L:I_OH_NAV_ADR2_L)#FenixSim.A320.Radio.FNX320 ADIRS ADR 2 Button Annunciator Lower
+FNX320 ADIRS ADR 2 Button Annunciator Upper#(L:I_OH_NAV_ADR2_U)#FenixSim.A320.Radio.FNX320 ADIRS ADR 2 Button Annunciator Upper
+FNX320 ADIRS ADR 3 Button Annunciator Lower#(L:I_OH_NAV_ADR3_L)#FenixSim.A320.Radio.FNX320 ADIRS ADR 3 Button Annunciator Lower
+FNX320 ADIRS ADR 3 Button Annunciator Upper#(L:I_OH_NAV_ADR3_U)#FenixSim.A320.Radio.FNX320 ADIRS ADR 3 Button Annunciator Upper
+FNX320 ADIRS IR 1 Annunciator Lower#(L:I_OH_NAV_IR1_SWITCH_L)#FenixSim.A320.Radio.FNX320 ADIRS IR 1 Annunciator Lower
+FNX320 ADIRS IR 1 Annunciator Upper#(L:I_OH_NAV_IR1_SWITCH_U)#FenixSim.A320.Radio.FNX320 ADIRS IR 1 Annunciator Upper
+FNX320 ADIRS IR 2 Annunciator Lower#(L:I_OH_NAV_IR2_SWITCH_L)#FenixSim.A320.Radio.FNX320 ADIRS IR 2 Annunciator Lower
+FNX320 ADIRS IR 2 Annunciator Upper#(L:I_OH_NAV_IR2_SWITCH_U)#FenixSim.A320.Radio.FNX320 ADIRS IR 2 Annunciator Upper
+FNX320 ADIRS IR 3 Annunciator Lower#(L:I_OH_NAV_IR3_SWITCH_L)#FenixSim.A320.Radio.FNX320 ADIRS IR 3 Annunciator Lower
+FNX320 ADIRS IR 3 Annunciator Upper#(L:I_OH_NAV_IR3_SWITCH_U)#FenixSim.A320.Radio.FNX320 ADIRS IR 3 Annunciator Upper
+FNX320 RMP1 ADF Annunciator#(L:I_PED_RMP1_ADF)#FenixSim.A320.Radio.FNX320 RMP1 ADF Annunciator
+FNX320 RMP1 AM Annunciator#(L:I_PED_RMP1_AM)#FenixSim.A320.Radio.FNX320 RMP1 AM Annunciator
+FNX320 RMP1 BFO Annunciator#(L:I_PED_RMP1_BFO)#FenixSim.A320.Radio.FNX320 RMP1 BFO Annunciator
+FNX320 RMP1 GLS Annunciator#(L:I_PED_RMP1_MLS)#FenixSim.A320.Radio.FNX320 RMP1 GLS Annunciator
+FNX320 RMP1 HF 1 Annunciator#(L:I_PED_RMP1_HF1)#FenixSim.A320.Radio.FNX320 RMP1 HF 1 Annunciator
+FNX320 RMP1 HF 2 Annunciator#(L:I_PED_RMP1_HF2)#FenixSim.A320.Radio.FNX320 RMP1 HF 2 Annunciator
+FNX320 RMP1 LS Annunciator#(L:I_PED_RMP1_ILS)#FenixSim.A320.Radio.FNX320 RMP1 LS Annunciator
+FNX320 RMP1 NAV Annunciator#(L:I_PED_RMP1_NAV)#FenixSim.A320.Radio.FNX320 RMP1 NAV Annunciator
+FNX320 RMP1 SEL Annunciator#(L:I_PED_RMP1_SEL)#FenixSim.A320.Radio.FNX320 RMP1 SEL Annunciator
+FNX320 RMP1 VHF 1 Annunciator#(L:I_PED_RMP1_VHF1)#FenixSim.A320.Radio.FNX320 RMP1 VHF 1 Annunciator
+FNX320 RMP1 VHF 2 Annunciator#(L:I_PED_RMP1_VHF2)#FenixSim.A320.Radio.FNX320 RMP1 VHF 2 Annunciator
+FNX320 RMP1 VHF 3 Annunciator#(L:I_PED_RMP1_VHF3)#FenixSim.A320.Radio.FNX320 RMP1 VHF 3 Annunciator
+FNX320 RMP1 VOR Annunciator#(L:I_PED_RMP1_VOR)#FenixSim.A320.Radio.FNX320 RMP1 VOR Annunciator
+FNX320 RMP2 ADF Annunciator#(L:I_PED_RMP2_ADF)#FenixSim.A320.Radio.FNX320 RMP2 ADF Annunciator
+FNX320 RMP2 AM Annunciator#(L:I_PED_RMP2_AM)#FenixSim.A320.Radio.FNX320 RMP2 AM Annunciator
+FNX320 RMP2 BFO Annunciator#(L:I_PED_RMP2_BFO)#FenixSim.A320.Radio.FNX320 RMP2 BFO Annunciator
+FNX320 RMP2 GLS Annunciator#(L:I_PED_RMP2_MLS)#FenixSim.A320.Radio.FNX320 RMP2 GLS Annunciator
+FNX320 RMP2 HF 1 Annunciator#(L:I_PED_RMP2_HF1)#FenixSim.A320.Radio.FNX320 RMP2 HF 1 Annunciator
+FNX320 RMP2 HF 2 Annunciator#(L:I_PED_RMP2_HF2)#FenixSim.A320.Radio.FNX320 RMP2 HF 2 Annunciator
+FNX320 RMP2 LS Annunciator#(L:I_PED_RMP2_ILS)#FenixSim.A320.Radio.FNX320 RMP2 LS Annunciator
+FNX320 RMP2 NAV Annunciator#(L:I_PED_RMP2_NAV)#FenixSim.A320.Radio.FNX320 RMP2 NAV Annunciator
+FNX320 RMP2 SEL Annunciator#(L:I_PED_RMP2_SEL)#FenixSim.A320.Radio.FNX320 RMP2 SEL Annunciator
+FNX320 RMP2 VHF 1 Annunciator#(L:I_PED_RMP2_VHF1)#FenixSim.A320.Radio.FNX320 RMP2 VHF 1 Annunciator
+FNX320 RMP2 VHF 2 Annunciator#(L:I_PED_RMP2_VHF2)#FenixSim.A320.Radio.FNX320 RMP2 VHF 2 Annunciator
+FNX320 RMP2 VHF 3 Annunciator#(L:I_PED_RMP2_VHF3)#FenixSim.A320.Radio.FNX320 RMP2 VHF 3 Annunciator
+FNX320 RMP2 VOR Annunciator#(L:I_PED_RMP2_VOR)#FenixSim.A320.Radio.FNX320 RMP2 VOR Annunciator
+FNX320 RMP3 ADF Annunciator#(L:I_PED_RMP3_ADF)#FenixSim.A320.Radio.FNX320 RMP3 ADF Annunciator
+FNX320 RMP3 AM Annunciator#(L:I_PED_RMP3_AM)#FenixSim.A320.Radio.FNX320 RMP3 AM Annunciator
+FNX320 RMP3 BFO Annunciator#(L:I_PED_RMP3_BFO)#FenixSim.A320.Radio.FNX320 RMP3 BFO Annunciator
+FNX320 RMP3 GLS Annunciator#(L:I_PED_RMP3_MLS)#FenixSim.A320.Radio.FNX320 RMP3 GLS Annunciator
+FNX320 RMP3 HF 1 Annunciator#(L:I_PED_RMP3_HF1)#FenixSim.A320.Radio.FNX320 RMP3 HF 1 Annunciator
+FNX320 RMP3 HF 2 Annunciator#(L:I_PED_RMP3_HF2)#FenixSim.A320.Radio.FNX320 RMP3 HF 2 Annunciator
+FNX320 RMP3 LS Annunciator#(L:I_PED_RMP3_ILS)#FenixSim.A320.Radio.FNX320 RMP3 LS Annunciator
+FNX320 RMP3 NAV Annunciator#(L:I_PED_RMP3_NAV)#FenixSim.A320.Radio.FNX320 RMP3 NAV Annunciator
+FNX320 RMP3 SEL Annunciator#(L:I_PED_RMP3_SEL)#FenixSim.A320.Radio.FNX320 RMP3 SEL Annunciator
+FNX320 RMP3 VHF 1 Annunciator#(L:I_PED_RMP3_VHF1)#FenixSim.A320.Radio.FNX320 RMP3 VHF 1 Annunciator
+FNX320 RMP3 VHF 2 Annunciator#(L:I_PED_RMP3_VHF2)#FenixSim.A320.Radio.FNX320 RMP3 VHF 2 Annunciator
+FNX320 RMP3 VHF 3 Annunciator#(L:I_PED_RMP3_VHF3)#FenixSim.A320.Radio.FNX320 RMP3 VHF 3 Annunciator
+FNX320 RMP3 VOR Annunciator#(L:I_PED_RMP3_VOR)#FenixSim.A320.Radio.FNX320 RMP3 VOR Annunciator
+FenixSim/A320/Safety#GROUP
+FNX320 CargoSmoke Discharge Agent Annunciator#(L:I_OH_CARGO_SMOKE_DISCHARGE_AGENT_2)#FenixSim.A320.Safety.FNX320 CargoSmoke Discharge Agent Annunciator
+FNX320 CargoSmoke Discharge Annunciator Lower#(L:I_OH_CARGO_SMOKE_DISCHARGE_2)#FenixSim.A320.Safety.FNX320 CargoSmoke Discharge Annunciator Lower
+FNX320 CargoSmoke Discharge Annunciator Upper#(L:I_OH_CARGO_SMOKE_DISCHARGE_1)#FenixSim.A320.Safety.FNX320 CargoSmoke Discharge Annunciator Upper
+FNX320 Fire APU Agent Button Annunciator Lower#(L:I_OH_FIRE_APU_AGENT_L)#FenixSim.A320.Safety.FNX320 Fire APU Agent Button Annunciator Lower
+FNX320 Fire APU Agent Button Annunciator Upper#(L:I_OH_FIRE_APU_AGENT_U)#FenixSim.A320.Safety.FNX320 Fire APU Agent Button Annunciator Upper
+FNX320 Fire Engine 1 Agent 1 Button Annunciator Lower#(L:I_OH_FIRE_ENG1_AGENT1_L)#FenixSim.A320.Safety.FNX320 Fire Engine 1 Agent 1 Button Annunciator Lower
+FNX320 Fire Engine 1 Agent 1 Button Annunciator Upper#(L:I_OH_FIRE_ENG1_AGENT1_U)#FenixSim.A320.Safety.FNX320 Fire Engine 1 Agent 1 Button Annunciator Upper
+FNX320 Fire Engine 1 Agent 2 Button Annunciator Lower#(L:I_OH_FIRE_ENG1_AGENT2_L)#FenixSim.A320.Safety.FNX320 Fire Engine 1 Agent 2 Button Annunciator Lower
+FNX320 Fire Engine 1 Agent 2 Button Annunciator Upper#(L:I_OH_FIRE_ENG1_AGENT2_U)#FenixSim.A320.Safety.FNX320 Fire Engine 1 Agent 2 Button Annunciator Upper
+FNX320 Fire Engine 2 Agent 1 Button Annunciator Lower#(L:I_OH_FIRE_ENG2_AGENT1_L)#FenixSim.A320.Safety.FNX320 Fire Engine 2 Agent 1 Button Annunciator Lower
+FNX320 Fire Engine 2 Agent 1 Button Annunciator Upper#(L:I_OH_FIRE_ENG2_AGENT1_U)#FenixSim.A320.Safety.FNX320 Fire Engine 2 Agent 1 Button Annunciator Upper
+FNX320 Fire Engine 2 Agent 2 Button Annunciator Lower#(L:I_OH_FIRE_ENG2_AGENT2_L)#FenixSim.A320.Safety.FNX320 Fire Engine 2 Agent 2 Button Annunciator Lower
+FNX320 Fire Engine 2 Agent 2 Button Annunciator Upper#(L:I_OH_FIRE_ENG2_AGENT2_U)#FenixSim.A320.Safety.FNX320 Fire Engine 2 Agent 2 Button Annunciator Upper
+FNX320 Oxygen Crew Button Annunciator#(L:I_OH_OXYGEN_CREW_OXYGEN_L)#FenixSim.A320.Safety.FNX320 Oxygen Crew Button Annunciator
+FNX320 Oxygen High Alt Landing Annunciator#(L:I_OH_OXYGEN_HIGH_ALT_L)#FenixSim.A320.Safety.FNX320 Oxygen High Alt Landing Annunciator
+FNX320 Oxygen Passenger Annunciator#(L:I_OH_OXYGEN_PASSENGER_U)#FenixSim.A320.Safety.FNX320 Oxygen Passenger Annunciator
+FenixSim/A320/Warning#GROUP
+FNX320 Call Emergency Button Annunciator Lower#(L:I_OH_CALLS_EMER_L)#FenixSim.A320.Warning.FNX320 Call Emergency Button Annunciator Lower
+FNX320 Call Emergency Button Annunciator Upper#(L:I_OH_CALLS_EMER_U)#FenixSim.A320.Warning.FNX320 Call Emergency Button Annunciator Upper
+FNX320 EmergencyElectrical Generator 1 Line Button Annunciator Lower#(L:I_OH_ELEC_GEN1_LINE_L)#FenixSim.A320.Warning.FNX320 EmergencyElectrical Generator 1 Line Button Annunciator Lower
+FNX320 EmergencyElectrical Generator 1 Line Button Annunciator Upper#(L:I_OH_ELEC_GEN1_LINE_U)#FenixSim.A320.Warning.FNX320 EmergencyElectrical Generator 1 Line Button Annunciator Upper
+FNX320 EmergencyElectrical RAT Emergency Generator Annunciator#(L:I_OH_ELEC_EMERG_GEN_FAULT)#FenixSim.A320.Warning.FNX320 EmergencyElectrical RAT Emergency Generator Annunciator
+FNX320 Evacuation Command Button Annunciator Lower#(L:I_OH_EVAC_COMMAND_L)#FenixSim.A320.Warning.FNX320 Evacuation Command Button Annunciator Lower
+FNX320 Evacuation Command Button Annunciator Upper#(L:I_OH_EVAC_COMMAND_U)#FenixSim.A320.Warning.FNX320 Evacuation Command Button Annunciator Upper
+FNX320 GPWS Flap Mode Button Annunciator#(L:I_OH_GPWS_FLAP_MODE_L)#FenixSim.A320.Warning.FNX320 GPWS Flap Mode Button Annunciator
+FNX320 GPWS GS Mode Button Annunciator#(L:I_OH_GPWS_GS_MODE_L)#FenixSim.A320.Warning.FNX320 GPWS GS Mode Button Annunciator
+FNX320 GPWS Landing Flap 3 Button Annunciator#(L:I_OH_GPWS_LDG_FLAP3_L)#FenixSim.A320.Warning.FNX320 GPWS Landing Flap 3 Button Annunciator
+FNX320 GPWS System Button Annunciator Lower#(L:I_OH_GPWS_SYS_L)#FenixSim.A320.Warning.FNX320 GPWS System Button Annunciator Lower
+FNX320 GPWS System Button Annunciator Upper#(L:I_OH_GPWS_SYS_U)#FenixSim.A320.Warning.FNX320 GPWS System Button Annunciator Upper
+FNX320 GPWS Terrain Button Annunciator Lower#(L:I_OH_GPWS_TERR_L)#FenixSim.A320.Warning.FNX320 GPWS Terrain Button Annunciator Lower
+FNX320 GPWS Terrain Button Annunciator Upper#(L:I_OH_GPWS_TERR_U)#FenixSim.A320.Warning.FNX320 GPWS Terrain Button Annunciator Upper
+FNX320 Glareshield Master Caution Captain Button Annunciator Lower#(L:I_MIP_MASTER_CAUTION_CAPT_L)#FenixSim.A320.Warning.FNX320 Glareshield Master Caution Captain Button Annunciator Lower
+FNX320 Glareshield Master Caution Captain Button Annunciator Upper#(L:I_MIP_MASTER_CAUTION_CAPT)#FenixSim.A320.Warning.FNX320 Glareshield Master Caution Captain Button Annunciator Upper
+FNX320 Glareshield Master Caution FO Button Annunciator Lower#(L:I_MIP_MASTER_CAUTION_FO_L)#FenixSim.A320.Warning.FNX320 Glareshield Master Caution FO Button Annunciator Lower
+FNX320 Glareshield Master Caution FO Button Annunciator Upper#(L:I_MIP_MASTER_CAUTION_FO)#FenixSim.A320.Warning.FNX320 Glareshield Master Caution FO Button Annunciator Upper
+FNX320 Glareshield Master Warning Captain Button Annunciator Lower#(L:I_MIP_MASTER_WARNING_CAPT_L)#FenixSim.A320.Warning.FNX320 Glareshield Master Warning Captain Button Annunciator Lower
+FNX320 Glareshield Master Warning Captain Button Annunciator Upper#(L:I_MIP_MASTER_WARNING_CAPT)#FenixSim.A320.Warning.FNX320 Glareshield Master Warning Captain Button Annunciator Upper
+FNX320 Glareshield Master Warning FO Button Annunciator Lower#(L:I_MIP_MASTER_WARNING_FO_L)#FenixSim.A320.Warning.FNX320 Glareshield Master Warning FO Button Annunciator Lower
+FNX320 Glareshield Master Warning FO Button Annunciator Upper#(L:I_MIP_MASTER_WARNING_FO)#FenixSim.A320.Warning.FNX320 Glareshield Master Warning FO Button Annunciator Upper
+FNX320 MainPanel GPWS GS Captain Button Annunciator Lower#(L:I_MIP_GPWS_VISUAL_ALERT_CAPT_L)#FenixSim.A320.Warning.FNX320 MainPanel GPWS GS Captain Button Annunciator Lower
+FNX320 MainPanel GPWS GS Captain Button Annunciator Upper#(L:I_MIP_GPWS_VISUAL_ALERT_CAPT_U)#FenixSim.A320.Warning.FNX320 MainPanel GPWS GS Captain Button Annunciator Upper
+FNX320 MainPanel GPWS GS FO Button Annunciator Lower#(L:I_MIP_GPWS_VISUAL_ALERT_FO_L)#FenixSim.A320.Warning.FNX320 MainPanel GPWS GS FO Button Annunciator Lower
+FNX320 MainPanel GPWS GS FO Button Annunciator Upper#(L:I_MIP_GPWS_VISUAL_ALERT_FO_u)#FenixSim.A320.Warning.FNX320 MainPanel GPWS GS FO Button Annunciator Upper
+FNX320 Sign Emergency Exit Annunciator#(L:I_OH_INT_LT_EMER_OFF)#FenixSim.A320.Warning.FNX320 Sign Emergency Exit Annunciator
+FNX320 Throttle Engine Fault 1 Annunciator#(L:I_ENG_FAULT_1)#FenixSim.A320.Warning.FNX320 Throttle Engine Fault 1 Annunciator
+FNX320 Throttle Engine Fault 2 Annunciator#(L:I_ENG_FAULT_2)#FenixSim.A320.Warning.FNX320 Throttle Engine Fault 2 Annunciator
+FNX320 Throttle Engine Fire 1 Annunciator#(L:I_ENG_FIRE_1)#FenixSim.A320.Warning.FNX320 Throttle Engine Fire 1 Annunciator
+FNX320 Throttle Engine Fire 2 Annunciator#(L:I_ENG_FIRE_2)#FenixSim.A320.Warning.FNX320 Throttle Engine Fire 2 Annunciator
 Fly By Wire/A320-Dev/Air Condition / Pressurization#GROUP
 APU Bleed Fault#(L:A32NX_OVHD_PNEU_APU_BLEED_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Air Condition / Pressurization.APU Bleed Fault
 APU Bleed On#(L:A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Air Condition / Pressurization.APU Bleed On
 Crew Oxygen Off#(L:PUSH_OVHD_OXYGEN_CREW, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Air Condition / Pressurization.Crew Oxygen Off
+Overhead Cond Pack 1 PB is On#(L:A32NX_OVHD_COND_PACK_1_PB_IS_ON, bool)#Fly By Wire.A320-Dev.Air Condition / Pressurization.Overhead Cond Pack 1 PB is On
+Overhead Cond Pack 2 PB is On#(L:A32NX_OVHD_COND_PACK_2_PB_IS_ON, bool)#Fly By Wire.A320-Dev.Air Condition / Pressurization.Overhead Cond Pack 2 PB is On
 Fly By Wire/A320-Dev/Anti-Ice#GROUP
 Engine 1 Ice Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Engine 1 Ice Fault
 Engine 1 Ice On#(A:ENG ANTI ICE:1, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Engine 1 Ice On
@@ -136,7 +548,7 @@ Wing Ice Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and ((L:A32NX_ELEC_AC_ESS_SHED_BU
 Wing Ice On#(A:STRUCTURAL DEICE SWITCH, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Anti-Ice.Wing Ice On
 Fly By Wire/A320-Dev/Autopilot#GROUP
 A32NX AUTOPILOT AIRSPEED HOLD VAR#(A:AUTOPILOT AIRSPEED HOLD VAR)#Fly By Wire.A320-Dev.Autopilot.A32NX AUTOPILOT AIRSPEED HOLD VAR
-A32NX AUTOPILOT ALTITUDE LOCK VAR:3#(A:AUTOPILOT ALTITUDE LOCK VAR:3)#Fly By Wire.A320-Dev.Autopilot.A32NX AUTOPILOT ALTITUDE LOCK VAR:3
+A32NX AUTOPILOT ALTITUDE LOCK VAR#(A:AUTOPILOT ALTITUDE LOCK VAR:3,feet)#Fly By Wire.A320-Dev.Autopilot.A32NX AUTOPILOT ALTITUDE LOCK VAR
 A32NX_AUTOPILOT_1_ACTIVE#(L:A32NX_AUTOPILOT_1_ACTIVE)#Fly By Wire.A320-Dev.Autopilot.A32NX_AUTOPILOT_1_ACTIVE
 A32NX_AUTOPILOT_2_ACTIVE#(L:A32NX_AUTOPILOT_2_ACTIVE)#Fly By Wire.A320-Dev.Autopilot.A32NX_AUTOPILOT_2_ACTIVE
 A32NX_AUTOPILOT_FPA_SELECTED#(L:A32NX_AUTOPILOT_FPA_SELECTED)#Fly By Wire.A320-Dev.Autopilot.A32NX_AUTOPILOT_FPA_SELECTED
@@ -145,6 +557,7 @@ A32NX_AUTOPILOT_SPEED_SELECTED#(L:A32NX_AUTOPILOT_SPEED_SELECTED)#Fly By Wire.A3
 A32NX_AUTOPILOT_VS_SELECTED#(L:A32NX_AUTOPILOT_VS_SELECTED)#Fly By Wire.A320-Dev.Autopilot.A32NX_AUTOPILOT_VS_SELECTED
 A32NX_AUTOTHRUST_STATUS#(L:A32NX_AUTOTHRUST_STATUS)#Fly By Wire.A320-Dev.Autopilot.A32NX_AUTOTHRUST_STATUS
 A32NX_FCU_ALT_MANAGED#(L:A32NX_FCU_ALT_MANAGED)#Fly By Wire.A320-Dev.Autopilot.A32NX_FCU_ALT_MANAGED
+A32NX_FCU_ALT_SELECTED#(L:A32NX_FCU_ALT_SELECTED)#Fly By Wire.A320-Dev.Autopilot.A32NX_FCU_ALT_SELECTED
 A32NX_FCU_APPR_MODE_ACTIVE#(L:A32NX_FCU_APPR_MODE_ACTIVE)#Fly By Wire.A320-Dev.Autopilot.A32NX_FCU_APPR_MODE_ACTIVE
 A32NX_FCU_HDG_MANAGED_DASHES#(L:A32NX_FCU_HDG_MANAGED_DASHES)#Fly By Wire.A320-Dev.Autopilot.A32NX_FCU_HDG_MANAGED_DASHES
 A32NX_FCU_HDG_MANAGED_DOT#(L:A32NX_FCU_HDG_MANAGED_DOT)#Fly By Wire.A320-Dev.Autopilot.A32NX_FCU_HDG_MANAGED_DOT
@@ -160,13 +573,15 @@ Autopilot 1 Active#(L:A32NX_AUTOPILOT_1_ACTIVE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0
 Autopilot 2 Active#(L:A32NX_AUTOPILOT_2_ACTIVE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Autopilot 2 Active
 Expedite Mode Active#(L:A32NX_FMA_EXPEDITE_MODE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Expedite Mode Active
 Localizer Mode Active#(L:A32NX_FCU_LOC_MODE_ACTIVE, bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Autopilot.Localizer Mode Active
+A32NX_SPD_MACH_MODE_DISPLAY#(>LSPDLEDON)#Fly By Wire.A320-Dev.Autopilot.Output.A32NX_SPD_MACH_MODE_DISPLAY
 Fly By Wire/A320-Dev/EFIS#GROUP
 A32NX_KOHLSMAN_SETTING#(L:XMLVAR_Baro1_Mode) 2 > if{ 99 } els{ (L:XMLVAR_Baro_Selector_HPA_1,bool) ! if{ (A:KOHLSMAN SETTING HG, inHg) 100 * near } els{ (A:KOHLSMAN SETTING HG, mbar) near } }#Fly By Wire.A320-Dev.EFIS.A32NX_KOHLSMAN_SETTING
 ARPT 1 Active#(L:A32NX_EFIS_L_OPTION, enum) 5 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.ARPT 1 Active
 BTN_LS_1#(L:BTN_LS_1_FILTER_ACTIVE) (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.BTN_LS_1
-CSTR 1 Active#(L:A32NX_EFIS_L_OPTION, enum) 1 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.CSTR 1 Active
 Flight Director CPT Active#(A:AUTOPILOT FLIGHT DIRECTOR ACTIVE:1, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == max (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * 0 + (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.Flight Director CPT Active
 NDB 1 Active#(L:A32NX_EFIS_L_OPTION, enum) 4 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.NDB 1 Active
+EFIS L CSTR 1 Active#(L:A32NX_EFIS_L_OPTION, enum) 1 == #Fly By Wire.A320-Dev.EFIS.Output.EFIS L CSTR 1 Active
+EFIS R CSTR 2 Active#(L:A32NX_EFIS_R_OPTION, enum) 1 ==#Fly By Wire.A320-Dev.EFIS.Output.EFIS R CSTR 2 Active
 VOR D 1 Active#(L:A32NX_EFIS_L_OPTION, enum) 2 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.VOR D 1 Active
 WPT 1 Active#(L:A32NX_EFIS_L_OPTION, enum) 3 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 0 ! and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.EFIS.WPT 1 Active
 Fly By Wire/A320-Dev/Electrical#GROUP
@@ -183,6 +598,12 @@ Battery 2 Fault#(L:A32NX_OVHD_ELEC_BAT_2_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT
 Battery 2 Off#(L:A32NX_OVHD_ELEC_BAT_2_PB_IS_AUTO, Bool) ! (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_DC_BAT_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.Battery 2 Off
 External Power Avail#(A:EXTERNAL POWER AVAILABLE:1, Bool) (A:EXTERNAL POWER ON:1, Bool) ! and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.External Power Avail
 External Power On#(A:EXTERNAL POWER AVAILABLE:1, Bool) (A:EXTERNAL POWER ON:1, Bool) and (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_DC_BAT_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Electrical.External Power On
+A32NX ELEC BAT1 VOLTAGE#(L:A32NX_ELEC_BAT_1_POTENTIAL, number)#Fly By Wire.A320-Dev.Electrical.Output.A32NX ELEC BAT1 VOLTAGE
+A32NX ELEC BAT2 VOLTAGE#(L:A32NX_ELEC_BAT_2_POTENTIAL, number)#Fly By Wire.A320-Dev.Electrical.Output.A32NX ELEC BAT2 VOLTAGE
+Fly By Wire/A320-Dev/Fire#GROUP
+Overhead APU Fire Button Annunciator#(L:A32NX_FIRE_TEST_APU, bool) (A:APU ON FIRE DETECTED, bool) or (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, bool) or (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, bool) or and #Fly By Wire.A320-Dev.Fire.Output.Overhead APU Fire Button Annunciator
+Overhead Eng 1 Fire Button Annunciator#(L:A32NX_FIRE_TEST_ENG1,bool) (A:ENG ON FIRE:1, bool) or (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED,bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED,bool) or (L:A32NX_ELEC_AC_2_BUS_IS_POWERED,bool) or and #Fly By Wire.A320-Dev.Fire.Output.Overhead Eng 1 Fire Button Annunciator
+Overhead Eng 2 Fire Button Annunciator#(L:A32NX_FIRE_TEST_ENG2, bool) (A:ENG ON FIRE:2, bool) or (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, bool) or (L:A32NX_ELEC_AC_2_BUS_IS_POWERED, bool) or and #Fly By Wire.A320-Dev.Fire.Output.Overhead Eng 2 Fire Button Annunciator
 Fly By Wire/A320-Dev/Fuel#GROUP
 L TK Pump 1 Fault#(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.L TK Pump 1 Fault
 L TK Pump 1 Off#(A:FUELSYSTEM PUMP SWITCH:2, Enum) 0 == (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *#Fly By Wire.A320-Dev.Fuel.L TK Pump 1 Off
@@ -556,7 +977,6 @@ A32NX_APU_N#(L:A32NX_APU_N)#Fly By Wire.A320-SDK.Unsorted.A32NX_APU_N
 A32NX_APU_N_RAW#(L:A32NX_APU_N_RAW)#Fly By Wire.A320-SDK.Unsorted.A32NX_APU_N_RAW
 A32NX_AUTOBRAKES_ARMED_MODE#(L:A32NX_AUTOBRAKES_ARMED_MODE)#Fly By Wire.A320-SDK.Unsorted.A32NX_AUTOBRAKES_ARMED_MODE
 A32NX_AUTOBRAKES_DECEL_LIGHT#(L:A32NX_AUTOBRAKES_DECEL_LIGHT)#Fly By Wire.A320-SDK.Unsorted.A32NX_AUTOBRAKES_DECEL_LIGHT
-A32NX_AUTOPILOT_FPA_SELECTED#(L:A32NX_AUTOPILOT_FPA_SELECTED)#Fly By Wire.A320-SDK.Unsorted.A32NX_AUTOPILOT_FPA_SELECTED
 A32NX_AUTOPILOT_TRACK_SELECTED#(L:A32NX_AUTOPILOT_TRACK_SELECTED)#Fly By Wire.A320-SDK.Unsorted.A32NX_AUTOPILOT_TRACK_SELECTED
 A32NX_AVIONICS_COMPLT_ON#(L:A32NX_AVIONICS_COMPLT_ON)#Fly By Wire.A320-SDK.Unsorted.A32NX_AVIONICS_COMPLT_ON
 A32NX_BRAKES_HOT#(L:A32NX_BRAKES_HOT)#Fly By Wire.A320-SDK.Unsorted.A32NX_BRAKES_HOT
@@ -849,6 +1269,7 @@ A32NX_VSPEEDS_VAPP#(L:A32NX_VSPEEDS_VAPP)#Fly By Wire.A320-SDK.Unsorted.A32NX_VS
 A32NX_VSPEEDS_VLS#(L:A32NX_VSPEEDS_VLS)#Fly By Wire.A320-SDK.Unsorted.A32NX_VSPEEDS_VLS
 A32NX_VSPEEDS_VLS_APP#(L:A32NX_VSPEEDS_VLS_APP)#Fly By Wire.A320-SDK.Unsorted.A32NX_VSPEEDS_VLS_APP
 A32NX_VSPEEDS_VS#(L:A32NX_VSPEEDS_VS)#Fly By Wire.A320-SDK.Unsorted.A32NX_VSPEEDS_VS
+A32NX_AUTOPILOT_FPA_SELECTED - DUPLICATE (OLD)#(L:A32NX_AUTOPILOT_FPA_SELECTED)#Fly By Wire.A320-SDK.Unsorted.Output.A32NX_AUTOPILOT_FPA_SELECTED - DUPLICATE (OLD)
 PUSH_DOORPANEL_VIDEO#(L:PUSH_DOORPANEL_VIDEO)#Fly By Wire.A320-SDK.Unsorted.PUSH_DOORPANEL_VIDEO
 PUSH_OVHD_EVAC_HORN#(L:PUSH_OVHD_EVAC_HORN)#Fly By Wire.A320-SDK.Unsorted.PUSH_OVHD_EVAC_HORN
 XMLVAR_ALT_MODE_REQUESTED#(L:XMLVAR_ALT_MODE_REQUESTED)#Fly By Wire.A320-SDK.Unsorted.XMLVAR_ALT_MODE_REQUESTED
@@ -1005,9 +1426,9 @@ H145_SDK_OH_FUEL_TRANSFER_FWD#(L:H145_SDK_OH_FUEL_TRANSFER_FWD)#Hype Performance
 Hype Performance Group/H145/Lights#GROUP
 H145_SDK_OH_INT_LIGHT_CARGO_PAX#(L:H145_SDK_OH_INT_LIGHT_CARGO_PAX)#Hype Performance Group.H145.Lights.H145_SDK_OH_INT_LIGHT_CARGO_PAX
 H145_SDK_OH_INT_LIGHT_EMERGENCY_EXITS#(L:H145_SDK_OH_INT_LIGHT_EMERGENCY_EXITS)#Hype Performance Group.H145.Lights.H145_SDK_OH_INT_LIGHT_EMERGENCY_EXITS
-H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANE#(L:H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANE)#Hype Performance Group.H145.Lights.H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANE
 H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANEL_POT#(L:H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANEL_POT)#Hype Performance Group.H145.Lights.H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANEL_POT
 H145_SDK_OH_LAMP_AND_PREFLIGHT_TEST#(L:H145_SDK_OH_LAMP_AND_PREFLIGHT_TEST)#Hype Performance Group.H145.Lights.H145_SDK_OH_LAMP_AND_PREFLIGHT_TEST
+H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANEL#(L:H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANEL)#Hype Performance Group.H145.Lights.Output.H145_SDK_OH_INT_LIGHT_INSTRUMENT_PANEL
 Hype Performance Group/H145/Miscellaneous#GROUP
 H145_SDK_DOOR_CARGO_L#(L:H145_SDK_DOOR_CARGO_L)#Hype Performance Group.H145.Miscellaneous.H145_SDK_DOOR_CARGO_L
 H145_SDK_DOOR_CARGO_R#(L:H145_SDK_DOOR_CARGO_R)#Hype Performance Group.H145.Miscellaneous.H145_SDK_DOOR_CARGO_R
@@ -1036,6 +1457,35 @@ H145_SDK_OH_LAVCS_SYSTEM#(L:H145_SDK_OH_LAVCS_SYSTEM)#Hype Performance Group.H14
 H145_SDK_TEST_POWERUP#(L:H145_SDK_TEST_POWERUP)#Hype Performance Group.H145.Safety.H145_SDK_TEST_POWERUP
 H145_SDK_TEST_PREFLIGHT#(L:H145_SDK_TEST_PREFLIGHT)#Hype Performance Group.H145.Safety.H145_SDK_TEST_PREFLIGHT
 H145_SDK_TEST_STARTUP#(L:H145_SDK_TEST_STARTUP)#Hype Performance Group.H145.Safety.H145_SDK_TEST_STARTUP
+Just Flight/BAE146/Autopilot System#GROUP
+Autopilot ALT ARM Indication#(L:MCP_Alt_arm_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot System.Output.Autopilot ALT ARM Indication
+Autopilot ALT SEL#(L:MCP_Alt_dig1, number) 10000 * (L:MCP_Alt_dig2, number) 1000 * + (L:MCP_Alt_dig3, number) 100 * +#Just Flight.BAE146.Autopilot System.Output.Autopilot ALT SEL
+Pedestal Yaw Damper 1 indication#(L:PED_AFT_AP_YD1_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot System.Output.Pedestal Yaw Damper 1 indication
+Pedestal Yaw Damper 2 indication#(L:PED_AFT_AP_YD2_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot System.Output.Pedestal Yaw Damper 2 indication
+Just Flight/BAE146/Autopilot#GROUP
+Autopilot ALT Indication#(L:MCP_Mode_ALT_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot ALT Indication
+Autopilot BLOC Indication#(L:MCP_Mode_BLOC_il, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot BLOC Indication
+Autopilot GSL Indication#(L:MCP_Mode_GSL_il, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot GSL Indication
+Autopilot HDG Indication#(L:MCP_Mode_HDG_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot HDG Indication
+Autopilot IAS Indication#(L:MCP_Mode_IAS_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot IAS Indication
+Autopilot LNAV Indication#(L:MCP_Mode_LNAV_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot LNAV Indication
+Autopilot MACH Indication#(L:MCP_Mode_MACH_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot MACH Indication
+Autopilot ON Indication#(L:MCP_Mode_AP_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot ON Indication
+Autopilot TURB Indication#(L:MCP_Mode_TURB_il, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot TURB Indication
+Autopilot VL Indication#(L:MCP_Mode_VL_il, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot VL Indication
+Autopilot VNAV Indication#(L:MCP_Mode_VNAV_i, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot VNAV Indication
+Autopilot VS Indication#(L:MCP_Mode_VS_iL, bool) if{ 1 } els{ 0 }#Just Flight.BAE146.Autopilot.Output.Autopilot VS Indication
+Just Flight/BAE146/Autothrust System#GROUP
+TMS Power On Indication#(L:R_TMS_Pwr_on_il, bool) if{ (L:TMS_annun_lts, number) } els{ 0 }#Just Flight.BAE146.Autothrust System.Output.TMS Power On Indication
+Just Flight/BAE146/Flight Instrumentation#GROUP
+Annunciator RNAV Indication#(L:L_ANNUNS_Rnav_green_il, bool) if{ (L:L_MISC_annun_lts, number) } els{ 0 }#Just Flight.BAE146.Flight Instrumentation.Output.Annunciator RNAV Indication
+HSI HDG Bug#(L:L_HSI_Hdg_bug, number)#Just Flight.BAE146.Flight Instrumentation.Output.HSI HDG Bug
+Just Flight/BAE146/Navigation#GROUP
+NAV1 Course#(L:MCP_NAV1_dig1, number) 100 * (L:MCP_NAV1_dig2, number) 10 * + (L:MCP_NAV1_dig3, number) +#Just Flight.BAE146.Navigation.Output.NAV1 Course
+NAV2 Course#(L:MCP_NAV2_dig1, number) 100 * (L:MCP_NAV2_dig2, number) 10 * + (L:MCP_NAV2_dig3, number) +#Just Flight.BAE146.Navigation.Output.NAV2 Course
+Just Flight/BAE146/Warning#GROUP
+Master Warning System - Amber Light#(L:L_COAMING_MWS_Amber_il)#Just Flight.BAE146.Warning.Output.Master Warning System - Amber Light
+Master Warning System - Red Light#(L:L_COAMING_MWS_Red_il)#Just Flight.BAE146.Warning.Output.Master Warning System - Red Light
 Just Flight/Piper Arrow III/Autopilot#GROUP
 AUTOPILOT_ALT_LOCK_LED#(A:AUTOPILOT ALTITUDE LOCK, Bool)#Just Flight.Piper Arrow III.Autopilot.AUTOPILOT_ALT_LOCK_LED
 AUTOPILOT_ENGAGED_LED#(L:AUTOPILOT_onoff)#Just Flight.Piper Arrow III.Autopilot.AUTOPILOT_ENGAGED_LED
@@ -1058,8 +1508,31 @@ LAND_GEAR_NOSE_LED#(L:LDG_GEAR_nose_gear)#Just Flight.Piper Arrow III.Gear.LAND_
 LAND_GEAR_RIGHT_LED#(L:LDG_GEAR_right_gear)#Just Flight.Piper Arrow III.Gear.LAND_GEAR_RIGHT_LED
 LDG_GEAR_AUTO_EXT / AUTO EXT OFF#(L:LDG_GEAR_AUTO_EXT,Bool)#Just Flight.Piper Arrow III.Gear.LDG_GEAR_AUTO_EXT / AUTO EXT OFF
 PARKING_BRAKE_LED#(L:ParkingBrake_Position)#Just Flight.Piper Arrow III.Gear.PARKING_BRAKE_LED
-Microsoft/A320/EFIS#GROUP
-LED QFE ENCENDIDO#(L:XMLVAR_Baro1_Mode) ++ 2 %#Microsoft.A320.EFIS.LED QFE ENCENDIDO
+Leonardo/MadDog MD-82/Autopilot#GROUP
+Autopilot airspeed indication#(L:md_ipc_ap_spd)#Leonardo.MadDog MD-82.Autopilot.Output.Autopilot airspeed indication
+Autopilot altitude indication#(L:md_ipc_ap_alt)#Leonardo.MadDog MD-82.Autopilot.Output.Autopilot altitude indication
+Autopilot heading indication#(L:md_ipc_ap_hdg)#Leonardo.MadDog MD-82.Autopilot.Output.Autopilot heading indication
+Autopilot vertical speed indication#(L:md_ipc_ap_vs)#Leonardo.MadDog MD-82.Autopilot.Output.Autopilot vertical speed indication
+MD82_FMA_AUTOPILOT_LED#(L:CM1_fma_adv11, bool)#Leonardo.MadDog MD-82.Autopilot.Output.MD82_FMA_AUTOPILOT_LED
+MD82_FMA_CM1_FD_LED#(L:CM1_fma_adv10, bool)#Leonardo.MadDog MD-82.Autopilot.Output.MD82_FMA_CM1_FD_LED
+MD82_FMA_CM2_FD_LED#(L:CM2_fma_adv10, bool)#Leonardo.MadDog MD-82.Autopilot.Output.MD82_FMA_CM2_FD_LED
+MD_82_AUTOPILOT_TARGET_AIRSPEED#(L:CM1_asi_needle3)#Leonardo.MadDog MD-82.Autopilot.Output.MD_82_AUTOPILOT_TARGET_AIRSPEED
+Nav 1 course indication#(L:md_ipc_nav1_course)#Leonardo.MadDog MD-82.Autopilot.Output.Nav 1 course indication
+Nav 2 course indication#(L:md_ipc_nav2_course)#Leonardo.MadDog MD-82.Autopilot.Output.Nav 2 course indication
+Leonardo/MadDog MD-82/Electrical#GROUP
+MD_82_OVHD_APU_POWER_AVAILABLE_LED#(L:ovhd_apu_bus_adv1)#Leonardo.MadDog MD-82.Electrical.Output.MD_82_OVHD_APU_POWER_AVAILABLE_LED
+MD_82_OVHD_EXT_POWER_AVAILABLE_LED#(L:ovhd_gnd_ext_avail_adv1)#Leonardo.MadDog MD-82.Electrical.Output.MD_82_OVHD_EXT_POWER_AVAILABLE_LED
+Leonardo/MadDog MD-82/Flight Instrumentation#GROUP
+MD_82_ACTUAL_AIRSPEED_INDICATED#(A:AIRSPEED INDICATED,Knots)#Leonardo.MadDog MD-82.Flight Instrumentation.Output.MD_82_ACTUAL_AIRSPEED_INDICATED
+MD_82_ACTUAL_ALTITUDE#(A:INDICATED ALTITUDE,Feet)#Leonardo.MadDog MD-82.Flight Instrumentation.Output.MD_82_ACTUAL_ALTITUDE
+MD_82_ACTUAL_HEADING#(A:HEADING INDICATOR,Degrees)#Leonardo.MadDog MD-82.Flight Instrumentation.Output.MD_82_ACTUAL_HEADING
+Leonardo/MadDog MD-82/Gear#GROUP
+MD_82_VC_PARKING_BRAKE_STATE_LED# (L:vc_parking_brake_knob)#Leonardo.MadDog MD-82.Gear.Output.MD_82_VC_PARKING_BRAKE_STATE_LED
+M Gharib/HJET HA420/Autopilot#GROUP
+HA420 AP AIRSPEED HOLD VAR#(A:AUTOPILOT AIRSPEED HOLD VAR,Knots)#M Gharib.HJET HA420.Autopilot.Output.HA420 AP AIRSPEED HOLD VAR
+HA420 AP ALT VAR#(L:HJET_AP_ALT_VAR,Number)#M Gharib.HJET HA420.Autopilot.Output.HA420 AP ALT VAR
+HA420 AP HEADING LOCK DIR#(A:AUTOPILOT HEADING LOCK DIR,Degrees)#M Gharib.HJET HA420.Autopilot.Output.HA420 AP HEADING LOCK DIR
+HA420 AP VS HOLD VAR#(A:AUTOPILOT VERTICAL HOLD VAR,Feet/minute)#M Gharib.HJET HA420.Autopilot.Output.HA420 AP VS HOLD VAR
 Microsoft/Generic/Autopilot#GROUP
 AUTOPILOT AIRSPEED HOLD#(A:AUTOPILOT AIRSPEED HOLD,Bool)#Microsoft.Generic.Autopilot.AUTOPILOT AIRSPEED HOLD
 AUTOPILOT AIRSPEED HOLD VAR#(A:AUTOPILOT AIRSPEED HOLD VAR,Knots)#Microsoft.Generic.Autopilot.AUTOPILOT AIRSPEED HOLD VAR
@@ -1082,7 +1555,6 @@ AUTOPILOT GLIDESLOPE ACTIVE#(A:AUTOPILOT GLIDESLOPE ACTIVE,bool)#Microsoft.Gener
 AUTOPILOT GLIDESLOPE ARM#(A:AUTOPILOT GLIDESLOPE ARM,bool)#Microsoft.Generic.Autopilot.AUTOPILOT GLIDESLOPE ARM
 AUTOPILOT GLIDESLOPE HOLD#(A:AUTOPILOT GLIDESLOPE HOLD,Bool)#Microsoft.Generic.Autopilot.AUTOPILOT GLIDESLOPE HOLD
 AUTOPILOT HEADING LOCK#(A:AUTOPILOT HEADING LOCK,Bool)#Microsoft.Generic.Autopilot.AUTOPILOT HEADING LOCK
-AUTOPILOT HEADING LOCK DIR#(A:AUTOPILOT HEADING LOCK DIR,Degrees)#Microsoft.Generic.Autopilot.AUTOPILOT HEADING LOCK DIR
 AUTOPILOT HEADING SLOT INDEX#(A:AUTOPILOT HEADING SLOT INDEX,Number)#Microsoft.Generic.Autopilot.AUTOPILOT HEADING SLOT INDEX
 AUTOPILOT MACH HOLD#(A:AUTOPILOT MACH HOLD,Bool)#Microsoft.Generic.Autopilot.AUTOPILOT MACH HOLD
 AUTOPILOT MACH HOLD VAR#(A:AUTOPILOT MACH HOLD VAR,Number)#Microsoft.Generic.Autopilot.AUTOPILOT MACH HOLD VAR
@@ -1115,6 +1587,7 @@ FLY BY WIRE FAC FAILED#(A:FLY BY WIRE FAC FAILED,Bool)#Microsoft.Generic.Autopil
 FLY BY WIRE FAC SWITCH#(A:FLY BY WIRE FAC SWITCH,Bool)#Microsoft.Generic.Autopilot.FLY BY WIRE FAC SWITCH
 FLY BY WIRE SEC FAILED#(A:FLY BY WIRE SEC FAILED,Bool)#Microsoft.Generic.Autopilot.FLY BY WIRE SEC FAILED
 FLY BY WIRE SEC SWITCH#(A:FLY BY WIRE SEC SWITCH,Bool)#Microsoft.Generic.Autopilot.FLY BY WIRE SEC SWITCH
+AUTOPILOT HEADING LOCK DIR#(A:AUTOPILOT HEADING LOCK DIR,Degrees)#Microsoft.Generic.Autopilot.Output.AUTOPILOT HEADING LOCK DIR
 Microsoft/Generic/Avionics#GROUP
 ADF ACTIVE FREQUENCY:index#(A:ADF ACTIVE FREQUENCY:index,KHz)#Microsoft.Generic.Avionics.ADF ACTIVE FREQUENCY:index
 ADF AVAILABLE#(A:ADF AVAILABLE,Bool)#Microsoft.Generic.Avionics.ADF AVAILABLE
@@ -1255,12 +1728,12 @@ NAV RAW GLIDE SLOPE:index#(A:NAV RAW GLIDE SLOPE:index,Degrees)#Microsoft.Generi
 NAV RELATIVE BEARING TO STATION:index#(A:NAV RELATIVE BEARING TO STATION:index,Degrees)#Microsoft.Generic.Avionics.NAV RELATIVE BEARING TO STATION:index
 NAV SIGNAL:index#(A:NAV SIGNAL:index,Number)#Microsoft.Generic.Avionics.NAV SIGNAL:index
 NAV SOUND:index#(A:NAV SOUND:index,Bool)#Microsoft.Generic.Avionics.NAV SOUND:index
-NAV STANDBY FREQUENCY:index#(A:NAV STANDBY FREQUENCY:index,MHz)#Microsoft.Generic.Avionics.NAV STANDBY FREQUENCY:index
 NAV TOFROM:index#(A:NAV TOFROM:index,Enum)#Microsoft.Generic.Avionics.NAV TOFROM:index
 NAV VOR DISTANCE#(A:NAV VOR DISTANCE,Meters)#Microsoft.Generic.Avionics.NAV VOR DISTANCE
 NAV VOR LATLONALT:index#(A:NAV VOR LATLONALT:index,Number)#Microsoft.Generic.Avionics.NAV VOR LATLONALT:index
 OUTER MARKER#(A:OUTER MARKER,Bool)#Microsoft.Generic.Avionics.OUTER MARKER
 OUTER MARKER LATLONALT#(A:OUTER MARKER LATLONALT,Number)#Microsoft.Generic.Avionics.OUTER MARKER LATLONALT
+NAV STANDBY FREQUENCY:index#(A:NAV STANDBY FREQUENCY:index,MHz)#Microsoft.Generic.Avionics.Output.NAV STANDBY FREQUENCY:index
 PILOT TRANSMITTER TYPE#(A:PILOT TRANSMITTER TYPE,Enum)#Microsoft.Generic.Avionics.PILOT TRANSMITTER TYPE
 PILOT TRANSMITTING#(A:PILOT TRANSMITTING,Bool)#Microsoft.Generic.Avionics.PILOT TRANSMITTING
 SELECTED DME#(A:SELECTED DME,Number)#Microsoft.Generic.Avionics.SELECTED DME
@@ -1335,6 +1808,18 @@ YOKE X POSITION#(A:YOKE X POSITION,Position)#Microsoft.Generic.Controls.YOKE X P
 YOKE X POSITION WITH AP#(A:YOKE X POSITION WITH AP,Position)#Microsoft.Generic.Controls.YOKE X POSITION WITH AP
 YOKE Y POSITION#(A:YOKE Y POSITION,Position)#Microsoft.Generic.Controls.YOKE Y POSITION
 YOKE Y POSITION WITH AP#(A:YOKE Y POSITION WITH AP,Position)#Microsoft.Generic.Controls.YOKE Y POSITION WITH AP
+Microsoft/Generic/Electrical#GROUP
+BATTERY BREAKER PULLED#(A:BATTERY BREAKER PULLED, Bool)#Microsoft.Generic.Electrical.Output.BATTERY BREAKER PULLED
+BATTERY CONNECTION ON#(A:BATTERY CONNECTION ON, Bool)#Microsoft.Generic.Electrical.Output.BATTERY CONNECTION ON
+ELECTRICAL BATTERY BUS AMPS#(A:ELECTRICAL BATTERY BUS AMPS,Amperes)#Microsoft.Generic.Electrical.Output.ELECTRICAL BATTERY BUS AMPS
+ELECTRICAL BATTERY BUS VOLTAGE#(A:ELECTRICAL BATTERY BUS VOLTAGE,Volts)#Microsoft.Generic.Electrical.Output.ELECTRICAL BATTERY BUS VOLTAGE
+ELECTRICAL BATTERY ESTIMATED CAPACITY PCT#(A:ELECTRICAL BATTERY ESTIMATED CAPACITY PCT, Percent)#Microsoft.Generic.Electrical.Output.ELECTRICAL BATTERY ESTIMATED CAPACITY PCT
+ELECTRICAL BATTERY LOAD#(A:ELECTRICAL BATTERY LOAD,Amperes)#Microsoft.Generic.Electrical.Output.ELECTRICAL BATTERY LOAD
+ELECTRICAL BATTERY VOLTAGE#(A:ELECTRICAL BATTERY VOLTAGE,Volts)#Microsoft.Generic.Electrical.Output.ELECTRICAL BATTERY VOLTAGE
+ELECTRICAL HOT BATTERY BUS AMPS#(A:ELECTRICAL HOT BATTERY BUS AMPS,Amperes)#Microsoft.Generic.Electrical.Output.ELECTRICAL HOT BATTERY BUS AMPS
+ELECTRICAL HOT BATTERY BUS VOLTAGE#(A:ELECTRICAL HOT BATTERY BUS VOLTAGE,Volts)#Microsoft.Generic.Electrical.Output.ELECTRICAL HOT BATTERY BUS VOLTAGE
+ELECTRICAL MASTER BATTERY#(A:ELECTRICAL MASTER BATTERY,Bool)#Microsoft.Generic.Electrical.Output.ELECTRICAL MASTER BATTERY
+ELECTRICAL OLD CHARGING AMPS#(A:ELECTRICAL OLD CHARGING AMPS,Amps)#Microsoft.Generic.Electrical.Output.ELECTRICAL OLD CHARGING AMPS
 Microsoft/Generic/Engines#GROUP
 ELEVATOR TRIM NEUTRAL#(A:ELEVATOR TRIM NEUTRAL,Radians)#Microsoft.Generic.Engines.ELEVATOR TRIM NEUTRAL
 ENG ANTI ICE:index#(A:ENG ANTI ICE:index,Bool)#Microsoft.Generic.Engines.ENG ANTI ICE:index
@@ -1476,12 +1961,12 @@ LOCAL DAY OF YEAR#(E:LOCAL DAY OF YEAR,number)#Microsoft.Generic.Environment.LOC
 LOCAL MONTH OF YEAR#(E:LOCAL MONTH OF YEAR,number)#Microsoft.Generic.Environment.LOCAL MONTH OF YEAR
 LOCAL TIME#(E:LOCAL TIME,second)#Microsoft.Generic.Environment.LOCAL TIME
 LOCAL YEAR#(E:LOCAL YEAR,number)#Microsoft.Generic.Environment.LOCAL YEAR
+TIME OF DAY#(E:TIME OF DAY,enum)#Microsoft.Generic.Environment.Output.TIME OF DAY
 SEA LEVEL PRESSURE#(A:SEA LEVEL PRESSURE,Millibars)#Microsoft.Generic.Environment.SEA LEVEL PRESSURE
 SIMULATION TIME#(E:SIMULATION TIME,second)#Microsoft.Generic.Environment.SIMULATION TIME
 SIMULATION_RATE#(E:SIMULATION RATE,number)#Microsoft.Generic.Environment.SIMULATION_RATE
 STANDARD ATM TEMPERATURE#(A:STANDARD ATM TEMPERATURE,Rankine)#Microsoft.Generic.Environment.STANDARD ATM TEMPERATURE
 STRUCT AMBIENT WIND#(A:STRUCT AMBIENT WIND,Feet_per_second)#Microsoft.Generic.Environment.STRUCT AMBIENT WIND
-TIME OF DAY#(E:TIME OF DAY,enum)#Microsoft.Generic.Environment.TIME OF DAY
 TIME ZONE OFFSET#(E:TIME ZONE OFFSET,second)#Microsoft.Generic.Environment.TIME ZONE OFFSET
 TOTAL AIR TEMPERATURE#(A:TOTAL AIR TEMPERATURE,Celsius)#Microsoft.Generic.Environment.TOTAL AIR TEMPERATURE
 WINDSHIELD RAIN EFFECT AVAILABLE#(A:WINDSHIELD RAIN EFFECT AVAILABLE,Bool)#Microsoft.Generic.Environment.WINDSHIELD RAIN EFFECT AVAILABLE
@@ -1759,18 +2244,10 @@ DROPPABLE OBJECTS UI NAME#(A:DROPPABLE OBJECTS UI NAME,String)#Microsoft.Generic
 DYNAMIC PRESSURE#(A:DYNAMIC PRESSURE,Pounds)#Microsoft.Generic.Miscellaneous.DYNAMIC PRESSURE
 ELECTRICAL AVIONICS BUS AMPS#(A:ELECTRICAL AVIONICS BUS AMPS,Amperes)#Microsoft.Generic.Miscellaneous.ELECTRICAL AVIONICS BUS AMPS
 ELECTRICAL AVIONICS BUS VOLTAGE#(A:ELECTRICAL AVIONICS BUS VOLTAGE,Volts)#Microsoft.Generic.Miscellaneous.ELECTRICAL AVIONICS BUS VOLTAGE
-ELECTRICAL BATTERY BUS AMPS#(A:ELECTRICAL BATTERY BUS AMPS,Amperes)#Microsoft.Generic.Miscellaneous.ELECTRICAL BATTERY BUS AMPS
-ELECTRICAL BATTERY BUS VOLTAGE#(A:ELECTRICAL BATTERY BUS VOLTAGE,Volts)#Microsoft.Generic.Miscellaneous.ELECTRICAL BATTERY BUS VOLTAGE
-ELECTRICAL BATTERY LOAD#(A:ELECTRICAL BATTERY LOAD,Amperes)#Microsoft.Generic.Miscellaneous.ELECTRICAL BATTERY LOAD
-ELECTRICAL BATTERY VOLTAGE#(A:ELECTRICAL BATTERY VOLTAGE,Volts)#Microsoft.Generic.Miscellaneous.ELECTRICAL BATTERY VOLTAGE
 ELECTRICAL GENALT BUS AMPS:index#(A:ELECTRICAL GENALT BUS AMPS:index,Amperes)#Microsoft.Generic.Miscellaneous.ELECTRICAL GENALT BUS AMPS:index
 ELECTRICAL GENALT BUS VOLTAGE:index#(A:ELECTRICAL GENALT BUS VOLTAGE:index,Volts)#Microsoft.Generic.Miscellaneous.ELECTRICAL GENALT BUS VOLTAGE:index
-ELECTRICAL HOT BATTERY BUS AMPS#(A:ELECTRICAL HOT BATTERY BUS AMPS,Amperes)#Microsoft.Generic.Miscellaneous.ELECTRICAL HOT BATTERY BUS AMPS
-ELECTRICAL HOT BATTERY BUS VOLTAGE#(A:ELECTRICAL HOT BATTERY BUS VOLTAGE,Volts)#Microsoft.Generic.Miscellaneous.ELECTRICAL HOT BATTERY BUS VOLTAGE
 ELECTRICAL MAIN BUS AMPS#(A:ELECTRICAL MAIN BUS AMPS,Amperes)#Microsoft.Generic.Miscellaneous.ELECTRICAL MAIN BUS AMPS
 ELECTRICAL MAIN BUS VOLTAGE#(A:ELECTRICAL MAIN BUS VOLTAGE,Volts)#Microsoft.Generic.Miscellaneous.ELECTRICAL MAIN BUS VOLTAGE
-ELECTRICAL MASTER BATTERY#(A:ELECTRICAL MASTER BATTERY,Bool)#Microsoft.Generic.Miscellaneous.ELECTRICAL MASTER BATTERY
-ELECTRICAL OLD CHARGING AMPS#(A:ELECTRICAL OLD CHARGING AMPS,Amps)#Microsoft.Generic.Miscellaneous.ELECTRICAL OLD CHARGING AMPS
 ELECTRICAL TOTAL LOAD AMPS#(A:ELECTRICAL TOTAL LOAD AMPS,Amperes)#Microsoft.Generic.Miscellaneous.ELECTRICAL TOTAL LOAD AMPS
 ELEVON DEFLECTION#(A:ELEVON DEFLECTION,Radians)#Microsoft.Generic.Miscellaneous.ELEVON DEFLECTION
 EMPTY WEIGHT#(A:EMPTY WEIGHT,Pounds)#Microsoft.Generic.Miscellaneous.EMPTY WEIGHT
@@ -1817,6 +2294,9 @@ MAX RATED ENGINE RPM#(A:MAX RATED ENGINE RPM,Rpm)#Microsoft.Generic.Miscellaneou
 MIN DRAG VELOCITY#(A:MIN DRAG VELOCITY,Feet per second)#Microsoft.Generic.Miscellaneous.MIN DRAG VELOCITY
 NAV GS LLAF64#(A:NAV GS LLAF64,Number)#Microsoft.Generic.Miscellaneous.NAV GS LLAF64
 NAV VOR LLAF64#(A:NAV VOR LLAF64,Number)#Microsoft.Generic.Miscellaneous.NAV VOR LLAF64
+Blinking LED Fast#(E:SIMULATION TIME, second) 3 * near 2 %#Microsoft.Generic.Miscellaneous.Output.Blinking LED Fast
+Blinking LED Medium#(E:SIMULATION TIME, second) 2 * near 2 %#Microsoft.Generic.Miscellaneous.Output.Blinking LED Medium
+Blinking LED Slow#(E:SIMULATION TIME, second) near 2 % #Microsoft.Generic.Miscellaneous.Output.Blinking LED Slow
 PANEL ANTI ICE SWITCH#(A:PANEL ANTI ICE SWITCH,Bool)#Microsoft.Generic.Miscellaneous.PANEL ANTI ICE SWITCH
 PAYLOAD STATION COUNT#(A:PAYLOAD STATION COUNT,Number)#Microsoft.Generic.Miscellaneous.PAYLOAD STATION COUNT
 PAYLOAD STATION NAME#(A:PAYLOAD STATION NAME,String)#Microsoft.Generic.Miscellaneous.PAYLOAD STATION NAME
@@ -1978,7 +2458,507 @@ COM RECEIVE EX1:index#(A:COM RECEIVE EX1:index,bool)#Microsoft.Generic.Radio.COM
 COM RECEIVE:index#(A:COM RECEIVE:index,bool)#Microsoft.Generic.Radio.COM RECEIVE:index
 Microsoft/Generic/Warning System#GROUP
 CABIN_SEATBELTS_ALERT_SWITCH#(A:CABIN SEATBELTS ALERT SWITCH, bool)#Microsoft.Generic.Warning System.CABIN_SEATBELTS_ALERT_SWITCH
+PMDG/B737-700/Air Condition / Pressurization#GROUP
+ Outflow valve position indicator needle#(L:switch_221_73X, number)#PMDG.B737-700.Air Condition / Pressurization.Output. Outflow valve position indicator needle
+Air mix valve: Control cabin indicator#(L:switch_185_73X, number) #PMDG.B737-700.Air Condition / Pressurization.Output.Air mix valve: Control cabin indicator
+Air mix valve: Passenger cabin indicator#(L:switch_186_73X, number) #PMDG.B737-700.Air Condition / Pressurization.Output.Air mix valve: Passenger cabin indicator
+Air temp Indicator Needle#(L:switch_190_73X, number) #PMDG.B737-700.Air Condition / Pressurization.Output.Air temp Indicator Needle
+Bleed air duct pressure LEFT needle#(L:switch_197_73X, number)#PMDG.B737-700.Air Condition / Pressurization.Output.Bleed air duct pressure LEFT needle
+Bleed air duct pressure RIGHT needle#(L:switch_198_73X, number)#PMDG.B737-700.Air Condition / Pressurization.Output.Bleed air duct pressure RIGHT needle
+Cabin altimeter long needle (pressure difference)#(L:switch_182_73X, number) #PMDG.B737-700.Air Condition / Pressurization.Output.Cabin altimeter long needle (pressure difference)
+Cabin altimeter short needle (cabin altitude)#(L:switch_181_73X, number) #PMDG.B737-700.Air Condition / Pressurization.Output.Cabin altimeter short needle (cabin altitude)
+Cabin rate of climb indicator#(L:switch_184_73X, number) #PMDG.B737-700.Air Condition / Pressurization.Output.Cabin rate of climb indicator
+Flight crew oxygen pressure indicator needle#(L:switch_262_73X, number) #PMDG.B737-700.Air Condition / Pressurization.Output.Flight crew oxygen pressure indicator needle
+PMDG B737 EGT Fault#(L:switch_33_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.Output.PMDG B737 EGT Fault
+PMDG B737 EGT Low Oil Pressure#(L:switch_32_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.Output.PMDG B737 EGT Low Oil Pressure
+PMDG B737 Aft Cab Zone Temp#(L:switch_310_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Aft Cab Zone Temp
+PMDG B737 Cont Cab Zone Temp#(L:switch_308_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Cont Cab Zone Temp
+PMDG B737 Dual Bleed#(L:switch_193_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Dual Bleed
+PMDG B737 Duct Overheat#(L:switch_188_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Duct Overheat
+PMDG B737 Duct Overheat 1#(L:switch_189_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Duct Overheat 1
+PMDG B737 Feel Diff Press#(L:switch_72_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Feel Diff Press
+PMDG B737 Fwd Cab Zone Temp#(L:switch_309_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Fwd Cab Zone Temp
+PMDG B737 L Pack - Bleed Trip Off#(L:switch_205_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 L Pack - Bleed Trip Off
+PMDG B737 L Pack - Pack Trip Off#(L:switch_203_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 L Pack - Pack Trip Off
+PMDG B737 L Pack - Wing-Body Overheat#(L:switch_204_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 L Pack - Wing-Body Overheat
+PMDG B737 Left Source Off#(L:switch_22_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Left Source Off
+PMDG B737 Left Transfer Bus Off#(L:switch_20_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Left Transfer Bus Off
+PMDG B737 Main#(L:switch_31_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Main
+PMDG B737 Press Altn#(L:switch_215_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Press Altn
+PMDG B737 Press Auto Fail#(L:switch_213_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Press Auto Fail
+PMDG B737 Press Manual#(L:switch_216_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Press Manual
+PMDG B737 Press Off Sched Descent#(L:switch_214_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Press Off Sched Descent
+PMDG B737 Pseu#(L:switch_225_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Pseu
+PMDG B737 R Pack - Bleed Trip Off#(L:switch_208_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 R Pack - Bleed Trip Off
+PMDG B737 R Pack - Pack Trip Off#(L:switch_206_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 R Pack - Pack Trip Off
+PMDG B737 R Pack - Wing-Body Overheat#(L:switch_207_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 R Pack - Wing-Body Overheat
+PMDG B737 Ram Door1 Full Open#(L:switch_194_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Ram Door1 Full Open
+PMDG B737 Ram Door2 Full Open#(L:switch_195_73X, number) 0 >#PMDG.B737-700.Air Condition / Pressurization.PMDG B737 Ram Door2 Full Open
+PMDG/B737-700/Annunciator Panel#GROUP
+PMDG B737 6 Pack APU#(L:switch_353_73X, number) 0 >#PMDG.B737-700.Annunciator Panel.Output.PMDG B737 6 Pack APU
+PMDG/B737-700/Anti-Ice#GROUP
+PMDG_B737-7_ANTI_ICE_ENG_LEFT _VALVE_ANNUNC#(L:switch_157_73X, number)#PMDG.B737-700.Anti-Ice.Output.PMDG_B737-7_ANTI_ICE_ENG_LEFT _VALVE_ANNUNC
+PMDG_B737-7_ANTI_ICE_ENG_RIGHT _VALVE_ANNUNC#(L:switch_158_73X, number)#PMDG.B737-700.Anti-Ice.Output.PMDG_B737-7_ANTI_ICE_ENG_RIGHT _VALVE_ANNUNC
+PMDG_B737-7_ANTI_ICE_WING_LEFT _VALVE_ANNUNC#(L:switch_152_73X, number) 10 *#PMDG.B737-700.Anti-Ice.Output.PMDG_B737-7_ANTI_ICE_WING_LEFT _VALVE_ANNUNC
+PMDG_B737-7_ANTI_ICE_WING_RIGHT _VALVE_ANNUNC#(L:switch_153_73X, number) 10 *#PMDG.B737-700.Anti-Ice.Output.PMDG_B737-7_ANTI_ICE_WING_RIGHT _VALVE_ANNUNC
+PMDG B737 Aux Pitot#(L:switch_149_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Aux Pitot
+PMDG B737 Capt Pitot#(L:switch_142_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Capt Pitot
+PMDG B737 Eng Anti-Ice L Cowl Anti-Ice#(L:switch_150_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Eng Anti-Ice L Cowl Anti-Ice
+PMDG B737 Eng Anti-Ice L Cowl Valve Open#(L:switch_154_73X, number) 10 *#PMDG.B737-700.Anti-Ice.PMDG B737 Eng Anti-Ice L Cowl Valve Open
+PMDG B737 Eng Anti-Ice R Cowl Anti-Ice#(L:switch_151_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Eng Anti-Ice R Cowl Anti-Ice
+PMDG B737 Eng Anti-Ice R Cowl Valve Open#(L:switch_155_73X, number) 10 *#PMDG.B737-700.Anti-Ice.PMDG B737 Eng Anti-Ice R Cowl Valve Open
+PMDG B737 Fo Pitot#(L:switch_146_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Fo Pitot
+PMDG B737 L Alpha Vane#(L:switch_144_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 L Alpha Vane
+PMDG B737 L Elev Pitot#(L:switch_143_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 L Elev Pitot
+PMDG B737 R Alpha Vane#(L:switch_148_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 R Alpha Vane
+PMDG B737 R Elev Pitot#(L:switch_147_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 R Elev Pitot
+PMDG B737 Temp Probe#(L:switch_145_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Temp Probe
+PMDG B737 Window Heat Left Fwd On#(L:switch_132_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Window Heat Left Fwd On
+PMDG B737 Window Heat Left Fwd Overheat#(L:switch_128_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Window Heat Left Fwd Overheat
+PMDG B737 Window Heat Left Side On#(L:switch_131_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Window Heat Left Side On
+PMDG B737 Window Heat Left Side Overheat#(L:switch_127_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Window Heat Left Side Overheat
+PMDG B737 Window Heat Right Fwd On#(L:switch_133_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Window Heat Right Fwd On
+PMDG B737 Window Heat Right Fwd Overheat#(L:switch_129_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Window Heat Right Fwd Overheat
+PMDG B737 Window Heat Right Side On#(L:switch_134_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Window Heat Right Side On
+PMDG B737 Window Heat Right Side Overheat#(L:switch_130_73X, number) 0 >#PMDG.B737-700.Anti-Ice.PMDG B737 Window Heat Right Side Overheat
+PMDG/B737-700/Autopilot#GROUP
+PMDG B737 Approach (App) #(L:switch_3931_73X, number) 0 >#PMDG.B737-700.Autopilot.Output.PMDG B737 Approach (App) 
+PMDG B737 Autopilot A/T Arm Light#(L:switch_3801_73X, number) 0 >#PMDG.B737-700.Autopilot.Output.PMDG B737 Autopilot A/T Arm Light
+PMDG B737 Lnav Led#(L:switch_3971_73X, number) 0 >#PMDG.B737-700.Autopilot.Output.PMDG B737 Lnav Led
+PMDG B737 Vertical Speed (V/S)#(L:switch_3951_73X, number) 0 >#PMDG.B737-700.Autopilot.Output.PMDG B737 Vertical Speed (V/S)
+PMDG B737 Vnav Led#(L:switch_3861_73X, number) 0 >#PMDG.B737-700.Autopilot.Output.PMDG B737 Vnav Led
+PMDG_B737-7_ALT#(L:ngx_ALTwindow, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_ALT
+PMDG_B737-7_CPT_CRS#(L:ngx_CRSwindowL, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_CPT_CRS
+PMDG_B737-7_FO_CRS#(L:ngx_CRSwindowR, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_FO_CRS
+PMDG_B737-7_HDG#(L:ngx_HDGwindow, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_HDG
+PMDG_B737-7_IAS_MACH_IND#(L:ngx_SPDwindow, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_IAS_MACH_IND
+PMDG_B737-7_MCP_ALT_HOLD_IND#(L:ngx_MCP_AltHold, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_ALT_HOLD_IND
+PMDG_B737-7_MCP_APP_IND#(L:ngx_MCP_App, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_APP_IND
+PMDG_B737-7_MCP_AT_ARM_IND#(L:ngx_MCP_ATArm, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_AT_ARM_IND
+PMDG_B737-7_MCP_BANK_ANGLE#(L:switch_389_73X, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_BANK_ANGLE
+PMDG_B737-7_MCP_CMD_A_IND#(L:ngx_MCP_CMDA, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_CMD_A_IND
+PMDG_B737-7_MCP_CMD_B_IND#(L:ngx_MCP_CMDB, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_CMD_B_IND
+PMDG_B737-7_MCP_CWS_A_IND#(L:ngx_MCP_CWSA, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_CWS_A_IND
+PMDG_B737-7_MCP_CWS_B_IND#(L:ngx_MCP_CWSB, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_CWS_B_IND
+PMDG_B737-7_MCP_HDG_SEL_IND#(L:ngx_MCP_HdgSel, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_HDG_SEL_IND
+PMDG_B737-7_MCP_LNAV_IND#(L:ngx_MCP_LNav, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_LNAV_IND
+PMDG_B737-7_MCP_LVL_CHANGE_IND#(L:ngx_MCP_LvlChg, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_LVL_CHANGE_IND
+PMDG_B737-7_MCP_N1_IND#(L:ngx_MCP_N1, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_N1_IND
+PMDG_B737-7_MCP_SPEED_IND#(L:ngx_MCP_Speed, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_SPEED_IND
+PMDG_B737-7_MCP_VNAV_IND#(L:ngx_MCP_VNav, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_VNAV_IND
+PMDG_B737-7_MCP_VOR_LOC_IND#(L:ngx_MCP_VORLock, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_VOR_LOC_IND
+PMDG_B737-7_MCP_VS_IND#(L:ngx_MCP_VS, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_MCP_VS_IND
+PMDG_B737-7_V_SPEED#(L:ngx_VSwindow, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737-7_V_SPEED
+PMDG_B737_A/T_ARM_SWITCH#(L:switch_380_73X, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737_A/T_ARM_SWITCH
+PMDG_B737_FLIGHT_DIRECTOR_LEFT_SWITCH#(L:switch_378_73X, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737_FLIGHT_DIRECTOR_LEFT_SWITCH
+PMDG_B737_FLIGHT_DIRECTOR_RIGHT_SWITCH#(L:switch_407_73X, number)#PMDG.B737-700.Autopilot.Output.PMDG_B737_FLIGHT_DIRECTOR_RIGHT_SWITCH
+PMDG_B737_MCP_CPT_FD_IND#(L:ngx_MCP_FDLeft,Number)#PMDG.B737-700.Autopilot.Output.PMDG_B737_MCP_CPT_FD_IND
+PMDG_B737_MCP_FO_FD_IND#(L:ngx_MCP_FDRight,Number)#PMDG.B737-700.Autopilot.Output.PMDG_B737_MCP_FO_FD_IND
+PMDG B737 Altitude Hold (Alt Hld)#(L:switch_3941_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Altitude Hold (Alt Hld)
+PMDG B737 Command Engage (Cmd A)#(L:switch_4021_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Command Engage (Cmd A)
+PMDG B737 Command Engage (Cmd B)#(L:switch_4031_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Command Engage (Cmd B)
+PMDG B737 Control Wheel Steering Engage (Cws A)#(L:switch_4041_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Control Wheel Steering Engage (Cws A)
+PMDG B737 Control Wheel Steering Engage (Cws B)#(L:switch_4051_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Control Wheel Steering Engage (Cws B)
+PMDG B737 Heading Select (Hdg Sel)#(L:switch_3921_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Heading Select (Hdg Sel)
+PMDG B737 Level Change (Lvl Chg)#(L:switch_3911_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Level Change (Lvl Chg)
+PMDG B737 N1 Switch#(L:switch_3811_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 N1 Switch
+PMDG B737 Speed Switch#(L:switch_3821_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Speed Switch
+PMDG B737 Vor Localizer (Vor Loc)#(L:switch_3961_73X, number) 0 >#PMDG.B737-700.Autopilot.PMDG B737 Vor Localizer (Vor Loc)
+PMDG/B737-700/Avionics#GROUP
+PMDG B737 6 Pack Elec#(L:switch_352_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 6 Pack Elec
+PMDG B737 6 Pack Flt Cont#(L:switch_3491_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 6 Pack Flt Cont
+PMDG B737 6 Pack Fuel#(L:switch_351_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 6 Pack Fuel
+PMDG B737 6 Pack Irs#(L:switch_350_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 6 Pack Irs
+PMDG B737 6 Pack Ovht/Det#(L:switch_354_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 6 Pack Ovht/Det
+PMDG B737 A/P P/Rst#(L:switch_4451_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 A/P P/Rst
+PMDG B737 A/P P/Rst 1#(L:switch_3391_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 A/P P/Rst 1
+PMDG B737 A/T P/Rst#(L:switch_4441_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 A/T P/Rst
+PMDG B737 EGT Overspeed#(L:switch_34_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 EGT Overspeed
+PMDG B737 Fmc P/Rst 1#(L:switch_3411_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 Fmc P/Rst 1
+PMDG B737 MA Annunciator L#(L:switch_379_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 MA Annunciator L
+PMDG B737 MA Annunciator R#(L:switch_408_73X, number) 0 >#PMDG.B737-700.Avionics.Output.PMDG B737 MA Annunciator R
+PMDG B737 Below G/S P-Inhibit LED#(L:switch_4461_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Below G/S P-Inhibit LED
+PMDG B737 Cabin Altitude#(L:switch_4472_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Cabin Altitude
+PMDG B737 Dsp Ap L Red#(L:switch_3392_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Dsp Ap L Red
+PMDG B737 Dsp Ap R Red#(L:switch_4452_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Dsp Ap R Red
+PMDG B737 Dsp At L Amber#(L:switch_3401_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Dsp At L Amber
+PMDG B737 Dsp At L Red#(L:switch_3402_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Dsp At L Red
+PMDG B737 Dsp At R Red#(L:switch_4442_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Dsp At R Red
+PMDG B737 Fmc P/Rst#(L:switch_4431_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Fmc P/Rst
+PMDG B737 Hgs Fail Switch#(L:switch_5221_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Hgs Fail Switch
+PMDG B737 Takeoff Config#(L:switch_4471_73X, number) 0 >#PMDG.B737-700.Avionics.PMDG B737 Takeoff Config
+PMDG/B737-700/Controls#GROUP
+PMDG B737 Flap Position Indicator Left Needle#(L:switch_458_73X, number)#PMDG.B737-700.Controls.Output.PMDG B737 Flap Position Indicator Left Needle
+PMDG B737 Flap Position Indicator Right Needle#(L:switch_4581_73X, number)#PMDG.B737-700.Controls.Output.PMDG B737 Flap Position Indicator Right Needle
+PMDG B737 LE Flaps Extended Indicator#(L:switch_456_73X, number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 LE Flaps Extended Indicator
+PMDG B737 LE Flaps Transit Indicator#(L:switch_457_73X, number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 LE Flaps Transit Indicator
+PMDG B737 Ovhd LE Dev Flaps 1 Extended#(L:switch_2242_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Flaps 1 Extended
+PMDG B737 Ovhd LE Dev Flaps 1 Transit#(L:switch_2251_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Flaps 1 Transit
+PMDG B737 Ovhd LE Dev Flaps 2 Extended#(L:switch_2241_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Flaps 2 Extended
+PMDG B737 Ovhd LE Dev Flaps 2 Transit#(L:switch_2252_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Flaps 2 Transit
+PMDG B737 Ovhd LE Dev Flaps 3 Extended#(L:switch_2257_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Flaps 3 Extended
+PMDG B737 Ovhd LE Dev Flaps 3 Transit#(L:switch_2267_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Flaps 3 Transit
+PMDG B737 Ovhd LE Dev Flaps 4 Extended#(L:switch_2258_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Flaps 4 Extended
+PMDG B737 Ovhd LE Dev Flaps 4 Transit#(L:switch_2268_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Flaps 4 Transit
+PMDG B737 Ovhd LE Dev Slats 1 Extended#(L:switch_2246_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 1 Extended
+PMDG B737 Ovhd LE Dev Slats 1 Mid#(L:switch_2247_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 1 Mid
+PMDG B737 Ovhd LE Dev Slats 1 Transit#(L:switch_2256_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 1 Transit
+PMDG B737 Ovhd LE Dev Slats 2 Extended#(L:switch_2245_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 2 Extended
+PMDG B737 Ovhd LE Dev Slats 2 Mid#(L:switch_2248_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 2 Mid
+PMDG B737 Ovhd LE Dev Slats 2 Transit#(L:switch_2255_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 2 Transit
+PMDG B737 Ovhd LE Dev Slats 3 Extended#(L:switch_2244_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 3 Extended
+PMDG B737 Ovhd LE Dev Slats 3 Mid#(L:switch_2249_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 3 Mid
+PMDG B737 Ovhd LE Dev Slats 3 Transit#(L:switch_2254_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 3 Transit
+PMDG B737 Ovhd LE Dev Slats 4 Extended#(L:switch_2243_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 4 Extended
+PMDG B737 Ovhd LE Dev Slats 4 Mid#(L:switch_2250_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 4 Mid
+PMDG B737 Ovhd LE Dev Slats 4 Transit#(L:switch_2253_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 4 Transit
+PMDG B737 Ovhd LE Dev Slats 5 Extended#(L:switch_2259_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 5 Extended
+PMDG B737 Ovhd LE Dev Slats 5 Mid#(L:switch_2266_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 5 Mid
+PMDG B737 Ovhd LE Dev Slats 5 Transit#(L:switch_2269_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 5 Transit
+PMDG B737 Ovhd LE Dev Slats 6 Extended#(L:switch_2260_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 6 Extended
+PMDG B737 Ovhd LE Dev Slats 6 Mid#(L:switch_2265_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 6 Mid
+PMDG B737 Ovhd LE Dev Slats 6 Transit#(L:switch_2270_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 6 Transit
+PMDG B737 Ovhd LE Dev Slats 7 Extended#(L:switch_2261_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 7 Extended
+PMDG B737 Ovhd LE Dev Slats 7 Mid#(L:switch_2264_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 7 Mid
+PMDG B737 Ovhd LE Dev Slats 7 Transit#(L:switch_2271_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 7 Transit
+PMDG B737 Ovhd LE Dev Slats 8 Extended#(L:switch_2262_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 8 Extended
+PMDG B737 Ovhd LE Dev Slats 8 Mid#(L:switch_2263_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 8 Mid
+PMDG B737 Ovhd LE Dev Slats 8 Transit#(L:switch_2272_73X,number) 0 >#PMDG.B737-700.Controls.Output.PMDG B737 Ovhd LE Dev Slats 8 Transit
+PMDG B737 Auto Slat Fail#(L:switch_69_73X, number) 0 >#PMDG.B737-700.Controls.PMDG B737 Auto Slat Fail
+PMDG B737 Speedbrake Armed#(L:switch_343_73X, number) 0 >#PMDG.B737-700.Controls.PMDG B737 Speedbrake Armed
+PMDG B737 Speedbrake Do Not Arm#(L:switch_345_73X, number) 0 >#PMDG.B737-700.Controls.PMDG B737 Speedbrake Do Not Arm
+PMDG B737 Speedbrakes Extended#(L:switch_447_73X, number) 0 >#PMDG.B737-700.Controls.PMDG B737 Speedbrakes Extended
+PMDG B737 Stab Out Of Trim#(L:switch_344_73X, number) 0 >#PMDG.B737-700.Controls.PMDG B737 Stab Out Of Trim
+PMDG B737 Stabtrim Main Elec Cutout#(L:switch_71_73X, number) 0 >#PMDG.B737-700.Controls.PMDG B737 Stabtrim Main Elec Cutout
+PMDG B737 Yaw Damper#(L:switch_64_73X, number) 0 >#PMDG.B737-700.Controls.PMDG B737 Yaw Damper
+PMDG/B737-700/EFIS#GROUP
+PMDG B737 EFIS L Baro STD On#(L:mf_STD_Push,number)#PMDG.B737-700.EFIS.Output.PMDG B737 EFIS L Baro STD On
+PMDG B737 EFIS L Baro Select Knob#(L:switch_366_73X, number)#PMDG.B737-700.EFIS.Output.PMDG B737 EFIS L Baro Select Knob
+PMDG/B737-700/Electrical#GROUP
+PMDG B737 APU EGT Gauge#(L:switch_35_73X, number)#PMDG.B737-700.Electrical.Output.PMDG B737 APU EGT Gauge
+PMDG B737 Ovhd Master Battery Switch#(L:switch_01_73X) 0 >#PMDG.B737-700.Electrical.Output.PMDG B737 Ovhd Master Battery Switch
+PMDG_B737_BATTERY_GUARD_POSITION#(L:switch_02_73X, number)#PMDG.B737-700.Electrical.Output.PMDG_B737_BATTERY_GUARD_POSITION
+PMDG B737 Apu Gen Off Bus#(L:switch_25_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Apu Gen Off Bus
+PMDG B737 Bat Discharge#(L:switch_90_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Bat Discharge
+PMDG B737 Elec#(L:switch_92_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Elec
+PMDG B737 Ground Power Available#(L:switch_16_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Ground Power Available
+PMDG B737 Irs Align#(L:switch_251_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Align
+PMDG B737 Irs Align 1#(L:switch_247_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Align 1
+PMDG B737 Irs Clr Lights#(L:switch_245_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Clr Lights
+PMDG B737 Irs Dc Fail#(L:switch_254_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Dc Fail
+PMDG B737 Irs Dc Fail 1#(L:switch_250_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Dc Fail 1
+PMDG B737 Irs Ent Lights#(L:switch_242_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Ent Lights
+PMDG B737 Irs Fault#(L:switch_253_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Fault
+PMDG B737 Irs Fault 1#(L:switch_249_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Fault 1
+PMDG B737 Irs Gps#(L:switch_246_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs Gps
+PMDG B737 Irs On Dc#(L:switch_252_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs On Dc
+PMDG B737 Irs On Dc 1#(L:switch_248_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Irs On Dc 1
+PMDG B737 Left Gen Off Bus#(L:switch_24_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Left Gen Off Bus
+PMDG B737 Right Gen Off Bus#(L:switch_26_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Right Gen Off Bus
+PMDG B737 Right Source Off#(L:switch_23_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Right Source Off
+PMDG B737 Right Transfer Bus Off#(L:switch_21_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Right Transfer Bus Off
+PMDG B737 Standby Power Off LED#(L:switch_08_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Standby Power Off LED
+PMDG B737 Tr Unit#(L:switch_91_73X, number) 0 >#PMDG.B737-700.Electrical.PMDG B737 Tr Unit
+PMDG/B737-700/Engines#GROUP
+PMDG B737 Eng 1 Start#(L:switch_688_73X, number)#PMDG.B737-700.Engines.Output.PMDG B737 Eng 1 Start
+PMDG B737 Eng 2 Start#(L:switch_689_73X, number)#PMDG.B737-700.Engines.Output.PMDG B737 Eng 2 Start
+PMDG B737 Eng1 Eec1 ON#(L:switch_268_73X, number) 0 >#PMDG.B737-700.Engines.Output.PMDG B737 Eng1 Eec1 ON
+PMDG B737 Eng2 Eec1 ON#(L:switch_271_73X, number) 0 >#PMDG.B737-700.Engines.Output.PMDG B737 Eng2 Eec1 ON
+PMDG_B737_ENGINE_START_LEFT_KNOB#(L:switch_119_73X, number)#PMDG.B737-700.Engines.Output.PMDG_B737_ENGINE_START_LEFT_KNOB
+PMDG_B737_ENGINE_START_RIGHT_KNOB#(L:switch_121_73X, number)#PMDG.B737-700.Engines.Output.PMDG_B737_ENGINE_START_RIGHT_KNOB
+PMDG_B737_ENGINE_START_RIGHT_KNOB#(L:switch_121_73X, number)#PMDG.B737-700.Engines.Output.PMDG_B737_ENGINE_START_RIGHT_KNOB
+PMDG_B737_IGNITION SELECT Switch#(L:switch_120_73X, number)#PMDG.B737-700.Engines.Output.PMDG_B737_IGNITION SELECT Switch
+PMDG B737 Apu Test Light#(L:switch_718_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 Apu Test Light
+PMDG B737 Eng1 Eec1 Altn#(L:switch_2691_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 Eng1 Eec1 Altn
+PMDG B737 Eng1 Engine Control#(L:switch_266_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 Eng1 Engine Control
+PMDG B737 Eng1 Reverser#(L:switch_274_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 Eng1 Reverser
+PMDG B737 Eng2 Eec2 Altn#(L:switch_2721_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 Eng2 Eec2 Altn
+PMDG B737 Eng2 Engine Control#(L:switch_273_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 Eng2 Engine Control
+PMDG B737 Eng2 Reverser#(L:switch_275_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 Eng2 Reverser
+PMDG B737 L Eng Test Light#(L:switch_716_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 L Eng Test Light
+PMDG B737 R Eng Test Light#(L:switch_717_73X, number) 0 >#PMDG.B737-700.Engines.PMDG B737 R Eng Test Light
+PMDG/B737-700/FMS#GROUP
+PMDG B737 Fms Call Light 2#(L:switch_6750_73X, number) 0 >#PMDG.B737-700.FMS.Output.PMDG B737 Fms Call Light 2
+PMDG B737 Fms Exec Light 2#(L:switch_6762_73X, number) 0 >#PMDG.B737-700.FMS.Output.PMDG B737 Fms Exec Light 2
+PMDG B737 Fms Fail Light 2#(L:switch_6751_73X, number) 0 >#PMDG.B737-700.FMS.Output.PMDG B737 Fms Fail Light 2
+PMDG B737 Fms Msg Light 2#(L:switch_6760_73X, number) 0 >#PMDG.B737-700.FMS.Output.PMDG B737 Fms Msg Light 2
+PMDG B737 Fms Ofst Light 2#(L:switch_6761_73X, number) 0 >#PMDG.B737-700.FMS.Output.PMDG B737 Fms Ofst Light 2
+PMDG B737 Fms Call Light 1#(L:switch_6030_73X, number) 0 >#PMDG.B737-700.FMS.PMDG B737 Fms Call Light 1
+PMDG B737 Fms Exec Light 1#(L:switch_6042_73X, number) 0 >#PMDG.B737-700.FMS.PMDG B737 Fms Exec Light 1
+PMDG B737 Fms Fail Light 1#(L:switch_6031_73X, number) 0 >#PMDG.B737-700.FMS.PMDG B737 Fms Fail Light 1
+PMDG B737 Fms Msg Light 1#(L:switch_6040_73X, number) 0 >#PMDG.B737-700.FMS.PMDG B737 Fms Msg Light 1
+PMDG B737 Fms Ofst Light 1#(L:switch_6041_73X, number) 0 >#PMDG.B737-700.FMS.PMDG B737 Fms Ofst Light 1
+PMDG/B737-700/Flight Instrumentation#GROUP
+PMDG B737 Hud Stow/Hide#(L:switch_98_73X, number) 0 >#PMDG.B737-700.Flight Instrumentation.PMDG B737 Hud Stow/Hide
+PMDG/B737-700/Fuel#GROUP
+Fuel temperature indicator no.1 tank#(L:switch_57_73X, number) #PMDG.B737-700.Fuel.Output.Fuel temperature indicator no.1 tank
+PMDG B737 Fuel Pump Aft 2 Low Pressure#(L:switch_44_73X, number) 0 >#PMDG.B737-700.Fuel.Output.PMDG B737 Fuel Pump Aft 2 Low Pressure
+PMDG B737 Fuel Pump Fwd 2 Low Pressure#(L:switch_43_73X, number) 0 >#PMDG.B737-700.Fuel.Output.PMDG B737 Fuel Pump Fwd 2 Low Pressure
+PMDG B737 Aux Fuel Alert Capt#(L:switch_5661_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Aux Fuel Alert Capt
+PMDG B737 Aux Fuel Alert Fo#(L:switch_5665_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Aux Fuel Alert Fo
+PMDG B737 Aux Fuel Alert Ind Capt#(L:switch_5663_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Aux Fuel Alert Ind Capt
+PMDG B737 Aux Fuel Alert Ind Fo #(L:switch_5667_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Aux Fuel Alert Ind Fo 
+PMDG B737 Aux Fuel Maint Capt#(L:switch_5662_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Aux Fuel Maint Capt
+PMDG B737 Aux Fuel Maint Fo#(L:switch_5666_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Aux Fuel Maint Fo
+PMDG B737 Aux Fuel Maint Ind Capt#(L:switch_5664_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Aux Fuel Maint Ind Capt
+PMDG B737 Aux Fuel Maint Ind Fo#(L:switch_5668_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Aux Fuel Maint Ind Fo
+PMDG B737 Center Left Low Pressure#(L:switch_47_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Center Left Low Pressure
+PMDG B737 Center Right Low Pressure#(L:switch_48_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Center Right Low Pressure
+PMDG B737 Cross Feed Valve Open#(L:switch_51_73X, number) 10 *#PMDG.B737-700.Fuel.PMDG B737 Cross Feed Valve Open
+PMDG B737 Fuel Pump Aft 1 Low Pressure#(L:switch_41_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Fuel Pump Aft 1 Low Pressure
+PMDG B737 Fuel Pump Fwd 1 Low Pressure#(L:switch_42_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Fuel Pump Fwd 1 Low Pressure
+PMDG B737 Left Engine Valve Closed#(L:switch_55_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Left Engine Valve Closed
+PMDG B737 Left Filter Bypass#(L:switch_50_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Left Filter Bypass
+PMDG B737 Left Spar Valve Closed#(L:switch_53_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Left Spar Valve Closed
+PMDG B737 Right Engine Valve Closed#(L:switch_56_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Right Engine Valve Closed
+PMDG B737 Right Filter Bypass#(L:switch_52_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Right Filter Bypass
+PMDG B737 Right Spar Valve Closed#(L:switch_54_73X, number) 0 >#PMDG.B737-700.Fuel.PMDG B737 Right Spar Valve Closed
+PMDG/B737-700/Gear#GROUP
+PMDG B737 Autobrake Inop Indicator#(L:switch_4611_73X,number) 0 >#PMDG.B737-700.Gear.Output.PMDG B737 Autobrake Inop Indicator
+PMDG B737 Brake Press Indicator Needle#(L:switch_448_73X, number)#PMDG.B737-700.Gear.Output.PMDG B737 Brake Press Indicator Needle
+PMDG B737 Left Gear Safe Indicator#(L:switch_453_73X, number) 0 >#PMDG.B737-700.Gear.Output.PMDG B737 Left Gear Safe Indicator
+PMDG B737 Left Gear Unsafe Indicator#(L:switch_451_73X, number) 0 >#PMDG.B737-700.Gear.Output.PMDG B737 Left Gear Unsafe Indicator
+PMDG B737 Nose Gear Safe Indicator#(L:switch_450_73X, number) 0 >#PMDG.B737-700.Gear.Output.PMDG B737 Nose Gear Safe Indicator
+PMDG B737 Nose Gear Unsafe Indicator#(L:switch_449_73X, number) 0 >#PMDG.B737-700.Gear.Output.PMDG B737 Nose Gear Unsafe Indicator
+PMDG B737 Right Gear Safe Indicator#(L:switch_454_73X, number) 0 >#PMDG.B737-700.Gear.Output.PMDG B737 Right Gear Safe Indicator
+PMDG B737 Right Gear Unsafe Indicator#(L:switch_452_73X, number) 0 >#PMDG.B737-700.Gear.Output.PMDG B737 Right Gear Unsafe Indicator
+PMDG_B737_AUTOBRAKE_DISARM_IND#(L:switch_459_73X, number) 10 *#PMDG.B737-700.Gear.Output.PMDG_B737_AUTOBRAKE_DISARM_IND
+PMDG_B737_PARKING_BRAKE_LED#(L:switch_692_73X) 2 *#PMDG.B737-700.Gear.Output.PMDG_B737_PARKING_BRAKE_LED
+PMDG/B737-700/Hydraulic#GROUP
+PMDG B737 Flt Control A Low Pressure#(L:switch_76_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Flt Control A Low Pressure
+PMDG B737 Flt Control B Low Pressure#(L:switch_77_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Flt Control B Low Pressure
+PMDG B737 Hyd Pump A Elec2 Low Pressure#(L:switch_163_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Hyd Pump A Elec2 Low Pressure
+PMDG B737 Hyd Pump A Eng1 Low Pressure#(L:switch_161_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Hyd Pump A Eng1 Low Pressure
+PMDG B737 Hyd Pump A Overheat#(L:switch_159_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Hyd Pump A Overheat
+PMDG B737 Hyd Pump B Elec1 Low Pressure#(L:switch_164_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Hyd Pump B Elec1 Low Pressure
+PMDG B737 Hyd Pump B Eng2 Low Pressure#(L:switch_162_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Hyd Pump B Eng2 Low Pressure
+PMDG B737 Hyd Pump B Overheat#(L:switch_160_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Hyd Pump B Overheat
+PMDG B737 Standby Hyd Low Pressure#(L:switch_83_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Standby Hyd Low Pressure
+PMDG B737 Standby Hyd Stby Rud On#(L:switch_82_73X, number) 0 >#PMDG.B737-700.Hydraulic.PMDG B737 Standby Hyd Stby Rud On
+PMDG/B737-700/Lights#GROUP
+PMDG_B737_ANTI-COLLISION_LIGHT_LED#(L:switch_124_73X, number) 100 /#PMDG.B737-700.Lights.Output.PMDG_B737_ANTI-COLLISION_LIGHT_LED
+PMDG_B737_LANDING_LIGHT_LEFT_LED#(L:switch_113_73X,number) 100 /#PMDG.B737-700.Lights.Output.PMDG_B737_LANDING_LIGHT_LEFT_LED
+PMDG_B737_LANDING_RIGHT_LED#(L:switch_114_73X, number) 100 /#PMDG.B737-700.Lights.Output.PMDG_B737_LANDING_RIGHT_LED
+PMDG_B737_LEFT_RUNWAY_TURNOFF_LIGHT_LED#(L:switch_115_73X, number) 100 /#PMDG.B737-700.Lights.Output.PMDG_B737_LEFT_RUNWAY_TURNOFF_LIGHT_LED
+PMDG_B737_RIGHT_RUNWAY_TURNOFF_LIGHT_LED#(L:switch_116_73X, number) 100 /#PMDG.B737-700.Lights.Output.PMDG_B737_RIGHT_RUNWAY_TURNOFF_LIGHT_LED
+PMDG_B737_TAXI_LIGHT_LED#(L:switch_117_73X, number) 100 /#PMDG.B737-700.Lights.Output.PMDG_B737_TAXI_LIGHT_LED
+PMDG_B737_WING_LIGHT_LED#(L:switch_125_73X, number) 100 /#PMDG.B737-700.Lights.Output.PMDG_B737_WING_LIGHT_LED
+PMDG B737 Bl Circuit Breakers#(L:BL_CBs, number)#PMDG.B737-700.Lights.PMDG B737 Bl Circuit Breakers
+PMDG B737 Bl Compass#(L:BL_Compass, number)#PMDG.B737-700.Lights.PMDG B737 Bl Compass
+PMDG B737 Bl Main Ca#(L:BL_MainCA, number)#PMDG.B737-700.Lights.PMDG B737 Bl Main Ca
+PMDG B737 Bl Main Fo#(L:BL_MainFO, number)#PMDG.B737-700.Lights.PMDG B737 Bl Main Fo
+PMDG B737 Bl Overhead#(L:BL_Overhead, number)#PMDG.B737-700.Lights.PMDG B737 Bl Overhead
+PMDG B737 Bl Pedestal#(L:BL_Pedestal, number)#PMDG.B737-700.Lights.PMDG B737 Bl Pedestal
+PMDG B737 Chart Light L Source#(A:LIGHT POTENTIOMETER:7, Percent)#PMDG.B737-700.Lights.PMDG B737 Chart Light L Source
+PMDG B737 Chart Light R Source#(A:LIGHT POTENTIOMETER:8, Percent)#PMDG.B737-700.Lights.PMDG B737 Chart Light R Source
+PMDG B737 Dome Lights Source#(A:LIGHT POTENTIOMETER:12, Percent)#PMDG.B737-700.Lights.PMDG B737 Dome Lights Source
+PMDG B737 Emerg Dome Light Source#(A:LIGHT POTENTIOMETER:13, Percent)#PMDG.B737-700.Lights.PMDG B737 Emerg Dome Light Source
+PMDG B737 Ext Aft Light LED#(L:switch_759_73X, number) 0 >#PMDG.B737-700.Lights.PMDG B737 Ext Aft Light LED
+PMDG B737 Ext Fwd Light LED#(L:switch_758_73X, number) 0 >#PMDG.B737-700.Lights.PMDG B737 Ext Fwd Light LED
+PMDG B737 Fire Handle 1 Source#(A:LIGHT POTENTIOMETER:15, Percent)#PMDG.B737-700.Lights.PMDG B737 Fire Handle 1 Source
+PMDG B737 Fire Handle 2 Source#(A:LIGHT POTENTIOMETER:16, Percent)#PMDG.B737-700.Lights.PMDG B737 Fire Handle 2 Source
+PMDG B737 Fire Handle Apu Source#(A:LIGHT POTENTIOMETER:17, Percent)#PMDG.B737-700.Lights.PMDG B737 Fire Handle Apu Source
+PMDG B737 Floods Afds Source#(A:LIGHT POTENTIOMETER:2, Percent)#PMDG.B737-700.Lights.PMDG B737 Floods Afds Source
+PMDG B737 Floods Cb Source#(A:LIGHT POTENTIOMETER:4, Percent)#PMDG.B737-700.Lights.PMDG B737 Floods Cb Source
+PMDG B737 Floods Main Source#(A:LIGHT POTENTIOMETER:1, Percent)#PMDG.B737-700.Lights.PMDG B737 Floods Main Source
+PMDG B737 Floods Pedestal Source#(A:LIGHT POTENTIOMETER:3, Percent)#PMDG.B737-700.Lights.PMDG B737 Floods Pedestal Source
+PMDG B737 Main Light#(L:switch_7591_73X, number) 0 >#PMDG.B737-700.Lights.PMDG B737 Main Light
+PMDG B737 Map Light L Source#(A:LIGHT POTENTIOMETER:5, Percent)#PMDG.B737-700.Lights.PMDG B737 Map Light L Source
+PMDG B737 Map Light R Source#(A:LIGHT POTENTIOMETER:6, Percent)#PMDG.B737-700.Lights.PMDG B737 Map Light R Source
+PMDG B737 Parking Brake Source#(A:LIGHT POTENTIOMETER:14, Percent)#PMDG.B737-700.Lights.PMDG B737 Parking Brake Source
+PMDG B737 Spot Light C Source#(A:LIGHT POTENTIOMETER:11, Percent)#PMDG.B737-700.Lights.PMDG B737 Spot Light C Source
+PMDG B737 Spot Light L Source#(A:LIGHT POTENTIOMETER:9, Percent)#PMDG.B737-700.Lights.PMDG B737 Spot Light L Source
+PMDG B737 Spot Light R Source#(A:LIGHT POTENTIOMETER:10, Percent)#PMDG.B737-700.Lights.PMDG B737 Spot Light R Source
+PMDG/B737-700/Miscellaneous#GROUP
+PMDG B737 Doors#(L:switch_434_73X, number) 0 >#PMDG.B737-700.Miscellaneous.Output.PMDG B737 Doors
+PMDG B737 Aft Cargo#(L:switch_175_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Aft Cargo
+PMDG B737 Aft Entry#(L:switch_176_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Aft Entry
+PMDG B737 Aft Service#(L:switch_177_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Aft Service
+PMDG B737 Airstair#(L:switch_8951_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Airstair
+PMDG B737 Anti-Ice#(L:switch_432_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Anti-Ice
+PMDG B737 Attend Call#(L:switch_107_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Attend Call
+PMDG B737 Auto Unlk Light#(L:switch_833_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Auto Unlk Light
+PMDG B737 Cvr Test Annunciator#(L:switch_179_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Cvr Test Annunciator
+PMDG B737 Drive 1 Disconnect#(L:switch_07_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Drive 1 Disconnect
+PMDG B737 Drive 2 Disconnect#(L:switch_09_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Drive 2 Disconnect
+PMDG B737 Eng#(L:switch_435_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Eng
+PMDG B737 Equip#(L:switch_172_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Equip
+PMDG B737 Equip Cooling Exhaust Off#(L:switch_99_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Equip Cooling Exhaust Off
+PMDG B737 Flight Recorder Off#(L:switch_300_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Flight Recorder Off
+PMDG B737 Fwd Cargo#(L:switch_171_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Fwd Cargo
+PMDG B737 Fwd Entry#(L:switch_169_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Fwd Entry
+PMDG B737 Fwd Service#(L:switch_170_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Fwd Service
+PMDG B737 Green Light On Clock Bezel#(L:switch_528_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Green Light On Clock Bezel
+PMDG B737 Hyd#(L:switch_433_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Hyd
+PMDG B737 Left Aft Overwing#(L:switch_897_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Left Aft Overwing
+PMDG B737 Left Fwd Overwing#(L:switch_896_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Left Fwd Overwing
+PMDG B737 Left Overwing#(L:switch_173_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Left Overwing
+PMDG B737 Lock Fail Light#(L:switch_832_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Lock Fail Light
+PMDG B737 Main Cargo Fo Bdsf#(L:switch_1711_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Main Cargo Fo Bdsf
+PMDG B737 Overhead#(L:switch_436_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Overhead
+PMDG B737 Pa In Use#(L:switch_108_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Pa In Use
+PMDG B737 Pass Oxy On#(L:switch_263_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Pass Oxy On
+PMDG B737 Right Aft Overwing#(L:switch_899_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Right Aft Overwing
+PMDG B737 Right Fwd Overwing#(L:switch_898_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Right Fwd Overwing
+PMDG B737 Right Overwing#(L:switch_174_73X, number) 0 >#PMDG.B737-700.Miscellaneous.PMDG B737 Right Overwing
+PMDG/B737-700/Radio#GROUP
+PMDG B737 COM Unit 1 (CA) Multi Select  LED#(L:switch_720_73X,number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 COM Unit 1 (CA) Multi Select  LED
+PMDG B737 COM Unit 1 (CA) Offside tuning light#(L:switch_720_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 COM Unit 1 (CA) Offside tuning light
+PMDG B737 COM Unit 2 (FO) Multi select LED#(L:switch_836_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 COM Unit 2 (FO) Multi select LED
+PMDG B737 Left Acp Flt Button#(L:switch_2961_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 Left Acp Flt Button
+PMDG B737 Left Acp Hf1 Button#(L:switch_2941_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 Left Acp Hf1 Button
+PMDG B737 Left Acp Svc Button#(L:switch_2971_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 Left Acp Svc Button
+PMDG B737 Left Acp Vhf1 Button#(L:switch_2911_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 Left Acp Vhf1 Button
+PMDG B737 Left Acp Vhf2 Button#(L:switch_2921_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 Left Acp Vhf2 Button
+PMDG B737 Left Acp Vhf3 Button#(L:switch_2931_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 Left Acp Vhf3 Button
+PMDG B737 Left Radio Hf2 Button#(L:switch_2951_73X, number) 0 >#PMDG.B737-700.Radio.Output.PMDG B737 Left Radio Hf2 Button
+PMDG B737 Adf1 Receive#(L:switch_8641_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Adf1 Receive
+PMDG B737 Adf1 Receive LED#(L:switch_7481_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Adf1 Receive LED
+PMDG B737 Adf1 Receiver Knobswitch#(L:switch_2821_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Adf1 Receiver Knobswitch
+PMDG B737 Adf2 Receive#(L:switch_8651_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Adf2 Receive
+PMDG B737 Adf2 Receive LED#(L:switch_7491_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Adf2 Receive LED
+PMDG B737 Adf2 Receiver Knobswitch#(L:switch_2831_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Adf2 Receiver Knobswitch
+PMDG B737 COM Unit 1 (CA) AM#(L:switch_9045_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 1 (CA) AM
+PMDG B737 COM Unit 1 (CA) HF1#(L:switch_9044_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 1 (CA) HF1
+PMDG B737 COM Unit 1 (CA) HF2#(L:switch_9046_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 1 (CA) HF2
+PMDG B737 COM Unit 1 (CA) VHF1#(L:switch_9041_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 1 (CA) VHF1
+PMDG B737 COM Unit 1 (CA) VHF2#(L:switch_9042_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 1 (CA) VHF2
+PMDG B737 COM Unit 1 (CA) VHF3#(L:switch_9043_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 1 (CA) VHF3
+PMDG B737 COM Unit 2 (FO) AM#(L:switch_934_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 2 (FO) AM
+PMDG B737 COM Unit 2 (FO) HF1#(L:switch_932_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 2 (FO) HF1
+PMDG B737 COM Unit 2 (FO) HF2#(L:switch_936_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 2 (FO) HF2
+PMDG B737 COM Unit 2 (FO) VHF1#(L:switch_926_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 2 (FO) VHF1
+PMDG B737 COM Unit 2 (FO) VHF2#(L:switch_928_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 2 (FO) VHF2
+PMDG B737 COM Unit 2 (FO) VHF3#(L:switch_930_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 2 (FO) VHF3
+PMDG B737 COM Unit 3 (FO) AM#(L:switch_963_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 3 (FO) AM
+PMDG B737 COM Unit 3 (FO) HF1#(L:switch_961_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 3 (FO) HF1
+PMDG B737 COM Unit 3 (FO) HF2#(L:switch_965_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 3 (FO) HF2
+PMDG B737 COM Unit 3 (FO) Multi Select#(L:switch_965_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 3 (FO) Multi Select
+PMDG B737 COM Unit 3 (FO) VHF1#(L:switch_955_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 3 (FO) VHF1
+PMDG B737 COM Unit 3 (FO) VHF2#(L:switch_957_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 3 (FO) VHF2
+PMDG B737 COM Unit 3 (FO) VHF3#(L:switch_959_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 COM Unit 3 (FO) VHF3
+PMDG B737 Flt Mic LED#(L:switch_7361_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Flt Mic LED
+PMDG B737 Flt Receive#(L:switch_8591_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Flt Receive
+PMDG B737 Flt Receive LED#(L:switch_7431_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Flt Receive LED
+PMDG B737 Flt Receiver Knobswitch#(L:switch_2881_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Flt Receiver Knobswitch
+PMDG B737 Hf1 Receive LED#(L:switch_7421_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Hf1 Receive LED
+PMDG B737 Left Acp Pa Button#(L:switch_8731_73X, number)#PMDG.B737-700.Radio.PMDG B737 Left Acp Pa Button
+PMDG B737 Mkr Receive#(L:switch_8661_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Mkr Receive
+PMDG B737 Mkr Receive LED#(L:switch_7501_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Mkr Receive LED
+PMDG B737 Mkr Receiver Knobswitch#(L:switch_2841_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Mkr Receiver Knobswitch
+PMDG B737 Nav1 Receive#(L:switch_8621_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Nav1 Receive
+PMDG B737 Nav1 Receive LED#(L:switch_7461_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Nav1 Receive LED
+PMDG B737 Nav1 Receiver Knobswitch#(L:switch_2801_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Nav1 Receiver Knobswitch
+PMDG B737 Nav2 Receive#(L:switch_8631_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Nav2 Receive
+PMDG B737 Nav2 Receive LED#(L:switch_7471_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Nav2 Receive LED
+PMDG B737 Nav2 Receiver Knobswitch#(L:switch_2811_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Nav2 Receiver Knobswitch
+PMDG B737 Pa Mic LED#(L:switch_7381_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Pa Mic LED
+PMDG B737 Pa Receive#(L:switch_8611_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Pa Receive
+PMDG B737 Pa Receive LED#(L:switch_7451_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Pa Receive LED
+PMDG B737 Pa Receiver Knobswitch#(L:switch_2901_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Pa Receiver Knobswitch
+PMDG B737 SELCAL HF1#(L:switch_942_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 SELCAL HF1
+PMDG B737 SELCAL HF2#(L:switch_943_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 SELCAL HF2
+PMDG B737 SELCAL VHF1#(L:switch_939_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 SELCAL VHF1
+PMDG B737 SELCAL VHF2#(L:switch_940_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 SELCAL VHF2
+PMDG B737 SELCAL VHF3#(L:switch_941_73X,number) 0 >#PMDG.B737-700.Radio.PMDG B737 SELCAL VHF3
+PMDG B737 Spkr Receive#(L:switch_8671_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Spkr Receive
+PMDG B737 Spkr Receive LED#(L:switch_7511_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Spkr Receive LED
+PMDG B737 Spkr Receiver Knobswitch#(L:switch_2851_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Spkr Receiver Knobswitch
+PMDG B737 Svc Mic LED#(L:switch_7371_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Svc Mic LED
+PMDG B737 Svc Receive#(L:switch_8601_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Svc Receive
+PMDG B737 Svc Receive LED#(L:switch_7441_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Svc Receive LED
+PMDG B737 Svc Receiver Knobswitch#(L:switch_2891_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Svc Receiver Knobswitch
+PMDG B737 Vhf1 Mic LED#(L:switch_7341_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf1 Mic LED
+PMDG B737 Vhf1 Receive#(L:switch_8551_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf1 Receive
+PMDG B737 Vhf1 Receive LED#(L:switch_7391_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf1 Receive LED
+PMDG B737 Vhf1 Receiver Knobswitch#(L:switch_2861_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf1 Receiver Knobswitch
+PMDG B737 Vhf2 Mic LED#(L:switch_7351_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf2 Mic LED
+PMDG B737 Vhf2 Receive#(L:switch_8561_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf2 Receive
+PMDG B737 Vhf2 Receive LED#(L:switch_7401_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf2 Receive LED
+PMDG B737 Vhf2 Receiver Knobswitch#(L:switch_2871_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf2 Receiver Knobswitch
+PMDG B737 Vhf3 Receive LED#(L:switch_7411_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Vhf3 Receive LED
+PMDG B737 Xpndr Fail Light#(L:switch_799_73X, number) 0 >#PMDG.B737-700.Radio.PMDG B737 Xpndr Fail Light
+PMDG/B737-700/Safety#GROUP
+PMDG B737 ENG1 Fire Warn/Disch 1#(L:switch_6972_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 ENG1 Fire Warn/Disch 1
+PMDG B737 ENG2 Fire Warn/Disch 1#(L:switch_6992_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 ENG2 Fire Warn/Disch 1
+PMDG B737 Eng1 Overheat Light#(L:switch_695_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 Eng1 Overheat Light
+PMDG B737 Eng2 Overheat Light#(L:switch_706_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 Eng2 Overheat Light
+PMDG B737 Fire Bottle Discharge APU#(L:switch_717_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 Fire Bottle Discharge APU
+PMDG B737 Fire Bottle Discharge L#(L:switch_716_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 Fire Bottle Discharge L
+PMDG B737 Fire Bottle Discharge R#(L:switch_718_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 Fire Bottle Discharge R
+PMDG B737 Fire Det Fault Light#(L:switch_701_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 Fire Det Fault Light
+PMDG B737 Lav Smoke Det Fault 1#(L:switch_9132_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 Lav Smoke Det Fault 1
+PMDG B737 Wheel Well Fire Light#(L:switch_700_73X, number) 0 >#PMDG.B737-700.Safety.Output.PMDG B737 Wheel Well Fire Light
+PMDG B737 Aft Cargo Fire Arm LED#(L:switch_766_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Aft Cargo Fire Arm LED
+PMDG B737 Apu Bottle Discharge Light#(L:switch_703_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Apu Bottle Discharge Light
+PMDG B737 Apu Det Inop Light#(L:switch_702_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Apu Det Inop Light
+PMDG B737 Apu Fire Warn/Disch 1#(L:switch_6982_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Apu Fire Warn/Disch 1
+PMDG B737 Cargo Fire Discharge LED#(L:switch_7671_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Fire Discharge LED
+PMDG B737 Cargo Main Smoke 1 Amber#(L:switch_9052_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 1 Amber
+PMDG B737 Cargo Main Smoke 1 Green#(L:switch_9051_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 1 Green
+PMDG B737 Cargo Main Smoke 10 Amber#(L:switch_9070_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 10 Amber
+PMDG B737 Cargo Main Smoke 10 Green#(L:switch_9069_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 10 Green
+PMDG B737 Cargo Main Smoke 11 Amber#(L:switch_9072_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 11 Amber
+PMDG B737 Cargo Main Smoke 11 Green#(L:switch_9071_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 11 Green
+PMDG B737 Cargo Main Smoke 12 Amber#(L:switch_9074_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 12 Amber
+PMDG B737 Cargo Main Smoke 12 Green#(L:switch_9073_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 12 Green
+PMDG B737 Cargo Main Smoke 13 Amber#(L:switch_9076_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 13 Amber
+PMDG B737 Cargo Main Smoke 13 Green#(L:switch_9075_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 13 Green
+PMDG B737 Cargo Main Smoke 14 Amber#(L:switch_9078_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 14 Amber
+PMDG B737 Cargo Main Smoke 14 Green#(L:switch_9077_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 14 Green
+PMDG B737 Cargo Main Smoke 15 Amber#(L:switch_9080_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 15 Amber
+PMDG B737 Cargo Main Smoke 15 Green#(L:switch_9079_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 15 Green
+PMDG B737 Cargo Main Smoke 16 Amber#(L:switch_9082_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 16 Amber
+PMDG B737 Cargo Main Smoke 16 Green#(L:switch_9081_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 16 Green
+PMDG B737 Cargo Main Smoke 17 Amber#(L:switch_9084_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 17 Amber
+PMDG B737 Cargo Main Smoke 17 Green#(L:switch_9083_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 17 Green
+PMDG B737 Cargo Main Smoke 18 Amber#(L:switch_9086_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 18 Amber
+PMDG B737 Cargo Main Smoke 18 Green#(L:switch_9085_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 18 Green
+PMDG B737 Cargo Main Smoke 19 Amber#(L:switch_9088_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 19 Amber
+PMDG B737 Cargo Main Smoke 19 Green#(L:switch_9087_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 19 Green
+PMDG B737 Cargo Main Smoke 2 Amber#(L:switch_9054_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 2 Amber
+PMDG B737 Cargo Main Smoke 2 Green#(L:switch_9053_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 2 Green
+PMDG B737 Cargo Main Smoke 20 Amber#(L:switch_9090_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 20 Amber
+PMDG B737 Cargo Main Smoke 20 Green#(L:switch_9089_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 20 Green
+PMDG B737 Cargo Main Smoke 3 Amber#(L:switch_9056_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 3 Amber
+PMDG B737 Cargo Main Smoke 3 Green#(L:switch_9055_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 3 Green
+PMDG B737 Cargo Main Smoke 4 Amber#(L:switch_9058_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 4 Amber
+PMDG B737 Cargo Main Smoke 4 Green#(L:switch_9057_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 4 Green
+PMDG B737 Cargo Main Smoke 5 Amber#(L:switch_9060_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 5 Amber
+PMDG B737 Cargo Main Smoke 5 Green#(L:switch_9059_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 5 Green
+PMDG B737 Cargo Main Smoke 6 Amber#(L:switch_9062_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 6 Amber
+PMDG B737 Cargo Main Smoke 6 Green#(L:switch_9061_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 6 Green
+PMDG B737 Cargo Main Smoke 7 Amber#(L:switch_9064_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 7 Amber
+PMDG B737 Cargo Main Smoke 7 Green#(L:switch_9063_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 7 Green
+PMDG B737 Cargo Main Smoke 8 Amber#(L:switch_9066_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 8 Amber
+PMDG B737 Cargo Main Smoke 8 Green#(L:switch_9065_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 8 Green
+PMDG B737 Cargo Main Smoke 9 Amber#(L:switch_9068_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 9 Amber
+PMDG B737 Cargo Main Smoke 9 Green#(L:switch_9067_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke 9 Green
+PMDG B737 Cargo Main Smoke Cargo#(L:switch_9092_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke Cargo
+PMDG B737 Cargo Main Smoke Depress#(L:switch_9091_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Cargo Main Smoke Depress
+PMDG B737 Fwd Cargo Fire Arm LED#(L:switch_764_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Fwd Cargo Fire Arm LED
+PMDG B737 Ground Proximity Inop Annunciator#(L:switch_499_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Ground Proximity Inop Annunciator
+PMDG B737 L Bottle Discharge Light#(L:switch_707_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 L Bottle Discharge Light
+PMDG B737 Lav Smoke Det Fault#(L:switch_9133_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Lav Smoke Det Fault
+PMDG B737 Lav Smoke Smoke#(L:switch_9134_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Lav Smoke Smoke
+PMDG B737 Lav Smoke Sys Fault#(L:switch_9131_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Lav Smoke Sys Fault
+PMDG B737 Mach Trim Fail#(L:switch_70_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Mach Trim Fail
+PMDG B737 Main Det Select Switch#(L:switch_7621_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Main Det Select Switch
+PMDG B737 Main Smoke Det Fault#(L:switch_9136_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Main Smoke Det Fault
+PMDG B737 Main Smoke Smoke#(L:switch_9137_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Main Smoke Smoke
+PMDG B737 R Bottle Discharge Light#(L:switch_708_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 R Bottle Discharge Light
+PMDG B737 Supn Smoke Smoke#(L:switch_9135_73X, number) 0 >#PMDG.B737-700.Safety.PMDG B737 Supn Smoke Smoke
+PMDG/B737-700/Warning System#GROUP
+PMDG_B737_MASTER_CAUTION_YELLOW_LED#(L:switch_3481_73X, number) 2 *#PMDG.B737-700.Warning System.Output.PMDG_B737_MASTER_CAUTION_YELLOW_LED
+PMDG_B737_MASTER_WARNING_RED_LED#(L:switch_3471_73X, number) 2 *#PMDG.B737-700.Warning System.Output.PMDG_B737_MASTER_WARNING_RED_LED
+PMDG/B737-700/Warning#GROUP
+PMDG B737 Air Cond#(L:switch_4371_73X, number) 0 >#PMDG.B737-700.Warning.PMDG B737 Air Cond
+PMDG B737 Emer Exit Lights Not Armed#(L:switch_102_73X, number) 0 >#PMDG.B737-700.Warning.PMDG B737 Emer Exit Lights Not Armed
+PMDG B737 Master Caution Light Right#(L:switch_4381_73X, number) 0 >#PMDG.B737-700.Warning.PMDG B737 Master Caution Light Right
+PMDG B737 Master Fire Warning  Light Right#(L:switch_4391_73X, number) 0 >#PMDG.B737-700.Warning.PMDG B737 Master Fire Warning  Light Right
 Working Title/CJ4/Air Condition / Pressurization#GROUP
+Climate Control#(L:CLIMATE_CONTROL) #Working Title.CJ4.Air Condition / Pressurization.Output.Climate Control
+Pilot fan#(L:PASSENGER_KNOB_AIR_1)#Working Title.CJ4.Air Condition / Pressurization.Output.Pilot fan
 Pressurization Dump Switch ON#(A:PRESSURIZATION DUMP SWITCH, bool)#Working Title.CJ4.Air Condition / Pressurization.Pressurization Dump Switch ON
 Working Title/CJ4/Anti-Ice#GROUP
 WT CJ4 Pitot Heat 1 is ON#(L:DEICE_Pitot_1, Bool)#Working Title.CJ4.Anti-Ice.WT CJ4 Pitot Heat 1 is ON
@@ -1989,18 +2969,18 @@ WT_CJ4_DEICE_AIRFRAME_1#(L:DEICE_Airframe_1, bool)#Working Title.CJ4.Anti-Ice.WT
 WT_CJ4_DEICE_AIRFRAME_2#(L:DEICE_Airframe_2, Bool)#Working Title.CJ4.Anti-Ice.WT_CJ4_DEICE_AIRFRAME_2
 WT_CJ4_WING_LIGHT_ON#(A:LIGHT WING:0, Bool)#Working Title.CJ4.Anti-Ice.WT_CJ4_WING_LIGHT_ON
 Working Title/CJ4/Autopilot#GROUP
+WT_CJ4_AP_FLC_LOCK_DIR#(A:AUTOPILOT AIRSPEED HOLD VAR,Knots) near#Working Title.CJ4.Autopilot.Output.WT_CJ4_AP_FLC_LOCK_DIR
+WT_CJ4_AP_VS_LOCK_DIR#(A:AUTOPILOT VERTICAL HOLD VAR,Feet/minute)#Working Title.CJ4.Autopilot.Output.WT_CJ4_AP_VS_LOCK_DIR
 WT_CJ4_AP_ALT_HOLD#(L:WT_CJ4_ALT_HOLD,Bool)#Working Title.CJ4.Autopilot.WT_CJ4_AP_ALT_HOLD
 WT_CJ4_AP_ALT_LOCK_VAR#(A:AUTOPILOT ALTITUDE LOCK VAR:1,Feet)#Working Title.CJ4.Autopilot.WT_CJ4_AP_ALT_LOCK_VAR
-WT_CJ4_AP_FLC_LOCK_DIR#(A:AUTOPILOT AIRSPEED LOCK DIR:1, knots)#Working Title.CJ4.Autopilot.WT_CJ4_AP_FLC_LOCK_DIR
-WT_CJ4_AP_HDG_LOCK_DIR#(A:AUTOPILOT HEADING LOCK DIR:1, Degrees)#Working Title.CJ4.Autopilot.WT_CJ4_AP_HDG_LOCK_DIR
+WT_CJ4_AP_HDG_LOCK_DIR#(A:AUTOPILOT HEADING LOCK DIR:1,Degrees)#Working Title.CJ4.Autopilot.WT_CJ4_AP_HDG_LOCK_DIR
 WT_CJ4_AP_VNAV_ON#(L:WT_CJ4_VNAV_ON,Bool)#Working Title.CJ4.Autopilot.WT_CJ4_AP_VNAV_ON
-WT_CJ4_AP_VS_LOCK_DIR#(A:AUTOPILOT VERTICAL LOCK DIR:1, Feet/minute)#Working Title.CJ4.Autopilot.WT_CJ4_AP_VS_LOCK_DIR
-WT_CJ4_FLC_ON#(L:WT_CJ4_FLC_ON, bool)#Working Title.CJ4.Autopilot.WT_CJ4_FLC_ON
-WT_CJ4_HDG_ON#(L:WT_CJ4_HDG_ON,bool)#Working Title.CJ4.Autopilot.WT_CJ4_HDG_ON
-WT_CJ4_NAV_ON#(L:WT_CJ4_NAV_ON, Bool)#Working Title.CJ4.Autopilot.WT_CJ4_NAV_ON
+WT_CJ4_FLC_ON#(L:WT_CJ4_FLC_ON,Bool)#Working Title.CJ4.Autopilot.WT_CJ4_FLC_ON
+WT_CJ4_HDG_ON#(L:WT_CJ4_HDG_ON,Bool)#Working Title.CJ4.Autopilot.WT_CJ4_HDG_ON
+WT_CJ4_NAV_ON#(L:WT_CJ4_NAV_ON,Bool)#Working Title.CJ4.Autopilot.WT_CJ4_NAV_ON
 WT_CJ4_TOD_DISTANCE#(L:WT_CJ4_TOD_DISTANCE)#Working Title.CJ4.Autopilot.WT_CJ4_TOD_DISTANCE
 WT_CJ4_TOD_REMAINING#(L:WT_CJ4_TOD_REMAINING)#Working Title.CJ4.Autopilot.WT_CJ4_TOD_REMAINING
-WT_CJ4_VS_ON#(L:WT_CJ4_VS_ON)#Working Title.CJ4.Autopilot.WT_CJ4_VS_ON
+WT_CJ4_VS_ON#(L:WT_CJ4_VS_ON,Bool)#Working Title.CJ4.Autopilot.WT_CJ4_VS_ON
 Working Title/CJ4/Avionics#GROUP
 WT_CJ4_PANEL_BRIGHTNESS#(L:LIGHTING_Knob_Master)#Working Title.CJ4.Avionics.WT_CJ4_PANEL_BRIGHTNESS
 Working Title/CJ4/Engines#GROUP
@@ -2029,5 +3009,8 @@ Working Title/CJ4/Radio#GROUP
 (A:COM TRANSMIT:1, bool)#(A:COM TRANSMIT:1, bool)#Working Title.CJ4.Radio.(A:COM TRANSMIT:1, bool)
 (A:COM TRANSMIT:2, bool)#(A:COM TRANSMIT:2, bool)#Working Title.CJ4.Radio.(A:COM TRANSMIT:2, bool)
 Working Title/CJ4/Warning System#GROUP
-WT_CJ4_MASTER_CAUTION_ON#(L:Generic_Master_Caution_Active) (L:MF_Master_Caution_Test) or#Working Title.CJ4.Warning System.WT_CJ4_MASTER_CAUTION_ON
-WT_CJ4_MASTER_WARNING_ON#(L:Generic_Master_Warning_Active) (L:MF_Master_Warning_Test) or#Working Title.CJ4.Warning System.WT_CJ4_MASTER_WARNING_ON
+AOA Indicator Down#(A:GEAR TOTAL PCT EXTENDED, Percent) 0 > (A:FLAPS HANDLE INDEX, Number) 1 > or if{ 163 176 (A:ANGLE OF ATTACK INDICATOR, Degree) rng } els{ 0 }#Working Title.CJ4.Warning System.AOA Indicator Down
+AOA Indicator Middle#(A:GEAR TOTAL PCT EXTENDED, Percent) 0 > (A:FLAPS HANDLE INDEX, Number) 1 > or if{ 153 168 (A:ANGLE OF ATTACK INDICATOR, Degree) rng } els{ 0 }#Working Title.CJ4.Warning System.AOA Indicator Middle
+AOA Indicator Up#(A:GEAR TOTAL PCT EXTENDED, Percent) 0 > (A:FLAPS HANDLE INDEX, Number) 1 > or if{ 0 158 (A:ANGLE OF ATTACK INDICATOR, Degree) rng } els{ 0 }#Working Title.CJ4.Warning System.AOA Indicator Up
+WT_CJ4_MASTER_CAUTION_ON#(A:MASTER CAUTION ACTIVE, bool) (A:MASTER CAUTION ACKNOWLEDGED, bool) ! and (L:MF_Master_Caution_Test) or#Working Title.CJ4.Warning System.Output.WT_CJ4_MASTER_CAUTION_ON
+WT_CJ4_MASTER_WARNING_ON#(A:MASTER WARNING ACTIVE, bool) (A:MASTER WARNING ACKNOWLEDGED, bool) ! and (L:MF_Master_Warning_Test) or#Working Title.CJ4.Warning System.Output.WT_CJ4_MASTER_WARNING_ON
