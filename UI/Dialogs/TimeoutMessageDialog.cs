@@ -51,7 +51,18 @@ namespace MobiFlight.UI.Dialogs
             tmd.HasCancelButton = buttons == MessageBoxButtons.OKCancel;
             tmd.Message = Message;
             tmd.Text = Title;
-            return tmd.ShowDialog();
+            return tmd.ShowDialog(tmd.Parent);
+        }
+
+        new public static DialogResult Show(Control Parent, string Message, String Title, MessageBoxButtons buttons, MessageBoxIcon icon)
+        {
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.Parent = Parent;
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.HasCancelButton = buttons == MessageBoxButtons.OKCancel;
+            tmd.Message = Message;
+            tmd.Text = Title;
+            return tmd.ShowDialog(tmd.Parent);
         }
 
         public TimeoutMessageDialog()
