@@ -567,9 +567,9 @@ namespace MobiFlight.UI.Panels.Settings
 
                         // Check and see if any I2CPins exist in the board definition file. If not then there's no way to add an LCD device
                         // so throw an error.
-                        var I2CPins = tempModule.Board.Pins.FindAll(x => x.isI2C);
+                        var availableI2Cpins = tempModule.Board.Pins.FindAll(x => x.isI2C);
 
-                        if (!(I2CPins?.Any() ?? false))
+                        if (!(availableI2Cpins?.Any() ?? false))
                         {
                             throw new I2CPinsNotDefinedException(MobiFlightLcdDisplay.TYPE);
                         }
@@ -582,11 +582,11 @@ namespace MobiFlight.UI.Panels.Settings
                         // in use since that's sufficient to throw an error and tell the user what to do. Trying to
                         // write an error message that works for one or more in use I2C pins is way more trouble
                         // than it's worth.
-                        var inUseI2CPin = I2CPins.Find(x => pinsInUse?.Contains(x) ?? false);
+                        var firstInUseI2CPin = availableI2Cpins.Find(x => pinsInUse?.Contains(x) ?? false);
 
-                        if (inUseI2CPin != null)
+                        if (firstInUseI2CPin != null)
                         {
-                            throw new I2CPinInUseException(MobiFlightLcdDisplay.TYPE, inUseI2CPin);
+                            throw new I2CPinInUseException(MobiFlightLcdDisplay.TYPE, firstInUseI2CPin);
                         }
 
                         cfgItem = new MobiFlight.Config.LcdDisplay();
