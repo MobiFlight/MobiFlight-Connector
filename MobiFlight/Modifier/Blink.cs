@@ -13,7 +13,9 @@ namespace MobiFlight.Modifier
     {
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
         public string BlinkValue = "";
-        public int FrequencyInHz = 1;
+        public List<int> OnOffSequence = new List<int>();
+        public int OffDurationInMs = 500;
+        public long FirstExecutionTime = 0;
 
         public override void ReadXml(XmlReader reader)
         {
@@ -23,8 +25,14 @@ namespace MobiFlight.Modifier
             if (reader["blinkValue"] != null)
                 BlinkValue = reader["blinkValue"] as String;
             
-            if (reader["FrequencyInHz"] != null)
-                FrequencyInHz = int.Parse(reader["FrequencyInHz"]);
+            if (reader["onOffSequence"] != null)
+            {
+                OnOffSequence.Clear();
+                foreach(string s in reader["onOffSequence"].Split(','))
+                {
+                    OnOffSequence.Add(int.Parse(s));
+                }
+            }
         }
 
         public override void WriteXml(XmlWriter writer)
@@ -32,7 +40,7 @@ namespace MobiFlight.Modifier
             writer.WriteStartElement("blink");
                 writer.WriteAttributeString("active", Active.ToString());
                 writer.WriteAttributeString("blinkValue", BlinkValue);
-                writer.WriteAttributeString("FrequencyInHz", FrequencyInHz.ToString());
+                writer.WriteAttributeString("onOffSequence", string.Join(",", OnOffSequence));
             writer.WriteEndElement();
         }
 
@@ -41,7 +49,8 @@ namespace MobiFlight.Modifier
             var Clone = new Blink();
             Clone.Active = Active;
             Clone.BlinkValue = BlinkValue;
-            Clone.FrequencyInHz = FrequencyInHz;
+            Clone.OnOffSequence = OnOffSequence.ToArray().ToList();
+            Clone.OffDurationInMs = OffDurationInMs;
             return Clone;
         }
 
@@ -51,16 +60,34 @@ namespace MobiFlight.Modifier
                 obj != null && obj is Blink &&
                 this.Active == (obj as Blink).Active &&
                 this.BlinkValue == (obj as Blink).BlinkValue &&
-                this.FrequencyInHz == (obj as Blink).FrequencyInHz;
+                this.OnOffSequence == (obj as Blink).OnOffSequence &&
+                this.OffDurationInMs == (obj as Blink).OffDurationInMs;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
             ConnectorValue result = value;
-            var Now = DateTime.Now.Millisecond;
+            if (FirstExecutionTime == 0) FirstExecutionTime = DateTime.Now.Ticks;
 
-            if (Now%(1000 / (FrequencyInHz)) > 1000 / (FrequencyInHz * 2))
+            var Now = DateTime.Now.Ticks - FirstExecutionTime;
+            Now /= 10000;
+            Now %= (OnOffSequence.Sum());
+
+            bool IsOn = true;
+
+            foreach(var time in OnOffSequence)
             {
+                if (Now > time) {
+                    Now -= time;
+                    IsOn = !IsOn;
+                    continue;
+                }
+
+                if (IsOn)
+                {
+                    continue;
+                }
+
                 switch (value.type)
                 {
                     case FSUIPCOffsetType.Float:
