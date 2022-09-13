@@ -469,8 +469,11 @@ namespace MobiFlight
                 String strValue = "";
                 try
                 {
-                    processedValue = cfg.Transform.Apply(value, configRefs);
-                    strValue = cfg.Comparison.Apply(processedValue, configRefs);
+                    processedValue = value;
+                    foreach (var modifier in cfg.Modifiers.Items)
+                    {
+                        processedValue = modifier.Apply(processedValue, configRefs);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -479,9 +482,7 @@ namespace MobiFlight
                     continue;
                 }
 
-                strValue = cfg.Interpolation.Apply(strValue);
-
-                row.Cells["arcazeValueColumn"].Value = strValue;
+                row.Cells["arcazeValueColumn"].Value = processedValue.ToString();
 
                 // check preconditions
                 if (!CheckPrecondition(cfg, processedValue))
@@ -534,7 +535,7 @@ namespace MobiFlight
             {
                 if (!p.PreconditionActive)
                 {
-                    //Log.Instance.log(p.PreconditionLabel + " inactive - skip!", LogSeverity.Debug);
+                    // Log.Instance.log(p.PreconditionLabel + " inactive - skip!", LogSeverity.Debug);
                     continue;
                 }
 
@@ -568,7 +569,7 @@ namespace MobiFlight
                         try
                         {
 
-                            String execResult = tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>());
+                            String execResult = tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString();
                             //Log.Instance.log(p.PreconditionLabel + " - Pin - val:"+val+" - " + execResult + "==" + tmp.ComparisonIfValue, LogSeverity.Debug);
                             result = (execResult == tmp.Comparison.IfValue);
                         }
@@ -635,7 +636,7 @@ namespace MobiFlight
 
                             try
                             {
-                                result = (tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>()) == "1");
+                                result = (tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString() == "1");
                             }
                             catch (FormatException e)
                             {
@@ -1419,6 +1420,7 @@ namespace MobiFlight
                 try
                 {
                     if (gridViewRow.DataBoundItem == null) continue;
+                    if (!(bool)gridViewRow.Cells["active"].Value) continue;
 
                     DataRowView rowView = gridViewRow.DataBoundItem as DataRowView;
                     InputConfigItem cfg = rowView.Row["settings"] as InputConfigItem;

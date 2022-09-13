@@ -84,7 +84,7 @@ namespace MobiFlight.Modifier
                 reader.Read(); // this closes the interpolation node
         }
 
-        public ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
+        public override ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
         {
             ConnectorValue result = connectorValue.Clone() as ConnectorValue;
 

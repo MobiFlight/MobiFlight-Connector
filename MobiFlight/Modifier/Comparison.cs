@@ -76,72 +76,83 @@ namespace MobiFlight.Modifier
 
             return clone;
         }
-        public string Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
+        public override ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
         {
-            string result = null;
+            var result = connectorValue.Clone() as ConnectorValue;
 
             if (connectorValue.type == FSUIPCOffsetType.String)
             {
-                return ExecuteStringComparison(connectorValue);
+                result.String = ExecuteStringComparison(connectorValue);
+                return result;
             }
 
             Double value = connectorValue.Float64;
             
             if (!Active)
             {
-                return value.ToString();
+                return result;
             }
 
             if (Value == "")
             {
-                return value.ToString();
+                return result;
             }
 
             Double comparisonValue = Double.Parse(Value);
             string comparisonIfValue = IfValue != "" ? IfValue : value.ToString();
             string comparisonElseValue = ElseValue != "" ? ElseValue : value.ToString();
+            string comparisonResult = "";
 
             switch (Operand)
             {
                 case "!=":
-                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    comparisonResult = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
                 case ">":
-                    result = (value > comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    comparisonResult = (value > comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
                 case ">=":
-                    result = (value >= comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    comparisonResult = (value >= comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
                 case "<=":
-                    result = (value <= comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    comparisonResult = (value <= comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
                 case "<":
-                    result = (value < comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    comparisonResult = (value < comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
                 case "=":
-                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
+                    comparisonResult = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
                 default:
-                    result = (value > 0) ? "1" : "0";
+                    comparisonResult = (value > 0) ? "1" : "0";
                     break;
             }
 
-            result = result.Replace("$", value.ToString());
+            comparisonResult = comparisonResult.Replace("$", value.ToString());
 
             foreach (ConfigRefValue configRef in configRefs)
             {
-                result = result.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
+                comparisonResult = comparisonResult.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
             }
 
             try
             {
-                var ce = new NCalc.Expression(result);
-                result = (ce.Evaluate()).ToString();
+                var ce = new NCalc.Expression(comparisonResult);
+                comparisonResult = (ce.Evaluate()).ToString();
             }
             catch
             {
-                if (Log.LooksLikeExpression(result))
+                if (Log.LooksLikeExpression(comparisonResult))
                     Log.Instance.log("ExecuteComparison : Exception on NCalc evaluate => " + result, LogSeverity.Warn);
+            }
+
+            try
+            {
+                result.Float64 = Double.Parse(comparisonResult);
+            } catch(FormatException e)
+            {
+                result.type = FSUIPCOffsetType.String;
+                result.String = comparisonResult;
             }
 
             return result;

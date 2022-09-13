@@ -22,5 +22,7 @@ namespace MobiFlight.Modifier
         public abstract void WriteXml(XmlWriter writer);
 
         public abstract object Clone();
+
+        public abstract ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs);
     }
 }

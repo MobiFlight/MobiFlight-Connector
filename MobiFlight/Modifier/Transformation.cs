@@ -61,7 +61,7 @@ namespace MobiFlight.Modifier
                 this.SubStrEnd == (obj as Transformation).SubStrEnd;
         }
 
-        public ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
+        public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
             ConnectorValue result = value;
 
@@ -72,7 +72,7 @@ namespace MobiFlight.Modifier
                     string tmpValue = Apply(value.Float64, configRefs);
                     if (Double.TryParse(tmpValue, out value.Float64))
                     {
-                        value.Float64 = (Int64)Math.Floor(value.Float64);
+                        value.Float64 = value.Float64;
                     } 
                     else 
                     {
