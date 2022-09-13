@@ -73,7 +73,7 @@
     <Compile Include="Base\PreconditionTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
-    <Compile Include="InterpolationTests.cs" />
+    <Compile Include="MobiFlight\Modifier\InterpolationTests.cs" />
     <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfigTests.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="MobiFlight\MobiFlightLcdDisplayTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
-    <Compile Include="MobiFlight\OutputConfig\ComparisonTests.cs" />
+    <Compile Include="MobiFlight\Modifier\ComparisonTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffsetTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModuleTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\PinTests.cs" />
@@ -106,7 +106,7 @@
     <Compile Include="MobiFlight\OutputConfig\StepperTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutputTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\LcdDisplayTests.cs" />
-    <Compile Include="MobiFlight\TransformationTests.cs" />
+    <Compile Include="MobiFlight\Modifier\TransformationTests.cs" />
     <Compile Include="mock\Base\KeyboardInputMock.cs" />
     <Compile Include="mock\FSUIPC\FSUIPCCacheMock.cs" />
     <Compile Include="mock\MobiFlight\MobiFlightCacheMock.cs" />
