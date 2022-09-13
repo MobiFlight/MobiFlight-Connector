@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Modifier;
 using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace MobiFlight.OutputConfig.Tests
+namespace MobiFlight.Modifier.Tests
 {
     [TestClass()]
     public class ComparisonTests
@@ -98,6 +99,29 @@ namespace MobiFlight.OutputConfig.Tests
             String result = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\Comparison\WriteXmlTest.1.xml");
 
             Assert.AreEqual(s, result, "The both strings are not equal");
+        }
+
+        [TestMethod()]
+        public void ApplyTest()
+        {
+            var value = new ConnectorValue();
+            var c = new Comparison();
+            
+            c.Active = true;
+            c.Operand = "=";
+            c.Value = "0";
+            c.IfValue = "1";
+            c.ElseValue = "2";
+
+            value.type = FSUIPCOffsetType.Integer;
+            value.Float64 = 0;
+
+            Assert.AreEqual(1, c.Apply(value, new List<ConfigRefValue>()).Float64);
+            Assert.AreNotEqual(2, c.Apply(value, new List<ConfigRefValue>()).Float64);
+
+            value.Float64 = 1;
+            Assert.AreEqual(2, c.Apply(value, new List<ConfigRefValue>()).Float64);
+            Assert.AreNotEqual(1, c.Apply(value, new List<ConfigRefValue>()).Float64);
         }
     }
 }

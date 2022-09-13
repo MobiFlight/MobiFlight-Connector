@@ -5,11 +5,9 @@ using System.Text;
 
 namespace MobiFlight
 {
-    public class ConnectorValue
+    public class ConnectorValue : ICloneable
     {
         public FSUIPCOffsetType type;
-        /*public UInt64           Uint64;*/
-        public Int64            Int64;
         public Double           Float64;
         public String           String;
 
@@ -22,7 +20,7 @@ namespace MobiFlight
                     result = String;
                     break;
                 case FSUIPCOffsetType.Integer:
-                    result = Int64.ToString();
+                    result = Float64.ToString();
                     break;
                 case FSUIPCOffsetType.Float:
                     result = Float64.ToString();
@@ -33,6 +31,18 @@ namespace MobiFlight
             }
 
             return result;
+        }
+
+        public object Clone()
+        {
+            ConnectorValue c = new ConnectorValue();
+            
+            // clone properties
+            c.type = this.type;
+            c.Float64 = this.Float64;
+            c.String = this.String;
+
+            return c;
         }
     }
 }

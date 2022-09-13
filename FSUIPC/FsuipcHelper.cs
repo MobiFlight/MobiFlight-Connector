@@ -45,7 +45,7 @@ namespace MobiFlight.FSUIPC
                     }
 
                     result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value8;
+                    result.Float64 = value8;
                     break;
                 case 2:
                     Int16 value16 = (Int16)(cfg.FSUIPC.Mask & fsuipcCache.getValue(
@@ -59,7 +59,7 @@ namespace MobiFlight.FSUIPC
                     }
 
                     result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value16;
+                    result.Float64 = value16;
                     break;
                 case 4:
                     Int64 value32 = ((int)cfg.FSUIPC.Mask & fsuipcCache.getValue(
@@ -70,7 +70,7 @@ namespace MobiFlight.FSUIPC
                     // no bcd support anymore for 4 byte
 
                     result.type = FSUIPCOffsetType.Integer;
-                    result.Int64 = value32;
+                    result.Float64 = value32;
                     break;
                 case 8:
                     Double value64 = (Double)fsuipcCache.getDoubleValue(
@@ -113,130 +113,6 @@ namespace MobiFlight.FSUIPC
             return result;
         }
 
-        public static ConnectorValue executeTransform(ConnectorValue value, IFsuipcConfigItem cfg)
-        {
-            double tmpValue;
-            List<ConfigRefValue> configRefs = new List<ConfigRefValue>();
-
-            switch (value.type)
-            {
-                case FSUIPCOffsetType.Integer:
-                    tmpValue = value.Int64;
-                    tmpValue = cfg.Transform.Apply(tmpValue, configRefs);
-                    value.Int64 = (Int64)Math.Floor(tmpValue);
-                    break;
-
-                /*case FSUIPCOffsetType.UnsignedInt:
-                    tmpValue = value.Uint64;
-                    tmpValue = tmpValue * cfg.FSUIPCMultiplier;
-                    value.Uint64 = (UInt64)Math.Floor(tmpValue);
-                    break;*/
-
-                case FSUIPCOffsetType.Float:
-                    value.Float64 = Math.Floor(cfg.Transform.Apply(value.Float64, configRefs));
-                    break;
-
-                // nothing to do in case of string
-            }
-            return value;
-        }
-
-        public static string executeComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
-        {
-            string result = null;
-            if (connectorValue.type == FSUIPCOffsetType.String)
-            {
-                return _executeStringComparison(connectorValue, cfg);
-            }
-
-            Double value = connectorValue.Int64;
-            /*if (connectorValue.type == FSUIPCOffsetType.UnsignedInt) value = connectorValue.Uint64;*/
-            if (connectorValue.type == FSUIPCOffsetType.Float) value = connectorValue.Float64;
-
-            if (!cfg.Comparison.Active)
-            {
-                return value.ToString();
-            }
-
-            if (cfg.Comparison.Value == "")
-            {
-                return value.ToString();
-            }
-
-            Double comparisonValue = Double.Parse(cfg.Comparison.Value);
-            string comparisonIfValue = cfg.Comparison.IfValue != "" ? cfg.Comparison.IfValue : value.ToString();
-            string comparisonElseValue = cfg.Comparison.ElseValue != "" ? cfg.Comparison.ElseValue : value.ToString();
-
-            switch (cfg.Comparison.Operand)
-            {
-                case "!=":
-                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case ">":
-                    result = (value > comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case ">=":
-                    result = (value >= comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "<=":
-                    result = (value <= comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "<":
-                    result = (value < comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "=":
-                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                default:
-                    result = (value > 0) ? "1" : "0";
-                    break;
-            }
-
-            // apply ncalc logic
-            if (result.Contains("$"))
-            {
-                result = result.Replace("$", value.ToString());
-                var ce = new NCalc.Expression(result);
-                try
-                {
-                    result = (ce.Evaluate()).ToString();
-                }
-                catch
-                {
-                    Log.Instance.log("executeComparison : Exception on NCalc evaluate", LogSeverity.Warn);
-                    throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
-                }
-            }
-
-            return result;
-        }
-
-        private static string _executeStringComparison(ConnectorValue connectorValue, OutputConfigItem cfg)
-        {
-            string result = connectorValue.String;
-            string value = connectorValue.String;
-
-            if (!cfg.Comparison.Active)
-            {
-                return connectorValue.String;
-            }
-
-            string comparisonValue = cfg.Comparison.Value;
-            string comparisonIfValue = cfg.Comparison.IfValue;
-            string comparisonElseValue = cfg.Comparison.ElseValue;
-
-            switch (cfg.Comparison.Operand)
-            {
-                case "!=":
-                    result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-                case "=":
-                    result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
-                    break;
-            }
-
-            return result;
-        }
 
         public static void executeWrite(String value, IFsuipcConfigItem cfg, FSUIPCCacheInterface fsuipcCache)
         {

@@ -245,7 +245,10 @@
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
     <Compile Include="MobiFlight\MobiFlightVariable.cs" />
-    <Compile Include="MobiFlight\OutputConfig\Comparison.cs" />
+    <Compile Include="MobiFlight\Modifier\ModifierBase.cs" />
+    <Compile Include="MobiFlight\Modifier\Comparison.cs" />
+    <Compile Include="MobiFlight\Modifier\Blink.cs" />
+    <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
@@ -534,7 +537,7 @@
     <Compile Include="UI\Panels\Device\MFLcdDisplayPanel.Designer.cs">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="MobiFlight\Transformation.cs" />
+    <Compile Include="MobiFlight\Modifier\Transformation.cs" />
     <Compile Include="UI\Panels\Config\BytePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -554,7 +557,7 @@
     <Compile Include="FSUIPC\FSUIPCConfigItem.cs" />
     <Compile Include="MobiFlight\InputConfig\JeehellInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\EventIdInputAction.cs" />
-    <Compile Include="MobiFlight\Interpolation.cs" />
+    <Compile Include="MobiFlight\Modifier\Interpolation.cs" />
     <Compile Include="MobiFlight\KeyboardInput.cs" />
     <Compile Include="MobiFlight\OutputConfigItem.cs" />
     <Compile Include="Base\ConnectorValue.cs" />
