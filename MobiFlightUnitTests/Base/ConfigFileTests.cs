@@ -57,6 +57,7 @@ namespace MobiFlight.Tests
             InputConfig.Clear();
 
             inFile = @"assets\Base\ConfigFile\OpenFileTest.2912.xml";
+            expFile = @"assets\Base\ConfigFile\OpenFileTest.2912.xml.exp";
             inFileTemp = @"assets\Base\ConfigFile\temp_OpenFileTest.2912.xml";
 
             o = new ConfigFile(inFile);
@@ -66,7 +67,7 @@ namespace MobiFlight.Tests
             oTemp = new ConfigFile(inFileTemp);
             oTemp.SaveFile(OutputConfig, InputConfig);
 
-            s1 = System.IO.File.ReadAllText(inFile);
+            s1 = System.IO.File.ReadAllText(expFile);
             s2 = System.IO.File.ReadAllText(inFileTemp);
 
             // get rid of the individual version number

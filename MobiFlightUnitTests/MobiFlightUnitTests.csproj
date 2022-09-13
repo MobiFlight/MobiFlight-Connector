@@ -122,6 +122,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="assets\Base\ConfigFile\OpenFileTest.2912.xml.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="assets\Base\ConfigFile\OpenFileTest.2912.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

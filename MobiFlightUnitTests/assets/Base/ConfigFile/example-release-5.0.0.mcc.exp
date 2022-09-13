@@ -4,36 +4,42 @@
     <config guid="ba1faebe-567b-438b-9918-6416e508401a">
       <active>false</active>
       <description>Parking Brake LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BC8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
-        <comparison active="True" value="32767" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="32767" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="MobiFlight Mega/ SN-7a1-285" trigger="normal" pin="Parking_Brake" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="564a197b-db28-4a16-95e6-f07ac5a4b59d">
       <active>false</active>
       <description>Transponder / SQUAWK</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="MobiFlight Mega/ SN-d90-e5c" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="f7f732c6-cf49-4bb6-82aa-862970af93b6">
       <active>false</active>
       <description>Nav1 Standby</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        </modifiers>
         <display type="Display Module" serial="MobiFlight Mega/ SN-d90-e5c" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
@@ -42,7 +48,7 @@
     <config guid="b37168ce-c589-456c-8bb5-af093ddba484">
       <active>false</active>
       <description>Parking Brake</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-7a1-285" name="prkbrkBtn1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-7a1-285" name="prkbrkBtn1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0BC8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="1" />
@@ -58,7 +64,7 @@
     <config guid="45b73f9a-91b7-4791-9eb7-5f454cfc1349">
       <active>false</active>
       <description>Squawk Digit 1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-d90-e5c" name="Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-d90-e5c" name="Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="65651" />
@@ -76,7 +82,7 @@
     <config guid="b355e1c4-081c-42d1-a636-6485524bf993">
       <active>false</active>
       <description>Nav Standby MHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-d90-e5c" name="Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-d90-e5c" name="Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&lt;1700,$+100,$-900)" />
@@ -94,7 +100,7 @@
     <config guid="96c2a630-fb9f-49de-ba1e-2e876e13c5c1">
       <active>false</active>
       <description>Nav Standby KHz including fast dial</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&gt;800,$-5,1795)" />
