@@ -45,6 +45,7 @@
             this.ResetButton = new System.Windows.Forms.Button();
             this.PresetGroupBox = new System.Windows.Forms.GroupBox();
             this.ExpertSettingsPanel = new System.Windows.Forms.Panel();
+            this.Msfs2020Panel = new System.Windows.Forms.Panel();
             this.LVarExamplePanel = new System.Windows.Forms.Panel();
             this.LVarListButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -69,6 +70,7 @@
             this.TextFilterPanel.SuspendLayout();
             this.PresetGroupBox.SuspendLayout();
             this.ExpertSettingsPanel.SuspendLayout();
+            this.Msfs2020Panel.SuspendLayout();
             this.LVarExamplePanel.SuspendLayout();
             this.AVarExamplePanel.SuspendLayout();
             this.CustomCodePanel.SuspendLayout();
@@ -255,7 +257,7 @@
             this.PresetGroupBox.Location = new System.Drawing.Point(0, 65);
             this.PresetGroupBox.Name = "PresetGroupBox";
             this.PresetGroupBox.Padding = new System.Windows.Forms.Padding(0, 3, 3, 0);
-            this.PresetGroupBox.Size = new System.Drawing.Size(603, 226);
+            this.PresetGroupBox.Size = new System.Drawing.Size(603, 256);
             this.PresetGroupBox.TabIndex = 13;
             this.PresetGroupBox.TabStop = false;
             this.PresetGroupBox.Text = "Select Preset";
@@ -264,15 +266,24 @@
             // 
             this.ExpertSettingsPanel.AutoSize = true;
             this.ExpertSettingsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ExpertSettingsPanel.Controls.Add(this.LVarExamplePanel);
-            this.ExpertSettingsPanel.Controls.Add(this.AVarExamplePanel);
-            this.ExpertSettingsPanel.Controls.Add(this.ExampleLabel);
+            this.ExpertSettingsPanel.Controls.Add(this.Msfs2020Panel);
             this.ExpertSettingsPanel.Controls.Add(this.CustomCodePanel);
             this.ExpertSettingsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.ExpertSettingsPanel.Location = new System.Drawing.Point(0, 124);
             this.ExpertSettingsPanel.Name = "ExpertSettingsPanel";
-            this.ExpertSettingsPanel.Size = new System.Drawing.Size(600, 102);
+            this.ExpertSettingsPanel.Size = new System.Drawing.Size(600, 132);
             this.ExpertSettingsPanel.TabIndex = 9;
+            // 
+            // Msfs2020Panel
+            // 
+            this.Msfs2020Panel.Controls.Add(this.LVarExamplePanel);
+            this.Msfs2020Panel.Controls.Add(this.AVarExamplePanel);
+            this.Msfs2020Panel.Controls.Add(this.ExampleLabel);
+            this.Msfs2020Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Msfs2020Panel.Location = new System.Drawing.Point(0, 32);
+            this.Msfs2020Panel.Name = "Msfs2020Panel";
+            this.Msfs2020Panel.Size = new System.Drawing.Size(600, 100);
+            this.Msfs2020Panel.TabIndex = 9;
             // 
             // LVarExamplePanel
             // 
@@ -280,7 +291,7 @@
             this.LVarExamplePanel.Controls.Add(this.LVarListButton);
             this.LVarExamplePanel.Controls.Add(this.label4);
             this.LVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LVarExamplePanel.Location = new System.Drawing.Point(0, 76);
+            this.LVarExamplePanel.Location = new System.Drawing.Point(0, 44);
             this.LVarExamplePanel.Name = "LVarExamplePanel";
             this.LVarExamplePanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.LVarExamplePanel.Size = new System.Drawing.Size(600, 26);
@@ -314,7 +325,7 @@
             this.AVarExamplePanel.Controls.Add(this.linkLabel1);
             this.AVarExamplePanel.Controls.Add(this.label5);
             this.AVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AVarExamplePanel.Location = new System.Drawing.Point(0, 50);
+            this.AVarExamplePanel.Location = new System.Drawing.Point(0, 18);
             this.AVarExamplePanel.Name = "AVarExamplePanel";
             this.AVarExamplePanel.Size = new System.Drawing.Size(600, 26);
             this.AVarExamplePanel.TabIndex = 10;
@@ -346,7 +357,7 @@
             // 
             this.ExampleLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.ExampleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExampleLabel.Location = new System.Drawing.Point(0, 32);
+            this.ExampleLabel.Location = new System.Drawing.Point(0, 0);
             this.ExampleLabel.Name = "ExampleLabel";
             this.ExampleLabel.Padding = new System.Windows.Forms.Padding(74, 3, 3, 3);
             this.ExampleLabel.Size = new System.Drawing.Size(600, 18);
@@ -465,7 +476,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(603, 0);
             this.Name = "HubHopPresetPanel";
-            this.Size = new System.Drawing.Size(603, 291);
+            this.Size = new System.Drawing.Size(603, 321);
             this.FilterGroupBox.ResumeLayout(false);
             this.FilterGroupBox.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -481,6 +492,7 @@
             this.PresetGroupBox.PerformLayout();
             this.ExpertSettingsPanel.ResumeLayout(false);
             this.ExpertSettingsPanel.PerformLayout();
+            this.Msfs2020Panel.ResumeLayout(false);
             this.LVarExamplePanel.ResumeLayout(false);
             this.AVarExamplePanel.ResumeLayout(false);
             this.CustomCodePanel.ResumeLayout(false);
@@ -527,5 +539,6 @@
         private System.Windows.Forms.Panel AircraftFilterPanel;
         private System.Windows.Forms.Panel SystemFilterPanel;
         private System.Windows.Forms.Panel TextFilterPanel;
+        private System.Windows.Forms.Panel Msfs2020Panel;
     }
 }

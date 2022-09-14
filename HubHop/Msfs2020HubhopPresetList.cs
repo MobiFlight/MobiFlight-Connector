@@ -36,6 +36,11 @@ namespace MobiFlight.HubHop
         public static Msfs2020HubhopPresetList Instance { get; } = new Msfs2020HubhopPresetList();
     }
 
+    public class XplaneHubhopPresetListSingleton
+    {
+        public static Msfs2020HubhopPresetList Instance { get; } = new Msfs2020HubhopPresetList();
+    }
+
     public class Msfs2020HubhopPresetList
     {
         public List<Msfs2020HubhopPreset> Items = new List<Msfs2020HubhopPreset>();

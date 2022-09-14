@@ -37,11 +37,23 @@ namespace MobiFlight.UI.Panels.Config
             } 
         }
 
+        private FlightSimType _flightSimType;
+        public FlightSimType FlightSimType
+        {
+            get { return _flightSimType; }
+            set
+            {
+                if (_flightSimType == value) return;
+                _flightSimType = value;
+                OnFlightSimTypeChanged(value);
+            }
+        }
+
         private void OnModeChanged(HubHopPanelMode value)
         {
-            LVarExamplePanel.Visible = value == HubHopPanelMode.Output;
-            AVarExamplePanel.Visible = value == HubHopPanelMode.Output;
-            ExampleLabel.Visible = value == HubHopPanelMode.Output;
+            LVarExamplePanel.Visible = value == HubHopPanelMode.Output && FlightSimType==FlightSimType.MSFS2020;
+            AVarExamplePanel.Visible = value == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
+            ExampleLabel.Visible = value == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
 
             if (value == HubHopPanelMode.Input)
             {
@@ -50,6 +62,14 @@ namespace MobiFlight.UI.Panels.Config
                 SystemFilterPanel.Width = 100;
                 TextFilterPanel.Width = 100;
             }
+        }
+
+        private void OnFlightSimTypeChanged(FlightSimType value)
+        {
+            Msfs2020Panel.Visible = value == FlightSimType.MSFS2020;
+
+            if(value==FlightSimType.MSFS2020) PresetList = Msfs2020HubhopPresetListSingleton.Instance;
+            if (value == FlightSimType.XPLANE) PresetList = XplaneHubhopPresetListSingleton.Instance;
         }
 
         public String PresetFile { get; set; }
@@ -164,12 +184,18 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncToConfig(OutputConfigItem config)
         {
-            config.SimConnectValue.VarType = SimConnectVarType.CODE;
+            if (FlightSimType==FlightSimType.MSFS2020)
+            {
+                config.SimConnectValue.VarType = SimConnectVarType.CODE;
 
-            Msfs2020HubhopPreset selectedPreset = (PresetComboBox.Items[PresetComboBox.SelectedIndex] as Msfs2020HubhopPreset);
+                Msfs2020HubhopPreset selectedPreset = (PresetComboBox.Items[PresetComboBox.SelectedIndex] as Msfs2020HubhopPreset);
 
-            config.SimConnectValue.UUID = selectedPreset?.id;
-            config.SimConnectValue.Value = SimVarNameTextBox.Text;
+                config.SimConnectValue.UUID = selectedPreset?.id;
+                config.SimConnectValue.Value = SimVarNameTextBox.Text;
+            } else if (FlightSimType == FlightSimType.XPLANE)
+            {
+                config.XplaneDataRef.Path = SimVarNameTextBox.Text;
+            }
         }
 
         internal InputConfig.InputAction ToConfig()
@@ -187,6 +213,35 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncFromConfig(OutputConfigItem config)
         {
+            if (FlightSimType == FlightSimType.MSFS2020)
+                syncFromConfigMSFS(config);
+
+            if (FlightSimType == FlightSimType.XPLANE)
+                syncFromConfigXplane(config);
+        }
+
+        internal void syncFromConfigXplane(OutputConfigItem config)
+        {
+            var VariableValue = config.XplaneDataRef.Path;
+
+            // Restore the code
+            if (VariableValue != "")
+            {
+                SimVarNameTextBox.TextChanged -= SimVarNameTextBox_TextChanged;
+                SimVarNameTextBox.Text = VariableValue;
+                SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
+            }
+
+            // Try to find the original preset and 
+            // initialize comboboxes accordingly
+            String OriginalCode = VariableValue;
+            TryToSelectOriginalPresetFromCode(OriginalCode);
+        }
+
+        internal void syncFromConfigMSFS(OutputConfigItem config)
+        {
+            var VariableValue = config.SimConnectValue.Value;
+
             // Restore the code
             if (config.SimConnectValue.Value != "") { 
                 SimVarNameTextBox.TextChanged -= SimVarNameTextBox_TextChanged;
