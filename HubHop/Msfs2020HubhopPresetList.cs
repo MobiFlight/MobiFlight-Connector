@@ -20,6 +20,8 @@ namespace MobiFlight.HubHop
         public String label { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public HubHopType presetType;
+        [JsonConverter(typeof(StringEnumConverter))]
+        public HubHopAction? presetAction;
         public int version;
         public String status;
         public String description;
@@ -112,7 +114,7 @@ namespace MobiFlight.HubHop
         {
             List<Msfs2020HubhopPreset> temp;
 
-            temp = Items.FindAll(x => (x.presetType & presetType) > 0);
+                temp = Items.FindAll(x => (x.presetType & presetType) > 0);
             
             if (selectedVendor != null)
                 temp = temp.FindAll(x => x.vendor == selectedVendor);

@@ -61,21 +61,35 @@ namespace MobiFlight.UI.Panels.Config
                 AircraftFilterPanel.Width = 100;
                 SystemFilterPanel.Width = 100;
                 TextFilterPanel.Width = 100;
+
+                CodeActionPanel.Visible = FlightSimType == FlightSimType.XPLANE;
+                ValuePanel.Visible = FlightSimType == FlightSimType.XPLANE;
             }
         }
 
         private void OnFlightSimTypeChanged(FlightSimType value)
         {
             Msfs2020Panel.Visible = value == FlightSimType.MSFS2020;
+            CodeActionPanel.Visible = value == FlightSimType.XPLANE && Mode==HubHopPanelMode.Input;
 
             if(value==FlightSimType.MSFS2020) PresetList = Msfs2020HubhopPresetListSingleton.Instance;
-            if (value == FlightSimType.XPLANE) PresetList = XplaneHubhopPresetListSingleton.Instance;
+            if (value == FlightSimType.XPLANE)
+            {
+                PresetList = XplaneHubhopPresetListSingleton.Instance;
+                // XPLANE initialization
+                List<ListItem> listItems = new List<ListItem>();
+                listItems.Add(new ListItem() { Value = XplaneInputAction.INPUT_TYPE_DATAREF, Label = XplaneInputAction.INPUT_TYPE_DATAREF });
+                listItems.Add(new ListItem() { Value = XplaneInputAction.INPUT_TYPE_COMMAND, Label = XplaneInputAction.INPUT_TYPE_COMMAND });
+
+                TypeComboBox.DataSource = listItems;
+                TypeComboBox.ValueMember = "Value";
+                TypeComboBox.DisplayMember = "Label";
+            }
         }
 
         public String PresetFile { get; set; }
         public String PresetFileUser { get; set; }
-        Dictionary<String, List<SimVarPreset>> data = new Dictionary<string, List<SimVarPreset>>();
-
+        
         protected List<String> lVars = new List<string>();
 
         SimConnectLvarsListForm LVarsListForm = new SimConnectLvarsListForm();
@@ -127,6 +141,13 @@ namespace MobiFlight.UI.Panels.Config
 
             SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             FilterTextBox.TextChanged += textBox1_TextChanged;
+
+            ///
+
+            TypeComboBox.SelectedValueChanged += (sender, e) =>
+            {
+                ValuePanel.Visible = (TypeComboBox.SelectedValue.ToString() == XplaneInputAction.INPUT_TYPE_DATAREF);
+            };
         }
 
         private void HubHopPresetPanel_Disposed(object sender, EventArgs e)
@@ -200,14 +221,31 @@ namespace MobiFlight.UI.Panels.Config
 
         internal InputConfig.InputAction ToConfig()
         {
+            if (FlightSimType==FlightSimType.XPLANE) 
+                return ToXplaneConfig();
+
+            return ToMsfsConfig();
+        }
+
+        internal InputConfig.MSFS2020CustomInputAction ToMsfsConfig()
+        {
             Msfs2020HubhopPreset selectedPreset = (PresetComboBox.Items[PresetComboBox.SelectedIndex] as Msfs2020HubhopPreset);
 
-            MobiFlight.InputConfig.MSFS2020CustomInputAction result = 
+            MobiFlight.InputConfig.MSFS2020CustomInputAction result =
                 new InputConfig.MSFS2020CustomInputAction()
                 {
                     PresetId = selectedPreset?.id,
                     Command = SimVarNameTextBox.Text
                 };
+            return result;
+        }
+
+        internal InputConfig.XplaneInputAction ToXplaneConfig()
+        {
+            MobiFlight.InputConfig.XplaneInputAction result = new InputConfig.XplaneInputAction();
+            result.InputType = TypeComboBox.SelectedValue.ToString();
+            result.Path = SimVarNameTextBox.Text;
+            result.Expression = ValueTextBox.Text;
             return result;
         }
 
@@ -608,11 +646,28 @@ namespace MobiFlight.UI.Panels.Config
             FilterTextBox.TextChanged += textBox1_TextChanged;
         }
 
-        public class SimVarPreset
+        public void syncFromConfig(XplaneInputAction inputAction)
         {
-            public String Code { get; set; }
-            public String Label { get; set; }
-            public String Description { get; set; }
+            if (inputAction == null) inputAction = new InputConfig.XplaneInputAction();
+
+            try
+            {
+                TypeComboBox.SelectedValue = inputAction.InputType;
+            }
+            catch (Exception)
+            {
+                TypeComboBox.SelectedValue = "DataRef";
+            }
+
+            // Restore the code
+            SimVarNameTextBox.Text = inputAction.Path;
+            ValueTextBox.Text = inputAction.Expression;
+
+            // Try to find the original preset and 
+            // initialize comboboxes accordingly
+            String OriginalCode = inputAction.Expression;
+
+            TryToSelectOriginalPresetFromCode(OriginalCode);
         }
     }
 }
