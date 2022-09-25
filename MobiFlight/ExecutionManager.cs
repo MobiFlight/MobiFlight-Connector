@@ -466,7 +466,6 @@ namespace MobiFlight
 
                 List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
 
-                String strValue = "";
                 try
                 {
                     processedValue = value;
@@ -494,7 +493,8 @@ namespace MobiFlight
                     }
                     else
                     {
-                        strValue = cfg.Preconditions.FalseCaseValue;
+                        processedValue.type = FSUIPCOffsetType.String;
+                        processedValue.String = cfg.Preconditions.FalseCaseValue;
                     }
                 }
                 else
@@ -505,7 +505,7 @@ namespace MobiFlight
 
                 try
                 {
-                    ExecuteDisplay(strValue, cfg);
+                    ExecuteDisplay(processedValue.ToString(), cfg);
                 }
                 catch (Exception exc)
                 {
