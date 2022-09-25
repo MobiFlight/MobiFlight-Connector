@@ -13,6 +13,7 @@ using MobiFlight.Config;
 using MobiFlight.OutputConfig;
 using MobiFlight.InputConfig;
 using MobiFlight.xplane;
+using MobiFlight.RestWebSocketApi;
 
 namespace MobiFlight
 {
@@ -80,6 +81,7 @@ namespace MobiFlight
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
+        readonly RestApiManager restApiManger = new RestApiManager();
 
         DataGridView dataGridViewConfig = null;
         DataGridView inputsDataGridView = null;
@@ -138,6 +140,8 @@ namespace MobiFlight
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             joystickManager.Connected += (o, e) => { joystickManager.Start(); };
             joystickManager.Connect(handle);
+
+            restApiManger.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
         }
 
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
@@ -189,6 +193,44 @@ namespace MobiFlight
             }
 
             return variables;
+        }
+
+        internal List<String> GetInputRestApiEndpoints()
+        {
+            List<String> restApiEndpoints = new List<String>();
+            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            {
+                if (row.IsNewRow) continue;
+                InputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
+                if (cfg == null) continue;
+
+                String serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
+                if (serial == RestApiManager.serial)
+                {
+                    restApiEndpoints.Add(cfg.Name);
+                }
+            }
+
+            return restApiEndpoints;
+        }
+
+        internal List<String> GetOutputRestApiEndpoints()
+        {
+            List<String> restApiEndpoints = new List<String>();
+            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            {
+                if (row.IsNewRow) continue;
+                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+                if (cfg == null) continue;
+
+                String serial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
+                if (serial == RestApiManager.serial)
+                {
+                    restApiEndpoints.Add(cfg.DisplayType);
+                }
+            }
+
+            return restApiEndpoints;
         }
 
         public void HandleWndProc(ref Message m)
@@ -259,6 +301,7 @@ namespace MobiFlight
         {
             simConnectCache.Start();
             xplaneCache.Start();
+            restApiManger.Start(GetInputRestApiEndpoints());
             timer.Enabled = true;
         }
 
@@ -269,6 +312,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
+            restApiManger.Stop();
             ClearErrorMessages();
         }
 
@@ -291,6 +335,7 @@ namespace MobiFlight
             {
                 inputCache.Clear();
             }
+            restApiManger.UpdateRestApiEndpoints(this.GetInputRestApiEndpoints());
         }
 
         public bool IsStarted()
@@ -374,6 +419,7 @@ namespace MobiFlight
             simConnectCache.Disconnect();
 #endif
             joystickManager.Stop();
+            restApiManger.Stop();
             this.OnModulesDisconnected?.Invoke(this, new EventArgs());
         }
 
@@ -705,7 +751,7 @@ namespace MobiFlight
                 cfg.DisplayType!="InputAction") 
                 return value.ToString();
 
-            if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
+            if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction" && serial != RestApiManager.serial)
             {
 #if ARCAZE
                 switch (cfg.DisplayType)
@@ -735,6 +781,13 @@ namespace MobiFlight
                         break;
                 }
 #endif
+            }
+            else if (serial == RestApiManager.serial)
+            {
+                if (value != "")
+                {
+                    restApiManger.PublishOutput(cfg.DisplayType, value);
+                }
             }
             else
             {

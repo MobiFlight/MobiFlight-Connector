@@ -108,5 +108,8 @@
     <Setting Name="IgnoredComPortsList" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="RestWebsocketServerConfig" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

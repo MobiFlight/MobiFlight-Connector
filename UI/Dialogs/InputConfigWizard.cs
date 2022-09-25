@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.Base;
+using MobiFlight.RestWebSocketApi;
 using MobiFlight.UI.Panels;
 using MobiFlight.UI.Panels.Input;
 
@@ -188,6 +189,12 @@ namespace MobiFlight.UI.Dialogs
                     });
             }
 
+            inputModuleNameComboBox.Items.Add(new ListItem()
+            {
+                Value = $"REST WebSocket API / RestAPI",
+                Label = $"REST/WebSocket API"
+            });
+
             preconditionPanel.SetModules(PreconditionModuleList);
         }
 #endif
@@ -222,6 +229,12 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
+            inputModuleNameComboBox.Items.Add(new ListItem()
+            {
+                Value = $"REST WebSocket API / RestAPI",
+                Label = $"REST/WebSocket API"
+            });
+
             preconditionPanel.SetModules(PreconditionModuleList);
         }
 
@@ -249,6 +262,11 @@ namespace MobiFlight.UI.Dialogs
             {
                 // TODO: provide error message
                 Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
+            }
+
+            if (serial == RestApiManager.serial)
+            {
+                restApiEndpointComboBox.Text = config.Name;
             }
 
             preconditionPanel.syncFromConfig(config);
@@ -285,13 +303,19 @@ namespace MobiFlight.UI.Dialogs
             config.ModuleSerial = inputModuleNameComboBox.SelectedItem.ToString();
             config.Name = inputTypeComboBox.Text;
 
+            string serialNumber = SerialNumber.ExtractSerial(config.ModuleSerial);
+            if (serialNumber == RestApiManager.serial)
+            {
+                config.Name = restApiEndpointComboBox.Text;
+            }
+
             configRefPanel.syncToConfig(config);
 
             preconditionPanel.syncToConfig(config);
 
             if (config.ModuleSerial == "-") return true;
 
-            DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
+            DeviceType currentInputType = determineCurrentDeviceType(serialNumber);
 
             if (groupBoxInputSettings.Controls.Count == 0) return false;
 
@@ -379,6 +403,19 @@ namespace MobiFlight.UI.Dialogs
                 inputTypeComboBox.ValueMember = "Value";
                 inputTypeComboBox.DisplayMember = "Label";
 
+                inputTypeComboBox.Visible = true;
+                restApiEndpointComboBox.Visible = false;
+
+
+                if (serial == RestApiManager.serial)
+                {
+                    inputTypeComboBox.Visible = false;
+                    restApiEndpointComboBox.Visible = true;
+                    restApiEndpointComboBox.Items.Clear();
+                    restApiEndpointComboBox.Items.AddRange(_execManager.GetInputRestApiEndpoints().ToArray());
+
+                    inputTypeComboBox_SelectedIndexChanged(null, null);
+                }
                 if (!Joystick.IsJoystickSerial(serial))
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
@@ -441,7 +478,11 @@ namespace MobiFlight.UI.Dialogs
         {
             DeviceType currentInputType = DeviceType.Button;
 
-            if (!Joystick.IsJoystickSerial(serial)) { 
+            if (serial == RestApiManager.serial)
+            {
+                currentInputType = DeviceType.AnalogInput;
+            }
+            else if (!Joystick.IsJoystickSerial(serial)) { 
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
                 // find the correct input type based on the name

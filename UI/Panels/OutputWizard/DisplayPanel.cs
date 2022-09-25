@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.InputConfig;
+using MobiFlight.RestWebSocketApi;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -124,7 +125,14 @@ namespace MobiFlight.UI.Panels.OutputWizard
             originalConfig = cfg.Clone() as OutputConfigItem;
             config = cfg;
 
-            OutputTypeComboBox.SelectedIndex = (config.DisplayType == "InputAction") ? 1 : 0;
+            OutputTypeComboBox.SelectedIndex = 0;
+            if (config.DisplayType == "InputAction")
+            {
+                OutputTypeComboBox.SelectedIndex = 1;
+            } else if (SerialNumber.ExtractSerial(config.DisplaySerial) == RestApiManager.serial)
+            {
+                OutputTypeComboBox.SelectedIndex = 2;
+            }
 
             if (OutputTypeComboBox.SelectedIndex == 0)
             {
@@ -172,7 +180,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
                 }
             }
-            else
+            else if (OutputTypeComboBox.SelectedIndex == 1)
             {
                 AnalogInputConfig analogInputConfig = new AnalogInputConfig();
                 analogInputConfig.onChange = config.AnalogInputConfig?.onChange;                    ;
@@ -185,6 +193,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
                 InputTypeAnalogRadioButton.Checked = config.AnalogInputConfig?.onChange != null;
+            }
+            else
+            {
+                restApiEndpointTextBox.Text = config.DisplayType;
             }
         }
 
@@ -277,7 +289,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
                 }
             }
-            else { 
+            else if (OutputTypeComboBox.SelectedIndex == 1) { 
                 config.DisplayType = "InputAction";
 
                 if (analogPanel1.Enabled)
@@ -293,6 +305,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     config.ButtonInputConfig = tmpConfig;
                     config.AnalogInputConfig = null;
                 }
+            }
+            else
+            {
+                config.DisplaySerial = $"REST API / {RestApiManager.serial}";
+                config.DisplayType = restApiEndpointTextBox.Text;
             }
         }
 
@@ -780,6 +797,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             InputActionTypePanel.Visible = OutputTypeComboBox.SelectedIndex == 1;
             inputActionGroupBox.Visible = OutputTypeComboBox.SelectedIndex == 1;
+
+            restApiBox.Visible = OutputTypeComboBox.SelectedIndex == 2;
         }
 
         private void InputTypeButtonRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -791,6 +810,19 @@ namespace MobiFlight.UI.Panels.OutputWizard
             analogPanel1.Enabled = InputTypeAnalogRadioButton.Checked;
             analogPanel1.Visible = InputTypeAnalogRadioButton.Checked;
             AnalogInputActionLabel.Visible = InputTypeAnalogRadioButton.Checked;
+        }
+
+        private void restApiEndpointTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+            List<string> existingOutputEndpoints = _execManager.GetOutputRestApiEndpoints().ConvertAll(x => x.ToLower());
+            if (existingOutputEndpoints.Contains(restApiEndpointTextBox.Text.ToLower()) && restApiEndpointTextBox.Text != originalConfig.DisplayType)
+            {
+                duplicateLabel.Visible = true;
+            } else
+            {
+                duplicateLabel.Visible = false;
+            }
         }
     }
 }

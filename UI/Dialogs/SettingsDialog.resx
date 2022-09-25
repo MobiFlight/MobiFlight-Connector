@@ -519,6 +519,51 @@
   <data name="&gt;&gt;mobiFlightTabPage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="restApiPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="restApiPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>557, 508</value>
+  </data>
+  <data name="restApiPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;restApiPanel.Name" xml:space="preserve">
+    <value>restApiPanel</value>
+  </data>
+  <data name="&gt;&gt;restApiPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Settings.RestApiPanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;restApiPanel.Parent" xml:space="preserve">
+    <value>RestApiTabPage</value>
+  </data>
+  <data name="&gt;&gt;restApiPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="RestApiTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="RestApiTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>563, 514</value>
+  </data>
+  <data name="RestApiTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="RestApiTabPage.Text" xml:space="preserve">
+    <value>REST/WebSocket API</value>
+  </data>
+  <data name="&gt;&gt;RestApiTabPage.Name" xml:space="preserve">
+    <value>RestApiTabPage</value>
+  </data>
+  <data name="&gt;&gt;RestApiTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RestApiTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;RestApiTabPage.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>

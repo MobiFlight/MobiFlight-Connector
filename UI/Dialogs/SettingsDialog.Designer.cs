@@ -63,6 +63,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
             this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
+            this.RestApiTabPage = new System.Windows.Forms.TabPage();
+            this.restApiPanel = new MobiFlight.UI.Panels.Settings.RestApiPanel();
             this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +76,7 @@
             this.generalTabPage.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
+            this.RestApiTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -270,6 +273,7 @@
             this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
             this.tabControl1.Controls.Add(this.ArcazeTabPage);
+            this.tabControl1.Controls.Add(this.RestApiTabPage);
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -285,6 +289,18 @@
             // 
             resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
             this.mobiFlightPanel.Name = "mobiFlightPanel";
+            // 
+            // RestApiTabPage
+            // 
+            this.RestApiTabPage.Controls.Add(this.restApiPanel);
+            resources.ApplyResources(this.RestApiTabPage, "RestApiTabPage");
+            this.RestApiTabPage.Name = "RestApiTabPage";
+            this.RestApiTabPage.UseVisualStyleBackColor = true;
+            // 
+            // restApiPanel
+            // 
+            resources.ApplyResources(this.restApiPanel, "restApiPanel");
+            this.restApiPanel.Name = "restApiPanel";
             // 
             // firmwareSettingsToolStripMenuItem
             // 
@@ -323,6 +339,7 @@
             this.generalTabPage.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
+            this.RestApiTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -368,5 +385,7 @@
         private Panels.Settings.ArcazePanel arcazePanel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
+        private System.Windows.Forms.TabPage RestApiTabPage;
+        private Panels.Settings.RestApiPanel restApiPanel;
     }
 }

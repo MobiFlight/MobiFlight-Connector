@@ -443,5 +443,17 @@ namespace MobiFlight.Properties {
                 this["IgnoredComPortsList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RestWebsocketServerConfig {
+            get {
+                return ((string)(this["RestWebsocketServerConfig"]));
+            }
+            set {
+                this["RestWebsocketServerConfig"] = value;
+            }
+        }
     }
 }

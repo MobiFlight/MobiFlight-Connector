@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
+using MobiFlight.Base;
+using MobiFlight.RestWebSocketApi;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -46,6 +48,7 @@ namespace MobiFlight.UI.Dialogs
                 OutputConfigItem cfg = row["settings"] as OutputConfigItem;
                 if (cfg.DisplaySerial != "" && 
                     cfg.DisplaySerial  != "-" && 
+                    SerialNumber.ExtractSerial(cfg.DisplaySerial) != RestApiManager.serial &&
                     !configSerials.Contains(cfg.DisplaySerial) && 
                     !moduleSerials.Contains(cfg.DisplaySerial))
                 {
@@ -60,6 +63,7 @@ namespace MobiFlight.UI.Dialogs
                 if (cfg != null &&
                     cfg.ModuleSerial != "" &&
                     cfg.ModuleSerial != "-" &&
+                    SerialNumber.ExtractSerial(cfg.ModuleSerial) != RestApiManager.serial &&
                     !Joystick.IsJoystickSerial(cfg.ModuleSerial) &&
                     !configSerials.Contains(cfg.ModuleSerial) &&
                     !moduleSerials.Contains(cfg.ModuleSerial))

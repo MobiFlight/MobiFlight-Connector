@@ -96,6 +96,11 @@ namespace MobiFlight.UI.Dialogs
             // TAB MobiFlight
             //
             mobiFlightPanel.LoadSettings();
+
+            //
+            // TAB RestApiPanel
+            //
+            restApiPanel.LoadSettings();
         }
 
         /// <summary>
@@ -112,6 +117,9 @@ namespace MobiFlight.UI.Dialogs
 #endif
             // MobiFlight Tab
             mobiFlightPanel.SaveSettings();
+
+            // REST/Websocket Config
+            restApiPanel.SaveSettings();
 
             // Save all Settings
             Properties.Settings.Default.Save();

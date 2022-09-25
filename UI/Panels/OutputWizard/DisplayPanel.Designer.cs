@@ -52,6 +52,11 @@
             this.ButtonInputActionLabel = new System.Windows.Forms.Label();
             this.OutputDevicePanel = new System.Windows.Forms.Panel();
             this.DisplayPanelTextLabel = new System.Windows.Forms.Label();
+            this.restApiBox = new System.Windows.Forms.GroupBox();
+            this.endpointNameLabel = new System.Windows.Forms.Label();
+            this.restApiEndpointTextBox = new System.Windows.Forms.TextBox();
+            this.duplicateLabel = new System.Windows.Forms.Label();
+            this.restWebsocketDescriptionLabel = new System.Windows.Forms.Label();
             this.displayTypeGroupBox.SuspendLayout();
             this.InputActionTypePanel.SuspendLayout();
             this.DisplayTypePanel.SuspendLayout();
@@ -59,6 +64,7 @@
             this.testSettingsGroupBox.SuspendLayout();
             this.inputActionGroupBox.SuspendLayout();
             this.OutputDevicePanel.SuspendLayout();
+            this.restApiBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayTypeGroupBox
@@ -149,7 +155,8 @@
             this.OutputTypeComboBox.FormattingEnabled = true;
             this.OutputTypeComboBox.Items.AddRange(new object[] {
             resources.GetString("OutputTypeComboBox.Items"),
-            resources.GetString("OutputTypeComboBox.Items1")});
+            resources.GetString("OutputTypeComboBox.Items1"),
+            resources.GetString("OutputTypeComboBox.Items2")});
             this.OutputTypeComboBox.Name = "OutputTypeComboBox";
             this.OutputTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.OutputTypeComboBox_SelectedIndexChanged);
             // 
@@ -231,10 +238,43 @@
             resources.ApplyResources(this.DisplayPanelTextLabel, "DisplayPanelTextLabel");
             this.DisplayPanelTextLabel.Name = "DisplayPanelTextLabel";
             // 
+            // restApiBox
+            // 
+            resources.ApplyResources(this.restApiBox, "restApiBox");
+            this.restApiBox.Controls.Add(this.endpointNameLabel);
+            this.restApiBox.Controls.Add(this.restApiEndpointTextBox);
+            this.restApiBox.Controls.Add(this.duplicateLabel);
+            this.restApiBox.Controls.Add(this.restWebsocketDescriptionLabel);
+            this.restApiBox.Name = "restApiBox";
+            this.restApiBox.TabStop = false;
+            // 
+            // endpointNameLabel
+            // 
+            resources.ApplyResources(this.endpointNameLabel, "endpointNameLabel");
+            this.endpointNameLabel.Name = "endpointNameLabel";
+            // 
+            // restApiEndpointTextBox
+            // 
+            resources.ApplyResources(this.restApiEndpointTextBox, "restApiEndpointTextBox");
+            this.restApiEndpointTextBox.Name = "restApiEndpointTextBox";
+            this.restApiEndpointTextBox.TextChanged += new System.EventHandler(this.restApiEndpointTextBox_TextChanged);
+            // 
+            // duplicateLabel
+            // 
+            resources.ApplyResources(this.duplicateLabel, "duplicateLabel");
+            this.duplicateLabel.ForeColor = System.Drawing.Color.Red;
+            this.duplicateLabel.Name = "duplicateLabel";
+            // 
+            // restWebsocketDescriptionLabel
+            // 
+            resources.ApplyResources(this.restWebsocketDescriptionLabel, "restWebsocketDescriptionLabel");
+            this.restWebsocketDescriptionLabel.Name = "restWebsocketDescriptionLabel";
+            // 
             // DisplayPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.restApiBox);
             this.Controls.Add(this.inputActionGroupBox);
             this.Controls.Add(this.OutputDevicePanel);
             this.Controls.Add(this.DisplayPanelTextLabel);
@@ -249,6 +289,8 @@
             this.inputActionGroupBox.PerformLayout();
             this.OutputDevicePanel.ResumeLayout(false);
             this.OutputDevicePanel.PerformLayout();
+            this.restApiBox.ResumeLayout(false);
+            this.restApiBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,5 +321,10 @@
         private Input.ButtonPanel buttonPanel1;
         private System.Windows.Forms.Label AnalogInputActionLabel;
         private System.Windows.Forms.Label ButtonInputActionLabel;
+        private System.Windows.Forms.GroupBox restApiBox;
+        private System.Windows.Forms.Label restWebsocketDescriptionLabel;
+        private System.Windows.Forms.Label duplicateLabel;
+        private System.Windows.Forms.TextBox restApiEndpointTextBox;
+        private System.Windows.Forms.Label endpointNameLabel;
     }
 }

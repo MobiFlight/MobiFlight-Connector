@@ -50,6 +50,7 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.restApiEndpointComboBox = new System.Windows.Forms.ComboBox();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
@@ -124,6 +125,7 @@
             this.displayTypeGroupBox.Controls.Add(this.inputModuleNameComboBox);
             this.displayTypeGroupBox.Controls.Add(this.inputTypeComboBoxLabel);
             this.displayTypeGroupBox.Controls.Add(this.inputTypeComboBox);
+            this.displayTypeGroupBox.Controls.Add(this.restApiEndpointComboBox);
             resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
@@ -220,6 +222,10 @@
             // 
             this.description.ColumnName = "description";
             // 
+            // restApiEndpointComboBox
+            // 
+            resources.ApplyResources(this.restApiEndpointComboBox, "restApiEndpointComboBox");
+            this.restApiEndpointComboBox.Name = "restApiEndpointComboBox";
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
@@ -278,5 +284,6 @@
         private Panels.Config.ConfigRefPanel configRefPanel;
         private System.Windows.Forms.ComboBox inputPinDropDown;
         private Panels.Config.PreconditionPanel preconditionPanel;
+        private System.Windows.Forms.ComboBox restApiEndpointComboBox;
     }
 }
