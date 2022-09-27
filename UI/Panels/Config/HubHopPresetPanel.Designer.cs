@@ -54,6 +54,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.ExampleLabel = new System.Windows.Forms.Label();
             this.CustomCodePanel = new System.Windows.Forms.Panel();
+            this.ValuePanel = new System.Windows.Forms.Panel();
+            this.ValueTextBox = new System.Windows.Forms.TextBox();
+            this.ValueLabel = new System.Windows.Forms.Label();
+            this.HintLabel = new System.Windows.Forms.Label();
             this.PresetCodePanel = new System.Windows.Forms.Panel();
             this.SimVarNameTextBox = new System.Windows.Forms.TextBox();
             this.ExpandButton = new System.Windows.Forms.Button();
@@ -65,10 +69,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.ShowExpertSettingsCheckBox = new System.Windows.Forms.CheckBox();
-            this.ValuePanel = new System.Windows.Forms.Panel();
-            this.ValueTextBox = new System.Windows.Forms.TextBox();
-            this.ValueLabel = new System.Windows.Forms.Label();
-            this.HintLabel = new System.Windows.Forms.Label();
             this.FilterGroupBox.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.FilterVendorPanel.SuspendLayout();
@@ -81,10 +81,10 @@
             this.LVarExamplePanel.SuspendLayout();
             this.AVarExamplePanel.SuspendLayout();
             this.CustomCodePanel.SuspendLayout();
+            this.ValuePanel.SuspendLayout();
             this.PresetCodePanel.SuspendLayout();
             this.CodeActionPanel.SuspendLayout();
             this.PresetPanel.SuspendLayout();
-            this.ValuePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // FilterGroupBox
@@ -388,6 +388,49 @@
             this.CustomCodePanel.Size = new System.Drawing.Size(600, 140);
             this.CustomCodePanel.TabIndex = 11;
             // 
+            // ValuePanel
+            // 
+            this.ValuePanel.AutoSize = true;
+            this.ValuePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ValuePanel.Controls.Add(this.ValueTextBox);
+            this.ValuePanel.Controls.Add(this.ValueLabel);
+            this.ValuePanel.Controls.Add(this.HintLabel);
+            this.ValuePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ValuePanel.Location = new System.Drawing.Point(0, 57);
+            this.ValuePanel.Name = "ValuePanel";
+            this.ValuePanel.Padding = new System.Windows.Forms.Padding(4);
+            this.ValuePanel.Size = new System.Drawing.Size(600, 78);
+            this.ValuePanel.TabIndex = 33;
+            // 
+            // ValueTextBox
+            // 
+            this.ValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ValueTextBox.Location = new System.Drawing.Point(75, 26);
+            this.ValueTextBox.Name = "ValueTextBox";
+            this.ValueTextBox.Size = new System.Drawing.Size(470, 20);
+            this.ValueTextBox.TabIndex = 5;
+            // 
+            // ValueLabel
+            // 
+            this.ValueLabel.Location = new System.Drawing.Point(75, 3);
+            this.ValueLabel.Name = "ValueLabel";
+            this.ValueLabel.Size = new System.Drawing.Size(66, 20);
+            this.ValueLabel.TabIndex = 4;
+            this.ValueLabel.Text = "Value";
+            this.ValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // HintLabel
+            // 
+            this.HintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HintLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.HintLabel.Location = new System.Drawing.Point(75, 49);
+            this.HintLabel.Name = "HintLabel";
+            this.HintLabel.Size = new System.Drawing.Size(464, 25);
+            this.HintLabel.TabIndex = 30;
+            this.HintLabel.Text = "Supports variable value ($), input value (@) and placeholders (?,#, etc.)\r\n";
+            // 
             // PresetCodePanel
             // 
             this.PresetCodePanel.AutoSize = true;
@@ -509,49 +552,6 @@
             this.ShowExpertSettingsCheckBox.Text = "Show Preset Code";
             this.ShowExpertSettingsCheckBox.UseVisualStyleBackColor = true;
             // 
-            // ValuePanel
-            // 
-            this.ValuePanel.AutoSize = true;
-            this.ValuePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ValuePanel.Controls.Add(this.ValueTextBox);
-            this.ValuePanel.Controls.Add(this.ValueLabel);
-            this.ValuePanel.Controls.Add(this.HintLabel);
-            this.ValuePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ValuePanel.Location = new System.Drawing.Point(0, 57);
-            this.ValuePanel.Name = "ValuePanel";
-            this.ValuePanel.Padding = new System.Windows.Forms.Padding(4);
-            this.ValuePanel.Size = new System.Drawing.Size(600, 78);
-            this.ValuePanel.TabIndex = 33;
-            // 
-            // ValueTextBox
-            // 
-            this.ValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ValueTextBox.Location = new System.Drawing.Point(75, 26);
-            this.ValueTextBox.Name = "ValueTextBox";
-            this.ValueTextBox.Size = new System.Drawing.Size(470, 20);
-            this.ValueTextBox.TabIndex = 5;
-            // 
-            // ValueLabel
-            // 
-            this.ValueLabel.Location = new System.Drawing.Point(75, 3);
-            this.ValueLabel.Name = "ValueLabel";
-            this.ValueLabel.Size = new System.Drawing.Size(66, 20);
-            this.ValueLabel.TabIndex = 4;
-            this.ValueLabel.Text = "Value";
-            this.ValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // HintLabel
-            // 
-            this.HintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HintLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.HintLabel.Location = new System.Drawing.Point(75, 49);
-            this.HintLabel.Name = "HintLabel";
-            this.HintLabel.Size = new System.Drawing.Size(464, 25);
-            this.HintLabel.TabIndex = 30;
-            this.HintLabel.Text = "Supports variable value ($), input value (@) and placeholders (?,#, etc.)\r\n";
-            // 
             // HubHopPresetPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -584,13 +584,13 @@
             this.AVarExamplePanel.ResumeLayout(false);
             this.CustomCodePanel.ResumeLayout(false);
             this.CustomCodePanel.PerformLayout();
+            this.ValuePanel.ResumeLayout(false);
+            this.ValuePanel.PerformLayout();
             this.PresetCodePanel.ResumeLayout(false);
             this.PresetCodePanel.PerformLayout();
             this.CodeActionPanel.ResumeLayout(false);
             this.PresetPanel.ResumeLayout(false);
             this.PresetPanel.PerformLayout();
-            this.ValuePanel.ResumeLayout(false);
-            this.ValuePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

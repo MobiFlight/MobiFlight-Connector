@@ -27,6 +27,7 @@ namespace MobiFlight.UI.Panels.Config
             transformOptionsGroup1.ShowSubStringPanel(false);
 
             HubHopPresetPanel.Mode = Config.HubHopPanelMode.Output;
+            HubHopPresetPanel.FlightSimType = FlightSimType.MSFS2020;
             HubHopPresetPanel.LoadPresets();
         }
 

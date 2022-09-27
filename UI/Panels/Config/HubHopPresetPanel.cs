@@ -2,6 +2,7 @@
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,11 +52,22 @@ namespace MobiFlight.UI.Panels.Config
 
         private void OnModeChanged(HubHopPanelMode value)
         {
-            LVarExamplePanel.Visible = value == HubHopPanelMode.Output && FlightSimType==FlightSimType.MSFS2020;
-            AVarExamplePanel.Visible = value == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
-            ExampleLabel.Visible = value == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
+            UpdateElementsBasedOnPanelMode(value, FlightSimType);
+        }
 
-            if (value == HubHopPanelMode.Input)
+        private void OnFlightSimTypeChanged(FlightSimType value)
+        {
+            UpdateElementsBasedOnPanelMode(Mode, value);
+        }
+
+        private void UpdateElementsBasedOnPanelMode(HubHopPanelMode panelMode, FlightSimType simType)
+        {
+            LVarExamplePanel.Visible = panelMode == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
+            AVarExamplePanel.Visible = panelMode == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
+            ExampleLabel.Visible = panelMode == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
+            ValuePanel.Visible = panelMode == HubHopPanelMode.Input && FlightSimType == FlightSimType.XPLANE;
+
+            if (panelMode == HubHopPanelMode.Input)
             {
                 FilterVendorPanel.Width = 100;
                 AircraftFilterPanel.Width = 100;
@@ -63,17 +75,17 @@ namespace MobiFlight.UI.Panels.Config
                 TextFilterPanel.Width = 100;
 
                 CodeActionPanel.Visible = FlightSimType == FlightSimType.XPLANE;
-                ValuePanel.Visible = FlightSimType == FlightSimType.XPLANE;
             }
-        }
 
-        private void OnFlightSimTypeChanged(FlightSimType value)
-        {
-            Msfs2020Panel.Visible = value == FlightSimType.MSFS2020;
-            CodeActionPanel.Visible = value == FlightSimType.XPLANE && Mode==HubHopPanelMode.Input;
+            Msfs2020Panel.Visible = simType == FlightSimType.MSFS2020;
+            CodeActionPanel.Visible = simType == FlightSimType.XPLANE && Mode == HubHopPanelMode.Input;
 
-            if(value==FlightSimType.MSFS2020) PresetList = Msfs2020HubhopPresetListSingleton.Instance;
-            if (value == FlightSimType.XPLANE)
+            if (simType == FlightSimType.MSFS2020)
+            {
+                PresetList = Msfs2020HubhopPresetListSingleton.Instance;
+            }
+            
+            if (simType == FlightSimType.XPLANE)
             {
                 PresetList = XplaneHubhopPresetListSingleton.Instance;
                 // XPLANE initialization
@@ -113,6 +125,8 @@ namespace MobiFlight.UI.Panels.Config
         public HubHopPresetPanel()
         {
             InitializeComponent();
+
+
             PresetList = Msfs2020HubhopPresetListSingleton.Instance;
 
             Disposed += HubHopPresetPanel_Disposed;
@@ -146,7 +160,7 @@ namespace MobiFlight.UI.Panels.Config
 
             TypeComboBox.SelectedValueChanged += (sender, e) =>
             {
-                ValuePanel.Visible = (TypeComboBox.SelectedValue.ToString() == XplaneInputAction.INPUT_TYPE_DATAREF);
+                ValuePanel.Visible = Mode == HubHopPanelMode.Input && FlightSimType == FlightSimType.XPLANE && (TypeComboBox.SelectedValue.ToString() == XplaneInputAction.INPUT_TYPE_DATAREF);
             };
         }
 
@@ -205,6 +219,9 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncToConfig(OutputConfigItem config)
         {
+            config.XplaneDataRef = new xplane.XplaneDataRef();
+            config.SimConnectValue = new SimConnectValue();
+
             if (FlightSimType==FlightSimType.MSFS2020)
             {
                 config.SimConnectValue.VarType = SimConnectVarType.CODE;
