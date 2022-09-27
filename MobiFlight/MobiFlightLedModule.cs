@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CommandMessenger;
+using SharpDX.DirectInput;
 
 namespace MobiFlight
 {
@@ -56,7 +57,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display(int subModule, String value, byte points, byte mask )
+        public void Display(int subModule, String value, byte points, byte mask)
         {
             if (!_initialized) Initialize();
 
@@ -90,8 +91,7 @@ namespace MobiFlight
         {
             if (!_initialized) Initialize();
 
-            // cache hit
-            if (_state[subModule] == null || !_state[subModule].SetBrightnessRequiresUpdate(value))
+            if (isCacheHit(subModule, value))
                 return;
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModuleBrightness);
@@ -104,10 +104,15 @@ namespace MobiFlight
 
             Log.Instance.log("Command: SetModuleBrightness <" + (int)MobiFlightModule.Command.SetModuleBrightness + "," +
                                                       this.ModuleNumber + "," +
-                                                      subModule +"," +
+                                                      subModule + "," +
                                                       value + ";>", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
+        }
+
+        private bool isCacheHit(int subModule, string value)
+        {
+            return _state[subModule] == null || !_state[subModule].SetBrightnessRequiresUpdate(value);
         }
 
         // Blank the display when stopped
@@ -118,6 +123,11 @@ namespace MobiFlight
                 Display(i, "        ", 0, 0xff);
                 _state[i]?.Reset();
             }    
+        }
+
+        public void ClearState()
+        {
+            _state.Clear();
         }
     }
 
