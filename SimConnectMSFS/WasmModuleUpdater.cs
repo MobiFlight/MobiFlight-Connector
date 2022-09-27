@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -32,6 +33,8 @@ namespace MobiFlight.SimConnectMSFS
 
         public const String WasmModuleName = @"MobiFlightWasmModule.wasm";
         public const String WasmModuleNameOld = @"StandaloneModule.wasm";
+
+        public event EventHandler<ProgressUpdateEvent> DownloadAndInstallProgress;
 
         public String CommunityFolder { get; set; }
 
@@ -227,17 +230,36 @@ namespace MobiFlight.SimConnectMSFS
 
         public bool DownloadWasmEvents()
         {
-            if(!DownloadSingleFile(new Uri(WasmEventsTxtUrl), WasmEventsTxtFile, WasmModuleFolder + @"\modules")) return false;
+            ProgressUpdateEvent progress = new ProgressUpdateEvent();
+
+            progress.ProgressMessage = "Downloading WASM events.txt (legacy)";
+            progress.Current = 5;
+            DownloadAndInstallProgress?.Invoke(this, progress);
+
+            if (!DownloadSingleFile(new Uri(WasmEventsTxtUrl), WasmEventsTxtFile, WasmModuleFolder + @"\modules")) return false;
             Log.Instance.log("WASM events.txt has been downloaded and installed successfully.", LogSeverity.Info);
 
+            progress.ProgressMessage = "Downloading EventIDs (legacy)";
+            progress.Current = 25;
+            DownloadAndInstallProgress?.Invoke(this, progress);
             if (!DownloadSingleFile(new Uri(WasmEventsCipUrl), WasmEventsCipFileName, WasmEventsCipFolder)) return false;
             Log.Instance.log("WASM msfs2020_eventids.cip has been downloaded and installed successfully.", LogSeverity.Info);
-            
+
+            progress.ProgressMessage = "Downloading SimVars (legacy)";
+            progress.Current = 50;
+            DownloadAndInstallProgress?.Invoke(this, progress);
             if (!DownloadSingleFile(new Uri(WasmEventsSimVarsUrl), WasmEventsSimVarsFileName, WasmEventsSimVarsFolder)) return false;
             Log.Instance.log("WASM msfs2020_simvars.cip has been downloaded and installed successfully.", LogSeverity.Info);
 
+            progress.ProgressMessage = "Downloading HubHop Presets";
+            progress.Current = 75;
+            DownloadAndInstallProgress?.Invoke(this, progress);
             if (!DownloadSingleFile(new Uri(WasmEventHubHHopUrl), WasmEventsHubHopFileName, WasmEventsHubHopFolder)) return false;
             Log.Instance.log($"WASM {WasmEventsHubHopFileName} has been downloaded and installed successfully.", LogSeverity.Info);
+
+            progress.ProgressMessage = "Downloading done";
+            progress.Current = 100;
+            DownloadAndInstallProgress?.Invoke(this, progress);
             return true;
         }
 

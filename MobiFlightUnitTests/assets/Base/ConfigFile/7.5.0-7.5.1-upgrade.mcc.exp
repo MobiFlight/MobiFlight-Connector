@@ -4,757 +4,881 @@
     <config guid="63eff499-309c-4b95-a529-c7163e062a36">
       <active>true</active>
       <description>GEAR NOSE rt</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6570" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR NOSE rt" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="009783c3-a491-43d3-85f5-bcdb0a95fb79">
       <active>true</active>
       <description>GEAR NOSE gn</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6573" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR NOSE gn" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="820b93e0-132b-4458-9419-eb2071e250d0">
       <active>true</active>
       <description>GEAR RIGHT rt</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6571" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR RIGHT rt" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="d98a578f-4a51-41ca-884a-5aa21ada36b8">
       <active>true</active>
       <description>GEAR RIGHT gn</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6574" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR RIGHT gn" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="a9dabcb2-a0ed-4514-beda-d7ebace7a764">
       <active>true</active>
       <description>GEAR LEFT rt</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6572" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR LEFT rt" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="11802117-9f8c-4a91-a1df-ca4d3d8ad960">
       <active>true</active>
       <description>GEAR LEFT gn</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6575" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR LEFT gn" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="f1441551-185e-42fa-ad9c-1bb95bed79fe">
       <active>true</active>
       <description>PARKING BRAKE rt</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x65A7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="PARKINGBRAKE rt" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="113490af-71fd-4fcd-9d12-0e1da32a7f59">
       <active>true</active>
       <description>AUTOBRAKE DISARM ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6564" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AUTOBRAKE DISARM ge" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="bb0ad3f1-1bf6-48fd-a6d0-2301ee9db90f">
       <active>true</active>
       <description>ANTI-SKID INOP ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6563" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="ANTI-SKID INOP ge" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="d3de0671-b742-48bf-9ed5-b4ecf694c5fe">
       <active>true</active>
       <description>LE FLAPS TRANSIT ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6565" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="LE FLAPS TRANSIT ge" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="e0ebca93-4d62-4b74-b7bf-7c6902edc560">
       <active>true</active>
       <description>LE FLAPS EXT gn</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6566" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="LE FLAPS EXT gn" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="54af11ea-004d-42d2-8508-a52ff4db6f95">
       <active>true</active>
       <description>SPEEDBRAKE ARMED gn</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6558" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="SPEED BRAKE ARMED gn" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="c338b24a-4033-4f5f-8bcb-77b675244d04">
       <active>true</active>
       <description>SPEED BRAKE DO NOT ARM ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6559" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="SPEED BRAKE DO NOT ARM ge" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="4e7c9634-0d3f-4631-9232-ac545a40462a">
       <active>true</active>
       <description>AP PRST ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6C0C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AP PRST ge" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="e7c169f5-46cc-4696-be41-53d7a527a865">
       <active>true</active>
       <description>AP PRST rt</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6550" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AP PRST rt" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="04e1b001-6905-4d9a-a734-a7322c347867">
       <active>true</active>
       <description>AT PRST ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6C0E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AT PRST ge" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="879a3c2c-4353-4bbb-bbb0-6d4ae81289f1">
       <active>true</active>
       <description>AT PRST rt</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6552" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AT PRST rt" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="f829a1ab-0a5c-4bb5-a702-798fb8e6b195">
       <active>true</active>
       <description>FMC PRST ge2</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6554" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FMC PRST ge1" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="ff6af118-9522-42d2-af83-129b245d3bea">
       <active>true</active>
       <description>FLT CONT 6P CP</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6508" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FLT CONT 6-PACK CP" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="7830c2c7-8f44-425d-bca9-5669dd53917d">
       <active>true</active>
       <description>IRS 6P CP</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6509" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="IRS 6-PACK CP" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="d48f5392-bb6e-4a68-969f-90bdb02b8128">
       <active>true</active>
       <description>FUEL 6P CP</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650A" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FUEL 6-PACK CP" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="eb28c678-86b9-4435-a1da-db424d4b495d">
       <active>true</active>
       <description>ELEC 6P CP</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="ELEC 6-PACK CP" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="9f4182d7-72d2-4a03-8e49-72d781712073">
       <active>true</active>
       <description>APU 6P CP</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="APU 6-PACK CP" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="2fa15aae-3a8a-4461-8a02-69d24da95fc4">
       <active>true</active>
       <description>OVHT DET 6P CP</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="OVHT DET 6-PACK CP" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="3e270162-f1ae-4dc4-8041-a582f8bfd7cb">
       <active>true</active>
       <description>MASTER CAUTION ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6506" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="MASTER CAUTION ge" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="df872a74-95dc-435e-98d5-657ee41d0e6e">
       <active>true</active>
       <description>STAB OUT OF TRIM ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x655B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="STAB_OUT_OF_TRIM" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="45198adf-4420-471c-a4c9-644d318cf134">
       <active>true</active>
       <description>BELOW GS</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x654A" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="BELOW_GS" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="435ef0da-7689-4a04-825c-5ff0aac11a0b">
       <active>true</active>
       <description>OUTER MARKER bl</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BB0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="OUTERMARKER" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="527f0903-2aaf-4a29-80c9-c1a8c7bdc90a">
       <active>true</active>
       <description>MIDDLE MARKER ge</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BAE" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="MIDDLEMARKER" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="30ba8446-135e-4160-898c-e3a853d98828">
       <active>true</active>
       <description>COM 1 sby</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
-        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="b285eb1e-ea48-4fe4-94da-8ef504349b14">
       <active>true</active>
       <description>COM 1 act</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="2" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
-        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="62813bb5-d2a1-4307-816c-98bc347860ef">
       <active>true</active>
       <description>COM 2 sby</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="3" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
-        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="b1ed5ee7-fa79-45b2-bd5e-fab9f6381b1b">
       <active>true</active>
       <description>COM 2 act</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x3118" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="4" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
-        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="b3db5bcf-8dc9-4244-8576-e094d3188950">
       <active>true</active>
       <description>NAV 1 sby</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="5" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
-        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="a63c7b59-0bfb-4cd7-bc14-af993bfc6de3">
       <active>true</active>
       <description>NAV 1 act</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="6" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
-        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="5f5a5441-9b0d-4d7a-aff2-353fe1ee3847">
       <active>true</active>
       <description>NAV 2 sby</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x3120" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="7" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
-        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="5b90142a-7051-4680-85fa-ef510f169ad0">
       <active>true</active>
       <description>NAV 2 act</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0352" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="8" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
-        <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="708b40db-4fa1-42f7-babb-7cd3534a5dd9">
       <active>true</active>
       <description>DME 1</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0300" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="ce2ced70-81f8-4d69-a00b-53aebed15f70">
       <active>true</active>
       <description>DME 2</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0306" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="2" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="9a27ae84-f326-4fae-9b9b-0e8c3f319f95">
       <active>true</active>
       <description>ADF 1 ###</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x034C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="False" ledPaddingChar="0" ledDigits="1,2,3" ledDecimalPoints="1" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="40db3b5a-d805-4b4e-9d84-556efe06f362">
       <active>true</active>
       <description>ADF 1 #---</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0356" offsetType="Integer" size="2" mask="0xFF00" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="4" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="ab2f5d7b-9e54-49e9-bbef-3ee8cec0b755">
       <active>true</active>
       <description>ADF 1 .#</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0356" offsetType="Integer" size="2" mask="0x00FF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="False" ledPaddingChar="0" ledDigits="0" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="d687ca37-73a7-46e7-b4de-bd8d9b0c9c99">
       <active>true</active>
       <description>XPDR D1+2</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFF00" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$/100" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="6" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="1,4" />
         <preconditions />
-        <transformation active="True" expression="$/100" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="ba38cc6e-3529-4c4f-a5da-541c3c51e262">
       <active>true</active>
       <description>XPDR D3+4</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0x00FF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="5" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="0,3" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="86ca2675-88d6-4894-9a47-32697e1c80c9">
       <active>true</active>
       <description>Stepper FLAPS</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6568" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="True" expression="$*1000" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1000" y="360" />
+            <value x="2000" y="750" />
+            <value x="5000" y="1140" />
+            <value x="10000" y="1500" />
+            <value x="15000" y="1790" />
+            <value x="25000" y="2070" />
+            <value x="30000" y="2380" />
+            <value x="40000" y="2690" />
+          </interpolation>
+        </modifiers>
         <display type="Stepper" serial="FSX 03/ SN-4fa-532" trigger="normal" stepperAddress="Stepper" stepperInputRev="3600" stepperOutputRev="2040" stepperTestValue="2730" stepperCompassMode="False" />
-        <interpolation active="True">
-          <value x="0" y="0" />
-          <value x="1000" y="360" />
-          <value x="2000" y="750" />
-          <value x="5000" y="1140" />
-          <value x="10000" y="1500" />
-          <value x="15000" y="1790" />
-          <value x="25000" y="2070" />
-          <value x="30000" y="2380" />
-          <value x="40000" y="2690" />
-        </interpolation>
         <preconditions />
-        <transformation active="True" expression="$*1000" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="2be2e1e3-1d2d-40af-81ee-a5a26e7cf44f">
       <active>true</active>
       <description>QNH</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x34A0" offsetType="Float" size="8" mask="0xFFFFFFFFFFFFFFFF" bcdMode="True" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$/16" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="3" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3" />
         <preconditions />
-        <transformation active="False" expression="$/16" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="7d7096f5-508b-4529-92ec-2efbaa5d34da">
       <active>true</active>
       <description>FO ANTI ICE</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="ANTI_ICE 6P" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="8befff6f-2ac7-432a-ba46-e94797acadbe">
       <active>true</active>
       <description>FO HYD</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="HYD 6P" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="2f72827e-d37a-419c-8a0d-bd1cf3f82040">
       <active>true</active>
       <description>FO DOORS</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6510" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="DOORS 6P" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="c461c060-6a81-47d0-b353-fb8345834835">
       <active>true</active>
       <description>FO ENG</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6511" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="ENG 6P" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="17a0e0fa-635f-4d0a-b0e5-a86afe74e79b">
       <active>true</active>
       <description>FO OVERHEAD</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6512" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="OVERHEAD 6P" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="833673b2-8888-49e7-aac9-fc5aaf5fbb2e">
       <active>true</active>
       <description>FO AIR COND</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6513" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="AIR_COND 6P" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="71b731af-a1e8-4878-9b66-c899d6724021">
       <active>true</active>
       <description>EXEC LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6599" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="EXEC LED" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="6867ccf5-50d5-47cf-b413-f9b70c3c068d">
       <active>true</active>
       <description>DISPLAY1 LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="DISPLAY1 LED" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="88fcea08-6db7-47ae-9053-aca83f80594e">
       <active>true</active>
       <description>DISPLAY2 LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="DISPLAY2 LED" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="4cfe6bef-e635-426a-b538-64c4246d7397">
       <active>true</active>
       <description>FAIL1 LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="FAIL1 LED" pinBrightness="255" />
         <preconditions>
           <precondition type="config" active="false" ref="0de0dc1c-65e0-4b71-9a6e-4ee372188863" operand="=" value="0" logic="and" />
         </preconditions>
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="0de0dc1c-65e0-4b71-9a6e-4ee372188863">
       <active>true</active>
       <description>FAIL2 LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="FAIL2 LED" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="3881f5fc-7550-4d35-8cdb-351a6dd65058">
       <active>true</active>
       <description>MSG1 LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="MSG1 LED" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="6de97137-1a8c-43f3-b4c7-aa216cc74ea1">
       <active>true</active>
       <description>MSG2 LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="MSG2 LED" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="7350fb5d-9bce-4e02-833a-e0d2512d135d">
       <active>true</active>
       <description>OFST1 LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x65A1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="OFST1 LED" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="d6fd9c6f-43cc-4ab4-ae87-07210dc49035">
       <active>true</active>
       <description>OFST2 LED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x65A1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
         <display type="Pin" serial="FMC2/ SN-db3-033" trigger="normal" pin="OFST2 LED" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="aed11c2d-5ba6-4f69-b4c5-734d95c97b3a">
       <active>true</active>
       <description>INNER MARKER ws</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BAC" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
-        <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
         <display type="Pin" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="INNERMARKER" pinBrightness="255" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
@@ -763,7 +887,7 @@
     <config guid="d7885b02-85fe-40ef-9730-de7e9a6be611">
       <active>true</active>
       <description>AUTOBRAKE RTO</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE RT0" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE RT0" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="0" />
           <onRelease />
@@ -775,7 +899,7 @@
     <config guid="b1df069b-235e-4c0e-a719-3e52eec2c3a5">
       <active>true</active>
       <description>AUTOBRAKE OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="1" />
           <onRelease />
@@ -787,7 +911,7 @@
     <config guid="0539e812-2a8b-4f2f-888c-a6e32fd08b68">
       <active>true</active>
       <description>AUTOBRAKE 1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="2" />
           <onRelease />
@@ -799,7 +923,7 @@
     <config guid="0aadaebb-b320-4ec2-8bdf-29662090e30c">
       <active>true</active>
       <description>AUTOBRAKE 2</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="3" />
           <onRelease />
@@ -811,7 +935,7 @@
     <config guid="630c834e-35ef-4a38-ab15-2bde057b8b95">
       <active>true</active>
       <description>AUTOBRAKE 3</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="4" />
           <onRelease />
@@ -823,7 +947,7 @@
     <config guid="df4473d4-7087-4973-8c4e-8e4dd6093e4f">
       <active>true</active>
       <description>AUTOBRAKE MAX</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE MAX" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE MAX" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="5" />
           <onRelease />
@@ -835,7 +959,7 @@
     <config guid="223c554a-b98b-494a-b75d-156192617179">
       <active>true</active>
       <description>AFDS 1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AFDS 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AFDS 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69974" param="0" />
           <onRelease type="EventIdInputAction" eventId="69974" param="1" />
@@ -847,7 +971,7 @@
     <config guid="731d6451-73ae-45b3-bf88-fa73b4f3d896">
       <active>true</active>
       <description>AFDS 2</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AFDS 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AFDS 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69974" param="2" />
           <onRelease type="EventIdInputAction" eventId="69974" param="1" />
@@ -859,7 +983,7 @@
     <config guid="65f6feda-9f1b-49ea-a9d3-5439583a4e66">
       <active>true</active>
       <description>MASTER CAUTION</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="MASTER CAUTION SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="MASTER CAUTION SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69980" param="1" />
           <onRelease type="EventIdInputAction" eventId="69080" param="0" />
@@ -871,7 +995,7 @@
     <config guid="43ab8232-29cf-4ecc-8998-a8ff59b0886e">
       <active>true</active>
       <description>AP PRST SW</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AP PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AP PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69971" param="536870912" />
           <onRelease />
@@ -883,7 +1007,7 @@
     <config guid="6fa09381-4a64-473e-be11-da85e8c8679e">
       <active>true</active>
       <description>AT PRST SW</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AT PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AT PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69972" param="536870912" />
           <onRelease />
@@ -895,7 +1019,7 @@
     <config guid="0dbc0879-2cff-4b92-af27-e55400e7ee0f">
       <active>true</active>
       <description>FMS PRST SW</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="FMC PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="FMC PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69973" param="536870912" />
           <onRelease />
@@ -907,7 +1031,7 @@
     <config guid="80701dfd-7a5c-4b22-a705-e7adbafa7fad">
       <active>true</active>
       <description>LIGHTS TEST SW</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="LIGHTS TEST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="LIGHTS TEST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69978" param="2" />
           <onRelease type="EventIdInputAction" eventId="69978" param="1" />
@@ -919,7 +1043,7 @@
     <config guid="8350ea3b-ae20-4d1a-b9e3-c028523f37d1">
       <active>true</active>
       <description>LIGHTS DIM</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="LIGHTS DIM SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="LIGHTS DIM SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69978" param="0" />
           <onRelease type="EventIdInputAction" eventId="69978" param="1" />
@@ -931,7 +1055,7 @@
     <config guid="88522001-dd86-4890-8671-fb097a0513d8">
       <active>true</active>
       <description>GEAR DOWN</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="GEAR_DOWN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="GEAR_DOWN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66080" param="536870912" />
           <onRelease type="EventIdInputAction" eventId="74183" param="-2147483648" />
@@ -943,7 +1067,7 @@
     <config guid="26ff908a-93de-480f-bc01-5d8ef63f17b8">
       <active>true</active>
       <description>GEAR UP</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="GEAR_UP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="GEAR_UP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66079" param="-2147483648" />
           <onRelease type="EventIdInputAction" eventId="74183" param="536870912" />
@@ -955,7 +1079,7 @@
     <config guid="facd047c-77fd-4f77-a076-addc1a0b5ebc">
       <active>true</active>
       <description>PARKING BRAKE</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="PARKING BRAKE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="PARKING BRAKE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="65752" param="1" />
           <onRelease type="EventIdInputAction" eventId="65752" param="0" />
@@ -967,7 +1091,7 @@
     <config guid="2b03819b-0eb3-4c0f-af95-c4c93a5b11da">
       <active>true</active>
       <description>XPDR_1000</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="XPDR_1000" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="XPDR_1000" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="65651" param="536870912" />
           <onLeftFast />
@@ -981,7 +1105,7 @@
     <config guid="4ab284c9-bc0f-41d2-8b67-1c8eb19c85ae">
       <active>true</active>
       <description>XPDR_100</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="XPDR_100" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="XPDR_100" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="65652" param="536870912" />
           <onLeftFast />
@@ -995,7 +1119,7 @@
     <config guid="6dbbe4aa-1ce6-477f-9a92-b76605e0961d">
       <active>true</active>
       <description>XPDR_10</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="XPDR_10" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="XPDR_10" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="65653" param="536870912" />
           <onLeftFast />
@@ -1009,7 +1133,7 @@
     <config guid="d1fc56d0-2e92-456e-abf2-2f80e7916739">
       <active>true</active>
       <description>XPDR_1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="XPDR_1" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="XPDR_1" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="65654" param="536870912" />
           <onLeftFast />
@@ -1023,7 +1147,7 @@
     <config guid="b2b4c975-91fb-430f-bb93-c7f73df6d929">
       <active>true</active>
       <description>COM 1 SBY MHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 1 SBY MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 1 SBY MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70359" param="8192" />
           <onLeftFast />
@@ -1037,7 +1161,7 @@
     <config guid="b74a9656-40c9-4ac1-a36c-123aa536dc65">
       <active>true</active>
       <description>COM 1 SBY kHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 1 SBY kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 1 SBY kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70358" param="8192" />
           <onLeftFast />
@@ -1051,7 +1175,7 @@
     <config guid="b1dbba84-aa8b-4870-ba16-d4d52ad88742">
       <active>true</active>
       <description>COM 1 TRANSFER SWITSCH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 1 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 1 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70353" param="536870912" />
           <onRelease />
@@ -1063,7 +1187,7 @@
     <config guid="8a53f7e4-f6fd-4d4d-a302-81e14a4cbcac">
       <active>true</active>
       <description>COM 2 SBY MHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 2 SBY MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 2 SBY MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70474" param="8192" />
           <onLeftFast />
@@ -1077,7 +1201,7 @@
     <config guid="4b642aff-b8b6-44e2-8205-d73d08bcee5c">
       <active>true</active>
       <description>COM 2 SBY kHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 2 SBY kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 2 SBY kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70475" param="8192" />
           <onLeftFast />
@@ -1091,7 +1215,7 @@
     <config guid="e2bb1462-c433-4603-ba01-e2c600a9cffa">
       <active>true</active>
       <description>COM 2 TRANSFER SWITCH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 2 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 2 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70469" param="536870912" />
           <onRelease />
@@ -1103,7 +1227,7 @@
     <config guid="1eb1b0a7-d7d0-43d8-a276-9d82e70325a7">
       <active>true</active>
       <description>NAV 1 SBY MHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 1 SBY MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 1 SBY MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70365" param="16384" />
           <onLeftFast />
@@ -1117,7 +1241,7 @@
     <config guid="d1a8204e-fc3b-48af-b534-64d310f84591">
       <active>true</active>
       <description>NAV 1 SBY kHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 1 SBY kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 1 SBY kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70364" param="16384" />
           <onLeftFast />
@@ -1131,7 +1255,7 @@
     <config guid="8858f999-8b4f-46a5-a562-e724657077f5">
       <active>true</active>
       <description>NAV 1 TRANSFER SWITCH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 1 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 1 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70361" param="536870912" />
           <onRelease />
@@ -1143,7 +1267,7 @@
     <config guid="2462a067-3c32-4682-8a75-17007b12f9a4">
       <active>true</active>
       <description>NAV 2 SBY MHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 2 SBY MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 2 SBY MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70480" param="8192" />
           <onLeftFast />
@@ -1157,7 +1281,7 @@
     <config guid="35dc6825-6c0f-4a6d-be4a-c7c84f305bac">
       <active>true</active>
       <description>NAV 2 SBY kHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 2 SBY kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 2 SBY kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70481" param="8192" />
           <onLeftFast />
@@ -1171,7 +1295,7 @@
     <config guid="fcd1be6e-43c1-4fab-a73f-e8e4547366df">
       <active>true</active>
       <description>NAV 2 TRANSFER SWITCH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 2 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 2 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70477" param="536870912" />
           <onRelease />
@@ -1183,7 +1307,7 @@
     <config guid="71b94471-14e1-4d70-b604-140e3b264e85">
       <active>true</active>
       <description>CPT MAIN SEL OUTBD PFD</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_OUTBD_PFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_OUTBD_PFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="0" />
           <onRelease />
@@ -1195,7 +1319,7 @@
     <config guid="bdf1ce43-633d-4b0f-9b90-f2ad14899d30">
       <active>true</active>
       <description>CPT MAIN SEL NORM</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SELNORM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SELNORM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="1" />
           <onRelease />
@@ -1207,7 +1331,7 @@
     <config guid="09201522-973e-42ed-8251-0205b778840d">
       <active>true</active>
       <description>CPT MAIN SEL ENG PRI</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ENG PRI" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ENG PRI" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="2" />
           <onRelease />
@@ -1219,7 +1343,7 @@
     <config guid="bde2cfbb-b299-41b9-8da0-e5d00e2e3fce">
       <active>true</active>
       <description>CPT MAIN SEL PFD</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_PFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_PFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="3" />
           <onRelease />
@@ -1231,7 +1355,7 @@
     <config guid="657ce8b1-046b-47f1-91cb-516c9745664b">
       <active>true</active>
       <description>CPT MAIN SEL MFD</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_MFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_MFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="4" />
           <onRelease />
@@ -1243,7 +1367,7 @@
     <config guid="94325c77-1d2c-45ca-b64e-5380243cc4c4">
       <active>true</active>
       <description>LOW DU SEL ENG PRI</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ENG_PRI" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ENG_PRI" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69968" param="0" />
           <onRelease />
@@ -1255,7 +1379,7 @@
     <config guid="c72e2901-05aa-4f89-904d-d2348194953e">
       <active>true</active>
       <description>LOW DU SEL NORM</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_NORM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_NORM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69968" param="1" />
           <onRelease />
@@ -1267,7 +1391,7 @@
     <config guid="d7f068ed-1e6b-44f1-9ca4-f19713c6c4ab">
       <active>true</active>
       <description>LOW DU SEL ND</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ND" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ND" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69968" param="2" />
           <onRelease />
@@ -1279,7 +1403,7 @@
     <config guid="9ae5ef71-72cb-45c2-9001-df3083db16ab">
       <active>true</active>
       <description>N1SET 2</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70098" param="0" />
           <onRelease />
@@ -1291,7 +1415,7 @@
     <config guid="bba94819-4dde-41e8-9713-f00ab47905cd">
       <active>true</active>
       <description>N1SET 1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70098" param="1" />
           <onRelease />
@@ -1303,7 +1427,7 @@
     <config guid="f31fe112-ba73-494b-94bf-e9a8ecad12e3">
       <active>true</active>
       <description>N1SET AUTO</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_AUTO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_AUTO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70098" param="2" />
           <onRelease />
@@ -1315,7 +1439,7 @@
     <config guid="696ce058-d5ee-4d3c-8253-900f44532551">
       <active>true</active>
       <description>N1SET BOTH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_BOTH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_BOTH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70098" param="3" />
           <onRelease />
@@ -1327,7 +1451,7 @@
     <config guid="e79c8467-352d-4d79-98c8-ad04d5408c58">
       <active>true</active>
       <description>N1SET CONTROL</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SET_CONTROL" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SET_CONTROL" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70099" param="8192" />
           <onLeftFast />
@@ -1341,7 +1465,7 @@
     <config guid="343180b2-54e2-4ca2-8663-9485de8cf35b">
       <active>true</active>
       <description>SPD REF AUTO</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_AUTO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_AUTO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="1" />
           <onRelease />
@@ -1353,7 +1477,7 @@
     <config guid="40abee73-cb01-4f91-b587-43b8280e5330">
       <active>true</active>
       <description>SPD REF V1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_V1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_V1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="2" />
           <onRelease />
@@ -1365,7 +1489,7 @@
     <config guid="c4fc1df1-b821-40a7-a92e-d2fb901750a2">
       <active>true</active>
       <description>SPD REF VR</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_VR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_VR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="3" />
           <onRelease />
@@ -1377,7 +1501,7 @@
     <config guid="1e0ec69b-ae7c-46d8-b91e-6ec7a86f2ba9">
       <active>true</active>
       <description>SPD REF WT</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_WT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_WT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="4" />
           <onRelease />
@@ -1389,7 +1513,7 @@
     <config guid="d4154f3f-7f4e-4436-b163-6e105d05d1c8">
       <active>true</active>
       <description>SPD REF VREF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_VREF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_VREF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="5" />
           <onRelease />
@@ -1401,7 +1525,7 @@
     <config guid="71e7727f-07f6-4790-9dc9-cf424a0b3063">
       <active>true</active>
       <description>SPD REF DELTA</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_DELTA" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_DELTA" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="6" />
           <onRelease />
@@ -1413,7 +1537,7 @@
     <config guid="42cdac00-12b9-4b12-a76f-86a71405f54a">
       <active>true</active>
       <description>SPD REF SET</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_SET" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_SET" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="0" />
           <onRelease />
@@ -1425,7 +1549,7 @@
     <config guid="cb4ef1dc-1ee4-483f-a4c7-d7c87aa10a22">
       <active>true</active>
       <description>SPD REF CONTROL</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_CONTROL" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_CONTROL" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="70097" param="16384" />
           <onLeftFast />
@@ -1439,7 +1563,7 @@
     <config guid="2836fdb0-3bc3-4f05-9b73-022cdcb611c7">
       <active>true</active>
       <description>FF RESET</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="FF_RESET" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="FF_RESET" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70100" param="0" />
           <onRelease type="EventIdInputAction" eventId="70100" param="1" />
@@ -1451,7 +1575,7 @@
     <config guid="94e8f65e-46e4-4bff-a4a3-d8e0338ab9cd">
       <active>true</active>
       <description>FF USED</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="FF_USED" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="FF_USED" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70100" param="2" />
           <onRelease type="EventIdInputAction" eventId="70100" param="1" />
@@ -1463,7 +1587,7 @@
     <config guid="1b856e38-bf14-4d03-9fa8-d223fa39bff2">
       <active>true</active>
       <description>SYS BTN</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SYS_BTN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SYS_BTN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70094" param="1" />
           <onRelease type="EventIdInputAction" eventId="70094" param="0" />
@@ -1475,7 +1599,7 @@
     <config guid="dbf272fc-5535-48ed-bef5-cbe597763111">
       <active>true</active>
       <description>ENG BTN</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="ENG_BTN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="ENG_BTN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70095" param="1" />
           <onRelease type="EventIdInputAction" eventId="70095" param="0" />
@@ -1487,7 +1611,7 @@
     <config guid="e13f4c9a-df4d-4d76-be28-78c0e87abecc">
       <active>true</active>
       <description>ADF 1 10</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="ADF SBY inner" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="ADF SBY inner" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="66543" param="-1" />
           <onLeftFast type="EventIdInputAction" eventId="66543" param="-10" />
@@ -1501,7 +1625,7 @@
     <config guid="b11814af-bf30-40d9-9e20-67b443d94b53">
       <active>true</active>
       <description>ADF 01</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="ADF SBY middle" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="ADF SBY middle" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="EventIdInputAction" eventId="66453" param="-1" />
           <onLeftFast />
@@ -1515,7 +1639,7 @@
     <config guid="3e6810f5-64a2-4abc-9598-130d383b69dc">
       <active>true</active>
       <description>L1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70166" param="536870912" />
           <onRelease />
@@ -1527,7 +1651,7 @@
     <config guid="b9c0d057-3dd4-454b-a3c2-36d0e8dfc053">
       <active>true</active>
       <description>L2</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70167" param="536870912" />
           <onRelease />
@@ -1539,7 +1663,7 @@
     <config guid="99c9cbe7-e140-4eed-aeb8-da394d735f67">
       <active>true</active>
       <description>L3</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70168" param="536870912" />
           <onRelease />
@@ -1551,7 +1675,7 @@
     <config guid="0aeaf6cf-a0ec-456c-aca8-4944a49f42c6">
       <active>true</active>
       <description>L4</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70169" param="536870912" />
           <onRelease />
@@ -1563,7 +1687,7 @@
     <config guid="d5a541d8-9567-4fc0-a073-86935f56e02e">
       <active>true</active>
       <description>L5</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70170" param="536870912" />
           <onRelease />
@@ -1575,7 +1699,7 @@
     <config guid="eabf4e0d-d8a1-422f-814a-8911e98f7658">
       <active>true</active>
       <description>L6</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70171" param="536870912" />
           <onRelease />
@@ -1587,7 +1711,7 @@
     <config guid="a8ccdda9-5a5a-4610-be4b-00fb461ebcca">
       <active>true</active>
       <description>R1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70172" param="536870912" />
           <onRelease />
@@ -1599,7 +1723,7 @@
     <config guid="4d616407-0b35-4156-a943-766afbf4fa65">
       <active>true</active>
       <description>R2</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70173" param="536870912" />
           <onRelease />
@@ -1611,7 +1735,7 @@
     <config guid="ddcab368-7662-426b-8e1e-c453605941de">
       <active>true</active>
       <description>R3</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70174" param="536870912" />
           <onRelease />
@@ -1623,7 +1747,7 @@
     <config guid="61423b48-9bed-4a5e-80ea-61cb13bf9661">
       <active>true</active>
       <description>R4</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70175" param="536870912" />
           <onRelease />
@@ -1635,7 +1759,7 @@
     <config guid="9ef2750c-8b85-4ae5-b8af-eacc00dcb943">
       <active>true</active>
       <description>R5</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70176" param="536870912" />
           <onRelease />
@@ -1647,7 +1771,7 @@
     <config guid="0bf5f3c2-85b1-41a7-b180-a9076c5c7580">
       <active>true</active>
       <description>R6</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70177" param="536870912" />
           <onRelease />
@@ -1659,7 +1783,7 @@
     <config guid="d292950b-79ab-42d7-b64b-b2bbbe2a88e3">
       <active>true</active>
       <description>INIT_REF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="INIT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="INIT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70178" param="536870912" />
           <onRelease />
@@ -1671,7 +1795,7 @@
     <config guid="509ad0ea-9fbc-4c0b-a73a-a06808e9a0a7">
       <active>true</active>
       <description>RTE</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="RTE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="RTE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70179" param="536870912" />
           <onRelease />
@@ -1683,7 +1807,7 @@
     <config guid="ca9e1728-0e38-48a5-833d-9e30d47ac28c">
       <active>true</active>
       <description>CLB</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="CLB" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="CLB" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70180" param="536870912" />
           <onRelease />
@@ -1695,7 +1819,7 @@
     <config guid="428e090a-d7e6-4f1d-8f7d-56625b8b2262">
       <active>true</active>
       <description>CRZ</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="CRZ" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="CRZ" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70181" param="536870912" />
           <onRelease />
@@ -1707,7 +1831,7 @@
     <config guid="6126dc11-03c8-4e4b-8398-6475e6b578f0">
       <active>true</active>
       <description>DES</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DES" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DES" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70182" param="536870912" />
           <onRelease />
@@ -1719,7 +1843,7 @@
     <config guid="879a1696-156b-4cba-a5be-3eb5caadb434">
       <active>true</active>
       <description>MENU</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="MENU" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="MENU" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70183" param="536870912" />
           <onRelease />
@@ -1731,7 +1855,7 @@
     <config guid="fafef369-b783-4281-9826-10e7bafb822a">
       <active>true</active>
       <description>LEGS</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="LEGS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="LEGS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70184" param="536870912" />
           <onRelease />
@@ -1743,7 +1867,7 @@
     <config guid="8ac413ef-a114-48c1-9260-975feb72aa7e">
       <active>true</active>
       <description>DEP_ARR</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="DEP_ARR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="DEP_ARR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70185" param="536870912" />
           <onRelease />
@@ -1755,7 +1879,7 @@
     <config guid="e0c4435a-07c2-4434-a700-13bbe93f9e02">
       <active>true</active>
       <description>HOLD</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="HOLD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="HOLD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70186" param="536870912" />
           <onRelease />
@@ -1767,7 +1891,7 @@
     <config guid="5ba4acec-cba3-4a20-a9e1-48df680bf78b">
       <active>true</active>
       <description>PROG</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="PROG" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="PROG" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70187" param="536870912" />
           <onRelease />
@@ -1779,7 +1903,7 @@
     <config guid="bfe09227-928c-467b-9b77-c6ec5759c548">
       <active>true</active>
       <description>EXEC</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="EXEC" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="EXEC" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70188" param="536870912" />
           <onRelease />
@@ -1791,7 +1915,7 @@
     <config guid="b087144e-cc62-421a-b7b2-807d461b1a38">
       <active>true</active>
       <description>N1_LIMIT</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="N1LIM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="N1LIM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70189" param="536870912" />
           <onRelease />
@@ -1803,7 +1927,7 @@
     <config guid="1f58bb86-bba5-4110-9aaf-eed310cf4578">
       <active>true</active>
       <description>FIX</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="FIX" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="FIX" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70190" param="536870912" />
           <onRelease />
@@ -1815,7 +1939,7 @@
     <config guid="19352c65-71af-4207-bef6-c7b0c3281cd8">
       <active>true</active>
       <description>PREV_PAGE</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="PREV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="PREV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70191" param="536870912" />
           <onRelease />
@@ -1827,7 +1951,7 @@
     <config guid="c11f6de9-a740-43a9-95b5-fb3c41ac7ef1">
       <active>true</active>
       <description>NEXT_PAGE</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="NEXT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="NEXT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70192" param="536870912" />
           <onRelease />
@@ -1839,7 +1963,7 @@
     <config guid="740572a9-c37e-4292-bcbd-4c7737b83ffc">
       <active>true</active>
       <description>1</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70193" param="536870912" />
           <onRelease />
@@ -1851,7 +1975,7 @@
     <config guid="c5b50262-81a9-40cb-8fec-60ae6981f3e8">
       <active>true</active>
       <description>2</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70194" param="536870912" />
           <onRelease />
@@ -1863,7 +1987,7 @@
     <config guid="b94ca791-287d-4157-bb6b-c2ec0bd54638">
       <active>true</active>
       <description>3</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70195" param="536870912" />
           <onRelease />
@@ -1875,7 +1999,7 @@
     <config guid="54f67d29-9227-4878-9354-d726f920779f">
       <active>true</active>
       <description>4</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70196" param="536870912" />
           <onRelease />
@@ -1887,7 +2011,7 @@
     <config guid="1e9046f6-f56f-44fc-a3cd-f3ace6b182cc">
       <active>true</active>
       <description>5</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70197" param="536870912" />
           <onRelease />
@@ -1899,7 +2023,7 @@
     <config guid="b921204c-7b24-4c8b-a216-1493dcf8fc80">
       <active>true</active>
       <description>6</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70198" param="536870912" />
           <onRelease />
@@ -1911,7 +2035,7 @@
     <config guid="e965b2fc-ed4e-44c3-875a-b16616262d91">
       <active>true</active>
       <description>7</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="7" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="7" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70199" param="536870912" />
           <onRelease />
@@ -1923,7 +2047,7 @@
     <config guid="955e8d10-4ae1-46a5-80b4-d7866539b351">
       <active>true</active>
       <description>8</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="8" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="8" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70200" param="536870912" />
           <onRelease />
@@ -1935,7 +2059,7 @@
     <config guid="3db22bb6-1c79-4b5d-93c7-6aa1a0fe4923">
       <active>true</active>
       <description>9</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="9" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="9" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70201" param="536870912" />
           <onRelease />
@@ -1947,7 +2071,7 @@
     <config guid="35ea52ea-a604-4137-838f-30005b2ea02e">
       <active>true</active>
       <description>DOT</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DOT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DOT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70202" param="536870912" />
           <onRelease />
@@ -1959,7 +2083,7 @@
     <config guid="643f628d-a074-4627-8dbc-404470cd61cd">
       <active>true</active>
       <description>0</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="0" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="0" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70203" param="536870912" />
           <onRelease />
@@ -1971,7 +2095,7 @@
     <config guid="c9ae2ad8-5b88-47b7-bf66-93effc9bbcec">
       <active>true</active>
       <description>PLUS_MINUS</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="PLUS MINUS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="PLUS MINUS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70204" param="536870912" />
           <onRelease />
@@ -1983,7 +2107,7 @@
     <config guid="6d4b9274-af99-4489-a440-54b2f90bf9b5">
       <active>true</active>
       <description>A</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="A" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="A" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70205" param="536870912" />
           <onRelease />
@@ -1995,7 +2119,7 @@
     <config guid="d1f9f924-ece0-4cc9-a4e9-a77f2877f1c9">
       <active>true</active>
       <description>B</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="B" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="B" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70206" param="536870912" />
           <onRelease />
@@ -2007,7 +2131,7 @@
     <config guid="3766c3ad-cd7e-4666-bf07-57b09452e75c">
       <active>true</active>
       <description>C</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="C" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="C" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70207" param="536870912" />
           <onRelease />
@@ -2019,7 +2143,7 @@
     <config guid="de5ced83-b6f4-449f-92f9-dd49491641b2">
       <active>true</active>
       <description>D</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="D" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="D" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70208" param="536870912" />
           <onRelease />
@@ -2031,7 +2155,7 @@
     <config guid="d175f308-52d9-4460-9fae-7a29b227555a">
       <active>true</active>
       <description>E</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="E" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="E" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70209" param="536870912" />
           <onRelease />
@@ -2043,7 +2167,7 @@
     <config guid="9786ff1a-8ecd-4b2c-8839-7105eb3f2b59">
       <active>true</active>
       <description>F</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="F" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="F" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70210" param="536870912" />
           <onRelease />
@@ -2055,7 +2179,7 @@
     <config guid="436f00e9-e3e6-4d15-9ace-775a7d2dab2f">
       <active>true</active>
       <description>G</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="G" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="G" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70211" param="536870912" />
           <onRelease />
@@ -2067,7 +2191,7 @@
     <config guid="ffb25f02-babc-4100-bba4-3389b32b8c63">
       <active>true</active>
       <description>H</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="H" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="H" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70212" param="536870912" />
           <onRelease />
@@ -2079,7 +2203,7 @@
     <config guid="07cd8d9c-cc0d-44b9-b3d0-51a48cfbd297">
       <active>true</active>
       <description>I</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="I" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="I" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70213" param="536870912" />
           <onRelease />
@@ -2091,7 +2215,7 @@
     <config guid="4a1ca057-0257-4ae6-8c31-b24d27443954">
       <active>true</active>
       <description>J</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="J" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="J" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70214" param="536870912" />
           <onRelease />
@@ -2103,7 +2227,7 @@
     <config guid="58abbcf3-352d-436d-b339-b91e651c7f7f">
       <active>true</active>
       <description>K</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="K" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="K" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70215" param="536870912" />
           <onRelease />
@@ -2115,7 +2239,7 @@
     <config guid="b0a6ddc0-1b85-4b00-bd3a-d7a1451079c1">
       <active>true</active>
       <description>L</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="L" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="L" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70216" param="536870912" />
           <onRelease />
@@ -2127,7 +2251,7 @@
     <config guid="c69a10b9-5da6-48b7-a210-99c3500c4b90">
       <active>true</active>
       <description>M</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="M" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="M" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70217" param="536870912" />
           <onRelease />
@@ -2139,7 +2263,7 @@
     <config guid="c12acd51-511f-4aae-b39a-f9bfac4f5c94">
       <active>true</active>
       <description>N</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="N" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="N" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70218" param="536870912" />
           <onRelease />
@@ -2151,7 +2275,7 @@
     <config guid="9c988c39-01fb-4b7c-8dfb-c5976aef8c48">
       <active>true</active>
       <description>O</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="O" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="O" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70219" param="536870912" />
           <onRelease />
@@ -2163,7 +2287,7 @@
     <config guid="cd69705c-7326-4123-a505-8a803149e5aa">
       <active>true</active>
       <description>P</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="P" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="P" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70220" param="536870912" />
           <onRelease />
@@ -2175,7 +2299,7 @@
     <config guid="73cad2a4-661f-45b9-9249-98ac953455b8">
       <active>true</active>
       <description>Q</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Q" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Q" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70221" param="536870912" />
           <onRelease />
@@ -2187,7 +2311,7 @@
     <config guid="df0007a1-56b8-40ad-a827-a34f4f95493d">
       <active>true</active>
       <description>R</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70222" param="536870912" />
           <onRelease />
@@ -2199,7 +2323,7 @@
     <config guid="6da843c2-1e08-4354-b1ac-e1cc9515f2a6">
       <active>true</active>
       <description>S</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="S" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="S" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70223" param="536870912" />
           <onRelease />
@@ -2211,7 +2335,7 @@
     <config guid="dbebe6c0-a186-4aeb-bc9e-8b984df2877b">
       <active>true</active>
       <description>T</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="T" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="T" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70224" param="536870912" />
           <onRelease />
@@ -2223,7 +2347,7 @@
     <config guid="6ae2b9f2-e9cd-4b02-a28b-b69b68afbf15">
       <active>true</active>
       <description>U</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="U" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="U" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70225" param="536870912" />
           <onRelease />
@@ -2235,7 +2359,7 @@
     <config guid="9ce3ba55-aa35-4141-bbf9-08fe86523fc6">
       <active>true</active>
       <description>V</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="V" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="V" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70226" param="536870912" />
           <onRelease />
@@ -2247,7 +2371,7 @@
     <config guid="4fe5fa4c-124e-46b2-921a-77b93836833c">
       <active>true</active>
       <description>W</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="W" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="W" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70227" param="536870912" />
           <onRelease />
@@ -2259,7 +2383,7 @@
     <config guid="684696d6-e8f2-4026-a229-e0397b3b2a07">
       <active>true</active>
       <description>X</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="X" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="X" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70228" param="536870912" />
           <onRelease />
@@ -2271,7 +2395,7 @@
     <config guid="88ec1698-a316-433c-817e-b30f78a877c5">
       <active>true</active>
       <description>Y</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Y" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Y" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70229" param="536870912" />
           <onRelease />
@@ -2283,7 +2407,7 @@
     <config guid="cfa7150b-4a50-49a1-908b-16926caea1c9">
       <active>true</active>
       <description>Z</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Z" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Z" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70230" param="536870912" />
           <onRelease />
@@ -2295,7 +2419,7 @@
     <config guid="a5817ba4-c44d-412a-ad98-8070c60952ba">
       <active>true</active>
       <description>SPACE</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="SPACE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="SPACE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70231" param="536870912" />
           <onRelease />
@@ -2307,7 +2431,7 @@
     <config guid="ea251d43-5a13-4c1c-8e67-bb72de5e8eee">
       <active>true</active>
       <description>DEL</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DEL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DEL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70232" param="536870912" />
           <onRelease />
@@ -2319,7 +2443,7 @@
     <config guid="becffdc3-82a3-47f0-92a7-8d44c381f057">
       <active>true</active>
       <description>SLASH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="SLASH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="SLASH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70233" param="536870912" />
           <onRelease />
@@ -2331,7 +2455,7 @@
     <config guid="6f92132a-341b-4585-8b0e-472c1e898db4">
       <active>true</active>
       <description>CLR</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.5.1.0, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="CLR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="CLR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70234" param="536870912" />
           <onRelease />

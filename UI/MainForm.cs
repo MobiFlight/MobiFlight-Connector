@@ -23,6 +23,7 @@ using MobiFlight.Base;
 using Microsoft.ApplicationInsights.DataContracts;
 using MobiFlight.xplane;
 using MobiFlight.HubHop;
+using System.Threading.Tasks;
 
 namespace MobiFlight.UI
 {
@@ -1669,32 +1670,52 @@ namespace MobiFlight.UI
         private void downloadLatestEventsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
+            ProgressForm progressForm = new ProgressForm();
+            Control MainForm = this;
 
-            if (!updater.AutoDetectCommunityFolder())
+            updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
+            var t = new Task(() => {
+                    if (!updater.AutoDetectCommunityFolder())
+                    {
+                        Log.Instance.log(
+                            i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
+                            LogSeverity.Error
+                        );
+                        return;
+                    }
+
+                    if (updater.InstallWasmEvents())
+                    {
+                        Msfs2020HubhopPresetListSingleton.Instance.Clear();
+                        progressForm.DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        progressForm.DialogResult = DialogResult.No;
+                        Log.Instance.log(
+                            i18n._tr("uiMessageWasmEventsInstallationError"),
+                            LogSeverity.Error
+                        );
+                    }
+                }
+            );
+
+            t.Start();
+            if (progressForm.ShowDialog() == DialogResult.OK)
             {
-                TimeoutMessageDialog.Show(
-                   i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (updater.InstallWasmEvents())
-            {
-                Msfs2020HubhopPresetListSingleton.Instance.Clear();
-
                 TimeoutMessageDialog.Show(
                    i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
+            } else
             {
                 TimeoutMessageDialog.Show(
-                   i18n._tr("uiMessageWasmEventsInstallationError"),
-                   i18n._tr("uiMessageWasmUpdater"),
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                    i18n._tr("uiMessageWasmEventsInstallationError"),
+                    i18n._tr("uiMessageWasmUpdater"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+
+            progressForm.Dispose();
         }
 
         private void openDiscordServer_Click(object sender, EventArgs e)

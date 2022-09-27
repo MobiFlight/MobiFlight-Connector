@@ -4,42 +4,48 @@
     <config guid="08a7e927-7dfb-4d3d-8f9f-fd70ff3bd2e2">
       <active>false</active>
       <description>COM1 Standby</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        </modifiers>
         <display type="Display Module" serial="TestBoard1/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
           <precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
         </preconditions>
-        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
         <configrefs />
       </settings>
     </config>
     <config guid="5475ec4f-64ed-47b9-adba-e1ad19199dfc">
       <active>true</active>
       <description>COM1 Active</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="8" substrEnd="10" />
+          <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        </modifiers>
         <display type="Display Module" serial="TestBoard1/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
-        <transformation active="False" expression="$" substrStart="8" substrEnd="10" />
         <configrefs />
       </settings>
     </config>
     <config guid="08a7e927-7dfb-4d3d-8f9f-fd70ff3bd2ef">
       <active>false</active>
       <description>COM1 Standby</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
-        <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="9" substrEnd="11" />
+          <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
+        </modifiers>
         <display type="Display Module" serial="TestBoard1/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
           <precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
         </preconditions>
-        <transformation active="False" expression="$" substrStart="9" substrEnd="11" />
         <configrefs />
       </settings>
     </config>
@@ -48,7 +54,7 @@
     <config guid="f1dda453-af4b-4e44-b88e-6cdb575abb50">
       <active>true</active>
       <description>MasterBattery ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="MasterBattery" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="MasterBattery" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="1" />
@@ -64,7 +70,7 @@
     <config guid="805dc057-4e6b-44ea-ab63-aa460c2079ba">
       <active>false</active>
       <description>Generator ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=7.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="Generator" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-849-180" name="Generator" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="1" />

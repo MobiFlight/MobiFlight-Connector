@@ -210,6 +210,7 @@
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\PreconditionList.cs" />
+    <Compile Include="Base\ProgressUpdateEvent.cs" />
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\AppTelemetry.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
@@ -244,7 +245,10 @@
     <Compile Include="MobiFlight\MobiFlightButton.cs" />
     <Compile Include="MobiFlight\MobiFlightEncoder.cs" />
     <Compile Include="MobiFlight\MobiFlightVariable.cs" />
-    <Compile Include="MobiFlight\OutputConfig\Comparison.cs" />
+    <Compile Include="MobiFlight\Modifier\ModifierBase.cs" />
+    <Compile Include="MobiFlight\Modifier\Comparison.cs" />
+    <Compile Include="MobiFlight\Modifier\Blink.cs" />
+    <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
@@ -326,6 +330,12 @@
     </Compile>
     <Compile Include="UI\Forms\ConfigUploadProgress.Designer.cs">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\ProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\ProgressForm.Designer.cs">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\SimConnectLvarsListForm.cs">
       <SubType>Form</SubType>
@@ -527,7 +537,7 @@
     <Compile Include="UI\Panels\Device\MFLcdDisplayPanel.Designer.cs">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="MobiFlight\Transformation.cs" />
+    <Compile Include="MobiFlight\Modifier\Transformation.cs" />
     <Compile Include="UI\Panels\Config\BytePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -547,7 +557,7 @@
     <Compile Include="FSUIPC\FSUIPCConfigItem.cs" />
     <Compile Include="MobiFlight\InputConfig\JeehellInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\EventIdInputAction.cs" />
-    <Compile Include="MobiFlight\Interpolation.cs" />
+    <Compile Include="MobiFlight\Modifier\Interpolation.cs" />
     <Compile Include="MobiFlight\KeyboardInput.cs" />
     <Compile Include="MobiFlight\OutputConfigItem.cs" />
     <Compile Include="Base\ConnectorValue.cs" />
@@ -944,6 +954,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.de.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
+      <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\SimConnectLvarsListForm.de.resx">
       <DependentUpon>SimConnectLvarsListForm.cs</DependentUpon>

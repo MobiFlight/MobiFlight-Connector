@@ -239,8 +239,11 @@ namespace MobiFlight.UI.Dialogs
             comparisonIfValueTextBox.Text = config.Comparison.IfValue;
             comparisonElseValueTextBox.Text = config.Comparison.ElseValue;
 
-            interpolationCheckBox.Checked = config.Interpolation.Active;
-            interpolationPanel1.syncFromConfig(config.Interpolation);
+            if (config.Interpolation!=null)
+            {
+                interpolationCheckBox.Checked = config.Interpolation.Active;
+                interpolationPanel1.syncFromConfig(config.Interpolation);
+            }
         }
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
@@ -283,8 +286,14 @@ namespace MobiFlight.UI.Dialogs
             // refactor!!!
             comparisonPanel_syncToConfig();
 
-            config.Interpolation.Active = interpolationCheckBox.Checked;
-            interpolationPanel1.syncToConfig(config.Interpolation);
+            if(interpolationPanel1.Save) {
+                // backward compatibility until we have refactored the 
+                // multipliers in the UI
+                if (config.Interpolation == null) { config.Interpolation = new Modifier.Interpolation(); }
+                config.Interpolation.Active = interpolationCheckBox.Checked;
+                interpolationPanel1.syncToConfig(config.Interpolation);
+            }
+
             displayPanel1.syncToConfig();
             preconditionPanel.syncToConfig(config);
 
