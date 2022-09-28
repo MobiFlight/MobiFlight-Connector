@@ -1,0 +1,127 @@
+﻿using CommandMessenger;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight;
+using MobiFlightUnitTests.mock.CommandMessenger;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace MobiFlight.Tests
+{
+    [TestClass()]
+    public class MobiFlightLedModuleTests
+    {
+        private void WaitForQueueUpdate()
+        {
+            var task = Task.Run(() =>
+            {
+                Thread.Sleep(100);
+            });
+            task.Wait();
+        }
+
+        [TestMethod()]
+        public void MobiFlightLedModuleTest()
+        {
+            var module = new MobiFlightLedModule();
+            Assert.IsNotNull(module, "MobiFlightLedModule is null");
+            Assert.AreEqual(1, module.SubModules, "Default SubModules are not correct.");
+            Assert.AreEqual(15, module.Brightness, "Default Brightness is not correct.");
+        }
+
+        [TestMethod()]
+        public void DisplayTest()
+        {
+            byte points = 0xFF;
+            byte mask = 0xFF;
+            int ModuleIndex = 0;
+            int SubModuleIndex = 0;
+            byte CommandId = (byte) MobiFlightModule.Command.SetModule;
+
+            string value = "12345678";
+
+            var module = new MobiFlightLedModule();
+            var mockTransport = new MockTransport();
+            module.CmdMessenger = new CmdMessenger(mockTransport);
+            module.CmdMessenger.Connect();
+
+            /// TEST CASES
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            var DataExpected =  $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "First write should always send command.");
+
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+
+            DataExpected = "";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Caching mechanism test failed, we are sending the same value again, nothing has changed. Value in Mock should be \"\"");
+            
+            module.ClearState();
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, $"Caching mechanism test failed, sending same value again, after ClearState. Value in Mock should be \"{value}\"");
+
+            // Values stays same, but points change
+            points = 128;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, $"Caching mechanism test failed, sending different points. Points in Mock should be \"{points}\"");
+
+            points = 128;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, $"Caching mechanism test failed, sending same points again. Value in Mock should be \"\"");
+
+            // Mask change test, requires value change too
+            // Because if we only change the mask the values on the display will not change.
+            // Bare in mind that digit mask is reversed :(
+            mask = 254;
+            value = "12345678";
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            
+            DataExpected = $"";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, $"Caching mechanism test failed, sending different mask, but values haven't changed in masked area. Mask in Mock should be \"{mask}\"");
+
+            mask = 254;
+            value = "12345608";
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, $"Sending same mask, and value changed in masked area. Mask in Mock should be \"{mask}\"");
+        }
+
+        [TestMethod()]
+        public void SetBrightnessTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void StopTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void ClearStateTest()
+        {
+            Assert.Fail();
+        }
+    }
+}
