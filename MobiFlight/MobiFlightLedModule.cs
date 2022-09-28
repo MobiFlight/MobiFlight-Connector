@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using CommandMessenger;
+using Newtonsoft.Json.Linq;
 using SharpDX.DirectInput;
 
 namespace MobiFlight
@@ -14,15 +16,15 @@ namespace MobiFlight
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }
         public int Brightness { get; set; }
+
+        private int _subModules = 0;
         public int SubModules
         {
-            get { return _state.Count; }
-            set { 
-                _state.Clear(); 
-                for(int i = 0; i < value; i++)
-                {
-                    _state.Add(new LedModuleState());
-                }
+            get { return _subModules; }
+            set {
+                if (_subModules == value) return;
+                _subModules = value;
+                ClearState();
             }
         }
 
@@ -48,7 +50,7 @@ namespace MobiFlight
         public MobiFlightLedModule()
         {
             Brightness = 15;
-            _state.Add(new LedModuleState());
+            SubModules = 1;
         }
 
         protected void Initialize()
@@ -128,6 +130,10 @@ namespace MobiFlight
         public void ClearState()
         {
             _state.Clear();
+            for (int i = 0; i < SubModules; i++)
+            {
+                _state.Add(new LedModuleState());
+            }
         }
     }
 
