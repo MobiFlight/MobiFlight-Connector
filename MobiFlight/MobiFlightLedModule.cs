@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using CommandMessenger;
+using Newtonsoft.Json.Linq;
+using SharpDX.DirectInput;
 
 namespace MobiFlight
 {
@@ -13,15 +16,15 @@ namespace MobiFlight
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }
         public int Brightness { get; set; }
+
+        private int _subModules = 0;
         public int SubModules
         {
-            get { return _state.Count; }
-            set { 
-                _state.Clear(); 
-                for(int i = 0; i < value; i++)
-                {
-                    _state.Add(new LedModuleState());
-                }
+            get { return _subModules; }
+            set {
+                if (_subModules == value) return;
+                _subModules = value;
+                ClearState();
             }
         }
 
@@ -47,7 +50,7 @@ namespace MobiFlight
         public MobiFlightLedModule()
         {
             Brightness = 15;
-            _state.Add(new LedModuleState());
+            SubModules = 1;
         }
 
         protected void Initialize()
@@ -56,7 +59,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display(int subModule, String value, byte points, byte mask )
+        public void Display(int subModule, String value, byte points, byte mask)
         {
             if (!_initialized) Initialize();
 
@@ -90,8 +93,7 @@ namespace MobiFlight
         {
             if (!_initialized) Initialize();
 
-            // cache hit
-            if (_state[subModule] == null || !_state[subModule].SetBrightnessRequiresUpdate(value))
+            if (isCacheHit(subModule, value))
                 return;
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModuleBrightness);
@@ -104,10 +106,15 @@ namespace MobiFlight
 
             Log.Instance.log("Command: SetModuleBrightness <" + (int)MobiFlightModule.Command.SetModuleBrightness + "," +
                                                       this.ModuleNumber + "," +
-                                                      subModule +"," +
+                                                      subModule + "," +
                                                       value + ";>", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
+        }
+
+        private bool isCacheHit(int subModule, string value)
+        {
+            return _state[subModule] == null || !_state[subModule].SetBrightnessRequiresUpdate(value);
         }
 
         // Blank the display when stopped
@@ -116,8 +123,18 @@ namespace MobiFlight
             for (int i = 0; i != SubModules; i++)
             {
                 Display(i, "        ", 0, 0xff);
-                _state[i]?.Reset();
-            }    
+            }
+
+            ClearState();
+        }
+
+        public void ClearState()
+        {
+            _state.Clear();
+            for (int i = 0; i < SubModules; i++)
+            {
+                _state.Add(new LedModuleState());
+            }
         }
     }
 

@@ -590,19 +590,18 @@ namespace MobiFlight
 
         public bool SetDisplay(string name, int module, byte points, byte mask, string value)
         {
+            if (KeepAliveNeeded())
+                ledModules[name].ClearState();
+
             ledModules[name].Display(module, value, points, mask);
             return true;
         }
 
         public bool SetDisplayBrightness(string name, int module, string value)
         {
-            String key = "LEDBrightness_" + name + "_" + module;
-            String cachedValue = value;
+            if (KeepAliveNeeded())
+                ledModules[name].ClearState();
 
-            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
-                lastValue[key] == cachedValue) return false;
-
-            lastValue[key] = cachedValue;
             ledModules[name].SetBrightness(module, value);
             return true;
         }
