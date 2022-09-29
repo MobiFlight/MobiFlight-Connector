@@ -1364,7 +1364,11 @@ namespace MobiFlight
             Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
 
             // Skip execution if not started
-            if (!IsStarted()) return;
+            if (!IsStarted())
+            {
+                Log.Instance.log("Run isn't enabled so the event wasn't sent to the simulator.", LogSeverity.Debug);
+                return;
+            }
 
             ConnectorValue currentValue = new ConnectorValue();
             CacheCollection cacheCollection = new CacheCollection()
