@@ -1077,7 +1077,7 @@ namespace MobiFlight
         }
 
         // Returns a List<> of the pins used by the module
-        public List<MobiFlightPin> GetPins(bool FreeOnly = false)
+        public List<MobiFlightPin> GetPins(bool FreeOnly = false, bool ExcludeI2CDevices = false)
         {
             List<MobiFlightPin> ResultPins = new List<MobiFlightPin>();
             ResultPins.AddRange(Board.Pins.Select(x => new MobiFlightPin(x)));
@@ -1126,6 +1126,11 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.LcdDisplay:
+                        if (ExcludeI2CDevices)
+                        {
+                            continue;
+                        }
+
                         // Statically add correct I2C pins
                         foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))
                         {
