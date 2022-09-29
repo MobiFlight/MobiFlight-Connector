@@ -123,8 +123,9 @@ namespace MobiFlight
             for (int i = 0; i != SubModules; i++)
             {
                 Display(i, "        ", 0, 0xff);
-                _state[i]?.Reset();
-            }    
+            }
+
+            ClearState();
         }
 
         public void ClearState()

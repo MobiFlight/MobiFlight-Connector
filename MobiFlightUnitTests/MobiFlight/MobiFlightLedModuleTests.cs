@@ -109,19 +109,80 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void SetBrightnessTest()
         {
-            Assert.Fail();
+            int ModuleIndex = 0;
+            int SubModuleIndex = 0;
+            byte CommandId = (byte)MobiFlightModule.Command.SetModuleBrightness;
+
+            string brightness = "15";
+
+            var module = new MobiFlightLedModule();
+            var mockTransport = new MockTransport();
+            module.CmdMessenger = new CmdMessenger(mockTransport);
+            module.CmdMessenger.Connect();
+
+            /// TEST CASES
+            mockTransport.Clear();
+            module.SetBrightness(0, brightness);
+            WaitForQueueUpdate();
+            var DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{brightness};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "First write should always send command.");
+
+            mockTransport.Clear();
+            module.SetBrightness(0, brightness);
+            WaitForQueueUpdate();
+            DataExpected = $"";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Caching mechanism test failed, we are sending the same value again, nothing has changed.");
+
+            brightness = "1";
+            mockTransport.Clear();
+            module.SetBrightness(0, brightness);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{brightness};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after brigthness change should always send command.");
+
+            mockTransport.Clear();
+            module.ClearState();
+            module.SetBrightness(0, brightness);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{brightness};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Write after ClearState should always send command.");
         }
 
         [TestMethod()]
         public void StopTest()
         {
-            Assert.Fail();
+            byte points = 0xFF;
+            byte mask = 0xFF;
+            int ModuleIndex = 0;
+            int SubModuleIndex = 0;
+            byte CommandId = (byte)MobiFlightModule.Command.SetModule;
+
+            string value = "12345678";
+
+            var module = new MobiFlightLedModule();
+            var mockTransport = new MockTransport();
+            module.CmdMessenger = new CmdMessenger(mockTransport);
+            module.CmdMessenger.Connect();
+
+            /// TEST CASES
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            var DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "First write should always send command.");
+
+            mockTransport.Clear();
+            module.Stop();
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},        ,0,255;";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "First write should always send command.");
         }
 
         [TestMethod()]
+        [Ignore]
         public void ClearStateTest()
         {
-            Assert.Fail();
+            // this is tested with the Display Tests
         }
     }
 }
