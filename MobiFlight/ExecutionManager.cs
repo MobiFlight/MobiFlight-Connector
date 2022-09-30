@@ -1307,6 +1307,8 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + "=>" +e.Value;
             }
 
+            var msgEventLabel = $"{e.Type}: [{e.Name}] > [{e.DeviceId}] {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} > {eventAction}";
+
             lock (inputCache)
 			{
                 if (!inputCache.ContainsKey(inputKey))
@@ -1356,19 +1358,19 @@ namespace MobiFlight
             	if (inputCache[inputKey].Count == 0)
             	{
                 	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    	    Log.Instance.log($"No config found for {e.Type}: [{e.Name}] > [{e.DeviceId}] {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} > {eventAction}", LogSeverity.Debug);
+                    	    Log.Instance.log($"No config found for ${msgEventLabel}", LogSeverity.Debug);
                 	return;
             	}
             }
 
-            Log.Instance.log($"Config found for {e.Type}: [{e.Name}] > [{e.DeviceId}] {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} > {eventAction}", LogSeverity.Debug);
-
             // Skip execution if not started
             if (!IsStarted())
             {
-                Log.Instance.log("Run isn't enabled so the event wasn't sent to the simulator.", LogSeverity.Debug);
+                Log.Instance.log($"Config found for ${msgEventLabel} (!) Not sent, no sim running", LogSeverity.Warn);
                 return;
             }
+
+            Log.Instance.log($"Config found for ${msgEventLabel}", LogSeverity.Debug);
 
             ConnectorValue currentValue = new ConnectorValue();
             CacheCollection cacheCollection = new CacheCollection()
