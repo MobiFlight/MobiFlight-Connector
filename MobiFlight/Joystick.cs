@@ -203,6 +203,7 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
+                        Name = Name,
                         DeviceId = POV[index].Label,
                         Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                         Type = DeviceType.Button,
@@ -217,6 +218,7 @@ namespace MobiFlight
 
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
+                        Name = Name,
                         DeviceId = POV[index].Label,
                         Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                         Type = DeviceType.Button,
@@ -244,6 +246,7 @@ namespace MobiFlight
                     if (!StateExists() || oldValue != newValue)
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
+                            Name = Name,
                             DeviceId = Axes[CurrentAxis].Label,
                             Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                             Type = DeviceType.AnalogInput,
@@ -263,6 +266,7 @@ namespace MobiFlight
                     if (newState.Buttons[i] || (state != null))
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
+                            Name = Name,
                             DeviceId = Buttons[i].Label,
                             Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                             Type = DeviceType.Button,

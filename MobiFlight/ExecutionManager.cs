@@ -1356,12 +1356,12 @@ namespace MobiFlight
             	if (inputCache[inputKey].Count == 0)
             	{
                 	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    	    Log.Instance.log($"No config found for {e.Type}: {e.DeviceId}{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+                    	    Log.Instance.log($"No config found for {e.Type}: [{e.Name}] > [{e.DeviceId}]{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} > {eventAction}", LogSeverity.Debug);
                 	return;
             	}
             }
 
-            Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+            Log.Instance.log($"Config found for {e.Type}: [{e.Name}] > [{e.DeviceId}]{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} > {eventAction}", LogSeverity.Debug);
 
             // Skip execution if not started
             if (!IsStarted())
