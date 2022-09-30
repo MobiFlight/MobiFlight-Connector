@@ -1687,6 +1687,7 @@ namespace MobiFlight.UI
                     if (updater.InstallWasmEvents())
                     {
                         Msfs2020HubhopPresetListSingleton.Instance.Clear();
+                        XplaneHubhopPresetListSingleton.Instance.Clear();
                         progressForm.DialogResult = DialogResult.OK;
                     }
                     else

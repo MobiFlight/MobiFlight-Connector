@@ -45,6 +45,7 @@
             this.ResetButton = new System.Windows.Forms.Button();
             this.PresetGroupBox = new System.Windows.Forms.GroupBox();
             this.ExpertSettingsPanel = new System.Windows.Forms.Panel();
+            this.Msfs2020Panel = new System.Windows.Forms.Panel();
             this.LVarExamplePanel = new System.Windows.Forms.Panel();
             this.LVarListButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -53,8 +54,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.ExampleLabel = new System.Windows.Forms.Label();
             this.CustomCodePanel = new System.Windows.Forms.Panel();
+            this.ValuePanel = new System.Windows.Forms.Panel();
+            this.ValueTextBox = new System.Windows.Forms.TextBox();
+            this.ValueLabel = new System.Windows.Forms.Label();
+            this.HintLabel = new System.Windows.Forms.Label();
+            this.PresetCodePanel = new System.Windows.Forms.Panel();
             this.SimVarNameTextBox = new System.Windows.Forms.TextBox();
             this.ExpandButton = new System.Windows.Forms.Button();
+            this.CodeActionPanel = new System.Windows.Forms.Panel();
+            this.TypeComboBox = new System.Windows.Forms.ComboBox();
             this.PresetPanel = new System.Windows.Forms.Panel();
             this.MatchLabel = new System.Windows.Forms.Label();
             this.PresetComboBox = new System.Windows.Forms.ComboBox();
@@ -69,9 +77,13 @@
             this.TextFilterPanel.SuspendLayout();
             this.PresetGroupBox.SuspendLayout();
             this.ExpertSettingsPanel.SuspendLayout();
+            this.Msfs2020Panel.SuspendLayout();
             this.LVarExamplePanel.SuspendLayout();
             this.AVarExamplePanel.SuspendLayout();
             this.CustomCodePanel.SuspendLayout();
+            this.ValuePanel.SuspendLayout();
+            this.PresetCodePanel.SuspendLayout();
+            this.CodeActionPanel.SuspendLayout();
             this.PresetPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -255,7 +267,7 @@
             this.PresetGroupBox.Location = new System.Drawing.Point(0, 65);
             this.PresetGroupBox.Name = "PresetGroupBox";
             this.PresetGroupBox.Padding = new System.Windows.Forms.Padding(0, 3, 3, 0);
-            this.PresetGroupBox.Size = new System.Drawing.Size(603, 226);
+            this.PresetGroupBox.Size = new System.Drawing.Size(603, 364);
             this.PresetGroupBox.TabIndex = 13;
             this.PresetGroupBox.TabStop = false;
             this.PresetGroupBox.Text = "Select Preset";
@@ -264,15 +276,24 @@
             // 
             this.ExpertSettingsPanel.AutoSize = true;
             this.ExpertSettingsPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ExpertSettingsPanel.Controls.Add(this.LVarExamplePanel);
-            this.ExpertSettingsPanel.Controls.Add(this.AVarExamplePanel);
-            this.ExpertSettingsPanel.Controls.Add(this.ExampleLabel);
+            this.ExpertSettingsPanel.Controls.Add(this.Msfs2020Panel);
             this.ExpertSettingsPanel.Controls.Add(this.CustomCodePanel);
             this.ExpertSettingsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.ExpertSettingsPanel.Location = new System.Drawing.Point(0, 124);
             this.ExpertSettingsPanel.Name = "ExpertSettingsPanel";
-            this.ExpertSettingsPanel.Size = new System.Drawing.Size(600, 102);
+            this.ExpertSettingsPanel.Size = new System.Drawing.Size(600, 240);
             this.ExpertSettingsPanel.TabIndex = 9;
+            // 
+            // Msfs2020Panel
+            // 
+            this.Msfs2020Panel.Controls.Add(this.LVarExamplePanel);
+            this.Msfs2020Panel.Controls.Add(this.AVarExamplePanel);
+            this.Msfs2020Panel.Controls.Add(this.ExampleLabel);
+            this.Msfs2020Panel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Msfs2020Panel.Location = new System.Drawing.Point(0, 140);
+            this.Msfs2020Panel.Name = "Msfs2020Panel";
+            this.Msfs2020Panel.Size = new System.Drawing.Size(600, 100);
+            this.Msfs2020Panel.TabIndex = 9;
             // 
             // LVarExamplePanel
             // 
@@ -280,7 +301,7 @@
             this.LVarExamplePanel.Controls.Add(this.LVarListButton);
             this.LVarExamplePanel.Controls.Add(this.label4);
             this.LVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LVarExamplePanel.Location = new System.Drawing.Point(0, 76);
+            this.LVarExamplePanel.Location = new System.Drawing.Point(0, 44);
             this.LVarExamplePanel.Name = "LVarExamplePanel";
             this.LVarExamplePanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.LVarExamplePanel.Size = new System.Drawing.Size(600, 26);
@@ -314,7 +335,7 @@
             this.AVarExamplePanel.Controls.Add(this.linkLabel1);
             this.AVarExamplePanel.Controls.Add(this.label5);
             this.AVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.AVarExamplePanel.Location = new System.Drawing.Point(0, 50);
+            this.AVarExamplePanel.Location = new System.Drawing.Point(0, 18);
             this.AVarExamplePanel.Name = "AVarExamplePanel";
             this.AVarExamplePanel.Size = new System.Drawing.Size(600, 26);
             this.AVarExamplePanel.TabIndex = 10;
@@ -346,7 +367,7 @@
             // 
             this.ExampleLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.ExampleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExampleLabel.Location = new System.Drawing.Point(0, 32);
+            this.ExampleLabel.Location = new System.Drawing.Point(0, 0);
             this.ExampleLabel.Name = "ExampleLabel";
             this.ExampleLabel.Padding = new System.Windows.Forms.Padding(74, 3, 3, 3);
             this.ExampleLabel.Size = new System.Drawing.Size(600, 18);
@@ -357,35 +378,112 @@
             // 
             this.CustomCodePanel.AutoSize = true;
             this.CustomCodePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.CustomCodePanel.Controls.Add(this.SimVarNameTextBox);
-            this.CustomCodePanel.Controls.Add(this.ExpandButton);
+            this.CustomCodePanel.Controls.Add(this.ValuePanel);
+            this.CustomCodePanel.Controls.Add(this.PresetCodePanel);
+            this.CustomCodePanel.Controls.Add(this.CodeActionPanel);
             this.CustomCodePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.CustomCodePanel.Location = new System.Drawing.Point(0, 0);
             this.CustomCodePanel.Name = "CustomCodePanel";
             this.CustomCodePanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-            this.CustomCodePanel.Size = new System.Drawing.Size(600, 32);
+            this.CustomCodePanel.Size = new System.Drawing.Size(600, 140);
             this.CustomCodePanel.TabIndex = 11;
+            // 
+            // ValuePanel
+            // 
+            this.ValuePanel.AutoSize = true;
+            this.ValuePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ValuePanel.Controls.Add(this.ValueTextBox);
+            this.ValuePanel.Controls.Add(this.ValueLabel);
+            this.ValuePanel.Controls.Add(this.HintLabel);
+            this.ValuePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ValuePanel.Location = new System.Drawing.Point(0, 57);
+            this.ValuePanel.Name = "ValuePanel";
+            this.ValuePanel.Padding = new System.Windows.Forms.Padding(4);
+            this.ValuePanel.Size = new System.Drawing.Size(600, 78);
+            this.ValuePanel.TabIndex = 33;
+            // 
+            // ValueTextBox
+            // 
+            this.ValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ValueTextBox.Location = new System.Drawing.Point(75, 26);
+            this.ValueTextBox.Name = "ValueTextBox";
+            this.ValueTextBox.Size = new System.Drawing.Size(470, 20);
+            this.ValueTextBox.TabIndex = 5;
+            // 
+            // ValueLabel
+            // 
+            this.ValueLabel.Location = new System.Drawing.Point(75, 3);
+            this.ValueLabel.Name = "ValueLabel";
+            this.ValueLabel.Size = new System.Drawing.Size(66, 20);
+            this.ValueLabel.TabIndex = 4;
+            this.ValueLabel.Text = "Value";
+            this.ValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // HintLabel
+            // 
+            this.HintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.HintLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.HintLabel.Location = new System.Drawing.Point(75, 49);
+            this.HintLabel.Name = "HintLabel";
+            this.HintLabel.Size = new System.Drawing.Size(464, 25);
+            this.HintLabel.TabIndex = 30;
+            this.HintLabel.Text = "Supports variable value ($), input value (@) and placeholders (?,#, etc.)\r\n";
+            // 
+            // PresetCodePanel
+            // 
+            this.PresetCodePanel.AutoSize = true;
+            this.PresetCodePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.PresetCodePanel.Controls.Add(this.SimVarNameTextBox);
+            this.PresetCodePanel.Controls.Add(this.ExpandButton);
+            this.PresetCodePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PresetCodePanel.Location = new System.Drawing.Point(0, 27);
+            this.PresetCodePanel.Name = "PresetCodePanel";
+            this.PresetCodePanel.Size = new System.Drawing.Size(600, 30);
+            this.PresetCodePanel.TabIndex = 11;
             // 
             // SimVarNameTextBox
             // 
             this.SimVarNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SimVarNameTextBox.Location = new System.Drawing.Point(75, 3);
+            this.SimVarNameTextBox.Location = new System.Drawing.Point(75, 6);
             this.SimVarNameTextBox.MaxLength = 1024;
             this.SimVarNameTextBox.Multiline = true;
             this.SimVarNameTextBox.Name = "SimVarNameTextBox";
             this.SimVarNameTextBox.Size = new System.Drawing.Size(464, 21);
-            this.SimVarNameTextBox.TabIndex = 0;
+            this.SimVarNameTextBox.TabIndex = 9;
             // 
             // ExpandButton
             // 
             this.ExpandButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExpandButton.Location = new System.Drawing.Point(545, 2);
+            this.ExpandButton.Location = new System.Drawing.Point(545, 5);
             this.ExpandButton.Name = "ExpandButton";
             this.ExpandButton.Size = new System.Drawing.Size(21, 21);
-            this.ExpandButton.TabIndex = 8;
+            this.ExpandButton.TabIndex = 10;
             this.ExpandButton.Text = "+";
             this.ExpandButton.UseVisualStyleBackColor = true;
+            // 
+            // CodeActionPanel
+            // 
+            this.CodeActionPanel.Controls.Add(this.TypeComboBox);
+            this.CodeActionPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CodeActionPanel.Location = new System.Drawing.Point(0, 0);
+            this.CodeActionPanel.Name = "CodeActionPanel";
+            this.CodeActionPanel.Size = new System.Drawing.Size(600, 27);
+            this.CodeActionPanel.TabIndex = 10;
+            // 
+            // TypeComboBox
+            // 
+            this.TypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TypeComboBox.FormattingEnabled = true;
+            this.TypeComboBox.Items.AddRange(new object[] {
+            "DataRef",
+            "Command"});
+            this.TypeComboBox.Location = new System.Drawing.Point(75, 3);
+            this.TypeComboBox.Name = "TypeComboBox";
+            this.TypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.TypeComboBox.TabIndex = 9;
             // 
             // PresetPanel
             // 
@@ -465,7 +563,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(603, 0);
             this.Name = "HubHopPresetPanel";
-            this.Size = new System.Drawing.Size(603, 291);
+            this.Size = new System.Drawing.Size(603, 429);
             this.FilterGroupBox.ResumeLayout(false);
             this.FilterGroupBox.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -481,10 +579,16 @@
             this.PresetGroupBox.PerformLayout();
             this.ExpertSettingsPanel.ResumeLayout(false);
             this.ExpertSettingsPanel.PerformLayout();
+            this.Msfs2020Panel.ResumeLayout(false);
             this.LVarExamplePanel.ResumeLayout(false);
             this.AVarExamplePanel.ResumeLayout(false);
             this.CustomCodePanel.ResumeLayout(false);
             this.CustomCodePanel.PerformLayout();
+            this.ValuePanel.ResumeLayout(false);
+            this.ValuePanel.PerformLayout();
+            this.PresetCodePanel.ResumeLayout(false);
+            this.PresetCodePanel.PerformLayout();
+            this.CodeActionPanel.ResumeLayout(false);
             this.PresetPanel.ResumeLayout(false);
             this.PresetPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -514,8 +618,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label ExampleLabel;
         private System.Windows.Forms.Panel CustomCodePanel;
-        private System.Windows.Forms.TextBox SimVarNameTextBox;
-        private System.Windows.Forms.Button ExpandButton;
         private System.Windows.Forms.Panel PresetPanel;
         private System.Windows.Forms.Label MatchLabel;
         private System.Windows.Forms.ComboBox PresetComboBox;
@@ -527,5 +629,15 @@
         private System.Windows.Forms.Panel AircraftFilterPanel;
         private System.Windows.Forms.Panel SystemFilterPanel;
         private System.Windows.Forms.Panel TextFilterPanel;
+        private System.Windows.Forms.Panel Msfs2020Panel;
+        public System.Windows.Forms.ComboBox TypeComboBox;
+        private System.Windows.Forms.Panel PresetCodePanel;
+        private System.Windows.Forms.TextBox SimVarNameTextBox;
+        private System.Windows.Forms.Button ExpandButton;
+        private System.Windows.Forms.Panel CodeActionPanel;
+        private System.Windows.Forms.Panel ValuePanel;
+        private System.Windows.Forms.TextBox ValueTextBox;
+        private System.Windows.Forms.Label ValueLabel;
+        private System.Windows.Forms.Label HintLabel;
     }
 }
