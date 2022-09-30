@@ -146,7 +146,7 @@ namespace MobiFlight.UI.Panels.Config
             // Would have to be JSON too...
             PresetFileUser = Properties.Settings.Default.PresetFileMSFS2020SimVarsUser;
 
-            PresetComboBox.Enabled = false;
+            PresetPanel.Enabled = false;
 
             if (Properties.Settings.Default.SimVarTextBoxExpanded)
             {
@@ -595,7 +595,7 @@ namespace MobiFlight.UI.Panels.Config
                 PresetComboBox.SelectedIndex = 0;
             }
 
-            PresetComboBox.Enabled = (FilteredPresetList.Items.Count > 1);
+            PresetPanel.Enabled = (FilteredPresetList.Items.Count > 1);
 
             PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
