@@ -548,9 +548,15 @@ namespace MobiFlight.UI.Panels.Config
             HubHopType hubhopType = HubHopType.Output;
             if (Mode == HubHopPanelMode.Input) hubhopType = HubHopType.AllInputs;
 
-            UpdateValues(VendorComboBox, FilteredPresetList.AllVendors(hubhopType).ToArray());
-            UpdateValues(AircraftComboBox, FilteredPresetList.AllAircraft(hubhopType).ToArray());
-            UpdateValues(SystemComboBox, FilteredPresetList.AllSystems(hubhopType).ToArray());
+            // update categories when we have hits
+            // otherwise keep categories from last filter
+            if (FilteredPresetList.Items.Count > 1)
+            {
+                UpdateValues(VendorComboBox, FilteredPresetList.AllVendors(hubhopType).ToArray());
+                UpdateValues(AircraftComboBox, FilteredPresetList.AllAircraft(hubhopType).ToArray());
+                UpdateValues(SystemComboBox, FilteredPresetList.AllSystems(hubhopType).ToArray());
+            }
+
             UpdatePresetComboBoxValues();
         }
 
