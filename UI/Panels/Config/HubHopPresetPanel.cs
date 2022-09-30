@@ -682,7 +682,7 @@ namespace MobiFlight.UI.Panels.Config
 
             // Try to find the original preset and 
             // initialize comboboxes accordingly
-            String OriginalCode = inputAction.Expression;
+            String OriginalCode = inputAction.Path;
 
             TryToSelectOriginalPresetFromCode(OriginalCode);
         }
