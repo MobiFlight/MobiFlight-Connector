@@ -437,7 +437,6 @@ namespace MobiFlight.UI.Panels.Config
             SimVarNameTextBox.Text = selectedPreset?.code;
 
             DescriptionLabel.Enabled = selectedItem.id != "-";
-            InitializeComboBoxesWithPreset(selectedPreset);
         }
 
         private void SimVarNameTextBox_TextChanged(object sender, EventArgs e)
