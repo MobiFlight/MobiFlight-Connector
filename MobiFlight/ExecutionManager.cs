@@ -466,7 +466,6 @@ namespace MobiFlight
 
                 List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
 
-                String strValue = "";
                 try
                 {
                     processedValue = value;
@@ -494,7 +493,8 @@ namespace MobiFlight
                     }
                     else
                     {
-                        strValue = cfg.Preconditions.FalseCaseValue;
+                        processedValue.type = FSUIPCOffsetType.String;
+                        processedValue.String = cfg.Preconditions.FalseCaseValue;
                     }
                 }
                 else
@@ -505,7 +505,7 @@ namespace MobiFlight
 
                 try
                 {
-                    ExecuteDisplay(strValue, cfg);
+                    ExecuteDisplay(processedValue.ToString(), cfg);
                 }
                 catch (Exception exc)
                 {
@@ -1307,6 +1307,8 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + "=>" +e.Value;
             }
 
+            var msgEventLabel = $"{e.Type}: [{e.Name}] > [{e.DeviceId}] {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} > {eventAction}";
+
             lock (inputCache)
 			{
                 if (!inputCache.ContainsKey(inputKey))
@@ -1356,15 +1358,19 @@ namespace MobiFlight
             	if (inputCache[inputKey].Count == 0)
             	{
                 	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    	    Log.Instance.log($"No config found for {e.Type}: {e.DeviceId}{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
+                    	    Log.Instance.log($"No config found for ${msgEventLabel}", LogSeverity.Debug);
                 	return;
             	}
             }
 
-            Log.Instance.log($"Config found for {e.Type}: {e.DeviceId}{(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} ({eventAction})@{e.Serial}", LogSeverity.Debug);
-
             // Skip execution if not started
-            if (!IsStarted()) return;
+            if (!IsStarted())
+            {
+                Log.Instance.log($"Config found for ${msgEventLabel} (!) Not sent, no sim running", LogSeverity.Warn);
+                return;
+            }
+
+            Log.Instance.log($"Config found for ${msgEventLabel}", LogSeverity.Debug);
 
             ConnectorValue currentValue = new ConnectorValue();
             CacheCollection cacheCollection = new CacheCollection()

@@ -340,6 +340,24 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} requires the use of pin {1} which is already assigned to another module. Remove the pin assignment from the other module then try adding {0} again..
+        /// </summary>
+        internal static string uiI2CPinInUse {
+            get {
+                return ResourceManager.GetString("uiI2CPinInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I2C pin in use.
+        /// </summary>
+        internal static string uiI2CPinInUseHint {
+            get {
+                return ResourceManager.GetString("uiI2CPinInUseHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Double-click row to add new config....
         /// </summary>
         internal static string uiLabelDoubleClickToAddConfig {
@@ -1110,6 +1128,24 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageWasmUpdater {
             get {
                 return ResourceManager.GetString("uiMessageWasmUpdater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} requires I2C pins however {1} doesn&apos;t have any defined..
+        /// </summary>
+        internal static string uiNoI2CPinsDefined {
+            get {
+                return ResourceManager.GetString("uiNoI2CPinsDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No I2C pins defined.
+        /// </summary>
+        internal static string uiNoI2CPinsDefinedHint {
+            get {
+                return ResourceManager.GetString("uiNoI2CPinsDefinedHint", resourceCulture);
             }
         }
         

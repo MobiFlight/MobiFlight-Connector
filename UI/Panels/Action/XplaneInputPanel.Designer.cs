@@ -28,102 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XplaneInputPanel));
             this.xplaneGroupBox = new System.Windows.Forms.GroupBox();
-            this.HintLabel = new System.Windows.Forms.Label();
-            this.ValueTextBox = new System.Windows.Forms.TextBox();
-            this.ValueLabel = new System.Windows.Forms.Label();
-            this.NameTextBox = new System.Windows.Forms.TextBox();
-            this.PathLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.TypeComboBox = new System.Windows.Forms.ComboBox();
+            this.hubHopPresetPanel1 = new MobiFlight.UI.Panels.Config.HubHopPresetPanel();
             this.xplaneGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // xplaneGroupBox
             // 
-            this.xplaneGroupBox.Controls.Add(this.HintLabel);
-            this.xplaneGroupBox.Controls.Add(this.ValueTextBox);
-            this.xplaneGroupBox.Controls.Add(this.ValueLabel);
-            this.xplaneGroupBox.Controls.Add(this.NameTextBox);
-            this.xplaneGroupBox.Controls.Add(this.PathLabel);
-            this.xplaneGroupBox.Controls.Add(this.label1);
-            this.xplaneGroupBox.Controls.Add(this.TypeComboBox);
+            this.xplaneGroupBox.Controls.Add(this.hubHopPresetPanel1);
             this.xplaneGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xplaneGroupBox.Location = new System.Drawing.Point(0, 0);
             this.xplaneGroupBox.Name = "xplaneGroupBox";
-            this.xplaneGroupBox.Size = new System.Drawing.Size(318, 158);
+            this.xplaneGroupBox.Size = new System.Drawing.Size(596, 291);
             this.xplaneGroupBox.TabIndex = 0;
             this.xplaneGroupBox.TabStop = false;
             this.xplaneGroupBox.Text = "Input settings";
             // 
-            // HintLabel
+            // hubHopPresetPanel1
             // 
-            this.HintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.HintLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.HintLabel.Location = new System.Drawing.Point(88, 107);
-            this.HintLabel.Name = "HintLabel";
-            this.HintLabel.Size = new System.Drawing.Size(224, 38);
-            this.HintLabel.TabIndex = 30;
-            this.HintLabel.Text = "Supports variable value ($), input value (@) and placeholders (?,#, etc.)\r\n";
-            // 
-            // ValueTextBox
-            // 
-            this.ValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ValueTextBox.Location = new System.Drawing.Point(88, 84);
-            this.ValueTextBox.Name = "ValueTextBox";
-            this.ValueTextBox.Size = new System.Drawing.Size(224, 20);
-            this.ValueTextBox.TabIndex = 5;
-            // 
-            // ValueLabel
-            // 
-            this.ValueLabel.Location = new System.Drawing.Point(6, 84);
-            this.ValueLabel.Name = "ValueLabel";
-            this.ValueLabel.Size = new System.Drawing.Size(76, 20);
-            this.ValueLabel.TabIndex = 4;
-            this.ValueLabel.Text = "Value";
-            this.ValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // NameTextBox
-            // 
-            this.NameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.NameTextBox.Location = new System.Drawing.Point(88, 58);
-            this.NameTextBox.Name = "NameTextBox";
-            this.NameTextBox.Size = new System.Drawing.Size(224, 20);
-            this.NameTextBox.TabIndex = 3;
-            // 
-            // PathLabel
-            // 
-            this.PathLabel.AutoEllipsis = true;
-            this.PathLabel.Location = new System.Drawing.Point(9, 59);
-            this.PathLabel.Name = "PathLabel";
-            this.PathLabel.Size = new System.Drawing.Size(73, 20);
-            this.PathLabel.TabIndex = 2;
-            this.PathLabel.Text = "DataRef";
-            this.PathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(6, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 21);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Input type";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // TypeComboBox
-            // 
-            this.TypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TypeComboBox.FormattingEnabled = true;
-            this.TypeComboBox.Items.AddRange(new object[] {
-            "DataRef",
-            "Command"});
-            this.TypeComboBox.Location = new System.Drawing.Point(88, 31);
-            this.TypeComboBox.Name = "TypeComboBox";
-            this.TypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TypeComboBox.TabIndex = 0;
+            this.hubHopPresetPanel1.AutoSize = true;
+            this.hubHopPresetPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.hubHopPresetPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.hubHopPresetPanel1.FlightSimType = MobiFlight.FlightSimType.NONE;
+            this.hubHopPresetPanel1.Location = new System.Drawing.Point(3, 16);
+            this.hubHopPresetPanel1.LVars = ((System.Collections.Generic.List<string>)(resources.GetObject("hubHopPresetPanel1.LVars")));
+            this.hubHopPresetPanel1.Margin = new System.Windows.Forms.Padding(2);
+            this.hubHopPresetPanel1.MinimumSize = new System.Drawing.Size(603, 0);
+            this.hubHopPresetPanel1.Mode = MobiFlight.UI.Panels.Config.HubHopPanelMode.Output;
+            this.hubHopPresetPanel1.Name = "hubHopPresetPanel1";
+            this.hubHopPresetPanel1.PresetFile = "Presets\\msfs2020_hubhop_presets.json";
+            this.hubHopPresetPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
+            this.hubHopPresetPanel1.Size = new System.Drawing.Size(603, 189);
+            this.hubHopPresetPanel1.TabIndex = 31;
             // 
             // XplaneInputPanel
             // 
@@ -132,7 +69,7 @@
             this.Controls.Add(this.xplaneGroupBox);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "XplaneInputPanel";
-            this.Size = new System.Drawing.Size(318, 158);
+            this.Size = new System.Drawing.Size(596, 291);
             this.xplaneGroupBox.ResumeLayout(false);
             this.xplaneGroupBox.PerformLayout();
             this.ResumeLayout(false);
@@ -142,12 +79,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox xplaneGroupBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox TypeComboBox;
-        private System.Windows.Forms.TextBox ValueTextBox;
-        private System.Windows.Forms.Label ValueLabel;
-        private System.Windows.Forms.TextBox NameTextBox;
-        private System.Windows.Forms.Label PathLabel;
-        private System.Windows.Forms.Label HintLabel;
+        private Config.HubHopPresetPanel hubHopPresetPanel1;
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Base\PreconditionTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
+    <Compile Include="MobiFlight\MobiFlightLedModuleTests.cs" />
     <Compile Include="MobiFlight\Modifier\InterpolationTests.cs" />
     <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="MobiFlight\OutputConfig\LcdDisplayTests.cs" />
     <Compile Include="MobiFlight\Modifier\TransformationTests.cs" />
     <Compile Include="mock\Base\KeyboardInputMock.cs" />
+    <Compile Include="mock\CommandMessenger\MockTransport.cs" />
     <Compile Include="mock\FSUIPC\FSUIPCCacheMock.cs" />
     <Compile Include="mock\MobiFlight\MobiFlightCacheMock.cs" />
     <Compile Include="mock\SimConnectMSFS\SimConnectCacheMock.cs" />
@@ -465,6 +467,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CmdMessenger\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
+      <Project>{3CF8F8FC-6F5C-46F8-94DC-C2E4C505ECA4}</Project>
+      <Name>CommandMessenger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MobiFlightConnector.csproj">
       <Project>{fad08758-74c5-4dba-9bc5-1ad98a0fe87b}</Project>
       <Name>MobiFlightConnector</Name>

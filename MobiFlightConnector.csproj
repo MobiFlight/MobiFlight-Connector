@@ -225,6 +225,8 @@
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
+    <Compile Include="MobiFlight\I2CPinInUseException.cs" />
+    <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\InputMultiplexerConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionExecutionCache.cs" />
@@ -907,6 +909,9 @@
     </None>
     <None Include="Presets\msfs2020_hubhop_presets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Presets\xplane_hubhop_presets.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\arcaze-module.png" />
     <None Include="Resources\arcaze-new.png" />

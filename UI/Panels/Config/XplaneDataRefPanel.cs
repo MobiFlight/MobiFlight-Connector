@@ -17,12 +17,15 @@ namespace MobiFlight.UI.Panels.Config
             InitializeComponent();
             transformOptionsGroup1.setMode(true);
             transformOptionsGroup1.ShowSubStringPanel(false);
+            hubHopPresetPanel1.PresetFile = @"Presets\xplane_hubhop_presets.json";
+            hubHopPresetPanel1.Mode = HubHopPanelMode.Output;
+            hubHopPresetPanel1.FlightSimType = FlightSimType.XPLANE;
+            hubHopPresetPanel1.LoadPresets();
         }
 
         internal void syncToConfig(OutputConfigItem config)
         {
-
-            config.XplaneDataRef.Path = DataRefTextBox.Text;
+            hubHopPresetPanel1.syncToConfig(config);
             transformOptionsGroup1.syncToConfig(config);
         }
 
@@ -30,7 +33,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             // Sync the transform panel
             transformOptionsGroup1.syncFromConfig(config);
-            DataRefTextBox.Text = config.XplaneDataRef.Path;
+            hubHopPresetPanel1.syncFromConfig(config);
         }
     }
 }

@@ -115,6 +115,7 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
+            this.releaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -258,7 +259,8 @@
             this.openHubHopWebsiteToolStripMenuItem,
             this.openYoutubeChannelToolStripMenuItem,
             this.toolStripMenuItem1,
-            this.überToolStripMenuItem});
+            this.überToolStripMenuItem,
+            this.releaseNotesToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
             resources.ApplyResources(this.hilfeToolStripMenuItem, "hilfeToolStripMenuItem");
             // 
@@ -704,6 +706,12 @@
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
             // 
+            // releaseNotesToolStripMenuItem
+            // 
+            this.releaseNotesToolStripMenuItem.Name = "releaseNotesToolStripMenuItem";
+            resources.ApplyResources(this.releaseNotesToolStripMenuItem, "releaseNotesToolStripMenuItem");
+            this.releaseNotesToolStripMenuItem.Click += new System.EventHandler(this.releaseNotesToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -834,6 +842,7 @@
         private Panels.LogPanel logPanel1;
         private System.Windows.Forms.ToolStripButton HubHopToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem openHubHopWebsiteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem releaseNotesToolStripMenuItem;
     }
 }
 

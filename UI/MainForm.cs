@@ -1305,6 +1305,14 @@ namespace MobiFlight.UI
             return Version;
         }
 
+        public static String CurrentVersion()
+        {
+            if (VersionBeta.Split('.')[3] != "0")
+                return VersionBeta;
+
+            return Version;
+        }
+
         private void _setFilenameInTitle(string fileName)
         {
             SetTitle(fileName.Substring(fileName.LastIndexOf('\\')+1));
@@ -1687,6 +1695,7 @@ namespace MobiFlight.UI
                     if (updater.InstallWasmEvents())
                     {
                         Msfs2020HubhopPresetListSingleton.Instance.Clear();
+                        XplaneHubhopPresetListSingleton.Instance.Clear();
                         progressForm.DialogResult = DialogResult.OK;
                     }
                     else
@@ -1736,6 +1745,11 @@ namespace MobiFlight.UI
         private void HubHopToolStripButton_Click(object sender, EventArgs e)
         {
             Process.Start("https://hubhop.mobiflight.com/");
+        }
+
+        private void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
         }
     }
 

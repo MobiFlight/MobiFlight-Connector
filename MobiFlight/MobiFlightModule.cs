@@ -21,6 +21,8 @@ namespace MobiFlight
     {
         public string Serial { get; set; }
         public string DeviceId { get; set; }
+
+        public string Name { get; set; }
         public DeviceType Type { get; set; }
         public int? ExtPin { get; set; }
         public int Value { get; set; }
@@ -511,7 +513,7 @@ namespace MobiFlight
             if (!int.TryParse(pos, out value)) return;
 
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = enc, Type = DeviceType.Encoder, Value = value });
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = enc, Type = DeviceType.Encoder, Value = value });
             //addLog("Enc: " + enc + ":" + pos);
         }
 
@@ -521,7 +523,7 @@ namespace MobiFlight
             String channel = arguments.ReadStringArg();
             String state = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, ExtPin = int.Parse(channel), Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, ExtPin = int.Parse(channel), Value = int.Parse(state) });
         }
 
         void OnInputMultiplexerChange(ReceivedCommand arguments)
@@ -530,7 +532,7 @@ namespace MobiFlight
             String channel = arguments.ReadStringArg();
             String state = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = deviceId, Type = DeviceType.InputMultiplexer, ExtPin = int.Parse(channel), Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = deviceId, Type = DeviceType.InputMultiplexer, ExtPin = int.Parse(channel), Value = int.Parse(state) });
         }
 
         // Callback function that prints the Arduino status to the console
@@ -540,7 +542,7 @@ namespace MobiFlight
             String state = arguments.ReadStringArg();
             //addLog("Button: " + button + ":" + state);
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = button, Type = DeviceType.Button, Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = button, Type = DeviceType.Button, Value = int.Parse(state) });
         }
 
         // Callback function that prints the Arduino status to the console
@@ -550,7 +552,7 @@ namespace MobiFlight
             String value = arguments.ReadStringArg();
             //addLog("Button: " + button + ":" + state);
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, DeviceId = name, Type = DeviceType.AnalogInput, Value = int.Parse(value) });
+                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = name, Type = DeviceType.AnalogInput, Value = int.Parse(value) });
         }
 
         // Callback function that prints the Arduino Debug Print to the console
@@ -590,19 +592,18 @@ namespace MobiFlight
 
         public bool SetDisplay(string name, int module, byte points, byte mask, string value)
         {
+            if (KeepAliveNeeded())
+                ledModules[name].ClearState();
+
             ledModules[name].Display(module, value, points, mask);
             return true;
         }
 
         public bool SetDisplayBrightness(string name, int module, string value)
         {
-            String key = "LEDBrightness_" + name + "_" + module;
-            String cachedValue = value;
+            if (KeepAliveNeeded())
+                ledModules[name].ClearState();
 
-            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
-                lastValue[key] == cachedValue) return false;
-
-            lastValue[key] = cachedValue;
             ledModules[name].SetBrightness(module, value);
             return true;
         }
@@ -1078,7 +1079,7 @@ namespace MobiFlight
         }
 
         // Returns a List<> of the pins used by the module
-        public List<MobiFlightPin> GetPins(bool FreeOnly = false)
+        public List<MobiFlightPin> GetPins(bool FreeOnly = false, bool ExcludeI2CDevices = false)
         {
             List<MobiFlightPin> ResultPins = new List<MobiFlightPin>();
             ResultPins.AddRange(Board.Pins.Select(x => new MobiFlightPin(x)));
@@ -1127,6 +1128,11 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.LcdDisplay:
+                        if (ExcludeI2CDevices)
+                        {
+                            continue;
+                        }
+
                         // Statically add correct I2C pins
                         foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))
                         {
