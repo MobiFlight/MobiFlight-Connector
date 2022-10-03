@@ -177,6 +177,21 @@ namespace MobiFlight.UI.Dialogs
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 
+
+            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            {
+                if (joystick.GetAvailableOutputDevices().Count == 0) continue;
+
+                DisplayModuleList.Add(new ListItem()
+                {
+                    Value = joystick.Name + "/ " + joystick.Serial,
+                    Label = $"{joystick.Name}"
+                });
+
+                // Not yet supported for pins
+                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+            }
+
             displayPanel1.SetArcazeSettings(arcazeFirmware, moduleSettings);
             displayPanel1.SetModules(DisplayModuleList);
             preconditionPanel.SetModules(PreconditionModuleList);

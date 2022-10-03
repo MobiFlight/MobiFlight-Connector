@@ -705,7 +705,14 @@ namespace MobiFlight
                 cfg.DisplayType!="InputAction") 
                 return value.ToString();
 
-            if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
+            if (serial.IndexOf(Joystick.SerialPrefix)==0)
+            {
+                Joystick joystick = joystickManager.GetJoystickBySerial(serial);
+                joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, value);
+                joystick.UpdateOutputDeviceStates();
+                joystick.Update();
+            }
+            else if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
             {
 #if ARCAZE
                 switch (cfg.DisplayType)

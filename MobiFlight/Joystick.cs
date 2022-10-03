@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web.SessionState;
+using SharpDX;
 using SharpDX.DirectInput;
 
 namespace MobiFlight
@@ -12,7 +14,8 @@ namespace MobiFlight
     {
         Button,
         Axis,
-        POV
+        POV,
+        Light
     }
 
     public class JoystickDevice
@@ -23,6 +26,17 @@ namespace MobiFlight
         public ListItem ToListItem()
         {
             return new ListItem() { Label = Label, Value = Name };
+        }
+    }
+
+    public class JoystickOutputDevice : JoystickDevice
+    {
+        public byte Byte = 0;
+        public byte Bit = 0;
+        public byte State = 0;
+        public JoystickOutputDevice()
+        {
+            Type = JoystickDeviceType.Light;
         }
     }
 
@@ -38,9 +52,11 @@ namespace MobiFlight
         public event EventHandler OnDisconnected;
         private SharpDX.DirectInput.Joystick joystick;
         JoystickState state = null;
-        List<JoystickDevice> Buttons = new List<JoystickDevice>();
-        List<JoystickDevice> Axes = new List<JoystickDevice>();
-        List<JoystickDevice> POV = new List<JoystickDevice>();
+        protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
+        protected List<JoystickDevice> Axes = new List<JoystickDevice>();
+        protected List<JoystickDevice> POV = new List<JoystickDevice>();
+        protected List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
+        protected bool RequiresOutputUpdate = false;
         public static string[] AxisNames = { "X", "Y", "Z", "RotationX", "RotationY", "RotationZ", "Slider1", "Slider2"};
 
         public static bool IsJoystickSerial(string serial)
@@ -138,9 +154,16 @@ namespace MobiFlight
         public void Connect(IntPtr handle)
         {
             EnumerateDevices();
+            EnumerateOutputDevices();
             joystick.SetCooperativeLevel(handle, CooperativeLevel.Background | CooperativeLevel.NonExclusive);
             joystick.Properties.BufferSize = 16;
             joystick.Acquire();            
+        }
+
+        virtual protected void EnumerateOutputDevices()
+        {
+            Lights.Clear();
+            return;
         }
 
         public List<ListItem> GetAvailableDevices()
@@ -161,6 +184,16 @@ namespace MobiFlight
             return result;
         }
 
+        public List<ListItem> GetAvailableOutputDevices()
+        {
+            List<ListItem> result = new List<ListItem>();
+            Lights.ForEach((item) =>
+            {
+                result.Add(item.ToListItem());
+            });
+            return result;
+        }
+
         public void Update()
         {           
             if (joystick == null) return;
@@ -172,6 +205,7 @@ namespace MobiFlight
                 UpdateButtons(newState);
                 UpdateAxis(newState);
                 UpdatePOV(newState);
+                UpdateOutputDeviceStates();
 
                 // at the very end update our state
                 state = newState;
@@ -309,6 +343,38 @@ namespace MobiFlight
             if (!UsageMap.ContainsKey(usage))
                 throw new ArgumentOutOfRangeException();
             return UsageMap[usage];
+        }
+
+        public void SetOutputDeviceState(string name, string value)
+        {
+            byte state = byte.Parse(value);
+
+            foreach(var light in Lights)
+            {
+                if (light.Label != name) continue;
+                if (light.State == state) continue;
+
+                light.State = (byte) (state > 0 ? 1 : 0);
+                RequiresOutputUpdate = true;
+                return;
+            }
+        }
+
+        protected virtual void SendData(byte[] data)
+        {
+            RequiresOutputUpdate = false;
+        }
+
+        public void UpdateOutputDeviceStates()
+        {
+            var data = new byte[] { 0, 0, 0, 0, 0 };
+
+            foreach (var light in Lights)
+            {
+                data[light.Byte] |= (byte)(light.State << light.Bit);
+            }
+
+            SendData(data);
         }
     }
 }

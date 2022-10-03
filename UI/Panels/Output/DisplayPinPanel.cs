@@ -98,7 +98,13 @@ namespace MobiFlight.UI.Panels
                 string port = "";
                 string pin = config.Pin.DisplayPin;
 
-                if (serial != null && serial.IndexOf("SN") != 0)
+                if (serial != null && serial.IndexOf(Joystick.SerialPrefix) == 0)
+                {
+                    // disable multi-select option
+                    _MultiSelectOptions(false);
+                    pin = config.Pin.DisplayPin;
+                }
+                else if (serial != null && serial.IndexOf("SN") != 0)
                 {
                     // these are Arcaze Boards.
                     // Arcaze Boards only have "single output"
