@@ -57,7 +57,7 @@ namespace MobiFlight.Joysticks
             Lights.Add(new JoystickOutputDevice() { Label = "Gear - Center Green",          Name = "Gear.CenterGreen",      Byte = 2, Bit = 2 });
             Lights.Add(new JoystickOutputDevice() { Label = "Gear - Center Red",            Name = "Gear.CenterRed",        Byte = 2, Bit = 3 });
             Lights.Add(new JoystickOutputDevice() { Label = "Gear - Right Green",           Name = "Gear.RightGreen",       Byte = 2, Bit = 4 });
-            Lights.Add(new JoystickOutputDevice() { Label = "Gear - Right Right",           Name = "Gear.RightRed",         Byte = 2, Bit = 5 });
+            Lights.Add(new JoystickOutputDevice() { Label = "Gear - Right Red",             Name = "Gear.RightRed",         Byte = 2, Bit = 5 });
             Lights.Add(new JoystickOutputDevice() { Label = "Lights - Master Warning",      Name = "Light.MasterWarn",      Byte = 2, Bit = 6 });
             Lights.Add(new JoystickOutputDevice() { Label = "Lights - Engine Fire",         Name = "Light.EngineFire",      Byte = 2, Bit = 7 });
             // -- Byte 3
