@@ -16,5 +16,14 @@ namespace MobiFlight.Base
 
             return s.Split('/')[1].Trim();
         }
+
+        public static string ExtractDeviceName(String s)
+        {
+            if (s == null) return "";
+
+            if (!s.Contains("/")) return "";
+
+            return s.Split('/')[0].Trim();
+        }
     }
 }

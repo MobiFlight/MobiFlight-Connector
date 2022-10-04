@@ -10,6 +10,11 @@ using SharpDX.DirectInput;
 
 namespace MobiFlight
 {
+    public class JoystickNotConnectedException : Exception
+    {
+        public JoystickNotConnectedException(string Message) : base(Message) { }
+    }
+
     public enum JoystickDeviceType
     {
         Button,

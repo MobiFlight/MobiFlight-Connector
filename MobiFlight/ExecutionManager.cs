@@ -507,10 +507,15 @@ namespace MobiFlight
                 {
                     ExecuteDisplay(processedValue.ToString(), cfg);
                 }
+                catch(JoystickNotConnectedException jEx)
+                {
+                    row.ErrorText = jEx.Message;
+                }
                 catch (Exception exc)
                 {
                     String RowDescription = ((row.Cells["description"]).Value as String);
                     Exception resultExc = new ConfigErrorException(RowDescription + ". " + exc.Message, exc);
+                    row.ErrorText = exc.Message;
                     throw resultExc;
                 }
             }
@@ -708,9 +713,16 @@ namespace MobiFlight
             if (serial.IndexOf(Joystick.SerialPrefix)==0)
             {
                 Joystick joystick = joystickManager.GetJoystickBySerial(serial);
-                joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, value);
-                joystick.UpdateOutputDeviceStates();
-                joystick.Update();
+                if(joystick != null)
+                {
+                    joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, value);
+                    joystick.UpdateOutputDeviceStates();
+                    joystick.Update();
+                } else
+                {
+                    var joystickName = SerialNumber.ExtractDeviceName(cfg.DisplaySerial);
+                    throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
+                }
             }
             else if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
             {

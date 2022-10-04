@@ -459,7 +459,7 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
 
 {0}
 
-Die entsprechenden Input Actions funktionieren nicht bis der Joystick wieder angeschlossen und MobiFlight neu gestartet ist.</value>
+Die entsprechenden Konfigurationen funktionieren nicht bis der Joystick wieder angeschlossen und MobiFlight neu gestartet ist.</value>
     <comment>The following joysticks are currently not connected but referenced in the config:
 
 {0}

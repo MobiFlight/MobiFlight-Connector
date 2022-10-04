@@ -1214,6 +1214,16 @@ namespace MobiFlight.UI
             if (serials.Count == 0) return;
             if (configFile == null) return;
 
+            foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
+            {
+                if (item.DisplaySerial.Contains(Joystick.SerialPrefix) &&
+                    !serials.Contains(item.DisplaySerial) &&
+                    !NotConnectedJoysticks.Contains(item.DisplaySerial))
+                {
+                    NotConnectedJoysticks.Add(item.DisplaySerial);
+                }
+            }
+
             foreach (InputConfigItem item in configFile.GetInputConfigItems())
             {
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
