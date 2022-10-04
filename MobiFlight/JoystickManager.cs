@@ -45,9 +45,17 @@ namespace MobiFlight
             PollTimer.Start();
         }
 
-        public void Stop()
+        public void Shutdown()
         {
             PollTimer.Stop();
+        }
+
+        public void Stop()
+        {
+            foreach (var j in joysticks)
+            {
+                j.Stop();
+            }
         }
 
         public List<MobiFlight.Joystick> GetJoysticks()

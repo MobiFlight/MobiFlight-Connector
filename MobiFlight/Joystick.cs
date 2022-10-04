@@ -381,5 +381,15 @@ namespace MobiFlight
 
             SendData(data);
         }
+
+        virtual public void Stop()
+        {
+            foreach(var light in Lights)
+            {
+                light.State = 0;
+            }
+            RequiresOutputUpdate = true;
+            UpdateOutputDeviceStates();
+        }
     }
 }

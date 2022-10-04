@@ -269,6 +269,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
+            joystickManager.Stop();
             ClearErrorMessages();
         }
 
@@ -373,7 +374,7 @@ namespace MobiFlight
 #if SIMCONNECT
             simConnectCache.Disconnect();
 #endif
-            joystickManager.Stop();
+            joystickManager.Shutdown();
             this.OnModulesDisconnected?.Invoke(this, new EventArgs());
         }
 
