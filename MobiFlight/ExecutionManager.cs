@@ -424,7 +424,13 @@ namespace MobiFlight
             {
                 // ignore the rows that haven't been saved yet (new row, the last one in the grid)
                 // and the ones that are not checked active
-                if (row.IsNewRow || !(bool)row.Cells["active"].Value) continue;
+                if (row.IsNewRow) continue;
+
+                if (!(bool)row.Cells["active"].Value)
+                {
+                    row.ErrorText = "";
+                    continue;
+                }
 
                 // initialisiere den adapter
                 //// nimm type von col.type
@@ -443,18 +449,24 @@ namespace MobiFlight
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                }
+                } else 
 #if SIMCONNECT
                 // If not connected to SimConnect show an error message
                 if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
                 }
+                else
 #endif
                 // If not connected to X-Plane show an error message
                 if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                }
+                // In any other case remove the error message
+                else
+                {
+                    row.ErrorText = "";
                 }
 
                 ConnectorValue value = ExecuteRead(cfg);
