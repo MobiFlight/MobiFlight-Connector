@@ -142,7 +142,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>referencesGroupBox</value>
@@ -199,7 +199,7 @@
     <value>xplaneDataRefPanel1</value>
   </data>
   <data name="&gt;&gt;xplaneDataRefPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.XplaneDataRefPanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.XplaneDataRefPanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;xplaneDataRefPanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -229,7 +229,7 @@
     <value>variablePanel1</value>
   </data>
   <data name="&gt;&gt;variablePanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.VariablePanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;variablePanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -259,7 +259,7 @@
     <value>simConnectPanel1</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.SimConnectPanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -289,7 +289,7 @@
     <value>fsuipcConfigPanel</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.FsuipcConfigPanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;fsuipcConfigPanel.Parent" xml:space="preserve">
     <value>FsuipcSettingsPanel</value>
@@ -595,7 +595,7 @@
     <value>interpolationPanel1</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.InterpolationPanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;interpolationPanel1.Parent" xml:space="preserve">
     <value>interpolationGroupBox</value>
@@ -1028,7 +1028,7 @@
     <value>displayPanel1</value>
   </data>
   <data name="&gt;&gt;displayPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.OutputWizard.DisplayPanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.OutputWizard.DisplayPanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;displayPanel1.Parent" xml:space="preserve">
     <value>displayTabPage</value>
@@ -1082,7 +1082,7 @@
     <value>preconditionPanel</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
     <value>preconditionTabPage</value>

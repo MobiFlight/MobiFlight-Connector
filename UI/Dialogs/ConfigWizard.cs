@@ -164,18 +164,8 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
-
-            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
-            {
-                DisplayModuleList.Add(new ListItem()
-                {
-                    Value = module.Name + "/ " + module.Serial,
-                    Label = $"{module.Name} ({module.Port})"
-                });
-
-                // Not yet supported for pins
-                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
-            }
+            _AddMobiFlightModules(DisplayModuleList);
+            _AddJoysticks(DisplayModuleList);
 
             displayPanel1.SetArcazeSettings(arcazeFirmware, moduleSettings);
             displayPanel1.SetModules(DisplayModuleList);
@@ -188,8 +178,17 @@ namespace MobiFlight.UI.Dialogs
         /// </summary>
         public void initWithoutArcazeCache()
         {
-            List<ListItem> DisplayModuleList = new List<ListItem>();
+            var DisplayModuleList = new List<ListItem>();
             
+            _AddMobiFlightModules(DisplayModuleList);
+            _AddJoysticks(DisplayModuleList);            
+
+            displayPanel1.SetModules(DisplayModuleList);
+        }
+#endif
+
+        protected void _AddMobiFlightModules(List<ListItem> DisplayModuleList)
+        {
             foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
             {
                 DisplayModuleList.Add(new ListItem()
@@ -201,10 +200,25 @@ namespace MobiFlight.UI.Dialogs
                 // Not yet supported for pins
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
-
-            displayPanel1.SetModules(DisplayModuleList);
         }
-#endif
+
+        protected void _AddJoysticks(List<ListItem> DisplayModuleList)
+        {
+            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            {
+                if (joystick.GetAvailableOutputDevices().Count == 0) continue;
+
+                DisplayModuleList.Add(new ListItem()
+                {
+                    Value = joystick.Name + " / " + joystick.Serial,
+                    Label = $"{joystick.Name}"
+                });
+
+                // Not yet supported for pins
+                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+            }
+        }
+
         /// <summary>
         /// sync the values from config with the config wizard form
         /// </summary>

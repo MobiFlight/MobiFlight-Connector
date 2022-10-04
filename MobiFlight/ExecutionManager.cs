@@ -269,6 +269,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
+            joystickManager.Stop();
             ClearErrorMessages();
         }
 
@@ -373,7 +374,7 @@ namespace MobiFlight
 #if SIMCONNECT
             simConnectCache.Disconnect();
 #endif
-            joystickManager.Stop();
+            joystickManager.Shutdown();
             this.OnModulesDisconnected?.Invoke(this, new EventArgs());
         }
 
@@ -507,10 +508,15 @@ namespace MobiFlight
                 {
                     ExecuteDisplay(processedValue.ToString(), cfg);
                 }
+                catch(JoystickNotConnectedException jEx)
+                {
+                    row.ErrorText = jEx.Message;
+                }
                 catch (Exception exc)
                 {
                     String RowDescription = ((row.Cells["description"]).Value as String);
                     Exception resultExc = new ConfigErrorException(RowDescription + ". " + exc.Message, exc);
+                    row.ErrorText = exc.Message;
                     throw resultExc;
                 }
             }
@@ -705,7 +711,21 @@ namespace MobiFlight
                 cfg.DisplayType!="InputAction") 
                 return value.ToString();
 
-            if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
+            if (serial.IndexOf(Joystick.SerialPrefix)==0)
+            {
+                Joystick joystick = joystickManager.GetJoystickBySerial(serial);
+                if(joystick != null)
+                {
+                    joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, value);
+                    joystick.UpdateOutputDeviceStates();
+                    joystick.Update();
+                } else
+                {
+                    var joystickName = SerialNumber.ExtractDeviceName(cfg.DisplaySerial);
+                    throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
+                }
+            }
+            else if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
             {
 #if ARCAZE
                 switch (cfg.DisplayType)

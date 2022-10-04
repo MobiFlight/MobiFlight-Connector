@@ -471,7 +471,7 @@ Check log for more details.</value>
 
 {0}
 
-Respective input actions won't work until they are connected and you have restarted MobiFlight.</value>
+Respective configs won't work until joysticks are connected and you have restarted MobiFlight.</value>
   </data>
   <data name="uiMessageFirmwareUpdateStatus" xml:space="preserve">
     <value>Updating {0} on {1} (Module {2}/{3})</value>

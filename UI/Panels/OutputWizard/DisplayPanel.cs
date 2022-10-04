@@ -314,10 +314,14 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 displayTypeComboBox.Enabled = groupBoxDisplaySettings.Enabled = testSettingsGroupBox.Enabled = (serial != "");
                 // serial is empty if no module is selected (on init of form)
                 //if (serial == "") return;                
-
+                if (serial.IndexOf(Joystick.SerialPrefix) == 0)
+                {
+                    displayTypeComboBox.Items.Clear();
+                    displayTypeComboBox.Items.Add("Pin");
+                }
                 // update the available types depending on the 
                 // type of module
-                if (serial.IndexOf("SN") != 0)
+                else if (serial.IndexOf("SN") != 0)
                 {
                     displayTypeComboBox.Items.Clear();
                     displayTypeComboBox.Items.Add("Pin");
@@ -325,6 +329,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     displayTypeComboBox.Items.Add(MobiFlightShiftRegister.TYPE);
                     //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
                 }
+                // update the available types depending on the 
+                // type of module
                 else
                 {
                     displayTypeComboBox.Items.Clear();
@@ -433,6 +439,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     panelEnabled = InitializeMobiFlightDisplays(cb, serial);
                 }
 
+                else if (serial.IndexOf(Joystick.SerialPrefix) == 0)
+                {
+                    panelEnabled = InitializeJoystickDisplays(cb, serial);
+                }
+
                 ShowActiveDisplayPanel(sender, serial, panelEnabled);
             }
             catch (Exception exc)
@@ -443,6 +454,26 @@ namespace MobiFlight.UI.Panels.OutputWizard
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Warning);
             }
+        }
+
+        private bool InitializeJoystickDisplays(ComboBox cb, string serial)
+        {
+            Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+
+            displayPinPanel.SetModule(null);
+            displayPinPanel.displayPinBrightnessPanel.Visible = false;
+            displayPinPanel.displayPinBrightnessPanel.Enabled = false;
+
+            List<ListItem> outputs = new List<ListItem>();
+            foreach (var device in joystick.GetAvailableOutputDevices())
+                outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
+
+            displayPinPanel.WideStyle = true;
+            displayPinPanel.EnablePWMSelect(false);
+            displayPinPanel.SetPorts(new List<ListItem>());
+            displayPinPanel.SetPins(outputs);
+
+            return true;
         }
 
         private void ShowActiveDisplayPanel(object sender, string serial, bool panelEnabled)
