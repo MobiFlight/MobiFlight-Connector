@@ -466,7 +466,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             List<ListItem> outputs = new List<ListItem>();
             foreach (var device in joystick.GetAvailableOutputDevices())
-                outputs.Add(new ListItem() { Value = device.Value, Label = device.Label });
+                outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
 
             displayPinPanel.WideStyle = true;
             displayPinPanel.EnablePWMSelect(false);
