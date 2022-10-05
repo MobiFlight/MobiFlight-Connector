@@ -45,9 +45,17 @@ namespace MobiFlight
             PollTimer.Start();
         }
 
-        public void Stop()
+        public void Shutdown()
         {
             PollTimer.Stop();
+        }
+
+        public void Stop()
+        {
+            foreach (var j in joysticks)
+            {
+                j.Stop();
+            }
         }
 
         public List<MobiFlight.Joystick> GetJoysticks()
@@ -68,8 +76,13 @@ namespace MobiFlight
 
                 if (!IsSupportedDeviceType(d)) continue;
 
-                MobiFlight.Joystick js = new MobiFlight.Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
-                
+                MobiFlight.Joystick js;
+                if (d.InstanceName == "Bravo Throttle Quadrant")
+                {
+                    js = new Joysticks.HoneycombBravo(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
+                } else
+                    js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
+
                 if (!HasAxisOrButtons(js)) continue;
 
                 Log.Instance.log("Adding attached Joystick Device: " + d.InstanceName + " Buttons " + js.Capabilities.ButtonCount + ", Axis: " + js.Capabilities.AxeCount, LogSeverity.Debug);

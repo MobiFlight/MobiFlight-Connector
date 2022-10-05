@@ -796,7 +796,7 @@ namespace MobiFlight.ProjectMessages {
         ///
         ///{0}
         ///
-        ///Respective input actions won&apos;t work until they are connected and you have restarted MobiFlight..
+        ///Respective configs won&apos;t work until joysticks are connected and you have restarted MobiFlight..
         /// </summary>
         internal static string uiMessageNotConnectedJoysticksInConfigFound {
             get {

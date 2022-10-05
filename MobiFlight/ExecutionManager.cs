@@ -269,6 +269,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
+            joystickManager.Stop();
             ClearErrorMessages();
         }
 
@@ -373,7 +374,7 @@ namespace MobiFlight
 #if SIMCONNECT
             simConnectCache.Disconnect();
 #endif
-            joystickManager.Stop();
+            joystickManager.Shutdown();
             this.OnModulesDisconnected?.Invoke(this, new EventArgs());
         }
 
@@ -423,7 +424,13 @@ namespace MobiFlight
             {
                 // ignore the rows that haven't been saved yet (new row, the last one in the grid)
                 // and the ones that are not checked active
-                if (row.IsNewRow || !(bool)row.Cells["active"].Value) continue;
+                if (row.IsNewRow) continue;
+
+                if (!(bool)row.Cells["active"].Value)
+                {
+                    row.ErrorText = "";
+                    continue;
+                }
 
                 // initialisiere den adapter
                 //// nimm type von col.type
@@ -442,18 +449,24 @@ namespace MobiFlight
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                }
+                } else 
 #if SIMCONNECT
                 // If not connected to SimConnect show an error message
                 if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
                 }
+                else
 #endif
                 // If not connected to X-Plane show an error message
                 if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
                 {
                     row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                }
+                // In any other case remove the error message
+                else
+                {
+                    row.ErrorText = "";
                 }
 
                 ConnectorValue value = ExecuteRead(cfg);
@@ -507,10 +520,15 @@ namespace MobiFlight
                 {
                     ExecuteDisplay(processedValue.ToString(), cfg);
                 }
+                catch(JoystickNotConnectedException jEx)
+                {
+                    row.ErrorText = jEx.Message;
+                }
                 catch (Exception exc)
                 {
                     String RowDescription = ((row.Cells["description"]).Value as String);
                     Exception resultExc = new ConfigErrorException(RowDescription + ". " + exc.Message, exc);
+                    row.ErrorText = exc.Message;
                     throw resultExc;
                 }
             }
@@ -705,7 +723,21 @@ namespace MobiFlight
                 cfg.DisplayType!="InputAction") 
                 return value.ToString();
 
-            if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
+            if (serial.IndexOf(Joystick.SerialPrefix)==0)
+            {
+                Joystick joystick = joystickManager.GetJoystickBySerial(serial);
+                if(joystick != null)
+                {
+                    joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, value);
+                    joystick.UpdateOutputDeviceStates();
+                    joystick.Update();
+                } else
+                {
+                    var joystickName = SerialNumber.ExtractDeviceName(cfg.DisplaySerial);
+                    throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
+                }
+            }
+            else if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
             {
 #if ARCAZE
                 switch (cfg.DisplayType)
