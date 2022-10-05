@@ -971,7 +971,7 @@ namespace MobiFlight.UI.Panels.Settings
         {
             MobiFlight.Config.MultiplexerDriver moduleMultiplexerDriver;
             
-            string moduleName = getModuleNode().Name;
+            string moduleName = getModuleNode().Text;
 
             if (!moduleMultiplexerDrivers.ContainsKey(moduleName)) {
                 // None found: we are adding first client, therefore we must also build a new MultiplexerDriver
