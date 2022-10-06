@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Thijs Elenbaas</authors>
+    <owners>Thijs Elenbaas</owners>
+    <projectUrl>https://github.com/thijse/Arduino-CmdMessenger</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes></releaseNotes>
+    <copyright></copyright>
+    <tags>Arduino Communication Serial</tags>
+  </metadata>
+</package>

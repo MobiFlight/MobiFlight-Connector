@@ -1,9 +1,0 @@
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\bin\Debug\6-ArduinoController.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\bin\Debug\6-ArduinoController.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\bin\Debug\CommandMessenger.dll
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\bin\Debug\CommandMessenger.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\obj\x86\Debug\ArduinoController.ControllerForm.resources
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\obj\x86\Debug\_6_ArduinoController.Properties.Resources.resources
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\obj\x86\Debug\6-ArduinoController.csproj.GenerateResource.Cache
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\obj\x86\Debug\6-ArduinoController.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\ArduinoController\obj\x86\Debug\6-ArduinoController.pdb

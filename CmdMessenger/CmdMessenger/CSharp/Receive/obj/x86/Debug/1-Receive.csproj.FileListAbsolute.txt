@@ -1,6 +1,0 @@
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\Receive\bin\Debug\Receive.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\Receive\bin\Debug\Receive.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\Receive\bin\Debug\CommandMessenger.dll
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\Receive\bin\Debug\CommandMessenger.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\Receive\obj\x86\Debug\Receive.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\Receive\obj\x86\Debug\Receive.pdb
