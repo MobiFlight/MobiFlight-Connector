@@ -53,7 +53,7 @@ namespace MobiFlight.Config
         {
             if (pinNos.Length < 4) return false;
             for (var i = 0; i < 4; i++) {
-                if (byte.Parse(pinNos[i]) <= 0) return false;
+                if (byte.Parse(pinNos[i]) < 0) return false;
             }
             Array.Copy(pinNos, PinSx, 4); 
             if(_initCounter == 0) _initCounter++;

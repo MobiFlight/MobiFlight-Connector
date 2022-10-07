@@ -1,4 +1,4 @@
-﻿using CommandMessenger.TransportLayer;
+﻿using CommandMessenger.Transport;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +12,9 @@ namespace MobiFlightUnitTests.mock.CommandMessenger
         public string DataRead = "";
         public string DataWrite = "";
 
-        int ITransport.BytesInBuffer()
-        {
-            return DataRead.Length;
-        }
-
         byte[] ITransport.Read()
         {
             return Encoding.UTF8.GetBytes(DataRead);
-        }
-
-        void ITransport.Poll()
-        {
         }
 
         bool ITransport.Connect()
@@ -41,20 +32,12 @@ namespace MobiFlightUnitTests.mock.CommandMessenger
             return true;
         }
 
-        void ITransport.StartPolling()
-        {
-        }
-
-        void ITransport.StopPolling()
-        {
-        }
-
         void ITransport.Write(byte[] buffer)
         {
             DataWrite = Encoding.UTF8.GetString(buffer);
         }
 
-        event EventHandler ITransport.NewDataReceived
+        event EventHandler ITransport.DataReceived
         {
             add
             {

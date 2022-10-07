@@ -22,7 +22,7 @@ namespace MobiFlight
 
 
         private DeviceType _type = DeviceType.InputMultiplexer;
-        private String _name = "InputMultiplexer";
+        private String _name = "Multiplexer";
         public int ModuleNumber { get; set; }
 
         public String Name

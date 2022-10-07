@@ -1,4 +1,0 @@
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\TemperatureControl\obj\x86\Debug\7-TemperatureControl.csprojResolveAssemblyReference.cache
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\TemperatureControl\obj\x86\Debug\DataLogging.ChartForm.resources
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\TemperatureControl\obj\x86\Debug\DataLogging.Properties.Resources.resources
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\TemperatureControl\obj\x86\Debug\7-TemperatureControl.csproj.GenerateResource.Cache

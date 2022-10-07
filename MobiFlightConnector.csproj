@@ -1457,14 +1457,18 @@
     <None Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="CmdMessenger\CmdMessenger\CSharp\CommandMessenger\CommandMessenger.csproj">
+    <Folder Include="Controls\" />
+    <Folder Include="Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">
+      <Project>{00d85f0b-00a5-41fa-8a99-428c0199c663}</Project>
+      <Name>CommandMessenger.Transport.Serial</Name>
+    </ProjectReference>
+    <ProjectReference Include="CmdMessenger\CommandMessenger\CommandMessenger.csproj">
       <Project>{3cf8f8fc-6f5c-46f8-94dc-c2e4c505eca4}</Project>
       <Name>CommandMessenger</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-    <Folder Include="Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

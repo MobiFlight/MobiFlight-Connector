@@ -1,1 +1,0 @@
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceive\obj\x86\Debug\2-SendAndReceive.csprojResolveAssemblyReference.cache
