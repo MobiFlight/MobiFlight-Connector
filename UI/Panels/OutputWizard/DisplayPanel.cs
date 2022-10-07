@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.InputConfig;
+using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -242,7 +243,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         internal void syncToConfig()
         {
             if (OutputTypeComboBox.SelectedIndex == 0) { 
-                config.DisplayType = displayTypeComboBox.Text;
+                config.DisplayType = (displayTypeComboBox.SelectedItem as ListItem).Value;
                 config.DisplayTrigger = "normal";
                 config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
 
@@ -322,13 +323,13 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 //if (serial == "") return;                
                 if (serial.IndexOf(Joystick.SerialPrefix) == 0)
                 {
-                    deviceTypeOptions.Add(new ListItem() { Value = "Pin", Label = "LED / Output" });
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                 }
                 // update the available types depending on the 
                 // type of module
                 else if (serial.IndexOf("SN") != 0)
                 {
-                    deviceTypeOptions.Add(new ListItem() { Value = "Pin", Label = "LED / Output" } );
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" } );
                     deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE } );
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE } );
                 }
@@ -349,20 +350,20 @@ namespace MobiFlight.UI.Panels.OutputWizard
                                 break;
 
                             case DeviceType.Output:
-                                deviceTypeOptions.Add(new ListItem() { Value = "Pin", Label = "LED / Output" });
+                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                                 //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
                                 break;
 
                             case DeviceType.Servo:
-                                deviceTypeOptions.Add(new ListItem() { Value = DeviceType.Servo.ToString("F"), Label = DeviceType.Servo.ToString("F") });
+                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightServo.TYPE, Label = MobiFlightServo.TYPE });
                                 break;
 
                             case DeviceType.Stepper:
-                                deviceTypeOptions.Add(new ListItem() { Value = DeviceType.Stepper.ToString("F"), Label = DeviceType.Stepper.ToString("F") });
+                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightStepper.TYPE, Label = MobiFlightStepper.TYPE });
                                 break;
 
                             case DeviceType.LcdDisplay:
-                                deviceTypeOptions.Add(new ListItem() { Value = DeviceType.LcdDisplay.ToString("F"), Label = DeviceType.LcdDisplay.ToString("F") });
+                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
                                 break;
 
                             case DeviceType.ShiftRegister:
@@ -484,7 +485,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void ShowActiveDisplayPanel(object sender, string serial, bool panelEnabled)
         {
-            if ((sender as ComboBox).SelectedValue as string == "Pin")
+            if ((sender as ComboBox).SelectedValue as string == "Pin" ||
+                (sender as ComboBox).SelectedValue as string == MobiFlightOutput.TYPE)
             {
                 displayPinPanel.Enabled = panelEnabled;
                 displayPinPanel.Height = displayPanelHeight;
