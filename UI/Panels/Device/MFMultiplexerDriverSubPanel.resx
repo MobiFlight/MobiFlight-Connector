@@ -196,7 +196,7 @@
     <value>32</value>
   </data>
   <data name="labelMaster.Text" xml:space="preserve">
-    <value>Changing these values will affect every other device using multiplexers.</value>
+    <value>These values will be shared by all multiplexers of this module.</value>
   </data>
   <data name="&gt;&gt;labelMaster.Name" xml:space="preserve">
     <value>labelMaster</value>
