@@ -260,7 +260,7 @@ namespace MobiFlight
             };
 
             // _cmdMessenger = new CmdMessenger(_transportLayer, ',', ';', '\\', Board.Connection.MessageSize)
-            _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16);
+            _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16, ',', ';', '\\', 64);
 
             // Attach the callbacks to the Command Messenger
             AttachCommandCallBacks();
@@ -771,7 +771,7 @@ namespace MobiFlight
             Log.Instance.log("Reset config: " + (int)MobiFlightModule.Command.ResetConfig, LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
-            foreach (string MessagePart in this.Config.ToInternal(this.Board.Connection.MessageSize))
+            foreach (string MessagePart in this.Config.ToInternal(this.Board.Connection.MessageSize - 4))
             {
                 Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
                 command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
