@@ -303,37 +303,39 @@ namespace MobiFlight.UI.Panels.OutputWizard
 #endif
             // check which extension type is available to current serial
             ComboBox cb = (sender as ComboBox);
+            List<ListItem> deviceTypeOptions = new List<ListItem>();
+            displayTypeComboBox.DataSource = null;
+            displayTypeComboBox.Items.Clear();
+
+            // disable test button
+            // in case that no display is selected
+            String rawSerial = cb.SelectedItem.ToString();
+            String serial = SerialNumber.ExtractSerial(rawSerial);
+
+            displayTypeComboBox.Enabled = groupBoxDisplaySettings.Enabled = testSettingsGroupBox.Enabled = (serial != "");
+
 
             try
             {
-                // disable test button
-                // in case that no display is selected
-                String rawSerial = cb.SelectedItem.ToString();
-                String serial = SerialNumber.ExtractSerial(rawSerial);
-
-                displayTypeComboBox.Enabled = groupBoxDisplaySettings.Enabled = testSettingsGroupBox.Enabled = (serial != "");
+                
                 // serial is empty if no module is selected (on init of form)
                 //if (serial == "") return;                
                 if (serial.IndexOf(Joystick.SerialPrefix) == 0)
                 {
-                    displayTypeComboBox.Items.Clear();
-                    displayTypeComboBox.Items.Add("Pin");
+                    deviceTypeOptions.Add(new ListItem() { Value = "Pin", Label = "LED / Output" });
                 }
                 // update the available types depending on the 
                 // type of module
                 else if (serial.IndexOf("SN") != 0)
                 {
-                    displayTypeComboBox.Items.Clear();
-                    displayTypeComboBox.Items.Add("Pin");
-                    displayTypeComboBox.Items.Add(ArcazeLedDigit.TYPE);
-                    displayTypeComboBox.Items.Add(MobiFlightShiftRegister.TYPE);
-                    //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
+                    deviceTypeOptions.Add(new ListItem() { Value = "Pin", Label = "LED / Output" } );
+                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE } );
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE } );
                 }
                 // update the available types depending on the 
                 // type of module
                 else
                 {
-                    displayTypeComboBox.Items.Clear();
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
                     foreach (DeviceType devType in module.GetConnectedOutputDeviceTypes())
                     {
@@ -343,33 +345,33 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         switch (devType)
                         {
                             case DeviceType.LedModule:
-                                displayTypeComboBox.Items.Add(ArcazeLedDigit.TYPE);
+                                deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
                                 break;
 
                             case DeviceType.Output:
-                                displayTypeComboBox.Items.Add("Pin");
+                                deviceTypeOptions.Add(new ListItem() { Value = "Pin", Label = "LED / Output" });
                                 //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
                                 break;
 
                             case DeviceType.Servo:
-                                displayTypeComboBox.Items.Add(DeviceType.Servo.ToString("F"));
+                                deviceTypeOptions.Add(new ListItem() { Value = DeviceType.Servo.ToString("F"), Label = DeviceType.Servo.ToString("F") });
                                 break;
 
                             case DeviceType.Stepper:
-                                displayTypeComboBox.Items.Add(DeviceType.Stepper.ToString("F"));
+                                deviceTypeOptions.Add(new ListItem() { Value = DeviceType.Stepper.ToString("F"), Label = DeviceType.Stepper.ToString("F") });
                                 break;
 
                             case DeviceType.LcdDisplay:
-                                displayTypeComboBox.Items.Add(DeviceType.LcdDisplay.ToString("F"));
+                                deviceTypeOptions.Add(new ListItem() { Value = DeviceType.LcdDisplay.ToString("F"), Label = DeviceType.LcdDisplay.ToString("F") });
                                 break;
 
                             case DeviceType.ShiftRegister:
-                                displayTypeComboBox.Items.Add(MobiFlightShiftRegister.TYPE);
+                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
                                 break;
                         }
                     }
 
-                    if (displayTypeComboBox.Items.Count == 0 && this.Visible)
+                    if (deviceTypeOptions.Count == 0 && this.Visible)
                     {
                         if (MessageBox.Show(
                                 i18n._tr("uiMessageSelectedModuleDoesNotContainAnyOutputDevices"),
@@ -389,6 +391,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         }
                     }
                 }
+
+                displayTypeComboBox.DataSource = deviceTypeOptions;
+                displayTypeComboBox.ValueMember = "Value";
+                displayTypeComboBox.DisplayMember = "Label";
 
                 // config can be null
                 // because module information is set
@@ -478,7 +484,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void ShowActiveDisplayPanel(object sender, string serial, bool panelEnabled)
         {
-            if ((sender as ComboBox).Text == "Pin")
+            if ((sender as ComboBox).SelectedValue as string == "Pin")
             {
                 displayPinPanel.Enabled = panelEnabled;
                 displayPinPanel.Height = displayPanelHeight;
