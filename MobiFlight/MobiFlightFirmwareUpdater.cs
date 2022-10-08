@@ -63,9 +63,48 @@ namespace MobiFlight
             return result;
         }
 
-        public static void RunAvrDude(String Port, Board board) 
+        public static bool Reset(MobiFlightModule module)
+        {
+            bool result = false;
+            String Port = module.InitUploadAndReturnUploadPort();
+            if (module.Connected) module.Disconnect();
+
+            while (!SerialPort.GetPortNames().Contains(Port))
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+
+            if (module.Board.AvrDudeSettings != null)
+            {
+                try
+                {
+                    RunAvrDude(Port, module.Board, true);
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    result = false;
+                }
+
+                if (module.Board.Connection.DelayAfterFirmwareUpdate > 0)
+                {
+                    System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
+                }
+            }
+            else
+            {
+                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
+            }
+            return result;
+        }
+
+        public static void RunAvrDude(String Port, Board board, bool Reset=false) 
         {
             String FirmwareName = board.AvrDudeSettings.GetFirmwareName(board.Info.LatestFirmwareVersion); 
+            if (Reset)
+            {
+                FirmwareName = board.AvrDudeSettings.ResetFirmwareFile;
+            }
             String ArduinoChip = board.AvrDudeSettings.Device;
             String Bytes = board.AvrDudeSettings.BaudRate;
             String C = board.AvrDudeSettings.Programmer;

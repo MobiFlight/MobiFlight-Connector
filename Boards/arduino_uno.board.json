@@ -5,7 +5,8 @@
     "BaudRate": "115200",
     "Programmer": "arduino",
     "FirmwareBaseName": "mobiflight_uno",
-    "Timeout": 15000
+    "Timeout": 15000,
+    "ResetFirmwareFile": "reset.arduino_uno_1_0_0.hex"
   },
   "Connection": {
     "ConnectionDelay": 1750,

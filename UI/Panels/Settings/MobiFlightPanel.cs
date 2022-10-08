@@ -1081,6 +1081,7 @@ namespace MobiFlight.UI.Panels.Settings
         private void UpdateModules(List<MobiFlightModule> modules)
         {
             if (modules.Count == 0) return;
+            FirmwareUpdateProcessForm.ResetMode = false;
             FirmwareUpdateProcessForm.ClearModules();
             modules.ForEach(
                 module => FirmwareUpdateProcessForm.AddModule(module)
@@ -1250,6 +1251,33 @@ namespace MobiFlight.UI.Panels.Settings
             IgnoreComPortsCheckBox.Checked = ports.Count > 0;
 
             ShowRestartHint();
+        }
+
+        private void resetBoardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
+            List<MobiFlightModule> modules = new List<MobiFlightModule>();
+            modules.Add(module);
+            ResetModules(modules);
+        }
+
+        private void ResetModules(List<MobiFlightModule> modules)
+        {
+            if (modules.Count == 0) return;
+            FirmwareUpdateProcessForm.ResetMode = true;
+            FirmwareUpdateProcessForm.ClearModules();
+            modules.ForEach(
+                module => FirmwareUpdateProcessForm.AddModule(module)
+            );
+
+            FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate -= FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate += FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnFinished -= FirmwareUpdateProcessForm_OnFinished;
+            FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
+            FirmwareUpdateProcessForm.ShowDialog();
         }
     }
 }
