@@ -1390,7 +1390,7 @@ namespace MobiFlight
             	if (inputCache[inputKey].Count == 0)
             	{
                 	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    	    Log.Instance.log($"No config found for ${msgEventLabel}", LogSeverity.Debug);
+                    	    Log.Instance.log($"No config found for {msgEventLabel}", LogSeverity.Debug);
                 	return;
             	}
             }
