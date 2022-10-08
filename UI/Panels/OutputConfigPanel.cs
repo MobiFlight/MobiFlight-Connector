@@ -411,10 +411,11 @@ namespace MobiFlight.UI.Panels
 
                 if ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["description"] != null)
                 {
+                    bool Active = (bool)(dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["active"];
                     String Description = (dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["description"].ToString();
                     OutputConfigItem cfg = ((dataGridViewConfig.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
 
-                    CopyToClipboard(Description, cfg);
+                    CopyToClipboard(Active, Description, cfg);
                 }
             }
             else
@@ -423,9 +424,10 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private static void CopyToClipboard(string Description, OutputConfigItem cfg)
+        private static void CopyToClipboard(bool Active, string Description, OutputConfigItem cfg)
         {
             System.Windows.Forms.Clipboard.SetText(Description);
+            Clipboard.Instance.OutputConfigActive = Active;
             Clipboard.Instance.OutputConfigName = Description;
 
             if (cfg != null)
@@ -439,7 +441,7 @@ namespace MobiFlight.UI.Panels
             this.Validate();
             DataRow currentRow = configDataTable.NewRow();
             currentRow["guid"] = Guid.NewGuid();
-            currentRow["active"] = false;
+            currentRow["active"] = Clipboard.Instance.OutputConfigActive;
 
             if (Clipboard.Instance.OutputConfigName != null)
             {
@@ -689,9 +691,10 @@ namespace MobiFlight.UI.Panels
                 if (row.IsNewRow) continue;
 
                 DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                bool Active = (bool)currentRow["active"];
                 String Description = currentRow["description"] as String;
                 OutputConfigItem cfg = currentRow["settings"] as OutputConfigItem;
-                CopyToClipboard(Description, cfg);
+                CopyToClipboard(Active, Description, cfg);
                 return;
             }
         }

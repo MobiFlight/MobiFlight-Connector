@@ -340,7 +340,7 @@
             this.activeDataColumn.Caption = "Active";
             this.activeDataColumn.ColumnName = "active";
             this.activeDataColumn.DataType = typeof(bool);
-            this.activeDataColumn.DefaultValue = false;
+            this.activeDataColumn.DefaultValue = true;
             // 
             // fsuipcOffsetDataColumn
             // 
