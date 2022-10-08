@@ -358,9 +358,10 @@ namespace MobiFlight.UI.Panels
 
                 if ((inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["description"] != null)
                 {
+                    bool Active = (bool)(inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["active"];
                     String Description = (inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["description"].ToString();
                     InputConfigItem cfg = ((inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-                    CopyToClipboard(Description, cfg);
+                    CopyToClipboard(Active, Description, cfg);
                 }
             }
             else
@@ -479,9 +480,10 @@ namespace MobiFlight.UI.Panels
                 if (row.IsNewRow) continue;
 
                 DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                bool Active = (bool) currentRow["active"];
                 String Description = currentRow["description"] as String;
                 InputConfigItem cfg = currentRow["settings"] as InputConfigItem;
-                CopyToClipboard(Description, cfg);
+                CopyToClipboard(Active, Description, cfg);
                 return;
             }
         }
@@ -496,9 +498,10 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private static void CopyToClipboard(string Description, InputConfigItem cfg)
+        private static void CopyToClipboard(bool Active, string Description, InputConfigItem cfg)
         {
             System.Windows.Forms.Clipboard.SetText(Description);
+            Clipboard.Instance.InputConfigActive = Active;
             Clipboard.Instance.InputConfigName = Description;
 
             if (cfg != null)
@@ -512,7 +515,7 @@ namespace MobiFlight.UI.Panels
             this.Validate();
             DataRow currentRow = inputsDataTable.NewRow();
             currentRow["guid"] = Guid.NewGuid();
-            currentRow["active"] = false;
+            currentRow["active"] = Clipboard.Instance.InputConfigActive;
 
             if (Clipboard.Instance.InputConfigName != null)
             {

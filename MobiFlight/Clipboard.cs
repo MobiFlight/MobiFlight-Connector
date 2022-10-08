@@ -18,6 +18,8 @@ namespace MobiFlight
         private String outputConfigName;
         private InputConfigItem inputConfigItem;
         private String inputConfigName;
+        private bool outputConfigActive;
+        private bool inputConfigActive;
 
         private static readonly Clipboard clipboard = new Clipboard();
 
@@ -93,6 +95,32 @@ namespace MobiFlight
                 if (value != this.inputConfigName)
                 {
                     this.inputConfigName = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool InputConfigActive
+        {
+            get { return inputConfigActive; }
+            set
+            {
+                if (value != this.inputConfigActive)
+                {
+                    this.inputConfigActive = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public bool OutputConfigActive
+        {
+            get { return outputConfigActive; }
+            set
+            {
+                if (value != this.outputConfigActive)
+                {
+                    this.outputConfigActive = value;
                     NotifyPropertyChanged();
                 }
             }
