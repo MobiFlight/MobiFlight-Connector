@@ -34,7 +34,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "DelayAfterFirmwareUpdate": 0,
-    "LatestFirmwareVersion": "2.2.0",
+    "LatestFirmwareVersion": "2.2.2",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega"
   },
