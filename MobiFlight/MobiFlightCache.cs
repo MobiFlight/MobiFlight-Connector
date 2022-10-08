@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Management;
+using System.Globalization;
 
 namespace MobiFlight
 {
@@ -412,12 +413,14 @@ namespace MobiFlight
                     foreach(string pin in pins) {
                         if (!string.IsNullOrEmpty(pin.Trim()))
                         {
-                             module.SetPin("base", pin, (int) Double.Parse(value));
+                            var iValue = (Int32)Math.Round(Double.Parse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture));
+                            module.SetPin("base", pin, iValue);
                         }
                     };
                 } else
                 {
-                    module.SetPin("base", name, (int) Double.Parse(value));
+                    var iValue = (Int32)Math.Round(Double.Parse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture));
+                    module.SetPin("base", name, iValue);
                 }
 
                 
@@ -504,7 +507,7 @@ namespace MobiFlight
 
                 if (value != null)
                 {
-                    var intValue = (int)Double.Parse(value);
+                    var intValue = (Int32)Math.Round(Double.Parse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture));
                     module.SetDisplayBrightness(address, connector - 1, intValue.ToString());
                 }                
             }
@@ -532,7 +535,8 @@ namespace MobiFlight
 
                 MobiFlightModule module = Modules[serial];
                 double dValue;
-                if (!double.TryParse(value, out dValue)) return;
+                
+                if (!double.TryParse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out dValue)) return;
 
                 int iValue = (int)dValue;
 
@@ -553,7 +557,7 @@ namespace MobiFlight
                 MobiFlightModule module = Modules[serial];
 
                 double dValue;
-                if (!double.TryParse(value, out dValue)) return;
+                if (!double.TryParse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out dValue)) return;
 
                 int iValue = (int)dValue;
 
@@ -650,7 +654,7 @@ namespace MobiFlight
 
                 MobiFlightModule module = Modules[serial];
                 double dValue;
-                if (!double.TryParse(value, out dValue)) return;
+                if (!double.TryParse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out dValue)) return;
 
                 int iValue = (int)Math.Round(dValue,0);
                 module.setShiftRegisterOutput(shiftRegName, outputPin, iValue.ToString());
