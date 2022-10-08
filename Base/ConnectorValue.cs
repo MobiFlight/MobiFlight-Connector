@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -20,10 +21,10 @@ namespace MobiFlight
                     result = String;
                     break;
                 case FSUIPCOffsetType.Integer:
-                    result = Float64.ToString();
+                    result = Float64.ToString(CultureInfo.InvariantCulture);
                     break;
                 case FSUIPCOffsetType.Float:
-                    result = Float64.ToString();
+                    result = Float64.ToString(CultureInfo.InvariantCulture);
                     break;
                 /*case FSUIPCOffsetType.UnsignedInt:
                     result = Uint64.ToString();
