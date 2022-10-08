@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -69,7 +70,7 @@ namespace MobiFlight.InputConfig
 
             if (axisString != "--")
             {
-                UInt16 vJoyIntValue = (UInt16)Math.Round(Double.Parse(value));
+                UInt16 vJoyIntValue = (UInt16)Math.Round(Double.Parse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture));
                 if (VJoyHelper.setAxisVal(vJoyID,axisString,vJoyIntValue))
                 {
                     Log.Instance.log("set Axis:" + axisString + " ID:" + vJoyID + " to " + vJoyIntValue, LogSeverity.Debug);

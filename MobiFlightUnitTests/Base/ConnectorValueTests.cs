@@ -2,6 +2,7 @@
 using MobiFlight;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,10 @@ namespace MobiFlight.Tests
             o.String = "TestString";
 
             o.type = FSUIPCOffsetType.Float;
-            Assert.AreEqual(Double.MaxValue.ToString(), o.ToString());
+            Assert.AreEqual(Double.MaxValue.ToString(CultureInfo.InvariantCulture), o.ToString());
 
             o.type = FSUIPCOffsetType.Integer;
-            Assert.AreEqual(Double.MaxValue.ToString(), o.ToString());
+            Assert.AreEqual(Double.MaxValue.ToString(CultureInfo.InvariantCulture), o.ToString());
 
             o.type = FSUIPCOffsetType.String;
             Assert.AreEqual("TestString", o.ToString());

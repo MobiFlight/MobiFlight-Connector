@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,7 +99,7 @@ namespace MobiFlight.Modifier
                 return result;
             }
 
-            Double comparisonValue = Double.Parse(Value);
+            Double comparisonValue = Double.Parse(Value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture);
             string comparisonIfValue = IfValue != "" ? IfValue : value.ToString();
             string comparisonElseValue = ElseValue != "" ? ElseValue : value.ToString();
             string comparisonResult = "";
