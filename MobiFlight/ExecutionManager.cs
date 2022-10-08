@@ -1398,11 +1398,11 @@ namespace MobiFlight
             // Skip execution if not started
             if (!IsStarted())
             {
-                Log.Instance.log($"Config found for ${msgEventLabel} (!) Not sent, no sim running", LogSeverity.Warn);
+                Log.Instance.log($"Config found for {msgEventLabel} (!) Not sent, MobiFlight not running", LogSeverity.Warn);
                 return;
             }
 
-            Log.Instance.log($"Config found for ${msgEventLabel}", LogSeverity.Debug);
+            Log.Instance.log($"Config found for {msgEventLabel}", LogSeverity.Debug);
 
             ConnectorValue currentValue = new ConnectorValue();
             CacheCollection cacheCollection = new CacheCollection()
