@@ -93,12 +93,12 @@ namespace MobiFlight.Modifier
 
         protected string Apply(double value, List<ConfigRefValue> configRefs)
         {
-            string result = value.ToString();
+            string result = value.ToString(CultureInfo.InvariantCulture);
 
             if (!Active) return result;
 
             // we have to use the US culture because "." must be used as decimal separator
-            string exp = Expression.Replace("$", value.ToString(new CultureInfo("en-US")));
+            string exp = Expression.Replace("$", value.ToString(CultureInfo.InvariantCulture));
 
             foreach (ConfigRefValue configRef in configRefs)
             {
@@ -119,7 +119,12 @@ namespace MobiFlight.Modifier
 
             if (ncalcResult!=null)
             {
-                result = ncalcResult;
+                double dValue;
+                if (double.TryParse(ncalcResult, out dValue)) {
+                    result = dValue.ToString(CultureInfo.InvariantCulture);
+                }
+                else
+                    result = ncalcResult;
             }
 
             return result;

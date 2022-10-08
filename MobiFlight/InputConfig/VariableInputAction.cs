@@ -1,6 +1,7 @@
 ﻿using MobiFlight.Base;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -74,7 +75,7 @@ namespace MobiFlight.InputConfig
             {
                 try
                 {
-                    Variable.Number = double.Parse(value);
+                    Variable.Number = double.Parse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
