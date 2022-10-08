@@ -70,7 +70,7 @@ namespace MobiFlight.Modifier
                 case FSUIPCOffsetType.Float:
                 case FSUIPCOffsetType.Integer:
                     string tmpValue = Apply(value.Float64, configRefs);
-                    if (Double.TryParse(tmpValue, out value.Float64))
+                    if (Double.TryParse(tmpValue, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out value.Float64))
                     {
                         value.Float64 = value.Float64;
                     } 
