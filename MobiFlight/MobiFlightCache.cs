@@ -412,12 +412,12 @@ namespace MobiFlight
                     foreach(string pin in pins) {
                         if (!string.IsNullOrEmpty(pin.Trim()))
                         {
-                             module.SetPin("base", pin, Int16.Parse(value));
+                             module.SetPin("base", pin, (int) Double.Parse(value));
                         }
                     };
                 } else
                 {
-                    module.SetPin("base", name, Int16.Parse(value));
+                    module.SetPin("base", name, (int) Double.Parse(value));
                 }
 
                 
@@ -504,7 +504,8 @@ namespace MobiFlight
 
                 if (value != null)
                 {
-                    module.SetDisplayBrightness(address, connector - 1, value);
+                    var intValue = (int)Double.Parse(value);
+                    module.SetDisplayBrightness(address, connector - 1, intValue.ToString());
                 }                
             }
             catch (Exception e)
@@ -530,8 +531,10 @@ namespace MobiFlight
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = Modules[serial];
-                int iValue;
-                if (!int.TryParse(value, out iValue)) return;
+                double dValue;
+                if (!double.TryParse(value, out dValue)) return;
+
+                int iValue = (int)dValue;
 
                 module.SetServo(address, iValue, min, max, maxRotationPercent);
             }
@@ -548,8 +551,13 @@ namespace MobiFlight
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = Modules[serial];
-                int iValue;
-                if (!int.TryParse(value, out iValue)) return;
+
+                double dValue;
+                if (!double.TryParse(value, out dValue)) return;
+
+                int iValue = (int)dValue;
+
+
                 if (module.GetStepper(address).OutputRevolutionSteps != outputRevolutionSteps)
                 {
                     module.GetStepper(address).OutputRevolutionSteps = outputRevolutionSteps;
@@ -641,7 +649,11 @@ namespace MobiFlight
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = Modules[serial];
-                module.setShiftRegisterOutput(shiftRegName, outputPin, value);
+                double dValue;
+                if (!double.TryParse(value, out dValue)) return;
+
+                int iValue = (int)Math.Round(dValue,0);
+                module.setShiftRegisterOutput(shiftRegName, outputPin, iValue.ToString());
             }
             catch (Exception e)
             {
