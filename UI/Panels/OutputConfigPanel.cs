@@ -557,7 +557,13 @@ namespace MobiFlight.UI.Panels
                         row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];
                     
                         row["OutputType"] = cfgItem.DisplayType;
-                        switch(cfgItem.DisplayType)
+
+                        // only exception for the type label
+                        if (cfgItem.DisplayType == "Pin" || 
+                            cfgItem.DisplayType == MobiFlightOutput.TYPE)
+                            row["OutputType"] = "LED / Output";
+
+                        switch (cfgItem.DisplayType)
                         {
                             case MobiFlightLedModule.TYPE:
                                 row["OutputName"] = cfgItem.LedModule.DisplayLedAddress;
