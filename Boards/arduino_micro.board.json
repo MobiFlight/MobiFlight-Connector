@@ -14,7 +14,7 @@
     "EEPROMSize": 440,
     "ExtraConnectionRetry": false,
     "ForceResetOnFirmwareUpdate": true,
-    "MessageSize": 32
+    "MessageSize": 64
   },
   "HardwareIds": [
     "^VID_1B4F&PID_9206",
@@ -24,7 +24,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Micro Pro",
-    "LatestFirmwareVersion": "2.2.0",
+    "LatestFirmwareVersion": "2.2.2",
     "MobiFlightType": "MobiFlight Micro"
   },
   "ModuleLimits": {

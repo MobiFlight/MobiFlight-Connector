@@ -336,15 +336,15 @@ namespace MobiFlight
             {
                 writer.WriteAttributeString("bcdPins", String.Join(",", BcdPins));
             }
-            else if (DisplayType == DeviceType.Servo.ToString("F"))
+            else if (DisplayType == MobiFlightServo.TYPE)
             {
                 Servo.WriteXml(writer);
             }
-            else if (DisplayType == DeviceType.Stepper.ToString("F"))
+            else if (DisplayType == MobiFlightStepper.TYPE)
             {
                 Stepper.WriteXml(writer);
             }
-            else if (DisplayType == OutputConfig.LcdDisplay.Type)
+            else if (DisplayType == MobiFlightLcdDisplay.TYPE)
             {
                 if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                 LcdDisplay.WriteXml(writer);
