@@ -3,6 +3,7 @@ using MobiFlight;
 using MobiFlight.Modifier;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,10 @@ namespace MobiFlight.Modifier.Tests
         {
             TransformationForDeprecatedTest t = new TransformationForDeprecatedTest();
             List<ConfigRefValue> configRefs = new List<ConfigRefValue>();
+
+            // this is needed for correct conversion
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
             t.Expression = "$*0.5";
             Assert.AreEqual("1", t.ProtectedApply(1, configRefs));

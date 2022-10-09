@@ -20,10 +20,10 @@ namespace MobiFlight.Tests
             o.String = "TestString";
 
             o.type = FSUIPCOffsetType.Float;
-            Assert.AreEqual(Double.MaxValue.ToString(CultureInfo.InvariantCulture), o.ToString());
+            Assert.AreEqual(Double.MaxValue.ToString(), o.ToString());
 
             o.type = FSUIPCOffsetType.Integer;
-            Assert.AreEqual(Double.MaxValue.ToString(CultureInfo.InvariantCulture), o.ToString());
+            Assert.AreEqual(Double.MaxValue.ToString(), o.ToString());
 
             o.type = FSUIPCOffsetType.String;
             Assert.AreEqual("TestString", o.ToString());

@@ -646,7 +646,7 @@ namespace MobiFlight
                             tmp.Comparison.ElseValue = "0";
 
                             connectorValue.type = FSUIPCOffsetType.Float;
-                            if (!Double.TryParse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out connectorValue.Float64))
+                            if (!Double.TryParse(value, out connectorValue.Float64))
                             {
                                 // likely to be a string
                                 connectorValue.type = FSUIPCOffsetType.String;

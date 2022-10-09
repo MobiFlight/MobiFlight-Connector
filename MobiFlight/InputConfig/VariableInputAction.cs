@@ -75,7 +75,7 @@ namespace MobiFlight.InputConfig
             {
                 try
                 {
-                    Variable.Number = double.Parse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture);
+                    Variable.Number = double.Parse(value);
                 }
                 catch (Exception)
                 {
