@@ -39,7 +39,7 @@
     "MaxServos": 2,
     "MaxShifters": 2,
     "MaxSteppers": 2,
-    "MaxInputMultiplexer": 1
+    "MaxInputMultiplexer": 3
   },
   "Pins": [
     {
