@@ -17,7 +17,12 @@ namespace MobiFlight.UI.Panels.Settings
             InitializeComponent();
         }
 
-        public void loadSettings()
+        public static List<string> GetAvailableLogSeverityLevels()
+        {
+            return Enum.GetNames(typeof(LogSeverity)).ToList();
+        }
+
+        protected void InitializeLanguageComboBox()
         {
             languageComboBox.Items.Clear();
 
@@ -30,12 +35,30 @@ namespace MobiFlight.UI.Panels.Settings
             languageComboBox.DisplayMember = "Label";
             languageComboBox.ValueMember = "Value";
             languageComboBox.SelectedIndex = 0;
+        }
 
+        protected void InitializeLogLevelComboBox()
+        {
+            List<ListItem> LogLevels = new List<ListItem>();
+            foreach (var level in GetAvailableLogSeverityLevels())
+            {
+                LogLevels.Add(new ListItem() { Value = level, Label = level });
+            }
+            logLevelComboBox.DataSource = LogLevels;
+            logLevelComboBox.DisplayMember = "Label";
+            logLevelComboBox.ValueMember = "Value";
+            logLevelComboBox.SelectedIndex = 0;
+        }
+
+        public void loadSettings()
+        {
             //
             // TAB General
             //
             // Recent Files max count
             recentFilesNumericUpDown.Value = Properties.Settings.Default.RecentFilesMaxCount;
+
+            InitializeLanguageComboBox();
 
             // TestMode speed
             // (1s) 0 - 4 (50ms)
@@ -51,6 +74,7 @@ namespace MobiFlight.UI.Panels.Settings
             fsuipcPollIntervalTrackBar.Value = Math.Max(fsuipcPollIntervalTrackBar.Minimum, (fsuipcPollIntervalTrackBar.Maximum + fsuipcPollIntervalTrackBar.Minimum - ExecutionSpeedInTicks));
 
             // Debug Mode
+            InitializeLogLevelComboBox();
             logLevelCheckBox.Checked = Properties.Settings.Default.LogEnabled;
             ComboBoxHelper.SetSelectedItem(logLevelComboBox, Properties.Settings.Default.LogLevel);
             LogJoystickAxisCheckBox.Checked = Properties.Settings.Default.LogJoystickAxis;
@@ -81,7 +105,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             // log settings
             Properties.Settings.Default.LogEnabled = logLevelCheckBox.Checked;
-            Properties.Settings.Default.LogLevel = logLevelComboBox.SelectedItem as String;
+            Properties.Settings.Default.LogLevel = (logLevelComboBox.SelectedItem as ListItem).Value;
             Log.Instance.Enabled = logLevelCheckBox.Checked;
             Log.Instance.Severity = (LogSeverity)Enum.Parse(typeof(LogSeverity), Properties.Settings.Default.LogLevel);
 
