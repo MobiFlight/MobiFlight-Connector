@@ -1138,20 +1138,27 @@ namespace MobiFlight.UI.Panels.Settings
             OnBeforeFirmwareUpdate?.Invoke(sender, e);
         }
 
-        private void FirmwareUpdateProcessForm_OnAfterFirmwareUpdate(object sender, EventArgs e)
+        protected void OnAfterFirmwareUpdateOrReset(MobiFlightModule module, bool IsUpdate)
         {
-            // update presentation in treeView
-            MobiFlightModule module = (MobiFlightModule)sender;
+            MobiFlightModuleInfo newInfo;
+            if (IsUpdate) 
+            {
+                module.Connect();
+                newInfo = module.GetInfo() as MobiFlightModuleInfo;
+            }
+            else
+            {
+                module.Version = null;
+                module.Name = module.Board.Info.FriendlyName;
+                newInfo = module.ToMobiFlightModuleInfo();
+            }
 
             // If the update fails for some reason, e.g. the board definition file was missing the settings for the
             // update, then module will be null.
             if (module == null)
             {
                 return;
-            }           
-
-            module.Connect();
-            MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
+            }
 
             // Issue 611
             // If the board definition file is correct but the firmware failed to flash and the result is
@@ -1177,6 +1184,18 @@ namespace MobiFlight.UI.Panels.Settings
                 mfModulesTreeView.SelectedNode = null;
                 mfModulesTreeView.SelectedNode = moduleNode;
             }
+        }
+
+        private void FirmwareUpdateProcessForm_OnAfterFirmwareUpdate(object sender, EventArgs e)
+        {
+            MobiFlightModule module = (MobiFlightModule)sender;
+            OnAfterFirmwareUpdateOrReset(module, true);
+        }
+
+        private void FirmwareUpdateProcessForm_OnAfterFirmwareReset(object sender, EventArgs e)
+        {
+            MobiFlightModule module = (MobiFlightModule)sender;
+            OnAfterFirmwareUpdateOrReset(module, false);
         }
 
         private TreeNode findNodeByPort(string port)
@@ -1289,42 +1308,6 @@ namespace MobiFlight.UI.Panels.Settings
             FirmwareUpdateProcessForm.OnFinished -= FirmwareUpdateProcessForm_OnFinished;
             FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
             FirmwareUpdateProcessForm.ShowDialog();
-        }
-
-        private void FirmwareUpdateProcessForm_OnAfterFirmwareReset(object sender, EventArgs e)
-        {
-            // update presentation in treeView
-            MobiFlightModule module = (MobiFlightModule)sender;
-
-            // module.Serial = null;
-            module.Version = null;
-            module.Name = module.Board.Info.FriendlyName;
-
-            MobiFlightModuleInfo devInfo = module.ToMobiFlightModuleInfo();
-
-            // If the update fails for some reason, e.g. the board definition file was missing the settings for the
-            // update, then module will be null.
-            if (module == null)
-            {
-                return;
-            }
-
-            // Don't connect to the module, because now it is not a mobiflight board anymore
-            mobiflightCache.RefreshModule(module);
-
-            OnAfterFirmwareUpdate?.Invoke(module, null);
-
-            // Update the corresponding TreeView Item
-            //// Find the parent node that matches the Port
-            TreeNode moduleNode = findNodeByPort(module.Port);
-
-            if (moduleNode != null)
-            {
-                mfModulesTreeView_initNode(devInfo, moduleNode);
-                // make sure that we retrigger all events and sync the panel
-                mfModulesTreeView.SelectedNode = null;
-                mfModulesTreeView.SelectedNode = moduleNode;
-            }
         }
     }
 }
