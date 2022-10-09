@@ -70,7 +70,7 @@ namespace MobiFlight.InputConfig
 
             if (axisString != "--")
             {
-                UInt16 vJoyIntValue = (UInt16)Math.Round(Double.Parse(value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture));
+                UInt16 vJoyIntValue = (UInt16)Math.Round(Double.Parse(value));
                 if (VJoyHelper.setAxisVal(vJoyID,axisString,vJoyIntValue))
                 {
                     Log.Instance.log("set Axis:" + axisString + " ID:" + vJoyID + " to " + vJoyIntValue, LogSeverity.Debug);

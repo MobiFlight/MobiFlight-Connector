@@ -70,7 +70,7 @@ namespace MobiFlight.Modifier
                 case FSUIPCOffsetType.Float:
                 case FSUIPCOffsetType.Integer:
                     string tmpValue = Apply(value.Float64, configRefs);
-                    if (Double.TryParse(tmpValue, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out value.Float64))
+                    if (Double.TryParse(tmpValue, out value.Float64))
                     {
                         value.Float64 = value.Float64;
                     } 
@@ -93,12 +93,12 @@ namespace MobiFlight.Modifier
 
         protected string Apply(double value, List<ConfigRefValue> configRefs)
         {
-            string result = value.ToString(CultureInfo.InvariantCulture);
+            string result = value.ToString();
 
             if (!Active) return result;
 
             // we have to use the US culture because "." must be used as decimal separator
-            string exp = Expression.Replace("$", value.ToString(CultureInfo.InvariantCulture));
+            string exp = Expression.Replace("$", value.ToString());
 
             foreach (ConfigRefValue configRef in configRefs)
             {
@@ -121,7 +121,7 @@ namespace MobiFlight.Modifier
             {
                 double dValue;
                 if (double.TryParse(ncalcResult, out dValue)) {
-                    result = dValue.ToString(CultureInfo.InvariantCulture);
+                    result = dValue.ToString();
                 }
                 else
                     result = ncalcResult;

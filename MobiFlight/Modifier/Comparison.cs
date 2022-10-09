@@ -99,7 +99,7 @@ namespace MobiFlight.Modifier
                 return result;
             }
 
-            Double comparisonValue = Double.Parse(Value, System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture);
+            Double comparisonValue = Double.Parse(Value);
             string comparisonIfValue = IfValue != "" ? IfValue : value.ToString();
             string comparisonElseValue = ElseValue != "" ? ElseValue : value.ToString();
             string comparisonResult = "";
