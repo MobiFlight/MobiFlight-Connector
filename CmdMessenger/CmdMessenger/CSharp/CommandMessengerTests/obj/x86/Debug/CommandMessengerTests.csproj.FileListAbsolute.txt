@@ -1,6 +1,0 @@
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessengerTests\bin\Debug\CommandMessengerTests.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessengerTests\bin\Debug\CommandMessengerTests.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessengerTests\bin\Debug\CommandMessenger.dll
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessengerTests\bin\Debug\CommandMessenger.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessengerTests\obj\x86\Debug\CommandMessengerTests.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\CommandMessengerTests\obj\x86\Debug\CommandMessengerTests.pdb

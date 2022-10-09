@@ -1,6 +1,0 @@
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\bin\Debug\SendAndReceiveBinaryArguments.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\bin\Debug\SendAndReceiveBinaryArguments.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\bin\Debug\CommandMessenger.dll
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\bin\Debug\CommandMessenger.pdb
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\obj\x86\Debug\SendAndReceiveBinaryArguments.exe
-D:\Projekte\CmdMessenger-3.6\CmdMessenger\CSharp\SendAndReceiveBinaryArguments\obj\x86\Debug\SendAndReceiveBinaryArguments.pdb

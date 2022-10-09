@@ -1,19 +1,12 @@
-﻿#define COMMAND_MESSENGER_3_6
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO.Ports;
 using CommandMessenger;
-using CommandMessenger.TransportLayer;
-using FSUIPC;
 using System.Text.RegularExpressions;
-#if COMMAND_MESSENGER_3_6
-using CommandMessenger.Serialport;
-//using CommandMessenger.Transport.Serial;
-#endif
 using System.Threading;
 using MobiFlight.Config;
+using CommandMessenger.Transport.Serial;
 
 namespace MobiFlight
 {
@@ -200,6 +193,7 @@ namespace MobiFlight
         }
 
         public const int CommandTimeout = 2500;
+        public const int MessageSizeReductionValue = 10;
 
         const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
         DateTime lastUpdate = new DateTime();
@@ -259,20 +253,14 @@ namespace MobiFlight
             // Create Serial Port object
             int baudRate = 115200;
             //baudRate = 57600;
-            _transportLayer = new SerialTransport
+            _transportLayer = new SerialTransport()
             //_transportLayer = new SerialPortManager
             {
                 //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
                 CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
             };
 
-            _cmdMessenger = new CmdMessenger(_transportLayer)
-#if COMMAND_MESSENGER_3_6
-            {
-                BoardType = BoardType.Bit16 // Set if it is communicating with a 16- or 32-bit Arduino board
-            }
-#endif
-            ;
+            _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16, ',', ';', '\\', Board.Connection.MessageSize);
 
             // Attach the callbacks to the Command Messenger
             AttachCommandCallBacks();
@@ -420,11 +408,7 @@ namespace MobiFlight
 
             this.connected = false;
 
-#if COMMAND_MESSENGER_3_6
             _cmdMessenger.Disconnect();
-#else
-            _cmdMessenger.StopListening();
-#endif
             _cmdMessenger.Dispose();
             _transportLayer.Dispose();
 
@@ -446,13 +430,9 @@ namespace MobiFlight
                 {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
                 };
-#if COMMAND_MESSENGER_3_6    
+ 
                 tmpSerial.Connect();
                 tmpSerial.Disconnect();
-#else
-                tmpSerial.StartListening();
-                tmpSerial.StopListening();
-#endif
                 tmpSerial.Dispose();
                 Thread.Sleep(1000);
                 List<String> connectedPorts2 = SerialPort.GetPortNames().ToList();
@@ -791,7 +771,7 @@ namespace MobiFlight
             Log.Instance.log("Reset config: " + (int)MobiFlightModule.Command.ResetConfig, LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
-            foreach (string MessagePart in this.Config.ToInternal(this.Board.Connection.MessageSize))
+            foreach (string MessagePart in this.Config.ToInternal(this.Board.Connection.MessageSize - MessageSizeReductionValue))
             {
                 Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
                 command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
@@ -1070,7 +1050,11 @@ namespace MobiFlight
             // when we are not connected
             if (!this.connected) return;
 
-            GetConnectedDevices().ForEach(device => device.Stop());
+            GetConnectedDevices().ForEach(device =>
+            {
+                //System.Threading.Thread.Sleep(10); 
+                device.Stop();
+            });
         }
 
         public List<MobiFlightPin> GetFreePins()

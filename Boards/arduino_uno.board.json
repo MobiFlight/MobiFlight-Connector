@@ -14,7 +14,7 @@
     "EEPROMSize": 286,
     "ExtraConnectionRetry": true,
     "ForceResetOnFirmwareUpdate": false,
-    "MessageSize": 32
+    "MessageSize": 64
   },
   "HardwareIds": [
     "^VID_2341&PID_0043",
@@ -25,7 +25,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "FriendlyName": "Arduino Uno",
-    "LatestFirmwareVersion": "2.2.0",
+    "LatestFirmwareVersion": "2.2.2",
     "MobiFlightType": "MobiFlight Uno"
   },
   "ModuleLimits": {

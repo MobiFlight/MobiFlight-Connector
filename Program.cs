@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Threading;
 using MobiFlight.UI;
 using System.Configuration;
+using System.Globalization;
 
 namespace MobiFlight
 {
@@ -23,6 +24,10 @@ namespace MobiFlight
 
                 CheckForCorruptSettings();
 
+                // this is needed for correct conversion
+                CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+                CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+                
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(true);
                 Application.Run(new MainForm());

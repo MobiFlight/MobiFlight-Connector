@@ -21,14 +21,14 @@ namespace MobiFlight.Config
 
         public InputMultiplexer()
         {
-            Name = "InputMultiplexer";
+            Name = "Multiplexer";
             _type = DeviceType.InputMultiplexer;
             _muxClient = true;
             Selector = null;
         }
 
         public InputMultiplexer(MobiFlight.Config.MultiplexerDriver muxSelector) { 
-            Name = "InputMultiplexer"; 
+            Name = "Multiplexer"; 
             _type = DeviceType.InputMultiplexer;
             _muxClient = true;
             Selector = muxSelector;

@@ -13,7 +13,7 @@
     "ForceResetOnFirmwareUpdate": false,
     "DelayAfterFirmwareUpdate": 0,
     "DtrEnable": true,
-    "MessageSize": 64,
+    "MessageSize": 96,
     "EEPROMSize": 1496
   },
   "HardwareIds": [
@@ -29,12 +29,13 @@
     "^VID_2341&PID_0242",
     "^VID_10C4&PID_EA60",
     "^VID_2341&PID_0044",
-    "^VID_3343&PID_0042"
+    "^VID_3343&PID_0042",
+    "^VID_04D9&PID_B534"
   ],
   "Info": {
     "CanInstallFirmware": true,
     "DelayAfterFirmwareUpdate": 0,
-    "LatestFirmwareVersion": "2.2.0",
+    "LatestFirmwareVersion": "2.2.2",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega"
   },
@@ -49,7 +50,7 @@
     "MaxServos": 10,
     "MaxShifters": 4,
     "MaxSteppers": 10,
-    "MaxInputMultiplexer": 4,
+    "MaxInputMultiplexer": 4
   },
   "Pins": [
     {
