@@ -127,7 +127,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             OutputTypeComboBox.SelectedIndex = (config.DisplayType == "InputAction") ? 1 : 0;
 
-            if (OutputTypeComboBox.SelectedIndex == 0)
+            if (OutputTypeIsDisplay())
             {
                 if (config.DisplaySerial != null && config.DisplaySerial != "")
                 {
@@ -176,7 +176,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             else
             {
                 AnalogInputConfig analogInputConfig = new AnalogInputConfig();
-                analogInputConfig.onChange = config.AnalogInputConfig?.onChange;                    ;
+                analogInputConfig.onChange = config.AnalogInputConfig?.onChange;
                 analogPanel1.syncFromConfig(analogInputConfig);
 
                 ButtonInputConfig buttonInputConfig = new ButtonInputConfig();
@@ -187,6 +187,16 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
                 InputTypeAnalogRadioButton.Checked = config.AnalogInputConfig?.onChange != null;
             }
+        }
+
+        private bool OutputTypeIsDisplay()
+        {
+            return OutputTypeComboBox.SelectedIndex == 0;
+        }
+
+        private bool OutputTypeIsInputAction()
+        {
+            return OutputTypeComboBox.SelectedIndex == 1;
         }
 
         private void StepperPanel_OnStepperSelected(object sender, StepperConfigChangedEventArgs e)
@@ -242,7 +252,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         internal void syncToConfig()
         {
-            if (OutputTypeComboBox.SelectedIndex == 0) { 
+            if (OutputTypeIsDisplay()) 
+            {
+                if (displayTypeComboBox.SelectedItem == null) return;
+
                 config.DisplayType = (displayTypeComboBox.SelectedItem as ListItem).Value;
                 config.DisplayTrigger = "normal";
                 config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
@@ -278,7 +291,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
                 }
             }
-            else { 
+            else if (OutputTypeIsInputAction())
+            { 
                 config.DisplayType = "InputAction";
 
                 if (analogPanel1.Enabled)
@@ -813,12 +827,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void OutputTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DisplayTypePanel.Visible = OutputTypeComboBox.SelectedIndex == 0;
-            groupBoxDisplaySettings.Visible = OutputTypeComboBox.SelectedIndex == 0;
-            testSettingsGroupBox.Visible = OutputTypeComboBox.SelectedIndex == 0;
+            DisplayTypePanel.Visible = OutputTypeIsDisplay();
+            groupBoxDisplaySettings.Visible = OutputTypeIsDisplay();
+            testSettingsGroupBox.Visible = OutputTypeIsDisplay();
 
-            InputActionTypePanel.Visible = OutputTypeComboBox.SelectedIndex == 1;
-            inputActionGroupBox.Visible = OutputTypeComboBox.SelectedIndex == 1;
+            InputActionTypePanel.Visible = OutputTypeIsInputAction();
+            inputActionGroupBox.Visible = OutputTypeIsInputAction();
         }
 
         private void InputTypeButtonRadioButton_CheckedChanged(object sender, EventArgs e)
