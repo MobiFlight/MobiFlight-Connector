@@ -27,7 +27,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="LogLevel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">info</Value>
+      <Value Profile="(Default)">Info</Value>
     </Setting>
     <Setting Name="ArduinoIdePathDefault" Type="System.String" Scope="User">
       <Value Profile="(Default)">Arduino</Value>
