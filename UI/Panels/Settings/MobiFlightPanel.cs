@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -287,6 +288,8 @@ namespace MobiFlight.UI.Panels.Settings
             else
             {
                 moduleNode.Tag = new MobiFlightModule(module.Port, module.Board);
+                moduleNode.SelectedImageKey = moduleNode.ImageKey = "module-arduino";
+                moduleNode.Nodes.Clear();
             }
 
             return moduleNode;
@@ -1091,6 +1094,10 @@ namespace MobiFlight.UI.Panels.Settings
             FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate += FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
             FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
             FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
+            
+            // remove the reset
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareReset;
+            
             FirmwareUpdateProcessForm.OnFinished -= FirmwareUpdateProcessForm_OnFinished;
             FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
             FirmwareUpdateProcessForm.ShowDialog();
@@ -1273,11 +1280,51 @@ namespace MobiFlight.UI.Panels.Settings
 
             FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate -= FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
             FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate += FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
+
+            // remove the update delegates
             FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareReset;
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareReset;
+
             FirmwareUpdateProcessForm.OnFinished -= FirmwareUpdateProcessForm_OnFinished;
             FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
             FirmwareUpdateProcessForm.ShowDialog();
+        }
+
+        private void FirmwareUpdateProcessForm_OnAfterFirmwareReset(object sender, EventArgs e)
+        {
+            // update presentation in treeView
+            MobiFlightModule module = (MobiFlightModule)sender;
+
+            // module.Serial = null;
+            module.Version = null;
+            module.Name = module.Board.Info.FriendlyName;
+
+            MobiFlightModuleInfo devInfo = module.ToMobiFlightModuleInfo();
+
+            // If the update fails for some reason, e.g. the board definition file was missing the settings for the
+            // update, then module will be null.
+            if (module == null)
+            {
+                return;
+            }
+
+            // Don't connect to the module, because now it is not a mobiflight board anymore
+            mobiflightCache.RefreshModule(module);
+
+            OnAfterFirmwareUpdate?.Invoke(module, null);
+
+            // Update the corresponding TreeView Item
+            //// Find the parent node that matches the Port
+            TreeNode moduleNode = findNodeByPort(module.Port);
+
+            if (moduleNode != null)
+            {
+                mfModulesTreeView_initNode(devInfo, moduleNode);
+                // make sure that we retrigger all events and sync the panel
+                mfModulesTreeView.SelectedNode = null;
+                mfModulesTreeView.SelectedNode = moduleNode;
+            }
         }
     }
 }

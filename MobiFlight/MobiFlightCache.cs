@@ -336,6 +336,20 @@ namespace MobiFlight
             return false;
         }
 
+        public void UnregisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo)
+        {
+            Log.Instance.log("MobiFlightCache.UnregisterModule(" + m.Name + ":" + m.Port + ")", LogSeverity.Debug);
+
+            foreach(var module in Modules.Values)
+            {
+                if(module.Port == m.Port)
+                {
+                    Modules.Remove(devInfo.Serial);
+                    return;
+                }       
+            }
+        }
+
         private void RegisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo, bool replace = false)
         {
             Log.Instance.log("MobiFlightCache.RegisterModule("+m.Name+":"+ m.Port +")", LogSeverity.Debug);
@@ -721,8 +735,11 @@ namespace MobiFlight
 
             if (oldDevInfo != null) connectedArduinoModules.Remove(oldDevInfo);
             connectedArduinoModules.Add(module.ToMobiFlightModuleInfo());
-            
-            RegisterModule(module, module.ToMobiFlightModuleInfo(), true);
+
+            if (module.HasMfFirmware())
+                RegisterModule(module, module.ToMobiFlightModuleInfo(), true);
+            else
+                UnregisterModule(module, module.ToMobiFlightModuleInfo());
 
             return module;
         }
