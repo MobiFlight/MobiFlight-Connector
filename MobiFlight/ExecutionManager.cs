@@ -13,6 +13,7 @@ using MobiFlight.Config;
 using MobiFlight.OutputConfig;
 using MobiFlight.InputConfig;
 using MobiFlight.xplane;
+using System.Globalization;
 
 namespace MobiFlight
 {
