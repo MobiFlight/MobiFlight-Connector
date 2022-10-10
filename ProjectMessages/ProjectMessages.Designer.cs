@@ -570,11 +570,56 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}) firmware reset completed ({2}/{3}).
+        /// </summary>
+        internal static string uiMessageFirmwareResetComplete {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareResetComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating {0} on {1} (Module {2}/{3}).
+        /// </summary>
+        internal static string uiMessageFirmwareResetStatus {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareResetStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}) firmware reset timed out ({2}/{3}).
+        /// </summary>
+        internal static string uiMessageFirmwareResetTimeout {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareResetTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}) firmware update completed ({2}/{3}).
+        /// </summary>
+        internal static string uiMessageFirmwareUpdateComplete {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareUpdateComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updating {0} on {1} (Module {2}/{3}).
         /// </summary>
         internal static string uiMessageFirmwareUpdateStatus {
             get {
                 return ResourceManager.GetString("uiMessageFirmwareUpdateStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1}) firmware update timed out ({2}/{3}).
+        /// </summary>
+        internal static string uiMessageFirmwareUpdateTimeout {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareUpdateTimeout", resourceCulture);
             }
         }
         

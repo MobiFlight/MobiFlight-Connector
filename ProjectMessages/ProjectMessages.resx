@@ -509,4 +509,19 @@ Respective configs won't work until joysticks are connected and you have restart
   <data name="uiNoI2CPinsDefinedHint" xml:space="preserve">
     <value>No I2C pins defined</value>
   </data>
+  <data name="uiMessageFirmwareResetComplete" xml:space="preserve">
+    <value>{0} ({1}) firmware reset completed ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
+    <value>Updating {0} on {1} (Module {2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
+    <value>{0} ({1}) firmware reset timed out ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareUpdateComplete" xml:space="preserve">
+    <value>{0} ({1}) firmware update completed ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareUpdateTimeout" xml:space="preserve">
+    <value>{0} ({1}) firmware update timed out ({2}/{3})</value>
+  </data>
 </root>

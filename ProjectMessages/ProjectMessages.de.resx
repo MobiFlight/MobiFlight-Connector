@@ -495,4 +495,19 @@ Respective input actions won't work until they are connected and you have restar
     <value>Diese Änderung benötigt einen Neustart von MobiFlight.</value>
     <comment>This change will require a restart of MobiFlight to become effective.</comment>
   </data>
+  <data name="uiMessageFirmwareResetComplete" xml:space="preserve">
+    <value>{0} ({1}) Firmware Reset fertig. ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
+    <value>Update von {0} an {1} (Modul {2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
+    <value>{0} ({1}) Firmware Reset time out. ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareUpdateComplete" xml:space="preserve">
+    <value>{0} ({1}) Firmware Update fertig.({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareUpdateTimeout" xml:space="preserve">
+    <value>{0} ({1}) Firmware Update time out ({2}/{3})</value>
+  </data>
 </root>

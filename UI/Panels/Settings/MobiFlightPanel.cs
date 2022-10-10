@@ -240,8 +240,14 @@ namespace MobiFlight.UI.Panels.Settings
             uploadToolStripMenuItem.Enabled = (moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed");
             openToolStripMenuItem.Enabled = isMobiFlightBoard;
             saveToolStripMenuItem.Enabled = moduleNode.Nodes.Count > 0;
+            resetBoardToolStripMenuItem.Enabled = isMobiFlightBoard;
             regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
             reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
+
+            if (!isMobiFlightBoard)
+            {
+                // TODO: Show an option to upload the VID PID compatible firmwares
+            }
 
             // the COM port actions depend on whether
             // the module is already ignored or not
@@ -251,6 +257,7 @@ namespace MobiFlight.UI.Panels.Settings
             // if the module is ignored, we don't want
             // to display the firmware upload options, etc.
             updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored";
+            UpdateFirmwareToolStripButton.Enabled = moduleNode.ImageKey != "module-ignored";
 
             syncPanelWithSelectedDevice(e.Node);
         }
@@ -1081,32 +1088,52 @@ namespace MobiFlight.UI.Panels.Settings
             PreselectedMobiFlightBoard = null;
         }
 
-        private void UpdateModules(List<MobiFlightModule> modules)
+        private void UpdateOrResetModules(List<MobiFlightModule> modules, bool IsUpdate)
         {
             if (modules.Count == 0) return;
-            FirmwareUpdateProcessForm.ResetMode = false;
+            
+            FirmwareUpdateProcessForm.ResetMode = !IsUpdate;            
             FirmwareUpdateProcessForm.ClearModules();
             modules.ForEach(
                 module => FirmwareUpdateProcessForm.AddModule(module)
             );
-            
-            FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate -= FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
+
+            FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate    -= FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate     -= FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate     -= FirmwareUpdateProcessForm_OnAfterFirmwareReset;
+            FirmwareUpdateProcessForm.OnFinished                -= FirmwareUpdateProcessForm_OnFinished;
+            FirmwareUpdateProcessForm.OnFinished                -= FirmwareResetProcessForm_OnFinished;
+
+
             FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate += FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
-            
-            // remove the reset
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareReset;
-            
-            FirmwareUpdateProcessForm.OnFinished -= FirmwareUpdateProcessForm_OnFinished;
-            FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
+
+            if(IsUpdate)
+            {
+                FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
+                FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
+            }
+            else
+            {
+                FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareReset;
+                FirmwareUpdateProcessForm.OnFinished += FirmwareResetProcessForm_OnFinished;
+            }
+
             FirmwareUpdateProcessForm.ShowDialog();
         }
 
-        private void FirmwareUpdateProcessForm_OnFinished(List<MobiFlightModule> modules)
+        private void UpdateModules(List<MobiFlightModule> modules)
+        {
+            UpdateOrResetModules(modules, true);
+        }
+
+        private void ResetModules(List<MobiFlightModule> modules)
+        {
+            UpdateOrResetModules(modules, false);
+        }
+
+        private void OnFirmwareUpdateOrResetFinished(List<MobiFlightModule> modules, bool IsUpdate)
         {
             String Message = i18n._tr("uiMessageFirmwareUploadSuccessful");
-
 
             TimeoutMessageDialog tmd = new TimeoutMessageDialog();
             tmd.Width = FirmwareUpdateProcessForm.Width;
@@ -1114,6 +1141,12 @@ namespace MobiFlight.UI.Panels.Settings
             tmd.HasCancelButton = false;
             tmd.StartPosition = FormStartPosition.CenterParent;
             tmd.Text = i18n._tr("uiMessageFirmwareUploadTitle");
+
+            if (!IsUpdate)
+            {
+                Message = i18n._tr("uiMessageFirmwareResetSuccessful");
+                tmd.Text = i18n._tr("uiMessageFirmwarResetTitle");
+            }
 
             if (modules.Count > 0)
             {
@@ -1126,11 +1159,29 @@ namespace MobiFlight.UI.Panels.Settings
                 Message = string.Format(
                                     i18n._tr("uiMessageFirmwareUploadError"),
                                     string.Join("\n", ModuleNames)
-                                    ); ;
+                                    );
+                if (!IsUpdate)
+                {
+                    Message = string.Format(
+                                    i18n._tr("uiMessageFirmwareResetError"),
+                                    string.Join("\n", ModuleNames)
+                                    );
+                }
+                    
             }
 
-            tmd.Message = Message;           
+            tmd.Message = Message;
             tmd.ShowDialog();
+        }
+
+        private void FirmwareUpdateProcessForm_OnFinished(List<MobiFlightModule> modules)
+        {
+            OnFirmwareUpdateOrResetFinished(modules, true);
+        }
+
+        private void FirmwareResetProcessForm_OnFinished(List<MobiFlightModule> modules)
+        {
+            OnFirmwareUpdateOrResetFinished(modules, false);
         }
 
         private void FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate(object sender, EventArgs e)
@@ -1288,26 +1339,6 @@ namespace MobiFlight.UI.Panels.Settings
             ResetModules(modules);
         }
 
-        private void ResetModules(List<MobiFlightModule> modules)
-        {
-            if (modules.Count == 0) return;
-            FirmwareUpdateProcessForm.ResetMode = true;
-            FirmwareUpdateProcessForm.ClearModules();
-            modules.ForEach(
-                module => FirmwareUpdateProcessForm.AddModule(module)
-            );
-
-            FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate -= FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
-            FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate += FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
-
-            // remove the update delegates
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareReset;
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareReset;
-
-            FirmwareUpdateProcessForm.OnFinished -= FirmwareUpdateProcessForm_OnFinished;
-            FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
-            FirmwareUpdateProcessForm.ShowDialog();
-        }
+        
     }
 }
