@@ -13,6 +13,7 @@ using MobiFlight.Config;
 using MobiFlight.OutputConfig;
 using MobiFlight.InputConfig;
 using MobiFlight.xplane;
+using System.Globalization;
 
 namespace MobiFlight
 {
@@ -1390,7 +1391,7 @@ namespace MobiFlight
             	if (inputCache[inputKey].Count == 0)
             	{
                 	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    	    Log.Instance.log($"No config found for ${msgEventLabel}", LogSeverity.Debug);
+                    	    Log.Instance.log($"No config found for {msgEventLabel}", LogSeverity.Debug);
                 	return;
             	}
             }
