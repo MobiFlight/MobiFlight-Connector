@@ -13,7 +13,7 @@ namespace MobiFlight
         public String Port { get; set; }
         public String Name { get; set; }
         public String Config { get; set; }
-
+        public String HardwareId { get; set; }
         public Board Board { get; set; }
         public String Version
         {
