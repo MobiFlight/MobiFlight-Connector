@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Management;
+using System.Xml.Linq;
 
 namespace MobiFlight
 {
@@ -112,10 +113,10 @@ namespace MobiFlight
             return Modules.Values;
         }
 
-        private static Dictionary<string, Board> getSupportedPorts()
+        private static List<PortDetails> getSupportedPorts()
         {
             var portNameRegEx = "\\(.*\\)";
-            var result = new Dictionary<string, Board>();
+            var result = new List<PortDetails>();
             var regex = new Regex(@"(?<id>VID_\S*)"); // Pattern to match the VID/PID of the connected devices
 
             // Code from https://stackoverflow.com/questions/45165299/wmi-get-list-of-all-serial-com-ports-including-virtual-ports
@@ -176,13 +177,19 @@ namespace MobiFlight
                 }
 
                 // Safety check to ensure duplicate entires in the registry don't result in duplicate entires in the list.
-                if (result.ContainsKey(portName))
+                if (result.Any(p => p.Name == portName))
                 {
                     Log.Instance.log($"Duplicate entry for port: {board.Info.FriendlyName} {portName}", LogSeverity.Debug);
                     continue;
                 }
 
-                result.Add(portName, board);
+                result.Add(new PortDetails
+                {
+                    Board = board,
+                    HardwareId = hardwareId,
+                    Name = portName
+                });
+
                 Log.Instance.log($"Found potentially compatible module ({board.Info.FriendlyName}): {hardwareId}@{portName}", LogSeverity.Debug);
             }
 
@@ -206,42 +213,43 @@ namespace MobiFlight
             for (var i = 0; i != supportedPorts.Count; i++)
             {
                 var port = supportedPorts.ElementAt(i);
-                String portName = port.Key;
-                Board board = port.Value;
                 int progressValue = (i * 25) / supportedPorts.Count;
 
-                if (!connectedPorts.Contains(portName))
+                if (!connectedPorts.Contains(port.Name))
                 {
-                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port not connected ("+portName+")", LogSeverity.Debug);
+                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port not connected ("+ port.Name +")", LogSeverity.Debug);
                     continue;
                 }
-                if (connectingPorts.Contains(portName))
+                if (connectingPorts.Contains(port.Name))
                 {
-                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port already connecting (" + portName + ")", LogSeverity.Debug);
+                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port already connecting (" + port.Name + ")", LogSeverity.Debug);
                     continue;
                 }
-                if (ignoredComPorts.Contains(portName))
+                if (ignoredComPorts.Contains(port.Name))
                 {
-                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port is ignored by user (" + portName + ")", LogSeverity.Info);
+                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port is ignored by user (" + port.Name + ")", LogSeverity.Info);
                     result.Add(new MobiFlightModuleInfo()
                     {
-                        Port = portName,
+                        Port = port.Name,
                         Type = "Ignored",
-                        Name = $"Ignored Device at Port {portName}",
-                        Board = board
+                        Name = $"Ignored Device at Port {port.Name}",
+                        Board = port.Board,
+                        HardwareId = port.HardwareId                        
                     });
                     continue;
                 }
 
 
-                connectingPorts.Add(portName);
+                connectingPorts.Add(port.Name);
 
                 tasks.Add(Task.Run(() =>
                 {
-                    MobiFlightModule tmp = new MobiFlightModule(portName, board);
+                    MobiFlightModule tmp = new MobiFlightModule(port.Name, port.Board);
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue);
                     tmp.Connect();
                     MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
+                    // Store the hardware ID for later use
+                    devInfo.HardwareId = port.HardwareId;
 
                     tmp.Disconnect();
                     ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue + 5);
