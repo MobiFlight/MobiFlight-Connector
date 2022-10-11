@@ -633,6 +633,19 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Some boards can&apos;t be auto-flashed because the board type is ambiguous:
+        ///
+        ///{0}
+        ///
+        ///Please manually flash the boards using &quot;upload firmware&quot; and select the correct board type from the menu..
+        /// </summary>
+        internal static string uiMessageFirmwareUploadAmbiguousBoards {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareUploadAmbiguousBoards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error on uploading the firmware for the board(s):
         ///
         ///{0}

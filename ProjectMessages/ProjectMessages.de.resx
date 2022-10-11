@@ -531,4 +531,14 @@ Respective input actions won't work until they are connected and you have restar
     <value>Damit diese Änderung wirksam wird, benötigt MobiFlight einen Neustart.</value>
     <comment>This change will require a restart of MobiFlight to become effective.</comment>
   </data>
+  <data name="uiMessageFirmwareUploadAmbiguousBoards" xml:space="preserve">
+    <value>Ein oder mehrer Boards konnten nicht automatisch mit der MobiFlight Firmware geflasht werden.
+
+{0}
+
+Bitte führe im nächsten Dialog das Flashen manuell durch und wähle den passenden Board-Typ aus dem Kontextmenü.</value>
+    <comment>Some boards can't be auto-flashed because the board type is ambiguous.
+
+Please manually flash the boards using "upload firmware" and select the correct board type from the menu.</comment>
+  </data>
 </root>

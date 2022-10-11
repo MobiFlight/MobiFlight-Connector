@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Configuration;
+using System.Web.UI.Design.WebControls;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -1065,12 +1066,12 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void MobiFlightPanel_Load(object sender, EventArgs e)
         {
+            var ambiguousBoardsFound = new HashSet<String>();
+
             // Auto Update Functionality
             if (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0)
             {
                 String arduinoIdePath = FirmwareUpdatePath;
-                String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
-
                 if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(arduinoIdePath))
                 {
                     MessageBox.Show(
@@ -1078,7 +1079,6 @@ namespace MobiFlight.UI.Panels.Settings
                         i18n._tr("Hint"), MessageBoxButtons.OK);
                     return;
                 }
-
             }
 
             List<MobiFlightModule> modules = new List<MobiFlightModule>();
@@ -1086,6 +1086,14 @@ namespace MobiFlight.UI.Panels.Settings
             foreach (MobiFlightModuleInfo moduleInfo in modulesForFlashing)
             {
                 MobiFlightModule module = new MobiFlightModule(moduleInfo.Port, moduleInfo.Board);
+                var boards = BoardDefinitions.GetBoardsByHardwareId(moduleInfo.HardwareId);
+                if (boards.Count>1)
+                {
+                    var FriendlyNames = new List<String>();
+                    foreach(var b in boards) FriendlyNames.Add(b.Info.FriendlyName);
+                    ambiguousBoardsFound.Add(module.Port + ": " + String.Join(" or ", FriendlyNames));
+                    continue;
+                } 
                 modules.Add(module);
             }
 
@@ -1094,6 +1102,22 @@ namespace MobiFlight.UI.Panels.Settings
                 modules.Add(module);
             }
 
+            if (ambiguousBoardsFound.Count>0)
+            {
+                var ambiguousBoardsMessage = String.Format(
+                    i18n._tr("uiMessageFirmwareUploadAmbiguousBoards"),
+                    String.Join(" ", ambiguousBoardsFound)
+                );
+
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.HasCancelButton = false;
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.DefaultDialogResult = DialogResult.Cancel;
+                tmd.Message = ambiguousBoardsMessage;
+                tmd.Text = i18n._tr("Hint");
+
+                tmd.ShowDialog();
+            }
             UpdateModules(modules);
 
             if (PreselectedMobiFlightBoard != null)

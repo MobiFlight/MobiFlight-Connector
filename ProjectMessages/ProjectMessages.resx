@@ -530,4 +530,11 @@ Respective configs won't work until joysticks are connected and you have restart
   <data name="uiMessageRestartRequired" xml:space="preserve">
     <value>This change will require a restart of MobiFlight to become effective.</value>
   </data>
+  <data name="uiMessageFirmwareUploadAmbiguousBoards" xml:space="preserve">
+    <value>Some boards can't be auto-flashed because the board type is ambiguous:
+
+{0}
+
+Please manually flash the boards using "upload firmware" and select the correct board type from the menu.</value>
+  </data>
 </root>
