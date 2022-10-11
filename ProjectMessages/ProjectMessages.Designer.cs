@@ -61,15 +61,6 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string conf {
-            get {
-                return ResourceManager.GetString("conf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The address of a Display Module must not be null. Please review your config..
         /// </summary>
         internal static string ConfigErrorException_AddressNull {
@@ -588,11 +579,29 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The board reset was successful!.
+        /// </summary>
+        internal static string uiMessageFirmwareResetSuccessful {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareResetSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1}) firmware reset timed out ({2}/{3}).
         /// </summary>
         internal static string uiMessageFirmwareResetTimeout {
             get {
                 return ResourceManager.GetString("uiMessageFirmwareResetTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Board reset.
+        /// </summary>
+        internal static string uiMessageFirmwareResetTitle {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareResetTitle", resourceCulture);
             }
         }
         
@@ -918,6 +927,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageProblemLoadingConfig {
             get {
                 return ResourceManager.GetString("uiMessageProblemLoadingConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This change will require a restart of MobiFlight to become effective..
+        /// </summary>
+        internal static string uiMessageRestartRequired {
+            get {
+                return ResourceManager.GetString("uiMessageRestartRequired", resourceCulture);
             }
         }
         

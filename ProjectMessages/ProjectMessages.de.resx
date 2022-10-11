@@ -510,4 +510,25 @@ Respective input actions won't work until they are connected and you have restar
   <data name="uiMessageFirmwareUpdateTimeout" xml:space="preserve">
     <value>{0} ({1}) Firmware Update time out ({2}/{3})</value>
   </data>
+  <data name="fsuipcStatus" xml:space="preserve">
+    <value>FSUIPC Status</value>
+  </data>
+  <data name="uiI2CPinInUse" xml:space="preserve">
+    <value>{0} braucht Pin {1} welcher bereits verwendet wird. Lösche die Zuordnung und versuche es mit {0} nochmal.</value>
+    <comment>{0} requires the use of pin {1} which is already assigned to another module. Remove the pin assignment from the other module then try adding {0} again.</comment>
+  </data>
+  <data name="uiI2CPinInUseHint" xml:space="preserve">
+    <value>I2C Pin in Verwendung</value>
+    <comment>I2C pin in use</comment>
+  </data>
+  <data name="uiMessageFirmwareResetSuccessful" xml:space="preserve">
+    <value>Der Reset Deines Boards war erfolgreich.</value>
+  </data>
+  <data name="uiMessageFirmwareResetTitle" xml:space="preserve">
+    <value>Board Reset</value>
+  </data>
+  <data name="uiMessageRestartRequired" xml:space="preserve">
+    <value>Damit diese Änderung wirksam wird, benötigt MobiFlight einen Neustart.</value>
+    <comment>This change will require a restart of MobiFlight to become effective.</comment>
+  </data>
 </root>

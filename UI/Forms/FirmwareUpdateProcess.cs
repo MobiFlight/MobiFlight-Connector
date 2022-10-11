@@ -107,7 +107,6 @@ namespace MobiFlight.UI.Forms
 
             String arduinoIdePath = Properties.Settings.Default.ArduinoIdePathDefault;
             String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
-
             if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(arduinoIdePath))
             {
                 MessageBox.Show(
@@ -124,7 +123,11 @@ namespace MobiFlight.UI.Forms
 
             int timeout = 15000;
             var task = Task<bool>.Run(() => {
-                bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
+                bool UpdateResult;
+                if (IsUpdate)
+                    UpdateResult = MobiFlightFirmwareUpdater.Update(module);
+                else
+                    UpdateResult = MobiFlightFirmwareUpdater.Reset(module);
                 return UpdateResult;
             });
             if (await Task.WhenAny(task, Task.Delay(timeout)) == task)

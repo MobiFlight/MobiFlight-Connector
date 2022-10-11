@@ -298,7 +298,7 @@ namespace MobiFlight
             {
                 if (!devInfo.HasMfFirmware()) continue;
 
-                MobiFlightModule m = new MobiFlightModule(devInfo.Port, devInfo.Board);
+                MobiFlightModule m = new MobiFlightModule(devInfo);
                 RegisterModule(m, devInfo);
             }
 

@@ -221,7 +221,8 @@ namespace MobiFlight.UI.Panels.Settings
             mfSettingsPanel.Controls.Clear();
             if (moduleNode.Tag == null) return;
 
-            bool isMobiFlightBoard = (moduleNode.Tag as MobiFlightModule).HasMfFirmware();
+            MobiFlightModule module = (moduleNode.Tag as MobiFlightModule);
+            bool isMobiFlightBoard = module.HasMfFirmware();
 
             mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
             // this is the module node
@@ -244,9 +245,29 @@ namespace MobiFlight.UI.Panels.Settings
             regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
             reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
 
+
+            updateFirmwareToolStripMenuItem.DropDownItems.Clear();
             if (!isMobiFlightBoard)
             {
                 // TODO: Show an option to upload the VID PID compatible firmwares
+                var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
+                if (boards.Count>0)
+                {
+                    foreach (var board in boards)
+                    {
+                        var item = new ToolStripMenuItem();
+                        item.Text = board.Info.FriendlyName;
+                        item.Click += (s, evt) =>
+                        {
+                            module.Board = board;
+                            List<MobiFlightModule> modules = new List<MobiFlightModule>();
+                            modules.Add(module);
+                            UpdateModules(modules);
+                        };
+
+                        updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
+                    }
+                }
             }
 
             // the COM port actions depend on whether
@@ -262,15 +283,15 @@ namespace MobiFlight.UI.Panels.Settings
             syncPanelWithSelectedDevice(e.Node);
         }
 
-        private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo module, TreeNode moduleNode)
+        private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo moduleInfo, TreeNode moduleNode)
         {
-            moduleNode.Text = module.Name;
-            if (module.HasMfFirmware())
+            moduleNode.Text = moduleInfo.Name;
+            if (moduleInfo.HasMfFirmware())
             {
                 moduleNode.SelectedImageKey = moduleNode.ImageKey = "module";
-                moduleNode.Tag = mobiflightCache.GetModule(module);
+                moduleNode.Tag = mobiflightCache.GetModule(moduleInfo);
                 moduleNode.Nodes.Clear();
-                moduleMultiplexerDrivers.Remove(module.Name);
+                moduleMultiplexerDrivers.Remove(moduleInfo.Name);
 
                 if (null == (moduleNode.Tag as MobiFlightModule).Config) return moduleNode;
 
@@ -283,7 +304,7 @@ namespace MobiFlight.UI.Panels.Settings
                     // MultiplexerDrivers should not appear in the tree, therefore they are stored in a dictionary 
                     // (by module name) for easy retrieval
                     if(device.Type == DeviceType.MultiplexerDriver) {
-                        moduleMultiplexerDrivers.Add(module.Name, device as MobiFlight.Config.MultiplexerDriver);
+                        moduleMultiplexerDrivers.Add(moduleInfo.Name, device as MobiFlight.Config.MultiplexerDriver);
                     } else {
                         TreeNode deviceNode = new TreeNode(device.Name);
                         deviceNode.Tag = device;
@@ -294,7 +315,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
             else
             {
-                moduleNode.Tag = new MobiFlightModule(module.Port, module.Board);
+                moduleNode.Tag = new MobiFlightModule(moduleInfo);
                 moduleNode.SelectedImageKey = moduleNode.ImageKey = "module-arduino";
                 moduleNode.Nodes.Clear();
             }
@@ -948,7 +969,7 @@ namespace MobiFlight.UI.Panels.Settings
             TreeNode moduleNode = getModuleNode();
             if (moduleNode == null) return null;
 
-            MobiFlightModule module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).Port, (moduleNode.Tag as MobiFlightModule).Board);
+            MobiFlightModule module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).ToMobiFlightModuleInfo());
             
             // Generate config
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
@@ -1145,7 +1166,7 @@ namespace MobiFlight.UI.Panels.Settings
             if (!IsUpdate)
             {
                 Message = i18n._tr("uiMessageFirmwareResetSuccessful");
-                tmd.Text = i18n._tr("uiMessageFirmwarResetTitle");
+                tmd.Text = i18n._tr("uiMessageFirmwareResetTitle");
             }
 
             if (modules.Count > 0)
@@ -1306,7 +1327,7 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void ShowRestartHint()
         {
-            String msg = i18n._tr("This change will require a restart of MobiFlight to become effective.");
+            String msg = i18n._tr("uiMessageRestartRequired");
             TimeoutMessageDialog.Show(msg, i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
