@@ -245,14 +245,25 @@ namespace MobiFlight.UI.Panels.Settings
             regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
             reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
 
+            // the COM port actions depend on whether
+            // the module is already ignored or not
+            ignoreCOMPortToolStripMenuItem.Visible = moduleNode.ImageKey != "module-ignored";
+            dontIgnoreCOMPortToolStripMenuItem.Visible = moduleNode.ImageKey == "module-ignored";
 
+            // if the module is ignored, we don't want
+            // to display the firmware upload options, etc.
+            updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored";
+            UpdateFirmwareToolStripButton.Enabled = moduleNode.ImageKey != "module-ignored";
             updateFirmwareToolStripMenuItem.DropDownItems.Clear();
+            updateFirmwareToolStripMenuItem.Click -= this.updateFirmwareToolStripMenuItem_Click;
+
             if (!isMobiFlightBoard)
             {
                 // TODO: Show an option to upload the VID PID compatible firmwares
                 var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
-                if (boards.Count>0)
+                if (boards.Count > 0)
                 {
+                    
                     foreach (var board in boards)
                     {
                         var item = new ToolStripMenuItem();
@@ -268,17 +279,10 @@ namespace MobiFlight.UI.Panels.Settings
                         updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
                     }
                 }
+            } else
+            {
+                updateFirmwareToolStripMenuItem.Click += this.updateFirmwareToolStripMenuItem_Click;
             }
-
-            // the COM port actions depend on whether
-            // the module is already ignored or not
-            ignoreCOMPortToolStripMenuItem.Visible = moduleNode.ImageKey != "module-ignored";
-            dontIgnoreCOMPortToolStripMenuItem.Visible = moduleNode.ImageKey == "module-ignored";
-
-            // if the module is ignored, we don't want
-            // to display the firmware upload options, etc.
-            updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored";
-            UpdateFirmwareToolStripButton.Enabled = moduleNode.ImageKey != "module-ignored";
 
             syncPanelWithSelectedDevice(e.Node);
         }
