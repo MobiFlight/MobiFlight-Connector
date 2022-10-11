@@ -11,7 +11,7 @@ namespace MobiFlight
 {
     public static class BoardDefinitions
     {
-        private static List<Board> boards = new List<Board>();
+        private static readonly List<Board> boards = new List<Board>();
 
         /// <summary>
         /// Finds a board definition by matching against the USB VID/PID.
@@ -26,7 +26,21 @@ namespace MobiFlight
                 return regEx.Match(hardwareIdPattern).Success;
             }));
         }
-        
+
+        /// <summary>
+        /// Finds all matching board definitions by matching against the USB VID/PID.
+        /// </summary>
+        /// <param name="hardwareIdPattern">A RegEx of the VID/PID to match against.</param>
+        /// <returns>A list of board definitions matching the hardwareIdPattern or empty list if none found.</returns>
+        public static List<Board> GetBoardsByHardwareId(String hardwareIdPattern)
+        {
+            return boards.FindAll(board => board.HardwareIds.Any(hardwareId =>
+            {
+                var regEx = new Regex(hardwareId);
+                return regEx.Match(hardwareIdPattern).Success;
+            }));
+        }
+
         /// <summary>
         /// Finds a board definition by matching against the manufacturer's name for the board.
         /// </summary>
