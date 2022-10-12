@@ -14,7 +14,6 @@ namespace MobiFlight
     {
         public string Serial { get; set; }
         public string DeviceId { get; set; }
-
         public string Name { get; set; }
         public DeviceType Type { get; set; }
         public int? ExtPin { get; set; }
@@ -121,6 +120,8 @@ namespace MobiFlight
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
         public String Name { get; set; }
+        public string HardwareId { get; set; }
+
         public String Type
         {
             get
@@ -707,7 +708,7 @@ namespace MobiFlight
             {
                 Name = "Unknown",
                 Type = Type,
-                Port = _comPort
+                Port = _comPort,
             };
 
             var command = new SendCommand((int)MobiFlightModule.Command.GetInfo, (int)MobiFlightModule.Command.Info, CommandTimeout);
