@@ -119,7 +119,7 @@ namespace MobiFlight.UI
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (true || Properties.Settings.Default.Started == 0)
+            if (Properties.Settings.Default.Started == 0)
             {
                 OnFirstStart();
             }
