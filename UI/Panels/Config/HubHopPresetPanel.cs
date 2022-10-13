@@ -93,9 +93,9 @@ namespace MobiFlight.UI.Panels.Config
                 listItems.Add(new ListItem() { Value = XplaneInputAction.INPUT_TYPE_DATAREF, Label = XplaneInputAction.INPUT_TYPE_DATAREF });
                 listItems.Add(new ListItem() { Value = XplaneInputAction.INPUT_TYPE_COMMAND, Label = XplaneInputAction.INPUT_TYPE_COMMAND });
 
-                TypeComboBox.DataSource = listItems;
-                TypeComboBox.ValueMember = "Value";
-                TypeComboBox.DisplayMember = "Label";
+                CodeTypeComboBox.DataSource = listItems;
+                CodeTypeComboBox.ValueMember = "Value";
+                CodeTypeComboBox.DisplayMember = "Label";
             }
         }
 
@@ -158,9 +158,9 @@ namespace MobiFlight.UI.Panels.Config
 
             ///
 
-            TypeComboBox.SelectedValueChanged += (sender, e) =>
+            CodeTypeComboBox.SelectedValueChanged += (sender, e) =>
             {
-                ValuePanel.Visible = Mode == HubHopPanelMode.Input && FlightSimType == FlightSimType.XPLANE && (TypeComboBox.SelectedValue.ToString() == XplaneInputAction.INPUT_TYPE_DATAREF);
+                ValuePanel.Visible = Mode == HubHopPanelMode.Input && FlightSimType == FlightSimType.XPLANE && (CodeTypeComboBox.SelectedValue.ToString() == XplaneInputAction.INPUT_TYPE_DATAREF);
             };
         }
 
@@ -260,7 +260,7 @@ namespace MobiFlight.UI.Panels.Config
         internal InputConfig.XplaneInputAction ToXplaneConfig()
         {
             MobiFlight.InputConfig.XplaneInputAction result = new InputConfig.XplaneInputAction();
-            result.InputType = TypeComboBox.SelectedValue.ToString();
+            result.InputType = CodeTypeComboBox.SelectedValue.ToString();
             result.Path = SimVarNameTextBox.Text;
             result.Expression = ValueTextBox.Text;
             return result;
@@ -435,6 +435,18 @@ namespace MobiFlight.UI.Panels.Config
             if (selectedPreset == null) return;
             DescriptionLabel.Text = selectedPreset?.description;
             SimVarNameTextBox.Text = selectedPreset?.code;
+            
+            if (FlightSimType==FlightSimType.XPLANE)
+            {
+                try
+                {
+                    CodeTypeComboBox.SelectedValue = selectedPreset.codeType.ToString();
+                }
+                catch (Exception)
+                {
+                    CodeTypeComboBox.SelectedValue = "DataRef";
+                }
+            }
 
             DescriptionLabel.Enabled = selectedItem.id != "-";
         }
@@ -674,11 +686,11 @@ namespace MobiFlight.UI.Panels.Config
 
             try
             {
-                TypeComboBox.SelectedValue = inputAction.InputType;
+                CodeTypeComboBox.SelectedValue = inputAction.InputType;
             }
             catch (Exception)
             {
-                TypeComboBox.SelectedValue = "DataRef";
+                CodeTypeComboBox.SelectedValue = "DataRef";
             }
 
             // Restore the code

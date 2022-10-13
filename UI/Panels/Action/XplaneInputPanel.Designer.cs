@@ -36,11 +36,12 @@
             // 
             // xplaneGroupBox
             // 
+            this.xplaneGroupBox.AutoSize = true;
             this.xplaneGroupBox.Controls.Add(this.hubHopPresetPanel1);
             this.xplaneGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.xplaneGroupBox.Location = new System.Drawing.Point(0, 0);
             this.xplaneGroupBox.Name = "xplaneGroupBox";
-            this.xplaneGroupBox.Size = new System.Drawing.Size(596, 291);
+            this.xplaneGroupBox.Size = new System.Drawing.Size(610, 291);
             this.xplaneGroupBox.TabIndex = 0;
             this.xplaneGroupBox.TabStop = false;
             this.xplaneGroupBox.Text = "Input settings";
@@ -59,20 +60,22 @@
             this.hubHopPresetPanel1.Name = "hubHopPresetPanel1";
             this.hubHopPresetPanel1.PresetFile = "Presets\\msfs2020_hubhop_presets.json";
             this.hubHopPresetPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
-            this.hubHopPresetPanel1.Size = new System.Drawing.Size(603, 189);
+            this.hubHopPresetPanel1.Size = new System.Drawing.Size(604, 189);
             this.hubHopPresetPanel1.TabIndex = 31;
             // 
             // XplaneInputPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.xplaneGroupBox);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "XplaneInputPanel";
-            this.Size = new System.Drawing.Size(596, 291);
+            this.Size = new System.Drawing.Size(610, 291);
             this.xplaneGroupBox.ResumeLayout(false);
             this.xplaneGroupBox.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
