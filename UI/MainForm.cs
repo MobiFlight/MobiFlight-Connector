@@ -119,7 +119,7 @@ namespace MobiFlight.UI
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.Started == 0)
+            if (true || Properties.Settings.Default.Started == 0)
             {
                 OnFirstStart();
             }
@@ -221,9 +221,10 @@ namespace MobiFlight.UI
         {
             int i = Properties.Settings.Default.Started;
             WelcomeDialog wd = new WelcomeDialog();
+            wd.WebsiteUrl = $"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}";
             wd.ReleaseNotesClicked += (sender, e) =>
             {
-                Process.Start("https://www.mobiflight.com/en/download.html#Release_Notes");
+                Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
             };
 
             wd.StartPosition = FormStartPosition.CenterParent;
