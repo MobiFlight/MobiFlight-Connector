@@ -37,6 +37,11 @@ namespace MobiFlight
         public int Timeout;
 
         /// <summary>
+        /// Firmware filename to reset the board.
+        /// </summary>
+        public String ResetFirmwareFile;
+
+        /// <summary>
         /// Provides the name of the firmware file for a given firmware version.
         /// </summary>
         /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>

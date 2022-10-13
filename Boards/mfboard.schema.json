@@ -42,6 +42,12 @@
           "title": "Timeout",
           "description": "Number of milliseconds to wait before we assume the AvrDude process failed and has to get killed.",
           "type": "integer"
+        },
+        "ResetFirmwareFile": {
+          "$id": "#root/AvrDudeSettings/ResetFirmwareFile",
+          "title": "Resetfirmwarefile",
+          "description": "Firmware filename to reset the board.",
+          "type": "string"
         }
       }
     },

@@ -20,6 +20,7 @@ namespace MobiFlight.UI.Forms
 
         public delegate void FirmwareUpdateFinishedEventHandler (List<MobiFlightModule> modules);
 
+        public bool ResetMode = false;
         List<MobiFlightModule> modules = new List<MobiFlightModule>();
         List<MobiFlightModule> FailedModules = new List<MobiFlightModule>();
 
@@ -51,8 +52,11 @@ namespace MobiFlight.UI.Forms
 
         public void SetCurrentModule(MobiFlightModule module, int Count)
         {
+            var Message = i18n._tr("uiMessageFirmwareUpdateStatus");
+            if (ResetMode) Message = i18n._tr("uiMessageFirmwareResetStatus");
+
             StatusLabel.Text = string.Format(
-                                    i18n._tr("uiMessageFirmwareUpdateStatus"),
+                                    Message,
                                     module.Name,
                                     module.Port,
                                     Count,
@@ -77,7 +81,10 @@ namespace MobiFlight.UI.Forms
             foreach (MobiFlightModule module in modules)
             {
                 SetCurrentModule(module, modules.Count);
-                UpdateModule(module);
+                if (!ResetMode)
+                    UpdateModule(module);
+                else
+                    ResetModule(module);
             }
             timer1.Start();
         }
@@ -87,11 +94,19 @@ namespace MobiFlight.UI.Forms
             timer1.Stop();
         }
 
-        async void UpdateModule(MobiFlightModule module)
+        async void UpdateOrResetModule(MobiFlightModule module, bool IsUpdate)
         {
+            var MessageComplete = i18n._tr("uiMessageFirmwareUpdateComplete");
+            var MessageTimeout = i18n._tr("uiMessageFirmwareUpdateTimeout");
+
+            if (!IsUpdate)
+            {
+                MessageComplete = i18n._tr("uiMessageFirmwareResetComplete");
+                MessageTimeout = i18n._tr("uiMessageFirmwareResetTimeout");
+            }
+
             String arduinoIdePath = Properties.Settings.Default.ArduinoIdePathDefault;
             String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
-
             if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(arduinoIdePath))
             {
                 MessageBox.Show(
@@ -108,7 +123,11 @@ namespace MobiFlight.UI.Forms
 
             int timeout = 15000;
             var task = Task<bool>.Run(() => {
-                bool UpdateResult = MobiFlightFirmwareUpdater.Update(module);
+                bool UpdateResult;
+                if (IsUpdate)
+                    UpdateResult = MobiFlightFirmwareUpdater.Update(module);
+                else
+                    UpdateResult = MobiFlightFirmwareUpdater.Reset(module);
                 return UpdateResult;
             });
             if (await Task.WhenAny(task, Task.Delay(timeout)) == task)
@@ -116,7 +135,7 @@ namespace MobiFlight.UI.Forms
                 NumberOfModulesForFirmwareUpdate--;
 
                 StatusLabel.Text = string.Format(
-                                    "{0} ({1}) firmware update completed ({2}/{3})",
+                                    MessageComplete,
                                     module.Name,
                                     module.Port,
                                     TotalModuleCount - NumberOfModulesForFirmwareUpdate,
@@ -131,12 +150,12 @@ namespace MobiFlight.UI.Forms
                 NumberOfModulesForFirmwareUpdate--;
                 FailedModules.Add(module);
                 StatusLabel.Text = string.Format(
-                                    "{0} ({1}) firmware update timed out ({2}/{3})",
+                                    MessageTimeout,
                                     module.Name,
                                     module.Port,
                                     TotalModuleCount - NumberOfModulesForFirmwareUpdate,
                                     TotalModuleCount
-                                    ); 
+                                    );
             };
 
             progressBar1.Value = (int)Math.Round(progressBar1.Maximum * ((TotalModuleCount - NumberOfModulesForFirmwareUpdate) / (float)TotalModuleCount));
@@ -150,6 +169,16 @@ namespace MobiFlight.UI.Forms
                 OnFinished?.Invoke(FailedModules);
                 this.Close();
             }
+        }
+
+        void UpdateModule(MobiFlightModule module)
+        {
+            UpdateOrResetModule(module, true);
+        }
+
+        void ResetModule(MobiFlightModule module)
+        {
+            UpdateOrResetModule(module, false);
         }
     }
 }

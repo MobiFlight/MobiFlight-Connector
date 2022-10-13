@@ -5,7 +5,8 @@
     "BaudRate": "115200",
     "Programmer": "arduino",
     "FirmwareBaseName": "mobiflight_uno",
-    "Timeout": 15000
+    "Timeout": 15000,
+    "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },
   "Connection": {
     "ConnectionDelay": 1750,
@@ -20,7 +21,8 @@
     "^VID_2341&PID_0043",
     "^VID_2A03&PID_0043",
     "^VID_2341&PID_0243",
-    "^VID_2341&PID_0001"
+    "^VID_2341&PID_0001",
+    "^VID_1A86&PID_7523"
   ],
   "Info": {
     "CanInstallFirmware": true,

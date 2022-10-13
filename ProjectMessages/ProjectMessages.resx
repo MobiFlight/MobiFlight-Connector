@@ -214,9 +214,6 @@ Do you want to save them now?</value>
   <data name="uiMessageConfirmNewConfigTitle" xml:space="preserve">
     <value>Please confirm</value>
   </data>
-  <data name="conf" xml:space="preserve">
-    <value />
-  </data>
   <data name="ConfigErrorException_AddressNull" xml:space="preserve">
     <value>The address of a Display Module must not be null. Please review your config.</value>
   </data>
@@ -508,5 +505,46 @@ Respective configs won't work until joysticks are connected and you have restart
   </data>
   <data name="uiNoI2CPinsDefinedHint" xml:space="preserve">
     <value>No I2C pins defined</value>
+  </data>
+  <data name="uiMessageFirmwareResetComplete" xml:space="preserve">
+    <value>{0} ({1}) firmware reset completed ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
+    <value>Updating {0} on {1} (Module {2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
+    <value>{0} ({1}) firmware reset timed out ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareUpdateComplete" xml:space="preserve">
+    <value>{0} ({1}) firmware update completed ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareUpdateTimeout" xml:space="preserve">
+    <value>{0} ({1}) firmware update timed out ({2}/{3})</value>
+  </data>
+  <data name="uiMessageFirmwareResetSuccessful" xml:space="preserve">
+    <value>The board reset was successful!</value>
+  </data>
+  <data name="uiMessageFirmwareResetTitle" xml:space="preserve">
+    <value>Board reset</value>
+  </data>
+  <data name="uiMessageRestartRequired" xml:space="preserve">
+    <value>This change will require a restart of MobiFlight to become effective.</value>
+  </data>
+  <data name="uiMessageFirmwareUploadAmbiguousBoards" xml:space="preserve">
+    <value>Some boards can't be auto-flashed because the board type is ambiguous:
+
+{0}
+
+Please manually flash the boards using "upload firmware" and select the correct board type from the menu.</value>
+  </data>
+  <data name="uiMessageFirmwareResetError" xml:space="preserve">
+    <value>There was an error on resetting the board(s):
+
+{0}
+
+Check log for more details.</value>
+  </data>
+  <data name="uiMessageFirmwareUploadTimeout" xml:space="preserve">
+    <value>The firmware upload experienced a timeout.</value>
   </data>
 </root>

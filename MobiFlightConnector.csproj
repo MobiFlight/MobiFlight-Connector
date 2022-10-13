@@ -887,6 +887,15 @@
     <None Include="firmware\mobiflight_uno_2_2_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\reset.arduino_mega_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\reset.arduino_promicro_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\reset.arduino_uno_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\msfs2020_simvars.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
