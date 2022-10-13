@@ -570,6 +570,19 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error on resetting the board(s):
+        ///
+        ///{0}
+        ///
+        ///Check log for more details..
+        /// </summary>
+        internal static string uiMessageFirmwareResetError {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareResetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updating {0} on {1} (Module {2}/{3}).
         /// </summary>
         internal static string uiMessageFirmwareResetStatus {
@@ -664,6 +677,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageFirmwareUploadSuccessful {
             get {
                 return ResourceManager.GetString("uiMessageFirmwareUploadSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The firmware upload experienced a timeout..
+        /// </summary>
+        internal static string uiMessageFirmwareUploadTimeout {
+            get {
+                return ResourceManager.GetString("uiMessageFirmwareUploadTimeout", resourceCulture);
             }
         }
         

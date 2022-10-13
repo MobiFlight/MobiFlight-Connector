@@ -541,4 +541,10 @@ Bitte führe im nächsten Dialog das Flashen manuell durch und wähle den passen
 
 Please manually flash the boards using "upload firmware" and select the correct board type from the menu.</comment>
   </data>
+  <data name="uiMessageFirmwareResetError" xml:space="preserve">
+    <value>Es gab einen Fehler beim Board Reset. Aktiviere Logging für mehr Informationen.</value>
+  </data>
+  <data name="uiMessageFirmwareUploadTimeout" xml:space="preserve">
+    <value>Das Firmware Upload hat einen Timeout gemeldet. Aktiviere Logging für mehr Informationen.</value>
+  </data>
 </root>

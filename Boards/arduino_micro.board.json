@@ -6,7 +6,7 @@
     "FirmwareBaseName": "mobiflight_micro",
     "Programmer": "avr109",
     "Timeout": 15000,
-    "ResetFirmwareFile": "reset.arduino_promicro_1_0_0.hex"
+    "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex"
   },
   "Connection": {
     "ConnectionDelay": 1250,

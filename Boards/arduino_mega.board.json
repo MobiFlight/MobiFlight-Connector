@@ -5,7 +5,7 @@
     "BaudRate": "115200",
     "Programmer": "wiring",
     "FirmwareBaseName": "mobiflight_mega",
-    "ResetFirmwareFile": "reset.arduino_mega_1_0_0.hex",
+    "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "Timeout": 15000
   },
   "Connection": {

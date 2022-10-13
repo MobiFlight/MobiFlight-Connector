@@ -537,4 +537,14 @@ Respective configs won't work until joysticks are connected and you have restart
 
 Please manually flash the boards using "upload firmware" and select the correct board type from the menu.</value>
   </data>
+  <data name="uiMessageFirmwareResetError" xml:space="preserve">
+    <value>There was an error on resetting the board(s):
+
+{0}
+
+Check log for more details.</value>
+  </data>
+  <data name="uiMessageFirmwareUploadTimeout" xml:space="preserve">
+    <value>The firmware upload experienced a timeout.</value>
+  </data>
 </root>

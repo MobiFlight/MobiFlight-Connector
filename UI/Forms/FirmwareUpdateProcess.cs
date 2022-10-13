@@ -96,13 +96,13 @@ namespace MobiFlight.UI.Forms
 
         async void UpdateOrResetModule(MobiFlightModule module, bool IsUpdate)
         {
-            var MessageComplete = "uiMessageFirmwareUpdateComplete";
-            var MessageTimeout = "uiMessageFirmwareUpdateTimeout";
+            var MessageComplete = i18n._tr("uiMessageFirmwareUpdateComplete");
+            var MessageTimeout = i18n._tr("uiMessageFirmwareUpdateTimeout");
 
             if (!IsUpdate)
             {
-                MessageComplete = "uiMessageFirmwareResetComplete";
-                MessageTimeout = "uiMessageFirmwareResetTimeout";
+                MessageComplete = i18n._tr("uiMessageFirmwareResetComplete");
+                MessageTimeout = i18n._tr("uiMessageFirmwareResetTimeout");
             }
 
             String arduinoIdePath = Properties.Settings.Default.ArduinoIdePathDefault;
