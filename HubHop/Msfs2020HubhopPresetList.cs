@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight.HubHop
 {
-    public class Msfs2020HubhopPreset
+public class Msfs2020HubhopPreset
     {
         public String path;
         public String vendor;
@@ -21,7 +21,7 @@ namespace MobiFlight.HubHop
         [JsonConverter(typeof(StringEnumConverter))]
         public HubHopType presetType;
         [JsonConverter(typeof(StringEnumConverter))]
-        public HubHopAction? presetAction;
+        public HubHopAction? codeType;
         public int version;
         public String status;
         public String description;
