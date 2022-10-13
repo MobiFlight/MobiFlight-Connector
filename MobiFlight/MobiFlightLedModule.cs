@@ -164,11 +164,23 @@ namespace MobiFlight
                 pos++;
             }
 
-            if (Points != points)
+            for (byte i = 0; i < 8; i++)
             {
-                Points = points;
-                DisplayUpdated = true;
-            }     
+                if (((1 << i) & mask) == 0)
+                    continue;
+                
+                var cachedBit = (Points & (1 << i));
+                var newBit = (points & (1 << i));
+
+                if (cachedBit != newBit)
+                {
+                    if(cachedBit==0)
+                        Points |= (byte)(1 << i);
+                    else
+                        Points &= (byte)~(1 << i);
+                    DisplayUpdated = true;
+                }
+            }
 
             return DisplayUpdated;
         }

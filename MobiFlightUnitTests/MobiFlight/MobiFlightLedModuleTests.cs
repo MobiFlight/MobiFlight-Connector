@@ -35,7 +35,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void DisplayTest()
         {
-            byte points = 0xFF;
+            byte points = 0x00;
             byte mask = 0xFF;
             int ModuleIndex = 0;
             int SubModuleIndex = 0;
@@ -45,6 +45,7 @@ namespace MobiFlight.Tests
 
             var module = new MobiFlightLedModule();
             var mockTransport = new MockTransport();
+            var DataExpected = "";
             module.CmdMessenger = new CmdMessenger(mockTransport);
             module.CmdMessenger.Connect();
 
@@ -52,7 +53,7 @@ namespace MobiFlight.Tests
             mockTransport.Clear();
             module.Display(0, value, points, mask);
             WaitForQueueUpdate();
-            var DataExpected =  $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "First write should always send command.");
 
             mockTransport.Clear();
@@ -61,7 +62,7 @@ namespace MobiFlight.Tests
 
             DataExpected = "";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Caching mechanism test failed, we are sending the same value again, nothing has changed. Value in Mock should be \"\"");
-            
+
             module.ClearState();
             mockTransport.Clear();
             module.Display(0, value, points, mask);
@@ -92,7 +93,7 @@ namespace MobiFlight.Tests
             mockTransport.Clear();
             module.Display(0, value, points, mask);
             WaitForQueueUpdate();
-            
+
             DataExpected = $"";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, $"Caching mechanism test failed, sending different mask, but values haven't changed in masked area. Mask in Mock should be \"{mask}\"");
 
@@ -104,6 +105,41 @@ namespace MobiFlight.Tests
 
             DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, $"Sending same mask, and value changed in masked area. Mask in Mock should be \"{mask}\"");
+
+            // #
+            /// https://github.com/MobiFlight/MobiFlight-Connector/issues/961
+            points = 0xFF;
+            mask = 0xFF;
+            ModuleIndex = 0;
+            SubModuleIndex = 0;
+            CommandId = (byte)MobiFlightModule.Command.SetModule;
+
+            value = "123";
+            points = 0;
+            mask = 112;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "First write should always send command.");
+
+            value = "456";
+            points = 4;
+            mask = 14;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Second write should always send command.");
+
+            value = "123";
+            points = 0;
+            mask = 112;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = "";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Caching mechanism test failed, we are sending the same value again, nothing has changed. Value in Mock should be \"\"");
         }
 
         [TestMethod()]
