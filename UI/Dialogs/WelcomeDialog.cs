@@ -15,21 +15,23 @@ namespace MobiFlight.UI.Dialogs
     {
         public event EventHandler<EventArgs> ReleaseNotesClicked;
 
-        private string websiteUrl = "https://www.mobiflight.com/en/release-notes.html";
         public string WebsiteUrl {
-            get { return websiteUrl; }
-            set { this.webView21.Source = new System.Uri(value, System.UriKind.Absolute);} 
+            get { return this.webView.Source.ToString(); }
+            set { 
+                this.webView.Source = new System.Uri(value, System.UriKind.Absolute);
+            } 
         }
 
         public WelcomeDialog()
         {
             InitializeComponent();
-            this.webView21.NavigationCompleted += WebView21_NavigationCompleted;
+            WebsiteUrl = "https://www.mobiflight.com/en/release-notes.html";
+            this.webView.NavigationCompleted += WebView21_NavigationCompleted;
         }
 
         private async void WebView21_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
-            await webView21.ExecuteScriptAsync($"" +
+            await webView.ExecuteScriptAsync($"" +
                 $"document.getElementById('repository-container-header').remove();" +
                 $"document.getElementsByClassName('js-header-wrapper')[0].remove();" +
                 $"document.getElementsByClassName('footer')[0].remove();");
