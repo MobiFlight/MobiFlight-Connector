@@ -140,7 +140,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (!ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
                 {
                     // TODO: provide error message
-                    Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
+                    Log.Instance.log($"{GetType().Name}.syncFromConfig: Exception on selecting item in Display Type ComboBox {config.DisplayType}", LogSeverity.Debug);
                 }
 
                 switch (config.DisplayType)
@@ -563,7 +563,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             foreach (IConnectedDevice device in module.GetConnectedDevices())
             {
-                Log.Instance.log("displayTypeComboBox_SelectedIndexChanged: Adding connected device: " + device.Type.ToString() + ", " + device.Name, LogSeverity.Debug);
+                Log.Instance.log("InitializeMobiFlightDisplays: Adding connected device: " + device.Type.ToString() + ", " + device.Name, LogSeverity.Debug);
                 switch (device.Type)
                 {
                     case DeviceType.LedModule:
