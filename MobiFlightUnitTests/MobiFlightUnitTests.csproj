@@ -71,6 +71,7 @@
     <Compile Include="Base\ConnectorValueTests.cs" />
     <Compile Include="Base\PreconditionListTests.cs" />
     <Compile Include="Base\PreconditionTests.cs" />
+    <Compile Include="Base\SerialNumberTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModuleTests.cs" />

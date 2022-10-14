@@ -137,7 +137,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     }
                 }
 
-                if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
+                if (!ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
                 {
                     // TODO: provide error message
                     Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
@@ -444,10 +444,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             try
             {
                 bool panelEnabled = true;
-                // get the deviceinfo for the current arcaze
                 ComboBox cb = displayModuleNameComboBox;
                 String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
-
 #if ARCAZE
                 if (arcazeFirmware.ContainsKey(serial))
                 {
@@ -455,12 +453,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 }
                 else
 #endif
-                if (serial.IndexOf("SN") == 0)
+                if (SerialNumber.IsMobiFlightSerial(serial))
                 {
                     panelEnabled = InitializeMobiFlightDisplays(cb, serial);
                 }
-
-                else if (serial.IndexOf(Joystick.SerialPrefix) == 0)
+                else if (SerialNumber.IsJoystickSerial(serial))
                 {
                     panelEnabled = InitializeJoystickDisplays(cb, serial);
                 }
@@ -499,45 +496,48 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void ShowActiveDisplayPanel(object sender, string serial, bool panelEnabled)
         {
-            if ((sender as ComboBox).SelectedValue as string == "Pin" ||
-                (sender as ComboBox).SelectedValue as string == MobiFlightOutput.TYPE)
+            var SelectedItemValue = ((sender as ComboBox).SelectedItem as ListItem)?.Value;
+            if (SelectedItemValue == null) return;
+
+            if (SelectedItemValue == "Pin" ||
+                SelectedItemValue == MobiFlightOutput.TYPE)
             {
                 displayPinPanel.Enabled = panelEnabled;
                 displayPinPanel.Height = displayPanelHeight;
             } 
             
-            else if ((sender as ComboBox).Text == ArcazeBcd4056.TYPE)
+            else if (SelectedItemValue == ArcazeBcd4056.TYPE)
             {
                 displayBcdPanel.Enabled = panelEnabled;
                 displayBcdPanel.Height = displayPanelHeight;
             }
 
-            else if ((sender as ComboBox).Text == ArcazeLedDigit.TYPE)
+            else if (SelectedItemValue == ArcazeLedDigit.TYPE)
             {
                 displayLedDisplayPanel.Enabled = panelEnabled;
                 displayLedDisplayPanel.Height = displayPanelHeight;
             }
 
-            else if ((sender as ComboBox).Text == DeviceType.Servo.ToString("F"))
+            else if (SelectedItemValue == DeviceType.Servo.ToString("F"))
             {
                 servoPanel.Enabled = panelEnabled;
                 servoPanel.Height = displayPanelHeight;
             }
 
-            else if ((sender as ComboBox).Text == DeviceType.Stepper.ToString("F"))
+            else if (SelectedItemValue == DeviceType.Stepper.ToString("F"))
             {
                 stepperPanel.Enabled = panelEnabled;
                 stepperPanel.Height = displayPanelHeight;
             }
 
-            else if ((sender as ComboBox).Text == DeviceType.LcdDisplay.ToString("F"))
+            else if (SelectedItemValue == DeviceType.LcdDisplay.ToString("F"))
             {
                 displayLcdDisplayPanel.Enabled = panelEnabled;
                 displayLcdDisplayPanel.AutoSize = true;
                 displayLcdDisplayPanel.Height = displayPanelHeight;
             }
 
-            else if ((sender as ComboBox).Text == DeviceType.ShiftRegister.ToString("F"))
+            else if (SelectedItemValue == DeviceType.ShiftRegister.ToString("F"))
             {
                 displayShiftRegisterPanel.Enabled = panelEnabled;
                 displayShiftRegisterPanel.Height = displayPanelHeight;
