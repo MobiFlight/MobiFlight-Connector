@@ -172,7 +172,7 @@
     <value>2, 0, 2, 0</value>
   </data>
   <data name="displayPinBrightnessDimLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 26</value>
+    <value>273, 26</value>
   </data>
   <data name="displayPinBrightnessDimLabel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -205,7 +205,7 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinBrightnessMediumLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>248, 45</value>
+    <value>300, 45</value>
   </data>
   <data name="displayPinBrightnessMediumLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -280,7 +280,7 @@
     <value>0, 0</value>
   </data>
   <data name="displayPinBrightnessTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 45</value>
+    <value>329, 45</value>
   </data>
   <data name="displayPinBrightnessTrackBar.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -301,10 +301,10 @@
     <value>Fill</value>
   </data>
   <data name="displayPinBrightnessLabelPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 0</value>
+    <value>106, 0</value>
   </data>
   <data name="displayPinBrightnessLabelPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>277, 71</value>
+    <value>329, 71</value>
   </data>
   <data name="displayPinBrightnessLabelPanel.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -325,10 +325,10 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinBrightnessLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>31, 3</value>
+    <value>28, 3</value>
   </data>
   <data name="displayPinBrightnessLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>60, 25</value>
+    <value>75, 25</value>
   </data>
   <data name="displayPinBrightnessLabel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -358,7 +358,7 @@
     <value>0, 0</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 71</value>
+    <value>106, 71</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -382,7 +382,7 @@
     <value>0, 161</value>
   </data>
   <data name="displayPinBrightnessPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 71</value>
+    <value>435, 71</value>
   </data>
   <data name="displayPinBrightnessPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -403,7 +403,7 @@
     <value>NoControl</value>
   </data>
   <data name="displayPwmCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>98, 2</value>
+    <value>112, 4</value>
   </data>
   <data name="displayPwmCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>167, 22</value>
@@ -430,10 +430,10 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+    <value>6, 8</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>97, 13</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -469,7 +469,7 @@
     <value>0, 32</value>
   </data>
   <data name="pwmPinPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 32</value>
+    <value>435, 32</value>
   </data>
   <data name="pwmPinPanel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -598,10 +598,10 @@
     <value>Fill</value>
   </data>
   <data name="MultiSelectPinSelectContainer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>278, 0</value>
+    <value>288, 0</value>
   </data>
   <data name="MultiSelectPinSelectContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 129</value>
+    <value>147, 129</value>
   </data>
   <data name="MultiSelectPinSelectContainer.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -643,7 +643,7 @@
     <value>MultiPinSelectPanel</value>
   </data>
   <data name="&gt;&gt;MultiPinSelectPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.PinSelectPanel, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.PinSelectPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;MultiPinSelectPanel.Parent" xml:space="preserve">
     <value>PinSelectPanel</value>
@@ -655,7 +655,7 @@
     <value>Left</value>
   </data>
   <data name="PinSelectPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 0</value>
+    <value>106, 0</value>
   </data>
   <data name="PinSelectPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>182, 129</value>
@@ -679,10 +679,10 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 7</value>
+    <value>6, 7</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>97, 13</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -712,7 +712,7 @@
     <value>0, 0</value>
   </data>
   <data name="LabelPinSelectContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 129</value>
+    <value>106, 129</value>
   </data>
   <data name="LabelPinSelectContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -736,7 +736,7 @@
     <value>0, 0</value>
   </data>
   <data name="PinSelectContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 129</value>
+    <value>435, 129</value>
   </data>
   <data name="PinSelectContainer.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -760,7 +760,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 232</value>
+    <value>435, 232</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DisplayPinPanel</value>

@@ -39,7 +39,7 @@ namespace MobiFlight.UI.Panels
                 if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.LedModule.DisplayLedAddress.ToString()))
                 {
                     // TODO: provide error message
-                    Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
+                    Log.Instance.log($"{GetType().Name}.syncFromConfig: Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
                 } else
                 {
                     OnLedAddressChanged?.Invoke(displayLedAddressComboBox, new EventArgs());
@@ -51,14 +51,14 @@ namespace MobiFlight.UI.Panels
                 if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.LedModule.DisplayLedConnector.ToString()))
                 {
                     // TODO: provide error message
-                    Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
+                    Log.Instance.log($"{GetType().Name}.syncFromConfig: Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
                 }
             }
 
             if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.LedModule.DisplayLedModuleSize.ToString()))
             {
                 // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Led Module Size ComboBox", LogSeverity.Debug);
+                Log.Instance.log($"{GetType().Name}.syncFromConfig: Exception on selecting item in Led Module Size ComboBox", LogSeverity.Debug);
             }
 
             displayLedPaddingCheckBox.Checked = config.LedModule.DisplayLedPadding;

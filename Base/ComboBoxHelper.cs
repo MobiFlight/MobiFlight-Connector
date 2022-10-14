@@ -9,7 +9,7 @@ namespace System
     {
         static public bool SetSelectedItem(ComboBox comboBox, string value)
         {
-            Log.Instance.log("Set " + value + " in ComboBox: " + comboBox.Name, LogSeverity.Debug);
+            Log.Instance.log($"Set value: `{value}` in ComboBox: " + comboBox.Name, LogSeverity.Debug);
             if (comboBox.FindStringExact(value) != -1)
             {
                 comboBox.SelectedIndex = comboBox.FindStringExact(value);
@@ -20,7 +20,7 @@ namespace System
 
         static public bool SetSelectedItemByIndex(ComboBox comboBox, int index)
         {
-            Log.Instance.log("Set " + index + " in ComboBox: " + comboBox.Name, LogSeverity.Debug);
+            Log.Instance.log($"Set index: `{index}` in ComboBox: " + comboBox.Name, LogSeverity.Debug);
             if (comboBox.Items.Count > index)
             {
                 comboBox.SelectedIndex = index;
@@ -45,7 +45,7 @@ namespace System
 
         static public bool SetSelectedItemByValue(ComboBox comboBox, string value)
         {
-            Log.Instance.log("Select " + value + " in ComboBox: " + comboBox.Name, LogSeverity.Debug);
+            Log.Instance.log($"Select `{value}` in ComboBox: " + comboBox.Name, LogSeverity.Debug);
             foreach (object item in comboBox.Items)
             {
                 if ((item.ToString()) == value)
