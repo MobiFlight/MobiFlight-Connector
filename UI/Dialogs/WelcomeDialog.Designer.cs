@@ -31,67 +31,71 @@ namespace MobiFlight.UI.Dialogs
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WelcomeDialog));
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.transparentOverlay = new MobiFlight.UI.Dialogs.TransparentOverlay();
-            this.panel1.SuspendLayout();
+            this.okButton = new System.Windows.Forms.Button();
+            this.titleLabel = new System.Windows.Forms.Label();
+            this.panel = new System.Windows.Forms.Panel();
+            this.openReleaseNotesinBrowserLabel = new System.Windows.Forms.Label();
+            this.webView = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webView)).BeginInit();
             this.SuspendLayout();
             // 
-            // webBrowser1
+            // okButton
             // 
-            resources.ApplyResources(this.webBrowser1, "webBrowser1");
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Url = new System.Uri("https://www.mobiflight.com/en/release-notes.html", System.UriKind.Absolute);
+            resources.ApplyResources(this.okButton, "okButton");
+            this.okButton.Name = "okButton";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button1
+            // titleLabel
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            resources.ApplyResources(this.titleLabel, "titleLabel");
+            this.titleLabel.Name = "titleLabel";
             // 
-            // label1
+            // panel
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            this.panel.Controls.Add(this.openReleaseNotesinBrowserLabel);
+            this.panel.Controls.Add(this.okButton);
+            resources.ApplyResources(this.panel, "panel");
+            this.panel.Name = "panel";
             // 
-            // panel1
+            // openReleaseNotesinBrowserLabel
             // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Name = "panel1";
+            resources.ApplyResources(this.openReleaseNotesinBrowserLabel, "openReleaseNotesinBrowserLabel");
+            this.openReleaseNotesinBrowserLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.openReleaseNotesinBrowserLabel.Name = "openReleaseNotesinBrowserLabel";
+            this.openReleaseNotesinBrowserLabel.Click += new System.EventHandler(this.transparentOverlay1_Click);
             // 
-            // transparentOverlay
+            // webView
             // 
-            resources.ApplyResources(this.transparentOverlay, "transparentOverlay");
-            this.transparentOverlay.BackColor = System.Drawing.Color.Transparent;
-            this.transparentOverlay.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.transparentOverlay.Name = "transparentOverlay";
-            this.transparentOverlay.Click += new System.EventHandler(this.transparentOverlay1_Click);
+            this.webView.AllowExternalDrop = true;
+            this.webView.CreationProperties = null;
+            this.webView.DefaultBackgroundColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.webView, "webView");
+            this.webView.Name = "webView";
+            this.webView.ZoomFactor = 1D;
             // 
             // WelcomeDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.transparentOverlay);
-            this.Controls.Add(this.webBrowser1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.webView);
+            this.Controls.Add(this.titleLabel);
+            this.Controls.Add(this.panel);
             this.Name = "WelcomeDialog";
             this.Load += new System.EventHandler(this.WelcomeDialog_Load);
-            this.panel1.ResumeLayout(false);
+            this.panel.ResumeLayout(false);
+            this.panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.webView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel1;
-        private TransparentOverlay transparentOverlay;
+        private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Panel panel;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView;
+        private System.Windows.Forms.Label openReleaseNotesinBrowserLabel;
     }
 }
