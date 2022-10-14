@@ -878,13 +878,22 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_2_2_2.hex">
+    <None Include="firmware\mobiflight_mega_2_2_3.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_2_2_2.hex">
+    <None Include="firmware\mobiflight_micro_2_2_3.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_2_2_2.hex">
+    <None Include="firmware\mobiflight_uno_2_2_3.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\reset.arduino_mega_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\reset.arduino_promicro_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\reset.arduino_uno_1_0_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\msfs2020_simvars.cip">
@@ -1266,6 +1275,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogs\InputConfigWizard.resx">
       <DependentUpon>InputConfigWizard.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.de.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

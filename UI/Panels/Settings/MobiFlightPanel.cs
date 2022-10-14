@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Configuration;
+using System.Web.UI.Design.WebControls;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -220,7 +222,8 @@ namespace MobiFlight.UI.Panels.Settings
             mfSettingsPanel.Controls.Clear();
             if (moduleNode.Tag == null) return;
 
-            bool isMobiFlightBoard = (moduleNode.Tag as MobiFlightModule).HasMfFirmware();
+            MobiFlightModule module = (moduleNode.Tag as MobiFlightModule);
+            bool isMobiFlightBoard = module.HasMfFirmware();
 
             mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
             // this is the module node
@@ -239,6 +242,7 @@ namespace MobiFlight.UI.Panels.Settings
             uploadToolStripMenuItem.Enabled = (moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed");
             openToolStripMenuItem.Enabled = isMobiFlightBoard;
             saveToolStripMenuItem.Enabled = moduleNode.Nodes.Count > 0;
+            resetBoardToolStripMenuItem.Enabled = isMobiFlightBoard;
             regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
             reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
 
@@ -250,19 +254,49 @@ namespace MobiFlight.UI.Panels.Settings
             // if the module is ignored, we don't want
             // to display the firmware upload options, etc.
             updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored";
+            UpdateFirmwareToolStripButton.Enabled = moduleNode.ImageKey != "module-ignored";
+            updateFirmwareToolStripMenuItem.DropDownItems.Clear();
+            updateFirmwareToolStripMenuItem.Click -= this.updateFirmwareToolStripMenuItem_Click;
+
+            if (!isMobiFlightBoard)
+            {
+                // TODO: Show an option to upload the VID PID compatible firmwares
+                var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
+                if (boards.Count > 0)
+                {
+                    
+                    foreach (var board in boards)
+                    {
+                        var item = new ToolStripMenuItem();
+                        item.Text = board.Info.FriendlyName;
+                        item.Click += (s, evt) =>
+                        {
+                            module.Board = board;
+                            List<MobiFlightModule> modules = new List<MobiFlightModule>();
+                            modules.Add(module);
+                            UpdateModules(modules);
+                        };
+
+                        updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
+                    }
+                }
+            } else
+            {
+                updateFirmwareToolStripMenuItem.Click += this.updateFirmwareToolStripMenuItem_Click;
+            }
 
             syncPanelWithSelectedDevice(e.Node);
         }
 
-        private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo module, TreeNode moduleNode)
+        private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo moduleInfo, TreeNode moduleNode)
         {
-            moduleNode.Text = module.Name;
-            if (module.HasMfFirmware())
+            moduleNode.Text = moduleInfo.Name;
+            if (moduleInfo.HasMfFirmware())
             {
                 moduleNode.SelectedImageKey = moduleNode.ImageKey = "module";
-                moduleNode.Tag = mobiflightCache.GetModule(module);
+                moduleNode.Tag = mobiflightCache.GetModule(moduleInfo);
                 moduleNode.Nodes.Clear();
-                moduleMultiplexerDrivers.Remove(module.Name);
+                moduleMultiplexerDrivers.Remove(moduleInfo.Name);
 
                 if (null == (moduleNode.Tag as MobiFlightModule).Config) return moduleNode;
 
@@ -275,7 +309,7 @@ namespace MobiFlight.UI.Panels.Settings
                     // MultiplexerDrivers should not appear in the tree, therefore they are stored in a dictionary 
                     // (by module name) for easy retrieval
                     if(device.Type == DeviceType.MultiplexerDriver) {
-                        moduleMultiplexerDrivers.Add(module.Name, device as MobiFlight.Config.MultiplexerDriver);
+                        moduleMultiplexerDrivers.Add(moduleInfo.Name, device as MobiFlight.Config.MultiplexerDriver);
                     } else {
                         TreeNode deviceNode = new TreeNode(device.Name);
                         deviceNode.Tag = device;
@@ -286,7 +320,9 @@ namespace MobiFlight.UI.Panels.Settings
             }
             else
             {
-                moduleNode.Tag = new MobiFlightModule(module.Port, module.Board);
+                moduleNode.Tag = new MobiFlightModule(moduleInfo);
+                moduleNode.SelectedImageKey = moduleNode.ImageKey = "module-arduino";
+                moduleNode.Nodes.Clear();
             }
 
             return moduleNode;
@@ -938,7 +974,7 @@ namespace MobiFlight.UI.Panels.Settings
             TreeNode moduleNode = getModuleNode();
             if (moduleNode == null) return null;
 
-            MobiFlightModule module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).Port, (moduleNode.Tag as MobiFlightModule).Board);
+            MobiFlightModule module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).ToMobiFlightModuleInfo());
             
             // Generate config
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
@@ -1030,12 +1066,12 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void MobiFlightPanel_Load(object sender, EventArgs e)
         {
+            var ambiguousBoardsFound = new HashSet<String>();
+
             // Auto Update Functionality
             if (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0)
             {
                 String arduinoIdePath = FirmwareUpdatePath;
-                String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
-
                 if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(arduinoIdePath))
                 {
                     MessageBox.Show(
@@ -1043,7 +1079,6 @@ namespace MobiFlight.UI.Panels.Settings
                         i18n._tr("Hint"), MessageBoxButtons.OK);
                     return;
                 }
-
             }
 
             List<MobiFlightModule> modules = new List<MobiFlightModule>();
@@ -1051,6 +1086,14 @@ namespace MobiFlight.UI.Panels.Settings
             foreach (MobiFlightModuleInfo moduleInfo in modulesForFlashing)
             {
                 MobiFlightModule module = new MobiFlightModule(moduleInfo.Port, moduleInfo.Board);
+                var boards = BoardDefinitions.GetBoardsByHardwareId(moduleInfo.HardwareId);
+                if (boards.Count>1)
+                {
+                    var FriendlyNames = new List<String>();
+                    foreach(var b in boards) FriendlyNames.Add(b.Info.FriendlyName);
+                    ambiguousBoardsFound.Add(module.Port + ": " + String.Join(" or ", FriendlyNames));
+                    continue;
+                } 
                 modules.Add(module);
             }
 
@@ -1059,6 +1102,22 @@ namespace MobiFlight.UI.Panels.Settings
                 modules.Add(module);
             }
 
+            if (ambiguousBoardsFound.Count>0)
+            {
+                var ambiguousBoardsMessage = String.Format(
+                    i18n._tr("uiMessageFirmwareUploadAmbiguousBoards"),
+                    String.Join(" ", ambiguousBoardsFound)
+                );
+
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.HasCancelButton = false;
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.DefaultDialogResult = DialogResult.Cancel;
+                tmd.Message = ambiguousBoardsMessage;
+                tmd.Text = i18n._tr("Hint");
+
+                tmd.ShowDialog();
+            }
             UpdateModules(modules);
 
             if (PreselectedMobiFlightBoard != null)
@@ -1078,27 +1137,52 @@ namespace MobiFlight.UI.Panels.Settings
             PreselectedMobiFlightBoard = null;
         }
 
-        private void UpdateModules(List<MobiFlightModule> modules)
+        private void UpdateOrResetModules(List<MobiFlightModule> modules, bool IsUpdate)
         {
             if (modules.Count == 0) return;
+            
+            FirmwareUpdateProcessForm.ResetMode = !IsUpdate;            
             FirmwareUpdateProcessForm.ClearModules();
             modules.ForEach(
                 module => FirmwareUpdateProcessForm.AddModule(module)
             );
-            
-            FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate -= FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
+
+            FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate    -= FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate     -= FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
+            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate     -= FirmwareUpdateProcessForm_OnAfterFirmwareReset;
+            FirmwareUpdateProcessForm.OnFinished                -= FirmwareUpdateProcessForm_OnFinished;
+            FirmwareUpdateProcessForm.OnFinished                -= FirmwareResetProcessForm_OnFinished;
+
+
             FirmwareUpdateProcessForm.OnBeforeFirmwareUpdate += FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate;
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate -= FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
-            FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
-            FirmwareUpdateProcessForm.OnFinished -= FirmwareUpdateProcessForm_OnFinished;
-            FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
+
+            if(IsUpdate)
+            {
+                FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareUpdate;
+                FirmwareUpdateProcessForm.OnFinished += FirmwareUpdateProcessForm_OnFinished;
+            }
+            else
+            {
+                FirmwareUpdateProcessForm.OnAfterFirmwareUpdate += FirmwareUpdateProcessForm_OnAfterFirmwareReset;
+                FirmwareUpdateProcessForm.OnFinished += FirmwareResetProcessForm_OnFinished;
+            }
+
             FirmwareUpdateProcessForm.ShowDialog();
         }
 
-        private void FirmwareUpdateProcessForm_OnFinished(List<MobiFlightModule> modules)
+        private void UpdateModules(List<MobiFlightModule> modules)
+        {
+            UpdateOrResetModules(modules, true);
+        }
+
+        private void ResetModules(List<MobiFlightModule> modules)
+        {
+            UpdateOrResetModules(modules, false);
+        }
+
+        private void OnFirmwareUpdateOrResetFinished(List<MobiFlightModule> modules, bool IsUpdate)
         {
             String Message = i18n._tr("uiMessageFirmwareUploadSuccessful");
-
 
             TimeoutMessageDialog tmd = new TimeoutMessageDialog();
             tmd.Width = FirmwareUpdateProcessForm.Width;
@@ -1106,6 +1190,12 @@ namespace MobiFlight.UI.Panels.Settings
             tmd.HasCancelButton = false;
             tmd.StartPosition = FormStartPosition.CenterParent;
             tmd.Text = i18n._tr("uiMessageFirmwareUploadTitle");
+
+            if (!IsUpdate)
+            {
+                Message = i18n._tr("uiMessageFirmwareResetSuccessful");
+                tmd.Text = i18n._tr("uiMessageFirmwareResetTitle");
+            }
 
             if (modules.Count > 0)
             {
@@ -1118,11 +1208,29 @@ namespace MobiFlight.UI.Panels.Settings
                 Message = string.Format(
                                     i18n._tr("uiMessageFirmwareUploadError"),
                                     string.Join("\n", ModuleNames)
-                                    ); ;
+                                    );
+                if (!IsUpdate)
+                {
+                    Message = string.Format(
+                                    i18n._tr("uiMessageFirmwareResetError"),
+                                    string.Join("\n", ModuleNames)
+                                    );
+                }
+                    
             }
 
-            tmd.Message = Message;           
+            tmd.Message = Message;
             tmd.ShowDialog();
+        }
+
+        private void FirmwareUpdateProcessForm_OnFinished(List<MobiFlightModule> modules)
+        {
+            OnFirmwareUpdateOrResetFinished(modules, true);
+        }
+
+        private void FirmwareResetProcessForm_OnFinished(List<MobiFlightModule> modules)
+        {
+            OnFirmwareUpdateOrResetFinished(modules, false);
         }
 
         private void FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate(object sender, EventArgs e)
@@ -1130,20 +1238,27 @@ namespace MobiFlight.UI.Panels.Settings
             OnBeforeFirmwareUpdate?.Invoke(sender, e);
         }
 
-        private void FirmwareUpdateProcessForm_OnAfterFirmwareUpdate(object sender, EventArgs e)
+        protected void OnAfterFirmwareUpdateOrReset(MobiFlightModule module, bool IsUpdate)
         {
-            // update presentation in treeView
-            MobiFlightModule module = (MobiFlightModule)sender;
+            MobiFlightModuleInfo newInfo;
+            if (IsUpdate) 
+            {
+                module.Connect();
+                newInfo = module.GetInfo() as MobiFlightModuleInfo;
+            }
+            else
+            {
+                module.Version = null;
+                module.Name = module.Board.Info.FriendlyName;
+                newInfo = module.ToMobiFlightModuleInfo();
+            }
 
             // If the update fails for some reason, e.g. the board definition file was missing the settings for the
             // update, then module will be null.
             if (module == null)
             {
                 return;
-            }           
-
-            module.Connect();
-            MobiFlightModuleInfo newInfo = module.GetInfo() as MobiFlightModuleInfo;
+            }
 
             // Issue 611
             // If the board definition file is correct but the firmware failed to flash and the result is
@@ -1169,6 +1284,18 @@ namespace MobiFlight.UI.Panels.Settings
                 mfModulesTreeView.SelectedNode = null;
                 mfModulesTreeView.SelectedNode = moduleNode;
             }
+        }
+
+        private void FirmwareUpdateProcessForm_OnAfterFirmwareUpdate(object sender, EventArgs e)
+        {
+            MobiFlightModule module = (MobiFlightModule)sender;
+            OnAfterFirmwareUpdateOrReset(module, true);
+        }
+
+        private void FirmwareUpdateProcessForm_OnAfterFirmwareReset(object sender, EventArgs e)
+        {
+            MobiFlightModule module = (MobiFlightModule)sender;
+            OnAfterFirmwareUpdateOrReset(module, false);
         }
 
         private TreeNode findNodeByPort(string port)
@@ -1228,7 +1355,7 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void ShowRestartHint()
         {
-            String msg = i18n._tr("This change will require a restart of MobiFlight to become effective.");
+            String msg = i18n._tr("uiMessageRestartRequired");
             TimeoutMessageDialog.Show(msg, i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
@@ -1251,5 +1378,16 @@ namespace MobiFlight.UI.Panels.Settings
 
             ShowRestartHint();
         }
+
+        private void resetBoardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
+            List<MobiFlightModule> modules = new List<MobiFlightModule>();
+            modules.Add(module);
+            ResetModules(modules);
+        }
+
+        
     }
 }

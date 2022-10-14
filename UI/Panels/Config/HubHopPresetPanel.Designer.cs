@@ -62,7 +62,7 @@
             this.SimVarNameTextBox = new System.Windows.Forms.TextBox();
             this.ExpandButton = new System.Windows.Forms.Button();
             this.CodeActionPanel = new System.Windows.Forms.Panel();
-            this.TypeComboBox = new System.Windows.Forms.ComboBox();
+            this.CodeTypeComboBox = new System.Windows.Forms.ComboBox();
             this.PresetPanel = new System.Windows.Forms.Panel();
             this.MatchLabel = new System.Windows.Forms.Label();
             this.PresetComboBox = new System.Windows.Forms.ComboBox();
@@ -466,24 +466,24 @@
             // 
             // CodeActionPanel
             // 
-            this.CodeActionPanel.Controls.Add(this.TypeComboBox);
+            this.CodeActionPanel.Controls.Add(this.CodeTypeComboBox);
             this.CodeActionPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.CodeActionPanel.Location = new System.Drawing.Point(0, 0);
             this.CodeActionPanel.Name = "CodeActionPanel";
             this.CodeActionPanel.Size = new System.Drawing.Size(600, 27);
             this.CodeActionPanel.TabIndex = 10;
             // 
-            // TypeComboBox
+            // CodeTypeComboBox
             // 
-            this.TypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TypeComboBox.FormattingEnabled = true;
-            this.TypeComboBox.Items.AddRange(new object[] {
+            this.CodeTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CodeTypeComboBox.FormattingEnabled = true;
+            this.CodeTypeComboBox.Items.AddRange(new object[] {
             "DataRef",
             "Command"});
-            this.TypeComboBox.Location = new System.Drawing.Point(75, 3);
-            this.TypeComboBox.Name = "TypeComboBox";
-            this.TypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.TypeComboBox.TabIndex = 9;
+            this.CodeTypeComboBox.Location = new System.Drawing.Point(75, 3);
+            this.CodeTypeComboBox.Name = "CodeTypeComboBox";
+            this.CodeTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.CodeTypeComboBox.TabIndex = 9;
             // 
             // PresetPanel
             // 
@@ -630,7 +630,7 @@
         private System.Windows.Forms.Panel SystemFilterPanel;
         private System.Windows.Forms.Panel TextFilterPanel;
         private System.Windows.Forms.Panel Msfs2020Panel;
-        public System.Windows.Forms.ComboBox TypeComboBox;
+        public System.Windows.Forms.ComboBox CodeTypeComboBox;
         private System.Windows.Forms.Panel PresetCodePanel;
         private System.Windows.Forms.TextBox SimVarNameTextBox;
         private System.Windows.Forms.Button ExpandButton;

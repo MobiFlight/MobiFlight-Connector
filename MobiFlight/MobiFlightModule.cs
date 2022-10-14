@@ -243,6 +243,16 @@ namespace MobiFlight
             Board = board;
         }
 
+        public MobiFlightModule(MobiFlightModuleInfo moduleInfo)
+        {
+            Name = "Default";
+            Version = null; // this is simply unknown, in case of an unflashed Arduino
+            Serial = null; // this is simply unknown, in case of an unflashed Arduino
+            _comPort = moduleInfo.Port;
+            Board = moduleInfo.Board;
+            HardwareId = moduleInfo.HardwareId;
+        }
+
         public void Connect()
         {
             if (this.Connected)
@@ -1001,6 +1011,7 @@ namespace MobiFlight
                 Type = Type,
                 Port = Port,
                 Version = Version,
+                HardwareId = HardwareId,
                 Board = Board
             };
 

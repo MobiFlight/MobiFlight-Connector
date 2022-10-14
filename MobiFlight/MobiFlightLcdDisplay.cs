@@ -84,30 +84,38 @@ namespace MobiFlight
         public string Apply(LcdDisplay lcdConfig, string value, List<ConfigRefValue> replacements)
         {
             String result = "";
-            replacements.Add(new ConfigRefValue
+            replacements.Insert(0,new ConfigRefValue
             {
                 ConfigRef = new ConfigRef { Placeholder = "$", Ref = "" },
                 Value = value
-            });                                              
+            });
 
             for (int line = 0; line != Lines; line++)
             {
                 if (line < lcdConfig.Lines.Count)
                 {
-                    String cLine = lcdConfig.Lines[line];
+                    string cLine = lcdConfig.Lines[line];
+                    string finalLine = lcdConfig.Lines[line].Clone() as string;
+                    string tmpLine;
+
                     foreach (ConfigRefValue rep in replacements)
                     {
-                        cLine = _ApplyReplacement(cLine, rep.ConfigRef.Placeholder[0], rep.Value);
+                        tmpLine = _ApplyReplacement(cLine, rep.ConfigRef.Placeholder[0], rep.Value);
+                        for (var i = 0; i < tmpLine.Length; i++)
+                        {
+                            if (tmpLine[i] == cLine[i]) continue;
+
+                            finalLine = finalLine.Remove(i, 1).Insert(i, tmpLine[i].ToString());
+                        }
                     }
 
-                    if (cLine.Length > Cols) { cLine = cLine.Substring(0, Cols); }
-
-                    result += cLine + new string(' ', Cols - cLine.Length);
-                } else
+                    result += finalLine + new string(' ', Cols - finalLine.Length);
+                }
+                else
                 {
                     result += new string(' ', Cols);
                 }
-                
+
             }
             return result;
         }

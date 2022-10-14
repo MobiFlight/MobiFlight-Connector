@@ -5,6 +5,7 @@
     "BaudRate": "115200",
     "Programmer": "wiring",
     "FirmwareBaseName": "mobiflight_mega",
+    "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "Timeout": 15000
   },
   "Connection": {
@@ -13,7 +14,7 @@
     "ForceResetOnFirmwareUpdate": false,
     "DelayAfterFirmwareUpdate": 0,
     "DtrEnable": true,
-    "MessageSize": 96,
+    "MessageSize": 90,
     "EEPROMSize": 1496
   },
   "HardwareIds": [
@@ -35,7 +36,7 @@
   "Info": {
     "CanInstallFirmware": true,
     "DelayAfterFirmwareUpdate": 0,
-    "LatestFirmwareVersion": "2.2.2",
+    "LatestFirmwareVersion": "2.2.3",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega"
   },
@@ -50,7 +51,7 @@
     "MaxServos": 10,
     "MaxShifters": 4,
     "MaxSteppers": 10,
-    "MaxInputMultiplexer": 2
+    "MaxInputMultiplexer": 4
   },
   "Pins": [
     {
