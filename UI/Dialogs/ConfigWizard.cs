@@ -248,7 +248,7 @@ namespace MobiFlight.UI.Dialogs
             if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.Comparison.Operand))
             {
                 // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Comparison ComboBox", LogSeverity.Debug);
+                Log.Instance.log($"{GetType().Name}._syncComparisonTabFromConfig: Exception on selecting item in Comparison ComboBox", LogSeverity.Debug);
             }
             comparisonIfValueTextBox.Text = config.Comparison.IfValue;
             comparisonElseValueTextBox.Text = config.Comparison.ElseValue;

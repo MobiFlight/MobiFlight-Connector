@@ -248,7 +248,7 @@ namespace MobiFlight.UI.Dialogs
             if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
             {
                 // TODO: provide error message
-                Log.Instance.log("_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
+                Log.Instance.log($"{GetType().Name}:_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
             }
 
             preconditionPanel.syncFromConfig(config);

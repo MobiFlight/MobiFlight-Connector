@@ -242,13 +242,13 @@ namespace MobiFlight.UI.Panels.Config
             catch (Exception exc)
             {
                 // TODO: provide error message
-                Log.Instance.log("FsuipcConfigPanel::syncFromConfig : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
+                Log.Instance.log($"{GetType().Name}.syncFromConfig : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
             }
 
             if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPC.Size.ToString()))
             {
                 // TODO: provide error message
-                Log.Instance.log("FsuipcConfigPanel::syncFromConfig : Exception on selecting item in ComboBox", LogSeverity.Debug);
+                Log.Instance.log($"{GetType().Name}.syncFromConfig : Exception on selecting item in ComboBox", LogSeverity.Debug);
             }
 
             // mask
