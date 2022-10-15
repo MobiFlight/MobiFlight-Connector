@@ -419,7 +419,6 @@ namespace MobiFlight
 #if ARCAZE
             arcazeCache.clearGetValues();
 #endif
-
             // iterate over the config row by row
             foreach (DataGridViewRow row in dataGridViewConfig.Rows)
             {
@@ -533,7 +532,6 @@ namespace MobiFlight
                     throw resultExc;
                 }
             }
-
             // this update will trigger potential writes to the offsets
             // that came from the inputs and are waiting to be written
             // fsuipcCache.Write();
@@ -1454,6 +1452,7 @@ namespace MobiFlight
 
         private void UpdateInputPreconditions()
         {
+            inputsDataGridView.SuspendLayout();
             foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
             {
                 try
@@ -1488,6 +1487,7 @@ namespace MobiFlight
                     continue;
                 }
             }
+            inputsDataGridView.ResumeLayout();
         }
 
         private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
