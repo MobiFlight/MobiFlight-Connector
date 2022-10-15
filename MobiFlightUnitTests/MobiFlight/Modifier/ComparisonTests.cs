@@ -116,12 +116,37 @@ namespace MobiFlight.Modifier.Tests
             value.type = FSUIPCOffsetType.Integer;
             value.Float64 = 0;
 
-            Assert.AreEqual(1, c.Apply(value, new List<ConfigRefValue>()).Float64);
+           /* Assert.AreEqual(1, c.Apply(value, new List<ConfigRefValue>()).Float64);
             Assert.AreNotEqual(2, c.Apply(value, new List<ConfigRefValue>()).Float64);
 
             value.Float64 = 1;
             Assert.AreEqual(2, c.Apply(value, new List<ConfigRefValue>()).Float64);
-            Assert.AreNotEqual(1, c.Apply(value, new List<ConfigRefValue>()).Float64);
+            Assert.AreNotEqual(1, c.Apply(value, new List<ConfigRefValue>()).Float64);*/
+
+
+            c.Active = true;
+            c.Operand = "=";
+            c.Value = "0";
+            c.IfValue = "0000";
+            c.ElseValue = "1";
+
+            value.type = FSUIPCOffsetType.Integer;
+            value.Float64 = 0;
+
+            Assert.AreEqual(FSUIPCOffsetType.Float, c.Apply(value, new List<ConfigRefValue>()).type);
+            Assert.AreEqual("0", c.Apply(value, new List<ConfigRefValue>()).Float64.ToString());
+
+            c.Active = true;
+            c.Operand = "=";
+            c.Value = "0";
+            c.IfValue = "'0000'";
+            c.ElseValue = "1";
+
+            value.type = FSUIPCOffsetType.Integer;
+            value.Float64 = 0;
+
+            Assert.AreEqual(FSUIPCOffsetType.String, c.Apply(value, new List<ConfigRefValue>()).type);
+            Assert.AreEqual("0000", c.Apply(value, new List<ConfigRefValue>()).String);
         }
     }
 }
