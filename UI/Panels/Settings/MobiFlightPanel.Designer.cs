@@ -65,8 +65,8 @@
             this.mobiflightSettingsToolStrip = new System.Windows.Forms.ToolStrip();
             this.uploadToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addDeviceToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.addOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +91,7 @@
             this.FwAutoInstallCheckBox = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.CompatibleBoardScanToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.UpdateFirmwareToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.UpdateFirmwareToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.mfConfiguredModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.mobiflightSettingsToolStrip.SuspendLayout();
@@ -349,19 +349,19 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
-            // openToolStripButton
-            // 
-            this.openToolStripButton.Image = global::MobiFlight.Properties.Resources.folder;
-            resources.ApplyResources(this.openToolStripButton, "openToolStripButton");
-            this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
-            // 
             // saveToolStripButton
             // 
             this.saveToolStripButton.Image = global::MobiFlight.Properties.Resources.disk_blue;
             resources.ApplyResources(this.saveToolStripButton, "saveToolStripButton");
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
+            // 
+            // openToolStripButton
+            // 
+            this.openToolStripButton.Image = global::MobiFlight.Properties.Resources.folder;
+            resources.ApplyResources(this.openToolStripButton, "openToolStripButton");
+            this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
             // 
             // toolStripSeparator2
             // 
@@ -603,6 +603,6 @@
         private System.Windows.Forms.ToolStripMenuItem ignoreCOMPortToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dontIgnoreCOMPortToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetBoardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton UpdateFirmwareToolStripButton;
+        private System.Windows.Forms.ToolStripDropDownButton UpdateFirmwareToolStripButton;
     }
 }

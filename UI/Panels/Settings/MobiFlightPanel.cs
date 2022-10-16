@@ -225,23 +225,27 @@ namespace MobiFlight.UI.Panels.Settings
             MobiFlightModule module = (moduleNode.Tag as MobiFlightModule);
             bool isMobiFlightBoard = module.HasMfFirmware();
 
-            mobiflightSettingsToolStrip.Enabled = isMobiFlightBoard;
+            mobiflightSettingsToolStrip.Enabled = moduleNode.ImageKey != "module-ignored";
+            
             // this is the module node
             // set the add device icon enabled
             addDeviceToolStripDropDownButton.Enabled = isMobiFlightBoard;
             removeDeviceToolStripButton.Enabled = isMobiFlightBoard & (e.Node.Level > 0);
-            uploadToolStripButton.Enabled = (moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed");
-            saveToolStripButton.Enabled = moduleNode.Nodes.Count > 0;
+            uploadToolStripButton.Enabled = isMobiFlightBoard && ((moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed"));
+            openToolStripButton.Enabled = isMobiFlightBoard;
+            saveToolStripButton.Enabled = isMobiFlightBoard && moduleNode.Nodes.Count > 0;
 
             // Toggle visibility of items in context menu
             // depending on whether it is a MobiFlight Board or not
             // only upload of firmware is allowed for all boards
             // this is by default true
-            addToolStripMenuItem.Enabled = isMobiFlightBoard;
-            removeToolStripMenuItem.Enabled = isMobiFlightBoard & (e.Node.Level > 0);
-            uploadToolStripMenuItem.Enabled = (moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed");
-            openToolStripMenuItem.Enabled = isMobiFlightBoard;
-            saveToolStripMenuItem.Enabled = moduleNode.Nodes.Count > 0;
+            addToolStripMenuItem.Enabled = addDeviceToolStripDropDownButton.Enabled;
+            removeToolStripMenuItem.Enabled = removeDeviceToolStripButton.Enabled;
+            uploadToolStripMenuItem.Enabled = uploadToolStripButton.Enabled;
+            openToolStripMenuItem.Enabled = openToolStripButton.Enabled;
+            saveToolStripMenuItem.Enabled = saveToolStripButton.Enabled;
+
+            // context menu only options
             resetBoardToolStripMenuItem.Enabled = isMobiFlightBoard;
             regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
             reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
@@ -255,8 +259,13 @@ namespace MobiFlight.UI.Panels.Settings
             // to display the firmware upload options, etc.
             updateFirmwareToolStripMenuItem.Enabled = moduleNode.ImageKey != "module-ignored";
             UpdateFirmwareToolStripButton.Enabled = moduleNode.ImageKey != "module-ignored";
+
+            // Reset the update firmware menu items
             updateFirmwareToolStripMenuItem.DropDownItems.Clear();
+            UpdateFirmwareToolStripButton.DropDownItems.Clear();
+            UpdateFirmwareToolStripButton.ShowDropDownArrow = false;
             updateFirmwareToolStripMenuItem.Click -= this.updateFirmwareToolStripMenuItem_Click;
+            UpdateFirmwareToolStripButton.Click -= this.updateFirmwareToolStripMenuItem_Click;
 
             if (!isMobiFlightBoard)
             {
@@ -278,11 +287,14 @@ namespace MobiFlight.UI.Panels.Settings
                         };
 
                         updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
+                        UpdateFirmwareToolStripButton.DropDownItems.Add(item);
                     }
+                    UpdateFirmwareToolStripButton.ShowDropDownArrow = true;
                 }
             } else
             {
                 updateFirmwareToolStripMenuItem.Click += this.updateFirmwareToolStripMenuItem_Click;
+                UpdateFirmwareToolStripButton.Click += this.updateFirmwareToolStripMenuItem_Click;
             }
 
             syncPanelWithSelectedDevice(e.Node);
@@ -338,9 +350,6 @@ namespace MobiFlight.UI.Panels.Settings
             try
             {
                 Control panel = null;
-                removeDeviceToolStripButton.Enabled = selectedNode.Level > 0;
-                uploadToolStripButton.Enabled = true;
-                saveToolStripButton.Enabled = true;
                 mfSettingsPanel.Controls.Clear();
 
                 if (selectedNode.Level == 0)
