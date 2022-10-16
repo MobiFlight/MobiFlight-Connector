@@ -932,6 +932,8 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (uploadResult)
             {
+                moduleNode.ImageKey = "";
+                moduleNode.SelectedImageKey = "";
                 TimeoutMessageDialog tmd = new TimeoutMessageDialog();
                 tmd.StartPosition = FormStartPosition.CenterParent;
                 tmd.DefaultDialogResult = DialogResult.Cancel;
@@ -946,8 +948,6 @@ namespace MobiFlight.UI.Panels.Settings
                                 i18n._tr("uiMessageUploadConfigurationHint"),
                                 MessageBoxButtons.OK);
             }
-            moduleNode.ImageKey = "";
-            moduleNode.SelectedImageKey = "";
         }
 
         protected bool _IsModified()
