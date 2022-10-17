@@ -150,6 +150,12 @@ namespace MobiFlight.Modifier
             try
             {
                 result.Float64 = Double.Parse(comparisonResult);
+                result.type = FSUIPCOffsetType.Float;
+                if (result.Float64.ToString().Length!=comparisonResult.Length)
+                {
+                    result.String = comparisonResult;
+                    result.type = FSUIPCOffsetType.String;
+                }
             } catch(FormatException e)
             {
                 result.type = FSUIPCOffsetType.String;

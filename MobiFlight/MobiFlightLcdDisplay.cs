@@ -94,8 +94,8 @@ namespace MobiFlight
             {
                 if (line < lcdConfig.Lines.Count)
                 {
-                    string cLine = lcdConfig.Lines[line];
-                    string finalLine = lcdConfig.Lines[line].Clone() as string;
+                    string cLine = lcdConfig.Lines[line].Truncate(Cols);
+                    string finalLine = cLine.Clone() as string;
                     string tmpLine;
 
                     foreach (ConfigRefValue rep in replacements)

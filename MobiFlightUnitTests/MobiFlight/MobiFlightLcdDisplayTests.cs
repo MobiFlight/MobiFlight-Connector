@@ -100,6 +100,19 @@ namespace MobiFlight.Tests
             result = o.Apply(lcdConfig, value, replacements);
 
             Assert.AreEqual("abcd 2345           ", result, "Apply was not correct");
+
+
+            // make sure too long lines don't break the logic
+            o.Lines = 2;
+            o.Cols = 20;
+            lcdConfig.Lines.Clear();
+            lcdConfig.Lines.Add("123456789012345678901");
+            lcdConfig.Lines.Add("bbbbb                ");
+            replacements.Add(new ConfigRefValue { ConfigRef = new ConfigRef { Placeholder = "a" }, Value = "abcd" });
+            replacements.Add(new ConfigRefValue { ConfigRef = new ConfigRef { Placeholder = "b" }, Value = "12345" });
+            result = o.Apply(lcdConfig, value, replacements);
+
+            Assert.AreEqual("1234567890123456789012345               ", result, "Apply was not correct");
         }
     }
 }
