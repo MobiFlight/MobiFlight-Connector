@@ -65,6 +65,20 @@ namespace MobiFlight
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModule);
 
+            var strValueParts = value.Split('.');
+            value = String.Join("", strValueParts);
+
+            if (strValueParts.Length > 1)
+            {
+                var len = 0;
+                for(var i=0; i<strValueParts.Length-1; i++)
+                {
+                    len += strValueParts[i].Length;
+                    points |= (byte)(1 << (value.Length-len));
+                }
+                    
+            }
+
             // clamp and reverse the string
             if (value.Length > 8) value = value.Substring(0, 8);
 
@@ -155,6 +169,9 @@ namespace MobiFlight
                 digit--;
                 if (((1 << digit) & mask) == 0)
                     continue;
+
+                if (pos == value.Length)
+                    break;
 
                 if (Displays[digit] != value[pos])
                 {
