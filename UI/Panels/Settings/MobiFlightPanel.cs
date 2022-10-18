@@ -276,18 +276,11 @@ namespace MobiFlight.UI.Panels.Settings
                     
                     foreach (var board in boards)
                     {
-                        var item = new ToolStripMenuItem();
-                        item.Text = board.Info.FriendlyName;
-                        item.Click += (s, evt) =>
-                        {
-                            module.Board = board;
-                            List<MobiFlightModule> modules = new List<MobiFlightModule>();
-                            modules.Add(module);
-                            UpdateModules(modules);
-                        };
+                        ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
+                        ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
 
                         updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
-                        UpdateFirmwareToolStripButton.DropDownItems.Add(item);
+                        UpdateFirmwareToolStripButton.DropDownItems.Add(item2);
                     }
                     UpdateFirmwareToolStripButton.ShowDropDownArrow = true;
                 }
@@ -298,6 +291,20 @@ namespace MobiFlight.UI.Panels.Settings
             }
 
             syncPanelWithSelectedDevice(e.Node);
+        }
+
+        private ToolStripMenuItem CreateFirmwareUploadMenuItem(MobiFlightModule module, Board board)
+        {
+            var item = new ToolStripMenuItem();
+            item.Text = board.Info.FriendlyName;
+            item.Click += (s, evt) =>
+            {
+                module.Board = board;
+                List<MobiFlightModule> modules = new List<MobiFlightModule>();
+                modules.Add(module);
+                UpdateModules(modules);
+            };
+            return item;
         }
 
         private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo moduleInfo, TreeNode moduleNode)
