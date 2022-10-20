@@ -115,6 +115,7 @@ namespace MobiFlight.UI
             startupPanel.Visible = true;
             menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
+            startupPanel.Dock = DockStyle.Fill;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -1761,6 +1762,19 @@ namespace MobiFlight.UI
         private void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
+        }
+
+        private void inputsTabControl_TabIndexChanged(object sender, EventArgs e)
+        {
+            if (inputsTabControl.SelectedIndex == 0)
+            {
+                OutputTabPage.ImageKey = "mf-output.png";
+                InputTabPage.ImageKey = "mf-input-inactive.png";
+            } else
+            {
+                OutputTabPage.ImageKey = "mf-output-inactive.png";
+                InputTabPage.ImageKey = "mf-input.png";
+            }
         }
     }
 
