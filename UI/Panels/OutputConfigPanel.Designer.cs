@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputConfigPanel));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputConfigPanel));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -41,7 +41,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.MappingConfigGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridViewConfig = new System.Windows.Forms.DataGridView();
             this.active = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.guid = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,19 +77,11 @@
             this.guidDataColumn = new System.Data.DataColumn();
             this.outputDataColumn = new System.Data.DataColumn();
             this.outputTypeDataColumn = new System.Data.DataColumn();
-            this.MappingConfigGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).BeginInit();
             this.dataGridViewContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.configDataTable)).BeginInit();
             this.SuspendLayout();
-            // 
-            // MappingConfigGroupBox
-            // 
-            resources.ApplyResources(this.MappingConfigGroupBox, "MappingConfigGroupBox");
-            this.MappingConfigGroupBox.Controls.Add(this.dataGridViewConfig);
-            this.MappingConfigGroupBox.Name = "MappingConfigGroupBox";
-            this.MappingConfigGroupBox.TabStop = false;
             // 
             // dataGridViewConfig
             // 
@@ -436,22 +427,18 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.MappingConfigGroupBox);
+            this.Controls.Add(this.dataGridViewConfig);
             this.DoubleBuffered = true;
             this.Name = "OutputConfigPanel";
-            this.MappingConfigGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).EndInit();
             this.dataGridViewContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.configDataTable)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox MappingConfigGroupBox;
         public System.Windows.Forms.DataGridView dataGridViewConfig;
         private System.Windows.Forms.ContextMenuStrip dataGridViewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem duplicateRowToolStripMenuItem;
