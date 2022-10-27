@@ -1458,7 +1458,7 @@ namespace MobiFlight
                 try
                 {
                     if (gridViewRow.DataBoundItem == null) continue;
-                    if (!(bool)gridViewRow.Cells["active"].Value) continue;
+                    if (!(bool)gridViewRow.Cells["inputActive"].Value) continue;
 
                     DataRowView rowView = gridViewRow.DataBoundItem as DataRowView;
                     InputConfigItem cfg = rowView.Row["settings"] as InputConfigItem;
