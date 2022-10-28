@@ -62,7 +62,6 @@ namespace MobiFlight.InputConfig
         {
             if (onChange != null)
             {
-                Log.Instance.log("Executing Change: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onChange.execute(cacheCollection, args, configRefs);
             }
         }

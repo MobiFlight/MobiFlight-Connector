@@ -77,15 +77,12 @@ namespace MobiFlight.InputConfig
         {
             if (args.Value == 0 && onPress != null)
             {
-                Log.Instance.log("Executing OnPress: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onPress.execute(cacheCollection, args, configRefs);
             }
             else if (args.Value == 1 && onRelease != null)
             {
-                Log.Instance.log("Executing OnRelease: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onRelease.execute(cacheCollection, args, configRefs);
             }
-
         }
 
         public Dictionary<String, int> GetStatistics()
