@@ -13,7 +13,7 @@ namespace MobiFlight.InputConfig
         public bool Alt;
         public bool Shift;
         public KeyboardInputInterface Keyboard;
-        public new const String Label = "Keyboard Input";
+        public new const String Label = "MobiFlight - Keyboard Input";
         public const String TYPE = "KeyInputAction";
 
         override public object Clone()

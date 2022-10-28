@@ -7,7 +7,7 @@ namespace MobiFlight.InputConfig
 {
     public class MSFS2020CustomInputAction : InputAction, ICloneable
     {
-        public new const String Label = "MSFS2020 - Custom Input";
+        public new const String Label = "Microsoft Flight Simulator 2020";
         public new const String CacheType = "SimConnect";
         public const String TYPE = "MSFS2020CustomInputAction";
         public String Command;

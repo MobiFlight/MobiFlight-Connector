@@ -9,7 +9,7 @@ namespace MobiFlight.InputConfig
 {
     public class XplaneInputAction : InputAction, ICloneable
     {
-        new public const String Label = "XPlane - DataRef / Command";
+        new public const String Label = "X-Plane (all versions)";
         public const String INPUT_TYPE_DATAREF = "DataRef";
         public const String INPUT_TYPE_COMMAND = "Command";
         public const String TYPE = "XplaneInputAction";
