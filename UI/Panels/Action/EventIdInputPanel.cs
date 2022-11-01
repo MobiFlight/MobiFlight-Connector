@@ -136,14 +136,14 @@ namespace MobiFlight.UI.Panels.Action
 
                 // we removed this format exception because we allow formulae now
             }
-            catch (FormatException fEx)
+            catch (FormatException ex)
             {              
                 e.Cancel = true;
-                errorMessage = fEx.Message;
+                errorMessage = ex.Message;
             }
-            catch (OverflowException oEx)
+            catch (OverflowException ex)
             {
-                errorMessage = oEx.Message;
+                errorMessage = ex.Message;
                 e.Cancel = true;
             }
             catch (Exception)
@@ -153,7 +153,7 @@ namespace MobiFlight.UI.Panels.Action
 
             if (e.Cancel)
             {
-                Log.Instance.log("EventID/Param : Parsing problem, " + errorMessage, LogSeverity.Error);
+                Log.Instance.log($"EventID/Param parsing problem: {errorMessage}", LogSeverity.Error);
                 displayError(
                     sender as Control, 
                     String.Format(

@@ -59,7 +59,7 @@ namespace MobiFlight.InputConfig
 
             value = Replace(value, replacements);
 
-            Log.Instance.log("LuaMacoInputAction:Execute : Calling macro " + MacroName, LogSeverity.Debug);
+            Log.Instance.log($"Calling macro {MacroName}.", LogSeverity.Debug);
             cacheCollection.fsuipcCache.executeMacro(MacroName, int.Parse(value));
         }
 

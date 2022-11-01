@@ -77,15 +77,15 @@ namespace MobiFlight.FSUIPC
                 }
                 else if (ex.FSUIPCErrorCode == FSUIPCError.FSUIPC_ERR_NOFS)
                 {
-                    Log.Instance.log("Fsuipc2Cache::connect() - No FSUIPC found.", LogSeverity.Debug);
+                    Log.Instance.log("No FSUIPC found.", LogSeverity.Warn);
                 }
                 else
                 {
-                    Log.Instance.log("Fsuipc2Cache::connect() - FSUIPC Exception " + ex.Message, LogSeverity.Debug);
+                    Log.Instance.log($"FSUIPC Exception: {ex.Message}", LogSeverity.Error);
                 }
             } catch (Exception ex)
             {
-                Log.Instance.log("Fsuipc2Cache::connect() - Exception " + ex.Message, LogSeverity.Error);
+                Log.Instance.log($"Exception: {ex.Message}", LogSeverity.Error);
             }
             return IsConnected();
         }

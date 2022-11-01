@@ -39,7 +39,7 @@ namespace MobiFlight.UI.Panels
                 if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.LedModule.DisplayLedAddress.ToString()))
                 {
                     // TODO: provide error message
-                    Log.Instance.log($"{GetType().Name}.syncFromConfig: Exception on selecting item in Led Address ComboBox", LogSeverity.Debug);
+                    Log.Instance.log("Exception on selecting item in LED address ComboBox.", LogSeverity.Error);
                 } else
                 {
                     OnLedAddressChanged?.Invoke(displayLedAddressComboBox, new EventArgs());
@@ -51,14 +51,14 @@ namespace MobiFlight.UI.Panels
                 if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.LedModule.DisplayLedConnector.ToString()))
                 {
                     // TODO: provide error message
-                    Log.Instance.log($"{GetType().Name}.syncFromConfig: Exception on selecting item in Led Connector ComboBox", LogSeverity.Debug);
+                    Log.Instance.log("Exception on selecting item in LED connector ComboBox.", LogSeverity.Error);
                 }
             }
 
             if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.LedModule.DisplayLedModuleSize.ToString()))
             {
                 // TODO: provide error message
-                Log.Instance.log($"{GetType().Name}.syncFromConfig: Exception on selecting item in Led Module Size ComboBox", LogSeverity.Debug);
+                Log.Instance.log("Exception on selecting item in LED module size ComboBox.", LogSeverity.Error);
             }
 
             displayLedPaddingCheckBox.Checked = config.LedModule.DisplayLedPadding;
@@ -159,9 +159,9 @@ namespace MobiFlight.UI.Panels
                 config.LedModule.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
                 config.LedModule.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
             }
-            catch (FormatException e)
+            catch (FormatException ex)
             {
-                Log.Instance.log("_syncFormToConfig : Parsing values", LogSeverity.Debug);
+                Log.Instance.log($"Exception parsing values: {ex.Message}", LogSeverity.Error);
             }
             config.LedModule.DisplayLedDigits.Clear();
             config.LedModule.DisplayLedDecimalPoints.Clear();

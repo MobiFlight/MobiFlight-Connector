@@ -159,7 +159,7 @@ namespace MobiFlight.InputConfig
             cfg.FSUIPC.Size = 2;
             cfg.FSUIPC.Mask = 0xFFFF;
 
-            Log.Instance.log("JeehellInputAction:Execute : Setting value " + value + " for EventID: " + EventId, LogSeverity.Debug);
+            Log.Instance.log($"Setting value {value} for EventID {EventId}.", LogSeverity.Debug);
             FSUIPC.FsuipcHelper.executeWrite(value, cfg, cache as FSUIPC.FSUIPCCacheInterface);
             FSUIPC.FsuipcHelper.executeWrite(EventId.ToString(), CreateJeehellBaseOffsetConfigItem(), cache as FSUIPC.FSUIPCCacheInterface);
             cache.Write();

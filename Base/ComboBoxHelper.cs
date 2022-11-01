@@ -9,7 +9,6 @@ namespace System
     {
         static public bool SetSelectedItem(ComboBox comboBox, string value)
         {
-            Log.Instance.log($"Set value: `{value}` in ComboBox: " + comboBox.Name, LogSeverity.Debug);
             if (comboBox.FindStringExact(value) != -1)
             {
                 comboBox.SelectedIndex = comboBox.FindStringExact(value);
@@ -20,7 +19,6 @@ namespace System
 
         static public bool SetSelectedItemByIndex(ComboBox comboBox, int index)
         {
-            Log.Instance.log($"Set index: `{index}` in ComboBox: " + comboBox.Name, LogSeverity.Debug);
             if (comboBox.Items.Count > index)
             {
                 comboBox.SelectedIndex = index;
@@ -45,7 +43,6 @@ namespace System
 
         static public bool SetSelectedItemByValue(ComboBox comboBox, string value)
         {
-            Log.Instance.log($"Select `{value}` in ComboBox: " + comboBox.Name, LogSeverity.Debug);
             foreach (object item in comboBox.Items)
             {
                 if ((item.ToString()) == value)
@@ -106,8 +103,8 @@ namespace System
                         pinList.Find(x => x.Pin == nAfter).Used = true;
                 }
             }
-            catch (Exception e) {
-                Log.Instance.log($"Pin reassignment from {signalPin} to {after} went wrong", LogSeverity.Debug);
+            catch (Exception ex) {
+                Log.Instance.log($"Pin reassignment from {signalPin} to {after} went wrong: {ex.Message}", LogSeverity.Error);
             }
             // now confirm assignment of the new value in the configuration data
             signalPin = after;

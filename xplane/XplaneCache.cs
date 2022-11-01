@@ -42,7 +42,7 @@ namespace MobiFlight.xplane
 
             OnUpdateFrequencyPerSecondChanged += (v, e) =>
             {
-                Log.Instance.log($"XplaneCache: update frequency changed: {v} per second.", LogSeverity.Info);
+                Log.Instance.log($"update frequency changed: {v} per second.", LogSeverity.Debug);
                 Connector?.Stop();
                 Connector?.Start();
             };

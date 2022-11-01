@@ -111,9 +111,9 @@ namespace MobiFlight.UI.Panels.Config
                     _updateNodeWithPrecondition(tmpNode, p);
                     preconditionListTreeView.Nodes.Add(tmpNode);
                 }
-                catch (IndexOutOfRangeException e)
+                catch (IndexOutOfRangeException ex)
                 {
-                    Log.Instance.log("An orphaned precondition has been found", LogSeverity.Error);
+                    Log.Instance.log("An orphaned precondition has been found.", LogSeverity.Error);
                     continue;
                 }
             }
@@ -250,10 +250,10 @@ namespace MobiFlight.UI.Panels.Config
                     {
                         preconditionConfigComboBox.SelectedValue = config.PreconditionRef;
                     }
-                    catch (Exception exc)
+                    catch (Exception ex)
                     {
                         // precondition could not be loaded
-                        Log.Instance.log("preconditionListTreeView_NodeMouseClick : Precondition could not be loaded, " + exc.Message, LogSeverity.Debug);
+                        Log.Instance.log($"Precondition could not be loaded: {ex.Message}", LogSeverity.Error);
                     }
 
                     ComboBoxHelper.SetSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);

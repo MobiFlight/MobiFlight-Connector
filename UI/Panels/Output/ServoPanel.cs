@@ -48,7 +48,7 @@ namespace MobiFlight.UI.Panels
             if (!ComboBoxHelper.SetSelectedItem(servoAddressesComboBox, config.Servo.Address))
             {
                 // TODO: provide error message
-                Log.Instance.log($"{GetType().Name}.syncFromConfig : Exception on selecting item in Servo Address ComboBox", LogSeverity.Debug);
+                Log.Instance.log("Exception on selecting item in Servo address ComboBox.", LogSeverity.Error);
             }
 
             if (config.Servo.Min != null) minValueTextBox.Text = config.Servo.Min;
