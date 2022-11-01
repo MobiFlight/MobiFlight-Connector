@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -94,7 +96,7 @@ namespace MobiFlight
             this.joystick = joystick;
         }
 
-        private void EnumerateDevices()
+        protected virtual void EnumerateDevices()
         {
             foreach (DeviceObjectInstance device in this.joystick.GetObjects())
             {
@@ -151,7 +153,7 @@ namespace MobiFlight
             }
         }
 
-        private string CorrectButtonIndexForButtonName(string name, int v)
+        protected virtual string CorrectButtonIndexForButtonName(string name, int v)
         {
             return Regex.Replace(name, @"\d+", v.ToString()).ToString();
         }
@@ -174,6 +176,7 @@ namespace MobiFlight
         public List<ListItem> GetAvailableDevices()
         {
             List<ListItem> result = new List<ListItem>();
+
             Buttons.ForEach((item) =>
             {
                 result.Add(item.ToListItem());

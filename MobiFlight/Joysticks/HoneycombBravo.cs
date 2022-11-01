@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms.DataVisualization.Charting;
 using HidSharp;
+using SharpDX;
 
 namespace MobiFlight.Joysticks
 {
@@ -13,9 +16,93 @@ namespace MobiFlight.Joysticks
         int ProductId = 0x1901;
         HidStream Stream { get; set; }
         HidDevice Device { get; set; }
-        public HoneycombBravo(SharpDX.DirectInput.Joystick joystick) : base(joystick)
+
+        static readonly Dictionary<string, string> Labels = new Dictionary<string, string>()
+        {
+            // Mode
+            { "Button 17", "Mode - IAS" },
+            { "Button 18", "Mode - CRS" },
+            { "Button 19", "Mode - HDG" },
+            { "Button 20", "Mode - VS" },
+            { "Button 21", "Mode - ALT" },
+            // AP Buttons
+            { "Button 1", "AP - HDG" },
+            { "Button 2", "AP - NAV" },
+            { "Button 3", "AP - APR" },
+            { "Button 4", "AP - REV" },
+            { "Button 5", "AP - ALT" },
+            { "Button 6", "AP - VS" },
+            { "Button 7", "AP - IAS" },
+            { "Button 8", "AP - Autopilot" },
+            // Generic Encoder
+            { "Button 13", "Encoder - Right" },
+            { "Button 14", "Encoder - Left" },
+            // Gear
+            { "Button 31", "Gear - Up" },
+            { "Button 32", "Gear - Down" },
+            // Flaps
+            { "Button 16", "Flaps - Up" },
+            { "Button 15", "Flaps - Down" },
+            // Trim
+            { "Button 22", "Trim - Nose Down" },
+            { "Button 23", "Trim - Nose Up" },
+            // Levers
+            { "Button 24", "Lever 1 - Detent" },
+            { "Button 25", "Lever 2 - Detent" },
+            { "Button 26", "Lever 3 - Detent" },
+            { "Button 27", "Lever 4 - Detent" },
+            { "Button 28", "Lever 5 - Detent" },
+            { "Button 33", "Lever 6 - Detent" },
+            //
+            { "Button 29", "Lever 1 - Button" },
+            { "Button 9", "Lever 2 - Button" },
+            { "Button 10", "Lever 3 - Button" },
+            { "Button 11", "Lever 4 - Button" },
+            { "Button 12", "Lever 5 - Button" },
+            //
+            { "Button 30", "Lever 3 - Reverser" },
+            { "Button 48", "Lever 4 - Reverser" },
+
+            //
+            { "Button 34", "Switch 1 - Up" },
+            { "Button 35", "Switch 1 - Down" },
+            { "Button 36", "Switch 2 - Up" },
+            { "Button 37", "Switch 2 - Down" },
+            { "Button 38", "Switch 3 - Up" },
+            { "Button 39", "Switch 3 - Down" },
+            { "Button 40", "Switch 4 - Up" },
+            { "Button 41", "Switch 4 - Down" },
+            { "Button 42", "Switch 5 - Up" },
+            { "Button 43", "Switch 5 - Down" },
+            { "Button 44", "Switch 6 - Up" },
+            { "Button 45", "Switch 6 - Down" },
+            { "Button 46", "Switch 7 - Up" },
+            { "Button 47", "Switch 7 - Down" },
+        };
+
+    public HoneycombBravo(SharpDX.DirectInput.Joystick joystick) : base(joystick)
         {
 
+        }
+
+        protected override void EnumerateDevices()
+        {
+            base.EnumerateDevices();
+            /*Buttons.Sort((b1, b2) =>
+            {
+                if (GetIndexForKey(b1.Name) == GetIndexForKey(b2.Name)) return 0;
+                if (GetIndexForKey(b1.Name) > GetIndexForKey(b2.Name)) return 1;
+                return -1;
+            }
+            );
+            Axes.Sort((a1, a2) => { return a1.Label.CompareTo(a2.Label); });
+            */
+        }
+
+        static int GetIndexForKey(string key)
+        {
+            int result = Array.IndexOf(Labels.Keys.ToArray(), key);
+            return result;
         }
 
         public void Connect()
@@ -38,6 +125,23 @@ namespace MobiFlight.Joysticks
             };
             Stream.SetFeature(data);
             base.SendData(data);
+        }
+        protected override string CorrectButtonIndexForButtonName(string name, int v)
+        {
+            var result = base.CorrectButtonIndexForButtonName(name, v);
+            result = MapButtonToLabel(result);
+
+            return result;
+        }
+
+        static private string MapButtonToLabel(string name)
+        {
+            var result = name;
+            
+            if (Labels.ContainsKey(name))
+                result = Labels[name];
+
+            return result;
         }
 
         protected override void EnumerateOutputDevices()
@@ -74,8 +178,6 @@ namespace MobiFlight.Joysticks
             Lights.Add(new JoystickOutputDevice() { Label = "Lights - Parking Brake",       Name = "Lights.ParkingBrake",   Byte = 4, Bit = 1 });
             Lights.Add(new JoystickOutputDevice() { Label = "Lights - Low Volts",           Name = "Lights.LowVolts",       Byte = 4, Bit = 2 });
             Lights.Add(new JoystickOutputDevice() { Label = "Lights - Door",                Name = "Lights.door",           Byte = 4, Bit = 3 });
-
-
         }
     }
 }

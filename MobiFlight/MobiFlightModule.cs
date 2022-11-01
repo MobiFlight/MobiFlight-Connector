@@ -999,6 +999,8 @@ namespace MobiFlight
                         break;
                 }
             }
+
+            result.Sort();
             return result;
         }
 

@@ -247,7 +247,7 @@ namespace MobiFlight.UI.Dialogs
             }    
 
             // second tab
-            if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
+            if (!ComboBoxHelper.SetSelectedItemByValue(inputTypeComboBox, config.Name))
             {
                 // TODO: provide error message
                 Log.Instance.log("Exception on selecting item in display type ComboBox.", LogSeverity.Error);
