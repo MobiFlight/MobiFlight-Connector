@@ -30,7 +30,7 @@ namespace MobiFlight.UI.Panels
             {
                 if (!ComboBoxHelper.SetSelectedItem(shiftRegistersComboBox, config.ShiftRegister.Address.ToString()))
                 {
-                    Log.Instance.log($"{GetType().Name}.SyncFromConfig : Exception on selecting item in Shift Register ComboBox", LogSeverity.Debug);
+                    Log.Instance.log("Exception on selecting item in Shift Register ComboBox.", LogSeverity.Error);
                 }
             }
 

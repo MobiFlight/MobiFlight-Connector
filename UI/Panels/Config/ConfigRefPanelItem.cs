@@ -57,10 +57,10 @@ namespace MobiFlight.UI.Panels.Config
                     configRefComboBox.Text = "Select reference";
                 };
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
                 // precondition could not be loaded, reference not valid anymore
-                Log.Instance.log("ConfigRefPanel.syncFromConfig : ConfigRef could not be loaded, " + exc.Message, LogSeverity.Debug);
+                Log.Instance.log($"ConfigRef could not be loaded: {ex.Message}", LogSeverity.Error);
             }
             
             textBox1.Text = config.Placeholder;

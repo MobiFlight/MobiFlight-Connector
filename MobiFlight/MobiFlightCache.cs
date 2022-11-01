@@ -138,7 +138,7 @@ namespace MobiFlight
 
                 if (String.IsNullOrEmpty(rawHardwareID))
                 {
-                    Log.Instance.log($"Skipping module with no available VID/PID", LogSeverity.Debug);
+                    Log.Instance.log($"Skipping module with no available VID/PID.", LogSeverity.Debug);
                     continue;
                 }
 
@@ -147,20 +147,20 @@ namespace MobiFlight
                 var match = regex.Match(rawHardwareID);
                 if (!match.Success)
                 {
-                    Log.Instance.log($"Skipping device with no available VID/PID ({rawHardwareID})", LogSeverity.Debug);
+                    Log.Instance.log($"Skipping device with no available VID/PID ({rawHardwareID}).", LogSeverity.Debug);
                     continue;
                 }
 
                 // Get the matched hardware ID and use it going forward to identify the board.
                 var hardwareId = match.Groups["id"].Value;
 
-                Log.Instance.log($"Checking for compatible module: {hardwareId}", LogSeverity.Debug);
+                Log.Instance.log($"Checking for compatible module: {hardwareId}.", LogSeverity.Debug);
                 var board = BoardDefinitions.GetBoardByHardwareId(hardwareId);
 
                 // If no matching board definition is found at this point then it's an incompatible board and just keep going.
                 if (board == null)
                 {
-                    Log.Instance.log($"Incompatible module skipped: {hardwareId}", LogSeverity.Debug);
+                    Log.Instance.log($"Incompatible module skipped: {hardwareId}.", LogSeverity.Debug);
                     continue;
                 }
 
@@ -173,14 +173,14 @@ namespace MobiFlight
 
                 if (portName == null)
                 {
-                    Log.Instance.log($"Arduino device has no port information: {hardwareId}", LogSeverity.Debug);
+                    Log.Instance.log($"Arduino device has no port information: {hardwareId}.", LogSeverity.Error);
                     continue;
                 }
 
                 // Safety check to ensure duplicate entires in the registry don't result in duplicate entires in the list.
                 if (result.Any(p => p.Name == portName))
                 {
-                    Log.Instance.log($"Duplicate entry for port: {board.Info.FriendlyName} {portName}", LogSeverity.Debug);
+                    Log.Instance.log($"Duplicate entry for port: {board.Info.FriendlyName} {portName}.", LogSeverity.Error);
                     continue;
                 }
 
@@ -191,7 +191,7 @@ namespace MobiFlight
                     Name = portName
                 });
 
-                Log.Instance.log($"Found potentially compatible module ({board.Info.FriendlyName}): {hardwareId}@{portName}", LogSeverity.Debug);
+                Log.Instance.log($"Found potentially compatible module ({board.Info.FriendlyName}): {hardwareId}@{portName}.", LogSeverity.Debug);
             }
 
             return result;
@@ -199,7 +199,7 @@ namespace MobiFlight
 
         private async  Task<List<MobiFlightModuleInfo>> LookupAllConnectedArduinoModulesAsync()
         {
-            Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Start", LogSeverity.Debug);
+            Log.Instance.log("Start looking up connected modules.", LogSeverity.Debug);
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
             string[] connectedPorts = SerialPort.GetPortNames();
 
@@ -218,17 +218,17 @@ namespace MobiFlight
 
                 if (!connectedPorts.Contains(port.Name))
                 {
-                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port not connected ("+ port.Name +")", LogSeverity.Debug);
+                    Log.Instance.log($"Port not connected {port.Name}.", LogSeverity.Debug);
                     continue;
                 }
                 if (connectingPorts.Contains(port.Name))
                 {
-                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port already connecting (" + port.Name + ")", LogSeverity.Debug);
+                    Log.Instance.log($"Port already connecting {port.Name}.", LogSeverity.Debug);
                     continue;
                 }
                 if (ignoredComPorts.Contains(port.Name))
                 {
-                    Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: Port is ignored by user (" + port.Name + ")", LogSeverity.Info);
+                    Log.Instance.log($"Skipping {port.Name} since it is in the list of ports to ignore.", LogSeverity.Info);
                     result.Add(new MobiFlightModuleInfo()
                     {
                         Port = port.Name,
@@ -263,7 +263,7 @@ namespace MobiFlight
 
             var infos = await Task.WhenAll(tasks);
   
-            Log.Instance.log("MobiFlightCache.LookupAllConnectedArduinoModulesAsync: End", LogSeverity.Debug);
+            Log.Instance.log($"End looking up connected modules.", LogSeverity.Debug);
 
             _lookingUpModules = false;
             return result;
@@ -291,7 +291,7 @@ namespace MobiFlight
                 isFirstTimeLookup = true;
             }
 
-            Log.Instance.log("MobiFlightCache.connect: Clearing modules",LogSeverity.Debug);
+            Log.Instance.log("Clearing modules.",LogSeverity.Debug);
             Modules.Clear();
 
             foreach (MobiFlightModuleInfo devInfo in connectedArduinoModules)
@@ -338,7 +338,7 @@ namespace MobiFlight
 
         public void UnregisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo)
         {
-            Log.Instance.log("MobiFlightCache.UnregisterModule(" + m.Name + ":" + m.Port + ")", LogSeverity.Debug);
+            Log.Instance.log($"Unregistering module {m.Name}:{m.Port}.", LogSeverity.Debug);
 
             foreach(var module in Modules.Values)
             {
@@ -352,7 +352,7 @@ namespace MobiFlight
 
         private void RegisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo, bool replace = false)
         {
-            Log.Instance.log("MobiFlightCache.RegisterModule("+m.Name+":"+ m.Port +")", LogSeverity.Debug);
+            Log.Instance.log($"Registering module {m.Name}:{m.Port}.", LogSeverity.Debug);
             
             // Additional protection added for edge cases where this gets called after a failed firmware update, which resulted
             // in the exception reported in issue 611.
@@ -372,7 +372,7 @@ namespace MobiFlight
                 }
                 else
                 {
-                    Log.Instance.log("Duplicate serial number found: " + devInfo.Serial + ". Module won't be added.", LogSeverity.Error);
+                    Log.Instance.log($"Duplicate serial number found {devInfo.Serial}. Module won't be added.", LogSeverity.Error);
                     return;
                 }
             } else
@@ -396,7 +396,7 @@ namespace MobiFlight
         /// <returns>returns true if all modules were disconnected properly</returns>    
         public bool disconnect()
         {
-            Log.Instance.log("MobiFlightCache.disconnect()", LogSeverity.Debug);
+            Log.Instance.log("Disconnecting all modules.", LogSeverity.Debug);
             if (isConnected())
             {
                 foreach (MobiFlightModule module in Modules.Values)

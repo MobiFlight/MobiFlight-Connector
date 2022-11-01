@@ -78,12 +78,7 @@ namespace MobiFlight
             command.AddArgument(points);
             command.AddArgument(mask);
 
-            Log.Instance.log("Command: SetModule <" + (int)MobiFlightModule.Command.SetModule + "," +
-                                                      this.ModuleNumber + "," +
-                                                      subModule + "," +
-                                                      value + "," +
-                                                      points + "," +
-                                                      mask + ";>", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetModule <{(int)MobiFlightModule.Command.SetModule},{this.ModuleNumber},{subModule},{value},{points},{mask};>.", LogSeverity.Debug);
 
             // Send command
             CmdMessenger.SendCommand(command);
@@ -104,10 +99,7 @@ namespace MobiFlight
             command.AddArgument(subModule);
             command.AddArgument(value);
 
-            Log.Instance.log("Command: SetModuleBrightness <" + (int)MobiFlightModule.Command.SetModuleBrightness + "," +
-                                                      this.ModuleNumber + "," +
-                                                      subModule + "," +
-                                                      value + ";>", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetModuleBrightness <{(int)MobiFlightModule.Command.SetModuleBrightness},{this.ModuleNumber},{subModule},{value};>.", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
         }

@@ -278,12 +278,12 @@ namespace MobiFlight
         {
             autoConnectTimer.Start();
             AutoConnectTimer_TickAsync(null, null);
-            Log.Instance.log("ExecutionManager.AutoConnectStart:" + "Started auto connect timer", LogSeverity.Debug);
+            Log.Instance.log("Started auto connect timer.", LogSeverity.Debug);
         }
 
         public void AutoConnectStop()
         {
-            Log.Instance.log("ExecutionManager.AutoConnectStop:" + "Stopped auto connect timer", LogSeverity.Debug);
+            Log.Instance.log("Stopped auto connect timer.", LogSeverity.Debug);
             autoConnectTimer.Stop();
         }
 
@@ -305,7 +305,7 @@ namespace MobiFlight
             testModeTimer.Enabled = true;
 
             OnTestModeStarted?.Invoke(this, null);
-            Log.Instance.log("ExecutionManager.TestModeStart:" + "Started test timer", LogSeverity.Info);
+            Log.Instance.log("Started test timer.", LogSeverity.Debug);
         }
 
         public void TestModeStop()
@@ -316,7 +316,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             
             OnTestModeStopped?.Invoke(this, null);
-            Log.Instance.log("ExecutionManager.TestModeStop:" + "Stopped test timer", LogSeverity.Info);
+            Log.Instance.log("Stopped test timer", LogSeverity.Debug);
         }
 
         public bool TestModeIsStarted()
@@ -408,7 +408,7 @@ namespace MobiFlight
             // in fact I don't know if this needs to be done in C# 
             if (isExecuting)
             {
-                Log.Instance.log("ExecutionManager::ExecuteConfig() > Config execution taking too long, skipping execution.", LogSeverity.Warn);
+                Log.Instance.log("Config execution taking too long, skipping execution.", LogSeverity.Warn);
                 AppTelemetry.Instance.TrackSimpleEvent("SkippingExecuteConfig");
                 return;
             }
@@ -487,10 +487,10 @@ namespace MobiFlight
                         processedValue = modifier.Apply(processedValue, configRefs);
                     }
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Log.Instance.log($"Transform error ({row.Cells["Description"].Value}): {e.Message}", LogSeverity.Error);
-                    row.ErrorText = i18n._tr("uiMessageTransformError") + "(" + e.Message + ")";
+                    Log.Instance.log($"Transform error ({row.Cells["Description"].Value}): {ex.Message}", LogSeverity.Error);
+                    row.ErrorText = $"{i18n._tr("uiMessageTransformError")}({ex.Message})";
                     continue;
                 }
 
@@ -552,7 +552,6 @@ namespace MobiFlight
             {
                 if (!p.PreconditionActive)
                 {
-                    // Log.Instance.log(p.PreconditionLabel + " inactive - skip!", LogSeverity.Debug);
                     continue;
                 }
 
@@ -587,12 +586,11 @@ namespace MobiFlight
                         {
 
                             String execResult = tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString();
-                            //Log.Instance.log(p.PreconditionLabel + " - Pin - val:"+val+" - " + execResult + "==" + tmp.ComparisonIfValue, LogSeverity.Debug);
                             result = (execResult == tmp.Comparison.IfValue);
                         }
-                        catch (FormatException e)
+                        catch (FormatException ex)
                         {
-                            Log.Instance.log("checkPrecondition : Exception on comparison execution, wrong format", LogSeverity.Error);
+                            Log.Instance.log($"Exception on comparison execution, wrong format: {ex.Message}", LogSeverity.Error);
                             // maybe it is a text string
                             // @todo do something in the future here
                         }
@@ -632,10 +630,10 @@ namespace MobiFlight
                                 {
                                     tmp.Comparison.Value = (ce.Evaluate()).ToString();
                                 }
-                                catch (Exception exc)
+                                catch (Exception ex)
                                 {
                                     //argh!
-                                    Log.Instance.log("checkPrecondition : Exception on eval of comparison value", LogSeverity.Error);
+                                    Log.Instance.log($"Exception on eval of comparison value: {ex.Message}", LogSeverity.Error);
                                 }
                             }
 
@@ -655,11 +653,11 @@ namespace MobiFlight
                             {
                                 result = (tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString() == "1");
                             }
-                            catch (FormatException e)
+                            catch (FormatException ex)
                             {
                                 // maybe it is a text string
                                 // @todo do something in the future here
-                                Log.Instance.log("checkPrecondition : Exception on comparison execution, wrong format", LogSeverity.Error);
+                                Log.Instance.log($"Exception on comparison execution, wrong format: {ex.Message}", LogSeverity.Error);
                             }
                             break;
                         }
@@ -1017,7 +1015,7 @@ namespace MobiFlight
             }
             catch (Exception ex)
             {
-                Log.Instance.log("Error on config execution. " + ex.Message, LogSeverity.Error);
+                Log.Instance.log($"Error on config execution: {ex.Message}", LogSeverity.Error);
                 isExecuting = false;
                 timer.Enabled = false;
             }
@@ -1071,7 +1069,7 @@ namespace MobiFlight
 #endif
                 )
             {
-                Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Modules", LogSeverity.Debug);
+                Log.Instance.log("AutoConnect modules.", LogSeverity.Debug);
 #if ARCAZE
                 if (Properties.Settings.Default.ArcazeSupportEnabled)
                     arcazeCache.connect(); //  _initializeArcaze();
@@ -1091,7 +1089,7 @@ namespace MobiFlight
                         OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
                     }
 
-                    Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): AutoConnect Sim", LogSeverity.Debug);
+                    Log.Instance.log("AutoConnect sim.", LogSeverity.Debug);
 
                     if (!fsuipcCache.IsConnected())
                         fsuipcCache.Connect();
@@ -1112,7 +1110,7 @@ namespace MobiFlight
                         OnSimUnavailable?.Invoke(LastDetectedSim, null);
                         LastDetectedSim = FlightSim.FlightSimType;
                     }
-                    Log.Instance.log("ExecutionManager.autoConnectTimer_Tick(): No Sim running", LogSeverity.Debug);
+                    Log.Instance.log("No Sim running.", LogSeverity.Debug);
                 }
             }
 
@@ -1128,8 +1126,8 @@ namespace MobiFlight
         /// this is the test mode routine where we simply toggle output pins and displays to provide a way for checking if correct settings for display are used
         /// </summary>        
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void testModeTimer_Tick(object sender, EventArgs e)
+        /// <param name="args"></param>
+        void testModeTimer_Tick(object sender, EventArgs args)
         {
             DataGridViewRow lastRow = dataGridViewConfig.Rows[(testModeIndex - 1 + dataGridViewConfig.RowCount) % dataGridViewConfig.RowCount];
 
@@ -1157,14 +1155,14 @@ namespace MobiFlight
                 catch (IndexOutOfRangeException ex)
                 {
                     String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
-                    Log.Instance.log("Error Test Mode execution. Module not connected > " + RowDescription + ". " + ex.Message, LogSeverity.Error);
+                    Log.Instance.log($"Error during test mode execution: module not connected > {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(new Exception(i18n._tr("uiMessageTestModeModuleNotConnected")), new EventArgs());
                 }
                 catch (Exception ex)
                 {
                     // TODO: refactor - check if we can stop the execution and this way update the interface accordingly too
                     String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
-                    Log.Instance.log("Error on Test Mode execution. " + RowDescription + ". " + ex.Message, LogSeverity.Error);
+                    Log.Instance.log($"Error during test mode execution: {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
             }
@@ -1210,13 +1208,13 @@ namespace MobiFlight
                 catch (IndexOutOfRangeException ex)
                 {
                     String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
-                    Log.Instance.log("Error Test Mode execution. Module not connected > " + RowDescription + ". " + ex.Message, LogSeverity.Error);
+                    Log.Instance.log($"Error during test mode execution: module not connected > {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(new Exception(i18n._tr("uiMessageTestModeModuleNotConnected")), new EventArgs());
                 }
                 catch (Exception ex)
                 {
                     String RowDescription = ((row.DataBoundItem as DataRowView).Row["description"] as String);
-                    Log.Instance.log("Error on TestMode execution. " + RowDescription + ". " + ex.Message, LogSeverity.Error);
+                    Log.Instance.log($"Error during test mode execution: {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
             }
@@ -1389,7 +1387,7 @@ namespace MobiFlight
             	if (inputCache[inputKey].Count == 0)
             	{
                 	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    	    Log.Instance.log($"{msgEventLabel} =>  (!) No config found.", LogSeverity.Debug);
+                    	    Log.Instance.log($"{msgEventLabel} =>  No config found.", LogSeverity.Warn);
                 	return;
             	}
             }
@@ -1397,7 +1395,7 @@ namespace MobiFlight
             // Skip execution if not started
             if (!IsStarted())
             {
-                Log.Instance.log($"{msgEventLabel} => (!) Config not executed, MobiFlight not running", LogSeverity.Warn);
+                Log.Instance.log($"{msgEventLabel} => Config not executed, MobiFlight not running", LogSeverity.Warn);
                 return;
             }
 
@@ -1436,7 +1434,7 @@ namespace MobiFlight
                     }
                 }
 #if SIMCONNECT
-                Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Debug);
+                Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
 
                 tuple.Item1.execute(
                     cacheCollection,

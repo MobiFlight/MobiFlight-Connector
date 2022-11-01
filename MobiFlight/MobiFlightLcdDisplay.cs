@@ -67,10 +67,7 @@ namespace MobiFlight
             command.AddArgument(this.Address);
             command.AddArgument(EscapeString(value));
 
-            Log.Instance.log("Command: SetLcdDisplayI2C <" + (int)MobiFlightModule.Command.SetLcdDisplayI2C + "," +
-                                                      this.Address + "," +
-                                                      value +
-                                                      ";>", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetLcdDisplayI2C <{(int)MobiFlightModule.Command.SetLcdDisplayI2C},{this.Address},{value};>.", LogSeverity.Debug);
 
             // Send command
             CmdMessenger.SendCommand(command, SendQueue.WaitForEmptyQueue, ReceiveQueue.Default);

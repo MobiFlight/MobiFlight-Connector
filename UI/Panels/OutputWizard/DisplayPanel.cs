@@ -140,7 +140,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (!ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
                 {
                     // TODO: provide error message
-                    Log.Instance.log($"{GetType().Name}.syncFromConfig: Exception on selecting item in Display Type ComboBox {config.DisplayType}", LogSeverity.Debug);
+                    Log.Instance.log($"Exception on selecting item in {config.DisplayType} ComboBox.", LogSeverity.Error);
                 }
 
                 switch (config.DisplayType)
@@ -313,9 +313,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void displaySerialComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-#if DEBUG
-            Log.Instance.log("displaySerialComboBox_SelectedIndexChanged: called.", LogSeverity.Debug);
-#endif
             // check which extension type is available to current serial
             ComboBox cb = (sender as ComboBox);
             List<ListItem> deviceTypeOptions = new List<ListItem>();
@@ -354,9 +351,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
                     foreach (DeviceType devType in module.GetConnectedOutputDeviceTypes())
                     {
-#if DEBUG
-                        Log.Instance.log("displaySerialComboBox_SelectedIndexChanged: Adding Device Type: " + devType.ToString(), LogSeverity.Debug);
-#endif
                         switch (devType)
                         {
                             case DeviceType.LedModule:
@@ -422,7 +416,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
                 {
                     // TODO: provide error message
-                    Log.Instance.log("displayArcazeSerialComboBox_SelectedIndexChanged : Problem setting Display Type ComboBox", LogSeverity.Debug);
+                    Log.Instance.log("Problem setting Display Type ComboBox.", LogSeverity.Error);
                 }
 
             }
@@ -430,15 +424,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 displayPinPanel.displayPinBrightnessPanel.Visible = false;
                 displayPinPanel.displayPinBrightnessPanel.Enabled = false;
-                Log.Instance.log("displayArcazeSerialComboBox_SelectedIndexChanged : Some Exception occurred" + ex.Message, LogSeverity.Debug);
+                Log.Instance.log(ex.Message, LogSeverity.Error);
             }
         }
 
         private void displayTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-#if DEBUG
-            Log.Instance.log("displayTypeComboBox_SelectedIndexChanged: called.", LogSeverity.Debug);
-#endif
             HideAllDisplayPanels();
 
             try
@@ -464,9 +455,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 ShowActiveDisplayPanel(sender, serial, panelEnabled);
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Log.Instance.log("ConfigWizard.displayTypeComboBox_SelectedIndexChanged: EXC " + exc.Message, LogSeverity.Debug);
+                Log.Instance.log(ex.Message, LogSeverity.Error);
                 MessageBox.Show(i18n._tr("uiMessageNotImplementedYet"),
                                 i18n._tr("Hint"),
                                 MessageBoxButtons.OK,
@@ -563,7 +554,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             foreach (IConnectedDevice device in module.GetConnectedDevices())
             {
-                Log.Instance.log("InitializeMobiFlightDisplays: Adding connected device: " + device.Type.ToString() + ", " + device.Name, LogSeverity.Debug);
                 switch (device.Type)
                 {
                     case DeviceType.LedModule:
@@ -758,9 +748,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     int.Parse(displayLedDisplayPanel.displayLedAddressComboBox.Text);
                     removeError(displayLedDisplayPanel.displayLedAddressComboBox);
                 }
-                catch (Exception exc)
+                catch (Exception ex)
                 {
-                    Log.Instance.log("displayLedDisplayComboBox_Validating : Parsing problem, " + exc.Message, LogSeverity.Debug);
+                    Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Error);
                     e.Cancel = true;
                     
                     displayLedDisplayPanel.displayLedAddressComboBox.Focus();

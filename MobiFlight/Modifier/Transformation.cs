@@ -113,7 +113,7 @@ namespace MobiFlight.Modifier
             }
             catch (Exception e)
             {
-                Log.Instance.log("Transformation.Apply : Exception on NCalc evaluate", LogSeverity.Warn);
+                Log.Instance.log($"Exception on NCalc evaluate: {e.Message}", LogSeverity.Warn);
                 throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
             }
 

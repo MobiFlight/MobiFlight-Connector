@@ -23,16 +23,16 @@ namespace MobiFlight.UpdateChecker
             if (Properties.Settings.Default.BetaUpdates)
             {
                 CommandToSend += " /beta";
-                Log.Instance.log("CheckForUpdate : Checking for BETA update...", LogSeverity.Info);
+                Log.Instance.log("Checking for BETA update...", LogSeverity.Info);
             }
             else
             {
-                Log.Instance.log("CheckForUpdate : Checking for RELEASE update...", LogSeverity.Info);
+                Log.Instance.log("Checking for RELEASE update...", LogSeverity.Info);
             }
 
             if (!File.Exists(mobiFlightInstaller))
             {
-                Log.Instance.log("CheckForUpdate : MobiFlight-Installer.exe does not exist, impossible to check update !", LogSeverity.Info);
+                Log.Instance.log("MobiFlight-Installer.exe does not exist, impossible to check for update.", LogSeverity.Error);
                 return;
             }
 
@@ -62,7 +62,8 @@ namespace MobiFlight.UpdateChecker
                 else
                     BetaOrRelease = "RELEASE";
 
-                Log.Instance.log("CheckForUpdate : Installer respond a new version " + newVersion + " " + BetaOrRelease + " is available !", LogSeverity.Info);
+                Log.Instance.log($"Found a new version: {newVersion} {BetaOrRelease}.", LogSeverity.Info);
+
                 DialogResult dialogResult = MessageBox.Show(
                     String.Format(i18n._tr("uiMessageNewUpdateAvailablePleaseUpdate"), newVersion),
                     i18n._tr("uiMessageNewUpdateAvailable"),
@@ -81,7 +82,7 @@ namespace MobiFlight.UpdateChecker
                     String.Format(i18n._tr("uiMessageNoUpdateNecessary"), MobiFlight.UI.MainForm.DisplayVersion()),
                     i18n._tr("Hint"),
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Log.Instance.log("CheckForUpdate : MobiFlight is up to date.", LogSeverity.Info);
+            Log.Instance.log("MobiFlight is up to date.", LogSeverity.Info);
             return;
         }
     }

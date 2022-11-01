@@ -36,7 +36,7 @@ namespace MobiFlight
         {
             if (module.Board.AvrDudeSettings == null)
             {
-                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
+                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Error);
                 return false;
             }
 
@@ -48,7 +48,7 @@ namespace MobiFlight
         {
             if (module.Board.AvrDudeSettings == null)
             {
-                Log.Instance.log($"Firmware reset requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no reset settings were specified in the board definition file. Module reset skipped.", LogSeverity.Warn);
+                Log.Instance.log($"Firmware reset requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no reset settings were specified in the board definition file. Module reset skipped.", LogSeverity.Error);
                 return false;
             }
 
@@ -82,7 +82,7 @@ namespace MobiFlight
                 }
             } else
             {
-                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
+                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Error);
             }
             return result;
         }
@@ -96,7 +96,7 @@ namespace MobiFlight
 
             if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + FirmwareName))
             {
-                message = "Firmware not found: " + FirmwarePath + "\\" + FirmwareName;
+                message = $"Firmware not found: {FirmwarePath}\\{FirmwareName}.";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
@@ -115,22 +115,22 @@ namespace MobiFlight
             proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
             proc1.Arguments = anyCommand;
             proc1.WindowStyle = ProcessWindowStyle.Hidden;
-            Log.Instance.log("RunAvrDude : " + proc1.FileName, LogSeverity.Debug);
-            Log.Instance.log("RunAvrDude : " + anyCommand, LogSeverity.Debug);
+            Log.Instance.log($"{proc1.FileName}.", LogSeverity.Debug);
+            Log.Instance.log($"{anyCommand}.", LogSeverity.Debug);
             Process p = Process.Start(proc1);
             if (p.WaitForExit(board.AvrDudeSettings.Timeout))
             {
-                Log.Instance.log("Firmware Upload Exit Code: " + p.ExitCode, LogSeverity.Info);
+                Log.Instance.log($"Firmware upload exit code: {p.ExitCode}.", LogSeverity.Debug);
                 // everything OK
                 if (p.ExitCode == 0) return;
                 
                 // process terminated but with an error.
-                message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}";
+                message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
             } else
             {
                 // we timed out;
                 p.Kill();
-                message = $"avrdude timed out! Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}";
+                message = $"avrdude timed out! Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
             }
 
             Log.Instance.log(message, LogSeverity.Error);

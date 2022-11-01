@@ -333,9 +333,9 @@ namespace MobiFlight
                 System.IO.StringReader w = new System.IO.StringReader(Properties.Settings.Default.ModuleSettings);
                 moduleSettings = (List<ArcazeModuleSettings>)SerializerObj.Deserialize(w);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Log.Instance.log("MainForm.getArcazeModuleSettings() : Deserialize problem.", LogSeverity.Warn);
+                Log.Instance.log($"Deserialize problem: {ex.Message}", LogSeverity.Error);
             }
 
             foreach (ArcazeModuleSettings setting in moduleSettings)
