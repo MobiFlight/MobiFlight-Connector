@@ -316,8 +316,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             
             OnTestModeStopped?.Invoke(this, null);
-            Log.Instance.log("Stopped test timer.", LogSeverity.Debug);
-
+            Log.Instance.log("Stopped test timer", LogSeverity.Debug);
         }
 
         public bool TestModeIsStarted()

@@ -1,0 +1,458 @@
+{
+  "$schema": "./mfboard.schema.json",
+  "AvrDudeSettings": {
+    "Device": "atmega328p",
+    "BaudRate": "115200",
+    "Programmer": "arduino",
+    "FirmwareBaseName": "mobiflight_nano"
+  },
+  "Connection": {
+    "ConnectionDelay": 1750,
+    "DelayAfterFirmwareUpdate": 0,
+    "DtrEnable": true,
+    "EEPROMSize": 256,
+    "ExtraConnectionRetry": true,
+    "ForceResetOnFirmwareUpdate": false,
+    "MessageSize": 32
+  },
+  "HardwareIds": ["^VID_1B4F&PID_9206"],
+  "Info": {
+    "CanInstallFirmware": true,
+    "FriendlyName": "Arduino Pro Micro",
+    "LatestFirmwareVersion": "0.0.1",
+    "MobiFlightType": "Collins FMS 3000"
+  },
+  "ModuleLimits": {
+    "MaxAnalogInputs": 2,
+    "MaxButtons": 70,
+    "MaxEncoders": 2,
+    "MaxLcdI2C": 2,
+    "MaxLedSegments": 1,
+    "MaxOutputs": 8,
+    "MaxServos": 2,
+    "MaxSteppers": 2
+  },
+  "Pins": [
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "L1",
+      "Pin": 0
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "L2",
+      "Pin": 1
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "L3",
+      "Pin": 2
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "L4",
+      "Pin": 3
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "L5",
+      "Pin": 4
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "L6",
+      "Pin": 5
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "MSG",
+      "Pin": 6
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "DIR",
+      "Pin": 7
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "IDX",
+      "Pin": 8
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "TUN",
+      "Pin": 9
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "A",
+      "Pin": 10
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "H",
+      "Pin": 11
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "O",
+      "Pin": 12
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "V",
+      "Pin": 13
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "FPLN",
+      "Pin": 14
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "B",
+      "Pin": 15
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "I",
+      "Pin": 16
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "P",
+      "Pin": 17
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "W",
+      "Pin": 18
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "LEGS",
+      "Pin": 19
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "C",
+      "Pin": 20
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "J",
+      "Pin": 21
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "Q",
+      "Pin": 22
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "X",
+      "Pin": 23
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "DEP",
+      "Pin": 24
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "D",
+      "Pin": 25
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "K",
+      "Pin": 26
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "R",
+      "Pin": 27
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "Y",
+      "Pin": 28
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "PERF",
+      "Pin": 29
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "E",
+      "Pin": 30
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "L",
+      "Pin": 31
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "S",
+      "Pin": 32
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "Z",
+      "Pin": 33
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "DSPL",
+      "Pin": 34
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "F",
+      "Pin": 35
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "M",
+      "Pin": 36
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "T",
+      "Pin": 37
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "SP",
+      "Pin": 38
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "MFD",
+      "Pin": 39
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "G",
+      "Pin": 40
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "N",
+      "Pin": 41
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "U",
+      "Pin": 42
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "SLSH",
+      "Pin": 43
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "DATA",
+      "Pin": 44
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "1",
+      "Pin": 45
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "4",
+      "Pin": 46
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "7",
+      "Pin": 47
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "DOT",
+      "Pin": 48
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "PREV",
+      "Pin": 49
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "2",
+      "Pin": 50
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "5",
+      "Pin": 51
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "8",
+      "Pin": 52
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "0",
+      "Pin": 53
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "3",
+      "Pin": 54
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "6",
+      "Pin": 55
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "9",
+      "Pin": 56
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "PLUS",
+      "Pin": 57
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "R1",
+      "Pin": 58
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "R2",
+      "Pin": 59
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "R3",
+      "Pin": 60
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "R4",
+      "Pin": 61
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "R5",
+      "Pin": 62
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "R6",
+      "Pin": 63
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "EXEC",
+      "Pin": 64
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "NEXT",
+      "Pin": 65
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "CLR",
+      "Pin": 66
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "BRT",
+      "Pin": 67
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Name": "DIM",
+      "Pin": 68
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Name": "BRIGHTNESS",
+      "Pin": 69
+    }
+  ]
+}
