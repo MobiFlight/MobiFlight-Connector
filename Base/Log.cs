@@ -50,7 +50,7 @@ namespace MobiFlight
             if (!Enabled) return;
             if ((int)severity < (int)Severity) return;
 
-            if (Severity == LogSeverity.Debug)
+            if (severity == LogSeverity.Error)
             {
                 message = $"{GetCallingMethod()}: {message}";
             }
