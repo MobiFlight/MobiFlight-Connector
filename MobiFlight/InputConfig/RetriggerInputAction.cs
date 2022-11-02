@@ -7,7 +7,7 @@ namespace MobiFlight.InputConfig
 {
     public class RetriggerInputAction : InputAction
     {
-        public new const String Label = "MobiFlight - Retrigger Switches";
+        public new const String Label = "MobiFlight - Retrigger switches";
         public const String TYPE = "RetriggerInputAction";
         DateTime lastExecution = DateTime.Now;
 

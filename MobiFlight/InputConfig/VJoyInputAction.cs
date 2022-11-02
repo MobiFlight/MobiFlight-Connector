@@ -11,7 +11,7 @@ namespace MobiFlight.InputConfig
 {
     public class VJoyInputAction : InputAction
     {
-        new public const string Label = "vJoy - Virtual Joystick";
+        new public const string Label = "MobiFlight - Virtual Joystick input (vJoy)";
         public const String TYPE = "vJoyInputAction";
 
         public uint vJoyID;

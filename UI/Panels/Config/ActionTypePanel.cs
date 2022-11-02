@@ -26,9 +26,14 @@ namespace MobiFlight.UI.Panels.Config
             // --MSFS 2020 
             ActionTypeComboBox.Items.Add(InputConfig.MSFS2020CustomInputAction.Label);
 
+            // -- Xplane
+            ActionTypeComboBox.Items.Add(InputConfig.XplaneInputAction.Label);
+
             // --MobiFlight
             ActionTypeComboBox.Items.Add(InputConfig.VariableInputAction.Label);
             ActionTypeComboBox.Items.Add(InputConfig.RetriggerInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.KeyInputAction.Label);
+            ActionTypeComboBox.Items.Add(InputConfig.VJoyInputAction.Label);
 
             // --FSUIPC
             ActionTypeComboBox.Items.Add(InputConfig.FsuipcOffsetInputAction.Label);
@@ -36,13 +41,6 @@ namespace MobiFlight.UI.Panels.Config
             ActionTypeComboBox.Items.Add(InputConfig.PmdgEventIdInputAction.Label);
             ActionTypeComboBox.Items.Add(InputConfig.JeehellInputAction.Label);
             ActionTypeComboBox.Items.Add(InputConfig.LuaMacroInputAction.Label);
-
-            // -- Xplane
-            ActionTypeComboBox.Items.Add(InputConfig.XplaneInputAction.Label);
-
-            // -- Misc
-            ActionTypeComboBox.Items.Add(InputConfig.KeyInputAction.Label);
-            ActionTypeComboBox.Items.Add(InputConfig.VJoyInputAction.Label);
 
             ActionTypeComboBox.SelectedIndex = 0;
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);

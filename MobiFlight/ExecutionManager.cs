@@ -1335,10 +1335,10 @@ namespace MobiFlight
             }
             else if (e.Type == DeviceType.AnalogInput)
             {
-                eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + "=>" +e.Value;
+                eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + " => " +e.Value;
             }
 
-            var msgEventLabel = $"{e.Type}: [{e.Name}] > [{e.DeviceId}] {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} > {eventAction}";
+            var msgEventLabel = $"{e.Name} => {e.DeviceId} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
 
             lock (inputCache)
 			{
@@ -1389,7 +1389,7 @@ namespace MobiFlight
             	if (inputCache[inputKey].Count == 0)
             	{
                 	if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                    	    Log.Instance.log($"No config found for {msgEventLabel}", LogSeverity.Debug);
+                    	    Log.Instance.log($"{msgEventLabel} =>  (!) No config found.", LogSeverity.Debug);
                 	return;
             	}
             }
@@ -1397,11 +1397,9 @@ namespace MobiFlight
             // Skip execution if not started
             if (!IsStarted())
             {
-                Log.Instance.log($"Config found for {msgEventLabel} (!) Not sent, MobiFlight not running", LogSeverity.Warn);
+                Log.Instance.log($"{msgEventLabel} => (!) Config not executed, MobiFlight not running", LogSeverity.Warn);
                 return;
             }
-
-            Log.Instance.log($"Config found for {msgEventLabel}", LogSeverity.Debug);
 
             ConnectorValue currentValue = new ConnectorValue();
             CacheCollection cacheCollection = new CacheCollection()
@@ -1438,6 +1436,8 @@ namespace MobiFlight
                     }
                 }
 #if SIMCONNECT
+                Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Debug);
+
                 tuple.Item1.execute(
                     cacheCollection,
                     e,
@@ -1458,7 +1458,7 @@ namespace MobiFlight
                 try
                 {
                     if (gridViewRow.DataBoundItem == null) continue;
-                    if (!(bool)gridViewRow.Cells["active"].Value) continue;
+                    if (!(bool)gridViewRow.Cells["inputActive"].Value) continue;
 
                     DataRowView rowView = gridViewRow.DataBoundItem as DataRowView;
                     InputConfigItem cfg = rowView.Row["settings"] as InputConfigItem;

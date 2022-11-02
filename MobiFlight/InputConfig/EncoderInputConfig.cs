@@ -134,22 +134,18 @@ namespace MobiFlight.InputConfig
         {
             if ((args.Value == 0 && onLeft != null) || (args.Value == 1 && onLeftFast == null && onLeft != null))
             {
-                Log.Instance.log("Executing OnLeft: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onLeft.execute(cacheCollection, args, configRefs);
             }
             else if (args.Value == 1 && onLeftFast != null)
             {
-                Log.Instance.log("Executing OnLeftFast: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onLeftFast.execute(cacheCollection, args, configRefs);
             }
             else if ((args.Value == 2 && onRight != null) || (args.Value == 3 && onRightFast == null && onRight != null))
             {
-                Log.Instance.log("Executing OnRight: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onRight.execute(cacheCollection, args, configRefs);
             }
             else if (args.Value == 3 && onRightFast != null)
             {
-                Log.Instance.log("Executing OnRightFast: " + args.DeviceId + "@" + args.Serial, LogSeverity.Debug);
                 onRightFast.execute(cacheCollection, args, configRefs);
             }
 
