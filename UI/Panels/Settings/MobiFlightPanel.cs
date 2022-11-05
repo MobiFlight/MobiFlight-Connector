@@ -848,6 +848,7 @@ namespace MobiFlight.UI.Panels.Settings
 
                 moduleNode.ImageKey = "Changed";
                 moduleNode.SelectedImageKey = "Changed";
+                uploadToolStripButton.Enabled = true;
             }
         }
 
