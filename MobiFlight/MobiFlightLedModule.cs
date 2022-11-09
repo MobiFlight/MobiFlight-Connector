@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using CommandMessenger;
@@ -70,13 +71,7 @@ namespace MobiFlight
 
             if (strValueParts.Length > 1)
             {
-                var len = 0;
-                for(var i=0; i<strValueParts.Length-1; i++)
-                {
-                    len += strValueParts[i].Length;
-                    points |= (byte)(1 << (value.Length-len));
-                }
-                    
+                points = CalculateCorrectPoints(String.Join(".", strValueParts), mask);
             }
 
             // clamp and reverse the string
@@ -101,6 +96,32 @@ namespace MobiFlight
 
             // Send command
             CmdMessenger.SendCommand(command);
+        }
+
+        static public byte CalculateCorrectPoints(string value, byte mask)
+        {
+            byte points = 0;
+            byte digit = 8;
+            int pos = value.Length-1;
+            for (byte i = 0; i < 8; i++)
+            {
+                digit--;
+                if (((1 << digit) & mask) == 0)
+                    continue;
+
+                if (pos < 0)
+                    break;
+
+                if (value[pos]=='.')
+                {
+                    digit++;
+                    points |= (byte)(1 << (8-digit));
+                    i--;
+                }
+
+                pos--;
+            }
+            return points;
         }
 
         public void SetBrightness(int subModule, String value)

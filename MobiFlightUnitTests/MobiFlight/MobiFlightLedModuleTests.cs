@@ -148,7 +148,17 @@ namespace MobiFlight.Tests
             module.Display(0, value, points, mask);
             WaitForQueueUpdate();
             DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},12345678,2,{mask};";
-            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Caching mechanism test failed, we are sending the same value again, nothing has changed. Value in Mock should be \"\"");
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
+
+
+            value = "1.2345678";
+            points = 0;
+            mask = 255;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},12345678,128,{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
 
             value = "1.2.3.4.5.6.7.8.";
             points = 0;
@@ -157,15 +167,15 @@ namespace MobiFlight.Tests
             module.Display(0, value, points, mask);
             WaitForQueueUpdate();
             DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},12345678,255,{mask};";
-            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Caching mechanism test failed, we are sending the same value again, nothing has changed. Value in Mock should be \"\"");
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
 
             value = "1.234";
             points = 0;
-            mask = 255;
+            mask = 1+2+4+8;
             mockTransport.Clear();
             module.Display(0, value, points, mask);
             WaitForQueueUpdate();
-            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},12345678,255,{mask};";
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},1234,128,{mask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Caching mechanism test failed, we are sending the same value again, nothing has changed. Value in Mock should be \"\"");
         }
 
