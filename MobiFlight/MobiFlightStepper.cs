@@ -84,9 +84,7 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.SetStepper);
             command.AddArgument(this.StepperNumber);
             command.AddArgument(outputValue);
-            Log.Instance.log("Command: SetStepper <" + (int)MobiFlightModule.Command.SetStepper + "," +
-                  StepperNumber + "," +
-                  outputValue + ";>", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetStepper <{(int)MobiFlightModule.Command.SetStepper},{StepperNumber},{outputValue};>.", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
         }
@@ -101,8 +99,7 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.ResetStepper);
             command.AddArgument(this.StepperNumber);
 
-            Log.Instance.log("Command: ResetStepper <" + (int)MobiFlightModule.Command.SetZeroStepper + "," +
-                  StepperNumber + ";>", LogSeverity.Debug);
+            Log.Instance.log($"Command: ResetStepper <{(int)MobiFlightModule.Command.SetZeroStepper},{StepperNumber};>.", LogSeverity.Debug);
 
             // Send command
             CmdMessenger.SendCommand(command);
@@ -113,8 +110,7 @@ namespace MobiFlight
             var command = new SendCommand((int)MobiFlightModule.Command.SetZeroStepper);
             command.AddArgument(this.StepperNumber);
 
-            Log.Instance.log("Command: SetZeroStepper <" + (int)MobiFlightModule.Command.SetZeroStepper + "," +
-                  StepperNumber + ";>", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetZeroStepper <{(int)MobiFlightModule.Command.SetZeroStepper},{StepperNumber};>.", LogSeverity.Debug);
 
             // Send command
             CmdMessenger.SendCommand(command);

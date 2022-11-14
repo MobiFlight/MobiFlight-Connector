@@ -157,7 +157,7 @@ namespace MobiFlight
                     // Sometimes first attempt times out.
                     if (!InfoCommand.Ok)
                     {
-                        Log.Instance.log("MobiflightModule.Config: Timeout. !InfoCommand.Ok. Retrying...", LogSeverity.Debug);
+                        Log.Instance.log("Timeout. !InfoCommand.Ok. Retrying...", LogSeverity.Debug);
                         InfoCommand = _cmdMessenger.SendCommand(command);
                     }
 
@@ -179,7 +179,7 @@ namespace MobiFlight
                     }
                     else
                     {
-                        Log.Instance.log("MobiflightModule.Config: !InfoCommand.Ok. Init with empty config.", LogSeverity.Debug);
+                        Log.Instance.log("!InfoCommand.Ok. Init with empty config.", LogSeverity.Debug);
                         _config = new Config.Config();
                     }
 
@@ -257,7 +257,7 @@ namespace MobiFlight
         {
             if (this.Connected)
             {
-                Log.Instance.log($"MobiflightModule.connect: Already connected to {Name} at {_comPort} of type {Board}", LogSeverity.Warn);
+                Log.Instance.log($"Already connected to {Name} at {_comPort} of type {Board}.", LogSeverity.Debug);
                 return;
             }
 
@@ -278,7 +278,7 @@ namespace MobiFlight
 
             // Start listening    
             var status = _cmdMessenger.Connect();
-            Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable})", LogSeverity.Info);
+            Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
             //this.Connected = status;
             this.connected = true;
 
@@ -413,7 +413,7 @@ namespace MobiFlight
         {
             if (!this.Connected)
             {
-                Log.Instance.log("MobiflightModule.disconnect: Already Disconnected " + this.Name + " at " + _comPort, LogSeverity.Info);
+                Log.Instance.log($"Already disconnected {this.Name}:{_comPort}.", LogSeverity.Debug);
                 return;
             }
 
@@ -425,7 +425,7 @@ namespace MobiFlight
 
             _config = null;
 
-            Log.Instance.log("MobiflightModule.disconnect: Disconnected " + this.Name + " at " + _comPort, LogSeverity.Info);
+            Log.Instance.log($"Disconnected {this.Name}:{_comPort}.", LogSeverity.Debug);
         }
 
         public String InitUploadAndReturnUploadPort()
@@ -553,7 +553,7 @@ namespace MobiFlight
             String value1 = arguments.ReadStringArg();
             String value2 = arguments.ReadStringArg();
             String value3 = arguments.ReadStringArg();
-            Log.Instance.log($"{this.Name}.debug: Firmware  -> {value1} {value2} {value3}", LogSeverity.Debug);
+            Log.Instance.log($"{this.Name}.debug: Firmware -> {value1} {value2} {value3}.", LogSeverity.Debug);
         }
 
         /// <summary>
@@ -758,7 +758,7 @@ namespace MobiFlight
             devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
             Board = devInfo.Board;
 
-            Log.Instance.log($"MobiFlightModule.GetInfo: {Type}, {Name}, {Version}, {Serial}", LogSeverity.Debug);
+            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}, {Serial}.", LogSeverity.Debug);
             return devInfo;
         }
 
@@ -766,7 +766,7 @@ namespace MobiFlight
         {
             bool isOk = true;
             var command = new SendCommand((int)MobiFlightModule.Command.SetName, (int)MobiFlightModule.Command.Status, CommandTimeout);
-            Log.Instance.log($"Save name: {(int)MobiFlightModule.Command.SetName} > {Name}", LogSeverity.Debug);
+            Log.Instance.log($"Save name: {(int)MobiFlightModule.Command.SetName} > {Name}.", LogSeverity.Debug);
             command.AddArgument(Name);
             ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
 
@@ -779,12 +779,12 @@ namespace MobiFlight
         {
             bool isOk = SaveName();
             var command = new SendCommand((int)MobiFlightModule.Command.ResetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
-            Log.Instance.log("Reset config: " + (int)MobiFlightModule.Command.ResetConfig, LogSeverity.Debug);
+            Log.Instance.log("Reseting config.", LogSeverity.Debug);
             _cmdMessenger.SendCommand(command);
 
             foreach (string MessagePart in this.Config.ToInternal(this.Board.Connection.MessageSize - MessageSizeReductionValue))
             {
-                Log.Instance.log("Uploading config (Part): " + MessagePart, LogSeverity.Debug);
+                Log.Instance.log($"Uploading config part {MessagePart}", LogSeverity.Debug);
                 command = new SendCommand((int)MobiFlightModule.Command.SetConfig, (int)MobiFlightModule.Command.Status, CommandTimeout);
                 command.AddArgument(MessagePart);
                 ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
@@ -796,13 +796,13 @@ namespace MobiFlight
             }
             if (!isOk)
             {
-                Log.Instance.log("Error on Uploading.", LogSeverity.Error);
+                Log.Instance.log("Error on uploading.", LogSeverity.Error);
             }
 
             if (isOk)
             {
                 command = new SendCommand((int)MobiFlightModule.Command.SaveConfig, (int)MobiFlightModule.Command.ConfigSaved, CommandTimeout);
-                Log.Instance.log("Save config: " + (int)MobiFlightModule.Command.SaveConfig, LogSeverity.Debug);
+                Log.Instance.log("Saving config.", LogSeverity.Debug);
                 ReceivedCommand StatusCommand = _cmdMessenger.SendCommand(command);
 
                 if (StatusCommand.Ok)
@@ -811,13 +811,13 @@ namespace MobiFlight
                     StatusCommand = _cmdMessenger.SendCommand(command);
                     isOk = StatusCommand.Ok;
                     if (isOk) Log.Instance.log("Config activated.", LogSeverity.Debug);
-                    else Log.Instance.log("Config NOT activated SUCCESSFULLY.", LogSeverity.Debug);
+                    else Log.Instance.log("Config not activated successfully.", LogSeverity.Error);
                 }
                 else
                 {
                     if (!isOk)
                     {
-                        Log.Instance.log("Error on Saving.", LogSeverity.Error);
+                        Log.Instance.log("Error on saving.", LogSeverity.Error);
                     }
                 }
             }
@@ -1022,7 +1022,7 @@ namespace MobiFlight
             if (lastUpdate.AddMinutes(KeepAliveIntervalInMinutes) < DateTime.UtcNow)
             {
                 lastUpdate = DateTime.UtcNow;
-                Log.Instance.log("Preventing entering EnergySaving Mode: KeepAlive!", LogSeverity.Info);
+                Log.Instance.log("Preventing entering EnergySaving mode: KeepAlive!", LogSeverity.Debug);
                 return true;
             }
 

@@ -89,13 +89,13 @@ namespace MobiFlight.SimConnectMSFS
         {
             if (!Directory.Exists(WasmModuleFolder))
             {
-                Log.Instance.log("WASM module cannot be installed. WASM Module Folder not found. " + WasmModuleFolder, LogSeverity.Error);
+                Log.Instance.log($"WASM module cannot be installed. WASM module folder {WasmModuleFolder} not found.", LogSeverity.Error);
                 return false;
             }
 
             if (!Directory.Exists(CommunityFolder))
             {
-                Log.Instance.log("WASM module cannot be installed. Community Folder not found. " + CommunityFolder, LogSeverity.Error);
+                Log.Instance.log($"WASM module cannot be installed. Community folder {CommunityFolder} not found.", LogSeverity.Error);
                 return false;
             }
 
@@ -179,25 +179,25 @@ namespace MobiFlight.SimConnectMSFS
 
                 if (!Directory.Exists(destFolder))
                 {
-                    Log.Instance.log("WASM events cannot be installed. WASM module folder not found. " + destFolder, LogSeverity.Error);
+                    Log.Instance.log($"WASM events cannot be installed. WASM module {destFolder} folder not found.", LogSeverity.Error);
                     return false;
                 }
 
                 if (!Directory.Exists(WasmModuleFolder))
                 {
-                    Log.Instance.log("WASM events cannot be installed. WASM module folder not found. " + WasmModuleFolder, LogSeverity.Error);
+                    Log.Instance.log($"WASM events cannot be installed. WASM module folder {WasmModuleFolder} not found.", LogSeverity.Error);
                     return false;
                 }
 
                 if (!Directory.Exists(CommunityFolder))
                 {
-                    Log.Instance.log("WASM events cannot be installed. Community folder not found. " + CommunityFolder, LogSeverity.Error);
+                    Log.Instance.log($"WASM events cannot be installed. Community folder {CommunityFolder} not found.", LogSeverity.Error);
                     return false;
                 }
 
                 if (!DownloadWasmEvents())
                 {
-                    Log.Instance.log("WASM events cannot be installed. Download was not successful. " + CommunityFolder, LogSeverity.Error);
+                    Log.Instance.log($"WASM events cannot be installed. Download to {CommunityFolder} was not successful.", LogSeverity.Error);
                     return false;
                 }
 
@@ -205,11 +205,11 @@ namespace MobiFlight.SimConnectMSFS
             }
             catch (Exception ex)
             {
-                Log.Instance.log("WASM events cannot be installed. " + ex.Message, LogSeverity.Error);
+                Log.Instance.log($"WASM events cannot be installed: {ex.Message}", LogSeverity.Error);
                 return false;
             }
 
-            Log.Instance.log("WASM events have been installed successfully.", LogSeverity.Info);
+            Log.Instance.log($"WASM events have been installed successfully.", LogSeverity.Info);
             return true;
         }
 
@@ -237,19 +237,19 @@ namespace MobiFlight.SimConnectMSFS
             DownloadAndInstallProgress?.Invoke(this, progress);
 
             if (!DownloadSingleFile(new Uri(WasmEventsTxtUrl), WasmEventsTxtFile, WasmModuleFolder + @"\modules")) return false;
-            Log.Instance.log("WASM events.txt has been downloaded and installed successfully.", LogSeverity.Info);
+            Log.Instance.log("WASM events.txt has been downloaded and installed successfully.", LogSeverity.Debug);
 
             progress.ProgressMessage = "Downloading EventIDs (legacy)";
             progress.Current = 25;
             DownloadAndInstallProgress?.Invoke(this, progress);
             if (!DownloadSingleFile(new Uri(WasmEventsCipUrl), WasmEventsCipFileName, WasmEventsCipFolder)) return false;
-            Log.Instance.log("WASM msfs2020_eventids.cip has been downloaded and installed successfully.", LogSeverity.Info);
+            Log.Instance.log("WASM msfs2020_eventids.cip has been downloaded and installed successfully.", LogSeverity.Debug);
 
             progress.ProgressMessage = "Downloading SimVars (legacy)";
             progress.Current = 50;
             DownloadAndInstallProgress?.Invoke(this, progress);
             if (!DownloadSingleFile(new Uri(WasmEventsSimVarsUrl), WasmEventsSimVarsFileName, WasmEventsSimVarsFolder)) return false;
-            Log.Instance.log("WASM msfs2020_simvars.cip has been downloaded and installed successfully.", LogSeverity.Info);
+            Log.Instance.log("WASM msfs2020_simvars.cip has been downloaded and installed successfully.", LogSeverity.Debug);
 
             progress.ProgressMessage = "Downloading HubHop Presets";
             progress.Current = 75;

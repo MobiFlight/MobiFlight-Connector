@@ -61,10 +61,7 @@ namespace MobiFlight
             command.AddArgument(pinsOnly);
             command.AddArgument(value);
 
-            Log.Instance.log("Command: SetShiftRegisterPin <" + (int)MobiFlightModule.Command.SetShiftRegisterPins + "," +
-                                                      this.ModuleNumber + "," +
-                                                      pinsOnly + "," +
-                                                      value + ";>", LogSeverity.Debug);
+            Log.Instance.log($"Command: SetShiftRegisterPin <{(int)MobiFlightModule.Command.SetShiftRegisterPins},{this.ModuleNumber},{pinsOnly},{value};>.", LogSeverity.Debug);
             // Send command
             CmdMessenger.SendCommand(command);
         }

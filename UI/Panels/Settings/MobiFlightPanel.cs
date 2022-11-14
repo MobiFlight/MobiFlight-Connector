@@ -135,7 +135,7 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 // this happens when the modules are connecting
                 mfConfiguredModulesGroupBox.Enabled = false;
-                Log.Instance.log("Problem on building module tree. Still connecting", LogSeverity.Error);
+                Log.Instance.log("Problem building module tree. Still connecting.", LogSeverity.Error);
             }
 
             if (mfModulesTreeView.Nodes.Count == 0)
@@ -448,7 +448,7 @@ namespace MobiFlight.UI.Panels.Settings
             catch (Exception ex)
             {
                 // Show error message
-                Log.Instance.log("syncPanelWithSelectedDevice: Exception: " + ex.Message, LogSeverity.Debug);
+                Log.Instance.log(ex.Message, LogSeverity.Error);
             }
         }
 
@@ -906,7 +906,7 @@ namespace MobiFlight.UI.Panels.Settings
                 return;
             }
 
-            Log.Instance.log("Uploading config: " + LogMessage, LogSeverity.Info);
+            Log.Instance.log($"Uploading config: {LogMessage}", LogSeverity.Debug);
 
             bool uploadResult = false;
 

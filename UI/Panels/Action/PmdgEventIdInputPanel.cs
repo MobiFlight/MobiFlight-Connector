@@ -195,20 +195,20 @@ namespace MobiFlight.UI.Panels.Action
             try
             {
                 Int32.Parse(tb.Text);
-            } catch (FormatException fEx)
+            } catch (FormatException ex)
             {
                 e.Cancel = true;
-                errorMessage = fEx.Message;
+                errorMessage = ex.Message;
             }
-            catch (OverflowException oEx)
+            catch (OverflowException ex)
             {
-                errorMessage = oEx.Message;
+                errorMessage = ex.Message;
                 e.Cancel = true;
             }
 
             if (e.Cancel)
             {
-                Log.Instance.log("EventID/Param : Parsing problem, " + errorMessage, LogSeverity.Error);
+                Log.Instance.log($"EventID/Param parsing problem: {errorMessage}", LogSeverity.Error);
                 displayError(
                     sender as Control, 
                     String.Format(

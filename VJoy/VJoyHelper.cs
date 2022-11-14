@@ -36,18 +36,18 @@ namespace MobiFlight.VJoy
                 switch (status)
                 {
                     case VjdStat.VJD_STAT_OWN:
-                        Log.Instance.log("vJoy Device " + i + " is already owned by this feeder", LogSeverity.Debug);
+                        Log.Instance.log($"vJoy device {i} is already owned by this feeder.", LogSeverity.Debug);
                         ret.Add(i);
                         break;
                     case VjdStat.VJD_STAT_FREE:
-                        Log.Instance.log("vJoy Device" + i + "is free\n", LogSeverity.Debug);
+                        Log.Instance.log($"vJoy device {i} is free.", LogSeverity.Debug);
                         ret.Add(i);
                         break;
                     case VjdStat.VJD_STAT_BUSY:
-                        Log.Instance.log("vJoy Device" + i + "is already owned by another feeder\nCannot continue\n", LogSeverity.Debug);
+                        Log.Instance.log($"vJoy device {i} is already owned by another feeder, cannot continue.", LogSeverity.Error);
                         break;
                     case VjdStat.VJD_STAT_MISS:
-                        Log.Instance.log("vJoy Device" + i + "is not installed or disabled\nCannot continue\n", LogSeverity.Debug);
+                        Log.Instance.log($"vJoy device {i} is not installed or disabled, cannot continue.", LogSeverity.Error);
                         break;
                 }
             }

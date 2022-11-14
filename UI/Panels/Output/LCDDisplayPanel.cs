@@ -43,7 +43,7 @@ namespace MobiFlight.UI.Panels
                 if (!ComboBoxHelper.SetSelectedItem(DisplayComboBox, config.LcdDisplay.Address.ToString()))
                 {
                     // TODO: provide error message
-                    Log.Instance.log($"{GetType().Name}:syncFromConfig : Exception on selecting item in LCD Address ComboBox", LogSeverity.Debug);
+                    Log.Instance.log("Exception on selecting item in LCD address ComboBox.", LogSeverity.Error);
                 }
             }
             if (config.LcdDisplay.Lines.Count > 0)
