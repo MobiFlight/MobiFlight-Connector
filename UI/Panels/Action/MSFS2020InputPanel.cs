@@ -64,7 +64,7 @@ namespace MobiFlight.UI.Panels.Action
 
                     if (System.IO.File.Exists(PresetFileUser))
                     {
-                        Log.Instance.log("MSFS2020InputPanel.cs: User events found.", LogSeverity.Debug);
+                        Log.Instance.log("User events found.", LogSeverity.Debug);
                         lines = System.IO.File.ReadAllLines(PresetFileUser);
                         GroupKey = "User";
                         data.Add(GroupKey, new List<String>());
@@ -89,7 +89,7 @@ namespace MobiFlight.UI.Panels.Action
                         if (data["User"].Count == 0) data.Remove("User");
                     } else
                     {
-                        Log.Instance.log("MSFS2020InputPanel.cs: No user event found.", LogSeverity.Debug);
+                        Log.Instance.log("No user events found.", LogSeverity.Debug);
                     }
 
                     GroupComboBox.Items.Clear();

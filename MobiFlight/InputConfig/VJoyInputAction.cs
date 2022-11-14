@@ -59,11 +59,11 @@ namespace MobiFlight.InputConfig
             {
                 if (VJoyHelper.sendButton(vJoyID,UInt16.Parse(buttonNr.ToString()),buttonComand))
                 {
-                    Log.Instance.log("sending Btn Nr:" + buttonNr + " ID:" + vJoyID + " State" + buttonComand, LogSeverity.Debug);
+                    Log.Instance.log($"Sending button number: {buttonNr} ID: {vJoyID} State: {buttonComand}", LogSeverity.Debug);
                 }
                 else
                 {
-                    Log.Instance.log("ERROR sending Btn Nr:" + buttonNr + " ID:" + vJoyID + " State" + buttonComand, LogSeverity.Error);
+                    Log.Instance.log($"Error button number: {buttonNr} ID: {vJoyID} State: {buttonComand}", LogSeverity.Error);
                 }
                 return;
             }
@@ -73,11 +73,11 @@ namespace MobiFlight.InputConfig
                 UInt16 vJoyIntValue = (UInt16)Math.Round(Double.Parse(value));
                 if (VJoyHelper.setAxisVal(vJoyID,axisString,vJoyIntValue))
                 {
-                    Log.Instance.log("set Axis:" + axisString + " ID:" + vJoyID + " to " + vJoyIntValue, LogSeverity.Debug);
+                    Log.Instance.log($"Setting axis: {axisString} ID: {vJoyID} Value: {vJoyIntValue}", LogSeverity.Debug);
                 }
                 else
                 {
-                    Log.Instance.log("ERROR set Axis:" + axisString + " ID:" + vJoyID + " to " + vJoyIntValue, LogSeverity.Error);
+                    Log.Instance.log($"Error setting axis: {axisString} ID: {vJoyID} Value: {vJoyIntValue}", LogSeverity.Error);
                 }
                 return;
             }

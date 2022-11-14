@@ -72,7 +72,7 @@ namespace MobiFlight
 
             foreach (DeviceInstance d in devices)
             {
-                Log.Instance.log("Found attached DirectInput Device: " + d.InstanceName + ", Type: " + d.Type.ToString() + ", SubType: " + d.Subtype, LogSeverity.Debug);
+                Log.Instance.log($"Found attached DirectInput device: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
 
                 if (!IsSupportedDeviceType(d)) continue;
 
@@ -85,7 +85,7 @@ namespace MobiFlight
 
                 if (!HasAxisOrButtons(js)) continue;
 
-                Log.Instance.log("Adding attached Joystick Device: " + d.InstanceName + " Buttons " + js.Capabilities.ButtonCount + ", Axis: " + js.Capabilities.AxeCount, LogSeverity.Debug);
+                Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
                 js.Connect(Handle); 
                 joysticks.Add(js);
                 js.OnButtonPressed += Js_OnButtonPressed;
@@ -100,7 +100,7 @@ namespace MobiFlight
         private void Js_OnDisconnected(object sender, EventArgs e)
         {
             Joystick js = sender as Joystick;
-            Log.Instance.log("Joystick Disconnected: " + js.Name, LogSeverity.Debug);
+            Log.Instance.log($"Joystick disconnected: {js.Name}.", LogSeverity.Info);
             lock (joysticks)
                 joysticks.Remove(js);            
         }

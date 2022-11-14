@@ -248,7 +248,7 @@ namespace MobiFlight.UI.Dialogs
             if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.Comparison.Operand))
             {
                 // TODO: provide error message
-                Log.Instance.log($"{GetType().Name}._syncComparisonTabFromConfig: Exception on selecting item in Comparison ComboBox", LogSeverity.Debug);
+                Log.Instance.log($"Exception on selecting item in Comparison ComboBox.", LogSeverity.Error);
             }
             comparisonIfValueTextBox.Text = config.Comparison.IfValue;
             comparisonElseValueTextBox.Text = config.Comparison.ElseValue;
@@ -332,9 +332,9 @@ namespace MobiFlight.UI.Dialogs
                 {
                     return;
                 }
-            } catch (System.InvalidOperationException eOp)
+            } catch (System.InvalidOperationException ex)
             {
-                Log.Instance.log("ConfigWizard:button1_Click: " + eOp.Message, LogSeverity.Debug);
+                Log.Instance.log(ex.Message, LogSeverity.Error);
             }
             _syncFormToConfig();
             DialogResult = DialogResult.OK;
@@ -368,9 +368,9 @@ namespace MobiFlight.UI.Dialogs
                 float.Parse((sender as TextBox).Text);
                 removeError(sender as Control);
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Log.Instance.log("fsuipcMultiplyTextBox_Validating : Parsing problem, " + exc.Message, LogSeverity.Debug);
+                Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Error);
                 displayError(sender as Control, i18n._tr("uiMessageFsuipcConfigPanelMultiplyWrongFormat"));
                 e.Cancel = true;
             }
@@ -383,10 +383,10 @@ namespace MobiFlight.UI.Dialogs
                 string tmp = (sender as TextBox).Text.Replace("0x", "").ToUpper();
                 (sender as TextBox).Text = "0x" + Int64.Parse(tmp, System.Globalization.NumberStyles.HexNumber).ToString("X" + length.ToString());
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {                
                 e.Cancel = true;
-                Log.Instance.log("_validatingHexFields : Parsing problem, " + exc.Message, LogSeverity.Debug);
+                Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Debug);
                 MessageBox.Show(i18n._tr("uiMessageConfigWizard_ValidHexFormat"), i18n._tr("Hint"));
             }
         }
@@ -447,7 +447,7 @@ namespace MobiFlight.UI.Dialogs
             }
             catch (Exception e)
             {
-                Log.Instance.log($"Error Test Mode execution. ExecuteTestOn > {e.Message}", LogSeverity.Error);
+                Log.Instance.log($"Error starting test mode: {e.Message}", LogSeverity.Error);
             }
         }
 
@@ -459,7 +459,7 @@ namespace MobiFlight.UI.Dialogs
             }
             catch (Exception e)
             {
-                Log.Instance.log($"Error Test Mode execution. ExecuteTestOff > {e.Message}", LogSeverity.Error);
+                Log.Instance.log($"Error stopping test mode: {e.Message}", LogSeverity.Error);
             }
 
         }

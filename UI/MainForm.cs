@@ -72,9 +72,9 @@ namespace MobiFlight.UI
             }
             catch (Exception e)
             {
-                Log.Instance.log("MainForm() : Unknown log level", LogSeverity.Error);
+                Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
-            Log.Instance.log("MainForm() : Logger initialized " + Log.Instance.Severity.ToString(), LogSeverity.Info);
+            Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
         }
 
         private void InitializeSettings()
@@ -727,11 +727,7 @@ namespace MobiFlight.UI
                 }
 
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.SIMCONNECT.ToString());
-                Log.Instance.log(
-                    $"{FlightSim.SimNames[FlightSim.FlightSimType].ToString()} detected. " +
-                    $"[{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod].ToString()}]",
-                    LogSeverity.Info
-                );
+                Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod]}].", LogSeverity.Info);
             }
             else if (sender.GetType() == typeof(XplaneCache) && FlightSim.FlightSimType == FlightSimType.XPLANE)
             {
@@ -743,11 +739,7 @@ namespace MobiFlight.UI
                 }
 
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.XPLANE.ToString());
-                Log.Instance.log(
-                    $"{FlightSim.SimNames[FlightSim.FlightSimType].ToString()} detected. " +
-                    $"[{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod].ToString()}]", 
-                    LogSeverity.Info
-                );
+                Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod]}].", LogSeverity.Info);
             }
             else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
 
@@ -772,21 +764,14 @@ namespace MobiFlight.UI
                 }
                 FsuipcToolStripMenuItem.Image = Properties.Resources.check;
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), c.FlightSimConnectionMethod.ToString());
-                Log.Instance.log(
-                    $"{FlightSim.SimNames[FlightSim.FlightSimType].ToString()} detected. " +
-                    $"[{FlightSim.SimConnectionNames[CurrentConnectionMethod].ToString()}]", 
-                    LogSeverity.Info
+                Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info
                 );
             }
 
             if ((sender as CacheInterface).IsConnected())
             {
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
-                Log.Instance.log(
-                    $"Connected to {FlightSim.SimNames[CurrentFlightSimType].ToString()}. " +
-                    $"[{FlightSim.SimConnectionNames[CurrentConnectionMethod].ToString()}]", 
-                    LogSeverity.Info
-                );
+                Log.Instance.log($"Connected to {FlightSim.SimNames[CurrentFlightSimType]}. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info);
             }
 
             runToolStripButton.Enabled = RunIsAvailable();
@@ -932,10 +917,10 @@ namespace MobiFlight.UI
                 // The Stop entry
                 contextMenuStripNotifyIcon.Items[1].Enabled = isRunning;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 // do nothing
-                Log.Instance.log("MainForm.updateNotifyContextMenu() : " + e.Message, LogSeverity.Warn);
+                Log.Instance.log(ex.Message, LogSeverity.Info);
             }
         }
 
@@ -1153,6 +1138,7 @@ namespace MobiFlight.UI
             }
             catch (Exception ex)
             {
+                Log.Instance.log($"Unable to load configuration file: {ex.Message}", LogSeverity.Error);
                 MessageBox.Show(i18n._tr("uiMessageProblemLoadingConfig"), i18n._tr("Hint"));
                 return;
             }
@@ -1287,9 +1273,9 @@ namespace MobiFlight.UI
                     TimeoutMessageDialog.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            catch (Exception e) {
+            catch (Exception ex) {
                 // do nothing
-                Log.Instance.log("Orphaned Serials Exception. " + e.Message, LogSeverity.Error);
+                Log.Instance.log($"Orphaned serials exception: {ex.Message}", LogSeverity.Error);
             }
         }
 
@@ -1676,8 +1662,8 @@ namespace MobiFlight.UI
                     return;
                 }
 
-            } catch (Exception e) {
-                Log.Instance.log(e.Message, LogSeverity.Error);
+            } catch (Exception ex) {
+                Log.Instance.log(ex.Message, LogSeverity.Error);
             }
 
             // We only get here in case of an error.
@@ -1697,10 +1683,7 @@ namespace MobiFlight.UI
             var t = new Task(() => {
                     if (!updater.AutoDetectCommunityFolder())
                     {
-                        Log.Instance.log(
-                            i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"),
-                            LogSeverity.Error
-                        );
+                        Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
                         return;
                     }
 
@@ -1713,10 +1696,7 @@ namespace MobiFlight.UI
                     else
                     {
                         progressForm.DialogResult = DialogResult.No;
-                        Log.Instance.log(
-                            i18n._tr("uiMessageWasmEventsInstallationError"),
-                            LogSeverity.Error
-                        );
+                        Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
                     }
                 }
             );

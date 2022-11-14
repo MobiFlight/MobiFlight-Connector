@@ -46,10 +46,10 @@ namespace MobiFlight.InputConfig
             {
                 expression = (ce.Evaluate()).ToString();
             }
-            catch
+            catch (Exception ex)
             {
                 if(Log.LooksLikeExpression(expression))
-                    Log.Instance.log("InputAction.Replace : Exception on NCalc evaluate => " + expression , LogSeverity.Warn);
+                    Log.Instance.log($"Exception on NCalc evaluate => {expression}: {ex.Message}", LogSeverity.Error);
             }
             return expression; 
         }

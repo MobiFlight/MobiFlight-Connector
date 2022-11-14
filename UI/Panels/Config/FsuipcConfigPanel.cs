@@ -57,7 +57,7 @@ namespace MobiFlight.UI.Panels.Config
             {
                 isLoaded = false;
                 MessageBox.Show(i18n._tr("uiMessageConfigWizard_PresetsNotFound"), i18n._tr("Hint"));
-                Log.Instance.log("Could not load file: " + PresetFile, LogSeverity.Debug);
+                Log.Instance.log($"Could not load file {PresetFile}.", LogSeverity.Error);
             }
             else
             {
@@ -147,10 +147,10 @@ namespace MobiFlight.UI.Panels.Config
                 (sender as TextBox).Text = "0x" + Int64.Parse(tmp, System.Globalization.NumberStyles.HexNumber).ToString("X" + length.ToString());
                 removeError(sender as Control);
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
                 e.Cancel = true;
-                Log.Instance.log("_validatingHexFields : Parsing problem, " + exc.Message, LogSeverity.Debug);
+                Log.Instance.log($"Parsing problem : {ex.Message}", LogSeverity.Debug);
                 displayError(sender as Control, i18n._tr("uiMessageConfigWizard_ValidHexFormat"));
             }
         }
@@ -239,16 +239,16 @@ namespace MobiFlight.UI.Panels.Config
             {
                 fsuipcOffsetTypeComboBox.SelectedValue = config.FSUIPC.OffsetType.ToString();
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
                 // TODO: provide error message
-                Log.Instance.log($"{GetType().Name}.syncFromConfig : Exception on FSUIPCOffsetType.ToString", LogSeverity.Debug);
+                Log.Instance.log($"Exception on FSUIPCOffsetType.ToString: {ex.Message}", LogSeverity.Error);
             }
 
             if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPC.Size.ToString()))
             {
                 // TODO: provide error message
-                Log.Instance.log($"{GetType().Name}.syncFromConfig : Exception on selecting item in ComboBox", LogSeverity.Debug);
+                Log.Instance.log("Exception on selecting item in ComboBox.", LogSeverity.Error);
             }
 
             // mask
@@ -345,7 +345,7 @@ namespace MobiFlight.UI.Panels.Config
             }
             catch (Exception ex)
             {
-                Log.Instance.log("fsuipcMultiplyTextBox_Validating : Parsing problem, " + ex.Message, LogSeverity.Debug);
+                Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Error);
                 displayError(sender as Control, ex.Message);
                 e.Cancel = false;
             }
@@ -370,9 +370,9 @@ namespace MobiFlight.UI.Panels.Config
                 float.Parse((sender as TextBox).Text);
                 removeError(sender as Control);
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Log.Instance.log("fsuipcMultiplyTextBox_Validating : Parsing problem, " + exc.Message, LogSeverity.Debug);
+                Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Debug);
                 displayError(sender as Control, i18n._tr("uiMessageFsuipcConfigPanelMultiplyWrongFormat"));
                 e.Cancel = true;
             }

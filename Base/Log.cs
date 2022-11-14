@@ -7,6 +7,7 @@ using System.Threading;
 using System.IO;
 using System.Threading.Tasks;
 using MobiFlight.UI.Panels;
+using System.Diagnostics;
 
 namespace MobiFlight
 {
@@ -35,10 +36,24 @@ namespace MobiFlight
 
         public LogSeverity Severity { get; set; }
 
+        public string GetCallingMethod()
+        {
+            var stackTrace = new StackTrace();
+            var callingMethod = stackTrace.GetFrame(2).GetMethod();
+            var callingClass = callingMethod.ReflectedType;
+            return $"{callingClass.Name}.{callingMethod.Name}()";
+
+        }
+
         public void log(String message, LogSeverity severity)
         {
             if (!Enabled) return;
             if ((int)severity < (int)Severity) return;
+
+            if (Severity == LogSeverity.Debug)
+            {
+                message = $"{GetCallingMethod()}: {message}";
+            }
 
             foreach (ILogAppender appender in appenderList)
             {

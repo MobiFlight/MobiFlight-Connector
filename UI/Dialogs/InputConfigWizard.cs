@@ -248,7 +248,7 @@ namespace MobiFlight.UI.Dialogs
             if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
             {
                 // TODO: provide error message
-                Log.Instance.log($"{GetType().Name}:_syncConfigToForm : Exception on selecting item in Display Type ComboBox", LogSeverity.Debug);
+                Log.Instance.log("Exception on selecting item in display type ComboBox.", LogSeverity.Error);
             }
 
             preconditionPanel.syncFromConfig(config);
@@ -427,13 +427,13 @@ namespace MobiFlight.UI.Dialogs
                 if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
                 {
                     // TODO: provide error message
-                    Log.Instance.log("displayArcazeSerialComboBox_SelectedIndexChanged : Problem setting Display Type ComboBox", LogSeverity.Debug);
+                    Log.Instance.log($"Problem setting display type ComboBox.", LogSeverity.Error);
                 }
 
             }
             catch (Exception ex)
             {
-                Log.Instance.log("displayArcazeSerialComboBox_SelectedIndexChanged : Some Exception occurred" + ex.Message, LogSeverity.Debug);
+                Log.Instance.log(ex.Message, LogSeverity.Error);
             }
         }
 
@@ -527,9 +527,9 @@ namespace MobiFlight.UI.Dialogs
                     panel.Dock = DockStyle.Fill;
                 }
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Log.Instance.log("InputConfigWizard.inputTypeComboBox_SelectedIndexChanged: EXC " + exc.Message, LogSeverity.Debug);
+                Log.Instance.log(ex.Message, LogSeverity.Error);
                 MessageBox.Show(i18n._tr("uiMessageNotImplementedYet"), 
                                 i18n._tr("Hint"), 
                                 MessageBoxButtons.OK, 

@@ -144,7 +144,7 @@ namespace MobiFlight.Modifier
             catch
             {
                 if (Log.LooksLikeExpression(comparisonResult))
-                    Log.Instance.log("ExecuteComparison : Exception on NCalc evaluate => " + result, LogSeverity.Warn);
+                    Log.Instance.log($"Exception on NCalc evaluate => {result}.", LogSeverity.Warn);
             }
 
             try
