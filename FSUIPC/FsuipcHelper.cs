@@ -100,8 +100,9 @@ namespace MobiFlight.FSUIPC
 
                     result.Float64 = value32;
                     break;
+
                 case 8:
-                    Double value64 = (Double)fsuipcCache.getDoubleValue(
+                    Double value64 = fsuipcCache.getDoubleValue(
                                                 cfg.FSUIPC.Offset,
                                                 cfg.FSUIPC.Size
                                                 );
