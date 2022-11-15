@@ -101,25 +101,33 @@ namespace MobiFlight
         static public byte CalculateCorrectPoints(string value, byte mask)
         {
             byte points = 0;
-            byte digit = 8;
-            int pos = value.Length-1;
-            for (byte i = 0; i < 8; i++)
+
+            // we start with the last character in the value string
+            int positionInValue = value.Length-1;
+
+            // we go over all 8 potential digits
+            for (byte digit=0; digit<8; digit++)
             {
-                digit--;
+                // if the digit is not active, go to the next
                 if (((1 << digit) & mask) == 0)
                     continue;
 
-                if (pos < 0)
+                // stop when you ran out of value to display
+                if (positionInValue < 0)
                     break;
 
-                if (value[pos]=='.')
+                // when we have a decimal point at the current position
+                if (value[positionInValue]=='.')
                 {
-                    digit++;
-                    points |= (byte)(1 << (8-digit));
-                    i--;
+                    // activate the point at the current digit
+                    points |= (byte)(1 << digit);
+                    
+                    // then we stay on the digit one more time
+                    digit--;
                 }
 
-                pos--;
+                // walk one character to the left
+                positionInValue--;
             }
             return points;
         }

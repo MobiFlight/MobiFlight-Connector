@@ -171,12 +171,30 @@ namespace MobiFlight.Tests
 
             value = "1.234";
             points = 0;
-            mask = 1+2+4+8;
+            mask = 8+4+2+1;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},1234,8,{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
+
+            value = "1.234";
+            points = 0;
+            mask = 128+64+32+16;
             mockTransport.Clear();
             module.Display(0, value, points, mask);
             WaitForQueueUpdate();
             DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},1234,128,{mask};";
-            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Caching mechanism test failed, we are sending the same value again, nothing has changed. Value in Mock should be \"\"");
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
+
+            value = "1.2";
+            points = 0;
+            mask = 0+4+0+1;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},12,4,{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
         }
 
         [TestMethod()]
