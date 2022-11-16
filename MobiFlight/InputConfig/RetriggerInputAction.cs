@@ -9,7 +9,7 @@ namespace MobiFlight.InputConfig
     {
         public new const String Label = "MobiFlight - Retrigger switches";
         public const String TYPE = "RetriggerInputAction";
-        DateTime lastExecution = DateTime.Now;
+        DateTime lastExecution = DateTime.MinValue;
 
         public override object Clone()
         {
