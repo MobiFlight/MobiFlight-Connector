@@ -14,6 +14,7 @@ namespace MobiFlight
     {
         public string Serial { get; set; }
         public string DeviceId { get; set; }
+        public string DeviceLabel { get; set; }
         public string Name { get; set; }
         public DeviceType Type { get; set; }
         public int? ExtPin { get; set; }
@@ -504,7 +505,14 @@ namespace MobiFlight
             if (!int.TryParse(pos, out value)) return;
 
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = enc, Type = DeviceType.Encoder, Value = value });
+                OnInputDeviceAction(this, new InputEventArgs() { 
+                    Serial = this.Serial, 
+                    Name = Name, 
+                    DeviceId = enc, 
+                    DeviceLabel = enc, 
+                    Type = DeviceType.Encoder, 
+                    Value = value 
+                });
             //addLog("Enc: " + enc + ":" + pos);
         }
 
@@ -514,7 +522,15 @@ namespace MobiFlight
             String channel = arguments.ReadStringArg();
             String state = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = deviceId, Type = DeviceType.InputShiftRegister, ExtPin = int.Parse(channel), Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { 
+                    Serial = this.Serial, 
+                    Name = Name, 
+                    DeviceId = deviceId, 
+                    DeviceLabel = deviceId, 
+                    Type = DeviceType.InputShiftRegister, 
+                    ExtPin = int.Parse(channel), 
+                    Value = int.Parse(state) 
+                });
         }
 
         void OnInputMultiplexerChange(ReceivedCommand arguments)
@@ -523,7 +539,15 @@ namespace MobiFlight
             String channel = arguments.ReadStringArg();
             String state = arguments.ReadStringArg();
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = deviceId, Type = DeviceType.InputMultiplexer, ExtPin = int.Parse(channel), Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { 
+                    Serial = this.Serial, 
+                    Name = Name, 
+                    DeviceId = deviceId, 
+                    DeviceLabel = deviceId,
+                    Type = DeviceType.InputMultiplexer, 
+                    ExtPin = int.Parse(channel), 
+                    Value = int.Parse(state) 
+                });
         }
 
         // Callback function that prints the Arduino status to the console
@@ -533,7 +557,14 @@ namespace MobiFlight
             String state = arguments.ReadStringArg();
             //addLog("Button: " + button + ":" + state);
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = button, Type = DeviceType.Button, Value = int.Parse(state) });
+                OnInputDeviceAction(this, new InputEventArgs() { 
+                    Serial = this.Serial, 
+                    Name = Name, 
+                    DeviceId = button, 
+                    DeviceLabel = button,
+                    Type = DeviceType.Button, 
+                    Value = int.Parse(state) 
+                });
         }
 
         // Callback function that prints the Arduino status to the console
@@ -543,7 +574,14 @@ namespace MobiFlight
             String value = arguments.ReadStringArg();
             //addLog("Button: " + button + ":" + state);
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { Serial = this.Serial, Name = Name, DeviceId = name, Type = DeviceType.AnalogInput, Value = int.Parse(value) });
+                OnInputDeviceAction(this, new InputEventArgs() { 
+                    Serial = this.Serial, 
+                    Name = Name, 
+                    DeviceId = name, 
+                    DeviceLabel = name,
+                    Type = DeviceType.AnalogInput, 
+                    Value = int.Parse(value) 
+                });
         }
 
         // Callback function that prints the Arduino Debug Print to the console
@@ -1000,7 +1038,7 @@ namespace MobiFlight
                 }
             }
 
-            result.Sort();
+            result.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
             return result;
         }
 

@@ -246,7 +246,8 @@ namespace MobiFlight
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
                         Name = Name,
-                        DeviceId = POV[index].Label,
+                        DeviceId = POV[index].Name,
+                        DeviceLabel = POV[index].Label,
                         Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                         Type = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.RELEASE
@@ -261,7 +262,8 @@ namespace MobiFlight
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
                         Name = Name,
-                        DeviceId = POV[index].Label,
+                        DeviceId = POV[index].Name,
+                        DeviceLabel = POV[index].Label,
                         Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                         Type = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.PRESS
@@ -289,7 +291,8 @@ namespace MobiFlight
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
                             Name = Name,
-                            DeviceId = Axes[CurrentAxis].Label,
+                            DeviceId = Axes[CurrentAxis].Name,
+                            DeviceLabel = Axes[CurrentAxis].Label,
                             Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                             Type = DeviceType.AnalogInput,
                             Value = newValue
@@ -311,7 +314,8 @@ namespace MobiFlight
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
                             Name = Name,
-                            DeviceId = Buttons[i].Label,
+                            DeviceId = Buttons[i].Name,
+                            DeviceLabel = Buttons[i].Label,
                             Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                             Type = DeviceType.Button,
                             Value = newState.Buttons[i] ? 0 : 1

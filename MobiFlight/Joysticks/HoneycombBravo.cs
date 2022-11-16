@@ -88,7 +88,7 @@ namespace MobiFlight.Joysticks
         protected override void EnumerateDevices()
         {
             base.EnumerateDevices();
-            /*Buttons.Sort((b1, b2) =>
+            Buttons.Sort((b1, b2) =>
             {
                 if (GetIndexForKey(b1.Name) == GetIndexForKey(b2.Name)) return 0;
                 if (GetIndexForKey(b1.Name) > GetIndexForKey(b2.Name)) return 1;
@@ -96,7 +96,6 @@ namespace MobiFlight.Joysticks
             }
             );
             Axes.Sort((a1, a2) => { return a1.Label.CompareTo(a2.Label); });
-            */
         }
 
         static int GetIndexForKey(string key)

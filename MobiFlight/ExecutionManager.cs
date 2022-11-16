@@ -1278,7 +1278,7 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + " => " +e.Value;
             }
 
-            var msgEventLabel = $"{e.Name} => {e.DeviceId} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
+            var msgEventLabel = $"{e.Name} => {e.DeviceLabel} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
 
             lock (inputCache)
 			{
