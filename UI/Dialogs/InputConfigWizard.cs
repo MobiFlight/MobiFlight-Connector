@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight;
 using MobiFlight.Base;
-using MobiFlight.UI.Panels;
+using MobiFlight.Config;
 using MobiFlight.UI.Panels.Input;
 
 namespace MobiFlight.UI.Dialogs
@@ -283,7 +279,14 @@ namespace MobiFlight.UI.Dialogs
         protected bool _syncFormToConfig()
         {
             config.ModuleSerial = inputModuleNameComboBox.SelectedItem.ToString();
-            config.Name = inputTypeComboBox.Text;
+
+            if (Joystick.IsJoystickSerial(SerialNumber.ExtractSerial(config.ModuleSerial)))
+            {
+                config.Name = (inputTypeComboBox.SelectedItem as ListItem).Value;
+            } else
+            {
+                config.Name = (inputTypeComboBox.SelectedItem as ListItem<BaseDevice>).Value.Name;
+            }  
 
             configRefPanel.syncToConfig(config);
 
