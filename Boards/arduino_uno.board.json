@@ -2,7 +2,7 @@
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
     "Device": "atmega328p",
-    "BaudRate": "115200",
+    "BaudRates": [ "115200" ],
     "Programmer": "arduino",
     "FirmwareBaseName": "mobiflight_uno",
     "Timeout": 15000,

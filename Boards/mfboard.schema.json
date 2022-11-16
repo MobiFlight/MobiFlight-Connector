@@ -11,13 +11,26 @@
       "title": "Avrdudesettings",
       "type": "object",
       "description": "Settings for flashing Arduino devices with avrdude.",
-      "required": ["BaudRate", "Device", "FirmwareBaseName", "Programmer"],
+      "required": ["BaudRates", "Device", "FirmwareBaseName", "Programmer"],
       "properties": {
         "BaudRate": {
           "$id": "#root/AvrDudeSettings/BaudRate",
           "title": "Baudrate",
-          "description": "Baud rate to use with AvrDude.",
+          "description": "Baud rate to use with AvrDude. Deprecated. Use BaudRates instead.",
           "type": "string"
+        },
+        "BaudRates": {
+          "$id": "#root/AvrDude/Settings/BaudRates",
+          "title": " Baudrates",
+          "description": "All supported baud rates to use with AvrDude.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "$id": "#root/BaudRates/items",
+            "title": "Items",
+            "description": "A baud rate for communicating with the device.",
+            "type": "string"
+          }
         },
         "Device": {
           "$id": "#root/AvrDudeSettings/Device",

@@ -12,9 +12,14 @@ namespace MobiFlight
     public class AvrDudeSettings
     {
         /// <summary>
-        /// Baud rate to use with AvrDude.
+        /// Baud rate to use with AvrDude. Deprecated. Use BaudRates instead.
         /// </summary>
         public String BaudRate;
+
+        /// <summary>
+        /// All supported baud rates to use with AvrDude.
+        /// </summary>
+        public List<String> BaudRates;
 
         /// <summary>
         /// AvrDude device type for the device.
