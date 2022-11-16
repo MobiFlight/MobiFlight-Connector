@@ -72,7 +72,14 @@ namespace MobiFlight.InputConfig
 
             value = Replace(value, replacements);
 
-            cacheCollection.fsuipcCache.setEventID(EventId, (int) UInt32.Parse(value));
+            try
+            {
+                cacheCollection.fsuipcCache.setEventID(EventId, (int)UInt32.Parse(value));
+            }
+            catch
+            {
+                Log.Instance.log($"Unable to convert eventId {EventId} value {value} to an integer.", LogSeverity.Error);
+            }
         }
 
         public override bool Equals(object obj)
