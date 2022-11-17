@@ -121,7 +121,7 @@ namespace MobiFlight.UI.Forms
             MobiFlightFirmwareUpdater.ArduinoIdePath = arduinoIdePath;
             MobiFlightFirmwareUpdater.FirmwarePath = firmwarePath;
 
-            int timeout = 15000;
+//            int timeout = 15000;
             var task = Task<bool>.Run(() => {
                 bool UpdateResult;
                 if (IsUpdate)
@@ -130,7 +130,7 @@ namespace MobiFlight.UI.Forms
                     UpdateResult = MobiFlightFirmwareUpdater.Reset(module);
                 return UpdateResult;
             });
-            if (await Task.WhenAny(task, Task.Delay(timeout)) == task)
+            if (await Task.WhenAny(task, Task.Delay(module.Board.AvrDudeSettings.Timeout)) == task)
             {
                 NumberOfModulesForFirmwareUpdate--;
 
