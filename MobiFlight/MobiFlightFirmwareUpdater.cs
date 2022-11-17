@@ -108,7 +108,7 @@ namespace MobiFlight
             {
                 var proc1 = new ProcessStartInfo();
                 string anyCommand =
-                    $@"-C""{FullAvrDudePath}\etc\avrdude.conf"" {verboseLevel} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{Port} -b{board.AvrDudeSettings.BaudRate} -D -Uflash:w:""{FirmwarePath}\{FirmwareName}"":i";
+                    $@"-C""{FullAvrDudePath}\etc\avrdude.conf"" {verboseLevel} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{Port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{FirmwareName}"":i";
                 proc1.UseShellExecute = true;
                 proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
                 proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
