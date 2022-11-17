@@ -96,6 +96,11 @@ namespace MobiFlight
         /// Maximum size of a CmdMessenger message, in bytes.
         /// </summary>
         public int MessageSize;
+
+        /// <summary>
+        /// Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board.
+        /// </summary>
+        public int TimeoutForFirmwareUpdate;
     }
 
     /// <summary>
@@ -216,6 +221,22 @@ namespace MobiFlight
         /// List of pins supported by the board.
         /// </summary>
         public List<MobiFlightPin> Pins;
+
+        /// <summary>
+        /// Migrates board definitions from older versions to newer versions.
+        /// </summary>
+        public void Migrate()
+        {
+            // Older versions of boards only specified a single baud rate. Handle the case where
+            // an old file was loaded by migrating the BaudRate value into the BaudRates array.
+            if (!String.IsNullOrEmpty(AvrDudeSettings.BaudRate) && AvrDudeSettings.BaudRates == null)
+            {
+                AvrDudeSettings.BaudRates = new List<string>()
+                {
+                    AvrDudeSettings.BaudRate
+                };
+            }
+        }
 
         public override string ToString()
         {
