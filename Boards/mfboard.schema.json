@@ -83,8 +83,7 @@
         "EEPROMSize",
         "ExtraConnectionRetry",
         "ForceResetOnFirmwareUpdate",
-        "MessageSize",
-        "TimeoutForFirmwareUpdate"
+        "MessageSize"
       ],
       "properties": {
         "ConnectionDelay": {
@@ -132,8 +131,9 @@
         "TimeoutForFirmwareUpdate": {
           "$id": "#root/Connection/TimeoutForFirmwareUpdate",
           "title": "Timeoutforfirmwareupdate",
-          "description": "Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board.",
-          "type": "integer"
+          "description": "Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board. Default 15000.",
+          "type": "integer",
+          "default":  15000
         }
       }
     },

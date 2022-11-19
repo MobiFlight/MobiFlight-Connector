@@ -106,7 +106,7 @@ namespace MobiFlight
         /// <summary>
         /// Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board.
         /// </summary>
-        public int TimeoutForFirmwareUpdate;
+        public int TimeoutForFirmwareUpdate = 15000;
     }
 
     /// <summary>
@@ -233,14 +233,19 @@ namespace MobiFlight
         /// </summary>
         public void Migrate()
         {
-            // Older versions of boards only specified a single baud rate. Handle the case where
-            // an old file was loaded by migrating the BaudRate value into the BaudRates array.
-            if (!String.IsNullOrEmpty(AvrDudeSettings.BaudRate) && AvrDudeSettings.BaudRates == null)
+            // Migrate AvrDudeSettings from older versions.
+            if (AvrDudeSettings != null)
             {
-                AvrDudeSettings.BaudRates = new List<string>()
+                // Older versions of boards only specified a single baud rate. Handle the case where
+                // an old file was loaded by migrating the BaudRate value into the BaudRates array.
+                if (!String.IsNullOrEmpty(AvrDudeSettings.BaudRate) && AvrDudeSettings.BaudRates == null)
+                {
+                    AvrDudeSettings.BaudRates = new List<string>()
                 {
                     AvrDudeSettings.BaudRate
                 };
+                }
+
             }
         }
 

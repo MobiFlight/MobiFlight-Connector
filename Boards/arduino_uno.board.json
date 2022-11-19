@@ -16,8 +16,7 @@
     "EEPROMSize": 286,
     "ExtraConnectionRetry": true,
     "ForceResetOnFirmwareUpdate": false,
-    "MessageSize": 64,
-    "TimeoutForFirmwareUpdate": 15000
+    "MessageSize": 64
   },
   "HardwareIds": [
     "^VID_2341&PID_0043",
