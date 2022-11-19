@@ -113,7 +113,7 @@ namespace MobiFlight
                 proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
                 proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
                 proc1.Arguments = anyCommand;
-                proc1.WindowStyle = ProcessWindowStyle.Normal;
+                proc1.WindowStyle = ProcessWindowStyle.Hidden;
                 Log.Instance.log($"{proc1.FileName} {anyCommand}", LogSeverity.Debug);
                 Process p = Process.Start(proc1);
                 if (p.WaitForExit(board.AvrDudeSettings.Timeout))
