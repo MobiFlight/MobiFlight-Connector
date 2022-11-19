@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace MobiFlight
 {
@@ -11,6 +12,11 @@ namespace MobiFlight
     /// </summary>
     public class AvrDudeSettings
     {
+        /// <summary>
+        /// Number of times AvrDude should retry connecting to the device.
+        /// </summary>
+        public int Attempts;
+
         /// <summary>
         /// Baud rate to use with AvrDude. Deprecated. Use BaudRates instead.
         /// </summary>

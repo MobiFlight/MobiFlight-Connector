@@ -1,11 +1,11 @@
 {
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
-    "Attempts": 3,
+    "Attempts":  1,
     "Device": "atmega328p",
-    "BaudRates": [ "115200" ],
+    "BaudRates": [ "57600", "115200" ],
     "Programmer": "arduino",
-    "FirmwareBaseName": "mobiflight_uno",
+    "FirmwareBaseName": "mobiflight_nano",
     "Timeout": 15000,
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },
@@ -17,7 +17,7 @@
     "ExtraConnectionRetry": true,
     "ForceResetOnFirmwareUpdate": false,
     "MessageSize": 64,
-    "TimeoutForFirmwareUpdate": 15000
+    "TimeoutForFirmwareUpdate": 60000
   },
   "HardwareIds": [
     "^VID_2341&PID_0043",
@@ -30,9 +30,9 @@
   ],
   "Info": {
     "CanInstallFirmware": true,
-    "FriendlyName": "Arduino Uno",
+    "FriendlyName": "Arduino Nano",
     "LatestFirmwareVersion": "2.3.0",
-    "MobiFlightType": "MobiFlight Uno"
+    "MobiFlightType": "MobiFlight Nano"
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 6,
