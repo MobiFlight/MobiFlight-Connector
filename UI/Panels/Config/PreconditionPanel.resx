@@ -117,51 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;preconditionListTreeView.Name" xml:space="preserve">
-    <value>preconditionListTreeView</value>
-  </data>
-  <data name="&gt;&gt;preconditionListTreeView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TreeView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionListTreeView.Parent" xml:space="preserve">
-    <value>preconditionListgroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionListTreeView.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="preconditionListgroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 32</value>
-  </data>
-  <data name="preconditionListgroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 100</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="preconditionListgroupBox.Text" xml:space="preserve">
-    <value>Precondition list</value>
-  </data>
-  <data name="&gt;&gt;preconditionListgroupBox.Name" xml:space="preserve">
-    <value>preconditionListgroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionListgroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionListgroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;preconditionListgroupBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <metadata name="preconditionTreeContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>214, 56</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="addPreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="addPreconditionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add Precondition</value>
+  </data>
+  <data name="removePreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="removePreconditionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove Precondition</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 6</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="toolStripSeparator1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="addGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="addGroupToolStripMenuItem.Text" xml:space="preserve">
+    <value>Add group</value>
+  </data>
+  <data name="addGroupToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="removeGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="removeGroupToolStripMenuItem.Text" xml:space="preserve">
+    <value>Remove group</value>
+  </data>
+  <data name="removeGroupToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>185, 6</value>
+  </data>
+  <data name="aNDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 22</value>
+  </data>
+  <data name="aNDToolStripMenuItem.Text" xml:space="preserve">
+    <value>AND</value>
+  </data>
+  <data name="oRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 22</value>
+  </data>
+  <data name="oRToolStripMenuItem.Text" xml:space="preserve">
+    <value>OR</value>
+  </data>
+  <data name="logicSelectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 22</value>
+  </data>
+  <data name="logicSelectToolStripMenuItem.Text" xml:space="preserve">
+    <value>Logic operator</value>
+  </data>
   <data name="preconditionTreeContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>189, 126</value>
   </data>
@@ -171,6 +188,7 @@
   <data name="&gt;&gt;preconditionTreeContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="preconditionListTreeView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -185,7 +203,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAG
-        CgAAAk1TRnQBSQFMAgEBAgEAAVQBBgFUAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CgAAAk1TRnQBSQFMAgEBAgEAAVwBBgFcAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkA2IB4QJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJl
         AVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wNiAeEDOgFiCAADOwFkA2IB4QJcAWUB5wJcAWUB5wJc
         AWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wNiAeEDOgFiiAACYQFb
@@ -278,7 +296,7 @@
     <value>0</value>
   </data>
   <data name="preconditionListTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 81</value>
+    <value>462, 81</value>
   </data>
   <data name="preconditionListTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -295,62 +313,32 @@
   <data name="&gt;&gt;preconditionListTreeView.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="addPreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+  <data name="preconditionListgroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="addPreconditionToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add Precondition</value>
+  <data name="preconditionListgroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 32</value>
   </data>
-  <data name="removePreconditionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+  <data name="preconditionListgroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>468, 100</value>
   </data>
-  <data name="removePreconditionToolStripMenuItem.Text" xml:space="preserve">
-    <value>Remove Precondition</value>
+  <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
   </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
+  <data name="preconditionListgroupBox.Text" xml:space="preserve">
+    <value>Precondition list</value>
   </data>
-  <data name="toolStripSeparator1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;preconditionListgroupBox.Name" xml:space="preserve">
+    <value>preconditionListgroupBox</value>
   </data>
-  <data name="addGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
+  <data name="&gt;&gt;preconditionListgroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="addGroupToolStripMenuItem.Text" xml:space="preserve">
-    <value>Add group</value>
+  <data name="&gt;&gt;preconditionListgroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="addGroupToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="removeGroupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="removeGroupToolStripMenuItem.Text" xml:space="preserve">
-    <value>Remove group</value>
-  </data>
-  <data name="removeGroupToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>185, 6</value>
-  </data>
-  <data name="logicSelectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 22</value>
-  </data>
-  <data name="logicSelectToolStripMenuItem.Text" xml:space="preserve">
-    <value>Logic operator</value>
-  </data>
-  <data name="aNDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 22</value>
-  </data>
-  <data name="aNDToolStripMenuItem.Text" xml:space="preserve">
-    <value>AND</value>
-  </data>
-  <data name="oRToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 22</value>
-  </data>
-  <data name="oRToolStripMenuItem.Text" xml:space="preserve">
-    <value>OR</value>
+  <data name="&gt;&gt;preconditionListgroupBox.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="preconditionTabTextBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -365,7 +353,7 @@
     <value>True</value>
   </data>
   <data name="preconditionTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 32</value>
+    <value>468, 32</value>
   </data>
   <data name="preconditionTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -384,57 +372,6 @@
   </data>
   <data name="&gt;&gt;preconditionTabTextBox.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="&gt;&gt;preConditionTypeComboBox.Name" xml:space="preserve">
-    <value>preConditionTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;preConditionTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preConditionTypeComboBox.Parent" xml:space="preserve">
-    <value>preconditionSelectGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preConditionTypeComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;preconditionTypeLabel.Name" xml:space="preserve">
-    <value>preconditionTypeLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditionTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionTypeLabel.Parent" xml:space="preserve">
-    <value>preconditionSelectGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionTypeLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="preconditionSelectGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="preconditionSelectGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 57</value>
-  </data>
-  <data name="preconditionSelectGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
-    <value>Precondition type</value>
-  </data>
-  <data name="&gt;&gt;preconditionSelectGroupBox.Name" xml:space="preserve">
-    <value>preconditionSelectGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionSelectGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionSelectGroupBox.Parent" xml:space="preserve">
-    <value>preconditionSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionSelectGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="preConditionTypeComboBox.Items" xml:space="preserve">
     <value>None</value>
@@ -496,6 +433,33 @@
   <data name="&gt;&gt;preconditionTypeLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="preconditionSelectGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>468, 57</value>
+  </data>
+  <data name="preconditionSelectGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
+    <value>Precondition type</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Name" xml:space="preserve">
+    <value>preconditionSelectGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.Parent" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSelectGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="preconditionSpacerPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -503,7 +467,7 @@
     <value>0, 524</value>
   </data>
   <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 16</value>
+    <value>468, 16</value>
   </data>
   <data name="preconditionSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -519,60 +483,6 @@
   </data>
   <data name="&gt;&gt;preconditionSpacerPanel.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;overridePreconditionTextBox.Name" xml:space="preserve">
-    <value>overridePreconditionTextBox</value>
-  </data>
-  <data name="&gt;&gt;overridePreconditionTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;overridePreconditionTextBox.Parent" xml:space="preserve">
-    <value>overrideGroupBox</value>
-  </data>
-  <data name="&gt;&gt;overridePreconditionTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;overridePreconditionCheckBox.Name" xml:space="preserve">
-    <value>overridePreconditionCheckBox</value>
-  </data>
-  <data name="&gt;&gt;overridePreconditionCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;overridePreconditionCheckBox.Parent" xml:space="preserve">
-    <value>overrideGroupBox</value>
-  </data>
-  <data name="&gt;&gt;overridePreconditionCheckBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="overrideGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="overrideGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 430</value>
-  </data>
-  <data name="overrideGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 50</value>
-  </data>
-  <data name="overrideGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="overrideGroupBox.Text" xml:space="preserve">
-    <value>Precondition option</value>
-  </data>
-  <data name="overrideGroupBox.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;overrideGroupBox.Name" xml:space="preserve">
-    <value>overrideGroupBox</value>
-  </data>
-  <data name="&gt;&gt;overrideGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;overrideGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;overrideGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="overridePreconditionTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>313, 18</value>
@@ -625,6 +535,36 @@
   <data name="&gt;&gt;overridePreconditionCheckBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="overrideGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="overrideGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 430</value>
+  </data>
+  <data name="overrideGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>468, 50</value>
+  </data>
+  <data name="overrideGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="overrideGroupBox.Text" xml:space="preserve">
+    <value>Precondition option</value>
+  </data>
+  <data name="overrideGroupBox.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;overrideGroupBox.Name" xml:space="preserve">
+    <value>overrideGroupBox</value>
+  </data>
+  <data name="&gt;&gt;overrideGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;overrideGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;overrideGroupBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="preconditionSettingsPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -636,339 +576,6 @@
   </data>
   <data name="preconditionSettingsGroupBox.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueComboBox.Name" xml:space="preserve">
-    <value>preconditionPinValueComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueComboBox.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueComboBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.Name" xml:space="preserve">
-    <value>preconditionPinValueLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinValueLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinComboBox.Name" xml:space="preserve">
-    <value>preconditionPinComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinComboBox.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;preconditionPortComboBox.Name" xml:space="preserve">
-    <value>preconditionPortComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPortComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPortComboBox.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPortComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;preconditonPinLabel.Name" xml:space="preserve">
-    <value>preconditonPinLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditonPinLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditonPinLabel.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditonPinLabel.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialComboBox.Name" xml:space="preserve">
-    <value>preconditionPinSerialComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialComboBox.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialComboBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.Name" xml:space="preserve">
-    <value>preconditionPinSerialLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.Parent" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinSerialLabel.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="preconditionPinPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 127</value>
-  </data>
-  <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 111</value>
-  </data>
-  <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinPanel.Name" xml:space="preserve">
-    <value>preconditionPinPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinPanel.Parent" xml:space="preserve">
-    <value>preconditionSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionPinPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="preconditionRefValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>149, 45</value>
-  </data>
-  <data name="preconditionRefValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 20</value>
-  </data>
-  <data name="preconditionRefValueTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="&gt;&gt;preconditionRefValueTextBox.Name" xml:space="preserve">
-    <value>preconditionRefValueTextBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionRefValueTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionRefValueTextBox.Parent" xml:space="preserve">
-    <value>preconditionRuleConfigPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionRefValueTextBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.Items" xml:space="preserve">
-    <value>=</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.Items1" xml:space="preserve">
-    <value>&gt;</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.Items2" xml:space="preserve">
-    <value>&gt;=</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.Items3" xml:space="preserve">
-    <value>&lt;=</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.Items4" xml:space="preserve">
-    <value>&lt;</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.Items5" xml:space="preserve">
-    <value>!=</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 44</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 21</value>
-  </data>
-  <data name="preconditionRefOperandComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="&gt;&gt;preconditionRefOperandComboBox.Name" xml:space="preserve">
-    <value>preconditionRefOperandComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionRefOperandComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionRefOperandComboBox.Parent" xml:space="preserve">
-    <value>preconditionRuleConfigPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionRefOperandComboBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 43</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 21</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.Text" xml:space="preserve">
-    <value>If current value is</value>
-  </data>
-  <data name="preconditionConfigRefOperandLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Name" xml:space="preserve">
-    <value>preconditionConfigRefOperandLabel</value>
-  </data>
-  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Parent" xml:space="preserve">
-    <value>preconditionRuleConfigPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionConfigRefOperandLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="preconditionConfigComboBox.Items" xml:space="preserve">
-    <value>Config Rule</value>
-  </data>
-  <data name="preconditionConfigComboBox.Items1" xml:space="preserve">
-    <value>Arcaze Pin</value>
-  </data>
-  <data name="preconditionConfigComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 16</value>
-  </data>
-  <data name="preconditionConfigComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 21</value>
-  </data>
-  <data name="preconditionConfigComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="&gt;&gt;preconditionConfigComboBox.Name" xml:space="preserve">
-    <value>preconditionConfigComboBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionConfigComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionConfigComboBox.Parent" xml:space="preserve">
-    <value>preconditionRuleConfigPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionConfigComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 19</value>
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 16</value>
-  </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Choose config</value>
-  </data>
-  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label11.Name" xml:space="preserve">
-    <value>label11</value>
-  </data>
-  <data name="&gt;&gt;label11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>preconditionRuleConfigPanel</value>
-  </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>367, 111</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="preconditionRuleConfigPanel.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.Name" xml:space="preserve">
-    <value>preconditionRuleConfigPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.Parent" xml:space="preserve">
-    <value>preconditionSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionRuleConfigPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 57</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 241</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
-    <value>Precondition settings</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.Name" xml:space="preserve">
-    <value>preconditionSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.Parent" xml:space="preserve">
-    <value>preconditionSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="preconditionSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 132</value>
-  </data>
-  <data name="preconditionSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 298</value>
-  </data>
-  <data name="preconditionSettingsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.Name" xml:space="preserve">
-    <value>preconditionSettingsPanel</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;preconditionSettingsPanel.ZOrder" xml:space="preserve">
-    <value>4</value>
   </data>
   <data name="preconditionPinValueComboBox.Items" xml:space="preserve">
     <value>On</value>
@@ -1192,6 +799,255 @@
   <data name="&gt;&gt;preconditionPinSerialLabel.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <data name="preconditionPinPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 127</value>
+  </data>
+  <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>462, 111</value>
+  </data>
+  <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Name" xml:space="preserve">
+    <value>preconditionPinPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.Parent" xml:space="preserve">
+    <value>preconditionSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionPinPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="preconditionRefValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>149, 45</value>
+  </data>
+  <data name="preconditionRefValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 20</value>
+  </data>
+  <data name="preconditionRefValueTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefValueTextBox.Name" xml:space="preserve">
+    <value>preconditionRefValueTextBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefValueTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefValueTextBox.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefValueTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Items" xml:space="preserve">
+    <value>=</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Items1" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Items2" xml:space="preserve">
+    <value>&gt;=</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Items3" xml:space="preserve">
+    <value>&lt;=</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Items4" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Items5" xml:space="preserve">
+    <value>!=</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>104, 44</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 21</value>
+  </data>
+  <data name="preconditionRefOperandComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefOperandComboBox.Name" xml:space="preserve">
+    <value>preconditionRefOperandComboBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefOperandComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefOperandComboBox.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionRefOperandComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 43</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 21</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.Text" xml:space="preserve">
+    <value>If current value is</value>
+  </data>
+  <data name="preconditionConfigRefOperandLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Name" xml:space="preserve">
+    <value>preconditionConfigRefOperandLabel</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigRefOperandLabel.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigRefOperandLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="preconditionConfigComboBox.Items" xml:space="preserve">
+    <value>Config Rule</value>
+  </data>
+  <data name="preconditionConfigComboBox.Items1" xml:space="preserve">
+    <value>Arcaze Pin</value>
+  </data>
+  <data name="preconditionConfigComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 16</value>
+  </data>
+  <data name="preconditionConfigComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>205, 21</value>
+  </data>
+  <data name="preconditionConfigComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigComboBox.Name" xml:space="preserve">
+    <value>preconditionConfigComboBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigComboBox.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionConfigComboBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 19</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 16</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Choose config</value>
+  </data>
+  <data name="label11.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>462, 111</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="preconditionRuleConfigPanel.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Name" xml:space="preserve">
+    <value>preconditionRuleConfigPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.Parent" xml:space="preserve">
+    <value>preconditionSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionRuleConfigPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 57</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>468, 241</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
+    <value>Precondition settings</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Name" xml:space="preserve">
+    <value>preconditionSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.Parent" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="preconditionSettingsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 132</value>
+  </data>
+  <data name="preconditionSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>468, 298</value>
+  </data>
+  <data name="preconditionSettingsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.Name" xml:space="preserve">
+    <value>preconditionSettingsPanel</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;preconditionSettingsPanel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
   <data name="preconditionApplyButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -1205,7 +1061,7 @@
     <value>121, 6</value>
   </data>
   <data name="preconditionApplyButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 32</value>
+    <value>219, 32</value>
   </data>
   <data name="preconditionApplyButton.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -1232,7 +1088,7 @@
     <value>0, 480</value>
   </data>
   <data name="ApplyButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 44</value>
+    <value>468, 44</value>
   </data>
   <data name="ApplyButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>33</value>
@@ -1256,7 +1112,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>373, 540</value>
+    <value>468, 540</value>
   </data>
   <data name="&gt;&gt;addPreconditionToolStripMenuItem.Name" xml:space="preserve">
     <value>addPreconditionToolStripMenuItem</value>

@@ -48,6 +48,7 @@ namespace MobiFlight.UI.Dialogs
             initWithoutArcazeCache();
 #endif
             preconditionPanel.preparePreconditionPanel(dataSetConfig, filterGuid);
+            preconditionPanel.addAvailableVariables(mainForm.GetAvailableVariables());
             initConfigRefDropDowns(dataSetConfig, filterGuid);   
         }
 

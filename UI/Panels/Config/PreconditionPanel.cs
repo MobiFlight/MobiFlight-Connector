@@ -19,7 +19,11 @@ namespace MobiFlight.UI.Panels.Config
         ErrorProvider errorProvider = new ErrorProvider();
 
         DataSet _dataSetConfig = null;
+        String FilterGuid = null;
+
         private PreconditionList Preconditions = new PreconditionList();
+
+        public Dictionary<string, MobiFlightVariable> Variables { get; private set; }
 
         public PreconditionPanel()
         {
@@ -34,11 +38,17 @@ namespace MobiFlight.UI.Panels.Config
         public void preparePreconditionPanel(DataSet dataSetConfig, String filterGuid)
         {
             _dataSetConfig = dataSetConfig;
-            DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid + "'");
+            FilterGuid = filterGuid;
+            preparePreconditionPanelWithConfigs();
+        }
+
+        private void preparePreconditionPanelWithConfigs()
+        {
+            DataRow[] rows = _dataSetConfig.Tables["config"].Select("guid <> '" + FilterGuid + "'");
 
             // this filters the current config
-            DataView dv = new DataView(dataSetConfig.Tables["config"]);
-            dv.RowFilter = "guid <> '" + filterGuid + "'";
+            DataView dv = new DataView(_dataSetConfig.Tables["config"]);
+            dv.RowFilter = "guid <> '" + FilterGuid + "'";
             preconditionConfigComboBox.DataSource = dv;
             preconditionConfigComboBox.ValueMember = "guid";
             preconditionConfigComboBox.DisplayMember = "description";
@@ -46,8 +56,10 @@ namespace MobiFlight.UI.Panels.Config
             if (preconditionConfigComboBox.Items.Count == 0)
             {
                 List<ListItem> preconTypes = new List<ListItem>() {
-                new ListItem() { Value = "none",    Label = i18n._tr("LabelPrecondition_None") },
-                new ListItem() { Value = "pin",     Label = i18n._tr("LabelPrecondition_ArcazePin") }
+                    new ListItem() { Value = "none",    Label = i18n._tr("LabelPrecondition_None") },
+                    new ListItem() { Value = "pin",     Label = i18n._tr("LabelPrecondition_ArcazePin") },
+                    new ListItem() { Value = "config",  Label = i18n._tr("LabelPrecondition_ConfigItem") },
+                    new ListItem() { Value = "variable",Label = i18n._tr("LabelPrecondition_Variable") },
                 };
                 preConditionTypeComboBox.DataSource = preconTypes;
                 preConditionTypeComboBox.DisplayMember = "Label";
@@ -56,14 +68,31 @@ namespace MobiFlight.UI.Panels.Config
             }
         }
 
+        private void preparePreconditionPanelWithVariables()
+        {
+            if (Variables == null) return;
+            var options = new List<ListItem>();
+
+            foreach (var variable in Variables.Values)
+            {
+                options.Add(new ListItem { Label = variable.Name, Value = variable.Name });
+            }
+
+            preconditionConfigComboBox.DataSource = options;
+            preconditionConfigComboBox.ValueMember = "Value";
+            preconditionConfigComboBox.DisplayMember = "Label";
+        }
+
         private void _initPreconditionPanel()
         {
             preConditionTypeComboBox.Items.Clear();
             List<ListItem> preconTypes = new List<ListItem>() {
                 new ListItem() { Value = "none",    Label = i18n._tr("LabelPrecondition_None") },
                 new ListItem() { Value = "config",  Label = i18n._tr("LabelPrecondition_ConfigItem") },
+                new ListItem() { Value = "variable",Label = i18n._tr("LabelPrecondition_Variable") },
                 new ListItem() { Value = "pin",     Label = i18n._tr("LabelPrecondition_ArcazePin") }
             };
+
             preConditionTypeComboBox.DataSource = preconTypes;
             preConditionTypeComboBox.DisplayMember = "Label";
             preConditionTypeComboBox.ValueMember = "Value";
@@ -137,15 +166,28 @@ namespace MobiFlight.UI.Panels.Config
             string selected = ((sender as ComboBox).SelectedItem as ListItem).Value;
 
             preconditionSettingsGroupBox.Visible = selected != "none";
-            preconditionRuleConfigPanel.Visible = selected == "config";
+            preconditionRuleConfigPanel.Visible = selected == "config" || selected == "variable";
             preconditionPinPanel.Visible = selected == "pin";
 
-            if (preconditionRuleConfigPanel.Visible)
+            if (selected == "config" || selected == "variable")
+            {
                 preconditionSettingsGroupBox.Height = preconditionRuleConfigPanel.Height;
+                if (selected == "config")
+                {
+                    preparePreconditionPanelWithConfigs();
+                } else
+                {
+                    preparePreconditionPanelWithVariables();
+                }
+
+            }
+                
             else if (preconditionPinPanel.Visible)
             {
                 preconditionSettingsGroupBox.Height = preconditionPinPanel.Height;
             }
+
+            
         }
 
         private void preconditionRefValueTextBox_Validating(object sender, CancelEventArgs e)
@@ -244,7 +286,8 @@ namespace MobiFlight.UI.Panels.Config
             config.PreconditionActive = e.Node.Checked;
 
             switch (config.PreconditionType)
-            {
+            {               
+                case "variable":    
                 case "config":
                     try
                     {
@@ -284,6 +327,13 @@ namespace MobiFlight.UI.Panels.Config
             c.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
             switch (c.PreconditionType)
             {
+                case "variable":
+                    c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
+                    c.PreconditionOperand = preconditionRefOperandComboBox.Text;
+                    c.PreconditionValue = preconditionRefValueTextBox.Text;
+                    c.PreconditionActive = true;
+                    break;
+
                 case "config":
                     c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
                     c.PreconditionOperand = preconditionRefOperandComboBox.Text;
@@ -315,6 +365,10 @@ namespace MobiFlight.UI.Panels.Config
                     replaceString = rows[0]["description"] as String;
                 }
                 label = label.Replace("<Ref:" + p.PreconditionRef + ">", replaceString);
+            }
+            else if (p.PreconditionType == "variable")
+            {
+                label = p.PreconditionRef != null ? p.PreconditionRef : "" ;
             }
             else if (p.PreconditionType == "pin")
             {
@@ -410,6 +464,11 @@ namespace MobiFlight.UI.Panels.Config
             errorProvider.SetError(
                     control,
                     "");
+        }
+
+        public void addAvailableVariables(Dictionary<string, MobiFlightVariable> dictionary)
+        {
+            Variables = dictionary;
         }
     }
 }

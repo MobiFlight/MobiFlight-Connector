@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MobiFlight.Modifier;
+using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,7 +66,7 @@ namespace MobiFlight
                 PreconditionLabel = null;
 
 
-            if (PreconditionType == "config")
+            if (PreconditionType == "config" || PreconditionType == "variable")
             {
                 PreconditionRef = reader["ref"];
                 PreconditionOperand = reader["operand"];
@@ -97,6 +99,7 @@ namespace MobiFlight
             writer.WriteAttributeString("active", PreconditionActive ? "true" : "false");
             switch (PreconditionType)
             {
+                case "variable":
                 case "config":
                     writer.WriteAttributeString("ref", PreconditionRef);
                     writer.WriteAttributeString("operand", PreconditionOperand);
@@ -151,6 +154,84 @@ namespace MobiFlight
         override public string ToString()
         {
             return this.PreconditionLabel;
+        }
+
+
+
+        public bool Evaluate(MobiFlightVariable value)
+        {
+            var result = false;
+
+            var comparison = new Comparison();
+            comparison.Active = true;
+            comparison.Value = PreconditionValue;
+            comparison.Operand = PreconditionOperand;
+            comparison.IfValue = "True";
+            comparison.ElseValue = "False";
+
+            var connectorValue = new ConnectorValue();
+            if (value.TYPE == MobiFlightVariable.TYPE_NUMBER)
+            {
+                connectorValue.type = FSUIPCOffsetType.Float;
+                connectorValue.Float64 = value.Number;
+
+            } else
+            {
+                connectorValue.type = FSUIPCOffsetType.String;
+                connectorValue.String = value.Text;
+            }
+
+            var compResult = comparison.Apply(connectorValue, new List<ConfigRefValue>());
+
+            return compResult.ToString() == "True";
+        }
+
+        internal bool Evaluate(string value, ConnectorValue currentValue)
+        {
+            var result = true;
+            var comparison = new Comparison();
+            comparison.Active = true;
+            comparison.Value = PreconditionValue.Replace("$", currentValue.ToString());
+
+            if (comparison.Value != PreconditionValue)
+            {
+                var ce = new NCalc.Expression(comparison.Value);
+                try
+                {
+                    comparison.Value = (ce.Evaluate()).ToString();
+                }
+                catch (Exception ex)
+                {
+                    //argh!
+                    Log.Instance.log($"Exception on eval of comparison value: {ex.Message}", LogSeverity.Error);
+                }
+            }
+
+            comparison.Operand = PreconditionOperand;
+            comparison.IfValue = "1";
+            comparison.ElseValue = "0";
+
+            var connectorValue = new ConnectorValue();
+            connectorValue.type = FSUIPCOffsetType.Float;
+            if (!Double.TryParse(value, out connectorValue.Float64))
+            {
+                // likely to be a string
+                connectorValue.type = FSUIPCOffsetType.String;
+                connectorValue.String = value;
+            }
+
+            try
+            {
+                result = (comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString() == "1");
+            }
+            catch (FormatException ex)
+            {
+                // maybe it is a text string
+                // @todo do something in the future here
+                Log.Instance.log($"Exception on comparison execution, wrong format: {ex.Message}", LogSeverity.Error);
+            }
+
+            return result;
         }
     }
 }
