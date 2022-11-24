@@ -30,6 +30,12 @@ namespace MobiFlight.UI.Panels.Config
         public void Init()
         {
             _initPreconditionPanel();
+            PreconditionTreeNodeChanged += PreconditionPanel_PreconditionTreeNodeChanged;
+        }
+
+        private void PreconditionPanel_PreconditionTreeNodeChanged(object sender, EventArgs e)
+        {
+            UpdateNodeLabels();
         }
 
         public void preparePreconditionPanel(DataSet dataSetConfig, String filterGuid)
@@ -52,17 +58,22 @@ namespace MobiFlight.UI.Panels.Config
 
             if (preconditionConfigComboBox.Items.Count == 0)
             {
-                List<ListItem> preconTypes = new List<ListItem>() {
-                    new ListItem() { Value = "none",    Label = i18n._tr("LabelPrecondition_None") },
-                    new ListItem() { Value = "pin",     Label = i18n._tr("LabelPrecondition_ArcazePin") },
-                    new ListItem() { Value = "config",  Label = i18n._tr("LabelPrecondition_ConfigItem") },
-                    new ListItem() { Value = "variable",Label = i18n._tr("LabelPrecondition_Variable") },
-                };
+                List<ListItem> preconTypes = GetPreconditionTypeOptions();
                 preConditionTypeComboBox.DataSource = preconTypes;
                 preConditionTypeComboBox.DisplayMember = "Label";
                 preConditionTypeComboBox.ValueMember = "Value";
                 preConditionTypeComboBox.SelectedIndex = 0;
             }
+        }
+
+        private static List<ListItem> GetPreconditionTypeOptions()
+        {
+            return new List<ListItem>() {
+                    new ListItem() { Value = "none",    Label = i18n._tr("LabelPrecondition_None") },
+                    new ListItem() { Value = "pin",     Label = i18n._tr("LabelPrecondition_ArcazePin") },
+                    new ListItem() { Value = "config",  Label = i18n._tr("LabelPrecondition_ConfigItem") },
+                    new ListItem() { Value = "variable",Label = i18n._tr("LabelPrecondition_Variable") },
+                };
         }
 
         private void preparePreconditionPanelWithVariables()
@@ -83,12 +94,7 @@ namespace MobiFlight.UI.Panels.Config
         private void _initPreconditionPanel()
         {
             preConditionTypeComboBox.Items.Clear();
-            List<ListItem> preconTypes = new List<ListItem>() {
-                new ListItem() { Value = "none",    Label = i18n._tr("LabelPrecondition_None") },
-                new ListItem() { Value = "config",  Label = i18n._tr("LabelPrecondition_ConfigItem") },
-                new ListItem() { Value = "variable",Label = i18n._tr("LabelPrecondition_Variable") },
-                new ListItem() { Value = "pin",     Label = i18n._tr("LabelPrecondition_ArcazePin") }
-            };
+            List<ListItem> preconTypes = GetPreconditionTypeOptions();
 
             preConditionTypeComboBox.DataSource = preconTypes;
             preConditionTypeComboBox.DisplayMember = "Label";
@@ -134,8 +140,8 @@ namespace MobiFlight.UI.Panels.Config
                 tmpNode.Checked = p.PreconditionActive;
                 try
                 {
-                    _updateNodeWithPrecondition(tmpNode, p);
                     preconditionListTreeView.Nodes.Add(tmpNode);
+                    PreconditionTreeNodeChanged?.Invoke(tmpNode, null);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -325,12 +331,6 @@ namespace MobiFlight.UI.Panels.Config
             switch (c.PreconditionType)
             {
                 case "variable":
-                    c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
-                    c.PreconditionOperand = preconditionRefOperandComboBox.Text;
-                    c.PreconditionValue = preconditionRefValueTextBox.Text;
-                    c.PreconditionActive = true;
-                    break;
-
                 case "config":
                     c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
                     c.PreconditionOperand = preconditionRefOperandComboBox.Text;
@@ -351,35 +351,56 @@ namespace MobiFlight.UI.Panels.Config
 
         private void _updateNodeWithPrecondition(TreeNode node, Precondition p)
         {
-            String label = p.PreconditionLabel;
-            if (p.PreconditionType == "config")
-            {
-                String replaceString = "[unknown]";
-                if (_dataSetConfig != null)
-                {
-                    DataRow[] rows = _dataSetConfig.Tables["config"].Select("guid = '" + p.PreconditionRef + "'");
-                    if (rows.Count() == 0) throw new IndexOutOfRangeException(); // an orphaned entry has been found
-                    replaceString = rows[0]["description"] as String;
-                }
-                label = label.Replace("<Ref:" + p.PreconditionRef + ">", replaceString);
-            }
-            else if (p.PreconditionType == "variable")
-            {
-                label = p.PreconditionRef != null ? p.PreconditionRef : "" ;
-            }
-            else if (p.PreconditionType == "pin")
-            {
-                label = label.Replace("<Serial:" + p.PreconditionSerial + ">", p.PreconditionSerial.Split('/')[0]);
-            }
-
-            label = label.Replace("<Logic:and>", " (AND)").Replace("<Logic:or>", " (OR)");
             node.Checked = p.PreconditionActive;
             node.Tag = p;
-            node.Text = label;
+            
             aNDToolStripMenuItem.Checked = p.PreconditionLogic == "and";
             oRToolStripMenuItem.Checked = p.PreconditionLogic == "or";
+
+            PreconditionTreeNodeChanged?.Invoke(node, EventArgs.Empty);
         }
 
+        private void UpdateNodeLabels()
+        {
+            foreach (TreeNode node in preconditionListTreeView.Nodes)
+            {
+                var p = node.Tag as Precondition;
+                String label = p.PreconditionLabel;
+                if (p.PreconditionType == "config")
+                {
+                    String replaceString = "[unknown]";
+                    if (_dataSetConfig != null)
+                    {
+                        DataRow[] rows = _dataSetConfig.Tables["config"].Select("guid = '" + p.PreconditionRef + "'");
+                        if (rows.Count() == 0) throw new IndexOutOfRangeException(); // an orphaned entry has been found
+                        replaceString = rows[0]["description"] as String;
+                    }
+                    label = label.Replace("<Ref:" + p.PreconditionRef + ">", replaceString);
+                }
+                else if (p.PreconditionType == "variable")
+                {
+                    label = label.Replace("<Variable:" + p.PreconditionRef + ">", p.PreconditionRef != null ? p.PreconditionRef : "");
+                }
+                else if (p.PreconditionType == "pin")
+                {
+                    label = label.Replace("<Serial:" + p.PreconditionSerial + ">", p.PreconditionSerial.Split('/')[0]);
+                }
+
+                label = label.Replace("<Logic:and>", " (AND)").Replace("<Logic:or>", " (OR)");
+                node.Text = label;
+
+                if (NodeIsLastNode(node))
+                {
+                    node.Text = node.Text.Replace(" (AND)", "").Replace(" (OR)", "");
+                }
+            }
+        }
+
+        private bool NodeIsLastNode(TreeNode node)
+        {
+            return 
+                preconditionListTreeView.Nodes.IndexOf(node) == (preconditionListTreeView.Nodes.Count - 1);
+        }
 
         private void addPreconditionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -409,6 +430,7 @@ namespace MobiFlight.UI.Panels.Config
             Precondition p = selectedNode.Tag as Precondition;
             Preconditions.Remove(p);
             preconditionListTreeView.Nodes.Remove(selectedNode);
+            PreconditionTreeNodeChanged(preconditionListTreeView, null);
         }
 
         private void preconditionPinSerialComboBox_SelectedIndexChanged(object sender, EventArgs e)

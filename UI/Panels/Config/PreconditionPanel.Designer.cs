@@ -69,6 +69,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.preconditionApplyButton = new System.Windows.Forms.Button();
             this.ApplyButtonPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.preconditionListgroupBox.SuspendLayout();
             this.preconditionTreeContextMenuStrip.SuspendLayout();
             this.preconditionSelectGroupBox.SuspendLayout();
@@ -83,6 +84,7 @@
             // preconditionListgroupBox
             // 
             this.preconditionListgroupBox.Controls.Add(this.preconditionListTreeView);
+            this.preconditionListgroupBox.Controls.Add(this.label1);
             resources.ApplyResources(this.preconditionListgroupBox, "preconditionListgroupBox");
             this.preconditionListgroupBox.Name = "preconditionListgroupBox";
             this.preconditionListgroupBox.TabStop = false;
@@ -388,6 +390,11 @@
             resources.ApplyResources(this.ApplyButtonPanel, "ApplyButtonPanel");
             this.ApplyButtonPanel.Name = "ApplyButtonPanel";
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // PreconditionPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -457,5 +464,6 @@
         private System.Windows.Forms.ToolStripMenuItem aNDToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oRToolStripMenuItem;
         private System.Windows.Forms.Panel ApplyButtonPanel;
+        private System.Windows.Forms.Label label1;
     }
 }

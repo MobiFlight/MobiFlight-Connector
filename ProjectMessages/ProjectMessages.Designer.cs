@@ -187,7 +187,16 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are still changes not uploaded to your modules. You will loose these changes if you close the form. Do you really want to continue?.
+        ///   Looks up a localized string similar to MobiFlight Variable.
+        /// </summary>
+        internal static string LabelPrecondition_Variable {
+            get {
+                return ResourceManager.GetString("LabelPrecondition_Variable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are still changes not uploaded to your modules. You will lose these changes if you close the form. Do you really want to continue?.
         /// </summary>
         internal static string MFModuleConfigChanged {
             get {

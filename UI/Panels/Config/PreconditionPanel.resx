@@ -203,7 +203,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAG
-        CgAAAk1TRnQBSQFMAgEBAgEAAVwBBgFcAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CgAAAk1TRnQBSQFMAgEBAgEAAWQBBgFkAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkA2IB4QJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJl
         AVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wNiAeEDOgFiCAADOwFkA2IB4QJcAWUB5wJcAWUB5wJc
         AWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wNiAeEDOgFiiAACYQFb
@@ -296,7 +296,7 @@
     <value>0</value>
   </data>
   <data name="preconditionListTreeView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>462, 81</value>
+    <value>462, 92</value>
   </data>
   <data name="preconditionListTreeView.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -313,6 +313,33 @@
   <data name="&gt;&gt;preconditionListTreeView.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="label1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 108</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>462, 24</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Use right-click to access context menu to add more preconditions and change the logic.</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>preconditionListgroupBox</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="preconditionListgroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -320,7 +347,7 @@
     <value>0, 32</value>
   </data>
   <data name="preconditionListgroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 100</value>
+    <value>468, 135</value>
   </data>
   <data name="preconditionListgroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -464,10 +491,10 @@
     <value>Fill</value>
   </data>
   <data name="preconditionSpacerPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 524</value>
+    <value>0, 520</value>
   </data>
   <data name="preconditionSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 16</value>
+    <value>468, 20</value>
   </data>
   <data name="preconditionSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -539,7 +566,7 @@
     <value>Top</value>
   </data>
   <data name="overrideGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 430</value>
+    <value>0, 426</value>
   </data>
   <data name="overrideGroupBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>468, 50</value>
@@ -803,10 +830,10 @@
     <value>Top</value>
   </data>
   <data name="preconditionPinPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 127</value>
+    <value>3, 91</value>
   </data>
   <data name="preconditionPinPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>462, 111</value>
+    <value>462, 108</value>
   </data>
   <data name="preconditionPinPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -977,7 +1004,7 @@
     <value>3, 16</value>
   </data>
   <data name="preconditionRuleConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>462, 111</value>
+    <value>462, 75</value>
   </data>
   <data name="preconditionRuleConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1004,7 +1031,7 @@
     <value>0, 57</value>
   </data>
   <data name="preconditionSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 241</value>
+    <value>468, 202</value>
   </data>
   <data name="preconditionSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1028,10 +1055,10 @@
     <value>Top</value>
   </data>
   <data name="preconditionSettingsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 132</value>
+    <value>0, 167</value>
   </data>
   <data name="preconditionSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>468, 298</value>
+    <value>468, 259</value>
   </data>
   <data name="preconditionSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -1085,7 +1112,7 @@
     <value>Top</value>
   </data>
   <data name="ApplyButtonPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 480</value>
+    <value>0, 476</value>
   </data>
   <data name="ApplyButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>468, 44</value>

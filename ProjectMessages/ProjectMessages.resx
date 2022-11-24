@@ -547,4 +547,7 @@ Check log for more details.</value>
   <data name="uiMessageFirmwareUploadTimeout" xml:space="preserve">
     <value>The firmware upload experienced a timeout.</value>
   </data>
+  <data name="LabelPrecondition_Variable" xml:space="preserve">
+    <value>MobiFlight Variable</value>
+  </data>
 </root>
