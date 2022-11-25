@@ -31,6 +31,46 @@ namespace MobiFlight.UI.Panels.Config
         {
             _initPreconditionPanel();
             PreconditionTreeNodeChanged += PreconditionPanel_PreconditionTreeNodeChanged;
+            preconditionListTreeView.AfterSelect += PreconditionListTreeView_AfterSelect;
+        }
+
+        private void PreconditionListTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Precondition config = (e.Node.Tag as Precondition);
+            preConditionTypeComboBox.SelectedValue = config.PreconditionType;
+            preconditionSettingsPanel.Enabled = true;
+            ApplyButtonPanel.Visible = true;
+            config.PreconditionActive = e.Node.Checked;
+
+            switch (config.PreconditionType)
+            {
+                case "variable":
+                case "config":
+                    try
+                    {
+                        preconditionConfigComboBox.SelectedValue = config.PreconditionRef;
+                    }
+                    catch (Exception ex)
+                    {
+                        // precondition could not be loaded
+                        Log.Instance.log($"Precondition could not be loaded: {ex.Message}", LogSeverity.Error);
+                    }
+
+                    ComboBoxHelper.SetSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);
+                    preconditionRefValueTextBox.Text = config.PreconditionValue;
+                    break;
+
+                case "pin":
+                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
+                    ComboBoxHelper.SetSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
+                    preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;
+                    preconditionPortComboBox.SelectedIndex = io.Port;
+                    preconditionPinComboBox.SelectedIndex = io.Pin;
+                    break;
+            }
+
+            aNDToolStripMenuItem.Checked = config.PreconditionLogic == "and";
+            oRToolStripMenuItem.Checked = config.PreconditionLogic == "or";
         }
 
         private void PreconditionPanel_PreconditionTreeNodeChanged(object sender, EventArgs e)
@@ -68,12 +108,17 @@ namespace MobiFlight.UI.Panels.Config
 
         private static List<ListItem> GetPreconditionTypeOptions()
         {
-            return new List<ListItem>() {
+            var result = new List<ListItem>() {
                     new ListItem() { Value = "none",    Label = i18n._tr("LabelPrecondition_None") },
-                    new ListItem() { Value = "pin",     Label = i18n._tr("LabelPrecondition_ArcazePin") },
                     new ListItem() { Value = "config",  Label = i18n._tr("LabelPrecondition_ConfigItem") },
                     new ListItem() { Value = "variable",Label = i18n._tr("LabelPrecondition_Variable") },
-                };
+            };
+
+            if (Properties.Settings.Default.ArcazeSupportEnabled)
+            {
+                result.Add(new ListItem() { Value = "pin", Label = i18n._tr("LabelPrecondition_ArcazePin") });
+            }
+            return result;
         }
 
         private void preparePreconditionPanelWithVariables()
@@ -282,41 +327,7 @@ namespace MobiFlight.UI.Panels.Config
             preconditionListTreeView.SelectedNode = e.Node;
             //if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
 
-            Precondition config = (e.Node.Tag as Precondition);
-            preConditionTypeComboBox.SelectedValue = config.PreconditionType;
-            preconditionSettingsPanel.Enabled = true;
-            ApplyButtonPanel.Visible = true;
-            config.PreconditionActive = e.Node.Checked;
-
-            switch (config.PreconditionType)
-            {               
-                case "variable":    
-                case "config":
-                    try
-                    {
-                        preconditionConfigComboBox.SelectedValue = config.PreconditionRef;
-                    }
-                    catch (Exception ex)
-                    {
-                        // precondition could not be loaded
-                        Log.Instance.log($"Precondition could not be loaded: {ex.Message}", LogSeverity.Error);
-                    }
-
-                    ComboBoxHelper.SetSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);
-                    preconditionRefValueTextBox.Text = config.PreconditionValue;
-                    break;
-
-                case "pin":
-                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
-                    ComboBoxHelper.SetSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
-                    preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;
-                    preconditionPortComboBox.SelectedIndex = io.Port;
-                    preconditionPinComboBox.SelectedIndex = io.Pin;
-                    break;
-            }
-
-            aNDToolStripMenuItem.Checked = config.PreconditionLogic == "and";
-            oRToolStripMenuItem.Checked = config.PreconditionLogic == "or";
+            
         }
 
         private void preconditionApplyButton_Click(object sender, EventArgs e)
@@ -353,11 +364,33 @@ namespace MobiFlight.UI.Panels.Config
         {
             node.Checked = p.PreconditionActive;
             node.Tag = p;
+
+            SetNodeImage(node, p);
             
             aNDToolStripMenuItem.Checked = p.PreconditionLogic == "and";
             oRToolStripMenuItem.Checked = p.PreconditionLogic == "or";
 
             PreconditionTreeNodeChanged?.Invoke(node, EventArgs.Empty);
+        }
+
+        private void SetNodeImage(TreeNode node, Precondition p)
+        {
+            switch (p.PreconditionType)
+            {
+                case "config":
+                    node.ImageKey = "config";
+                    break;
+
+                case "variable":
+                    node.ImageKey = "variable";
+                    break;
+
+                case "pin":
+                    node.ImageKey = "pin";
+                    break;
+            }
+
+            node.SelectedImageKey = node.ImageKey;
         }
 
         private void UpdateNodeLabels()
@@ -409,6 +442,7 @@ namespace MobiFlight.UI.Panels.Config
             n.Tag = p;
             Preconditions.Add(p);
             preconditionListTreeView.Nodes.Add(n);
+            preconditionListTreeView.SelectedNode = n;
             _updateNodeWithPrecondition(n, p);
         }
 
@@ -489,5 +523,6 @@ namespace MobiFlight.UI.Panels.Config
         {
             Variables = dictionary;
         }
+
     }
 }

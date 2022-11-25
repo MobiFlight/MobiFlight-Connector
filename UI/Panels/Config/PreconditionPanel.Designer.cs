@@ -43,6 +43,7 @@
             this.aNDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preconditionTreeImageList = new System.Windows.Forms.ImageList(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.preconditionTabTextBox = new System.Windows.Forms.TextBox();
             this.preconditionSelectGroupBox = new System.Windows.Forms.GroupBox();
             this.preConditionTypeComboBox = new System.Windows.Forms.ComboBox();
@@ -69,7 +70,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.preconditionApplyButton = new System.Windows.Forms.Button();
             this.ApplyButtonPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.preconditionListgroupBox.SuspendLayout();
             this.preconditionTreeContextMenuStrip.SuspendLayout();
             this.preconditionSelectGroupBox.SuspendLayout();
@@ -171,8 +171,14 @@
             // 
             this.preconditionTreeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("preconditionTreeImageList.ImageStream")));
             this.preconditionTreeImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.preconditionTreeImageList.Images.SetKeyName(0, "media_stop.png");
-            this.preconditionTreeImageList.Images.SetKeyName(1, "media_stop_red.png");
+            this.preconditionTreeImageList.Images.SetKeyName(0, "config");
+            this.preconditionTreeImageList.Images.SetKeyName(1, "pin");
+            this.preconditionTreeImageList.Images.SetKeyName(2, "variable");
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // preconditionTabTextBox
             // 
@@ -389,11 +395,6 @@
             this.ApplyButtonPanel.Controls.Add(this.preconditionApplyButton);
             resources.ApplyResources(this.ApplyButtonPanel, "ApplyButtonPanel");
             this.ApplyButtonPanel.Name = "ApplyButtonPanel";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
             // 
             // PreconditionPanel
             // 
