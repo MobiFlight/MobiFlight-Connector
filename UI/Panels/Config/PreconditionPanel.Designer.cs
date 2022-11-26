@@ -42,7 +42,6 @@
             this.logicSelectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aNDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preconditionTreeImageList = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.preconditionTabTextBox = new System.Windows.Forms.TextBox();
             this.preconditionSelectGroupBox = new System.Windows.Forms.GroupBox();
@@ -63,7 +62,7 @@
             this.preconditionRefOperandComboBox = new System.Windows.Forms.ComboBox();
             this.preconditionConfigRefOperandLabel = new System.Windows.Forms.Label();
             this.preconditionConfigComboBox = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
+            this.preconditionConfigLabel = new System.Windows.Forms.Label();
             this.preconditionListgroupBox.SuspendLayout();
             this.preconditionTreeContextMenuStrip.SuspendLayout();
             this.preconditionSelectGroupBox.SuspendLayout();
@@ -86,7 +85,6 @@
             this.preconditionListTreeView.CheckBoxes = true;
             this.preconditionListTreeView.ContextMenuStrip = this.preconditionTreeContextMenuStrip;
             resources.ApplyResources(this.preconditionListTreeView, "preconditionListTreeView");
-            this.preconditionListTreeView.ImageList = this.preconditionTreeImageList;
             this.preconditionListTreeView.Name = "preconditionListTreeView";
             this.preconditionListTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes"))),
@@ -157,14 +155,6 @@
             this.oRToolStripMenuItem.Name = "oRToolStripMenuItem";
             resources.ApplyResources(this.oRToolStripMenuItem, "oRToolStripMenuItem");
             this.oRToolStripMenuItem.Click += new System.EventHandler(this.andOrToolStripMenuItem_Click);
-            // 
-            // preconditionTreeImageList
-            // 
-            this.preconditionTreeImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("preconditionTreeImageList.ImageStream")));
-            this.preconditionTreeImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.preconditionTreeImageList.Images.SetKeyName(0, "config");
-            this.preconditionTreeImageList.Images.SetKeyName(1, "pin");
-            this.preconditionTreeImageList.Images.SetKeyName(2, "variable");
             // 
             // label1
             // 
@@ -306,7 +296,7 @@
             this.preconditionRuleConfigPanel.Controls.Add(this.preconditionRefOperandComboBox);
             this.preconditionRuleConfigPanel.Controls.Add(this.preconditionConfigRefOperandLabel);
             this.preconditionRuleConfigPanel.Controls.Add(this.preconditionConfigComboBox);
-            this.preconditionRuleConfigPanel.Controls.Add(this.label11);
+            this.preconditionRuleConfigPanel.Controls.Add(this.preconditionConfigLabel);
             resources.ApplyResources(this.preconditionRuleConfigPanel, "preconditionRuleConfigPanel");
             this.preconditionRuleConfigPanel.Name = "preconditionRuleConfigPanel";
             // 
@@ -345,10 +335,10 @@
             resources.ApplyResources(this.preconditionConfigComboBox, "preconditionConfigComboBox");
             this.preconditionConfigComboBox.Name = "preconditionConfigComboBox";
             // 
-            // label11
+            // preconditionConfigLabel
             // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
+            resources.ApplyResources(this.preconditionConfigLabel, "preconditionConfigLabel");
+            this.preconditionConfigLabel.Name = "preconditionConfigLabel";
             // 
             // PreconditionPanel
             // 
@@ -395,8 +385,7 @@
         private System.Windows.Forms.ComboBox preconditionRefOperandComboBox;
         private System.Windows.Forms.Label preconditionConfigRefOperandLabel;
         private System.Windows.Forms.ComboBox preconditionConfigComboBox;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ImageList preconditionTreeImageList;
+        private System.Windows.Forms.Label preconditionConfigLabel;
         private System.Windows.Forms.ContextMenuStrip preconditionTreeContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addPreconditionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removePreconditionToolStripMenuItem;

@@ -39,6 +39,17 @@ namespace MobiFlight.UI.Panels.Config
             preconditionPortComboBox.SelectedIndexChanged += FormValueChanged;
             preconditionPinComboBox.SelectedIndexChanged += FormValueChanged;
             preconditionPinValueComboBox.SelectedIndexChanged += FormValueChanged;
+
+            var treeViewImageList = new ImageList()
+            {
+                ColorDepth = ColorDepth.Depth32Bit,
+                ImageSize = new System.Drawing.Size(16, 16)
+            };
+            treeViewImageList.Images.Add("pin", MobiFlight.Properties.Resources.media_stop);
+            treeViewImageList.Images.Add("config", MobiFlight.Properties.Resources.media_stop_red);
+            treeViewImageList.Images.Add("variable", MobiFlight.Properties.Resources.module_mobiflight);
+
+            preconditionListTreeView.ImageList = treeViewImageList;
         }
 
         private void PreconditionListTreeView_AfterCheck(object sender, TreeViewEventArgs e)
@@ -115,14 +126,14 @@ namespace MobiFlight.UI.Panels.Config
         private static List<ListItem> GetPreconditionTypeOptions()
         {
             var result = new List<ListItem>() {
-                    new ListItem() { Value = "none",    Label = i18n._tr("LabelPrecondition_None") },
-                    new ListItem() { Value = "config",  Label = i18n._tr("LabelPrecondition_ConfigItem") },
-                    new ListItem() { Value = "variable",Label = i18n._tr("LabelPrecondition_Variable") },
+                    new ListItem() { Value = "none",    Label = i18n._tr("Label_Precondition_None") },
+                    new ListItem() { Value = "config",  Label = i18n._tr("Label_Precondition_ConfigItem") },
+                    new ListItem() { Value = "variable",Label = i18n._tr("Label_Precondition_Variable") },
             };
 
             if (Properties.Settings.Default.ArcazeSupportEnabled)
             {
-                result.Add(new ListItem() { Value = "pin", Label = i18n._tr("LabelPrecondition_ArcazePin") });
+                result.Add(new ListItem() { Value = "pin", Label = i18n._tr("Label_Precondition_ArcazePin") });
             }
             return result;
         }
@@ -207,10 +218,12 @@ namespace MobiFlight.UI.Panels.Config
                 preconditionSettingsGroupBox.Height = preconditionRuleConfigPanel.Height;
                 if (selected == "config")
                 {
+                    preconditionConfigLabel.Text = i18n._tr("Label_Precondition_choose_config");
                     preconditionConfigComboBox.DataSource = Configs;
                 }
                 else
                 {
+                    preconditionConfigLabel.Text = i18n._tr("Label_Precondition_choose_variable");
                     preconditionConfigComboBox.DataSource = Variables;
                 }
 
@@ -285,6 +298,10 @@ namespace MobiFlight.UI.Panels.Config
                 case "pin":
                     node.ImageKey = "pin";
                     break;
+
+                default:
+                    node.ImageKey = "";
+                    break;
             }
 
             node.SelectedImageKey = node.ImageKey;
@@ -314,6 +331,10 @@ namespace MobiFlight.UI.Panels.Config
                 else if (p.PreconditionType == "pin")
                 {
                     label = label.Replace("<Serial:" + p.PreconditionSerial + ">", p.PreconditionSerial.Split('/')[0]);
+                }
+                else
+                {
+                    label = label.Replace("none", i18n._tr("Label_Precondition_None"));
                 }
 
                 label = label.Replace("<Logic:and>", " (AND)").Replace("<Logic:or>", " (OR)");
@@ -361,6 +382,12 @@ namespace MobiFlight.UI.Panels.Config
             Precondition p = selectedNode.Tag as Precondition;
             Preconditions.Remove(p);
             preconditionListTreeView.Nodes.Remove(selectedNode);
+
+            if (Preconditions.Count==0)
+            {
+                addPreconditionToolStripMenuItem_Click(sender, e);
+            }
+            
             PreconditionTreeNodeChanged(preconditionListTreeView, null);
         }
 
@@ -368,9 +395,8 @@ namespace MobiFlight.UI.Panels.Config
         {
             // get the deviceinfo for the current arcaze
             ComboBox cb = preconditionPinSerialComboBox;
-            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
-            // if (serial == "" && config.DisplaySerial != null) serial = ArcazeModuleSettings.ExtractSerial(config.DisplaySerial);
-
+            string serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
+            
             if (serial.IndexOf("SN") != 0)
             {
                 preconditionPortComboBox.Items.Clear();
